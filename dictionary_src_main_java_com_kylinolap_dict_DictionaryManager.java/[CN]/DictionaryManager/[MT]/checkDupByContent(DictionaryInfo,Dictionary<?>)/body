@@ -1,0 +1,10 @@
+{
+  ResourceStore store=MetadataManager.getInstance(config).getStore();
+  ArrayList<String> existings=store.listResources(dictInfo.getResourceDir());
+  if (existings == null)   return null;
+  for (  String existing : existings) {
+    DictionaryInfo existingInfo=load(existing,true);
+    if (existingInfo != null && dict.equals(existingInfo.getDictionaryObject()))     return existing;
+  }
+  return null;
+}

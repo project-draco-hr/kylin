@@ -1,0 +1,26 @@
+{
+  if (this.fieldIndexes == null) {
+    List<String> fields=tuple.getAllFields();
+    int size=fields.size();
+    this.fieldIndexes=new int[size];
+    for (int i=0; i < size; i++) {
+      String field=fields.get(i);
+      RelDataTypeField relField=olapContext.olapRowType.getField(field,true);
+      if (relField != null) {
+        fieldIndexes[i]=relField.getIndex();
+      }
+ else {
+        fieldIndexes[i]=-1;
+      }
+    }
+  }
+  Object[] values=tuple.getAllValues();
+  for (int i=0, n=values.length; i < n; i++) {
+    Object value=values[i];
+    int index=fieldIndexes[i];
+    if (index >= 0) {
+      current[index]=value;
+    }
+  }
+  return current;
+}

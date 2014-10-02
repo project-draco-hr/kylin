@@ -1,0 +1,3 @@
+{
+  jdbcTemplate.update("DELETE FROM queries WHERE id = ?",new Object[]{id});
+}

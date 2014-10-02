@@ -1,0 +1,12 @@
+{
+  ResourceStore store=MetadataManager.getInstance(this.config).getStore();
+  String resourceDir=snapshot.getResourceDir();
+  ArrayList<String> existings=store.listResources(resourceDir);
+  if (existings == null)   return null;
+  TableSignature sig=snapshot.getSignature();
+  for (  String existing : existings) {
+    SnapshotTable existingTable=load(existing,false);
+    if (sig.equals(existingTable.getSignature()))     return existing;
+  }
+  return null;
+}

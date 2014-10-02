@@ -1,0 +1,11 @@
+{
+  if (SqlTypeUtil.isExactNumeric(type) && (type.getSqlTypeName() != SqlTypeName.BIGINT)) {
+    return new BasicSqlType(SqlTypeName.BIGINT);
+  }
+ else   if (SqlTypeUtil.isApproximateNumeric(type) && (type.getSqlTypeName() != SqlTypeName.DOUBLE)) {
+    return new BasicSqlType(SqlTypeName.DOUBLE);
+  }
+ else {
+    return type;
+  }
+}

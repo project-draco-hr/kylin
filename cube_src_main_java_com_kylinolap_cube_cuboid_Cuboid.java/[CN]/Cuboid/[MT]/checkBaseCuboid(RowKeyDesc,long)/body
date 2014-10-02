@@ -1,0 +1,7 @@
+{
+  long baseCuboidId=rowkey.getFullMask();
+  if (cuboidID > baseCuboidId) {
+    throw new IllegalArgumentException("Cubiod " + cuboidID + " is out of scope 0-"+ baseCuboidId);
+  }
+  return baseCuboidId == cuboidID;
+}

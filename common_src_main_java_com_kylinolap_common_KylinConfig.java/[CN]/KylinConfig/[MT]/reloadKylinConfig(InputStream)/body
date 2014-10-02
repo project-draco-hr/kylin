@@ -1,0 +1,18 @@
+{
+  PropertiesConfiguration config=new PropertiesConfiguration();
+  try {
+    config.load(is);
+  }
+ catch (  ConfigurationException e) {
+    throw new RuntimeException("Cannot load kylin config.",e);
+  }
+ finally {
+    try {
+      is.close();
+    }
+ catch (    IOException e) {
+      logger.error("Failed to close inputstream.",e);
+    }
+  }
+  this.kylinConfig=config;
+}

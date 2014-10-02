@@ -1,0 +1,4 @@
+{
+  BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+  System.out.println(bCryptPasswordEncoder.encode("MODELER"));
+}

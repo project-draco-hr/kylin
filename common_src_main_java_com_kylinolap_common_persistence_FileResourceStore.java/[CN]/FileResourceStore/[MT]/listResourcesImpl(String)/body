@@ -1,0 +1,10 @@
+{
+  String[] names=file(resPath).list();
+  if (names == null)   return null;
+  ArrayList<String> r=new ArrayList<String>(names.length);
+  String prefix=resPath.endsWith("/") ? resPath : resPath + "/";
+  for (  String n : names) {
+    r.add(prefix + n);
+  }
+  return r;
+}

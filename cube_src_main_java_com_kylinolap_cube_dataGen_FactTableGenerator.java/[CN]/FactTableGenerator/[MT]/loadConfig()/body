@@ -1,0 +1,11 @@
+{
+  try {
+    InputStream configStream=null;
+    configStream=store.getResource("/data/data_gen_config.json");
+    this.genConf=GenConfig.loadConfig(configStream);
+    if (configStream != null)     configStream.close();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+}

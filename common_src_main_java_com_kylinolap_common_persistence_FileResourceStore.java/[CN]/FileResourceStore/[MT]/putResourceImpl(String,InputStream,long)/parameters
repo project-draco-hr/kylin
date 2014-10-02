@@ -1,0 +1,3 @@
+String resPath
+InputStream content
+long ts

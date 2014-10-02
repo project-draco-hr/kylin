@@ -1,0 +1,10 @@
+{
+  super.appendOutput(message);
+  try {
+    updateJobStepInfo(message);
+  }
+ catch (  IOException e) {
+    log.error("Failed to append output!\n" + message,e);
+    status=JobStepStatusEnum.ERROR;
+  }
+}

@@ -1,0 +1,31 @@
+{
+  ByteBuffer buffer=ByteBuffer.wrap(bytes);
+  TableDesc table=new TableDesc();
+  byte[] tableBytes=BytesUtil.readByteArray(buffer);
+  if (tableBytes.length == 0) {
+    table.setName(null);
+  }
+ else {
+    String tableName=new String(tableBytes,Charset.forName("utf-8"));
+    table.setName(tableName);
+  }
+  ColumnDesc column=new ColumnDesc();
+  column.setTable(table);
+  byte[] columnBytes=BytesUtil.readByteArray(buffer);
+  if (columnBytes.length == 0) {
+    column.setName(null);
+  }
+ else {
+    String columnName=new String(columnBytes,Charset.forName("utf-8"));
+    column.setName(columnName);
+  }
+  byte[] typeBytes=BytesUtil.readByteArray(buffer);
+  if (typeBytes.length == 0) {
+    column.setDatatype(null);
+  }
+ else {
+    String dataType=new String(typeBytes,Charset.forName("utf-8"));
+    column.setDatatype(dataType);
+  }
+  this.columnRef=new TblColRef(column);
+}

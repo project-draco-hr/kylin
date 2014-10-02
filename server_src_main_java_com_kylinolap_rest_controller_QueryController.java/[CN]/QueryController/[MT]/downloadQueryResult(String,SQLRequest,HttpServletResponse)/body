@@ -1,0 +1,24 @@
+{
+  SQLResponse result=doQuery(sqlRequest);
+  response.setContentType("text/" + format + ";charset=utf-8");
+  response.setHeader("Content-Disposition","attachment; filename=\"result." + format + "\"");
+  ICsvListWriter csvWriter=null;
+  try {
+    csvWriter=new CsvListWriter(response.getWriter(),CsvPreference.STANDARD_PREFERENCE);
+    List<String> headerList=new ArrayList<String>();
+    for (    SelectedColumnMeta column : result.getColumnMetas()) {
+      headerList.add(column.getName());
+    }
+    String[] headers=new String[headerList.size()];
+    csvWriter.writeHeader(headerList.toArray(headers));
+    for (    List<String> row : result.getResults()) {
+      csvWriter.write(row);
+    }
+  }
+ catch (  IOException e) {
+    logger.error("",e);
+  }
+ finally {
+    IOUtils.closeQuietly(csvWriter);
+  }
+}

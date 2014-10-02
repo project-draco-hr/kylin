@@ -1,0 +1,4 @@
+boolean leading
+boolean trailing
+String seek
+String s

@@ -1,0 +1,14 @@
+{
+  int o=offset;
+  if (isLastChild)   trieBytes[o]|=BIT_IS_LAST_CHILD;
+  if (n.isEndOfValue)   trieBytes[o]|=BIT_IS_END_OF_VALUE;
+  o+=sizeChildOffset;
+  BytesUtil.writeUnsigned(n.nValuesBeneath,trieBytes,o,sizeNoValuesBeneath);
+  o+=sizeNoValuesBeneath;
+  if (n.part.length > 255)   throw new RuntimeException();
+  BytesUtil.writeUnsigned(n.part.length,trieBytes,o,1);
+  o++;
+  System.arraycopy(n.part,0,trieBytes,o,n.part.length);
+  o+=n.part.length;
+  return o;
+}

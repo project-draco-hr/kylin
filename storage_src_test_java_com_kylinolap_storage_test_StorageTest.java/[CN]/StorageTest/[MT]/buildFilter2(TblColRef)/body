@@ -1,0 +1,8 @@
+{
+  CompareTupleFilter compareFilter=new CompareTupleFilter(FilterOperatorEnum.EQ);
+  ColumnTupleFilter columnFilter2=new ColumnTupleFilter(column);
+  compareFilter.addChild(columnFilter2);
+  ConstantTupleFilter constantFilter2=new ConstantTupleFilter("ClothinShoes & Accessories");
+  compareFilter.addChild(constantFilter2);
+  return compareFilter;
+}

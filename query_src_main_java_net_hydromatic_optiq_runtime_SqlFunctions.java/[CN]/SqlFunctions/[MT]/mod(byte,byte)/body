@@ -1,0 +1,3 @@
+{
+  return (byte)(b0 % b1);
+}

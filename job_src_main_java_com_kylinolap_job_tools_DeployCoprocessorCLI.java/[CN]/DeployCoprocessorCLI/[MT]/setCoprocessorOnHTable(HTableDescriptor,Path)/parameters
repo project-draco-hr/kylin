@@ -1,0 +1,2 @@
+HTableDescriptor desc
+Path hdfsCoprocessorJar

@@ -1,0 +1,3 @@
+{
+  setValue(col,value,0,value.length);
+}

@@ -1,0 +1,5 @@
+{
+  logger.info("Building dictionary " + JsonUtil.writeValueAsString(info));
+  ArrayList<byte[]> values=loadColumnValues(inpTable,info.getSourceColumnIndex());
+  return buildDictionaryFromValueList(info,values);
+}

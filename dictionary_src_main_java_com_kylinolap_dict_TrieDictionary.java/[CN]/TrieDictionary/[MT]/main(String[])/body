@@ -1,0 +1,10 @@
+{
+  TrieDictionaryBuilder<String> b=new TrieDictionaryBuilder<String>(new StringBytesConverter());
+  b.addValue("-000000.41");
+  b.addValue("0000101.81");
+  b.addValue("6779331");
+  String t="0000001.6131";
+  TrieDictionary<String> dict=b.build(0);
+  System.out.println(dict.getIdFromValue(t,-1));
+  System.out.println(dict.getIdFromValue(t,1));
+}

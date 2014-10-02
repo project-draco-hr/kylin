@@ -1,0 +1,32 @@
+{
+  String[] tokens=StringUtils.split(tables,",");
+  StringBuffer buff=new StringBuffer();
+  for (int i=0; i < tokens.length; i++) {
+    String token=tokens[i].trim();
+    if (StringUtils.isNotEmpty(token)) {
+      buff.append(";");
+      buff.append("show table extended like " + token);
+    }
+  }
+  String hiveCommand=buff.toString();
+  if (StringUtils.isEmpty(hiveCommand)) {
+    throw new IllegalArgumentException("The required tabes is empty");
+  }
+  String tableMetaDir="";
+  try {
+    tableMetaDir=callGenerateCommand(hiveCommand);
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    throw new IllegalArgumentException("Failed to get metadata from upstream, for tables " + tables,e);
+  }
+  if (StringUtils.isEmpty(tableMetaDir)) {
+    throw new IllegalArgumentException("Failed to get metadata from upstream, for tables " + tables);
+  }
+  File dir=new File(tableMetaDir);
+  if (!dir.exists() || !dir.isDirectory() || dir.list().length == 0) {
+    throw new IllegalArgumentException("Nothing found from path " + tableMetaDir);
+  }
+  copyToMetaTable(tableMetaDir);
+  return tableMetaDir;
+}

@@ -1,0 +1,7 @@
+{
+  OSCommandExecutor exec=new OSCommandExecutor(command);
+  if (getRunAsRemoteCommand()) {
+    exec.setRunAtRemote(getRemoteHadoopCliHostname(),getRemoteHadoopCliUsername(),getRemoteHadoopCliPassword());
+  }
+  return exec;
+}

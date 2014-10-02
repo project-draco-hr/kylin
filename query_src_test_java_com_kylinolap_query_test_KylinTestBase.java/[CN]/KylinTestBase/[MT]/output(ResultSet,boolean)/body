@@ -1,0 +1,37 @@
+{
+  int count=0;
+  ResultSetMetaData metaData=resultSet.getMetaData();
+  int columnCount=metaData.getColumnCount();
+  StringBuilder sb=new StringBuilder("\n");
+  if (needDisplay) {
+    for (int i=1; i <= columnCount; i++) {
+      sb.append(metaData.getColumnName(i));
+      sb.append("-");
+      sb.append(metaData.getTableName(i));
+      sb.append("-");
+      sb.append(metaData.getColumnTypeName(i));
+      if (i < columnCount) {
+        sb.append("\t");
+      }
+ else {
+        sb.append("\n");
+      }
+    }
+  }
+  while (resultSet.next()) {
+    if (needDisplay) {
+      for (int i=1; i <= columnCount; i++) {
+        sb.append(resultSet.getString(i));
+        if (i < columnCount) {
+          sb.append("\t");
+        }
+ else {
+          sb.append("\n");
+        }
+      }
+    }
+    count++;
+  }
+  printInfo(sb.toString());
+  return count;
+}

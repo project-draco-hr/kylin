@@ -1,0 +1,6 @@
+{
+  new File("/tmp/kylin/logs/").mkdirs();
+  log.info("Starting scheduler.");
+  this.scheduler.start();
+  this.scheduler.scheduleFetcher(this.daemonJobIntervalInSeconds,this.engineConfig);
+}

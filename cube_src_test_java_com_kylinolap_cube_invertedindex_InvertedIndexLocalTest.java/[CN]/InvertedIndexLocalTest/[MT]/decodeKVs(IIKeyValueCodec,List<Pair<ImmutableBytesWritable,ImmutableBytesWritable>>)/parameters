@@ -1,0 +1,2 @@
+IIKeyValueCodec codec
+List<Pair<ImmutableBytesWritable,ImmutableBytesWritable>> kvs

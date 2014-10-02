@@ -1,0 +1,5 @@
+{
+  String name=dynamicParam.getName();
+  TupleFilter filter=new DynamicTupleFilter(name);
+  return filter;
+}

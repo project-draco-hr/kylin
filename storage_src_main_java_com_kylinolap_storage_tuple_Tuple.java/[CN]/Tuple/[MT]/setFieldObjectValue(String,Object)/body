@@ -1,0 +1,4 @@
+{
+  int index=info.getFieldIndex(fieldName);
+  values[index]=fieldValue;
+}

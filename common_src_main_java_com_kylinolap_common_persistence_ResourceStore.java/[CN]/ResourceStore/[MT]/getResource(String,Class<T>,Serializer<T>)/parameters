@@ -1,0 +1,3 @@
+String resPath
+Class<T> clz
+Serializer<T> serializer

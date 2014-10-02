@@ -1,0 +1,3 @@
+{
+  return "HBaseColumnDesc [qualifier=" + qualifier + ", measureRefs="+ Arrays.toString(measureRefs)+ "]";
+}

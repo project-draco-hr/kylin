@@ -1,0 +1,31 @@
+{
+  ArrayList<String> str=new ArrayList<String>();
+  str.add("part");
+  str.add("par");
+  str.add("partition");
+  str.add("party");
+  str.add("parties");
+  str.add("paint");
+  String longStr="paintjkjdfklajkdljfkdsajklfjklsadjkjekjrklewjrklewjklrjklewjkljkljkljkljweklrjewkljrklewjrlkjewkljrkljkljkjlkjjkljkljkljkljlkjlkjlkjljdfadfads" + "dddddddddddddddddddddddddddddddddddddddddddddddddkfjadslkfjdsakljflksadjklfjklsjfkljwelkrjewkljrklewjklrjelkwjrklewjrlkjwkljerklkljlkjrlkwejrk" + "dddddddddddddddddddddddddddddddddddddddddddddddddkfjadslkfjdsakljflksadjklfjklsjfkljwelkrjewkljrklewjklrjelkwjrklewjrlkjwkljerklkljlkjrlkwejrk"+ "dddddddddddddddddddddddddddddddddddddddddddddddddkfjadslkfjdsakljflksadjklfjklsjfkljwelkrjewkljrklewjklrjelkwjrklewjrlkjwkljerklkljlkjrlkwejrk"+ "dddddddddddddddddddddddddddddddddddddddddddddddddkfjadslkfjdsakljflksadjklfjklsjfkljwelkrjewkljrklewjklrjelkwjrklewjrlkjwkljerklkljlkjrlkwejrk"+ "dddddddddddddddddddddddddddddddddddddddddddddddddkfjadslkfjdsakljflksadjklfjklsjfkljwelkrjewkljrklewjklrjelkwjrklewjrlkjwkljerklkljlkjrlkwejrk"+ "dddddddddddddddddddddddddddddddddddddddddddddddddkfjadslkfjdsakljflksadjklfjklsjfkljwelkrjewkljrklewjklrjelkwjrklewjrlkjwkljerklkljlkjrlkwejrk"+ "dddddddddddddddddddddddddddddddddddddddddddddddddkfjadslkfjdsakljflksadjklfjklsjfkljwelkrjewkljrklewjklrjelkwjrklewjrlkjwkljerklkljlkjrlkwejrk";
+  System.out.println("The length of the long string is " + longStr.length());
+  str.add(longStr);
+  str.add("zzzzzz" + longStr);
+  TrieDictionaryBuilder<String> b=newDictBuilder(str);
+  TrieDictionary<String> dict=b.build(0);
+  TreeSet<String> set=new TreeSet<String>();
+  for (  String s : str) {
+    set.add(s);
+  }
+  dict=testSerialize(dict);
+  Iterator<String> it=set.iterator();
+  int id=0;
+  int previousId=-1;
+  for (; it.hasNext(); id++) {
+    String value=it.next();
+    int actualId=dict.getIdFromValue(value);
+    assertTrue(actualId >= id);
+    assertTrue(actualId > previousId);
+    previousId=actualId;
+    assertEquals(value,dict.getValueFromId(actualId));
+  }
+}

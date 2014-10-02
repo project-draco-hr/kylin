@@ -1,0 +1,29 @@
+{
+  JobInstance jobInstance=jobDAO.getJob(uuid);
+  CubeInstance cube=CubeManager.getInstance(config).getCube(jobInstance.getRelatedCube());
+switch (jobInstance.getStatus()) {
+case RUNNING:
+    try {
+      killRunningJob(jobInstance);
+    }
+  finally {
+      CubeManager.getInstance(config).updateSegmentOnJobDiscard(cube,jobInstance.getRelatedSegment());
+    }
+  break;
+case ERROR:
+try {
+  for (  JobStep jobStep : jobInstance.getSteps()) {
+    if (jobStep.getStatus() != JobStepStatusEnum.FINISHED) {
+      jobStep.setStatus(JobStepStatusEnum.DISCARDED);
+    }
+  }
+  jobDAO.updateJobInstance(jobInstance);
+}
+  finally {
+  CubeManager.getInstance(config).updateSegmentOnJobDiscard(cube,jobInstance.getRelatedSegment());
+}
+break;
+default :
+throw new IllegalStateException("Invalid status to discard : " + jobInstance.getStatus());
+}
+}

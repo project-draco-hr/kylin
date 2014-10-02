@@ -1,0 +1,31 @@
+{
+  Map<TblColRef,TblColRef> joinColumns=new HashMap<TblColRef,TblColRef>();
+  translateJoinColumn(condition,joinColumns);
+  List<String> pks=new ArrayList<String>();
+  List<TblColRef> pkCols=new ArrayList<TblColRef>();
+  List<String> fks=new ArrayList<String>();
+  List<TblColRef> fkCols=new ArrayList<TblColRef>();
+  String factTable=context.firstTableScan.getCubeTable();
+  for (  Map.Entry<TblColRef,TblColRef> columnPair : joinColumns.entrySet()) {
+    TblColRef fromCol=columnPair.getKey();
+    TblColRef toCol=columnPair.getValue();
+    if (factTable.equals(fromCol)) {
+      fks.add(fromCol.getName());
+      fkCols.add(fromCol);
+      pks.add(toCol.getName());
+      pkCols.add(toCol);
+    }
+ else {
+      fks.add(toCol.getName());
+      fkCols.add(toCol);
+      pks.add(fromCol.getName());
+      pkCols.add(fromCol);
+    }
+  }
+  JoinDesc join=new JoinDesc();
+  join.setForeignKey(fks.toArray(COLUMN_ARRAY_MARKER));
+  join.setForeignKeyColumns(fkCols.toArray(new TblColRef[fkCols.size()]));
+  join.setPrimaryKey(pks.toArray(COLUMN_ARRAY_MARKER));
+  join.setPrimaryKeyColumns(pkCols.toArray(new TblColRef[pkCols.size()]));
+  return join;
+}

@@ -1,0 +1,35 @@
+{
+  Authentication authed=null;
+  Cache userCache=cacheManager.getCache("UserCache");
+  md.reset();
+  byte[] hashKey=md.digest((authentication.getName() + authentication.getCredentials()).getBytes());
+  String userKey=Arrays.toString(hashKey);
+  Element authedUser=userCache.get(userKey);
+  if (null != authedUser) {
+    authed=(Authentication)authedUser.getObjectValue();
+    SecurityContextHolder.getContext().setAuthentication(authed);
+  }
+ else {
+    try {
+      authed=super.authenticate(authentication);
+      userCache.put(new Element(userKey,authed));
+    }
+ catch (    AuthenticationException e) {
+      logger.error("Failed to auth user: " + authentication.getName(),e);
+      throw e;
+    }
+    UserDetails user=new User(authentication.getName(),"skippped-ldap",authed.getAuthorities());
+    try {
+      if (!userService.userExists(authentication.getName())) {
+        userService.createUser(user);
+      }
+ else {
+        userService.updateUser(user);
+      }
+    }
+ catch (    Exception e) {
+      logger.error(e.getLocalizedMessage(),e);
+    }
+  }
+  return authed;
+}

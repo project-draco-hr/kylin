@@ -1,0 +1,8 @@
+{
+  if (this == obj)   return true;
+  if (!super.equals(obj))   return false;
+  if (getClass() != obj.getClass())   return false;
+  FixedValueHLLCMockup other=(FixedValueHLLCMockup)obj;
+  if (value != other.value)   return false;
+  return true;
+}

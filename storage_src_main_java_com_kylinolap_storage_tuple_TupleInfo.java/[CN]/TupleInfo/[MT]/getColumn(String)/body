@@ -1,0 +1,4 @@
+{
+  int idx=getFieldIndex(fieldName);
+  return columns.get(idx);
+}

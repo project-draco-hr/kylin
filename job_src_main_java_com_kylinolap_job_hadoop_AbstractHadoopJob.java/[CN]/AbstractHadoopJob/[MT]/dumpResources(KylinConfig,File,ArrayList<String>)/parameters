@@ -1,0 +1,3 @@
+KylinConfig kylinConfig
+File metaDir
+ArrayList<String> dumpList

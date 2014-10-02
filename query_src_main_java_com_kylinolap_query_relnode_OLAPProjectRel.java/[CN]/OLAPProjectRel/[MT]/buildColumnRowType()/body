@@ -1,0 +1,13 @@
+{
+  List<TblColRef> columns=new ArrayList<TblColRef>();
+  OLAPRel olapChild=(OLAPRel)getChild();
+  ColumnRowType inputColumnRowType=olapChild.getColumnRowType();
+  for (int i=0; i < this.rewriteProjects.size(); i++) {
+    RexNode rex=this.rewriteProjects.get(i);
+    RelDataTypeField columnField=this.rowType.getFieldList().get(i);
+    String fieldName=columnField.getName();
+    TblColRef column=translateRexNode(rex,inputColumnRowType,fieldName);
+    columns.add(column);
+  }
+  return new ColumnRowType(columns);
+}

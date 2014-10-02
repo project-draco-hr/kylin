@@ -1,0 +1,13 @@
+{
+  CubeInstance cube=cubeService.getCubeManager().getCube(cubeName);
+  if (cube == null) {
+    throw new InternalErrorException("Cannot find cube " + cubeName);
+  }
+  try {
+    cubeService.updateCubeNotifyList(cube,notifyList);
+  }
+ catch (  Exception e) {
+    logger.error(e.getLocalizedMessage(),e);
+    throw new InternalErrorException(e.getLocalizedMessage());
+  }
+}

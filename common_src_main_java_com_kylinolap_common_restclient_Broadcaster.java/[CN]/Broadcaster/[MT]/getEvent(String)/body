@@ -1,0 +1,8 @@
+{
+  for (  EVENT one : values()) {
+    if (one.getType().equalsIgnoreCase(event)) {
+      return one;
+    }
+  }
+  return null;
+}

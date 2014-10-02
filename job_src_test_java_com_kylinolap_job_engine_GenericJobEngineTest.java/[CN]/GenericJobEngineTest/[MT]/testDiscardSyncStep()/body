@@ -1,0 +1,20 @@
+{
+  String uuid="a_long_running_good_job_uuid";
+  JobInstance job=createAGoodJobInstance(uuid,600);
+  jobManager.submitJob(job);
+  try {
+    Thread.sleep(5L * 1000L);
+  }
+ catch (  Exception e) {
+  }
+  try {
+    jobManager.discardJob(uuid);
+  }
+ catch (  RuntimeException e) {
+    throw e;
+  }
+  waitUntilJobComplete(uuid);
+  JobInstance killedJob=jobManager.getJob(uuid);
+  assertEquals(JobStepStatusEnum.DISCARDED,killedJob.getSteps().get(0).getStatus());
+  assertEquals(JobStatusEnum.DISCARDED,killedJob.getStatus());
+}

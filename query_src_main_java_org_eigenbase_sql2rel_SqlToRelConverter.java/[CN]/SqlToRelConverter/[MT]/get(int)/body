@@ -1,0 +1,9 @@
+{
+  if (index < rightCount) {
+    RelDataTypeField field=fields.get(index);
+    return Pair.<RexNode,String>of(new RexInputRef(index,field.getType()),field.getName());
+  }
+ else {
+    return Pair.of(RexUtil.shift(extraRightExprs.get(index - rightCount),-newLeftCount),null);
+  }
+}

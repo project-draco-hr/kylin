@@ -1,0 +1,19 @@
+{
+  CubeDesc cube=getTestKylinCubeWithoutSeller();
+  CuboidScheduler scheduler=new CuboidScheduler(cube);
+  Collection<Long> siblings;
+  siblings=scheduler.findSmallerSibling(255);
+  assertEquals("[]",siblings.toString());
+  siblings=scheduler.findSmallerSibling(133);
+  assertEquals("[131]",siblings.toString());
+  siblings=scheduler.findSmallerSibling(127);
+  assertEquals("[]",siblings.toString());
+  siblings=scheduler.findSmallerSibling(134);
+  assertEquals("[131, 133]",sortToString(siblings));
+  siblings=scheduler.findSmallerSibling(130);
+  assertEquals("[129]",siblings.toString());
+  siblings=scheduler.findSmallerSibling(5);
+  assertEquals("[]",siblings.toString());
+  siblings=scheduler.findSmallerSibling(135);
+  assertEquals("[]",siblings.toString());
+}

@@ -1,0 +1,3 @@
+{
+  return (RexRangeRef)mapSubqueryToExpr.get(call);
+}

@@ -1,0 +1,10 @@
+{
+  if (isTrimUnusedFields()) {
+    final RelFieldTrimmer trimmer=newFieldTrimmer();
+    boolean dumpPlan=SQL2REL_LOGGER.isLoggable(Level.FINE);
+    if (dumpPlan) {
+      SQL2REL_LOGGER.fine(RelOptUtil.dumpPlan("Plan after trimming unused fields",rootRel,false,SqlExplainLevel.EXPPLAN_ATTRIBUTES));
+    }
+  }
+  return rootRel;
+}

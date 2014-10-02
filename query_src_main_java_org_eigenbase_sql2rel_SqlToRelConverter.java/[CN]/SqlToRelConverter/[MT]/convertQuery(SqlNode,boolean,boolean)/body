@@ -1,0 +1,12 @@
+{
+  if (needsValidation) {
+    query=validator.validate(query);
+  }
+  RelNode result=convertQueryRecursive(query,top,null);
+  checkConvertedType(query,result);
+  boolean dumpPlan=SQL2REL_LOGGER.isLoggable(Level.FINE);
+  if (dumpPlan) {
+    SQL2REL_LOGGER.fine(RelOptUtil.dumpPlan("Plan after converting SqlNode to RelNode",result,false,SqlExplainLevel.EXPPLAN_ATTRIBUTES));
+  }
+  return result;
+}

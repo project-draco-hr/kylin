@@ -1,0 +1,21 @@
+{
+  String matchPattern=null;
+  for (  String ptn : DATE_PATTERNS) {
+    matchPattern=ptn;
+    SimpleDateFormat sdf=new SimpleDateFormat(ptn);
+    for (    byte[] value : values) {
+      String str=Bytes.toString(value);
+      try {
+        sdf.parse(str);
+        if (samples.size() < nSamples && samples.contains(str) == false)         samples.add(str);
+      }
+ catch (      ParseException e) {
+        matchPattern=null;
+        break;
+      }
+    }
+    if (matchPattern != null)     return new DateStrDictionary(matchPattern,baseId);
+  }
+  samples.clear();
+  return null;
+}

@@ -1,0 +1,10 @@
+{
+  Timer timer=new Timer();
+  TimerTask task=new TimerTask(){
+    public void run(){
+      Broadcaster.flush();
+    }
+  }
+;
+  timer.schedule(task,new Date(),10 * 1000);
+}

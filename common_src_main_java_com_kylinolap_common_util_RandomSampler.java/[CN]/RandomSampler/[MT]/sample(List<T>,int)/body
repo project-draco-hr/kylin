@@ -1,0 +1,22 @@
+{
+  if (data == null) {
+    throw new IllegalArgumentException("Input list is null");
+  }
+  if (data.size() < sampleNumber) {
+    return data;
+  }
+  List<T> result=new ArrayList<T>(sampleNumber);
+  int n=data.size();
+  for (int i=0; i < n; i++) {
+    if (i < sampleNumber) {
+      result.add(data.get(i));
+    }
+ else {
+      int j=rdm.nextInt(i);
+      if (j < sampleNumber) {
+        result.set(j,data.get(i));
+      }
+    }
+  }
+  return result;
+}

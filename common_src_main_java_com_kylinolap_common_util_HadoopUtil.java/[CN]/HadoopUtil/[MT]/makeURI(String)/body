@@ -1,0 +1,8 @@
+{
+  try {
+    return new URI(filePath);
+  }
+ catch (  URISyntaxException e) {
+    throw new IllegalArgumentException("Cannot create FileSystem from URI: " + filePath,e);
+  }
+}

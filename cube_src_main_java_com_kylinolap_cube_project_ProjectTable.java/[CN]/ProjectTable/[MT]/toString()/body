@@ -1,0 +1,3 @@
+{
+  return "ProjectTable [name=" + name + ", columns="+ columns+ "]";
+}

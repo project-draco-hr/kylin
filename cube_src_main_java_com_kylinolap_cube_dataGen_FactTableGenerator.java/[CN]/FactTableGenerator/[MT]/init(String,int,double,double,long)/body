@@ -1,0 +1,15 @@
+{
+  this.rowCount=rowCount;
+  this.conflictRatio=conflictRaio;
+  this.cubeName=cubeName;
+  this.randomSeed=randomSeed;
+  this.linkableRatio=linkableRatio;
+  this.unlinkableRowCountMax=(int)(this.rowCount * (1 - linkableRatio));
+  this.unlinkableRowCount=0;
+  r=new Random(randomSeed);
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  cube=CubeManager.getInstance(config).getCube(cubeName);
+  desc=cube.getDescriptor();
+  factTableName=desc.getFactTable();
+  store=ResourceStore.getStore(config);
+}

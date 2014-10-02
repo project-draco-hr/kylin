@@ -1,0 +1,8 @@
+{
+  try {
+    return new OLAPJoinRel(getCluster(),traitSet,left,right,conditionExpr,joinType,variablesStopped);
+  }
+ catch (  InvalidRelException e) {
+    throw new AssertionError(e);
+  }
+}

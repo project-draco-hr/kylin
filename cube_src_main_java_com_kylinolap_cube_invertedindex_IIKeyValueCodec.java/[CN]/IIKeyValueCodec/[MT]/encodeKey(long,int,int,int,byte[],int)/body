@@ -1,0 +1,15 @@
+{
+  int i=offset;
+  BytesUtil.writeUnsignedLong(timePartition,buf,i,TIMEPART_LEN);
+  i+=TIMEPART_LEN;
+  BytesUtil.writeUnsigned(sliceNo,buf,i,SLICENO_LEN);
+  i+=SLICENO_LEN;
+  BytesUtil.writeUnsigned(col,buf,i,COLNO_LEN);
+  i+=COLNO_LEN;
+  if (colValue >= 0) {
+    int colLen=info.length(col);
+    BytesUtil.writeUnsigned(colValue,buf,i,colLen);
+    i+=colLen;
+  }
+  return i - offset;
+}

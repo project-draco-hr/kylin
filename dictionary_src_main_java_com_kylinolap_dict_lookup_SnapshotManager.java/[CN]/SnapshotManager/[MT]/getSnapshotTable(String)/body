@@ -1,0 +1,8 @@
+{
+  SnapshotTable r=snapshotCache.get(resourcePath);
+  if (r == null) {
+    r=load(resourcePath,true);
+    snapshotCache.put(resourcePath,r);
+  }
+  return r;
+}

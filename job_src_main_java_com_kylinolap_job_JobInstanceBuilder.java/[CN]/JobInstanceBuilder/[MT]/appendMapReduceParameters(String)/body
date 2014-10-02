@@ -1,0 +1,8 @@
+{
+  StringBuffer buf=new StringBuffer(cmd);
+  String jobConf=this.engineConfig.getHadoopJobConfFilePath(cube.getDescriptor().getCapacity());
+  if (jobConf != null && jobConf.equals("") == false) {
+    buf.append(" -conf " + jobConf);
+  }
+  return buf.toString();
+}

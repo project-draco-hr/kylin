@@ -1,0 +1,4 @@
+DataSource dataSource
+AclCache aclCache
+AclAuthorizationStrategy aclAuthorizationStrategy
+PermissionGrantingStrategy grantingStrategy

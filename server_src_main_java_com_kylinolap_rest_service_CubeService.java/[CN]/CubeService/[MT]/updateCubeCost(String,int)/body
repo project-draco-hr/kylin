@@ -1,0 +1,13 @@
+{
+  CubeInstance cube=getCubeManager().getCube(cubeName);
+  if (cube == null) {
+    throw new IOException("Cannot find cube " + cubeName);
+  }
+  if (cube.getCost() == cost) {
+    return cube;
+  }
+  cube.setCost(cost);
+  String owner=SecurityContextHolder.getContext().getAuthentication().getName();
+  cube.setOwner(owner);
+  return getCubeManager().updateCube(cube);
+}

@@ -1,0 +1,21 @@
+{
+  CubeDesc cubeDesc=cube.getDescriptor();
+  Collection<FunctionDesc> cubeFuncs=cubeDesc.listAllFunctions();
+  boolean matched=true;
+  for (  FunctionDesc functionDesc : aggregations) {
+    if (!cubeFuncs.contains(functionDesc)) {
+      if (functionDesc.isCountDistinct())       matched=false;
+      ParameterDesc param=functionDesc.getParameter();
+      if (param != null) {
+        TblColRef col=findTblColByColumnName(metricColumns,param.getValue());
+        if (col == null || !cubeDesc.listDimensionColumnsIncludingDerived().contains(col)) {
+          matched=false;
+        }
+      }
+ else {
+        matched=false;
+      }
+    }
+  }
+  return matched;
+}

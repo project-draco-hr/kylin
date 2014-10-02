@@ -1,0 +1,8 @@
+{
+  Collection<TblColRef> dimensionColumns=new HashSet<TblColRef>();
+  dimensionColumns.addAll(olapContext.allColumns);
+  for (  TblColRef measureColumn : olapContext.metricsColumns) {
+    dimensionColumns.remove(measureColumn);
+  }
+  return dimensionColumns;
+}

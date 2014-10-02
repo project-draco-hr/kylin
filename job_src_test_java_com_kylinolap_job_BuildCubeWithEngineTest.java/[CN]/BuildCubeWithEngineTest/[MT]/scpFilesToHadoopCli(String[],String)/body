@@ -1,0 +1,10 @@
+{
+  for (  String file : files) {
+    File f=new File(file);
+    String filename=f.getName();
+    execCommand("mkdir -p " + remoteDir);
+    execCommand("rm -f " + remoteDir + "/"+ filename);
+    execCopy(file,remoteDir);
+    execCommand("chmod 755 " + remoteDir + "/"+ filename);
+  }
+}

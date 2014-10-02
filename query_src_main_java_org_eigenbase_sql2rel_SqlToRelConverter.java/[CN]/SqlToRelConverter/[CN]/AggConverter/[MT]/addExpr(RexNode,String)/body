@@ -1,0 +1,11 @@
+{
+  convertedInputExprs.add(expr);
+  if ((name == null) && (expr instanceof RexInputRef)) {
+    final int i=((RexInputRef)expr).getIndex();
+    name=bb.root.getRowType().getFieldList().get(i).getName();
+  }
+  if (convertedInputExprNames.contains(name)) {
+    name=null;
+  }
+  convertedInputExprNames.add(name);
+}

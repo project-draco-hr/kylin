@@ -1,0 +1,12 @@
+{
+  for (  ListenableFuture<Long> scanFuture : scanFutures) {
+    if (!scanFuture.isDone()) {
+      try {
+        scanFuture.cancel(true);
+      }
+ catch (      Exception e) {
+        logger.error(e.getLocalizedMessage(),e);
+      }
+    }
+  }
+}

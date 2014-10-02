@@ -1,0 +1,8 @@
+{
+  if (cube.isInvertedIndex()) {
+    return new InvertedIndexStorageEngine(cube);
+  }
+ else {
+    return new HBaseStorageEngine(cube);
+  }
+}

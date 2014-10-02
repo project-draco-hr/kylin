@@ -1,0 +1,9 @@
+{
+  SSHClient ssh=new SSHClient(remoteHost,remoteUser,remotePwd,this.cliOutputConsumer);
+  try {
+    ssh.scpFileToRemote(localFile,destDir);
+  }
+ catch (  Exception e) {
+    throw new IOException(e);
+  }
+}

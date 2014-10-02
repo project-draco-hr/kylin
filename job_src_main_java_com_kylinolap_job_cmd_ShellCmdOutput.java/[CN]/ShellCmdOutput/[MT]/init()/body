@@ -1,0 +1,5 @@
+{
+  output=new StringBuilder();
+  exitCode=-1;
+  status=JobStepStatusEnum.NEW;
+}

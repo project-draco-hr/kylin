@@ -1,0 +1,5 @@
+{
+  this.dynamicVariables.put(variable,value);
+  this.conditionValues.add(value);
+  this.firstCondValue=this.conditionValues.iterator().next();
+}

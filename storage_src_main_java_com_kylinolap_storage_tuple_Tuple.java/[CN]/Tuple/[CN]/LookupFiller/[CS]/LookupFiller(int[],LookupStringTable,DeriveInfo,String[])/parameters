@@ -1,0 +1,4 @@
+int[] hostIndex
+LookupStringTable lookupTable
+DeriveInfo deriveInfo
+String[] derivedFieldNames

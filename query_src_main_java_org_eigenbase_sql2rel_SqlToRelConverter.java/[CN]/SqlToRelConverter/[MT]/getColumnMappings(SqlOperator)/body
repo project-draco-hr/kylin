@@ -1,0 +1,13 @@
+{
+  SqlReturnTypeInference rti=op.getReturnTypeInference();
+  if (rti == null) {
+    return null;
+  }
+  if (rti instanceof TableFunctionReturnTypeInference) {
+    TableFunctionReturnTypeInference tfrti=(TableFunctionReturnTypeInference)rti;
+    return tfrti.getColumnMappings();
+  }
+ else {
+    return null;
+  }
+}

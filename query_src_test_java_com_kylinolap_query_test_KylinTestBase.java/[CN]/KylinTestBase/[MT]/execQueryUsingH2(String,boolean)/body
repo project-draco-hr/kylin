@@ -1,0 +1,12 @@
+{
+  printInfo("---------- Running H2 queries: " + queryFolder);
+  List<File> sqlFiles=getFilesFromFolder(new File(queryFolder),".sql");
+  for (  File sqlFile : sqlFiles) {
+    String queryName=StringUtils.split(sqlFile.getName(),'.')[0];
+    String sql=getTextFromFile(sqlFile);
+    printInfo("Query Result from H2 - " + queryName);
+    H2Connection h2Conn=new H2Connection(h2Connection,null);
+    h2Conn.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY,new TestH2DataTypeFactory());
+    executeQuery(h2Conn,queryName,sql,needSort);
+  }
+}

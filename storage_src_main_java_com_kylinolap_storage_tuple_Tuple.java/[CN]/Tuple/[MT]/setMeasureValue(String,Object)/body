@@ -1,0 +1,7 @@
+{
+  String dataType=info.getDataType(fieldName);
+  if ("double".equals(dataType) && fieldValue instanceof BigDecimal) {
+    fieldValue=((BigDecimal)fieldValue).doubleValue();
+  }
+  setFieldObjectValue(fieldName,fieldValue);
+}

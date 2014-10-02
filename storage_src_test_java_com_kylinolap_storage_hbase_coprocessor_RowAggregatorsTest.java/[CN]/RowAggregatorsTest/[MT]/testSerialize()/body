@@ -1,0 +1,10 @@
+{
+  HCol[] hcols=new HCol[]{newHCol("f","c1",new String[]{"SUM","COUNT"},new String[]{"decimal","long"}),newHCol("f","c2",new String[]{"SUM","SUM"},new String[]{"long","long"})};
+  RowAggregators sample=new RowAggregators(hcols);
+  byte[] bytes=RowAggregators.serialize(sample);
+  RowAggregators copy=RowAggregators.deserialize(bytes);
+  assertTrue(sample.nHCols == copy.nHCols);
+  assertTrue(sample.nTotalMeasures == copy.nTotalMeasures);
+  assertEquals(sample.hcols[0],copy.hcols[0]);
+  assertEquals(sample.hcols[1],copy.hcols[1]);
+}

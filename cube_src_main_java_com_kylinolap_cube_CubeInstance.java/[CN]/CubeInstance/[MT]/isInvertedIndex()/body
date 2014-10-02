@@ -1,0 +1,3 @@
+{
+  return getInvertedIndexDesc() != null;
+}

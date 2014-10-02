@@ -1,0 +1,4 @@
+{
+  project=ProjectInstance.getNormalizedProjectName(project);
+  return getProjectTable(project,table).getColumns().contains(col);
+}

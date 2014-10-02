@@ -1,0 +1,9 @@
+{
+  TupleFilter flatFilter=flattenToOrAndFilter(filter);
+  List<HBaseKeyRange> scans=translateFilter(flatFilter,dimensions);
+  postProcessFilter(scans,flatFilter,context);
+  List<RowValueDecoder> valueDecoders=translateAggregation(cubeDesc.getHBaseMapping(),metrics,scans,context);
+  setThreshold(dimensions,valueDecoders,context);
+  HConnection conn=HBaseConnection.get(context.getConnUrl());
+  return new SerializedHBaseTupleIterator(conn,scans,cubeInstance,dimensions,filter,groups,valueDecoders,context);
+}

@@ -1,0 +1,10 @@
+{
+  if (!query.isA(SqlKind.DML)) {
+    RelDataType convertedRowType=result.getRowType();
+    if (!checkConvertedRowType(query,convertedRowType)) {
+      RelDataType validatedRowType=validator.getValidatedNodeType(query);
+      validatedRowType=uniquifyFields(validatedRowType);
+      throw Util.newInternal("Conversion to relational algebra failed to preserve " + "datatypes:\n" + "validated type:\n" + validatedRowType.getFullTypeString() + "\nconverted type:\n"+ convertedRowType.getFullTypeString()+ "\nrel:\n"+ RelOptUtil.toString(result));
+    }
+  }
+}

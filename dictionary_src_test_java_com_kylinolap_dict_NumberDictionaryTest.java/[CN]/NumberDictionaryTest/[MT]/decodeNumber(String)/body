@@ -1,0 +1,8 @@
+{
+  byte[] buf=Bytes.toBytes(code);
+  System.arraycopy(buf,0,codec.buf,0,buf.length);
+  codec.bufOffset=0;
+  codec.bufLen=buf.length;
+  int len=codec.decodeNumber(buf,0);
+  return Bytes.toString(buf,0,len);
+}

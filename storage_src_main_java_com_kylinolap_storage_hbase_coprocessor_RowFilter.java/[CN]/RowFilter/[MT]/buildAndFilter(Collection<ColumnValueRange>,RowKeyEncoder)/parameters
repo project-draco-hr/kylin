@@ -1,0 +1,2 @@
+Collection<ColumnValueRange> andFilter
+RowKeyEncoder encoder

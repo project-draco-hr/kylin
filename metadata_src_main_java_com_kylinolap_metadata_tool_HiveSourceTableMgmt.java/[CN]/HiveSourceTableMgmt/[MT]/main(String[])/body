@@ -1,0 +1,22 @@
+{
+  if (args.length < 3) {
+    System.out.println("Wrong arguments, example");
+    System.out.println("Get data from command: -c Kylin*, c:\\temp");
+    System.out.println("Get data from outputfile: -f /tmp/hiveout.txt, c:\\temp");
+    System.exit(1);
+  }
+  String mode=args[0];
+  String tableMetaOutcomeDir=args[2];
+  HiveSourceTableMgmt rssMgmt=new HiveSourceTableMgmt();
+  try {
+    if (mode.equalsIgnoreCase("-c")) {
+      rssMgmt.extractTableDescWithTablePattern(args[1],tableMetaOutcomeDir);
+    }
+    if (mode.equalsIgnoreCase("-f")) {
+      rssMgmt.extractTableDescFromFile(args[1],tableMetaOutcomeDir);
+    }
+  }
+ catch (  IllegalArgumentException e) {
+    e.printStackTrace();
+  }
+}

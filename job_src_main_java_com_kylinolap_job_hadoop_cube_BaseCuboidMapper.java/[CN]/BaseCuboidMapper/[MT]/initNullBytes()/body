@@ -1,0 +1,10 @@
+{
+  nullBytes=Lists.newArrayList();
+  nullBytes.add(HIVE_NULL);
+  String[] nullStrings=cubeDesc.getNullStrings();
+  if (nullStrings != null) {
+    for (    String s : nullStrings) {
+      nullBytes.add(Bytes.toBytes(s));
+    }
+  }
+}

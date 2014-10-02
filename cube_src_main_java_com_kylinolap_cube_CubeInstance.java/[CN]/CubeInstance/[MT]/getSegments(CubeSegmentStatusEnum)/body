@@ -1,0 +1,9 @@
+{
+  List<CubeSegment> segments=new ArrayList<CubeSegment>();
+  for (  CubeSegment segment : this.getSegments()) {
+    if (segment.getStatus() == status) {
+      segments.add(segment);
+    }
+  }
+  return segments;
+}

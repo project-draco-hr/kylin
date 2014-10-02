@@ -1,0 +1,6 @@
+{
+  File f=file(resPath);
+  if ((f.exists() && f.lastModified() != oldTS) || (f.exists() == false && oldTS != 0))   throw new IllegalStateException("Overwriting conflict " + resPath + ", expect old TS "+ oldTS+ ", but found "+ f.lastModified());
+  putResourceImpl(resPath,new ByteArrayInputStream(content),newTS);
+  return getResourceTimestamp(resPath);
+}

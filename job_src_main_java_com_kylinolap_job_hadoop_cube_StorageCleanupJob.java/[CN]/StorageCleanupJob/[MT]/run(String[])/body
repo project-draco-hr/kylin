@@ -1,0 +1,18 @@
+{
+  Options options=new Options();
+  try {
+    options.addOption(OPTION_DELETE);
+    parseOptions(options,args);
+    delete=Boolean.parseBoolean(getOptionValue(OPTION_DELETE));
+    Configuration conf=HBaseConfiguration.create(getConf());
+    cleanUnusedHdfsFiles(conf);
+    cleanUnusedHBaseTables(conf);
+    cleanUnusedIntermediateHiveTable(conf);
+    return 0;
+  }
+ catch (  Exception e) {
+    e.printStackTrace(System.err);
+    log.error(e.getLocalizedMessage(),e);
+    return 2;
+  }
+}

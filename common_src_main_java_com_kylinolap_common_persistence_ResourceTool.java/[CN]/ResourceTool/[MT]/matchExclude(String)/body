@@ -1,0 +1,7 @@
+{
+  if (excludes == null)   return false;
+  for (  String exclude : excludes) {
+    if (path.startsWith(exclude))     return true;
+  }
+  return false;
+}

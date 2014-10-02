@@ -1,0 +1,15 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  HBaseColumnDesc other=(HBaseColumnDesc)obj;
+  if (columnFamilyName == null) {
+    if (other.columnFamilyName != null)     return false;
+  }
+ else   if (!columnFamilyName.equals(other.columnFamilyName))   return false;
+  if (qualifier == null) {
+    if (other.qualifier != null)     return false;
+  }
+ else   if (!qualifier.equals(other.qualifier))   return false;
+  return true;
+}

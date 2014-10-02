@@ -1,0 +1,21 @@
+{
+  List<JobInstance> jobInstances=this.getJobManager().listJobs(cube.getName(),null);
+  for (  JobInstance jobInstance : jobInstances) {
+    if (jobInstance.getStatus() == JobStatusEnum.PENDING || jobInstance.getStatus() == JobStatusEnum.RUNNING) {
+      throw new JobException("The cube " + cube.getName() + " has running job, please discard it and try again.");
+    }
+  }
+  String uuid=null;
+  try {
+    for (    CubeSegment segment : this.getCubeManager().allocateSegments(cube,buildType,startDate,endDate)) {
+      JobInstance job=this.getJobManager().createJob(cube.getName(),segment.getName(),buildType);
+      uuid=this.getJobManager().submitJob(job);
+      permissionService.init(job,null);
+      permissionService.inherit(job,cube);
+    }
+  }
+ catch (  CubeIntegrityException e) {
+    throw new InternalErrorException(e.getLocalizedMessage());
+  }
+  return uuid;
+}

@@ -1,0 +1,6 @@
+{
+  List<TblColRef> columnList=getColumns();
+  List<String> result=new ArrayList<String>(columnList.size());
+  for (  TblColRef col : columnList)   result.add(findName(col,aliasMap));
+  return result;
+}

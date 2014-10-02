@@ -1,0 +1,6 @@
+{
+  int len=BytesUtil.readVInt(in);
+  byte[] mask=new byte[len];
+  in.get(mask);
+  return new RowProjector(mask);
+}

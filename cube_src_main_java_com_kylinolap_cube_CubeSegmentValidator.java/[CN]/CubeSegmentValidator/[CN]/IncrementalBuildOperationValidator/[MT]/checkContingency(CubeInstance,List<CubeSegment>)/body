@@ -1,0 +1,30 @@
+{
+  if (newSegments.size() != 1) {
+    throw new CubeIntegrityException("Invalid date range.");
+  }
+  CubeSegment newSegment=newSegments.get(0);
+  boolean hasMatchSegment=false;
+  for (  CubeSegment segment : cubeInstance.getSegments()) {
+    if (segment.getDateRangeStart() == newSegment.getDateRangeStart()) {
+      if (segment.getDateRangeEnd() == newSegment.getDateRangeEnd()) {
+        hasMatchSegment=true;
+      }
+ else {
+        throw new CubeIntegrityException("Invalid date range.");
+      }
+    }
+  }
+  if (!hasMatchSegment) {
+    if (cubeInstance.getSegments().size() == 0) {
+      if (cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateStart() != newSegment.getDateRangeStart()) {
+        throw new CubeIntegrityException("Invalid start date.");
+      }
+    }
+ else {
+      CubeSegment lastSegment=cubeInstance.getSegments().get(cubeInstance.getSegments().size() - 1);
+      if (newSegment.getDateRangeStart() != lastSegment.getDateRangeEnd()) {
+        throw new CubeIntegrityException("Invalid start date.");
+      }
+    }
+  }
+}

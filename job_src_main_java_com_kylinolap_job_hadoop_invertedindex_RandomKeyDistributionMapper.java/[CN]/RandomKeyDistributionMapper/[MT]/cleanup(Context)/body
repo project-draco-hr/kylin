@@ -1,0 +1,7 @@
+{
+  RandomSampler<KEY> sampler=new RandomSampler<KEY>();
+  List<KEY> sampleResult=sampler.sample(allKeys,sampleNumber);
+  for (  KEY k : sampleResult) {
+    context.write(k,NullWritable.get());
+  }
+}

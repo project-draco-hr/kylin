@@ -1,0 +1,3 @@
+{
+  BytesUtil.writeVLong(value.get(),out);
+}

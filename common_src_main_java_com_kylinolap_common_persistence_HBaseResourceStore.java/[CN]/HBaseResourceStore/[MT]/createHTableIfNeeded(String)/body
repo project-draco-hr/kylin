@@ -1,0 +1,12 @@
+{
+  HBaseAdmin hbase=new HBaseAdmin(getConnection());
+  if (tableExist(hbase,tableName)) {
+    logger.debug("HTable '" + tableName + "' already exists");
+    return;
+  }
+  logger.debug("Creating HTable '" + tableName + "'");
+  HTableDescriptor desc=new HTableDescriptor(TableName.valueOf(tableName));
+  desc.addFamily(new HColumnDescriptor(FAMILY));
+  hbase.createTable(desc);
+  logger.debug("HTable '" + tableName + "' created");
+}

@@ -1,0 +1,11 @@
+{
+  this.startKeyString=BytesUtil.toHex(this.startKey);
+  this.stopKeyString=BytesUtil.toHex(this.stopKey);
+  StringBuilder buf=new StringBuilder();
+  for (  Pair<byte[],byte[]> fuzzyKey : this.fuzzyKeys) {
+    buf.append(BytesUtil.toHex(fuzzyKey.getFirst()));
+    buf.append(" ");
+    buf.append(BytesUtil.toHex(fuzzyKey.getSecond()));
+  }
+  this.fuzzyKeyString=buf.toString();
+}

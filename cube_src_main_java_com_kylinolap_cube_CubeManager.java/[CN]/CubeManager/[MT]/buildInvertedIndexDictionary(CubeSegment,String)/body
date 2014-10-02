@@ -1,0 +1,11 @@
+{
+  MetadataManager metaMgr=getMetadataManager();
+  DictionaryManager dictMgr=getDictionaryManager();
+  TableDesc tableDesc=metaMgr.getTableDesc(cubeSeg.getCubeDesc().getFactTable());
+  for (  ColumnDesc colDesc : tableDesc.getColumns()) {
+    TblColRef col=new TblColRef(colDesc);
+    DictionaryInfo dict=dictMgr.buildDictionary(null,col,factColumnsPath);
+    cubeSeg.putDictResPath(col,dict.getResourcePath());
+  }
+  saveResource(cubeSeg.getCubeInstance());
+}

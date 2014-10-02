@@ -1,0 +1,8 @@
+{
+  if (andFilter == null || andFilter.length == 0)   return false;
+  boolean r=true;
+  for (int i=0, n=andFilter.length; i < n && r == true; i++) {
+    r=andFilter[i].evaluate(rowkey);
+  }
+  return r;
+}

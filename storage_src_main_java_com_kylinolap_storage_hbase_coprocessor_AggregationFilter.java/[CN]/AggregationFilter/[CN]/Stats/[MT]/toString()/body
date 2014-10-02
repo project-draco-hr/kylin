@@ -1,0 +1,4 @@
+{
+  double percent=(double)outputRows / inputRows * 100;
+  return Math.round(percent) + "% = " + outputRows+ " (out rows) / "+ inputRows+ " (in rows); in bytes = "+ inputBytes+ "; est. out bytes = "+ Math.round(inputBytes * percent / 100);
+}

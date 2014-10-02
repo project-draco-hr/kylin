@@ -1,0 +1,3 @@
+{
+  return "ColumnRef [name=" + column.getName() + ",table="+ (column.getTable() == null ? null : column.getTable().getName())+ ",type="+ column.getDatatype()+ "]";
+}

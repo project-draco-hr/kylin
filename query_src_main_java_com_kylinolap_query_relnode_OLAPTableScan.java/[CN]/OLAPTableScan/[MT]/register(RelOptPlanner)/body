@@ -1,0 +1,16 @@
+{
+  OLAPContext.clearThreadLocalContexts();
+  planner.addRule(OLAPToEnumerableConverterRule.INSTANCE);
+  planner.addRule(OLAPFilterRule.INSTANCE);
+  planner.addRule(OLAPProjectRule.INSTANCE);
+  planner.addRule(OLAPAggregateRule.INSTANCE);
+  planner.addRule(OLAPJoinRule.INSTANCE);
+  planner.addRule(OLAPLimitRule.INSTANCE);
+  planner.addRule(OLAPSortRule.INSTANCE);
+  planner.removeRule(PushFilterPastJoinRule.FILTER_ON_JOIN);
+  planner.removeRule(PushFilterPastJoinRule.JOIN);
+  planner.removeRule(SwapJoinRule.INSTANCE);
+  planner.removeRule(PushJoinThroughJoinRule.LEFT);
+  planner.removeRule(PushJoinThroughJoinRule.RIGHT);
+  planner.removeRule(RemoveDistinctAggregateRule.INSTANCE);
+}

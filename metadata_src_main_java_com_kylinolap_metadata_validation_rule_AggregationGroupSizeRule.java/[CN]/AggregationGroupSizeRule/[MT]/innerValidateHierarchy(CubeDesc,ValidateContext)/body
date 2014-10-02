@@ -1,0 +1,9 @@
+{
+  String[][] groups=cube.getRowkey().getAggregationGroups();
+  Map<String,Set<String>> hierMap=getHierMap(cube,context);
+  Iterator<Entry<String,Set<String>>> it=hierMap.entrySet().iterator();
+  while (it.hasNext()) {
+    Set<String> set=it.next().getValue();
+    validateGroups(set,context,groups);
+  }
+}

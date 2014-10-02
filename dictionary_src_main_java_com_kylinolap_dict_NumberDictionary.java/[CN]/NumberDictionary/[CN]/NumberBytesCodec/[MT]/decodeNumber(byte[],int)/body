@@ -1,0 +1,35 @@
+{
+  if (bufLen == 0) {
+    return 0;
+  }
+  int in=bufOffset;
+  int end=bufOffset + bufLen;
+  int out=offset;
+  boolean negative=buf[in] == '-';
+  if (negative) {
+    returnValue[out++]='-';
+    in++;
+    end--;
+  }
+  byte padding=(byte)(negative ? '9' : '0');
+  for (; in < end; in++) {
+    if (buf[in] != padding)     break;
+  }
+  if (in == end || !(buf[in] >= '0' && buf[in] <= '9')) {
+    returnValue[out++]='0';
+  }
+  if (negative) {
+    for (; in < end; in++, out++) {
+      int c=buf[in];
+      if (c >= '0' && c <= '9') {
+        c='9' - (c - '0');
+      }
+      returnValue[out]=(byte)c;
+    }
+  }
+ else {
+    System.arraycopy(buf,in,returnValue,out,end - in);
+    out+=end - in;
+  }
+  return out - offset;
+}

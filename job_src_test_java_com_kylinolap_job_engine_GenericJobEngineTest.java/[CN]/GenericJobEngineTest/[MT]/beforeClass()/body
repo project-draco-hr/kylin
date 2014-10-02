@@ -1,0 +1,18 @@
+{
+  FileUtils.forceMkdir(new File("/tmp/kylin/logs/"));
+  FileUtils.deleteDirectory(new File(tempTestMetadataUrl));
+  FileUtils.copyDirectory(new File("../examples/test_case_data"),new File(tempTestMetadataUrl));
+  System.setProperty(KylinConfig.KYLIN_CONF,tempTestMetadataUrl);
+  SSHClient hadoopCli=new SSHClient(getHadoopCliHostname(),getHadoopCliUsername(),getHadoopCliPassword(),null);
+  scpFilesToHdfs(hadoopCli,new String[]{"src/test/resources/json/dummy_jobinstance.json"},mrInputDir);
+  hadoopCli.scpFileToRemote("src/test/resources/jarfile/SampleJavaProgram.jarfile","/tmp");
+  hadoopCli.scpFileToRemote("src/test/resources/jarfile/SampleBadJavaProgram.jarfile","/tmp");
+  hadoopCli.execCommand("mkdir -p /tmp/kylin/logs/");
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  kylinConfig.setMetadataUrl(tempTestMetadataUrl);
+  jobManager=new JobManager("GenericJobEngineTest",new JobEngineConfig(KylinConfig.getInstanceFromEnv()));
+  jobDAO=JobDAO.getInstance(KylinConfig.getInstanceFromEnv());
+  jobDAO.updateJobInstance(createARunningJobInstance("a_running_job"));
+  jobManager.startJobEngine(2);
+  Thread.sleep(2000);
+}

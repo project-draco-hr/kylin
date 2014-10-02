@@ -1,0 +1,14 @@
+{
+  List<TableRecord> records=loadRecordsSorted();
+  System.out.println(records.size() + " records");
+  List<TimeSlice> slices=buildTimeSlices(records);
+  System.out.println(slices.size() + " slices");
+  IIKeyValueCodec codec=new IIKeyValueCodec(info);
+  List<Pair<ImmutableBytesWritable,ImmutableBytesWritable>> kvs=encodeKVs(codec,slices);
+  System.out.println(kvs.size() + " KV pairs");
+  List<TimeSlice> slicesCopy=decodeKVs(codec,kvs);
+  assertEquals(slices,slicesCopy);
+  List<TableRecord> recordsCopy=iterateRecords(slicesCopy);
+  assertEquals(records,recordsCopy);
+  dump(recordsCopy);
+}

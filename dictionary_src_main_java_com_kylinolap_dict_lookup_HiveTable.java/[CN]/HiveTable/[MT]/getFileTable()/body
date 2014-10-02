@@ -1,0 +1,6 @@
+{
+  if (fileTable == null) {
+    fileTable=new FileTable(getHDFSLocation(true),nColumns);
+  }
+  return fileTable;
+}

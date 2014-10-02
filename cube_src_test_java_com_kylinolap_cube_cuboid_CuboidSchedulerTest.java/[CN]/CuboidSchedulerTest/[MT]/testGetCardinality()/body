@@ -1,0 +1,9 @@
+{
+  CubeDesc cube=getTestKylinCubeWithSeller();
+  CuboidScheduler scheduler=new CuboidScheduler(cube);
+  assertEquals(0,scheduler.getCardinality(0));
+  assertEquals(7,scheduler.getCardinality(127));
+  assertEquals(1,scheduler.getCardinality(1));
+  assertEquals(1,scheduler.getCardinality(8));
+  assertEquals(6,scheduler.getCardinality(126));
+}

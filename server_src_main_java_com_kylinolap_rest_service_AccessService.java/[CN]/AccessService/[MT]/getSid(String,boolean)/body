@@ -1,0 +1,3 @@
+{
+  return aclService.getSid(sid,isPrincepal);
+}

@@ -1,0 +1,24 @@
+{
+  resPath=norm(resPath);
+  logger.debug("Saving resource " + resPath + " (Store "+ kylinConfig.getMetadataUrl()+ ")");
+  long oldTS=obj.getLastModified();
+  long newTS=System.currentTimeMillis();
+  obj.setLastModified(newTS);
+  try {
+    ByteArrayOutputStream buf=new ByteArrayOutputStream();
+    DataOutputStream dout=new DataOutputStream(buf);
+    serializer.serialize(obj,dout);
+    dout.close();
+    buf.close();
+    newTS=checkAndPutResourceImpl(resPath,buf.toByteArray(),oldTS,newTS);
+    obj.setLastModified(newTS);
+  }
+ catch (  IOException e) {
+    obj.setLastModified(oldTS);
+    throw e;
+  }
+catch (  RuntimeException e) {
+    obj.setLastModified(oldTS);
+    throw e;
+  }
+}

@@ -1,0 +1,6 @@
+{
+  super();
+  this.type=type;
+  this.action=action;
+  this.name=name;
+}

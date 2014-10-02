@@ -1,0 +1,8 @@
+{
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  CubeManager cubeMgr=CubeManager.getInstance(config);
+  CubeInstance cube=cubeMgr.getCube(cubeName);
+  String factTableName=cube.getDescriptor().getFactTable();
+  String sampledFactTableName=sampleFactTable(factTableName,sampleRatio);
+  HiveSourceTableMgmt.reloadHiveTable(sampledFactTableName);
+}

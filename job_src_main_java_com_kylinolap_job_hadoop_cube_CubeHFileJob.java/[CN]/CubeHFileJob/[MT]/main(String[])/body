@@ -1,0 +1,4 @@
+{
+  int exitCode=ToolRunner.run(new CubeHFileJob(),args);
+  System.exit(exitCode);
+}

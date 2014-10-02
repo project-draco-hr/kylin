@@ -1,0 +1,22 @@
+{
+  int index=0;
+  try {
+    for (; index < operations.size(); ++index) {
+      logger.info("Operation index :" + index);
+      doOpt(operations.get(index));
+    }
+  }
+ catch (  Exception e) {
+    logger.error(e.getLocalizedMessage());
+    logger.info("Try undoing previous changes");
+    for (int i=index; i >= 0; --i) {
+      try {
+        undo(operations.get(i));
+      }
+ catch (      Exception ee) {
+        logger.error(ee.getLocalizedMessage());
+        logger.info("Continue undoing...");
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  Object[] tmp=decideSourceData(cube,col,factColumnsPath);
+  String srcTable=(String)tmp[0];
+  String srcCol=(String)tmp[1];
+  int srcColIdx=(Integer)tmp[2];
+  ReadableTable inpTable=(ReadableTable)tmp[3];
+  DictionaryInfo dictInfo=new DictionaryInfo(srcTable,srcCol,srcColIdx,col.getDatatype(),inpTable.getSignature(),inpTable.getColumnDelimeter());
+  String dupDict=checkDupByInfo(dictInfo);
+  if (dupDict != null) {
+    logger.info("Identical dictionary input " + dictInfo.getInput() + ", reuse existing dictionary at "+ dupDict);
+    return getDictionaryInfo(dupDict);
+  }
+  Dictionary<?> dict=DictionaryGenerator.buildDictionary(dictInfo,inpTable);
+  return trySaveNewDict(dict,dictInfo);
+}

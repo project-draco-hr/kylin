@@ -1,0 +1,30 @@
+{
+  List<CubeSegment> segmentsInNewStatus=cubeInstance.getSegments(CubeSegmentStatusEnum.NEW);
+  CubeSegment cubeSegment=cubeInstance.getSegment(segmentName,CubeSegmentStatusEnum.NEW);
+switch (buildType) {
+case BUILD:
+    if (segmentsInNewStatus.size() == 1) {
+      cubeInstance.getSegments().removeAll(cubeInstance.getRebuildingSegments());
+    }
+  break;
+case MERGE:
+cubeInstance.getSegments().removeAll(cubeInstance.getMergingSegments());
+break;
+}
+cubeSegment.setLastBuildJobID(lastBuildJobUuid);
+cubeSegment.setLastBuildTime(lastBuildTime);
+cubeSegment.setSizeKB(sizeKB);
+cubeSegment.setSourceRecords(sourceRecordCount);
+cubeSegment.setSourceRecordsSize(sourceRecordsSize);
+if (segmentsInNewStatus.size() == 1) {
+cubeSegment.setStatus(CubeSegmentStatusEnum.READY);
+cubeInstance.setStatus(CubeStatusEnum.READY);
+for (CubeSegment seg : cubeInstance.getSegments(CubeSegmentStatusEnum.READY_PENDING)) {
+seg.setStatus(CubeSegmentStatusEnum.READY);
+}
+}
+ else {
+cubeSegment.setStatus(CubeSegmentStatusEnum.READY_PENDING);
+}
+this.updateCube(cubeInstance);
+}

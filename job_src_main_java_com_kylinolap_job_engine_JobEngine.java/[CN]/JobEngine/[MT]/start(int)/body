@@ -1,0 +1,9 @@
+{
+  this.daemonJobIntervalInSeconds=daemonJobIntervalInSeconds;
+  sharedLock=new InterProcessMutex(zkClient,ZOOKEEPER_LOCK_PATH + "/" + this.engineID);
+  log.info("Trying to obtain the shared lock...");
+  sharedLock.acquire();
+  log.info("Obtained the shared lock. Starting job scheduler...");
+  zkClient.setData().forPath(ZOOKEEPER_LOCK_PATH + "/" + this.engineID,Bytes.toBytes(this.engineID));
+  startScheduler();
+}

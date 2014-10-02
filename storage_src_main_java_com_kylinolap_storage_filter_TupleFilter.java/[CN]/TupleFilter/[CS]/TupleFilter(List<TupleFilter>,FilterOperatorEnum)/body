@@ -1,0 +1,4 @@
+{
+  this.children=filters;
+  this.operator=op;
+}

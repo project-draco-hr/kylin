@@ -1,0 +1,8 @@
+{
+  if (isClosedForChange() == false)   closeForChange();
+  List<ImmutableBytesWritable> r=new ArrayList<ImmutableBytesWritable>(nValues + 1);
+  for (int i=0; i <= nValues; i++) {
+    r.add(setToBytes(sets[i]));
+  }
+  return r;
+}

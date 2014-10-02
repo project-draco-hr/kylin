@@ -1,0 +1,11 @@
+{
+  CubeSegment incrementalSeg=new CubeSegment();
+  String incrementalSegName=CubeSegment.getSegmentName(startDate,endDate);
+  incrementalSeg.setName(incrementalSegName);
+  incrementalSeg.setDateRangeStart(startDate);
+  incrementalSeg.setDateRangeEnd(endDate);
+  incrementalSeg.setStatus(CubeSegmentStatusEnum.NEW);
+  incrementalSeg.setStorageLocationIdentifier(generateStorageLocation());
+  incrementalSeg.setCubeInstance(cubeInstance);
+  return incrementalSeg;
+}

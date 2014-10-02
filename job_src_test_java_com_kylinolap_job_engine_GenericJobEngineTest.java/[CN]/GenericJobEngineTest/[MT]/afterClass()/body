@@ -1,0 +1,10 @@
+{
+  FileUtils.deleteDirectory(new File(tempTestMetadataUrl));
+  System.clearProperty(KylinConfig.KYLIN_CONF);
+  System.out.println("Job step duration seconds 80 percentile: " + jobManager.getPercentileJobStepDuration(80));
+  System.out.println("Max job step duration seconds: " + jobManager.getMaxJobStepDuration());
+  System.out.println("Min job step duration seconds: " + jobManager.getMinJobStepDuration());
+  System.out.println("# job steps executed: " + jobManager.getNumberOfJobStepsExecuted());
+  System.out.println("Engine ID: " + jobManager.getPrimaryEngineID());
+  jobManager.stopJobEngine();
+}

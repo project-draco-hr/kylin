@@ -1,0 +1,5 @@
+{
+  byte[] r=new byte[end - start];
+  System.arraycopy(bytes,start,r,0,r.length);
+  return r;
+}

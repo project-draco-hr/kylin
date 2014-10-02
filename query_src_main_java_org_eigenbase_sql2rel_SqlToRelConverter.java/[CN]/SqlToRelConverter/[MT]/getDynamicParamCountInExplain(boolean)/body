@@ -1,0 +1,7 @@
+{
+  int retVal=nDynamicParamsInExplain;
+  if (increment) {
+    ++nDynamicParamsInExplain;
+  }
+  return retVal;
+}

@@ -1,0 +1,10 @@
+{
+  Long size=sizeMap.get(regionId);
+  if (size == null) {
+    logger.info("Unknown region:" + Arrays.toString(regionId));
+    return 0;
+  }
+ else {
+    return size;
+  }
+}

@@ -1,0 +1,5 @@
+{
+  ProjectInstance project=getProjectManager().getProject(projectName);
+  getProjectManager().dropProject(projectName);
+  accessService.clean(project,true);
+}

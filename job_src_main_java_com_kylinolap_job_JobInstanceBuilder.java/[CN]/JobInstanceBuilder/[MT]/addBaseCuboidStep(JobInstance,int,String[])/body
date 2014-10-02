@@ -1,0 +1,28 @@
+{
+  JobStep baseCuboidStep=new JobStep();
+  String inputLocation;
+  String cmd="";
+  if (this.engineConfig.isFlatTableByHive()) {
+    inputLocation=getIntermediateHiveTablePath();
+    cmd=appendMapReduceParameters(cmd);
+  }
+ else {
+    HiveTable factTableInHive=new HiveTable(MetadataManager.getInstance(this.engineConfig.getConfig()),cube.getDescriptor().getFactTable());
+    inputLocation=factTableInHive.getHDFSLocation(false);
+    cmd=appendMapReduceParameters(cmd);
+    cmd=appendExecCmdParameters(cmd,"inputformat","TextInputFormat");
+  }
+  baseCuboidStep.setName(JobConstants.STEP_NAME_BUILD_BASE_CUBOID);
+  cmd=appendExecCmdParameters(cmd,"cubename",cubeName);
+  cmd=appendExecCmdParameters(cmd,"segmentname",segmentName);
+  cmd=appendExecCmdParameters(cmd,"input",inputLocation);
+  cmd=appendExecCmdParameters(cmd,"output",cuboidOutputTempPath[0]);
+  cmd=appendExecCmdParameters(cmd,"jobname","Kylin_Base_Cuboid_Builder_" + jobInstance.getRelatedCube() + "_Step_"+ stepSeqNum);
+  cmd=appendExecCmdParameters(cmd,"level","0");
+  baseCuboidStep.setExecCmd(cmd);
+  baseCuboidStep.setSequenceID(stepSeqNum);
+  baseCuboidStep.setStatus(JobStepStatusEnum.PENDING);
+  baseCuboidStep.setRunAsync(true);
+  baseCuboidStep.setCmdType(JobStepCmdTypeEnum.JAVA_CMD_HADOOP_BASECUBOID);
+  jobInstance.addStep(stepSeqNum,baseCuboidStep);
+}

@@ -1,0 +1,44 @@
+{
+  int n=set.size();
+  int times=10 * 1000 * 1000 / n;
+  int keep=0;
+  byte[] valueBytes=new byte[dict.getSizeOfValue()];
+  long start;
+  System.out.println(msg + " HashMap lookup value==>id");
+  start=System.currentTimeMillis();
+  for (int i=0; i < times; i++) {
+    for (int j=0; j < n; j++) {
+      keep|=map.get(strArray[j]);
+    }
+  }
+  long timeValueToIdByMap=System.currentTimeMillis() - start;
+  System.out.println(timeValueToIdByMap);
+  System.out.println(msg + " Dictionary lookup value==>id");
+  start=System.currentTimeMillis();
+  for (int i=0; i < times; i++) {
+    for (int j=0; j < n; j++) {
+      keep|=dict.getIdFromValueBytes(array[j],0,array[j].length);
+    }
+  }
+  long timeValueToIdByDict=System.currentTimeMillis() - start;
+  System.out.println(timeValueToIdByDict);
+  System.out.println(msg + " Array lookup id==>value");
+  start=System.currentTimeMillis();
+  for (int i=0; i < times; i++) {
+    for (int j=0; j < n; j++) {
+      keep|=strArray[j].length();
+    }
+  }
+  long timeIdToValueByArray=System.currentTimeMillis() - start;
+  System.out.println(timeIdToValueByArray);
+  System.out.println(msg + " Dictionary lookup id==>value");
+  start=System.currentTimeMillis();
+  for (int i=0; i < times; i++) {
+    for (int j=0; j < n; j++) {
+      keep|=dict.getValueBytesFromId(j,valueBytes,0);
+    }
+  }
+  long timeIdToValueByDict=System.currentTimeMillis() - start;
+  System.out.println(timeIdToValueByDict);
+  return keep;
+}

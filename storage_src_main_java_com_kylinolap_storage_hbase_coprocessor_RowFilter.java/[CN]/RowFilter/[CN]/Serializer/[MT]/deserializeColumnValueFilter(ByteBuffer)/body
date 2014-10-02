@@ -1,0 +1,7 @@
+{
+  int offset=BytesUtil.readVInt(in);
+  int length=BytesUtil.readVInt(in);
+  byte[] valueStart=BytesUtil.readByteArray(in);
+  byte[] valueEnd=BytesUtil.readByteArray(in);
+  return new ColumnFilter(offset,length,valueStart,valueEnd);
+}

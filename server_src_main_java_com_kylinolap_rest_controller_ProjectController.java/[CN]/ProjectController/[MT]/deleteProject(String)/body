@@ -1,0 +1,9 @@
+{
+  try {
+    projectService.deleteProject(projectName);
+  }
+ catch (  Exception e) {
+    logger.error(e.getLocalizedMessage(),e);
+    throw new InternalErrorException("Failed to delete project. " + " Caused by: " + e.getMessage(),e);
+  }
+}

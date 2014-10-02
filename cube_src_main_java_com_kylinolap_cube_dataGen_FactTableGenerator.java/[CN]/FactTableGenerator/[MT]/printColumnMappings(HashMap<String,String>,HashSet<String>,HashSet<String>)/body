@@ -1,0 +1,30 @@
+{
+  System.out.println("=======================================================================");
+  System.out.format("%-30s %s","FACT_TABLE_COLUMN","MAPPING");
+  System.out.println();
+  System.out.println();
+  for (  String key : factTableCol2LookupCol.keySet()) {
+    System.out.format("%-30s %s",key,factTableCol2LookupCol.get(key));
+    System.out.println();
+  }
+  for (  String key : usedCols) {
+    System.out.format("%-30s %s",key,"Random Values");
+    System.out.println();
+  }
+  for (  String key : defaultColumns) {
+    System.out.format("%-30s %s",key,"Default Values");
+    System.out.println();
+  }
+  System.out.println("=======================================================================");
+  System.out.println("Parameters:");
+  System.out.println();
+  System.out.println("CubeName:        " + cubeName);
+  System.out.println("RowCount:        " + rowCount);
+  System.out.println("ConflictRatio:   " + conflictRatio);
+  System.out.println("LinkableRatio:   " + linkableRatio);
+  System.out.println("Seed:            " + randomSeed);
+  System.out.println();
+  System.out.println("The number of actual unlinkable fact rows is: " + this.unlinkableRowCount);
+  System.out.println("You can vary the above parameters to generate different datasets.");
+  System.out.println();
+}

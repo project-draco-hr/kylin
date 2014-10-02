@@ -1,0 +1,9 @@
+{
+  ColumnValueRange columnRange=rangeMap.get(range.getColumn());
+  if (columnRange == null) {
+    rangeMap.put(range.getColumn(),range);
+  }
+ else {
+    columnRange.andMerge(range);
+  }
+}

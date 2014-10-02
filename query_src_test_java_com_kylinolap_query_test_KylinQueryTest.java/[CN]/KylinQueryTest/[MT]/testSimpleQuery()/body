@@ -1,0 +1,3 @@
+{
+  verifyResultRowCount("src/test/resources/query/sql_verifyCount");
+}

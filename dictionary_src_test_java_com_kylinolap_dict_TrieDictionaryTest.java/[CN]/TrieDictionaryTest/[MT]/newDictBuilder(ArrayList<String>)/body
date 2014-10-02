@@ -1,0 +1,5 @@
+{
+  TrieDictionaryBuilder<String> b=new TrieDictionaryBuilder<String>(new StringBytesConverter());
+  for (  String s : str)   b.addValue(s);
+  return b;
+}

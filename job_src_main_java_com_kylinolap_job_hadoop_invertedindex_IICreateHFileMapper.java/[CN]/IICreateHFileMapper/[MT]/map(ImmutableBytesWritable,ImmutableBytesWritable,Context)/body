@@ -1,0 +1,4 @@
+{
+  KeyValue kv=new KeyValue(key.get(),key.getOffset(),key.getLength(),HBASE_FAMILY_BYTES,0,HBASE_FAMILY_BYTES.length,HBASE_QUALIFIER_BYTES,0,HBASE_QUALIFIER_BYTES.length,timestamp,Type.Put,value.get(),value.getOffset(),value.getLength());
+  context.write(key,kv);
+}

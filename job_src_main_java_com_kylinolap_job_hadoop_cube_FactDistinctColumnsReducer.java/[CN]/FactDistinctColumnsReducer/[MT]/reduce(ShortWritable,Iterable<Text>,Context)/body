@@ -1,0 +1,21 @@
+{
+  TblColRef col=columnList.get(key.get());
+  HashSet<ByteArray> set=new HashSet<ByteArray>();
+  for (  Text textValue : values) {
+    ByteArray value=new ByteArray(Bytes.copy(textValue.getBytes(),0,textValue.getLength()));
+    set.add(value);
+  }
+  Configuration conf=context.getConfiguration();
+  FileSystem fs=FileSystem.get(conf);
+  String outputPath=conf.get(BatchConstants.OUTPUT_PATH);
+  FSDataOutputStream out=fs.create(new Path(outputPath,col.getName()));
+  try {
+    for (    ByteArray value : set) {
+      out.write(value.data);
+      out.write('\n');
+    }
+  }
+  finally {
+    out.close();
+  }
+}

@@ -1,0 +1,11 @@
+{
+  int[] rowKeyColumnIndexes=intermediateTableDesc.getRowKeyColumnIndexes();
+  for (int i=0; i < baseCuboid.getColumns().size(); i++) {
+    int index=rowKeyColumnIndexes[i];
+    keyBytesBuf[i]=Arrays.copyOf(splitBuffers[index].value,splitBuffers[index].length);
+    if (isNull(keyBytesBuf[i])) {
+      keyBytesBuf[i]=null;
+    }
+  }
+  return rowKeyEncoder.encode(keyBytesBuf);
+}

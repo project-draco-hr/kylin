@@ -1,0 +1,16 @@
+{
+  CubeDesc cubeDesc=cube.getDescriptor();
+  Collection<FunctionDesc> cubeFuncs=cubeDesc.listAllFunctions();
+  Iterator<FunctionDesc> it=aggregations.iterator();
+  while (it.hasNext()) {
+    FunctionDesc functionDesc=it.next();
+    if (!cubeFuncs.contains(functionDesc)) {
+      TblColRef col=findTblColByColumnName(metricColumns,functionDesc.getParameter().getValue());
+      functionDesc.setAppliedOnDimension(true);
+      rewriteFields.remove(functionDesc.getRewriteFieldName());
+      metricColumns.remove(col);
+      dimensionColumns.add(col);
+      logger.info("Adjust OLAPContext for " + functionDesc);
+    }
+  }
+}

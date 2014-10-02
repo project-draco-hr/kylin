@@ -1,0 +1,4 @@
+{
+  this.checkContingency(cubeInstance,newSegments);
+  this.checkLoopTableConsistency(cubeInstance,newSegments);
+}

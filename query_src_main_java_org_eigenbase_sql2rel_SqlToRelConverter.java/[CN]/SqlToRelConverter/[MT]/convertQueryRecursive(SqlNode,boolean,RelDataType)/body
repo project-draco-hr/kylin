@@ -1,0 +1,24 @@
+{
+switch (query.getKind()) {
+case SELECT:
+    return convertSelect((SqlSelect)query);
+case INSERT:
+  return convertInsert((SqlInsert)query);
+case DELETE:
+return convertDelete((SqlDelete)query);
+case UPDATE:
+return convertUpdate((SqlUpdate)query);
+case MERGE:
+return convertMerge((SqlMerge)query);
+case UNION:
+case INTERSECT:
+case EXCEPT:
+return convertSetOp((SqlCall)query);
+case WITH:
+return convertWith((SqlWith)query);
+case VALUES:
+return convertValues((SqlCall)query,targetRowType);
+default :
+throw Util.newInternal("not a query: " + query);
+}
+}

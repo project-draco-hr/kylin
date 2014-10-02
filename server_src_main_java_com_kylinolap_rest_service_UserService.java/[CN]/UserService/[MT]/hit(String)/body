@@ -1,0 +1,9 @@
+{
+  jdbcTemplate.update("insert into user_hits(username,hit_time) values(?,?);",new PreparedStatementSetter(){
+    @Override public void setValues(    PreparedStatement ps) throws SQLException {
+      ps.setString(1,username);
+      ps.setTimestamp(2,new java.sql.Timestamp(new Date().getTime()));
+    }
+  }
+);
+}

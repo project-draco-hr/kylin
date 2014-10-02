@@ -1,0 +1,7 @@
+{
+  while (dynamicParam.getIndex() >= dynamicParamSqlNodes.size()) {
+    dynamicParamSqlNodes.add(null);
+  }
+  dynamicParamSqlNodes.set(dynamicParam.getIndex(),dynamicParam);
+  return rexBuilder.makeDynamicParam(getDynamicParamType(dynamicParam.getIndex()),dynamicParam.getIndex());
+}

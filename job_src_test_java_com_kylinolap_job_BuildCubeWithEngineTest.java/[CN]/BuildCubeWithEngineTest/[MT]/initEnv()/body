@@ -1,0 +1,16 @@
+{
+  this.execCommand("mkdir -p /tmp/kylin/logs");
+  retrieveJarName();
+  if (System.getProperty("skipDeployData") != null) {
+    return;
+  }
+  cleanUp();
+  installMetadataToHBase();
+  for (  CubeInstance cube : CubeManager.getInstance(this.getTestConfig()).listAllCubes()) {
+    cube.getDescriptor().setSignature(cube.getDescriptor().calculateSignature());
+    CubeManager.getInstance(this.getTestConfig()).updateCube(cube);
+  }
+  deployJarToHadoopCli();
+  deployJarToLocalDir();
+  deployConfigFile();
+}

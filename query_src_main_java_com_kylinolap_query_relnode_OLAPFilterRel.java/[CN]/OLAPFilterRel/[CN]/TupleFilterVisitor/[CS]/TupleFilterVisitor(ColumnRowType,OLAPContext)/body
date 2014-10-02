@@ -1,0 +1,5 @@
+{
+  super(true);
+  this.inputRowType=inputRowType;
+  this.context=context;
+}

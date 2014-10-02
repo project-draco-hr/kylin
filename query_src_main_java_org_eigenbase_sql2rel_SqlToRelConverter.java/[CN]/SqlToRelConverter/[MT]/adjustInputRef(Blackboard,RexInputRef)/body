@@ -1,0 +1,7 @@
+{
+  RelDataTypeField field=bb.getRootField(inputRef);
+  if (field != null) {
+    return rexBuilder.makeInputRef(field.getType(),inputRef.getIndex());
+  }
+  return inputRef;
+}

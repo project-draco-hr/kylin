@@ -1,0 +1,7 @@
+{
+  if (this.condition == null) {
+    return;
+  }
+  TupleFilterVisitor visitor=new TupleFilterVisitor(this.columnRowType,context);
+  context.filter=this.condition.accept(visitor);
+}

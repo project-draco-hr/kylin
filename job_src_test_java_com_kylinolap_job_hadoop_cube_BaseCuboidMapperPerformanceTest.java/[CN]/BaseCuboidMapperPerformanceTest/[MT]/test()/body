@@ -1,0 +1,13 @@
+{
+  Configuration hconf=new Configuration();
+  BaseCuboidMapper mapper=new BaseCuboidMapper();
+  Context context=MockupMapContext.create(hconf,metadataUrl,cubeName,null);
+  mapper.setup(context);
+  Reader reader=new Reader(hconf,SequenceFile.Reader.file(srcPath));
+  Writable key=(Writable)ReflectionUtils.newInstance(reader.getKeyClass(),hconf);
+  Text value=new Text();
+  while (reader.next(key,value)) {
+    mapper.map(key,value,context);
+  }
+  reader.close();
+}

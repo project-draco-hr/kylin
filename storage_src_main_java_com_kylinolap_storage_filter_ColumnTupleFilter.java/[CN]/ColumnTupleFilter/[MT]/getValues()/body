@@ -1,0 +1,4 @@
+{
+  this.values.set(0,(String)this.tupleValue);
+  return this.values;
+}

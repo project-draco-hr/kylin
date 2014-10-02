@@ -1,0 +1,11 @@
+{
+  List<TblColRef> groups=buildGroups();
+  TupleFilter orFilter=buildOrFilter(groups);
+  TupleFilter andFilter=buildAndFilter(groups);
+  LogicalTupleFilter logicFilter=new LogicalTupleFilter(FilterOperatorEnum.OR);
+  logicFilter.addChild(orFilter);
+  logicFilter.addChild(andFilter);
+  byte[] bytes=TupleFilterSerializer.serialize(logicFilter);
+  TupleFilter newFilter=TupleFilterSerializer.deserialize(bytes);
+  compareFilter(logicFilter,newFilter);
+}

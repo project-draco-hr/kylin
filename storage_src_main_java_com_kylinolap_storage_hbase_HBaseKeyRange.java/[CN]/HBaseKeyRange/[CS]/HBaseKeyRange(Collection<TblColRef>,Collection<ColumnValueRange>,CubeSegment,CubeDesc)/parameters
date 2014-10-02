@@ -1,0 +1,4 @@
+Collection<TblColRef> dimensionColumns
+Collection<ColumnValueRange> andDimensionRanges
+CubeSegment cubeSeg
+CubeDesc cubeDesc

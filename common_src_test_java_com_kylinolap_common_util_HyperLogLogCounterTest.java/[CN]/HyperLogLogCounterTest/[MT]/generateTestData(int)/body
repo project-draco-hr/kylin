@@ -1,0 +1,10 @@
+{
+  Set<String> testData=new HashSet<String>();
+  for (int i=0; i < n; i++) {
+    String[] samples=generateSampleData();
+    for (    String sample : samples) {
+      testData.add(sample);
+    }
+  }
+  return testData;
+}

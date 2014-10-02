@@ -1,0 +1,14 @@
+{
+  ArrayList<String> children=src.listResources(path);
+  if (children == null) {
+    if (matchExclude(path) == false) {
+      InputStream content=src.getResource(path);
+      long ts=src.getResourceTimestamp(path);
+      if (content != null)       dst.putResource(path,content,ts);
+ else       System.out.println("Null inputstream for " + path);
+    }
+  }
+ else {
+    for (    String child : children)     copyR(src,dst,child);
+  }
+}

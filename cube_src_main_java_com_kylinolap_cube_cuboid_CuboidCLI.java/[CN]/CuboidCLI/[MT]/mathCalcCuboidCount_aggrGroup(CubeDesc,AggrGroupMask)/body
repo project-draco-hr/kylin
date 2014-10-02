@@ -1,0 +1,5 @@
+{
+  long groupMask=aggrGroupMask.groupMask;
+  long nonUniqueMask=groupMask & (~aggrGroupMask.uniqueMask);
+  return mathCalcCuboidCount_combination(cube,groupMask) - mathCalcCuboidCount_combination(cube,nonUniqueMask);
+}

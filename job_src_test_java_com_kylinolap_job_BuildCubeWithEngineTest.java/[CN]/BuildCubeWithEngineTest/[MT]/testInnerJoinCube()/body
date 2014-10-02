@@ -1,0 +1,18 @@
+{
+  this.prepareTestData("inner");
+  SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd");
+  f.setTimeZone(TimeZone.getTimeZone("GMT"));
+  long dateStart;
+  long dateEnd;
+  ArrayList<String> jobs=new ArrayList<String>();
+  dateStart=0;
+  dateEnd=f.parse("2013-01-01").getTime();
+  jobs.addAll(this.submitJob("test_kylin_cube_with_slr_empty",dateStart,dateEnd,CubeBuildTypeEnum.BUILD));
+  jobs.addAll(this.submitJob("test_kylin_cube_without_slr_empty",0,0,CubeBuildTypeEnum.BUILD));
+  waitCubeBuilt(jobs);
+  jobs.clear();
+  dateStart=f.parse("2013-01-01").getTime();
+  dateEnd=f.parse("2022-01-01").getTime();
+  jobs.addAll(this.submitJob("test_kylin_cube_with_slr_empty",dateStart,dateEnd,CubeBuildTypeEnum.BUILD));
+  waitCubeBuilt(jobs);
+}

@@ -1,0 +1,4 @@
+int col
+byte[] value
+int offset
+int len

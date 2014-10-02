@@ -1,0 +1,3 @@
+{
+  adminService.cleanupStorage();
+}

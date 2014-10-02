@@ -1,0 +1,6 @@
+{
+  RowFilter sample=newSampleRowFilter();
+  byte[] bytes=RowFilter.serialize(sample);
+  RowFilter copy=RowFilter.deserialize(bytes);
+  assertTrue(copy.equals(sample));
+}

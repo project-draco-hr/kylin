@@ -1,0 +1,3 @@
+{
+  return newCell(key,col,decimal,Integer.MIN_VALUE);
+}

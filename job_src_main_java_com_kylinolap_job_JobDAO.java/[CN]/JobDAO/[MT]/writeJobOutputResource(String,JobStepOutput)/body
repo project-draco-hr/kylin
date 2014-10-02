@@ -1,0 +1,3 @@
+{
+  store.putResource(path,output,JOB_OUTPUT_SERIALIZER);
+}

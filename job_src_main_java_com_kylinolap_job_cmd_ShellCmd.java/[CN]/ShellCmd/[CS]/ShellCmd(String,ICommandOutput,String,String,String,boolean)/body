@@ -1,0 +1,8 @@
+{
+  this.executeCommand=executeCmd;
+  this.output=out;
+  this.remoteHost=host;
+  this.remoteUser=user;
+  this.remotePassword=password;
+  this.isAsync=async;
+}

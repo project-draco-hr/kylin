@@ -1,0 +1,10 @@
+{
+  this.constantValues.clear();
+  ByteBuffer buffer=ByteBuffer.wrap(bytes);
+  int size=BytesUtil.readVInt(buffer);
+  for (int i=0; i < size; i++) {
+    byte[] strBytes=BytesUtil.readByteArray(buffer);
+    String strValue=new String(strBytes,Charset.forName("utf-8"));
+    this.constantValues.add(strValue);
+  }
+}

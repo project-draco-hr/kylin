@@ -1,0 +1,15 @@
+{
+  if (delim == -1) {
+    delim=splitter.detectDelim(value,columns.length);
+  }
+  int nParts=splitter.split(value.getBytes(),value.getLength(),(byte)delim);
+  SplittedBytes[] parts=splitter.getSplitBuffers();
+  if (nParts != columns.length) {
+    throw new RuntimeException("Got " + parts.length + " from -- "+ value.toString()+ " -- but only "+ columns.length+ " expected");
+  }
+  for (short i=0; i < nParts; i++) {
+    outputKey.set(i);
+    outputValue.set(parts[i].value,0,parts[i].length);
+    context.write(outputKey,outputValue);
+  }
+}

@@ -1,0 +1,4 @@
+{
+  File f=file(resPath);
+  return f.exists() && f.isFile();
+}

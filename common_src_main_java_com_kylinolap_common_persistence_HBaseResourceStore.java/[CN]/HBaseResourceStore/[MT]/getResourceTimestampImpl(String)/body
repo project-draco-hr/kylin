@@ -1,0 +1,5 @@
+{
+  Result r=getByScan(resPath,B_FAMILY,B_COLUMN_TS);
+  if (r == null)   return 0;
+ else   return Bytes.toLong(r.getValue(B_FAMILY,B_COLUMN_TS));
+}

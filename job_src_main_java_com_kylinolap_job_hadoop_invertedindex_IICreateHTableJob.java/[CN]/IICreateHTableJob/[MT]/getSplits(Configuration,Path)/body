@@ -1,0 +1,18 @@
+{
+  List<byte[]> rowkeyList=new ArrayList<byte[]>();
+  Reader reader=new Reader(conf,SequenceFile.Reader.file(path));
+  Writable key=(Writable)ReflectionUtils.newInstance(reader.getKeyClass(),conf);
+  Writable value=(Writable)ReflectionUtils.newInstance(reader.getValueClass(),conf);
+  try {
+    while (reader.next(key,value)) {
+      byte[] keyBytes=BytesUtil.toBytes(key);
+      rowkeyList.add(keyBytes);
+      System.out.println("key split: " + Bytes.toStringBinary(keyBytes));
+    }
+  }
+  finally {
+    IOUtils.closeStream(reader);
+  }
+  System.out.println("Total " + rowkeyList.size() + " split point, "+ (rowkeyList.size() + 1)+ " regions.");
+  return rowkeyList.toArray(new byte[rowkeyList.size()][]);
+}

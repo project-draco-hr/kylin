@@ -1,0 +1,10 @@
+{
+  Date date=null;
+  try {
+    date=getDateFormat(pattern).parse(str);
+  }
+ catch (  ParseException e) {
+    throw new IllegalArgumentException("'" + str + "' is not a valid date of pattern '"+ pattern+ "'",e);
+  }
+  return date;
+}

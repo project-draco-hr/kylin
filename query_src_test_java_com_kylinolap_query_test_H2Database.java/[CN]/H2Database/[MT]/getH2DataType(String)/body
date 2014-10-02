@@ -1,0 +1,7 @@
+{
+  String hiveDataType=javaToH2DataTypeMapping.get(javaDataType.toLowerCase());
+  if (hiveDataType == null) {
+    hiveDataType=javaDataType;
+  }
+  return hiveDataType.toLowerCase();
+}

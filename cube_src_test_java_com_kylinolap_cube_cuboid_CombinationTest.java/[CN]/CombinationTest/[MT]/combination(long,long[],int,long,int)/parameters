@@ -1,0 +1,5 @@
+long valueBits
+long[] bitMasks
+int offset
+long prefix
+int k

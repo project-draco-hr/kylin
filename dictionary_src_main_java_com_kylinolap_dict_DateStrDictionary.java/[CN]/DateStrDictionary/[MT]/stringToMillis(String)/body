@@ -1,0 +1,4 @@
+{
+  if (str.length() == 10)   return stringToDate(str,DEFAULT_DATE_PATTERN).getTime();
+ else   return stringToDate(str,DEFAULT_DATETIME_PATTERN).getTime();
+}

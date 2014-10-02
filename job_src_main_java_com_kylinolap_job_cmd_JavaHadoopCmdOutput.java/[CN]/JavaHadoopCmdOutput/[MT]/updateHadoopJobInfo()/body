@@ -1,0 +1,28 @@
+{
+  try {
+    Map<String,String> jobInfo=job.getInfo();
+    JobDAO jobDAO=JobDAO.getInstance(config);
+    JobInstance jobInstance=jobDAO.getJob(jobInstanceID);
+    JobStep jobStep=jobInstance.getSteps().get(jobStepID);
+    boolean hasChange=false;
+    if (null == this.mrJobID && jobInfo.containsKey(JobInstance.MR_JOB_ID)) {
+      this.mrJobID=jobInfo.get(JobInstance.MR_JOB_ID);
+      jobStep.putInfo(JobInstance.MR_JOB_ID,this.mrJobID);
+      output.append("Get job id " + this.mrJobID).append("\n");
+      hasChange=true;
+    }
+    if (null == this.trackUrl && jobInfo.containsKey(JobInstance.YARN_APP_URL)) {
+      this.trackUrl=jobInfo.get(JobInstance.YARN_APP_URL);
+      jobStep.putInfo(JobInstance.YARN_APP_URL,this.trackUrl);
+      output.append("Get job track url " + this.trackUrl).append("\n");
+      hasChange=true;
+    }
+    if (hasChange) {
+      jobDAO.updateJobInstance(jobInstance);
+    }
+  }
+ catch (  Exception e) {
+    log.error(e.getLocalizedMessage(),e);
+    output.append(e.getLocalizedMessage());
+  }
+}

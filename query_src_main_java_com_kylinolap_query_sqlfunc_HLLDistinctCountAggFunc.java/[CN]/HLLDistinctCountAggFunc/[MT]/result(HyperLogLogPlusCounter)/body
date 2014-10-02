@@ -1,0 +1,3 @@
+{
+  return counter == null ? 0L : counter.getCountEstimate();
+}

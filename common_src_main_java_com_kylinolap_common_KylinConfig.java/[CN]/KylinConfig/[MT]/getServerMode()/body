@@ -1,0 +1,3 @@
+{
+  return this.getOptional("kylin.server.mode","all");
+}

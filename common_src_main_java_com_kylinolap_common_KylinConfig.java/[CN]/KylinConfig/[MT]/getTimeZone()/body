@@ -1,0 +1,3 @@
+{
+  return getOptional(KYLIN_REST_TIMEZONE,"PST");
+}

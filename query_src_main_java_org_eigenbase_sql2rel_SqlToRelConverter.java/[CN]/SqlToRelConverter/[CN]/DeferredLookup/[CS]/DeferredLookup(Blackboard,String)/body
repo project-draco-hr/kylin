@@ -1,0 +1,4 @@
+{
+  this.bb=bb;
+  this.originalRelName=originalRelName;
+}

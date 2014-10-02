@@ -1,0 +1,7 @@
+{
+  int len=str.length();
+  BytesUtil.writeVInt(len,out);
+  for (int i=0; i < len; i++) {
+    out.put((byte)str.charAt(i));
+  }
+}

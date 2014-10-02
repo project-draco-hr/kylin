@@ -1,0 +1,17 @@
+{
+  MutableAcl acl=null;
+  ObjectIdentity objectIdentity=new ObjectIdentityImpl(ae.getClass(),ae.getId());
+  try {
+    acl=aclService.createAcl(objectIdentity);
+  }
+ catch (  AlreadyExistsException e) {
+    acl=(MutableAcl)aclService.readAclById(objectIdentity);
+  }
+  if (null != initPermission) {
+    Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+    PrincipalSid sid=new PrincipalSid(auth);
+    grant(ae,initPermission,sid);
+  }
+  acl.setEntriesInheriting(false);
+  return aclService.updateAcl(acl);
+}

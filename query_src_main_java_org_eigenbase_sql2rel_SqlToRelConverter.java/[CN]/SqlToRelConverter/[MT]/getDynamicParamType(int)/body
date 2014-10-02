@@ -1,0 +1,7 @@
+{
+  SqlNode sqlNode=dynamicParamSqlNodes.get(index);
+  if (sqlNode == null) {
+    throw Util.needToImplement("dynamic param type inference");
+  }
+  return validator.getValidatedNodeType(sqlNode);
+}

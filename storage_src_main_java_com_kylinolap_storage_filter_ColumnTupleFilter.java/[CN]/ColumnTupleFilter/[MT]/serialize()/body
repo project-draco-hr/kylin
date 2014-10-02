@@ -1,0 +1,27 @@
+{
+  ByteBuffer buffer=ByteBuffer.allocate(BUFFER_SIZE);
+  String table=columnRef.getTable();
+  if (table == null) {
+    BytesUtil.writeByteArray(new byte[0],buffer);
+  }
+ else {
+    BytesUtil.writeByteArray(table.getBytes(Charset.forName("utf-8")),buffer);
+  }
+  String columnName=columnRef.getName();
+  if (columnName == null) {
+    BytesUtil.writeByteArray(new byte[0],buffer);
+  }
+ else {
+    BytesUtil.writeByteArray(columnName.getBytes(Charset.forName("utf-8")),buffer);
+  }
+  String dataType=columnRef.getDatatype();
+  if (dataType == null) {
+    BytesUtil.writeByteArray(new byte[0],buffer);
+  }
+ else {
+    BytesUtil.writeByteArray(dataType.getBytes(Charset.forName("utf-8")),buffer);
+  }
+  byte[] result=new byte[buffer.position()];
+  System.arraycopy(buffer.array(),0,result,0,buffer.position());
+  return result;
+}

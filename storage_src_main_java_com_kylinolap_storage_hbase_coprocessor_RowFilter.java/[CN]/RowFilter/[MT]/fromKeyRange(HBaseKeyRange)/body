@@ -1,0 +1,10 @@
+{
+  List<Collection<ColumnValueRange>> flatOrAndFilter=keyRange.getFlatOrAndFilter();
+  RowKeyEncoder encoder=(RowKeyEncoder)AbstractRowKeyEncoder.createInstance(keyRange.getCubeSegment(),keyRange.getCuboid());
+  List<ColumnFilter[]> result=Lists.newArrayListWithCapacity(flatOrAndFilter.size());
+  for (int i=0; i < flatOrAndFilter.size(); i++) {
+    ColumnFilter[] filter=buildAndFilter(flatOrAndFilter.get(i),encoder);
+    if (filter != null && filter.length > 0)     result.add(filter);
+  }
+  return new RowFilter((ColumnFilter[][])result.toArray(new ColumnFilter[result.size()][]));
+}

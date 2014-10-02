@@ -1,0 +1,18 @@
+{
+  Path coprocessorDir=getCoprocessorHDFSDir(fileSystem,config);
+  FileStatus newestJar=null;
+  for (  FileStatus fileStatus : fileSystem.listStatus(coprocessorDir)) {
+    if (fileStatus.getPath().toString().endsWith(".jar")) {
+      if (newestJar == null) {
+        newestJar=fileStatus;
+      }
+ else {
+        if (newestJar.getModificationTime() < fileStatus.getModificationTime())         newestJar=fileStatus;
+      }
+    }
+  }
+  if (newestJar == null)   return null;
+  Path path=newestJar.getPath().makeQualified(fileSystem.getUri(),null);
+  logger.info("The newest coprocessor is " + path.toString());
+  return path;
+}

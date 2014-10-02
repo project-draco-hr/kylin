@@ -1,0 +1,5 @@
+{
+  RelTraitSet oldTraitSet=this.traitSet;
+  this.traitSet=this.traitSet.replace(trait);
+  return oldTraitSet;
+}

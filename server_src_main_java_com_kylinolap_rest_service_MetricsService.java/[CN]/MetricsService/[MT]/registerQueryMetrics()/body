@@ -1,0 +1,3 @@
+{
+  metricRegistry.register("QueryMetrics",QueryMetrics.getInstance());
+}

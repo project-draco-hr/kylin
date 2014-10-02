@@ -1,0 +1,11 @@
+{
+  if (isSum()) {
+    return getParameter().getValue();
+  }
+ else   if (isCount()) {
+    return "COUNT__";
+  }
+ else {
+    return getFullExpression().replaceAll("[(), ]","_");
+  }
+}

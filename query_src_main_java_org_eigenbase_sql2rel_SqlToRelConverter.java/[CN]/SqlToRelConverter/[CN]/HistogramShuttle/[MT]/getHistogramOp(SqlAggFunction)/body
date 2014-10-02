@@ -1,0 +1,17 @@
+{
+  if (aggFunction == SqlStdOperatorTable.MIN) {
+    return SqlStdOperatorTable.HISTOGRAM_MIN;
+  }
+ else   if (aggFunction == SqlStdOperatorTable.MAX) {
+    return SqlStdOperatorTable.HISTOGRAM_MAX;
+  }
+ else   if (aggFunction == SqlStdOperatorTable.FIRST_VALUE) {
+    return SqlStdOperatorTable.HISTOGRAM_FIRST_VALUE;
+  }
+ else   if (aggFunction == SqlStdOperatorTable.LAST_VALUE) {
+    return SqlStdOperatorTable.HISTOGRAM_LAST_VALUE;
+  }
+ else {
+    return null;
+  }
+}

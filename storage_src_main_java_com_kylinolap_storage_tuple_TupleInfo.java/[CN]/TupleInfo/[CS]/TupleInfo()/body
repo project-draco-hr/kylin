@@ -1,0 +1,8 @@
+{
+  fieldMap=new HashMap<String,Integer>();
+  columnMap=new HashMap<TblColRef,Integer>();
+  fields=new ArrayList<String>();
+  columns=new ArrayList<TblColRef>();
+  dataTypes=new ArrayList<String>();
+  derivedColumnFillers=new ArrayList<IDerivedColumnFiller>();
+}

@@ -1,0 +1,5 @@
+{
+  long mandatoryColumnMask=rowkey.getMandatoryColumnMask();
+  if (cuboidID <= mandatoryColumnMask)   return false;
+  return (cuboidID & mandatoryColumnMask) == mandatoryColumnMask;
+}

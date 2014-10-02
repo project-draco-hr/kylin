@@ -1,0 +1,17 @@
+{
+  HashMap<String,String> renamedHTables=new HashMap<String,String>();
+  for (  CubeSegment segment : cube.getSegments()) {
+    String oldHTableName=segment.getStorageLocationIdentifier().trim();
+    String srcPrefix=CubeManager.getHbaseStorageLocationPrefix(srcConfig.getMetadataUrl());
+    String dstPrefix=CubeManager.getHbaseStorageLocationPrefix(dstConfig.getMetadataUrl());
+    logger.info("Hbase table path in the current segment: " + oldHTableName);
+    if (StringUtils.isEmpty(oldHTableName))     throw new IllegalStateException("current hbase table is blank");
+    if (oldHTableName.indexOf(srcPrefix) != 0)     throw new IllegalStateException("current hbase table is not starting with " + srcPrefix);
+    String remaining=oldHTableName.substring(srcPrefix.length());
+    String newHTableName=dstPrefix + remaining;
+    operations.add(new Opt(OptType.RENAME_TABLE_IN_HBASE,new Object[]{oldHTableName,newHTableName}));
+    operations.add(new Opt(OptType.ALTER_TABLE_COPROCESSOR,new Object[]{newHTableName}));
+    renamedHTables.put(oldHTableName,newHTableName);
+  }
+  operations.add(new Opt(OptType.CHANGE_HTABLE_NAME_IN_CUBE,new Object[]{cube.getName(),renamedHTables}));
+}

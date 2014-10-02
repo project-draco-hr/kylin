@@ -1,0 +1,25 @@
+{
+  TupleInfo tupleInfo=buildTupleInfo(keyRange.getCuboid());
+  try {
+    this.table=conn.getTable(this.tableName);
+    Iterator<Result> resultIterator=doScan(keyRange);
+    while (resultIterator.hasNext()) {
+      scanCount++;
+      try {
+        tupleQueue.put(translateResult(resultIterator.next(),tupleInfo));
+      }
+ catch (      IOException e) {
+        throw new IllegalStateException("Can't translate result " + resultIterator.next(),e);
+      }
+    }
+    logger.debug("Add " + scanCount + " new tuples to tuple queue");
+  }
+ catch (  Throwable t) {
+    throw new StorageException("Error when open connection to table " + this.tableName,t);
+  }
+ finally {
+    this.closeScanner();
+    this.closeTable();
+  }
+  return scanCount;
+}

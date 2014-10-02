@@ -1,0 +1,3 @@
+{
+  return "DynamicFilter [variableName=" + variableName + "]";
+}

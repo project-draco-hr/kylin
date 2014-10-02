@@ -1,0 +1,5 @@
+{
+  this.cubeDesc=cubeDesc;
+  this.cubeSegment=cubeSegment;
+  parseCubeDesc();
+}

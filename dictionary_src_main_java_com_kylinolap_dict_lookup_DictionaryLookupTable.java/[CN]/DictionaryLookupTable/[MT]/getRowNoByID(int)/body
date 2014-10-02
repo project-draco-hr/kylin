@@ -1,0 +1,4 @@
+{
+  int rowNo=id - dict.getMinId();
+  return rowNo;
+}

@@ -1,0 +1,59 @@
+{
+  List<TableDesc> tableDescList=new ArrayList<TableDesc>();
+  List<Map<String,String>> tableAttrsList=new ArrayList<Map<String,String>>();
+  getTables(is,tableDescList,tableAttrsList);
+  File dir=new File(tableMetaOutcomeDir);
+  if (!dir.exists()) {
+    if (!dir.mkdirs()) {
+      throw new IllegalArgumentException("Failed to create Output dir : " + dir.getAbsolutePath());
+    }
+  }
+  File tableDescDir=new File(dir,TABLE_FOLDER_NAME);
+  File tableExdDir=new File(dir,TABLE_EXD_FOLDER_NAME);
+  if (!tableDescDir.exists()) {
+    if (!tableDescDir.mkdirs()) {
+      throw new IllegalArgumentException("Failed to create Output dir : " + tableDescDir.getAbsolutePath());
+    }
+  }
+  if (!tableExdDir.exists()) {
+    if (!tableExdDir.mkdirs()) {
+      throw new IllegalArgumentException("Failed to create Output dir : " + tableExdDir.getAbsolutePath());
+    }
+  }
+  for (  TableDesc table : tableDescList) {
+    File file=new File(tableDescDir,table.getName().toUpperCase() + "." + OUTPUT_SURFIX);
+    try {
+      JsonUtil.writeValueIndent(new FileOutputStream(file),table);
+    }
+ catch (    JsonGenerationException e) {
+      throw new IllegalArgumentException(e);
+    }
+catch (    JsonMappingException e) {
+      throw new IllegalArgumentException(e);
+    }
+catch (    FileNotFoundException e) {
+      throw new IllegalArgumentException(e);
+    }
+catch (    IOException e) {
+      throw new IllegalArgumentException(e);
+    }
+  }
+  for (  Map<String,String> tableAttrs : tableAttrsList) {
+    File file=new File(tableExdDir,tableAttrs.get("tableName").toUpperCase() + "." + OUTPUT_SURFIX);
+    try {
+      JsonUtil.writeValueIndent(new FileOutputStream(file),tableAttrs);
+    }
+ catch (    JsonGenerationException e) {
+      throw new IllegalArgumentException(e);
+    }
+catch (    JsonMappingException e) {
+      throw new IllegalArgumentException(e);
+    }
+catch (    FileNotFoundException e) {
+      throw new IllegalArgumentException(e);
+    }
+catch (    IOException e) {
+      throw new IllegalArgumentException(e);
+    }
+  }
+}

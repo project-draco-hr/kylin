@@ -1,0 +1,7 @@
+{
+  setRoot(Collections.singletonList(root),root,root instanceof JoinRel);
+  if (leaf) {
+    leaves.add(root);
+  }
+  this.columnMonotonicities.clear();
+}

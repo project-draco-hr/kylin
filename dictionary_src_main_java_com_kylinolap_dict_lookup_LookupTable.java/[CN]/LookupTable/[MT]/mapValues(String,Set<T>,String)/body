@@ -1,0 +1,11 @@
+{
+  int colIdx=tableDesc.findColumnByName(col).getZeroBasedIndex();
+  int returnIdx=tableDesc.findColumnByName(returnCol).getZeroBasedIndex();
+  Set<T> result=Sets.newHashSetWithExpectedSize(values.size());
+  for (  T[] row : data.values()) {
+    if (values.contains(row[colIdx])) {
+      result.add(row[returnIdx]);
+    }
+  }
+  return result;
+}

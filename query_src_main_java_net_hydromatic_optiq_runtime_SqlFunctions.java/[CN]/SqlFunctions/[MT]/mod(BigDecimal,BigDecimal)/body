@@ -1,0 +1,4 @@
+{
+  final BigDecimal[] bigDecimals=b0.divideAndRemainder(b1);
+  return bigDecimals[1];
+}

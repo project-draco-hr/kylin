@@ -1,0 +1,6 @@
+{
+  if (cuboid > max || cuboid < 0) {
+    throw new IllegalArgumentException("Cubiod " + cuboid + " is out of scope 0-"+ max);
+  }
+  return Long.bitCount(cuboid);
+}

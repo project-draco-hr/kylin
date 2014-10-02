@@ -1,0 +1,28 @@
+{
+  String path="/cube/_test_large_cell.json";
+  String largeContent="THIS_IS_A_LARGE_CELL";
+  StringEntity content=new StringEntity(largeContent);
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  int origSize=config.getHBaseKeyValueSize();
+  ResourceStore store=ResourceStore.getStore(KylinConfig.getInstanceFromEnv());
+  try {
+    config.setProperty("kylin.hbase.client.keyvalue.maxsize",String.valueOf(largeContent.length() - 1));
+    store.deleteResource(path);
+    store.putResource(path,content,StringEntity.serializer);
+    assertTrue(store.exists(path));
+    StringEntity t=store.getResource(path,StringEntity.class,StringEntity.serializer);
+    assertEquals(content,t);
+    Path redirectPath=((HBaseResourceStore)store).bigCellHDFSPath(path);
+    Configuration hconf=HadoopUtil.getDefaultConfiguration();
+    FileSystem fileSystem=FileSystem.get(hconf);
+    assertTrue(fileSystem.exists(redirectPath));
+    FSDataInputStream in=fileSystem.open(redirectPath);
+    assertEquals(largeContent,in.readUTF());
+    in.close();
+    store.deleteResource(path);
+  }
+  finally {
+    config.setProperty("kylin.hbase.client.keyvalue.maxsize","" + origSize);
+    store.deleteResource(path);
+  }
+}

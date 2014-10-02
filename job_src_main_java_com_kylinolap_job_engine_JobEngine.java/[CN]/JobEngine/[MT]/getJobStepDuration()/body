@@ -1,0 +1,5 @@
+{
+  Collection<Double> values=JOB_DURATION.values();
+  Double[] all=(Double[])values.toArray(new Double[values.size()]);
+  return ArrayUtils.toPrimitive(all);
+}

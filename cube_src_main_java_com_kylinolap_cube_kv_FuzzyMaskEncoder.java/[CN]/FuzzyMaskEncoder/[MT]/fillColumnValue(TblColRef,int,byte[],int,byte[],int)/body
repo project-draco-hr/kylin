@@ -1,0 +1,8 @@
+{
+  if (value == null) {
+    Arrays.fill(outputValue,outputValueOffset,outputValueOffset + columnLen,RowConstants.FUZZY_MASK_ONE);
+  }
+ else {
+    Arrays.fill(outputValue,outputValueOffset,outputValueOffset + columnLen,RowConstants.FUZZY_MASK_ZERO);
+  }
+}

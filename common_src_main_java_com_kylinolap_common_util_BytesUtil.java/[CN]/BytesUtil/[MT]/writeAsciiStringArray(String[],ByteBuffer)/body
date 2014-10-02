@@ -1,0 +1,4 @@
+{
+  writeVInt(strs.length,out);
+  for (int i=0; i < strs.length; i++)   writeAsciiString(strs[i],out);
+}

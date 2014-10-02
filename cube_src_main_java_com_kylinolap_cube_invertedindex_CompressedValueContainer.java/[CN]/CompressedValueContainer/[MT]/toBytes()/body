@@ -1,0 +1,4 @@
+{
+  if (isClosedForChange() == false)   closeForChange();
+  return new ImmutableBytesWritable(compressed);
+}

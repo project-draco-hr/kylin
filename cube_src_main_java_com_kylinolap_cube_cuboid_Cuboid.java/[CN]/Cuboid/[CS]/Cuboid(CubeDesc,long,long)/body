@@ -1,0 +1,8 @@
+{
+  this.cube=cube;
+  this.inputID=originalID;
+  this.id=validID;
+  this.idBytes=Bytes.toBytes(id);
+  this.dimensionColumns=translateIdToColumns(this.id);
+  this.requirePostAggregation=calcPostAggregation(this.inputID,this.id);
+}

@@ -1,0 +1,5 @@
+{
+  conf=context.getConfiguration();
+  allKeys=new ArrayList<KEY>();
+  sampleNumber=Integer.parseInt(conf.get(BatchConstants.MAPPER_SAMPLE_NUMBER));
+}

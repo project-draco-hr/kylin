@@ -1,0 +1,4 @@
+{
+  String useDictionary=getDictionary(col);
+  return !StringUtils.isBlank(useDictionary) && !"false".equals(useDictionary);
+}

@@ -1,0 +1,15 @@
+{
+  if (job != null) {
+    Map<String,String> status=new HashMap<String,String>();
+    if (null != job.getJobID()) {
+      status.put(JobInstance.MR_JOB_ID,job.getJobID().toString());
+    }
+    if (null != job.getTrackingURL()) {
+      status.put(JobInstance.YARN_APP_URL,job.getTrackingURL().toString());
+    }
+    return status;
+  }
+ else {
+    throw new JobException("Job is null");
+  }
+}

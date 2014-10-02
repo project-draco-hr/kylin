@@ -1,0 +1,8 @@
+{
+  if (direction == RelFieldCollation.Direction.DESCENDING) {
+    return StorageContext.OrderEnum.DESCENDING;
+  }
+ else {
+    return StorageContext.OrderEnum.ASCENDING;
+  }
+}

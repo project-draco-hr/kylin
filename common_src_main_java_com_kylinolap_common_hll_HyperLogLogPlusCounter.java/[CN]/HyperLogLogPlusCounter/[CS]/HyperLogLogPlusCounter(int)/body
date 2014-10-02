@@ -1,0 +1,3 @@
+{
+  this(p,Hashing.murmur3_128());
+}

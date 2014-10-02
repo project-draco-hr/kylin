@@ -1,0 +1,8 @@
+{
+  if (equalValues == null) {
+    return column.getName() + " between " + beginValue+ " and "+ endValue;
+  }
+ else {
+    return column.getName() + " in " + equalValues;
+  }
+}

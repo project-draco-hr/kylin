@@ -1,0 +1,7 @@
+{
+  IValidatorRule<CubeDesc> rule=new RowKeyAttrRule();
+  rule.validate(cube,vContext);
+  vContext.print(System.out);
+  assertTrue("Failed to validate rowkey",vContext.getResults().length == 1);
+  assertTrue("Failed to validate mandatory error",vContext.getResults()[0].getMessage().startsWith("Rowkey column"));
+}

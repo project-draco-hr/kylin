@@ -1,0 +1,4 @@
+String nodeUri
+String type
+String action
+String name

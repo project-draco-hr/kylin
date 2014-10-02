@@ -1,0 +1,8 @@
+{
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  Configuration hconf=HadoopUtil.getDefaultConfiguration();
+  FileSystem fileSystem=FileSystem.get(hconf);
+  String localCoprocessorJar=kylinConfig.getCoprocessorLocalJar();
+  Path hdfsCoprocessorJar=DeployCoprocessorCLI.uploadCoprocessorJar(localCoprocessorJar,fileSystem,null);
+  DeployCoprocessorCLI.setCoprocessorOnHTable(desc,hdfsCoprocessorJar);
+}

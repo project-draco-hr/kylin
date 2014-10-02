@@ -1,0 +1,5 @@
+{
+  super(cluster,traitSet,child,collation,offset,fetch);
+  Preconditions.checkArgument(getConvention() == OLAPRel.CONVENTION);
+  Preconditions.checkArgument(getConvention() == child.getConvention());
+}

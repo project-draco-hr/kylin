@@ -1,0 +1,11 @@
+{
+  long mask=1L;
+  int i;
+  for (i=Long.SIZE - 1; i >= 0; i--) {
+    if ((cardinality & (mask << i)) != 0) {
+      break;
+    }
+  }
+  if (i < 0)   throw new IllegalStateException("the cardinality is 0");
+  return ((i + 1) + 7) / 8;
+}

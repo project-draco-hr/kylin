@@ -1,0 +1,20 @@
+{
+  int len=BytesUtil.readVInt(in);
+  String result;
+  try {
+    if (in.hasArray()) {
+      int pos=in.position();
+      result=new String(in.array(),pos,len,"ISO-8859-1");
+      in.position(pos + len);
+    }
+ else {
+      byte[] tmp=new byte[len];
+      in.get(tmp);
+      result=new String(tmp,"ISO-8859-1");
+    }
+  }
+ catch (  UnsupportedEncodingException e) {
+    throw new RuntimeException(e);
+  }
+  return result;
+}

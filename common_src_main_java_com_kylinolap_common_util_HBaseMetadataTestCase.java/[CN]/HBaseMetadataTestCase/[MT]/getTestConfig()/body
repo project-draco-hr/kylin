@@ -1,0 +1,6 @@
+{
+  if (this.tempTestMetadataUrl == null) {
+    throw new IllegalArgumentException("Call createTestMetadata() method to initialize TestMetadataUrl");
+  }
+  return KylinConfig.getInstanceFromEnv();
+}

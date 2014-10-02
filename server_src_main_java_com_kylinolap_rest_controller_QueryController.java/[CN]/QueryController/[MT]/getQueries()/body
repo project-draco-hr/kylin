@@ -1,0 +1,4 @@
+{
+  String creator=SecurityContextHolder.getContext().getAuthentication().getName();
+  return queryService.getQueries(creator);
+}

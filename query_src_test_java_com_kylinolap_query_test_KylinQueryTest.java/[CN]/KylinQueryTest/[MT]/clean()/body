@@ -1,0 +1,7 @@
+{
+  if (cubeConnection != null)   closeConnection(cubeConnection);
+  if (h2Connection != null)   closeConnection(h2Connection);
+  System.clearProperty(KylinConfig.KYLIN_CONF);
+  KylinConfig.destoryInstance();
+  CoprocessorEnabler.forceCoprocessorUnset();
+}

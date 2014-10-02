@@ -1,0 +1,4 @@
+{
+  if (sum == null)   sum=new HyperLogLogPlusCounter(value);
+ else   sum.merge(value);
+}

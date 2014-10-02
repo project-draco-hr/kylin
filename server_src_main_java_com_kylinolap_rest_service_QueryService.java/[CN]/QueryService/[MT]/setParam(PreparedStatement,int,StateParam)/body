@@ -1,0 +1,58 @@
+{
+  boolean isNull=(null == param.getValue());
+  Class<?> clazz=Object.class;
+  try {
+    clazz=Class.forName(param.getClassName());
+  }
+ catch (  ClassNotFoundException e) {
+    e.printStackTrace();
+  }
+  Rep rep=Rep.of(clazz);
+switch (rep) {
+case PRIMITIVE_CHAR:
+case CHARACTER:
+case STRING:
+    preparedState.setString(index,isNull ? null : String.valueOf(param.getValue()));
+  break;
+case PRIMITIVE_INT:
+case INTEGER:
+preparedState.setInt(index,isNull ? null : Integer.valueOf(param.getValue()));
+break;
+case PRIMITIVE_SHORT:
+case SHORT:
+preparedState.setShort(index,isNull ? null : Short.valueOf(param.getValue()));
+break;
+case PRIMITIVE_LONG:
+case LONG:
+preparedState.setLong(index,isNull ? null : Long.valueOf(param.getValue()));
+break;
+case PRIMITIVE_FLOAT:
+case FLOAT:
+preparedState.setFloat(index,isNull ? null : Float.valueOf(param.getValue()));
+break;
+case PRIMITIVE_DOUBLE:
+case DOUBLE:
+preparedState.setDouble(index,isNull ? null : Double.valueOf(param.getValue()));
+break;
+case PRIMITIVE_BOOLEAN:
+case BOOLEAN:
+preparedState.setBoolean(index,isNull ? null : Boolean.parseBoolean(param.getValue()));
+break;
+case PRIMITIVE_BYTE:
+case BYTE:
+preparedState.setByte(index,isNull ? null : Byte.valueOf(param.getValue()));
+break;
+case JAVA_UTIL_DATE:
+case JAVA_SQL_DATE:
+preparedState.setDate(index,isNull ? null : java.sql.Date.valueOf(param.getValue()));
+break;
+case JAVA_SQL_TIME:
+preparedState.setTime(index,isNull ? null : Time.valueOf(param.getValue()));
+break;
+case JAVA_SQL_TIMESTAMP:
+preparedState.setTimestamp(index,isNull ? null : Timestamp.valueOf(param.getValue()));
+break;
+default :
+preparedState.setObject(index,isNull ? null : param.getValue());
+}
+}

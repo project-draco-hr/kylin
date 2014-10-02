@@ -1,0 +1,10 @@
+{
+  double[] all=getJobStepDuration();
+  Arrays.sort(all);
+  if (all.length > 0) {
+    return all[0];
+  }
+ else {
+    return 0;
+  }
+}

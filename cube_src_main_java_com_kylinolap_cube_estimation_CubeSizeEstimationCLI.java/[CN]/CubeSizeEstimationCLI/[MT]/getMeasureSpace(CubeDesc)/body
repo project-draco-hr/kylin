@@ -1,0 +1,8 @@
+{
+  int space=0;
+  for (  MeasureDesc measureDesc : cubeDesc.getMeasures()) {
+    DataType returnType=measureDesc.getFunction().getReturnDataType();
+    space+=returnType.getSpaceEstimate();
+  }
+  return space;
+}

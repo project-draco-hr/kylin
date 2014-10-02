@@ -1,0 +1,7 @@
+{
+  int remainder=v % x;
+  if (remainder < 0) {
+    remainder+=x;
+  }
+  return v - remainder;
+}

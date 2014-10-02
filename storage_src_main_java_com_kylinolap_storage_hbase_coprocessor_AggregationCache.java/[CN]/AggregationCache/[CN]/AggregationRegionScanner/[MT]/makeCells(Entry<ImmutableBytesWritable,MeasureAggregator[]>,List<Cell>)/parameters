@@ -1,0 +1,2 @@
+Entry<ImmutableBytesWritable,MeasureAggregator[]> entry
+List<Cell> results

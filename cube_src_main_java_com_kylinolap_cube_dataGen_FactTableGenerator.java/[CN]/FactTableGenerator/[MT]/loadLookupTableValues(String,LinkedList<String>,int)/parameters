@@ -1,0 +1,3 @@
+String lookupTableName
+LinkedList<String> columnNames
+int distinctRowCount

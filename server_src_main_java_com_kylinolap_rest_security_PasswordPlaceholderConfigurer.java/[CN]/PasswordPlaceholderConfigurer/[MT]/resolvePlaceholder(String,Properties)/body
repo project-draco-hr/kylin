@@ -1,0 +1,8 @@
+{
+  if (placeholder.toLowerCase().contains("password")) {
+    return decrypt(props.getProperty(placeholder));
+  }
+ else {
+    return props.getProperty(placeholder);
+  }
+}

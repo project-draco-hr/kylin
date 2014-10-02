@@ -1,0 +1,5 @@
+{
+  CubeDesc cubeDesc=cube.getDescriptor();
+  boolean matchAgg=cubeDesc.listAllFunctions().containsAll(aggregations);
+  return matchAgg;
+}

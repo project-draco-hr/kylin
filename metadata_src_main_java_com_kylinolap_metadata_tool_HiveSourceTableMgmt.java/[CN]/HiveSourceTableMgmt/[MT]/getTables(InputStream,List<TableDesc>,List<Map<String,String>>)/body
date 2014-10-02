@@ -1,0 +1,47 @@
+{
+  InputStreamReader reader=new InputStreamReader(is);
+  BufferedReader bufferedReader=new BufferedReader(reader);
+  Map<String,String> tableAttrs=new HashMap<String,String>();
+  TableDesc tableDesc=new TableDesc();
+  String line;
+  boolean hit=false;
+  try {
+    line=bufferedReader.readLine();
+    while (line != null) {
+      logger.info(line);
+      int i=line.indexOf(":");
+      if (i == -1) {
+        line=bufferedReader.readLine();
+        continue;
+      }
+      String key=line.substring(0,i);
+      String value=line.substring(i + 1,line.length());
+      if (key.equals("tableName")) {
+        hit=true;
+        tableAttrs=new HashMap<String,String>();
+        tableAttrsList.add(tableAttrs);
+        tableDesc=new TableDesc();
+        tableDescList.add(tableDesc);
+      }
+      if (!hit) {
+        line=bufferedReader.readLine();
+        continue;
+      }
+      if (line.startsWith("columns")) {
+        String tname=tableAttrs.get("tableName");
+        tableDesc.setDatabase("default".toUpperCase());
+        tableDesc.setName(tname.toUpperCase());
+        tableDesc.setUuid(UUID.randomUUID().toString());
+        addColumns(tableDesc,value);
+      }
+      tableAttrs.put(key,value);
+      if (key.equals("lastUpdateTime")) {
+        hit=false;
+      }
+      line=bufferedReader.readLine();
+    }
+  }
+ catch (  IOException e) {
+    throw new IllegalArgumentException(e);
+  }
+}

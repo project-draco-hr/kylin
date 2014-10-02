@@ -1,0 +1,4 @@
+{
+  String cmd="hadoop fs -rm -f -r " + hdfsDir;
+  assertEquals(0,hadoopCli.execCommand(cmd));
+}

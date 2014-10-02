@@ -1,0 +1,7 @@
+{
+  inputRows++;
+  inputBytes+=row.get(0).getRowLength();
+  for (int i=0, n=row.size(); i < n; i++) {
+    inputBytes+=row.get(i).getValueLength();
+  }
+}

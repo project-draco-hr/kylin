@@ -1,0 +1,5 @@
+{
+  ResourceStore store=ResourceStore.getStore(config);
+  ArrayList<String> result=store.listResources(path);
+  System.out.println("" + result);
+}

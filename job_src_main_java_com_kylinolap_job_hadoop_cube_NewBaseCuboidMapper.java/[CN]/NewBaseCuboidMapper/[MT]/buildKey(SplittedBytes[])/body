@@ -1,0 +1,36 @@
+{
+  int filledDimension=0;
+  for (  TableJoin tableJoin : this.tableJoins) {
+    String dimTblName=tableJoin.lookupTableName;
+    LookupBytesTable dimTbl=this.lookupTables.get(dimTblName);
+    ByteArray[] rawKey=new ByteArray[tableJoin.fkIndice.size()];
+    for (int i=0; i < tableJoin.fkIndice.size(); ++i) {
+      rawKey[i]=new ByteArray(trimSplitBuffer(splitBuffers[tableJoin.fkIndice.get(i)]));
+    }
+    Array<ByteArray> key=new Array<ByteArray>(rawKey);
+    ByteArray[] dimRow=dimTbl.getRow(key);
+    if (dimRow == null) {
+      if (tableJoin.joinType.equalsIgnoreCase("INNER")) {
+        return null;
+      }
+ else       if (tableJoin.joinType.equalsIgnoreCase("LEFT")) {
+        for (        Pair<Integer,Integer> relation : tableJoin.dimTblColAsRowKey) {
+          keyBytesBuf[relation.getSecond()]=nullValue;
+          filledDimension++;
+        }
+      }
+    }
+ else {
+      for (      Pair<Integer,Integer> relation : tableJoin.dimTblColAsRowKey) {
+        keyBytesBuf[relation.getSecond()]=dimRow[relation.getFirst()].data;
+        filledDimension++;
+      }
+    }
+  }
+  for (  Pair<Integer,Integer> relation : this.factTblColAsRowKey) {
+    keyBytesBuf[relation.getSecond()]=trimSplitBuffer(splitBuffers[relation.getFirst()]);
+    filledDimension++;
+  }
+  Assert.isTrue(filledDimension == keyBytesBuf.length);
+  return rowKeyEncoder.encode(keyBytesBuf);
+}

@@ -1,0 +1,6 @@
+{
+  if (StringUtils.isBlank(cmd))   return cmd;
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  String log=config.getKylinJobLogDir() + "/" + job.getUuid()+ "_"+ suffix+ ".log";
+  return "set -o pipefail; " + cmd + " 2>&1 | tee "+ log;
+}

@@ -1,0 +1,4 @@
+{
+  int id=info.dict(col).getIdFromValueBytes(value,offset,len);
+  setValueID(col,id);
+}

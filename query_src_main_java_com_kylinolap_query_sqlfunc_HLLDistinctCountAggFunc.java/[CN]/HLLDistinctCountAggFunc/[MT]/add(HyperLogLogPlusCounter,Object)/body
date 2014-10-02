@@ -1,0 +1,22 @@
+{
+  if (v instanceof Long) {
+    long l=(Long)v;
+    if (counter == null) {
+      return new FixedValueHLLCMockup(l);
+    }
+ else {
+      ((FixedValueHLLCMockup)counter).set(l);
+      return counter;
+    }
+  }
+ else {
+    HyperLogLogPlusCounter c=(HyperLogLogPlusCounter)v;
+    if (counter == null) {
+      return new HyperLogLogPlusCounter(c);
+    }
+ else {
+      counter.merge(c);
+      return counter;
+    }
+  }
+}

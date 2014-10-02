@@ -1,0 +1,3 @@
+{
+  return (b0 == null || b1 == null) ? null : b0.divide(b1,MathContext.DECIMAL64);
+}

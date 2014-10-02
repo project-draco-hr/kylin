@@ -1,0 +1,71 @@
+{
+  TupleFilter filter=null;
+  SqlOperator op=call.getOperator();
+switch (op.getKind()) {
+case AND:
+    filter=new LogicalTupleFilter(FilterOperatorEnum.AND);
+  break;
+case OR:
+filter=new LogicalTupleFilter(FilterOperatorEnum.OR);
+break;
+case NOT:
+filter=new LogicalTupleFilter(FilterOperatorEnum.NOT);
+break;
+case EQUALS:
+filter=new CompareTupleFilter(FilterOperatorEnum.EQ);
+break;
+case GREATER_THAN:
+filter=new CompareTupleFilter(FilterOperatorEnum.GT);
+break;
+case LESS_THAN:
+filter=new CompareTupleFilter(FilterOperatorEnum.LT);
+break;
+case GREATER_THAN_OR_EQUAL:
+filter=new CompareTupleFilter(FilterOperatorEnum.GTE);
+break;
+case LESS_THAN_OR_EQUAL:
+filter=new CompareTupleFilter(FilterOperatorEnum.LTE);
+break;
+case NOT_EQUALS:
+filter=new CompareTupleFilter(FilterOperatorEnum.NEQ);
+break;
+case IS_NULL:
+filter=new CompareTupleFilter(FilterOperatorEnum.ISNULL);
+break;
+case IS_NOT_NULL:
+filter=new CompareTupleFilter(FilterOperatorEnum.ISNOTNULL);
+break;
+case CAST:
+case REINTERPRET:
+break;
+case CASE:
+filter=new CaseTupleFilter();
+break;
+case OTHER:
+if (op.getName().equalsIgnoreCase("extract_date")) {
+filter=new ExtractTupleFilter(FilterOperatorEnum.EXTRACT);
+}
+ else {
+throw new UnsupportedOperationException(op.getName());
+}
+break;
+default :
+throw new UnsupportedOperationException(op.getName());
+}
+for (RexNode operand : call.operands) {
+TupleFilter childFilter=operand.accept(this);
+if (filter == null) {
+filter=childFilter;
+}
+ else {
+filter.addChild(childFilter);
+}
+}
+if (op.getKind() == SqlKind.OR) {
+CompareTupleFilter inFilter=mergeToInClause(filter);
+if (inFilter != null) {
+filter=inFilter;
+}
+}
+return filter;
+}

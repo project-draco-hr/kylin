@@ -1,0 +1,8 @@
+CubeSegment cubeSeg
+Collection<HBaseKeyRange> keyRanges
+HConnection conn
+Collection<TblColRef> dimensionColumns
+TupleFilter filter
+Collection<TblColRef> groupByColumns
+Collection<RowValueDecoder> rowValueDecoders
+StorageContext context

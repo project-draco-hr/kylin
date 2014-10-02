@@ -1,0 +1,9 @@
+{
+  StringBuilder buf=new StringBuilder();
+  buf.append(cuboid.getId());
+  for (  Object value : values) {
+    buf.append(",");
+    buf.append(value);
+  }
+  return buf.toString();
+}

@@ -1,0 +1,13 @@
+{
+  out.writeInt(rows.size());
+  if (rows.size() > 0) {
+    int n=rows.get(0).length;
+    out.writeInt(n);
+    for (int i=0; i < rows.size(); i++) {
+      String[] row=rows.get(i);
+      for (int j=0; j < n; j++) {
+        out.writeUTF(row[j]);
+      }
+    }
+  }
+}

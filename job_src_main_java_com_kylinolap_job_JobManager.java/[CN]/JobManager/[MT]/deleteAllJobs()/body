@@ -1,0 +1,6 @@
+{
+  List<JobInstance> allJobs=listJobs(null,null);
+  for (  JobInstance job : allJobs) {
+    jobDAO.deleteJob(job);
+  }
+}

@@ -1,0 +1,15 @@
+{
+  try {
+    boolean hasNext=rs.next();
+    if (hasNext) {
+      for (      RelDataTypeField relField : olapContext.olapRowType.getFieldList()) {
+        Object value=rs.getObject(relField.getName().toLowerCase());
+        current[relField.getIndex()]=value;
+      }
+    }
+    return hasNext;
+  }
+ catch (  SQLException e) {
+    throw new IllegalStateException("Can't populate result!",e);
+  }
+}

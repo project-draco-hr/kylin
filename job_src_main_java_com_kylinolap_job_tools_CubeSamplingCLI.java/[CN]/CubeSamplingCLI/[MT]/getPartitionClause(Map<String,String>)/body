@@ -1,0 +1,32 @@
+{
+  try {
+    String partitioned=tableAttrs.get(HIVE_PARTITIONED_KEY);
+    String partitionedCols=tableAttrs.get(HIVE_PARTITIONED_COLUMNS_KEY);
+    logger.info("hive partitioned: " + partitioned);
+    logger.info("hive partitioned columns: " + partitionedCols);
+    if ("true".equalsIgnoreCase(partitioned) && !StringUtils.isEmpty(partitionedCols)) {
+      StringBuffer sb=new StringBuffer();
+      sb.append("partition(");
+      Pattern pattern=Pattern.compile("struct partition_columns \\{(.*)\\}");
+      Matcher matcher=pattern.matcher(partitionedCols);
+      if (matcher.find()) {
+        String str=matcher.group(1).trim();
+        for (        String pair : str.split(", ")) {
+          String[] tokens=pair.trim().split(" ");
+          if (tokens.length != 2) {
+            throw new IllegalStateException("Error parsing " + pair + " in "+ partitionedCols);
+          }
+          sb.append(tokens[1] + ",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append(")");
+        return sb.toString();
+      }
+    }
+  }
+ catch (  Exception e) {
+    logger.error(e.getLocalizedMessage());
+    return "";
+  }
+  return "";
+}

@@ -1,0 +1,3 @@
+{
+  return rangeIterator.hasNext() || resultIterator.hasNext();
+}

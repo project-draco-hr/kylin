@@ -1,0 +1,8 @@
+{
+  try {
+    value.writeRegisters(out);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

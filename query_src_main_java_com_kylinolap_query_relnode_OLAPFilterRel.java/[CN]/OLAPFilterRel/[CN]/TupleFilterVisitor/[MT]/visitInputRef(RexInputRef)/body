@@ -1,0 +1,6 @@
+{
+  TblColRef column=inputRowType.getColumnByIndex(inputRef.getIndex());
+  context.allColumns.add(column);
+  ColumnTupleFilter filter=new ColumnTupleFilter(column);
+  return filter;
+}

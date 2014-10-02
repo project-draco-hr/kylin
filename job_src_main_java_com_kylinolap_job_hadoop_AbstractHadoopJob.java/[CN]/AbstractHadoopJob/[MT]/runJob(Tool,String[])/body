@@ -1,0 +1,10 @@
+{
+  try {
+    int exitCode=ToolRunner.run(job,args);
+    System.exit(exitCode);
+  }
+ catch (  Exception e) {
+    e.printStackTrace(System.err);
+    System.exit(5);
+  }
+}

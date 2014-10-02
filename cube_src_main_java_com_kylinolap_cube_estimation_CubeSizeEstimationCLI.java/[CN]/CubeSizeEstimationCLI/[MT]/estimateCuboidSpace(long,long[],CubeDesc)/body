@@ -1,0 +1,22 @@
+{
+  RowKeyColInfo rowKeyColInfo=extractRowKeyInfo(cubeDesc);
+  RowKeyDesc rowKeyDesc=cubeDesc.getRowkey();
+  long rowCount=1;
+  int[] rowKeySpaces=estimateRowKeyColSpace(rowKeyDesc,cardinality);
+  int dimensionSpace=0;
+  int measureSpace=getMeasureSpace(cubeDesc);
+  for (  List<Integer> hlist : rowKeyColInfo.hierachyColBitIndice) {
+    int i;
+    for (i=0; i < hlist.size() && rowKeyColExists(hlist.get(i),cuboidID); ++i) {
+      dimensionSpace+=rowKeySpaces[hlist.get(i)];
+    }
+    if (i != 0)     rowCount*=cardinality[hlist.get(i - 1)];
+  }
+  for (  int index : rowKeyColInfo.nonHierachyColBitIndice) {
+    if (rowKeyColExists(index,cuboidID)) {
+      rowCount*=cardinality[index];
+      dimensionSpace+=rowKeySpaces[index];
+    }
+  }
+  return rowCount * (dimensionSpace + measureSpace);
+}

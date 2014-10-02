@@ -1,0 +1,5 @@
+RexNode node
+int leftCount
+int rightCount
+List<RexNode> extraLeftExprs
+List<RexNode> extraRightExprs

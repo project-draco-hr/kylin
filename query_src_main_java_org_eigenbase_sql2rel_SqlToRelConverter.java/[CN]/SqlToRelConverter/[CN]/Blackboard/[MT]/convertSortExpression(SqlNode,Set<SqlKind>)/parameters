@@ -1,0 +1,2 @@
+SqlNode expr
+Set<SqlKind> flags

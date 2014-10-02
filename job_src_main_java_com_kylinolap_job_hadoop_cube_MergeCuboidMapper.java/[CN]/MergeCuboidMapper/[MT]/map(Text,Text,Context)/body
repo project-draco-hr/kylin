@@ -1,0 +1,38 @@
+{
+  long cuboidID=rowKeySplitter.split(key.getBytes(),key.getBytes().length);
+  Cuboid cuboid=Cuboid.findById(cubeDesc,cuboidID);
+  SplittedBytes[] splittedByteses=rowKeySplitter.getSplitBuffers();
+  int bufOffset=0;
+  BytesUtil.writeUnsignedLong(cuboidID,newKeyBuf,bufOffset,RowConstants.ROWKEY_CUBOIDID_LEN);
+  bufOffset+=RowConstants.ROWKEY_CUBOIDID_LEN;
+  for (int i=0; i < cuboid.getColumns().size(); ++i) {
+    TblColRef col=cuboid.getColumns().get(i);
+    if (this.checkNeedMerging(col)) {
+      DictionaryManager dictMgr=DictionaryManager.getInstance(config);
+      Dictionary<?> sourceDict=dictMgr.getDictionary(sourceCubeSegment.getDictResPath(col));
+      Dictionary<?> mergedDict=dictMgr.getDictionary(mergedCubeSegment.getDictResPath(col));
+      while (sourceDict.getSizeOfValue() > newKeyBuf.length - bufOffset || mergedDict.getSizeOfValue() > newKeyBuf.length - bufOffset) {
+        byte[] oldBuf=newKeyBuf;
+        newKeyBuf=new byte[2 * newKeyBuf.length];
+        System.arraycopy(oldBuf,0,newKeyBuf,0,oldBuf.length);
+      }
+      int idInSourceDict=BytesUtil.readUnsigned(splittedByteses[i + 1].value,0,splittedByteses[i + 1].length);
+      int size=sourceDict.getValueBytesFromId(idInSourceDict,newKeyBuf,bufOffset);
+      int idInMergedDict=mergedDict.getIdFromValueBytes(newKeyBuf,bufOffset,size);
+      BytesUtil.writeUnsigned(idInMergedDict,newKeyBuf,bufOffset,mergedDict.getSizeOfId());
+      bufOffset+=mergedDict.getSizeOfId();
+    }
+ else {
+      while (splittedByteses[i + 1].length > newKeyBuf.length - bufOffset) {
+        byte[] oldBuf=newKeyBuf;
+        newKeyBuf=new byte[2 * newKeyBuf.length];
+        System.arraycopy(oldBuf,0,newKeyBuf,0,oldBuf.length);
+      }
+      System.arraycopy(splittedByteses[i + 1].value,0,newKeyBuf,bufOffset,splittedByteses[i + 1].length);
+      bufOffset+=splittedByteses[i + 1].length;
+    }
+  }
+  byte[] newKey=Arrays.copyOf(newKeyBuf,bufOffset);
+  outputKey.set(newKey,0,newKey.length);
+  context.write(outputKey,value);
+}

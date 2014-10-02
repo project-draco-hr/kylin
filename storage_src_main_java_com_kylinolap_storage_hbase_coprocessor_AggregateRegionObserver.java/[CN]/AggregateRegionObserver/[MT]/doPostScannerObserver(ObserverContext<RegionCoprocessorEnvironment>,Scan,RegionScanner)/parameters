@@ -1,0 +1,3 @@
+ObserverContext<RegionCoprocessorEnvironment> ctxt
+Scan scan
+RegionScanner innerScanner

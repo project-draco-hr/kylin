@@ -1,0 +1,18 @@
+{
+  Assert.notNull(acls,"ACLs are required");
+  Assert.notEmpty(findNow,"Items to find now required");
+  String sql=computeRepeatingSql(lookupPrimaryKeysWhereClause,findNow.size());
+  Set<Long> parentsToLookup=jdbcTemplate.query(sql,new PreparedStatementSetter(){
+    public void setValues(    PreparedStatement ps) throws SQLException {
+      int i=0;
+      for (      Long toFind : findNow) {
+        i++;
+        ps.setLong(i,toFind);
+      }
+    }
+  }
+,new ProcessResultSet(acls,sids));
+  if (parentsToLookup.size() > 0) {
+    lookupPrimaryKeys(acls,parentsToLookup,sids);
+  }
+}

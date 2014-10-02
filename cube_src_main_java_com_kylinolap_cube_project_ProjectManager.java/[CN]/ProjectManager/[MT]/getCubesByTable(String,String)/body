@@ -1,0 +1,8 @@
+{
+  project=ProjectInstance.getNormalizedProjectName(project);
+  tableName=tableName.toUpperCase();
+  List<CubeInstance> cubes=new ArrayList<CubeInstance>();
+  ProjectTable projectTable=getProjectTable(project,tableName);
+  cubes.addAll(projectTable.getCubes());
+  return cubes;
+}

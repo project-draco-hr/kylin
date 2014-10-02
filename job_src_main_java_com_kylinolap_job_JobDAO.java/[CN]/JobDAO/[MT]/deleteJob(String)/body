@@ -1,0 +1,3 @@
+{
+  store.deleteResource(ResourceStore.JOB_PATH_ROOT + "/" + uuid);
+}

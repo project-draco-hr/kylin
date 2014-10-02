@@ -1,0 +1,12 @@
+{
+  Assert.notNull(dataSource,"DataSource required");
+  Assert.notNull(aclCache,"AclCache required");
+  Assert.notNull(aclAuthorizationStrategy,"AclAuthorizationStrategy required");
+  Assert.notNull(grantingStrategy,"grantingStrategy required");
+  jdbcTemplate=new JdbcTemplate(dataSource);
+  this.aclCache=aclCache;
+  this.aclAuthorizationStrategy=aclAuthorizationStrategy;
+  this.grantingStrategy=grantingStrategy;
+  fieldAces.setAccessible(true);
+  fieldAcl.setAccessible(true);
+}

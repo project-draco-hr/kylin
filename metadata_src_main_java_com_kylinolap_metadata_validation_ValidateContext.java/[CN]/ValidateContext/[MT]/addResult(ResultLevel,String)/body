@@ -1,0 +1,3 @@
+{
+  results.add(new Result(level,message));
+}

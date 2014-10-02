@@ -1,0 +1,4 @@
+SqlNode seek
+boolean isIn
+boolean isExists
+boolean needsOuterJoin

@@ -1,0 +1,4 @@
+{
+  int exitCode=ToolRunner.run(new CubeSizeEstimationJob(),args);
+  System.exit(exitCode);
+}

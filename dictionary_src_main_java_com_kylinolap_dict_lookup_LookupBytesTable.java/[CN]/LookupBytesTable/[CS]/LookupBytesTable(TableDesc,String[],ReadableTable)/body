@@ -1,0 +1,3 @@
+{
+  super(tableDesc,keyColumns,table);
+}

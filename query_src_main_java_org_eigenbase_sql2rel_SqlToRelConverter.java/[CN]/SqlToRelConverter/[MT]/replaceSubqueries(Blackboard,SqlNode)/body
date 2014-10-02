@@ -1,0 +1,6 @@
+{
+  findSubqueries(bb,expr,false);
+  for (  SqlNode node : bb.subqueryList) {
+    substituteSubquery(bb,node);
+  }
+}

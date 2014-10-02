@@ -1,0 +1,17 @@
+{
+  tableName=tableName.toUpperCase();
+  Map<String,String> result=new HashMap<String,String>();
+  if (srcTableExdMap.containsKey(tableName)) {
+    Map<String,String> tmp=srcTableExdMap.get(tableName);
+    Iterator<Entry<String,String>> it=tmp.entrySet().iterator();
+    while (it.hasNext()) {
+      Entry<String,String> entry=it.next();
+      result.put(entry.getKey(),entry.getValue());
+    }
+    result.put(MetadataConstances.TABLE_EXD_STATUS_KEY,"true");
+  }
+ else {
+    result.put(MetadataConstances.TABLE_EXD_STATUS_KEY,"false");
+  }
+  return result;
+}

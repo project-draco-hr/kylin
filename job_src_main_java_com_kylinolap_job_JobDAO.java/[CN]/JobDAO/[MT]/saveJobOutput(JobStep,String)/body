@@ -1,0 +1,3 @@
+{
+  saveJobOutput(jobStep.getJobInstance().getUuid(),jobStep.getSequenceID(),outputString);
+}

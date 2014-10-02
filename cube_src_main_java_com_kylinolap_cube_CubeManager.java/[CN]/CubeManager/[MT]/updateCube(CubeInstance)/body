@@ -1,0 +1,6 @@
+{
+  logger.info("Updating cube instance '" + cube.getName());
+  saveResource(cube);
+  logger.info("Cube with " + cube.getSegments().size() + " segments is saved");
+  return cube;
+}

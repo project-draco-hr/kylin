@@ -1,0 +1,3 @@
+CubeSegment cubeSegment
+Cuboid cuboid
+Collection<TblColRef> dimensionColumns

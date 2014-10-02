@@ -1,0 +1,6 @@
+{
+  if (item < 1 || item > list.size()) {
+    return null;
+  }
+  return list.get(item - 1);
+}

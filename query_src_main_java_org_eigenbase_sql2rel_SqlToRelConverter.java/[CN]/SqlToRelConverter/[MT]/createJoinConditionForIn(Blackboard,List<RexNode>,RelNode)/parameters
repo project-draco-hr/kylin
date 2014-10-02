@@ -1,0 +1,3 @@
+Blackboard bb
+List<RexNode> leftKeys
+RelNode rightRel

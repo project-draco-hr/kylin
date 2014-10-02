@@ -1,0 +1,13 @@
+{
+  boolean finished=false;
+  while (!finished) {
+    Thread.sleep(5 * 1000L);
+    finished=true;
+    JobInstance savedJob=jobManager.getJob(jobUuid);
+    JobStatusEnum jobStatus=savedJob.getStatus();
+    System.out.println("Job " + jobUuid + " status: "+ jobStatus);
+    if (jobStatus.getCode() <= JobStatusEnum.RUNNING.getCode()) {
+      finished=false;
+    }
+  }
+}

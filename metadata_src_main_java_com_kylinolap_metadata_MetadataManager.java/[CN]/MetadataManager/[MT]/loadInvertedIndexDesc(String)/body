@@ -1,0 +1,10 @@
+{
+  ResourceStore store=getStore();
+  logger.debug("Loading InvertedIndexDesc " + store.getReadableResourcePath(path));
+  InvertedIndexDesc desc=store.getResource(path,InvertedIndexDesc.class,IIDESC_SERIALIZER);
+  if (StringUtils.isBlank(desc.getName())) {
+    throw new IllegalStateException("InvertedIndexDesc name must not be blank");
+  }
+  desc.init(this);
+  return desc;
+}

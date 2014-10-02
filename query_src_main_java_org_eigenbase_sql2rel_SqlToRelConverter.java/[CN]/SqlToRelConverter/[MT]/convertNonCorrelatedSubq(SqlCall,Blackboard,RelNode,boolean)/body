@@ -1,0 +1,14 @@
+{
+  if (subqueryConverter.canConvertSubquery() && isSubqNonCorrelated(converted,bb)) {
+    RexNode constExpr=mapConvertedNonCorrSubqs.get(call);
+    if (constExpr == null) {
+      constExpr=subqueryConverter.convertSubquery(call,this,isExists,isExplain);
+    }
+    if (constExpr != null) {
+      bb.mapSubqueryToExpr.put(call,constExpr);
+      mapConvertedNonCorrSubqs.put(call,constExpr);
+      return true;
+    }
+  }
+  return false;
+}

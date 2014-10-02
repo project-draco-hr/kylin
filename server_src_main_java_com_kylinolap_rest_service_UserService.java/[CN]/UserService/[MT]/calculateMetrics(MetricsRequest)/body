@@ -1,0 +1,9 @@
+{
+  MetricsResponse metrics=new MetricsResponse();
+  Date startTime=(null == request.getStartTime()) ? new Date(-1) : request.getStartTime();
+  Date endTime=(null == request.getEndTime()) ? new Date() : request.getEndTime();
+  String userCountSql="select count(distinct username) as count from user_hits where hit_time > ? and hit_time < ?";
+  int userCount=(Integer)jdbcTemplate.queryForObject(userCountSql,new Object[]{startTime,endTime},Integer.class);
+  metrics.increase("userCount",(float)userCount);
+  return metrics;
+}

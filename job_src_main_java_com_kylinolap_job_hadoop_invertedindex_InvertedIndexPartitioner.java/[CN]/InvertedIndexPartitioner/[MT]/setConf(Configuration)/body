@@ -1,0 +1,4 @@
+{
+  this.conf=conf;
+  this.timestampGranularity=Long.parseLong(conf.get(BatchConstants.TIMESTAMP_GRANULARITY));
+}

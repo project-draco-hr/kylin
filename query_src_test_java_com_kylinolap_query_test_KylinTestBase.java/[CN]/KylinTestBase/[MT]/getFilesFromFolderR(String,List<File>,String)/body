@@ -1,0 +1,13 @@
+{
+  File folder=new File(directoryStr);
+  for (  final File fileEntry : folder.listFiles()) {
+    if (fileEntry.isDirectory()) {
+      getFilesFromFolderR(fileEntry.getAbsolutePath(),files,fileType);
+    }
+ else     if (fileEntry.isFile()) {
+      if (fileEntry.getName().toLowerCase().endsWith(fileType.toLowerCase())) {
+        files.add(fileEntry);
+      }
+    }
+  }
+}

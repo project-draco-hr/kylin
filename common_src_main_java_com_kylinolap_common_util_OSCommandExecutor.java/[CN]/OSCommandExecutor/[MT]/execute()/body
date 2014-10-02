@@ -1,0 +1,6 @@
+{
+  if (remoteHost == null)   runNativeCommand();
+ else   runRemoteCommand();
+  if (exitCode != 0)   throw new IOException("OS command error exit with " + exitCode + " -- "+ command);
+  return output;
+}

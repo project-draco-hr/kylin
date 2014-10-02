@@ -1,0 +1,14 @@
+{
+  int firstJobIndex=0;
+  for (int i=0; i < stepList.size(); i++) {
+    JobStep currentStep=stepList.get(i);
+    if (currentStep.getStatus().isRunable() == false) {
+      continue;
+    }
+ else {
+      firstJobIndex=i;
+      break;
+    }
+  }
+  return firstJobIndex;
+}

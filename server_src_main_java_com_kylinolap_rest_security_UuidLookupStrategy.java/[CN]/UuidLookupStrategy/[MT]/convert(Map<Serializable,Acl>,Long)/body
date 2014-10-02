@@ -1,0 +1,21 @@
+{
+  Assert.notEmpty(inputMap,"InputMap required");
+  Assert.notNull(currentIdentity,"CurrentIdentity required");
+  Acl uncastAcl=inputMap.get(currentIdentity);
+  Assert.isInstanceOf(AclImpl.class,uncastAcl,"The inputMap contained a non-AclImpl");
+  AclImpl inputAcl=(AclImpl)uncastAcl;
+  Acl parent=inputAcl.getParentAcl();
+  if ((parent != null) && parent instanceof StubAclParent) {
+    StubAclParent stubAclParent=(StubAclParent)parent;
+    parent=convert(inputMap,stubAclParent.getId());
+  }
+  AclImpl result=new AclImpl(inputAcl.getObjectIdentity(),(Long)inputAcl.getId(),aclAuthorizationStrategy,grantingStrategy,parent,null,inputAcl.isEntriesInheriting(),inputAcl.getOwner());
+  List<AccessControlEntryImpl> aces=readAces(inputAcl);
+  List<AccessControlEntryImpl> acesNew=new ArrayList<AccessControlEntryImpl>();
+  for (  AccessControlEntryImpl ace : aces) {
+    setAclOnAce(ace,result);
+    acesNew.add(ace);
+  }
+  setAces(result,acesNew);
+  return result;
+}

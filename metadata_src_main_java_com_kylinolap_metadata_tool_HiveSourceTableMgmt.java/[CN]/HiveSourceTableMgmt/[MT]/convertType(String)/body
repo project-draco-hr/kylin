@@ -1,0 +1,15 @@
+{
+  if ("i32".equals(colType)) {
+    return "int";
+  }
+ else   if ("i64".equals(colType)) {
+    return "bigint";
+  }
+ else   if ("i16".equals(colType)) {
+    return "smallint";
+  }
+ else   if ("byte".equals(colType)) {
+    return "tinyint";
+  }
+  return colType;
+}

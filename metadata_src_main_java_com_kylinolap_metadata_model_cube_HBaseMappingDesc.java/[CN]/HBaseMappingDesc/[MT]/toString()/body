@@ -1,0 +1,3 @@
+{
+  return "HBaseMappingDesc [columnFamily=" + Arrays.toString(columnFamily) + "]";
+}

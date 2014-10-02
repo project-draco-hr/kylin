@@ -1,0 +1,7 @@
+{
+  HashSet<String> databaseNames=new HashSet<String>();
+  for (  TableDesc tableDesc : tables) {
+    databaseNames.add(tableDesc.getDatabase());
+  }
+  return databaseNames;
+}

@@ -1,0 +1,8 @@
+String executeCmd
+String host
+String user
+String password
+boolean async
+String instanceID
+int stepID
+JobEngineConfig engineConfig

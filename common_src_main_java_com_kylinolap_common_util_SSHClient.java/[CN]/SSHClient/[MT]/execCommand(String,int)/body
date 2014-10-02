@@ -1,0 +1,61 @@
+{
+  try {
+    System.out.println("[" + username + "@"+ hostname+ "] Execute command: "+ command);
+    StringBuffer text=new StringBuffer();
+    int exitCode=-1;
+    JSch jsch=new JSch();
+    Session session=jsch.getSession(username,hostname,22);
+    session.setPassword(password);
+    session.setConfig("StrictHostKeyChecking","no");
+    session.connect();
+    Channel channel=session.openChannel("exec");
+    ((ChannelExec)channel).setCommand(command);
+    channel.setInputStream(null);
+    ((ChannelExec)channel).setErrStream(System.err);
+    InputStream in=channel.getInputStream();
+    InputStream err=((ChannelExec)channel).getErrStream();
+    channel.connect();
+    int timeout=timeoutSeconds;
+    byte[] tmp=new byte[1024];
+    while (true) {
+      timeout--;
+      while (in.available() > 0) {
+        int i=in.read(tmp,0,1024);
+        if (i < 0)         break;
+        String line=new String(tmp,0,i);
+        text.append(line);
+        if (this.sshLogger != null) {
+          this.sshLogger.log(line);
+        }
+      }
+      while (err.available() > 0) {
+        int i=err.read(tmp,0,1024);
+        if (i < 0)         break;
+        String line=new String(tmp,0,i);
+        text.append(line);
+        if (this.sshLogger != null) {
+          this.sshLogger.log(line);
+        }
+      }
+      if (channel.isClosed()) {
+        if (in.available() > 0)         continue;
+        exitCode=channel.getExitStatus();
+        System.out.println("[" + username + "@"+ hostname+ "] Command exit-status: "+ exitCode);
+        break;
+      }
+      try {
+        Thread.sleep(1000);
+      }
+ catch (      Exception ee) {
+        throw ee;
+      }
+      if (timeout < 0)       throw new Exception("Remote commmand not finished within " + timeoutSeconds + " seconds.");
+    }
+    channel.disconnect();
+    session.disconnect();
+    return new SSHClientOutput(exitCode,text.toString());
+  }
+ catch (  Exception e) {
+    throw e;
+  }
+}

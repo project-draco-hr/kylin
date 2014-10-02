@@ -1,0 +1,11 @@
+{
+  if (bytes.get() == null || bytes.getLength() == 0) {
+    return new ConciseSet();
+  }
+ else {
+    IntBuffer intBuffer=ByteBuffer.wrap(bytes.get(),bytes.getOffset(),bytes.getLength()).asIntBuffer();
+    int[] words=new int[intBuffer.capacity()];
+    intBuffer.get(words);
+    return new ConciseSet(words,false);
+  }
+}

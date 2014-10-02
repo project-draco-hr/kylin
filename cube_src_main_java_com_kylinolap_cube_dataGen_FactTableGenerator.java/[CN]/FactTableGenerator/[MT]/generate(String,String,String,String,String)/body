@@ -1,0 +1,18 @@
+{
+  if (cubeName == null)   cubeName="test_kylin_cube_with_slr_ready";
+  if (rowCount == null)   rowCount="10000";
+  if (linkableRatio == null)   linkableRatio="0.6";
+  if (randomSeed == null)   ;
+  FactTableGenerator generator=new FactTableGenerator();
+  long seed;
+  if (randomSeed != null) {
+    seed=Long.parseLong(randomSeed);
+  }
+ else {
+    Random r=new Random();
+    seed=r.nextLong();
+  }
+  generator.init(cubeName,Integer.parseInt(rowCount),5,Double.parseDouble(linkableRatio),seed);
+  generator.prepare();
+  generator.execute(joinType);
+}

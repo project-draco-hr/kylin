@@ -1,0 +1,10 @@
+{
+  if (this.rowkeyColumns == null)   return -1;
+  for (int i=0; i < this.rowkeyColumns.length; ++i) {
+    RowKeyColDesc desc=this.rowkeyColumns[i];
+    if (desc.getColumn().equalsIgnoreCase(columnName)) {
+      return i;
+    }
+  }
+  return -1;
+}

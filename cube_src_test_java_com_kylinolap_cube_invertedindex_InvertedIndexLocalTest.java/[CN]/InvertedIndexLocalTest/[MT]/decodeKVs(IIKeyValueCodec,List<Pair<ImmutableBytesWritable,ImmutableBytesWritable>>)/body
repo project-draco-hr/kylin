@@ -1,0 +1,7 @@
+{
+  List<TimeSlice> slices=Lists.newArrayList();
+  for (  TimeSlice slice : codec.decodeKeyValue(kvs)) {
+    slices.add(slice);
+  }
+  return slices;
+}

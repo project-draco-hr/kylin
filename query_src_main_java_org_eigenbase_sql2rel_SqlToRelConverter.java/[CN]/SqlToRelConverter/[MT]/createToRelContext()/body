@@ -1,0 +1,11 @@
+{
+  return new RelOptTable.ToRelContext(){
+    public RelOptCluster getCluster(){
+      return cluster;
+    }
+    public RelNode expandView(    RelDataType rowType,    String queryString,    List<String> schemaPath){
+      return viewExpander.expandView(rowType,queryString,schemaPath);
+    }
+  }
+;
+}

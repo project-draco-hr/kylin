@@ -1,0 +1,11 @@
+{
+  SSHClient ssh=new SSHClient(remoteHost,remoteUser,remotePwd,this.cliOutputConsumer);
+  SSHClientOutput sshOutput;
+  try {
+    sshOutput=ssh.execCommand(command,remoteTimeoutSeconds);
+    exitCode=sshOutput.getExitCode();
+  }
+ catch (  Exception e) {
+    throw new IOException(e);
+  }
+}

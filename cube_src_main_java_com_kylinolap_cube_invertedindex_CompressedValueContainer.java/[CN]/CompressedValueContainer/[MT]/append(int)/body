@@ -1,0 +1,5 @@
+{
+  checkUpdateMode();
+  BytesUtil.writeUnsigned(value,uncompressed,valueLen * size,valueLen);
+  size++;
+}

@@ -1,0 +1,11 @@
+{
+  if (tuple == null) {
+    tupleInfo=buildTupleInfo(rec.info());
+    tuple=new Tuple(tupleInfo);
+  }
+  List<String> fieldNames=tupleInfo.getAllFields();
+  for (int i=0, n=tupleInfo.size(); i < n; i++) {
+    tuple.setDimensionValue(fieldNames.get(i),rec.getValueString(i));
+  }
+  return tuple;
+}

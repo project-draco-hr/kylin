@@ -1,0 +1,16 @@
+{
+  implementor.visitChild(this,getChild());
+  for (  RelFieldCollation fieldCollation : this.collation.getFieldCollations()) {
+    int index=fieldCollation.getFieldIndex();
+    StorageContext.OrderEnum order=getOrderEnum(fieldCollation.getDirection());
+    OLAPRel olapChild=(OLAPRel)this.getChild();
+    TblColRef orderCol=olapChild.getColumnRowType().getAllColumns().get(index);
+    MeasureDesc measure=findMeasure(orderCol);
+    if (measure != null) {
+      this.context.storageContext.addSort(measure,order);
+    }
+    this.context.storageContext.markSort();
+  }
+  this.rowType=this.deriveRowType();
+  this.columnRowType=buildColumnRowType();
+}

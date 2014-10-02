@@ -1,0 +1,18 @@
+{
+  if (where == null) {
+    return;
+  }
+  SqlNode newWhere=pushDownNotForIn(where);
+  replaceSubqueries(bb,newWhere);
+  final RexNode convertedWhere=bb.convertExpression(newWhere);
+  if (!convertedWhere.isAlwaysTrue()) {
+    RelNode inputRel=bb.root;
+    Set<String> correlatedVariablesBefore=RelOptUtil.getVariablesUsed(inputRel);
+    bb.setRoot(CalcRel.createFilter(bb.root,convertedWhere),false);
+    Set<String> correlatedVariables=RelOptUtil.getVariablesUsed(bb.root);
+    correlatedVariables.removeAll(correlatedVariablesBefore);
+    for (    String correl : correlatedVariables) {
+      mapCorrelToRefRel.put(correl,bb.root);
+    }
+  }
+}

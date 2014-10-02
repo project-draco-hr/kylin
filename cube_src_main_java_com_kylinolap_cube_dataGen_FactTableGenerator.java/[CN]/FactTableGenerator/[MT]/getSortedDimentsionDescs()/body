@@ -1,0 +1,12 @@
+{
+  List<DimensionDesc> dimensions=desc.getDimensions();
+  Collections.sort(dimensions,new Comparator<DimensionDesc>(){
+    @Override public int compare(    DimensionDesc o1,    DimensionDesc o2){
+      JoinDesc j1=o2.getJoin();
+      JoinDesc j2=o1.getJoin();
+      return new Integer(j1 != null ? j1.getPrimaryKey().length : 0).compareTo(j2 != null ? j2.getPrimaryKey().length : 0);
+    }
+  }
+);
+  return dimensions;
+}

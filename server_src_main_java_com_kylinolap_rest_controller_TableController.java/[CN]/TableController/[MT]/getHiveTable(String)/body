@@ -1,0 +1,3 @@
+{
+  return cubeMgmtService.getMetadataManager().getTableDesc(tableName);
+}

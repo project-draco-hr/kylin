@@ -1,0 +1,27 @@
+{
+  Map<HBaseColumnDesc,RowValueDecoder> codecMap=Maps.newHashMap();
+  for (  FunctionDesc aggrFunc : aggregations) {
+    Collection<HBaseColumnDesc> hbCols=hbaseMapping.findHBaseColumnByFunction(aggrFunc);
+    if (hbCols.isEmpty()) {
+      throw new IllegalStateException("can't find HBaseColumnDesc for function " + aggrFunc.getFullExpression());
+    }
+    HBaseColumnDesc bestHBCol=null;
+    int bestIndex=-1;
+    for (    HBaseColumnDesc hbCol : hbCols) {
+      bestHBCol=hbCol;
+      bestIndex=hbCol.findMeasureIndex(aggrFunc);
+      MeasureDesc measure=hbCol.getMeasures()[bestIndex];
+      if (measure.isHolisticCountDistinct() && context.requireNoPostAggregation()) {
+        logger.info("Holistic count distinct chosen for " + aggrFunc);
+        break;
+      }
+    }
+    RowValueDecoder codec=codecMap.get(bestHBCol);
+    if (codec == null) {
+      codec=new RowValueDecoder(bestHBCol);
+      codecMap.put(bestHBCol,codec);
+    }
+    codec.setIndex(bestIndex);
+  }
+  return new ArrayList<RowValueDecoder>(codecMap.values());
+}

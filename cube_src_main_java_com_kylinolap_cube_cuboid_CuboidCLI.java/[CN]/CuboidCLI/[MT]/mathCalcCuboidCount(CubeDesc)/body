@@ -1,0 +1,14 @@
+{
+  int result=0;
+  int lastAggrGroupCount=0;
+  for (  AggrGroupMask aggrGroupMask : cube.getRowkey().getAggrGroupMasks()) {
+    lastAggrGroupCount=mathCalcCuboidCount_aggrGroup(cube,aggrGroupMask);
+    result+=lastAggrGroupCount;
+  }
+  result*=2;
+  if (cube.getRowkey().getTailMask() == 0) {
+    result-=lastAggrGroupCount;
+  }
+  result--;
+  return result;
+}

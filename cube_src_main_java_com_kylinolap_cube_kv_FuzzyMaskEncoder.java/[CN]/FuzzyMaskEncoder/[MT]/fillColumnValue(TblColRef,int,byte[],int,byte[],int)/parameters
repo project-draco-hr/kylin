@@ -1,0 +1,6 @@
+TblColRef column
+int columnLen
+byte[] value
+int valueLen
+byte[] outputValue
+int outputValueOffset

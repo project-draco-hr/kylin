@@ -1,0 +1,11 @@
+{
+  ColumnFilter[][] filter=null;
+  int len=BytesUtil.readVInt(in);
+  if (len >= 0) {
+    filter=new ColumnFilter[len][];
+    for (int i=0; i < len; i++) {
+      filter[i]=deserializeAndFilter(in);
+    }
+  }
+  return new RowFilter(filter);
+}

@@ -1,0 +1,4 @@
+String col
+T beginValue
+T endValue
+String returnCol

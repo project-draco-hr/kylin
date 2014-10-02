@@ -1,0 +1,14 @@
+{
+  List<String> items=new ArrayList<String>();
+  CubeDesc cubeDesc=cube.getDescriptor();
+  items.add(cube.getResourcePath());
+  items.add(cubeDesc.getResourcePath());
+  for (  CubeSegment segment : cube.getSegments()) {
+    items.addAll(segment.getSnapshotPaths());
+    items.addAll(segment.getDictionaryPaths());
+  }
+  for (  TableDesc tableDesc : cubeDesc.listTables()) {
+    items.add(tableDesc.getResourcePath());
+  }
+  return items;
+}

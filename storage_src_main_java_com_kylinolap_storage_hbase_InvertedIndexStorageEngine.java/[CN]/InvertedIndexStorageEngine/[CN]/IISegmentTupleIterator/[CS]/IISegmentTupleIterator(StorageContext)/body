@@ -1,0 +1,8 @@
+{
+  this.context=context;
+  HConnection hconn=HBaseConnection.get(hbaseUrl);
+  String tableName=seg.getStorageLocationIdentifier();
+  kvIterator=new HBaseKeyValueIterator(hconn,tableName,HBASE_FAMILY_BYTES,HBASE_QUALIFIER_BYTES);
+  codec=new IIKeyValueCodec(new TableRecordInfo(seg));
+  sliceIterator=codec.decodeKeyValue(kvIterator).iterator();
+}

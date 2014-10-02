@@ -1,0 +1,28 @@
+{
+  List<JobInstance> jobInstances=this.getJobManager().listJobs(cube.getName(),null);
+  for (  JobInstance jobInstance : jobInstances) {
+    if (jobInstance.getStatus() == JobStatusEnum.PENDING || jobInstance.getStatus() == JobStatusEnum.RUNNING) {
+      throw new JobException("Cube schema shouldn't be changed with running job.");
+    }
+  }
+  try {
+    if (!cube.getDescriptor().calculateSignature().equals(cube.getDescriptor().getSignature())) {
+      this.releaseAllSegments(cube);
+    }
+    CubeDesc updatedCubeDesc=getMetadataManager().updateCubeDesc(desc);
+    int cuboidCount=CuboidCLI.simulateCuboidGeneration(updatedCubeDesc);
+    logger.info("Updated cube " + cube.getName() + " has "+ cuboidCount+ " cuboids");
+    if (!getProjectManager().isCubeInProject(newProjectName,cube)) {
+      String owner=SecurityContextHolder.getContext().getAuthentication().getName();
+      ProjectInstance newProject=getProjectManager().updateCubeToProject(cube.getName(),newProjectName,owner);
+      accessService.inherit(cube,newProject);
+    }
+    return updatedCubeDesc;
+  }
+ catch (  IOException e) {
+    throw new InternalErrorException("Failed to deal with the request.",e);
+  }
+catch (  CubeIntegrityException e) {
+    throw new InternalErrorException("Failed to deal with the request.",e);
+  }
+}

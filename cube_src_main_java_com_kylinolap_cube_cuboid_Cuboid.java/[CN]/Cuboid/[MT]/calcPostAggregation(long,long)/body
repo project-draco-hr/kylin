@@ -1,0 +1,16 @@
+{
+  long diff=id ^ inputID;
+  List<HierarchyMask> hierarchyMaskList=cube.getRowkey().getHierarchyMasks();
+  if (hierarchyMaskList != null && hierarchyMaskList.size() > 0) {
+    for (    HierarchyMask hierMask : hierarchyMaskList) {
+      long[] allMasks=hierMask.allMasks;
+      for (int i=allMasks.length - 1; i > 0; i--) {
+        long bit=allMasks[i] ^ allMasks[i - 1];
+        if ((inputID & bit) != 0) {
+          diff&=~allMasks[i - 1];
+        }
+      }
+    }
+  }
+  return diff != 0;
+}

@@ -1,0 +1,10 @@
+{
+  SQLResponse fakeResponse=QueryUtil.tableauIntercept(sqlRequest.getSql());
+  if (null != fakeResponse) {
+    logger.debug("Return fake response, is exception? " + fakeResponse.getIsException());
+    return fakeResponse;
+  }
+  String correctedSql=QueryUtil.healSickSql(sqlRequest.getSql());
+  if (correctedSql.equals(sqlRequest.getSql()) == false)   logger.debug("The corrected query: " + correctedSql);
+  return executeQuery(correctedSql,sqlRequest);
+}

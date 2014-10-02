@@ -1,0 +1,5 @@
+{
+  if (e.getMessage() != null && e.getMessage().contains("not a SequenceFile"))   return true;
+  if (e instanceof EOFException)   return true;
+  return false;
+}

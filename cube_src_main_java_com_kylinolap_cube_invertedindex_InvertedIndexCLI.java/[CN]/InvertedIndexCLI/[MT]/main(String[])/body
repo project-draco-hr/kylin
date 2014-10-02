@@ -1,0 +1,18 @@
+{
+  Configuration hconf=HadoopUtil.getDefaultConfiguration();
+  CubeManager mgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
+  String cubeName=args[0];
+  CubeInstance cube=mgr.getCube(cubeName);
+  String path=args[1];
+  System.out.println("Reading from " + path + " ...");
+  TableRecordInfo info=new TableRecordInfo(cube.getFirstSegment());
+  IIKeyValueCodec codec=new IIKeyValueCodec(info);
+  int count=0;
+  for (  TimeSlice slice : codec.decodeKeyValue(readSequenceKVs(hconf,path))) {
+    for (    TableRecord rec : slice) {
+      System.out.println(rec);
+      count++;
+    }
+  }
+  System.out.println("Total " + count + " records");
+}

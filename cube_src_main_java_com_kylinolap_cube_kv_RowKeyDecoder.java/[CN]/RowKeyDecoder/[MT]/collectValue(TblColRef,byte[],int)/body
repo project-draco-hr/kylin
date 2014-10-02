@@ -1,0 +1,4 @@
+{
+  String strValue=colIO.readColumnString(col,valueBytes,length);
+  values.add(strValue);
+}

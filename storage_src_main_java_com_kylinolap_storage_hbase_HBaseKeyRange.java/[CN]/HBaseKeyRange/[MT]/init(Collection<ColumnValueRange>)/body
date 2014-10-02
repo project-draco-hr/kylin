@@ -1,0 +1,23 @@
+{
+  int size=andDimensionRanges.size();
+  Map<TblColRef,String> startValues=Maps.newHashMapWithExpectedSize(size);
+  Map<TblColRef,String> stopValues=Maps.newHashMapWithExpectedSize(size);
+  Map<TblColRef,Set<String>> fuzzyValues=Maps.newHashMapWithExpectedSize(size);
+  for (  ColumnValueRange dimRange : andDimensionRanges) {
+    TblColRef column=dimRange.getColumn();
+    startValues.put(column,dimRange.getBeginValue());
+    stopValues.put(column,dimRange.getEndValue());
+    fuzzyValues.put(column,dimRange.getEqualValues());
+    TblColRef partitionDateColumnRef=cubeSeg.getCubeDesc().getCubePartitionDesc().getPartitionDateColumnRef();
+    if (column.equals(partitionDateColumnRef)) {
+      initPartitionRange(dimRange);
+    }
+  }
+  AbstractRowKeyEncoder encoder=AbstractRowKeyEncoder.createInstance(cubeSeg,cuboid);
+  encoder.setBlankByte(RowConstants.ROWKEY_LOWER_BYTE);
+  this.startKey=encoder.encode(startValues);
+  encoder.setBlankByte(RowConstants.ROWKEY_UPPER_BYTE);
+  this.stopKey=Bytes.add(encoder.encode(stopValues),ZERO_TAIL_BYTES);
+  encoder.setBlankByte(AbstractRowKeyEncoder.DEFAULT_BLANK_BYTE);
+  this.fuzzyKeys=buildFuzzyKeys(fuzzyValues);
+}

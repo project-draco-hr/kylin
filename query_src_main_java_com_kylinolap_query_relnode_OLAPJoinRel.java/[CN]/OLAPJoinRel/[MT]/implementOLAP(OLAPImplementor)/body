@@ -1,0 +1,33 @@
+{
+  if (!(implementor.getParentNode() instanceof OLAPJoinRel)) {
+    implementor.allocateContext();
+  }
+  this.context=implementor.getContext();
+  this.isTopJoin=!this.context.hasJoin;
+  this.context.hasJoin=true;
+  implementor.visitChild(this.left,this);
+  if (this.context != implementor.getContext() || ((OLAPRel)this.left).hasSubQuery()) {
+    this.hasSubQuery=true;
+    implementor.freeContext();
+  }
+  implementor.visitChild(this.right,this);
+  if (this.context != implementor.getContext() || ((OLAPRel)this.right).hasSubQuery()) {
+    this.hasSubQuery=true;
+    implementor.freeContext();
+  }
+  this.columnRowType=buildColumnRowType();
+  if (isTopJoin) {
+    this.context.afterJoin=true;
+  }
+  if (!this.hasSubQuery) {
+    this.context.allColumns.clear();
+    this.context.olapRowType=getRowType();
+    buildAliasMap();
+    RexCall condition=(RexCall)this.getCondition();
+    JoinDesc join=buildJoin(condition);
+    JoinRelType joinRelType=this.getJoinType();
+    String joinType=joinRelType == JoinRelType.INNER ? "INNER" : joinRelType == JoinRelType.LEFT ? "LEFT" : null;
+    join.setType(joinType);
+    this.context.joins.add(join);
+  }
+}

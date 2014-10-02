@@ -1,0 +1,7 @@
+{
+  ProcessBuilder pb=new ProcessBuilder("/bin/bash","-c","hive -e \"" + command + "\"");
+  pb.redirectErrorStream(true);
+  Process p=pb.start();
+  InputStream is=p.getInputStream();
+  return is;
+}

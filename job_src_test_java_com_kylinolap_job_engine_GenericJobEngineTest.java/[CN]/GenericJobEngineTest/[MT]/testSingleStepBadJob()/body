@@ -1,0 +1,14 @@
+{
+  String uuid="single_step_bad_job_uuid";
+  jobManager.submitJob(createASingleStepBadJobInstance(uuid));
+  waitUntilJobComplete(uuid);
+  JobInstance savedJob1=jobManager.getJob(uuid);
+  assertEquals(JobStatusEnum.ERROR,savedJob1.getStatus());
+  String jobString=JsonUtil.writeValueAsIndentString(savedJob1);
+  System.out.println(jobString);
+  assertTrue(jobString.length() > 0);
+  CubeInstance cube=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).getCube(cubeName);
+  String cubeString=JsonUtil.writeValueAsIndentString(cube);
+  System.out.println(cubeString);
+  assertEquals(CubeSegmentStatusEnum.NEW,cube.getSegments().get(0).getStatus());
+}

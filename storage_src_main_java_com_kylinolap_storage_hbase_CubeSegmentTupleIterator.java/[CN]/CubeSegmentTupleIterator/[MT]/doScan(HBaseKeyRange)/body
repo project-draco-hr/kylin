@@ -1,0 +1,15 @@
+{
+  Iterator<Result> iter=null;
+  try {
+    scan=buildScan(keyRange);
+    applyFuzzyFilter(scan,keyRange);
+    logScan(keyRange);
+    scanner=CoprocessorEnabler.scanWithCoprocessorIfBeneficial(cubeSeg,keyRange.getCuboid(),dimensionColumns,rowValueDecoders,keyRange,context,table,scan);
+    iter=scanner.iterator();
+  }
+ catch (  Throwable t) {
+    String msg=MessageFormat.format("Error when scan from lower key {1} to upper key {2} on table {0}.",tableName,Bytes.toString(keyRange.getStartKey()),Bytes.toString(keyRange.getStopKey()));
+    throw new StorageException(msg,t);
+  }
+  return iter;
+}

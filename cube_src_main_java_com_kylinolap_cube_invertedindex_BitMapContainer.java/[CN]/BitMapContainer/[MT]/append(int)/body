@@ -1,0 +1,8 @@
+{
+  checkUpdateMode();
+  if (value == Dictionary.NULL_ID[valueLen]) {
+    value=nValues;
+  }
+  sets[value].add(size);
+  size++;
+}

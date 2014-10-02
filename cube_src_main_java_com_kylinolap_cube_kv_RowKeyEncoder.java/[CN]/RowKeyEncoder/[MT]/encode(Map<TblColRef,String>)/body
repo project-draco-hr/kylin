@@ -1,0 +1,9 @@
+{
+  List<byte[]> valueList=new ArrayList<byte[]>();
+  for (  TblColRef bdCol : cuboid.getColumns()) {
+    String value=valueMap.get(bdCol);
+    valueList.add(valueStringToBytes(value));
+  }
+  byte[][] values=valueList.toArray(RowConstants.BYTE_ARR_MARKER);
+  return encode(values);
+}

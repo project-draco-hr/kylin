@@ -1,0 +1,4 @@
+{
+  Matcher m=fullRestPattern.matcher(uri);
+  return m.matches();
+}

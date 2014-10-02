@@ -1,0 +1,5 @@
+int n
+byte[] inp
+int o
+int inpEnd
+int roundingFlag

@@ -1,0 +1,8 @@
+{
+  try {
+    return ImmutableList.copyOf(cursors);
+  }
+  finally {
+    cursors.clear();
+  }
+}

@@ -1,0 +1,71 @@
+{
+  logger.info("Executing operation: " + opt.toString());
+switch (opt.type) {
+case COPY_FILE_IN_META:
+{
+      String item=(String)opt.params[0];
+      InputStream inputStream=srcStore.getResource(item);
+      long ts=srcStore.getResourceTimestamp(item);
+      dstStore.putResource(item,inputStream,ts);
+      inputStream.close();
+      logger.info("Item " + item + " is copied");
+      break;
+    }
+case RENAME_FOLDER_IN_HDFS:
+{
+    String srcPath=(String)opt.params[0];
+    String dstPath=(String)opt.params[1];
+    hdfsFS.rename(new Path(srcPath),new Path(dstPath));
+    logger.info("HDFS Folder renamed from " + srcPath + " to "+ dstPath);
+    break;
+  }
+case RENAME_TABLE_IN_HBASE:
+{
+  String oldTableName=(String)opt.params[0];
+  String newTableName=(String)opt.params[1];
+  String snapshotName="_snapshot_" + oldTableName;
+  hbaseAdmin.disableTable(oldTableName);
+  hbaseAdmin.snapshot(snapshotName,oldTableName);
+  hbaseAdmin.cloneSnapshot(snapshotName,newTableName);
+  hbaseAdmin.deleteSnapshot(snapshotName);
+  hbaseAdmin.deleteTable(oldTableName);
+  logger.info("Hbase table renamed from " + oldTableName + " to "+ newTableName);
+  break;
+}
+case CHANGE_HTABLE_NAME_IN_CUBE:
+{
+String cubeName=(String)opt.params[0];
+HashMap<String,String> renamedHtables=(HashMap<String,String>)opt.params[1];
+String cubeResPath=CubeInstance.concatResourcePath(cubeName);
+Serializer<CubeInstance> cubeSerializer=new JsonSerializer<CubeInstance>(CubeInstance.class);
+CubeInstance cube=dstStore.getResource(cubeResPath,CubeInstance.class,cubeSerializer);
+for (CubeSegment segment : cube.getSegments()) {
+  String htable=segment.getStorageLocationIdentifier().trim();
+  segment.setStorageLocationIdentifier(renamedHtables.get(htable));
+}
+dstStore.putResource(cubeResPath,cube,cubeSerializer);
+logger.info("CubeInstance for " + cubeName + " is corrected");
+break;
+}
+case ADD_INTO_PROJECT:
+{
+String cubeName=(String)opt.params[0];
+String projectName=(String)opt.params[1];
+String projectResPath=ProjectInstance.concatResourcePath(projectName);
+Serializer<ProjectInstance> projectSerializer=new JsonSerializer<ProjectInstance>(ProjectInstance.class);
+ProjectInstance project=dstStore.getResource(projectResPath,ProjectInstance.class,projectSerializer);
+project.removeCube(cubeName);
+project.addCube(cubeName);
+dstStore.putResource(projectResPath,project,projectSerializer);
+logger.info("Project instance for " + projectName + " is corrected");
+break;
+}
+case ALTER_TABLE_COPROCESSOR:
+{
+String htableName=(String)opt.params[0];
+DeployCoprocessorCLI.resetCoprocessor(htableName,hbaseAdmin,dstCoprocessorPath);
+logger.info("The hbase table " + htableName + " is bound with new coprocessor "+ dstCoprocessorPath);
+break;
+}
+}
+}

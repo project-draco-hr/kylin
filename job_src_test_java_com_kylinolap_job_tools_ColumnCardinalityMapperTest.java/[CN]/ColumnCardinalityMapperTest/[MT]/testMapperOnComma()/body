@@ -1,0 +1,27 @@
+{
+  mapDriver.clearInput();
+  LongWritable inputKey1=new LongWritable(1);
+  LongWritable inputKey2=new LongWritable(2);
+  LongWritable inputKey3=new LongWritable(3);
+  LongWritable inputKey4=new LongWritable(4);
+  LongWritable inputKey5=new LongWritable(5);
+  LongWritable inputKey6=new LongWritable(6);
+  LongWritable inputKey7=new LongWritable(7);
+  mapDriver.addInput(inputKey1,new Text());
+  mapDriver.addInput(inputKey2,new Text(strArr));
+  mapDriver.addInput(inputKey3,new Text(strArr));
+  mapDriver.addInput(inputKey4,new Text(strArr));
+  mapDriver.addInput(inputKey5,new Text(strArr));
+  mapDriver.addInput(inputKey6,new Text(strArr));
+  mapDriver.addInput(inputKey7,new Text(strArr));
+  List<Pair<IntWritable,BytesWritable>> result=mapDriver.run();
+  assertEquals(9,result.size());
+  int key1=result.get(0).getFirst().get();
+  BytesWritable value1=result.get(0).getSecond();
+  byte[] bytes=value1.getBytes();
+  HyperLogLogPlusCounter hllc=new HyperLogLogPlusCounter();
+  hllc.readRegisters(ByteBuffer.wrap(bytes));
+  System.out.println("ab\177ab".length());
+  assertTrue(key1 > 0);
+  assertEquals(1,hllc.getCountEstimate());
+}

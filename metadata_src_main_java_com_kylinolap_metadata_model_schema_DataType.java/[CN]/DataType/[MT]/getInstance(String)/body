@@ -1,0 +1,9 @@
+{
+  DataType dataType=new DataType(type);
+  DataType cached=CACHE.get(dataType);
+  if (cached == null) {
+    CACHE.put(dataType,dataType);
+    cached=dataType;
+  }
+  return cached;
+}

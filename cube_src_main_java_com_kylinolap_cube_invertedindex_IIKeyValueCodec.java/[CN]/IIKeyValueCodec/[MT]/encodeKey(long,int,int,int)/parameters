@@ -1,0 +1,4 @@
+long timePartition
+int sliceNo
+int col
+int colValue

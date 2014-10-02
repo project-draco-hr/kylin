@@ -1,0 +1,3 @@
+List<Permission> permission
+List<Sid> sids
+boolean administrativeMode

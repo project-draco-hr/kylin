@@ -1,0 +1,4 @@
+{
+  loadProject(project.getResourcePath(),triggerUpdate);
+  loadTables(project.getResourcePath());
+}

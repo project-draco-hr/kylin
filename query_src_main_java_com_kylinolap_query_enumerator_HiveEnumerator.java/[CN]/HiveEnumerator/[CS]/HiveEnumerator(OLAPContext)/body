@@ -1,0 +1,4 @@
+{
+  this.olapContext=olapContext;
+  this.current=new Object[olapContext.olapRowType.getFieldCount()];
+}

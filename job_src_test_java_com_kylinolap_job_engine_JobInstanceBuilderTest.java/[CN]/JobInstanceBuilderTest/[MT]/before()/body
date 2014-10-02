@@ -1,0 +1,7 @@
+{
+  this.createTestMetadata();
+  MetadataManager.removeInstance(this.getTestConfig());
+  CubeManager.removeInstance(this.getTestConfig());
+  ProjectManager.removeInstance(this.getTestConfig());
+  DictionaryManager.removeInstance(this.getTestConfig());
+}

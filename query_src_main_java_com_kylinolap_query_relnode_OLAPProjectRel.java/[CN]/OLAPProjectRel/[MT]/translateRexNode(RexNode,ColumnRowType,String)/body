@@ -1,0 +1,19 @@
+{
+  TblColRef column=null;
+  if (rexNode instanceof RexInputRef) {
+    RexInputRef inputRef=(RexInputRef)rexNode;
+    column=translateRexInputRef(inputRef,inputColumnRowType,fieldName);
+  }
+ else   if (rexNode instanceof RexLiteral) {
+    RexLiteral literal=(RexLiteral)rexNode;
+    column=translateRexLiteral(literal);
+  }
+ else   if (rexNode instanceof RexCall) {
+    RexCall call=(RexCall)rexNode;
+    column=translateRexCall(call,inputColumnRowType,fieldName);
+  }
+ else {
+    throw new IllegalStateException("Unsupport RexNode " + rexNode);
+  }
+  return column;
+}

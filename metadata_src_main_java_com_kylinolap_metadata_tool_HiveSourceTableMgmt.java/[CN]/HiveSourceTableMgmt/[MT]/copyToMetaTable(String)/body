@@ -1,0 +1,11 @@
+{
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  try {
+    ResourceTool.copy(KylinConfig.createInstanceFromUri(metaPath),config);
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    logger.error("Failed to copy resources",e);
+  }
+  logger.info("Successfully Copied metadata from " + metaPath);
+}

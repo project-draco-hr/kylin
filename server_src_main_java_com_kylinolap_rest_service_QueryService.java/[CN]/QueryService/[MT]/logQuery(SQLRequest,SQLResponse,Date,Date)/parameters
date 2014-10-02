@@ -1,0 +1,4 @@
+SQLRequest request
+SQLResponse response
+Date startTime
+Date endTime

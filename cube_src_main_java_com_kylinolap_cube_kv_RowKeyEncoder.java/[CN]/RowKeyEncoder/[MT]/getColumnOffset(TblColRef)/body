@@ -1,0 +1,8 @@
+{
+  int offset=RowConstants.ROWKEY_CUBOIDID_LEN;
+  for (  TblColRef dimCol : cuboid.getColumns()) {
+    if (col.equals(dimCol))     return offset;
+    offset+=colIO.getColumnLength(dimCol);
+  }
+  throw new IllegalArgumentException("Column " + col + " not found on cuboid "+ cuboid);
+}

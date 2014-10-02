@@ -1,0 +1,3 @@
+RexNode rexNode
+ColumnRowType inputColumnRowType
+String fieldName

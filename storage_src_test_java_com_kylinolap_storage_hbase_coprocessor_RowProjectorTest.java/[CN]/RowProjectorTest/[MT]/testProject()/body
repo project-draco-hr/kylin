@@ -1,0 +1,4 @@
+{
+  ImmutableBytesWritable rowKey=sample.getRowKey(newCellWithRowKey(new byte[]{(byte)0xff,(byte)0xff,(byte)0xff,(byte)0xff}));
+  assertTrue(Bytes.equals(mask,0,mask.length,rowKey.get(),rowKey.getOffset(),rowKey.getLength()));
+}

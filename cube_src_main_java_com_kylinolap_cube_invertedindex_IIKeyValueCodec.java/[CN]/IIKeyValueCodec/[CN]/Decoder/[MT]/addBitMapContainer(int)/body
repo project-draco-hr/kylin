@@ -1,0 +1,6 @@
+{
+  BitMapContainer c=new BitMapContainer(info,col);
+  c.fromBytes(bitMapValues);
+  addContainer(col,c);
+  bitMapValues.clear();
+}

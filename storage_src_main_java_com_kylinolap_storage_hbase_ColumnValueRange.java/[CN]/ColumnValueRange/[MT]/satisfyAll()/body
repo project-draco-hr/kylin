@@ -1,0 +1,3 @@
+{
+  return beginValue == null && endValue == null;
+}

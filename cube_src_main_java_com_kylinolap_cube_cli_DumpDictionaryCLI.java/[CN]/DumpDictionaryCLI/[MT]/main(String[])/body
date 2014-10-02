@@ -1,0 +1,19 @@
+{
+  String inpMetaFolder=args[0];
+  String inpCubeName=args[1];
+  inpCubeName=inpCubeName.toUpperCase();
+  CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.createInstanceFromUri(inpMetaFolder));
+  CubeInstance cube=cubeMgr.getCube(inpCubeName);
+  CubeDesc cubeDesc=cube.getDescriptor();
+  Set<TblColRef> allColumns=cubeDesc.listAllColumns();
+  for (  CubeSegment segment : cube.getSegments()) {
+    for (    TblColRef col : allColumns) {
+      Dictionary dictionary=cubeMgr.getDictionary(segment,col);
+      if (!(dictionary instanceof TrieDictionary))       continue;
+      TrieDictionary dict=(TrieDictionary)dictionary;
+      System.out.println("=========================================================================");
+      System.out.println("Dump dict of " + col + " in segment "+ segment.getName());
+      dict.dump(System.out);
+    }
+  }
+}

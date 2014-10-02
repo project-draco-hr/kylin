@@ -1,0 +1,5 @@
+{
+  Broadcaster.EVENT eventType=innerCache.containsKey(key) ? Broadcaster.EVENT.UPDATE : Broadcaster.EVENT.CREATE;
+  innerCache.put(key,value);
+  syncRemote(key,eventType);
+}

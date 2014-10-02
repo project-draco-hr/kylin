@@ -1,0 +1,29 @@
+{
+  Assert.notEmpty(objectIdentities,"Must provide identities to lookup");
+  final Map<Serializable,Acl> acls=new HashMap<Serializable,Acl>();
+  String sql=computeRepeatingSql(lookupObjectIdentitiesWhereClause,objectIdentities.size());
+  Set<Long> parentsToLookup=jdbcTemplate.query(sql,new PreparedStatementSetter(){
+    public void setValues(    PreparedStatement ps) throws SQLException {
+      int i=0;
+      for (      ObjectIdentity oid : objectIdentities) {
+        String type=oid.getType();
+        String identifier=oid.getIdentifier().toString();
+        ps.setString((2 * i) + 1,identifier);
+        ps.setString((2 * i) + 2,type);
+        i++;
+      }
+    }
+  }
+,new ProcessResultSet(acls,sids));
+  if (parentsToLookup.size() > 0) {
+    lookupPrimaryKeys(acls,parentsToLookup,sids);
+  }
+  Map<ObjectIdentity,Acl> resultMap=new HashMap<ObjectIdentity,Acl>();
+  for (  Acl inputAcl : acls.values()) {
+    Assert.isInstanceOf(AclImpl.class,inputAcl,"Map should have contained an AclImpl");
+    Assert.isInstanceOf(Long.class,((AclImpl)inputAcl).getId(),"Acl.getId() must be Long");
+    Acl result=convert(acls,(Long)((AclImpl)inputAcl).getId());
+    resultMap.put(result.getObjectIdentity(),result);
+  }
+  return resultMap;
+}

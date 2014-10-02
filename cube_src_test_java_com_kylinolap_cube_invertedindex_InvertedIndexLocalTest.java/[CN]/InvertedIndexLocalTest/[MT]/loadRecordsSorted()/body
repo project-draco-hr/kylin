@@ -1,0 +1,22 @@
+{
+  File file=new File(this.testDataFolder,"data/TEST_KYLIN_FACT.csv");
+  FileInputStream in=new FileInputStream(file);
+  List<String> lines=IOUtils.readLines(in,"UTF-8");
+  in.close();
+  List<TableRecord> records=Lists.newArrayList();
+  for (  String line : lines) {
+    String[] fields=line.split(",");
+    TableRecord rec=new TableRecord(info);
+    for (int col=0; col < fields.length; col++) {
+      rec.setValue(col,Bytes.toBytes(fields[col]));
+    }
+    records.add(rec);
+  }
+  Collections.sort(records,new Comparator<TableRecord>(){
+    @Override public int compare(    TableRecord a,    TableRecord b){
+      return a.getValueID(1) - b.getValueID(1);
+    }
+  }
+);
+  return records;
+}

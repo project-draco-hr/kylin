@@ -1,0 +1,10 @@
+{
+  project=ProjectInstance.getNormalizedProjectName(project);
+  MetadataManager metaMgr=getMetadataManager();
+  TableDesc tableDesc=metaMgr.getTableDesc(table);
+  List<ColumnDesc> columns=Lists.newArrayList();
+  for (  String column : this.getProjectTable(project,table).getColumns()) {
+    columns.add(tableDesc.findColumnByName(column));
+  }
+  return columns;
+}

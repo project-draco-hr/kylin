@@ -1,0 +1,9 @@
+{
+  UserDetails user=authenticatedUser();
+  try {
+    userService.hit(user.getUsername());
+  }
+ catch (  Exception e) {
+  }
+  return user;
+}

@@ -1,0 +1,4 @@
+{
+  SqlValidatorNamespace targetNs=validator.getNamespace(call).resolve();
+  return SqlValidatorUtil.getRelOptTable(targetNs,catalogReader,null,null);
+}

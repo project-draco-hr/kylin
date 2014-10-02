@@ -1,0 +1,5 @@
+{
+  TupleFilter reverse=copy();
+  reverse.operator=REVERSE_OP_MAP.get(this.operator);
+  return reverse;
+}

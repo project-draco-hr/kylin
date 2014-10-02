@@ -1,0 +1,18 @@
+{
+  JobStep ndCuboidStep=new JobStep();
+  ndCuboidStep.setName(JobConstants.STEP_NAME_BUILD_N_D_CUBOID + " : " + dimNum+ "-Dimension");
+  String cmd="";
+  cmd=appendMapReduceParameters(cmd);
+  cmd=appendExecCmdParameters(cmd,"cubename",cubeName);
+  cmd=appendExecCmdParameters(cmd,"segmentname",segmentName);
+  cmd=appendExecCmdParameters(cmd,"input",cuboidOutputTempPath[totalRowkeyColumnCount - dimNum - 1]);
+  cmd=appendExecCmdParameters(cmd,"output",cuboidOutputTempPath[totalRowkeyColumnCount - dimNum]);
+  cmd=appendExecCmdParameters(cmd,"jobname","Kylin_ND-Cuboid_Builder_" + jobInstance.getRelatedCube() + "_Step_"+ stepSeqNum);
+  cmd=appendExecCmdParameters(cmd,"level","" + (totalRowkeyColumnCount - dimNum));
+  ndCuboidStep.setExecCmd(cmd);
+  ndCuboidStep.setSequenceID(stepSeqNum);
+  ndCuboidStep.setStatus(JobStepStatusEnum.PENDING);
+  ndCuboidStep.setRunAsync(true);
+  ndCuboidStep.setCmdType(JobStepCmdTypeEnum.JAVA_CMD_HADOOP_NDCUBOID);
+  jobInstance.addStep(stepSeqNum,ndCuboidStep);
+}

@@ -1,0 +1,9 @@
+{
+  ArrayList<String> jobResources=store.listResources(ResourceStore.JOB_PATH_ROOT);
+  if (jobResources == null)   return Collections.emptyList();
+  ArrayList<JobInstance> result=new ArrayList<JobInstance>(jobResources.size());
+  for (  String path : jobResources) {
+    result.add(readJobResource(path));
+  }
+  return result;
+}

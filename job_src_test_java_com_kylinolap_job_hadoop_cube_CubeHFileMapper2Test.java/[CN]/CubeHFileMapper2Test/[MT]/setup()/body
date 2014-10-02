@@ -1,0 +1,7 @@
+{
+  this.createTestMetadata();
+  FileUtils.deleteDirectory(new File("../job/meta"));
+  FileUtils.copyDirectory(new File(this.getTestConfig().getMetadataUrl()),new File("../job/meta"));
+  CubeDesc desc=CubeManager.getInstance(this.getTestConfig()).getCube(cubeName).getDescriptor();
+  codec=new MeasureCodec(desc.getMeasures());
+}

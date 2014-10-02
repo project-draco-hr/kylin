@@ -1,0 +1,5 @@
+{
+  this.remoteHost=host;
+  this.remoteUser=user;
+  this.remotePwd=pwd;
+}

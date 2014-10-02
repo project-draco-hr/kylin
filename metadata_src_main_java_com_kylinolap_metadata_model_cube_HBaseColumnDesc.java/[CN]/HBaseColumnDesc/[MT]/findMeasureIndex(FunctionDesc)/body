@@ -1,0 +1,8 @@
+{
+  for (int i=0; i < measures.length; i++) {
+    if (measures[i].getFunction().equals(function)) {
+      return i;
+    }
+  }
+  return -1;
+}

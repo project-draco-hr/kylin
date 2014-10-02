@@ -1,0 +1,5 @@
+RelTraitSet traitSet
+RexNode conditionExpr
+RelNode left
+RelNode right
+JoinRelType joinType

@@ -1,0 +1,7 @@
+{
+  List<String> movingItems=listCubeRelatedResources(cube);
+  if (dstStore.exists(cube.getResourcePath()) && !overwriteIfExists.equalsIgnoreCase("true"))   throw new IllegalStateException("The cube named " + cube.getName() + " already exists on target metadata store. Use overwriteIfExists to overwrite it");
+  for (  String item : movingItems) {
+    operations.add(new Opt(OptType.COPY_FILE_IN_META,new Object[]{item}));
+  }
+}

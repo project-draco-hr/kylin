@@ -1,0 +1,8 @@
+{
+  final List<RelDataTypeField> fieldList=table.getRowType().getFieldList();
+  final RelDataTypeFactory.FieldInfoBuilder builder=getCluster().getTypeFactory().builder();
+  for (  int field : fields) {
+    builder.add(fieldList.get(field));
+  }
+  return getCluster().getTypeFactory().createStructType(builder);
+}

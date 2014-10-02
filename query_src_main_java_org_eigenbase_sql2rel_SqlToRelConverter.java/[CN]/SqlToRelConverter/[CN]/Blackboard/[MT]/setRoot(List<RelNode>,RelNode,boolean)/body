@@ -1,0 +1,8 @@
+{
+  this.inputs=inputs;
+  this.root=root;
+  this.systemFieldList.clear();
+  if (hasSystemFields) {
+    this.systemFieldList.addAll(getSystemFields());
+  }
+}

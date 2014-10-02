@@ -1,0 +1,27 @@
+{
+  try {
+    File file=new File(metaUri);
+    if (file.exists()) {
+      if (file.isDirectory()) {
+        return UriType.LOCAL_FOLDER;
+      }
+ else       if (file.isFile()) {
+        if (file.getName().equalsIgnoreCase(KYLIN_CONF_PROPERTIES_FILE)) {
+          return UriType.PROPERTIES_FILE;
+        }
+ else {
+          throw new IllegalStateException("Metadata uri : " + metaUri + " is a local file but not kylin.properties");
+        }
+      }
+    }
+ else {
+      if (RestClient.matchFullRestPattern(metaUri))       return UriType.REST_ADDR;
+ else       throw new IllegalStateException("Metadata uri : " + metaUri + " is not a valid REST URI address");
+    }
+  }
+ catch (  Exception e) {
+    logger.info(e.getLocalizedMessage());
+    throw new IllegalStateException("Metadata uri : " + metaUri + " is not recognized");
+  }
+  return null;
+}

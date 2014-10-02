@@ -1,0 +1,5 @@
+TblColRef[] hostCols
+DeriveType type
+DimensionDesc dimension
+TblColRef[] derivedCols
+String[] extra

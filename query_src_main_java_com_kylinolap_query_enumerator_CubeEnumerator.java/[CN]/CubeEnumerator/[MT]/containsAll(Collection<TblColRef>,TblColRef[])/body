@@ -1,0 +1,6 @@
+{
+  for (  TblColRef col : columns) {
+    if (groupByColumns.contains(col) == false)     return false;
+  }
+  return true;
+}

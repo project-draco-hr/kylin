@@ -1,0 +1,3 @@
+int id
+byte[] returnValue
+int offset

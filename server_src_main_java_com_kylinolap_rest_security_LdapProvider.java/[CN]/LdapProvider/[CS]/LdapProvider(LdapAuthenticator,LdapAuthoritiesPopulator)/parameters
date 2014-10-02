@@ -1,0 +1,2 @@
+LdapAuthenticator authenticator
+LdapAuthoritiesPopulator authoritiesPopulator

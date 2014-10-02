@@ -1,0 +1,9 @@
+{
+  if (valueStart != null) {
+    if (compareToValue(rowkey,valueStart) < 0)     return false;
+  }
+  if (valueEnd != null) {
+    if (compareToValue(rowkey,valueEnd) > 0)     return false;
+  }
+  return true;
+}

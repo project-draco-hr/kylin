@@ -1,0 +1,4 @@
+{
+  super(syncType);
+  innerCache=HashMultimap.create();
+}

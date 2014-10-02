@@ -1,0 +1,7 @@
+RelOptCluster cluster
+RelTraitSet traits
+RelNode left
+RelNode right
+RexNode condition
+JoinRelType joinType
+Set<String> variablesStopped

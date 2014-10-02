@@ -1,0 +1,3 @@
+SqlNode query
+boolean top
+RelDataType targetRowType

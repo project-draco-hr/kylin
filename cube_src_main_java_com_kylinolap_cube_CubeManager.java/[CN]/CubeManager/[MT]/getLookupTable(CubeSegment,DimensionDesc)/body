@@ -1,0 +1,20 @@
+{
+  String tableName=dim.getTable();
+  String[] pkCols=dim.getJoin().getPrimaryKey();
+  String key=tableName + "#" + StringUtils.join(pkCols,",");
+  LookupStringTable r=lookupTables.get(key);
+  if (r == null) {
+    String snapshotResPath=cubeSegment.getSnapshotResPath(tableName);
+    if (snapshotResPath == null)     throw new IllegalStateException("No snaphot for table '" + tableName + "' found on cube segment"+ cubeSegment.getCubeInstance().getName()+ "/"+ cubeSegment.getName());
+    try {
+      SnapshotTable snapshot=getSnapshotManager().getSnapshotTable(snapshotResPath);
+      TableDesc tableDesc=getMetadataManager().getTableDesc(tableName);
+      r=new LookupStringTable(tableDesc,pkCols,snapshot);
+    }
+ catch (    IOException e) {
+      throw new IllegalStateException("Failed to load lookup table " + tableName + " from snapshot "+ snapshotResPath,e);
+    }
+    lookupTables.putLocal(key,r);
+  }
+  return r;
+}

@@ -1,0 +1,4 @@
+{
+  int exitCode=ToolRunner.run(new RandomKeyDistributionJob(),args);
+  System.exit(exitCode);
+}

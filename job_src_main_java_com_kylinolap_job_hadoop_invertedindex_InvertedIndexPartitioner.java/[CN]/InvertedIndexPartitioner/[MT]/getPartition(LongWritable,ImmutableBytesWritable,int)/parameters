@@ -1,0 +1,3 @@
+LongWritable key
+ImmutableBytesWritable value
+int numPartitions

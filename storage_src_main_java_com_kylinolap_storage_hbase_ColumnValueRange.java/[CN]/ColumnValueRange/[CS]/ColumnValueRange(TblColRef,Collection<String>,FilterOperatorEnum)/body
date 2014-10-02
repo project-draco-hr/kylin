@@ -1,0 +1,25 @@
+{
+  this.column=column;
+switch (op) {
+case EQ:
+case IN:
+    equalValues=new HashSet<String>(values);
+  refreshBeginEndFromEquals();
+break;
+case LT:
+case LTE:
+endValue=max(values);
+break;
+case GT:
+case GTE:
+beginValue=min(values);
+break;
+case NEQ:
+case NOTIN:
+case ISNULL:
+case ISNOTNULL:
+break;
+default :
+throw new UnsupportedOperationException(op.name());
+}
+}

@@ -1,0 +1,3 @@
+{
+  sum=new BigDecimal(0);
+}

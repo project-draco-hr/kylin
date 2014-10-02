@@ -1,0 +1,8 @@
+{
+  if (isClosedForChange()) {
+    throw new IllegalArgumentException();
+  }
+  if (uncompressed == null) {
+    uncompressed=new byte[valueLen * cap];
+  }
+}

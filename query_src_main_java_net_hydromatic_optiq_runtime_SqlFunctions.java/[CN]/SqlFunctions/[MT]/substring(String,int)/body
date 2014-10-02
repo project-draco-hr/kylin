@@ -1,0 +1,3 @@
+{
+  return s.substring(from - 1);
+}

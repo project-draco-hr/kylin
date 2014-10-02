@@ -1,0 +1,27 @@
+{
+  this.trieBytes=trieBytes;
+  if (BytesUtil.compareBytes(HEAD_MAGIC,0,trieBytes,0,HEAD_MAGIC.length) != 0)   throw new IllegalArgumentException("Wrong file type (magic does not match)");
+  try {
+    DataInputStream headIn=new DataInputStream(new ByteArrayInputStream(trieBytes,HEAD_SIZE_I,trieBytes.length - HEAD_SIZE_I));
+    this.headSize=headIn.readShort();
+    this.bodyLen=headIn.readInt();
+    this.sizeChildOffset=headIn.read();
+    this.sizeNoValuesBeneath=headIn.read();
+    this.baseId=headIn.readShort();
+    this.maxValueLength=headIn.readShort();
+    String converterName=headIn.readUTF();
+    if (converterName.isEmpty() == false)     this.bytesConvert=(BytesConverter<T>)Class.forName(converterName).newInstance();
+    this.nValues=BytesUtil.readUnsigned(trieBytes,headSize + sizeChildOffset,sizeNoValuesBeneath);
+    this.sizeOfId=BytesUtil.sizeForValue(baseId + nValues + 1);
+    this.childOffsetMask=~((BIT_IS_LAST_CHILD | BIT_IS_END_OF_VALUE) << ((sizeChildOffset - 1) * 8));
+    this.firstByteOffset=sizeChildOffset + sizeNoValuesBeneath + 1;
+  }
+ catch (  Exception e) {
+    if (e instanceof RuntimeException)     throw (RuntimeException)e;
+ else     throw new RuntimeException(e);
+  }
+  if (enableCache) {
+    valueToIdCache=new SoftReference<HashMap>(new HashMap());
+    idToValueCache=new SoftReference<Object[]>(new Object[nValues]);
+  }
+}

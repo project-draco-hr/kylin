@@ -1,0 +1,19 @@
+{
+  convertFrom(bb,select.getFrom());
+  convertWhere(bb,select.getWhere());
+  List<SqlNode> orderExprList=new ArrayList<SqlNode>();
+  List<RelFieldCollation> collationList=new ArrayList<RelFieldCollation>();
+  gatherOrderExprs(bb,select,select.getOrderList(),orderExprList,collationList);
+  final RelCollation collation=cluster.traitSetOf().canonize(RelCollationImpl.of(collationList));
+  if (validator.isAggregate(select)) {
+    convertAgg(bb,select,orderExprList);
+  }
+ else {
+    convertSelectList(bb,select,orderExprList);
+  }
+  if (select.isDistinct()) {
+    distinctify(bb,true);
+  }
+  convertOrder(select,bb,collation,orderExprList,select.getOffset(),select.getFetch());
+  bb.setRoot(bb.root,true);
+}

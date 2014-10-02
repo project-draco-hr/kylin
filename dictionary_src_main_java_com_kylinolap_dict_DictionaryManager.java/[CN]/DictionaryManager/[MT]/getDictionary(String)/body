@@ -1,0 +1,4 @@
+{
+  DictionaryInfo dictInfo=getDictionaryInfo(resourcePath);
+  return dictInfo == null ? null : dictInfo.getDictionaryObject();
+}

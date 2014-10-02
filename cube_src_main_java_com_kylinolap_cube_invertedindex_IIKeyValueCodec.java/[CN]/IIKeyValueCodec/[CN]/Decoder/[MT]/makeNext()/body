@@ -1,0 +1,13 @@
+{
+  if (bitMapValues.isEmpty() == false) {
+    addBitMapContainer(lastCol);
+  }
+  if (containers != null) {
+    next=new TimeSlice(info,lastPartition,lastSliceNo,containers);
+  }
+  lastPartition=Long.MIN_VALUE;
+  lastSliceNo=-1;
+  lastCol=-1;
+  containers=null;
+  bitMapValues.clear();
+}

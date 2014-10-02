@@ -1,0 +1,20 @@
+{
+  this.hierarchyMasks=new ArrayList<HierarchyMask>();
+  for (  DimensionDesc dimension : this.cubeRef.getDimensions()) {
+    HierarchyDesc[] hierarchies=dimension.getHierarchy();
+    if (hierarchies == null || hierarchies.length == 0)     continue;
+    HierarchyMask mask=new HierarchyMask();
+    ArrayList<Long> allMaskList=new ArrayList<Long>();
+    for (int i=0; i < hierarchies.length; i++) {
+      TblColRef hColumn=hierarchies[i].getColumnRef();
+      Integer index=getColumnBitIndex(hColumn);
+      long bit=1L << index;
+      if ((tailMask & bit) > 0)       continue;
+      mask.fullMask|=bit;
+      allMaskList.add(mask.fullMask);
+    }
+    mask.allMasks=new long[allMaskList.size()];
+    for (int i=0; i < allMaskList.size(); i++)     mask.allMasks[i]=allMaskList.get(i);
+    this.hierarchyMasks.add(mask);
+  }
+}

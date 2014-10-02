@@ -1,0 +1,13 @@
+{
+  Map<String,Metric> metricSet=new HashMap<String,Metric>();
+  for (  final String key : metrics.keySet()) {
+    metricSet.put(key,new Gauge<Float>(){
+      @Override public Float getValue(){
+        float value=getAndReset(key);
+        return value;
+      }
+    }
+);
+  }
+  return metricSet;
+}

@@ -1,0 +1,5 @@
+{
+  Map<String,TblColRef> cols=columnMap.get(table);
+  if (cols == null)   return null;
+ else   return cols.get(column);
+}

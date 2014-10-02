@@ -1,0 +1,6 @@
+{
+  if (steps == null) {
+    steps=new Vector<JobStep>();
+  }
+  return steps.iterator();
+}

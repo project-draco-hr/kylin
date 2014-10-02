@@ -1,0 +1,6 @@
+{
+  Set<GrantedAuthority> authorities=new HashSet<GrantedAuthority>();
+  authorities.add(new SimpleGrantedAuthority("ROLE_MODELER"));
+  authorities.add(new SimpleGrantedAuthority("ROLE_ANALYST"));
+  return authorities;
+}

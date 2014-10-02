@@ -1,0 +1,5 @@
+{
+  if ((o instanceof TrieDictionary) == false)   return false;
+  TrieDictionary that=(TrieDictionary)o;
+  return Arrays.equals(this.trieBytes,that.trieBytes);
+}

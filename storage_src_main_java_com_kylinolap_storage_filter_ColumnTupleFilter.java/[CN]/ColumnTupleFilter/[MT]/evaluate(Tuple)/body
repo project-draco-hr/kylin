@@ -1,0 +1,5 @@
+{
+  String fieldName=tuple.getFieldName(columnRef);
+  this.tupleValue=tuple.getFieldValue(fieldName);
+  return true;
+}

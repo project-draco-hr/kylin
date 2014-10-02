@@ -1,0 +1,4 @@
+{
+  removeCubeFromProjects(cubeName);
+  return addCubeToProject(cubeName,newProjectName,owner);
+}

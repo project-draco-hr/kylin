@@ -1,0 +1,11 @@
+{
+  final int prime=31;
+  int result=1;
+  result=prime * result + Arrays.hashCode(containers);
+  result=prime * result + ((info == null) ? 0 : info.hashCode());
+  result=prime * result + nColumns;
+  result=prime * result + nRecords;
+  result=prime * result + sliceNo;
+  result=prime * result + (int)(timePartition ^ (timePartition >>> 32));
+  return result;
+}

@@ -1,0 +1,25 @@
+{
+  Assert.notNull(ae,"Acl domain object required");
+  Assert.notNull(accessEntryId,"Ace id required");
+  Assert.notNull(newPermission,"Acl permission required");
+  ObjectIdentity objectIdentity=new ObjectIdentityImpl(ae.getClass(),ae.getId());
+  MutableAcl acl=(MutableAcl)aclService.readAclById(objectIdentity);
+  int indexOfAce=-1;
+  for (int i=0; i < acl.getEntries().size(); i++) {
+    AccessControlEntry ace=acl.getEntries().get(i);
+    if (ace.getId().equals(accessEntryId)) {
+      indexOfAce=i;
+      break;
+    }
+  }
+  if (indexOfAce != -1) {
+    secureOwner(acl,indexOfAce);
+    try {
+      acl.updateAce(indexOfAce,newPermission);
+      acl=aclService.updateAcl(acl);
+    }
+ catch (    NotFoundException e) {
+    }
+  }
+  return acl;
+}

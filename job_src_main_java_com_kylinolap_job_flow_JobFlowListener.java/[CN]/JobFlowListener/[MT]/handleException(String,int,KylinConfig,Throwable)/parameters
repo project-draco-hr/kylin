@@ -1,0 +1,4 @@
+String jobInstanceUuid
+int jobInstanceStepSeqId
+KylinConfig config
+Throwable t

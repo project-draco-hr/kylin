@@ -1,0 +1,3 @@
+String resPath
+T obj
+Serializer<T> serializer

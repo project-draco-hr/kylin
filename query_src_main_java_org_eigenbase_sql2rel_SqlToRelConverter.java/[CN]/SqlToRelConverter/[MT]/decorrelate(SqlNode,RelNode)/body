@@ -1,0 +1,8 @@
+{
+  RelNode result=rootRel;
+  if (enableDecorrelation() && hasCorrelation()) {
+    result=decorrelateQuery(result);
+    checkConvertedType(query,result);
+  }
+  return result;
+}

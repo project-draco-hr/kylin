@@ -1,0 +1,4 @@
+{
+  if (isNullId(id))   return null;
+ else   return getValueFromIdImpl(id);
+}

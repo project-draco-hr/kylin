@@ -1,0 +1,17 @@
+{
+  return new Iterator<TimeSlice>(){
+    @Override public boolean hasNext(){
+      goToNext();
+      return next != null;
+    }
+    @Override public TimeSlice next(){
+      TimeSlice result=next;
+      next=null;
+      return result;
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+  }
+;
+}

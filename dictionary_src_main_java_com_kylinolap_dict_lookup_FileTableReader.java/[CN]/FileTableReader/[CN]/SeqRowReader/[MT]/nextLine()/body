@@ -1,0 +1,5 @@
+{
+  boolean hasNext=reader.next(key,value);
+  if (hasNext)   return Bytes.toString(value.getBytes(),0,value.getLength());
+ else   return null;
+}

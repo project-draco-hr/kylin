@@ -1,0 +1,5 @@
+{
+  byte[] bytes=RowProjector.serialize(sample);
+  RowProjector copy=RowProjector.deserialize(bytes);
+  assertTrue(Arrays.equals(sample.rowKeyBitMask,copy.rowKeyBitMask));
+}

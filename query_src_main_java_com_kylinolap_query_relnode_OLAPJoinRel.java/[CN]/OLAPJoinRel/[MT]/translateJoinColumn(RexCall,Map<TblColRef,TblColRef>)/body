@@ -1,0 +1,17 @@
+{
+  SqlKind kind=condition.getOperator().getKind();
+  if (kind == SqlKind.AND) {
+    for (    RexNode operand : condition.getOperands()) {
+      RexCall subCond=(RexCall)operand;
+      translateJoinColumn(subCond,joinColumns);
+    }
+  }
+ else   if (kind == SqlKind.EQUALS) {
+    List<RexNode> operands=condition.getOperands();
+    RexInputRef op0=(RexInputRef)operands.get(0);
+    TblColRef col0=columnRowType.getColumnByIndex(op0.getIndex());
+    RexInputRef op1=(RexInputRef)operands.get(1);
+    TblColRef col1=columnRowType.getColumnByIndex(op1.getIndex());
+    joinColumns.put(col0,col1);
+  }
+}

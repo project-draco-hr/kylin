@@ -1,0 +1,3 @@
+{
+  scpFilesToHadoopCli(new String[]{".." + File.separator + "examples"+ File.separator+ "test_case_data"+ File.separator+ "kylin.properties",".." + File.separator + "examples"+ File.separator+ "test_case_data"+ File.separator+ "hadoop_job_conf.xml"},"/etc/kylin");
+}

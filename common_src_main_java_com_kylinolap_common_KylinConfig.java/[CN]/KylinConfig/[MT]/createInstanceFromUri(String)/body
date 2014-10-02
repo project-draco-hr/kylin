@@ -1,0 +1,36 @@
+{
+  UriType uriType=decideUriType(uri);
+  logger.info("The URI " + uri + " is recognized as "+ uriType);
+  if (uriType == UriType.LOCAL_FOLDER) {
+    KylinConfig config=new KylinConfig();
+    config.setMetadataUrl(uri);
+    return config;
+  }
+ else   if (uriType == UriType.PROPERTIES_FILE) {
+    KylinConfig config;
+    try {
+      config=new KylinConfig();
+      InputStream is=new FileInputStream(uri);
+      config.reloadKylinConfig(is);
+      is.close();
+    }
+ catch (    IOException e) {
+      throw new RuntimeException(e);
+    }
+    return config;
+  }
+ else {
+    try {
+      KylinConfig config=new KylinConfig();
+      RestClient client=new RestClient(uri);
+      String propertyText=client.getKylinProperties();
+      InputStream is=IOUtils.toInputStream(propertyText);
+      config.reloadKylinConfig(is);
+      is.close();
+      return config;
+    }
+ catch (    IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+}

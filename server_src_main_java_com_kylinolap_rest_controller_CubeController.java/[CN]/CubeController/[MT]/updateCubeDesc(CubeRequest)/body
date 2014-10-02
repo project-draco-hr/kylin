@@ -1,0 +1,33 @@
+{
+  CubeDesc desc=deserializeCubeDesc(cubeRequest);
+  if (desc == null) {
+    return cubeRequest;
+  }
+  if (!cubeService.isCubeDescEditable(desc)) {
+    String error="Cube desc " + desc.getName().toUpperCase() + " is not editable.";
+    updateRequest(cubeRequest,false,error);
+    return cubeRequest;
+  }
+  String descData="";
+  try {
+    CubeInstance cube=cubeService.getCubeManager().getCube(cubeRequest.getCubeName());
+    String projectName=(null == cubeRequest.getProject()) ? ProjectInstance.DEFAULT_PROJECT_NAME : cubeRequest.getProject();
+    desc=cubeService.updateCubeAndDesc(cube,desc,projectName);
+    descData=JsonUtil.writeValueAsIndentString(desc);
+  }
+ catch (  AccessDeniedException accessDeniedException) {
+    throw new ForbiddenException("You don't have right to update this cube.");
+  }
+catch (  Exception e) {
+    logger.error("Failed to deal with the request.",e);
+    throw new InternalErrorException("Failed to deal with the request.",e);
+  }
+  if (desc.getError().isEmpty()) {
+    cubeRequest.setSuccessful(true);
+  }
+ else {
+    updateRequest(cubeRequest,false,omitMessage(desc.getError()));
+  }
+  cubeRequest.setCubeDescData(descData);
+  return cubeRequest;
+}

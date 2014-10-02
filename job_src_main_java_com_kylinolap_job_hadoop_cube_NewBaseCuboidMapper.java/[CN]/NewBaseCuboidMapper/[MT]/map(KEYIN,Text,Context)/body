@@ -1,0 +1,21 @@
+{
+  counter++;
+  if (counter % BatchConstants.COUNTER_MAX == 0) {
+    logger.info("Handled " + counter + " records!");
+  }
+  if (!byteRowDelimiterInferred)   byteRowDelimiter=bytesSplitter.inferByteRowDelimiter(value.getBytes(),value.getLength(),factTableDesc.getColumns().length);
+  bytesSplitter.split(value.getBytes(),value.getLength(),byteRowDelimiter);
+  try {
+    byte[] rowKey=buildKey(bytesSplitter.getSplitBuffers());
+    if (rowKey == null)     return;
+    outputKey.set(rowKey,0,rowKey.length);
+    buildValue(bytesSplitter.getSplitBuffers());
+    outputValue.set(valueBuf.array(),0,valueBuf.position());
+    context.write(outputKey,outputValue);
+  }
+ catch (  Throwable t) {
+    logger.error("",t);
+    context.getCounter(BatchConstants.MAPREDUCE_COUTNER_GROUP_NAME,"Error records").increment(1L);
+    return;
+  }
+}

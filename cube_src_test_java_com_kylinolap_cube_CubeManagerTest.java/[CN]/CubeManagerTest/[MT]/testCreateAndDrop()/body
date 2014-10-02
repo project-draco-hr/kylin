@@ -1,0 +1,13 @@
+{
+  ResourceStore store=getStore();
+  store.deleteResource("/cube/a_whole_new_cube.json");
+  MetadataManager metaMgr=getMetadataManager();
+  CubeDesc desc=metaMgr.getCubeDesc("test_kylin_cube_with_slr_desc");
+  CubeInstance createdCube=CubeManager.getInstance(this.getTestConfig()).createCube("a_whole_new_cube",ProjectInstance.DEFAULT_PROJECT_NAME,desc,null);
+  assertTrue(createdCube == CubeManager.getInstance(this.getTestConfig()).getCube("a_whole_new_cube"));
+  assertTrue(ProjectManager.getInstance(getTestConfig()).listAllCubes(ProjectInstance.DEFAULT_PROJECT_NAME).contains(createdCube));
+  CubeInstance droppedCube=CubeManager.getInstance(this.getTestConfig()).dropCube("a_whole_new_cube");
+  assertTrue(createdCube == droppedCube);
+  assertTrue(!ProjectManager.getInstance(getTestConfig()).listAllCubes(ProjectInstance.DEFAULT_PROJECT_NAME).contains(droppedCube));
+  assertNull(CubeManager.getInstance(this.getTestConfig()).getCube("a_whole_new_cube"));
+}

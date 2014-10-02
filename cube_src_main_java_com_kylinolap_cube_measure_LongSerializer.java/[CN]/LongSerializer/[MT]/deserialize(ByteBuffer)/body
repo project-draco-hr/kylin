@@ -1,0 +1,4 @@
+{
+  current.set(BytesUtil.readVLong(in));
+  return current;
+}

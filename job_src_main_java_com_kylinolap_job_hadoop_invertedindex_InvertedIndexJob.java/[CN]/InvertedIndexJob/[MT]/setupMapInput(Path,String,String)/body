@@ -1,0 +1,29 @@
+{
+  FileInputFormat.setInputPaths(job,input);
+  File JarFile=new File(KylinConfig.getInstanceFromEnv().getKylinJobJarPath());
+  if (JarFile.exists()) {
+    job.setJar(KylinConfig.getInstanceFromEnv().getKylinJobJarPath());
+  }
+ else {
+    job.setJarByClass(this.getClass());
+  }
+  if ("textinputformat".equalsIgnoreCase(inputFormat) || "text".equalsIgnoreCase(inputFormat)) {
+    job.setInputFormatClass(TextInputFormat.class);
+  }
+ else {
+    job.setInputFormatClass(SequenceFileInputFormat.class);
+  }
+  if ("t".equals(inputDelim)) {
+    inputDelim="\t";
+  }
+ else   if ("177".equals(inputDelim)) {
+    inputDelim="\177";
+  }
+  if (inputDelim != null) {
+    job.getConfiguration().set(BatchConstants.INPUT_DELIM,inputDelim);
+  }
+  job.setMapperClass(InvertedIndexMapper.class);
+  job.setMapOutputKeyClass(LongWritable.class);
+  job.setMapOutputValueClass(ImmutableBytesWritable.class);
+  job.setPartitionerClass(InvertedIndexPartitioner.class);
+}

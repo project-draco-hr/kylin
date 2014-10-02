@@ -1,0 +1,5 @@
+{
+  byte[] keyBytes=new byte[length];
+  Arrays.fill(keyBytes,RowConstants.FUZZY_MASK_ZERO);
+  return keyBytes;
+}

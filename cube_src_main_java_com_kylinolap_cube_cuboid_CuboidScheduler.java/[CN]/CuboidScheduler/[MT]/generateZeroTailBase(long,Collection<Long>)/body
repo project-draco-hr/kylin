@@ -1,0 +1,13 @@
+{
+  RowKeyDesc rowkey=cubeDef.getRowkey();
+  long cuboidWithoutMandatory=cuboid & ~rowkey.getMandatoryColumnMask();
+  for (  AggrGroupMask mask : rowkey.getAggrGroupMasks()) {
+    if ((cuboidWithoutMandatory & mask.groupMask) == mask.groupMask && (cuboidWithoutMandatory & mask.leftoverMask) == mask.leftoverMask) {
+      long zeroTail=rowkey.getMandatoryColumnMask() | mask.groupMask;
+      if (zeroTail > 0 && zeroTail != cuboid) {
+        result.add(zeroTail);
+      }
+    }
+    if ((cuboidWithoutMandatory & mask.uniqueMask) > 0)     break;
+  }
+}

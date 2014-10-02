@@ -1,0 +1,19 @@
+{
+  if (getCubeManager().getCube(cubeName) != null) {
+    throw new InternalErrorException("The cube named " + cubeName + " already exists");
+  }
+  String owner=SecurityContextHolder.getContext().getAuthentication().getName();
+  CubeDesc createdDesc=null;
+  CubeInstance createdCube=null;
+  createdDesc=getMetadataManager().createCubeDesc(desc);
+  if (!createdDesc.getError().isEmpty()) {
+    throw new InternalErrorException(createdDesc.getError().get(0));
+  }
+  int cuboidCount=CuboidCLI.simulateCuboidGeneration(createdDesc);
+  logger.info("New cube " + cubeName + " has "+ cuboidCount+ " cuboids");
+  createdCube=getCubeManager().createCube(cubeName,projectName,createdDesc,owner);
+  accessService.init(createdCube,AclPermission.ADMINISTRATION);
+  ProjectInstance project=getProjectManager().getProject(projectName);
+  accessService.inherit(createdCube,project);
+  return createdCube;
+}

@@ -1,0 +1,13 @@
+{
+  String[] paths=new String[groupRowkeyColumnsCount + 1];
+  for (int i=0; i <= groupRowkeyColumnsCount; i++) {
+    int dimNum=totalRowkeyColumnCount - i;
+    if (dimNum == totalRowkeyColumnCount) {
+      paths[i]=jobWorkingDir + "/" + cubeName+ "/cuboid/"+ "base_cuboid";
+    }
+ else {
+      paths[i]=jobWorkingDir + "/" + cubeName+ "/cuboid/"+ dimNum+ "d_cuboid";
+    }
+  }
+  return paths;
+}

@@ -1,0 +1,15 @@
+{
+  ByteArrayOutputStream bout=new ByteArrayOutputStream();
+  IOUtils.copy(content,bout);
+  bout.close();
+  HTableInterface table=getConnection().getTable(getTableName(resPath));
+  try {
+    byte[] row=Bytes.toBytes(resPath);
+    Put put=buildPut(resPath,ts,row,bout.toByteArray(),table);
+    table.put(put);
+    table.flushCommits();
+  }
+  finally {
+    IOUtils.closeQuietly(table);
+  }
+}

@@ -1,0 +1,3 @@
+List<RelNode> inputs
+RelNode root
+boolean hasSystemFields

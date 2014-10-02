@@ -1,0 +1,3 @@
+{
+  return jobInstance.getRelatedCube() + "." + jobInstance.getUuid()+ "."+ jobStep.getSequenceID();
+}

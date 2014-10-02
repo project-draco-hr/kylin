@@ -1,0 +1,11 @@
+{
+  ArrayList<String> str=new ArrayList<String>();
+  str.add("");
+  str.add("part");
+  str.add("par");
+  str.add("partition");
+  str.add("party");
+  str.add("parties");
+  str.add("paint");
+  testStringDictionary(str,null);
+}

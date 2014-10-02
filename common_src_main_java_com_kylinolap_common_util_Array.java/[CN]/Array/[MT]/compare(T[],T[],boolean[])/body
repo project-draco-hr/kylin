@@ -1,0 +1,13 @@
+{
+  int r=0;
+  int n=Math.min(a.length,b.length);
+  boolean asc=true;
+  for (int i=0; i < n; i++) {
+    r=((Comparable<T>)a[i]).compareTo(b[i]);
+    if (r != 0) {
+      asc=(ascending != null && ascending.length > i) ? ascending[i] : true;
+      return asc ? r : -r;
+    }
+  }
+  return a.length - b.length;
+}

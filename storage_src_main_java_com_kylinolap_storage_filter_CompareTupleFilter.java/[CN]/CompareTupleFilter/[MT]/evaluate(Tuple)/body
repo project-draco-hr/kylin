@@ -1,0 +1,50 @@
+{
+  Object tupleValue=null;
+  for (  TupleFilter filter : this.children) {
+    if (!(filter instanceof ConstantTupleFilter)) {
+      filter.evaluate(tuple);
+      tupleValue=filter.getValues().iterator().next();
+    }
+  }
+  boolean result=false;
+switch (this.operator) {
+case EQ:
+    result=tupleValue.equals(firstCondValue);
+  break;
+case NEQ:
+result=!tupleValue.equals(firstCondValue);
+break;
+case LT:
+Number tv=(Number)tupleValue;
+Number fv=Double.valueOf(firstCondValue);
+result=tv.doubleValue() < fv.doubleValue();
+break;
+case LTE:
+tv=(Number)tupleValue;
+fv=Double.valueOf(firstCondValue);
+result=tv.doubleValue() < fv.doubleValue();
+break;
+case GT:
+tv=(Number)tupleValue;
+fv=Double.valueOf(firstCondValue);
+result=tv.doubleValue() > fv.doubleValue();
+break;
+case GTE:
+tv=(Number)tupleValue;
+fv=Double.valueOf(firstCondValue);
+result=tv.doubleValue() >= fv.doubleValue();
+break;
+case ISNULL:
+result=tupleValue == null;
+break;
+case ISNOTNULL:
+result=tupleValue != null;
+break;
+case IN:
+conditionValues.contains(tupleValue);
+break;
+default :
+return false;
+}
+return result;
+}

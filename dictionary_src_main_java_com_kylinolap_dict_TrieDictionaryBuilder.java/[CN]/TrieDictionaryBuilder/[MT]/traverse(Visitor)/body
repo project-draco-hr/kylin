@@ -1,0 +1,3 @@
+{
+  traverseR(root,visitor,0);
+}

@@ -1,0 +1,11 @@
+{
+  init(jobInstance);
+switch (jobInstance.getType()) {
+case BUILD:
+    createBuildCubeSegmentSteps(jobInstance);
+  break;
+case MERGE:
+createMergeCubeSegmentsSteps(jobInstance);
+break;
+}
+}

@@ -1,0 +1,7 @@
+{
+  ByteBuffer buf=ByteBuffer.allocate(CoprocessorEnabler.SERIALIZE_BUFFER_SIZE);
+  serializer.serialize(o,buf);
+  byte[] result=new byte[buf.position()];
+  System.arraycopy(buf.array(),0,result,0,buf.position());
+  return result;
+}

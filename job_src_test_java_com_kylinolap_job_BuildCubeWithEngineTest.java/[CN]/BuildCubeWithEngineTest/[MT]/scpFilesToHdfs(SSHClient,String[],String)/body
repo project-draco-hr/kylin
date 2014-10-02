@@ -1,0 +1,16 @@
+{
+  String remoteTempDir="/tmp/";
+  List<String> nameList=new ArrayList<String>();
+  for (int i=0; i < localFiles.length; i++) {
+    File file=new File(localFiles[i]);
+    String filename=file.getName();
+    nameList.add(filename);
+  }
+  for (  String f : localFiles) {
+    hadoopCli.scpFileToRemote(f,remoteTempDir);
+  }
+  for (  String f : nameList) {
+    hadoopCli.execCommand("hadoop fs -put -f " + remoteTempDir + f+ " "+ hdfsDir+ "/"+ f);
+    hadoopCli.execCommand("hadoop fs -chmod 777 " + hdfsDir + "/"+ f);
+  }
+}

@@ -1,0 +1,21 @@
+{
+  Options options=new Options();
+  try {
+    options.addOption(OPTION_CUBE_NAME);
+    options.addOption(OPTION_SEGMENT_NAME);
+    options.addOption(OPTION_INPUT_PATH);
+    parseOptions(options,args);
+    String cubeName=getOptionValue(OPTION_CUBE_NAME);
+    String segmentName=getOptionValue(OPTION_SEGMENT_NAME);
+    String factColumnsInputPath=getOptionValue(OPTION_INPUT_PATH);
+    KylinConfig config=KylinConfig.getInstanceFromEnv();
+    DictionaryGeneratorCLI.processSegment(config,cubeName,segmentName,factColumnsInputPath);
+  }
+ catch (  Exception e) {
+    printUsage(options);
+    e.printStackTrace(System.err);
+    log.error(e.getLocalizedMessage(),e);
+    returnCode=2;
+  }
+  return returnCode;
+}

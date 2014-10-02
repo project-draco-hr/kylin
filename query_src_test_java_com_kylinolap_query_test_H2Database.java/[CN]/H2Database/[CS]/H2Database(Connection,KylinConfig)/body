@@ -1,0 +1,4 @@
+{
+  this.h2Connection=h2Connection;
+  this.config=config;
+}

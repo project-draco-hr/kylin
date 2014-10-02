@@ -1,0 +1,18 @@
+{
+  JobStep factDistinctColumnsStep=new JobStep();
+  String inputLocation;
+  String cmd="";
+  inputLocation=getIntermediateHiveTablePath();
+  cmd=appendMapReduceParameters(cmd);
+  factDistinctColumnsStep.setName(JobConstants.STEP_NAME_FACT_DISTINCT_COLUMNS);
+  cmd=appendExecCmdParameters(cmd,"cubename",cubeName);
+  cmd=appendExecCmdParameters(cmd,"input",inputLocation);
+  cmd=appendExecCmdParameters(cmd,"output",getFactDistinctColumnsPath());
+  cmd=appendExecCmdParameters(cmd,"jobname","Kylin_Fact_Distinct_Columns_" + jobInstance.getRelatedCube() + "_Step_"+ stepSeqNum);
+  factDistinctColumnsStep.setExecCmd(cmd);
+  factDistinctColumnsStep.setSequenceID(stepSeqNum);
+  factDistinctColumnsStep.setStatus(JobStepStatusEnum.PENDING);
+  factDistinctColumnsStep.setRunAsync(true);
+  factDistinctColumnsStep.setCmdType(JobStepCmdTypeEnum.JAVA_CMD_HADOOP_FACTDISTINCT);
+  jobInstance.addStep(stepSeqNum,factDistinctColumnsStep);
+}

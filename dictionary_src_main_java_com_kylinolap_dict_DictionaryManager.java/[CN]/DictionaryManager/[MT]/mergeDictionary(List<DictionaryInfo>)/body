@@ -1,0 +1,30 @@
+{
+  DictionaryInfo firstDictInfo=null;
+  int totalSize=0;
+  for (  DictionaryInfo info : dicts) {
+    if (firstDictInfo == null) {
+      firstDictInfo=info;
+    }
+ else {
+      if (!firstDictInfo.isDictOnSameColumn(info)) {
+        throw new IllegalArgumentException("Merging dictionaries are not structurally equal(regardless of signature).");
+      }
+    }
+    totalSize+=info.getInput().getSize();
+  }
+  if (firstDictInfo == null) {
+    throw new IllegalArgumentException("DictionaryManager.mergeDictionary input cannot be null");
+  }
+  DictionaryInfo newDictInfo=new DictionaryInfo(firstDictInfo);
+  TableSignature signature=newDictInfo.getInput();
+  signature.setSize(totalSize);
+  signature.setLastModifiedTime(System.currentTimeMillis());
+  signature.setPath("merged_with_no_original_path");
+  String dupDict=checkDupByInfo(newDictInfo);
+  if (dupDict != null) {
+    logger.info("Identical dictionary input " + newDictInfo.getInput() + ", reuse existing dictionary at "+ dupDict);
+    return getDictionaryInfo(dupDict);
+  }
+  Dictionary<?> newDict=DictionaryGenerator.mergeDictionaries(newDictInfo,dicts);
+  return trySaveNewDict(newDict,newDictInfo);
+}

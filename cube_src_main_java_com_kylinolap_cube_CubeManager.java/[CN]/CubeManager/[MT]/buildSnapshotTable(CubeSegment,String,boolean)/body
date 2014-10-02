@@ -1,0 +1,10 @@
+{
+  MetadataManager metaMgr=getMetadataManager();
+  SnapshotManager snapshotMgr=getSnapshotManager();
+  HiveTable hiveTable=new HiveTable(metaMgr,lookupTable);
+  TableDesc tableDesc=metaMgr.getTableDesc(lookupTable);
+  SnapshotTable snapshot=snapshotMgr.buildSnapshot(hiveTable,tableDesc,reuseExisting);
+  cubeSeg.putSnapshotResPath(lookupTable,snapshot.getResourcePath());
+  saveResource(cubeSeg.getCubeInstance());
+  return snapshot;
+}

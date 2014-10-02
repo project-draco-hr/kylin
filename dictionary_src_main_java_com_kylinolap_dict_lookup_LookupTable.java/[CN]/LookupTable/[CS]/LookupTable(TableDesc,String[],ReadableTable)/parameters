@@ -1,0 +1,3 @@
+TableDesc tableDesc
+String[] keyColumns
+ReadableTable table

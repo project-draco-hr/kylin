@@ -1,0 +1,60 @@
+{
+  traversePostOrder(new Visitor(){
+    @Override public void visit(    Node n,    int level){
+      n.nValuesBeneath=n.isEndOfValue ? 1 : 0;
+      for (      Node c : n.children)       n.nValuesBeneath+=c.nValuesBeneath;
+    }
+  }
+);
+  final Stats s=new Stats();
+  final ArrayList<Integer> lenAtLvl=new ArrayList<Integer>();
+  traverse(new Visitor(){
+    @Override public void visit(    Node n,    int level){
+      if (n.isEndOfValue)       s.nValues++;
+      s.nValueBytesPlain+=n.part.length * n.nValuesBeneath;
+      s.nValueBytesCompressed+=n.part.length;
+      s.mbpn_nNodes++;
+      if (s.mbpn_trieDepth < level + 1)       s.mbpn_trieDepth=level + 1;
+      if (n.children.size() > 0) {
+        if (s.mbpn_maxFanOut < n.children.size())         s.mbpn_maxFanOut=n.children.size();
+        int childLookups=n.nValuesBeneath - (n.isEndOfValue ? 1 : 0);
+        s.mbpn_nChildLookups+=childLookups;
+        s.mbpn_nTotalFanOut+=childLookups * n.children.size();
+      }
+      if (level < lenAtLvl.size())       lenAtLvl.set(level,n.part.length);
+ else       lenAtLvl.add(n.part.length);
+      int lenSoFar=0;
+      for (int i=0; i <= level; i++)       lenSoFar+=lenAtLvl.get(i);
+      if (lenSoFar > s.maxValueLength)       s.maxValueLength=lenSoFar;
+    }
+  }
+);
+  s.obpn_sizeValue=1;
+  s.obpn_sizeNoValuesBeneath=BytesUtil.sizeForValue(s.nValues);
+  s.obpn_sizeChildCount=1;
+  s.obpn_sizeChildOffset=4;
+  s.obpn_nNodes=s.nValueBytesCompressed;
+  s.obpn_footprint=s.obpn_nNodes * (s.obpn_sizeValue + s.obpn_sizeNoValuesBeneath + s.obpn_sizeChildCount+ s.obpn_sizeChildOffset);
+  while (true) {
+    int t=s.obpn_nNodes * (s.obpn_sizeValue + s.obpn_sizeNoValuesBeneath + s.obpn_sizeChildCount+ s.obpn_sizeChildOffset - 1);
+    if (BytesUtil.sizeForValue(t * 2) <= s.obpn_sizeChildOffset - 1) {
+      s.obpn_sizeChildOffset--;
+      s.obpn_footprint=t;
+    }
+ else     break;
+  }
+  s.mbpn_sizeValueTotal=s.nValueBytesCompressed;
+  s.mbpn_sizeNoValueBytes=1;
+  s.mbpn_sizeNoValueBeneath=BytesUtil.sizeForValue(s.nValues);
+  s.mbpn_sizeChildOffset=4;
+  s.mbpn_footprint=s.mbpn_sizeValueTotal + s.mbpn_nNodes * (s.mbpn_sizeNoValueBytes + s.mbpn_sizeNoValueBeneath + s.mbpn_sizeChildOffset);
+  while (true) {
+    int t=s.mbpn_sizeValueTotal + s.mbpn_nNodes * (s.mbpn_sizeNoValueBytes + s.mbpn_sizeNoValueBeneath + s.mbpn_sizeChildOffset - 1);
+    if (BytesUtil.sizeForValue(t * 4) <= s.mbpn_sizeChildOffset - 1) {
+      s.mbpn_sizeChildOffset--;
+      s.mbpn_footprint=t;
+    }
+ else     break;
+  }
+  return s;
+}

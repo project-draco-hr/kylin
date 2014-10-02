@@ -1,0 +1,12 @@
+{
+  JoinRel joinRel=(JoinRel)rel;
+  RelNode leftRel=joinRel.getInput(0);
+  RelNode rightRel=joinRel.getInput(1);
+  RelTraitSet traitSet=joinRel.getTraitSet().replace(OLAPRel.CONVENTION);
+  try {
+    return new OLAPJoinRel(joinRel.getCluster(),traitSet,convert(leftRel,traitSet),convert(rightRel,traitSet),joinRel.getCondition(),joinRel.getJoinType(),joinRel.getVariablesStopped());
+  }
+ catch (  InvalidRelException e) {
+    throw new AssertionError(e);
+  }
+}

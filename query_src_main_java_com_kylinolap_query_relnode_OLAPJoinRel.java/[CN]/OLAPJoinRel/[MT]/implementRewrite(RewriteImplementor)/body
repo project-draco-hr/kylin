@@ -1,0 +1,23 @@
+{
+  implementor.visitChild(this,this.left);
+  implementor.visitChild(this,this.right);
+  this.rowType=this.deriveRowType();
+  if (this.isTopJoin && RewriteImplementor.needRewrite(this.context)) {
+    int paramIndex=this.rowType.getFieldList().size();
+    List<RelDataTypeField> newFieldList=new LinkedList<RelDataTypeField>();
+    for (    Map.Entry<String,RelDataType> rewriteField : this.context.rewriteFields.entrySet()) {
+      String fieldName=rewriteField.getKey();
+      if (this.rowType.getField(fieldName,true) == null) {
+        RelDataType fieldType=rewriteField.getValue();
+        RelDataTypeField newField=new RelDataTypeFieldImpl(fieldName,paramIndex++,fieldType);
+        newFieldList.add(newField);
+      }
+    }
+    FieldInfoBuilder fieldInfo=getCluster().getTypeFactory().builder();
+    fieldInfo.addAll(this.rowType.getFieldList());
+    fieldInfo.addAll(newFieldList);
+    this.rowType=getCluster().getTypeFactory().createStructType(fieldInfo);
+    this.context.olapRowType=this.rowType;
+    this.columnRowType=this.buildColumnRowType();
+  }
+}

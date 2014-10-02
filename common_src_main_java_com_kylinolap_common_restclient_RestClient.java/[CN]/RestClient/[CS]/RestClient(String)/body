@@ -1,0 +1,10 @@
+{
+  Matcher m=fullRestPattern.matcher(uri);
+  if (m.matches() == false)   throw new IllegalArgumentException("URI: " + uri + " -- does not match pattern "+ fullRestPattern);
+  String user=m.group(1);
+  String pwd=m.group(2);
+  String host=m.group(3);
+  String portStr=m.group(4);
+  int port=Integer.parseInt(portStr == null ? "80" : portStr);
+  init(host,port,user,pwd);
+}

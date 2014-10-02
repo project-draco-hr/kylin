@@ -1,0 +1,20 @@
+{
+  this.cube=cubeSeg.getCubeInstance();
+  this.cubeSeg=cubeSeg;
+  this.dimensionColumns=dimensionColumns;
+  this.filter=filter;
+  this.groupByColumns=groupByColumns;
+  this.rowValueDecoders=rowValueDecoders;
+  this.context=context;
+  this.tableName=cubeSeg.getStorageLocationIdentifier();
+  this.rowKeyDecoder=new RowKeyDecoder(this.cubeSeg);
+  this.scanCount=0;
+  try {
+    this.table=conn.getTable(tableName);
+  }
+ catch (  Throwable t) {
+    throw new StorageException("Error when open connection to table " + tableName,t);
+  }
+  this.rangeIterator=keyRanges.iterator();
+  scanNextRange();
+}

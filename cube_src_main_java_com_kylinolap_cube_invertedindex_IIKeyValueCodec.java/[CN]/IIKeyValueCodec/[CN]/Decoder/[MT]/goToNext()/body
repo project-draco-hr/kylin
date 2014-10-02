@@ -1,0 +1,18 @@
+{
+  if (next != null) {
+    return;
+  }
+  while (next == null && iterator.hasNext()) {
+    Pair<ImmutableBytesWritable,ImmutableBytesWritable> kv=iterator.next();
+    ImmutableBytesWritable k=kv.getFirst();
+    ImmutableBytesWritable v=kv.getSecond();
+    decodeKey(k);
+    if (curPartition != lastPartition || curSliceNo != lastSliceNo) {
+      makeNext();
+    }
+    consumeCurrent(v);
+  }
+  if (next == null) {
+    makeNext();
+  }
+}

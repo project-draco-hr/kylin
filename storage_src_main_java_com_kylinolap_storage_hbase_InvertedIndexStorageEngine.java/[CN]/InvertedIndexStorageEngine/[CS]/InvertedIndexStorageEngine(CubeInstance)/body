@@ -1,0 +1,4 @@
+{
+  this.seg=cube.getFirstSegment();
+  this.hbaseUrl=KylinConfig.getInstanceFromEnv().getStorageUrl();
+}

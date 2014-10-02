@@ -1,0 +1,24 @@
+{
+  RowKeyDesc rowKeyDesc=cubeDesc.getRowkey();
+  RowKeyColInfo info=new RowKeyColInfo();
+  info.hierachyColBitIndice=new ArrayList<List<Integer>>();
+  info.nonHierachyColBitIndice=new ArrayList<Integer>();
+  HashSet<Integer> heirachyIndexSet=new HashSet<Integer>();
+  for (  DimensionDesc dim : cubeDesc.getDimensions()) {
+    if (dim.getHierarchy() != null) {
+      LinkedList<Integer> hlist=new LinkedList<Integer>();
+      for (      HierarchyDesc hierarchyDesc : dim.getHierarchy()) {
+        int index=rowKeyDesc.getColumnBitIndex(hierarchyDesc.getColumnRef());
+        hlist.add(index);
+        heirachyIndexSet.add(index);
+      }
+      info.hierachyColBitIndice.add(hlist);
+    }
+  }
+  for (int i=0; i < rowKeyDesc.getRowKeyColumns().length; ++i) {
+    if (!heirachyIndexSet.contains(i)) {
+      info.nonHierachyColBitIndice.add(i);
+    }
+  }
+  return info;
+}

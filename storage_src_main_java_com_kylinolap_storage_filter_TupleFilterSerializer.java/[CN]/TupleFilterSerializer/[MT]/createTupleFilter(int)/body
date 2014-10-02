@@ -1,0 +1,43 @@
+{
+  FilterOperatorEnum op=ID_OP_MAP.get(opVal);
+  if (op == null) {
+    throw new IllegalStateException("operator value is " + opVal);
+  }
+  TupleFilter filter=null;
+switch (op) {
+case AND:
+case OR:
+case NOT:
+    filter=new LogicalTupleFilter(op);
+  break;
+case EQ:
+case NEQ:
+case LT:
+case LTE:
+case GT:
+case GTE:
+case IN:
+case ISNULL:
+case ISNOTNULL:
+filter=new CompareTupleFilter(op);
+break;
+case EXTRACT:
+filter=new ExtractTupleFilter(op);
+break;
+case CASE:
+filter=new CaseTupleFilter();
+break;
+case COLUMN:
+filter=new ColumnTupleFilter(null);
+break;
+case CONSTANT:
+filter=new ConstantTupleFilter();
+break;
+case DYNAMIC:
+filter=new DynamicTupleFilter(null);
+break;
+default :
+throw new IllegalStateException("Error FilterOperatorEnum: " + op.getValue());
+}
+return filter;
+}

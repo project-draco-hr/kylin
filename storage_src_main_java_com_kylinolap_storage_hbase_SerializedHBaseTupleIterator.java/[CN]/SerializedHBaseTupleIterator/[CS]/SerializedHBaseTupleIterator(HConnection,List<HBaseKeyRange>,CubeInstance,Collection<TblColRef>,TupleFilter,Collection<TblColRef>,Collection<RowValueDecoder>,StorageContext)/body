@@ -1,0 +1,19 @@
+{
+  this.context=context;
+  int limit=context.getLimit();
+  this.partialResultLimit=Math.max(limit,PARTIAL_DEFAULT_LIMIT);
+  this.segmentIteratorList=new ArrayList<CubeSegmentTupleIterator>(segmentKeyRanges.size());
+  Map<CubeSegment,List<HBaseKeyRange>> rangesMap=makeRangesMap(segmentKeyRanges);
+  for (  CubeSegment cubeSeg : rangesMap.keySet()) {
+    List<HBaseKeyRange> keyRanges=rangesMap.get(cubeSeg);
+    CubeSegmentTupleIterator segIter=new CubeSegmentTupleIterator(cubeSeg,keyRanges,conn,dimensionColumns,filter,groupByColumns,rowValueDecoders,context);
+    this.segmentIteratorList.add(segIter);
+  }
+  this.segmentIteratorIterator=this.segmentIteratorList.iterator();
+  if (this.segmentIteratorIterator.hasNext()) {
+    this.segmentIterator=this.segmentIteratorIterator.next();
+  }
+ else {
+    this.segmentIterator=CubeSegmentTupleIterator.EMPTY_TUPLE_ITERATOR;
+  }
+}

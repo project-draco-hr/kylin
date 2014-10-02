@@ -1,0 +1,3 @@
+{
+  writeVLong(i,out);
+}

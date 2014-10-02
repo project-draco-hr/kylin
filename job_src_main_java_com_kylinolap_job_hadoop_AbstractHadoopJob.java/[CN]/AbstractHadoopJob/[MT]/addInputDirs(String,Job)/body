@@ -1,0 +1,16 @@
+{
+  for (  String inp : StringSplitter.split(input,",")) {
+    inp=inp.trim();
+    if (inp.endsWith("/*")) {
+      inp=inp.substring(0,inp.length() - 2);
+      FileSystem fs=FileSystem.get(job.getConfiguration());
+      for (      FileStatus stat : fs.listStatus(new Path(inp))) {
+        if (stat.isDirectory())         addInputDirs(stat.getPath().toString(),job);
+      }
+    }
+ else {
+      System.out.println("Add input " + inp);
+      FileInputFormat.addInputPath(job,new Path(inp));
+    }
+  }
+}

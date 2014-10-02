@@ -1,0 +1,13 @@
+{
+  RowFilter sample=newSampleRowFilter();
+  for (int i=0; i < rowkeys.size(); i++) {
+    ImmutableBytesWritable rowkey=new ImmutableBytesWritable(rowkeys.get(i));
+    boolean match=sample.evaluate(rowkey);
+    if (i >= 1 && i <= 5) {
+      assertTrue(match);
+    }
+ else {
+      assertFalse(match);
+    }
+  }
+}

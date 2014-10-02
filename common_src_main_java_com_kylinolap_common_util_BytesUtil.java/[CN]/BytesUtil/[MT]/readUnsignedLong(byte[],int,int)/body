@@ -1,0 +1,8 @@
+{
+  long integer=0;
+  for (int i=offset, n=offset + size; i < n; i++) {
+    integer<<=8;
+    integer|=(long)bytes[i] & 0xFF;
+  }
+  return integer;
+}

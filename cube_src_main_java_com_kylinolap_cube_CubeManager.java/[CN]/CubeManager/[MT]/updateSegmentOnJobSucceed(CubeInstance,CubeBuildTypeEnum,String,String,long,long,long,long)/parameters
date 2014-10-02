@@ -1,0 +1,8 @@
+CubeInstance cubeInstance
+CubeBuildTypeEnum buildType
+String segmentName
+String lastBuildJobUuid
+long lastBuildTime
+long sizeKB
+long sourceRecordCount
+long sourceRecordsSize

@@ -1,0 +1,3 @@
+{
+  return getOptional(KYLIN_JOB_YARN_APP_REST_CHECK_STATUS_URL,null);
+}

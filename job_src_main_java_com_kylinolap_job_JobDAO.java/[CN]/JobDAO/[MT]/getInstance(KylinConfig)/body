@@ -1,0 +1,8 @@
+{
+  JobDAO r=CACHE.get(config);
+  if (r == null) {
+    r=new JobDAO(config);
+    CACHE.put(config,r);
+  }
+  return r;
+}

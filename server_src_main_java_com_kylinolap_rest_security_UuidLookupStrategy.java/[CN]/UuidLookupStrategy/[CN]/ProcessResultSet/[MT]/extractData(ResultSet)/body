@@ -1,0 +1,20 @@
+{
+  Set<Long> parentIdsToLookup=new HashSet<Long>();
+  while (rs.next()) {
+    convertCurrentResultIntoObject(acls,rs);
+    long parentId=rs.getLong("parent_object");
+    if (parentId != 0) {
+      if (acls.containsKey(Long.valueOf(parentId))) {
+        continue;
+      }
+      MutableAcl cached=aclCache.getFromCache(Long.valueOf(parentId));
+      if ((cached == null) || !cached.isSidLoaded(sids)) {
+        parentIdsToLookup.add(Long.valueOf(parentId));
+      }
+ else {
+        acls.put(cached.getId(),cached);
+      }
+    }
+  }
+  return parentIdsToLookup;
+}

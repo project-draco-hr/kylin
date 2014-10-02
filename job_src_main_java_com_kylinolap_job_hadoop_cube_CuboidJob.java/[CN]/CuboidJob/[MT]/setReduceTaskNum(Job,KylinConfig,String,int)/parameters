@@ -1,0 +1,4 @@
+Job job
+KylinConfig config
+String cubeName
+int level

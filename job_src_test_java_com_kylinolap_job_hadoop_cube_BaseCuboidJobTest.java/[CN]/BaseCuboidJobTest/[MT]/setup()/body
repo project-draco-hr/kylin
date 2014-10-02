@@ -1,0 +1,5 @@
+{
+  conf=new Configuration();
+  conf.set("mapreduce.task.io.sort.mb","10");
+  createTestMetadata();
+}

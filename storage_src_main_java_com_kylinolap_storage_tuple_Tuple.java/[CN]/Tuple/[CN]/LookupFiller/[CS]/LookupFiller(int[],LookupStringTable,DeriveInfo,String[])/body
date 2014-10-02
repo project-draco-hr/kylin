@@ -1,0 +1,12 @@
+{
+  this.hostIndex=hostIndex;
+  this.hostLen=hostIndex.length;
+  this.lookupKey=new Array<String>(new String[hostLen]);
+  this.lookupTable=lookupTable;
+  this.derivedIndex=new int[deriveInfo.columns.length];
+  this.derivedLen=derivedIndex.length;
+  this.derivedFieldNames=derivedFieldNames;
+  for (int i=0; i < derivedLen; i++) {
+    derivedIndex[i]=deriveInfo.columns[i].getColumn().getZeroBasedIndex();
+  }
+}

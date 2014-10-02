@@ -1,0 +1,36 @@
+{
+  int ln=50;
+  int dn=300;
+  Set<String> testSet=new HashSet<String>();
+  HyperLogLogPlusCounter[] hllcs=new HyperLogLogPlusCounter[ln];
+  for (int i=0; i < ln; i++) {
+    hllcs[i]=newHLLC();
+    for (int k=0; k < dn; k++) {
+      String[] samples=generateSampleData();
+      for (      String data : samples) {
+        testSet.add(data);
+        hllcs[i].add(Bytes.toBytes(data));
+      }
+    }
+  }
+  HyperLogLogPlusCounter mergeHllc=newHLLC();
+  for (  HyperLogLogPlusCounter hllc : hllcs) {
+    mergeHllc.merge(hllc);
+    checkSerialize(mergeHllc);
+  }
+  double errorRate=mergeHllc.getErrorRate();
+  long estimate=mergeHllc.getCountEstimate();
+  double actualError=(double)(testSet.size() - estimate) / testSet.size();
+  System.out.println(testSet.size() + "-" + estimate);
+  System.out.println("=" + actualError);
+  if (Math.abs(actualError) > errorRate) {
+    errorCount1++;
+  }
+  if (Math.abs(actualError) > 2 * errorRate) {
+    errorCount2++;
+  }
+  if (Math.abs(actualError) > 3 * errorRate) {
+    errorCount3++;
+  }
+  return actualError;
+}

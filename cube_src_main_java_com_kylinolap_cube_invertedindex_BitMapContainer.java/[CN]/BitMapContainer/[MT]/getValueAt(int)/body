@@ -1,0 +1,8 @@
+{
+  for (int v=0; v < nValues; v++) {
+    if (sets[v].contains(i)) {
+      return v;
+    }
+  }
+  return Dictionary.NULL_ID[valueLen];
+}

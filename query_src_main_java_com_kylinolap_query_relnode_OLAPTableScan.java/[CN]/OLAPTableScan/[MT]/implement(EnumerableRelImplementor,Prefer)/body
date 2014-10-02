@@ -1,0 +1,10 @@
+{
+  JavaImplementor javaImplementor=(JavaImplementor)implementor;
+  int ctxId=this.context.id;
+  if (javaImplementor.getParentContext() != null) {
+    ctxId=javaImplementor.getParentContext().id;
+  }
+  PhysType physType=PhysTypeImpl.of(javaImplementor.getTypeFactory(),this.rowType,pref.preferArray());
+  String execFunction=genExecFunc();
+  return javaImplementor.result(physType,Blocks.toBlock(Expressions.call(table.getExpression(OLAPTable.class),execFunction,javaImplementor.getRootExpression(),Expressions.constant(ctxId))));
+}

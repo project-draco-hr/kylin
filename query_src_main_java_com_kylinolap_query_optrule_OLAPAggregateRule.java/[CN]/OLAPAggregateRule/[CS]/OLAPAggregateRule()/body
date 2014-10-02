@@ -1,0 +1,3 @@
+{
+  super(AggregateRel.class,Convention.NONE,OLAPRel.CONVENTION,"OLAPAggregateRule");
+}

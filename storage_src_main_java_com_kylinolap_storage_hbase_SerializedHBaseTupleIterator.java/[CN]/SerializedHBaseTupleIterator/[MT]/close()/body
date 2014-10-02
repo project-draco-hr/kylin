@@ -1,0 +1,4 @@
+{
+  context.setTotalScanCount(scanCount);
+  segmentIterator.close();
+}

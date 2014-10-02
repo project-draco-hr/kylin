@@ -1,0 +1,3 @@
+{
+  return Bytes.compareTo(rowkey.get(),rowkey.getOffset() + columnOffset,columnLength,v,0,v.length);
+}

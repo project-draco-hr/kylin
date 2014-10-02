@@ -1,0 +1,29 @@
+{
+  List<JobInstance> jobs=new ArrayList<JobInstance>();
+  try {
+    jobs.addAll(getJobManager().listJobs(null,null));
+  }
+ catch (  IOException e) {
+    logger.error("",e);
+  }
+catch (  JobException e) {
+    logger.error("",e);
+  }
+  MetricsResponse metrics=new MetricsResponse();
+  int successCount=0;
+  long totalTime=0;
+  Date startTime=(null == request.getStartTime()) ? new Date(-1) : request.getStartTime();
+  Date endTime=(null == request.getEndTime()) ? new Date() : request.getEndTime();
+  for (  JobInstance job : jobs) {
+    if (job.getExecStartTime() > startTime.getTime() && job.getExecStartTime() < endTime.getTime()) {
+      metrics.increase("total");
+      metrics.increase(job.getStatus().name());
+      if (job.getStatus() == JobStatusEnum.FINISHED) {
+        successCount++;
+        totalTime+=(job.getExecEndTime() - job.getExecStartTime());
+      }
+    }
+  }
+  metrics.increase("aveExecTime",((successCount == 0) ? 0 : totalTime / (float)successCount));
+  return metrics;
+}

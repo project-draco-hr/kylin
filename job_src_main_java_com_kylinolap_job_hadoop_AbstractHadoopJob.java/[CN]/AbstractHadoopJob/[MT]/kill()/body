@@ -1,0 +1,10 @@
+{
+  if (job != null) {
+    try {
+      job.killJob();
+    }
+ catch (    IOException e) {
+      throw new JobException(e);
+    }
+  }
+}

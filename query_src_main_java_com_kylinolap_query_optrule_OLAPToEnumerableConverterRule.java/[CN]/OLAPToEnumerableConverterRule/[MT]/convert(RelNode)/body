@@ -1,0 +1,4 @@
+{
+  RelTraitSet newTraitSet=rel.getTraitSet().replace(getOutConvention());
+  return new OLAPToEnumerableConverter(rel.getCluster(),newTraitSet,rel);
+}

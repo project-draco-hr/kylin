@@ -1,0 +1,3 @@
+{
+  return Bytes.compareTo(this.startKey,other.startKey);
+}

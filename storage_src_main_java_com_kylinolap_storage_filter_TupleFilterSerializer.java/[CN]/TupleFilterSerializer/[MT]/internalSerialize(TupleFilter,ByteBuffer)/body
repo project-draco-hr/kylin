@@ -1,0 +1,15 @@
+{
+  if (filter == null) {
+    return;
+  }
+  if (filter.hasChildren()) {
+    serializeFilter(1,filter,buffer);
+    for (    TupleFilter child : filter.getChildren()) {
+      internalSerialize(child,buffer);
+    }
+    serializeFilter(-1,filter,buffer);
+  }
+ else {
+    serializeFilter(0,filter,buffer);
+  }
+}

@@ -1,0 +1,3 @@
+{
+  return (Long)DataContext.Variable.CURRENT_TIMESTAMP.get(root);
+}

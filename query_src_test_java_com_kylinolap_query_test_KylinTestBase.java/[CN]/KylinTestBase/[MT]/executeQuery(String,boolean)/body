@@ -1,0 +1,28 @@
+{
+  sql=changeJoinType(sql,joinType);
+  Statement statement=null;
+  ResultSet resultSet=null;
+  try {
+    printInfo("start running...");
+    statement=cubeConnection.createStatement();
+    resultSet=statement.executeQuery(sql);
+    printInfo("stop running...");
+    return output(resultSet,needDisplay);
+  }
+  finally {
+    if (resultSet != null) {
+      try {
+        resultSet.close();
+      }
+ catch (      SQLException e) {
+      }
+    }
+    if (statement != null) {
+      try {
+        statement.close();
+      }
+ catch (      SQLException e) {
+      }
+    }
+  }
+}

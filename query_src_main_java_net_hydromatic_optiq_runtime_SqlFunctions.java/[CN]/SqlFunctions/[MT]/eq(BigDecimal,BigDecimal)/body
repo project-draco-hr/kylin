@@ -1,0 +1,3 @@
+{
+  return b0.stripTrailingZeros().equals(b1.stripTrailingZeros());
+}

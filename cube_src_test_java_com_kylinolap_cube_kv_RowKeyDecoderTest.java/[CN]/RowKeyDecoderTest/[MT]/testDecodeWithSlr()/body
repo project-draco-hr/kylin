@@ -1,0 +1,10 @@
+{
+  CubeInstance cube=CubeManager.getInstance(this.getTestConfig()).getCube("TEST_KYLIN_CUBE_WITH_SLR_READY");
+  RowKeyDecoder rowKeyDecoder=new RowKeyDecoder(cube.getFirstSegment());
+  byte[] key={0,0,0,0,0,0,1,-1,49,48,48,48,48,48,48,48,9,9,9,9,9,9,9,9,9,9,11,54,-105,55,13,71,114,65,66,73,78,9,9,9,9,9,9,9,9,0,10,0};
+  rowKeyDecoder.decode(key);
+  List<String> names=rowKeyDecoder.getNames(null);
+  List<String> values=rowKeyDecoder.getValues();
+  assertEquals("[SELLER_ID, CAL_DT, LEAF_CATEG_ID, META_CATEG_NAME, CATEG_LVL2_NAME, CATEG_LVL3_NAME, LSTG_FORMAT_NAME, LSTG_SITE_ID, SLR_SEGMENT_CD]",names.toString());
+  assertEquals("[10000000, 2012-01-02, 20213, Collectibles, Postcards, US StateCities & Towns, ABIN, 0, -99]",values.toString());
+}

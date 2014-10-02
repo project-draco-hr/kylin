@@ -1,0 +1,11 @@
+{
+  TimeSliceBuilder builder=new TimeSliceBuilder(info);
+  List<TimeSlice> slices=Lists.newArrayList();
+  for (  TableRecord rec : records) {
+    TimeSlice slice=builder.append(rec);
+    if (slice != null)     slices.add(slice);
+  }
+  TimeSlice slice=builder.close();
+  if (slice != null)   slices.add(slice);
+  return slices;
+}

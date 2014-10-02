@@ -1,0 +1,4 @@
+{
+  int exitCode=ToolRunner.run(new CreateDictionaryJob(),args);
+  System.exit(exitCode);
+}

@@ -1,0 +1,8 @@
+CubeSegment segment
+Cuboid cuboid
+Collection<TblColRef> dimensionColumns
+Collection<RowValueDecoder> rowValueDecoders
+HBaseKeyRange keyRange
+StorageContext context
+HTableInterface table
+Scan scan

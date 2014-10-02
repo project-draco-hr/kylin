@@ -1,0 +1,4 @@
+{
+  project=ProjectInstance.getNormalizedProjectName(project);
+  return projectTables.containsEntry(project,new ProjectTable(table));
+}

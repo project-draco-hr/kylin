@@ -1,0 +1,6 @@
+{
+  CubeDesc cube=getTestKylinCubeWithoutSeller();
+  int[] counts=CuboidCLI.calculateAllLevelCount(cube);
+  printCount(counts);
+  assertArrayEquals(new int[]{1,4,6,6,4,4,2,0},counts);
+}

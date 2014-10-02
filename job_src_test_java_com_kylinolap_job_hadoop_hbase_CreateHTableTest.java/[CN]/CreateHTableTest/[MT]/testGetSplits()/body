@@ -1,0 +1,8 @@
+{
+  CreateHTableJob c=new CreateHTableJob();
+  String input="src/test/resources/partition_list/part-r-00000";
+  byte[][] splits=c.getSplits(conf,new Path(input));
+  assertEquals(497,splits.length);
+  assertArrayEquals(new byte[]{0,0,0,0,0,0,15,-1,11,51,-45,2},splits[0]);
+  assertArrayEquals(new byte[]{0,0,0,0,0,3,-1,-1,-54,-61,109,-44,1},splits[496]);
+}

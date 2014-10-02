@@ -1,0 +1,23 @@
+{
+  Result result=null;
+  while (hasNext()) {
+    if (resultIterator.hasNext()) {
+      result=this.resultIterator.next();
+      scanCount++;
+      break;
+    }
+ else {
+      scanNextRange();
+    }
+  }
+  if (result == null) {
+    return null;
+  }
+  try {
+    translateResult(result,this.tuple);
+  }
+ catch (  IOException e) {
+    throw new IllegalStateException("Can't translate result " + result,e);
+  }
+  return this.tuple;
+}

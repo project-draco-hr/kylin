@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < table.length; i++) {
+    String key=dict.getValueFromId(i + dict.getMinId());
+    System.out.println(key + " => " + toString(table[i]));
+  }
+}

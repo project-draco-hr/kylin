@@ -1,0 +1,8 @@
+{
+  CompareTupleFilter compareFilter=new CompareTupleFilter(FilterOperatorEnum.EQ);
+  CaseTupleFilter caseFilter=buildCaseFilter(groups);
+  compareFilter.addChild(caseFilter);
+  ConstantTupleFilter constantFilter=new ConstantTupleFilter(constValue);
+  compareFilter.addChild(constantFilter);
+  return compareFilter;
+}

@@ -1,0 +1,14 @@
+{
+  Map<Long,Cuboid> cubeCache=CUBOID_CACHE.get(cube.getName());
+  if (cubeCache == null) {
+    cubeCache=new ConcurrentHashMap<Long,Cuboid>();
+    CUBOID_CACHE.put(cube.getName(),cubeCache);
+  }
+  Cuboid cuboid=cubeCache.get(cuboidID);
+  if (cuboid == null) {
+    long validCuboidID=translateToValidCuboid(cube,cuboidID);
+    cuboid=new Cuboid(cube,cuboidID,validCuboidID);
+    cubeCache.put(cuboidID,cuboid);
+  }
+  return cuboid;
+}

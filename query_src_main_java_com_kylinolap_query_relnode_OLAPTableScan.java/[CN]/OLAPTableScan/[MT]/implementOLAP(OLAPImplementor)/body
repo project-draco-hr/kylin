@@ -1,0 +1,16 @@
+{
+  if (implementor.getContext() == null || !(implementor.getParentNode() instanceof OLAPJoinRel)) {
+    implementor.allocateContext();
+  }
+  columnRowType=buildColumnRowType();
+  context=implementor.getContext();
+  if (context.olapSchema == null) {
+    OLAPSchema schema=olapTable.getSchema();
+    context.olapSchema=schema;
+    context.storageContext.setConnUrl(schema.getStorageUrl());
+  }
+  if (context.firstTableScan == null) {
+    context.firstTableScan=this;
+  }
+  context.olapRowType=rowType;
+}

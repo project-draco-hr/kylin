@@ -1,0 +1,5 @@
+RelTraitSet traitSet
+RelNode newInput
+RelCollation newCollation
+RexNode offset
+RexNode fetch

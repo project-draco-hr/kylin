@@ -1,0 +1,12 @@
+{
+  this.dynamicVariables.clear();
+  ByteBuffer buffer=ByteBuffer.wrap(bytes);
+  int size=BytesUtil.readVInt(buffer);
+  for (int i=0; i < size; i++) {
+    byte[] nameBytes=BytesUtil.readByteArray(buffer);
+    String nameString=new String(nameBytes,Charset.forName("utf-8"));
+    byte[] valueBytes=BytesUtil.readByteArray(buffer);
+    String valueString=new String(valueBytes,Charset.forName("utf-8"));
+    bindVariable(nameString,valueString);
+  }
+}

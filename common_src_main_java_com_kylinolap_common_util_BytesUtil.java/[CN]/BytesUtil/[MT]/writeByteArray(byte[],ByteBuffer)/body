@@ -1,0 +1,8 @@
+{
+  if (array == null) {
+    writeVInt(-1,out);
+    return;
+  }
+  writeVInt(array.length,out);
+  out.put(array);
+}

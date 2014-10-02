@@ -1,0 +1,16 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  TimeSlice other=(TimeSlice)obj;
+  if (!Arrays.equals(containers,other.containers))   return false;
+  if (info == null) {
+    if (other.info != null)     return false;
+  }
+ else   if (!info.equals(other.info))   return false;
+  if (nColumns != other.nColumns)   return false;
+  if (nRecords != other.nRecords)   return false;
+  if (sliceNo != other.sliceNo)   return false;
+  if (timePartition != other.timePartition)   return false;
+  return true;
+}

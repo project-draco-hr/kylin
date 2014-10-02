@@ -1,0 +1,6 @@
+{
+  this.nodeUri=nodeUri;
+  this.type=type;
+  this.action=action;
+  this.name=name;
+}

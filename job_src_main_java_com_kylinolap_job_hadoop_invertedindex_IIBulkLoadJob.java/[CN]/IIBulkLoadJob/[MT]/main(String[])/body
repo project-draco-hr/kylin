@@ -1,0 +1,6 @@
+{
+  IIBulkLoadJob job=new IIBulkLoadJob();
+  job.setConf(HadoopUtil.newHBaseConfiguration(KylinConfig.getInstanceFromEnv().getStorageUrl()));
+  int exitCode=ToolRunner.run(job,args);
+  System.exit(exitCode);
+}

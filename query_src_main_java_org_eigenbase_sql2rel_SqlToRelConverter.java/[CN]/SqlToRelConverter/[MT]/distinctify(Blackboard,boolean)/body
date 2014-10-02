@@ -1,0 +1,48 @@
+{
+  RelNode rel=bb.root;
+  if (checkForDupExprs && (rel instanceof ProjectRel)) {
+    ProjectRel project=(ProjectRel)rel;
+    final List<RexNode> projectExprs=project.getProjects();
+    List<Integer> origins=new ArrayList<Integer>();
+    int dupCount=0;
+    for (int i=0; i < projectExprs.size(); i++) {
+      int x=findExpr(projectExprs.get(i),projectExprs,i);
+      if (x >= 0) {
+        origins.add(x);
+        ++dupCount;
+      }
+ else {
+        origins.add(i);
+      }
+    }
+    if (dupCount == 0) {
+      distinctify(bb,false);
+      return;
+    }
+    Map<Integer,Integer> squished=new HashMap<Integer,Integer>();
+    final List<RelDataTypeField> fields=rel.getRowType().getFieldList();
+    List<Pair<RexNode,String>> newProjects=new ArrayList<Pair<RexNode,String>>();
+    for (int i=0; i < fields.size(); i++) {
+      if (origins.get(i) == i) {
+        squished.put(i,newProjects.size());
+        newProjects.add(RexInputRef.of2(i,fields));
+      }
+    }
+    rel=new ProjectRel(cluster,rel,Pair.left(newProjects),Pair.right(newProjects),ProjectRel.Flags.BOXED);
+    bb.root=rel;
+    distinctify(bb,false);
+    rel=bb.root;
+    List<Pair<RexNode,String>> undoProjects=new ArrayList<Pair<RexNode,String>>();
+    for (int i=0; i < fields.size(); i++) {
+      final int origin=origins.get(i);
+      RelDataTypeField field=fields.get(i);
+      undoProjects.add(Pair.of((RexNode)new RexInputRef(squished.get(origin),field.getType()),field.getName()));
+    }
+    rel=new ProjectRel(cluster,rel,Pair.left(undoProjects),Pair.right(undoProjects),ProjectRel.Flags.BOXED);
+    bb.setRoot(rel,false);
+    return;
+  }
+  List<AggregateCall> aggCalls=Collections.emptyList();
+  rel=createAggregate(bb,BitSets.range(rel.getRowType().getFieldCount()),aggCalls);
+  bb.setRoot(rel,false);
+}

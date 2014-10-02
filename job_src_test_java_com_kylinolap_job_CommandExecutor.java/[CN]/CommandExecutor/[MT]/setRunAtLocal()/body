@@ -1,0 +1,5 @@
+{
+  this.remoteHost=null;
+  this.remoteUser=null;
+  this.remotePwd=null;
+}

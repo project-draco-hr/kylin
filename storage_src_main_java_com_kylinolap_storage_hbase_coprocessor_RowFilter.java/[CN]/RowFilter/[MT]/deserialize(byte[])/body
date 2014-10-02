@@ -1,0 +1,6 @@
+{
+  if (filterBytes == null || filterBytes.length == 0) {
+    return new DefaultRowFilter();
+  }
+  return serializer.deserialize(ByteBuffer.wrap(filterBytes));
+}

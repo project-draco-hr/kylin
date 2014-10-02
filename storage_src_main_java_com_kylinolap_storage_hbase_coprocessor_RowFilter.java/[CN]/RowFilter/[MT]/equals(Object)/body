@@ -1,0 +1,8 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  RowFilter other=(RowFilter)obj;
+  if (!Arrays.deepEquals(flatOrAndFilter,other.flatOrAndFilter))   return false;
+  return true;
+}

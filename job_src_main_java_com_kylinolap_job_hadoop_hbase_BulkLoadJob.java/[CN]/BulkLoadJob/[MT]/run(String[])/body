@@ -1,0 +1,34 @@
+{
+  Options options=new Options();
+  try {
+    options.addOption(OPTION_INPUT_PATH);
+    options.addOption(OPTION_HTABLE_NAME);
+    options.addOption(OPTION_CUBE_NAME);
+    parseOptions(options,args);
+    String tableName=getOptionValue(OPTION_HTABLE_NAME).toUpperCase();
+    String input=getOptionValue(OPTION_INPUT_PATH);
+    Configuration conf=HBaseConfiguration.create(getConf());
+    FileSystem fs=FileSystem.get(conf);
+    String cubeName=getOptionValue(OPTION_CUBE_NAME).toUpperCase();
+    KylinConfig config=KylinConfig.getInstanceFromEnv();
+    CubeManager cubeMgr=CubeManager.getInstance(config);
+    CubeInstance cube=cubeMgr.getCube(cubeName);
+    CubeDesc cubeDesc=cube.getDescriptor();
+    FsPermission permission=new FsPermission((short)0777);
+    for (    HBaseColumnFamilyDesc cf : cubeDesc.getHBaseMapping().getColumnFamily()) {
+      String cfName=cf.getName();
+      fs.setPermission(new Path(input + cfName),permission);
+    }
+    String[] newArgs=new String[2];
+    newArgs[0]=input;
+    newArgs[1]=tableName;
+    int ret=ToolRunner.run(new LoadIncrementalHFiles(conf),newArgs);
+    return ret;
+  }
+ catch (  Exception e) {
+    printUsage(options);
+    e.printStackTrace(System.err);
+    log.error(e.getLocalizedMessage(),e);
+    return 2;
+  }
+}

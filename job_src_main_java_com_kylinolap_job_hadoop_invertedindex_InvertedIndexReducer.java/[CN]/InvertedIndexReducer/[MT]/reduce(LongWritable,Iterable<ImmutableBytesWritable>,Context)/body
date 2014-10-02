@@ -1,0 +1,9 @@
+{
+  for (  ImmutableBytesWritable v : values) {
+    rec.setBytes(v.get(),v.getOffset(),v.getLength());
+    TimeSlice slice=builder.append(rec);
+    if (slice != null) {
+      output(slice,context);
+    }
+  }
+}

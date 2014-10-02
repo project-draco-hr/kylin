@@ -1,0 +1,7 @@
+{
+  Object[] values=number == Integer.MIN_VALUE ? new Object[]{new BigDecimal(decimal)} : new Object[]{new BigDecimal(decimal),new LongWritable(number)};
+  buf.clear();
+  col.measureCodec.encode(values,buf);
+  Cell keyValue=new KeyValue(key,0,key.length,col.family,0,col.family.length,col.qualifier,0,col.qualifier.length,HConstants.LATEST_TIMESTAMP,Type.Put,buf.array(),0,buf.position());
+  return keyValue;
+}

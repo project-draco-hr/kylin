@@ -1,0 +1,3 @@
+{
+  this.checkContingency(cubeInstance,newSegments);
+}

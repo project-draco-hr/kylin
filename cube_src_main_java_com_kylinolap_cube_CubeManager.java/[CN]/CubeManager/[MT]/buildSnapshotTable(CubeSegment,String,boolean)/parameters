@@ -1,0 +1,3 @@
+CubeSegment cubeSeg
+String lookupTable
+boolean reuseExisting

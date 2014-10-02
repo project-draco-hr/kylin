@@ -1,0 +1,4 @@
+{
+  this.config=config;
+  dictCache=new ConcurrentHashMap<String,DictionaryInfo>();
+}

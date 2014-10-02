@@ -1,0 +1,12 @@
+{
+  StringBuilder sb=new StringBuilder();
+  sb.append("Scan ").append(tableName).append(" from ").append(keyRange.getStartKeyAsString()).append(" to ").append(keyRange.getStopKeyAsString()).append(" on ");
+  for (  RowValueDecoder valueDecoder : rowValueDecoders) {
+    HBaseColumnDesc hbaseColumn=valueDecoder.getHBaseColumn();
+    sb.append(hbaseColumn.toString());
+    sb.append(",");
+  }
+  String info=sb.toString();
+  logger.info(info);
+  return info;
+}

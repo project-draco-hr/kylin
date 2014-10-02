@@ -1,0 +1,17 @@
+{
+  return new TableReader(){
+    int i=-1;
+    @Override public boolean next() throws IOException {
+      i++;
+      return i < rows.size();
+    }
+    @Override public String[] getRow(){
+      return rows.get(i);
+    }
+    @Override public void close() throws IOException {
+    }
+    @Override public void setExpectedColumnNumber(    int expectedColumnNumber){
+    }
+  }
+;
+}

@@ -1,0 +1,12 @@
+{
+  counter++;
+  if (counter % BatchConstants.COUNTER_MAX == 0) {
+    logger.info("Handled " + counter + " records!");
+  }
+  bytesSplitter.split(value.getBytes(),value.getLength(),byteRowDelimiter);
+  byte[] rowKey=buildKey(bytesSplitter.getSplitBuffers());
+  outputKey.set(rowKey,0,rowKey.length);
+  buildValue(bytesSplitter.getSplitBuffers());
+  outputValue.set(valueBuf.array(),0,valueBuf.position());
+  context.write(outputKey,outputValue);
+}

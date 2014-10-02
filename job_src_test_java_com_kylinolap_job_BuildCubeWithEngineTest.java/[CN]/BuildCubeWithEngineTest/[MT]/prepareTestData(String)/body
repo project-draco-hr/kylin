@@ -1,0 +1,12 @@
+{
+  if (joinType.equalsIgnoreCase("inner")) {
+    FactTableGenerator.generate("test_kylin_cube_with_slr_empty","10000","1",null,"inner");
+  }
+ else   if (joinType.equalsIgnoreCase("left")) {
+    FactTableGenerator.generate("test_kylin_cube_with_slr_left_join_empty","10000","0.6",null,"left");
+  }
+ else {
+    throw new Exception("Unsupported join type : " + joinType);
+  }
+  deployTestData();
+}

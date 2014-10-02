@@ -1,0 +1,74 @@
+{
+  List<Object> joinList=new ArrayList<Object>();
+  List<SqlNode> lastList=new ArrayList<SqlNode>();
+  for (int i=0; i < operands.size(); i++) {
+    SqlNode operand=operands.get(i);
+    if (!(operand instanceof SqlCall)) {
+      lastList.add(operand);
+      continue;
+    }
+    final SqlCall call=(SqlCall)operand;
+    final SqlOperator op=call.getOperator();
+    if ((op != SqlStdOperatorTable.MULTISET_VALUE) && (op != SqlStdOperatorTable.MULTISET_QUERY)) {
+      lastList.add(operand);
+      continue;
+    }
+    final RelNode input;
+    if (op == SqlStdOperatorTable.MULTISET_VALUE) {
+      final SqlNodeList list=new SqlNodeList(call.getOperandList(),call.getParserPosition());
+      CollectNamespace nss=(CollectNamespace)validator.getNamespace(call);
+      Blackboard usedBb;
+      if (null != nss) {
+        usedBb=createBlackboard(nss.getScope(),null);
+      }
+ else {
+        usedBb=createBlackboard(new ListScope(bb.scope){
+          public SqlNode getNode(){
+            return call;
+          }
+        }
+,null);
+      }
+      RelDataType multisetType=validator.getValidatedNodeType(call);
+      validator.setValidatedNodeType(list,multisetType.getComponentType());
+      input=convertQueryOrInList(usedBb,list);
+    }
+ else {
+      input=convertQuery(call.operand(0),false,true);
+    }
+    if (lastList.size() > 0) {
+      joinList.add(lastList);
+    }
+    lastList=new ArrayList<SqlNode>();
+    CollectRel collectRel=new CollectRel(cluster,cluster.traitSetOf(Convention.NONE),input,validator.deriveAlias(call,i));
+    joinList.add(collectRel);
+  }
+  if (joinList.size() == 0) {
+    joinList.add(lastList);
+  }
+  for (int i=0; i < joinList.size(); i++) {
+    Object o=joinList.get(i);
+    if (o instanceof List) {
+      List<SqlNode> projectList=(List<SqlNode>)o;
+      final List<RexNode> selectList=new ArrayList<RexNode>();
+      final List<String> fieldNameList=new ArrayList<String>();
+      for (int j=0; j < projectList.size(); j++) {
+        SqlNode operand=projectList.get(j);
+        selectList.add(bb.convertExpression(operand));
+        fieldNameList.add(SqlUtil.deriveAliasFromOrdinal(j));
+      }
+      RelNode projRel=CalcRel.createProject(new OneRowRel(cluster),selectList,fieldNameList);
+      Set<String> correlatedVariables=RelOptUtil.getVariablesUsed(projRel);
+      for (      String correl : correlatedVariables) {
+        mapCorrelToRefRel.put(correl,projRel);
+      }
+      joinList.set(i,projRel);
+    }
+  }
+  RelNode ret=(RelNode)joinList.get(0);
+  for (int i=1; i < joinList.size(); i++) {
+    RelNode relNode=(RelNode)joinList.get(i);
+    ret=createJoin(ret,relNode,rexBuilder.makeLiteral(true),JoinRelType.INNER,ImmutableSet.<String>of());
+  }
+  return ret;
+}

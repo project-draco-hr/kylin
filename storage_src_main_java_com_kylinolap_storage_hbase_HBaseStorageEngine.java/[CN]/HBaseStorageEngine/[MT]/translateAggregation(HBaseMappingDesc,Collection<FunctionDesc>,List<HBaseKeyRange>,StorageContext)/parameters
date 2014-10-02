@@ -1,0 +1,4 @@
+HBaseMappingDesc hbaseMapping
+Collection<FunctionDesc> aggregations
+List<HBaseKeyRange> scans
+StorageContext context
