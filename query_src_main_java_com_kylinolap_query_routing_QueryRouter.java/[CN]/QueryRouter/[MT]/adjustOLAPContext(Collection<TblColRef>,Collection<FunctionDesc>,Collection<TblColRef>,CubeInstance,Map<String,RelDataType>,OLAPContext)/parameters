@@ -1,0 +1,6 @@
+Collection<TblColRef> dimensionColumns
+Collection<FunctionDesc> aggregations
+Collection<TblColRef> metricColumns
+CubeInstance cube
+Map<String,RelDataType> rewriteFields
+OLAPContext olapContext

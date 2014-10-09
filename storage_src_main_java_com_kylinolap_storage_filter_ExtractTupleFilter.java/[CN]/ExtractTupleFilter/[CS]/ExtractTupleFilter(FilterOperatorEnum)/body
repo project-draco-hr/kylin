@@ -1,6 +1,6 @@
 {
   super(new ArrayList<TupleFilter>(3),op);
-  Validate.isTrue(op == FilterOperatorEnum.EXTRACT);
+  assert(op == FilterOperatorEnum.EXTRACT);
   this.values=new ArrayList<String>(1);
   this.values.add(null);
   this.date=0;

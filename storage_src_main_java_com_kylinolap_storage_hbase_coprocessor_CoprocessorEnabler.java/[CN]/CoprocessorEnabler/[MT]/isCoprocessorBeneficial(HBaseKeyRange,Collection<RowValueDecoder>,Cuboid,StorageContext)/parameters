@@ -1,4 +1,0 @@
-HBaseKeyRange keyRange
-Collection<RowValueDecoder> rowValueDecoders
-Cuboid cuboid
-StorageContext context

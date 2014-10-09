@@ -1,8 +1,8 @@
 HConnection conn
 List<HBaseKeyRange> segmentKeyRanges
 CubeInstance cube
-Collection<TblColRef> dimensionColumns
+Collection<TblColRef> dimensions
 TupleFilter filter
-Collection<TblColRef> groupByColumns
+Collection<TblColRef> groupBy
 Collection<RowValueDecoder> rowValueDecoders
 StorageContext context

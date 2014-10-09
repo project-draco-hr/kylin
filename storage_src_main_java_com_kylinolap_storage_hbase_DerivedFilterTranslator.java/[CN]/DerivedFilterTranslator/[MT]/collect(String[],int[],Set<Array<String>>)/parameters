@@ -1,0 +1,3 @@
+String[] row
+int[] pi
+Set<Array<String>> satisfyingHostRecords

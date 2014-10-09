@@ -1,0 +1,19 @@
+{
+  Pair<ColumnTupleFilter,ConstantTupleFilter> pair=compf.getColumnAndConstant();
+  ColumnTupleFilter colf=pair.getFirst();
+  ConstantTupleFilter constf=pair.getSecond();
+  if (colf == null || constf == null)   return compf;
+  TblColRef derived=colf.getColumn();
+  if (cubeDesc.isDerived(derived) == false)   return compf;
+  DeriveInfo hostInfo=cubeDesc.getHostInfo(derived);
+  CubeManager cubeMgr=CubeManager.getInstance(this.cubeInstance.getConfig());
+  CubeSegment seg=cubeInstance.getLatestReadySegment();
+  LookupStringTable lookup=cubeMgr.getLookupTable(seg,hostInfo.dimension);
+  Pair<TupleFilter,Boolean> translated=DerivedFilterTranslator.translate(lookup,hostInfo,compf,colf,constf);
+  TupleFilter translatedFilter=translated.getFirst();
+  boolean loosened=translated.getSecond();
+  if (loosened) {
+    collectColumnsRecursively(compf,storageGroupBy);
+  }
+  return translatedFilter;
+}

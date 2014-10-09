@@ -1,5 +1,8 @@
 {
   int len=BytesUtil.readVInt(in);
+  if (len < 0) {
+    return null;
+  }
   String result;
   try {
     if (in.hasArray()) {

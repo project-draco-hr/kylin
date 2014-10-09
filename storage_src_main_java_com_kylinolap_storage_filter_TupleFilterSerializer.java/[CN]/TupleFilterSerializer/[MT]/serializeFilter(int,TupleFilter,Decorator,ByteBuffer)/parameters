@@ -1,0 +1,4 @@
+int flag
+TupleFilter filter
+Decorator decorator
+ByteBuffer buffer

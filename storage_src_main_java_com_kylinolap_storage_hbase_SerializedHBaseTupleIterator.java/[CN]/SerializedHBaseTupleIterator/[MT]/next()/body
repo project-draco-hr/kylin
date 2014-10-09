@@ -1,5 +1,5 @@
 {
-  Tuple t=null;
+  ITuple t=null;
   while (hasNext()) {
     if (segmentIterator.hasNext()) {
       t=segmentIterator.next();

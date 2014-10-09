@@ -6,7 +6,7 @@
   Collection<FunctionDesc> metrics=new HashSet<FunctionDesc>();
   buildDimensionsAndMetrics(dimensions,metrics);
   IStorageEngine storageEngine=StorageEngineFactory.getStorageEngine(olapContext.cubeInstance);
-  TupleIterator iterator=storageEngine.search(dimensions,olapContext.filter,olapContext.groupByColumns,metrics,olapContext.storageContext);
+  ITupleIterator iterator=storageEngine.search(dimensions,olapContext.filter,olapContext.groupByColumns,metrics,olapContext.storageContext);
   if (logger.isDebugEnabled()) {
     logger.debug("return TupleIterator...");
   }

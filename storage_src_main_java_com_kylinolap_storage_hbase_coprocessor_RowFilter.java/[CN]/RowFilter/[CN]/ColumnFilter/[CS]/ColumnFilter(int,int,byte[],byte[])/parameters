@@ -1,4 +1,0 @@
-int columnOffset
-int columnLength
-byte[] valueStart
-byte[] valueEnd

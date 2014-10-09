@@ -1,10 +1,10 @@
 {
   int count=0;
-  TupleIterator iterator=null;
+  ITupleIterator iterator=null;
   try {
     iterator=storageEngine.search(groups,filter,groups,aggregations,context);
     while (iterator.hasNext()) {
-      Tuple tuple=iterator.next();
+      ITuple tuple=iterator.next();
       System.out.println("Tuple = " + tuple);
       count++;
     }

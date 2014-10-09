@@ -1,0 +1,9 @@
+{
+  HCol[] hcols=new HCol[rowValueDecoders.size()];
+  int i=0;
+  for (  RowValueDecoder rowValueDecoder : rowValueDecoders) {
+    hcols[i++]=buildHCol(rowValueDecoder);
+  }
+  SRowAggregators aggrs=new SRowAggregators(hcols);
+  return aggrs;
+}

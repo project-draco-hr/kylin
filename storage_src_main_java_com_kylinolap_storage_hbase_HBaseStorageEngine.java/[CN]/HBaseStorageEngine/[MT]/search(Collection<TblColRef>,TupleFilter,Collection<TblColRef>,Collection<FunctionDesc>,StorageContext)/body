@@ -1,9 +1,14 @@
 {
+  Set<TblColRef> storageGroupBy=Sets.newHashSet(context.getMandatoryColumns());
+  collectGroupBy(groups,storageGroupBy);
+  collectNonEvaluable(filter,storageGroupBy);
+  filter=translateDerived(filter,storageGroupBy);
+  logger.info("Storage returns " + storageGroupBy);
   TupleFilter flatFilter=flattenToOrAndFilter(filter);
-  List<HBaseKeyRange> scans=translateFilter(flatFilter,dimensions);
+  List<HBaseKeyRange> scans=buildScanRanges(flatFilter,dimensions);
   postProcessFilter(scans,flatFilter,context);
   List<RowValueDecoder> valueDecoders=translateAggregation(cubeDesc.getHBaseMapping(),metrics,scans,context);
   setThreshold(dimensions,valueDecoders,context);
   HConnection conn=HBaseConnection.get(context.getConnUrl());
-  return new SerializedHBaseTupleIterator(conn,scans,cubeInstance,dimensions,filter,groups,valueDecoders,context);
+  return new SerializedHBaseTupleIterator(conn,scans,cubeInstance,dimensions,filter,storageGroupBy,valueDecoders,context);
 }

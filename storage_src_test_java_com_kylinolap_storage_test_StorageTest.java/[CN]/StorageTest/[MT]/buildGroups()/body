@@ -6,6 +6,7 @@
   ColumnDesc c1=new ColumnDesc();
   c1.setName("CAL_DT");
   c1.setTable(t1);
+  c1.setDatatype("string");
   TblColRef cf1=new TblColRef(c1);
   groups.add(cf1);
   TableDesc t2=new TableDesc();
@@ -14,6 +15,7 @@
   ColumnDesc c2=new ColumnDesc();
   c2.setName("META_CATEG_NAME");
   c2.setTable(t2);
+  c2.setDatatype("string");
   TblColRef cf2=new TblColRef(c2);
   groups.add(cf2);
   return groups;

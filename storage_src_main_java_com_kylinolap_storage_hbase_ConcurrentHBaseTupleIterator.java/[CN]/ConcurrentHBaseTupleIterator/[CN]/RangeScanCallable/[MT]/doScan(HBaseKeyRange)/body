@@ -4,7 +4,7 @@
   try {
     Scan scan=buildScan(keyRange);
     applyFuzzyFilter(scan,keyRange);
-    scanner=CoprocessorEnabler.scanWithCoprocessorIfBeneficial(cubeSeg,keyRange.getCuboid(),dimensionColumns,rowValueDecoders,keyRange,context,table,scan);
+    scanner=CoprocessorEnabler.scanWithCoprocessorIfBeneficial(cubeSeg,keyRange.getCuboid(),filter,groupBy,rowValueDecoders,context,table,scan);
     iter=scanner.iterator();
   }
  catch (  Throwable t) {

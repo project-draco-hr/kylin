@@ -2,7 +2,7 @@
   ColumnRowType inputColumnRowType=((OLAPRel)getChild()).getColumnRowType();
   this.groups=new ArrayList<TblColRef>();
   for (int i=getGroupSet().nextSetBit(0); i >= 0; i=getGroupSet().nextSetBit(i + 1)) {
-    TblColRef column=inputColumnRowType.getColumnByIndex(i);
-    this.groups.add(column);
+    Set<TblColRef> columns=inputColumnRowType.getSourceColumnsByIndex(i);
+    this.groups.addAll(columns);
   }
 }

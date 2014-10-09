@@ -1,0 +1,4 @@
+{
+  if (type.isNumberFamily())   return NUMBER_ORDER;
+ else   return STRING_ORDER;
+}

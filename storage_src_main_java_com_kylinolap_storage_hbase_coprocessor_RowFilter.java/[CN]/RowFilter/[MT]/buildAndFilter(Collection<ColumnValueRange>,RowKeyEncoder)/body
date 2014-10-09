@@ -1,8 +1,0 @@
-{
-  ColumnFilter[] result=new ColumnFilter[andFilter.size()];
-  Iterator<ColumnValueRange> iterator=andFilter.iterator();
-  for (int i=0; i < result.length; i++) {
-    result[i]=buildColumnValueFilter(iterator.next(),encoder);
-  }
-  return result;
-}

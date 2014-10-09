@@ -1,9 +1,9 @@
 {
   this.cube=cubeSeg.getCubeInstance();
   this.cubeSeg=cubeSeg;
-  this.dimensionColumns=dimensionColumns;
+  this.dimensions=dimensions;
   this.filter=filter;
-  this.groupByColumns=groupByColumns;
+  this.groupBy=groupBy;
   this.rowValueDecoders=rowValueDecoders;
   this.context=context;
   this.tableName=cubeSeg.getStorageLocationIdentifier();

@@ -1,0 +1,11 @@
+{
+  CubeSegment latest=null;
+  for (int i=segments.size() - 1; i >= 0; i--) {
+    CubeSegment seg=segments.get(i);
+    if (seg.getStatus() != CubeSegmentStatusEnum.READY)     continue;
+    if (latest == null || latest.getDateRangeEnd() < seg.getDateRangeEnd()) {
+      latest=seg;
+    }
+  }
+  return latest;
+}

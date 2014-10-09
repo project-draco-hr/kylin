@@ -6,7 +6,7 @@
     table.setName(null);
   }
  else {
-    String tableName=new String(tableBytes,Charset.forName("utf-8"));
+    String tableName=Bytes.toString(tableBytes);
     table.setName(tableName);
   }
   ColumnDesc column=new ColumnDesc();
@@ -16,7 +16,7 @@
     column.setName(null);
   }
  else {
-    String columnName=new String(columnBytes,Charset.forName("utf-8"));
+    String columnName=Bytes.toString(columnBytes);
     column.setName(columnName);
   }
   byte[] typeBytes=BytesUtil.readByteArray(buffer);
@@ -24,7 +24,7 @@
     column.setDatatype(null);
   }
  else {
-    String dataType=new String(typeBytes,Charset.forName("utf-8"));
+    String dataType=Bytes.toString(typeBytes);
     column.setDatatype(dataType);
   }
   this.columnRef=new TblColRef(column);

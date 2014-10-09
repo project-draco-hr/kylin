@@ -1,14 +1,15 @@
 {
-  RowProjector projector=new RowProjector(mask);
-  RowAggregators aggregators=new RowAggregators(new HCol[]{c1,c2});
-  RowFilter filter=RowFilter.deserialize(null);
+  SRowType rowType=newRowType();
+  SRowProjector projector=new SRowProjector(mask);
+  SRowAggregators aggregators=new SRowAggregators(new HCol[]{c1,c2});
+  SRowFilter filter=SRowFilter.deserialize(null);
   HashSet<String> expectedResult=new HashSet<String>();
   expectedResult.add("\\x02\\x02\\x00\\x00, f:q1, [26.0, 7]");
   expectedResult.add("\\x02\\x02\\x00\\x00, f:q2, [48.0]");
   expectedResult.add("\\x01\\x01\\x00\\x00, f:q1, [22.0, 3]");
   expectedResult.add("\\x01\\x01\\x00\\x00, f:q2, [44.0]");
   MockupRegionScanner innerScanner=new MockupRegionScanner(cellsInput);
-  RegionScanner aggrScanner=new AggregationFilter(null,filter,projector,aggregators,innerScanner);
+  RegionScanner aggrScanner=new AggregationScanner(rowType,filter,projector,aggregators,innerScanner);
   ArrayList<Cell> result=Lists.newArrayList();
   boolean hasMore=true;
   while (hasMore) {
@@ -17,15 +18,15 @@
     if (result.isEmpty())     continue;
     Cell cell=result.get(0);
     HCol hcol=null;
-    if (RowAggregators.match(c1,cell)) {
+    if (SRowAggregators.match(c1,cell)) {
       hcol=c1;
     }
- else     if (RowAggregators.match(c2,cell)) {
+ else     if (SRowAggregators.match(c2,cell)) {
       hcol=c2;
     }
  else     fail();
     hcol.measureCodec.decode(ByteBuffer.wrap(cell.getValueArray(),cell.getValueOffset(),cell.getValueLength()),hcol.measureValues);
-    String rowKey=Bytes.toStringBinary(cell.getRowArray(),cell.getRowOffset(),cell.getRowLength());
+    String rowKey=toString(cell.getRowArray(),cell.getRowOffset(),cell.getRowLength(),mask);
     String col=Bytes.toString(hcol.family) + ":" + Bytes.toString(hcol.qualifier);
     String values=Arrays.toString(hcol.measureValues);
     System.out.println(rowKey);

@@ -3,7 +3,7 @@
   for (  String field : info.getAllFields()) {
     sb.append(field);
     sb.append("=");
-    sb.append(getFieldValue(field));
+    sb.append(getValue(field));
     sb.append(",");
   }
   return sb.toString();

@@ -6,7 +6,7 @@
   List<String> colNames=rowKeyDecoder.getNames(aliasMap);
   for (int i=0; i < rowColumns.size(); i++) {
     TblColRef column=rowColumns.get(i);
-    if (!dimensionColumns.contains(column)) {
+    if (!dimensions.contains(column)) {
       continue;
     }
     info.setField(colNames.get(i),rowColumns.get(i),rowColumns.get(i).getDatatype(),index++);

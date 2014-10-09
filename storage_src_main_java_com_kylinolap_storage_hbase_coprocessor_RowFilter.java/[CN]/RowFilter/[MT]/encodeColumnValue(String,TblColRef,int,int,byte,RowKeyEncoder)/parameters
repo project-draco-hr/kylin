@@ -1,6 +1,0 @@
-String value
-TblColRef col
-int colOffset
-int colLength
-byte dft
-RowKeyEncoder encoder

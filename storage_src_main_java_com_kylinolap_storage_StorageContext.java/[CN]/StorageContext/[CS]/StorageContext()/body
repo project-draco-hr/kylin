@@ -7,9 +7,10 @@
   this.hasSort=false;
   this.sortOrders=new ArrayList<OrderEnum>();
   this.sortMeasures=new ArrayList<MeasureDesc>();
+  this.exactAggregation=false;
+  this.avoidAggregation=false;
+  this.mandatoryColumns=new HashSet<TblColRef>();
   this.enableLimit=false;
   this.acceptPartialResult=false;
   this.partialResultReturned=false;
-  this.exactAggregation=false;
-  this.avoidAggregation=false;
 }

@@ -1,5 +1,5 @@
 {
   ByteBuffer buffer=ByteBuffer.wrap(bytes);
   byte[] strBytes=BytesUtil.readByteArray(buffer);
-  this.variableName=new String(strBytes,Charset.forName("utf-8"));
+  this.variableName=Bytes.toString(strBytes);
 }

@@ -1,6 +1,0 @@
-{
-  BytesUtil.writeVInt(filter.columnOffset,out);
-  BytesUtil.writeVInt(filter.columnLength,out);
-  BytesUtil.writeByteArray(filter.valueStart,out);
-  BytesUtil.writeByteArray(filter.valueEnd,out);
-}

@@ -1,0 +1,8 @@
+{
+  if (filter instanceof ColumnTupleFilter) {
+    collectGroupBy(((ColumnTupleFilter)filter).getColumn(),storageGroupBy);
+  }
+  for (  TupleFilter child : filter.getChildren()) {
+    collectColumnsRecursively(child,storageGroupBy);
+  }
+}

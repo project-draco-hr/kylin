@@ -1,0 +1,5 @@
+{
+  this.columns=columns;
+  this.columnSizes=columnSizes;
+  init();
+}

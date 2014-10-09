@@ -3,7 +3,7 @@
     return equalValues.isEmpty();
   }
  else   if (beginValue != null && endValue != null) {
-    return beginValue.compareTo(endValue) > 0;
+    return order.compare(beginValue,endValue) > 0;
   }
  else {
     return false;

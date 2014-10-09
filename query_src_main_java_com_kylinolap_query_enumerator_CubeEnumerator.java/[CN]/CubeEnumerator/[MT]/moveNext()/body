@@ -5,7 +5,7 @@
   if (!cursor.hasNext()) {
     return false;
   }
-  Tuple tuple=cursor.next();
+  ITuple tuple=cursor.next();
   if (tuple == null) {
     return false;
   }

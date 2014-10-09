@@ -1,0 +1,5 @@
+{
+  for (  TblColRef g : groups) {
+    collectGroupBy(g,storageGroupBy);
+  }
+}

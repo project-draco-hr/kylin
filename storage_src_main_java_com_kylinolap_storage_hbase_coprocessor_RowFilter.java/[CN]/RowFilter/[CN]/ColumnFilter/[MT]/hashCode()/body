@@ -1,9 +1,0 @@
-{
-  final int prime=31;
-  int result=1;
-  result=prime * result + columnLength;
-  result=prime * result + columnOffset;
-  result=prime * result + Arrays.hashCode(valueEnd);
-  result=prime * result + Arrays.hashCode(valueStart);
-  return result;
-}

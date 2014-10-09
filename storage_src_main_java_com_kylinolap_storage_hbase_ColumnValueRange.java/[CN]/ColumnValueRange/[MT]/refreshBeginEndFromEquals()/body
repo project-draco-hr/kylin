@@ -1,4 +1,4 @@
 {
-  this.beginValue=min(this.equalValues);
-  this.endValue=max(this.equalValues);
+  this.beginValue=order.min(this.equalValues);
+  this.endValue=order.max(this.equalValues);
 }

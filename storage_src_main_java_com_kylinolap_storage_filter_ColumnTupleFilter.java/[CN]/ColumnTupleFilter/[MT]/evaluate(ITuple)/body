@@ -1,0 +1,4 @@
+{
+  this.tupleValue=tuple.getValue(columnRef);
+  return true;
+}

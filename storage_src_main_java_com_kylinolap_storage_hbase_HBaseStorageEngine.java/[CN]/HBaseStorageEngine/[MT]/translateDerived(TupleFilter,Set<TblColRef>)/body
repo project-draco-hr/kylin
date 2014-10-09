@@ -1,0 +1,15 @@
+{
+  if (filter == null)   return filter;
+  if (filter instanceof CompareTupleFilter) {
+    return translateDerivedInCompare((CompareTupleFilter)filter,storageGroupBy);
+  }
+  List<TupleFilter> children=(List<TupleFilter>)filter.getChildren();
+  for (int i=0; i < children.size(); i++) {
+    TupleFilter translated=translateDerived(children.get(i),storageGroupBy);
+    if (children.get(i) != translated) {
+      if ((filter instanceof LogicalTupleFilter) == false)       throw new IllegalStateException("Cannot replace derived filter");
+      children.set(i,translated);
+    }
+  }
+  return filter;
+}

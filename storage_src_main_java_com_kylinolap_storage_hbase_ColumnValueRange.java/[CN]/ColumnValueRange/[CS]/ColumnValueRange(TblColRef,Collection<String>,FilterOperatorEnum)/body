@@ -1,5 +1,6 @@
 {
   this.column=column;
+  this.order=RowKeyColumnOrder.getInstance(column.getType());
 switch (op) {
 case EQ:
 case IN:
@@ -8,11 +9,11 @@ case IN:
 break;
 case LT:
 case LTE:
-endValue=max(values);
+endValue=order.max(values);
 break;
 case GT:
 case GTE:
-beginValue=min(values);
+beginValue=order.min(values);
 break;
 case NEQ:
 case NOTIN:

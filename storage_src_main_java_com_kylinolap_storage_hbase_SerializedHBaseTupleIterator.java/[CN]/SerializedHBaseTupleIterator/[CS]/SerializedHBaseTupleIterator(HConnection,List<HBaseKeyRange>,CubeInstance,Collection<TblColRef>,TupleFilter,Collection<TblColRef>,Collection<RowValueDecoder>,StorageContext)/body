@@ -6,7 +6,7 @@
   Map<CubeSegment,List<HBaseKeyRange>> rangesMap=makeRangesMap(segmentKeyRanges);
   for (  CubeSegment cubeSeg : rangesMap.keySet()) {
     List<HBaseKeyRange> keyRanges=rangesMap.get(cubeSeg);
-    CubeSegmentTupleIterator segIter=new CubeSegmentTupleIterator(cubeSeg,keyRanges,conn,dimensionColumns,filter,groupByColumns,rowValueDecoders,context);
+    CubeSegmentTupleIterator segIter=new CubeSegmentTupleIterator(cubeSeg,keyRanges,conn,dimensions,filter,groupBy,rowValueDecoders,context);
     this.segmentIteratorList.add(segIter);
   }
   this.segmentIteratorIterator=this.segmentIteratorList.iterator();

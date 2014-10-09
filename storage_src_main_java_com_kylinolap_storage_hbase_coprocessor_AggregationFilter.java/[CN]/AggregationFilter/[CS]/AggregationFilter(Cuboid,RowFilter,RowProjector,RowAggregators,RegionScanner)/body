@@ -1,9 +1,0 @@
-{
-  AggregateRegionObserver.LOG.info("Kylin Coprocessor start");
-  AggregationCache aggCache;
-  Stats stats=new Stats();
-  aggCache=buildAggrCache(innerScanner,groupBy,aggrs,filter,stats);
-  stats.countOutputRow(aggCache.getSize());
-  this.outerScanner=aggCache.getScanner(innerScanner);
-  AggregateRegionObserver.LOG.info("Kylin Coprocessor aggregation done: " + stats);
-}

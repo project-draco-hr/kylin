@@ -1,7 +1,0 @@
-{
-  if (value == null)   return null;
-  byte[] valueBytes=encoder.valueStringToBytes(value);
-  byte[] valueOnRowKey=new byte[colLength];
-  encoder.getColumnIO().writeColumn(col,valueBytes,valueBytes.length,dft,valueOnRowKey,0);
-  return valueOnRowKey;
-}

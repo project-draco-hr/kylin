@@ -1,0 +1,9 @@
+{
+  if (filter == null)   return;
+  if (filter.isEvaluable()) {
+    for (    TupleFilter child : filter.getChildren())     collectNonEvaluable(child,storageGroupBy);
+  }
+ else {
+    collectColumnsRecursively(filter,storageGroupBy);
+  }
+}

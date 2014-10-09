@@ -16,6 +16,5 @@
     }
     if (matchPattern != null)     return new DateStrDictionary(matchPattern,baseId);
   }
-  samples.clear();
-  return null;
+  throw new IllegalStateException("Unrecognized datetime values: " + samples);
 }

@@ -1,19 +1,13 @@
 {
-  String inpMetaFolder=args[0];
-  String inpCubeName=args[1];
-  inpCubeName=inpCubeName.toUpperCase();
-  CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.createInstanceFromUri(inpMetaFolder));
-  CubeInstance cube=cubeMgr.getCube(inpCubeName);
-  CubeDesc cubeDesc=cube.getDescriptor();
-  Set<TblColRef> allColumns=cubeDesc.listAllColumns();
-  for (  CubeSegment segment : cube.getSegments()) {
-    for (    TblColRef col : allColumns) {
-      Dictionary dictionary=cubeMgr.getDictionary(segment,col);
-      if (!(dictionary instanceof TrieDictionary))       continue;
-      TrieDictionary dict=(TrieDictionary)dictionary;
-      System.out.println("=========================================================================");
-      System.out.println("Dump dict of " + col + " in segment "+ segment.getName());
-      dict.dump(System.out);
-    }
+  for (  String path : args) {
+    File f=new File(path);
+    DictionaryInfoSerializer ser=new DictionaryInfoSerializer();
+    DictionaryInfo dictInfo=ser.deserialize(new DataInputStream(new FileInputStream(f)));
+    System.out.println("============================================================================");
+    System.out.println("File: " + f.getAbsolutePath());
+    System.out.println(new Date(dictInfo.getLastModified()));
+    System.out.println(JsonUtil.writeValueAsIndentString(dictInfo));
+    dictInfo.getDictionaryObject().dump(System.out);
+    System.out.println();
   }
 }

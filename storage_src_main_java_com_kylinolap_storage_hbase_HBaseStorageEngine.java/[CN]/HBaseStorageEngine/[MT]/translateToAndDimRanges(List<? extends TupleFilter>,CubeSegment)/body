@@ -1,7 +1,7 @@
 {
   Map<TblColRef,ColumnValueRange> rangeMap=new HashMap<TblColRef,ColumnValueRange>();
   for (  TupleFilter filter : andFilters) {
-    if (filter instanceof ExtractTupleFilter) {
+    if ((filter instanceof CompareTupleFilter) == false) {
       continue;
     }
     CompareTupleFilter comp=(CompareTupleFilter)filter;
@@ -9,17 +9,7 @@
       continue;
     }
     ColumnValueRange range=new ColumnValueRange(comp.getColumn(),comp.getValues(),comp.getOperator());
-    TblColRef column=comp.getColumn();
-    if (cubeDesc.isDerived(column)) {
-      DeriveInfo hostInfo=cubeDesc.getHostInfo(column);
-      ColumnValueRange[] hostRanges=mapDerivedToHostRanges(cubeSegment,range,hostInfo);
-      for (      ColumnValueRange hostRange : hostRanges) {
-        andMerge(hostRange,rangeMap);
-      }
-    }
- else {
-      andMerge(range,rangeMap);
-    }
+    andMerge(range,rangeMap);
   }
   return rangeMap.values();
 }

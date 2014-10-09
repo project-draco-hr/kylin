@@ -13,7 +13,7 @@
     return new Object[]{srcTable,srcCol,srcColIdx,table};
   }
   String useDict=cube.getRowkey().getDictionary(col);
-  if ("true".equals(useDict) || "string".equals(useDict) || "any".equals(useDict)) {
+  if ("true".equals(useDict) || "string".equals(useDict) || "number".equals(useDict)|| "any".equals(useDict)) {
     if (cube.isFactTable(col.getTable())) {
       TblColRef pkCol=cube.findPKByFK(col);
       if (pkCol != null)       col=pkCol;

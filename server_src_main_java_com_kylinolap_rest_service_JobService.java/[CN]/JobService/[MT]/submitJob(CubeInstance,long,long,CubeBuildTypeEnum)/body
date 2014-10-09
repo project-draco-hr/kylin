@@ -15,7 +15,7 @@
     }
   }
  catch (  CubeIntegrityException e) {
-    throw new InternalErrorException(e.getLocalizedMessage());
+    throw new InternalErrorException(e.getLocalizedMessage(),e);
   }
   return uuid;
 }

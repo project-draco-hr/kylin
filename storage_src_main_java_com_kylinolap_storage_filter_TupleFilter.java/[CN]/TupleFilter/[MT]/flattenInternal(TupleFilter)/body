@@ -40,7 +40,7 @@
     flatFilter.addChildren(andChildren);
   }
  else   if (op == FilterOperatorEnum.NOT) {
-    Validate.isTrue(filter.children.size() == 1);
+    assert(filter.children.size() == 1);
     TupleFilter reverse=filter.children.get(0).reverse();
     flatFilter=flattenInternal(reverse);
   }

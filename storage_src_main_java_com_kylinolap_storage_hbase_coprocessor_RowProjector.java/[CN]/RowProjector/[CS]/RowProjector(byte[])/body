@@ -1,4 +1,0 @@
-{
-  this.length=rowKeyBitMask.length;
-  this.rowKeyBitMask=rowKeyBitMask;
-}

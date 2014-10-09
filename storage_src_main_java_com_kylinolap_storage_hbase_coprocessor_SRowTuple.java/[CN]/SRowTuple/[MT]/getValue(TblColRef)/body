@@ -1,0 +1,4 @@
+{
+  int i=type.columnIdxMap.get(col);
+  return getValueAt(i);
+}

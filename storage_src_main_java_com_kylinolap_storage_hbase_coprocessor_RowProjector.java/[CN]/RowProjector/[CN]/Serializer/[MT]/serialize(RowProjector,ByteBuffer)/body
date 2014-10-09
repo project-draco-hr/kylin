@@ -1,4 +1,0 @@
-{
-  BytesUtil.writeVInt(value.length,out);
-  out.put(value.rowKeyBitMask);
-}

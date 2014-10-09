@@ -35,13 +35,11 @@
   if (!candidates.isEmpty()) {
     return getCheapestCube(candidates);
   }
- else {
-    if (!backups.isEmpty()) {
-      CubeInstance cube=getCheapestCube(backups);
-      adjustOLAPContext(dimensionColumns,functions,metricsColumns,cube,rewriteFields);
-      logger.info("Use weak matched cube " + cube.getName());
-      return cube;
-    }
+ else   if (!backups.isEmpty()) {
+    CubeInstance cube=getCheapestCube(backups);
+    adjustOLAPContext(dimensionColumns,functions,metricsColumns,cube,rewriteFields,olapContext);
+    logger.info("Use weak matched cube " + cube.getName());
+    return cube;
   }
   return null;
 }

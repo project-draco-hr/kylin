@@ -1,0 +1,13 @@
+{
+  ColumnTupleFilter colf=null;
+  ConstantTupleFilter constf=null;
+  for (  TupleFilter child : this.getChildren()) {
+    if (child instanceof ColumnTupleFilter) {
+      colf=(ColumnTupleFilter)child;
+    }
+    if (child instanceof ConstantTupleFilter) {
+      constf=(ConstantTupleFilter)child;
+    }
+  }
+  return new Pair<ColumnTupleFilter,ConstantTupleFilter>(colf,constf);
+}

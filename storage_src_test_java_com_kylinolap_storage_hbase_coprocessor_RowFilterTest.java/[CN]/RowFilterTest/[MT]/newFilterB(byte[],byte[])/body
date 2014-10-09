@@ -1,3 +1,0 @@
-{
-  return new ColumnFilter(1,2,start,end);
-}

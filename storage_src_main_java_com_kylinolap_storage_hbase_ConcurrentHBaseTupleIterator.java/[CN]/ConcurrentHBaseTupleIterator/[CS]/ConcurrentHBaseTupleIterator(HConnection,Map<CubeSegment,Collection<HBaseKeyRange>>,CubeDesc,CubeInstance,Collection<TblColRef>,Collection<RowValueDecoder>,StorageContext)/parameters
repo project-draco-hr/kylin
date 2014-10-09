@@ -1,7 +1,0 @@
-HConnection conn
-Map<CubeSegment,Collection<HBaseKeyRange>> segmentKeyRanges
-CubeDesc cubeDesc
-CubeInstance cube
-Collection<TblColRef> dimensionColumns
-Collection<RowValueDecoder> rowValueDecoders
-StorageContext context

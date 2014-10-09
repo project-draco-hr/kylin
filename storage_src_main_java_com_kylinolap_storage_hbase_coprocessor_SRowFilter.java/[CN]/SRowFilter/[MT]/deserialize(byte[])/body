@@ -1,0 +1,4 @@
+{
+  TupleFilter filter=(filterBytes == null || filterBytes.length == 0) ? null : TupleFilterSerializer.deserialize(filterBytes);
+  return new SRowFilter(filter);
+}
