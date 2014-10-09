@@ -1,0 +1,4 @@
+AvaticaStatement statement
+AvaticaPrepareResult prepareResult
+ResultSetMetaData resultSetMetaData
+TimeZone timeZone

@@ -1,0 +1,10 @@
+{
+  super();
+  TrustManagerFactory factory=TrustManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+  factory.init(keystore);
+  TrustManager[] trustmanagers=factory.getTrustManagers();
+  if (trustmanagers.length == 0) {
+    throw new NoSuchAlgorithmException("SunX509 trust manager not supported");
+  }
+  this.standardTrustManager=(X509TrustManager)trustmanagers[0];
+}

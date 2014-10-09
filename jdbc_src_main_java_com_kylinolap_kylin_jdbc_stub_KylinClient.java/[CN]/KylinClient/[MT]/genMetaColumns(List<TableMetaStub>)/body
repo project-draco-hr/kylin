@@ -1,0 +1,14 @@
+{
+  List<ColumnMetaData> meta=new ArrayList<ColumnMetaData>();
+  for (  ColumnMetaData cmd : SQLTypeMap.columnMetaTypeMapping.values()) {
+    meta.add(cmd);
+  }
+  List<MetaColumn> columns=new ArrayList<MetaColumn>();
+  for (  TableMetaStub tableStub : tableMetaStubs) {
+    for (    TableMetaStub.ColumnMetaStub columnMetaStub : tableStub.getColumns()) {
+      MetaColumn column=new MetaColumn(columnMetaStub.getTABLE_CAT(),columnMetaStub.getTABLE_SCHEM(),columnMetaStub.getTABLE_NAME(),columnMetaStub.getCOLUMN_NAME(),columnMetaStub.getDATA_TYPE(),columnMetaStub.getTYPE_NAME(),columnMetaStub.getCOLUMN_SIZE(),columnMetaStub.getBUFFER_LENGTH(),columnMetaStub.getDECIMAL_DIGITS(),columnMetaStub.getNUM_PREC_RADIX(),columnMetaStub.getNULLABLE(),columnMetaStub.getREMARKS(),columnMetaStub.getCOLUMN_DEF(),columnMetaStub.getSQL_DATA_TYPE(),columnMetaStub.getSQL_DATETIME_SUB(),columnMetaStub.getCHAR_OCTET_LENGTH(),columnMetaStub.getORDINAL_POSITION(),columnMetaStub.getIS_NULLABLE(),columnMetaStub.getSCOPE_CATLOG(),columnMetaStub.getSCOPE_TABLE(),columnMetaStub.getSOURCE_DATA_TYPE(),columnMetaStub.getIS_AUTOINCREMENT(),columnMetaStub.getSCOPE_SCHEMA());
+      columns.add(column);
+    }
+  }
+  return new DataSet<MetaColumn>(meta,new KylinEnumerator<MetaColumn>(columns.iterator()));
+}

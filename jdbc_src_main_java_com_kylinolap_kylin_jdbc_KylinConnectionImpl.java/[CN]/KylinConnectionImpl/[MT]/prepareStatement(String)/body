@@ -1,0 +1,6 @@
+{
+  PrepareResult pr=new KylinPrepareImpl().prepare(sql);
+  AvaticaPreparedStatement statement=((KylinJdbc41Factory)factory).newPreparedStatement(this,pr,ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY,this.getHoldability());
+  statements.add(statement);
+  return statement;
+}

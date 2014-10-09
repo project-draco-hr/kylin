@@ -1,0 +1,3 @@
+{
+  return new KylinJdbc41Statement(connection,resultSetType,resultSetConcurrency,resultSetHoldability);
+}

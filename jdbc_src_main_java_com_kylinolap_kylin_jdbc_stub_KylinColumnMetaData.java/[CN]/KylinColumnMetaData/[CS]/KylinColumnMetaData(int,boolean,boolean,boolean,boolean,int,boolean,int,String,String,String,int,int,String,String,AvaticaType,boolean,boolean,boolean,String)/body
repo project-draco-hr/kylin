@@ -1,0 +1,3 @@
+{
+  super(ordinal,autoIncrement,caseSensitive,searchable,currency,nullable,signed,displaySize,label,columnName,schemaName,precision,scale,tableName,catalogName,type,readOnly,writable,definitelyWritable,columnClassName);
+}

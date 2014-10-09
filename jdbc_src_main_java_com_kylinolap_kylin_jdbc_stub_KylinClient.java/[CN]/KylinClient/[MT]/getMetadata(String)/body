@@ -1,0 +1,32 @@
+{
+  GetMethod get=new GetMethod(conn.getMetaProjectUrl(project));
+  HttpClient httpClient=new HttpClient();
+  if (conn.getConnectUrl().toLowerCase().startsWith("https://")) {
+    registerSsl();
+  }
+  addPostHeaders(get);
+  List<TableMetaStub> tableMetaStubs=null;
+  try {
+    httpClient.executeMethod(get);
+    if (get.getStatusCode() != 200 && get.getStatusCode() != 201) {
+      logger.error("Authentication Failed with error code " + get.getStatusCode() + " and message:\n"+ get.getResponseBodyAsString());
+      throw new ConnectionException("Authentication Failed.");
+    }
+    tableMetaStubs=new ObjectMapper().readValue(get.getResponseBodyAsString(),new TypeReference<List<TableMetaStub>>(){
+    }
+);
+    DataSet<MetaCatalog> metaCatalogs=genMetaCatalogs(tableMetaStubs);
+    DataSet<MetaSchema> metaSchemas=genMetaSchemas(tableMetaStubs);
+    DataSet<MetaTable> metaTables=genMetaTables(tableMetaStubs);
+    DataSet<MetaColumn> metaColumns=genMetaColumns(tableMetaStubs);
+    return new MetaProject(metaCatalogs,metaSchemas,metaTables,metaColumns);
+  }
+ catch (  HttpException e) {
+    logger.error(e.getLocalizedMessage(),e);
+    throw new ConnectionException(e.getLocalizedMessage());
+  }
+catch (  IOException e) {
+    logger.error(e.getLocalizedMessage(),e);
+    throw new ConnectionException(e.getLocalizedMessage());
+  }
+}

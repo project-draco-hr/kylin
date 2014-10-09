@@ -1,0 +1,5 @@
+{
+  AvaticaStatement statement=super.createStatement(resultSetType,resultSetConcurrency,resultSetHoldability);
+  statements.add(statement);
+  return statement;
+}

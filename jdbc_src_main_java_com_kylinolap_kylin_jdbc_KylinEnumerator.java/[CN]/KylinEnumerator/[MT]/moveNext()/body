@@ -1,0 +1,7 @@
+{
+  if (!cursor.hasNext()) {
+    return false;
+  }
+  current=cursor.next();
+  return true;
+}

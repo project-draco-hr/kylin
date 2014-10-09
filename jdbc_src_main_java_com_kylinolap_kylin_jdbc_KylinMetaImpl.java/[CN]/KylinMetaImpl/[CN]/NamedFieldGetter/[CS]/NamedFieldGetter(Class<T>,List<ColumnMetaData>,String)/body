@@ -1,0 +1,4 @@
+{
+  init(clazz,names,fields);
+  structType=ColumnMetaData.struct(columns);
+}

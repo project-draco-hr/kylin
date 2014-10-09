@@ -1,0 +1,3 @@
+{
+  return new KylinJdbc41Connection(driver,factory,url,info);
+}

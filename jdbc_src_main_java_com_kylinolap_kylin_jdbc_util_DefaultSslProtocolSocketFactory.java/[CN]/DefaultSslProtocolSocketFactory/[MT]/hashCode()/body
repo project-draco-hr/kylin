@@ -1,0 +1,3 @@
+{
+  return DefaultX509TrustManager.class.hashCode();
+}

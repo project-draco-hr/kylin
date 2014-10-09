@@ -1,0 +1,4 @@
+AvaticaConnection connection
+int resultSetType
+int resultSetConcurrency
+int resultSetHoldability

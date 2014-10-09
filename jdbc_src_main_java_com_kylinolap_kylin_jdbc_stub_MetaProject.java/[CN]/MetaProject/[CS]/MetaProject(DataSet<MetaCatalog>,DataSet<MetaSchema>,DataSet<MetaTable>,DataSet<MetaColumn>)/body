@@ -1,0 +1,6 @@
+{
+  this.metaCatalogs=metaCatalogs;
+  this.metaSchemas=metaSchemas;
+  this.metaTables=metaTables;
+  this.metaColumns=metaColumns;
+}
