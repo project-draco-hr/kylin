@@ -1,0 +1,38 @@
+{
+  if (null == value) {
+    return null;
+  }
+switch (sqlType) {
+case Types.CHAR:
+case Types.VARCHAR:
+case Types.LONGVARCHAR:
+    return value;
+case Types.NUMERIC:
+case Types.DECIMAL:
+  return new BigDecimal(value);
+case Types.BIT:
+return Boolean.parseBoolean(value);
+case Types.TINYINT:
+return Byte.valueOf(value);
+case Types.SMALLINT:
+return Short.valueOf(value);
+case Types.INTEGER:
+return Integer.parseInt(value);
+case Types.BIGINT:
+case Types.REAL:
+case Types.FLOAT:
+case Types.DOUBLE:
+return Long.parseLong(value);
+case Types.BINARY:
+case Types.VARBINARY:
+case Types.LONGVARBINARY:
+return value.getBytes();
+case Types.DATE:
+return Date.valueOf(value);
+case Types.TIME:
+return Time.valueOf(value);
+case Types.TIMESTAMP:
+return Timestamp.valueOf(value);
+}
+return value;
+}

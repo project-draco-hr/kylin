@@ -1,0 +1,4 @@
+{
+  AvaticaPrepareResult queriedResult=((KylinConnectionImpl)this.connection).getMeta().prepare(this,this.prequeryResult.getSql());
+  return executeQueryInternal(queriedResult);
+}

@@ -1,0 +1,24 @@
+{
+  MetaProject metaProject=conn.getMetaProject();
+  if (null != metaProject) {
+    final DataSet<MetaTable> tables=metaProject.getMetaTables();
+    final NamedFieldGetter<MetaTable> tableGetter=new NamedFieldGetter<MetaTable>(MetaTable.class,tables.getMeta(),"TABLE_CAT","TABLE_SCHEM","TABLE_NAME","TABLE_TYPE","REMARKS","TYPE_CAT","TYPE_SCHEM","TYPE_NAME","SELF_REFERENCING_COL_NAME","REF_GENERATION");
+    AvaticaResultSet resultSet=null;
+    try {
+      resultSet=this.conn.getFactory().newResultSet(this.conn.createStatement(),new KylinPrepare.PrepareResult(null,null,null,tableGetter.structType){
+        @Override public Cursor createCursor(){
+          return tableGetter.cursor(tables.getEnumerator());
+        }
+      }
+,this.conn.getTimeZone());
+      KylinConnectionImpl.TROJAN.execute(resultSet);
+    }
+ catch (    SQLException e) {
+      logger.error(e.getLocalizedMessage(),e);
+    }
+    return resultSet;
+  }
+ else {
+    return mockEmptyResultSet();
+  }
+}

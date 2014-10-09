@@ -1,0 +1,3 @@
+{
+  return "com.kylinolap.kylin.jdbc.DummyJdbc41Factory";
+}

@@ -1,0 +1,15 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  MetaSchema other=(MetaSchema)obj;
+  if (tableCatalog == null) {
+    if (other.tableCatalog != null)     return false;
+  }
+ else   if (!tableCatalog.equals(other.tableCatalog))   return false;
+  if (tableSchem == null) {
+    if (other.tableSchem != null)     return false;
+  }
+ else   if (!tableSchem.equals(other.tableSchem))   return false;
+  return true;
+}

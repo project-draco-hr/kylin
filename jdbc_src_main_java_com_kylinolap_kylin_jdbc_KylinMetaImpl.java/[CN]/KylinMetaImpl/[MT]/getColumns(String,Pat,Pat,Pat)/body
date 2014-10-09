@@ -1,0 +1,24 @@
+{
+  MetaProject metaProject=conn.getMetaProject();
+  if (null != metaProject) {
+    final DataSet<MetaColumn> columns=metaProject.getMetaColumns();
+    final NamedFieldGetter<MetaColumn> columnGetter=new NamedFieldGetter<MetaColumn>(MetaColumn.class,columns.getMeta(),"TABLE_CAT","TABLE_SCHEM","TABLE_NAME","COLUMN_NAME","DATA_TYPE","TYPE_NAME","COLUMN_SIZE","BUFFER_LENGTH","DECIMAL_DIGITS","NUM_PREC_RADIX","NULLABLE","REMARKS","COLUMN_DEF","SQL_DATA_TYPE","SQL_DATETIME_SUB","CHAR_OCTET_LENGTH","ORDINAL_POSITION","IS_NULLABLE","SCOPE_CATALOG","SCOPE_TABLE","SOURCE_DATA_TYPE","IS_AUTOINCREMENT","IS_GENERATEDCOLUMN");
+    AvaticaResultSet resultSet=null;
+    try {
+      resultSet=this.conn.getFactory().newResultSet(this.conn.createStatement(),new KylinPrepare.PrepareResult(null,null,null,columnGetter.structType){
+        @Override public Cursor createCursor(){
+          return columnGetter.cursor(columns.getEnumerator());
+        }
+      }
+,this.conn.getTimeZone());
+      KylinConnectionImpl.TROJAN.execute(resultSet);
+    }
+ catch (    SQLException e) {
+      logger.error(e.getLocalizedMessage(),e);
+    }
+    return resultSet;
+  }
+ else {
+    return mockEmptyResultSet();
+  }
+}

@@ -1,0 +1,44 @@
+{
+  String paramString=null;
+  String url=conn.getQueryUrl();
+  if (null != params) {
+    ObjectMapper mapper=new ObjectMapper();
+    try {
+      paramString=mapper.writeValueAsString(params);
+      paramString="\"params\": " + paramString;
+    }
+ catch (    JsonProcessingException e) {
+      logger.error(e.getLocalizedMessage(),e);
+    }
+    url+="/prestate";
+  }
+  PostMethod post=new PostMethod(url);
+  HttpClient httpClient=new HttpClient();
+  if (conn.getQueryUrl().toLowerCase().startsWith("https://")) {
+    registerSsl();
+  }
+  addPostHeaders(post);
+  String postBody="{\"sql\":\"" + sql + "\", \"project\":\""+ conn.getProject()+ "\""+ ((null == paramString) ? "" : "," + paramString)+ "}";
+  String response=null;
+  SQLResponseStub queryRes=null;
+  try {
+    StringRequestEntity requestEntity=new StringRequestEntity(postBody,"application/json","UTF-8");
+    post.setRequestEntity(requestEntity);
+    httpClient.executeMethod(post);
+    response=post.getResponseBodyAsString();
+    if (post.getStatusCode() != 200 && post.getStatusCode() != 201) {
+      logger.error("Failed to query",response);
+      throw new SQLException(response);
+    }
+    queryRes=new ObjectMapper().readValue(response,SQLResponseStub.class);
+  }
+ catch (  HttpException e) {
+    logger.error(e.getLocalizedMessage(),e);
+    throw new SQLException(e.getLocalizedMessage());
+  }
+catch (  IOException e) {
+    logger.error(e.getLocalizedMessage(),e);
+    throw new SQLException(e.getLocalizedMessage());
+  }
+  return queryRes;
+}

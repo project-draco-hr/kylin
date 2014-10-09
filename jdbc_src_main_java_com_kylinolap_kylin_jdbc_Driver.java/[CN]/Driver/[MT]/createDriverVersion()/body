@@ -1,0 +1,3 @@
+{
+  return DriverVersion.load(Driver.class,"com-kylinolap-kylin-jdbc.properties","Kylin JDBC Driver","unknown version","Kylin","unknown version");
+}

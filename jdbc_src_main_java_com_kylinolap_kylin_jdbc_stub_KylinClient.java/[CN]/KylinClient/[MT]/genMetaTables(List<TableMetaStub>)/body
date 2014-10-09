@@ -1,0 +1,12 @@
+{
+  List<ColumnMetaData> meta=new ArrayList<ColumnMetaData>();
+  for (  ColumnMetaData cmd : SQLTypeMap.tableMetaTypeMapping.values()) {
+    meta.add(cmd);
+  }
+  List<MetaTable> tables=new ArrayList<MetaTable>();
+  for (  TableMetaStub tableStub : tableMetaStubs) {
+    MetaTable table=new MetaTable(tableStub.getTABLE_CAT(),tableStub.getTABLE_SCHEM(),tableStub.getTABLE_NAME(),tableStub.getTABLE_TYPE(),tableStub.getREMARKS(),tableStub.getTYPE_CAT(),tableStub.getTYPE_SCHEM(),tableStub.getTYPE_NAME(),tableStub.getSELF_REFERENCING_COL_NAME(),tableStub.getREF_GENERATION());
+    tables.add(table);
+  }
+  return new DataSet<MetaTable>(meta,new KylinEnumerator<MetaTable>(tables.iterator()));
+}

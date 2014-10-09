@@ -1,0 +1,4 @@
+{
+  final ResultSetMetaData metaData=newResultSetMetaData(statement,prepareResult.getColumnList());
+  return new KylinResultSet(statement,prepareResult,metaData,timeZone);
+}

@@ -1,0 +1,11 @@
+{
+  SQLResponseStub queryRes=null;
+  List<StateParam> params=null;
+  if (statement instanceof KylinJdbc41PreparedStatement) {
+    params=genPrestateStates(statement);
+  }
+  queryRes=runKylinQuery(sql,params);
+  List<ColumnMetaData> metas=genColumnMeta(queryRes);
+  List<Object[]> data=genResultData(queryRes,metas);
+  return new DataSet<Object[]>(metas,new KylinEnumerator<Object[]>(data.iterator()));
+}

@@ -1,0 +1,13 @@
+{
+  if (!closed) {
+    closed=true;
+    final KylinConnectionImpl connection_=(KylinConnectionImpl)connection;
+    connection_.statements.remove(this);
+    if (openResultSet != null) {
+      AvaticaResultSet c=openResultSet;
+      openResultSet=null;
+      c.close();
+    }
+    connection_.getDriver().handler.onStatementClose(this);
+  }
+}

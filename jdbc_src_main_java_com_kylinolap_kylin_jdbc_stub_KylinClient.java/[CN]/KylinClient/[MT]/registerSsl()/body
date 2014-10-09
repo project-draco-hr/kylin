@@ -1,0 +1,3 @@
+{
+  Protocol.registerProtocol("https",new Protocol("https",(ProtocolSocketFactory)new DefaultSslProtocolSocketFactory(),443));
+}

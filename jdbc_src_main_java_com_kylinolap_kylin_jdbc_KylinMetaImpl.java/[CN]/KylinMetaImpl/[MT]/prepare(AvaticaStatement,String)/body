@@ -1,0 +1,12 @@
+{
+  RemoteClient client=factory.newRemoteClient(conn);
+  DataSet<Object[]> result=null;
+  try {
+    result=(DataSet<Object[]>)client.query(statement,sql);
+  }
+ catch (  Exception e) {
+    logger.error(e.getLocalizedMessage(),e);
+    throw new RuntimeException("Failed to query kylin server with exception " + e.getLocalizedMessage());
+  }
+  return new KylinPrepare.PrepareResult(sql,null,(Enumerator<Object[]>)result.getEnumerator(),ColumnMetaData.struct(result.getMeta()));
+}
