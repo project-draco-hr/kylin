@@ -10,7 +10,7 @@
   System.out.println(JsonUtil.writeValueAsIndentString(createdCube));
   assertTrue(ProjectManager.getInstance(this.getTestConfig()).listAllProjects().size() == originalProjectCount);
   assertTrue(CubeManager.getInstance(this.getTestConfig()).listAllCubes().size() == originalCubeCount + 1);
-  CubeInstance droppedCube=CubeManager.getInstance(this.getTestConfig()).dropCube("new_cube_in_default");
+  CubeInstance droppedCube=CubeManager.getInstance(this.getTestConfig()).dropCube("new_cube_in_default",true);
   assertTrue(createdCube == droppedCube);
   assertNull(CubeManager.getInstance(this.getTestConfig()).getCube("new_cube_in_default"));
   assertTrue(ProjectManager.getInstance(this.getTestConfig()).listAllProjects().size() == originalProjectCount);

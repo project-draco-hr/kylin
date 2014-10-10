@@ -1,0 +1,12 @@
+import string, sys
+if (len(sys.argv) == 1):
+    print 'Usage:\ncelsius temp1 temp2 ...'
+    sys.exit(0)
+for i in sys.argv[1:]:
+    try:
+        fahrenheit = float(string.atoi(i))
+    except string.atoi_error:
+        print repr(i), 'not a numeric value'
+    else:
+        celsius = (((fahrenheit - 32) * 5.0) / 9.0)
+        print ('%i\xb0F = %i\xb0C' % (int(fahrenheit), int((celsius + 0.5))))

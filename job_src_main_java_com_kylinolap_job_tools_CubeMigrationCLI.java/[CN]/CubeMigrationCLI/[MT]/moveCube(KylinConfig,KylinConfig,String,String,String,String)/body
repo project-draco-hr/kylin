@@ -7,7 +7,7 @@
   CubeInstance cube=cubeManager.getCube(cubeName);
   logger.info("cube to be moved is : " + cubeName);
   if (cube.getStatus() != CubeStatusEnum.READY)   throw new IllegalStateException("Cannot migrate cube that is not in READY state.");
-  String hbaseUrl=checkAndGetHbaseUrl();
+  checkAndGetHbaseUrl();
   hbaseAdmin=new HBaseAdmin(HBaseConfiguration.create());
   hdfsFS=FileSystem.get(new Configuration());
   srcCoprocessorPath=DeployCoprocessorCLI.getNewestCoprocessorJar(srcConfig,hdfsFS);

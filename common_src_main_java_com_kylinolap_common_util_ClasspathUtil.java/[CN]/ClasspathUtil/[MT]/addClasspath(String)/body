@@ -1,4 +1,5 @@
 {
+  System.out.println("Adding path " + path + " to class path");
   File file=new File(path);
   if (file.exists()) {
     URLClassLoader urlClassLoader=(URLClassLoader)ClassLoader.getSystemClassLoader();
