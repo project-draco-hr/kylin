@@ -9,5 +9,5 @@
   }
   deployJarToHadoopCli();
   deployJarToLocalDir();
-  if (deployConfig)   deployConfigFile();
+  deployConfigFile();
 }
