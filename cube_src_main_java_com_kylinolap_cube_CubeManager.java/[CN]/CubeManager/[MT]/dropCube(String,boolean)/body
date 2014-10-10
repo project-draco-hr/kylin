@@ -3,7 +3,7 @@
   List<ProjectInstance> projects=ProjectManager.getInstance(config).getProjects(cubeName);
   ResourceStore store=getStore();
   CubeInstance cube=getCube(cubeName);
-  store.deleteResource(cube.getDescriptor().getResourcePath());
+  if (deleteDesc && cube.getDescriptor() != null)   store.deleteResource(cube.getDescriptor().getResourcePath());
   store.deleteResource(cube.getResourcePath());
   ProjectManager.getInstance(config).removeCubeFromProjects(cubeName);
   this.afterCubeDroped(cube,projects);

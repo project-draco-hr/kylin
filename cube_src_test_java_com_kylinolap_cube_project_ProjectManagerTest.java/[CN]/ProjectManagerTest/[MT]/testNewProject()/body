@@ -22,7 +22,7 @@
   assertTrue(ProjectManager.getInstance(this.getTestConfig()).listAllCubes("default").size() == originalCubeCountInDefault);
   assertTrue(ProjectManager.getInstance(getTestConfig()).listAllCubes("alien").contains(createdCube));
   assertTrue(ProjectManager.getInstance(this.getTestConfig()).isCubeInProject("alien",createdCube));
-  CubeInstance droppedCube=CubeManager.getInstance(this.getTestConfig()).dropCube("cube_in_alien_project");
+  CubeInstance droppedCube=CubeManager.getInstance(this.getTestConfig()).dropCube("cube_in_alien_project",true);
   assertTrue(createdCube == droppedCube);
   assertNull(CubeManager.getInstance(this.getTestConfig()).getCube("cube_in_alien_project"));
   assertTrue(ProjectManager.getInstance(this.getTestConfig()).listAllProjects().size() == originalProjectCount + 1);
