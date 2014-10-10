@@ -1,31 +1,10 @@
 {
   ByteBuffer buffer=ByteBuffer.wrap(bytes);
   TableDesc table=new TableDesc();
-  byte[] tableBytes=BytesUtil.readByteArray(buffer);
-  if (tableBytes.length == 0) {
-    table.setName(null);
-  }
- else {
-    String tableName=Bytes.toString(tableBytes);
-    table.setName(tableName);
-  }
+  table.setName(BytesUtil.readUTFString(buffer));
   ColumnDesc column=new ColumnDesc();
   column.setTable(table);
-  byte[] columnBytes=BytesUtil.readByteArray(buffer);
-  if (columnBytes.length == 0) {
-    column.setName(null);
-  }
- else {
-    String columnName=Bytes.toString(columnBytes);
-    column.setName(columnName);
-  }
-  byte[] typeBytes=BytesUtil.readByteArray(buffer);
-  if (typeBytes.length == 0) {
-    column.setDatatype(null);
-  }
- else {
-    String dataType=Bytes.toString(typeBytes);
-    column.setDatatype(dataType);
-  }
+  column.setName(BytesUtil.readUTFString(buffer));
+  column.setDatatype(BytesUtil.readUTFString(buffer));
   this.columnRef=new TblColRef(column);
 }
