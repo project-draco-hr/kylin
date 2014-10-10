@@ -5,5 +5,5 @@
   for (  TableMetaStub tableStub : tableMetaStubs) {
     catalogs.add(new MetaCatalog(tableStub.getTABLE_CAT()));
   }
-  return new DataSet<MetaCatalog>(meta,new KylinEnumerator<MetaCatalog>(catalogs.iterator()));
+  return new DataSet<MetaCatalog>(meta,new KylinEnumerator<MetaCatalog>(catalogs));
 }

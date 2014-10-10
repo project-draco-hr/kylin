@@ -10,5 +10,5 @@
       columns.add(column);
     }
   }
-  return new DataSet<MetaColumn>(meta,new KylinEnumerator<MetaColumn>(columns.iterator()));
+  return new DataSet<MetaColumn>(meta,new KylinEnumerator<MetaColumn>(columns));
 }

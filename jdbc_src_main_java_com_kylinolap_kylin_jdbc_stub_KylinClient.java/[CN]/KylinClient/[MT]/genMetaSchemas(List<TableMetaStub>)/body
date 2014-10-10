@@ -7,5 +7,5 @@
   for (  TableMetaStub tableStub : tableMetaStubs) {
     schemas.add(new MetaSchema(tableStub.getTABLE_CAT(),tableStub.getTABLE_SCHEM()));
   }
-  return new DataSet<MetaSchema>(meta,new KylinEnumerator<MetaSchema>(schemas.iterator()));
+  return new DataSet<MetaSchema>(meta,new KylinEnumerator<MetaSchema>(schemas));
 }

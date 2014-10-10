@@ -1,4 +1,5 @@
 {
+  logger.debug("Get tables with conn " + conn);
   MetaProject metaProject=conn.getMetaProject();
   if (null != metaProject) {
     final DataSet<MetaTable> tables=metaProject.getMetaTables();

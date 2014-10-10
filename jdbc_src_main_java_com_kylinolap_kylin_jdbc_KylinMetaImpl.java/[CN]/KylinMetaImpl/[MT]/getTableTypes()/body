@@ -7,7 +7,7 @@
   data.add(row);
   AvaticaResultSet resultSet=null;
   try {
-    resultSet=this.conn.getFactory().newResultSet(this.conn.createStatement(),new KylinPrepare.PrepareResult(null,null,new KylinEnumerator<Object[]>(data.iterator()),ColumnMetaData.struct(tableTypeMeta)),this.conn.getTimeZone());
+    resultSet=this.conn.getFactory().newResultSet(this.conn.createStatement(),new KylinPrepare.PrepareResult(null,null,new KylinEnumerator<Object[]>(data),ColumnMetaData.struct(tableTypeMeta)),this.conn.getTimeZone());
     KylinConnectionImpl.TROJAN.execute(resultSet);
   }
  catch (  SQLException e) {

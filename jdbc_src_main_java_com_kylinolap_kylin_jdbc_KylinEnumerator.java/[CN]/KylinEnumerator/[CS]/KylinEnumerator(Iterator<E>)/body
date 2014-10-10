@@ -1,6 +1,0 @@
-{
-  if (null == cursor) {
-    throw new RuntimeException("Cursor can't be null");
-  }
-  this.cursor=cursor;
-}

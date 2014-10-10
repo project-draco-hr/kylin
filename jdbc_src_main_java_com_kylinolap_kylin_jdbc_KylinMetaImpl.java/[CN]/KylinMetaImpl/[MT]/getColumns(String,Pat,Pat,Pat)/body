@@ -1,4 +1,5 @@
 {
+  logger.debug("Get columns with conn " + conn);
   MetaProject metaProject=conn.getMetaProject();
   if (null != metaProject) {
     final DataSet<MetaColumn> columns=metaProject.getMetaColumns();

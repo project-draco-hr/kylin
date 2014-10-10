@@ -6,5 +6,5 @@
   List<MetaTable> tables=new ArrayList<MetaTable>();
   MetaTable table=new MetaTable("dummy","dummy","dummy","dummy","dummy","dummy","dummy","dummy","dummy","dummy");
   tables.add(table);
-  return new MetaProject(null,null,new DataSet<MetaTable>(meta,new KylinEnumerator<MetaTable>(tables.iterator())),null);
+  return new MetaProject(null,null,new DataSet<MetaTable>(meta,new KylinEnumerator<MetaTable>(tables)),null);
 }
