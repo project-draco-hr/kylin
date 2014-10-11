@@ -3,8 +3,8 @@
   int size=this.dynamicVariables.size();
   BytesUtil.writeVInt(size,buffer);
   for (  Map.Entry<String,String> entry : this.dynamicVariables.entrySet()) {
-    BytesUtil.writeByteArray(Bytes.toBytes(entry.getKey()),buffer);
-    BytesUtil.writeByteArray(Bytes.toBytes(entry.getValue()),buffer);
+    BytesUtil.writeUTFString(entry.getKey(),buffer);
+    BytesUtil.writeUTFString(entry.getValue(),buffer);
   }
   BytesUtil.writeAsciiString(nullString,buffer);
   byte[] result=new byte[buffer.position()];

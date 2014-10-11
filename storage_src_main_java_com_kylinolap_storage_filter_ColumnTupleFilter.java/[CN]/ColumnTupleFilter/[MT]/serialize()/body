@@ -1,26 +1,11 @@
 {
   ByteBuffer buffer=ByteBuffer.allocate(BUFFER_SIZE);
   String table=columnRef.getTable();
-  if (table == null) {
-    BytesUtil.writeByteArray(new byte[0],buffer);
-  }
- else {
-    BytesUtil.writeByteArray(Bytes.toBytes(table),buffer);
-  }
+  BytesUtil.writeUTFString(table,buffer);
   String columnName=columnRef.getName();
-  if (columnName == null) {
-    BytesUtil.writeByteArray(new byte[0],buffer);
-  }
- else {
-    BytesUtil.writeByteArray(Bytes.toBytes(columnName),buffer);
-  }
+  BytesUtil.writeUTFString(columnName,buffer);
   String dataType=columnRef.getDatatype();
-  if (dataType == null) {
-    BytesUtil.writeByteArray(new byte[0],buffer);
-  }
- else {
-    BytesUtil.writeByteArray(Bytes.toBytes(dataType),buffer);
-  }
+  BytesUtil.writeUTFString(dataType,buffer);
   byte[] result=new byte[buffer.position()];
   System.arraycopy(buffer.array(),0,result,0,buffer.position());
   return result;

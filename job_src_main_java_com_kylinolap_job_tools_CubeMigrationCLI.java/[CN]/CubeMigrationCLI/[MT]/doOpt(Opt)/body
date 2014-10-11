@@ -35,7 +35,7 @@ case RENAME_TABLE_IN_HBASE:
 case CHANGE_HTABLE_NAME_IN_CUBE:
 {
 String cubeName=(String)opt.params[0];
-HashMap<String,String> renamedHtables=(HashMap<String,String>)opt.params[1];
+@SuppressWarnings("unchecked") HashMap<String,String> renamedHtables=(HashMap<String,String>)opt.params[1];
 String cubeResPath=CubeInstance.concatResourcePath(cubeName);
 Serializer<CubeInstance> cubeSerializer=new JsonSerializer<CubeInstance>(CubeInstance.class);
 CubeInstance cube=dstStore.getResource(cubeResPath,CubeInstance.class,cubeSerializer);

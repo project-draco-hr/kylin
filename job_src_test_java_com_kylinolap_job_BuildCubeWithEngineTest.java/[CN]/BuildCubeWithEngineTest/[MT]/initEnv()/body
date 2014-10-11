@@ -1,7 +1,7 @@
 {
-  this.execCommand("mkdir -p /tmp/kylin/logs");
-  retrieveJarName();
   cleanUp();
+  this.execCommand("mkdir -p " + KylinConfig.getInstanceFromEnv().getKylinJobLogDir());
+  retrieveJarName();
   installMetadataToHBase();
   for (  CubeInstance cube : CubeManager.getInstance(this.getTestConfig()).listAllCubes()) {
     cube.getDescriptor().setSignature(cube.getDescriptor().calculateSignature());

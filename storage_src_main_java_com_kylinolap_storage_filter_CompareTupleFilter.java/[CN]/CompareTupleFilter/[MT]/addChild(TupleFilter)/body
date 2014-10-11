@@ -7,7 +7,7 @@
     }
     this.column=columnFilter.getColumn();
     if (!this.conditionValues.isEmpty() && needSwapOperator()) {
-      this.operator=REVERSE_OP_MAP.get(this.operator);
+      this.operator=SWAP_OP_MAP.get(this.operator);
     }
   }
  else   if (child instanceof ConstantTupleFilter) {

@@ -3,10 +3,8 @@
   ByteBuffer buffer=ByteBuffer.wrap(bytes);
   int size=BytesUtil.readVInt(buffer);
   for (int i=0; i < size; i++) {
-    byte[] nameBytes=BytesUtil.readByteArray(buffer);
-    String nameString=Bytes.toString(nameBytes);
-    byte[] valueBytes=BytesUtil.readByteArray(buffer);
-    String valueString=Bytes.toString(valueBytes);
+    String nameString=BytesUtil.readUTFString(buffer);
+    String valueString=BytesUtil.readUTFString(buffer);
     bindVariable(nameString,valueString);
   }
   this.nullString=BytesUtil.readAsciiString(buffer);
