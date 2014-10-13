@@ -1,3 +1,4 @@
 {
-  this.reset();
+  this.cursor=null;
+  this.dataCollection=null;
 }

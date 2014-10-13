@@ -15,11 +15,33 @@
     tableMetaStubs=new ObjectMapper().readValue(get.getResponseBodyAsString(),new TypeReference<List<TableMetaStub>>(){
     }
 );
-    DataSet<MetaCatalog> metaCatalogs=genMetaCatalogs(tableMetaStubs);
-    DataSet<MetaSchema> metaSchemas=genMetaSchemas(tableMetaStubs);
-    DataSet<MetaTable> metaTables=genMetaTables(tableMetaStubs);
-    DataSet<MetaColumn> metaColumns=genMetaColumns(tableMetaStubs);
-    return new MetaProject(metaCatalogs,metaSchemas,metaTables,metaColumns);
+    List<MetaTable> tables=new ArrayList<MetaTable>();
+    HashMultimap<String,MetaTable> schemasMap=HashMultimap.create();
+    for (    TableMetaStub tableMetaStub : tableMetaStubs) {
+      List<MetaColumn> columns=new ArrayList<MetaColumn>();
+      for (      ColumnMetaStub columnMetaStub : tableMetaStub.getColumns()) {
+        MetaColumn column=createNewColumn(columnMetaStub);
+        columns.add(column);
+      }
+      MetaTable table=createNewTable(tableMetaStub,columns);
+      tables.add(table);
+      schemasMap.put(tableMetaStub.getTABLE_CAT() + "#" + tableMetaStub.getTABLE_SCHEM(),table);
+    }
+    HashMultimap<String,MetaSchema> catalogMap=HashMultimap.create();
+    List<MetaSchema> schemas=new ArrayList<MetaSchema>();
+    for (    String key : schemasMap.keySet()) {
+      String cat=key.split("#")[0];
+      String schema=key.split("#")[1];
+      MetaSchema metaSchema=new MetaSchema(cat,schema,new ArrayList<MetaTable>(schemasMap.get(key)));
+      schemas.add(metaSchema);
+      catalogMap.put(cat,metaSchema);
+    }
+    List<MetaCatalog> catalogs=new ArrayList<MetaCatalog>();
+    for (    String key : catalogMap.keySet()) {
+      MetaCatalog metaCatalog=new MetaCatalog(key,new ArrayList<MetaSchema>(catalogMap.get(key)));
+      catalogs.add(metaCatalog);
+    }
+    return new MetaProject(project,catalogs);
   }
  catch (  HttpException e) {
     logger.error(e.getLocalizedMessage(),e);

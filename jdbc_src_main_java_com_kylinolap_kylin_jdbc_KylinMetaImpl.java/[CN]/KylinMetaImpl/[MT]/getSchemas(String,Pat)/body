@@ -2,7 +2,7 @@
   logger.debug("Get schemas with conn " + conn);
   MetaProject metaProject=conn.getMetaProject();
   if (null != metaProject) {
-    final DataSet<MetaSchema> schemas=metaProject.getMetaSchemas();
+    final DataSet<MetaSchema> schemas=metaProject.getMetaSchemas(catalog,schemaPattern);
     final NamedFieldGetter<MetaSchema> schemaGetter=new NamedFieldGetter<MetaSchema>(MetaSchema.class,schemas.getMeta(),"TABLE_SCHEM","TABLE_CATALOG");
     AvaticaResultSet resultSet=null;
     try {

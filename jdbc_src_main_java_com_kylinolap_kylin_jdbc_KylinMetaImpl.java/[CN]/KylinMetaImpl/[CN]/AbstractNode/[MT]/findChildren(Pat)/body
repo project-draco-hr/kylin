@@ -1,0 +1,12 @@
+{
+  if (null == pattern.s || pattern.s.equals("%")) {
+    return this.getChildren();
+  }
+  List<Node> list=new ArrayList<Node>();
+  for (  Node c : this.getChildren()) {
+    if (likeToRegex(pattern).matcher(c.getName()).matches()) {
+      list.add(c);
+    }
+  }
+  return list;
+}
