@@ -30,11 +30,11 @@ catch (    Exception e) {
       Cache exceptionCache=cacheManager.getCache(EXCEPTION_QUERY_CACHE);
       exceptionCache.put(new Element(sqlRequest,exceptionRes));
       logger.error("Exception when execute sql",e);
-      throw new InternalErrorException(makeErrorMsgUserFriendly(e.getLocalizedMessage()));
+      throw new InternalErrorException(QueryUtil.makeErrorMsgUserFriendly(e.getLocalizedMessage()));
     }
   }
  else {
     logger.debug("Directly return expection as not supported");
-    throw new InternalErrorException(makeErrorMsgUserFriendly("Not Supported SQL."));
+    throw new InternalErrorException(QueryUtil.makeErrorMsgUserFriendly("Not Supported SQL."));
   }
 }
