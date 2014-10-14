@@ -5,6 +5,7 @@
     final String tableName=tableDesc.getName();
     final OLAPTable table=new OLAPTable(this,tableDesc);
     olapTables.put(tableName,table);
+    logger.debug("Project " + projectName + " exposes table "+ tableName);
   }
   return olapTables;
 }
