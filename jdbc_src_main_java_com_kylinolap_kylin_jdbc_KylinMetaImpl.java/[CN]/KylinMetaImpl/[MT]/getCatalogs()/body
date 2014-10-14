@@ -1,3 +1,24 @@
 {
-  return mockEmptyResultSet();
+  MetaProject metaProject=conn.getMetaProject();
+  if (null != metaProject) {
+    final DataSet<MetaCatalog> catalogs=metaProject.getMetaCatalogs();
+    final NamedFieldGetter<MetaCatalog> catalogGetter=new NamedFieldGetter<MetaCatalog>(MetaCatalog.class,catalogs.getMeta(),"TABLE_CATALOG");
+    AvaticaResultSet resultSet=null;
+    try {
+      resultSet=this.conn.getFactory().newResultSet(this.conn.createStatement(),new KylinPrepare.PrepareResult(null,null,null,catalogGetter.structType){
+        @Override public Cursor createCursor(){
+          return catalogGetter.cursor(catalogs.getEnumerator());
+        }
+      }
+,this.conn.getTimeZone());
+      KylinConnectionImpl.TROJAN.execute(resultSet);
+    }
+ catch (    SQLException e) {
+      logger.error(e.getLocalizedMessage(),e);
+    }
+    return resultSet;
+  }
+ else {
+    return mockEmptyResultSet();
+  }
 }

@@ -5,7 +5,7 @@
   queryService.logQuery(sqlRequest,response,new Date(startTimestamp),new Date(System.currentTimeMillis()));
   if (response.getIsException()) {
     String errorMsg=response.getExceptionMessage();
-    throw new InternalErrorException(makeErrorMsgUserFriendly(errorMsg));
+    throw new InternalErrorException(QueryUtil.makeErrorMsgUserFriendly(errorMsg));
   }
   return response;
 }

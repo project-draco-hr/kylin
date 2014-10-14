@@ -4,7 +4,11 @@
     meta.add(ColumnMetaData.dummy(ColumnMetaData.scalar(Types.VARCHAR,"varchar",Rep.STRING),true));
   }
   List<MetaTable> tables=new ArrayList<MetaTable>();
-  MetaTable table=new MetaTable("dummy","dummy","dummy","dummy","dummy","dummy","dummy","dummy","dummy","dummy");
+  MetaTable table=new MetaTable("dummy","dummy","dummy","dummy","dummy","dummy","dummy","dummy","dummy","dummy",new ArrayList<MetaColumn>());
   tables.add(table);
-  return new MetaProject(null,null,new DataSet<MetaTable>(meta,new KylinEnumerator<MetaTable>(tables.iterator())),null);
+  List<MetaSchema> schemas=new ArrayList<MetaSchema>();
+  schemas.add(new MetaSchema("dummy","dummy",tables));
+  List<MetaCatalog> catalogs=new ArrayList<MetaCatalog>();
+  catalogs.add(new MetaCatalog("dummy",schemas));
+  return new MetaProject(null,catalogs);
 }

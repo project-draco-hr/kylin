@@ -3,7 +3,7 @@
   try {
     List<ColumnMetaData> columnMetas=new ArrayList<ColumnMetaData>();
     List<Object[]> data=new ArrayList<Object[]>();
-    resultSet=this.conn.getFactory().newResultSet(this.conn.createStatement(),new KylinPrepare.PrepareResult(null,null,new KylinEnumerator<Object[]>(data.iterator()),ColumnMetaData.struct(columnMetas)),this.conn.getTimeZone());
+    resultSet=this.conn.getFactory().newResultSet(this.conn.createStatement(),new KylinPrepare.PrepareResult(null,null,new KylinEnumerator<Object[]>(data),ColumnMetaData.struct(columnMetas)),this.conn.getTimeZone());
     KylinConnectionImpl.TROJAN.execute(resultSet);
   }
  catch (  SQLException e) {

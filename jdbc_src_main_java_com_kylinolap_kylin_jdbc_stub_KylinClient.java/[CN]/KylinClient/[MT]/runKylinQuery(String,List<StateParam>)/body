@@ -1,24 +1,32 @@
 {
-  String paramString=null;
   String url=conn.getQueryUrl();
+  String project=conn.getProject();
+  QueryRequest request=null;
   if (null != params) {
-    ObjectMapper mapper=new ObjectMapper();
-    try {
-      paramString=mapper.writeValueAsString(params);
-      paramString="\"params\": " + paramString;
-    }
- catch (    JsonProcessingException e) {
-      logger.error(e.getLocalizedMessage(),e);
-    }
+    request=new PreQueryRequest();
+    ((PreQueryRequest)request).setParams(params);
     url+="/prestate";
   }
+ else {
+    request=new QueryRequest();
+  }
+  request.setSql(sql);
+  request.setProject(project);
   PostMethod post=new PostMethod(url);
+  addPostHeaders(post);
   HttpClient httpClient=new HttpClient();
   if (conn.getQueryUrl().toLowerCase().startsWith("https://")) {
     registerSsl();
   }
-  addPostHeaders(post);
-  String postBody="{\"sql\":\"" + sql + "\", \"project\":\""+ conn.getProject()+ "\""+ ((null == paramString) ? "" : "," + paramString)+ "}";
+  String postBody=null;
+  ObjectMapper mapper=new ObjectMapper();
+  try {
+    postBody=mapper.writeValueAsString(request);
+    logger.debug("Post body:\n " + postBody);
+  }
+ catch (  JsonProcessingException e) {
+    logger.error(e.getLocalizedMessage(),e);
+  }
   String response=null;
   SQLResponseStub queryRes=null;
   try {

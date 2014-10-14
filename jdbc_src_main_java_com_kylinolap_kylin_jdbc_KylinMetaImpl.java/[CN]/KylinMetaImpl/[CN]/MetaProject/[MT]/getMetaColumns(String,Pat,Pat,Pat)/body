@@ -1,0 +1,5 @@
+{
+  logger.debug("getMetaColumns with catalog:" + catalog + ", schema:"+ schemaPattern.s+ ", table:"+ tableNamePattern.s+ ", column:"+ columnNamePattern.s);
+  List<? extends Node> columns=this.searchByPatterns(Pat.of(catalog),schemaPattern,tableNamePattern,columnNamePattern);
+  return new DataSet<MetaColumn>(MetaColumn.meta,new KylinEnumerator<MetaColumn>((Collection<MetaColumn>)columns));
+}

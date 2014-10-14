@@ -2,7 +2,7 @@
   List<Object[]> data=new ArrayList<Object[]>();
   Object[] row=new Object[]{"foo","bar","tool"};
   data.add(row);
-  Enumerator<Object[]> enumerator=new KylinEnumerator<Object[]>(data.iterator());
+  Enumerator<Object[]> enumerator=new KylinEnumerator<Object[]>(data);
   List<ColumnMetaData> meta=new ArrayList<ColumnMetaData>();
   meta.add(ColumnMetaData.dummy(ColumnMetaData.scalar(Types.VARCHAR,"varchar",Rep.STRING),true));
   meta.add(ColumnMetaData.dummy(ColumnMetaData.scalar(Types.VARCHAR,"varchar",Rep.STRING),true));

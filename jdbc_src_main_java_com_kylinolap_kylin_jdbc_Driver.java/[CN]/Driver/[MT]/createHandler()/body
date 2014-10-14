@@ -6,6 +6,7 @@
       try {
         runner.connect();
         kylinConn.setMetaProject(runner.getMetadata(kylinConn.getProject()));
+        logger.debug("Connection inited.");
       }
  catch (      ConnectionException e) {
         logger.error(e.getLocalizedMessage(),e);

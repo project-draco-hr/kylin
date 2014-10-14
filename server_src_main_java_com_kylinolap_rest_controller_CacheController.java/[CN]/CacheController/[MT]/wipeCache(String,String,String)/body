@@ -5,6 +5,7 @@ switch (wipeType) {
 case METADATA:
     logger.debug("Reload all metadata");
   cubeMgmtService.reloadMetadataCache();
+projectService.cleanDataCache();
 cubeMgmtService.cleanDataCache();
 break;
 case CUBE:

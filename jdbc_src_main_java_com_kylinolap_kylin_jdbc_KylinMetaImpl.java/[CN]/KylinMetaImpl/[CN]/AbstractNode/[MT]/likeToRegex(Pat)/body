@@ -1,0 +1,31 @@
+{
+  StringBuilder buf=new StringBuilder("^");
+  char[] charArray=pattern.s.toCharArray();
+  int slash=-2;
+  for (int i=0; i < charArray.length; i++) {
+    char c=charArray[i];
+    if (slash == i - 1) {
+      buf.append('[').append(c).append(']');
+    }
+ else {
+switch (c) {
+case '\\':
+        slash=i;
+      break;
+case '%':
+    buf.append(".*");
+  break;
+case '[':
+buf.append("\\[");
+break;
+case ']':
+buf.append("\\]");
+break;
+default :
+buf.append('[').append(c).append(']');
+}
+}
+}
+buf.append("$");
+return Pattern.compile(buf.toString());
+}

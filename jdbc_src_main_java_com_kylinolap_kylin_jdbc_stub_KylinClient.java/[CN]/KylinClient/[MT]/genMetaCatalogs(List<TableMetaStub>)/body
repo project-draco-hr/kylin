@@ -1,9 +1,0 @@
-{
-  List<ColumnMetaData> meta=new ArrayList<ColumnMetaData>();
-  meta.add(KylinColumnMetaData.dummy(0,"TABLE_CAT","TABLE_CAT",ColumnMetaData.scalar(Types.VARCHAR,"varchar",Rep.STRING),true));
-  Set<MetaCatalog> catalogs=new HashSet<MetaCatalog>();
-  for (  TableMetaStub tableStub : tableMetaStubs) {
-    catalogs.add(new MetaCatalog(tableStub.getTABLE_CAT()));
-  }
-  return new DataSet<MetaCatalog>(meta,new KylinEnumerator<MetaCatalog>(catalogs.iterator()));
-}
