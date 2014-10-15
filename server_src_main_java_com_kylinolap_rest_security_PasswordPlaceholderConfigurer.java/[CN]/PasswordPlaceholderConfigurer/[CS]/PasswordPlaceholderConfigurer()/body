@@ -1,0 +1,5 @@
+{
+  Resource[] resources=new Resource[1];
+  resources[0]=new InputStreamResource(KylinConfig.getKylinPropertiesAsInputSteam());
+  this.setLocations(resources);
+}
