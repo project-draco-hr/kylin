@@ -20,8 +20,6 @@
   conf.set("hbase.zookeeper.property.clientPort",port);
   String znodePath=m.group(3) == null ? "" : m.group(3);
   if (StringUtils.isEmpty(znodePath) == false)   conf.set("zookeeper.znode.parent",znodePath);
-  boolean secured=znodePath.contains("unsecure") == false;
-  if (secured)   conf.set("hbase.security.authentication","kerberos");
   conf.set(HConstants.HBASE_CLIENT_PAUSE,"3000");
   conf.set(HConstants.HBASE_CLIENT_RETRIES_NUMBER,"5");
   conf.set(HConstants.HBASE_CLIENT_OPERATION_TIMEOUT,"60000");
