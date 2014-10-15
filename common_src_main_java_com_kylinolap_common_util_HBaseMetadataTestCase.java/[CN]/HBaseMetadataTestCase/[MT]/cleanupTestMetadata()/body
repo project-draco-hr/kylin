@@ -1,5 +1,4 @@
 {
   System.clearProperty(KylinConfig.KYLIN_CONF);
   KylinConfig.destoryInstance();
-  this.tempTestMetadataUrl=null;
 }
