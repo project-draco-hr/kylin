@@ -13,9 +13,5 @@
       }
     }
   }
-  this.createTestMetadata();
   initEnv(false);
-  engineConfig=new JobEngineConfig(KylinConfig.getInstanceFromEnv());
-  jobManager=new JobManager("Build_One_Cube_Engine",engineConfig);
-  jobManager.deleteAllJobs();
 }
