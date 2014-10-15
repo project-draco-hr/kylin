@@ -17,9 +17,9 @@
   }
   conf.set(HConstants.ZOOKEEPER_QUORUM,quorum);
   String port=m.group(2);
-  conf.set("hbase.zookeeper.property.clientPort",port);
+  conf.set(HConstants.ZOOKEEPER_CLIENT_PORT,port);
   String znodePath=m.group(3) == null ? "" : m.group(3);
-  if (StringUtils.isEmpty(znodePath) == false)   conf.set("zookeeper.znode.parent",znodePath);
+  if (StringUtils.isEmpty(znodePath) == false)   conf.set(HConstants.ZOOKEEPER_ZNODE_PARENT,znodePath);
   conf.set(HConstants.HBASE_CLIENT_PAUSE,"3000");
   conf.set(HConstants.HBASE_CLIENT_RETRIES_NUMBER,"5");
   conf.set(HConstants.HBASE_CLIENT_OPERATION_TIMEOUT,"60000");
