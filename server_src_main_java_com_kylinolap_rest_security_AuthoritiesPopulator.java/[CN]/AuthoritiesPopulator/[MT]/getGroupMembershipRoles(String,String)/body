@@ -1,0 +1,9 @@
+{
+  Set<GrantedAuthority> authorities=super.getGroupMembershipRoles(userDn,username);
+  if (authorities.contains(adminRoleAsAuthority)) {
+    authorities.add(adminAuthority);
+  }
+  authorities.add(modelerAuthority);
+  authorities.add(analystAuthority);
+  return authorities;
+}

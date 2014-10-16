@@ -1,2 +1,3 @@
 ContextSource contextSource
 String groupSearchBase
+String adminRole
