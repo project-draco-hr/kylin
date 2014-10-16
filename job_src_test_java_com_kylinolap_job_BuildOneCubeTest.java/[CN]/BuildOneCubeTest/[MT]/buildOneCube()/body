@@ -1,7 +1,0 @@
-{
-  jobManager.startJobEngine(10);
-  ArrayList<String> jobs=new ArrayList<String>();
-  jobs.addAll(this.submitJob("test_kylin_cube_without_slr_empty",0,0,CubeBuildTypeEnum.BUILD));
-  waitCubeBuilt(jobs);
-  jobManager.stopJobEngine();
-}

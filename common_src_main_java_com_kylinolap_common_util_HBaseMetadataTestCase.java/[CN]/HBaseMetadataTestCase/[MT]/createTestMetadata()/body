@@ -1,8 +1,4 @@
 {
   KylinConfig.destoryInstance();
   if (System.getProperty(KylinConfig.KYLIN_CONF) == null && System.getenv(KylinConfig.KYLIN_CONF) == null)   System.setProperty(KylinConfig.KYLIN_CONF,this.testDataFolder);
-  this.tempTestMetadataUrl=KylinConfig.getInstanceFromEnv().getMetadataUrl();
-  if (this.tempTestMetadataUrl == null) {
-    throw new IllegalArgumentException("Error while initializing metadata url");
-  }
 }
