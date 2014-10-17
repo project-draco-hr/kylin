@@ -1,0 +1,19 @@
+{
+  if (null == value) {
+    return null;
+  }
+  try {
+    ObjectMapper mapper=new ObjectMapper();
+    return (T)Arrays.asList(mapper.readValue(value,type));
+  }
+ catch (  JsonParseException e) {
+    logger.error(e.getLocalizedMessage(),e);
+  }
+catch (  JsonMappingException e) {
+    logger.error(e.getLocalizedMessage(),e);
+  }
+catch (  IOException e) {
+    logger.error(e.getLocalizedMessage(),e);
+  }
+  return null;
+}

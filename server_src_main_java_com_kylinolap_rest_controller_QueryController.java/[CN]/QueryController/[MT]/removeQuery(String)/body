@@ -1,3 +1,0 @@
-{
-  queryService.removeQuery(id);
-}

@@ -1,3 +1,0 @@
-{
-  queryService.saveQuery(sqlRequest.getName(),sqlRequest.getProject(),sqlRequest.getSql(),sqlRequest.getDescription());
-}
