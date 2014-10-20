@@ -19,6 +19,13 @@
     logger.info("Coprocessor is disabled because exactAggregation is true");
     return false;
   }
-  logger.info("Coprocessor is enabled, group by " + groupBy);
+  Cuboid cuboid=context.getCuboid();
+  Set<TblColRef> toAggr=Sets.newHashSet(cuboid.getAggregationColumns());
+  toAggr.removeAll(groupBy);
+  if (toAggr.isEmpty()) {
+    logger.info("Coprocessor is disabled because no additional columns to aggregate");
+    return false;
+  }
+  logger.info("Coprocessor is enabled to aggregate " + toAggr + ", returning "+ groupBy);
   return true;
 }
