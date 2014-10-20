@@ -3,6 +3,7 @@
   Assert.assertNotNull(adminSid);
   Assert.assertNotNull(AclPermissionFactory.getPermissions());
   AclEntity ae=new MockAclEntity("test-domain-object");
+  accessService.clean(ae,true);
   Acl acl=accessService.getAcl(ae);
   Assert.assertNull(acl);
   acl=accessService.init(ae,AclPermission.ADMINISTRATION);

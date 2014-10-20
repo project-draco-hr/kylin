@@ -4,13 +4,13 @@
   try {
     htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
     Scan scan=new Scan();
-    Serializer<DomainObjectInfo> domainObjSerializer=new Serializer<DomainObjectInfo>(DomainObjectInfo.class);
-    SingleColumnValueFilter parentFilter=new SingleColumnValueFilter(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_PARENT_COLUMN),CompareOp.EQUAL,domainObjSerializer.serialize(new DomainObjectInfo(parentIdentity)));
+    SingleColumnValueFilter parentFilter=new SingleColumnValueFilter(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_OWNER_COLUMN),CompareOp.EQUAL,domainObjSerializer.serialize(new DomainObjectInfo(parentIdentity)));
+    parentFilter.setFilterIfMissing(true);
     scan.setFilter(parentFilter);
     ResultScanner scanner=htable.getScanner(scan);
     for (Result result=scanner.next(); result != null; result=scanner.next()) {
-      String id=String.valueOf(result.getRow());
-      String type=Bytes.toString(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_OWNER_COLUMN)));
+      String id=Bytes.toString(result.getRow());
+      String type=Bytes.toString(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_TYPE_COLUMN)));
       oids.add(new ObjectIdentityImpl(type,id));
     }
   }

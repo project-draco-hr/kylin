@@ -1,5 +1,4 @@
 {
   Map<ObjectIdentity,Acl> aclsMap=readAclsById(Arrays.asList(object),null);
-  Assert.isTrue(aclsMap.containsKey(object),"There should have been an Acl entry for ObjectIdentity " + object);
   return aclsMap.get(object);
 }

@@ -4,7 +4,7 @@
   }
   try {
     ObjectMapper mapper=new ObjectMapper();
-    return (T)Arrays.asList(mapper.readValue(value,type));
+    return mapper.readValue(value,type);
   }
  catch (  JsonParseException e) {
     logger.error(e.getLocalizedMessage(),e);

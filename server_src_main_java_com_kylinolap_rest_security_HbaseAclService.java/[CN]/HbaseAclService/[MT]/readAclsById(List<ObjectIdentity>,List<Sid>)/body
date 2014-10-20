@@ -10,44 +10,17 @@
       }
  else {
         result=htable.get(new Get(Bytes.toBytes(String.valueOf(object.getIdentifier()))));
-        if (!result.isEmpty()) {
+        if (null != result && !result.isEmpty()) {
           AclImpl acl=new AclImpl(object,object.getIdentifier(),aclAuthorizationStrategy,auditLogger);
-          Serializer<SidInfo> sidSerializer=new Serializer<SidInfo>(SidInfo.class);
           SidInfo owner=sidSerializer.deserialize(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_OWNER_COLUMN)));
           acl.setOwner((null == owner) ? null : (owner.isPrincipal() ? new PrincipalSid(owner.getSid()) : new GrantedAuthoritySid(owner.getSid())));
           acl.setEntriesInheriting(Bytes.toBoolean(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_ENTRY_INHERIT_COLUMN))));
-          Serializer<DomainObjectInfo> domainObjSerializer=new Serializer<DomainObjectInfo>(DomainObjectInfo.class);
           DomainObjectInfo parentInfo=domainObjSerializer.deserialize(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_PARENT_COLUMN)));
           if (null != parentInfo) {
             ObjectIdentity parentObj=new ObjectIdentityImpl(parentInfo.getType(),parentInfo.getId());
-            readAclsById(Arrays.asList(parentObj),null);
-            acl.setParent(aclCache.get(parentObj));
+            acl.setParent(readAclById(parentObj,null));
           }
-          Serializer<AceInfo[]> aceSerializer=new Serializer<AceInfo[]>(AceInfo[].class);
-          AceInfo[] aces=null;
-          if (null != sids) {
-            for (            Sid sid : sids) {
-              String sidName=null;
-              if (sid instanceof PrincipalSid) {
-                sidName=((PrincipalSid)sid).getPrincipal();
-              }
- else               if (sid instanceof GrantedAuthoritySid) {
-                sidName=((GrantedAuthoritySid)sid).getGrantedAuthority();
-              }
-              aces=aceSerializer.deserialize(result.getValue(Bytes.toBytes(ACL_ACES_FAMILY),Bytes.toBytes(sidName)));
-            }
-          }
- else {
-            NavigableMap<byte[],byte[]> familyMap=result.getFamilyMap(Bytes.toBytes(ACL_ACES_FAMILY));
-            for (            byte[] qualifier : familyMap.keySet()) {
-              aces=aceSerializer.deserialize(familyMap.get(qualifier));
-            }
-          }
-          for (          AceInfo aceInfo : aces) {
-            Sid sid=aceInfo.getSidInfo().isPrincipal() ? new PrincipalSid(owner.getSid()) : new GrantedAuthoritySid(owner.getSid());
-            AccessControlEntry ace=new AccessControlEntryImpl(null,acl,sid,aclPermissionFactory.buildFromMask(aceInfo.getPermissionMask()),false,false,false);
-            acl.getEntries().add(ace);
-          }
+          genAces(sids,result,acl);
           aclMaps.put(object,acl);
           aclCache.put(object,acl);
         }
