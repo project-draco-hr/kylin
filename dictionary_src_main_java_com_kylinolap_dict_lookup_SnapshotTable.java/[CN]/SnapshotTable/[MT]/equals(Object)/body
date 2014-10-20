@@ -1,0 +1,9 @@
+{
+  if ((o instanceof SnapshotTable) == false)   return false;
+  SnapshotTable that=(SnapshotTable)o;
+  if (this.rows.size() != that.rows.size())   return false;
+  for (int i=0; i < this.rows.size(); ++i) {
+    if (!ArrayUtils.isEquals(this.rows.get(i),that.rows.get(i)))     return false;
+  }
+  return true;
+}
