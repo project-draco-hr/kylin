@@ -1,0 +1,8 @@
+{
+  long cuboidID=0;
+  for (  TblColRef column : dimensions) {
+    int index=cubeDesc.getRowkey().getColumnBitIndex(column);
+    cuboidID|=1L << index;
+  }
+  return Cuboid.findById(cubeDesc,cuboidID);
+}

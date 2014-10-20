@@ -1,4 +1,3 @@
 {
-  if (!columnMap.containsKey(col))   throw new NullPointerException("Column " + col + " does not exist in row key desc");
-  return columnMap.get(col).getDictionary();
+  return getColDesc(col).getDictionary();
 }

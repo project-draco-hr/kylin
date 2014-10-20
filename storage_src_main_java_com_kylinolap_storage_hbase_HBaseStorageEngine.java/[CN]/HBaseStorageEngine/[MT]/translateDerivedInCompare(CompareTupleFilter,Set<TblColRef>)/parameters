@@ -1,2 +1,2 @@
 CompareTupleFilter compf
-Set<TblColRef> storageGroupBy
+Set<TblColRef> collector

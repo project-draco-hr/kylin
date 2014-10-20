@@ -7,29 +7,27 @@
       if ((filter instanceof CompareTupleFilter) == false)       return filter;
       if (TupleFilter.isEvaluableRecursively(filter) == false)       return ConstantTupleFilter.TRUE;
       CompareTupleFilter compf=(CompareTupleFilter)filter;
-      Pair<ColumnTupleFilter,ConstantTupleFilter> pair=compf.getColumnAndConstant();
-      ColumnTupleFilter colf=pair.getFirst();
-      ConstantTupleFilter constf=pair.getSecond();
-      if (colf == null) {
+      TblColRef col=compf.getColumn();
+      if (col == null) {
         return filter;
       }
-      TblColRef col=colf.getColumn();
       String nullString=nullString(col);
-      if (constf == null) {
+      Collection<String> constValues=compf.getValues();
+      if (constValues == null || constValues.isEmpty()) {
         compf.setNullString(nullString);
         return filter;
       }
       TupleFilter result;
       CompareTupleFilter newComp=new CompareTupleFilter(compf.getOperator());
       newComp.setNullString(nullString);
-      newComp.addChild(colf);
-      String firstValue=constf.getValues().iterator().next();
+      newComp.addChild(new ColumnTupleFilter(col));
       String v;
+      String firstValue=constValues.iterator().next();
 switch (newComp.getOperator()) {
 case EQ:
 case IN:
         Set<String> newValues=Sets.newHashSet();
-      for (      String value : constf.getValues()) {
+      for (      String value : constValues) {
         v=translate(col,value,0);
         if (nullString.equals(v) == false)         newValues.add(v);
       }

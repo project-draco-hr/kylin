@@ -1,2 +1,2 @@
-TupleFilter filter
+TblColRef col
 Set<TblColRef> collector

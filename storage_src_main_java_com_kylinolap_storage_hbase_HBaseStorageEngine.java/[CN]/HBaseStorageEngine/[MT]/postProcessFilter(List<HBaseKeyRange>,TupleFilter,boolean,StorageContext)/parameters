@@ -1,0 +1,4 @@
+List<HBaseKeyRange> scans
+TupleFilter flatFilter
+boolean isExactAggregation
+StorageContext context

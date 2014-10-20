@@ -1,9 +1,0 @@
-{
-  if (cubeDesc.isDerived(col)) {
-    DeriveInfo hostInfo=cubeDesc.getHostInfo(col);
-    for (    TblColRef h : hostInfo.columns)     storageGroupBy.add(h);
-  }
- else {
-    storageGroupBy.add(col);
-  }
-}

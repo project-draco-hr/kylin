@@ -1,3 +1,0 @@
-List<HBaseKeyRange> scans
-TupleFilter flatFilter
-StorageContext context
