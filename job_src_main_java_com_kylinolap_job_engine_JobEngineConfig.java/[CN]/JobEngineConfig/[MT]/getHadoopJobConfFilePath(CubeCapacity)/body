@@ -1,33 +1,15 @@
 {
-  String hadoopJobConfFile=(HADOOP_JOB_CONF_FILENAME + capaticy.toString().toLowerCase() + ".xml");
-  String path=System.getProperty(KylinConfig.KYLIN_CONF);
-  if (path == null) {
-    path=System.getenv(KylinConfig.KYLIN_CONF);
+  String path=getHadoopJobConfFilePath(capaticy,true);
+  if (!StringUtils.isEmpty(path)) {
+    logger.info("Chosen job conf is : " + path);
+    return path;
   }
-  if (path != null) {
-    path=path + File.separator + hadoopJobConfFile;
-  }
-  if (null == path || !new File(path).exists()) {
-    File defaultFilePath=new File("/etc/kylin/" + hadoopJobConfFile);
-    if (defaultFilePath.exists()) {
-      path=defaultFilePath.getAbsolutePath();
-    }
  else {
-      logger.debug("Search conf file " + hadoopJobConfFile + "  from classpath ...");
-      InputStream is=JobEngineConfig.class.getClassLoader().getResourceAsStream(hadoopJobConfFile);
-      if (is == null) {
-        logger.debug("Can't get " + hadoopJobConfFile + " from classpath");
-        logger.debug("No " + hadoopJobConfFile + " file were found");
-      }
- else {
-        File tmp=File.createTempFile("hadoop_job_conf",".xml");
-        inputStreamToFile(is,tmp);
-        path=tmp.getAbsolutePath();
-      }
+    path=getHadoopJobConfFilePath(capaticy,false);
+    if (!StringUtils.isEmpty(path)) {
+      logger.info("Chosen job conf is : " + path);
+      return path;
     }
   }
-  if (null == path || !new File(path).exists()) {
-    return "";
-  }
-  return OptionsHelper.convertToFileURL(path);
+  return "";
 }

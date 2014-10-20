@@ -9,5 +9,6 @@
   }
   deployJarToHadoopCli();
   deployJarToLocalDir();
-  if (deployConfig)   deployConfigFile();
+  if (deployKylinProperties)   deployKylinProperty();
+  deployJobConf(jobEnableLzo);
 }
