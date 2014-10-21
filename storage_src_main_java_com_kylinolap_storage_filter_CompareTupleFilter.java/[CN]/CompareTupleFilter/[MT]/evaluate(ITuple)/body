@@ -1,7 +1,7 @@
 {
   String tupleValue=null;
   for (  TupleFilter filter : this.children) {
-    if (filter instanceof ColumnTupleFilter) {
+    if (isConstant(filter) == false) {
       filter.evaluate(tuple);
       tupleValue=filter.getValues().iterator().next();
     }
