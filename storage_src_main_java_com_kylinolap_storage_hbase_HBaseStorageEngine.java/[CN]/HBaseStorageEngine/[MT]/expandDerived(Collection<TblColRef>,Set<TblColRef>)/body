@@ -1,0 +1,16 @@
+{
+  Set<TblColRef> expanded=Sets.newHashSet();
+  for (  TblColRef col : cols) {
+    if (cubeDesc.isDerived(col)) {
+      DeriveInfo hostInfo=cubeDesc.getHostInfo(col);
+      for (      TblColRef hostCol : hostInfo.columns) {
+        expanded.add(hostCol);
+        if (hostInfo.isOneToOne == false)         derivedPostAggregation.add(hostCol);
+      }
+    }
+ else {
+      expanded.add(col);
+    }
+  }
+  return expanded;
+}

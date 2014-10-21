@@ -8,9 +8,11 @@
       TblColRef col=findTblColByColumnName(metricColumns,functionDesc.getParameter().getValue());
       functionDesc.setAppliedOnDimension(true);
       rewriteFields.remove(functionDesc.getRewriteFieldName());
-      metricColumns.remove(col);
-      dimensionColumns.add(col);
-      olapContext.storageContext.mandateColumn(col);
+      if (col != null) {
+        metricColumns.remove(col);
+        dimensionColumns.add(col);
+        olapContext.storageContext.addOtherMandatoryColumns(col);
+      }
       logger.info("Adjust OLAPContext for " + functionDesc);
     }
   }

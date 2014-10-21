@@ -1,0 +1,4 @@
+{
+  long aggrColsID=eliminateHierarchyAggregation(id);
+  return translateIdToColumns(aggrColsID);
+}

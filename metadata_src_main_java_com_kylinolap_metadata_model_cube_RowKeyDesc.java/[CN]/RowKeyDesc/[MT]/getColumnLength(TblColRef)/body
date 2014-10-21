@@ -1,3 +1,3 @@
 {
-  return columnMap.get(col).getLength();
+  return getColDesc(col).getLength();
 }

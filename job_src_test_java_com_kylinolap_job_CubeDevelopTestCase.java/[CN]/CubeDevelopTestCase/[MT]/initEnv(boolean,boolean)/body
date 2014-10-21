@@ -1,0 +1,14 @@
+{
+  cleanUp();
+  this.execCommand("mkdir -p " + KylinConfig.getInstanceFromEnv().getKylinJobLogDir());
+  retrieveJarName();
+  installMetadataToHBase();
+  for (  CubeInstance cube : CubeManager.getInstance(this.getTestConfig()).listAllCubes()) {
+    cube.getDescriptor().setSignature(cube.getDescriptor().calculateSignature());
+    CubeManager.getInstance(this.getTestConfig()).updateCube(cube);
+  }
+  deployJarToHadoopCli();
+  deployJarToLocalDir();
+  if (deployKylinProperties)   deployKylinProperty();
+  deployJobConf(jobEnableLzo);
+}

@@ -1,5 +1,0 @@
-{
-  super();
-  this.id=oid.getIdentifier();
-  this.type=oid.getType();
-}

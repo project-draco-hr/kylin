@@ -1,4 +1,2 @@
 {
-  if (state.get() == 0)   state.set(value.get());
- else   throw new IllegalStateException();
 }

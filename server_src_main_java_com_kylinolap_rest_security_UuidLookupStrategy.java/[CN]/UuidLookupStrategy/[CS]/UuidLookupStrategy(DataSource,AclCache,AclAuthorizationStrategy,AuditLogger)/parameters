@@ -1,4 +1,0 @@
-DataSource dataSource
-AclCache aclCache
-AclAuthorizationStrategy aclAuthorizationStrategy
-AuditLogger auditLogger

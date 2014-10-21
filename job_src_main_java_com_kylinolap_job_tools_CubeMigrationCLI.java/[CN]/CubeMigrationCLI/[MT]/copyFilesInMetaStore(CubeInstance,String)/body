@@ -1,7 +1,12 @@
 {
-  List<String> movingItems=listCubeRelatedResources(cube);
+  List<String> metaItems=new ArrayList<String>();
+  List<String> dictAndSnapshot=new ArrayList<String>();
+  listCubeRelatedResources(cube,metaItems,dictAndSnapshot);
   if (dstStore.exists(cube.getResourcePath()) && !overwriteIfExists.equalsIgnoreCase("true"))   throw new IllegalStateException("The cube named " + cube.getName() + " already exists on target metadata store. Use overwriteIfExists to overwrite it");
-  for (  String item : movingItems) {
+  for (  String item : metaItems) {
     operations.add(new Opt(OptType.COPY_FILE_IN_META,new Object[]{item}));
+  }
+  for (  String item : dictAndSnapshot) {
+    operations.add(new Opt(OptType.COPY_DICT_OR_SNAPSHOT,new Object[]{item,cube.getName()}));
   }
 }

@@ -1,0 +1,10 @@
+{
+  String dupTable=checkDupByContent(snapshotTable);
+  if (dupTable != null) {
+    logger.info("Identical snapshot content " + snapshotTable + ", reuse existing snapshot at "+ dupTable);
+    return getSnapshotTable(dupTable);
+  }
+  save(snapshotTable);
+  snapshotCache.put(snapshotTable.getResourcePath(),snapshotTable);
+  return snapshotTable;
+}

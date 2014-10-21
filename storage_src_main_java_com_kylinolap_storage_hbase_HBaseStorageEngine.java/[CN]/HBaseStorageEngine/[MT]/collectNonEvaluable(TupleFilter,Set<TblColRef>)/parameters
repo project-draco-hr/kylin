@@ -1,2 +1,2 @@
 TupleFilter filter
-Set<TblColRef> storageGroupBy
+Set<TblColRef> collector

@@ -4,5 +4,5 @@
   this.id=validID;
   this.idBytes=Bytes.toBytes(id);
   this.dimensionColumns=translateIdToColumns(this.id);
-  this.requirePostAggregation=calcPostAggregation(this.inputID,this.id);
+  this.requirePostAggregation=calcExtraAggregation(this.inputID,this.id) != 0;
 }

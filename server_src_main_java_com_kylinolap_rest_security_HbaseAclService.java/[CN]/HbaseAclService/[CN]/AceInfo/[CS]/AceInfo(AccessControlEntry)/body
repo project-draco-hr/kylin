@@ -1,5 +1,0 @@
-{
-  super();
-  this.sidInfo=new SidInfo(ace.getSid());
-  this.permissionMask=ace.getPermission().getMask();
-}

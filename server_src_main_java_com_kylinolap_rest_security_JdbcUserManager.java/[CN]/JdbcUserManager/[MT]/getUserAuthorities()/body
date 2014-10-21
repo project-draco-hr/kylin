@@ -1,3 +1,0 @@
-{
-  return jdbcTemplate.queryForList("select distinct authority from authorities",new String[]{},String.class);
-}

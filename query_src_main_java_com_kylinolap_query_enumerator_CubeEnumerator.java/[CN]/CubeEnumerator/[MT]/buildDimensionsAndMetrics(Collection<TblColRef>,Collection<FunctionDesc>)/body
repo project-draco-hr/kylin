@@ -4,8 +4,6 @@
       metrics.add(func);
     }
   }
-  Set<TblColRef> derivedPostAggregation=Sets.newHashSet();
-  Set<TblColRef> columnNotOnGroupBy=Sets.newHashSet();
   if (olapContext.isSimpleQuery()) {
     for (    DimensionDesc dim : olapContext.cubeDesc.getDimensions()) {
       for (      TblColRef col : dim.getColumnRefs()) {
@@ -21,36 +19,11 @@
     olapContext.storageContext.markAvoidAggregation();
   }
  else {
-    Set<TblColRef> singleValueCols=findSingleValueColumns(olapContext.filter);
     for (    TblColRef column : olapContext.allColumns) {
       if (olapContext.metricsColumns.contains(column)) {
         continue;
       }
-      if (olapContext.groupByColumns.contains(column) == false && singleValueCols.contains(column) == false) {
-        columnNotOnGroupBy.add(column);
-      }
-      if (olapContext.cubeDesc.isDerived(column)) {
-        DeriveInfo hostInfo=olapContext.cubeDesc.getHostInfo(column);
-        if (hostInfo.isOneToOne == false && containsAll(olapContext.groupByColumns,hostInfo.columns) == false) {
-          derivedPostAggregation.add(column);
-        }
-        for (        TblColRef hostCol : hostInfo.columns) {
-          dimensions.add(hostCol);
-        }
-      }
- else {
-        dimensions.add(column);
-      }
+      dimensions.add(column);
     }
-  }
-  if (derivedPostAggregation.size() > 0) {
-    logger.info("ExactAggregation is false due to derived " + derivedPostAggregation + " require post aggregation");
-  }
- else   if (columnNotOnGroupBy.size() > 0) {
-    logger.info("ExactAggregation is false due to " + columnNotOnGroupBy + " not on group by");
-  }
- else {
-    logger.info("ExactAggregation is true");
-    olapContext.storageContext.markExactAggregation();
   }
 }
