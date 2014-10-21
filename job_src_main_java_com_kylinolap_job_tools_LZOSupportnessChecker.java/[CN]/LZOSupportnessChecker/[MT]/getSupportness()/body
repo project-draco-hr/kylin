@@ -1,6 +1,6 @@
 {
-  File temp=File.createTempFile("test",".tmp");
   try {
+    File temp=File.createTempFile("test",".tmp");
     CompressionTest.main(new String[]{"file://" + temp.toString(),"lzo"});
   }
  catch (  Exception e) {
