@@ -23,7 +23,6 @@
       htable.put(put);
       htable.flushCommits();
     }
-    aclCache.remove(acl.getObjectIdentity());
   }
  catch (  IOException e) {
     logger.error(e.getLocalizedMessage(),e);

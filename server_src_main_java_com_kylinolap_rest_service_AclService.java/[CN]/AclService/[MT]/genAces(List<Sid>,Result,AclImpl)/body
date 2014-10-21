@@ -9,7 +9,10 @@
  else       if (sid instanceof GrantedAuthoritySid) {
         sidName=((GrantedAuthoritySid)sid).getGrantedAuthority();
       }
-      aceInfos.add(aceSerializer.deserialize(result.getValue(Bytes.toBytes(ACL_ACES_FAMILY),Bytes.toBytes(sidName))));
+      AceInfo aceInfo=aceSerializer.deserialize(result.getValue(Bytes.toBytes(ACL_ACES_FAMILY),Bytes.toBytes(sidName)));
+      if (null != aceInfo) {
+        aceInfos.add(aceInfo);
+      }
     }
   }
  else {

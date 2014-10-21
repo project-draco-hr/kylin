@@ -12,7 +12,6 @@
     }
     htable.delete(delete);
     htable.flushCommits();
-    aclCache.remove(objectIdentity);
   }
  catch (  IOException e) {
     logger.error(e.getLocalizedMessage(),e);

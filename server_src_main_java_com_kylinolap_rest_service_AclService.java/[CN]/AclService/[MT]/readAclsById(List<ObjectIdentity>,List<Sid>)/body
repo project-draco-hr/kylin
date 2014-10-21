@@ -5,29 +5,23 @@
   try {
     htable=HBaseConnection.get(hbaseUrl).getTable(aclTableName);
     for (    ObjectIdentity oid : oids) {
-      if (aclCache.containsKey(oid)) {
-        aclMaps.put(oid,aclCache.get(oid));
+      result=htable.get(new Get(Bytes.toBytes(String.valueOf(oid.getIdentifier()))));
+      if (null != result && !result.isEmpty()) {
+        SidInfo owner=sidSerializer.deserialize(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_OWNER_COLUMN)));
+        Sid ownerSid=(null == owner) ? null : (owner.isPrincipal() ? new PrincipalSid(owner.getSid()) : new GrantedAuthoritySid(owner.getSid()));
+        boolean entriesInheriting=Bytes.toBoolean(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_ENTRY_INHERIT_COLUMN)));
+        Acl parentAcl=null;
+        DomainObjectInfo parentInfo=domainObjSerializer.deserialize(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_PARENT_COLUMN)));
+        if (null != parentInfo) {
+          ObjectIdentity parentObj=new ObjectIdentityImpl(parentInfo.getType(),parentInfo.getId());
+          parentAcl=readAclById(parentObj,null);
+        }
+        AclImpl acl=new AclImpl(oid,oid.getIdentifier(),aclAuthorizationStrategy,permissionGrantingStrategy,parentAcl,null,entriesInheriting,ownerSid);
+        genAces(sids,result,acl);
+        aclMaps.put(oid,acl);
       }
  else {
-        result=htable.get(new Get(Bytes.toBytes(String.valueOf(oid.getIdentifier()))));
-        if (null != result && !result.isEmpty()) {
-          SidInfo owner=sidSerializer.deserialize(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_OWNER_COLUMN)));
-          Sid ownerSid=(null == owner) ? null : (owner.isPrincipal() ? new PrincipalSid(owner.getSid()) : new GrantedAuthoritySid(owner.getSid()));
-          boolean entriesInheriting=Bytes.toBoolean(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_ENTRY_INHERIT_COLUMN)));
-          Acl parentAcl=null;
-          DomainObjectInfo parentInfo=domainObjSerializer.deserialize(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_PARENT_COLUMN)));
-          if (null != parentInfo) {
-            ObjectIdentity parentObj=new ObjectIdentityImpl(parentInfo.getType(),parentInfo.getId());
-            parentAcl=readAclById(parentObj,null);
-          }
-          AclImpl acl=new AclImpl(oid,oid.getIdentifier(),aclAuthorizationStrategy,permissionGrantingStrategy,parentAcl,null,entriesInheriting,ownerSid);
-          genAces(sids,result,acl);
-          aclMaps.put(oid,acl);
-          aclCache.put(oid,acl);
-        }
- else {
-          throw new NotFoundException("Unable to find ACL information for object identity '" + oid + "'");
-        }
+        throw new NotFoundException("Unable to find ACL information for object identity '" + oid + "'");
       }
     }
   }
