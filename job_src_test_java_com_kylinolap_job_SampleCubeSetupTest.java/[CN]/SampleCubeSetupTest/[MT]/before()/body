@@ -13,6 +13,6 @@
       }
     }
   }
-  boolean lzoAvailable=CompressionTest.testCompression(Compression.Algorithm.LZO.getName());
+  boolean lzoAvailable=checkLzoAvailabe();
   initEnv(false,lzoAvailable);
 }

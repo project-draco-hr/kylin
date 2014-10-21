@@ -1,0 +1,10 @@
+{
+  File temp=File.createTempFile("test",".tmp");
+  try {
+    CompressionTest.main(new String[]{"file://" + temp.toString(),"lzo"});
+  }
+ catch (  Exception e) {
+    return false;
+  }
+  return true;
+}
