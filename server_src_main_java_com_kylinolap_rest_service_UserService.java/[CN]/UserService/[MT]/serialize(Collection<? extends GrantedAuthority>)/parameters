@@ -1,1 +1,1 @@
-Collection<? extends GrantedAuthority> collection
+Collection<? extends GrantedAuthority> auths

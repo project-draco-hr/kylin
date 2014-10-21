@@ -12,7 +12,7 @@
   PrincipalSid sid=new PrincipalSid(auth);
   HTableInterface htable=null;
   try {
-    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    htable=HBaseConnection.get(hbaseUrl).getTable(aclTableName);
     Put put=new Put(Bytes.toBytes(String.valueOf(objectIdentity.getIdentifier())));
     put.add(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_TYPE_COLUMN),Bytes.toBytes(objectIdentity.getType()));
     put.add(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_OWNER_COLUMN),sidSerializer.serialize(new SidInfo(sid)));

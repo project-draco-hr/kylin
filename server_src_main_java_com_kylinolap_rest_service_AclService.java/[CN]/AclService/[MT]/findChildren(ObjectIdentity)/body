@@ -2,7 +2,7 @@
   List<ObjectIdentity> oids=new ArrayList<ObjectIdentity>();
   HTableInterface htable=null;
   try {
-    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    htable=HBaseConnection.get(hbaseUrl).getTable(aclTableName);
     Scan scan=new Scan();
     SingleColumnValueFilter parentFilter=new SingleColumnValueFilter(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_PARENT_COLUMN),CompareOp.EQUAL,domainObjSerializer.serialize(new DomainObjectInfo(parentIdentity)));
     parentFilter.setFilterIfMissing(true);

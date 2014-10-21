@@ -3,9 +3,9 @@
   HTableInterface htable=null;
   Result result=null;
   try {
-    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    htable=HBaseConnection.get(hbaseUrl).getTable(aclTableName);
     for (    ObjectIdentity oid : oids) {
-      if (false && aclCache.containsKey(oid)) {
+      if (aclCache.containsKey(oid)) {
         aclMaps.put(oid,aclCache.get(oid));
       }
  else {

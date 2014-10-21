@@ -4,6 +4,8 @@
   Assert.assertNotNull(AclPermissionFactory.getPermissions());
   AclEntity ae=new MockAclEntity("test-domain-object");
   accessService.clean(ae,true);
+  AclEntity attachedEntity=new MockAclEntity("attached-domain-object");
+  accessService.clean(attachedEntity,true);
   Acl acl=accessService.getAcl(ae);
   Assert.assertNull(acl);
   acl=accessService.init(ae,AclPermission.ADMINISTRATION);
@@ -33,7 +35,6 @@
       Assert.assertTrue(ace.getPermission() == AclPermission.READ);
     }
   }
-  AclEntity attachedEntity=new MockAclEntity("attached-domain-object");
   accessService.clean(attachedEntity,true);
   Acl attachedEntityAcl=accessService.getAcl(attachedEntity);
   Assert.assertNull(attachedEntityAcl);

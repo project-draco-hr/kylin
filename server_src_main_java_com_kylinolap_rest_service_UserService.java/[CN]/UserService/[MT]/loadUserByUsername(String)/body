@@ -5,7 +5,8 @@
     Get get=new Get(Bytes.toBytes(username));
     get.addFamily(Bytes.toBytes(USER_AUTHORITY_FAMILY));
     Result result=htable.get(get);
-    Collection<? extends GrantedAuthority> authorities=deserialize(result.getValue(Bytes.toBytes(USER_AUTHORITY_FAMILY),Bytes.toBytes(USER_AUTHORITY_COLUMN)));
+    byte[] gaBytes=result.getValue(Bytes.toBytes(USER_AUTHORITY_FAMILY),Bytes.toBytes(USER_AUTHORITY_COLUMN));
+    Collection<? extends GrantedAuthority> authorities=Arrays.asList(ugaSerializer.deserialize(gaBytes));
     return new User(username,"N/A",authorities);
   }
  catch (  IOException e) {
