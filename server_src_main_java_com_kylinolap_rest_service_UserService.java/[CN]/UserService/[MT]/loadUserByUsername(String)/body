@@ -1,3 +1,18 @@
 {
-  return userManager.loadUserByUsername(username);
+  HTableInterface htable=null;
+  try {
+    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    Get get=new Get(Bytes.toBytes(username));
+    get.addFamily(Bytes.toBytes(USER_AUTHORITY_FAMILY));
+    Result result=htable.get(get);
+    Collection<? extends GrantedAuthority> authorities=deserialize(result.getValue(Bytes.toBytes(USER_AUTHORITY_FAMILY),Bytes.toBytes(USER_AUTHORITY_COLUMN)));
+    return new User(username,"N/A",authorities);
+  }
+ catch (  IOException e) {
+    logger.error(e.getLocalizedMessage(),e);
+  }
+ finally {
+    IOUtils.closeQuietly(htable);
+  }
+  return null;
 }

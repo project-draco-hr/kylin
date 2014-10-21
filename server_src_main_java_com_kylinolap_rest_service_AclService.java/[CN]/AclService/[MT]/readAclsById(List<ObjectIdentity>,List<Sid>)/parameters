@@ -1,2 +1,2 @@
-List<ObjectIdentity> objects
+List<ObjectIdentity> oids
 List<Sid> sids

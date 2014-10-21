@@ -1,3 +1,15 @@
 {
-  return userManager.userExists(username);
+  HTableInterface htable=null;
+  try {
+    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    Result result=htable.get(new Get(Bytes.toBytes(username)));
+    return null != result && !result.isEmpty();
+  }
+ catch (  IOException e) {
+    logger.error(e.getLocalizedMessage(),e);
+  }
+ finally {
+    IOUtils.closeQuietly(htable);
+  }
+  return false;
 }

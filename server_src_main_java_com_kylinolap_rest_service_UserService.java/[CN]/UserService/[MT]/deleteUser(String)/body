@@ -1,3 +1,15 @@
 {
-  userManager.deleteUser(username);
+  HTableInterface htable=null;
+  try {
+    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    Delete delete=new Delete(Bytes.toBytes(username));
+    htable.delete(delete);
+    htable.flushCommits();
+  }
+ catch (  IOException e) {
+    logger.error(e.getLocalizedMessage(),e);
+  }
+ finally {
+    IOUtils.closeQuietly(htable);
+  }
 }
