@@ -1,0 +1,12 @@
+{
+  String jobConfFileName=JobEngineConfig.HADOOP_JOB_CONF_FILENAME;
+  if (jobEnableLzo) {
+    logger.info("job conf: the lzo enabled version is deployed to /etc/kylin");
+    jobConfFileName+=".xml";
+  }
+ else {
+    logger.info("job conf: the lzo disabled version is deployed to /etc/kylin");
+    jobConfFileName+=".lzo_disabled.xml";
+  }
+  scpFilesToHadoopCli(new String[]{".." + File.separator + "examples"+ File.separator+ "test_case_data"+ File.separator+ jobConfFileName},"/etc/kylin");
+}

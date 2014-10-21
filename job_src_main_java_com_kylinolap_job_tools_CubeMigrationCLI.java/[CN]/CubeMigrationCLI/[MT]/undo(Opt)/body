@@ -5,30 +5,34 @@ case COPY_FILE_IN_META:
 {
       logger.info("Undo for COPY_FILE_IN_META is ignored");
     }
+case COPY_DICT_OR_SNAPSHOT:
+{
+    logger.info("Undo for COPY_DICT_OR_SNAPSHOT is ignored");
+  }
 case RENAME_FOLDER_IN_HDFS:
 {
-    String srcPath=(String)opt.params[1];
-    String dstPath=(String)opt.params[0];
-    if (hdfsFS.exists(new Path(srcPath)) && !hdfsFS.exists(new Path(dstPath))) {
-      hdfsFS.rename(new Path(srcPath),new Path(dstPath));
-      logger.info("HDFS Folder renamed from " + srcPath + " to "+ dstPath);
-    }
-    break;
-  }
-case RENAME_TABLE_IN_HBASE:
-{
-  String oldTableName=(String)opt.params[1];
-  String newTableName=(String)opt.params[0];
-  if (hbaseAdmin.tableExists(oldTableName) && !hbaseAdmin.tableExists(newTableName)) {
-    String snapshotName="_snapshot_" + oldTableName;
-    hbaseAdmin.disableTable(oldTableName);
-    hbaseAdmin.snapshot(snapshotName,oldTableName);
-    hbaseAdmin.cloneSnapshot(snapshotName,newTableName);
-    hbaseAdmin.deleteSnapshot(snapshotName);
-    hbaseAdmin.deleteTable(oldTableName);
-    logger.info("Hbase table renamed from " + oldTableName + " to "+ newTableName);
+  String srcPath=(String)opt.params[1];
+  String dstPath=(String)opt.params[0];
+  if (hdfsFS.exists(new Path(srcPath)) && !hdfsFS.exists(new Path(dstPath))) {
+    hdfsFS.rename(new Path(srcPath),new Path(dstPath));
+    logger.info("HDFS Folder renamed from " + srcPath + " to "+ dstPath);
   }
   break;
+}
+case RENAME_TABLE_IN_HBASE:
+{
+String oldTableName=(String)opt.params[1];
+String newTableName=(String)opt.params[0];
+if (hbaseAdmin.tableExists(oldTableName) && !hbaseAdmin.tableExists(newTableName)) {
+  String snapshotName="_snapshot_" + oldTableName;
+  hbaseAdmin.disableTable(oldTableName);
+  hbaseAdmin.snapshot(snapshotName,oldTableName);
+  hbaseAdmin.cloneSnapshot(snapshotName,newTableName);
+  hbaseAdmin.deleteSnapshot(snapshotName);
+  hbaseAdmin.deleteTable(oldTableName);
+  logger.info("Hbase table renamed from " + oldTableName + " to "+ newTableName);
+}
+break;
 }
 case CHANGE_HTABLE_NAME_IN_CUBE:
 {

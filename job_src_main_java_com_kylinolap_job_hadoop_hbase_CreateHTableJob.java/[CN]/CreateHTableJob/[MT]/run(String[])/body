@@ -22,7 +22,7 @@
     for (    HBaseColumnFamilyDesc cfDesc : cubeDesc.getHBaseMapping().getColumnFamily()) {
       HColumnDescriptor cf=new HColumnDescriptor(cfDesc.getName());
       cf.setMaxVersions(1);
-      cf.setCompressionType(Algorithm.LZO);
+      if (CompressionTest.testCompression(Algorithm.LZO.getName()))       cf.setCompressionType(Algorithm.LZO);
       cf.setDataBlockEncoding(DataBlockEncoding.FAST_DIFF);
       cf.setInMemory(true);
       cf.setBlocksize(4 * 1024 * 1024);
