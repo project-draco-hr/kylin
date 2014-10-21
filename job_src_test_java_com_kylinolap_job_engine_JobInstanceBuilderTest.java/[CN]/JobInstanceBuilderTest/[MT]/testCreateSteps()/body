@@ -11,7 +11,7 @@
   String actual=JsonUtil.writeValueAsIndentString(jobInstance);
   System.out.println(actual);
   assertEquals(13,jobInstance.getSteps().size());
-  assertTrue(jobInstance.getSteps().get(3).getExecCmd().contains("hadoop_job_conf_medium.xml"));
+  assertTrue(jobInstance.getSteps().get(3).getExecCmd().contains("hadoop_job_conf.xml"));
   JobStep jobStep;
   jobStep=jobInstance.getSteps().get(0);
   assertEquals(JobStepCmdTypeEnum.SHELL_CMD_HADOOP,jobStep.getCmdType());
