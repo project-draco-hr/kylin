@@ -22,6 +22,7 @@
     if (!put.isEmpty()) {
       htable.put(put);
       htable.flushCommits();
+      logger.debug("ACL of " + acl.getObjectIdentity() + " updated successfully.");
     }
   }
  catch (  IOException e) {
