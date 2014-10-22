@@ -11,7 +11,7 @@
       bestHBCol=hbCol;
       bestIndex=hbCol.findMeasureIndex(aggrFunc);
       MeasureDesc measure=hbCol.getMeasures()[bestIndex];
-      if (measure.isHolisticCountDistinct() && isExactAggregation) {
+      if (measure.isHolisticCountDistinct() && context.isExactAggregation()) {
         logger.info("Holistic count distinct chosen for " + aggrFunc);
         break;
       }

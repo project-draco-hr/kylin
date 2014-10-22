@@ -1,4 +1,4 @@
 HBaseMappingDesc hbaseMapping
 Collection<FunctionDesc> metrics
 List<HBaseKeyRange> scans
-boolean isExactAggregation
+StorageContext context

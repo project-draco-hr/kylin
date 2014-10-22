@@ -11,6 +11,7 @@
   this.exactAggregation=false;
   this.otherMandatoryColumns=new HashSet<TblColRef>();
   this.enableLimit=false;
+  this.enableCoprocessor=false;
   this.acceptPartialResult=false;
   this.partialResultReturned=false;
 }

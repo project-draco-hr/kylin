@@ -1,0 +1,9 @@
+{
+  boolean goodAggr=context.isExactAggregation() || context.isAvoidAggregation();
+  boolean goodFilter=filter == null || (TupleFilter.isEvaluableRecursively(filter) && context.isCoprocessorEnabled());
+  boolean goodSort=context.hasSort() == false;
+  if (goodAggr && goodFilter && goodSort) {
+    logger.info("Enable limit " + context.getLimit());
+    context.enableLimit();
+  }
+}
