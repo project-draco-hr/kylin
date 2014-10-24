@@ -4,12 +4,15 @@
     return translateDerivedInCompare((CompareTupleFilter)filter,collector);
   }
   List<TupleFilter> children=(List<TupleFilter>)filter.getChildren();
-  for (int i=0; i < children.size(); i++) {
-    TupleFilter translated=translateDerived(children.get(i),collector);
-    if (children.get(i) != translated) {
-      if ((filter instanceof LogicalTupleFilter) == false)       throw new IllegalStateException("Cannot replace derived filter");
-      children.set(i,translated);
-    }
+  List<TupleFilter> newChildren=Lists.newArrayListWithCapacity(children.size());
+  boolean modified=false;
+  for (  TupleFilter child : children) {
+    TupleFilter translated=translateDerived(child,collector);
+    newChildren.add(translated);
+    if (child != translated)     modified=true;
+  }
+  if (modified) {
+    filter=replaceChildren(filter,newChildren);
   }
   return filter;
 }

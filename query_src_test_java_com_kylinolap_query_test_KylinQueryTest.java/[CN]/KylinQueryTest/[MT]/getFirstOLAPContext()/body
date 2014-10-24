@@ -1,0 +1,3 @@
+{
+  return OLAPContext.getThreadLocalContexts().iterator().next();
+}

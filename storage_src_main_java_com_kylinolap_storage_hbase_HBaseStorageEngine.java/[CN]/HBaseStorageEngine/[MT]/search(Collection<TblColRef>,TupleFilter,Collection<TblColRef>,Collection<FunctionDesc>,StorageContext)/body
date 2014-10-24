@@ -20,9 +20,10 @@
   TupleFilter filterD=translateDerived(filter,groupsCopD);
   TupleFilter flatFilter=flattenToOrAndFilter(filterD);
   List<HBaseKeyRange> scans=buildScanRanges(flatFilter,dimensionsD);
-  postProcessFilter(scans,flatFilter,isExactAggregation,context);
-  List<RowValueDecoder> valueDecoders=translateAggregation(cubeDesc.getHBaseMapping(),metrics,scans,isExactAggregation);
+  List<RowValueDecoder> valueDecoders=translateAggregation(cubeDesc.getHBaseMapping(),metrics,scans,context);
   setThreshold(dimensionsD,valueDecoders,context);
+  setCoprocessor(groupsCopD,valueDecoders,context);
+  setLimit(filter,context);
   HConnection conn=HBaseConnection.get(context.getConnUrl());
   return new SerializedHBaseTupleIterator(conn,scans,cubeInstance,dimensionsD,filterD,groupsCopD,valueDecoders,context);
 }

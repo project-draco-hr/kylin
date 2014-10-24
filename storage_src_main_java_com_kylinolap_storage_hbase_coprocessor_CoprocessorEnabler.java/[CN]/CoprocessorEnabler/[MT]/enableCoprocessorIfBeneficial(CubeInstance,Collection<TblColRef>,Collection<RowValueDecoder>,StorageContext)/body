@@ -1,0 +1,5 @@
+{
+  if (isCoprocessorBeneficial(cube,groupBy,rowValueDecoders,context)) {
+    context.enableCoprocessor();
+  }
+}

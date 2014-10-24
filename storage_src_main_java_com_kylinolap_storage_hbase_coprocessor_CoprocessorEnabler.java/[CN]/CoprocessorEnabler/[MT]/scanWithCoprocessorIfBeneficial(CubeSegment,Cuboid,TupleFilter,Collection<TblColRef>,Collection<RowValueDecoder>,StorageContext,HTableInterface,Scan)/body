@@ -1,5 +1,5 @@
 {
-  if (!isCoprocessorBeneficial(segment.getCubeInstance(),groupBy,rowValueDecoders,context)) {
+  if (context.isCoprocessorEnabled() == false) {
     return table.getScanner(scan);
   }
   SRowType type=SRowType.fromCuboid(segment,cuboid);

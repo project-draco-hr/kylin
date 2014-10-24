@@ -8,10 +8,4 @@
       }
     }
   }
-  if (!scans.isEmpty()) {
-    if (isExactAggregation && flatFilter == null && !context.hasSort()) {
-      logger.info("Enable limit " + context.getLimit());
-      context.enableLimit();
-    }
-  }
 }

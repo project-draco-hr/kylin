@@ -14,5 +14,6 @@
     mergedRanges=mergeTooManyRanges(mergedRanges);
     result.addAll(mergedRanges);
   }
+  dropUnhitSegments(result);
   return result;
 }
