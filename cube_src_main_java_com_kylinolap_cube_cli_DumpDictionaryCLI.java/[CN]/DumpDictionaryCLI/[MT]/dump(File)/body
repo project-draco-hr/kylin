@@ -1,0 +1,16 @@
+{
+  if (f.isDirectory()) {
+    for (    File c : f.listFiles())     dump(c);
+    return;
+  }
+  if (f.getName().endsWith(".dict")) {
+    DictionaryInfoSerializer ser=new DictionaryInfoSerializer();
+    DictionaryInfo dictInfo=ser.deserialize(new DataInputStream(new FileInputStream(f)));
+    System.out.println("============================================================================");
+    System.out.println("File: " + f.getAbsolutePath());
+    System.out.println(new Date(dictInfo.getLastModified()));
+    System.out.println(JsonUtil.writeValueAsIndentString(dictInfo));
+    dictInfo.getDictionaryObject().dump(System.out);
+    System.out.println();
+  }
+}
