@@ -7,12 +7,7 @@
   Collection<JoinDesc> joins=olapContext.joins;
   Map<String,RelDataType> rewriteFields=olapContext.rewriteFields;
   List<CubeInstance> candidates=projectManager.getCubesByTable(projectName,factTableName);
-  StringBuilder buf=new StringBuilder();
-  for (  CubeInstance cube : candidates) {
-    buf.append(cube.getName());
-    buf.append(",");
-  }
-  logger.info("Find candidates by table " + factTableName + " and project="+ projectName+ " : "+ buf.toString());
+  logger.info("Find candidates by table " + factTableName + " and project="+ projectName+ " : "+ StringUtils.join(candidates,","));
   Iterator<CubeInstance> it=candidates.iterator();
   List<CubeInstance> backups=new ArrayList<CubeInstance>();
   while (it.hasNext()) {
