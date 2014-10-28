@@ -5,7 +5,7 @@
   hbaseUrl=cut < 0 ? metadataUrl : metadataUrl.substring(cut + 1);
   userTableName=tableNameBase + USER_TABLE_NAME;
   try {
-    HadoopUtil.createHTableIfNeeded(hbaseUrl,userTableName,USER_AUTHORITY_FAMILY,QueryService.USER_QUERY_FAMILY);
+    HBaseConnection.createHTableIfNeeded(hbaseUrl,userTableName,USER_AUTHORITY_FAMILY,QueryService.USER_QUERY_FAMILY);
   }
  catch (  IOException e) {
     logger.error(e.getLocalizedMessage(),e);

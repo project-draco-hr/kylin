@@ -1,7 +1,0 @@
-{
-  for (  TblColRef col : metricColumns) {
-    String name=col.getName();
-    if (name != null && name.equals(columnName))     return col;
-  }
-  return null;
-}
