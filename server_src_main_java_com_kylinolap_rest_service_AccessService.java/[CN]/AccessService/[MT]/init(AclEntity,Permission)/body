@@ -1,5 +1,5 @@
 {
-  MutableAcl acl=null;
+  Acl acl=null;
   ObjectIdentity objectIdentity=new ObjectIdentityImpl(ae.getClass(),ae.getId());
   try {
     acl=aclService.createAcl(objectIdentity);
@@ -10,8 +10,7 @@
   if (null != initPermission) {
     Authentication auth=SecurityContextHolder.getContext().getAuthentication();
     PrincipalSid sid=new PrincipalSid(auth);
-    grant(ae,initPermission,sid);
+    acl=grant(ae,initPermission,sid);
   }
-  acl.setEntriesInheriting(false);
-  return aclService.updateAcl(acl);
+  return acl;
 }

@@ -1,8 +1,0 @@
-{
-  if (isPrincepal) {
-    return new PrincipalSid(sid);
-  }
- else {
-    return new GrantedAuthoritySid(sid);
-  }
-}

@@ -1,5 +1,0 @@
-{
-  Assert.notNull(acls,"ACLs cannot be null");
-  this.acls=acls;
-  this.sids=sids;
-}
