@@ -1,4 +1,3 @@
 {
-  this.testConnectivity();
   this.prepareTestData("inner");
 }
