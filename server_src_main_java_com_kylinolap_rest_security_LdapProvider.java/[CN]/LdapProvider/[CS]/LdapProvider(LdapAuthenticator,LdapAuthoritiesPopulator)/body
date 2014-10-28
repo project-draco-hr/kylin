@@ -4,6 +4,6 @@
     md=MessageDigest.getInstance("MD5");
   }
  catch (  NoSuchAlgorithmException e) {
-    logger.error("Failed to init Message Digest ",e);
+    throw new RuntimeException("Failed to init Message Digest ",e);
   }
 }

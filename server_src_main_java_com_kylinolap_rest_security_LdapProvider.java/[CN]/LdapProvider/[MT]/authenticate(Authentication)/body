@@ -19,16 +19,11 @@
       throw e;
     }
     UserDetails user=new User(authentication.getName(),"skippped-ldap",authed.getAuthorities());
-    try {
-      if (!userService.userExists(authentication.getName())) {
-        userService.createUser(user);
-      }
- else {
-        userService.updateUser(user);
-      }
+    if (!userService.userExists(authentication.getName())) {
+      userService.createUser(user);
     }
- catch (    Exception e) {
-      logger.error(e.getLocalizedMessage(),e);
+ else {
+      userService.updateUser(user);
     }
   }
   return authed;
