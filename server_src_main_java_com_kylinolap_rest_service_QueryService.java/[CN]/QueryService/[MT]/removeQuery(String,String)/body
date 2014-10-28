@@ -23,10 +23,7 @@
     htable.put(put);
     htable.flushCommits();
   }
- catch (  IOException e) {
-    logger.error(e.getLocalizedMessage(),e);
-  }
- finally {
+  finally {
     IOUtils.closeQuietly(htable);
   }
 }

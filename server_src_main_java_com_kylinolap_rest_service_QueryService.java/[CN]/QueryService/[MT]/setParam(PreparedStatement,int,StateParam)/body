@@ -5,7 +5,7 @@
     clazz=Class.forName(param.getClassName());
   }
  catch (  ClassNotFoundException e) {
-    e.printStackTrace();
+    throw new RuntimeException(e.getMessage(),e);
   }
   Rep rep=Rep.of(clazz);
 switch (rep) {

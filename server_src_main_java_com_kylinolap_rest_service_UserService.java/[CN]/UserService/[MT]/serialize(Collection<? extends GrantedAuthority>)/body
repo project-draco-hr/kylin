@@ -2,16 +2,5 @@
   if (null == auths) {
     return null;
   }
-  ByteArrayOutputStream buf=new ByteArrayOutputStream();
-  DataOutputStream dout=new DataOutputStream(buf);
-  try {
-    ObjectMapper mapper=new ObjectMapper();
-    mapper.writeValue(dout,auths);
-    dout.close();
-    buf.close();
-  }
- catch (  IOException e) {
-    logger.error(e.getLocalizedMessage(),e);
-  }
-  return buf.toByteArray();
+  return JsonUtil.writeValueAsBytes(auths);
 }

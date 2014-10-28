@@ -31,11 +31,7 @@
       oneRow.clear();
     }
   }
- catch (  Exception e) {
-    logger.error(e.getLocalizedMessage(),e);
-    throw e;
-  }
- finally {
+  finally {
     close(resultSet,stat,conn);
   }
   boolean isPartialResult=false;
