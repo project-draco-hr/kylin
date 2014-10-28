@@ -1,3 +1,0 @@
-{
-  this(dataSource,aclCache,aclAuthorizationStrategy,new DefaultPermissionGrantingStrategy(auditLogger));
-}

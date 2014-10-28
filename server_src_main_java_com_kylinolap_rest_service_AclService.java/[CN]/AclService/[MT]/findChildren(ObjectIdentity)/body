@@ -1,0 +1,24 @@
+{
+  List<ObjectIdentity> oids=new ArrayList<ObjectIdentity>();
+  HTableInterface htable=null;
+  try {
+    htable=HBaseConnection.get(hbaseUrl).getTable(aclTableName);
+    Scan scan=new Scan();
+    SingleColumnValueFilter parentFilter=new SingleColumnValueFilter(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_PARENT_COLUMN),CompareOp.EQUAL,domainObjSerializer.serialize(new DomainObjectInfo(parentIdentity)));
+    parentFilter.setFilterIfMissing(true);
+    scan.setFilter(parentFilter);
+    ResultScanner scanner=htable.getScanner(scan);
+    for (Result result=scanner.next(); result != null; result=scanner.next()) {
+      String id=Bytes.toString(result.getRow());
+      String type=Bytes.toString(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_TYPE_COLUMN)));
+      oids.add(new ObjectIdentityImpl(type,id));
+    }
+  }
+ catch (  IOException e) {
+    logger.error(e.getLocalizedMessage(),e);
+  }
+ finally {
+    IOUtils.closeQuietly(htable);
+  }
+  return oids;
+}

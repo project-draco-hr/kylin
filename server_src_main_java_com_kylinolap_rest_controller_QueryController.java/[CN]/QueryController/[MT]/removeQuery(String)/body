@@ -1,3 +1,4 @@
 {
-  queryService.removeQuery(id);
+  String creator=SecurityContextHolder.getContext().getAuthentication().getName();
+  queryService.removeQuery(creator,id);
 }

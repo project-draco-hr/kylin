@@ -1,3 +1,5 @@
 {
-  queryService.saveQuery(sqlRequest.getName(),sqlRequest.getProject(),sqlRequest.getSql(),sqlRequest.getDescription());
+  String creator=SecurityContextHolder.getContext().getAuthentication().getName();
+  Query newQuery=new Query(sqlRequest.getName(),sqlRequest.getProject(),sqlRequest.getSql(),sqlRequest.getDescription());
+  queryService.saveQuery(creator,newQuery);
 }

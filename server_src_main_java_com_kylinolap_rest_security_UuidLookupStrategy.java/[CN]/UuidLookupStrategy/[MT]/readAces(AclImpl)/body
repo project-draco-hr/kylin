@@ -1,8 +1,0 @@
-{
-  try {
-    return (List<AccessControlEntryImpl>)fieldAces.get(acl);
-  }
- catch (  IllegalAccessException e) {
-    throw new IllegalStateException("Could not obtain AclImpl.aces field",e);
-  }
-}
