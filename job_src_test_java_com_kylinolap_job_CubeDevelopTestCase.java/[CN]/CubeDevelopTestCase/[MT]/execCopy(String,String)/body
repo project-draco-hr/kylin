@@ -2,11 +2,6 @@
   int exitCode=0;
   CopyExecutor cpExecutor=new CopyExecutor(localFile,destDir,new VerboseConsumer());
   cpExecutor.setRunAtRemote(getHadoopCliHostname(),getHadoopCliUsername(),getHadoopCliPassword());
-  try {
-    exitCode=cpExecutor.execute(true);
-  }
- catch (  IOException e) {
-    logger.error("Failed to execute command",e);
-  }
+  exitCode=cpExecutor.execute(true);
   assertEquals(0,exitCode);
 }
