@@ -18,7 +18,10 @@ case COPY_DICT_OR_SNAPSHOT:
       DictionaryManager dstDictMgr=DictionaryManager.getInstance(dstConfig);
       DictionaryManager srcDicMgr=DictionaryManager.getInstance(srcConfig);
       DictionaryInfo dictSrc=srcDicMgr.getDictionaryInfo(item);
+      long ts=dictSrc.getLastModified();
+      dictSrc.setLastModified(0);
       DictionaryInfo dictSaved=dstDictMgr.trySaveNewDict(dictSrc.getDictionaryObject(),dictSrc);
+      dictSrc.setLastModified(ts);
       if (dictSaved == dictSrc) {
         logger.info("Item " + item + " is copied");
       }
@@ -42,7 +45,10 @@ case COPY_DICT_OR_SNAPSHOT:
       SnapshotManager dstSnapMgr=SnapshotManager.getInstance(dstConfig);
       SnapshotManager srcSnapMgr=SnapshotManager.getInstance(srcConfig);
       SnapshotTable snapSrc=srcSnapMgr.getSnapshotTable(item);
+      long ts=snapSrc.getLastModified();
+      snapSrc.setLastModified(0);
       SnapshotTable snapSaved=dstSnapMgr.trySaveNewSnapshot(snapSrc);
+      snapSrc.setLastModified(ts);
       if (snapSaved == snapSrc) {
         logger.info("Item " + item + " is copied");
       }
