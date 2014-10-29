@@ -4,10 +4,12 @@ switch (opt.type) {
 case COPY_FILE_IN_META:
 {
       logger.info("Undo for COPY_FILE_IN_META is ignored");
+      break;
     }
 case COPY_DICT_OR_SNAPSHOT:
 {
     logger.info("Undo for COPY_DICT_OR_SNAPSHOT is ignored");
+    break;
   }
 case RENAME_FOLDER_IN_HDFS:
 {
