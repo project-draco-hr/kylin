@@ -15,7 +15,6 @@
   dstCoprocessorPath=DeployCoprocessorCLI.getNewestCoprocessorJar(dstConfig,hdfsFS);
   operations=new ArrayList<Opt>();
   copyFilesInMetaStore(cube,overwriteIfExists);
-  renameFoldersInHdfs(cube);
   addCubeIntoProject(cubeName,projectName);
   if (realExecute.equalsIgnoreCase("true")) {
     doOpts();
