@@ -1,0 +1,7 @@
+{
+  super(contextSource,groupSearchBase);
+  this.adminRole=adminRole;
+  this.adminRoleAsAuthority=new SimpleGrantedAuthority(adminRole);
+  if (defaultRole.contains(Constant.ROLE_MODELER))   this.defaultAuthorities.add(modelerAuthority);
+  if (defaultRole.contains(Constant.ROLE_ANALYST))   this.defaultAuthorities.add(analystAuthority);
+}

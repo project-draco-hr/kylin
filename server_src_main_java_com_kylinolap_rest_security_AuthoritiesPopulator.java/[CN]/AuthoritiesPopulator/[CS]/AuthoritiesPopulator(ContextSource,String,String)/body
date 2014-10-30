@@ -1,5 +1,0 @@
-{
-  super(contextSource,groupSearchBase);
-  this.adminRole=adminRole;
-  this.adminRoleAsAuthority=new SimpleGrantedAuthority(adminRole);
-}
