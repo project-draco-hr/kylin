@@ -2,7 +2,7 @@
   JobEngineConfig engineConfig=(JobEngineConfig)context.getJobDetail().getJobDataMap().get(JobConstants.PROP_ENGINE_CONTEXT);
   JobDAO jobDAO=JobDAO.getInstance(engineConfig.getConfig());
   try {
-    log.debug("Using metadata url: " + engineConfig.getConfig());
+    log.debug("Using metadata url: " + engineConfig.getConfig().getMetadataUrl());
     log.debug("Getting pending job list");
     List<JobInstance> pendingJobList=jobDAO.listAllJobs(JobStatusEnum.PENDING);
     log.debug("Pending job count is " + pendingJobList.size());
