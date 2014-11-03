@@ -30,7 +30,7 @@
         log.info("hbase will not use lzo to compress data");
       }
       cf.setDataBlockEncoding(DataBlockEncoding.FAST_DIFF);
-      cf.setInMemory(true);
+      cf.setInMemory(false);
       cf.setBlocksize(4 * 1024 * 1024);
       tableDesc.addFamily(cf);
     }
