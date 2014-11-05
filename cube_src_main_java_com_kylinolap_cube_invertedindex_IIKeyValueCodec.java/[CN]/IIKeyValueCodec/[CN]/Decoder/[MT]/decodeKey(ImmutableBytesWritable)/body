@@ -1,10 +1,10 @@
 {
   byte[] buf=k.get();
   int i=k.getOffset();
-  curPartition=BytesUtil.readUnsignedLong(buf,i,TIMEPART_LEN);
+  curShard=(short)BytesUtil.readUnsigned(buf,i,SHARD_LEN);
+  i+=SHARD_LEN;
+  curSliceTimestamp=BytesUtil.readUnsignedLong(buf,i,TIMEPART_LEN);
   i+=TIMEPART_LEN;
-  curSliceNo=BytesUtil.readUnsigned(buf,i,SLICENO_LEN);
-  i+=SLICENO_LEN;
   curCol=BytesUtil.readUnsigned(buf,i,COLNO_LEN);
   i+=COLNO_LEN;
   if (i - k.getOffset() < k.getLength()) {

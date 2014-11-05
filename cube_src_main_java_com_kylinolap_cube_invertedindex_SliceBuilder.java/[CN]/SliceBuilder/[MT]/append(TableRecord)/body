@@ -1,0 +1,15 @@
+{
+  if (rec.getShard() != shard)   throw new IllegalStateException();
+  Slice doneSlice=null;
+  if (isFull()) {
+    doneSlice=doneSlice();
+  }
+  if (nRecords == 0) {
+    sliceTimestamp=increaseSliceTimestamp(rec.getTimestamp());
+  }
+  nRecords++;
+  for (int i=0; i < nColumns; i++) {
+    containers[i].append(rec.getValueID(i));
+  }
+  return doneSlice;
+}

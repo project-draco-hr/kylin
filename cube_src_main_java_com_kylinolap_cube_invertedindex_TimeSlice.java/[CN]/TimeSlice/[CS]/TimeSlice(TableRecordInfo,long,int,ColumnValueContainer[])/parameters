@@ -1,4 +1,0 @@
-TableRecordInfo info
-long timePartition
-int sliceNo
-ColumnValueContainer[] containers

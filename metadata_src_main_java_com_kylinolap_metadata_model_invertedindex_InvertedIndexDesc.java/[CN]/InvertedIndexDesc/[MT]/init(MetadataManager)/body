@@ -2,18 +2,17 @@
   config=mgr.getConfig();
   factTable=factTable.toUpperCase();
   timestampDimension=timestampDimension.toUpperCase();
-  StringUtil.toUpperCaseArray(lowCardinalityDimensions,lowCardinalityDimensions);
-  StringUtil.toUpperCaseArray(highCardinalityDimensions,highCardinalityDimensions);
-  StringUtil.toUpperCaseArray(measures,measures);
-  bitmapCols=new int[lowCardinalityDimensions.length];
-  valueCols=new int[highCardinalityDimensions.length + measures.length];
+  StringUtil.toUpperCaseArray(bitmapDimensions,bitmapDimensions);
+  StringUtil.toUpperCaseArray(valueDimensions,valueDimensions);
+  bitmapCols=new int[bitmapDimensions.length];
+  valueCols=new int[valueDimensions.length];
   int i=0, j=0;
   TableDesc tableDesc=mgr.getTableDesc(factTable);
   for (  ColumnDesc col : tableDesc.getColumns()) {
-    if (ArrayUtils.contains(lowCardinalityDimensions,col.getName())) {
+    if (ArrayUtils.contains(bitmapDimensions,col.getName())) {
       bitmapCols[i++]=col.getZeroBasedIndex();
     }
-    if (ArrayUtils.contains(highCardinalityDimensions,col.getName()) || ArrayUtils.contains(measures,col.getName())) {
+    if (ArrayUtils.contains(valueDimensions,col.getName())) {
       valueCols[j++]=col.getZeroBasedIndex();
     }
   }

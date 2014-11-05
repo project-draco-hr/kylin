@@ -1,0 +1,5 @@
+{
+  if (timestamp < sliceTimestamp)   throw new IllegalStateException();
+  if (timestamp == sliceTimestamp)   return ++timestamp;
+ else   return timestamp;
+}

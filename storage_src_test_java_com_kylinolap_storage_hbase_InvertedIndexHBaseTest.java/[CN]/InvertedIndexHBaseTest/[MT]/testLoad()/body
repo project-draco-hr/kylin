@@ -1,10 +1,10 @@
 {
   String tableName=seg.getStorageLocationIdentifier();
   IIKeyValueCodec codec=new IIKeyValueCodec(new TableRecordInfo(seg));
-  List<TimeSlice> slices=Lists.newArrayList();
+  List<Slice> slices=Lists.newArrayList();
   HBaseKeyValueIterator kvIterator=new HBaseKeyValueIterator(hconn,tableName,InvertedIndexDesc.HBASE_FAMILY_BYTES,InvertedIndexDesc.HBASE_QUALIFIER_BYTES);
   try {
-    for (    TimeSlice slice : codec.decodeKeyValue(kvIterator)) {
+    for (    Slice slice : codec.decodeKeyValue(kvIterator)) {
       slices.add(slice);
     }
   }
