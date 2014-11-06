@@ -1,6 +1,6 @@
 {
   long start=System.currentTimeMillis();
-  List<TableDesc> tables=cubeMgmtService.getMetadataManager().listAllTables();
+  List<TableDesc> tables=cubeMgmtService.getProjectManager().listExposedTables(project);
   if (withExt) {
     tables=cloneTableDesc(tables);
   }
