@@ -1,6 +1,4 @@
 {
-  String x=InetAddress.getLocalHost().getCanonicalHostName();
-  System.out.println(x);
   TEST_UTIL=new HBaseTestingUtility();
   CONF=TEST_UTIL.getConfiguration();
   CONF.setStrings(CoprocessorHost.REGION_COPROCESSOR_CONF_KEY,ExampleEndpoint.class.getName());
