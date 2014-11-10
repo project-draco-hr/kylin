@@ -5,19 +5,24 @@
   nColumns=tableDesc.getColumnCount();
   colNames=new String[nColumns];
   dictionaries=new Dictionary<?>[nColumns];
+  measureSerializers=new FixedLenMeasureCodec<?>[nColumns];
   DictionaryManager dictMgr=DictionaryManager.getInstance(desc.getConfig());
   for (  ColumnDesc col : tableDesc.getColumns()) {
     int i=col.getZeroBasedIndex();
     colNames[i]=col.getName();
-    String dictPath=seg.getDictResPath(new TblColRef(col));
-    dictionaries[i]=dictMgr.getDictionary(dictPath);
+    if (desc.isMetricsCol(i)) {
+      measureSerializers[i]=FixedLenMeasureCodec.get(col.getType());
+    }
+ else {
+      String dictPath=seg.getDictResPath(new TblColRef(col));
+      dictionaries[i]=dictMgr.getDictionary(dictPath);
+    }
   }
   int pos=0;
   offsets=new int[nColumns];
   for (int i=0; i < nColumns; i++) {
-    int size=dictionaries[i].getSizeOfId();
     offsets[i]=pos;
-    pos+=size;
+    pos+=length(i);
   }
   byteFormLen=pos;
 }

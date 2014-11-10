@@ -1,0 +1,3 @@
+{
+  info.codec(col).write(value,buf,info.offset(col));
+}

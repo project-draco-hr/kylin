@@ -2,7 +2,7 @@
   int i=offset;
   BytesUtil.writeUnsigned(shard,buf,i,SHARD_LEN);
   i+=SHARD_LEN;
-  BytesUtil.writeUnsignedLong(timestamp,buf,i,TIMEPART_LEN);
+  BytesUtil.writeLong(timestamp,buf,i,TIMEPART_LEN);
   i+=TIMEPART_LEN;
   BytesUtil.writeUnsigned(col,buf,i,COLNO_LEN);
   i+=COLNO_LEN;

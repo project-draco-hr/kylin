@@ -3,7 +3,7 @@
   int i=k.getOffset();
   curShard=(short)BytesUtil.readUnsigned(buf,i,SHARD_LEN);
   i+=SHARD_LEN;
-  curSliceTimestamp=BytesUtil.readUnsignedLong(buf,i,TIMEPART_LEN);
+  curSliceTimestamp=BytesUtil.readLong(buf,i,TIMEPART_LEN);
   i+=TIMEPART_LEN;
   curCol=BytesUtil.readUnsigned(buf,i,COLNO_LEN);
   i+=COLNO_LEN;

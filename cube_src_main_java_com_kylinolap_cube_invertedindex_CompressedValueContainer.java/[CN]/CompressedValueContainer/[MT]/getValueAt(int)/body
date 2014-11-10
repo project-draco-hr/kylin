@@ -1,3 +1,0 @@
-{
-  return BytesUtil.readUnsigned(uncompressed,valueLen * i,valueLen);
-}

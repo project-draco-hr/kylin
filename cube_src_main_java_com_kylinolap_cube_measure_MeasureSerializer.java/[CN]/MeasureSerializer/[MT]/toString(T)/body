@@ -1,0 +1,4 @@
+{
+  if (value == null)   return "NULL";
+ else   return value.toString();
+}

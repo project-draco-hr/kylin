@@ -14,5 +14,8 @@
   for (  int i : info.getDescriptor().getValueColumns()) {
     containers[i]=new CompressedValueContainer(info,i,nRecordsCap);
   }
+  for (  int i : info.getDescriptor().getMetricsColumns()) {
+    containers[i]=new CompressedValueContainer(info,i,nRecordsCap);
+  }
   return r;
 }

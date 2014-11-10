@@ -9,7 +9,8 @@
   }
   nRecords++;
   for (int i=0; i < nColumns; i++) {
-    containers[i].append(rec.getValueID(i));
+    rec.getValueBytes(i,temp);
+    containers[i].append(temp);
   }
   return doneSlice;
 }
