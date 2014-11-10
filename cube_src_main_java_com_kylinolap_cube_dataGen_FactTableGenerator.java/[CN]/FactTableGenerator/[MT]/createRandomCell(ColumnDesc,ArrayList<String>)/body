@@ -12,17 +12,17 @@
  else   if (s.equals("double")) {
     double low=Double.parseDouble(range.get(0));
     double high=Double.parseDouble(range.get(1));
-    return Double.toString(r.nextDouble() * (high - low) + low);
+    return String.format("%.4f",r.nextDouble() * (high - low) + low);
   }
  else   if (s.equals("float")) {
     float low=Float.parseFloat(range.get(0));
     float high=Float.parseFloat(range.get(1));
-    return Double.toString(r.nextFloat() * (high - low) + low);
+    return String.format("%.4f",r.nextFloat() * (high - low) + low);
   }
  else   if (s.equals("decimal")) {
     double low=Double.parseDouble(range.get(0));
     double high=Double.parseDouble(range.get(1));
-    return Double.toString(r.nextDouble() * (high - low) + low);
+    return String.format("%.4f",r.nextDouble() * (high - low) + low);
   }
  else   if (s.equals("date")) {
     SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");

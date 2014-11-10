@@ -1,0 +1,39 @@
+{
+  Scan scan=new Scan();
+  scan.setFilter(new FirstKeyOnlyFilter());
+  ExampleProtos.CountResponse response=null;
+  InternalScanner scanner=null;
+  try {
+    scanner=env.getRegion().getScanner(scan);
+    List<Cell> results=new ArrayList<Cell>();
+    boolean hasMore=false;
+    byte[] lastRow=null;
+    long count=0;
+    do {
+      hasMore=scanner.next(results);
+      for (      Cell kv : results) {
+        byte[] currentRow=CellUtil.cloneRow(kv);
+        if (lastRow == null || !Bytes.equals(lastRow,currentRow)) {
+          lastRow=currentRow;
+          count++;
+        }
+      }
+      results.clear();
+    }
+ while (hasMore);
+    response=ExampleProtos.CountResponse.newBuilder().setCount(count).build();
+  }
+ catch (  IOException ioe) {
+    ResponseConverter.setControllerException(controller,ioe);
+  }
+ finally {
+    if (scanner != null) {
+      try {
+        scanner.close();
+      }
+ catch (      IOException ignored) {
+      }
+    }
+  }
+  done.run(response);
+}

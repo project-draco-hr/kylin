@@ -1,0 +1,29 @@
+{
+  HConnection connection=HConnectionManager.createConnection(CONF);
+  HTableInterface table=connection.getTable(TEST_TABLE);
+  for (int i=0; i < 5; i++) {
+    byte[] iBytes=Bytes.toBytes(i);
+    Put p=new Put(iBytes);
+    p.add(TEST_FAMILY,TEST_COLUMN,iBytes);
+    table.put(p);
+  }
+  final ExampleProtos.CountRequest request=ExampleProtos.CountRequest.getDefaultInstance();
+  Map<byte[],Long> results=table.coprocessorService(ExampleProtos.RowCountService.class,null,null,new Batch.Call<ExampleProtos.RowCountService,Long>(){
+    public Long call(    ExampleProtos.RowCountService counter) throws IOException {
+      ServerRpcController controller=new ServerRpcController();
+      BlockingRpcCallback<ExampleProtos.CountResponse> rpcCallback=new BlockingRpcCallback<ExampleProtos.CountResponse>();
+      counter.getRowCount(controller,request,rpcCallback);
+      ExampleProtos.CountResponse response=rpcCallback.get();
+      if (controller.failedOnException()) {
+        throw controller.getFailedOn();
+      }
+      return (response != null && response.hasCount()) ? response.getCount() : 0;
+    }
+  }
+);
+  assertEquals(1,results.size());
+  Iterator<Long> iter=results.values().iterator();
+  Long val=iter.next();
+  assertNotNull(val);
+  assertEquals(5l,val.longValue());
+}
