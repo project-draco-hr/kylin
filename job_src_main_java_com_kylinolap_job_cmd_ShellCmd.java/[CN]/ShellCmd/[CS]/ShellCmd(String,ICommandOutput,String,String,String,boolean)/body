@@ -3,6 +3,13 @@
   this.output=out;
   this.remoteHost=host;
   this.remoteUser=user;
-  this.remotePassword=password;
+  if (new File(password).exists()) {
+    this.identityPath=new File(password).getAbsolutePath();
+    this.remotePassword=null;
+  }
+ else {
+    this.remotePassword=password;
+    this.identityPath=null;
+  }
   this.isAsync=async;
 }
