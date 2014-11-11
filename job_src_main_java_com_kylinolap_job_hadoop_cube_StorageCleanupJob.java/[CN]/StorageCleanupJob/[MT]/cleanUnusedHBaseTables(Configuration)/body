@@ -5,7 +5,10 @@
   HTableDescriptor[] tableDescriptors=hbaseAdmin.listTables(tableNamePrefix + ".*");
   List<String> allTablesNeedToBeDropped=new ArrayList<String>();
   for (  HTableDescriptor desc : tableDescriptors) {
-    allTablesNeedToBeDropped.add(desc.getTableName().getNameAsString());
+    String host=desc.getValue(cubeMgr.getHtableMetadataKey());
+    if (cubeMgr.getMedataUrlPrefix().equalsIgnoreCase(host)) {
+      allTablesNeedToBeDropped.add(desc.getTableName().getNameAsString());
+    }
   }
   for (  CubeInstance cube : cubeMgr.listAllCubes()) {
     for (    CubeSegment seg : cube.getSegments()) {
