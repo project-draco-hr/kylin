@@ -3,10 +3,7 @@
     System.out.println("[" + username + "@"+ hostname+ "] Execute command: "+ command);
     StringBuffer text=new StringBuffer();
     int exitCode=-1;
-    JSch jsch=new JSch();
-    Session session=jsch.getSession(username,hostname,22);
-    session.setPassword(password);
-    session.setConfig("StrictHostKeyChecking","no");
+    Session session=newJSchSession();
     session.connect();
     Channel channel=session.openChannel("exec");
     ((ChannelExec)channel).setCommand(command);

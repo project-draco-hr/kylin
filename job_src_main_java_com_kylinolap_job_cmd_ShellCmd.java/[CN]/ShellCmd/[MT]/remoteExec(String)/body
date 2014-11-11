@@ -5,8 +5,13 @@
   int exitCode=-1;
   try {
     JSch jsch=new JSch();
+    if (identityPath != null) {
+      jsch.addIdentity(identityPath);
+    }
     session=jsch.getSession(remoteUser,remoteHost,22);
-    session.setPassword(remotePassword);
+    if (remotePassword != null) {
+      session.setPassword(remotePassword);
+    }
     session.setConfig("StrictHostKeyChecking","no");
     session.connect();
     channel=session.openChannel("exec");
