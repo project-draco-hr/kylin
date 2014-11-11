@@ -18,5 +18,6 @@
         logger.info("Continue undoing...");
       }
     }
+    throw new RuntimeException("Cube moving failed");
   }
 }
