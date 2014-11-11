@@ -1,9 +1,5 @@
 {
   for (  CubeSegment segment : cube.getSegments()) {
-    if (segment.getStatus() != CubeSegmentStatusEnum.READY)     throw new IllegalStateException("At least one segment is not in READY state");
-    String jobUuid=segment.getLastBuildJobID();
-    String src=JobInstance.getJobWorkingDir(jobUuid,srcConfig.getHdfsWorkingDirectory());
-    String tgt=JobInstance.getJobWorkingDir(jobUuid,dstConfig.getHdfsWorkingDirectory());
-    operations.add(new Opt(OptType.RENAME_FOLDER_IN_HDFS,new Object[]{src,tgt}));
+    operations.add(new Opt(OptType.CHANGE_HTABLE_HOST,new Object[]{segment.getStorageLocationIdentifier()}));
   }
 }

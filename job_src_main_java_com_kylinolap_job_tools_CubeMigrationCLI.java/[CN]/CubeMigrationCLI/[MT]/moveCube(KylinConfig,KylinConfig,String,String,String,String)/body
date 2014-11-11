@@ -7,6 +7,11 @@
   CubeInstance cube=cubeManager.getCube(cubeName);
   logger.info("cube to be moved is : " + cubeName);
   if (cube.getStatus() != CubeStatusEnum.READY)   throw new IllegalStateException("Cannot migrate cube that is not in READY state.");
+  for (  CubeSegment segment : cube.getSegments()) {
+    if (segment.getStatus() != CubeSegmentStatusEnum.READY) {
+      throw new IllegalStateException("At least one segment is not in READY state");
+    }
+  }
   checkAndGetHbaseUrl();
   Configuration conf=HBaseConfiguration.create();
   hbaseAdmin=new HBaseAdmin(conf);
@@ -14,6 +19,7 @@
   operations=new ArrayList<Opt>();
   copyFilesInMetaStore(cube,overwriteIfExists);
   renameFoldersInHdfs(cube);
+  changeHtableHost(cube);
   addCubeIntoProject(cubeName,projectName);
   if (realExecute.equalsIgnoreCase("true")) {
     doOpts();
