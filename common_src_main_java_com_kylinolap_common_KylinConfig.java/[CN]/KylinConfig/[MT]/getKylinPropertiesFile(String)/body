@@ -1,0 +1,9 @@
+{
+  if (path == null)   return null;
+  File propFile=new File(path,KYLIN_CONF_PROPERTIES_FILE);
+  if (propFile.exists()) {
+    logger.info(KYLIN_CONF_PROPERTIES_FILE + " was found at " + propFile.getAbsolutePath());
+  }
+  logger.info(KYLIN_CONF_PROPERTIES_FILE + " was NOT found at " + propFile.getAbsolutePath());
+  return null;
+}
