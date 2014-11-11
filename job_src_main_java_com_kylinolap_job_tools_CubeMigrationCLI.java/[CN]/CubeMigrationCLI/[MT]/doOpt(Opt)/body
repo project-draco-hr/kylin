@@ -3,6 +3,12 @@
 switch (opt.type) {
 case CHANGE_HTABLE_HOST:
 {
+      String tableName=(String)opt.params[0];
+      HTableDescriptor desc=hbaseAdmin.getTableDescriptor(TableName.valueOf(tableName));
+      hbaseAdmin.disableTable(tableName);
+      desc.setValue(CubeManager.getHtableMetadataKey(),dstConfig.getMetadataUrlPrefix());
+      hbaseAdmin.modifyTable(tableName,desc);
+      hbaseAdmin.enableTable(tableName);
     }
 case COPY_FILE_IN_META:
 {
