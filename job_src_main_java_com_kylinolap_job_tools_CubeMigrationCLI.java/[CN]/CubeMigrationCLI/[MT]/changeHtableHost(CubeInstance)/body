@@ -1,0 +1,5 @@
+{
+  for (  CubeSegment segment : cube.getSegments()) {
+    operations.add(new Opt(OptType.CHANGE_HTABLE_HOST,new Object[]{segment.getStorageLocationIdentifier()}));
+  }
+}
