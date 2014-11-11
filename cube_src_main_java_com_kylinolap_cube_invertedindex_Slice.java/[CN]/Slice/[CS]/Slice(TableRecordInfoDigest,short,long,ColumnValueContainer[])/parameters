@@ -1,0 +1,4 @@
+TableRecordInfoDigest info
+short shard
+long timestamp
+ColumnValueContainer[] containers

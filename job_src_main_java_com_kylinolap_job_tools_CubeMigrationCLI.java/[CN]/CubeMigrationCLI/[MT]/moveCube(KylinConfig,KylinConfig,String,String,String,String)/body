@@ -7,6 +7,9 @@
   CubeInstance cube=cubeManager.getCube(cubeName);
   logger.info("cube to be moved is : " + cubeName);
   if (cube.getStatus() != CubeStatusEnum.READY)   throw new IllegalStateException("Cannot migrate cube that is not in READY state.");
+  for (  CubeSegment segment : cube.getSegments()) {
+    if (segment.getStatus() != CubeSegmentStatusEnum.READY)     throw new IllegalStateException("The segment " + segment.getName() + " is still building, can't migrate this cube");
+  }
   checkAndGetHbaseUrl();
   Configuration conf=HBaseConfiguration.create();
   hbaseAdmin=new HBaseAdmin(conf);

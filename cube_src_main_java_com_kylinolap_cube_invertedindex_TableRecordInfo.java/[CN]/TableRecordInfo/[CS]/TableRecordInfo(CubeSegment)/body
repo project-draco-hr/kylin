@@ -18,6 +18,14 @@
       dictionaries[i]=dictMgr.getDictionary(dictPath);
     }
   }
+  lengths=new int[nColumns];
+  for (int i=0; i < nColumns; ++i) {
+    lengths[i]=dictionaries[i].getSizeOfId();
+  }
+  dictMaxIds=new int[nColumns];
+  for (int i=0; i < nColumns; ++i) {
+    dictMaxIds[i]=dictionaries[i].getMaxId();
+  }
   int pos=0;
   offsets=new int[nColumns];
   for (int i=0; i < nColumns; i++) {

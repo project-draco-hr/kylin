@@ -1,12 +1,12 @@
 {
-  return new Iterator<TableRecord>(){
+  return new Iterator<TableRecordBytes>(){
     int i=0;
     TableRecord rec=new TableRecord(info);
     ImmutableBytesWritable temp=new ImmutableBytesWritable();
     @Override public boolean hasNext(){
       return i < nRecords;
     }
-    @Override public TableRecord next(){
+    @Override public TableRecordBytes next(){
       for (int col=0; col < nColumns; col++) {
         containers[col].getValueAt(i,temp);
         rec.setValueBytes(col,temp);
