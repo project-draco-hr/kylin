@@ -1,0 +1,3 @@
+{
+  return this.listAllCubes(projectName).contains(cube);
+}

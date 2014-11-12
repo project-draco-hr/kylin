@@ -1,5 +1,5 @@
 {
-  String[] arr=cubeMgmtService.reloadHiveTable(tables);
+  String[] arr=cubeMgmtService.reloadHiveTable(tables,project);
   Map<String,String[]> result=new HashMap<String,String[]>();
   result.put("result",arr);
   return result;

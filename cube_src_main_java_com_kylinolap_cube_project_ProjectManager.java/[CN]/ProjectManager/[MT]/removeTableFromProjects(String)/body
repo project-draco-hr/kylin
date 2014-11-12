@@ -1,0 +1,6 @@
+{
+  for (  ProjectInstance projectInstance : findProjects(tableName)) {
+    projectInstance.removeTable(tableName);
+    saveResource(projectInstance);
+  }
+}
