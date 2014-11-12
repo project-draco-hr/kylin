@@ -1,4 +1,4 @@
 {
-  if (info.isMetrics(col))   return info.codec(col).toString(getValueMetrics(col));
- else   return info.dict(col).getValueFromId(getValueID(col));
+  if (info().isMetrics(col))   return info().codec(col).toString(getValueMetrics(col));
+ else   return info().dict(col).getValueFromId(getValueID(col));
 }

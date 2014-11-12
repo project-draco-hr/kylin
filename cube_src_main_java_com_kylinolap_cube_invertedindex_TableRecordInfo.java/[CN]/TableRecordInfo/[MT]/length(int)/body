@@ -1,3 +1,0 @@
-{
-  return desc.isMetricsCol(col) ? measureSerializers[col].getLength() : dictionaries[col].getSizeOfId();
-}

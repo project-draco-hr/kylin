@@ -20,7 +20,7 @@
   }
   lengths=new int[nColumns];
   for (int i=0; i < nColumns; ++i) {
-    lengths[i]=dictionaries[i].getSizeOfId();
+    lengths[i]=desc.isMetricsCol(i) ? measureSerializers[i].getLength() : dictionaries[i].getSizeOfId();
   }
   dictMaxIds=new int[nColumns];
   for (int i=0; i < nColumns; ++i) {
