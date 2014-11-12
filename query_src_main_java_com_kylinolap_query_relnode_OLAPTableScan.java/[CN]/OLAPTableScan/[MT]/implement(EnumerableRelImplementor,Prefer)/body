@@ -1,5 +1,5 @@
 {
-  JavaImplementor javaImplementor=(JavaImplementor)implementor;
+  @SuppressWarnings("unchecked") JavaImplementor javaImplementor=(JavaImplementor)implementor;
   int ctxId=this.context.id;
   if (javaImplementor.getParentContext() != null) {
     ctxId=javaImplementor.getParentContext().id;

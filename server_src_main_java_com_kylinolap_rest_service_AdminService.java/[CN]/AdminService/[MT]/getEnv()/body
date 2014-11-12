@@ -5,8 +5,8 @@
     String content="";
     ByteArrayOutputStream baos=new ByteArrayOutputStream();
     Map<String,String> env=System.getenv();
-    for (    String envName : env.keySet()) {
-      tempConfig.addProperty(envName,env.get(envName));
+    for (    Map.Entry<String,String> entry : env.entrySet()) {
+      tempConfig.addProperty(entry.getKey(),entry.getValue());
     }
     Properties properteis=System.getProperties();
     for (    Object propName : properteis.keySet()) {

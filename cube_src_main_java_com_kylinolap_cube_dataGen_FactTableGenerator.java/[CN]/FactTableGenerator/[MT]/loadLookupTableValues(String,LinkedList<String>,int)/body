@@ -14,6 +14,7 @@
     String path="/data/" + lookupTableName + ".csv";
     tableStream=store.getResource(path);
     tableReader=new BufferedReader(new InputStreamReader(tableStream));
+    tableReader.mark(0);
     int rowCount=0;
     int curRowNum=0;
     String curRow;
@@ -21,10 +22,12 @@
     HashSet<Integer> rows=new HashSet<Integer>();
     distinctRowCount=(distinctRowCount < rowCount) ? distinctRowCount : rowCount;
     while (rows.size() < distinctRowCount) {
-      rows.add(new Integer(r.nextInt(rowCount)));
+      rows.add(r.nextInt(rowCount));
     }
     tableStream.close();
     tableReader.close();
+    tableStream=null;
+    tableReader=null;
     tableStream=store.getResource(path);
     tableReader=new BufferedReader(new InputStreamReader(tableStream));
     while ((curRow=tableReader.readLine()) != null) {
