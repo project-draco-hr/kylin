@@ -9,6 +9,8 @@ case CHANGE_HTABLE_HOST:
       desc.setValue(CubeManager.getHtableMetadataKey(),dstConfig.getMetadataUrlPrefix());
       hbaseAdmin.modifyTable(tableName,desc);
       hbaseAdmin.enableTable(tableName);
+      logger.info("CHANGE_HTABLE_HOST is completed");
+      break;
     }
 case COPY_FILE_IN_META:
 {
