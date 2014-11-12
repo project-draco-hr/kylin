@@ -3,16 +3,9 @@
     return;
   }
   SqlNode newWhere=pushDownNotForIn(where);
-  replaceSubqueries(bb,newWhere);
+  replaceSubqueries(bb,newWhere,RelOptUtil.Logic.UNKNOWN_AS_FALSE);
   final RexNode convertedWhere=bb.convertExpression(newWhere);
   if (!convertedWhere.isAlwaysTrue()) {
-    RelNode inputRel=bb.root;
-    Set<String> correlatedVariablesBefore=RelOptUtil.getVariablesUsed(inputRel);
-    bb.setRoot(CalcRel.createFilter(bb.root,convertedWhere),false);
-    Set<String> correlatedVariables=RelOptUtil.getVariablesUsed(bb.root);
-    correlatedVariables.removeAll(correlatedVariablesBefore);
-    for (    String correl : correlatedVariables) {
-      mapCorrelToRefRel.put(correl,bb.root);
-    }
+    bb.setRoot(RelOptUtil.createFilter(bb.root,convertedWhere),false);
   }
 }

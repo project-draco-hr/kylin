@@ -10,12 +10,12 @@
     datasetStack.pop();
     return;
   }
-  replaceSubqueries(bb,call);
+  replaceSubqueries(bb,call,RelOptUtil.Logic.TRUE_FALSE_UNKNOWN);
   if (operator instanceof SqlUserDefinedTableMacro) {
     final SqlUserDefinedTableMacro udf=(SqlUserDefinedTableMacro)operator;
     final TranslatableTable table=udf.getTable(typeFactory,call.getOperandList());
     final RelDataType rowType=table.getRowType(typeFactory);
-    RelOptTable relOptTable=RelOptTableImpl.create(null,rowType,(TranslatableTable)table);
+    RelOptTable relOptTable=RelOptTableImpl.create(null,rowType,table);
     RelNode converted=toRel(relOptTable);
     bb.setRoot(converted,true);
     return;

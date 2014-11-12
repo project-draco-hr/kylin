@@ -1,12 +1,3 @@
 {
-  RelDecorrelator decorrelator=new RelDecorrelator(rexBuilder,mapRefRelToCorVar,mapCorVarToCorRel,mapFieldAccessToCorVar);
-  boolean dumpPlan=SQL2REL_LOGGER.isLoggable(Level.FINE);
-  RelNode newRootRel=decorrelator.removeCorrelationViaRule(rootRel);
-  if (dumpPlan) {
-    SQL2REL_LOGGER.fine(RelOptUtil.dumpPlan("Plan after removing CorrelatorRel",newRootRel,false,SqlExplainLevel.EXPPLAN_ATTRIBUTES));
-  }
-  if (!mapCorVarToCorRel.isEmpty()) {
-    newRootRel=decorrelator.decorrelate(newRootRel);
-  }
-  return newRootRel;
+  return RelDecorrelator.decorrelateQuery(rootRel);
 }
