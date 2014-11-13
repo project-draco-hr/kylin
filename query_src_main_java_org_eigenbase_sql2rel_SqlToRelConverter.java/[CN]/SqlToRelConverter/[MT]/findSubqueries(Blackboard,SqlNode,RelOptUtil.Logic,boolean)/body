@@ -1,0 +1,47 @@
+{
+  final SqlKind kind=node.getKind();
+switch (kind) {
+case EXISTS:
+case SELECT:
+case MULTISET_QUERY_CONSTRUCTOR:
+case MULTISET_VALUE_CONSTRUCTOR:
+case CURSOR:
+case SCALAR_QUERY:
+    if (!registerOnlyScalarSubqueries || (kind == SqlKind.SCALAR_QUERY)) {
+      bb.registerSubquery(node,RelOptUtil.Logic.TRUE_FALSE);
+    }
+  return;
+case IN:
+if (((SqlCall)node).getOperator() == SqlStdOperatorTable.NOT_IN) {
+  logic=logic.negate();
+}
+break;
+case NOT:
+logic=logic.negate();
+break;
+}
+if (node instanceof SqlCall) {
+if (kind == SqlKind.OR || kind == SqlKind.NOT) {
+bb.subqueryNeedsOuterJoin=true;
+}
+for (SqlNode operand : ((SqlCall)node).getOperandList()) {
+if (operand != null) {
+findSubqueries(bb,operand,logic,kind == SqlKind.IN || registerOnlyScalarSubqueries);
+}
+}
+}
+ else if (node instanceof SqlNodeList) {
+for (SqlNode child : (SqlNodeList)node) {
+findSubqueries(bb,child,logic,kind == SqlKind.IN || registerOnlyScalarSubqueries);
+}
+}
+if (kind == SqlKind.IN) {
+if (logic == RelOptUtil.Logic.TRUE_FALSE_UNKNOWN && !validator.getValidatedNodeType(node).isNullable()) {
+logic=RelOptUtil.Logic.UNKNOWN_AS_FALSE;
+}
+if (logic == RelOptUtil.Logic.UNKNOWN_AS_FALSE && !bb.subqueryNeedsOuterJoin) {
+logic=RelOptUtil.Logic.TRUE;
+}
+bb.registerSubquery(node,logic);
+}
+}

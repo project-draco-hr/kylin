@@ -57,11 +57,7 @@
         selectList.add(bb.convertExpression(operand));
         fieldNameList.add(SqlUtil.deriveAliasFromOrdinal(j));
       }
-      RelNode projRel=CalcRel.createProject(new OneRowRel(cluster),selectList,fieldNameList);
-      Set<String> correlatedVariables=RelOptUtil.getVariablesUsed(projRel);
-      for (      String correl : correlatedVariables) {
-        mapCorrelToRefRel.put(correl,projRel);
-      }
+      RelNode projRel=RelOptUtil.createProject(new OneRowRel(cluster),selectList,fieldNameList);
       joinList.set(i,projRel);
     }
   }
