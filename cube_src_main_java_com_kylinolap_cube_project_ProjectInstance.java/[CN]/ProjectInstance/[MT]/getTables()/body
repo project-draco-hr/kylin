@@ -1,3 +1,6 @@
 {
+  if (tables == null) {
+    tables=new ArrayList<String>();
+  }
   return tables;
 }

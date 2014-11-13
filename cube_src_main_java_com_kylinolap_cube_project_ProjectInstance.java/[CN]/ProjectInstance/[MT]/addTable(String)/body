@@ -1,4 +1,4 @@
 {
   tableName=tableName.toUpperCase();
-  this.tables.add(tableName);
+  this.getTables().add(tableName);
 }
