@@ -15,5 +15,5 @@
     srcFile=dest.toString();
     dest.deleteOnExit();
   }
-  scpFilesToHadoopCli(new String[]{srcFile},"/etc/kylin");
+  FileUtils.copyFileToDirectory(new File(srcFile),new File("/etc/kylin"));
 }
