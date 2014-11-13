@@ -1,4 +1,3 @@
 {
-  removeTableFromProjects(tableName);
-  return addTableToProject(tableName,newProjectName,owner);
+  return addTableToProject(tables,newProjectName,owner);
 }

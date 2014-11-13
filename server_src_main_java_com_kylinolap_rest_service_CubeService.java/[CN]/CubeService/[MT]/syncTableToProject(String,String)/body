@@ -1,0 +1,9 @@
+{
+  String owner=SecurityContextHolder.getContext().getAuthentication().getName();
+  try {
+    ProjectInstance newProject=getProjectManager().updateTableToProject(tables,project,owner);
+  }
+ catch (  IOException e) {
+    throw new InternalErrorException("Failed to deal with the request.",e);
+  }
+}
