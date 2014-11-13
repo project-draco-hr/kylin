@@ -2,7 +2,7 @@
   JobStep createHFilesStep=new JobStep();
   createHFilesStep.setName(JobConstants.STEP_NAME_CONVERT_CUBOID_TO_HFILE);
   String cmd="";
-  cmd=appendMapReduceParameters(cmd);
+  cmd=appendMapReduceParameters(cmd,jobInstance);
   cmd=appendExecCmdParameters(cmd,"cubename",cubeName);
   cmd=appendExecCmdParameters(cmd,"input",inputPath);
   cmd=appendExecCmdParameters(cmd,"output",jobWorkingDir + "/" + cubeName+ "/hfile");

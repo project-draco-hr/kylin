@@ -2,7 +2,7 @@
   JobStep mergeCuboidDataStep=new JobStep();
   mergeCuboidDataStep.setName(JobConstants.STEP_NAME_MERGE_CUBOID);
   String cmd="";
-  cmd=appendMapReduceParameters(cmd);
+  cmd=appendMapReduceParameters(cmd,jobInstance);
   cmd=appendExecCmdParameters(cmd,"cubename",cubeName);
   cmd=appendExecCmdParameters(cmd,"segmentname",segmentName);
   cmd=appendExecCmdParameters(cmd,"input",inputPath);

@@ -2,7 +2,7 @@
   JobStep rowkeyDistributionStep=new JobStep();
   rowkeyDistributionStep.setName(JobConstants.STEP_NAME_GET_CUBOID_KEY_DISTRIBUTION);
   String cmd="";
-  cmd=appendMapReduceParameters(cmd);
+  cmd=appendMapReduceParameters(cmd,jobInstance);
   cmd=appendExecCmdParameters(cmd,"input",inputPath);
   cmd=appendExecCmdParameters(cmd,"output",getRowkeyDistributionOutputPath());
   cmd=appendExecCmdParameters(cmd,"jobname","Kylin_Region_Splits_Calculator_" + jobInstance.getRelatedCube() + "_Step_"+ stepSeqNum);
