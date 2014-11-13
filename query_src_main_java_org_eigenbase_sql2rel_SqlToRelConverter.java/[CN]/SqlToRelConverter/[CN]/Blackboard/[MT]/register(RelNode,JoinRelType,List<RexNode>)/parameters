@@ -1,0 +1,3 @@
+RelNode rel
+JoinRelType joinType
+List<RexNode> leftKeys

@@ -38,6 +38,6 @@
     final ProjectRel project=(ProjectRel)mergeSourceRel;
     projects.addAll(Util.skip(project.getProjects(),nSourceFields));
   }
-  RelNode massagedRel=CalcRel.createProject(joinRel,projects,null,true);
+  RelNode massagedRel=RelOptUtil.createProject(joinRel,projects,null,true);
   return new TableModificationRel(cluster,targetTable,catalogReader,massagedRel,TableModificationRel.Operation.MERGE,targetColumnNameList,false);
 }

@@ -1,0 +1,4 @@
+Blackboard bb
+List<RexNode> leftKeys
+SqlNodeList valuesList
+boolean isNotIn

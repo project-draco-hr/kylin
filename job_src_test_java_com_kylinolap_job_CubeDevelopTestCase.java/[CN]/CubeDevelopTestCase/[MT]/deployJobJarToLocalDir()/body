@@ -1,0 +1,8 @@
+{
+  File targetFile=new File(KylinConfig.getInstanceFromEnv().getKylinJobJarPath());
+  File parent=targetFile.getParentFile();
+  if (!parent.exists() && !parent.mkdirs()) {
+    throw new IllegalStateException("Couldn't create dir: " + parent);
+  }
+  FileUtils.copyFile(new File(".." + File.separator + "job"+ File.separator+ "target"+ File.separator+ jobJarName),targetFile);
+}

@@ -5,9 +5,7 @@
   List<DimensionDesc> dimensions=getSortedDimentsionDescs();
   for (  DimensionDesc dim : dimensions) {
     JoinDesc jDesc=dim.getJoin();
-    if (jDesc == null) {
-    }
- else {
+    if (jDesc != null) {
       String[] fks=jDesc.getForeignKey();
       String[] pks=jDesc.getPrimaryKey();
       int num=fks.length;

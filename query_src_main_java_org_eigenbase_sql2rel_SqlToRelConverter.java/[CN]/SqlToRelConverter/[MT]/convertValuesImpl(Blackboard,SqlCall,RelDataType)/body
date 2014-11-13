@@ -8,13 +8,13 @@
   for (  SqlNode rowConstructor1 : values.getOperandList()) {
     SqlCall rowConstructor=(SqlCall)rowConstructor1;
     Blackboard tmpBb=createBlackboard(bb.scope,null);
-    replaceSubqueries(tmpBb,rowConstructor);
+    replaceSubqueries(tmpBb,rowConstructor,RelOptUtil.Logic.TRUE_FALSE_UNKNOWN);
     List<Pair<RexNode,String>> exps=new ArrayList<Pair<RexNode,String>>();
     for (    Ord<SqlNode> operand : Ord.zip(rowConstructor.getOperandList())) {
       exps.add(Pair.of(tmpBb.convertExpression(operand.e),validator.deriveAlias(operand.e,operand.i)));
     }
     RelNode in=(null == tmpBb.root) ? new OneRowRel(cluster) : tmpBb.root;
-    unionRels.add(CalcRel.createProject(in,Pair.left(exps),Pair.right(exps),true));
+    unionRels.add(RelOptUtil.createProject(in,Pair.left(exps),Pair.right(exps),true));
   }
   if (unionRels.size() == 0) {
     throw Util.newInternal("empty values clause");

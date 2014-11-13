@@ -1,0 +1,3 @@
+{
+  return getOptional(KYLIN_JOB_CMD_EXTRA_ARGS);
+}

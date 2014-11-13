@@ -5,6 +5,7 @@
       return new FixedValueHLLCMockup(l);
     }
  else {
+      if (!(counter instanceof FixedValueHLLCMockup))       throw new IllegalStateException("counter is not FixedValueHLLCMockup");
       ((FixedValueHLLCMockup)counter).set(l);
       return counter;
     }
