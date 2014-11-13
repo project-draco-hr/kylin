@@ -1,5 +1,6 @@
 {
-  @SuppressWarnings("unchecked") JavaImplementor javaImplementor=(JavaImplementor)implementor;
+  if (!(implementor instanceof JavaImplementor))   throw new IllegalStateException("implementor is not JavaImplementor");
+  JavaImplementor javaImplementor=(JavaImplementor)implementor;
   int ctxId=this.context.id;
   if (javaImplementor.getParentContext() != null) {
     ctxId=javaImplementor.getParentContext().id;

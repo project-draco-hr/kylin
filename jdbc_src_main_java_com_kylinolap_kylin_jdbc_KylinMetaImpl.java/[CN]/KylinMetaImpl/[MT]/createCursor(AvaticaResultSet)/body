@@ -1,4 +1,5 @@
 {
+  if (!(resultSet instanceof KylinResultSet))   throw new IllegalStateException("resultSet is not KylinResultSet");
   KylinPrepare.PrepareResult result=((KylinResultSet)resultSet).getPrepareResult();
   return result.createCursor();
 }
