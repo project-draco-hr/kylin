@@ -4,9 +4,8 @@
   this.partialResultLimit=Math.max(limit,PARTIAL_DEFAULT_LIMIT);
   this.segmentIteratorList=new ArrayList<CubeSegmentTupleIterator>(segmentKeyRanges.size());
   Map<CubeSegment,List<HBaseKeyRange>> rangesMap=makeRangesMap(segmentKeyRanges);
-  for (  CubeSegment cubeSeg : rangesMap.keySet()) {
-    List<HBaseKeyRange> keyRanges=rangesMap.get(cubeSeg);
-    CubeSegmentTupleIterator segIter=new CubeSegmentTupleIterator(cubeSeg,keyRanges,conn,dimensions,filter,groupBy,rowValueDecoders,context);
+  for (  Map.Entry<CubeSegment,List<HBaseKeyRange>> entry : rangesMap.entrySet()) {
+    CubeSegmentTupleIterator segIter=new CubeSegmentTupleIterator(entry.getKey(),entry.getValue(),conn,dimensions,filter,groupBy,rowValueDecoders,context);
     this.segmentIteratorList.add(segIter);
   }
   this.segmentIteratorIterator=this.segmentIteratorList.iterator();

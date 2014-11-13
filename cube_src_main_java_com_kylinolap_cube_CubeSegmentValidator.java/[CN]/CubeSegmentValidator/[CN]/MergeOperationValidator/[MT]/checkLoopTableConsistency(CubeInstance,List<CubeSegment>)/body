@@ -40,11 +40,7 @@
  else {
       Collection<String> a=firstSegment.getSnapshots().values();
       Collection<String> b=segment.getSnapshots().values();
-      if ((a.size() == b.size()) && a.containsAll(b)) {
-      }
- else {
-        throw new CubeIntegrityException("Segments with different snapshots cannot be merged");
-      }
+      if (!((a.size() == b.size()) && a.containsAll(b)))       throw new CubeIntegrityException("Segments with different snapshots cannot be merged");
     }
   }
 }

@@ -9,4 +9,5 @@
   Configuration conf=HBaseConfiguration.create();
   HBaseAdmin admin=new HBaseAdmin(conf);
   admin.createTable(tableDesc);
+  admin.close();
 }

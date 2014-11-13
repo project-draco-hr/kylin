@@ -13,4 +13,5 @@
       hbaseAdmin.enableTable(table.getTableName());
     }
   }
+  hbaseAdmin.close();
 }
