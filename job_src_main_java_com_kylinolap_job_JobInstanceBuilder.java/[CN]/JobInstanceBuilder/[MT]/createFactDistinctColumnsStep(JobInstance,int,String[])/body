@@ -14,5 +14,5 @@
   factDistinctColumnsStep.setStatus(JobStepStatusEnum.PENDING);
   factDistinctColumnsStep.setRunAsync(true);
   factDistinctColumnsStep.setCmdType(JobStepCmdTypeEnum.JAVA_CMD_HADOOP_FACTDISTINCT);
-  jobInstance.addStep(stepSeqNum,factDistinctColumnsStep);
+  return factDistinctColumnsStep;
 }

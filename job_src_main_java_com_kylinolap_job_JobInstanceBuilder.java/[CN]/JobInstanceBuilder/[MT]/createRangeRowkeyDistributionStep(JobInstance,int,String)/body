@@ -12,5 +12,5 @@
   rowkeyDistributionStep.setStatus(JobStepStatusEnum.PENDING);
   rowkeyDistributionStep.setRunAsync(true);
   rowkeyDistributionStep.setCmdType(JobStepCmdTypeEnum.JAVA_CMD_HADOOP_RANGEKEYDISTRIBUTION);
-  jobInstance.addStep(stepSeqNum,rowkeyDistributionStep);
+  return rowkeyDistributionStep;
 }

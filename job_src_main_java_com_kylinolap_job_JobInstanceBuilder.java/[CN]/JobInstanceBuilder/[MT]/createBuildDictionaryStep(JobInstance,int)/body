@@ -10,5 +10,5 @@
   buildDictionaryStep.setStatus(JobStepStatusEnum.PENDING);
   buildDictionaryStep.setRunAsync(false);
   buildDictionaryStep.setCmdType(JobStepCmdTypeEnum.JAVA_CMD_HADOOP_NO_MR_DICTIONARY);
-  jobInstance.addStep(stepSeqNum,buildDictionaryStep);
+  return buildDictionaryStep;
 }

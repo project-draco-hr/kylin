@@ -10,5 +10,5 @@
   bulkLoadStep.setStatus(JobStepStatusEnum.PENDING);
   bulkLoadStep.setRunAsync(false);
   bulkLoadStep.setCmdType(JobStepCmdTypeEnum.JAVA_CMD_HADOOP_NO_MR_BULKLOAD);
-  jobInstance.addStep(stepSeqNum,bulkLoadStep);
+  return bulkLoadStep;
 }

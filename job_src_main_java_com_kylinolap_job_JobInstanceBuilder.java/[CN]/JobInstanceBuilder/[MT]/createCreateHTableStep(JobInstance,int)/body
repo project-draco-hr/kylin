@@ -10,5 +10,5 @@
   createHtableStep.setStatus(JobStepStatusEnum.PENDING);
   createHtableStep.setRunAsync(false);
   createHtableStep.setCmdType(JobStepCmdTypeEnum.JAVA_CMD_HADDOP_NO_MR_CREATEHTABLE);
-  jobInstance.addStep(stepSeqNum,createHtableStep);
+  return createHtableStep;
 }

@@ -13,5 +13,5 @@
   createHFilesStep.setStatus(JobStepStatusEnum.PENDING);
   createHFilesStep.setRunAsync(true);
   createHFilesStep.setCmdType(JobStepCmdTypeEnum.JAVA_CMD_HADOOP_CONVERTHFILE);
-  jobInstance.addStep(stepSeqNum,createHFilesStep);
+  return createHFilesStep;
 }

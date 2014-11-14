@@ -16,5 +16,5 @@
   intermediateHiveTableStep.setStatus(JobStepStatusEnum.PENDING);
   intermediateHiveTableStep.setRunAsync(false);
   intermediateHiveTableStep.setCmdType(JobStepCmdTypeEnum.SHELL_CMD_HADOOP);
-  jobInstance.addStep(stepSeqNum,intermediateHiveTableStep);
+  return intermediateHiveTableStep;
 }

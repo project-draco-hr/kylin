@@ -14,5 +14,5 @@
   ndCuboidStep.setStatus(JobStepStatusEnum.PENDING);
   ndCuboidStep.setRunAsync(true);
   ndCuboidStep.setCmdType(JobStepCmdTypeEnum.JAVA_CMD_HADOOP_NDCUBOID);
-  jobInstance.addStep(stepSeqNum,ndCuboidStep);
+  return ndCuboidStep;
 }
