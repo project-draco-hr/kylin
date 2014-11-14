@@ -1,3 +1,0 @@
-{
-  return addTableToProject(tables,newProjectName,owner);
-}

@@ -19,12 +19,11 @@
   dir.delete();
   dir.mkdir();
   String tableMetaOutcomeDir=dir.getAbsolutePath();
-  ProcessBuilder pb=null;
   if (osName.startsWith("Windows")) {
     SSHClient client=new SSHClient("sandbox","root","hadoop",null);
     SSHClientOutput output=null;
     try {
-      output=client.execCommand("hive -e \"" + hiveCommd + "\"");
+      output=client.execCommand("hive -e \"" + hiveCommd + "\" 2>/dev/null");
     }
  catch (    Exception e) {
       logger.error("Failed to execute hive cmd",e);
@@ -46,6 +45,7 @@
     }
   }
  else {
+    ProcessBuilder pb=null;
     pb=new ProcessBuilder(cmd[0],cmd[1],"hive -e \"" + hiveCommd + "\" > "+ hiveOutputPath);
     pb.directory(new File(tempDir));
     pb.redirectErrorStream(true);

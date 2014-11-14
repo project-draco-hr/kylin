@@ -1,6 +1,3 @@
 {
-  if (tables == null) {
-    tables=new ArrayList<String>();
-  }
-  return tables;
+  return tables == null ? new TreeSet<String>() : tables;
 }
