@@ -1,0 +1,7 @@
+{
+  ConciseSet set=new ConciseSet();
+  for (int i=from; i < toExclusive; i++) {
+    set.addAll(provider.getBitMap(column,i));
+  }
+  return set;
+}

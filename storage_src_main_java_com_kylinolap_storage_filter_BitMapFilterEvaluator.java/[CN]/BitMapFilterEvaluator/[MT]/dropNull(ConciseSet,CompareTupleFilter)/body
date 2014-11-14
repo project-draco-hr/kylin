@@ -1,0 +1,4 @@
+{
+  ConciseSet nullSet=evalCompareIsNull(filter);
+  set.removeAll(nullSet);
+}

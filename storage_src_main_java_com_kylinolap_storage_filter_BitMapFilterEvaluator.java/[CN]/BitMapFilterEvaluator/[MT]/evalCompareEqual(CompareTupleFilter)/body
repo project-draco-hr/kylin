@@ -1,0 +1,4 @@
+{
+  int id=Dictionary.stringToDictId(filter.getFirstValue());
+  return provider.getBitMap(filter.getColumn(),id).clone();
+}

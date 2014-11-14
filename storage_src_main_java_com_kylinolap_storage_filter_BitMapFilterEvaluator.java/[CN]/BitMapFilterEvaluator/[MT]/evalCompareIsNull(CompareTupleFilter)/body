@@ -1,0 +1,4 @@
+{
+  int nullId=Dictionary.stringToDictId(filter.getNullString());
+  return provider.getBitMap(filter.getColumn(),nullId).clone();
+}
