@@ -1,19 +1,2 @@
 {
-  TEST_UTIL=new HBaseTestingUtility();
-  CONF=TEST_UTIL.getConfiguration();
-  CONF.setStrings(CoprocessorHost.REGION_COPROCESSOR_CONF_KEY,IIEndpoint.class.getName());
-  TEST_UTIL.startMiniCluster();
-  int sharding=4;
-  HTableDescriptor tableDesc=new HTableDescriptor(TEST_TABLE);
-  HColumnDescriptor cf=new HColumnDescriptor(InvertedIndexDesc.HBASE_FAMILY);
-  cf.setMaxVersions(1);
-  tableDesc.addFamily(cf);
-  if (User.isHBaseSecurityEnabled(CONF)) {
-    tableDesc.addCoprocessor("org.apache.hadoop.hbase.security.access.SecureBulkLoadEndpoint");
-  }
-  byte[][] splitKeys=getSplits(sharding);
-  if (splitKeys.length == 0)   splitKeys=null;
-  TEST_UTIL.createTable(tableDesc,splitKeys,CONF);
-  HBaseAdmin hBaseAdmin=new HBaseAdmin(CONF);
-  hBaseAdmin.listTableNames();
 }
