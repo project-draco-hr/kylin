@@ -1,7 +1,6 @@
 {
-  JobInstance updatedJob=null;
   try {
-    updatedJob=getJob(jobInstance.getUuid());
+    JobInstance updatedJob=getJob(jobInstance.getUuid());
     if (updatedJob == null) {
       saveJob(jobInstance);
       return;
