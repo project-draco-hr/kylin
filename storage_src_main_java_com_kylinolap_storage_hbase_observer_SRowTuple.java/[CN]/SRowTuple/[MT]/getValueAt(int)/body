@@ -2,7 +2,7 @@
   int n=type.getColumnCount();
   if (i < 0 || i >= n)   return null;
   if (values[i] == null) {
-    values[i]=dictIdToString(rowkey.get(),rowkey.getOffset() + type.columnOffsets[i],type.columnSizes[i]);
+    values[i]=Dictionary.dictIdToString(rowkey.get(),rowkey.getOffset() + type.columnOffsets[i],type.columnSizes[i]);
   }
   return values[i];
 }
