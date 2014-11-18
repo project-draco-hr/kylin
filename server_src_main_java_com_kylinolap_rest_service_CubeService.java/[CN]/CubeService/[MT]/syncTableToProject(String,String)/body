@@ -1,0 +1,8 @@
+{
+  try {
+    ProjectInstance newProject=getProjectManager().updateTableToProject(tables,project);
+  }
+ catch (  IOException e) {
+    throw new InternalErrorException("Failed to deal with the request.",e);
+  }
+}
