@@ -1,0 +1,14 @@
+{
+  if (memoizedHashCode != 0) {
+    return memoizedHashCode;
+  }
+  int hash=41;
+  hash=(19 * hash) + getDescriptorForType().hashCode();
+  if (hasTableInfo()) {
+    hash=(37 * hash) + TABLEINFO_FIELD_NUMBER;
+    hash=(53 * hash) + getTableInfo().hashCode();
+  }
+  hash=(29 * hash) + getUnknownFields().hashCode();
+  memoizedHashCode=hash;
+  return hash;
+}

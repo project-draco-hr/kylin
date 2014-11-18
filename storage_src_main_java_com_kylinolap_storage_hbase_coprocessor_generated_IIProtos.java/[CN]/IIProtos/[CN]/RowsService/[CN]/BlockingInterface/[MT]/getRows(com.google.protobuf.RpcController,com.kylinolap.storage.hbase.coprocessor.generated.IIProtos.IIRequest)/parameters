@@ -1,0 +1,2 @@
+com.google.protobuf.RpcController controller
+com.kylinolap.storage.hbase.coprocessor.generated.IIProtos.IIRequest request

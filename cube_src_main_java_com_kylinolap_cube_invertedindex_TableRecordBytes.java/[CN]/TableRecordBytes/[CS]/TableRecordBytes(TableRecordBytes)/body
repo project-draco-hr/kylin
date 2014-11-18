@@ -1,0 +1,4 @@
+{
+  this.info=another.info;
+  this.buf=Bytes.copy(another.buf);
+}

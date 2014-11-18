@@ -1,3 +1,0 @@
-{
-  scpFilesToHadoopCli(new String[]{".." + File.separator + "job"+ File.separator+ "target"+ File.separator+ jobJarName},this.getHadoopCliWorkingDir());
-}

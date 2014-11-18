@@ -7,8 +7,8 @@
     cube.getDescriptor().setSignature(cube.getDescriptor().calculateSignature());
     CubeManager.getInstance(this.getTestConfig()).updateCube(cube);
   }
-  deployJarToHadoopCli();
-  deployJarToLocalDir();
-  if (deployKylinProperties)   deployKylinProperty();
-  deployJobConf(jobEnableLzo);
+  deployJobJarToLocalDir();
+  deployCoprocessorJarToLocalDir();
+  if (deployKylinProperties)   deployKylinPropertyToLocalDir();
+  deployJobConfToLocalDir(jobEnableLzo);
 }

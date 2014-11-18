@@ -26,6 +26,6 @@
     logger.info(line);
   }
   logger.info("end of the hive output stream");
-  is.close();
+  bufferedReader.close();
   return sampleTableName;
 }
