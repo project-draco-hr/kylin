@@ -3,7 +3,7 @@
     return rexBuilder.makeLiteral(true);
   }
   bb.setRoot(ImmutableList.of(leftRel,rightRel));
-  replaceSubqueries(bb,condition);
+  replaceSubqueries(bb,condition,RelOptUtil.Logic.UNKNOWN_AS_FALSE);
 switch (conditionType) {
 case ON:
     bb.setRoot(ImmutableList.of(leftRel,rightRel));

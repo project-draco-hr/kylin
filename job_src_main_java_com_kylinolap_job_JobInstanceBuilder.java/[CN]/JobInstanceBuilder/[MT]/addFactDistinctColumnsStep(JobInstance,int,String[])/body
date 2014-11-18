@@ -3,7 +3,7 @@
   String inputLocation;
   String cmd="";
   inputLocation=getIntermediateHiveTablePath();
-  cmd=appendMapReduceParameters(cmd);
+  cmd=appendMapReduceParameters(cmd,jobInstance);
   factDistinctColumnsStep.setName(JobConstants.STEP_NAME_FACT_DISTINCT_COLUMNS);
   cmd=appendExecCmdParameters(cmd,"cubename",cubeName);
   cmd=appendExecCmdParameters(cmd,"input",inputLocation);

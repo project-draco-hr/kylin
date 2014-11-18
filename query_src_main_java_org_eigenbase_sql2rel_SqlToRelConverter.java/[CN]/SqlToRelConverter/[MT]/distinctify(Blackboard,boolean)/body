@@ -19,9 +19,9 @@
       distinctify(bb,false);
       return;
     }
-    Map<Integer,Integer> squished=new HashMap<Integer,Integer>();
+    final Map<Integer,Integer> squished=Maps.newHashMap();
     final List<RelDataTypeField> fields=rel.getRowType().getFieldList();
-    List<Pair<RexNode,String>> newProjects=new ArrayList<Pair<RexNode,String>>();
+    final List<Pair<RexNode,String>> newProjects=Lists.newArrayList();
     for (int i=0; i < fields.size(); i++) {
       if (origins.get(i) == i) {
         squished.put(i,newProjects.size());
@@ -32,7 +32,7 @@
     bb.root=rel;
     distinctify(bb,false);
     rel=bb.root;
-    List<Pair<RexNode,String>> undoProjects=new ArrayList<Pair<RexNode,String>>();
+    final List<Pair<RexNode,String>> undoProjects=Lists.newArrayList();
     for (int i=0; i < fields.size(); i++) {
       final int origin=origins.get(i);
       RelDataTypeField field=fields.get(i);
@@ -42,7 +42,6 @@
     bb.setRoot(rel,false);
     return;
   }
-  List<AggregateCall> aggCalls=Collections.emptyList();
-  rel=createAggregate(bb,BitSets.range(rel.getRowType().getFieldCount()),aggCalls);
+  rel=createAggregate(bb,BitSets.range(rel.getRowType().getFieldCount()),ImmutableList.<AggregateCall>of());
   bb.setRoot(rel,false);
 }

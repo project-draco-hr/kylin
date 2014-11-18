@@ -4,12 +4,12 @@
   String cmd="";
   if (this.engineConfig.isFlatTableByHive()) {
     inputLocation=getIntermediateHiveTablePath();
-    cmd=appendMapReduceParameters(cmd);
+    cmd=appendMapReduceParameters(cmd,jobInstance);
   }
  else {
     HiveTable factTableInHive=new HiveTable(MetadataManager.getInstance(this.engineConfig.getConfig()),cube.getDescriptor().getFactTable());
     inputLocation=factTableInHive.getHDFSLocation(false);
-    cmd=appendMapReduceParameters(cmd);
+    cmd=appendMapReduceParameters(cmd,jobInstance);
     cmd=appendExecCmdParameters(cmd,"inputformat","TextInputFormat");
   }
   baseCuboidStep.setName(JobConstants.STEP_NAME_BUILD_BASE_CUBOID);
