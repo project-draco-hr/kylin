@@ -1,3 +1,4 @@
 {
-  return System.getenv("CLASSPATH");
+  Configuration conf=HBaseConfiguration.create();
+  return conf.get(HConstants.ZOOKEEPER_CLIENT_PORT);
 }

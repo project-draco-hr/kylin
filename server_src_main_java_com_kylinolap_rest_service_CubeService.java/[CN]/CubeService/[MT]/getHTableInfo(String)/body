@@ -17,13 +17,7 @@
     hr.setTableSize(tableSize);
     hr.setRegionCount(regionCount);
   }
- catch (  TableNotFoundException e) {
-    logger.error("Failed to find HTable \"" + tableName + "\"",e);
-  }
-catch (  IOException e) {
-    logger.error("Failed to calcuate size of HTable \"" + tableName + "\"",e);
-  }
- finally {
+  finally {
     if (null != table) {
       table.close();
     }

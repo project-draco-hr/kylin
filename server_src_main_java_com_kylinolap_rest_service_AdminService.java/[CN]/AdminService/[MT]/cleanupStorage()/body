@@ -5,7 +5,6 @@
     ToolRunner.run(job,args);
   }
  catch (  Exception e) {
-    logger.error(e.getLocalizedMessage(),e);
-    throw new InternalErrorException(e);
+    throw new InternalErrorException(e.getMessage(),e);
   }
 }

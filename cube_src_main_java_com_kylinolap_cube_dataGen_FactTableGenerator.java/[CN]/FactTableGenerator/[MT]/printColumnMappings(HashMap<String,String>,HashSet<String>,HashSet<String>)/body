@@ -3,8 +3,8 @@
   System.out.format("%-30s %s","FACT_TABLE_COLUMN","MAPPING");
   System.out.println();
   System.out.println();
-  for (  String key : factTableCol2LookupCol.keySet()) {
-    System.out.format("%-30s %s",key,factTableCol2LookupCol.get(key));
+  for (  Map.Entry<String,String> entry : factTableCol2LookupCol.entrySet()) {
+    System.out.format("%-30s %s",entry.getKey(),entry.getValue());
     System.out.println();
   }
   for (  String key : usedCols) {

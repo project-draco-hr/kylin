@@ -16,8 +16,7 @@
     return new User(username,"N/A",authorities);
   }
  catch (  IOException e) {
-    logger.error(e.getLocalizedMessage(),e);
-    throw new RuntimeException(e);
+    throw new RuntimeException(e.getMessage(),e);
   }
  finally {
     IOUtils.closeQuietly(htable);

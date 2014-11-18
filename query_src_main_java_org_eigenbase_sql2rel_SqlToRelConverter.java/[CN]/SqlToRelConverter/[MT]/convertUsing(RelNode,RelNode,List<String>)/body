@@ -1,5 +1,5 @@
 {
-  RexNode conditionExp=null;
+  final List<RexNode> list=Lists.newArrayList();
   for (  String name : nameList) {
     final RelDataType leftRowType=leftRel.getRowType();
     RelDataTypeField leftField=catalogReader.field(leftRowType,name);
@@ -8,12 +8,7 @@
     RelDataTypeField rightField=catalogReader.field(rightRowType,name);
     RexNode right=rexBuilder.makeInputRef(rightField.getType(),leftRowType.getFieldList().size() + rightField.getIndex());
     RexNode equalsCall=rexBuilder.makeCall(SqlStdOperatorTable.EQUALS,left,right);
-    if (conditionExp == null) {
-      conditionExp=equalsCall;
-    }
- else {
-      conditionExp=rexBuilder.makeCall(SqlStdOperatorTable.AND,conditionExp,equalsCall);
-    }
+    list.add(equalsCall);
   }
-  return conditionExp;
+  return RexUtil.composeConjunction(rexBuilder,list,false);
 }

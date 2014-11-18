@@ -6,10 +6,5 @@
   aclTableName=tableNameBase + ACL_TABLE_NAME;
   fieldAces.setAccessible(true);
   fieldAcl.setAccessible(true);
-  try {
-    HadoopUtil.createHTableIfNeeded(hbaseUrl,aclTableName,ACL_INFO_FAMILY,ACL_ACES_FAMILY);
-  }
- catch (  IOException e) {
-    logger.error(e.getLocalizedMessage(),e);
-  }
+  HBaseConnection.createHTableIfNeeded(hbaseUrl,aclTableName,ACL_INFO_FAMILY,ACL_ACES_FAMILY);
 }

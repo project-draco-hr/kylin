@@ -1,107 +1,96 @@
 {
   logger.info("Executing operation: " + opt.toString());
 switch (opt.type) {
-case COPY_FILE_IN_META:
+case CHANGE_HTABLE_HOST:
 {
-      String item=(String)opt.params[0];
-      InputStream inputStream=srcStore.getResource(item);
-      long ts=srcStore.getResourceTimestamp(item);
-      dstStore.putResource(item,inputStream,ts);
-      inputStream.close();
-      logger.info("Item " + item + " is copied");
+      String tableName=(String)opt.params[0];
+      HTableDescriptor desc=hbaseAdmin.getTableDescriptor(TableName.valueOf(tableName));
+      hbaseAdmin.disableTable(tableName);
+      desc.setValue(CubeManager.getHtableMetadataKey(),dstConfig.getMetadataUrlPrefix());
+      hbaseAdmin.modifyTable(tableName,desc);
+      hbaseAdmin.enableTable(tableName);
+      logger.info("CHANGE_HTABLE_HOST is completed");
       break;
     }
-case COPY_DICT_OR_SNAPSHOT:
+case COPY_FILE_IN_META:
 {
     String item=(String)opt.params[0];
-    if (item.toLowerCase().endsWith(".dict")) {
-      DictionaryManager dstDictMgr=DictionaryManager.getInstance(dstConfig);
-      DictionaryManager srcDicMgr=DictionaryManager.getInstance(srcConfig);
-      DictionaryInfo dictSrc=srcDicMgr.getDictionaryInfo(item);
-      DictionaryInfo dictSaved=dstDictMgr.trySaveNewDict(dictSrc.getDictionaryObject(),dictSrc);
-      if (dictSaved == dictSrc) {
-        logger.info("Item " + item + " is copied");
-      }
- else {
-        String cubeName=(String)opt.params[1];
-        String cubeResPath=CubeInstance.concatResourcePath(cubeName);
-        Serializer<CubeInstance> cubeSerializer=new JsonSerializer<CubeInstance>(CubeInstance.class);
-        CubeInstance cube=dstStore.getResource(cubeResPath,CubeInstance.class,cubeSerializer);
-        for (        CubeSegment segment : cube.getSegments()) {
-          for (          Map.Entry<String,String> entry : segment.getDictionaries().entrySet()) {
-            if (entry.getValue().equalsIgnoreCase(item)) {
-              entry.setValue(dictSaved.getResourcePath());
-            }
-          }
-        }
-        dstStore.putResource(cubeResPath,cube,cubeSerializer);
-        logger.info("Item " + item + " is dup, instead "+ dictSaved.getResourcePath()+ " is reused");
-      }
-    }
- else     if (item.toLowerCase().endsWith(".snapshot")) {
-      SnapshotManager dstSnapMgr=SnapshotManager.getInstance(dstConfig);
-      SnapshotManager srcSnapMgr=SnapshotManager.getInstance(srcConfig);
-      SnapshotTable snapSrc=srcSnapMgr.getSnapshotTable(item);
-      SnapshotTable snapSaved=dstSnapMgr.trySaveNewSnapshot(snapSrc);
-      if (snapSaved == snapSrc) {
-        logger.info("Item " + item + " is copied");
-      }
- else {
-        String cubeName=(String)opt.params[1];
-        String cubeResPath=CubeInstance.concatResourcePath(cubeName);
-        Serializer<CubeInstance> cubeSerializer=new JsonSerializer<CubeInstance>(CubeInstance.class);
-        CubeInstance cube=dstStore.getResource(cubeResPath,CubeInstance.class,cubeSerializer);
-        for (        CubeSegment segment : cube.getSegments()) {
-          for (          Map.Entry<String,String> entry : segment.getSnapshots().entrySet()) {
-            if (entry.getValue().equalsIgnoreCase(item)) {
-              entry.setValue(snapSaved.getResourcePath());
-            }
-          }
-        }
-        dstStore.putResource(cubeResPath,cube,cubeSerializer);
-        logger.info("Item " + item + " is dup, instead "+ snapSaved.getResourcePath()+ " is reused");
-      }
-    }
- else {
-      logger.error("unknown item found: " + item);
-      logger.info("ignore it");
-    }
+    InputStream inputStream=srcStore.getResource(item);
+    long ts=srcStore.getResourceTimestamp(item);
+    dstStore.putResource(item,inputStream,ts);
+    inputStream.close();
+    logger.info("Item " + item + " is copied");
     break;
   }
-case RENAME_FOLDER_IN_HDFS:
+case COPY_DICT_OR_SNAPSHOT:
 {
-  String srcPath=(String)opt.params[0];
-  String dstPath=(String)opt.params[1];
-  hdfsFS.rename(new Path(srcPath),new Path(dstPath));
-  logger.info("HDFS Folder renamed from " + srcPath + " to "+ dstPath);
+  String item=(String)opt.params[0];
+  if (item.toLowerCase().endsWith(".dict")) {
+    DictionaryManager dstDictMgr=DictionaryManager.getInstance(dstConfig);
+    DictionaryManager srcDicMgr=DictionaryManager.getInstance(srcConfig);
+    DictionaryInfo dictSrc=srcDicMgr.getDictionaryInfo(item);
+    long ts=dictSrc.getLastModified();
+    dictSrc.setLastModified(0);
+    DictionaryInfo dictSaved=dstDictMgr.trySaveNewDict(dictSrc.getDictionaryObject(),dictSrc);
+    dictSrc.setLastModified(ts);
+    if (dictSaved == dictSrc) {
+      logger.info("Item " + item + " is copied");
+    }
+ else {
+      String cubeName=(String)opt.params[1];
+      String cubeResPath=CubeInstance.concatResourcePath(cubeName);
+      Serializer<CubeInstance> cubeSerializer=new JsonSerializer<CubeInstance>(CubeInstance.class);
+      CubeInstance cube=dstStore.getResource(cubeResPath,CubeInstance.class,cubeSerializer);
+      for (      CubeSegment segment : cube.getSegments()) {
+        for (        Map.Entry<String,String> entry : segment.getDictionaries().entrySet()) {
+          if (entry.getValue().equalsIgnoreCase(item)) {
+            entry.setValue(dictSaved.getResourcePath());
+          }
+        }
+      }
+      dstStore.putResource(cubeResPath,cube,cubeSerializer);
+      logger.info("Item " + item + " is dup, instead "+ dictSaved.getResourcePath()+ " is reused");
+    }
+  }
+ else   if (item.toLowerCase().endsWith(".snapshot")) {
+    SnapshotManager dstSnapMgr=SnapshotManager.getInstance(dstConfig);
+    SnapshotManager srcSnapMgr=SnapshotManager.getInstance(srcConfig);
+    SnapshotTable snapSrc=srcSnapMgr.getSnapshotTable(item);
+    long ts=snapSrc.getLastModified();
+    snapSrc.setLastModified(0);
+    SnapshotTable snapSaved=dstSnapMgr.trySaveNewSnapshot(snapSrc);
+    snapSrc.setLastModified(ts);
+    if (snapSaved == snapSrc) {
+      logger.info("Item " + item + " is copied");
+    }
+ else {
+      String cubeName=(String)opt.params[1];
+      String cubeResPath=CubeInstance.concatResourcePath(cubeName);
+      Serializer<CubeInstance> cubeSerializer=new JsonSerializer<CubeInstance>(CubeInstance.class);
+      CubeInstance cube=dstStore.getResource(cubeResPath,CubeInstance.class,cubeSerializer);
+      for (      CubeSegment segment : cube.getSegments()) {
+        for (        Map.Entry<String,String> entry : segment.getSnapshots().entrySet()) {
+          if (entry.getValue().equalsIgnoreCase(item)) {
+            entry.setValue(snapSaved.getResourcePath());
+          }
+        }
+      }
+      dstStore.putResource(cubeResPath,cube,cubeSerializer);
+      logger.info("Item " + item + " is dup, instead "+ snapSaved.getResourcePath()+ " is reused");
+    }
+  }
+ else {
+    logger.error("unknown item found: " + item);
+    logger.info("ignore it");
+  }
   break;
 }
-case RENAME_TABLE_IN_HBASE:
+case RENAME_FOLDER_IN_HDFS:
 {
-String oldTableName=(String)opt.params[0];
-String newTableName=(String)opt.params[1];
-String snapshotName="_snapshot_" + oldTableName;
-hbaseAdmin.disableTable(oldTableName);
-hbaseAdmin.snapshot(snapshotName,oldTableName);
-hbaseAdmin.cloneSnapshot(snapshotName,newTableName);
-hbaseAdmin.deleteSnapshot(snapshotName);
-hbaseAdmin.deleteTable(oldTableName);
-logger.info("Hbase table renamed from " + oldTableName + " to "+ newTableName);
-break;
-}
-case CHANGE_HTABLE_NAME_IN_CUBE:
-{
-String cubeName=(String)opt.params[0];
-@SuppressWarnings("unchecked") HashMap<String,String> renamedHtables=(HashMap<String,String>)opt.params[1];
-String cubeResPath=CubeInstance.concatResourcePath(cubeName);
-Serializer<CubeInstance> cubeSerializer=new JsonSerializer<CubeInstance>(CubeInstance.class);
-CubeInstance cube=dstStore.getResource(cubeResPath,CubeInstance.class,cubeSerializer);
-for (CubeSegment segment : cube.getSegments()) {
-String htable=segment.getStorageLocationIdentifier().trim();
-segment.setStorageLocationIdentifier(renamedHtables.get(htable));
-}
-dstStore.putResource(cubeResPath,cube,cubeSerializer);
-logger.info("CubeInstance for " + cubeName + " is corrected");
+String srcPath=(String)opt.params[0];
+String dstPath=(String)opt.params[1];
+hdfsFS.rename(new Path(srcPath),new Path(dstPath));
+logger.info("HDFS Folder renamed from " + srcPath + " to "+ dstPath);
 break;
 }
 case ADD_INTO_PROJECT:
@@ -115,13 +104,6 @@ project.removeCube(cubeName);
 project.addCube(cubeName);
 dstStore.putResource(projectResPath,project,projectSerializer);
 logger.info("Project instance for " + projectName + " is corrected");
-break;
-}
-case ALTER_TABLE_COPROCESSOR:
-{
-String htableName=(String)opt.params[0];
-DeployCoprocessorCLI.resetCoprocessor(htableName,hbaseAdmin,dstCoprocessorPath);
-logger.info("The hbase table " + htableName + " is bound with new coprocessor "+ dstCoprocessorPath);
 break;
 }
 }

@@ -1,11 +1,18 @@
 {
   CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
   HBaseAdmin hbaseAdmin=new HBaseAdmin(conf);
-  String tableNamePrefix=cubeMgr.getHBaseStorageLocationPrefix();
+  String tableNamePrefix=CubeManager.getHBaseStorageLocationPrefix();
   HTableDescriptor[] tableDescriptors=hbaseAdmin.listTables(tableNamePrefix + ".*");
+  int count=0;
   List<String> allTablesNeedToBeDropped=new ArrayList<String>();
   for (  HTableDescriptor desc : tableDescriptors) {
-    allTablesNeedToBeDropped.add(desc.getTableName().getNameAsString());
+    String host=desc.getValue(CubeManager.getHtableMetadataKey());
+    if (StringUtils.isEmpty(host)) {
+      allTablesNeedToBeDropped.add(desc.getTableName().getNameAsString());
+    }
+ else {
+      System.out.println("Htable " + desc.getTableName() + " is excluded because its host is "+ host+ " id is "+ (++count));
+    }
   }
   for (  CubeInstance cube : cubeMgr.listAllCubes()) {
     for (    CubeSegment seg : cube.getSegments()) {

@@ -14,9 +14,7 @@
     updatedJob.setRelatedSegment(jobInstance.getRelatedSegment());
     updatedJob.setType(jobInstance.getType());
     updatedJob.clearSteps();
-    for (int i=0; i < jobInstance.getSteps().size(); i++) {
-      updatedJob.addStep(i,jobInstance.getSteps().get(i));
-    }
+    updatedJob.addSteps(jobInstance.getSteps());
     saveJob(updatedJob);
   }
  catch (  IOException e) {

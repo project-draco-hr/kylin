@@ -1,54 +1,39 @@
 {
   logger.info("Undo operation: " + opt.toString());
 switch (opt.type) {
+case CHANGE_HTABLE_HOST:
+{
+      String tableName=(String)opt.params[0];
+      HTableDescriptor desc=hbaseAdmin.getTableDescriptor(TableName.valueOf(tableName));
+      hbaseAdmin.disableTable(tableName);
+      desc.setValue(CubeManager.getHtableMetadataKey(),srcConfig.getMetadataUrlPrefix());
+      hbaseAdmin.modifyTable(tableName,desc);
+      hbaseAdmin.enableTable(tableName);
+      break;
+    }
 case COPY_FILE_IN_META:
 {
-      logger.info("Undo for COPY_FILE_IN_META is ignored");
-    }
+    logger.info("Undo for COPY_FILE_IN_META is ignored");
+    break;
+  }
 case COPY_DICT_OR_SNAPSHOT:
 {
-    logger.info("Undo for COPY_DICT_OR_SNAPSHOT is ignored");
-  }
-case RENAME_FOLDER_IN_HDFS:
-{
-  String srcPath=(String)opt.params[1];
-  String dstPath=(String)opt.params[0];
-  if (hdfsFS.exists(new Path(srcPath)) && !hdfsFS.exists(new Path(dstPath))) {
-    hdfsFS.rename(new Path(srcPath),new Path(dstPath));
-    logger.info("HDFS Folder renamed from " + srcPath + " to "+ dstPath);
-  }
+  logger.info("Undo for COPY_DICT_OR_SNAPSHOT is ignored");
   break;
 }
-case RENAME_TABLE_IN_HBASE:
+case RENAME_FOLDER_IN_HDFS:
 {
-String oldTableName=(String)opt.params[1];
-String newTableName=(String)opt.params[0];
-if (hbaseAdmin.tableExists(oldTableName) && !hbaseAdmin.tableExists(newTableName)) {
-  String snapshotName="_snapshot_" + oldTableName;
-  hbaseAdmin.disableTable(oldTableName);
-  hbaseAdmin.snapshot(snapshotName,oldTableName);
-  hbaseAdmin.cloneSnapshot(snapshotName,newTableName);
-  hbaseAdmin.deleteSnapshot(snapshotName);
-  hbaseAdmin.deleteTable(oldTableName);
-  logger.info("Hbase table renamed from " + oldTableName + " to "+ newTableName);
+String srcPath=(String)opt.params[1];
+String dstPath=(String)opt.params[0];
+if (hdfsFS.exists(new Path(srcPath)) && !hdfsFS.exists(new Path(dstPath))) {
+  hdfsFS.rename(new Path(srcPath),new Path(dstPath));
+  logger.info("HDFS Folder renamed from " + srcPath + " to "+ dstPath);
 }
-break;
-}
-case CHANGE_HTABLE_NAME_IN_CUBE:
-{
-logger.info("Undo for CHANGE_HTABLE_NAME_IN_CUBE is ignored");
 break;
 }
 case ADD_INTO_PROJECT:
 {
 logger.info("Undo for ADD_INTO_PROJECT is ignored");
-break;
-}
-case ALTER_TABLE_COPROCESSOR:
-{
-String htableName=(String)opt.params[0];
-DeployCoprocessorCLI.resetCoprocessor(htableName,hbaseAdmin,srcCoprocessorPath);
-logger.info("The hbase table " + htableName + " is bound with new coprocessor "+ srcCoprocessorPath);
 break;
 }
 }

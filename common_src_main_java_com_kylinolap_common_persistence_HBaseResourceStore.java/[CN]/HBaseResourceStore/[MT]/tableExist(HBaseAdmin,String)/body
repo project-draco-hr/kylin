@@ -1,9 +1,0 @@
-{
-  try {
-    hbase.getTableDescriptor(TableName.valueOf(table));
-    return true;
-  }
- catch (  TableNotFoundException e) {
-    return false;
-  }
-}

@@ -1,4 +1,5 @@
 {
+  if (!(implementor instanceof JavaImplementor))   throw new IllegalStateException("implementor is not JavaImplementor");
   JavaImplementor javaImplementor=(JavaImplementor)implementor;
   int ctxId=this.context.id;
   if (javaImplementor.getParentContext() != null) {

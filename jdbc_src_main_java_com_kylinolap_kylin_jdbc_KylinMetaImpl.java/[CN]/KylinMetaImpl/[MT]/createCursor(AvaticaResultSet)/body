@@ -1,4 +1,0 @@
-{
-  KylinPrepare.PrepareResult result=((KylinResultSet)resultSet).getPrepareResult();
-  return result.createCursor();
-}

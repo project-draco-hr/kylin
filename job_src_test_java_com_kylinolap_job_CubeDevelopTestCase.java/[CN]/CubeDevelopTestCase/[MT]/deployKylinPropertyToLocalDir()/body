@@ -1,0 +1,4 @@
+{
+  String srcPath=".." + File.separator + "examples"+ File.separator+ "test_case_data"+ File.separator+ "kylin.properties";
+  FileUtils.copyFileToDirectory(new File(srcPath),new File("/etc/kylin"));
+}

@@ -13,6 +13,7 @@
   String tableName=getOptionValue(OPTION_HTABLE_NAME).toUpperCase();
   HTableDescriptor tableDesc=new HTableDescriptor(TableName.valueOf(tableName));
   tableDesc.setValue(HTableDescriptor.SPLIT_POLICY,ConstantSizeRegionSplitPolicy.class.getName());
+  tableDesc.setValue(CubeManager.getHtableMetadataKey(),config.getMetadataUrlPrefix());
   Configuration conf=HBaseConfiguration.create(getConf());
   HBaseAdmin admin=new HBaseAdmin(conf);
   try {
@@ -30,7 +31,7 @@
         log.info("hbase will not use lzo to compress data");
       }
       cf.setDataBlockEncoding(DataBlockEncoding.FAST_DIFF);
-      cf.setInMemory(true);
+      cf.setInMemory(false);
       cf.setBlocksize(4 * 1024 * 1024);
       tableDesc.addFamily(cf);
     }
