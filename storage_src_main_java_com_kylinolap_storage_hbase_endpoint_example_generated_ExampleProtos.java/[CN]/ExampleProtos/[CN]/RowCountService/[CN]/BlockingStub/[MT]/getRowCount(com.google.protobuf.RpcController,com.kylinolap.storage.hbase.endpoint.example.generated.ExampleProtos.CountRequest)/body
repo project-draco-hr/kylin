@@ -1,0 +1,3 @@
+{
+  return (com.kylinolap.storage.hbase.endpoint.example.generated.ExampleProtos.CountResponse)channel.callBlockingMethod(getDescriptor().getMethods().get(0),controller,request,com.kylinolap.storage.hbase.endpoint.example.generated.ExampleProtos.CountResponse.getDefaultInstance());
+}

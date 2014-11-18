@@ -1,0 +1,9 @@
+{
+  if (other instanceof com.kylinolap.storage.hbase.endpoint.example.generated.ExampleProtos.CountResponse) {
+    return mergeFrom((com.kylinolap.storage.hbase.endpoint.example.generated.ExampleProtos.CountResponse)other);
+  }
+ else {
+    super.mergeFrom(other);
+    return this;
+  }
+}

@@ -1,0 +1,16 @@
+{
+  if (obj == this) {
+    return true;
+  }
+  if (!(obj instanceof com.kylinolap.storage.hbase.endpoint.generated.IIProtos.IIRequest)) {
+    return super.equals(obj);
+  }
+  com.kylinolap.storage.hbase.endpoint.generated.IIProtos.IIRequest other=(com.kylinolap.storage.hbase.endpoint.generated.IIProtos.IIRequest)obj;
+  boolean result=true;
+  result=result && (hasTableInfo() == other.hasTableInfo());
+  if (hasTableInfo()) {
+    result=result && getTableInfo().equals(other.getTableInfo());
+  }
+  result=result && getUnknownFields().equals(other.getUnknownFields());
+  return result;
+}
