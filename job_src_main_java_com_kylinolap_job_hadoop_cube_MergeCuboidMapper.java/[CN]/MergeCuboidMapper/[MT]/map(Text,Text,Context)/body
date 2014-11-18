@@ -8,7 +8,6 @@
   for (int i=0; i < cuboid.getColumns().size(); ++i) {
     TblColRef col=cuboid.getColumns().get(i);
     if (this.checkNeedMerging(col)) {
-      System.out.println("The col is " + col);
       DictionaryManager dictMgr=DictionaryManager.getInstance(config);
       Dictionary<?> sourceDict=dictMgr.getDictionary(sourceCubeSegment.getDictResPath(col));
       Dictionary<?> mergedDict=dictMgr.getDictionary(mergedCubeSegment.getDictResPath(col));
