@@ -1,4 +1,5 @@
 {
+  logger.info("Getting dictionary: " + resourcePath);
   DictionaryInfo dictInfo=getDictionaryInfo(resourcePath);
   return dictInfo == null ? null : dictInfo.getDictionaryObject();
 }
