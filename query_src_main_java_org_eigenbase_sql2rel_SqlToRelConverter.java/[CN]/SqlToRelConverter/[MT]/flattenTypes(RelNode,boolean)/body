@@ -1,7 +1,4 @@
 {
   RelStructuredTypeFlattener typeFlattener=new RelStructuredTypeFlattener(rexBuilder,createToRelContext());
-  RelNode newRootRel=typeFlattener.rewrite(rootRel,restructure);
-  typeFlattener.updateRelInMap(mapRefRelToCorVar);
-  typeFlattener.updateRelInMap(mapCorVarToCorRel);
-  return newRootRel;
+  return typeFlattener.rewrite(rootRel,restructure);
 }

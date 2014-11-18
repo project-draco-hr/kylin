@@ -1,17 +1,3 @@
 {
-  this.config=kylinConfig;
-  this.hdfsWorkingDirectory=kylinConfig.getHdfsWorkingDirectory();
-  this.kylinJobJarPath=kylinConfig.getKylinJobJarPath();
-  this.runAsRemoteCommand=kylinConfig.getRunAsRemoteCommand();
-  this.zookeeperString=kylinConfig.getZookeeperString();
-  this.remoteHadoopCliHostname=kylinConfig.getRemoteHadoopCliHostname();
-  this.remoteHadoopCliUsername=kylinConfig.getRemoteHadoopCliUsername();
-  this.remoteHadoopCliPassword=kylinConfig.getRemoteHadoopCliPassword();
-  this.yarnStatusServiceUrl=kylinConfig.getYarnStatusServiceUrl();
-  this.maxConcurrentJobLimit=kylinConfig.getMaxConcurrentJobLimit();
-  this.timeZone=kylinConfig.getTimeZone();
-  this.adminDls=kylinConfig.getAdminDls();
-  this.jobStepTimeout=kylinConfig.getJobStepTimeout();
-  this.asyncJobCheckInterval=kylinConfig.getYarnStatusCheckIntervalSeconds();
-  this.flatTableByHive=kylinConfig.getFlatTableByHive();
+  this.config=config;
 }
