@@ -4,5 +4,7 @@
     return;
   }
   writeVInt(array.length,out);
-  out.asIntBuffer().put(array);
+  for (int i=0; i < array.length; ++i) {
+    writeVInt(array[i],out);
+  }
 }
