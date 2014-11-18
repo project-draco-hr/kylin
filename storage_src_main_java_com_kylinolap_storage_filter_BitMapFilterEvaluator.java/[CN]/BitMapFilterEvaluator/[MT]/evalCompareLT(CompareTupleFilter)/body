@@ -1,4 +1,4 @@
 {
   int id=Dictionary.stringToDictId(filter.getFirstValue());
-  return collectRange(filter.getColumn(),0,id);
+  return collectRange(filter.getColumn(),0,id - 1);
 }
