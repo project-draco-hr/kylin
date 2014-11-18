@@ -1,5 +1,4 @@
 {
-  String owner=SecurityContextHolder.getContext().getAuthentication().getName();
   try {
     ProjectInstance newProject=getProjectManager().updateTableToProject(tables,project);
   }
