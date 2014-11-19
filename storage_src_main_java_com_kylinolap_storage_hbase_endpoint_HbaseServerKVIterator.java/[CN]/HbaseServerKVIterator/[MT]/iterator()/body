@@ -19,6 +19,7 @@
         Cell c=results.get(0);
         key.set(c.getRowArray(),c.getRowOffset(),c.getRowLength());
         value.set(c.getValueArray(),c.getValueOffset(),c.getValueLength());
+        results.clear();
         return pair;
       }
  else {
