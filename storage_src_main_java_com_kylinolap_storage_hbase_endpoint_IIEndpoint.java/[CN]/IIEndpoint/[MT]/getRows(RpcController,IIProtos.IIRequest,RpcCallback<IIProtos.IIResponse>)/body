@@ -6,7 +6,7 @@
     ByteBuffer byteBuffer=request.getTableInfo().asReadOnlyByteBuffer();
     TableRecordInfoDigest tableInfo=TableRecordInfoDigest.deserialize(byteBuffer);
     region=env.getRegion();
-    innerScanner=region.getScanner(new Scan());
+    innerScanner=region.getScanner(buildScan());
     region.startRegionOperation();
 synchronized (innerScanner) {
       IIProtos.IIResponse.Builder responseBuilder=IIProtos.IIResponse.newBuilder();
