@@ -10,7 +10,7 @@
   for (  TableDesc table : tableDescList) {
     File file=new File(tableDescDir,table.getName().toUpperCase() + "." + OUTPUT_SURFIX);
     JsonUtil.writeValueIndent(new FileOutputStream(file),table);
-    loadedTables.add(table.getName());
+    loadedTables.add(table.getDatabase() + "." + table.getName());
   }
   for (  Map<String,String> tableAttrs : tableAttrsList) {
     File file=new File(tableExdDir,tableAttrs.get("tableName").toUpperCase() + "." + OUTPUT_SURFIX);

@@ -17,9 +17,7 @@
   Set<String> loadedTables=Sets.newHashSet();
   for (  String database : db2tables.keySet()) {
     List<String> loaded=extractHiveTables(database,db2tables.get(database),metaTmpDir,config);
-    for (    String tableName : loaded) {
-      loadedTables.add(database + tableName);
-    }
+    loadedTables.addAll(loaded);
   }
   ResourceTool.copy(KylinConfig.createInstanceFromUri(metaTmpDir.getAbsolutePath()),config);
   return loadedTables;
