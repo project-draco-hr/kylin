@@ -1,3 +1,0 @@
-InputStream is
-List<TableDesc> tableDescList
-List<Map<String,String>> tableAttrsList
