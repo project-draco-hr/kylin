@@ -1,3 +1,4 @@
 JobInstance jobInstance
 int stepSeqNum
-String[] cuboidOutputTempPath
+String inputPath
+String outputPath

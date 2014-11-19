@@ -6,7 +6,7 @@
   cmd=appendExecCmdParameters(cmd,"cubename",cubeName);
   cmd=appendExecCmdParameters(cmd,"segmentname",segmentName);
   cmd=appendExecCmdParameters(cmd,"input",inputPath);
-  cmd=appendExecCmdParameters(cmd,"output",jobWorkingDir + "/" + cubeName+ "/merged_cuboid");
+  cmd=appendExecCmdParameters(cmd,"output",outputPath);
   cmd=appendExecCmdParameters(cmd,"jobname","Kylin_Merge_Cuboid_" + jobInstance.getRelatedCube() + "_Step_"+ stepSeqNum);
   mergeCuboidDataStep.setExecCmd(cmd);
   mergeCuboidDataStep.setSequenceID(stepSeqNum);

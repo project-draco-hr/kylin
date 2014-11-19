@@ -11,10 +11,11 @@
   String formattedPath=formatPaths(cuboidPaths);
   int stepSeqNum=0;
   List<JobStep> result=Lists.newArrayList();
-  result.add(createMergeCuboidDataStep(jobInstance,stepSeqNum++,formattedPath));
-  result.add(createRangeRowkeyDistributionStep(jobInstance,stepSeqNum++,jobWorkingDir + "/" + cubeName+ "/merged_cuboid"));
+  final String mergedCuboidPath=jobWorkingDir + "/" + cubeName+ "/merged_cuboid";
+  result.add(createMergeCuboidDataStep(jobInstance,stepSeqNum++,formattedPath,mergedCuboidPath));
+  result.add(createRangeRowkeyDistributionStep(jobInstance,stepSeqNum++,mergedCuboidPath));
   result.add(createCreateHTableStep(jobInstance,stepSeqNum++));
-  result.add(createConvertCuboidToHfileStep(jobInstance,stepSeqNum++,jobWorkingDir + "/" + cubeName+ "/merged_cuboid"));
+  result.add(createConvertCuboidToHfileStep(jobInstance,stepSeqNum++,mergedCuboidPath));
   result.add(createBulkLoadStep(jobInstance,stepSeqNum++));
   try {
     log.debug(JsonUtil.writeValueAsIndentString(jobInstance));
