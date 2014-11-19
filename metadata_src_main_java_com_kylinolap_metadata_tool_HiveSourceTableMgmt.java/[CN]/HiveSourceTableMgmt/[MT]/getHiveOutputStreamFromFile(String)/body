@@ -1,9 +1,0 @@
-{
-  try {
-    return new FileInputStream(new File(hiveOutputPath));
-  }
- catch (  IOException e) {
-    e.printStackTrace();
-    throw new IllegalArgumentException(e);
-  }
-}

@@ -1,0 +1,4 @@
+String database
+BufferedReader reader
+List<TableDesc> tableDescList
+List<Map<String,String>> tableAttrsList

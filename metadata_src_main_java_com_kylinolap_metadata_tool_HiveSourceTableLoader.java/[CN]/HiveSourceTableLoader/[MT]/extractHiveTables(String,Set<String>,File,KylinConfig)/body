@@ -1,0 +1,14 @@
+{
+  StringBuilder cmd=new StringBuilder();
+  cmd.append("hive -e \"");
+  if (StringUtils.isEmpty(database) == false) {
+    cmd.append("use " + database + "; ");
+  }
+  for (  String table : tables) {
+    cmd.append("show table extended like " + table + "; ");
+  }
+  cmd.append("\"");
+  OSCommandExecutor cmdExec=config.getOSCommandExecutor(cmd.toString());
+  String output=cmdExec.execute();
+  return extractTableDescFromHiveOutput(database,output,metaTmpDir);
+}

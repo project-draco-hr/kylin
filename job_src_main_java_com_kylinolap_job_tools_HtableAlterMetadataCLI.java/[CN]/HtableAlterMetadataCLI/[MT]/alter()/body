@@ -6,4 +6,5 @@
   table.setValue(metadataKey,metadataValue);
   hbaseAdmin.modifyTable(table.getTableName(),table);
   hbaseAdmin.enableTable(table.getTableName());
+  hbaseAdmin.close();
 }
