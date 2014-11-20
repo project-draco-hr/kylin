@@ -11,7 +11,7 @@
   String formattedPath=formatPaths(cuboidPaths);
   int stepSeqNum=0;
   List<JobStep> result=Lists.newArrayList();
-  final String mergedCuboidPath=jobWorkingDir + "/" + cubeName+ "/merged_cuboid";
+  final String mergedCuboidPath=jobWorkingDir + "/" + cubeName+ "/cuboid";
   result.add(createMergeCuboidDataStep(jobInstance,stepSeqNum++,formattedPath,mergedCuboidPath));
   result.add(createRangeRowkeyDistributionStep(jobInstance,stepSeqNum++,mergedCuboidPath));
   result.add(createCreateHTableStep(jobInstance,stepSeqNum++));
