@@ -1,4 +1,0 @@
-String joinType
-LinkedList<Integer> fkIndice
-String lookupTableName
-LinkedList<Pair<Integer,Integer>> dimTblColAsRowKey
