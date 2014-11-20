@@ -1,3 +1,0 @@
-{
-  createSampleCube(args[0],Integer.parseInt(args[1]));
-}

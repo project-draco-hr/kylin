@@ -3,5 +3,8 @@
   if ("double".equals(dataType) && fieldValue instanceof BigDecimal) {
     fieldValue=((BigDecimal)fieldValue).doubleValue();
   }
+ else   if ("integer".equals(dataType) && !(fieldValue instanceof Integer)) {
+    fieldValue=((Number)fieldValue).intValue();
+  }
   setFieldObjectValue(fieldName,fieldValue);
 }
