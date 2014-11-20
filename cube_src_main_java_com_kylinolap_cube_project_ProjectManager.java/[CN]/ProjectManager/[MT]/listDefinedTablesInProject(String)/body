@@ -1,0 +1,17 @@
+{
+  project=ProjectInstance.getNormalizedProjectName(project);
+  ProjectInstance projectInstance=getProject(project);
+  List<TableDesc> exposedTables=listExposedTables(project);
+  for (  TableDesc table : exposedTables) {
+    projectInstance.addTable(table.getName());
+  }
+  saveResource(projectInstance);
+  List<TableDesc> tables=Lists.newArrayList();
+  for (  String table : projectInstance.getTables()) {
+    TableDesc tableDesc=getMetadataManager().getTableDesc(table);
+    if (tableDesc != null) {
+      tables.add(tableDesc);
+    }
+  }
+  return tables;
+}
