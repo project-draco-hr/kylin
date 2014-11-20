@@ -13,7 +13,7 @@
  else   if ("short".equals(dataType) || "smallint".equals(dataType)) {
     return Short.valueOf(strValue);
   }
- else   if ("int".equals(dataType)) {
+ else   if ("integer".equals(dataType)) {
     return Integer.valueOf(strValue);
   }
  else   if ("long".equals(dataType) || "bigint".equals(dataType)) {

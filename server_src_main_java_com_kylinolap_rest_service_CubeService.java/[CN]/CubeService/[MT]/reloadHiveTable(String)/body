@@ -1,12 +1,5 @@
 {
-  String tableMetaDir=HiveSourceTableMgmt.reloadHiveTable(tables);
+  Set<String> loaded=HiveSourceTableLoader.reloadHiveTables(tables.split(","),getConfig());
   getMetadataManager().reload();
-  File metaDir=new File(tableMetaDir);
-  if (metaDir.exists()) {
-    File tableDir=new File(metaDir,HiveSourceTableMgmt.TABLE_FOLDER_NAME);
-    if (tableDir.exists()) {
-      return tableDir.list();
-    }
-  }
-  return new String[0];
+  return (String[])loaded.toArray(new String[loaded.size()]);
 }
