@@ -1,3 +1,4 @@
 {
+  HBaseMetadataTestCase.staticCreateTestMetadata();
   config=KylinConfig.getInstanceFromEnv();
 }
