@@ -1,0 +1,17 @@
+{
+  StringBuilder ddl=new StringBuilder();
+  ddl.append("DROP TABLE IF EXISTS " + tableDesc.getName() + ";\n");
+  ddl.append("CREATE TABLE " + tableDesc.getName() + "\n");
+  ddl.append("(" + "\n");
+  for (int i=0; i < tableDesc.getColumns().length; i++) {
+    ColumnDesc col=tableDesc.getColumns()[i];
+    if (i > 0) {
+      ddl.append(",");
+    }
+    ddl.append(col.getName() + " " + SqlHiveDataTypeMapping.getHiveDataType((col.getDatatype()))+ "\n");
+  }
+  ddl.append(")" + "\n");
+  ddl.append("ROW FORMAT DELIMITED FIELDS TERMINATED BY ','" + "\n");
+  ddl.append("STORED AS TEXTFILE;");
+  return ddl.toString();
+}

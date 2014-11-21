@@ -2,7 +2,8 @@
   cleanUp();
   this.execCommand("mkdir -p " + KylinConfig.getInstanceFromEnv().getKylinJobLogDir());
   retrieveJarName();
-  installMetadataToHBase();
+  ResourceTool.reset(KylinConfig.getInstanceFromEnv());
+  ResourceTool.copy(KylinConfig.createInstanceFromUri(LOCALMETA_TEST_DATA),KylinConfig.getInstanceFromEnv());
   for (  CubeInstance cube : CubeManager.getInstance(this.getTestConfig()).listAllCubes()) {
     cube.getDescriptor().setSignature(cube.getDescriptor().calculateSignature());
     CubeManager.getInstance(this.getTestConfig()).updateCube(cube);

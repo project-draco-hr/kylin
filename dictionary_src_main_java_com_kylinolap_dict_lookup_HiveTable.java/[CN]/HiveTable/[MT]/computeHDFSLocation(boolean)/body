@@ -4,8 +4,9 @@
     logger.debug("Override hive table location " + hiveTable + " -- "+ override);
     return override;
   }
-  OSCommandExecutor exec=KylinConfig.getInstanceFromEnv().getOSCommandExecutor("hive -e \"describe extended " + hiveTable + ";\"");
-  String output=exec.execute();
+  String cmd="hive -e \"describe extended " + hiveTable + ";\"";
+  CliCommandExecutor exec=KylinConfig.getInstanceFromEnv().getCliCommandExecutor();
+  String output=exec.execute(cmd);
   Pattern ptn=Pattern.compile("location:(.*?),");
   Matcher m=ptn.matcher(output);
   if (m.find() == false)   throw new IOException("Failed to find HDFS location for hive table " + hiveTable + " from output -- "+ output);

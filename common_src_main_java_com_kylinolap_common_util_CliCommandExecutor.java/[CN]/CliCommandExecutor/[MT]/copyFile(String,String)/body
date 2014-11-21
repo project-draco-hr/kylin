@@ -1,0 +1,4 @@
+{
+  if (remoteHost == null)   copyNative(localFile,destDir);
+ else   copyRemote(localFile,destDir);
+}

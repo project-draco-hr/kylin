@@ -22,7 +22,4 @@
       }
     }
   }
-  String lzoSupportness=System.getenv("KYLIN_LZO_SUPPORTED");
-  boolean lzoAvailable="true".equalsIgnoreCase(lzoSupportness);
-  initEnv(false,lzoAvailable);
 }

@@ -1,11 +1,4 @@
 {
   KylinConfig cfg=KylinConfig.getInstanceFromEnv();
-  String hostname=cfg.getRemoteHadoopCliHostname();
-  String username=cfg.getRemoteHadoopCliUsername();
-  String password=cfg.getRemoteHadoopCliPassword();
-  SSHClient ssh=new SSHClient(hostname,username,password,null);
-  SSHClientOutput output=ssh.execCommand("echo hello");
-  if (output.getExitCode() != 0 || !"hello\n".equals(output.getText())) {
-    throw new IllegalStateException("Failed to connect to " + hostname + " with given password.");
-  }
+  cfg.getCliCommandExecutor().execute("echo hello");
 }
