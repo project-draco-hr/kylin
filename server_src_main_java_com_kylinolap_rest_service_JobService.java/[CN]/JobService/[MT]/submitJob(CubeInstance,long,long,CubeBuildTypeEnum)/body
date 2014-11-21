@@ -2,7 +2,7 @@
   List<JobInstance> jobInstances=this.getJobManager().listJobs(cube.getName(),null);
   for (  JobInstance jobInstance : jobInstances) {
     if (jobInstance.getStatus() == JobStatusEnum.PENDING || jobInstance.getStatus() == JobStatusEnum.RUNNING) {
-      throw new JobException("The cube " + cube.getName() + " has running job, please discard it and try again.");
+      throw new JobException("The cube " + cube.getName() + " has running job("+ jobInstance.getUuid()+ ") please discard it and try again.");
     }
   }
   String uuid=null;
