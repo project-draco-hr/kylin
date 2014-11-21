@@ -1,5 +1,0 @@
-{
-  InputStream is=getHiveOutputStreamFromFile(hiveOutputPath);
-  extractTables(is,tableMetaOutcomeDir);
-  closeInputStream(is);
-}

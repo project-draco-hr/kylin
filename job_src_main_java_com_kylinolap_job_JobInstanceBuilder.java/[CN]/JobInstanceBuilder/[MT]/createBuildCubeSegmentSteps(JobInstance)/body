@@ -1,36 +1,28 @@
 {
-  jobInstance.clearSteps();
-  int stepSeqNum=0;
   int groupRowkeyColumnsCount=cube.getDescriptor().getRowkey().getNCuboidBuildLevels();
   int totalRowkeyColumnsCount=cube.getDescriptor().getRowkey().getRowKeyColumns().length;
   String[] cuboidOutputTempPath=getCuboidOutputPaths(cubeName,totalRowkeyColumnsCount,groupRowkeyColumnsCount);
+  int stepSeqNum=0;
+  List<JobStep> result=Lists.newArrayList();
   if (this.engineConfig.isFlatTableByHive()) {
-    addIntermediateHiveTableStep(jobInstance,stepSeqNum,cuboidOutputTempPath);
-    stepSeqNum++;
+    result.add(createIntermediateHiveTableStep(jobInstance,stepSeqNum++,cuboidOutputTempPath));
   }
-  addFactDistinctColumnsStep(jobInstance,stepSeqNum,cuboidOutputTempPath);
-  stepSeqNum++;
-  addBuildDictionaryStep(jobInstance,stepSeqNum);
-  stepSeqNum++;
-  addBaseCuboidStep(jobInstance,stepSeqNum,cuboidOutputTempPath);
-  stepSeqNum++;
+  result.add(createFactDistinctColumnsStep(jobInstance,stepSeqNum++,cuboidOutputTempPath));
+  result.add(createBuildDictionaryStep(jobInstance,stepSeqNum++));
+  result.add(createBaseCuboidStep(jobInstance,stepSeqNum++,cuboidOutputTempPath));
   for (int i=1; i <= groupRowkeyColumnsCount; i++) {
     int dimNum=totalRowkeyColumnsCount - i;
-    addNDimensionCuboidStep(jobInstance,stepSeqNum,cuboidOutputTempPath,dimNum,totalRowkeyColumnsCount);
-    stepSeqNum++;
+    result.add(createNDimensionCuboidStep(jobInstance,stepSeqNum++,cuboidOutputTempPath,dimNum,totalRowkeyColumnsCount));
   }
-  addRangeRowkeyDistributionStep(jobInstance,stepSeqNum,jobWorkingDir + "/" + cubeName+ "/cuboid/*");
-  stepSeqNum++;
-  addCreateHTableStep(jobInstance,stepSeqNum);
-  stepSeqNum++;
-  addConvertCuboidToHfileStep(jobInstance,stepSeqNum,jobWorkingDir + "/" + cubeName+ "/cuboid/*");
-  stepSeqNum++;
-  addBulkLoadStep(jobInstance,stepSeqNum);
-  stepSeqNum++;
+  result.add(createRangeRowkeyDistributionStep(jobInstance,stepSeqNum++,jobWorkingDir + "/" + cubeName+ "/cuboid/*"));
+  result.add(createCreateHTableStep(jobInstance,stepSeqNum++));
+  result.add(createConvertCuboidToHfileStep(jobInstance,stepSeqNum++,jobWorkingDir + "/" + cubeName+ "/cuboid/*"));
+  result.add(createBulkLoadStep(jobInstance,stepSeqNum++));
   try {
     log.debug(JsonUtil.writeValueAsIndentString(jobInstance));
   }
  catch (  Exception e) {
     log.error(e.getMessage());
   }
+  return result;
 }
