@@ -1,8 +1,0 @@
-{
-  File targetFile=new File(KylinConfig.getInstanceFromEnv().getCoprocessorLocalJar());
-  File parent=targetFile.getParentFile();
-  if (!parent.exists() && !parent.mkdirs()) {
-    throw new IllegalStateException("Couldn't create dir: " + parent);
-  }
-  FileUtils.copyFile(new File(".." + File.separator + "storage"+ File.separator+ "target"+ File.separator+ coprocessorJarName),targetFile);
-}

@@ -1,3 +1,0 @@
-{
-  return AbstractKylinTestCase.SANDBOX_TEST_DATA + "/";
-}

@@ -1,3 +1,0 @@
-{
-  this.execCommand("rm -rf " + this.getHadoopCliWorkingDir());
-}

@@ -1,5 +1,0 @@
-{
-  this.localFile=localFile;
-  this.destDir=destDir;
-  this.cliOutputConsumer=cliOutputConsumer;
-}
