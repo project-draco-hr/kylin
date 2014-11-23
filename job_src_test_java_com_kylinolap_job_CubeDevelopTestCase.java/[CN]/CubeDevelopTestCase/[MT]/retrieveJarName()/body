@@ -1,7 +1,0 @@
-{
-  MavenXpp3Reader pomReader=new MavenXpp3Reader();
-  Model model=pomReader.read(new FileReader("../pom.xml"));
-  String version=model.getVersion();
-  this.jobJarName="kylin-job-" + version + "-job.jar";
-  this.coprocessorJarName="kylin-storage-" + version + "-coprocessor.jar";
-}

@@ -1,7 +1,0 @@
-{
-  int exitCode=0;
-  CopyExecutor cpExecutor=new CopyExecutor(localFile,destDir,new VerboseConsumer());
-  cpExecutor.setRunAtRemote(getHadoopCliHostname(),getHadoopCliUsername(),getHadoopCliPassword());
-  exitCode=cpExecutor.execute(true);
-  assertEquals(0,exitCode);
-}
