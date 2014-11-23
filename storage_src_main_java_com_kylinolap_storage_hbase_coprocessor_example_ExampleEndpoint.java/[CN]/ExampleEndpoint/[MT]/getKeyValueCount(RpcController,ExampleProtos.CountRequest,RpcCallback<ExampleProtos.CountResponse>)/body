@@ -1,0 +1,32 @@
+{
+  ExampleProtos.CountResponse response=null;
+  InternalScanner scanner=null;
+  try {
+    scanner=env.getRegion().getScanner(new Scan());
+    List<Cell> results=new ArrayList<Cell>();
+    boolean hasMore=false;
+    long count=0;
+    do {
+      hasMore=scanner.next(results);
+      for (      Cell kv : results) {
+        count++;
+      }
+      results.clear();
+    }
+ while (hasMore);
+    response=ExampleProtos.CountResponse.newBuilder().setCount(count).build();
+  }
+ catch (  IOException ioe) {
+    ResponseConverter.setControllerException(controller,ioe);
+  }
+ finally {
+    if (scanner != null) {
+      try {
+        scanner.close();
+      }
+ catch (      IOException ignored) {
+      }
+    }
+  }
+  done.run(response);
+}

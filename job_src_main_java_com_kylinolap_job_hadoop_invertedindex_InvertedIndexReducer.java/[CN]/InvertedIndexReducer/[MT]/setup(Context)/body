@@ -6,6 +6,6 @@
   CubeSegment seg=cube.getSegment(conf.get(BatchConstants.CFG_CUBE_SEGMENT_NAME),CubeSegmentStatusEnum.NEW);
   info=new TableRecordInfo(seg);
   rec=new TableRecord(info);
-  builder=new TimeSliceBuilder(info);
+  builder=null;
   kv=new IIKeyValueCodec(info);
 }

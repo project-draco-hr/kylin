@@ -1,5 +1,5 @@
 {
-  this.prepareTestData("left");
+  DeployUtil.prepareTestData("left","test_kylin_cube_with_slr_left_join_empty");
   SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd");
   f.setTimeZone(TimeZone.getTimeZone("GMT"));
   long dateStart;

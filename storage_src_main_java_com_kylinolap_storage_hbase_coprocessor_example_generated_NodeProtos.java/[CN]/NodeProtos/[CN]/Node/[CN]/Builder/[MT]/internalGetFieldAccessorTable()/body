@@ -1,0 +1,3 @@
+{
+  return com.kylinolap.storage.hbase.coprocessor.example.generated.NodeProtos.internal_static_Node_fieldAccessorTable.ensureFieldAccessorsInitialized(com.kylinolap.storage.hbase.coprocessor.example.generated.NodeProtos.Node.class,com.kylinolap.storage.hbase.coprocessor.example.generated.NodeProtos.Node.Builder.class);
+}

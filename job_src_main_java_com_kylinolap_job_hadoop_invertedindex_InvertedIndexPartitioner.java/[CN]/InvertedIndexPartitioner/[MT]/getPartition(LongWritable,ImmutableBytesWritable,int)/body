@@ -1,4 +1,4 @@
 {
-  long ts=key.get();
-  return (int)(ts / timestampGranularity) % numPartitions;
+  rec.setBytes(value.get(),value.getOffset(),value.getLength());
+  return rec.getShard();
 }

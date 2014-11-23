@@ -1,11 +1,11 @@
 {
-  return new Iterator<TimeSlice>(){
+  return new Iterator<Slice>(){
     @Override public boolean hasNext(){
       goToNext();
       return next != null;
     }
-    @Override public TimeSlice next(){
-      TimeSlice result=next;
+    @Override public Slice next(){
+      Slice result=next;
       next=null;
       return result;
     }

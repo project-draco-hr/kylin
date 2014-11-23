@@ -7,7 +7,7 @@
     ImmutableBytesWritable k=kv.getFirst();
     ImmutableBytesWritable v=kv.getSecond();
     decodeKey(k);
-    if (curPartition != lastPartition || curSliceNo != lastSliceNo) {
+    if (curShard != lastShard || curSliceTimestamp != lastSliceTimestamp) {
       makeNext();
     }
     consumeCurrent(v);

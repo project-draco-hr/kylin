@@ -1,0 +1,4 @@
+{
+  if (scale == 0)   return value.toString();
+ else   return "" + (value.get() / scalePower);
+}

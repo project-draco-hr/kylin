@@ -1,8 +1,0 @@
-{
-  for (int i=0; i < measures.length; i++) {
-    byte[] valueBytes=getValueBytes(splitBuffers,i);
-    measures[i]=measureCodec.getSerializer(i).valueOf(valueBytes);
-  }
-  valueBuf.clear();
-  measureCodec.encode(measures,valueBuf);
-}

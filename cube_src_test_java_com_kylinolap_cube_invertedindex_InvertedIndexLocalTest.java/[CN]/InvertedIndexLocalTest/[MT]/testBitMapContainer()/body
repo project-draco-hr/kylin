@@ -11,9 +11,9 @@
   container2.fromBytes(bytes);
   int i=0;
   for (int v=dict.getMinId(); v <= dict.getMaxId(); v++) {
-    int value=container2.getValueAt(i++);
+    int value=container2.getValueIntAt(i++);
     assertEquals(v,value);
   }
-  assertEquals(Dictionary.NULL_ID[dict.getSizeOfId()],container2.getValueAt(i++));
+  assertEquals(Dictionary.NULL_ID[dict.getSizeOfId()],container2.getValueIntAt(i++));
   assertEquals(container,container2);
 }

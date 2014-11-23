@@ -1,5 +1,5 @@
 {
-  File file=new File(TEST_DATA_FOLDER,"data/TEST_KYLIN_FACT.csv");
+  File file=new File(LOCALMETA_TEST_DATA,"data/TEST_KYLIN_FACT.csv");
   FileInputStream in=new FileInputStream(file);
   List<String> lines=IOUtils.readLines(in,"UTF-8");
   in.close();
@@ -8,13 +8,13 @@
     String[] fields=line.split(",");
     TableRecord rec=new TableRecord(info);
     for (int col=0; col < fields.length; col++) {
-      rec.setValue(col,Bytes.toBytes(fields[col]));
+      rec.setValueString(col,fields[col]);
     }
     records.add(rec);
   }
   Collections.sort(records,new Comparator<TableRecord>(){
     @Override public int compare(    TableRecord a,    TableRecord b){
-      return a.getValueID(1) - b.getValueID(1);
+      return (int)(a.getTimestamp() - b.getTimestamp());
     }
   }
 );

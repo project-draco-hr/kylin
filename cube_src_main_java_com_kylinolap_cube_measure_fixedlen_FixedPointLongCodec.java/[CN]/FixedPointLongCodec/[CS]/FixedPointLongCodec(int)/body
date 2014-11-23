@@ -1,0 +1,5 @@
+{
+  scale=Math.max(0,scale);
+  this.scale=scale;
+  this.scalePower=Math.pow(10,scale);
+}

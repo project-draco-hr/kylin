@@ -1,0 +1,3 @@
+{
+  return hashFunc.newHasher().putInt(integer).hash().asLong();
+}

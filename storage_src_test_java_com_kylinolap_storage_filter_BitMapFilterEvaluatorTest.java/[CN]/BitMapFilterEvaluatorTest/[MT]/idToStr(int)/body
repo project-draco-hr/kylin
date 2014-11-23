@@ -1,0 +1,4 @@
+{
+  byte[] bytes=new byte[]{(byte)id};
+  return Dictionary.dictIdToString(bytes,0,bytes.length);
+}

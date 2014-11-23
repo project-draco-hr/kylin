@@ -1,9 +1,0 @@
-{
-  this.info=info;
-  this.nColumns=info.getColumnCount();
-  this.nRecordsCap=Math.max(1,info.getDescriptor().getSliceLength() / maxDictionaryIdSize());
-  this.containers=null;
-  this.curTimePartition=Long.MIN_VALUE;
-  this.curSliceNo=-1;
-  this.nRecords=0;
-}

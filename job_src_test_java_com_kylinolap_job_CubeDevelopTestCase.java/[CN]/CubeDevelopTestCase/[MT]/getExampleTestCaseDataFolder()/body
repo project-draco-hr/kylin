@@ -1,3 +1,3 @@
 {
-  return ".." + File.separator + "examples"+ File.separator+ "test_case_data"+ File.separator;
+  return AbstractKylinTestCase.SANDBOX_TEST_DATA + "/";
 }

@@ -1,0 +1,6 @@
+{
+  int nullId=Dictionary.stringToDictId(filter.getNullString());
+  ConciseSet bitMap=provider.getBitMap(filter.getColumn(),nullId);
+  if (bitMap == null)   return null;
+  return bitMap.clone();
+}

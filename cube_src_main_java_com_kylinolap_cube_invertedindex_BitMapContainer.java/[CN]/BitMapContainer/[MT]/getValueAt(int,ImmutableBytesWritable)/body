@@ -1,0 +1,5 @@
+{
+  int value=getValueIntAt(i);
+  BytesUtil.writeUnsigned(value,temp,0,valueLen);
+  valueBytes.set(temp,0,valueLen);
+}
