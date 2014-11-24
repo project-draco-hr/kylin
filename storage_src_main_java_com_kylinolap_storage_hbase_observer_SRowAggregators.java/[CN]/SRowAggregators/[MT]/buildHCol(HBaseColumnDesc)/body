@@ -1,5 +1,4 @@
 {
-  HBaseColumnDesc desc=rowValueDecoder.getHBaseColumn();
   byte[] family=Bytes.toBytes(desc.getColumnFamilyName());
   byte[] qualifier=Bytes.toBytes(desc.getQualifier());
   MeasureDesc[] measures=desc.getMeasures();

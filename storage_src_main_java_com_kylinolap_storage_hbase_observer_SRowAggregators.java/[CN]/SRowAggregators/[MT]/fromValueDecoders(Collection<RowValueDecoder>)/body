@@ -2,7 +2,7 @@
   HCol[] hcols=new HCol[rowValueDecoders.size()];
   int i=0;
   for (  RowValueDecoder rowValueDecoder : rowValueDecoders) {
-    hcols[i++]=buildHCol(rowValueDecoder);
+    hcols[i++]=buildHCol(rowValueDecoder.getHBaseColumn());
   }
   SRowAggregators aggrs=new SRowAggregators(hcols);
   return aggrs;
