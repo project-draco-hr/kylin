@@ -1,7 +1,11 @@
 {
   for (  ImmutableBytesWritable v : values) {
     rec.setBytes(v.get(),v.getOffset(),v.getLength());
-    TimeSlice slice=builder.append(rec);
+    if (builder == null) {
+      builder=new SliceBuilder(info,rec.getShard());
+    }
+    System.out.println(rec.getShard() + " - " + rec);
+    Slice slice=builder.append(rec);
     if (slice != null) {
       output(slice,context);
     }

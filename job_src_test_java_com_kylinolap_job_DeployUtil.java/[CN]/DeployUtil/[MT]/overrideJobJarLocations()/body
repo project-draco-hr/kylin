@@ -1,0 +1,7 @@
+{
+  Pair<File,File> files=getJobJarFiles();
+  File jobJar=files.getFirst();
+  File coprocessorJar=files.getSecond();
+  config().overrideKylinJobJarPath(jobJar.getAbsolutePath());
+  config().overrideCoprocessorLocalJar(coprocessorJar.getAbsolutePath());
+}

@@ -1,0 +1,7 @@
+{
+  BytesUtil.writeVInt(value.nColumns,out);
+  BytesUtil.writeVInt(value.byteFormLen,out);
+  BytesUtil.writeIntArray(value.offsets,out);
+  BytesUtil.writeIntArray(value.dictMaxIds,out);
+  BytesUtil.writeIntArray(value.lengths,out);
+}

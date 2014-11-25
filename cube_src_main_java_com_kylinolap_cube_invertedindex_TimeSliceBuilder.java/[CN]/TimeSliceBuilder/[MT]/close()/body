@@ -1,7 +1,0 @@
-{
-  TimeSlice doneSlice=doneSlice();
-  this.curTimePartition=Long.MIN_VALUE;
-  this.curSliceNo=-1;
-  this.nRecords=0;
-  return doneSlice;
-}

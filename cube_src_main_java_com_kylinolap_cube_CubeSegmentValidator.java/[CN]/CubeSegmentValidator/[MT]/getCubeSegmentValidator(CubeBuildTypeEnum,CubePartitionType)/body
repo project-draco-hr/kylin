@@ -1,13 +1,13 @@
 {
 switch (buildType) {
 case MERGE:
-    return new CubeSegmentValidator().new MergeOperationValidator();
+    return new MergeOperationValidator();
 case BUILD:
 switch (partitionType) {
 case APPEND:
-    return new CubeSegmentValidator().new IncrementalBuildOperationValidator();
+    return new IncrementalBuildOperationValidator();
 case UPDATE_INSERT:
-  return new CubeSegmentValidator().new UpdateBuildOperationValidator();
+  return new UpdateBuildOperationValidator();
 }
 default :
 return new CubeSegmentValidator();

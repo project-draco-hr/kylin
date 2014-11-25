@@ -11,17 +11,17 @@
  else   if (type.isDouble()) {
     double low=Double.parseDouble(range.get(0));
     double high=Double.parseDouble(range.get(1));
-    return Double.toString(r.nextDouble() * (high - low) + low);
+    return String.format("%.4f",r.nextDouble() * (high - low) + low);
   }
  else   if (type.isFloat()) {
     float low=Float.parseFloat(range.get(0));
     float high=Float.parseFloat(range.get(1));
-    return Double.toString(r.nextFloat() * (high - low) + low);
+    return String.format("%.4f",r.nextFloat() * (high - low) + low);
   }
  else   if (type.isDecimal()) {
     double low=Double.parseDouble(range.get(0));
     double high=Double.parseDouble(range.get(1));
-    return Double.toString(r.nextDouble() * (high - low) + low);
+    return String.format("%.4f",r.nextDouble() * (high - low) + low);
   }
  else   if (type.isDateTimeFamily()) {
     SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");

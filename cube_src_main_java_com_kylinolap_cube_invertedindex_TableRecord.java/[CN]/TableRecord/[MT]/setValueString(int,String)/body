@@ -1,0 +1,10 @@
+{
+  if (info().isMetrics(col)) {
+    LongWritable v=info().codec(col).valueOf(value);
+    setValueMetrics(col,v);
+  }
+ else {
+    int id=info().dict(col).getIdFromValue(value);
+    setValueID(col,id);
+  }
+}

@@ -1,0 +1,114 @@
+{
+  byte[] bytes=TupleFilterSerializer.serialize(rootFilter,new Decorator(){
+    RowKeyColumnIO columnIO=new RowKeyColumnIO(seg);
+    @Override public TupleFilter onSerialize(    TupleFilter filter){
+      if (filter == null)       return filter;
+      if (filter.getOperator() == FilterOperatorEnum.NOT && TupleFilter.isEvaluableRecursively(filter) == false)       return ConstantTupleFilter.TRUE;
+      if ((filter instanceof CompareTupleFilter) == false)       return filter;
+      if (TupleFilter.isEvaluableRecursively(filter) == false)       return ConstantTupleFilter.TRUE;
+      CompareTupleFilter compf=(CompareTupleFilter)filter;
+      TblColRef col=compf.getColumn();
+      if (col == null) {
+        return filter;
+      }
+      String nullString=nullString(col);
+      Collection<String> constValues=compf.getValues();
+      if (constValues == null || constValues.isEmpty()) {
+        compf.setNullString(nullString);
+        return filter;
+      }
+      TupleFilter result;
+      CompareTupleFilter newComp=new CompareTupleFilter(compf.getOperator());
+      newComp.setNullString(nullString);
+      newComp.addChild(new ColumnTupleFilter(col));
+      String v;
+      String firstValue=constValues.iterator().next();
+switch (newComp.getOperator()) {
+case EQ:
+case IN:
+        Set<String> newValues=Sets.newHashSet();
+      for (      String value : constValues) {
+        v=translate(col,value,0);
+        if (nullString.equals(v) == false)         newValues.add(v);
+      }
+    if (newValues.isEmpty()) {
+      result=ConstantTupleFilter.FALSE;
+    }
+ else {
+      newComp.addChild(new ConstantTupleFilter(newValues));
+      result=newComp;
+    }
+  break;
+case NEQ:
+v=translate(col,firstValue,0);
+if (nullString.equals(v)) {
+result=ConstantTupleFilter.TRUE;
+}
+ else {
+newComp.addChild(new ConstantTupleFilter(v));
+result=newComp;
+}
+break;
+case LT:
+v=translate(col,firstValue,1);
+if (nullString.equals(v)) {
+result=ConstantTupleFilter.TRUE;
+}
+ else {
+newComp.addChild(new ConstantTupleFilter(v));
+result=newComp;
+}
+break;
+case LTE:
+v=translate(col,firstValue,-1);
+if (nullString.equals(v)) {
+result=ConstantTupleFilter.FALSE;
+}
+ else {
+newComp.addChild(new ConstantTupleFilter(v));
+result=newComp;
+}
+break;
+case GT:
+v=translate(col,firstValue,-1);
+if (nullString.equals(v)) {
+result=ConstantTupleFilter.TRUE;
+}
+ else {
+newComp.addChild(new ConstantTupleFilter(v));
+result=newComp;
+}
+break;
+case GTE:
+v=translate(col,firstValue,1);
+if (nullString.equals(v)) {
+result=ConstantTupleFilter.FALSE;
+}
+ else {
+newComp.addChild(new ConstantTupleFilter(v));
+result=newComp;
+}
+break;
+default :
+throw new IllegalStateException("Cannot handle operator " + newComp.getOperator());
+}
+return result;
+}
+private String nullString(TblColRef column){
+byte[] id=new byte[columnIO.getColumnLength(column)];
+for (int i=0; i < id.length; i++) {
+id[i]=Dictionary.NULL;
+}
+return Dictionary.dictIdToString(id,0,id.length);
+}
+private String translate(TblColRef column,String v,int roundingFlag){
+byte[] value=Bytes.toBytes(v);
+byte[] id=new byte[columnIO.getColumnLength(column)];
+columnIO.writeColumn(column,value,value.length,roundingFlag,Dictionary.NULL,id,0);
+return Dictionary.dictIdToString(id,0,id.length);
+}
+}
+);
+TupleFilter copy=TupleFilterSerializer.deserialize(bytes);
+return new SRowFilter(copy);
+}

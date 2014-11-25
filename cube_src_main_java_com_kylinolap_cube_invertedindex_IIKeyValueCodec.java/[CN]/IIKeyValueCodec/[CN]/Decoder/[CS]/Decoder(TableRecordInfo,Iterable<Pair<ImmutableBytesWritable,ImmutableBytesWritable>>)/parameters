@@ -1,2 +1,0 @@
-TableRecordInfo info
-Iterable<Pair<ImmutableBytesWritable,ImmutableBytesWritable>> kvs

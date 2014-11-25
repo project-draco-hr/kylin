@@ -1,0 +1,4 @@
+short shard
+long timestamp
+int col
+int colValue

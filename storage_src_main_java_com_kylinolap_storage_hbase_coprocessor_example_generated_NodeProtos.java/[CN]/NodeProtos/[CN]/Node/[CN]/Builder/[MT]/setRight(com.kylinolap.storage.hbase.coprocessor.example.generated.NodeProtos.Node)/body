@@ -1,0 +1,14 @@
+{
+  if (rightBuilder_ == null) {
+    if (value == null) {
+      throw new NullPointerException();
+    }
+    right_=value;
+    onChanged();
+  }
+ else {
+    rightBuilder_.setMessage(value);
+  }
+  bitField0_|=0x00000004;
+  return this;
+}

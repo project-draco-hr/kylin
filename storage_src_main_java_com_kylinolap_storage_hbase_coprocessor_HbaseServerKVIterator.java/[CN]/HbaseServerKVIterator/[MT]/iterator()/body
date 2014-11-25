@@ -1,0 +1,33 @@
+{
+  return new Iterator<Pair<ImmutableBytesWritable,ImmutableBytesWritable>>(){
+    ImmutableBytesWritable key=new ImmutableBytesWritable();
+    ImmutableBytesWritable value=new ImmutableBytesWritable();
+    Pair<ImmutableBytesWritable,ImmutableBytesWritable> pair=new Pair<>(key,value);
+    private boolean hasMore=true;
+    @Override public boolean hasNext(){
+      return hasMore;
+    }
+    @Override public Pair<ImmutableBytesWritable,ImmutableBytesWritable> next(){
+      if (!hasNext()) {
+        try {
+          hasMore=innerScaner.nextRaw(results);
+        }
+ catch (        IOException e) {
+          throw new RuntimeException(e);
+        }
+        if (results.size() < 1)         throw new IllegalStateException("Hbase row contains less than 1 row");
+        Cell c=results.get(0);
+        key.set(c.getRowArray(),c.getRowOffset(),c.getRowLength());
+        value.set(c.getValueArray(),c.getValueOffset(),c.getValueLength());
+        return pair;
+      }
+ else {
+        return null;
+      }
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+  }
+;
+}

@@ -9,7 +9,7 @@
   }
   rec.reset();
   for (int i=0; i < nParts; i++) {
-    rec.setValue(i,parts[i].value,0,parts[i].length);
+    rec.setValueString(i,Bytes.toString(parts[i].value,0,parts[i].length));
   }
   outputKey.set(rec.getTimestamp());
   context.write(outputKey,outputValue);

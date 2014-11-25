@@ -3,10 +3,9 @@
     addBitMapContainer(lastCol);
   }
   if (containers != null) {
-    next=new TimeSlice(info,lastPartition,lastSliceNo,containers);
+    next=new Slice(info,lastShard,lastSliceTimestamp,containers);
   }
-  lastPartition=Long.MIN_VALUE;
-  lastSliceNo=-1;
+  lastSliceTimestamp=Long.MIN_VALUE;
   lastCol=-1;
   containers=null;
   bitMapValues.clear();

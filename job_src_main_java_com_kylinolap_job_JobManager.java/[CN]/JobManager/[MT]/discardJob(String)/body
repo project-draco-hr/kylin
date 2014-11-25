@@ -10,17 +10,25 @@ case RUNNING:
       CubeManager.getInstance(config).updateSegmentOnJobDiscard(cube,jobInstance.getRelatedSegment());
     }
   break;
-case ERROR:
+case PENDING:
 try {
-  for (  JobStep jobStep : jobInstance.getSteps()) {
-    if (jobStep.getStatus() != JobStepStatusEnum.FINISHED) {
-      jobStep.setStatus(JobStepStatusEnum.DISCARDED);
-    }
-  }
-  jobDAO.updateJobInstance(jobInstance);
+  killRunningJob(jobInstance);
 }
   finally {
   CubeManager.getInstance(config).updateSegmentOnJobDiscard(cube,jobInstance.getRelatedSegment());
+}
+break;
+case ERROR:
+try {
+for (JobStep jobStep : jobInstance.getSteps()) {
+if (jobStep.getStatus() != JobStepStatusEnum.FINISHED) {
+  jobStep.setStatus(JobStepStatusEnum.DISCARDED);
+}
+}
+jobDAO.updateJobInstance(jobInstance);
+}
+  finally {
+CubeManager.getInstance(config).updateSegmentOnJobDiscard(cube,jobInstance.getRelatedSegment());
 }
 break;
 default :

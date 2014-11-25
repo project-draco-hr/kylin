@@ -1,0 +1,3 @@
+{
+  kylinConfig.setProperty(KYLIN_JOB_JAR,path);
+}
