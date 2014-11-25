@@ -1,5 +1,6 @@
 {
-  new File("/tmp/kylin/logs/").mkdirs();
+  String logDir=KylinConfig.getInstanceFromEnv().getKylinJobLogDir();
+  new File(logDir).mkdirs();
   log.info("Starting scheduler.");
   this.scheduler.start();
   this.scheduler.scheduleFetcher(this.daemonJobIntervalInSeconds,this.engineConfig);

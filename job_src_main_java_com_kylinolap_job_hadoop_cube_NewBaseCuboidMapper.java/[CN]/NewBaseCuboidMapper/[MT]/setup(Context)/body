@@ -1,0 +1,21 @@
+{
+  cubeName=context.getConfiguration().get(BatchConstants.CFG_CUBE_NAME).toUpperCase();
+  segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME);
+  KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata(context.getConfiguration());
+  metadataManager=MetadataManager.getInstance(config);
+  cube=CubeManager.getInstance(config).getCube(cubeName);
+  cubeSegment=cube.getSegment(segmentName,CubeSegmentStatusEnum.NEW);
+  cubeDesc=cube.getDescriptor();
+  factTableDesc=metadataManager.getTableDesc(cubeDesc.getFactTable());
+  long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
+  baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
+  rowKeyEncoder=AbstractRowKeyEncoder.createInstance(cubeSegment,baseCuboid);
+  measureCodec=new MeasureCodec(cubeDesc.getMeasures());
+  measures=new Object[cubeDesc.getMeasures().size()];
+  int colCount=cubeDesc.getRowkey().getRowKeyColumns().length;
+  keyBytesBuf=new byte[colCount][];
+  bytesSplitter=new BytesSplitter(factTableDesc.getColumns().length,4096);
+  nullValue=new byte[]{(byte)'\\',(byte)'N'};
+  prepareJoins();
+  prepareMetrics();
+}

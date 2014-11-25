@@ -3,8 +3,13 @@
   CubeSegment cubeSegment=cubeInstance.getSegment(segmentName,CubeSegmentStatusEnum.NEW);
 switch (buildType) {
 case BUILD:
-    if (segmentsInNewStatus.size() == 1) {
-      cubeInstance.getSegments().removeAll(cubeInstance.getRebuildingSegments());
+    if (cubeInstance.incrementalBuildOnHll()) {
+      cubeInstance.getSegments().removeAll(cubeInstance.getMergingSegments());
+    }
+ else {
+      if (segmentsInNewStatus.size() == 1) {
+        cubeInstance.getSegments().removeAll(cubeInstance.getRebuildingSegments());
+      }
     }
   break;
 case MERGE:

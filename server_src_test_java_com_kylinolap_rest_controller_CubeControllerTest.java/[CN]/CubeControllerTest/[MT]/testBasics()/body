@@ -5,7 +5,8 @@
   Assert.assertNotNull(cubeController.getCubes(null,null,0,5));
   CubeDesc cube=cubes[0];
   CubeDesc newCube=new CubeDesc();
-  newCube.setName(cube.getName() + "_test_save");
+  String newCubeName=cube.getName() + "_test_save";
+  newCube.setName(newCubeName);
   newCube.setDimensions(cube.getDimensions());
   newCube.setHBaseMapping(cube.getHBaseMapping());
   newCube.setMeasures(cube.getMeasures());
@@ -18,4 +19,5 @@
   CubeRequest cubeRequest=new CubeRequest();
   cubeRequest.setCubeDescData(stringWriter.toString());
   cubeRequest=cubeController.saveCubeDesc(cubeRequest);
+  cubeController.deleteCube(newCubeName);
 }

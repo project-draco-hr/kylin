@@ -1,32 +1,38 @@
 {
   if (cubeInstance.getBuildingSegments().size() > 0) {
-    throw new RuntimeException("There is already a allocating segment!");
+    throw new RuntimeException("There is already an allocating segment!");
   }
   List<CubeSegment> segments=new ArrayList<CubeSegment>();
   if (null != cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateColumn()) {
-    if (startDate == 0 && cubeInstance.getSegments().size() == 0) {
-      startDate=cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateStart();
+    if (cubeInstance.incrementalBuildOnHll()) {
+      long[] dateRange=cubeInstance.getDateRange();
+      segments.add(buildSegment(cubeInstance,dateRange[0],endDate));
     }
-    CubeSegment lastSegment=null;
-    for (    CubeSegment segment : cubeInstance.getSegments()) {
-      if (segment.getDateRangeStart() == startDate) {
+ else {
+      if (startDate == 0 && cubeInstance.getSegments().size() == 0) {
+        startDate=cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateStart();
+      }
+      CubeSegment lastSegment=null;
+      for (      CubeSegment segment : cubeInstance.getSegments()) {
+        if (segment.getDateRangeStart() == startDate) {
+          segments.add(buildSegment(cubeInstance,startDate,endDate));
+        }
+        if (segment.getDateRangeStart() < startDate && startDate < segment.getDateRangeEnd()) {
+          segments.add(buildSegment(cubeInstance,segment.getDateRangeStart(),startDate));
+          segments.add(buildSegment(cubeInstance,startDate,endDate));
+        }
+        lastSegment=segment;
+      }
+      if (null == lastSegment || (lastSegment.getDateRangeEnd() == startDate)) {
         segments.add(buildSegment(cubeInstance,startDate,endDate));
       }
-      if (segment.getDateRangeStart() < startDate && startDate < segment.getDateRangeEnd()) {
-        segments.add(buildSegment(cubeInstance,segment.getDateRangeStart(),startDate));
-        segments.add(buildSegment(cubeInstance,startDate,endDate));
-      }
-      lastSegment=segment;
-    }
-    if (null == lastSegment || (lastSegment.getDateRangeEnd() == startDate)) {
-      segments.add(buildSegment(cubeInstance,startDate,endDate));
     }
   }
  else {
     segments.add(buildSegment(cubeInstance,0,0));
   }
   validateNewSegments(cubeInstance,buildType,segments);
-  if (buildType == CubeBuildTypeEnum.MERGE) {
+  if (buildType == CubeBuildTypeEnum.MERGE || cubeInstance.incrementalBuildOnHll()) {
     this.makeDictForNewSegment(cubeInstance,segments.get(0));
     this.makeSnapshotForNewSegment(cubeInstance,segments.get(0));
   }

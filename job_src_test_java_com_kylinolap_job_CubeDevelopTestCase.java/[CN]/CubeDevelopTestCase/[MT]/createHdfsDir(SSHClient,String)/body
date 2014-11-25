@@ -1,0 +1,5 @@
+{
+  String cmd="hadoop fs -mkdir -p " + hdfsDir;
+  assertEquals(0,hadoopCli.execCommand(cmd));
+  assertEquals(0,hadoopCli.execCommand("hadoop fs -chmod 777 " + hdfsDir));
+}
