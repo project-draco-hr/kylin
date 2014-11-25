@@ -1,28 +1,14 @@
 {
   String tableName=seg.getStorageLocationIdentifier();
   HTableInterface table=hconn.getTable(tableName);
-  final TableRecordInfoDigest recordInfo=new TableRecordInfo(seg);
-  final IIProtos.IIRequest request=IIProtos.IIRequest.newBuilder().setTableInfo(ByteString.copyFrom(TableRecordInfoDigest.serialize(recordInfo))).build();
-  Map<byte[],List<TableRecord>> results=table.coprocessorService(IIProtos.RowsService.class,null,null,new Batch.Call<IIProtos.RowsService,List<TableRecord>>(){
-    public List<TableRecord> call(    IIProtos.RowsService counter) throws IOException {
-      ServerRpcController controller=new ServerRpcController();
-      BlockingRpcCallback<IIProtos.IIResponse> rpcCallback=new BlockingRpcCallback<>();
-      counter.getRows(controller,request,rpcCallback);
-      IIProtos.IIResponse response=rpcCallback.get();
-      if (controller.failedOnException()) {
-        throw controller.getFailedOn();
-      }
-      List<TableRecord> records=new ArrayList<>();
-      for (      ByteString raw : response.getRowsList()) {
-        TableRecord record=new TableRecord(recordInfo);
-        record.setBytes(raw.toByteArray(),0,raw.size());
-        records.add(record);
-      }
-      return records;
-    }
-  }
-);
-  for (  Map.Entry<byte[],List<TableRecord>> entry : results.entrySet()) {
-    System.out.println("result count : " + entry.getValue().size());
-  }
+  TableDesc tableDesc=MetadataManager.getInstance(getTestConfig()).getTableDesc("test_kylin_fact");
+  ColumnDesc columnDesc=tableDesc.findColumnByName("LSTG_FORMAT_NAME");
+  TblColRef lfn=new TblColRef(columnDesc);
+  TupleFilter filterA=mockEQFiter("ABIN",lfn);
+  TupleFilter filterB=mockNEQFiter("ABIN",lfn);
+  IIProtos.IIRequest requestA=prepareRequest(filterA);
+  IIProtos.IIRequest requestB=prepareRequest(filterB);
+  int resultA=getResults(requestA,table).size();
+  int resultB=getResults(requestB,table).size();
+  assertEquals(resultA + resultB,10000);
 }

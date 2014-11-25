@@ -2,5 +2,13 @@
   super.clear();
   tableInfo_=com.google.protobuf.ByteString.EMPTY;
   bitField0_=(bitField0_ & ~0x00000001);
+  sRowType_=com.google.protobuf.ByteString.EMPTY;
+  bitField0_=(bitField0_ & ~0x00000002);
+  sRowFilter_=com.google.protobuf.ByteString.EMPTY;
+  bitField0_=(bitField0_ & ~0x00000004);
+  sRowProjector_=com.google.protobuf.ByteString.EMPTY;
+  bitField0_=(bitField0_ & ~0x00000008);
+  sRowAggregator_=com.google.protobuf.ByteString.EMPTY;
+  bitField0_=(bitField0_ & ~0x00000010);
   return this;
 }

@@ -1,3 +1,7 @@
 {
   tableInfo_=com.google.protobuf.ByteString.EMPTY;
+  sRowType_=com.google.protobuf.ByteString.EMPTY;
+  sRowFilter_=com.google.protobuf.ByteString.EMPTY;
+  sRowProjector_=com.google.protobuf.ByteString.EMPTY;
+  sRowAggregator_=com.google.protobuf.ByteString.EMPTY;
 }

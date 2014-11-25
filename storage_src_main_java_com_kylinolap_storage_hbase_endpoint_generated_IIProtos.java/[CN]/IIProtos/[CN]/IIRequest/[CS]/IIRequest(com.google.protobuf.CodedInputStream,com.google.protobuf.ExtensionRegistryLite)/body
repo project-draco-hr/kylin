@@ -23,6 +23,30 @@ case 10:
     tableInfo_=input.readBytes();
     break;
   }
+case 18:
+{
+  bitField0_|=0x00000002;
+  sRowType_=input.readBytes();
+  break;
+}
+case 26:
+{
+bitField0_|=0x00000004;
+sRowFilter_=input.readBytes();
+break;
+}
+case 34:
+{
+bitField0_|=0x00000008;
+sRowProjector_=input.readBytes();
+break;
+}
+case 42:
+{
+bitField0_|=0x00000010;
+sRowAggregator_=input.readBytes();
+break;
+}
 }
 }
 }

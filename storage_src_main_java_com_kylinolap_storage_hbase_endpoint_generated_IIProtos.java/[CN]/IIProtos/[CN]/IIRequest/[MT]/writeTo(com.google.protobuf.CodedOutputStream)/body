@@ -3,5 +3,17 @@
   if (((bitField0_ & 0x00000001) == 0x00000001)) {
     output.writeBytes(1,tableInfo_);
   }
+  if (((bitField0_ & 0x00000002) == 0x00000002)) {
+    output.writeBytes(2,sRowType_);
+  }
+  if (((bitField0_ & 0x00000004) == 0x00000004)) {
+    output.writeBytes(3,sRowFilter_);
+  }
+  if (((bitField0_ & 0x00000008) == 0x00000008)) {
+    output.writeBytes(4,sRowProjector_);
+  }
+  if (((bitField0_ & 0x00000010) == 0x00000010)) {
+    output.writeBytes(5,sRowAggregator_);
+  }
   getUnknownFields().writeTo(output);
 }

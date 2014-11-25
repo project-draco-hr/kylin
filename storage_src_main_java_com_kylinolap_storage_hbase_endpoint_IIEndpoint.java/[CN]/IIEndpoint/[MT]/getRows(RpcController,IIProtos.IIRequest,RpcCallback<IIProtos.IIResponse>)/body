@@ -1,4 +1,20 @@
 {
+  SRowType type=null;
+  SRowProjector projector=null;
+  SRowAggregators aggregators=null;
+  SRowFilter filter=null;
+  if (request.hasSRowType()) {
+    type=SRowType.deserialize(request.getSRowType().toByteArray());
+  }
+  if (request.hasSRowProjector()) {
+    projector=SRowProjector.deserialize(request.getSRowProjector().toByteArray());
+  }
+  if (request.hasSRowAggregator()) {
+    aggregators=SRowAggregators.deserialize(request.getSRowAggregator().toByteArray());
+  }
+  if (request.hasSRowFilter()) {
+    filter=SRowFilter.deserialize(request.getSRowFilter().toByteArray());
+  }
   IIProtos.IIResponse response=null;
   RegionScanner innerScanner=null;
   HRegion region=null;
@@ -12,8 +28,20 @@ synchronized (innerScanner) {
       IIProtos.IIResponse.Builder responseBuilder=IIProtos.IIResponse.newBuilder();
       IIKeyValueCodec codec=new IIKeyValueCodec(tableInfo);
       for (      Slice slice : codec.decodeKeyValue(new HbaseServerKVIterator(innerScanner))) {
-        for (        TableRecordBytes recordBytes : slice) {
-          responseBuilder.addRows(ByteString.copyFrom(recordBytes.getBytes()));
+        if (filter != null) {
+          ConciseSet result=new BitMapFilterEvaluator(new SliceBitMapProvider(slice,type)).evaluate(filter.getFilter());
+          int index=0;
+          for (          TableRecordBytes recordBytes : slice) {
+            if (result.contains(index)) {
+              responseBuilder.addRows(ByteString.copyFrom(recordBytes.getBytes()));
+            }
+            index++;
+          }
+        }
+ else {
+          for (          TableRecordBytes recordBytes : slice) {
+            responseBuilder.addRows(ByteString.copyFrom(recordBytes.getBytes()));
+          }
         }
       }
       response=responseBuilder.build();

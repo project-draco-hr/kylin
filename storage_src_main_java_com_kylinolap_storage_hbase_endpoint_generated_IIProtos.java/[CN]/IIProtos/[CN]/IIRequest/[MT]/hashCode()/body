@@ -8,6 +8,22 @@
     hash=(37 * hash) + TABLEINFO_FIELD_NUMBER;
     hash=(53 * hash) + getTableInfo().hashCode();
   }
+  if (hasSRowType()) {
+    hash=(37 * hash) + SROWTYPE_FIELD_NUMBER;
+    hash=(53 * hash) + getSRowType().hashCode();
+  }
+  if (hasSRowFilter()) {
+    hash=(37 * hash) + SROWFILTER_FIELD_NUMBER;
+    hash=(53 * hash) + getSRowFilter().hashCode();
+  }
+  if (hasSRowProjector()) {
+    hash=(37 * hash) + SROWPROJECTOR_FIELD_NUMBER;
+    hash=(53 * hash) + getSRowProjector().hashCode();
+  }
+  if (hasSRowAggregator()) {
+    hash=(37 * hash) + SROWAGGREGATOR_FIELD_NUMBER;
+    hash=(53 * hash) + getSRowAggregator().hashCode();
+  }
   hash=(29 * hash) + getUnknownFields().hashCode();
   memoizedHashCode=hash;
   return hash;
