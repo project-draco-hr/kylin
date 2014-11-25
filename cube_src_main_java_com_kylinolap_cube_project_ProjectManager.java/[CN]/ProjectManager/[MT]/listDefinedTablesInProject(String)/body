@@ -1,4 +1,7 @@
 {
+  if (null == project) {
+    return Collections.emptyList();
+  }
   project=ProjectInstance.getNormalizedProjectName(project);
   ProjectInstance projectInstance=getProject(project);
   int originTableCount=projectInstance.getTablesCount();
