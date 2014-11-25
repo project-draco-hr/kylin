@@ -1,0 +1,4 @@
+{
+  String hiveCmd="hive -e \"" + hql + "\"";
+  execCommand(hiveCmd);
+}

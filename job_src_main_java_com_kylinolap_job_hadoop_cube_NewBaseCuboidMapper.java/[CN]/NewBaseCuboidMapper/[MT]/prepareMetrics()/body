@@ -1,0 +1,20 @@
+{
+  List<MeasureDesc> measures=cubeDesc.getMeasures();
+  int measureSize=measures.size();
+  measureColumnIndice=new int[measureSize][];
+  for (int i=0; i < measureSize; i++) {
+    FunctionDesc func=measures.get(i).getFunction();
+    List<TblColRef> colRefs=func.getParameter().getColRefs();
+    if (colRefs == null) {
+      measureColumnIndice[i]=null;
+    }
+ else {
+      measureColumnIndice[i]=new int[colRefs.size()];
+      for (int j=0; j < colRefs.size(); j++) {
+        TblColRef c=colRefs.get(j);
+        int factTblIdx=factTableDesc.findColumnByName(c.getName()).getZeroBasedIndex();
+        measureColumnIndice[i][j]=factTblIdx;
+      }
+    }
+  }
+}
