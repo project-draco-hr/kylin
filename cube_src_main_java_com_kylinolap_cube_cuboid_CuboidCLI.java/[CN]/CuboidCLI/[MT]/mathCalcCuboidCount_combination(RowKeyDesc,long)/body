@@ -1,7 +1,7 @@
 {
   if (colMask == 0)   return 0;
   int count=1;
-  for (  HierarchyMask hierMask : cube.getRowkey().getHierarchyMasks()) {
+  for (  HierarchyMask hierMask : rowkey.getHierarchyMasks()) {
     long hierBits=colMask & hierMask.fullMask;
     if (hierBits != 0) {
       count*=Long.bitCount(hierBits) + 1;

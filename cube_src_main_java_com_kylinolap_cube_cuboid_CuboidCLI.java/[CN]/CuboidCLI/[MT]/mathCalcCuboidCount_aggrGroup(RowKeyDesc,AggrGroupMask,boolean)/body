@@ -1,0 +1,14 @@
+{
+  long groupMask=aggrGroupMask.groupMask;
+  int n=mathCalcCuboidCount_combination(rowkey,groupMask);
+  n-=2;
+  long nonUniqueMask=groupMask & (~aggrGroupMask.uniqueMask);
+  if (nonUniqueMask > 0) {
+    n-=mathCalcCuboidCount_combination(rowkey,nonUniqueMask) - 1;
+  }
+  if (hasTail) {
+    n*=2;
+    n+=2;
+  }
+  return n;
+}
