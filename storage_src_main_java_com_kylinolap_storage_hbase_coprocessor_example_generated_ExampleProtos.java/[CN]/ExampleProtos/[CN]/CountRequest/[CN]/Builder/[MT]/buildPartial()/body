@@ -1,0 +1,5 @@
+{
+  com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountRequest result=new com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountRequest(this);
+  onBuilt();
+  return result;
+}

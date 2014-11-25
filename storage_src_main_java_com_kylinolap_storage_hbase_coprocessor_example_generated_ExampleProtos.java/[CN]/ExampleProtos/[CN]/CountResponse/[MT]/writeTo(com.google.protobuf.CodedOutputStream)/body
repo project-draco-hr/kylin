@@ -1,0 +1,7 @@
+{
+  getSerializedSize();
+  if (((bitField0_ & 0x00000001) == 0x00000001)) {
+    output.writeInt64(1,count_);
+  }
+  getUnknownFields().writeTo(output);
+}

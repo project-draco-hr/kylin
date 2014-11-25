@@ -12,13 +12,13 @@
     return Integer.toString(r.nextInt(128));
   }
  else   if (s.equals("double")) {
-    return Double.toString(r.nextDouble() * 100);
+    return String.format("%.4f",r.nextDouble() * 100);
   }
  else   if (s.equals("float")) {
-    return Double.toString(r.nextFloat() * 100);
+    return String.format("%.4f",r.nextFloat() * 100);
   }
  else   if (s.equals("decimal")) {
-    return Double.toString(r.nextDouble() * 100);
+    return String.format("%.4f",r.nextDouble() * 100);
   }
  else   if (s.equals("date")) {
     long date20131231=61349312153265L;

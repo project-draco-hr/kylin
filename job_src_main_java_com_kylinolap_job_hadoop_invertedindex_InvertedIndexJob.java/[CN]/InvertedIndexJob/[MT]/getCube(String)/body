@@ -1,0 +1,6 @@
+{
+  CubeManager mgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
+  CubeInstance cube=mgr.getCube(cubeName);
+  if (cube == null)   throw new IllegalArgumentException("No Inverted Index Cubefound by name " + cubeName);
+  return cube;
+}

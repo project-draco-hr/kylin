@@ -1,0 +1,7 @@
+{
+  List<ImmutableBytesWritable> values=container.toBytes();
+  for (int v=0; v < values.size(); v++) {
+    ImmutableBytesWritable key=encodeKey(slice.getShard(),slice.getTimestamp(),col,v);
+    result.add(new Pair<ImmutableBytesWritable,ImmutableBytesWritable>(key,values.get(v)));
+  }
+}

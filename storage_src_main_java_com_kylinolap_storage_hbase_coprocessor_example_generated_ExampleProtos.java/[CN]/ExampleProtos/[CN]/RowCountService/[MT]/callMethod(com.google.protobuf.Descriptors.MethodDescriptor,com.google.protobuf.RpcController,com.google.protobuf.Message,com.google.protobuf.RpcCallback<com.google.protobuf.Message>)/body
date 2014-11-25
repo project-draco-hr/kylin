@@ -1,0 +1,15 @@
+{
+  if (method.getService() != getDescriptor()) {
+    throw new java.lang.IllegalArgumentException("Service.callMethod() given method descriptor for wrong " + "service type.");
+  }
+switch (method.getIndex()) {
+case 0:
+    this.getRowCount(controller,(com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountRequest)request,com.google.protobuf.RpcUtil.<com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountResponse>specializeCallback(done));
+  return;
+case 1:
+this.getKeyValueCount(controller,(com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountRequest)request,com.google.protobuf.RpcUtil.<com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountResponse>specializeCallback(done));
+return;
+default :
+throw new java.lang.AssertionError("Can't get here.");
+}
+}

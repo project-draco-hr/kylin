@@ -1,0 +1,13 @@
+{
+  List<? extends TupleFilter> children=filter.getChildren();
+switch (filter.getOperator()) {
+case AND:
+    return evalLogicalAnd(children);
+case OR:
+  return evalLogicalOr(children);
+case NOT:
+return evalLogicalNot(children);
+default :
+throw new IllegalStateException("Unsupported operator " + filter.getOperator());
+}
+}

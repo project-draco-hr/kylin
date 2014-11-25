@@ -1,0 +1,4 @@
+{
+  current.set(BytesUtil.readLong(buf,offset,SIZE));
+  return current;
+}

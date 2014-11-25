@@ -1,9 +1,0 @@
-{
-  List<TableRecord> records=Lists.newArrayList();
-  for (  TimeSlice slice : slices) {
-    for (    TableRecord rec : slice) {
-      records.add((TableRecord)rec.clone());
-    }
-  }
-  return records;
-}

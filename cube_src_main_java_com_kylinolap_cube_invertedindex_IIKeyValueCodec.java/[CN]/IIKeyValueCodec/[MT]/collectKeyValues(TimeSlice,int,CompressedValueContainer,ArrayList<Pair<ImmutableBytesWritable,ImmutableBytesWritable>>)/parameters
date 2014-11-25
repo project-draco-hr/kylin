@@ -1,4 +1,0 @@
-TimeSlice slice
-int col
-CompressedValueContainer container
-ArrayList<Pair<ImmutableBytesWritable,ImmutableBytesWritable>> result

@@ -1,4 +1,5 @@
 {
+  if (isRemote == false)   return;
   SSHClient ssh=new SSHClient(this.hostname,this.username,this.password,null);
   SSHClientOutput output=ssh.execCommand("echo hello");
   assertEquals(0,output.getExitCode());
