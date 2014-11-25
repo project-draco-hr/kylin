@@ -28,20 +28,13 @@ synchronized (innerScanner) {
       IIProtos.IIResponse.Builder responseBuilder=IIProtos.IIResponse.newBuilder();
       IIKeyValueCodec codec=new IIKeyValueCodec(tableInfo);
       for (      Slice slice : codec.decodeKeyValue(new HbaseServerKVIterator(innerScanner))) {
+        ConciseSet result=null;
         if (filter != null) {
-          ConciseSet result=new BitMapFilterEvaluator(new SliceBitMapProvider(slice,type)).evaluate(filter.getFilter());
-          int index=0;
-          for (          TableRecordBytes recordBytes : slice) {
-            if (result.contains(index)) {
-              responseBuilder.addRows(ByteString.copyFrom(recordBytes.getBytes()));
-            }
-            index++;
-          }
+          result=new BitMapFilterEvaluator(new SliceBitMapProvider(slice,type)).evaluate(filter.getFilter());
         }
- else {
-          for (          TableRecordBytes recordBytes : slice) {
-            responseBuilder.addRows(ByteString.copyFrom(recordBytes.getBytes()));
-          }
+        Iterator<TableRecordBytes> iterator=slice.iterateWithBitmap(result);
+        while (iterator.hasNext()) {
+          responseBuilder.addRows(ByteString.copyFrom(iterator.next().getBytes()));
         }
       }
       response=responseBuilder.build();
