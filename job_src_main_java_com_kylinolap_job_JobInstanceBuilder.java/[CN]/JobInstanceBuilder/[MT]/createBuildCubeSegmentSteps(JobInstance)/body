@@ -20,8 +20,7 @@
   if (incBuildMerge) {
     List<String> pathToMerge=Lists.newArrayList();
     for (    CubeSegment segment : cube.getSegments(CubeSegmentStatusEnum.READY)) {
-      String path=JobInstance.getJobWorkingDir(segment.getUuid(),engineConfig.getHdfsWorkingDirectory()) + "/" + jobInstance.getRelatedCube()+ "/cuboid/*";
-      pathToMerge.add(path);
+      pathToMerge.add(getPathToMerge(jobInstance,segment));
     }
     pathToMerge.add(cuboidTmpRootPath + "*");
     result.add(createMergeCuboidDataStep(jobInstance,stepSeqNum++,formatPaths(pathToMerge),cuboidRootPath));
