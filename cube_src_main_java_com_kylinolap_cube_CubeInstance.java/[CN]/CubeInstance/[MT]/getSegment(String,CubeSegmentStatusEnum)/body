@@ -1,5 +1,5 @@
 {
-  for (  CubeSegment segment : this.getSegments()) {
+  for (  CubeSegment segment : segments) {
     if ((null != segment.getName() && segment.getName().equals(name)) && segment.getStatus() == status) {
       return segment;
     }

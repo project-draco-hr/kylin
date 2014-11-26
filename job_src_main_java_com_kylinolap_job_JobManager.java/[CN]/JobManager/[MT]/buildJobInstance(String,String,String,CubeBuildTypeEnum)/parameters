@@ -1,4 +1,4 @@
 String cubeName
 String segmentName
-String uuid
+String segmentId
 CubeBuildTypeEnum jobType
