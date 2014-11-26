@@ -5,8 +5,7 @@
   }
   String[] cuboidPaths=new String[mergingSegments.size()];
   for (int i=0; i < mergingSegments.size(); i++) {
-    CubeSegment seg=mergingSegments.get(i);
-    cuboidPaths[i]=JobInstance.getJobWorkingDir(seg.getUuid(),engineConfig.getHdfsWorkingDirectory()) + "/" + jobInstance.getRelatedCube()+ "/cuboid/*";
+    cuboidPaths[i]=getPathToMerge(jobInstance,mergingSegments.get(i));
   }
   String formattedPath=formatPaths(cuboidPaths);
   int stepSeqNum=0;
