@@ -1,6 +1,0 @@
-RegionScanner innerScanner
-ObserverRowType type
-ObserverProjector projector
-ObserverAggregators aggregators
-ObserverFilter filter
-Stats stats

@@ -1,0 +1,9 @@
+{
+  if (other instanceof NodeProtos.Node) {
+    return mergeFrom((NodeProtos.Node)other);
+  }
+ else {
+    super.mergeFrom(other);
+    return this;
+  }
+}

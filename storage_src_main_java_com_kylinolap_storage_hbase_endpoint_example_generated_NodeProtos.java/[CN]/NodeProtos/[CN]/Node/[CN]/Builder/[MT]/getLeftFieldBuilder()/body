@@ -1,7 +1,0 @@
-{
-  if (leftBuilder_ == null) {
-    leftBuilder_=new com.google.protobuf.SingleFieldBuilder<com.kylinolap.storage.hbase.endpoint.example.generated.NodeProtos.Node,com.kylinolap.storage.hbase.endpoint.example.generated.NodeProtos.Node.Builder,com.kylinolap.storage.hbase.endpoint.example.generated.NodeProtos.NodeOrBuilder>(left_,getParentForChildren(),isClean());
-    left_=null;
-  }
-  return leftBuilder_;
-}

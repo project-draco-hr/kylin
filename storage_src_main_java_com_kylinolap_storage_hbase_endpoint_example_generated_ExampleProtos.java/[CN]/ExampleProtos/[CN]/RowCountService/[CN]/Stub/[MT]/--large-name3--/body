@@ -1,3 +1,0 @@
-{
-  channel.callMethod(getDescriptor().getMethods().get(1),controller,request,com.kylinolap.storage.hbase.endpoint.example.generated.ExampleProtos.CountResponse.getDefaultInstance(),com.google.protobuf.RpcUtil.generalizeCallback(done,com.kylinolap.storage.hbase.endpoint.example.generated.ExampleProtos.CountResponse.class,com.kylinolap.storage.hbase.endpoint.example.generated.ExampleProtos.CountResponse.getDefaultInstance()));
-}

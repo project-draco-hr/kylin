@@ -1,3 +1,0 @@
-{
-  return com.kylinolap.storage.hbase.endpoint.generated.IIProtos.internal_static_IIRequest_descriptor;
-}

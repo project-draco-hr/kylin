@@ -1,8 +1,8 @@
 {
   long baseCuboidId=Cuboid.getBaseCuboidId(this.cube.getDescriptor());
   ObserverRowType type=ObserverRowType.fromCuboid(this.seg,Cuboid.findById(cube.getDescriptor(),baseCuboidId));
-  ObserverFilter filter=ObserverFilter.fromFilter(this.seg,rootFilter);
+  CoprocessorFilter filter=CoprocessorFilter.fromFilter(this.seg,rootFilter);
   TableRecordInfoDigest recordInfo=new TableRecordInfo(seg);
-  IIProtos.IIRequest request=IIProtos.IIRequest.newBuilder().setTableInfo(ByteString.copyFrom(TableRecordInfoDigest.serialize(recordInfo))).setSRowType(ByteString.copyFrom(ObserverRowType.serialize(type))).setSRowFilter(ByteString.copyFrom(ObserverFilter.serialize(filter))).build();
+  IIProtos.IIRequest request=IIProtos.IIRequest.newBuilder().setTableInfo(ByteString.copyFrom(TableRecordInfoDigest.serialize(recordInfo))).setSRowType(ByteString.copyFrom(ObserverRowType.serialize(type))).setSRowFilter(ByteString.copyFrom(CoprocessorFilter.serialize(filter))).build();
   return request;
 }

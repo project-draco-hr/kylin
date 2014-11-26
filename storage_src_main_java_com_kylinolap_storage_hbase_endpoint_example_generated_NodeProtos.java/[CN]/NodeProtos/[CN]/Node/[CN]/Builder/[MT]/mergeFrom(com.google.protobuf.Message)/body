@@ -1,9 +1,0 @@
-{
-  if (other instanceof com.kylinolap.storage.hbase.endpoint.example.generated.NodeProtos.Node) {
-    return mergeFrom((com.kylinolap.storage.hbase.endpoint.example.generated.NodeProtos.Node)other);
-  }
- else {
-    super.mergeFrom(other);
-    return this;
-  }
-}

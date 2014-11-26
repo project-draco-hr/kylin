@@ -1,7 +1,0 @@
-{
-  com.kylinolap.storage.hbase.endpoint.example.generated.ExampleProtos.CountRequest result=buildPartial();
-  if (!result.isInitialized()) {
-    throw newUninitializedMessageException(result);
-  }
-  return result;
-}
