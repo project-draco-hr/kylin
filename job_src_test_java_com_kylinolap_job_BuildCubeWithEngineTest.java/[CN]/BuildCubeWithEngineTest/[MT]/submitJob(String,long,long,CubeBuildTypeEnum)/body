@@ -1,15 +1,21 @@
 {
-  List<String> jobList=new ArrayList<String>();
   CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
   CubeInstance cube=cubeMgr.getCube(cubename);
   CubeManager.getInstance(this.getTestConfig()).loadCubeCache(cube);
   System.out.println(JsonUtil.writeValueAsIndentString(cube));
   List<CubeSegment> newSegments=cubeMgr.allocateSegments(cube,jobType,startDate,endDate);
   System.out.println(JsonUtil.writeValueAsIndentString(cube));
+  List<String> jobUuids=Lists.newArrayList();
+  List<JobInstance> jobs=Lists.newArrayList();
   for (  CubeSegment seg : newSegments) {
-    JobInstance newJob=jobManager.createJob(cubename,seg.getName(),UUID.randomUUID().toString(),jobType);
-    String jobUuid=jobManager.submitJob(newJob);
-    jobList.add(jobUuid);
+    String uuid=seg.getUuid();
+    seg.setLastBuildJobID(uuid);
+    jobUuids.add(uuid);
+    jobs.add(jobManager.createJob(cubename,seg.getName(),uuid,jobType));
   }
-  return jobList;
+  cubeMgr.updateCube(cube);
+  for (  JobInstance job : jobs) {
+    jobManager.submitJob(job);
+  }
+  return jobUuids;
 }
