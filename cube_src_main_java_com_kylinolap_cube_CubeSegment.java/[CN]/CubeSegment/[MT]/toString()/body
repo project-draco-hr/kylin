@@ -1,0 +1,3 @@
+{
+  return Objects.toStringHelper(this).add("uuid",uuid).add("create_time:",createTime).add("name",name).add("last_build_job_id",lastBuildJobID).toString();
+}

@@ -10,10 +10,10 @@
     List<CubeSegment> cubeSegments=this.getCubeManager().allocateSegments(cube,buildType,startDate,endDate);
     List<JobInstance> jobs=Lists.newArrayListWithExpectedSize(cubeSegments.size());
     for (    CubeSegment segment : cubeSegments) {
-      JobInstance job=this.getJobManager().createJob(cube.getName(),segment.getName(),buildType);
-      jobs.add(job);
-      uuid=job.getUuid();
+      uuid=segment.getUuid();
+      JobInstance job=this.getJobManager().createJob(cube.getName(),segment.getName(),segment.getUuid(),buildType);
       segment.setLastBuildJobID(uuid);
+      jobs.add(job);
     }
     getCubeManager().updateCube(cube);
     for (    JobInstance job : jobs) {
