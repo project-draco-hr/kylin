@@ -1,8 +1,8 @@
 {
-  SRowType rowType=newRowType();
-  SRowProjector projector=new SRowProjector(mask);
-  SRowAggregators aggregators=new SRowAggregators(new HCol[]{});
-  SRowFilter filter=SRowFilter.deserialize(null);
+  ObserverRowType rowType=newRowType();
+  ObserverProjector projector=new ObserverProjector(mask);
+  ObserverAggregators aggregators=new ObserverAggregators(new HCol[]{});
+  ObserverFilter filter=ObserverFilter.deserialize(null);
   HashSet<String> expectedResult=new HashSet<String>();
   expectedResult.add("\\x02\\x02\\x00\\x00");
   expectedResult.add("\\x01\\x01\\x00\\x00");

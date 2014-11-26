@@ -1,6 +1,0 @@
-RegionScanner innerScanner
-SRowType type
-SRowProjector projector
-SRowAggregators aggregators
-SRowFilter filter
-Stats stats

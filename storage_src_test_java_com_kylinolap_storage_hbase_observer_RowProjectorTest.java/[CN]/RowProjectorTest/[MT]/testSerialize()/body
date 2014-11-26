@@ -1,5 +1,5 @@
 {
-  byte[] bytes=SRowProjector.serialize(sample);
-  SRowProjector copy=SRowProjector.deserialize(bytes);
+  byte[] bytes=ObserverProjector.serialize(sample);
+  ObserverProjector copy=ObserverProjector.deserialize(bytes);
   assertTrue(Arrays.equals(sample.groupByMask,copy.groupByMask));
 }

@@ -1,0 +1,3 @@
+HBaseMappingDesc hbaseMapping
+Collection<FunctionDesc> metrics
+StorageContext context

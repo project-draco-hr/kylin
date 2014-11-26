@@ -1,19 +1,19 @@
 {
-  SRowType type=null;
-  SRowProjector projector=null;
-  SRowAggregators aggregators=null;
-  SRowFilter filter=null;
+  ObserverRowType type=null;
+  ObserverProjector projector=null;
+  ObserverAggregators aggregators=null;
+  ObserverFilter filter=null;
   if (request.hasSRowType()) {
-    type=SRowType.deserialize(request.getSRowType().toByteArray());
+    type=ObserverRowType.deserialize(request.getSRowType().toByteArray());
   }
   if (request.hasSRowProjector()) {
-    projector=SRowProjector.deserialize(request.getSRowProjector().toByteArray());
+    projector=ObserverProjector.deserialize(request.getSRowProjector().toByteArray());
   }
   if (request.hasSRowAggregator()) {
-    aggregators=SRowAggregators.deserialize(request.getSRowAggregator().toByteArray());
+    aggregators=ObserverAggregators.deserialize(request.getSRowAggregator().toByteArray());
   }
   if (request.hasSRowFilter()) {
-    filter=SRowFilter.deserialize(request.getSRowFilter().toByteArray());
+    filter=ObserverFilter.deserialize(request.getSRowFilter().toByteArray());
   }
   IIProtos.IIResponse response=null;
   RegionScanner innerScanner=null;

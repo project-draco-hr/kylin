@@ -1,0 +1,4 @@
+{
+  byte[] mask=BytesUtil.readByteArray(in);
+  return new ObserverProjector(mask);
+}

@@ -1,8 +1,8 @@
 {
-  SRowType rowType=newRowType();
-  SRowProjector projector=new SRowProjector(mask);
-  SRowAggregators aggregators=new SRowAggregators(new HCol[]{c1,c2});
-  SRowFilter filter=SRowFilter.deserialize(null);
+  ObserverRowType rowType=newRowType();
+  ObserverProjector projector=new ObserverProjector(mask);
+  ObserverAggregators aggregators=new ObserverAggregators(new HCol[]{c1,c2});
+  ObserverFilter filter=ObserverFilter.deserialize(null);
   HashSet<String> expectedResult=new HashSet<String>();
   expectedResult.add("\\x02\\x02\\x00\\x00, f:q1, [26.0, 7]");
   expectedResult.add("\\x02\\x02\\x00\\x00, f:q2, [48.0]");
@@ -18,10 +18,10 @@
     if (result.isEmpty())     continue;
     Cell cell=result.get(0);
     HCol hcol=null;
-    if (SRowAggregators.match(c1,cell)) {
+    if (ObserverAggregators.match(c1,cell)) {
       hcol=c1;
     }
- else     if (SRowAggregators.match(c2,cell)) {
+ else     if (ObserverAggregators.match(c2,cell)) {
       hcol=c2;
     }
  else     fail();

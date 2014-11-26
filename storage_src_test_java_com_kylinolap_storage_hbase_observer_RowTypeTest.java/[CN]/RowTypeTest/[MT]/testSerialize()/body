@@ -3,9 +3,9 @@
   CubeDesc cubeDesc=cube.getDescriptor();
   long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
   Cuboid cuboid=Cuboid.findById(cubeDesc,baseCuboidId);
-  SRowType rowType=SRowType.fromCuboid(cube.getLatestReadySegment(),cuboid);
-  byte[] bytes=SRowType.serialize(rowType);
-  SRowType copy=SRowType.deserialize(bytes);
+  ObserverRowType rowType=ObserverRowType.fromCuboid(cube.getLatestReadySegment(),cuboid);
+  byte[] bytes=ObserverRowType.serialize(rowType);
+  ObserverRowType copy=ObserverRowType.deserialize(bytes);
   assertTrue(Arrays.equals(rowType.columns,copy.columns));
   assertTrue(Arrays.equals(rowType.columnSizes,copy.columnSizes));
 }
