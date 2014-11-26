@@ -19,7 +19,7 @@
     logger.info("Merging fact table dictionary on : " + col);
     List<DictionaryInfo> dictInfos=new ArrayList<DictionaryInfo>();
     for (    CubeSegment segment : mergingSegments) {
-      logger.info("Including fact table dictionary of segment : " + segment.getName());
+      logger.info("Including fact table dictionary of segment : " + segment);
       DictionaryInfo dictInfo=dictMgr.getDictionaryInfo(segment.getDictResPath(col));
       dictInfos.add(dictInfo);
     }
