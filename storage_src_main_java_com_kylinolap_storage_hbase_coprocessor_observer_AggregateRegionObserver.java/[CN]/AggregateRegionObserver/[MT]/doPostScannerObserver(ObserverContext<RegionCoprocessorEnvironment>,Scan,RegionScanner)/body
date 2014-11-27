@@ -6,7 +6,7 @@
   byte[] typeBytes=scan.getAttribute(TYPE);
   ObserverRowType type=ObserverRowType.deserialize(typeBytes);
   byte[] projectorBytes=scan.getAttribute(PROJECTOR);
-  ObserverProjector projector=ObserverProjector.deserialize(projectorBytes);
+  CoprocessorProjector projector=CoprocessorProjector.deserialize(projectorBytes);
   byte[] aggregatorBytes=scan.getAttribute(AGGREGATORS);
   ObserverAggregators aggregators=ObserverAggregators.deserialize(aggregatorBytes);
   byte[] filterBytes=scan.getAttribute(FILTER);

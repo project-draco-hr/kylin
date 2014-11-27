@@ -1,0 +1,11 @@
+{
+  int i=0;
+  for (int ci=0; ci < nHCols; ci++) {
+    IIMetrics col=hcols[ci];
+    for (int j=0; j < col.nMeasures; j++)     col.measureValues[j]=aggrs[i++].getState();
+    col.measureBuf.clear();
+    col.measureCodec.encode(col.measureValues,col.measureBuf);
+    metricBytes[ci]=col.measureBuf;
+  }
+  return metricBytes;
+}

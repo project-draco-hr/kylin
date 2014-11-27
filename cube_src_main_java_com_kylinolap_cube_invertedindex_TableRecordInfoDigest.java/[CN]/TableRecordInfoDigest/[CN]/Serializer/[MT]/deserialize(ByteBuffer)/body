@@ -5,5 +5,15 @@
   result.offsets=BytesUtil.readIntArray(in);
   result.dictMaxIds=BytesUtil.readIntArray(in);
   result.lengths=BytesUtil.readIntArray(in);
+  result.measureSerializers=new FixedLenMeasureCodec<?>[result.nColumns];
+  for (int i=0; i < result.nColumns; ++i) {
+    String typeStr=BytesUtil.readAsciiString(in);
+    if (typeStr == null) {
+      result.measureSerializers[i]=null;
+    }
+ else {
+      result.measureSerializers[i]=FixedLenMeasureCodec.get(DataType.getInstance(typeStr));
+    }
+  }
   return result;
 }

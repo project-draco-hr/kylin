@@ -1,5 +1,0 @@
-ObserverRowType type
-CoprocessorFilter filter
-ObserverProjector groupBy
-ObserverAggregators aggrs
-RegionScanner innerScanner

@@ -1,1 +1,1 @@
-com.kylinolap.storage.hbase.observer
+com.kylinolap.storage.hbase.coprocessor.observer

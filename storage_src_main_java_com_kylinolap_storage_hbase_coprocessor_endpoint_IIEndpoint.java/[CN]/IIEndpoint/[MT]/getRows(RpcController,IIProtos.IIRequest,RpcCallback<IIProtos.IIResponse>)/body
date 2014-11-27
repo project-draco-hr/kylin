@@ -1,13 +1,13 @@
 {
   ObserverRowType type=null;
-  ObserverProjector projector=null;
+  CoprocessorProjector projector=null;
   ObserverAggregators aggregators=null;
   CoprocessorFilter filter=null;
   if (request.hasSRowType()) {
     type=ObserverRowType.deserialize(request.getSRowType().toByteArray());
   }
   if (request.hasSRowProjector()) {
-    projector=ObserverProjector.deserialize(request.getSRowProjector().toByteArray());
+    projector=CoprocessorProjector.deserialize(request.getSRowProjector().toByteArray());
   }
   if (request.hasSRowAggregator()) {
     aggregators=ObserverAggregators.deserialize(request.getSRowAggregator().toByteArray());
