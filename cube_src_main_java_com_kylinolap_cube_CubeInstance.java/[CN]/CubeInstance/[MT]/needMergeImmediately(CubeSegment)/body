@@ -1,0 +1,9 @@
+{
+  if (segment == null) {
+    return false;
+  }
+  if (!(segment.getStatus() == CubeSegmentStatusEnum.NEW)) {
+    return false;
+  }
+  return needMergeImmediately(segment.getDateRangeStart(),segment.getDateRangeEnd());
+}
