@@ -1,4 +1,7 @@
 {
+  if (this.getDescriptor().getCubePartitionDesc().getCubePartitionType() != CubePartitionDesc.CubePartitionType.APPEND) {
+    return false;
+  }
   if (!getDescriptor().hasHolisticCountDistinctMeasures()) {
     return false;
   }
