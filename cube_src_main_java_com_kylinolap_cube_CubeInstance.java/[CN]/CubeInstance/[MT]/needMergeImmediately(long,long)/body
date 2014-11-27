@@ -1,0 +1,21 @@
+{
+  if (this.getDescriptor().getCubePartitionDesc().getCubePartitionType() != CubePartitionDesc.CubePartitionType.APPEND) {
+    return false;
+  }
+  if (!getDescriptor().hasHolisticCountDistinctMeasures()) {
+    return false;
+  }
+  List<CubeSegment> readySegments=getSegments(CubeSegmentStatusEnum.READY);
+  if (readySegments.isEmpty()) {
+    return false;
+  }
+  for (  CubeSegment readySegment : readySegments) {
+    if (readySegment.getDateRangeStart() == newSegmentRangeStart && readySegment.getDateRangeEnd() == newSegmentRangeEnd) {
+      return false;
+    }
+  }
+  if (getDateRange()[1] == newSegmentRangeStart) {
+    return true;
+  }
+  return false;
+}

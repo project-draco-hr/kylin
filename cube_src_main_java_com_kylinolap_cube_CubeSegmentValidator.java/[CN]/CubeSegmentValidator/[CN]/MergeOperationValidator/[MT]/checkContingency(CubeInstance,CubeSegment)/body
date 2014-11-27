@@ -1,11 +1,4 @@
 {
-  if (cubeInstance.getSegments().size() < 2) {
-    throw new CubeIntegrityException("No segments to merge.");
-  }
-  if (newSegments.size() != 1) {
-    throw new CubeIntegrityException("Invalid date range.");
-  }
-  CubeSegment newSegment=newSegments.get(0);
   CubeSegment startSeg=null;
   CubeSegment endSeg=null;
   for (  CubeSegment segment : cubeInstance.getSegments()) {
