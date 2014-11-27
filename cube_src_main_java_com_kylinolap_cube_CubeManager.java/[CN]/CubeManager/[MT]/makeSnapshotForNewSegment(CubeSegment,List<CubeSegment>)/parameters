@@ -1,0 +1,2 @@
+CubeSegment newSeg
+List<CubeSegment> mergingSegments

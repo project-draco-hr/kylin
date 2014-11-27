@@ -32,9 +32,17 @@
     segments.add(buildSegment(cubeInstance,0,0));
   }
   validateNewSegments(cubeInstance,buildType,segments);
-  if (buildType == CubeBuildTypeEnum.MERGE || needMergeImmediately) {
-    this.makeDictForNewSegment(cubeInstance,segments.get(0));
-    this.makeSnapshotForNewSegment(cubeInstance,segments.get(0));
+  if (buildType == CubeBuildTypeEnum.MERGE) {
+    CubeSegment newSeg=segments.get(0);
+    List<CubeSegment> mergingSegments=cubeInstance.getMergingSegments(newSeg);
+    this.makeDictForNewSegment(cubeInstance,newSeg,mergingSegments);
+    this.makeSnapshotForNewSegment(newSeg,mergingSegments);
+  }
+ else   if (needMergeImmediately) {
+    CubeSegment newSeg=segments.get(0);
+    List<CubeSegment> mergingSegments=cubeInstance.getSegment(CubeSegmentStatusEnum.READY);
+    this.makeDictForNewSegment(cubeInstance,newSeg,mergingSegments);
+    this.makeSnapshotForNewSegment(newSeg,mergingSegments);
   }
   cubeInstance.getSegments().addAll(segments);
   Collections.sort(cubeInstance.getSegments());

@@ -1,5 +1,4 @@
 {
-  List<CubeSegment> mergingSegments=cube.getMergingSegments(newSeg);
   for (  Map.Entry<String,String> entry : mergingSegments.get(0).getSnapshots().entrySet()) {
     newSeg.putSnapshotResPath(entry.getKey(),entry.getValue());
   }
