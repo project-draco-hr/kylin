@@ -44,9 +44,11 @@ if (null != createFlatTableStep) {
 }
 CubeSegment segmentById=cubeInstance.getSegmentById(jobInstance.getUuid());
 if (cubeInstance.needMergeImmediately(segmentById)) {
-for (CubeSegment seg : cubeInstance.getMergingSegments()) {
-sourceCount+=seg.getSourceRecords();
-sourceSize+=seg.getSourceRecordsSize();
+for (CubeSegment seg : cubeInstance.getSegment(CubeSegmentStatusEnum.READY)) {
+if (seg.getDateRangeEnd() >= segmentById.getDateRangeStart()) {
+  sourceCount+=seg.getSourceRecords();
+  sourceSize+=seg.getSourceRecordsSize();
+}
 }
 }
 break;
