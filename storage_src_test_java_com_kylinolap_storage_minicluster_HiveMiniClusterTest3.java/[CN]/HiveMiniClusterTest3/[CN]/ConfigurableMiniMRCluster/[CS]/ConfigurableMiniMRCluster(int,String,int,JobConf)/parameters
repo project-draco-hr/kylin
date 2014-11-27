@@ -1,0 +1,4 @@
+int numTaskTrackers
+String namenode
+int numDir
+JobConf conf

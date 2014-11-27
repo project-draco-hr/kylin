@@ -1,0 +1,12 @@
+{
+  if (dfsCluster == null) {
+    if (props != null) {
+      for (      Map.Entry entry : props.entrySet()) {
+        conf.set((String)entry.getKey(),(String)entry.getValue());
+      }
+    }
+    dfsCluster=new MiniDFSCluster(NAMENODE_PORT,conf,2,reformatDFS,true,null,null);
+    ConfigurableMiniMRCluster.setConfiguration(props);
+    mrCluster=new ConfigurableMiniMRCluster(2,dfsCluster.getFileSystem().getName(),1,conf);
+  }
+}
