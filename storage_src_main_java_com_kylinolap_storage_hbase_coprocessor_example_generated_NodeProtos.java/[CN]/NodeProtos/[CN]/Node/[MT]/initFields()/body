@@ -1,5 +1,0 @@
-{
-  name_="";
-  left_=com.kylinolap.storage.hbase.coprocessor.example.generated.NodeProtos.Node.getDefaultInstance();
-  right_=com.kylinolap.storage.hbase.coprocessor.example.generated.NodeProtos.Node.getDefaultInstance();
-}

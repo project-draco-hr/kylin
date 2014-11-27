@@ -1,0 +1,16 @@
+{
+  if (other == com.kylinolap.storage.hbase.endpoint.example.generated.NodeProtos.Node.getDefaultInstance())   return this;
+  if (other.hasName()) {
+    bitField0_|=0x00000001;
+    name_=other.name_;
+    onChanged();
+  }
+  if (other.hasLeft()) {
+    mergeLeft(other.getLeft());
+  }
+  if (other.hasRight()) {
+    mergeRight(other.getRight());
+  }
+  this.mergeUnknownFields(other.getUnknownFields());
+  return this;
+}

@@ -1,8 +1,0 @@
-{
-  if (other == com.kylinolap.storage.hbase.coprocessor.generated.IIProtos.IIRequest.getDefaultInstance())   return this;
-  if (other.hasTableInfo()) {
-    setTableInfo(other.getTableInfo());
-  }
-  this.mergeUnknownFields(other.getUnknownFields());
-  return this;
-}

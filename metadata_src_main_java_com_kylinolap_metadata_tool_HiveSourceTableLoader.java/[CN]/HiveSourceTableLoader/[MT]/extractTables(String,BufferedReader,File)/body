@@ -1,0 +1,20 @@
+{
+  File tableDescDir=new File(metaTmpDir,TABLE_FOLDER_NAME);
+  File tableExdDir=new File(metaTmpDir,TABLE_EXD_FOLDER_NAME);
+  mkdirs(tableDescDir);
+  mkdirs(tableExdDir);
+  List<TableDesc> tableDescList=new ArrayList<TableDesc>();
+  List<Map<String,String>> tableAttrsList=new ArrayList<Map<String,String>>();
+  getTables(database,reader,tableDescList,tableAttrsList);
+  List<String> loadedTables=Lists.newArrayList();
+  for (  TableDesc table : tableDescList) {
+    File file=new File(tableDescDir,table.getName().toUpperCase() + "." + OUTPUT_SURFIX);
+    JsonUtil.writeValueIndent(new FileOutputStream(file),table);
+    loadedTables.add(table.getDatabase() + "." + table.getName());
+  }
+  for (  Map<String,String> tableAttrs : tableAttrsList) {
+    File file=new File(tableExdDir,tableAttrs.get("tableName").toUpperCase() + "." + OUTPUT_SURFIX);
+    JsonUtil.writeValueIndent(new FileOutputStream(file),tableAttrs);
+  }
+  return loadedTables;
+}

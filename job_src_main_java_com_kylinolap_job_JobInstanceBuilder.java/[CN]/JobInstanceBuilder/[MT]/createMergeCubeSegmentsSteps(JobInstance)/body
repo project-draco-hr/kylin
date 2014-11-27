@@ -8,22 +8,18 @@
     cuboidPaths[i]=JobInstance.getJobWorkingDir(seg.getLastBuildJobID(),engineConfig.getHdfsWorkingDirectory()) + "/" + jobInstance.getRelatedCube()+ "/cuboid/*";
   }
   String formattedPath=formatPaths(cuboidPaths);
-  jobInstance.clearSteps();
   int stepSeqNum=0;
-  addMergeCuboidDataStep(jobInstance,stepSeqNum,formattedPath);
-  stepSeqNum++;
-  addRangeRowkeyDistributionStep(jobInstance,stepSeqNum,jobWorkingDir + "/" + cubeName+ "/merged_cuboid");
-  stepSeqNum++;
-  addCreateHTableStep(jobInstance,stepSeqNum);
-  stepSeqNum++;
-  addConvertCuboidToHfileStep(jobInstance,stepSeqNum,jobWorkingDir + "/" + cubeName+ "/merged_cuboid");
-  stepSeqNum++;
-  addBulkLoadStep(jobInstance,stepSeqNum);
-  stepSeqNum++;
+  List<JobStep> result=Lists.newArrayList();
+  result.add(createMergeCuboidDataStep(jobInstance,stepSeqNum++,formattedPath));
+  result.add(createRangeRowkeyDistributionStep(jobInstance,stepSeqNum++,jobWorkingDir + "/" + cubeName+ "/merged_cuboid"));
+  result.add(createCreateHTableStep(jobInstance,stepSeqNum++));
+  result.add(createConvertCuboidToHfileStep(jobInstance,stepSeqNum++,jobWorkingDir + "/" + cubeName+ "/merged_cuboid"));
+  result.add(createBulkLoadStep(jobInstance,stepSeqNum++));
   try {
     log.debug(JsonUtil.writeValueAsIndentString(jobInstance));
   }
  catch (  Exception e) {
     log.error(e.getMessage());
   }
+  return result;
 }

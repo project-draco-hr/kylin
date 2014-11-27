@@ -1,5 +1,0 @@
-{
-  InputStream is=getHiveOutputStreamByExec(tablePattern);
-  extractTables(is,tableMetaOutcomeDir);
-  closeInputStream(is);
-}
