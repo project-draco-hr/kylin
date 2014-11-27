@@ -1,4 +1,0 @@
-{
-  String srcPath=AbstractKylinTestCase.SANDBOX_TEST_DATA + "/" + "kylin.properties";
-  FileUtils.copyFileToDirectory(new File(srcPath),new File("/etc/kylin"));
-}
