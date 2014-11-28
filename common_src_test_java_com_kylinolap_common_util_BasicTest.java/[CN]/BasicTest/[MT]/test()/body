@@ -1,2 +1,4 @@
 {
+  for (  String s : ManagementFactory.getRuntimeMXBean().getInputArguments())   System.out.println(s);
+  return;
 }
