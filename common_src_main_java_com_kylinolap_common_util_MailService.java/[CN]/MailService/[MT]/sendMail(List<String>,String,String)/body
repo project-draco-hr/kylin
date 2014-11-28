@@ -2,14 +2,13 @@
   if (!enabled) {
     logger.info("Email service is disabled; this mail will not be delivered: " + subject);
     logger.info("To enable mail service, set 'mail.enabled=true' in kylin.properties");
-    return;
+    return false;
   }
   Email email=new HtmlEmail();
   email.setHostName(host);
   if (username != null && username.trim().length() > 0) {
     email.setAuthentication(username,password);
   }
-  email.setDebug(true);
   try {
     for (    String receiver : receivers) {
       email.addTo(receiver);
@@ -23,5 +22,7 @@
   }
  catch (  EmailException e) {
     logger.error(e);
+    return false;
   }
+  return true;
 }
