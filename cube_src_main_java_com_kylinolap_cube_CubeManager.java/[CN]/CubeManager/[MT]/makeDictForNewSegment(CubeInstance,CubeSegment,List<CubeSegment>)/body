@@ -1,5 +1,4 @@
 {
-  List<CubeSegment> mergingSegments=cube.getMergingSegments(newSeg);
   HashSet<TblColRef> colsNeedMeringDict=new HashSet<TblColRef>();
   HashSet<TblColRef> colsNeedCopyDict=new HashSet<TblColRef>();
   DictionaryManager dictMgr=this.getDictionaryManager();

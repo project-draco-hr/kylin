@@ -1,0 +1,15 @@
+{
+  if (!appendOnHll()) {
+    return false;
+  }
+  List<CubeSegment> readySegments=getSegment(CubeSegmentStatusEnum.READY);
+  if (readySegments.isEmpty()) {
+    return false;
+  }
+  for (  CubeSegment readySegment : readySegments) {
+    if (readySegment.getDateRangeEnd() < segment.getDateRangeStart()) {
+      return true;
+    }
+  }
+  return false;
+}
