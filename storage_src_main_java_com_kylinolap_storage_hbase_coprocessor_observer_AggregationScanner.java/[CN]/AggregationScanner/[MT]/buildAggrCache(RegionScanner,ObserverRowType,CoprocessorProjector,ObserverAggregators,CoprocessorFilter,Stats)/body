@@ -1,5 +1,5 @@
 {
-  AggregationCache aggCache=new AggregationCache(aggregators);
+  ObserverAggregationCache aggCache=new ObserverAggregationCache(aggregators);
   ObserverTuple tuple=new ObserverTuple(type);
   boolean hasMore=true;
   List<Cell> results=new ArrayList<Cell>();
@@ -11,7 +11,7 @@
     Cell cell=results.get(0);
     tuple.setUnderlying(cell.getRowArray(),cell.getRowOffset(),cell.getRowLength());
     if (filter != null && filter.evaluate(tuple) == false)     continue;
-    CoprocessorProjector.AggrKey aggKey=projector.getRowKey(results);
+    CoprocessorProjector.AggrKey aggKey=projector.getAggrKey(results);
     MeasureAggregator[] bufs=aggCache.getBuffer(aggKey);
     aggregators.aggregate(bufs,results);
     aggCache.checkMemoryUsage();
