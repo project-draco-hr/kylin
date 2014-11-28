@@ -1,0 +1,5 @@
+{
+  staticCreateTestMetadata(MINICLUSTER_TEST_DATA);
+  startupMinicluster();
+  importHBaseData();
+}

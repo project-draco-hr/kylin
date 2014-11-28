@@ -1,7 +1,0 @@
-{
-  List<TblColRef> groups=buildGroups();
-  List<FunctionDesc> aggregations=buildAggregations();
-  TupleFilter filter=buildAndFilter(groups);
-  int count=search(groups,aggregations,filter,context);
-  assertTrue(count > 0);
-}

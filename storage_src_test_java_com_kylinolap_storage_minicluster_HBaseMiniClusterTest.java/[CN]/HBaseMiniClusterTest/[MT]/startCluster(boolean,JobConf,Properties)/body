@@ -1,18 +1,12 @@
 {
-  if (dfsCluster == null) {
-    if (props != null) {
-      for (      Map.Entry entry : props.entrySet()) {
-        conf.set((String)entry.getKey(),(String)entry.getValue());
-      }
-    }
-    dfsCluster=new MiniDFSCluster(NAMENODE_PORT,conf,2,reformatDFS,true,null,null);
-    ConfigurableMiniMRCluster.setConfiguration(props);
-    mrCluster=new ConfigurableMiniMRCluster(2,dfsCluster.getFileSystem().getName(),1,conf);
+  if (hbaseCluster == null) {
+    testUtil=new HBaseTestingUtility();
+    System.out.println("-----" + testUtil.getDataTestDir());
+    hbaseCluster=testUtil.startMiniCluster();
+    dfsCluster=testUtil.getDFSCluster();
   }
-  HBaseTestingUtility testUtil=new HBaseTestingUtility();
-  testUtil.setDFSCluster(dfsCluster);
-  hbaseCluster=testUtil.startMiniCluster();
   System.out.println("dfs uri: -------" + dfsCluster.getFileSystem().getUri().toString());
+  System.out.println("dfs base directory: -------" + dfsCluster.getBaseDirectory().toString());
   Configuration config=hbaseCluster.getConf();
   String host=config.get(HConstants.ZOOKEEPER_QUORUM);
   String port=config.get(HConstants.ZOOKEEPER_CLIENT_PORT);

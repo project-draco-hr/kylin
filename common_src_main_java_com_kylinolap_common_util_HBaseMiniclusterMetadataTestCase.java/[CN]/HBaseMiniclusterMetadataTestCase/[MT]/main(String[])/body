@@ -1,0 +1,5 @@
+{
+  HBaseMiniclusterMetadataTestCase t=new HBaseMiniclusterMetadataTestCase();
+  t.createTestMetadata();
+  t.cleanupTestMetadata();
+}
