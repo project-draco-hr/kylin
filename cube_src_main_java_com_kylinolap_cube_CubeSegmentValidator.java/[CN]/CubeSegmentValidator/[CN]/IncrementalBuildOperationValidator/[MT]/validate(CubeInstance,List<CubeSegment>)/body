@@ -2,10 +2,10 @@
   if (newSegments.size() != 1) {
     throw new CubeIntegrityException("Invalid date range.");
   }
-  if (cubeInstance.needMergeImmediately(newSegments.get(0))) {
+  CubeSegment newSegment=newSegments.get(0);
+  if (cubeInstance.needMergeImmediatelyAfterBuild(newSegment)) {
   }
  else {
-    CubeSegment newSegment=newSegments.get(0);
     boolean hasMatchSegment=false;
     for (    CubeSegment segment : cubeInstance.getSegments()) {
       if (segment.getDateRangeStart() == newSegment.getDateRangeStart()) {

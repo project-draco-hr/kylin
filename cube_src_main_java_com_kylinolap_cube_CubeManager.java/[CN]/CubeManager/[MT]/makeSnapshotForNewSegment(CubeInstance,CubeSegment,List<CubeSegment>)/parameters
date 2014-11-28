@@ -1,2 +1,3 @@
+CubeInstance cube
 CubeSegment newSeg
 List<CubeSegment> mergingSegments
