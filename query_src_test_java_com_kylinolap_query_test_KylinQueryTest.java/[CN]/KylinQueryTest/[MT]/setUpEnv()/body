@@ -1,4 +1,4 @@
 {
-  HBaseMetadataTestCase.staticCreateTestMetadata();
+  HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.SANDBOX_TEST_DATA);
   config=KylinConfig.getInstanceFromEnv();
 }

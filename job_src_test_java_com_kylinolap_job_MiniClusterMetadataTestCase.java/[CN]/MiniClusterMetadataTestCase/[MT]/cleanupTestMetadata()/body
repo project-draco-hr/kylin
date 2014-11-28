@@ -1,0 +1,11 @@
+{
+  System.clearProperty(KylinConfig.KYLIN_CONF);
+  KylinConfig.destoryInstance();
+  try {
+    testUtil.shutdownMiniMapReduceCluster();
+    testUtil.shutdownMiniCluster();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}

@@ -1,0 +1,14 @@
+{
+  Connection con=getHiveConnection();
+  String tableName="testHiveDriverTable";
+  String sql="show table extended like " + tableName + "";
+  ResultSet res=executeSQL(con,sql);
+  while (res.next()) {
+    System.out.println("--- " + res.getString("tab_name"));
+  }
+  sql="describe extended " + tableName + "";
+  res=executeSQL(con,sql);
+  while (res.next()) {
+    System.out.println("---" + res.getString(1) + " | "+ res.getString(2));
+  }
+}

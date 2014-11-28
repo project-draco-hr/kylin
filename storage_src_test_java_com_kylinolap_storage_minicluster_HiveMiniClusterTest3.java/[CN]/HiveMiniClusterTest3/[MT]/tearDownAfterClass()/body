@@ -1,0 +1,9 @@
+{
+  stopCluster();
+  String baseTempDir="build" + File.separator + "test"+ File.separator;
+  String dfsDir=baseTempDir + "data";
+  FileUtils.deleteDirectory(new File(dfsDir));
+  String mrDir=baseTempDir + "mapred";
+  FileUtils.deleteDirectory(new File(mrDir));
+  FileUtils.cleanDirectory(new File(LOG_DIR));
+}
