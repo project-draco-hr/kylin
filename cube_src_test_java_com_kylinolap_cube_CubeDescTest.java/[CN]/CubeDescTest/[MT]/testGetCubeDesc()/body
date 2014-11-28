@@ -1,0 +1,4 @@
+{
+  CubeDesc cubeDesc=CubeManager.getInstance(this.getTestConfig()).getCubeDesc("test_kylin_cube_with_slr_desc");
+  Assert.assertNotNull(cubeDesc);
+}
