@@ -2,7 +2,7 @@
   if (newSegments.size() != 1) {
     throw new CubeIntegrityException("Invalid date range.");
   }
-  if (cubeInstance.needMergeImmediately(newSegments.get(0))) {
+  if (cubeInstance.incrementalBuildOnHll()) {
   }
  else {
     CubeSegment newSegment=newSegments.get(0);

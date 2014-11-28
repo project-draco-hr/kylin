@@ -1,12 +1,12 @@
 {
+  List<CubeSegment> mergingSegments=cube.getMergingSegments(newSeg);
   HashSet<TblColRef> colsNeedMeringDict=new HashSet<TblColRef>();
   HashSet<TblColRef> colsNeedCopyDict=new HashSet<TblColRef>();
   DictionaryManager dictMgr=this.getDictionaryManager();
-  CubeDesc descriptor=cube.getDescriptor();
-  for (  DimensionDesc dim : descriptor.getDimensions()) {
+  for (  DimensionDesc dim : cube.getDescriptor().getDimensions()) {
     for (    TblColRef col : dim.getColumnRefs()) {
       if (newSeg.getCubeDesc().getRowkey().isUseDictionary(col)) {
-        if (descriptor.getFactTable().equalsIgnoreCase((String)dictMgr.decideSourceData(descriptor,col,null)[0])) {
+        if (cube.getDescriptor().getFactTable().equalsIgnoreCase((String)dictMgr.decideSourceData(cube.getDescriptor(),col,null)[0])) {
           colsNeedMeringDict.add(col);
         }
  else {

@@ -1,4 +1,5 @@
 {
+  CubeSegment cubeSeg=newSegments.get(0);
   DictionaryManager dictMgr=DictionaryManager.getInstance(cube.getConfig());
   List<CubeSegment> segmentList=cube.getMergingSegments(cubeSeg);
   HashSet<TblColRef> cols=new HashSet<TblColRef>();

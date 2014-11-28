@@ -42,13 +42,10 @@ if (null != createFlatTableStep) {
  else {
   log.info("No step with name '" + JobConstants.STEP_NAME_CREATE_FLAT_HIVE_TABLE + "' is found");
 }
-CubeSegment segmentById=cubeInstance.getSegmentById(jobInstance.getUuid());
-if (cubeInstance.needMergeImmediately(segmentById)) {
-for (CubeSegment seg : cubeInstance.getSegment(CubeSegmentStatusEnum.READY)) {
-if (seg.getDateRangeEnd() >= segmentById.getDateRangeStart()) {
+if (cubeInstance.incrementalBuildOnHll()) {
+for (CubeSegment seg : cubeInstance.getMergingSegments()) {
   sourceCount+=seg.getSourceRecords();
   sourceSize+=seg.getSourceRecordsSize();
-}
 }
 }
 break;
