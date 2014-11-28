@@ -4,7 +4,7 @@
   List<CubeInstance> cubes=new ArrayList<CubeInstance>();
   ProjectTable projectTable=this.getProjectTable(project,factTableName);
   for (  CubeInstance cube : projectTable.getCubes()) {
-    if (cube.getDescriptor().isFactTable(factTableName) && cube.isReady()) {
+    if (cube.getDescriptor().getModel().isFactTable(factTableName) && cube.isReady()) {
       cubes.add(cube);
     }
   }

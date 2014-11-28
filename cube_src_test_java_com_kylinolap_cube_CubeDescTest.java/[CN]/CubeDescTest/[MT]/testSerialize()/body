@@ -1,0 +1,6 @@
+{
+  CubeDesc desc=CubeManager.getInstance(this.getTestConfig()).getCubeDesc("test_kylin_cube_with_slr_desc");
+  String str=JsonUtil.writeValueAsIndentString(desc);
+  System.out.println(str);
+  @SuppressWarnings("unused") CubeDesc desc2=JsonUtil.readValue(str,CubeDesc.class);
+}
