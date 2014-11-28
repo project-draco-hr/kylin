@@ -1,3 +1,0 @@
-{
-  return "LOAD DATA LOCAL INPATH '" + this.getHadoopCliWorkingDir() + "/"+ tableName.toUpperCase()+ ".csv' OVERWRITE INTO TABLE "+ tableName.toUpperCase();
-}

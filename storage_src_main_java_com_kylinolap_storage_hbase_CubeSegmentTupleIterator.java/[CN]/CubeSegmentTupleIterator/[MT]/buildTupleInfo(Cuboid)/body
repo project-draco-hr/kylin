@@ -9,7 +9,7 @@
     if (!dimensions.contains(column)) {
       continue;
     }
-    info.setField(colNames.get(i),rowColumns.get(i),rowColumns.get(i).getDatatype(),index++);
+    info.setField(colNames.get(i),rowColumns.get(i),rowColumns.get(i).getType().getName(),index++);
   }
   Map<Array<TblColRef>,List<DeriveInfo>> hostToDerivedInfo=cubeSeg.getCubeDesc().getHostToDerivedInfo(rowColumns,null);
   for (  Entry<Array<TblColRef>,List<DeriveInfo>> entry : hostToDerivedInfo.entrySet()) {
@@ -17,7 +17,7 @@
     for (    DeriveInfo deriveInfo : entry.getValue()) {
       for (      TblColRef derivedCol : deriveInfo.columns) {
         String derivedField=getFieldName(derivedCol,context.getAliasMap());
-        info.setField(derivedField,derivedCol,derivedCol.getDatatype(),index++);
+        info.setField(derivedField,derivedCol,derivedCol.getType().getName(),index++);
       }
       info.addDerivedColumnFiller(Tuple.newDerivedColumnFiller(rowColumns,hostCols,deriveInfo,info,CubeManager.getInstance(this.cube.getConfig()),cubeSeg));
     }

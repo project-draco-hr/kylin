@@ -1,7 +1,0 @@
-{
-  int exitCode=0;
-  CommandExecutor cmdExecutor=new CommandExecutor(cmd,new VerboseConsumer());
-  cmdExecutor.setRunAtRemote(getHadoopCliHostname(),getHadoopCliUsername(),getHadoopCliPassword());
-  exitCode=cmdExecutor.execute(true);
-  assertEquals(0,exitCode);
-}

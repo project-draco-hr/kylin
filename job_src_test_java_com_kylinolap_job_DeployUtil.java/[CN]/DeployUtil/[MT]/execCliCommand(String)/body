@@ -1,0 +1,3 @@
+{
+  config().getCliCommandExecutor().execute(cmd);
+}

@@ -1,0 +1,3 @@
+{
+  ClasspathUtil.addClasspath(new File(SANDBOX_TEST_DATA).getAbsolutePath());
+}

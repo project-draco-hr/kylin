@@ -1,0 +1,6 @@
+{
+  testUtil.startMiniCluster(1);
+  testUtil.startMiniMapReduceCluster();
+  testUtil.shutdownMiniMapReduceCluster();
+  testUtil.shutdownMiniCluster();
+}

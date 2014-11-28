@@ -1,0 +1,12 @@
+{
+  if (joinType.equalsIgnoreCase("inner")) {
+    FactTableGenerator.generate(cubeName,"10000","1",null,"inner");
+  }
+ else   if (joinType.equalsIgnoreCase("left")) {
+    FactTableGenerator.generate(cubeName,"10000","0.6",null,"left");
+  }
+ else {
+    throw new IllegalArgumentException("Unsupported join type : " + joinType);
+  }
+  deployHiveTables();
+}

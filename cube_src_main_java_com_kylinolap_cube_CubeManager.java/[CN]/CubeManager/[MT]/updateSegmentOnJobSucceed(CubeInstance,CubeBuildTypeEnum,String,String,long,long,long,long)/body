@@ -1,17 +1,25 @@
 {
   List<CubeSegment> segmentsInNewStatus=cubeInstance.getSegments(CubeSegmentStatusEnum.NEW);
-  CubeSegment cubeSegment=cubeInstance.getSegment(segmentName,CubeSegmentStatusEnum.NEW);
+  CubeSegment cubeSegment=cubeInstance.getSegmentById(jobUuid);
+  if (cubeSegment == null) {
+    cubeSegment=cubeInstance.getSegment(segmentName,CubeSegmentStatusEnum.NEW);
+  }
 switch (buildType) {
 case BUILD:
-    if (segmentsInNewStatus.size() == 1) {
-      cubeInstance.getSegments().removeAll(cubeInstance.getRebuildingSegments());
+    if (cubeInstance.needMergeImmediatelyAfterBuild(cubeSegment)) {
+      cubeInstance.getSegments().removeAll(cubeInstance.getMergingSegments());
+    }
+ else {
+      if (segmentsInNewStatus.size() == 1) {
+        cubeInstance.getSegments().removeAll(cubeInstance.getRebuildingSegments());
+      }
     }
   break;
 case MERGE:
 cubeInstance.getSegments().removeAll(cubeInstance.getMergingSegments());
 break;
 }
-cubeSegment.setLastBuildJobID(lastBuildJobUuid);
+cubeSegment.setLastBuildJobID(jobUuid);
 cubeSegment.setLastBuildTime(lastBuildTime);
 cubeSegment.setSizeKB(sizeKB);
 cubeSegment.setSourceRecords(sourceRecordCount);

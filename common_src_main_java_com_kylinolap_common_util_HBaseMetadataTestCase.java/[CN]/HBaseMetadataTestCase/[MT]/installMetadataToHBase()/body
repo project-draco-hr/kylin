@@ -1,4 +1,0 @@
-{
-  ResourceTool.reset(KylinConfig.getInstanceFromEnv());
-  ResourceTool.copy(KylinConfig.createInstanceFromUri(TEST_DATA_FOLDER),KylinConfig.getInstanceFromEnv());
-}

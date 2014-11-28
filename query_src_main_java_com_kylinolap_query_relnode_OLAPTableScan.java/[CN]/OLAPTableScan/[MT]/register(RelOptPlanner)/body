@@ -12,5 +12,6 @@
   planner.removeRule(SwapJoinRule.INSTANCE);
   planner.removeRule(PushJoinThroughJoinRule.LEFT);
   planner.removeRule(PushJoinThroughJoinRule.RIGHT);
+  planner.removeRule(PushFilterPastProjectRule.INSTANCE);
   planner.removeRule(RemoveDistinctAggregateRule.INSTANCE);
 }

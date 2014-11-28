@@ -4,7 +4,7 @@
   CubeManager cubeManager=CubeManager.getInstance(this.getTestConfig());
   CubeInstance cube=cubeManager.getCube(cubeName);
   CubeSegment segment=CubeManager.getInstance(this.getTestConfig()).allocateSegments(cube,CubeBuildTypeEnum.MERGE,1384240200000L,1386835200000L).get(0);
-  JobInstance jobInstance=jobManager.createJob(cubeName,segment.getName(),CubeBuildTypeEnum.MERGE);
+  JobInstance jobInstance=jobManager.createJob(cubeName,segment.getName(),UUID.randomUUID().toString(),CubeBuildTypeEnum.MERGE);
   String actual=JsonUtil.writeValueAsIndentString(jobInstance);
   System.out.println(actual);
   assertEquals(5,jobInstance.getSteps().size());

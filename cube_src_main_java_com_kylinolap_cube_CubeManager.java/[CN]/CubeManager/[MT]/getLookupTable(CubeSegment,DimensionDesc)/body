@@ -5,7 +5,7 @@
   LookupStringTable r=lookupTables.get(key);
   if (r == null) {
     String snapshotResPath=cubeSegment.getSnapshotResPath(tableName);
-    if (snapshotResPath == null)     throw new IllegalStateException("No snaphot for table '" + tableName + "' found on cube segment"+ cubeSegment.getCubeInstance().getName()+ "/"+ cubeSegment.getName());
+    if (snapshotResPath == null)     throw new IllegalStateException("No snaphot for table '" + tableName + "' found on cube segment"+ cubeSegment.getCubeInstance().getName()+ "/"+ cubeSegment);
     try {
       SnapshotTable snapshot=getSnapshotManager().getSnapshotTable(snapshotResPath);
       TableDesc tableDesc=getMetadataManager().getTableDesc(tableName);

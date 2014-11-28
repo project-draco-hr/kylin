@@ -22,7 +22,7 @@
         logger.debug("No " + hadoopJobConfFile + " file were found");
       }
  else {
-        File tmp=File.createTempFile("hadoop_job_conf",".xml");
+        File tmp=File.createTempFile(HADOOP_JOB_CONF_FILENAME,".xml");
         inputStreamToFile(is,tmp);
         path=tmp.getAbsolutePath();
       }
