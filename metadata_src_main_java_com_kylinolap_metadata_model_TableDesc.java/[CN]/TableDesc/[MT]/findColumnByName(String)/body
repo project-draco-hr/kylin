@@ -1,4 +1,8 @@
 {
+  int lastIndexOfDot=name.lastIndexOf(".");
+  if (lastIndexOfDot >= 0) {
+    name=name.substring(lastIndexOfDot + 1);
+  }
   for (  ColumnDesc c : columns) {
     if (name.equalsIgnoreCase(c.getName())) {
       return c;

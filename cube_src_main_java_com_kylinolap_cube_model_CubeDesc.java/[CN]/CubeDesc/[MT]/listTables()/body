@@ -2,7 +2,7 @@
   MetadataManager metaMgr=MetadataManager.getInstance(config);
   HashSet<String> tableNames=new HashSet<String>();
   List<TableDesc> result=new ArrayList<TableDesc>();
-  tableNames.add(factTable.toUpperCase());
+  tableNames.add(this.getFactTable().toUpperCase());
   for (  DimensionDesc dim : dimensions) {
     String table=dim.getTable();
     if (table != null)     tableNames.add(table.toUpperCase());

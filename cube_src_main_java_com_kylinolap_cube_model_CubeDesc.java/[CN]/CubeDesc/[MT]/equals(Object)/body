@@ -3,6 +3,6 @@
   if (o == null || getClass() != o.getClass())   return false;
   CubeDesc cubeDesc=(CubeDesc)o;
   if (!name.equals(cubeDesc.name))   return false;
-  if (!factTable.equals(cubeDesc.factTable))   return false;
+  if (!getFactTable().equals(cubeDesc.getFactTable()))   return false;
   return true;
 }
