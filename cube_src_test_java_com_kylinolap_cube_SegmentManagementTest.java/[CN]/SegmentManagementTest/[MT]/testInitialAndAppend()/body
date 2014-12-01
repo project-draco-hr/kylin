@@ -1,6 +1,6 @@
 {
-  CubeManager metaMgr=getCubeManager();
-  CubeDesc desc=metaMgr.getCubeDesc("test_kylin_cube_with_slr_desc");
+  CubeDescManager cubeDescMgr=getCubeDescManager();
+  CubeDesc desc=cubeDescMgr.getCubeDesc("test_kylin_cube_with_slr_desc");
   createNewCube(desc);
   SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd");
   f.setTimeZone(TimeZone.getTimeZone("GMT"));

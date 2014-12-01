@@ -4,8 +4,8 @@
   int originalCubeCountInDefault=ProjectManager.getInstance(this.getTestConfig()).listAllCubes("default").size();
   ResourceStore store=getStore();
   store.deleteResource("/cube/cube_in_alien_project.json");
-  CubeManager metaMgr=getCubeManager();
-  CubeDesc desc=metaMgr.getCubeDesc("test_kylin_cube_with_slr_desc");
+  CubeDescManager cubeDescMgr=getCubeDescManager();
+  CubeDesc desc=cubeDescMgr.getCubeDesc("test_kylin_cube_with_slr_desc");
   CubeInstance createdCube=CubeManager.getInstance(this.getTestConfig()).createCube("cube_in_alien_project","alien",desc,null);
   assertTrue(createdCube == CubeManager.getInstance(this.getTestConfig()).getCube("cube_in_alien_project"));
   assertTrue(ProjectManager.getInstance(getTestConfig()).listAllCubes("alien").contains(createdCube));
