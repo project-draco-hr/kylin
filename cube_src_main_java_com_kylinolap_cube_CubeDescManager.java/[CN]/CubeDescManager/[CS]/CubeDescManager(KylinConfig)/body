@@ -1,4 +1,5 @@
 {
   logger.info("Initializing CubeDescManager with config " + config);
   this.config=config;
+  reloadAllCubeDesc();
 }

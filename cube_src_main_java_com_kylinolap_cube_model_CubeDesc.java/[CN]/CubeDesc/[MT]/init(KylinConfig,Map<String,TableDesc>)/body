@@ -1,6 +1,7 @@
 {
   this.errors.clear();
   this.config=config;
+  this.model=MetadataManager.getInstance(config).getDataModelDesc(this.modelName);
   for (  DimensionDesc dim : dimensions) {
     dim.init(this,tables);
   }
