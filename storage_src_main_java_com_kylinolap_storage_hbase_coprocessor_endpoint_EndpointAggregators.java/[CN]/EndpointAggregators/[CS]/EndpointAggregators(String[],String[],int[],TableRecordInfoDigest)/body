@@ -1,6 +1,7 @@
 {
   this.funcNames=funcNames;
   this.dataTypes=dataTypes;
+  this.refColIndex=refColIndex;
   this.tableInfo=tableInfo;
   this.metricBytes=new byte[CoprocessorConstants.SERIALIZE_BUFFER_SIZE];
   this.metricValues=new Object[funcNames.length];

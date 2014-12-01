@@ -1,4 +1,4 @@
 {
   if (scale == 0)   return value.toString();
- else   return "" + (value.get() / scalePower);
+ else   return "" + (new BigDecimal(value.get()).divide(scalePower));
 }

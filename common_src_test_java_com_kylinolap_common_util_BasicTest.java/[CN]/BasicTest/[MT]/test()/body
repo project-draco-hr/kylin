@@ -1,4 +1,9 @@
 {
-  for (  String s : ManagementFactory.getRuntimeMXBean().getInputArguments())   System.out.println(s);
-  return;
+  BigDecimal scalePower=new BigDecimal(1000000);
+  String value="2.09";
+  BigDecimal a=new BigDecimal(value);
+  BigDecimal b=a.multiply(scalePower);
+  long xb=b.longValue();
+  System.out.println(xb);
+  System.out.println(b.divide(scalePower));
 }
