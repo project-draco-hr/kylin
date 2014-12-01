@@ -1,9 +1,8 @@
 {
   this.errors.clear();
   this.config=config;
-  if (factTable != null)   factTable=factTable.toUpperCase();
   for (  DimensionDesc dim : dimensions) {
-    dim.init(tables);
+    dim.init(this,tables);
   }
   sortDimAndMeasure();
   initJoinColumns(tables);

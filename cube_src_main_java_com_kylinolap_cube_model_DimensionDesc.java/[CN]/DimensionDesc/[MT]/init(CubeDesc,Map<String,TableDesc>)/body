@@ -1,11 +1,26 @@
 {
   if (name != null)   name=name.toUpperCase();
-  if (table != null)   table=table.toUpperCase();
   if (column != null)   column=column.toUpperCase();
+  String[] splits=this.column.split(".");
+  if (splits.length > 1) {
+    table=splits[splits.length - 2].toUpperCase();
+  }
+ else {
+    table=cubeDesc.getFactTable().toUpperCase();
+  }
   TableDesc tableDesc=tables.get(table);
   if (tableDesc == null)   throw new IllegalStateException("Can't find table " + table + " on dimension "+ name);
+  boolean isOnFactTable=table.equalsIgnoreCase(cubeDesc.getFactTable());
   if (hierarchy != null && hierarchy.length == 0)   hierarchy=null;
   if (derived != null && derived.length == 0)   derived=null;
+  if (!isOnFactTable) {
+    for (    LookupDesc lookup : cubeDesc.getModel().getLookups()) {
+      if (lookup.getTable().equals(table)) {
+        join=lookup.getJoin();
+        break;
+      }
+    }
+  }
   if (join != null) {
     StringUtil.toUpperCaseArray(join.getForeignKey(),join.getForeignKey());
     StringUtil.toUpperCaseArray(join.getPrimaryKey(),join.getPrimaryKey());
