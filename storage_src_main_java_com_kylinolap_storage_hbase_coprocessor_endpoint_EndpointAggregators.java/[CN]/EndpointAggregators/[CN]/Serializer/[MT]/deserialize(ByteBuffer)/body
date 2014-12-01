@@ -1,6 +1,7 @@
 {
   String[] funcNames=BytesUtil.readAsciiStringArray(in);
   String[] dataTypes=BytesUtil.readAsciiStringArray(in);
+  int[] refColIndex=BytesUtil.readIntArray(in);
   TableRecordInfoDigest tableInfo=TableRecordInfoDigest.deserialize(in);
-  return new EndpointAggregators(funcNames,dataTypes,tableInfo);
+  return new EndpointAggregators(funcNames,dataTypes,refColIndex,tableInfo);
 }

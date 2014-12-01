@@ -2,20 +2,16 @@
   this.createTestMetadata();
   this.cube=CubeManager.getInstance(getTestConfig()).getCube("test_kylin_cube_ii");
   this.tableRecordInfo=new TableRecordInfo(cube.getFirstSegment());
-  TblColRef formatName=this.cube.getDescriptor().findColumnRef("test_kylin_fact","LSTG_FORMAT_NAME");
-  TblColRef siteId=this.cube.getDescriptor().findColumnRef("test_kylin_fact","LSTG_SITE_ID");
+  TblColRef formatName=this.cube.getDescriptor().findColumnRef("TEST_KYLIN_FACT","LSTG_FORMAT_NAME");
+  TblColRef siteId=this.cube.getDescriptor().findColumnRef("TEST_KYLIN_FACT","LSTG_SITE_ID");
   Collection<TblColRef> dims=new HashSet<>();
   dims.add(formatName);
   projector=CoprocessorProjector.makeForEndpoint(tableRecordInfo,dims);
   aggregators=EndpointAggregators.fromFunctions(buildAggregations(),tableRecordInfo);
   CompareTupleFilter rawFilter=new CompareTupleFilter(TupleFilter.FilterOperatorEnum.EQ);
-  rawFilter.addChild(new ColumnTupleFilter(formatName));
-  rawFilter.addChild(new ConstantTupleFilter("Others"));
+  rawFilter.addChild(new ColumnTupleFilter(siteId));
+  rawFilter.addChild(new ConstantTupleFilter("0"));
   filter=CoprocessorFilter.fromFilter(this.cube.getFirstSegment(),rawFilter);
   aggCache=new EndpointAggregationCache(aggregators);
-  String[] dataInHex=new String[]{"\\x00\\x0B\\x37\\xAF\\x01\\x21\\x02\\x03\\x0B\\xCF\\x0D\\x77\\xD6\\xC9\\x8F\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x24","\\x00\\x0B\\x37\\xAF\\x03\\x25\\x00\\x00\\x06\\x34\\xD4\\x42\\x93\\x9B\\xAC\\xC0\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x01\\x48","\\x00\\x0B\\x37\\xAF\\x04\\x58\\x00\\x00\\x02\\x29\\x9F\\xD2\\xCB\\xE7\\x67\\x80\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x03\\x29","\\x00\\x0B\\x37\\xAF\\x04\\x0F\\x00\\x06\\x08\\x01\\x06\\xB0\\xF0\\xA8\\x4C\\x80\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x95","\\x00\\x0B\\x37\\xB4\\x02\\x45\\x00\\x01\\x0D\\x54\\x07\\xE1\\x54\\x15\\xE4\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02\\x2F"};
-  data=new byte[dataInHex.length][];
-  for (int i=0; i < dataInHex.length; ++i) {
-    data[i]=BytesUtil.fromReadableText(dataInHex[i]);
-  }
+  tableData=mockTable();
 }
