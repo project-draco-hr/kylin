@@ -11,11 +11,12 @@
         if (samples.size() < nSamples && samples.contains(str) == false)         samples.add(str);
       }
  catch (      ParseException e) {
+        logger.info("Unrecognized datetime value: " + str);
         matchPattern=null;
         break;
       }
     }
     if (matchPattern != null)     return new DateStrDictionary(matchPattern,baseId);
   }
-  throw new IllegalStateException("Unrecognized datetime values: " + samples);
+  throw new IllegalStateException("Unrecognized datetime value");
 }
