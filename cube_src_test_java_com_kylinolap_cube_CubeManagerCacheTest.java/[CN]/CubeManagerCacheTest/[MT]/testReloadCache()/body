@@ -1,8 +1,8 @@
 {
   ResourceStore store=getStore();
   store.deleteResource("/cube/a_whole_new_cube.json");
-  CubeManager metaMgr=getCubeManager();
-  CubeDesc desc=metaMgr.getCubeDesc("test_kylin_cube_with_slr_desc");
+  CubeDescManager cubeDescMgr=getCubeDescManager();
+  CubeDesc desc=cubeDescMgr.getCubeDesc("test_kylin_cube_with_slr_desc");
   cubeManager.createCube("a_whole_new_cube","default",desc,null);
   CubeInstance createdCube=cubeManager.getCube("a_whole_new_cube");
   assertEquals(0,createdCube.getSegments().size());

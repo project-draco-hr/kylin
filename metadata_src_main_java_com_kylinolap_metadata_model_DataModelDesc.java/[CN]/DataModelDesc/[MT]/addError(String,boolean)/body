@@ -1,0 +1,8 @@
+{
+  if (!silent) {
+    throw new IllegalStateException(message);
+  }
+ else {
+    this.errors.add(message);
+  }
+}

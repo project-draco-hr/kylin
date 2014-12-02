@@ -1,3 +1,3 @@
 {
-  return getCubeManager().getCubeDesc("test_kylin_cube_ii");
+  return getCubeDescManager().getCubeDesc("test_kylin_cube_ii");
 }

@@ -25,7 +25,9 @@
   for (  DimensionDesc dim : dimensions) {
     JoinDesc jDesc=dim.getJoin();
     if (jDesc == null) {
-      if (!factTableCol2LookupCol.containsKey(dim.getColumn()))       usedCols.add(dim.getColumn());
+      for (      String aColumn : dim.getColumn()) {
+        if (!factTableCol2LookupCol.containsKey(aColumn))         usedCols.add(aColumn);
+      }
     }
   }
   for (  MeasureDesc mDesc : desc.getMeasures()) {
