@@ -2,7 +2,7 @@
   ByteArrayOutputStream bout=new ByteArrayOutputStream();
   IOUtils.copy(content,bout);
   bout.close();
-  HTableInterface table=getConnection().getTable(getTableName(resPath));
+  HTableInterface table=getConnection().getTable(getAllInOneTableName());
   try {
     byte[] row=Bytes.toBytes(resPath);
     Put put=buildPut(resPath,ts,row,bout.toByteArray(),table);
