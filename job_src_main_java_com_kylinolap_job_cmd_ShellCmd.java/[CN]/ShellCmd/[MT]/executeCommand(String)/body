@@ -1,5 +1,5 @@
 {
   output.reset();
-  String result=cliCommandExecutor.execute(command);
+  cliCommandExecutor.execute(command);
   return 0;
 }
