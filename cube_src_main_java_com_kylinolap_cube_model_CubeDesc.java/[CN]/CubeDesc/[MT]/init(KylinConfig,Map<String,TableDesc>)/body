@@ -1,12 +1,17 @@
 {
   this.errors.clear();
   this.config=config;
+  if (this.modelName == null || this.modelName.length() == 0) {
+    this.addError("The cubeDesc '" + this.getName() + "' doesn't have data model specified.");
+  }
   this.model=MetadataManager.getInstance(config).getDataModelDesc(this.modelName);
+  if (this.model == null) {
+    this.addError("No data model found with name '" + modelName + "'.");
+  }
   for (  DimensionDesc dim : dimensions) {
     dim.init(this,tables);
   }
   sortDimAndMeasure();
-  initJoinColumns(tables);
   initDimensionColumns(tables);
   initMeasureColumns(tables);
   rowkey.init(this);

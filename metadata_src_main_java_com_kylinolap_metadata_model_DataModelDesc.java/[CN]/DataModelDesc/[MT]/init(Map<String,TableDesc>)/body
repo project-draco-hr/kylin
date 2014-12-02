@@ -1,0 +1,5 @@
+{
+  this.errors.clear();
+  this.factTable=factTable.toUpperCase();
+  initJoinColumns(tables);
+}

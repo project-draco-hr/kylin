@@ -5,7 +5,7 @@
     ArrayList<TblColRef> dimColList=new ArrayList<TblColRef>();
     ArrayList<TblColRef> hostColList=new ArrayList<TblColRef>();
     if (dim.getColumn() != null) {
-      if ("{FK}".equals(dim.getColumn())) {
+      if (join != null) {
         for (        TblColRef ref : join.getForeignKeyColumns()) {
           TblColRef inited=initDimensionColRef(ref);
           dimColList.add(inited);
@@ -13,9 +13,11 @@
         }
       }
  else {
-        TblColRef ref=initDimensionColRef(dimTable,dim.getColumn());
-        dimColList.add(ref);
-        hostColList.add(ref);
+        for (        String aColumn : dim.getColumn()) {
+          TblColRef ref=initDimensionColRef(dimTable,aColumn);
+          dimColList.add(ref);
+          hostColList.add(ref);
+        }
       }
     }
     if (dim.getHierarchy() != null) {

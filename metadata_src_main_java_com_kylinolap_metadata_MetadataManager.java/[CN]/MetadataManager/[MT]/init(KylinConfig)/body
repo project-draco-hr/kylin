@@ -3,4 +3,5 @@
   reloadAllSourceTable();
   reloadAllSourceTableExd();
   reloadAllInvertedIndexDesc();
+  reloadAllDataModel();
 }
