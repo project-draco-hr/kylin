@@ -1,11 +1,5 @@
 {
   output.reset();
-  if (remoteHost != null) {
-    log.debug("Executing remote cmd: " + command);
-    return remoteExec(command);
-  }
- else {
-    log.debug("Executing local cmd: " + command);
-    return localExec(command);
-  }
+  String result=cliCommandExecutor.execute(command);
+  return 0;
 }
