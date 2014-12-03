@@ -1,3 +1,9 @@
 {
-  return null;
+  if (!hasNext()) {
+    throw new IllegalStateException("No more ITuple in EndpointTupleIterator");
+  }
+  if (!this.tupleIterator.hasNext()) {
+    this.tupleIterator=new SingleRegionTupleIterator(this.regionResponsesIterator.next());
+  }
+  return this.tupleIterator.next();
 }

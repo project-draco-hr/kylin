@@ -1,0 +1,27 @@
+{
+  this.seg=cubeSegment;
+  this.tableDesc=tableDesc;
+  this.rootFilter=rootFilter;
+  this.groupBy=groupBy;
+  this.context=context;
+  this.measures=measures;
+  this.columns=Lists.newArrayList();
+  for (  ColumnDesc columnDesc : tableDesc.getColumns()) {
+    columns.add(new TblColRef(columnDesc));
+  }
+  columnNames=getColumnNames(columns);
+  this.tupleInfo=buildTupleInfo();
+  this.tableRecordInfo=new TableRecordInfo(this.seg);
+  this.pushedDownRowType=CoprocessorRowType.fromTableDesc(this.seg,tableDesc);
+  this.pushedDownFilter=CoprocessorFilter.fromFilter(this.seg,rootFilter);
+  this.pushedDownProjector=CoprocessorProjector.makeForEndpoint(tableRecordInfo,groupBy);
+  this.pushedDownAggregators=EndpointAggregators.fromFunctions(measures,tableRecordInfo);
+  IIProtos.IIRequest endpointRequest=prepareRequest();
+  regionResponsesIterator=getResults(endpointRequest,table);
+  if (this.regionResponsesIterator.hasNext()) {
+    this.tupleIterator=new SingleRegionTupleIterator(this.regionResponsesIterator.next());
+  }
+ else {
+    this.tupleIterator=ITupleIterator.EMPTY_TUPLE_ITERATOR;
+  }
+}
