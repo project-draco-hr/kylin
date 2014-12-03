@@ -2,11 +2,10 @@
   ProjectTable projectTable=null;
   project=ProjectInstance.getNormalizedProjectName(project);
   if (this.projectTables.containsEntry(project,new ProjectTable(table))) {
-    Iterator<ProjectTable> projsIter=this.projectTables.get(project).iterator();
-    while (projsIter.hasNext()) {
-      ProjectTable oneTable=projsIter.next();
-      if (oneTable.getName().equalsIgnoreCase(table)) {
-        projectTable=oneTable;
+    Collection<ProjectTable> projects=this.projectTables.get(project);
+    for (    ProjectTable pt : projects) {
+      if (pt.getName().equalsIgnoreCase(table)) {
+        projectTable=pt;
         break;
       }
     }

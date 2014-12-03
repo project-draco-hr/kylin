@@ -1,7 +1,12 @@
 {
-  if (srcTable.getUuid() == null || srcTable.getName() == null)   throw new IllegalArgumentException();
-  if (srcTableMap.containsKey(srcTable.getName()))   throw new IllegalArgumentException("SourceTable '" + srcTable.getName() + "' already exists");
+  if (srcTable.getUuid() == null || srcTable.getName() == null) {
+    throw new IllegalArgumentException();
+  }
+  String tableIdentity=TableDesc.getTableIdentity(srcTable);
+  if (srcTableMap.containsKey(tableIdentity)) {
+    throw new IllegalArgumentException("SourceTable '" + srcTable.getName() + "' already exists");
+  }
   String path=srcTable.getResourcePath();
   getStore().putResource(path,srcTable,TABLE_SERIALIZER);
-  srcTableMap.put(srcTable.getName(),srcTable);
+  srcTableMap.put(tableIdentity,srcTable);
 }
