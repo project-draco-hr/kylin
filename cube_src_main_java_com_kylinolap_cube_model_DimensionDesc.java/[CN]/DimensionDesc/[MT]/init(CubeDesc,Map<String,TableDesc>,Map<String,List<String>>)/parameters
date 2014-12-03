@@ -1,2 +1,3 @@
 CubeDesc cubeDesc
 Map<String,TableDesc> tables
+Map<String,List<String>> columnTableMap

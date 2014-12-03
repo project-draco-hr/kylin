@@ -12,15 +12,21 @@
         table=thisTable;
       }
  else       if (thisTable != null && !table.equalsIgnoreCase(thisTable)) {
-        throw new IllegalStateException("One dimension can only refer to the columns on the same table.");
+        throw new IllegalStateException("One dimension can only refer to the columns on the same table: '" + table + "' and '"+ thisTable+ "'.");
       }
       if (database == null && splits.length > 2) {
         database=splits[splits.length - 3].toUpperCase();
       }
-      this.column[i]=splits[splits.length - 1].toUpperCase();
     }
  else {
-      table=cubeDesc.getFactTable();
+      List<String> tableNames=columnTableMap.get(thisColumn);
+      if (tableNames != null && tableNames.size() == 1) {
+        table=tableNames.get(0);
+      }
+ else {
+        if (tableNames == null)         throw new IllegalStateException("The column '" + thisColumn + "' doesn't belong to any table.");
+        if (tableNames.size() > 1)         throw new IllegalStateException("The column '" + thisColumn + "' is ambiguous; the name appeared in more than one tables, please specify table name together with the column name.");
+      }
     }
   }
   TableDesc tableDesc=tables.get(table);
