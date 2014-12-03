@@ -1,7 +1,6 @@
 CubeSegment cubeSegment
-CubeDesc cubeDesc
-Collection<TblColRef> dimensions
-TupleFilter filter
+TableDesc tableDesc
+TupleFilter rootFilter
 Collection<TblColRef> groupBy
 List<FunctionDesc> measures
 StorageContext context

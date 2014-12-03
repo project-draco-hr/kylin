@@ -1,4 +1,2 @@
 TableRecord tableRecord
-List<FunctionDesc> measures
 List<String> measureValues
-Tuple tuple

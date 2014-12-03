@@ -5,7 +5,7 @@
     ColumnDesc columnDesc=tableInfo.getColumns()[i];
     TblColRef tblColRef=new TblColRef(columnDesc);
     int length=tableInfo.length(i);
-    byte bits=dimensionColumns.contains(tblColRef) ? (byte)0xff : 0x00;
+    byte bits=groupby.contains(tblColRef) ? (byte)0xff : 0x00;
     for (int j=0; j < length; ++j) {
       mask[maskIdx++]=bits;
     }

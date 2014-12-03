@@ -6,9 +6,16 @@
   TblColRef lfn=new TblColRef(columnDesc);
   TupleFilter filterA=mockEQFiter("ABIN",lfn);
   TupleFilter filterB=mockNEQFiter("ABIN",lfn);
-  IIProtos.IIRequest requestA=prepareRequest(filterA);
-  IIProtos.IIRequest requestB=prepareRequest(filterB);
-  int resultA=getResults(requestA,table).size();
-  int resultB=getResults(requestB,table).size();
-  assertEquals(resultA + resultB,10000);
+  ColumnDesc priceColumn=tableDesc.findColumnByName("PRICE");
+  List<FunctionDesc> measures=buildAggregations(priceColumn);
+  Collection<TblColRef> groupby=ImmutableSet.of(lfn);
+  StorageContext context=new StorageContext();
+  EndpointTupleIterator iterator=new EndpointTupleIterator(seg,tableDesc,filterA,groupby,measures,context,table);
+  int counterA=0;
+  while (iterator.hasNext()) {
+    ITuple tuple=iterator.next();
+    System.out.println(tuple);
+    counterA++;
+  }
+  System.out.println(counterA);
 }

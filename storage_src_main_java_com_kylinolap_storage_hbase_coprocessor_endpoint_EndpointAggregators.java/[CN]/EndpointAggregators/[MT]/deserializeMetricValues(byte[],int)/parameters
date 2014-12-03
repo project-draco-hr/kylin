@@ -1,1 +1,2 @@
 byte[] metricBytes
+int offset

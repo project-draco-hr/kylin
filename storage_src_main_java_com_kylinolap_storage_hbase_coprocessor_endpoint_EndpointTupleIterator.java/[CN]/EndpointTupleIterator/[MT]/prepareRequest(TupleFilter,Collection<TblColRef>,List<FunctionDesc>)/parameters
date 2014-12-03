@@ -1,3 +1,0 @@
-TupleFilter rootFilter
-Collection<TblColRef> dimensionColumns
-List<FunctionDesc> metrics
