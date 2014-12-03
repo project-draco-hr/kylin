@@ -7,7 +7,7 @@
   int originTableCount=projectInstance.getTablesCount();
   List<TableDesc> exposedTables=listExposedTables(project);
   for (  TableDesc table : exposedTables) {
-    projectInstance.addTable(table.getName());
+    projectInstance.addTable(TableDesc.getTableIdentity(table));
   }
   if (originTableCount < projectInstance.getTablesCount()) {
     saveResource(projectInstance);
