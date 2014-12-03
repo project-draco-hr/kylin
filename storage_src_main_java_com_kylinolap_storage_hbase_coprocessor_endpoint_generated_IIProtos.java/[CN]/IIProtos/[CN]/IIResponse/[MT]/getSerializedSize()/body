@@ -2,13 +2,8 @@
   int size=memoizedSerializedSize;
   if (size != -1)   return size;
   size=0;
-{
-    int dataSize=0;
-    for (int i=0; i < rows_.size(); i++) {
-      dataSize+=com.google.protobuf.CodedOutputStream.computeBytesSizeNoTag(rows_.get(i));
-    }
-    size+=dataSize;
-    size+=1 * getRowsList().size();
+  for (int i=0; i < rows_.size(); i++) {
+    size+=com.google.protobuf.CodedOutputStream.computeMessageSize(1,rows_.get(i));
   }
   size+=getUnknownFields().getSerializedSize();
   memoizedSerializedSize=size;

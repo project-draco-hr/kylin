@@ -1,0 +1,8 @@
+CubeSegment cubeSegment
+CubeDesc cubeDesc
+Collection<TblColRef> dimensions
+TupleFilter filter
+Collection<TblColRef> groupBy
+List<FunctionDesc> measures
+StorageContext context
+HTableInterface table

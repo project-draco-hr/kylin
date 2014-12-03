@@ -4,16 +4,16 @@
     output.writeBytes(1,tableInfo_);
   }
   if (((bitField0_ & 0x00000002) == 0x00000002)) {
-    output.writeBytes(2,sRowType_);
+    output.writeBytes(2,type_);
   }
   if (((bitField0_ & 0x00000004) == 0x00000004)) {
-    output.writeBytes(3,sRowFilter_);
+    output.writeBytes(3,filter_);
   }
   if (((bitField0_ & 0x00000008) == 0x00000008)) {
-    output.writeBytes(4,sRowProjector_);
+    output.writeBytes(4,projector_);
   }
   if (((bitField0_ & 0x00000010) == 0x00000010)) {
-    output.writeBytes(5,sRowAggregator_);
+    output.writeBytes(5,aggregator_);
   }
   getUnknownFields().writeTo(output);
 }

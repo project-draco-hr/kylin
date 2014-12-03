@@ -13,6 +13,6 @@
     this.segmentIterator=this.segmentIteratorIterator.next();
   }
  else {
-    this.segmentIterator=CubeSegmentTupleIterator.EMPTY_TUPLE_ITERATOR;
+    this.segmentIterator=ITupleIterator.EMPTY_TUPLE_ITERATOR;
   }
 }

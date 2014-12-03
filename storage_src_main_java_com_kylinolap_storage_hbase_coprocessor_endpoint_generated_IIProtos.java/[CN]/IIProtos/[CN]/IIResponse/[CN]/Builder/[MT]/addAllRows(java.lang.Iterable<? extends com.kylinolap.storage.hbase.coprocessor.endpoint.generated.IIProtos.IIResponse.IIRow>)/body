@@ -1,0 +1,11 @@
+{
+  if (rowsBuilder_ == null) {
+    ensureRowsIsMutable();
+    super.addAll(values,rows_);
+    onChanged();
+  }
+ else {
+    rowsBuilder_.addAllMessages(values);
+  }
+  return this;
+}
