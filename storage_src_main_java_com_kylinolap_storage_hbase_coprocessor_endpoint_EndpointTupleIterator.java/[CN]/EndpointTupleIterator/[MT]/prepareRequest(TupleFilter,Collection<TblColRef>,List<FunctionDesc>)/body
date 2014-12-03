@@ -1,0 +1,10 @@
+{
+  long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
+  CoprocessorRowType type=CoprocessorRowType.fromCuboid(this.seg,Cuboid.findById(cubeDesc,baseCuboidId));
+  CoprocessorFilter filter=CoprocessorFilter.fromFilter(this.seg,rootFilter);
+  TableRecordInfo recordInfo=new TableRecordInfo(seg);
+  CoprocessorProjector projector=CoprocessorProjector.makeForEndpoint(recordInfo,dimensionColumns);
+  EndpointAggregators aggregators=EndpointAggregators.fromFunctions(metrics,recordInfo);
+  IIProtos.IIRequest request=IIProtos.IIRequest.newBuilder().setTableInfo(ByteString.copyFrom(TableRecordInfoDigest.serialize(recordInfo))).setType(ByteString.copyFrom(CoprocessorRowType.serialize(type))).setFilter(ByteString.copyFrom(CoprocessorFilter.serialize(filter))).setProjector(ByteString.copyFrom(CoprocessorProjector.serialize(projector))).setAggregator(ByteString.copyFrom(EndpointAggregators.serialize(aggregators))).build();
+  return request;
+}

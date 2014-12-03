@@ -1,0 +1,17 @@
+{
+  this.seg=cubeSegment;
+  this.cubeDesc=cubeDesc;
+  this.dimensions=dimensions;
+  this.filter=filter;
+  this.groupBy=groupBy;
+  this.context=context;
+  this.measures=measures;
+  IIProtos.IIRequest endpointRequest=prepareRequest(filter,dimensions,measures);
+  regionResponsesIterator=getResults(endpointRequest,table);
+  if (this.regionResponsesIterator.hasNext()) {
+    this.tupleIterator=this.segmentIteratorIterator.next();
+  }
+ else {
+    this.tupleIterator=ITupleIterator.EMPTY_TUPLE_ITERATOR;
+  }
+}

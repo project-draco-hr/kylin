@@ -5,7 +5,7 @@
     memoizedIsInitialized=0;
     return false;
   }
-  if (!hasSRowType()) {
+  if (!hasType()) {
     memoizedIsInitialized=0;
     return false;
   }

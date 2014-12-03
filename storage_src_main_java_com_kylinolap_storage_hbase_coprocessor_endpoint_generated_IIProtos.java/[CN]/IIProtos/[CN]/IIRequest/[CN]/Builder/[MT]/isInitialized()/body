@@ -2,7 +2,7 @@
   if (!hasTableInfo()) {
     return false;
   }
-  if (!hasSRowType()) {
+  if (!hasType()) {
     return false;
   }
   return true;

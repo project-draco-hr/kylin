@@ -1,0 +1,20 @@
+{
+  if (other == com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIRequest.getDefaultInstance())   return this;
+  if (other.hasTableInfo()) {
+    setTableInfo(other.getTableInfo());
+  }
+  if (other.hasType()) {
+    setType(other.getType());
+  }
+  if (other.hasFilter()) {
+    setFilter(other.getFilter());
+  }
+  if (other.hasProjector()) {
+    setProjector(other.getProjector());
+  }
+  if (other.hasAggregator()) {
+    setAggregator(other.getAggregator());
+  }
+  this.mergeUnknownFields(other.getUnknownFields());
+  return this;
+}

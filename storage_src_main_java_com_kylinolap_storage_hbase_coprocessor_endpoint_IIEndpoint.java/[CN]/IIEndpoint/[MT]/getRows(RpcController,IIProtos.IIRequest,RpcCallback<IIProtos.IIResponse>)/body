@@ -1,19 +1,19 @@
 {
-  ObserverRowType type=null;
+  CoprocessorRowType type=null;
   CoprocessorProjector projector=null;
-  ObserverAggregators aggregators=null;
+  EndpointAggregators aggregators=null;
   CoprocessorFilter filter=null;
-  if (request.hasSRowType()) {
-    type=ObserverRowType.deserialize(request.getSRowType().toByteArray());
+  if (request.hasType()) {
+    type=CoprocessorRowType.deserialize(request.getType().toByteArray());
   }
-  if (request.hasSRowProjector()) {
-    projector=CoprocessorProjector.deserialize(request.getSRowProjector().toByteArray());
+  if (request.hasProjector()) {
+    projector=CoprocessorProjector.deserialize(request.getProjector().toByteArray());
   }
-  if (request.hasSRowAggregator()) {
-    aggregators=ObserverAggregators.deserialize(request.getSRowAggregator().toByteArray());
+  if (request.hasAggregator()) {
+    aggregators=EndpointAggregators.deserialize(request.getAggregator().toByteArray());
   }
-  if (request.hasSRowFilter()) {
-    filter=CoprocessorFilter.deserialize(request.getSRowFilter().toByteArray());
+  if (request.hasFilter()) {
+    filter=CoprocessorFilter.deserialize(request.getFilter().toByteArray());
   }
   IIProtos.IIResponse response=null;
   RegionScanner innerScanner=null;
@@ -26,6 +26,7 @@
     region.startRegionOperation();
 synchronized (innerScanner) {
       IIProtos.IIResponse.Builder responseBuilder=IIProtos.IIResponse.newBuilder();
+      EndpointAggregationCache aggCache=new EndpointAggregationCache(aggregators);
       IIKeyValueCodec codec=new IIKeyValueCodec(tableInfo);
       for (      Slice slice : codec.decodeKeyValue(new HbaseServerKVIterator(innerScanner))) {
         ConciseSet result=null;
@@ -34,8 +35,17 @@ synchronized (innerScanner) {
         }
         Iterator<TableRecordBytes> iterator=slice.iterateWithBitmap(result);
         while (iterator.hasNext()) {
-          responseBuilder.addRows(ByteString.copyFrom(iterator.next().getBytes()));
+          byte[] data=iterator.next().getBytes();
+          CoprocessorProjector.AggrKey aggKey=projector.getAggrKey(data);
+          MeasureAggregator[] bufs=aggCache.getBuffer(aggKey);
+          aggregators.aggregate(bufs,data);
+          aggCache.checkMemoryUsage();
         }
+      }
+      for (      Map.Entry<CoprocessorProjector.AggrKey,MeasureAggregator[]> entry : aggCache.getAllEntries()) {
+        CoprocessorProjector.AggrKey aggrKey=entry.getKey();
+        IIRow.Builder rowBuilder=IIRow.newBuilder().setColumns(ByteString.copyFrom(aggrKey.get(),aggrKey.offset(),aggrKey.length())).setMeasures(ByteString.copyFrom(aggregators.serializeMetricValues(entry.getValue())));
+        responseBuilder.addRows(rowBuilder.build());
       }
       response=responseBuilder.build();
     }

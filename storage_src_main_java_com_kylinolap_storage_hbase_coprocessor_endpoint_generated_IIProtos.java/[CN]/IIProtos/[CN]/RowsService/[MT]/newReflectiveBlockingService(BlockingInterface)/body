@@ -9,7 +9,7 @@
       }
 switch (method.getIndex()) {
 case 0:
-        return impl.getRows(controller,(IIProtos.IIRequest)request);
+        return impl.getRows(controller,(com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIRequest)request);
 default :
       throw new java.lang.AssertionError("Can't get here.");
   }
@@ -20,7 +20,7 @@ public final com.google.protobuf.Message getRequestPrototype(com.google.protobuf
   }
 switch (method.getIndex()) {
 case 0:
-    return IIProtos.IIRequest.getDefaultInstance();
+    return com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIRequest.getDefaultInstance();
 default :
   throw new java.lang.AssertionError("Can't get here.");
 }
@@ -31,7 +31,7 @@ throw new java.lang.IllegalArgumentException("Service.getResponsePrototype() giv
 }
 switch (method.getIndex()) {
 case 0:
-return IIProtos.IIResponse.getDefaultInstance();
+return com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.getDefaultInstance();
 default :
 throw new java.lang.AssertionError("Can't get here.");
 }

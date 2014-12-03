@@ -1,3 +1,0 @@
-{
-  return (IIProtos.IIResponse)channel.callBlockingMethod(getDescriptor().getMethods().get(0),controller,request,IIProtos.IIResponse.getDefaultInstance());
-}

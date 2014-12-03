@@ -1,0 +1,11 @@
+{
+  if (rowsBuilder_ == null) {
+    ensureRowsIsMutable();
+    rows_.remove(index);
+    onChanged();
+  }
+ else {
+    rowsBuilder_.remove(index);
+  }
+  return this;
+}

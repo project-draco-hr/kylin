@@ -1,7 +1,7 @@
 {
-  IIProtos.IIRequest result=buildPartial();
+  com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIRequest result=buildPartial();
   if (!result.isInitialized()) {
-    throw AbstractMessage.Builder.newUninitializedMessageException(result);
+    throw newUninitializedMessageException(result);
   }
   return result;
 }

@@ -26,25 +26,25 @@ case 10:
 case 18:
 {
   bitField0_|=0x00000002;
-  sRowType_=input.readBytes();
+  type_=input.readBytes();
   break;
 }
 case 26:
 {
 bitField0_|=0x00000004;
-sRowFilter_=input.readBytes();
+filter_=input.readBytes();
 break;
 }
 case 34:
 {
 bitField0_|=0x00000008;
-sRowProjector_=input.readBytes();
+projector_=input.readBytes();
 break;
 }
 case 42:
 {
 bitField0_|=0x00000010;
-sRowAggregator_=input.readBytes();
+aggregator_=input.readBytes();
 break;
 }
 }
