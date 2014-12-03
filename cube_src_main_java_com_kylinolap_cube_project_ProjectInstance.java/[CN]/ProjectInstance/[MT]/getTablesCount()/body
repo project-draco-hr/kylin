@@ -1,3 +1,3 @@
 {
-  return cubes.size();
+  return this.getTables().size();
 }

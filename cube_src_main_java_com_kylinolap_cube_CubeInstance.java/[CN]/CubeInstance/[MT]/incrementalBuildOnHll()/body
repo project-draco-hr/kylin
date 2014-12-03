@@ -1,3 +1,0 @@
-{
-  return (!getSegment(CubeSegmentStatusEnum.READY).isEmpty()) && getDescriptor().hasHolisticCountDistinctMeasures();
-}

@@ -8,12 +8,10 @@
     updateRequest(cubeRequest,false,error);
     return cubeRequest;
   }
-  String descData="";
   try {
     CubeInstance cube=cubeService.getCubeManager().getCube(cubeRequest.getCubeName());
     String projectName=(null == cubeRequest.getProject()) ? ProjectInstance.DEFAULT_PROJECT_NAME : cubeRequest.getProject();
     desc=cubeService.updateCubeAndDesc(cube,desc,projectName);
-    descData=JsonUtil.writeValueAsIndentString(desc);
   }
  catch (  AccessDeniedException accessDeniedException) {
     throw new ForbiddenException("You don't have right to update this cube.");
@@ -26,8 +24,10 @@ catch (  Exception e) {
     cubeRequest.setSuccessful(true);
   }
  else {
+    logger.warn("Cube " + desc.getName() + " fail to create because "+ desc.getError());
     updateRequest(cubeRequest,false,omitMessage(desc.getError()));
   }
+  String descData=JsonUtil.writeValueAsIndentString(desc);
   cubeRequest.setCubeDescData(descData);
   return cubeRequest;
 }
