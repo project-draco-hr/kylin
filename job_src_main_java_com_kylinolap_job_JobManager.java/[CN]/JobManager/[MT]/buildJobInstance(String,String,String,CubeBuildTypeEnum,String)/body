@@ -7,5 +7,6 @@
   jobInstance.setRelatedCube(cubeName);
   jobInstance.setRelatedSegment(segmentName);
   jobInstance.setName(cubeName + " - " + segmentName+ " - "+ jobType.toString()+ " - "+ format.format(new Date(System.currentTimeMillis())));
+  jobInstance.setSubmitter(submitter);
   return jobInstance;
 }
