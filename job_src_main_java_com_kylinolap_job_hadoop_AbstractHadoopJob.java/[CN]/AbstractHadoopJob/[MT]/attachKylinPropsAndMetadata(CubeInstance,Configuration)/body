@@ -9,6 +9,7 @@
   kylinConfig.writeProperties(kylinPropsFile);
   ArrayList<String> dumpList=new ArrayList<String>();
   dumpList.add(cube.getResourcePath());
+  dumpList.add(cube.getDescriptor().getModel().getResourcePath());
   dumpList.add(cube.getDescriptor().getResourcePath());
   if (cube.isInvertedIndex()) {
     dumpList.add(cube.getInvertedIndexDesc().getResourcePath());
