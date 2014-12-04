@@ -15,7 +15,7 @@
   if (tableName == null) {
     List<TableDesc> tables=columnTableMap.get(thisColumn);
     if (tables == null) {
-      throw new IllegalStateException("The column '" + thisColumn + "' isn't appeared on any table.");
+      throw new IllegalStateException("The column '" + thisColumn + "' isn't appeared in any table.");
     }
  else     if (tables.size() > 1) {
       throw new IllegalStateException("The column '" + thisColumn + "' is ambiguous; it appeared in more than one tables, please specify table name together with the column name.");

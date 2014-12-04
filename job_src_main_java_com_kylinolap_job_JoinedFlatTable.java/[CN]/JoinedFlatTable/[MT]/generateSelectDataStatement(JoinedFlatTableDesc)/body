@@ -6,7 +6,8 @@
     if (i > 0) {
       sql.append(",");
     }
-    sql.append(col.getTableName() + "." + col.getColumnName()+ "\n");
+    String tableAlias=intermediateTableDesc.getTableAlias(col.getTableName());
+    sql.append(tableAlias + "." + col.getColumnName()+ "\n");
   }
   appendJoinStatement(intermediateTableDesc,sql);
   appendWhereStatement(intermediateTableDesc,sql);
