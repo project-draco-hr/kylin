@@ -14,7 +14,7 @@ catch (  JsonMappingException e) {
   }
 catch (  IOException e) {
     logger.error("Failed to deal with the request.",e);
-    throw new InternalErrorException("Failed to deal with the request.",e);
+    throw new InternalErrorException("Failed to deal with the request:" + e.getMessage(),e);
   }
   return desc;
 }
