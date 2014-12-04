@@ -1,13 +1,3 @@
 {
-  Pair<Integer,String> r;
-  if (remoteHost == null) {
-    r=runNativeCommand(command);
-  }
- else {
-    r=runRemoteCommand(command);
-  }
-  if (r.getFirst() != 0) {
-    throw new IOException("OS command error exit with " + r.getFirst() + " -- "+ command+ "\n"+ r.getSecond());
-  }
-  return r;
+  return execute(command,null);
 }

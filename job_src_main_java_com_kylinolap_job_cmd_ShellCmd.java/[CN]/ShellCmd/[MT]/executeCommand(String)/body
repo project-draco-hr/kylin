@@ -1,5 +1,5 @@
 {
   output.reset();
   output.setStatus(JobStepStatusEnum.RUNNING);
-  return cliCommandExecutor.execute(command).getFirst();
+  return cliCommandExecutor.execute(command,output).getFirst();
 }

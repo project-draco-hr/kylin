@@ -1,5 +1,5 @@
 {
-  SSHClient ssh=new SSHClient(remoteHost,remoteUser,remotePwd,null);
+  SSHClient ssh=new SSHClient(remoteHost,remoteUser,remotePwd);
   try {
     ssh.scpFileToRemote(localFile,destDir);
   }
