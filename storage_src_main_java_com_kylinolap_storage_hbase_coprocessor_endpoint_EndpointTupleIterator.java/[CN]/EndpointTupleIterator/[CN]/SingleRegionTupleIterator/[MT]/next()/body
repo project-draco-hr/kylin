@@ -5,8 +5,10 @@
   IIRow currentRow=rows.get(index);
   byte[] columnsBytes=currentRow.getColumns().toByteArray();
   this.tableRecord.setBytes(columnsBytes,0,columnsBytes.length);
-  byte[] measuresBytes=currentRow.getMeasures().toByteArray();
-  this.measureValues=pushedDownAggregators.deserializeMetricValues(measuresBytes,0);
+  if (currentRow.hasMeasures()) {
+    byte[] measuresBytes=currentRow.getMeasures().toByteArray();
+    this.measureValues=pushedDownAggregators.deserializeMetricValues(measuresBytes,0);
+  }
   index++;
   return makeTuple(this.tableRecord,this.measureValues);
 }

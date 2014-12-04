@@ -25,29 +25,14 @@
     innerScanner=region.getScanner(buildScan());
     region.startRegionOperation();
 synchronized (innerScanner) {
-      IIProtos.IIResponse.Builder responseBuilder=IIProtos.IIResponse.newBuilder();
-      EndpointAggregationCache aggCache=new EndpointAggregationCache(aggregators);
       IIKeyValueCodec codec=new IIKeyValueCodec(tableInfo);
-      for (      Slice slice : codec.decodeKeyValue(new HbaseServerKVIterator(innerScanner))) {
-        ConciseSet result=null;
-        if (filter != null) {
-          result=new BitMapFilterEvaluator(new SliceBitMapProvider(slice,type)).evaluate(filter.getFilter());
-        }
-        Iterator<TableRecordBytes> iterator=slice.iterateWithBitmap(result);
-        while (iterator.hasNext()) {
-          byte[] data=iterator.next().getBytes();
-          CoprocessorProjector.AggrKey aggKey=projector.getAggrKey(data);
-          MeasureAggregator[] bufs=aggCache.getBuffer(aggKey);
-          aggregators.aggregate(bufs,data);
-          aggCache.checkMemoryUsage();
-        }
+      Iterable<Slice> slices=codec.decodeKeyValue(new HbaseServerKVIterator(innerScanner));
+      if (aggregators.isEmpty()) {
+        response=getNonAggregatedResponse(slices,filter,type);
       }
-      for (      Map.Entry<CoprocessorProjector.AggrKey,MeasureAggregator[]> entry : aggCache.getAllEntries()) {
-        CoprocessorProjector.AggrKey aggrKey=entry.getKey();
-        IIRow.Builder rowBuilder=IIRow.newBuilder().setColumns(ByteString.copyFrom(aggrKey.get(),aggrKey.offset(),aggrKey.length())).setMeasures(ByteString.copyFrom(aggregators.serializeMetricValues(entry.getValue())));
-        responseBuilder.addRows(rowBuilder.build());
+ else {
+        response=getAggregatedResponse(slices,filter,type,projector,aggregators);
       }
-      response=responseBuilder.build();
     }
   }
  catch (  IOException ioe) {
