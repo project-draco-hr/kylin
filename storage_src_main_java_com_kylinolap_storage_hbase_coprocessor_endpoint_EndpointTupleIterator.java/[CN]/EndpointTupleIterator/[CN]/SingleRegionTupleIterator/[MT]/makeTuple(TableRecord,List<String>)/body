@@ -7,8 +7,10 @@
     }
     tuple.setValue(columnNames.get(i),columnValues.get(i));
   }
-  for (int i=0; i < measures.size(); ++i) {
-    tuple.setValue(measures.get(i).getRewriteFieldName(),measureValues.get(i));
+  if (measureValues != null) {
+    for (int i=0; i < measures.size(); ++i) {
+      tuple.setValue(measures.get(i).getRewriteFieldName(),measureValues.get(i));
+    }
   }
   return tuple;
 }

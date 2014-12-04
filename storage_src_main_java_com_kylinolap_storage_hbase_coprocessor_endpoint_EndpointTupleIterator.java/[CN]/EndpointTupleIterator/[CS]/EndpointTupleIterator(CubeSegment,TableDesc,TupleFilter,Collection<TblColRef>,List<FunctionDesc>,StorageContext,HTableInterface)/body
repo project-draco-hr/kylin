@@ -4,9 +4,6 @@
   }
   if (groupBy == null) {
     groupBy=Lists.newArrayList();
-    for (    ColumnDesc columnDesc : tableDesc.getColumns()) {
-      groupBy.add(new TblColRef(columnDesc));
-    }
   }
   if (measures == null) {
     measures=Lists.newArrayList();

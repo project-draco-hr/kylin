@@ -2,8 +2,5 @@
   if (!hasColumns()) {
     return false;
   }
-  if (!hasMeasures()) {
-    return false;
-  }
   return true;
 }
