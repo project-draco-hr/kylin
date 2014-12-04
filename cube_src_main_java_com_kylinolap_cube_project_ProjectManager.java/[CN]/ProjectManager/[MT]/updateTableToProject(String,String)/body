@@ -9,7 +9,7 @@
   }
   List<TableDesc> exposedTables=listExposedTables(projectName);
   for (  TableDesc table : exposedTables) {
-    projectInstance.addTable(table.getName());
+    projectInstance.addTable(table.getIdentity());
   }
   saveResource(projectInstance);
   return projectInstance;

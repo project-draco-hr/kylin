@@ -4,7 +4,7 @@
   if (t == null) {
     throw new IllegalStateException("No SourceTable found by name '" + table + "', ref by "+ refObj);
   }
-  table=t.getName();
+  table=t.getIdentity();
   ProjectTable projTable=getProjectTable(project,table,true);
   ColumnDesc srcCol=t.findColumnByName(column);
   if (srcCol == null) {
