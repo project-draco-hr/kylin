@@ -1,0 +1,3 @@
+String thisColumn
+Map<String,List<TableDesc>> columnTableMap
+Map<String,List<String>> tableDatabaseMap
