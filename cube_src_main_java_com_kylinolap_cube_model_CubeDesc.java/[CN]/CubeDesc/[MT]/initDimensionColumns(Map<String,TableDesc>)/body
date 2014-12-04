@@ -15,8 +15,9 @@
  else {
         for (        String aColumn : dim.getColumn()) {
           TblColRef ref=initDimensionColRef(dimTable,aColumn);
-          dimColList.add(ref);
-          hostColList.add(ref);
+          if (!dimColList.contains(ref)) {
+            dimColList.add(ref);
+          }
         }
       }
     }
@@ -24,7 +25,7 @@
       for (      HierarchyDesc hier : dim.getHierarchy()) {
         TblColRef ref=initDimensionColRef(dimTable,hier.getColumn());
         hier.setColumnRef(ref);
-        dimColList.add(ref);
+        if (!dimColList.contains(ref))         dimColList.add(ref);
       }
       if (hostColList.isEmpty()) {
         hostColList.add(dimColList.get(dimColList.size() - 1));

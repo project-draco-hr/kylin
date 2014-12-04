@@ -1,0 +1,12 @@
+{
+  tableAliasMap=new HashMap<String,String>();
+  tableAliasMap.put(cubeDesc.getFactTable(),"FACT_TABLE");
+  int i=1;
+  for (  DimensionDesc dim : cubeDesc.getDimensions()) {
+    JoinDesc join=dim.getJoin();
+    if (join != null) {
+      tableAliasMap.put(dim.getTable(),"LOOKUP_" + i);
+      i++;
+    }
+  }
+}
