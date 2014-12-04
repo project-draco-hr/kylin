@@ -1,0 +1,3 @@
+{
+  return key != null ? innerMap.put(key.toString().toUpperCase(),value) : null;
+}

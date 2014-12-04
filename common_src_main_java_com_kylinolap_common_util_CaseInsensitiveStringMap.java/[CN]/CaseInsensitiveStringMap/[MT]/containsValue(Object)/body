@@ -1,0 +1,3 @@
+{
+  return value != null ? innerMap.containsValue(value) : false;
+}

@@ -2,5 +2,5 @@
   if (column.getTable() == null) {
     return null;
   }
-  return column.getTable().getName();
+  return column.getTable().getIdentity();
 }
