@@ -11,4 +11,9 @@
     }
     rawIndex+=tableInfo.length(columnIndex);
   }
+  for (int i=0; i < refColIndex.length; ++i) {
+    if (refColIndex[i] == -1) {
+      measureAggrs[i].aggregate(one);
+    }
+  }
 }

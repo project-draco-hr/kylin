@@ -7,7 +7,7 @@
   Collection<TblColRef> dims=new HashSet<>();
   dims.add(formatName);
   projector=CoprocessorProjector.makeForEndpoint(tableRecordInfo,dims);
-  aggregators=EndpointAggregators.fromFunctions(buildAggregations(),tableRecordInfo);
+  aggregators=EndpointAggregators.fromFunctions(tableRecordInfo,buildAggregations());
   CompareTupleFilter rawFilter=new CompareTupleFilter(TupleFilter.FilterOperatorEnum.EQ);
   rawFilter.addChild(new ColumnTupleFilter(siteId));
   rawFilter.addChild(new ConstantTupleFilter("0"));

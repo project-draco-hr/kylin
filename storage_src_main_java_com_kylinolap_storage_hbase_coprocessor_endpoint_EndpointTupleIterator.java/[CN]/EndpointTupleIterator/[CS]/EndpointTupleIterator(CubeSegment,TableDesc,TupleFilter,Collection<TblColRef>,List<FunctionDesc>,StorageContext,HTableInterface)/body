@@ -1,4 +1,16 @@
 {
+  if (rootFilter == null) {
+    rootFilter=ConstantTupleFilter.TRUE;
+  }
+  if (groupBy == null) {
+    groupBy=Lists.newArrayList();
+    for (    ColumnDesc columnDesc : tableDesc.getColumns()) {
+      groupBy.add(new TblColRef(columnDesc));
+    }
+  }
+  if (measures == null) {
+    measures=Lists.newArrayList();
+  }
   this.seg=cubeSegment;
   this.tableDesc=tableDesc;
   this.rootFilter=rootFilter;
@@ -15,7 +27,7 @@
   this.pushedDownRowType=CoprocessorRowType.fromTableDesc(this.seg,tableDesc);
   this.pushedDownFilter=CoprocessorFilter.fromFilter(this.seg,rootFilter);
   this.pushedDownProjector=CoprocessorProjector.makeForEndpoint(tableRecordInfo,groupBy);
-  this.pushedDownAggregators=EndpointAggregators.fromFunctions(measures,tableRecordInfo);
+  this.pushedDownAggregators=EndpointAggregators.fromFunctions(tableRecordInfo,measures);
   IIProtos.IIRequest endpointRequest=prepareRequest();
   regionResponsesIterator=getResults(endpointRequest,table);
   if (this.regionResponsesIterator.hasNext()) {
