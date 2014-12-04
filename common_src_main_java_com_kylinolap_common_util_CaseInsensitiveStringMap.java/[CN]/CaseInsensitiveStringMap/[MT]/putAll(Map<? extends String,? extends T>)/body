@@ -1,0 +1,3 @@
+{
+  innerMap.putAll(m);
+}

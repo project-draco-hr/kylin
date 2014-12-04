@@ -6,13 +6,13 @@
   try {
     tempFile=File.createTempFile("tmp_h2",".csv");
     FileOutputStream tempFileStream=new FileOutputStream(tempFile);
-    String normalPath="/data/" + tableDesc.getName() + ".csv";
+    String normalPath="/data/" + tableDesc.getIdentity() + ".csv";
     InputStream csvStream=metaMgr.getStore().getResource(normalPath + fileNameSuffix);
     if (csvStream == null) {
       csvStream=metaMgr.getStore().getResource(normalPath);
     }
  else {
-      logger.info("H2 decides to load " + (normalPath + fileNameSuffix) + " for table "+ tableDesc.getName());
+      logger.info("H2 decides to load " + (normalPath + fileNameSuffix) + " for table "+ tableDesc.getIdentity());
     }
     org.apache.commons.io.IOUtils.copy(csvStream,tempFileStream);
     csvStream.close();

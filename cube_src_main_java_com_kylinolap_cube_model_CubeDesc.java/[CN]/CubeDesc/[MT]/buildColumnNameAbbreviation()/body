@@ -1,5 +1,5 @@
 {
-  Map<String,TblColRef> r=new HashMap<String,TblColRef>();
+  Map<String,TblColRef> r=new CaseInsensitiveStringMap<TblColRef>();
   for (  TblColRef col : listDimensionColumnsExcludingDerived()) {
     r.put(col.getName(),col);
   }

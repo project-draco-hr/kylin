@@ -18,7 +18,7 @@
         tableNames=new ArrayList<String>(3);
         columnTableMap.put(colName,tableNames);
       }
-      tableNames.add(table.getName());
+      tableNames.add(table.getIdentity());
     }
   }
   for (  DimensionDesc dim : dimensions) {
