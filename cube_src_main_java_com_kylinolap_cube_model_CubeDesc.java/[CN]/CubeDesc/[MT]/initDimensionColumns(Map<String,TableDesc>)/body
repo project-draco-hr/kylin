@@ -1,6 +1,6 @@
 {
   for (  DimensionDesc dim : dimensions) {
-    TableDesc dimTable=tables.get(dim.getTable());
+    TableDesc dimTable=dim.getTableDesc();
     JoinDesc join=dim.getJoin();
     ArrayList<TblColRef> dimColList=new ArrayList<TblColRef>();
     ArrayList<TblColRef> hostColList=new ArrayList<TblColRef>();
