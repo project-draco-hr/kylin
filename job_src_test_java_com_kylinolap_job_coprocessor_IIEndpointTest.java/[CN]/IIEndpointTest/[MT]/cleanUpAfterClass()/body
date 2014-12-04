@@ -1,0 +1,5 @@
+{
+  staticCleanupTestMetadata();
+  hconn.close();
+  TEST_UTIL.shutdownMiniCluster();
+}

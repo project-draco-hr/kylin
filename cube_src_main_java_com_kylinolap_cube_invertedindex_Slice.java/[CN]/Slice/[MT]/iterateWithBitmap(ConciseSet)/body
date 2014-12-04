@@ -13,7 +13,7 @@
         return iteratedCount < resultSize;
       }
       @Override public TableRecordBytes next(){
-        while (!resultBitMap.contains(i) && i < nRecords - 1) {
+        while (!resultBitMap.contains(i)) {
           i++;
         }
         for (int col=0; col < nColumns; col++) {
@@ -21,6 +21,7 @@
           rec.setValueBytes(col,temp);
         }
         iteratedCount++;
+        i++;
         return rec;
       }
       @Override public void remove(){
