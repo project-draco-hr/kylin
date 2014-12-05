@@ -3,7 +3,7 @@
   FileUtils.deleteDirectory(new File(tempTestMetadataUrl));
   FileUtils.copyDirectory(new File(AbstractKylinTestCase.LOCALMETA_TEST_DATA),new File(tempTestMetadataUrl));
   System.setProperty(KylinConfig.KYLIN_CONF,tempTestMetadataUrl);
-  SSHClient hadoopCli=new SSHClient(getHadoopCliHostname(),getHadoopCliUsername(),getHadoopCliPassword(),null);
+  SSHClient hadoopCli=new SSHClient(getHadoopCliHostname(),getHadoopCliUsername(),getHadoopCliPassword());
   scpFilesToHdfs(hadoopCli,new String[]{"src/test/resources/json/dummy_jobinstance.json"},mrInputDir);
   hadoopCli.scpFileToRemote("src/test/resources/jarfile/SampleJavaProgram.jarfile","/tmp");
   hadoopCli.scpFileToRemote("src/test/resources/jarfile/SampleBadJavaProgram.jarfile","/tmp");
