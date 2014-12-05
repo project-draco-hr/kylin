@@ -9,5 +9,4 @@
     this.password=password;
     this.identityPath=null;
   }
-  this.sshLogger=sshLogger;
 }
