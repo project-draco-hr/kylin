@@ -1,8 +1,8 @@
 {
-  SSHClient ssh=new SSHClient(remoteHost,remoteUser,remotePwd,null);
+  SSHClient ssh=new SSHClient(remoteHost,remoteUser,remotePwd);
   SSHClientOutput sshOutput;
   try {
-    sshOutput=ssh.execCommand(command,remoteTimeoutSeconds);
+    sshOutput=ssh.execCommand(command,remoteTimeoutSeconds,logAppender);
     int exitCode=sshOutput.getExitCode();
     String output=sshOutput.getText();
     return new Pair<Integer,String>(exitCode,output);
