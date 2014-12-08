@@ -1,0 +1,9 @@
+{
+  SSHClient ssh=new SSHClient(kylinConfig.getRemoteHadoopCliHostname(),kylinConfig.getRemoteHadoopCliUsername(),kylinConfig.getRemoteHadoopCliPassword(),null);
+  try {
+    ssh.scpFileToLocal(backupArchive,"../examples/test_case_data/minicluster/hbase-export.tar.gz");
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}

@@ -1,0 +1,22 @@
+{
+  long currentTIME=System.currentTimeMillis();
+  exportRemoteDiskFolder="/tmp/hbase-export/" + currentTIME + "/";
+  backupArchive="/tmp/kylin_" + currentTIME + ".tar.gz";
+  this.createTestMetadata();
+  kylinConfig=KylinConfig.getInstanceFromEnv();
+  cli=kylinConfig.getCliCommandExecutor();
+  String metadataUrl=kylinConfig.getMetadataUrl();
+  int cut=metadataUrl.indexOf('@');
+  tableNameBase=metadataUrl.substring(0,cut);
+  String hbaseUrl=cut < 0 ? metadataUrl : metadataUrl.substring(cut + 1);
+  HConnection conn=HBaseConnection.get(hbaseUrl);
+  try {
+    hbase=new HBaseAdmin(conn);
+    config=hbase.getConfiguration();
+    allTables=hbase.listTables();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    throw e;
+  }
+}
