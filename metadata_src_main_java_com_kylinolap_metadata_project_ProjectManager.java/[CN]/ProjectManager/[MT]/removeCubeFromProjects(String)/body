@@ -1,0 +1,6 @@
+{
+  for (  ProjectInstance projectInstance : findProjects(cubeName)) {
+    projectInstance.removeCube(cubeName);
+    saveResource(projectInstance);
+  }
+}
