@@ -4,7 +4,7 @@
   Collection<TblColRef> groupby=ImmutableSet.of(lfn);
   ColumnDesc priceColumn=tableDesc.findColumnByName("PRICE");
   List<FunctionDesc> measures=buildAggregations(priceColumn);
-  EndpointTupleIterator iterator=new EndpointTupleIterator(seg,tableDesc,tupleFilter,groupby,measures,context,table);
+  EndpointTupleIterator iterator=new EndpointTupleIterator(seg,tableDesc.getColumns(),tupleFilter,groupby,measures,context,table);
   int count=0;
   while (iterator.hasNext()) {
     ITuple tuple=iterator.next();

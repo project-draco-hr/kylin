@@ -1,8 +1,13 @@
 {
+  HConnection conn=HBaseConnection.get(context.getConnUrl());
+  String tableName=seg.getStorageLocationIdentifier();
+  HTableInterface htable=null;
   try {
-    return new IISegmentTupleIterator(context);
+    htable=conn.getTable(tableName);
+    return new EndpointTupleIterator(seg,columnDescs,filter,groups,new ArrayList(metrics),context,htable);
   }
- catch (  IOException e) {
-    throw new StorageException(e.getMessage(),e);
+ catch (  Throwable e) {
+    e.printStackTrace();
+    throw new IllegalStateException("Error when connecting to II htable " + tableName,e);
   }
 }

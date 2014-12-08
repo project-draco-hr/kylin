@@ -5,5 +5,5 @@
   CONF.setStrings(CoprocessorHost.REGION_COPROCESSOR_CONF_KEY,IIEndpoint.class.getName());
   TEST_UTIL.startMiniCluster();
   mockCubeHtable();
-  hconn=HConnectionManager.createConnection(CONF);
+  hconn=HBaseConnection.get("hbase:sandbox.hortonworks.com:2181:/hbase-unsecure");
 }

@@ -9,19 +9,16 @@
     measures=Lists.newArrayList();
   }
   this.seg=cubeSegment;
-  this.tableDesc=tableDesc;
-  this.rootFilter=rootFilter;
-  this.groupBy=groupBy;
   this.context=context;
   this.measures=measures;
   this.columns=Lists.newArrayList();
-  for (  ColumnDesc columnDesc : tableDesc.getColumns()) {
+  for (  ColumnDesc columnDesc : columnDescs) {
     columns.add(new TblColRef(columnDesc));
   }
   columnNames=getColumnNames(columns);
   this.tupleInfo=buildTupleInfo();
   this.tableRecordInfo=new TableRecordInfo(this.seg);
-  this.pushedDownRowType=CoprocessorRowType.fromTableDesc(this.seg,tableDesc);
+  this.pushedDownRowType=CoprocessorRowType.fromColumnDescs(this.seg,columnDescs);
   this.pushedDownFilter=CoprocessorFilter.fromFilter(this.seg,rootFilter);
   this.pushedDownProjector=CoprocessorProjector.makeForEndpoint(tableRecordInfo,groupBy);
   this.pushedDownAggregators=EndpointAggregators.fromFunctions(tableRecordInfo,measures);
