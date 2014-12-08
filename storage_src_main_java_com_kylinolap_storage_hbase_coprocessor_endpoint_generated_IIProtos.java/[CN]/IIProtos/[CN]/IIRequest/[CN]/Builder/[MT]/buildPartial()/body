@@ -5,21 +5,17 @@
   if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
     to_bitField0_|=0x00000001;
   }
-  result.tableInfo_=tableInfo_;
+  result.type_=type_;
   if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
     to_bitField0_|=0x00000002;
   }
-  result.type_=type_;
+  result.filter_=filter_;
   if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
     to_bitField0_|=0x00000004;
   }
-  result.filter_=filter_;
+  result.projector_=projector_;
   if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
     to_bitField0_|=0x00000008;
-  }
-  result.projector_=projector_;
-  if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-    to_bitField0_|=0x00000010;
   }
   result.aggregator_=aggregator_;
   result.bitField0_=to_bitField0_;

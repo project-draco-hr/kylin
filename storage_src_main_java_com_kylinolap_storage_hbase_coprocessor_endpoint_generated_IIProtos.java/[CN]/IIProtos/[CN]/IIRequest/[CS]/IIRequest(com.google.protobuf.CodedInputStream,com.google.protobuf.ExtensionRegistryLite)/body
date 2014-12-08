@@ -20,30 +20,24 @@ default :
 case 10:
 {
     bitField0_|=0x00000001;
-    tableInfo_=input.readBytes();
+    type_=input.readBytes();
     break;
   }
 case 18:
 {
   bitField0_|=0x00000002;
-  type_=input.readBytes();
+  filter_=input.readBytes();
   break;
 }
 case 26:
 {
 bitField0_|=0x00000004;
-filter_=input.readBytes();
+projector_=input.readBytes();
 break;
 }
 case 34:
 {
 bitField0_|=0x00000008;
-projector_=input.readBytes();
-break;
-}
-case 42:
-{
-bitField0_|=0x00000010;
 aggregator_=input.readBytes();
 break;
 }

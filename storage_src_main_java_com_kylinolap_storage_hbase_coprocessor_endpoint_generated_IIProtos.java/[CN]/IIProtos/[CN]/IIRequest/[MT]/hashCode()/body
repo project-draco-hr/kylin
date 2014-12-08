@@ -4,10 +4,6 @@
   }
   int hash=41;
   hash=(19 * hash) + getDescriptorForType().hashCode();
-  if (hasTableInfo()) {
-    hash=(37 * hash) + TABLEINFO_FIELD_NUMBER;
-    hash=(53 * hash) + getTableInfo().hashCode();
-  }
   if (hasType()) {
     hash=(37 * hash) + TYPE_FIELD_NUMBER;
     hash=(53 * hash) + getType().hashCode();
