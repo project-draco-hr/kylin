@@ -23,6 +23,8 @@
   }
   String cvsFilePath=tempFile.getPath();
   Statement stmt=h2Connection.createStatement();
+  String createDBSql="CREATE SCHEMA IF NOT EXISTS DEFAULT;\nCREATE SCHEMA IF NOT EXISTS EDW;\nSET SCHEMA DEFAULT;\n";
+  stmt.executeUpdate(createDBSql);
   String sql=generateCreateH2TableSql(tableDesc,cvsFilePath);
   stmt.executeUpdate(sql);
   if (tempFile != null)   tempFile.delete();
