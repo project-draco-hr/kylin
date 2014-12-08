@@ -1,0 +1,5 @@
+{
+  ResourceStore store=getStore();
+  store.deleteResource(proj.getResourcePath());
+  this.afterProjectDropped(proj);
+}

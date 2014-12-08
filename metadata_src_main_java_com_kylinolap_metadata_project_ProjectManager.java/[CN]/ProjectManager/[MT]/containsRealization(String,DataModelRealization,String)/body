@@ -1,0 +1,7 @@
+{
+  ProjectInstance project=getProject(projectName);
+  if (project == null) {
+    return false;
+  }
+  return project.containsRealization(realization,name);
+}
