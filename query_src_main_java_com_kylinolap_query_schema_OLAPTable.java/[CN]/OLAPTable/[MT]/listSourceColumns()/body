@@ -1,5 +1,5 @@
 {
-  ProjectManager projectMgr=olapSchema.getProjectManager();
+  CubeRealizationManager projectMgr=CubeRealizationManager.getInstance(olapSchema.getConfig());
   List<ColumnDesc> exposedColumns=projectMgr.listExposedColumns(olapSchema.getProjectName(),sourceTable.getIdentity());
   List<MeasureDesc> countMeasures=projectMgr.listEffectiveRewriteMeasures(olapSchema.getProjectName(),sourceTable.getIdentity());
   HashSet<String> metFields=new HashSet<String>();

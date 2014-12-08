@@ -1,0 +1,6 @@
+{
+  if (realization == null) {
+    throw new NullPointerException("realization cannot be null");
+  }
+  realizations.putIfAbsent(realization,realization);
+}

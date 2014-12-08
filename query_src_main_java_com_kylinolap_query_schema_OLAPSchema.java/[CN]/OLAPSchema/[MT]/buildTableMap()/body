@@ -1,6 +1,6 @@
 {
   Map<String,Table> olapTables=new HashMap<String,Table>();
-  List<TableDesc> projectTables=getProjectManager().listExposedTables(projectName);
+  List<TableDesc> projectTables=CubeRealizationManager.getInstance(config).listExposedTables(projectName);
   for (  TableDesc tableDesc : projectTables) {
     if (tableDesc.getDatabase().equals(schemaName)) {
       final String tableName=tableDesc.getName();
