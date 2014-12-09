@@ -2,4 +2,14 @@
   super.setUp();
   projectController=new ProjectController();
   projectController.setProjectService(projectService);
+  try {
+    projectController.deleteProject("new_project");
+  }
+ catch (  InternalErrorException e) {
+  }
+  try {
+    projectController.deleteProject("new_project_2");
+  }
+ catch (  InternalErrorException e) {
+  }
 }
