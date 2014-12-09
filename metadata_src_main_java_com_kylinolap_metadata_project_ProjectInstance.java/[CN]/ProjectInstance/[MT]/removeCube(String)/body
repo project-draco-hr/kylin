@@ -1,4 +1,3 @@
 {
-  cubeName=cubeName.toUpperCase();
-  cubes.remove(cubeName);
+  cubes.remove(cubeName.toUpperCase());
 }
