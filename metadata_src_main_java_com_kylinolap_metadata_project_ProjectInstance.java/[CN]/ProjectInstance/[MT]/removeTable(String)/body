@@ -1,4 +1,3 @@
 {
-  tableName=tableName.toUpperCase();
-  tables.remove(tableName);
+  tables.remove(tableName.toUpperCase());
 }

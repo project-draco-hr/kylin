@@ -1,3 +1,0 @@
-{
-  return ProjectInstance.DEFAULT_PROJECT_NAME;
-}
