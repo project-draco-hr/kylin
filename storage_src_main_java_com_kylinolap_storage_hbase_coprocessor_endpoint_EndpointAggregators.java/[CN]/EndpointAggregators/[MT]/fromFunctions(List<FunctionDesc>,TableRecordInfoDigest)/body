@@ -1,0 +1,9 @@
+{
+  String[] funcNames=new String[metrics.size()];
+  String[] dataTypes=new String[metrics.size()];
+  for (int i=0; i < metrics.size(); i++) {
+    funcNames[i]=metrics.get(i).getExpression();
+    dataTypes[i]=metrics.get(i).getReturnType();
+  }
+  return new EndpointAggregators(funcNames,dataTypes,tableInfo);
+}

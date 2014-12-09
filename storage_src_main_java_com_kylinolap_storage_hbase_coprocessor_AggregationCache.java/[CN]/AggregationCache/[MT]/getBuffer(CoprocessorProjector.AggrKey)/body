@@ -1,0 +1,8 @@
+{
+  MeasureAggregator[] aggBuf=aggBufMap.get(aggkey);
+  if (aggBuf == null) {
+    aggBuf=createBuffer();
+    aggBufMap.put(aggkey.copy(),aggBuf);
+  }
+  return aggBuf;
+}

@@ -1,8 +1,8 @@
 {
-  SSHClient hadoopCli=new SSHClient(getHadoopCliHostname(),getHadoopCliUsername(),getHadoopCliPassword(),null);
+  SSHClient hadoopCli=new SSHClient(getHadoopCliHostname(),getHadoopCliUsername(),getHadoopCliPassword());
   removeHdfsDir(hadoopCli,mrOutputDir1);
   removeHdfsDir(hadoopCli,mrOutputDir2);
   MetadataManager.removeInstance(KylinConfig.getInstanceFromEnv());
   CubeManager.removeInstance(KylinConfig.getInstanceFromEnv());
-  ProjectManager.removeInstance(KylinConfig.getInstanceFromEnv());
+  CubeRealizationManager.removeInstance(KylinConfig.getInstanceFromEnv());
 }

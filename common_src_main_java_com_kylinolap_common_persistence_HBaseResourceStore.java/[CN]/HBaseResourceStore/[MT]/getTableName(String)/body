@@ -1,7 +1,0 @@
-{
-  for (  Entry<String,String> entry : tableNameMap.entrySet()) {
-    String pathPrefix=entry.getKey();
-    if (path.startsWith(pathPrefix))     return entry.getValue();
-  }
-  throw new IllegalStateException("failed to find HBase table for path -- " + path);
-}

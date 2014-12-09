@@ -1,8 +1,0 @@
-{
-  if (this == o)   return true;
-  if (o == null || getClass() != o.getClass())   return false;
-  CubeDesc cubeDesc=(CubeDesc)o;
-  if (!name.equals(cubeDesc.name))   return false;
-  if (!factTable.equals(cubeDesc.factTable))   return false;
-  return true;
-}

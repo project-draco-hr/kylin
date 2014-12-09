@@ -2,6 +2,6 @@
   this.config=config;
   reloadAllSourceTable();
   reloadAllSourceTableExd();
-  reloadAllCubeDesc();
   reloadAllInvertedIndexDesc();
+  reloadAllDataModel();
 }

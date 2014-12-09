@@ -1,3 +1,0 @@
-{
-  return (com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountResponse)channel.callBlockingMethod(getDescriptor().getMethods().get(1),controller,request,com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountResponse.getDefaultInstance());
-}

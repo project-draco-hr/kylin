@@ -1,0 +1,20 @@
+{
+  if (other == IIProtos.IIRequest.getDefaultInstance())   return this;
+  if (other.hasTableInfo()) {
+    setTableInfo(other.getTableInfo());
+  }
+  if (other.hasSRowType()) {
+    setSRowType(other.getSRowType());
+  }
+  if (other.hasSRowFilter()) {
+    setSRowFilter(other.getSRowFilter());
+  }
+  if (other.hasSRowProjector()) {
+    setSRowProjector(other.getSRowProjector());
+  }
+  if (other.hasSRowAggregator()) {
+    setSRowAggregator(other.getSRowAggregator());
+  }
+  this.mergeUnknownFields(other.getUnknownFields());
+  return this;
+}

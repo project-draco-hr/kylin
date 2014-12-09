@@ -4,10 +4,10 @@
   KylinQueryTest.setupAll();
   KylinQueryTest.preferCubeOf(joinType);
   if (coprocessorToggle.equals("on")) {
-    CoprocessorEnabler.forceCoprocessorOn();
+    ObserverEnabler.forceCoprocessorOn();
   }
  else   if (coprocessorToggle.equals("off")) {
-    CoprocessorEnabler.forceCoprocessorOff();
+    ObserverEnabler.forceCoprocessorOff();
   }
  else   if (coprocessorToggle.equals("unset")) {
   }

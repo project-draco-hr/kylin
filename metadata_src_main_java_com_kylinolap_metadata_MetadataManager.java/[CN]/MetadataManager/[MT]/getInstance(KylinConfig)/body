@@ -17,7 +17,7 @@ synchronized (MetadataManager.class) {
       return r;
     }
  catch (    IOException e) {
-      throw new IllegalStateException("Failed to init CubeManager from " + config,e);
+      throw new IllegalStateException("Failed to init MetadataManager from " + config,e);
     }
   }
 }

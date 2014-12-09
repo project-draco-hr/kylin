@@ -1,0 +1,8 @@
+{
+  if (other == ExampleProtos.CountResponse.getDefaultInstance())   return this;
+  if (other.hasCount()) {
+    setCount(other.getCount());
+  }
+  this.mergeUnknownFields(other.getUnknownFields());
+  return this;
+}

@@ -1,0 +1,13 @@
+{
+  if (projectName == null)   throw new IllegalArgumentException("Project name not given");
+  ProjectInstance projectInstance=getProject(projectName);
+  if (projectInstance == null) {
+    throw new IllegalStateException("The project named " + projectName + " does not exist");
+  }
+  if (projectInstance.getCubes().size() != 0) {
+    throw new IllegalStateException("The project named " + projectName + " can not be deleted because there's still cubes in it. Delete all the cubes first.");
+  }
+  logger.info("Dropping project '" + projectInstance.getName() + "'");
+  deleteResource(projectInstance);
+  return projectInstance;
+}

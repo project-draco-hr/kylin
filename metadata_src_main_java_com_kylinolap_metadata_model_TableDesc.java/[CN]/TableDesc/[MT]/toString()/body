@@ -1,0 +1,3 @@
+{
+  return "TableDesc [database=" + getDatabase() + " name="+ name+ "]";
+}

@@ -1,0 +1,3 @@
+{
+  return IIProtos.IIRequest.getDefaultInstance();
+}

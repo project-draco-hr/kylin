@@ -3,10 +3,10 @@
   for (int i=0; i <= groupRowkeyColumnsCount; i++) {
     int dimNum=totalRowkeyColumnCount - i;
     if (dimNum == totalRowkeyColumnCount) {
-      paths[i]=jobWorkingDir + "/" + cubeName+ "/cuboid/"+ "base_cuboid";
+      paths[i]=cuboidRootPath + "base_cuboid";
     }
  else {
-      paths[i]=jobWorkingDir + "/" + cubeName+ "/cuboid/"+ dimNum+ "d_cuboid";
+      paths[i]=cuboidRootPath + dimNum + "d_cuboid";
     }
   }
   return paths;

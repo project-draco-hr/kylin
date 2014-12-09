@@ -1,3 +1,0 @@
-{
-  return "ColumnDesc [name=" + name + ",table="+ table.getName()+ "]";
-}

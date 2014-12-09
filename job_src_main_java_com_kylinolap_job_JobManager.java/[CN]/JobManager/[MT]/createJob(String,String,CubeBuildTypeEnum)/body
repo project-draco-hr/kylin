@@ -1,6 +1,0 @@
-{
-  JobInstance jobInstance=buildJobInstance(cubeName,segmentName,jobType);
-  JobInstanceBuilder stepBuilder=new JobInstanceBuilder(this.engineConfig);
-  jobInstance.addSteps(stepBuilder.buildSteps(jobInstance));
-  return jobInstance;
-}

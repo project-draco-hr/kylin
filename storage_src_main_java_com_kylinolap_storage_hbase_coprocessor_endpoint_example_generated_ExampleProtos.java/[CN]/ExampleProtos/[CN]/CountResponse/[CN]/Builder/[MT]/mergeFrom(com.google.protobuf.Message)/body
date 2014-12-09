@@ -1,0 +1,9 @@
+{
+  if (other instanceof ExampleProtos.CountResponse) {
+    return mergeFrom((ExampleProtos.CountResponse)other);
+  }
+ else {
+    super.mergeFrom(other);
+    return this;
+  }
+}

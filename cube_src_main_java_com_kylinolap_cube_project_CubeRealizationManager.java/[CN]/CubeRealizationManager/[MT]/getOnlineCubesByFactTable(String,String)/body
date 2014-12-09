@@ -1,0 +1,12 @@
+{
+  project=ProjectInstance.getNormalizedProjectName(project);
+  factTableName=factTableName.toUpperCase();
+  List<CubeInstance> cubes=new ArrayList<CubeInstance>();
+  ProjectTable projectTable=this.getProjectTable(project,factTableName);
+  for (  CubeInstance cube : projectTable.getCubes()) {
+    if (cube.getDescriptor().getModel().isFactTable(factTableName) && cube.isReady()) {
+      cubes.add(cube);
+    }
+  }
+  return cubes;
+}

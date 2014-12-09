@@ -1,0 +1,5 @@
+{
+  ExampleProtos.CountRequest result=new ExampleProtos.CountRequest(this);
+  onBuilt();
+  return result;
+}

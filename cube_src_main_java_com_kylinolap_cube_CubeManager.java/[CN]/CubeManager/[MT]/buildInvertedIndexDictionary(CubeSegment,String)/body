@@ -5,7 +5,7 @@
   for (  ColumnDesc colDesc : tableDesc.getColumns()) {
     TblColRef col=new TblColRef(colDesc);
     if (iiDesc.isMetricsCol(col))     continue;
-    DictionaryInfo dict=dictMgr.buildDictionary(null,col,factColumnsPath);
+    DictionaryInfo dict=dictMgr.buildDictionary(null,null,col,factColumnsPath);
     cubeSeg.putDictResPath(col,dict.getResourcePath());
   }
   saveResource(cubeSeg.getCubeInstance());

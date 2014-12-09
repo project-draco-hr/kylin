@@ -1,0 +1,16 @@
+{
+  if (rightBuilder_ == null) {
+    if (((bitField0_ & 0x00000004) == 0x00000004) && right_ != NodeProtos.Node.getDefaultInstance()) {
+      right_=NodeProtos.Node.newBuilder(right_).mergeFrom(value).buildPartial();
+    }
+ else {
+      right_=value;
+    }
+    onChanged();
+  }
+ else {
+    rightBuilder_.mergeFrom(value);
+  }
+  bitField0_|=0x00000004;
+  return this;
+}
