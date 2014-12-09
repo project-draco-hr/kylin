@@ -1,2 +1,26 @@
 {
+  try {
+    if (cli != null && exportFolder != null) {
+      cli.execute("hadoop fs -rm -r " + exportFolder);
+    }
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  try {
+    if (cli != null && exportFolder != null) {
+      cli.execute("rm -r " + exportFolder);
+    }
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  try {
+    if (cli != null && backupArchive != null) {
+      cli.execute("rm " + backupArchive);
+    }
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
 }

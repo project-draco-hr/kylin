@@ -2,10 +2,10 @@
   for (  HTableDescriptor table : allTables) {
     String tName=table.getNameAsString();
     if (!tName.startsWith(tableNameBase) && !tName.startsWith("KYLIN_"))     continue;
-    cli.execute("hbase org.apache.hadoop.hbase.mapreduce.Export " + tName + " "+ exportRemoteDiskFolder+ tName);
+    cli.execute("hbase org.apache.hadoop.hbase.mapreduce.Export " + tName + " "+ exportFolder+ tName);
   }
-  cli.execute("mkdir -p " + exportRemoteDiskFolder);
-  cli.execute("hadoop fs -copyToLocal " + exportRemoteDiskFolder + " "+ exportRemoteDiskFolder);
-  cli.execute("tar -zcvf " + backupArchive + " --directory="+ exportRemoteDiskFolder+ " .");
+  cli.execute("mkdir -p " + exportFolder);
+  cli.execute("hadoop fs -copyToLocal " + exportFolder + " "+ exportFolder);
+  cli.execute("tar -zcvf " + backupArchive + " --directory="+ exportFolder+ " .");
   downloadToLocal();
 }

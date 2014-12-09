@@ -1,6 +1,6 @@
 {
   long currentTIME=System.currentTimeMillis();
-  exportRemoteDiskFolder="/tmp/hbase-export/" + currentTIME + "/";
+  exportFolder="/tmp/hbase-export/" + currentTIME + "/";
   backupArchive="/tmp/kylin_" + currentTIME + ".tar.gz";
   this.createTestMetadata();
   kylinConfig=KylinConfig.getInstanceFromEnv();
