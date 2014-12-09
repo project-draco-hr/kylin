@@ -1,0 +1,4 @@
+{
+  InvertedIndexDesc iidesc=this.seg.getCubeInstance().getInvertedIndexDesc();
+  return ((iidesc != null) && (iidesc.isMetricsCol(column)));
+}
