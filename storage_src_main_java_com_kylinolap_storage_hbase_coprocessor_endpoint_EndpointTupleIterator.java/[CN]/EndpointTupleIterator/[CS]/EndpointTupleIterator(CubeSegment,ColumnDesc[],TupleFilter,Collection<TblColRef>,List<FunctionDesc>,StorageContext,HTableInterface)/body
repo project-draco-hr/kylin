@@ -8,6 +8,7 @@
   if (measures == null) {
     measures=Lists.newArrayList();
   }
+  initMeaureParameters(measures,columnDescs);
   this.seg=cubeSegment;
   this.context=context;
   this.measures=measures;

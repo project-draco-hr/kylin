@@ -1,0 +1,16 @@
+{
+  ColumnDesc priceDesc=tableDesc.findColumnByName("PRICE");
+  TblColRef priceColumn=new TblColRef(priceDesc);
+  TupleFilter tupleFilter=mockGTFiter(priceColumn,"50");
+  ColumnDesc columnDesc=tableDesc.findColumnByName("LSTG_FORMAT_NAME");
+  TblColRef lfn=new TblColRef(columnDesc);
+  Collection<TblColRef> groupby=ImmutableSet.of(lfn);
+  List<FunctionDesc> measures=buildAggregations(priceDesc);
+  EndpointTupleIterator iterator=new EndpointTupleIterator(seg,tableDesc.getColumns(),tupleFilter,groupby,measures,context,table);
+  int count=0;
+  while (iterator.hasNext()) {
+    ITuple tuple=iterator.next();
+    count+=(Long)tuple.getValue("COUNT__");
+  }
+  System.out.printf("Count: " + count);
+}

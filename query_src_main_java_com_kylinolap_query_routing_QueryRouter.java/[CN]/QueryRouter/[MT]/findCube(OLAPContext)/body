@@ -1,15 +1,5 @@
 {
   CubeInstance bestCube=null;
-  ProjectManager projectManager=ProjectManager.getInstance(olapContext.olapSchema.getConfig());
-  if (olapContext.isSimpleQuery()) {
-    bestCube=findCubeWithMostDimensions(projectManager,olapContext);
-  }
-  if (bestCube == null) {
-    bestCube=findBestMatchCube(projectManager,olapContext);
-  }
   bestCube=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).getCube("test_kylin_cube_ii");
-  if (bestCube == null) {
-    throw new CubeNotFoundException("Can't find cube for fact table " + olapContext.firstTableScan.getCubeTable() + " in project "+ olapContext.olapSchema.getProjectName()+ " with dimensions "+ getDimensionColumns(olapContext)+ " and measures "+ olapContext.aggregations+ ". Also please check whether join types match what defined in Cube.");
-  }
   return bestCube;
 }

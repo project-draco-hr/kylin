@@ -1,14 +1,24 @@
 {
   factTable=factTable.toUpperCase();
-  HashSet<CubeDesc> relatedDesc=new HashSet<CubeDesc>();
+  HashSet<CubeDesc> relatedCubeDesc=Sets.newHashSet();
+  HashSet<InvertedIndexDesc> relatedIIDesc=Sets.newHashSet();
   for (  CubeInstance cube : getProjectTable(project,factTable).getCubes()) {
-    if (cube.isReady() == false)     continue;
-    if (cube.getDescriptor().isFactTable(factTable) == false)     continue;
-    relatedDesc.add(cube.getDescriptor());
+    if (!cube.isReady())     continue;
+    if (!cube.getDescriptor().isFactTable(factTable))     continue;
+    relatedCubeDesc.add(cube.getDescriptor());
+    if (cube.getInvertedIndexDesc() != null) {
+      relatedIIDesc.add(cube.getInvertedIndexDesc());
+    }
   }
   List<MeasureDesc> result=Lists.newArrayList();
-  for (  CubeDesc desc : relatedDesc) {
+  for (  CubeDesc desc : relatedCubeDesc) {
     for (    MeasureDesc m : desc.getMeasures()) {
+      FunctionDesc func=m.getFunction();
+      if (func.needRewrite())       result.add(m);
+    }
+  }
+  for (  InvertedIndexDesc desc : relatedIIDesc) {
+    for (    MeasureDesc m : desc.getMeasureDescs()) {
       FunctionDesc func=m.getFunction();
       if (func.needRewrite())       result.add(m);
     }

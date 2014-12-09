@@ -1,0 +1,6 @@
+{
+  CompareTupleFilter filter=new CompareTupleFilter(TupleFilter.FilterOperatorEnum.GT);
+  filter.addChild(new ColumnTupleFilter(tblColRef));
+  filter.addChild(new ConstantTupleFilter(value));
+  return filter;
+}

@@ -1,4 +1,5 @@
 {
+  rowsInAllMetric++;
   if (!hasNext()) {
     throw new IllegalStateException("No more ITuple in EndpointTupleIterator");
   }
