@@ -1,3 +1,0 @@
-{
-  return com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.internal_static_CountRequest_descriptor;
-}

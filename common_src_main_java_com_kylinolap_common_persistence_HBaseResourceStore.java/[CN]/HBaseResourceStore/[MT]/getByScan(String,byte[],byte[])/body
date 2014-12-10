@@ -8,7 +8,7 @@
  else {
     scan.addColumn(family,column);
   }
-  HTableInterface table=getConnection().getTable(getTableName(path));
+  HTableInterface table=getConnection().getTable(getAllInOneTableName());
   try {
     ResultScanner scanner=table.getScanner(scan);
     Result result=null;

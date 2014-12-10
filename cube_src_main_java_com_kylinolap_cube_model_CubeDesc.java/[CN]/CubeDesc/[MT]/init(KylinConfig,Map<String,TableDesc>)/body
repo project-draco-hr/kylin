@@ -1,0 +1,53 @@
+{
+  this.errors.clear();
+  this.config=config;
+  if (this.modelName == null || this.modelName.length() == 0) {
+    this.addError("The cubeDesc '" + this.getName() + "' doesn't have data model specified.");
+  }
+  this.model=MetadataManager.getInstance(config).getDataModelDesc(this.modelName);
+  if (this.model == null) {
+    this.addError("No data model found with name '" + modelName + "'.");
+  }
+  Map<String,List<TableDesc>> columnTableMap=new HashMap<String,List<TableDesc>>();
+  String colName;
+  for (  TableDesc table : tables.values()) {
+    for (    ColumnDesc col : table.getColumns()) {
+      colName=col.getName();
+      List<TableDesc> tableNames=columnTableMap.get(colName);
+      if (tableNames == null) {
+        tableNames=new LinkedList<TableDesc>();
+        columnTableMap.put(colName,tableNames);
+      }
+      tableNames.add(table);
+    }
+  }
+  Map<String,List<String>> tableDatabaseMap=new HashMap<String,List<String>>();
+  String tableName;
+  for (  TableDesc table : tables.values()) {
+    tableName=table.getName();
+    List<String> dbNames=tableDatabaseMap.get(tableName);
+    if (dbNames == null) {
+      dbNames=new LinkedList<String>();
+      tableDatabaseMap.put(tableName,dbNames);
+    }
+    dbNames.add(table.getDatabase());
+  }
+  for (  DimensionDesc dim : dimensions) {
+    dim.init(this,tables,columnTableMap,tableDatabaseMap);
+  }
+  sortDimAndMeasure();
+  initDimensionColumns(tables);
+  initMeasureColumns(tables);
+  rowkey.init(this);
+  if (hbaseMapping != null) {
+    hbaseMapping.init(this);
+  }
+  initMeasureReferenceToColumnFamily();
+  if (null != this.cubePartitionDesc) {
+    this.cubePartitionDesc.init(columnMap);
+  }
+  List<TblColRef> dimCols=listDimensionColumnsExcludingDerived();
+  if (rowkey.getRowKeyColumns().length != dimCols.size()) {
+    addError("RowKey columns count (" + rowkey.getRowKeyColumns().length + ") does not equal to dimension columns count ("+ dimCols.size()+ "). ");
+  }
+}

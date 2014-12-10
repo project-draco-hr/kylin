@@ -1,0 +1,9 @@
+{
+  if (!tableName.contains(".")) {
+    tableName="DEFAULT." + tableName;
+  }
+  if (!TABLE_IDENTITY_PATTERN.matcher(tableName).matches()) {
+    throw new IllegalArgumentException("invalid tableName:" + tableName);
+  }
+  return tableName.toUpperCase();
+}

@@ -5,7 +5,7 @@
     cubeInstances=getCubeManager().listAllCubes();
   }
  else {
-    cubeInstances=getProjectManager().listAllCubes(projectName);
+    cubeInstances=listAllCubes(projectName);
   }
   List<CubeInstance> filterCubes=new ArrayList<CubeInstance>();
   for (  CubeInstance cubeInstance : cubeInstances) {

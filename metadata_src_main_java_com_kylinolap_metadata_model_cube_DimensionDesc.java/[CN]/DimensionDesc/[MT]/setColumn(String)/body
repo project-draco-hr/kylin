@@ -1,4 +1,0 @@
-{
-  this.column=column;
-  if (this.column != null)   this.column=this.column.toUpperCase();
-}

@@ -1,0 +1,9 @@
+{
+  if (!hasTableInfo()) {
+    return false;
+  }
+  if (!hasSRowType()) {
+    return false;
+  }
+  return true;
+}

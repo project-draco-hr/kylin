@@ -1,0 +1,32 @@
+{
+  String[] cmd=new String[3];
+  String osName=System.getProperty("os.name");
+  if (osName.startsWith("Windows")) {
+    cmd[0]="cmd.exe";
+    cmd[1]="/C";
+  }
+ else {
+    cmd[0]="/bin/bash";
+    cmd[1]="-c";
+  }
+  cmd[2]=command;
+  ProcessBuilder builder=new ProcessBuilder(cmd);
+  builder.redirectErrorStream(true);
+  Process proc=builder.start();
+  BufferedReader reader=new BufferedReader(new InputStreamReader(proc.getInputStream()));
+  String line;
+  StringBuilder result=new StringBuilder();
+  while ((line=reader.readLine()) != null) {
+    result.append("line").append('\n');
+    if (logAppender != null) {
+      logAppender.log(line);
+    }
+  }
+  try {
+    int exitCode=proc.waitFor();
+    return new Pair<Integer,String>(exitCode,result.toString());
+  }
+ catch (  InterruptedException e) {
+    throw new IOException(e);
+  }
+}

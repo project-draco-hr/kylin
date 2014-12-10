@@ -1,6 +1,0 @@
-{
-  if (!hasTableInfo()) {
-    return false;
-  }
-  return true;
-}

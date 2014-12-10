@@ -1,0 +1,3 @@
+{
+  return listAllCubes(ProjectManager.getInstance(config).getProject(projectName));
+}

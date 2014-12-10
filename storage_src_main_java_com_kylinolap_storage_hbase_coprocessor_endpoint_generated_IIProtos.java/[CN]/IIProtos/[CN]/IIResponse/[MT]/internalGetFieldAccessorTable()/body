@@ -1,0 +1,3 @@
+{
+  return IIProtos.internal_static_IIResponse_fieldAccessorTable.ensureFieldAccessorsInitialized(IIProtos.IIResponse.class,IIProtos.IIResponse.Builder.class);
+}

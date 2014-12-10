@@ -1,0 +1,32 @@
+{
+  if (resultBitMap == null) {
+    return this.iterator();
+  }
+ else {
+    return new Iterator<TableRecordBytes>(){
+      int i=0;
+      int iteratedCount=0;
+      int resultSize=resultBitMap.size();
+      TableRecordBytes rec=info.createTableRecord();
+      ImmutableBytesWritable temp=new ImmutableBytesWritable();
+      @Override public boolean hasNext(){
+        return iteratedCount < resultSize;
+      }
+      @Override public TableRecordBytes next(){
+        while (!resultBitMap.contains(i) && i < nRecords - 1) {
+          i++;
+        }
+        for (int col=0; col < nColumns; col++) {
+          containers[col].getValueAt(i,temp);
+          rec.setValueBytes(col,temp);
+        }
+        iteratedCount++;
+        return rec;
+      }
+      @Override public void remove(){
+        throw new UnsupportedOperationException();
+      }
+    }
+;
+  }
+}

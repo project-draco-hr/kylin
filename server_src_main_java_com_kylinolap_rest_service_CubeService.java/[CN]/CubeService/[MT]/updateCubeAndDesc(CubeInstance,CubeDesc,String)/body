@@ -5,17 +5,26 @@
       throw new JobException("Cube schema shouldn't be changed with running job.");
     }
   }
-  if (!cube.getDescriptor().calculateSignature().equals(cube.getDescriptor().getSignature())) {
-    this.releaseAllSegments(cube);
+  try {
+    if (!cube.getDescriptor().calculateSignature().equals(cube.getDescriptor().getSignature())) {
+      this.releaseAllSegments(cube);
+    }
+    CubeDesc updatedCubeDesc=getCubeDescManager().updateCubeDesc(desc);
+    int cuboidCount=CuboidCLI.simulateCuboidGeneration(updatedCubeDesc);
+    logger.info("Updated cube " + cube.getName() + " has "+ cuboidCount+ " cuboids");
+    ProjectManager projectManager=getProjectManager();
+    if (!isCubeInProject(newProjectName,cube)) {
+      String owner=SecurityContextHolder.getContext().getAuthentication().getName();
+      ProjectInstance newProject=projectManager.updateCubeToProject(cube.getName(),newProjectName,owner);
+      getCubeRealizationManager().loadProject(getProjectManager().getProject(newProjectName));
+      accessService.inherit(cube,newProject);
+    }
+    return updatedCubeDesc;
   }
-  CubeDesc updatedCubeDesc=getMetadataManager().updateCubeDesc(desc);
-  if (updatedCubeDesc.getError().size() > 0)   return updatedCubeDesc;
-  int cuboidCount=CuboidCLI.simulateCuboidGeneration(updatedCubeDesc);
-  logger.info("Updated cube " + cube.getName() + " has "+ cuboidCount+ " cuboids");
-  if (!getProjectManager().isCubeInProject(newProjectName,cube)) {
-    String owner=SecurityContextHolder.getContext().getAuthentication().getName();
-    ProjectInstance newProject=getProjectManager().updateCubeToProject(cube.getName(),newProjectName,owner);
-    accessService.inherit(cube,newProject);
+ catch (  IOException e) {
+    throw new InternalErrorException("Failed to deal with the request.",e);
   }
-  return updatedCubeDesc;
+catch (  CubeIntegrityException e) {
+    throw new InternalErrorException("Failed to deal with the request.",e);
+  }
 }

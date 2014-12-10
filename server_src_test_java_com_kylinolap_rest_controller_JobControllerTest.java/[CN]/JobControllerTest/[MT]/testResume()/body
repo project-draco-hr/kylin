@@ -3,6 +3,6 @@
   jobBuildRequest.setBuildType("BUILD");
   jobBuildRequest.setStartTime(20130331080000L);
   jobBuildRequest.setEndTime(20131212080000L);
-  JobInstance job=cubeController.rebuild("test_kylin_cube_with_slr_ready",jobBuildRequest);
+  JobInstance job=cubeController.rebuild(CUBE_NAME,jobBuildRequest);
   jobSchedulerController.resume(job.getId());
 }

@@ -1,8 +1,8 @@
 {
-  tableName=tableName.toUpperCase();
+  String tableIdentity=TableDesc.getTableIdentity(tableName);
   Map<String,String> result=new HashMap<String,String>();
-  if (srcTableExdMap.containsKey(tableName)) {
-    Map<String,String> tmp=srcTableExdMap.get(tableName);
+  if (srcTableExdMap.containsKey(tableIdentity)) {
+    Map<String,String> tmp=srcTableExdMap.get(tableIdentity);
     Iterator<Entry<String,String>> it=tmp.entrySet().iterator();
     while (it.hasNext()) {
       Entry<String,String> entry=it.next();

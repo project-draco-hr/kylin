@@ -1,0 +1,3 @@
+{
+  this.getTables().add(tableName.toUpperCase());
+}

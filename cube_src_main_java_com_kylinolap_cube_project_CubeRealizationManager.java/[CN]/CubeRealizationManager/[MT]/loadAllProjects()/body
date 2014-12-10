@@ -1,0 +1,7 @@
+{
+  List<ProjectInstance> projectInstances=ProjectManager.getInstance(config).listAllProjects();
+  for (  ProjectInstance projectInstance : projectInstances) {
+    loadTables(projectInstance);
+  }
+  logger.debug("Loaded " + projectInstances.size() + " Project(s)");
+}

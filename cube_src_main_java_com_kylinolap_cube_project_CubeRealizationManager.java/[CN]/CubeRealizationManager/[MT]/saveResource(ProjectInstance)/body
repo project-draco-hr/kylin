@@ -1,0 +1,3 @@
+{
+  getProjectManager().updateProject(projectInstance);
+}

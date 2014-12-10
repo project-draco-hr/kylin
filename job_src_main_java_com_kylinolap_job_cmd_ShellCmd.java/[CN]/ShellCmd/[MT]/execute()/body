@@ -1,7 +1,7 @@
 {
   final ExecutorService executor=Executors.newSingleThreadExecutor();
   future=new FutureTask<Integer>(new Callable<Integer>(){
-    public Integer call() throws JobException {
+    public Integer call() throws JobException, IOException {
       executor.shutdown();
       return executeCommand(executeCommand);
     }

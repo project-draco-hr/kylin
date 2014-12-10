@@ -1,0 +1,20 @@
+{
+  ProjectTable projectTable=null;
+  project=ProjectInstance.getNormalizedProjectName(project);
+  if (this.projectTables.containsEntry(project,new ProjectTable(table))) {
+    Collection<ProjectTable> projects=this.projectTables.get(project);
+    for (    ProjectTable pt : projects) {
+      if (pt.getName().equalsIgnoreCase(table)) {
+        projectTable=pt;
+        break;
+      }
+    }
+  }
+ else {
+    projectTable=new ProjectTable(table);
+    if (autoCreate) {
+      this.projectTables.put(project,projectTable);
+    }
+  }
+  return projectTable;
+}

@@ -1,0 +1,18 @@
+{
+  List<FunctionDesc> functions=new ArrayList<FunctionDesc>();
+  FunctionDesc f1=new FunctionDesc();
+  f1.setExpression("SUM");
+  ParameterDesc p1=new ParameterDesc();
+  p1.setType("column");
+  p1.setValue("PRICE");
+  f1.setParameter(p1);
+  functions.add(f1);
+  FunctionDesc f2=new FunctionDesc();
+  f2.setExpression("MIN");
+  ParameterDesc p2=new ParameterDesc();
+  p1.setType("column");
+  p1.setValue("PRICE");
+  f2.setParameter(p2);
+  functions.add(f2);
+  return functions;
+}

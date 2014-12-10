@@ -1,4 +1,3 @@
 {
-  tableName=tableName.toUpperCase();
-  return srcTableMap.get(tableName);
+  return srcTableMap.get(TableDesc.getTableIdentity(tableName));
 }

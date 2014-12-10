@@ -1,0 +1,7 @@
+{
+  MeasureAggregator[] aggrs=new MeasureAggregator[funcNames.length];
+  for (int j=0; j < aggrs.length; j++) {
+    aggrs[j++]=MeasureAggregator.create(funcNames[j],"long");
+  }
+  return aggrs;
+}

@@ -16,6 +16,13 @@
     }
     if (!(dateStart == 0 && dateEnd == 0)) {
       String partitionColumnName=cubeDesc.getCubePartitionDesc().getPartitionDateColumn();
+      int indexOfDot=partitionColumnName.lastIndexOf(".");
+      if (indexOfDot > 0) {
+        String partitionTableName=partitionColumnName.substring(0,indexOfDot);
+        String columeOnly=partitionColumnName.substring(indexOfDot);
+        String partitionTableAlias=intermediateTableDesc.getTableAlias(partitionTableName);
+        partitionColumnName=partitionTableAlias + columeOnly;
+      }
       whereBuilder.append(hasCondition ? " AND (" : " (");
       if (dateStart > 0) {
         whereBuilder.append(partitionColumnName + " >= '" + formatDateTimeInWhereClause(dateStart)+ "' ");

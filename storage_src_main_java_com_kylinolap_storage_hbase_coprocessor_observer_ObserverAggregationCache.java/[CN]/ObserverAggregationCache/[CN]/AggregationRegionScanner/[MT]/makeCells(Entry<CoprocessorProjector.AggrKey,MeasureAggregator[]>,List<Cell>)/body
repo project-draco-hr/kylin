@@ -1,0 +1,18 @@
+{
+  byte[][] families=aggregators.getHColFamilies();
+  byte[][] qualifiers=aggregators.getHColQualifiers();
+  int nHCols=aggregators.getHColsNum();
+  CoprocessorProjector.AggrKey rowKey=entry.getKey();
+  MeasureAggregator[] aggBuf=entry.getValue();
+  ByteBuffer[] rowValues=aggregators.getHColValues(aggBuf);
+  if (nHCols == 0) {
+    Cell keyValue=new KeyValue(rowKey.get(),rowKey.offset(),rowKey.length(),null,0,0,null,0,0,HConstants.LATEST_TIMESTAMP,Type.Put,null,0,0);
+    results.add(keyValue);
+  }
+ else {
+    for (int i=0; i < nHCols; i++) {
+      Cell keyValue=new KeyValue(rowKey.get(),rowKey.offset(),rowKey.length(),families[i],0,families[i].length,qualifiers[i],0,qualifiers[i].length,HConstants.LATEST_TIMESTAMP,Type.Put,rowValues[i].array(),0,rowValues[i].position());
+      results.add(keyValue);
+    }
+  }
+}
