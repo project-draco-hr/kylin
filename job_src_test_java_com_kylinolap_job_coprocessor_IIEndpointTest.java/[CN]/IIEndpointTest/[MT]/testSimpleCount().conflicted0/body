@@ -1,0 +1,11 @@
+{
+  EndpointTupleIterator iterator=new EndpointTupleIterator(seg,tableDesc.getColumns(),null,null,null,context,hconn);
+  int count=0;
+  while (iterator.hasNext()) {
+    ITuple tuple=iterator.next();
+    System.out.println(tuple);
+    count++;
+  }
+  assertEquals(count,10000);
+  iterator.close();
+}

@@ -1,5 +1,4 @@
 {
-  tableInfo_=com.google.protobuf.ByteString.EMPTY;
   type_=com.google.protobuf.ByteString.EMPTY;
   filter_=com.google.protobuf.ByteString.EMPTY;
   projector_=com.google.protobuf.ByteString.EMPTY;

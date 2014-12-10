@@ -10,6 +10,7 @@
   valueCols=new int[valueDimensions.length];
   metricsCols=new int[metrics.length];
   metricsColSet=new BitSet(tableDesc.getColumnCount());
+  measureDescs=Lists.newArrayList();
   int i=0, j=0, k=0;
   for (  ColumnDesc col : tableDesc.getColumns()) {
     if (ArrayUtils.contains(bitmapDimensions,col.getName())) {
@@ -21,6 +22,9 @@
     if (ArrayUtils.contains(metrics,col.getName())) {
       metricsCols[k++]=col.getZeroBasedIndex();
       metricsColSet.set(col.getZeroBasedIndex());
+      measureDescs.add(makeMeasureDescs("SUM",col));
+      measureDescs.add(makeMeasureDescs("MIN",col));
+      measureDescs.add(makeMeasureDescs("MAX",col));
     }
   }
   tsCol=tableDesc.findColumnByName(timestampDimension).getZeroBasedIndex();

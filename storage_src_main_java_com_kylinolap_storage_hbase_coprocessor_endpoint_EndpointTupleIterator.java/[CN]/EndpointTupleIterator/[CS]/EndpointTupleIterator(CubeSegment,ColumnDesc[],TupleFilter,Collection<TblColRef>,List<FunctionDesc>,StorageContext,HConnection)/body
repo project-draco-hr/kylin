@@ -1,0 +1,36 @@
+{
+  String tableName=cubeSegment.getStorageLocationIdentifier();
+  table=conn.getTable(tableName);
+  if (rootFilter == null) {
+    rootFilter=ConstantTupleFilter.TRUE;
+  }
+  if (groupBy == null) {
+    groupBy=Lists.newArrayList();
+  }
+  if (measures == null) {
+    measures=Lists.newArrayList();
+  }
+  initMeaureParameters(measures,columnDescs);
+  this.seg=cubeSegment;
+  this.context=context;
+  this.measures=measures;
+  this.columns=Lists.newArrayList();
+  for (  ColumnDesc columnDesc : columnDescs) {
+    columns.add(new TblColRef(columnDesc));
+  }
+  columnNames=getColumnNames(columns);
+  this.tupleInfo=buildTupleInfo();
+  this.tableRecordInfo=new TableRecordInfo(this.seg);
+  this.pushedDownRowType=CoprocessorRowType.fromColumnDescs(this.seg,columnDescs);
+  this.pushedDownFilter=CoprocessorFilter.fromFilter(this.seg,rootFilter);
+  this.pushedDownProjector=CoprocessorProjector.makeForEndpoint(tableRecordInfo,groupBy);
+  this.pushedDownAggregators=EndpointAggregators.fromFunctions(tableRecordInfo,measures);
+  IIProtos.IIRequest endpointRequest=prepareRequest();
+  regionResponsesIterator=getResults(endpointRequest,table);
+  if (this.regionResponsesIterator.hasNext()) {
+    this.tupleIterator=new SingleRegionTupleIterator(this.regionResponsesIterator.next());
+  }
+ else {
+    this.tupleIterator=ITupleIterator.EMPTY_TUPLE_ITERATOR;
+  }
+}

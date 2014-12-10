@@ -15,9 +15,12 @@
       aggCache.checkMemoryUsage();
     }
   }
+  byte[] metricBuffer=new byte[CoprocessorConstants.METRIC_SERIALIZE_BUFFER_SIZE];
   for (  Map.Entry<CoprocessorProjector.AggrKey,MeasureAggregator[]> entry : aggCache.getAllEntries()) {
     CoprocessorProjector.AggrKey aggrKey=entry.getKey();
-    IIRow.Builder rowBuilder=IIRow.newBuilder().setColumns(ByteString.copyFrom(aggrKey.get(),aggrKey.offset(),aggrKey.length())).setMeasures(ByteString.copyFrom(aggregators.serializeMetricValues(entry.getValue())));
+    IIRow.Builder rowBuilder=IIRow.newBuilder().setColumns(ByteString.copyFrom(aggrKey.get(),aggrKey.offset(),aggrKey.length()));
+    int length=aggregators.serializeMetricValues(entry.getValue(),metricBuffer);
+    rowBuilder.setMeasures(ByteString.copyFrom(metricBuffer,0,length));
     responseBuilder.addRows(rowBuilder.build());
   }
   return responseBuilder.build();

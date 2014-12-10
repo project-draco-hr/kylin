@@ -1,0 +1,4 @@
+{
+  this.seg=seg;
+  columnIO=new RowKeyColumnIO(this.seg);
+}

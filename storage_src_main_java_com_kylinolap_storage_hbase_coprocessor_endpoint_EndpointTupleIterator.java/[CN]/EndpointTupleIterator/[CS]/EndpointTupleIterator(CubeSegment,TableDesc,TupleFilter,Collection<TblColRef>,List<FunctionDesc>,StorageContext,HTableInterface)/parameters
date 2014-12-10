@@ -1,7 +1,0 @@
-CubeSegment cubeSegment
-TableDesc tableDesc
-TupleFilter rootFilter
-Collection<TblColRef> groupBy
-List<FunctionDesc> measures
-StorageContext context
-HTableInterface table

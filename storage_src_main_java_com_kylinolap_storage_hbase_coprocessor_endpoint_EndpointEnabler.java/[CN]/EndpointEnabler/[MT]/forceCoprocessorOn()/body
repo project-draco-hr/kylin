@@ -1,0 +1,3 @@
+{
+  System.setProperty(FORCE_COPROCESSOR,"true");
+}

@@ -7,10 +7,6 @@
   }
   com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIRequest other=(com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIRequest)obj;
   boolean result=true;
-  result=result && (hasTableInfo() == other.hasTableInfo());
-  if (hasTableInfo()) {
-    result=result && getTableInfo().equals(other.getTableInfo());
-  }
   result=result && (hasType() == other.hasType());
   if (hasType()) {
     result=result && getType().equals(other.getType());

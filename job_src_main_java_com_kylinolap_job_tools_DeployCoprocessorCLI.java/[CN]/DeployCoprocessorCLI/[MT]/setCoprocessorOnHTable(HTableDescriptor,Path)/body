@@ -1,4 +1,5 @@
 {
   logger.info("Set coprocessor on " + desc.getNameAsString());
-  desc.addCoprocessor(AGGR_COPROCESSOR_CLS_NAME,hdfsCoprocessorJar,1001,null);
+  desc.addCoprocessor(ENDPOINT_CLS_NAMAE,hdfsCoprocessorJar,1000,null);
+  desc.addCoprocessor(OBSERVER_CLS_NAME,hdfsCoprocessorJar,1001,null);
 }
