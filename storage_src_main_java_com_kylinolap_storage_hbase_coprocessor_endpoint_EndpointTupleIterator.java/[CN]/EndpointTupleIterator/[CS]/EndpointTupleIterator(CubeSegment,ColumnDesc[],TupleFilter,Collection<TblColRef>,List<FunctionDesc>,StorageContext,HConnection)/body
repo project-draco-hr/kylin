@@ -1,4 +1,6 @@
 {
+  String tableName=cubeSegment.getStorageLocationIdentifier();
+  table=conn.getTable(tableName);
   if (rootFilter == null) {
     rootFilter=ConstantTupleFilter.TRUE;
   }

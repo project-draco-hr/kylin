@@ -1,3 +1,11 @@
 {
-  return this.regionResponsesIterator.hasNext() || this.tupleIterator.hasNext();
+  while (!this.tupleIterator.hasNext()) {
+    if (this.regionResponsesIterator.hasNext()) {
+      this.tupleIterator=new SingleRegionTupleIterator(this.regionResponsesIterator.next());
+    }
+ else {
+      return false;
+    }
+  }
+  return true;
 }

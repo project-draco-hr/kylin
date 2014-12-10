@@ -1,10 +1,8 @@
 {
-  HConnection conn=HBaseConnection.get(context.getConnUrl());
   String tableName=seg.getStorageLocationIdentifier();
-  HTableInterface htable=null;
+  HConnection conn=HBaseConnection.get(context.getConnUrl());
   try {
-    htable=conn.getTable(tableName);
-    return new EndpointTupleIterator(seg,columnDescs,filter,groups,new ArrayList(metrics),context,htable);
+    return new EndpointTupleIterator(seg,columnDescs,filter,groups,new ArrayList(metrics),context,conn);
   }
  catch (  Throwable e) {
     e.printStackTrace();

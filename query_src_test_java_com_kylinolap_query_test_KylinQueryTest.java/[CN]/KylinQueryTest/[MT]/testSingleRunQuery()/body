@@ -1,6 +1,7 @@
 {
-  String queryFileName="src/test/resources/query/sql_ii/query06.sql";
-  File sqlFile=new File(queryFileName);
-  runSQL(sqlFile,true,true);
-  runSQL(sqlFile,true,false);
+  for (int i=0; i < 100; ++i) {
+    String queryFileName="src/test/resources/query/sql_ii/query05.sql";
+    File sqlFile=new File(queryFileName);
+    runSQL(sqlFile,true,false);
+  }
 }
