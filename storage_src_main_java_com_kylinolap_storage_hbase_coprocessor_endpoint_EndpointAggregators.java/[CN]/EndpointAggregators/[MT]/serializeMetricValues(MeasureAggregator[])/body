@@ -4,8 +4,8 @@
   }
   int metricBytesOffset=0;
   for (int i=0; i < measureSerializers.length; i++) {
-    measureSerializers[i].write(metricValues[i],metricBytes,metricBytesOffset);
+    measureSerializers[i].write(metricValues[i],metricBytes.get(),metricBytesOffset);
     metricBytesOffset+=measureSerializers[i].getLength();
   }
-  return metricBytes;
+  return metricBytes.get();
 }

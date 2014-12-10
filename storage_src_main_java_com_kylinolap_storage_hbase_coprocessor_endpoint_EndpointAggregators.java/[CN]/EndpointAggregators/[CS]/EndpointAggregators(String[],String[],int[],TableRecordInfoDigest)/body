@@ -3,7 +3,6 @@
   this.dataTypes=dataTypes;
   this.refColIndex=refColIndex;
   this.tableRecordInfo=tableInfo;
-  this.metricBytes=new byte[CoprocessorConstants.SERIALIZE_BUFFER_SIZE];
   this.metricValues=new Object[funcNames.length];
   this.measureSerializers=new FixedLenMeasureCodec[funcNames.length];
   for (int i=0; i < this.measureSerializers.length; ++i) {
