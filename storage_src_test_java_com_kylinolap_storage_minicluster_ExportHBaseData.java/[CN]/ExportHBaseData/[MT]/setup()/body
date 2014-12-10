@@ -2,7 +2,8 @@
   long currentTIME=System.currentTimeMillis();
   exportFolder="/tmp/hbase-export/" + currentTIME + "/";
   backupArchive="/tmp/kylin_" + currentTIME + ".tar.gz";
-  this.createTestMetadata();
+  KylinConfig.destoryInstance();
+  System.setProperty(KylinConfig.KYLIN_CONF,AbstractKylinTestCase.SANDBOX_TEST_DATA);
   kylinConfig=KylinConfig.getInstanceFromEnv();
   cli=kylinConfig.getCliCommandExecutor();
   String metadataUrl=kylinConfig.getMetadataUrl();

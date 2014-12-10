@@ -23,4 +23,5 @@
  catch (  IOException e) {
     e.printStackTrace();
   }
+  KylinConfig.destoryInstance();
 }

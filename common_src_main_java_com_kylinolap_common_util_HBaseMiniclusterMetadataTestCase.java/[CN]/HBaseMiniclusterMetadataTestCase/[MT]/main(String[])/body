@@ -1,5 +1,14 @@
 {
   HBaseMiniclusterMetadataTestCase t=new HBaseMiniclusterMetadataTestCase();
-  t.createTestMetadata();
-  t.cleanupTestMetadata();
+  try {
+    HBaseMiniclusterMetadataTestCase.startupMinicluster();
+    t.createTestMetadata();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+ finally {
+    t.cleanupTestMetadata();
+    HBaseMiniclusterMetadataTestCase.shutdownMiniCluster();
+  }
 }

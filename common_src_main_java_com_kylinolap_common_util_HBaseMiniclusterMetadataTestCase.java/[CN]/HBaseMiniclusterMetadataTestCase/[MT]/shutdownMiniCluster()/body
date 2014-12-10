@@ -1,0 +1,14 @@
+{
+  try {
+    UTIL.shutdownMiniMapReduceCluster();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  try {
+    UTIL.shutdownMiniCluster();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}

@@ -1,21 +1,22 @@
 {
-  if (testUtil == null) {
-    testUtil=new HBaseTestingUtility();
-  }
+  staticCreateTestMetadata(MINICLUSTER_TEST_DATA);
   try {
-    hbaseCluster=testUtil.startMiniCluster();
+    hbaseCluster=UTIL.startMiniCluster();
   }
  catch (  Exception e) {
     e.printStackTrace();
   }
-  Configuration config=hbaseCluster.getConf();
+  config=hbaseCluster.getConf();
   String host=config.get(HConstants.ZOOKEEPER_QUORUM);
   String port=config.get(HConstants.ZOOKEEPER_CLIENT_PORT);
   String parent=config.get(HConstants.ZOOKEEPER_ZNODE_PARENT);
   config.set(HConstants.HBASE_CLIENT_PAUSE,"3000");
   config.set(HConstants.HBASE_CLIENT_RETRIES_NUMBER,"5");
   config.set(HConstants.HBASE_CLIENT_OPERATION_TIMEOUT,"60000");
-  String hbaseconnectionUrl="hbase:" + host + ":"+ port+ ":"+ parent;
-  KylinConfig.getInstanceFromEnv().setMetadataUrl(hbaseconnectionUrl);
+  hbaseconnectionUrl="hbase:" + host + ":"+ port+ ":"+ parent;
+  UTIL.startMiniMapReduceCluster();
+  KylinConfig.getInstanceFromEnv().setMetadataUrl("kylin_metadata_qa@" + hbaseconnectionUrl);
   KylinConfig.getInstanceFromEnv().setStorageUrl(hbaseconnectionUrl);
+  HBaseResourceStore store=new HBaseResourceStore(KylinConfig.getInstanceFromEnv());
+  importHBaseData(true,true);
 }

@@ -1,9 +1,0 @@
-{
-  File dataFolder=new File(MINICLUSTER_TEST_DATA + File.separator + "b-kylin"+ File.separator+ "meta");
-  try {
-    ResourceTool.copy(KylinConfig.createInstanceFromUri(dataFolder.getAbsolutePath()),KylinConfig.getInstanceFromEnv());
-  }
- catch (  IOException e) {
-    e.printStackTrace();
-  }
-}
