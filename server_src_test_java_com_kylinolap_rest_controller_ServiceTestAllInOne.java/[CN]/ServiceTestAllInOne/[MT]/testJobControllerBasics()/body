@@ -17,6 +17,7 @@
  catch (  Exception e) {
     e.printStackTrace();
   }
+  Assert.assertNotNull(job);
   Assert.assertNotNull(jobSchedulerController.get(job.getId()));
   Map<String,String> output=jobSchedulerController.getStepOutput(job.getId(),0);
   Assert.assertNotNull(output);
