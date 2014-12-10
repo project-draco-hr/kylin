@@ -1,1 +1,2 @@
 MeasureAggregator[] aggrs
+byte[] buffer
