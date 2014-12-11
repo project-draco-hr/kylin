@@ -1,0 +1,5 @@
+{
+  if (cubeManager.getCube(CUBE_NAME) != null) {
+    cubeManager.dropCube(CUBE_NAME,false);
+  }
+}
