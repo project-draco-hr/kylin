@@ -1,0 +1,3 @@
+{
+  return CubeRealizationManager.getInstance(getConfig());
+}

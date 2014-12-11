@@ -1,3 +1,0 @@
-{
-  return ResourceStore.TABLE_RESOURCE_ROOT + "/" + name+ ".json";
-}

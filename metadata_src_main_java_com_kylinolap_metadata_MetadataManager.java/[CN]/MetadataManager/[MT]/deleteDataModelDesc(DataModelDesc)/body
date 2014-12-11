@@ -1,0 +1,5 @@
+{
+  String path=dataModelDesc.getResourcePath();
+  getStore().deleteResource(path);
+  dataModelDescMap.remove(dataModelDesc.getName());
+}

@@ -1,6 +1,5 @@
 {
-  Pattern pattern=Pattern.compile("kylin-([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})");
-  Matcher matcher=pattern.matcher(path);
+  Matcher matcher=JOB_NAME_PATTERN.matcher(path);
   if (matcher.find()) {
     return matcher.group(1);
   }

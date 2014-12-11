@@ -1,2 +1,0 @@
-com.google.protobuf.RpcController controller
-com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountRequest request

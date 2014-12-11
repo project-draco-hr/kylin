@@ -6,13 +6,13 @@
   try {
     tempFile=File.createTempFile("tmp_h2",".csv");
     FileOutputStream tempFileStream=new FileOutputStream(tempFile);
-    String normalPath="/data/" + tableDesc.getName() + ".csv";
+    String normalPath="/data/" + tableDesc.getIdentity() + ".csv";
     InputStream csvStream=metaMgr.getStore().getResource(normalPath + fileNameSuffix);
     if (csvStream == null) {
       csvStream=metaMgr.getStore().getResource(normalPath);
     }
  else {
-      logger.info("H2 decides to load " + (normalPath + fileNameSuffix) + " for table "+ tableDesc.getName());
+      logger.info("H2 decides to load " + (normalPath + fileNameSuffix) + " for table "+ tableDesc.getIdentity());
     }
     org.apache.commons.io.IOUtils.copy(csvStream,tempFileStream);
     csvStream.close();
@@ -23,6 +23,8 @@
   }
   String cvsFilePath=tempFile.getPath();
   Statement stmt=h2Connection.createStatement();
+  String createDBSql="CREATE SCHEMA IF NOT EXISTS DEFAULT;\nCREATE SCHEMA IF NOT EXISTS EDW;\nSET SCHEMA DEFAULT;\n";
+  stmt.executeUpdate(createDBSql);
   String sql=generateCreateH2TableSql(tableDesc,cvsFilePath);
   stmt.executeUpdate(sql);
   if (tempFile != null)   tempFile.delete();

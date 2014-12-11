@@ -1,4 +1,4 @@
 {
-  CubeDesc cube=getMetadataManager().getCubeDesc("clsfd_ga_dayweek");
+  CubeDesc cube=getCubeDescManager().getCubeDesc("clsfd_ga_dayweek");
   CuboidCLI.simulateCuboidGeneration(cube);
 }

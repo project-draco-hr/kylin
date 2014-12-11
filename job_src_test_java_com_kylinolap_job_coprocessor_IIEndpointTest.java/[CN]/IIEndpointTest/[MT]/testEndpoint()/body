@@ -1,0 +1,14 @@
+{
+  String tableName=seg.getStorageLocationIdentifier();
+  HTableInterface table=hconn.getTable(tableName);
+  TableDesc tableDesc=MetadataManager.getInstance(getTestConfig()).getTableDesc("test_kylin_fact");
+  ColumnDesc columnDesc=tableDesc.findColumnByName("LSTG_FORMAT_NAME");
+  TblColRef lfn=new TblColRef(columnDesc);
+  TupleFilter filterA=mockEQFiter("ABIN",lfn);
+  TupleFilter filterB=mockNEQFiter("ABIN",lfn);
+  IIProtos.IIRequest requestA=prepareRequest(filterA);
+  IIProtos.IIRequest requestB=prepareRequest(filterB);
+  int resultA=getResults(requestA,table).size();
+  int resultB=getResults(requestB,table).size();
+  assertEquals(resultA + resultB,10000);
+}

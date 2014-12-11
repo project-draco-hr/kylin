@@ -1,0 +1,8 @@
+{
+  try {
+    this.loadProjectCache(updatedProject,true);
+  }
+ catch (  IOException e) {
+    logger.error(e.getLocalizedMessage(),e);
+  }
+}

@@ -1,0 +1,16 @@
+{
+  MessageDigest md=null;
+  try {
+    md=MessageDigest.getInstance("MD5");
+    StringBuilder sigString=new StringBuilder();
+    sigString.append(this.name).append("|").append(this.getFactTable()).append("|").append(JsonUtil.writeValueAsString(this.cubePartitionDesc)).append("|").append(JsonUtil.writeValueAsString(this.dimensions)).append("|").append(JsonUtil.writeValueAsString(this.measures)).append("|").append(JsonUtil.writeValueAsString(this.rowkey)).append("|").append(JsonUtil.writeValueAsString(this.hbaseMapping));
+    byte[] signature=md.digest(sigString.toString().getBytes());
+    return new String(Base64.encodeBase64(signature));
+  }
+ catch (  NoSuchAlgorithmException e) {
+    throw new RuntimeException("Failed to calculate signature");
+  }
+catch (  JsonProcessingException e) {
+    throw new RuntimeException("Failed to calculate signature");
+  }
+}

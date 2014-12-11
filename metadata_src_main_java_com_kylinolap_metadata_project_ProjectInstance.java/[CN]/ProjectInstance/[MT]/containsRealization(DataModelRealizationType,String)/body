@@ -1,0 +1,11 @@
+{
+  if (dataModels == null) {
+    return false;
+  }
+  for (  ProjectDataModel dataModel : dataModels) {
+    if (dataModel.getType() == realization && dataModel.getName().equalsIgnoreCase(name)) {
+      return true;
+    }
+  }
+  return false;
+}

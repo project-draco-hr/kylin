@@ -1,0 +1,22 @@
+{
+  ObserverRowType rowType=newRowType();
+  CoprocessorProjector projector=new CoprocessorProjector(mask);
+  ObserverAggregators aggregators=new ObserverAggregators(new HCol[]{});
+  CoprocessorFilter filter=CoprocessorFilter.deserialize(null);
+  HashSet<String> expectedResult=new HashSet<String>();
+  expectedResult.add("\\x02\\x02\\x00\\x00");
+  expectedResult.add("\\x01\\x01\\x00\\x00");
+  MockupRegionScanner innerScanner=new MockupRegionScanner(cellsInput);
+  RegionScanner aggrScanner=new AggregationScanner(rowType,filter,projector,aggregators,innerScanner);
+  ArrayList<Cell> result=Lists.newArrayList();
+  boolean hasMore=true;
+  while (hasMore) {
+    result.clear();
+    hasMore=aggrScanner.next(result);
+    if (result.isEmpty())     continue;
+    Cell cell=result.get(0);
+    String rowKey=toString(cell.getRowArray(),cell.getRowOffset(),cell.getRowLength(),mask);
+    assertTrue(expectedResult.contains(rowKey));
+  }
+  aggrScanner.close();
+}

@@ -1,0 +1,3 @@
+{
+  return "DimensionDesc [name=" + name + ", join="+ join+ ", hierarchy="+ Arrays.toString(hierarchy)+ ", table="+ table+ ", column="+ Arrays.toString(column)+ ", derived="+ Arrays.toString(derived)+ "]";
+}

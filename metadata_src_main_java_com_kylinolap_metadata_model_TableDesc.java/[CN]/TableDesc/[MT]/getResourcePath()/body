@@ -1,0 +1,3 @@
+{
+  return ResourceStore.TABLE_RESOURCE_ROOT + "/" + getTableIdentity(this)+ ".json";
+}

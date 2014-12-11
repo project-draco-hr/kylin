@@ -9,4 +9,17 @@
     ConfigurableMiniMRCluster.setConfiguration(props);
     mrCluster=new ConfigurableMiniMRCluster(2,dfsCluster.getFileSystem().getName(),1,conf);
   }
+  HBaseTestingUtility testUtil=new HBaseTestingUtility();
+  testUtil.setDFSCluster(dfsCluster);
+  hbaseCluster=testUtil.startMiniCluster();
+  System.out.println("dfs uri: -------" + dfsCluster.getFileSystem().getUri().toString());
+  Configuration config=hbaseCluster.getConf();
+  String host=config.get(HConstants.ZOOKEEPER_QUORUM);
+  String port=config.get(HConstants.ZOOKEEPER_CLIENT_PORT);
+  String parent=config.get(HConstants.ZOOKEEPER_ZNODE_PARENT);
+  config.set(HConstants.HBASE_CLIENT_PAUSE,"3000");
+  config.set(HConstants.HBASE_CLIENT_RETRIES_NUMBER,"5");
+  config.set(HConstants.HBASE_CLIENT_OPERATION_TIMEOUT,"60000");
+  String hbaseconnectionUrl="hbase:" + host + ":"+ port+ ":"+ parent;
+  System.out.println("hbase connection url: -----" + hbaseconnectionUrl);
 }

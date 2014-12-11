@@ -1,0 +1,10 @@
+{
+  if (dataNodeHosts != null && dataNodeHosts.length != 0) {
+    numDataNodes=dataNodeHosts.length;
+  }
+  LOG.info("Starting up minicluster with " + numMasters + " master(s) and "+ numSlaves+ " regionserver(s) and "+ numDataNodes+ " datanode(s)");
+  setupClusterTestDir();
+  startMiniDFSCluster(numDataNodes,dataNodeHosts);
+  startMiniZKCluster(clusterTestDir,1);
+  return startMiniHBaseCluster(numMasters,numSlaves,masterClass,regionserverClass);
+}

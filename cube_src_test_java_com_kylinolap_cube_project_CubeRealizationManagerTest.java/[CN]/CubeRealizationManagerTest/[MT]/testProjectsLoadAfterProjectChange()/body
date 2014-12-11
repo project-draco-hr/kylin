@@ -1,0 +1,9 @@
+{
+  CubeRealizationManager cubeRealizationManager=CubeRealizationManager.getInstance(this.getTestConfig());
+  CubeInstance cube=CubeManager.getInstance(getTestConfig()).getCube("test_kylin_cube_with_slr_empty");
+  assertTrue(cubeRealizationManager.getCubesByTable("default","default.test_kylin_fact").contains(cube));
+  ProjectManager.getInstance(getTestConfig()).removeCubeFromProjects(cube.getName());
+  assertTrue(!cubeRealizationManager.getCubesByTable("default","default.test_kylin_fact").contains(cube));
+  ProjectManager.getInstance(getTestConfig()).updateCubeToProject(cube.getName(),"default","tester");
+  assertTrue(cubeRealizationManager.getCubesByTable("default","default.test_kylin_fact").contains(cube));
+}

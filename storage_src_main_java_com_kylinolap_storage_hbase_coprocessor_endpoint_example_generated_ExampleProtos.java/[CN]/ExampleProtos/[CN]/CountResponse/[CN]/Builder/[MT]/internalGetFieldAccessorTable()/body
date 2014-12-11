@@ -1,0 +1,3 @@
+{
+  return ExampleProtos.internal_static_CountResponse_fieldAccessorTable.ensureFieldAccessorsInitialized(ExampleProtos.CountResponse.class,ExampleProtos.CountResponse.Builder.class);
+}

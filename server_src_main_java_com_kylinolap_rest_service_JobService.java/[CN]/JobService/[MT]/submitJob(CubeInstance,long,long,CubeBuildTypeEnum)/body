@@ -2,14 +2,22 @@
   List<JobInstance> jobInstances=this.getJobManager().listJobs(cube.getName(),null);
   for (  JobInstance jobInstance : jobInstances) {
     if (jobInstance.getStatus() == JobStatusEnum.PENDING || jobInstance.getStatus() == JobStatusEnum.RUNNING) {
-      throw new JobException("The cube " + cube.getName() + " has running job, please discard it and try again.");
+      throw new JobException("The cube " + cube.getName() + " has running job("+ jobInstance.getUuid()+ ") please discard it and try again.");
     }
   }
   String uuid=null;
   try {
-    for (    CubeSegment segment : this.getCubeManager().allocateSegments(cube,buildType,startDate,endDate)) {
-      JobInstance job=this.getJobManager().createJob(cube.getName(),segment.getName(),buildType);
-      uuid=this.getJobManager().submitJob(job);
+    List<CubeSegment> cubeSegments=this.getCubeManager().allocateSegments(cube,buildType,startDate,endDate);
+    List<JobInstance> jobs=Lists.newArrayListWithExpectedSize(cubeSegments.size());
+    for (    CubeSegment segment : cubeSegments) {
+      uuid=segment.getUuid();
+      JobInstance job=this.getJobManager().createJob(cube.getName(),segment.getName(),segment.getUuid(),buildType);
+      segment.setLastBuildJobID(uuid);
+      jobs.add(job);
+    }
+    getCubeManager().updateCube(cube);
+    for (    JobInstance job : jobs) {
+      this.getJobManager().submitJob(job);
       permissionService.init(job,null);
       permissionService.inherit(job,cube);
     }

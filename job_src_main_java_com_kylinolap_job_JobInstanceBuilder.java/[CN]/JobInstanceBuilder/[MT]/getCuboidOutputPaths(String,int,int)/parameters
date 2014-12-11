@@ -1,3 +1,3 @@
-String cubeName
+String cuboidRootPath
 int totalRowkeyColumnCount
 int groupRowkeyColumnsCount

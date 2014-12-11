@@ -20,7 +20,7 @@
   TupleFilter filterD=translateDerived(filter,groupsCopD);
   TupleFilter flatFilter=flattenToOrAndFilter(filterD);
   List<HBaseKeyRange> scans=buildScanRanges(flatFilter,dimensionsD);
-  List<RowValueDecoder> valueDecoders=translateAggregation(cubeDesc.getHBaseMapping(),metrics,scans,context);
+  List<RowValueDecoder> valueDecoders=translateAggregation(cubeDesc.getHBaseMapping(),metrics,context);
   setThreshold(dimensionsD,valueDecoders,context);
   setCoprocessor(groupsCopD,valueDecoders,context);
   setLimit(filter,context);

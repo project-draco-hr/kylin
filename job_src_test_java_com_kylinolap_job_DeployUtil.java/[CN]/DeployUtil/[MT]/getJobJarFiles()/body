@@ -1,0 +1,14 @@
+{
+  String version;
+  try {
+    MavenXpp3Reader pomReader=new MavenXpp3Reader();
+    Model model=pomReader.read(new FileReader("../pom.xml"));
+    version=model.getVersion();
+  }
+ catch (  Exception e) {
+    throw new RuntimeException(e.getMessage(),e);
+  }
+  File jobJar=new File("../job/target","kylin-job-" + version + "-job.jar");
+  File coprocessorJar=new File("../storage/target","kylin-storage-" + version + "-coprocessor.jar");
+  return new Pair<File,File>(jobJar,coprocessorJar);
+}

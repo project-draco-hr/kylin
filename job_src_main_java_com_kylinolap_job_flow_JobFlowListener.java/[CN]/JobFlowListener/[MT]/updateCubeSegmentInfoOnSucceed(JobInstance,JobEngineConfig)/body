@@ -16,6 +16,7 @@
     }
     CubeManager cubeMgr=CubeManager.getInstance(engineConfig.getConfig());
     CubeInstance cubeInstance=cubeMgr.getCube(jobInstance.getRelatedCube());
+    CubeSegment newSegment=cubeInstance.getSegmentById(jobInstance.getUuid());
     long sourceCount=0;
     long sourceSize=0;
 switch (jobInstance.getType()) {
@@ -42,6 +43,12 @@ if (null != createFlatTableStep) {
  else {
   log.info("No step with name '" + JobConstants.STEP_NAME_CREATE_FLAT_HIVE_TABLE + "' is found");
 }
+if (cubeInstance.needMergeImmediatelyAfterBuild(newSegment)) {
+for (CubeSegment seg : cubeInstance.getSegment(CubeSegmentStatusEnum.READY)) {
+  sourceCount+=seg.getSourceRecords();
+  sourceSize+=seg.getSourceRecordsSize();
+}
+}
 break;
 case MERGE:
 for (CubeSegment seg : cubeInstance.getMergingSegments()) {
@@ -51,5 +58,6 @@ sourceSize+=seg.getSourceRecordsSize();
 break;
 }
 cubeMgr.updateSegmentOnJobSucceed(cubeInstance,jobInstance.getType(),jobInstance.getRelatedSegment(),jobInstance.getUuid(),jobInstance.getExecEndTime(),cubeSize,sourceCount,sourceSize);
+log.info("Update cube segment succeed" + jobInstance.getRelatedSegment() + " for cube "+ jobInstance.getRelatedCube());
 }
 }

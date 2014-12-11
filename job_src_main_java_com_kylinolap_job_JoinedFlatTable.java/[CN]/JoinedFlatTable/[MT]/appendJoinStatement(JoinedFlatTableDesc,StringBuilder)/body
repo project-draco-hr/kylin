@@ -2,7 +2,8 @@
   Set<String> dimTableCache=new HashSet<String>();
   CubeDesc cubeDesc=intermediateTableDesc.getCubeDesc();
   String factTableName=cubeDesc.getFactTable();
-  sql.append("FROM " + factTableName + "\n");
+  String factTableAlias=intermediateTableDesc.getTableAlias(factTableName);
+  sql.append("FROM " + factTableName + " as "+ factTableAlias+ " \n");
   for (  DimensionDesc dim : cubeDesc.getDimensions()) {
     JoinDesc join=dim.getJoin();
     if (join != null && join.getType().equals("") == false) {
@@ -14,13 +15,13 @@
         if (pk.length != fk.length) {
           throw new RuntimeException("Invalid join condition of dimension " + dim.getName());
         }
-        sql.append(joinType + " JOIN " + dimTableName+ "\n");
+        sql.append(joinType + " JOIN " + dimTableName+ " as "+ intermediateTableDesc.getTableAlias(dimTableName)+ "\n");
         sql.append("ON ");
         for (int i=0; i < pk.length; i++) {
           if (i > 0) {
             sql.append(" AND ");
           }
-          sql.append(factTableName + "." + fk[i].getName()+ " = "+ dimTableName+ "."+ pk[i].getName());
+          sql.append(factTableAlias + "." + fk[i].getName()+ " = "+ intermediateTableDesc.getTableAlias(dimTableName)+ "."+ pk[i].getName());
         }
         sql.append("\n");
         dimTableCache.add(dimTableName);

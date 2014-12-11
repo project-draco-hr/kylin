@@ -1,7 +1,7 @@
 {
   return new Iterator<TableRecordBytes>(){
     int i=0;
-    TableRecord rec=new TableRecord(info);
+    TableRecordBytes rec=info.createTableRecord();
     ImmutableBytesWritable temp=new ImmutableBytesWritable();
     @Override public boolean hasNext(){
       return i < nRecords;

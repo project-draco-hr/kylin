@@ -10,6 +10,6 @@
   org.apache.hadoop.mapreduce.InputSplit inputSplit=context.getInputSplit();
   String filePath=((FileSplit)inputSplit).getPath().toString();
   String jobID=extractJobIDFromPath(filePath);
-  sourceCubeSegment=findSegmentWithJobID(jobID,cube);
+  sourceCubeSegment=findSegmentWithUuid(jobID,cube);
   this.rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
 }

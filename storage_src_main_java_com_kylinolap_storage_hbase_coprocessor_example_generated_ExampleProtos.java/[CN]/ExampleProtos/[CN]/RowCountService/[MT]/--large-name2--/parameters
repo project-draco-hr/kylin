@@ -1,3 +1,0 @@
-com.google.protobuf.RpcController controller
-com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountRequest request
-com.google.protobuf.RpcCallback<com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountResponse> done

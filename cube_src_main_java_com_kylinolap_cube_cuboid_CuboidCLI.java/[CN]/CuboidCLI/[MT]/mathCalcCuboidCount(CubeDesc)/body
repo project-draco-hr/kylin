@@ -1,14 +1,10 @@
 {
-  int result=0;
-  int lastAggrGroupCount=0;
-  for (  AggrGroupMask aggrGroupMask : cube.getRowkey().getAggrGroupMasks()) {
-    lastAggrGroupCount=mathCalcCuboidCount_aggrGroup(cube,aggrGroupMask);
-    result+=lastAggrGroupCount;
+  int result=1;
+  RowKeyDesc rowkey=cube.getRowkey();
+  AggrGroupMask[] aggrGroupMasks=rowkey.getAggrGroupMasks();
+  for (int i=0; i < aggrGroupMasks.length; i++) {
+    boolean hasTail=i < aggrGroupMasks.length - 1 || rowkey.getTailMask() > 0;
+    result+=mathCalcCuboidCount_aggrGroup(rowkey,aggrGroupMasks[i],hasTail);
   }
-  result*=2;
-  if (cube.getRowkey().getTailMask() == 0) {
-    result-=lastAggrGroupCount;
-  }
-  result--;
   return result;
 }

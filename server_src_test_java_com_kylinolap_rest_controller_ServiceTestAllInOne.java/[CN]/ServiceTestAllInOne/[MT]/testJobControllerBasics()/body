@@ -1,0 +1,24 @@
+{
+  jobSchedulerController=new JobController();
+  jobSchedulerController.setJobService(jobService);
+  cubeController=new CubeController();
+  cubeController.setJobService(jobService);
+  cubeController.setCubeService(cubeService);
+  JobListRequest jobRequest=new JobListRequest();
+  Assert.assertNotNull(jobSchedulerController.list(jobRequest));
+  JobInstance job=null;
+  try {
+    JobBuildRequest jobBuildRequest=new JobBuildRequest();
+    jobBuildRequest.setBuildType("BUILD");
+    jobBuildRequest.setStartTime(1386806400000L);
+    jobBuildRequest.setEndTime(new Date().getTime());
+    job=cubeController.rebuild("test_kylin_cube_with_slr_ready",jobBuildRequest);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  Assert.assertNotNull(job);
+  Assert.assertNotNull(jobSchedulerController.get(job.getId()));
+  Map<String,String> output=jobSchedulerController.getStepOutput(job.getId(),0);
+  Assert.assertNotNull(output);
+}
