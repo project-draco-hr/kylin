@@ -1,3 +1,4 @@
 {
-  ProjectManager.getInstance(this.getTestConfig()).dropProject("DEFAULT");
+  ProjectInstance project=ProjectManager.getInstance(this.getTestConfig()).dropProject("DEFAULT");
+  CubeRealizationManager.getInstance(this.getTestConfig()).unloadProject(project);
 }

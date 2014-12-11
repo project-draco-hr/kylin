@@ -4,5 +4,6 @@
   cube.setOwner(owner);
   saveResource(cube);
   ProjectManager.getInstance(config).updateCubeToProject(cubeName,projectName,owner);
+  CubeRealizationManager.getInstance(config).loadProject(ProjectManager.getInstance(config).getProject(projectName));
   return cube;
 }

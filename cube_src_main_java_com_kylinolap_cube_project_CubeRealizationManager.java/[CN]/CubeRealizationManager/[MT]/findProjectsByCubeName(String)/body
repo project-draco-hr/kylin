@@ -1,6 +1,6 @@
 {
   List<ProjectInstance> projects=new ArrayList<ProjectInstance>();
-  for (  ProjectInstance projectInstance : projectMap.values()) {
+  for (  ProjectInstance projectInstance : getProjectManager().listAllProjects()) {
     if (projectInstance.containsCube(cubeName)) {
       projects.add(projectInstance);
     }
