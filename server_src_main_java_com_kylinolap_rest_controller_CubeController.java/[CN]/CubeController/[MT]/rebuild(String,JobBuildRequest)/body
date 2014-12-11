@@ -2,7 +2,7 @@
   JobInstance jobInstance=null;
   try {
     CubeInstance cube=jobService.getCubeManager().getCube(cubeName);
-    String jobId=jobService.submitJob(cube,jobBuildRequest.getStartTime(),jobBuildRequest.getEndTime(),CubeBuildTypeEnum.valueOf(jobBuildRequest.getBuildType()));
+    String jobId=jobService.submitJob(cube,jobBuildRequest.getStartTime(),jobBuildRequest.getEndTime(),RealizationBuildTypeEnum.valueOf(jobBuildRequest.getBuildType()));
     jobInstance=jobService.getJobInstance(jobId);
   }
  catch (  JobException e) {

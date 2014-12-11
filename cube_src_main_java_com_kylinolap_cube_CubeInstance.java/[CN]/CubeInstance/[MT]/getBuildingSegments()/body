@@ -2,7 +2,7 @@
   List<CubeSegment> buildingSegments=new ArrayList<CubeSegment>();
   if (null != segments) {
     for (    CubeSegment segment : segments) {
-      if (CubeSegmentStatusEnum.NEW == segment.getStatus() || CubeSegmentStatusEnum.READY_PENDING == segment.getStatus()) {
+      if (SegmentStatusEnum.NEW == segment.getStatus() || SegmentStatusEnum.READY_PENDING == segment.getStatus()) {
         buildingSegments.add(segment);
       }
     }

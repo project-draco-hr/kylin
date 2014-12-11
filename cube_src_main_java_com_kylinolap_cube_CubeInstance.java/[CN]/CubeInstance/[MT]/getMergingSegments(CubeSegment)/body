@@ -13,7 +13,7 @@
   List<CubeSegment> mergingSegments=new ArrayList<CubeSegment>();
   if (null != this.segments) {
     for (    CubeSegment segment : this.segments) {
-      if (segment.getStatus() == CubeSegmentStatusEnum.READY) {
+      if (segment.getStatus() == SegmentStatusEnum.READY) {
         if (buildingSegment.getDateRangeStart() <= segment.getDateRangeStart() && buildingSegment.getDateRangeEnd() >= segment.getDateRangeEnd()) {
           mergingSegments.add(segment);
         }

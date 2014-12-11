@@ -1,0 +1,19 @@
+{
+  org.apache.hadoop.fs.FileSystem fs=org.apache.hadoop.fs.FileSystem.get(CONF);
+  fs.copyFromLocalFile(false,new Path("../examples/test_case_cube/II_hfile/"),new Path("/tmp/test_III_hfile"));
+  int sharding=4;
+  HTableDescriptor tableDesc=new HTableDescriptor(TEST_TABLE);
+  HColumnDescriptor cf=new HColumnDescriptor(IIDesc.HBASE_FAMILY);
+  cf.setMaxVersions(1);
+  tableDesc.addFamily(cf);
+  if (User.isHBaseSecurityEnabled(CONF)) {
+    tableDesc.addCoprocessor("org.apache.hadoop.hbase.security.access.SecureBulkLoadEndpoint");
+  }
+  byte[][] splitKeys=getSplits(sharding);
+  if (splitKeys.length == 0)   splitKeys=null;
+  TEST_UTIL.createTable(tableDesc.getTableName(),TEST_COLUMN,splitKeys);
+  HBaseAdmin hBaseAdmin=new HBaseAdmin(CONF);
+  TableName[] tables=hBaseAdmin.listTableNames();
+  String temp="-cubename \"test_kylin_ii\"  -input \"/tmp/test_III_hfile\"  -htablename \"test_III\"";
+  ToolRunner.run(CONF,new IIBulkLoadJob(),temp.split("\\s+"));
+}

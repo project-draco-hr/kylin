@@ -1,0 +1,26 @@
+{
+  List<IISegment> buildingSegments=getBuildingSegments();
+  if (buildingSegments.size() == 0) {
+    return Collections.emptyList();
+  }
+ else {
+    List<IISegment> rebuildingSegments=new ArrayList<IISegment>();
+    if (null != this.segments) {
+      long startDate=buildingSegments.get(0).getDateRangeStart();
+      long endDate=buildingSegments.get(buildingSegments.size() - 1).getDateRangeEnd();
+      for (      IISegment segment : this.segments) {
+        if (segment.getStatus() == SegmentStatusEnum.READY) {
+          if (startDate >= segment.getDateRangeStart() && startDate < segment.getDateRangeEnd() && segment.getDateRangeEnd() < endDate) {
+            rebuildingSegments.add(segment);
+            continue;
+          }
+          if (startDate <= segment.getDateRangeStart() && endDate >= segment.getDateRangeEnd()) {
+            rebuildingSegments.add(segment);
+            continue;
+          }
+        }
+      }
+    }
+    return rebuildingSegments;
+  }
+}

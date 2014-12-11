@@ -1,7 +1,0 @@
-CubeSegment cubeSegment
-ColumnDesc[] columnDescs
-TupleFilter rootFilter
-Collection<TblColRef> groupBy
-List<FunctionDesc> measures
-StorageContext context
-HConnection conn

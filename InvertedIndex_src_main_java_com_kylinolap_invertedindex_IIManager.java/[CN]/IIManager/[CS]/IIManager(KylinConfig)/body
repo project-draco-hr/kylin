@@ -1,0 +1,5 @@
+{
+  logger.info("Initializing IIManager with config " + config);
+  this.config=config;
+  loadAllIIInstance();
+}

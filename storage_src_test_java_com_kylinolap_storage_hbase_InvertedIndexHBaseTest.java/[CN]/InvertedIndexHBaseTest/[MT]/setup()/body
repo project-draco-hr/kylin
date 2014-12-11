@@ -1,7 +1,7 @@
 {
   this.createTestMetadata();
-  this.cube=CubeManager.getInstance(getTestConfig()).getCube("test_kylin_cube_ii");
-  this.seg=cube.getFirstSegment();
+  this.ii=IIManager.getInstance(getTestConfig()).getII("test_kylin_ii");
+  this.seg=ii.getFirstSegment();
   String hbaseUrl=KylinConfig.getInstanceFromEnv().getStorageUrl();
   Configuration hconf=HadoopUtil.newHBaseConfiguration(hbaseUrl);
   hconn=HConnectionManager.createConnection(hconf);

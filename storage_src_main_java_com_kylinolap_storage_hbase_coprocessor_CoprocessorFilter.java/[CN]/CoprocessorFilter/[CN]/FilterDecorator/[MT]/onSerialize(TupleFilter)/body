@@ -8,9 +8,6 @@
   if (col == null) {
     return filter;
   }
-  if (isFilterOnIIMetric(col)) {
-    return filter;
-  }
   String nullString=nullString(col);
   Collection<String> constValues=compf.getValues();
   if (constValues == null || constValues.isEmpty()) {

@@ -1,0 +1,13 @@
+{
+  descName=descName.toUpperCase();
+  List<IIInstance> list=listAllCubes();
+  List<IIInstance> result=new ArrayList<IIInstance>();
+  Iterator<IIInstance> it=list.iterator();
+  while (it.hasNext()) {
+    IIInstance ci=it.next();
+    if (descName.equals(ci.getDescName())) {
+      result.add(ci);
+    }
+  }
+  return result;
+}

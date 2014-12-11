@@ -6,9 +6,9 @@
   CubeManager cubeManager=CubeManager.getInstance(srcConfig);
   CubeInstance cube=cubeManager.getCube(cubeName);
   logger.info("cube to be moved is : " + cubeName);
-  if (cube.getStatus() != CubeStatusEnum.READY)   throw new IllegalStateException("Cannot migrate cube that is not in READY state.");
+  if (cube.getStatus() != RealizationStatusEnum.READY)   throw new IllegalStateException("Cannot migrate cube that is not in READY state.");
   for (  CubeSegment segment : cube.getSegments()) {
-    if (segment.getStatus() != CubeSegmentStatusEnum.READY) {
+    if (segment.getStatus() != SegmentStatusEnum.READY) {
       throw new IllegalStateException("At least one segment is not in READY state");
     }
   }

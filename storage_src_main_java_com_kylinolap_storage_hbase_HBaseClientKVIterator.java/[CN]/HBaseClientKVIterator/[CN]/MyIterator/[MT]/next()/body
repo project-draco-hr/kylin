@@ -1,6 +1,6 @@
 {
   Result r=iterator.next();
-  Cell c=r.getColumnLatestCell(InvertedIndexDesc.HBASE_FAMILY_BYTES,InvertedIndexDesc.HBASE_QUALIFIER_BYTES);
+  Cell c=r.getColumnLatestCell(IIDesc.HBASE_FAMILY_BYTES,IIDesc.HBASE_QUALIFIER_BYTES);
   key.set(c.getRowArray(),c.getRowOffset(),c.getRowLength());
   value.set(c.getValueArray(),c.getValueOffset(),c.getValueLength());
   return pair;

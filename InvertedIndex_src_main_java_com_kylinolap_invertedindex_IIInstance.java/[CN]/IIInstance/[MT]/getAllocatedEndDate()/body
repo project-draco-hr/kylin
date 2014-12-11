@@ -1,0 +1,7 @@
+{
+  if (null == segments || segments.size() == 0) {
+    return 0;
+  }
+  Collections.sort(segments);
+  return segments.get(segments.size() - 1).getDateRangeEnd();
+}

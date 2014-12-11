@@ -1,0 +1,40 @@
+{
+  seg=cubeSeg;
+  desc=seg.getIIInstance().getDescriptor();
+  tableDesc=desc.getFactTableDesc();
+  nColumns=tableDesc.getColumnCount();
+  colNames=new String[nColumns];
+  dictionaries=new Dictionary<?>[nColumns];
+  measureSerializers=new FixedLenMeasureCodec<?>[nColumns];
+  DictionaryManager dictMgr=DictionaryManager.getInstance(desc.getConfig());
+  for (  ColumnDesc col : tableDesc.getColumns()) {
+    int i=col.getZeroBasedIndex();
+    colNames[i]=col.getName();
+    if (desc.isMetricsCol(i)) {
+      measureSerializers[i]=FixedLenMeasureCodec.get(col.getType());
+    }
+ else {
+      String dictPath=seg.getDictResPath(new TblColRef(col));
+      dictionaries[i]=dictMgr.getDictionary(dictPath);
+    }
+  }
+  isMetric=new boolean[nColumns];
+  for (int i=0; i < nColumns; ++i) {
+    isMetric[i]=desc.isMetricsCol(i);
+  }
+  lengths=new int[nColumns];
+  for (int i=0; i < nColumns; ++i) {
+    lengths[i]=isMetrics(i) ? measureSerializers[i].getLength() : dictionaries[i].getSizeOfId();
+  }
+  dictMaxIds=new int[nColumns];
+  for (int i=0; i < nColumns; ++i) {
+    if (!isMetrics(i))     dictMaxIds[i]=dictionaries[i].getMaxId();
+  }
+  int pos=0;
+  offsets=new int[nColumns];
+  for (int i=0; i < nColumns; i++) {
+    offsets[i]=pos;
+    pos+=length(i);
+  }
+  byteFormLen=pos;
+}

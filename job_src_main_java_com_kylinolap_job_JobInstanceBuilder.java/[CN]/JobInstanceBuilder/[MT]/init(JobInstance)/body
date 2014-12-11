@@ -12,7 +12,7 @@
   if (segmentName == null || segmentName.equals("")) {
     throw new IllegalArgumentException("Cube segment name is null or empty!");
   }
-  cubeSegment=cube.getSegment(segmentName,CubeSegmentStatusEnum.NEW);
+  cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   htablename=cubeSegment.getStorageLocationIdentifier();
   this.jobWorkingDir=JobInstance.getJobWorkingDir(jobInstance,engineConfig);
 }

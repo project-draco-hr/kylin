@@ -1,9 +1,9 @@
 {
   Configuration conf=context.getConfiguration();
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata(conf);
-  CubeManager mgr=CubeManager.getInstance(config);
-  CubeInstance cube=mgr.getCube(conf.get(BatchConstants.CFG_CUBE_NAME));
-  CubeSegment seg=cube.getSegment(conf.get(BatchConstants.CFG_CUBE_SEGMENT_NAME),CubeSegmentStatusEnum.NEW);
+  IIManager mgr=IIManager.getInstance(config);
+  IIInstance ii=mgr.getII(conf.get(BatchConstants.CFG_II_NAME));
+  IISegment seg=ii.getSegment(conf.get(BatchConstants.CFG_II_SEGMENT_NAME),SegmentStatusEnum.NEW);
   info=new TableRecordInfo(seg);
   rec=new TableRecord(info);
   builder=null;

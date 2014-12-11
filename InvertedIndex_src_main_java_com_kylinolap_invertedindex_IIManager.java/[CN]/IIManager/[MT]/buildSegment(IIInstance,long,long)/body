@@ -1,0 +1,13 @@
+{
+  IISegment segment=new IISegment();
+  String incrementalSegName=IISegment.getSegmentName(startDate,endDate);
+  segment.setUuid(UUID.randomUUID().toString());
+  segment.setName(incrementalSegName);
+  segment.setCreateTime(DateStrDictionary.dateToString(new Date()));
+  segment.setDateRangeStart(startDate);
+  segment.setDateRangeEnd(endDate);
+  segment.setStatus(SegmentStatusEnum.NEW);
+  segment.setStorageLocationIdentifier(generateStorageLocation());
+  segment.setIIInstance(IIInstance);
+  return segment;
+}

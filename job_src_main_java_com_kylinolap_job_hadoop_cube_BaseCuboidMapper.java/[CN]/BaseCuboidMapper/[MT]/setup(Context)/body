@@ -9,7 +9,7 @@
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata(context.getConfiguration());
   cube=CubeManager.getInstance(config).getCube(cubeName);
   cubeDesc=cube.getDescriptor();
-  cubeSegment=cube.getSegment(segmentName,CubeSegmentStatusEnum.NEW);
+  cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
   baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
   intermediateTableDesc=new JoinedFlatTableDesc(cube.getDescriptor(),cubeSegment);

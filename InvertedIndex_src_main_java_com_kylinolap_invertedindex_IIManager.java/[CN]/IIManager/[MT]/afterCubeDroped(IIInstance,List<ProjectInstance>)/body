@@ -1,0 +1,14 @@
+{
+  MetadataManager.getInstance(config).reload();
+  removeIICache(droppedCube);
+  if (null != projects) {
+    for (    ProjectInstance project : projects) {
+      try {
+        ProjectManager.getInstance(config).loadProjectCache(project,true);
+      }
+ catch (      IOException e) {
+        logger.error(e.getLocalizedMessage(),e);
+      }
+    }
+  }
+}

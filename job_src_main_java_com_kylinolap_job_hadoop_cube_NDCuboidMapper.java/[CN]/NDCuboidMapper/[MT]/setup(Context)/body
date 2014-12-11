@@ -3,7 +3,7 @@
   segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME).toUpperCase();
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata(context.getConfiguration());
   CubeInstance cube=CubeManager.getInstance(config).getCube(cubeName);
-  CubeSegment cubeSegment=cube.getSegment(segmentName,CubeSegmentStatusEnum.NEW);
+  CubeSegment cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   cubeDesc=cube.getDescriptor();
   cuboidScheduler=new CuboidScheduler(cubeDesc);
   rowKeySplitter=new RowKeySplitter(cubeSegment,65,256);

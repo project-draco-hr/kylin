@@ -1,0 +1,17 @@
+{
+  List<IISegment> readySegments=getSegment(SegmentStatusEnum.READY);
+  if (readySegments.isEmpty()) {
+    return new long[]{0L,0L};
+  }
+  long start=Long.MAX_VALUE;
+  long end=Long.MIN_VALUE;
+  for (  IISegment segment : readySegments) {
+    if (segment.getDateRangeStart() < start) {
+      start=segment.getDateRangeStart();
+    }
+    if (segment.getDateRangeEnd() > end) {
+      end=segment.getDateRangeEnd();
+    }
+  }
+  return new long[]{start,end};
+}

@@ -1,0 +1,6 @@
+{
+  iiMap.remove(cube.getName().toUpperCase());
+  for (  IISegment segment : cube.getSegments()) {
+    usedStorageLocation.remove(segment.getName());
+  }
+}
