@@ -14,6 +14,6 @@
   TEST_UTIL.createTable(tableDesc.getTableName(),TEST_COLUMN,splitKeys);
   HBaseAdmin hBaseAdmin=new HBaseAdmin(CONF);
   TableName[] tables=hBaseAdmin.listTableNames();
-  String temp="-cubename \"test_kylin_ii\"  -input \"/tmp/test_III_hfile\"  -htablename \"test_III\"";
+  String temp="-iiname \"test_kylin_ii\"  -input \"/tmp/test_III_hfile\"  -htablename \"test_III\"";
   ToolRunner.run(CONF,new IIBulkLoadJob(),temp.split("\\s+"));
 }
