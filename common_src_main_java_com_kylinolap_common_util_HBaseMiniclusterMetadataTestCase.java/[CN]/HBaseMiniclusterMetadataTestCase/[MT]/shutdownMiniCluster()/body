@@ -1,4 +1,5 @@
 {
+  System.out.println("Going to shutdown mini cluster.");
   try {
     UTIL.shutdownMiniMapReduceCluster();
   }

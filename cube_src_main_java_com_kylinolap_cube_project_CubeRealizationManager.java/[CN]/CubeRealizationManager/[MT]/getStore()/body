@@ -1,3 +1,0 @@
-{
-  return ResourceStore.getStore(this.config);
-}

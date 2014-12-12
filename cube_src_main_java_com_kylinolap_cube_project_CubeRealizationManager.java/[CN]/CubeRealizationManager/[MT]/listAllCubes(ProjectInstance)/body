@@ -1,0 +1,16 @@
+{
+  if (projectInstance == null) {
+    return Collections.emptyList();
+  }
+  HashSet<CubeInstance> ret=new HashSet<CubeInstance>();
+  for (  String cubeName : projectInstance.getCubes()) {
+    CubeInstance cube=CubeManager.getInstance(config).getCube(cubeName);
+    if (null != cube) {
+      ret.add(cube);
+    }
+ else {
+      logger.error("Failed to load cube " + cubeName);
+    }
+  }
+  return new ArrayList<CubeInstance>(ret);
+}
