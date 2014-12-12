@@ -1,5 +1,6 @@
 {
   staticCreateTestMetadata(MINICLUSTER_TEST_DATA);
+  System.out.println("Going to start mini cluster.");
   try {
     hbaseCluster=UTIL.startMiniCluster();
   }
