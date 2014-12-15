@@ -7,7 +7,7 @@
   CubeManager cubeManager=CubeManager.getInstance(this.getTestConfig());
   CubeInstance cube=cubeManager.getCube(cubeName);
   CubeSegment segment=cubeManager.allocateSegments(cube,CubeBuildTypeEnum.BUILD,0,dateEnd).get(0);
-  JobInstance jobInstance=jobManager.createJob(cubeName,segment.getName(),UUID.randomUUID().toString(),CubeBuildTypeEnum.BUILD);
+  JobInstance jobInstance=jobManager.createJob(cubeName,segment.getName(),UUID.randomUUID().toString(),CubeBuildTypeEnum.BUILD,"KylinTest");
   String actual=JsonUtil.writeValueAsIndentString(jobInstance);
   System.out.println(actual);
   assertEquals(13,jobInstance.getSteps().size());
