@@ -1,0 +1,3 @@
+{
+  subTasks.add(executable);
+}

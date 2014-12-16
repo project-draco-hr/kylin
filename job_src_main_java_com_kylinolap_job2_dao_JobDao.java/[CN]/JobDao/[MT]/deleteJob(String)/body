@@ -1,0 +1,10 @@
+{
+  try {
+    store.deleteResource(pathOfJob(uuid));
+    return uuid;
+  }
+ catch (  IOException e) {
+    logger.error("error delete job:" + uuid,e);
+    throw new PersistentException(e);
+  }
+}

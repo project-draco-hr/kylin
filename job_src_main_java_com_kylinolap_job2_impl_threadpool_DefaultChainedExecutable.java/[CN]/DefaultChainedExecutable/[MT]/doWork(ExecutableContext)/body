@@ -1,0 +1,8 @@
+{
+  for (  Executable subTask : getExecutables()) {
+    if (subTask.isRunnable()) {
+      return subTask.execute(context);
+    }
+  }
+  throw new ExecuteException("this job:" + getId() + " is not Runnable");
+}

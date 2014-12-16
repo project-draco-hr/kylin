@@ -1,0 +1,3 @@
+{
+  return getStatus() == ExecuteStatus.NEW || getStatus() == ExecuteStatus.STOPPED || getStatus() == ExecuteStatus.PENDING;
+}

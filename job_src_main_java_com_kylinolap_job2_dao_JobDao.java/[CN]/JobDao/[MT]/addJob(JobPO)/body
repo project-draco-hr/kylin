@@ -1,3 +1,13 @@
 {
-  return job;
+  try {
+    if (getJob(job.getUuid()) != null) {
+      throw new IllegalArgumentException("job id:" + job.getUuid() + " already exists");
+    }
+    writeJobResource(pathOfJob(job),job);
+    return job;
+  }
+ catch (  IOException e) {
+    logger.error("error save job:" + job.getUuid(),e);
+    throw new PersistentException(e);
+  }
 }

@@ -1,3 +1,15 @@
 {
+  try {
+    JobPO existedJob=getJob(job.getUuid());
+    if (existedJob == null) {
+      throw new IllegalArgumentException("job id:" + job.getUuid() + " does not exists");
+    }
+    job.setLastModified(existedJob.getLastModified());
+    writeJobResource(pathOfJob(job),job);
+  }
+ catch (  IOException e) {
+    logger.error("error save job:" + job.getUuid(),e);
+    throw new PersistentException(e);
+  }
   return job;
 }

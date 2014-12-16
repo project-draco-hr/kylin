@@ -1,0 +1,14 @@
+{
+  assertNotNull(service);
+  TestExecutable executable=new TestExecutable();
+  executable.setAsync(true);
+  executable.setStatus(ExecuteStatus.NEW);
+  service.add(executable);
+  List<AbstractExecutable> result=service.getAllExecutables();
+  assertEquals(1,result.size());
+  AbstractExecutable another=service.get(executable.getId());
+  assertEquals(executable.getId(),another.getId());
+  assertEquals(executable.getStatus(),another.getStatus());
+  assertEquals(executable.isRunnable(),another.isRunnable());
+  assertEquals(executable.isAsync(),another.isAsync());
+}

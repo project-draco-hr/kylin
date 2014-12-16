@@ -1,0 +1,10 @@
+{
+  try {
+    jobDao.updateJob(parseTo(executable));
+    return true;
+  }
+ catch (  PersistentException e) {
+    logger.error("fail to stop job:" + executable.getId(),e);
+    return false;
+  }
+}

@@ -1,0 +1,10 @@
+{
+  Preconditions.checkArgument(executableContext instanceof DefaultContext);
+  try {
+    beforeExecute(executableContext);
+    return doWork(executableContext);
+  }
+  finally {
+    afterExecute(executableContext);
+  }
+}

@@ -1,0 +1,8 @@
+{
+  List<AbstractExecutable> allExecutables=jobService.getAllExecutables();
+  for (  final AbstractExecutable executable : allExecutables) {
+    if (executable.isRunnable() && !context.getRunningJobs().containsKey(executable.getId())) {
+      jobPool.execute(new JobRunner(executable));
+    }
+  }
+}

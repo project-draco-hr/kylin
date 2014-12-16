@@ -1,0 +1,13 @@
+{
+  try {
+    return Lists.transform(jobDao.getJobs(),new Function<JobPO,AbstractExecutable>(){
+      @Nullable @Override public AbstractExecutable apply(      JobPO input){
+        return parseTo(input);
+      }
+    }
+);
+  }
+ catch (  PersistentException e) {
+    throw new RuntimeException(e);
+  }
+}

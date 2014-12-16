@@ -1,0 +1,10 @@
+{
+  try {
+    jobDao.addJob(parseTo(executable));
+    return true;
+  }
+ catch (  PersistentException e) {
+    logger.error("fail to submit job:" + executable.getId(),e);
+    return false;
+  }
+}
