@@ -58,8 +58,13 @@ for (String adminDl : adminDls) {
 users.add(adminDl);
 }
 }
+log.info("prepare to send email to:" + users);
+log.info("job name:" + jobInstance.getName());
+log.info("submitter:" + jobInstance.getSubmitter());
 if (users.size() > 0) {
+log.info("notify list:" + users);
 mailService.sendMail(users,"[" + finalStatus + "] - [Kylin Cube Build Job]-"+ cubeName,content);
+log.info("notified users:" + users);
 }
 }
  catch (IOException e) {
