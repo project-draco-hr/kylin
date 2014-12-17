@@ -21,7 +21,7 @@
   columnNames=getColumnNames(columns);
   this.tupleInfo=buildTupleInfo();
   this.tableRecordInfo=new TableRecordInfo(this.seg);
-  this.pushedDownRowType=CoprocessorRowType.fromColumnDescs(this.seg,columnDescs);
+  this.pushedDownRowType=CoprocessorRowType.fromTableRecordInfo(tableRecordInfo,columnDescs);
   this.pushedDownFilter=CoprocessorFilter.fromFilter(this.seg,rootFilter);
   this.pushedDownProjector=CoprocessorProjector.makeForEndpoint(tableRecordInfo,groupBy);
   this.pushedDownAggregators=EndpointAggregators.fromFunctions(tableRecordInfo,measures);

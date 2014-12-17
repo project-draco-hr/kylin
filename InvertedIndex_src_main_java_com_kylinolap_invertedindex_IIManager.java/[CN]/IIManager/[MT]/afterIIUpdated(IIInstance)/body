@@ -1,0 +1,12 @@
+{
+  MetadataManager.getInstance(config).reload();
+  iiMap.put(updatedII.getName().toUpperCase(),updatedII);
+  for (  ProjectInstance project : ProjectManager.getInstance(config).getProjects(updatedII.getName())) {
+    try {
+      ProjectManager.getInstance(config).loadProjectCache(project,true);
+    }
+ catch (    IOException e) {
+      logger.error(e.getLocalizedMessage(),e);
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  seg=cubeSeg;
+  seg=iiSegment;
   desc=seg.getIIInstance().getDescriptor();
   tableDesc=desc.getFactTableDesc();
   nColumns=tableDesc.getColumnCount();
@@ -15,7 +15,12 @@
     }
  else {
       String dictPath=seg.getDictResPath(new TblColRef(col));
-      dictionaries[i]=dictMgr.getDictionary(dictPath);
+      try {
+        dictionaries[i]=dictMgr.getDictionary(dictPath);
+      }
+ catch (      IOException e) {
+        throw new RuntimeException("dictionary " + dictPath + " does not exist ",e);
+      }
     }
   }
   isMetric=new boolean[nColumns];

@@ -1,5 +1,5 @@
 {
   ResourceStore store=getStore();
-  store.putResource(cube.getResourcePath(),cube,II_SERIALIZER);
-  this.afterCubeUpdated(cube);
+  store.putResource(ii.getResourcePath(),ii,II_SERIALIZER);
+  this.afterIIUpdated(ii);
 }

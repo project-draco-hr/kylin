@@ -13,7 +13,7 @@
     return IIInstance;
   }
  catch (  Exception e) {
-    logger.error("Error during load cube instance " + path,e);
+    logger.error("Error during load ii instance " + path,e);
     return null;
   }
 }
