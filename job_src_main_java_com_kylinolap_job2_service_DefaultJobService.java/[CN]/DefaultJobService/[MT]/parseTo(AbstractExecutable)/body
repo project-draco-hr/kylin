@@ -5,6 +5,7 @@
   result.setUuid(executable.getId());
   result.setType(executable.getClass().getName());
   result.setStatus(executable.getStatus().toString());
+  result.setExtra(executable.getExtra());
   if (executable instanceof DefaultChainedExecutable) {
     ArrayList<JobPO> tasks=Lists.<JobPO>newArrayList();
     for (    AbstractExecutable task : ((DefaultChainedExecutable)executable).getExecutables()) {

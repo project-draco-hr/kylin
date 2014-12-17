@@ -1,0 +1,3 @@
+{
+  return ZOOKEEPER_LOCK_PATH + "/" + InetAddress.getLocalHost().getCanonicalHostName();
+}

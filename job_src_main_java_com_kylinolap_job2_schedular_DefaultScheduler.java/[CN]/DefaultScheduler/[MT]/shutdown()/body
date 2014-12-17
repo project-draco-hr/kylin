@@ -1,4 +1,0 @@
-{
-  fetcherPool.shutdown();
-  jobPool.shutdown();
-}

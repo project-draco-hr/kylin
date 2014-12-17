@@ -1,0 +1,17 @@
+{
+  if (context.getRunningJobs().containsKey(executable.getId())) {
+    logger.warn("job:" + executable.getId() + " is already running");
+    return;
+  }
+  try {
+    executable.execute(context);
+  }
+ catch (  ExecuteException e) {
+    logger.error("ExecuteException job:" + executable.getId(),e);
+  }
+catch (  Exception e) {
+    logger.error("unknown error execute job:" + executable.getId(),e);
+  }
+ finally {
+  }
+}

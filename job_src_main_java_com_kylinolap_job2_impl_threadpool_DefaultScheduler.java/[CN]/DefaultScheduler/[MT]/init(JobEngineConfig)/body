@@ -1,0 +1,30 @@
+{
+  if (!initialized) {
+    initialized=true;
+  }
+ else {
+    throw new UnsupportedOperationException("cannot init this instance twice");
+  }
+  this.jobEngineConfig=jobEngineConfig;
+  jobService=DefaultJobService.getInstance(jobEngineConfig.getConfig());
+  fetcherPool=Executors.newScheduledThreadPool(1);
+  int corePoolSize=jobEngineConfig.getMaxConcurrentJobLimit();
+  jobPool=new ThreadPoolExecutor(corePoolSize,corePoolSize,Long.MAX_VALUE,TimeUnit.DAYS,new SynchronousQueue<Runnable>());
+  context=new DefaultContext(Maps.<String,Executable>newConcurrentMap());
+  RetryPolicy retryPolicy=new ExponentialBackoffRetry(1000,3);
+  this.zkClient=CuratorFrameworkFactory.newClient(jobEngineConfig.getZookeeperString(),retryPolicy);
+  this.zkClient.start();
+  Runtime.getRuntime().addShutdownHook(new Thread(){
+    public void run(){
+      logger.debug("Closing zk connection");
+      try {
+        shutdown();
+      }
+ catch (      SchedularException e) {
+        logger.error("error shutdown scheduler",e);
+      }
+    }
+  }
+);
+  fetcherPool.scheduleAtFixedRate(new FetcherRunner(),0,JobConstants.DEFAULT_SCHEDULER_INTERVAL_SECONDS,TimeUnit.SECONDS);
+}

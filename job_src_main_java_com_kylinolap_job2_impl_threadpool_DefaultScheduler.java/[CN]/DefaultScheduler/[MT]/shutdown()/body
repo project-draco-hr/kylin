@@ -1,0 +1,15 @@
+{
+  fetcherPool.shutdown();
+  jobPool.shutdown();
+  if (zkClient.getState().equals(CuratorFrameworkState.STARTED)) {
+    try {
+      if (zkClient.checkExists().forPath(schedulerId()) != null) {
+        zkClient.delete().guaranteed().deletingChildrenIfNeeded().forPath(schedulerId());
+      }
+    }
+ catch (    Exception e) {
+      logger.error("error delete scheduler",e);
+      throw new SchedularException(e);
+    }
+  }
+}

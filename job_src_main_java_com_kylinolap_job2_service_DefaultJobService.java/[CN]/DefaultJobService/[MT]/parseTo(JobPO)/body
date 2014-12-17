@@ -7,6 +7,7 @@
     result.setAsync(jobPO.isAsync());
     result.setStatus(ExecuteStatus.valueOf(jobPO.getStatus()));
     result.setId(jobPO.getUuid());
+    result.setExtra(jobPO.getExtra());
     List<JobPO> tasks=jobPO.getTasks();
     if (tasks != null && !tasks.isEmpty()) {
       Preconditions.checkArgument(result instanceof DefaultChainedExecutable);
