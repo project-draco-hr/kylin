@@ -1,0 +1,3 @@
+boolean reformatDFS
+JobConf conf
+Properties props

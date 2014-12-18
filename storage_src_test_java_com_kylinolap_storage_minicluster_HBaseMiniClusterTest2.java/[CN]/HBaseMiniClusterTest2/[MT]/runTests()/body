@@ -1,0 +1,12 @@
+{
+  try {
+    setup();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    throw e;
+  }
+ finally {
+    tearDown();
+  }
+}

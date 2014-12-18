@@ -1,4 +1,8 @@
 {
-  releaseLock();
-  this.scheduler.stop();
+  try {
+    releaseLock();
+  }
+  finally {
+    this.scheduler.stop();
+  }
 }

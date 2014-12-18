@@ -1,0 +1,9 @@
+{
+  File tableExportFolder=new File(backupFolder,tableName);
+  org.apache.hadoop.fs.FileSystem fs=org.apache.hadoop.fs.FileSystem.get(UTIL.getConfiguration());
+  Path tableExportPath=new Path("/tmp/hbase-export/");
+  fs.delete(tableExportPath,true);
+  fs.mkdirs(tableExportPath);
+  fs.copyFromLocalFile(false,new Path(tableExportFolder.getAbsolutePath()),tableExportPath);
+  return tableExportPath.makeQualified(FileSystem.get(UTIL.getConfiguration())).toString() + "/" + tableName;
+}

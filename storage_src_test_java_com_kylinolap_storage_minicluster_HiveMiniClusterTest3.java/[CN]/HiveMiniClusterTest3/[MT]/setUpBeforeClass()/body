@@ -1,0 +1,26 @@
+{
+  File logPath=new File(LOG_DIR);
+  if (!logPath.exists()) {
+    logPath.mkdirs();
+  }
+  System.setProperty("hadoop.log.dir",LOG_DIR);
+  System.setProperty("javax.xml.parsers.SAXParserFactory","com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
+  System.setProperty("javax.xml.parsers.DocumentBuilderFactory","com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl");
+  Properties props=new Properties();
+  props.setProperty("dfs.datanode.data.dir.perm","775");
+  conf=new JobConf();
+  File miniclusterFolder=new File(AbstractKylinTestCase.MINICLUSTER_TEST_DATA);
+  System.out.println("----" + miniclusterFolder.getAbsolutePath());
+  if (!miniclusterFolder.exists()) {
+    System.err.println("Couldn't find " + miniclusterFolder + ", exit...");
+    System.exit(1);
+  }
+  String coreSitePath=miniclusterFolder + File.separator + "core-site.xml";
+  conf.addResource(new Path(coreSitePath));
+  String hdfsSitePath=miniclusterFolder + File.separator + "hdfs-site.xml";
+  conf.addResource(new Path(hdfsSitePath));
+  String mrSitePath=miniclusterFolder + File.separator + "mapred-site.xml";
+  conf.addResource(new Path(mrSitePath));
+  System.setProperty("test.build.data",miniclusterFolder.getAbsolutePath());
+  startCluster(true,conf,props);
+}

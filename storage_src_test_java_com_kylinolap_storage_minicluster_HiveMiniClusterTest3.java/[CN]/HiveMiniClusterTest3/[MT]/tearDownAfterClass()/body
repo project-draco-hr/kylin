@@ -1,0 +1,10 @@
+{
+  stopCluster();
+  String baseTempDir=dfsCluster.getBaseDirectory();
+  String dfsDir=baseTempDir + "data";
+  System.out.println("------" + new File(dfsDir).getAbsolutePath());
+  FileUtils.deleteDirectory(new File(dfsDir));
+  String mrDir=baseTempDir + "mapred";
+  FileUtils.deleteDirectory(new File(mrDir));
+  FileUtils.cleanDirectory(new File(LOG_DIR));
+}

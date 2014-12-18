@@ -1,0 +1,5 @@
+{
+  stopCluster();
+  String baseTempDir=dfsCluster.getBaseDirectory();
+  FileUtils.cleanDirectory(new File(LOG_DIR));
+}
