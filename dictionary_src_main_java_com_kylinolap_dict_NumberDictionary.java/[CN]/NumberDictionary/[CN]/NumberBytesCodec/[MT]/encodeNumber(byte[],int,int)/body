@@ -4,6 +4,9 @@
     bufLen=0;
     return;
   }
+  if (len > buf.length) {
+    throw new IllegalArgumentException("Too many digits for NumberDictionary: " + Bytes.toString(value,offset,len) + ". Internal buffer is only "+ buf.length+ " bytes");
+  }
   boolean negative=value[offset] == '-';
   int start=buf.length - len;
   int end=buf.length;
@@ -23,7 +26,7 @@
     start++;
   }
   int nZeroPadding=MAX_DIGITS_BEFORE_DECIMAL_POINT - (decimalPoint - start);
-  if (nZeroPadding < 0 || nZeroPadding + 1 > start)   throw new IllegalArgumentException("Too many digits for NumberDictionary: " + Bytes.toString(value,offset,len));
+  if (nZeroPadding < 0 || nZeroPadding + 1 > start)   throw new IllegalArgumentException("Too many digits for NumberDictionary: " + Bytes.toString(value,offset,len) + ". Expect "+ MAX_DIGITS_BEFORE_DECIMAL_POINT+ " digits before decimal point at max.");
   for (int i=0; i < nZeroPadding; i++) {
     buf[--start]='0';
   }
