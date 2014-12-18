@@ -11,9 +11,7 @@
  else {
     project.setName(newName);
     project.setDescription(newDesc);
-    if (project.getUuid() == null) {
-      project.updateRandomUuid();
-    }
+    if (project.getUuid() == null)     project.updateRandomUuid();
     saveResource(project);
     return project;
   }

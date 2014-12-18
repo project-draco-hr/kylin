@@ -1,0 +1,12 @@
+{
+  project=ProjectInstance.getNormalizedProjectName(project);
+  TableDesc t=this.getMetadataManager().getTableDesc(table);
+  if (t == null)   throw new IllegalStateException("No SourceTable found by name '" + table);
+  table=t.getName();
+  ProjectTable projTable=getProjectTable(project,table,true);
+  ColumnDesc srcCol=t.findColumnByName(column);
+  if (srcCol == null)   throw new IllegalStateException("No SourceColumn found by name '" + table + "/"+ column);
+  if (!projTable.getColumns().contains(srcCol.getName())) {
+    projTable.getColumns().add(srcCol.getName());
+  }
+}

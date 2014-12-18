@@ -1,8 +1,0 @@
-{
-  if (realization.getType() == DataModelRealizationType.INVERTED_INDEX) {
-    return new InvertedIndexStorageEngine((IIInstance)realization);
-  }
- else {
-    return new HBaseStorageEngine((CubeInstance)realization);
-  }
-}

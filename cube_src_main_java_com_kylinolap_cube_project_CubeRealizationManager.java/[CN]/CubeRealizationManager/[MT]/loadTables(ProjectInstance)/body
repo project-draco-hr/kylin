@@ -1,8 +1,0 @@
-{
-  String project=ProjectInstance.getNormalizedProjectName(projectInstance.getName());
-  projectTables.removeAll(project);
-  for (  CubeInstance cubeInstance : this.listAllCubes(projectInstance.getName())) {
-    markExposedTablesAndColumns(projectInstance.getName(),cubeInstance);
-    mapTableToCube(projectInstance,cubeInstance);
-  }
-}

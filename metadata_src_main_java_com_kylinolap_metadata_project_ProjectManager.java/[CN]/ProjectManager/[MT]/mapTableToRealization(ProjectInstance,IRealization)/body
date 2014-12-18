@@ -1,0 +1,17 @@
+{
+  List<TblColRef> allColumns=realization.getAllColumns();
+  if (allColumns == null || allColumns.size() == 0) {
+    logger.warn("No columns found from realization '" + realization.getName());
+    return;
+  }
+  for (  TblColRef tblColRef : allColumns) {
+    String project=ProjectInstance.getNormalizedProjectName(projectInstance.getName());
+    if (this.getMetadataManager().getTableDesc(tblColRef.getTable()) == null) {
+      throw new RuntimeException("Table Desc for " + tblColRef.getTable() + "does not exist");
+    }
+    ProjectTable factProjTable=this.getProjectTable(project,tblColRef.getTable(),true);
+    if (!factProjTable.getRealizations().contains(realization)) {
+      factProjTable.getRealizations().add(realization);
+    }
+  }
+}

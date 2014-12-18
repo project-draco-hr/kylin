@@ -1,6 +1,7 @@
 {
   MetadataManager.getInstance(config).reload();
   cubeMap.put(updatedCube.getName().toUpperCase(),updatedCube);
+  RealizationRegistry.getInstance(config).registerRealization(updatedCube);
   for (  ProjectInstance project : ProjectManager.getInstance(config).getProjects(updatedCube.getName())) {
     try {
       ProjectManager.getInstance(config).loadProjectCache(project,true);

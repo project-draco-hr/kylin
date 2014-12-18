@@ -1,0 +1,12 @@
+{
+  project=ProjectInstance.getNormalizedProjectName(project);
+  factTableName=factTableName.toUpperCase();
+  List<IRealization> realizations=new ArrayList<IRealization>();
+  ProjectTable projectTable=this.getProjectTable(project,factTableName);
+  for (  IRealization realization : projectTable.getRealizations()) {
+    if (realization.getFactTable().equalsIgnoreCase(factTableName) && realization.isReady()) {
+      realizations.add(realization);
+    }
+  }
+  return realizations;
+}

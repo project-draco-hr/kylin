@@ -1,0 +1,12 @@
+{
+  ResourceStore store=getStore();
+  logger.debug("Loading ProjectInstance " + store.getReadableResourcePath(path));
+  ProjectInstance projectInstance=store.getResource(path,ProjectInstance.class,PROJECT_SERIALIZER);
+  projectInstance.init();
+  String project=ProjectInstance.getNormalizedProjectName(projectInstance.getName());
+  projectTables.removeAll(project);
+  for (  IRealization cubeInstance : this.listAllRealizations(projectInstance.getName())) {
+    markExposedTablesAndColumns(projectInstance.getName(),cubeInstance);
+    mapTableToRealization(projectInstance,cubeInstance);
+  }
+}

@@ -1,8 +1,0 @@
-{
-  return ImmutableList.copyOf(Iterables.filter(dataModels,new Predicate<ProjectDataModel>(){
-    @Override public boolean apply(    @Nullable ProjectDataModel input){
-      return input.getType() == dataModelRealizationType;
-    }
-  }
-));
-}
