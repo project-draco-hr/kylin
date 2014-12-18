@@ -3,8 +3,9 @@
   if (counter % BatchConstants.COUNTER_MAX == 0) {
     logger.info("Handled " + counter + " records!");
   }
-  bytesSplitter.split(value.getBytes(),value.getLength(),byteRowDelimiter);
   try {
+    bytesSplitter.split(value.getBytes(),value.getLength(),byteRowDelimiter);
+    intermediateTableDesc.sanityCheck(bytesSplitter);
     byte[] rowKey=buildKey(bytesSplitter.getSplitBuffers());
     outputKey.set(rowKey,0,rowKey.length);
     buildValue(bytesSplitter.getSplitBuffers());
@@ -12,6 +13,6 @@
     context.write(outputKey,outputValue);
   }
  catch (  Exception ex) {
-    handleErrorRecord(bytesSplitter.getSplitBuffers(),ex);
+    handleErrorRecord(bytesSplitter,ex);
   }
 }
