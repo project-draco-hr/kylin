@@ -1,5 +1,4 @@
 {
-  logger.debug("Loading SourceTable exd " + path);
   InputStream is=store.getResource(path);
   if (is != null) {
     attrContainer.putAll(JsonUtil.readValue(is,HashMap.class));
