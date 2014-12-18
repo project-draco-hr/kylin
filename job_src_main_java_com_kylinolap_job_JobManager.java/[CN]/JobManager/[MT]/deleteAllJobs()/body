@@ -1,6 +1,6 @@
 {
   List<JobInstance> allJobs=listJobs(null,null);
   for (  JobInstance job : allJobs) {
-    if (job != null)     jobDAO.deleteJob(job);
+    jobDAO.deleteJob(job);
   }
 }
