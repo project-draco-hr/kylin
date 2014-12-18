@@ -1,0 +1,4 @@
+{
+  this.succeed=succeed;
+  this.output=output;
+}

@@ -1,7 +1,6 @@
 {
   Preconditions.checkArgument(executable.getId() != null,"please generate unique id");
   JobPO result=new JobPO();
-  result.setAsync(executable.isAsync());
   result.setUuid(executable.getId());
   result.setType(executable.getClass().getName());
   result.setStatus(executable.getStatus().toString());

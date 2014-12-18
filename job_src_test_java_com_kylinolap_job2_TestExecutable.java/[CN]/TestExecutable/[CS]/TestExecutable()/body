@@ -1,5 +1,4 @@
 {
   this.setId(UUID.randomUUID().toString());
-  this.setAsync(false);
-  this.setStatus(ExecuteStatus.NEW);
+  this.setStatus(ExecutableStatus.READY);
 }

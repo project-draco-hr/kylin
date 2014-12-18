@@ -5,13 +5,5 @@
  catch (  InterruptedException e) {
     throw new ExecuteException(e);
   }
-  return new ExecuteResult(){
-    @Override public int statusCode(){
-      return 0;
-    }
-    @Override public String output(){
-      return "success";
-    }
-  }
-;
+  return new ExecuteResult(true,"success");
 }

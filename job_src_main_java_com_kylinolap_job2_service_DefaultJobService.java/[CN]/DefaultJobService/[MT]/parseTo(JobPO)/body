@@ -4,8 +4,7 @@
     Class<? extends AbstractExecutable> clazz=(Class<? extends AbstractExecutable>)Class.forName(type);
     Constructor<? extends AbstractExecutable> constructor=clazz.getConstructor();
     AbstractExecutable result=constructor.newInstance();
-    result.setAsync(jobPO.isAsync());
-    result.setStatus(ExecuteStatus.valueOf(jobPO.getStatus()));
+    result.setStatus(ExecutableStatus.valueOf(jobPO.getStatus()));
     result.setId(jobPO.getUuid());
     result.setExtra(jobPO.getExtra());
     List<JobPO> tasks=jobPO.getTasks();
