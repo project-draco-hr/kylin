@@ -1,0 +1,19 @@
+{
+  if (result.succeed()) {
+    List<AbstractExecutable> jobs=getExecutables();
+    AbstractExecutable lastJob=jobs.get(jobs.size() - 1);
+    if (lastJob.isRunnable()) {
+      this.setStatus(ExecutableStatus.READY);
+      jobService.updateJobStatus(this);
+    }
+ else     if (lastJob.getStatus() == ExecutableStatus.SUCCEED) {
+      this.setStatus(ExecutableStatus.SUCCEED);
+      jobService.updateJobStatus(this);
+    }
+ else {
+    }
+  }
+ else {
+    jobService.updateJobStatus(getId(),ExecutableStatus.ERROR,null);
+  }
+}

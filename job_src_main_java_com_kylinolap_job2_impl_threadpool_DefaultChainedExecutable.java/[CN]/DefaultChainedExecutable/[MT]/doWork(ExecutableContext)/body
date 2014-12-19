@@ -4,16 +4,8 @@
   for (int i=0; i < size; ++i) {
     AbstractExecutable subTask=executables.get(i);
     if (subTask.isRunnable()) {
-      ExecuteResult result=subTask.execute(context);
-      if (result.succeed()) {
-        this.setStatus(ExecutableStatus.READY);
-        jobService.updateJobStatus(getId(),ExecutableStatus.READY,null);
-      }
- else {
-        jobService.updateJobStatus(getId(),ExecutableStatus.ERROR,null);
-      }
+      return subTask.execute(context);
     }
   }
-  jobService.updateJobStatus(getId(),ExecutableStatus.SUCCEED,null);
   return new ExecuteResult(true,null);
 }

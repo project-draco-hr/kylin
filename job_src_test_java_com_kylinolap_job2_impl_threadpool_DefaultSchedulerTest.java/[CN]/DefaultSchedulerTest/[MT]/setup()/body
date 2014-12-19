@@ -1,0 +1,5 @@
+{
+  createTestMetadata();
+  scheduler=DefaultScheduler.getInstance();
+  scheduler.init(new JobEngineConfig(KylinConfig.getInstanceFromEnv()));
+}

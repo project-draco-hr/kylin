@@ -11,9 +11,9 @@
   List<AbstractExecutable> result=service.getAllExecutables();
   assertEquals(1,result.size());
   AbstractExecutable another=service.getJob(executable.getId());
-  assertEqual(executable,another);
+  assertJobEqual(executable,another);
   executable.setStatus(ExecutableStatus.SUCCEED);
   executable.setOutput("test output");
   service.updateJobStatus(executable);
-  assertEqual(executable,service.getJob(executable.getId()));
+  assertJobEqual(executable,service.getJob(executable.getId()));
 }

@@ -5,5 +5,15 @@
  catch (  InterruptedException e) {
     throw new ExecuteException(e);
   }
-  return new ExecuteResult(true,"success");
+  if (Math.random() < .8) {
+    return new ExecuteResult(true,"success");
+  }
+ else {
+    if (Math.random() > .5) {
+      return new ExecuteResult(false,"failed");
+    }
+ else {
+      throw new RuntimeException("error");
+    }
+  }
 }

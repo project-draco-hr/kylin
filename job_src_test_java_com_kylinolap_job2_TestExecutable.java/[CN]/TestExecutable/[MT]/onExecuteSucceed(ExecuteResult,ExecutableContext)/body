@@ -1,0 +1,10 @@
+{
+  if (result.succeed()) {
+    this.setStatus(ExecutableStatus.SUCCEED);
+  }
+ else {
+    this.setStatus(ExecutableStatus.ERROR);
+  }
+  this.setOutput(result.output());
+  jobService.updateJobStatus(this);
+}

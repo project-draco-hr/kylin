@@ -1,0 +1,5 @@
+{
+  this.setStatus(ExecutableStatus.ERROR);
+  this.setOutput(exception.getLocalizedMessage());
+  jobService.updateJobStatus(this);
+}
