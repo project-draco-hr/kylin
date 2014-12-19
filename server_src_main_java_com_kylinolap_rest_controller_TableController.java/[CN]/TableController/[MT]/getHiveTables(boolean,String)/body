@@ -4,7 +4,7 @@
   try {
     tables=cubeMgmtService.getProjectManager().listDefinedTablesInProject(project);
   }
- catch (  Exception e) {
+ catch (  IOException e) {
     logger.error("Failed to deal with the request.",e);
     throw new InternalErrorException(e.getLocalizedMessage());
   }
