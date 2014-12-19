@@ -1,0 +1,6 @@
+int numMasters
+int numSlaves
+int numDataNodes
+String[] dataNodeHosts
+Class<? extends HMaster> masterClass
+Class<? extends MiniHBaseCluster.MiniHBaseClusterRegionServer> regionserverClass

@@ -1,0 +1,6 @@
+{
+  queryController=new QueryController();
+  queryController.setQueryService(queryService);
+  queryController.setCacheManager(cacheManager);
+  queryController.getMetadata(new MetaRequest(ProjectInstance.DEFAULT_PROJECT_NAME));
+}

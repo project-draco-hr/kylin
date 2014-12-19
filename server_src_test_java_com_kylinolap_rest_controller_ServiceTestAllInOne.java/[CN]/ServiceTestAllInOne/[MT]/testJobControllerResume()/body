@@ -1,0 +1,14 @@
+{
+  jobSchedulerController=new JobController();
+  jobSchedulerController.setJobService(jobService);
+  cubeController=new CubeController();
+  cubeController.setJobService(jobService);
+  cubeController.setCubeService(cubeService);
+  JobBuildRequest jobBuildRequest=new JobBuildRequest();
+  jobBuildRequest.setBuildType("BUILD");
+  jobBuildRequest.setStartTime(20130331080000L);
+  jobBuildRequest.setEndTime(20131212080000L);
+  JobInstance job=cubeController.rebuild(CUBE_NAME,jobBuildRequest);
+  Assert.assertNotNull(job);
+  jobSchedulerController.resume(job.getId());
+}

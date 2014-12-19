@@ -1,0 +1,6 @@
+{
+  Statement stmt=con.createStatement();
+  System.out.println("Running: " + sql);
+  stmt.execute(sql);
+  return stmt.getResultSet();
+}
