@@ -1,0 +1,12 @@
+{
+  ProjectInstance projectInstance=new ProjectInstance();
+  projectInstance.updateRandomUuid();
+  projectInstance.setName(name);
+  projectInstance.setOwner(owner);
+  projectInstance.setDescription(description);
+  projectInstance.setStatus(ProjectStatusEnum.ENABLED);
+  projectInstance.setCreateTime(formatTime(System.currentTimeMillis()));
+  if (realizationEntries != null)   projectInstance.setRealizationEntries(realizationEntries);
+ else   projectInstance.setRealizationEntries(Lists.<RealizationEntry>newArrayList());
+  return projectInstance;
+}

@@ -1,0 +1,4 @@
+RealizationType type
+String realizationName
+String newProjectName
+String owner

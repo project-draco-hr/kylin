@@ -5,8 +5,8 @@
   projectInstance.init();
   String project=ProjectInstance.getNormalizedProjectName(projectInstance.getName());
   projectTables.removeAll(project);
-  for (  IRealization cubeInstance : this.listAllRealizations(projectInstance.getName())) {
-    markExposedTablesAndColumns(projectInstance.getName(),cubeInstance);
-    mapTableToRealization(projectInstance,cubeInstance);
+  for (  IRealization realization : this.listAllRealizations(projectInstance.getName())) {
+    markExposedTablesAndColumns(projectInstance.getName(),realization);
+    mapTableToRealization(projectInstance,realization);
   }
 }

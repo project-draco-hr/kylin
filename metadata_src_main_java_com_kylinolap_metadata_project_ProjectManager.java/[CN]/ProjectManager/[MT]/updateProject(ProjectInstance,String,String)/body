@@ -3,7 +3,7 @@
     ProjectInstance newProject=this.createProject(newName,project.getOwner(),newDesc);
     newProject.setCreateTime(project.getCreateTime());
     newProject.recordUpdateTime(System.currentTimeMillis());
-    newProject.setCubes(project.getCubes());
+    newProject.setRealizationEntries(project.getRealizationEntries());
     deleteResource(project);
     saveResource(newProject);
     return newProject;

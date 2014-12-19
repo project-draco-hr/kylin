@@ -1,8 +1,4 @@
 {
-  System.out.println("");
-  System.out.println("position: " + a.position());
-  System.out.println("limit: " + a.limit());
-  System.out.println("mark: " + a.mark());
-  System.out.println("remaining: " + a.remaining());
-  System.out.println("arrayoffset: " + a.arrayOffset());
+  Integer x=4;
+  foo(x);
 }

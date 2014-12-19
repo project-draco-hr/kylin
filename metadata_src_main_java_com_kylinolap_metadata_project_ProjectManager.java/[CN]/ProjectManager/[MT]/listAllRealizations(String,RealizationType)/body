@@ -3,7 +3,7 @@
   HashSet<IRealization> ret=new HashSet<IRealization>();
   ProjectInstance projectInstance=getProject(project);
   if (projectInstance != null) {
-    for (    ProjectDataModel dm : projectInstance.getDataModels()) {
+    for (    RealizationEntry dm : projectInstance.getRealizationEntries()) {
       if (dm.getType() == type || type == null) {
         RealizationRegistry registry=RealizationRegistry.getInstance(config);
         registry.loadRealizations();
