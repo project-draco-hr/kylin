@@ -6,6 +6,7 @@
     if (subTask.isRunnable()) {
       ExecuteResult result=subTask.execute(context);
       if (result.succeed()) {
+        this.setStatus(ExecutableStatus.READY);
         jobService.updateJobStatus(getId(),ExecutableStatus.READY,null);
       }
  else {

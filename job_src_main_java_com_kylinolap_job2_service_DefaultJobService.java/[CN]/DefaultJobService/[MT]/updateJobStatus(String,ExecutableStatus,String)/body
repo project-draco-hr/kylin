@@ -1,3 +1,4 @@
 {
-  return true;
+  updateJobOutput(uuid,output);
+  updateJobStatus(uuid,status);
 }

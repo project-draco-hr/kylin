@@ -1,0 +1,10 @@
+{
+  try {
+    JobOutputPO jobOutputPO=readJobOutputResource(pathOfJobOutput(uuid));
+    return jobOutputPO != null ? jobOutputPO.getContent() : null;
+  }
+ catch (  IOException e) {
+    logger.error("error get job output id:" + uuid,e);
+    throw new PersistentException(e);
+  }
+}

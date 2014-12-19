@@ -3,6 +3,6 @@
   service=DefaultJobService.getInstance(KylinConfig.getInstanceFromEnv());
   for (  AbstractExecutable executable : service.getAllExecutables()) {
     System.out.println("deleting " + executable.getId());
-    service.delete(executable);
+    service.deleteJob(executable);
   }
 }

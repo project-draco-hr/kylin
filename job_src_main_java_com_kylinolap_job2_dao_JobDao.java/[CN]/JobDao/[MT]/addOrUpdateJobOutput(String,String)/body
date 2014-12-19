@@ -1,0 +1,15 @@
+{
+  if (output == null) {
+    return;
+  }
+  JobOutputPO jobOutputPO=new JobOutputPO();
+  jobOutputPO.setContent(output);
+  jobOutputPO.setUuid(uuid);
+  try {
+    writeJobOutputResource(pathOfJobOutput(uuid),jobOutputPO);
+  }
+ catch (  IOException e) {
+    logger.error("error update job output id:" + uuid,e);
+    throw new PersistentException(e);
+  }
+}

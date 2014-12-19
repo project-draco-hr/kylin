@@ -1,0 +1,13 @@
+{
+  try {
+    JobPO job=jobDao.getJob(uuid);
+    if (ExecutableStatus.valueOf(job.getStatus()) != status) {
+      job.setStatus(status.toString());
+    }
+    jobDao.updateJob(job);
+  }
+ catch (  PersistentException e) {
+    logger.error("fail to update job status id:" + uuid,e);
+    throw new RuntimeException(e);
+  }
+}

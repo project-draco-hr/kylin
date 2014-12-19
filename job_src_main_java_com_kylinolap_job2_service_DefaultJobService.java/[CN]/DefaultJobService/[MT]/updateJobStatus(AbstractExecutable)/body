@@ -1,0 +1,3 @@
+{
+  updateJobStatus(executable.getId(),executable.getStatus(),executable.getOutput());
+}

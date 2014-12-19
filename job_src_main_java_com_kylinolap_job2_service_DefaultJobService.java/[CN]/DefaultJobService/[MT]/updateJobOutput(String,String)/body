@@ -1,0 +1,9 @@
+{
+  try {
+    jobDao.addOrUpdateJobOutput(uuid,output);
+  }
+ catch (  PersistentException e) {
+    logger.error("fail to update job output id:" + uuid,e);
+    throw new RuntimeException(e);
+  }
+}

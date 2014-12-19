@@ -1,0 +1,10 @@
+{
+  assertEquals(one.getId(),another.getId());
+  assertEquals(one.getStatus(),another.getStatus());
+  assertEquals(one.isRunnable(),another.isRunnable());
+  assertEquals(one.getOutput(),another.getOutput());
+  assertEquals(one.getExtra().size(),another.getExtra().size());
+  for (  String key : one.getExtra().keySet()) {
+    assertEquals(one.getExtra().get(key),another.getExtra().get(key));
+  }
+}

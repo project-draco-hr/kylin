@@ -5,8 +5,8 @@
     onExecuteStart(executableContext);
     result=doWork(executableContext);
   }
- catch (  Exception e) {
-    onExecuteException(e,executableContext);
+ catch (  Throwable e) {
+    onExecuteError(e,executableContext);
     throw new ExecuteException(e);
   }
   onExecuteSucceed(result,executableContext);
