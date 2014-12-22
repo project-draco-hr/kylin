@@ -1,4 +1,4 @@
 {
-  String str=getValueString(info().getTimestampColumn());
+  String str=getValueString(info.getTimestampColumn());
   return DateStrDictionary.stringToMillis(str);
 }

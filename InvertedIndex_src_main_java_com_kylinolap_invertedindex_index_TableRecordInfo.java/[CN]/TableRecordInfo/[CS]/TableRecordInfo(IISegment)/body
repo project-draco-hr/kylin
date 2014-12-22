@@ -1,5 +1,5 @@
 {
-  seg=cubeSeg;
+  seg=iiSegment;
   desc=seg.getIIInstance().getDescriptor();
   tableDesc=desc.getFactTableDesc();
   nColumns=tableDesc.getColumnCount();
@@ -15,26 +15,13 @@
     }
  else {
       String dictPath=seg.getDictResPath(new TblColRef(col));
-      dictionaries[i]=dictMgr.getDictionary(dictPath);
+      try {
+        dictionaries[i]=dictMgr.getDictionary(dictPath);
+      }
+ catch (      IOException e) {
+        throw new RuntimeException("dictionary " + dictPath + " does not exist ",e);
+      }
     }
   }
-  isMetric=new boolean[nColumns];
-  for (int i=0; i < nColumns; ++i) {
-    isMetric[i]=desc.isMetricsCol(i);
-  }
-  lengths=new int[nColumns];
-  for (int i=0; i < nColumns; ++i) {
-    lengths[i]=isMetrics(i) ? measureSerializers[i].getLength() : dictionaries[i].getSizeOfId();
-  }
-  dictMaxIds=new int[nColumns];
-  for (int i=0; i < nColumns; ++i) {
-    if (!isMetrics(i))     dictMaxIds[i]=dictionaries[i].getMaxId();
-  }
-  int pos=0;
-  offsets=new int[nColumns];
-  for (int i=0; i < nColumns; i++) {
-    offsets[i]=pos;
-    pos+=length(i);
-  }
-  byteFormLen=pos;
+  digest=createDigest();
 }

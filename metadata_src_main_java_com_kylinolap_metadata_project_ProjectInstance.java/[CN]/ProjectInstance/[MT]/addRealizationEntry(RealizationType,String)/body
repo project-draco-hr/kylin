@@ -1,0 +1,6 @@
+{
+  RealizationEntry pdm=new RealizationEntry();
+  pdm.setType(type);
+  pdm.setRealization(realizationName);
+  this.realizationEntries.add(pdm);
+}

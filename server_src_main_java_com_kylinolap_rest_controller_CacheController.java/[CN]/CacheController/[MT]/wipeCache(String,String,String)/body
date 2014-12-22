@@ -8,7 +8,7 @@ case METADATA:
 projectService.cleanDataCache();
 cubeMgmtService.cleanDataCache();
 break;
-case REALIZATION:
+case CUBE:
 logger.debug("Reload cube " + name + " with type:"+ type+ ", event type "+ event);
 cubeMgmtService.reloadMetadataCache();
 if ("ALL".equalsIgnoreCase(name.toUpperCase())) {

@@ -1,0 +1,8 @@
+{
+  Iterables.removeIf(this.realizationEntries,new Predicate<RealizationEntry>(){
+    @Override public boolean apply(    RealizationEntry input){
+      return input.getType() == type && input.getRealization().equalsIgnoreCase(realization);
+    }
+  }
+);
+}

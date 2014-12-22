@@ -1,5 +1,5 @@
 {
-  CompressedValueContainer container=new CompressedValueContainer(info,0,500);
+  CompressedValueContainer container=new CompressedValueContainer(info.getDigest(),0,500);
   Dictionary<String> dict=info.dict(0);
   byte[] buf=new byte[dict.getSizeOfId()];
   ImmutableBytesWritable bytes=new ImmutableBytesWritable(buf);
@@ -11,7 +11,7 @@
   container.append(bytes);
   container.closeForChange();
   ImmutableBytesWritable copy=container.toBytes();
-  CompressedValueContainer container2=new CompressedValueContainer(info,0,500);
+  CompressedValueContainer container2=new CompressedValueContainer(info.getDigest(),0,500);
   container2.fromBytes(copy);
   int i=0;
   for (int v=dict.getMinId(); v <= dict.getMaxId(); v++) {

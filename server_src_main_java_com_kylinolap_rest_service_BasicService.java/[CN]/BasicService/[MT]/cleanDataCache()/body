@@ -1,5 +1,5 @@
 {
   CubeManager.removeInstance(getConfig());
-  CubeRealizationManager.removeInstance(getConfig());
+  ProjectManager.removeInstance(getConfig());
   BasicService.resetOLAPDataSources();
 }

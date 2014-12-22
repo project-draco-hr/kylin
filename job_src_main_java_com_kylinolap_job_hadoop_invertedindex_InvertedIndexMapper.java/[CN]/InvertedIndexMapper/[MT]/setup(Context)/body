@@ -8,7 +8,7 @@
   IIInstance ii=mgr.getII(conf.get(BatchConstants.CFG_II_NAME));
   IISegment seg=ii.getSegment(conf.get(BatchConstants.CFG_II_SEGMENT_NAME),SegmentStatusEnum.NEW);
   this.info=new TableRecordInfo(seg);
-  this.rec=new TableRecord(this.info);
+  this.rec=this.info.createTableRecord();
   outputKey=new LongWritable();
   outputValue=new ImmutableBytesWritable(rec.getBytes());
 }

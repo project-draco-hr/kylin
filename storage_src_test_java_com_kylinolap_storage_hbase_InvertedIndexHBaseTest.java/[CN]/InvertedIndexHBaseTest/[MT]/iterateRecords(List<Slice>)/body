@@ -1,8 +1,8 @@
 {
   List<TableRecord> records=Lists.newArrayList();
   for (  Slice slice : slices) {
-    for (    TableRecordBytes rec : slice) {
-      records.add((TableRecord)rec.clone());
+    for (    RawTableRecord rec : slice) {
+      records.add(new TableRecord((RawTableRecord)rec.clone(),info));
     }
   }
   return records;

@@ -1,0 +1,22 @@
+{
+  File tmp=File.createTempFile("kylin_job_meta","");
+  tmp.delete();
+  File metaDir=new File(tmp,"meta");
+  metaDir.mkdirs();
+  metaDir.getParentFile().deleteOnExit();
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  File kylinPropsFile=new File(metaDir,"kylin.properties");
+  kylinConfig.writeProperties(kylinPropsFile);
+  ArrayList<String> dumpList=new ArrayList<String>();
+  dumpList.add(ii.getResourcePath());
+  dumpList.add(ii.getDescriptor().getModel().getResourcePath());
+  dumpList.add(ii.getDescriptor().getResourcePath());
+  for (  TableDesc table : ii.getDescriptor().listTables()) {
+    dumpList.add(table.getResourcePath());
+  }
+  for (  IISegment segment : ii.getSegments()) {
+    dumpList.addAll(segment.getDictionaryPaths());
+  }
+  dumpResources(kylinConfig,metaDir,dumpList);
+  conf.set("tmpfiles","file:///" + OptionsHelper.convertToFileURL(metaDir.getAbsolutePath()));
+}

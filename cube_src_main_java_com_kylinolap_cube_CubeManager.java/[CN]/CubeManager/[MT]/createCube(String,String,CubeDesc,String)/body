@@ -3,7 +3,6 @@
   CubeInstance cube=CubeInstance.create(cubeName,projectName,desc);
   cube.setOwner(owner);
   saveResource(cube);
-  ProjectManager.getInstance(config).updateCubeToProject(cubeName,projectName,owner);
-  CubeRealizationManager.getInstance(config).loadProject(ProjectManager.getInstance(config).getProject(projectName));
+  ProjectManager.getInstance(config).updateRealizationToProject(RealizationType.CUBE,cubeName,projectName,owner);
   return cube;
 }

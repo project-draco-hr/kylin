@@ -1,5 +1,4 @@
 {
-  super();
   this.info=another.info;
-  this.buf=Bytes.copy(another.buf);
+  this.rawRecord=(RawTableRecord)another.rawRecord.clone();
 }

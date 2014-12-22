@@ -1,12 +1,11 @@
 {
   logger.info("Dropping cube '" + cubeName + "'");
-  List<ProjectInstance> projects=ProjectManager.getInstance(config).getProjects(cubeName);
+  List<ProjectInstance> projects=ProjectManager.getInstance(config).getProjects(RealizationType.CUBE,cubeName);
   ResourceStore store=getStore();
   CubeInstance cube=getCube(cubeName);
   if (deleteDesc && cube.getDescriptor() != null)   store.deleteResource(cube.getDescriptor().getResourcePath());
   store.deleteResource(cube.getResourcePath());
-  ProjectManager.getInstance(config).removeCubeFromProjects(cubeName);
-  CubeRealizationManager.getInstance(config).loadAllProjects();
+  ProjectManager.getInstance(config).removeRealizationsFromProjects(RealizationType.CUBE,cubeName);
   this.afterCubeDroped(cube,projects);
   return cube;
 }

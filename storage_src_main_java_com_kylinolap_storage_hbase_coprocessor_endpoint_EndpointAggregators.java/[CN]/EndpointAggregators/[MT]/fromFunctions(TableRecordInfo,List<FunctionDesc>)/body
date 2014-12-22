@@ -16,5 +16,5 @@
       }
     }
   }
-  return new EndpointAggregators(funcNames,dataTypes,refColIndex,tableInfo);
+  return new EndpointAggregators(funcNames,dataTypes,refColIndex,tableInfo.getDigest());
 }

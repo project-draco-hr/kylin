@@ -1,0 +1,6 @@
+{
+  for (  ProjectInstance projectInstance : findProjects(type,realizationName)) {
+    projectInstance.removeRealization(type,realizationName);
+    saveResource(projectInstance);
+  }
+}

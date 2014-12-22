@@ -1,5 +1,5 @@
 {
-  logger.info("Initializing CubeManager with metadata url " + config);
+  logger.info("Initializing ProjectManager with metadata url " + config);
   this.config=config;
   loadAllProjects();
 }

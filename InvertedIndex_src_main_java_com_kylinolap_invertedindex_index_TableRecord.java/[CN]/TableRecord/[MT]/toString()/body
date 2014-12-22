@@ -1,6 +1,6 @@
 {
   StringBuilder buf=new StringBuilder("[");
-  for (int col=0; col < info.getColumnCount(); col++) {
+  for (int col=0; col < rawRecord.getColumnCount(); col++) {
     if (col > 0)     buf.append(",");
     buf.append(getValueString(col));
   }

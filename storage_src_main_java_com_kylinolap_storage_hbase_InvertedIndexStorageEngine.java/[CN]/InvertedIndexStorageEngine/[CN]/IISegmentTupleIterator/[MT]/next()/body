@@ -1,6 +1,0 @@
-{
-  if (next == null)   throw new NoSuchElementException();
-  Tuple r=next;
-  next=null;
-  return r;
-}
