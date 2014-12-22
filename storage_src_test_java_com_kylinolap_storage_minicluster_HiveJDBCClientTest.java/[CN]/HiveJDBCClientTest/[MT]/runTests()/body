@@ -1,0 +1,14 @@
+{
+  try {
+    setup();
+    testConnectToHive();
+    testShowExtendedTable();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    throw e;
+  }
+ finally {
+    tearDown();
+  }
+}

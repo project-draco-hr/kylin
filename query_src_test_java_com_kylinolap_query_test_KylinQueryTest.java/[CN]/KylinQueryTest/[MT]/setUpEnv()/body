@@ -1,4 +1,5 @@
 {
-  HBaseMetadataTestCase.staticCreateTestMetadata();
+  HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.MINICLUSTER_TEST_DATA);
+  HBaseMiniclusterMetadataTestCase.startupMinicluster();
   config=KylinConfig.getInstanceFromEnv();
 }

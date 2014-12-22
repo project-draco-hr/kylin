@@ -1,0 +1,10 @@
+{
+  try {
+    setUpBeforeClass();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  super.setup();
+  startHiveMiniCluster();
+}

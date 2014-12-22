@@ -1,4 +1,0 @@
-{
-  KylinConfig.destoryInstance();
-  if (System.getProperty(KylinConfig.KYLIN_CONF) == null && System.getenv(KylinConfig.KYLIN_CONF) == null)   System.setProperty(KylinConfig.KYLIN_CONF,SANDBOX_TEST_DATA);
-}
