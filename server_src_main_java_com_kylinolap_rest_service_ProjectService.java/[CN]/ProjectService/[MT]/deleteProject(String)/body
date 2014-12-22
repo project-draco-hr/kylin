@@ -1,6 +1,5 @@
 {
   ProjectInstance project=getProjectManager().getProject(projectName);
   getProjectManager().dropProject(projectName);
-  getCubeRealizationManager().unloadProject(project);
   accessService.clean(project,true);
 }

@@ -1,0 +1,6 @@
+{
+  Map<TblColRef,String> aliasMap=context.getAliasMap();
+  List<String> result=new ArrayList<String>(dimensionColumns.size());
+  for (  TblColRef col : dimensionColumns)   result.add(findName(col,aliasMap));
+  return result;
+}

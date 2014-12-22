@@ -1,6 +1,0 @@
-{
-  List<TblColRef> groups=buildGroups();
-  List<FunctionDesc> aggregations=buildAggregations();
-  int count=search(groups,aggregations,null,context);
-  assertTrue(count > 0);
-}

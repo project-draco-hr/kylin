@@ -1,0 +1,4 @@
+{
+  this.digest=another.digest;
+  this.buf=Bytes.copy(another.buf);
+}

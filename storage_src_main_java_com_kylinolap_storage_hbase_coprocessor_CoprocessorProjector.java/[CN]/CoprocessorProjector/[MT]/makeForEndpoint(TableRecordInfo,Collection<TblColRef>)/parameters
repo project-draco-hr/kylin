@@ -1,2 +1,2 @@
 TableRecordInfo tableInfo
-Collection<TblColRef> dimensionColumns
+Collection<TblColRef> groupby

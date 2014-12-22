@@ -1,0 +1,3 @@
+{
+  realizationTable.remove(realization.getType(),realization.getName().toUpperCase());
+}

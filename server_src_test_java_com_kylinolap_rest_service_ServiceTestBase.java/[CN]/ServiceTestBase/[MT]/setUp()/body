@@ -1,7 +1,6 @@
 {
-  KylinConfig.destoryInstance();
   this.createTestMetadata();
   MetadataManager.removeInstance(getTestConfig());
   CubeManager.removeInstance(this.getTestConfig());
-  CubeRealizationManager.removeInstance(this.getTestConfig());
+  ProjectManager.removeInstance(this.getTestConfig());
 }

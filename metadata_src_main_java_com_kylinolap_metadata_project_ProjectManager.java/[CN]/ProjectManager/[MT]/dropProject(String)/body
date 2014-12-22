@@ -4,8 +4,8 @@
   if (projectInstance == null) {
     throw new IllegalStateException("The project named " + projectName + " does not exist");
   }
-  if (projectInstance.getCubes().size() != 0) {
-    throw new IllegalStateException("The project named " + projectName + " can not be deleted because there's still cubes in it. Delete all the cubes first.");
+  if (projectInstance.getRealizationCount(null) != 0) {
+    throw new IllegalStateException("The project named " + projectName + " can not be deleted because there's still realizations in it. Delete them first.");
   }
   logger.info("Dropping project '" + projectInstance.getName() + "'");
   deleteResource(projectInstance);

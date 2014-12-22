@@ -1,6 +1,6 @@
 {
   project=ProjectInstance.getNormalizedProjectName(project);
-  List<TableDesc> tables=CubeRealizationManager.getInstance(config).listExposedTables(project);
+  List<TableDesc> tables=ProjectManager.getInstance(config).listExposedTables(project);
   HashMap<String,Integer> schemaCounts=DatabaseDesc.extractDatabaseOccurenceCounts(tables);
   String majoritySchemaName="";
   int majoritySchemaCount=0;

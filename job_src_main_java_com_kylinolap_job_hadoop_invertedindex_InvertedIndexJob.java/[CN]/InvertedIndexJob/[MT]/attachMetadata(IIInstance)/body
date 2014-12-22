@@ -1,0 +1,7 @@
+{
+  Configuration conf=job.getConfiguration();
+  attachKylinPropsAndMetadata(ii,conf);
+  IISegment seg=ii.getFirstSegment();
+  conf.set(BatchConstants.CFG_CUBE_NAME,ii.getName());
+  conf.set(BatchConstants.CFG_CUBE_SEGMENT_NAME,seg.getName());
+}

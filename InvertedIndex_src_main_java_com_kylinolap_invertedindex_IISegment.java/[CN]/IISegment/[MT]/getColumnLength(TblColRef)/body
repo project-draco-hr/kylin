@@ -1,0 +1,5 @@
+{
+  if (tableRecordInfo == null)   tableRecordInfo=new TableRecordInfo(this);
+  int index=tableRecordInfo.findColumn(col);
+  return tableRecordInfo.getDigest().length(index);
+}

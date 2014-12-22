@@ -3,8 +3,8 @@
   String cubeName="test_kylin_cube_with_slr_ready_2_segments";
   CubeManager cubeManager=CubeManager.getInstance(this.getTestConfig());
   CubeInstance cube=cubeManager.getCube(cubeName);
-  CubeSegment segment=CubeManager.getInstance(this.getTestConfig()).allocateSegments(cube,CubeBuildTypeEnum.MERGE,1384240200000L,1386835200000L).get(0);
-  JobInstance jobInstance=jobManager.createJob(cubeName,segment.getName(),UUID.randomUUID().toString(),CubeBuildTypeEnum.MERGE);
+  CubeSegment segment=CubeManager.getInstance(this.getTestConfig()).allocateSegments(cube,RealizationBuildTypeEnum.MERGE,1384240200000L,1386835200000L).get(0);
+  JobInstance jobInstance=jobManager.createJob(cubeName,segment.getName(),UUID.randomUUID().toString(),RealizationBuildTypeEnum.MERGE);
   String actual=JsonUtil.writeValueAsIndentString(jobInstance);
   System.out.println(actual);
   assertEquals(5,jobInstance.getSteps().size());

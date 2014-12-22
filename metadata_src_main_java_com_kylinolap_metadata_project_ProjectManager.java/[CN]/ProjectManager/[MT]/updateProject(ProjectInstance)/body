@@ -1,4 +1,0 @@
-{
-  saveResource(project);
-  return project;
-}

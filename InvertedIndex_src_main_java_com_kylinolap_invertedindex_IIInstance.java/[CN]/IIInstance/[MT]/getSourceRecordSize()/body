@@ -1,0 +1,7 @@
+{
+  long sizeRecordSize=0L;
+  for (  IISegment cubeSegment : this.getSegments(SegmentStatusEnum.READY)) {
+    sizeRecordSize+=cubeSegment.getSourceRecordsSize();
+  }
+  return sizeRecordSize;
+}

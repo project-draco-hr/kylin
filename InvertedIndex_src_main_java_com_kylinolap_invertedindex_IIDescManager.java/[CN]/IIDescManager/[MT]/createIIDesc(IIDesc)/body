@@ -1,0 +1,10 @@
+{
+  if (iiDesc.getUuid() == null || iiDesc.getName() == null)   throw new IllegalArgumentException();
+  if (iiDescMap.containsKey(iiDesc.getName()))   throw new IllegalArgumentException("IIDesc '" + iiDesc.getName() + "' already exists");
+  iiDesc.init(getMetadataManager());
+  iiDesc.setSignature(iiDesc.calculateSignature());
+  String path=iiDesc.getResourcePath();
+  getStore().putResource(path,iiDesc,II_DESC_SERIALIZER);
+  iiDescMap.put(iiDesc.getName(),iiDesc);
+  return iiDesc;
+}

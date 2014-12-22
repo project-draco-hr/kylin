@@ -1,7 +1,0 @@
-{
-  Configuration conf=job.getConfiguration();
-  attachKylinPropsAndMetadata(cube,conf);
-  CubeSegment seg=cube.getFirstSegment();
-  conf.set(BatchConstants.CFG_CUBE_NAME,cube.getName());
-  conf.set(BatchConstants.CFG_CUBE_SEGMENT_NAME,seg.getName());
-}

@@ -1,0 +1,8 @@
+{
+  if (this.segments == null || this.segments.size() == 0) {
+    return null;
+  }
+ else {
+    return this.segments.get(0);
+  }
+}

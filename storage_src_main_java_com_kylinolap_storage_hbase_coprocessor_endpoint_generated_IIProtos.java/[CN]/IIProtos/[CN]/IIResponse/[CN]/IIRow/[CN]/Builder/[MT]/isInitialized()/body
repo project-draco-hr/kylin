@@ -1,0 +1,6 @@
+{
+  if (!hasColumns()) {
+    return false;
+  }
+  return true;
+}

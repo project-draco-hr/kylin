@@ -5,7 +5,7 @@
   cubeInstance.setDescName(cubeDesc.getName());
   cubeInstance.setCreateTime(formatTime(System.currentTimeMillis()));
   cubeInstance.setSegments(new ArrayList<CubeSegment>());
-  cubeInstance.setStatus(CubeStatusEnum.DISABLED);
+  cubeInstance.setStatus(RealizationStatusEnum.DISABLED);
   cubeInstance.updateRandomUuid();
   return cubeInstance;
 }

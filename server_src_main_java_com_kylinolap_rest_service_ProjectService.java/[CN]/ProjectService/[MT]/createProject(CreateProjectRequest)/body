@@ -7,7 +7,6 @@
   }
   String owner=SecurityContextHolder.getContext().getAuthentication().getName();
   ProjectInstance createdProject=getProjectManager().createProject(projectName,owner,description);
-  getCubeRealizationManager().loadProject(createdProject);
   accessService.init(createdProject,AclPermission.ADMINISTRATION);
   logger.debug("New project created.");
   return createdProject;

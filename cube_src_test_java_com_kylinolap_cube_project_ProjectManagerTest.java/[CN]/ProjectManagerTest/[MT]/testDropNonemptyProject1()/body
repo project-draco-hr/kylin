@@ -1,0 +1,3 @@
+{
+  ProjectManager.getInstance(this.getTestConfig()).dropProject("DEFAULT");
+}

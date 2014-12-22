@@ -2,7 +2,7 @@
   CubeManager cubeMgr=CubeManager.getInstance(config);
   ArrayList<String> result=new ArrayList<String>();
   for (  CubeInstance cube : cubeMgr.listAllCubes()) {
-    for (    CubeSegment seg : cube.getSegments(CubeSegmentStatusEnum.READY)) {
+    for (    CubeSegment seg : cube.getSegments(SegmentStatusEnum.READY)) {
       String tableName=seg.getStorageLocationIdentifier();
       if (StringUtils.isBlank(tableName) == false)       result.add(tableName);
     }

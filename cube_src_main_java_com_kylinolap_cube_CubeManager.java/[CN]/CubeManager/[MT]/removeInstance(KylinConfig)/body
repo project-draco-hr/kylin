@@ -1,3 +1,4 @@
 {
   CACHE.remove(config);
+  RealizationRegistry.getInstance(config).resetRealizationOf(RealizationType.CUBE);
 }

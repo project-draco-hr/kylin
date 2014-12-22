@@ -1,0 +1,6 @@
+{
+  this.seg=ii.getFirstSegment();
+  IIDesc cubeDesc=this.seg.getIIDesc();
+  this.columnDescs=MetadataManager.getInstance(cubeDesc.getConfig()).getTableDesc(cubeDesc.getFactTable()).getColumns();
+  this.hbaseUrl=KylinConfig.getInstanceFromEnv().getStorageUrl();
+}

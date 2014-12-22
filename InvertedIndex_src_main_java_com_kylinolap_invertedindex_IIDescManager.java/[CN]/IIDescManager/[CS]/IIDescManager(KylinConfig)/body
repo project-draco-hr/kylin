@@ -1,0 +1,5 @@
+{
+  logger.info("Initializing IIDescManager with config " + config);
+  this.config=config;
+  reloadAllIIDesc();
+}

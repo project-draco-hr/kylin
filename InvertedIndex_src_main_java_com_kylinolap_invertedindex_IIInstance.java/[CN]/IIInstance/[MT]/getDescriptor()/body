@@ -1,0 +1,3 @@
+{
+  return IIDescManager.getInstance(config).getIIDesc(descName);
+}

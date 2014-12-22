@@ -1,6 +1,6 @@
 {
-  if (other instanceof IIProtos.IIResponse) {
-    return mergeFrom((IIProtos.IIResponse)other);
+  if (other instanceof com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse) {
+    return mergeFrom((com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse)other);
   }
  else {
     super.mergeFrom(other);

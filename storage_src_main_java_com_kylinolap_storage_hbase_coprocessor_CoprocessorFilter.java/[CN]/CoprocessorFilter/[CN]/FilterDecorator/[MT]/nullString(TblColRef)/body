@@ -1,0 +1,7 @@
+{
+  byte[] id=new byte[columnIO.getColumnLength(column)];
+  for (int i=0; i < id.length; i++) {
+    id[i]=Dictionary.NULL;
+  }
+  return Dictionary.dictIdToString(id,0,id.length);
+}

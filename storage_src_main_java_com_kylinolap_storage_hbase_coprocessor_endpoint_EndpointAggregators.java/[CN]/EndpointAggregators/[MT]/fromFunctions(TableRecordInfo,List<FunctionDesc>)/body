@@ -1,0 +1,20 @@
+{
+  String[] funcNames=new String[metrics.size()];
+  String[] dataTypes=new String[metrics.size()];
+  int[] refColIndex=new int[metrics.size()];
+  for (int i=0; i < metrics.size(); i++) {
+    FunctionDesc functionDesc=metrics.get(i);
+    funcNames[i]=functionDesc.getExpression();
+    dataTypes[i]=functionDesc.getReturnType();
+    if (functionDesc.isCount()) {
+      refColIndex[i]=-1;
+    }
+ else {
+      refColIndex[i]=tableInfo.findMetric(functionDesc.getParameter().getValue());
+      if (refColIndex[i] < 0) {
+        throw new IllegalStateException("Column " + functionDesc.getParameter().getColRefs().get(0) + " is not found in II");
+      }
+    }
+  }
+  return new EndpointAggregators(funcNames,dataTypes,refColIndex,tableInfo.getDigest());
+}

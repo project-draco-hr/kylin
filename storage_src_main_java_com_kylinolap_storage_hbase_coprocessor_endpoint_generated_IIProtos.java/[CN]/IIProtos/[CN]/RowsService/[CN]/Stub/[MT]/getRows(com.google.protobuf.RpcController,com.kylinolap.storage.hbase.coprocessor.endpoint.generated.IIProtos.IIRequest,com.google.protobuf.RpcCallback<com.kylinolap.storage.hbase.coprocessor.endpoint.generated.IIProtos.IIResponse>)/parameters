@@ -1,0 +1,3 @@
+com.google.protobuf.RpcController controller
+com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIRequest request
+com.google.protobuf.RpcCallback<com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse> done

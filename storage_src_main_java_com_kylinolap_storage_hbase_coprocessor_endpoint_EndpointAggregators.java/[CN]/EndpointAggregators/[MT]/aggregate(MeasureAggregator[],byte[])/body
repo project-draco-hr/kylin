@@ -1,12 +1,19 @@
 {
   int rawIndex=0;
-  int metricIndex=0;
-  int columnCount=tableInfo.getColumnCount();
-  for (int i=0; i < columnCount; ++i) {
-    if (tableInfo.isMetrics(i)) {
-      measureAggrs[metricIndex].aggregate(measureSerializers[metricIndex].read(row,rawIndex));
-      metricIndex++;
+  int columnCount=tableRecordInfo.getColumnCount();
+  for (int columnIndex=0; columnIndex < columnCount; ++columnIndex) {
+    if (tableRecordInfo.isMetrics(columnIndex)) {
+      for (int metricIndex=0; metricIndex < refColIndex.length; ++metricIndex) {
+        if (refColIndex[metricIndex] == columnIndex) {
+          measureAggrs[metricIndex].aggregate(measureSerializers[metricIndex].read(row,rawIndex));
+        }
+      }
     }
-    rawIndex+=tableInfo.length(i);
+    rawIndex+=tableRecordInfo.length(columnIndex);
+  }
+  for (int i=0; i < refColIndex.length; ++i) {
+    if (refColIndex[i] == -1) {
+      measureAggrs[i].aggregate(one);
+    }
   }
 }

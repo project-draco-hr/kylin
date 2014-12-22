@@ -4,25 +4,21 @@
   }
   int hash=41;
   hash=(19 * hash) + getDescriptorForType().hashCode();
-  if (hasTableInfo()) {
-    hash=(37 * hash) + TABLEINFO_FIELD_NUMBER;
-    hash=(53 * hash) + getTableInfo().hashCode();
+  if (hasType()) {
+    hash=(37 * hash) + TYPE_FIELD_NUMBER;
+    hash=(53 * hash) + getType().hashCode();
   }
-  if (hasSRowType()) {
-    hash=(37 * hash) + SROWTYPE_FIELD_NUMBER;
-    hash=(53 * hash) + getSRowType().hashCode();
+  if (hasFilter()) {
+    hash=(37 * hash) + FILTER_FIELD_NUMBER;
+    hash=(53 * hash) + getFilter().hashCode();
   }
-  if (hasSRowFilter()) {
-    hash=(37 * hash) + SROWFILTER_FIELD_NUMBER;
-    hash=(53 * hash) + getSRowFilter().hashCode();
+  if (hasProjector()) {
+    hash=(37 * hash) + PROJECTOR_FIELD_NUMBER;
+    hash=(53 * hash) + getProjector().hashCode();
   }
-  if (hasSRowProjector()) {
-    hash=(37 * hash) + SROWPROJECTOR_FIELD_NUMBER;
-    hash=(53 * hash) + getSRowProjector().hashCode();
-  }
-  if (hasSRowAggregator()) {
-    hash=(37 * hash) + SROWAGGREGATOR_FIELD_NUMBER;
-    hash=(53 * hash) + getSRowAggregator().hashCode();
+  if (hasAggregator()) {
+    hash=(37 * hash) + AGGREGATOR_FIELD_NUMBER;
+    hash=(53 * hash) + getAggregator().hashCode();
   }
   hash=(29 * hash) + getUnknownFields().hashCode();
   memoizedHashCode=hash;

@@ -1,6 +1,6 @@
 {
   List<HBaseKeyRange> result=Lists.newArrayList();
-  for (  CubeSegment cubeSeg : cubeInstance.getSegments(CubeSegmentStatusEnum.READY)) {
+  for (  CubeSegment cubeSeg : cubeInstance.getSegments(SegmentStatusEnum.READY)) {
     List<Collection<ColumnValueRange>> orAndDimRanges=translateToOrAndDimRanges(flatFilter,cubeSeg);
     if (orAndDimRanges == null) {
       continue;

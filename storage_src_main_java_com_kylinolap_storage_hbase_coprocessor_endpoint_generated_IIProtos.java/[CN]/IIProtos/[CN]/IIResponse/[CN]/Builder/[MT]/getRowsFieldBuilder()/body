@@ -1,0 +1,7 @@
+{
+  if (rowsBuilder_ == null) {
+    rowsBuilder_=new com.google.protobuf.RepeatedFieldBuilder<com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow,com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow.Builder,com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRowOrBuilder>(rows_,((bitField0_ & 0x00000001) == 0x00000001),getParentForChildren(),isClean());
+    rows_=null;
+  }
+  return rowsBuilder_;
+}

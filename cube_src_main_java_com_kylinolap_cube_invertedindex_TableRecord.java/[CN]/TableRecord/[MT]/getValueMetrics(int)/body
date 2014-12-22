@@ -1,3 +1,0 @@
-{
-  return info().codec(col).read(buf,info.offset(col));
-}

@@ -1,19 +1,19 @@
 {
   CubeInstance cubeInstance=cubeMgr.getCube("test_kylin_cube_with_slr_ready_2_segments");
   System.out.println("Merge Segment");
-  CubeSegment mergedSegment=cubeMgr.allocateSegments(cubeInstance,CubeBuildTypeEnum.MERGE,1384240200000L,1386835200000L).get(0);
+  CubeSegment mergedSegment=cubeMgr.allocateSegments(cubeInstance,RealizationBuildTypeEnum.MERGE,1384240200000L,1386835200000L).get(0);
   System.out.println(JsonUtil.writeValueAsIndentString(cubeInstance));
-  assertEquals(CubeStatusEnum.READY,cubeInstance.getStatus());
-  assertEquals(CubeSegmentStatusEnum.NEW,cubeInstance.getBuildingSegments().get(0).getStatus());
-  assertEquals(2,cubeInstance.getSegments(CubeSegmentStatusEnum.READY).size());
-  assertEquals(1,cubeInstance.getSegments(CubeSegmentStatusEnum.NEW).size());
+  assertEquals(RealizationStatusEnum.READY,cubeInstance.getStatus());
+  assertEquals(SegmentStatusEnum.NEW,cubeInstance.getBuildingSegments().get(0).getStatus());
+  assertEquals(2,cubeInstance.getSegments(SegmentStatusEnum.READY).size());
+  assertEquals(1,cubeInstance.getSegments(SegmentStatusEnum.NEW).size());
   assertEquals(2,cubeInstance.getMergingSegments().size());
   assertEquals(1384240200000L,cubeInstance.getAllocatedStartDate());
   assertEquals(1386835200000L,cubeInstance.getAllocatedEndDate());
   System.out.println("Build Success");
-  cubeMgr.updateSegmentOnJobSucceed(cubeInstance,CubeBuildTypeEnum.MERGE,mergedSegment.getName(),"job_4",System.currentTimeMillis(),123,20000L,1216024L);
-  assertEquals(CubeStatusEnum.READY,cubeInstance.getStatus());
-  assertEquals(1,cubeInstance.getSegments(CubeSegmentStatusEnum.READY).size());
+  cubeMgr.updateSegmentOnJobSucceed(cubeInstance,RealizationBuildTypeEnum.MERGE,mergedSegment.getName(),"job_4",System.currentTimeMillis(),123,20000L,1216024L);
+  assertEquals(RealizationStatusEnum.READY,cubeInstance.getStatus());
+  assertEquals(1,cubeInstance.getSegments(SegmentStatusEnum.READY).size());
   assertEquals(0,cubeInstance.getBuildingSegments().size());
   assertEquals(0,cubeInstance.getMergingSegments().size());
   assertEquals(1384240200000L,cubeInstance.getAllocatedStartDate());

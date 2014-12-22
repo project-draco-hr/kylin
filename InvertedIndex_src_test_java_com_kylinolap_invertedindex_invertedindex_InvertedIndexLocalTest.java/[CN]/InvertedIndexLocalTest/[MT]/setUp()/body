@@ -1,0 +1,5 @@
+{
+  this.createTestMetadata();
+  this.cube=IIManager.getInstance(getTestConfig()).getII("test_kylin_ii");
+  this.info=new TableRecordInfo(cube.getFirstSegment());
+}

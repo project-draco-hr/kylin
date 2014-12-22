@@ -1,0 +1,4 @@
+{
+  iiName=iiName.toUpperCase();
+  return iiMap.get(iiName);
+}

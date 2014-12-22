@@ -19,7 +19,7 @@
   }
   if (incBuildMerge) {
     List<String> pathToMerge=Lists.newArrayList();
-    for (    CubeSegment segment : cube.getSegments(CubeSegmentStatusEnum.READY)) {
+    for (    CubeSegment segment : cube.getSegments(SegmentStatusEnum.READY)) {
       pathToMerge.add(getPathToMerge(jobInstance,segment));
     }
     pathToMerge.add(cuboidTmpRootPath + "*");

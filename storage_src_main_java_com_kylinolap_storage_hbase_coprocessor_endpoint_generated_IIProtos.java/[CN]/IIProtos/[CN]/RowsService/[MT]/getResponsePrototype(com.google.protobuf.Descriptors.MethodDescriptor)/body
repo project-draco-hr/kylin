@@ -4,7 +4,7 @@
   }
 switch (method.getIndex()) {
 case 0:
-    return IIProtos.IIResponse.getDefaultInstance();
+    return com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.getDefaultInstance();
 default :
   throw new java.lang.AssertionError("Can't get here.");
 }

@@ -1,0 +1,3 @@
+{
+  digest.codec(col).write(value,buf,digest.offset(col));
+}

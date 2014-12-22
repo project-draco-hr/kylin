@@ -4,7 +4,7 @@
     return innerScanner;
   }
   byte[] typeBytes=scan.getAttribute(TYPE);
-  ObserverRowType type=ObserverRowType.deserialize(typeBytes);
+  CoprocessorRowType type=CoprocessorRowType.deserialize(typeBytes);
   byte[] projectorBytes=scan.getAttribute(PROJECTOR);
   CoprocessorProjector projector=CoprocessorProjector.deserialize(projectorBytes);
   byte[] aggregatorBytes=scan.getAttribute(AGGREGATORS);
