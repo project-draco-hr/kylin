@@ -5,7 +5,7 @@
     if (filter != null) {
       result=new BitMapFilterEvaluator(new SliceBitMapProvider(slice,type)).evaluate(filter.getFilter());
     }
-    Iterator<TableRecordBytes> iterator=slice.iterateWithBitmap(result);
+    Iterator<RawTableRecord> iterator=slice.iterateWithBitmap(result);
     while (iterator.hasNext()) {
       byte[] data=iterator.next().getBytes();
       IIRow.Builder rowBuilder=IIRow.newBuilder().setColumns(ByteString.copyFrom(data));

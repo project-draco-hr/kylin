@@ -1,11 +1,11 @@
 {
   if (delim == -1) {
-    delim=splitter.detectDelim(value,info.getColumnCount());
+    delim=splitter.detectDelim(value,info.getDigest().getColumnCount());
   }
   int nParts=splitter.split(value.getBytes(),value.getLength(),(byte)delim);
   SplittedBytes[] parts=splitter.getSplitBuffers();
-  if (nParts != info.getColumnCount()) {
-    throw new RuntimeException("Got " + parts.length + " from -- "+ value.toString()+ " -- but only "+ info.getColumnCount()+ " expected");
+  if (nParts != info.getDigest().getColumnCount()) {
+    throw new RuntimeException("Got " + parts.length + " from -- "+ value.toString()+ " -- but only "+ info.getDigest().getColumnCount()+ " expected");
   }
   rec.reset();
   for (int i=0; i < nParts; i++) {

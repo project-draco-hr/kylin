@@ -1,7 +1,7 @@
 {
-  this.valueLen=info.length(col);
+  this.valueLen=digest.length(col);
   this.size=0;
-  this.nValues=info.getMaxID(col) + 1;
+  this.nValues=digest.getMaxID(col) + 1;
   this.sets=null;
   this.closedForChange=false;
   this.temp=new byte[valueLen];

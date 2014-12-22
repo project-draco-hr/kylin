@@ -6,7 +6,7 @@
   List<TableRecord> records=Lists.newArrayList();
   for (  String line : lines) {
     String[] fields=line.split(",");
-    TableRecord rec=new TableRecord(info);
+    TableRecord rec=info.createTableRecord();
     for (int col=0; col < fields.length; col++) {
       rec.setValueString(col,fields[col]);
     }

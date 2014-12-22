@@ -1,0 +1,12 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  RawTableRecord other=(RawTableRecord)obj;
+  if (!Arrays.equals(buf,other.buf))   return false;
+  if (digest == null) {
+    if (other.digest != null)     return false;
+  }
+ else   if (!digest.equals(other.digest))   return false;
+  return true;
+}

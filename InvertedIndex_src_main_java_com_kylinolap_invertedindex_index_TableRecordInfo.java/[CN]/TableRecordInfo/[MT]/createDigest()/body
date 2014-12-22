@@ -1,0 +1,22 @@
+{
+  boolean[] isMetric=new boolean[nColumns];
+  for (int i=0; i < nColumns; ++i) {
+    isMetric[i]=desc.isMetricsCol(i);
+  }
+  int[] lengths=new int[nColumns];
+  for (int i=0; i < nColumns; ++i) {
+    lengths[i]=isMetric[i] ? measureSerializers[i].getLength() : dictionaries[i].getSizeOfId();
+  }
+  int[] dictMaxIds=new int[nColumns];
+  for (int i=0; i < nColumns; ++i) {
+    if (!isMetric[i])     dictMaxIds[i]=dictionaries[i].getMaxId();
+  }
+  int pos=0;
+  int[] offsets=new int[nColumns];
+  for (int i=0; i < nColumns; i++) {
+    offsets[i]=pos;
+    pos+=lengths[i];
+  }
+  int byteFormLen=pos;
+  return new TableRecordInfoDigest(nColumns,byteFormLen,offsets,dictMaxIds,lengths,isMetric,measureSerializers);
+}

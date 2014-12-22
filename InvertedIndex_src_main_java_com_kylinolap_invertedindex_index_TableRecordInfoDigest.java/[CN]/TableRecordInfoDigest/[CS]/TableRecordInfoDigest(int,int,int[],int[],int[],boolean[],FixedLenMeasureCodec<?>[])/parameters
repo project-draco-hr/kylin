@@ -1,0 +1,7 @@
+int nColumns
+int byteFormLen
+int[] offsets
+int[] dictMaxIds
+int[] lengths
+boolean[] isMetric
+FixedLenMeasureCodec<?>[] measureSerializers

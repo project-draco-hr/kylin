@@ -1,5 +1,5 @@
 {
-  BitMapContainer container=new BitMapContainer(info,0);
+  BitMapContainer container=new BitMapContainer(info.getDigest(),0);
   Dictionary<String> dict=info.dict(0);
   for (int v=dict.getMinId(); v <= dict.getMaxId(); v++) {
     container.append(v);
@@ -7,7 +7,7 @@
   container.append(Dictionary.NULL_ID[dict.getSizeOfId()]);
   container.closeForChange();
   List<ImmutableBytesWritable> bytes=container.toBytes();
-  BitMapContainer container2=new BitMapContainer(info,0);
+  BitMapContainer container2=new BitMapContainer(info.getDigest(),0);
   container2.fromBytes(bytes);
   int i=0;
   for (int v=dict.getMinId(); v <= dict.getMaxId(); v++) {
