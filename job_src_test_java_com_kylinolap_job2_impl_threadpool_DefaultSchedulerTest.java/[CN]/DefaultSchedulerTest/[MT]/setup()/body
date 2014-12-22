@@ -1,5 +1,7 @@
 {
   createTestMetadata();
+  setFinalStatic(JobConstants.class.getField("DEFAULT_SCHEDULER_INTERVAL_SECONDS"),10);
+  jobService=DefaultJobService.getInstance(KylinConfig.getInstanceFromEnv());
   scheduler=DefaultScheduler.getInstance();
   scheduler.init(new JobEngineConfig(KylinConfig.getInstanceFromEnv()));
 }

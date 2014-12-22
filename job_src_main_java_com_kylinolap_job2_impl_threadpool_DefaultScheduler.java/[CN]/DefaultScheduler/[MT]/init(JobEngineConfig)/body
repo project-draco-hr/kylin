@@ -3,7 +3,7 @@
     initialized=true;
   }
  else {
-    throw new UnsupportedOperationException("cannot init this instance twice");
+    return;
   }
   this.jobEngineConfig=jobEngineConfig;
   jobService=DefaultJobService.getInstance(jobEngineConfig.getConfig());
@@ -20,11 +20,11 @@
       try {
         shutdown();
       }
- catch (      SchedularException e) {
+ catch (      SchedulerException e) {
         logger.error("error shutdown scheduler",e);
       }
     }
   }
 );
-  fetcherPool.scheduleAtFixedRate(new FetcherRunner(),0,JobConstants.DEFAULT_SCHEDULER_INTERVAL_SECONDS,TimeUnit.SECONDS);
+  fetcherPool.scheduleAtFixedRate(new FetcherRunner(),10,JobConstants.DEFAULT_SCHEDULER_INTERVAL_SECONDS,TimeUnit.SECONDS);
 }

@@ -5,7 +5,11 @@
       boolean hasLock=false;
       try {
         hasLock=acquireJobLock(executable.getId(),1);
-        jobPool.execute(new JobRunner(executable));
+        logger.info("acquire job lock:" + executable.getId() + " status:"+ (hasLock ? "succeed" : "failed"));
+        if (hasLock) {
+          logger.info("start to run job id:" + executable.getId());
+          jobPool.execute(new JobRunner(executable));
+        }
       }
  catch (      LockException e) {
         logger.error("error acquire job lock, id:" + executable.getId(),e);
@@ -13,6 +17,7 @@
  finally {
         try {
           if (hasLock) {
+            logger.info("finish running job id:" + executable.getId());
             releaseJobLock(executable.getId());
           }
         }

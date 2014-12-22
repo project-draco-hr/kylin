@@ -1,0 +1,4 @@
+{
+  jobService.addJob(executable);
+  return true;
+}

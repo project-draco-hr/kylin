@@ -1,6 +1,6 @@
 {
   assertNotNull(service);
-  TestExecutable executable=new TestExecutable();
+  BaseTestExecutable executable=new SucceedTestExecutable();
   executable.setStatus(ExecutableStatus.READY);
   HashMap<String,String> extra=new HashMap<>();
   extra.put("test1","test1");

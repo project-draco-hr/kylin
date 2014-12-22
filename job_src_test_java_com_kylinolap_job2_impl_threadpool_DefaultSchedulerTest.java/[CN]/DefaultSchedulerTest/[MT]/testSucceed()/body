@@ -1,0 +1,14 @@
+{
+  assertNotNull(scheduler);
+  DefaultChainedExecutable job=new DefaultChainedExecutable();
+  job.setId(UUID.randomUUID().toString());
+  BaseTestExecutable task1=new SucceedTestExecutable();
+  BaseTestExecutable task2=new SucceedTestExecutable();
+  job.addTask(task1);
+  job.addTask(task2);
+  scheduler.submit(job);
+  waitForJob(job.getId());
+  assertEquals(ExecutableStatus.SUCCEED,jobService.getJobStatus(job.getId()));
+  assertEquals(ExecutableStatus.SUCCEED,jobService.getJobStatus(task1.getId()));
+  assertEquals(ExecutableStatus.SUCCEED,jobService.getJobStatus(task2.getId()));
+}

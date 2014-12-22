@@ -9,7 +9,7 @@
     }
  catch (    Exception e) {
       logger.error("error delete scheduler",e);
-      throw new SchedularException(e);
+      throw new SchedulerException(e);
     }
   }
 }

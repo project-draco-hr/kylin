@@ -1,9 +1,0 @@
-{
-  try {
-    return jobDao.getJobOutput(uuid);
-  }
- catch (  PersistentException e) {
-    logger.error("fail to get job output id:" + uuid,e);
-    return null;
-  }
-}

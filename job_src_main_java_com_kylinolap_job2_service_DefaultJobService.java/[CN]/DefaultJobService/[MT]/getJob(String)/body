@@ -1,6 +1,6 @@
 {
   try {
-    return parseTo(jobDao.getJob(uuid));
+    return parseTo(jobDao.getJob(uuid),jobDao.getJobOutput(uuid));
   }
  catch (  PersistentException e) {
     logger.error("fail to get job:" + uuid,e);

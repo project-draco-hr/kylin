@@ -1,0 +1,12 @@
+{
+  if (output == null) {
+    return;
+  }
+  try {
+    writeJobOutputResource(pathOfJobOutput(uuid),output);
+  }
+ catch (  IOException e) {
+    logger.error("error update job output id:" + uuid,e);
+    throw new PersistentException(e);
+  }
+}
