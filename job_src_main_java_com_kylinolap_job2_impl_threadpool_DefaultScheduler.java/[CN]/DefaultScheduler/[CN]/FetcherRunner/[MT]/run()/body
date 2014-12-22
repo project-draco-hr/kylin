@@ -1,30 +1,29 @@
 {
-  List<AbstractExecutable> allExecutables=jobService.getAllExecutables();
-  for (  final AbstractExecutable executable : allExecutables) {
-    if (executable.isRunnable() && !context.getRunningJobs().containsKey(executable.getId())) {
-      boolean hasLock=false;
+  for (  final AbstractExecutable executable : jobService.getAllExecutables()) {
+    boolean hasLock=false;
+    try {
+      hasLock=acquireJobLock(executable,1);
+    }
+ catch (    LockException e) {
+      logger.error("error acquire job lock, id:" + executable.getId(),e);
+    }
+    logger.info("acquire job lock:" + executable.getId() + " status:"+ (hasLock ? "succeed" : "failed"));
+    if (hasLock) {
       try {
-        hasLock=acquireJobLock(executable.getId(),1);
-        logger.info("acquire job lock:" + executable.getId() + " status:"+ (hasLock ? "succeed" : "failed"));
-        if (hasLock) {
-          logger.info("start to run job id:" + executable.getId());
-          jobPool.execute(new JobRunner(executable));
-        }
+        logger.info("start to run job id:" + executable.getId());
+        context.addRunningJob(executable);
+        jobPool.execute(new JobRunner(executable));
       }
- catch (      LockException e) {
-        logger.error("error acquire job lock, id:" + executable.getId(),e);
-      }
- finally {
+  finally {
         try {
-          if (hasLock) {
-            logger.info("finish running job id:" + executable.getId());
-            releaseJobLock(executable.getId());
-          }
+          logger.info("finish running job id:" + executable.getId());
+          releaseJobLock(executable.getId());
         }
  catch (        LockException ex) {
           logger.error("error release job lock, id:" + executable.getId(),ex);
         }
       }
     }
+    resetStatus(executable);
   }
 }

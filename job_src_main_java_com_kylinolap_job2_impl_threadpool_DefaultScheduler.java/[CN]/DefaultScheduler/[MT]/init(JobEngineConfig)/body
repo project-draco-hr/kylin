@@ -14,6 +14,11 @@
   RetryPolicy retryPolicy=new ExponentialBackoffRetry(1000,3);
   this.zkClient=CuratorFrameworkFactory.newClient(jobEngineConfig.getZookeeperString(),retryPolicy);
   this.zkClient.start();
+  for (  AbstractExecutable executable : jobService.getAllExecutables()) {
+    if (executable.getStatus() == ExecutableStatus.RUNNING) {
+      jobService.updateJobStatus(executable.getId(),ExecutableStatus.READY,null);
+    }
+  }
   Runtime.getRuntime().addShutdownHook(new Thread(){
     public void run(){
       logger.debug("Closing zk connection");

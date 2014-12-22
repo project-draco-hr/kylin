@@ -1,7 +1,13 @@
 {
   try {
-    JobOutputPO jobOutputPO=readJobOutputResource(pathOfJobOutput(uuid));
-    return jobOutputPO;
+    JobOutputPO result=readJobOutputResource(pathOfJobOutput(uuid));
+    if (result == null) {
+      result=new JobOutputPO();
+      result.setStatus(ExecutableStatus.READY.toString());
+      result.setUuid(uuid);
+      return result;
+    }
+    return result;
   }
  catch (  IOException e) {
     logger.error("error get job output id:" + uuid,e);

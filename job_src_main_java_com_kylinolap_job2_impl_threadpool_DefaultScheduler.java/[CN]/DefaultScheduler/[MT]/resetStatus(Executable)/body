@@ -1,0 +1,6 @@
+{
+  if (!context.getRunningJobs().containsKey(executable.getId()) && executable.getStatus() == ExecutableStatus.RUNNING) {
+    logger.warn("job:" + executable.getId() + " status should not be:"+ ExecutableStatus.RUNNING+ ", reset it to ERROR");
+    jobService.updateJobStatus(executable.getId(),ExecutableStatus.ERROR,"job fetcher has detected the status in inconsistent status, and reset it to ERROR");
+  }
+}

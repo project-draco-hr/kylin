@@ -1,12 +1,6 @@
 {
   try {
-    JobOutputPO jobOutput=jobDao.getJobOutput(uuid);
-    if (jobOutput == null) {
-      return ExecutableStatus.READY;
-    }
- else {
-      return ExecutableStatus.valueOf(jobOutput.getStatus());
-    }
+    return ExecutableStatus.valueOf(jobDao.getJobOutput(uuid).getStatus());
   }
  catch (  PersistentException e) {
     logger.error("fail to get job output:" + uuid,e);

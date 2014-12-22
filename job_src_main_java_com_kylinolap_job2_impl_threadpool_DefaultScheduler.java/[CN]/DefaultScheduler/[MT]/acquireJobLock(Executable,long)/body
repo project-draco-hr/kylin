@@ -1,0 +1,13 @@
+{
+  Map<String,Executable> runningJobs=context.getRunningJobs();
+  if (runningJobs.size() >= jobEngineConfig.getMaxConcurrentJobLimit()) {
+    return false;
+  }
+  if (runningJobs.containsKey(executable.getId())) {
+    return false;
+  }
+  if (!executable.isRunnable()) {
+    return false;
+  }
+  return true;
+}

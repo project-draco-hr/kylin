@@ -1,8 +1,5 @@
 {
   try {
-    if (jobDao.getJobOutput(uuid) != null) {
-      jobDao.deleteJobOutput(uuid);
-    }
     jobDao.addOrUpdateJobOutput(uuid,output);
   }
  catch (  PersistentException e) {

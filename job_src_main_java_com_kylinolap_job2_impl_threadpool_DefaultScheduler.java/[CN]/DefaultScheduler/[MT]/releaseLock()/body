@@ -1,0 +1,13 @@
+{
+  try {
+    if (zkClient.getState().equals(CuratorFrameworkState.STARTED)) {
+      if (zkClient.checkExists().forPath(schedulerId()) != null) {
+        zkClient.delete().guaranteed().deletingChildrenIfNeeded().forPath(schedulerId());
+      }
+    }
+  }
+ catch (  Exception e) {
+    logger.error("error release lock:" + schedulerId());
+    throw new RuntimeException(e);
+  }
+}

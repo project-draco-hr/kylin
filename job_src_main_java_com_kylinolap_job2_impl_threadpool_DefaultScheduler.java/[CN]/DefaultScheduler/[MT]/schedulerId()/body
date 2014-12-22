@@ -1,3 +1,9 @@
 {
-  return ZOOKEEPER_LOCK_PATH + "/" + InetAddress.getLocalHost().getCanonicalHostName();
+  try {
+    String canonicalHostName=InetAddress.getLocalHost().getCanonicalHostName();
+    return ZOOKEEPER_LOCK_PATH + "/" + canonicalHostName;
+  }
+ catch (  UnknownHostException e) {
+    throw new RuntimeException(e);
+  }
 }

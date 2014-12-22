@@ -1,6 +1,5 @@
 {
   try {
-    context.addRunningJob(executable);
     executable.execute(context);
   }
  catch (  ExecuteException e) {

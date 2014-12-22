@@ -1,8 +1,3 @@
 {
-  for (  Executable subTask : getExecutables()) {
-    if (subTask.isRunnable()) {
-      return true;
-    }
-  }
-  return false;
+  return getStatus() == ExecutableStatus.READY;
 }
