@@ -8,6 +8,4 @@ synchronized (HBaseMiniclusterMetadataTestCase.class) {
       }
     }
   }
-  KylinConfig.getInstanceFromEnv().setMetadataUrl("kylin_metadata_qa@" + hbaseconnectionUrl);
-  KylinConfig.getInstanceFromEnv().setStorageUrl(hbaseconnectionUrl);
 }
