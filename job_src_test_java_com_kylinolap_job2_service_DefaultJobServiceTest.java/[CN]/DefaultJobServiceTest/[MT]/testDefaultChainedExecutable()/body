@@ -1,6 +1,5 @@
 {
   DefaultChainedExecutable job=new DefaultChainedExecutable();
-  job.setId(UUID.randomUUID().toString());
   job.addTask(new SucceedTestExecutable());
   job.addTask(new SucceedTestExecutable());
   service.addJob(job);

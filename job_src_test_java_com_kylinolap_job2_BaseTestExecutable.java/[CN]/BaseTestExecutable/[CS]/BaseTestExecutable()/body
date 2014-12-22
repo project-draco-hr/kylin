@@ -1,4 +1,0 @@
-{
-  this.setId(UUID.randomUUID().toString());
-  this.setStatus(ExecutableStatus.READY);
-}
