@@ -2,20 +2,20 @@
   Options options=new Options();
   try {
     options.addOption(OPTION_JOB_NAME);
-    options.addOption(OPTION_CUBE_NAME);
+    options.addOption(OPTION_II_NAME);
     options.addOption(OPTION_INPUT_PATH);
     options.addOption(OPTION_INPUT_FORMAT);
     options.addOption(OPTION_INPUT_DELIM);
     options.addOption(OPTION_OUTPUT_PATH);
     parseOptions(options,args);
     job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
-    String cubeName=getOptionValue(OPTION_CUBE_NAME);
+    String iiname=getOptionValue(OPTION_II_NAME);
     Path input=new Path(getOptionValue(OPTION_INPUT_PATH));
     String inputFormat=getOptionValue(OPTION_INPUT_FORMAT);
     String inputDelim=getOptionValue(OPTION_INPUT_DELIM);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
     System.out.println("Starting: " + job.getJobName());
-    IIInstance ii=getII(cubeName);
+    IIInstance ii=getII(iiname);
     setupMapInput(input,inputFormat,inputDelim);
     setupReduceOutput(output,ii.getDescriptor().getSharding());
     attachMetadata(ii);

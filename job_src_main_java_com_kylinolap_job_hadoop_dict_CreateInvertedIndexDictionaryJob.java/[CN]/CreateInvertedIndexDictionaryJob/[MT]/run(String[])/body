@@ -8,8 +8,8 @@
     String factColumnsInputPath=getOptionValue(OPTION_INPUT_PATH);
     KylinConfig config=KylinConfig.getInstanceFromEnv();
     IIManager mgr=IIManager.getInstance(config);
-    IIInstance cube=mgr.getII(iiname);
-    mgr.buildInvertedIndexDictionary(cube.getFirstSegment(),factColumnsInputPath);
+    IIInstance ii=mgr.getII(iiname);
+    mgr.buildInvertedIndexDictionary(ii.getFirstSegment(),factColumnsInputPath);
     return 0;
   }
  catch (  Exception e) {
