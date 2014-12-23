@@ -1,3 +1,0 @@
-{
-  return ResourceStore.IIDESC_RESOURCE_ROOT + "/" + name+ ".json";
-}

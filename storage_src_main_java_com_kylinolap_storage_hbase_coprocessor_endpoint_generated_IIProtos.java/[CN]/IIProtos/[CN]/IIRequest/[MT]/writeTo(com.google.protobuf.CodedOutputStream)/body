@@ -1,19 +1,16 @@
 {
   getSerializedSize();
   if (((bitField0_ & 0x00000001) == 0x00000001)) {
-    output.writeBytes(1,tableInfo_);
+    output.writeBytes(1,type_);
   }
   if (((bitField0_ & 0x00000002) == 0x00000002)) {
-    output.writeBytes(2,sRowType_);
+    output.writeBytes(2,filter_);
   }
   if (((bitField0_ & 0x00000004) == 0x00000004)) {
-    output.writeBytes(3,sRowFilter_);
+    output.writeBytes(3,projector_);
   }
   if (((bitField0_ & 0x00000008) == 0x00000008)) {
-    output.writeBytes(4,sRowProjector_);
-  }
-  if (((bitField0_ & 0x00000010) == 0x00000010)) {
-    output.writeBytes(5,sRowAggregator_);
+    output.writeBytes(4,aggregator_);
   }
   getUnknownFields().writeTo(output);
 }

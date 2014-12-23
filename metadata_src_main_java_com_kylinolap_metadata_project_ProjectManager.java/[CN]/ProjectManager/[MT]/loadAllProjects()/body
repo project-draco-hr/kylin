@@ -4,6 +4,7 @@
   logger.debug("Loading Project from folder " + store.getReadableResourcePath(ResourceStore.PROJECT_RESOURCE_ROOT));
   for (  String path : paths) {
     loadProject(path,false);
+    loadTables(path);
   }
   logger.debug("Loaded " + paths.size() + " Project(s)");
 }

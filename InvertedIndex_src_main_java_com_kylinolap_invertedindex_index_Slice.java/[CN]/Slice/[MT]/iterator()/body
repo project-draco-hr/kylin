@@ -1,0 +1,22 @@
+{
+  return new Iterator<RawTableRecord>(){
+    int i=0;
+    RawTableRecord rec=info.createTableRecordBytes();
+    ImmutableBytesWritable temp=new ImmutableBytesWritable();
+    @Override public boolean hasNext(){
+      return i < nRecords;
+    }
+    @Override public RawTableRecord next(){
+      for (int col=0; col < nColumns; col++) {
+        containers[col].getValueAt(i,temp);
+        rec.setValueBytes(col,temp);
+      }
+      i++;
+      return rec;
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+  }
+;
+}

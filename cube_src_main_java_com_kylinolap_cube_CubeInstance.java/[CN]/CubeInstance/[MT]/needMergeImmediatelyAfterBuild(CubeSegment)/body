@@ -2,7 +2,7 @@
   if (!appendOnHll()) {
     return false;
   }
-  List<CubeSegment> readySegments=getSegment(CubeSegmentStatusEnum.READY);
+  List<CubeSegment> readySegments=getSegment(SegmentStatusEnum.READY);
   if (readySegments.isEmpty()) {
     return false;
   }

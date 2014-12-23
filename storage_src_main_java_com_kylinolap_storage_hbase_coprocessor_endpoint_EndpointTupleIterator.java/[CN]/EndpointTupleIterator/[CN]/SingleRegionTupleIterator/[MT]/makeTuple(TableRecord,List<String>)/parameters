@@ -1,0 +1,2 @@
+TableRecord tableRecord
+List<String> measureValues

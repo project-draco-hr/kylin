@@ -1,8 +1,9 @@
 {
+  staticCreateTestMetadata(SANDBOX_TEST_DATA);
   TEST_UTIL=new HBaseTestingUtility();
   CONF=TEST_UTIL.getConfiguration();
   CONF.setStrings(CoprocessorHost.REGION_COPROCESSOR_CONF_KEY,IIEndpoint.class.getName());
   TEST_UTIL.startMiniCluster();
-  mockCubeHtable();
+  mockIIHtable();
   hconn=HConnectionManager.createConnection(CONF);
 }

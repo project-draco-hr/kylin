@@ -1,0 +1,11 @@
+{
+  List<IISegment> buildingSegments=new ArrayList<IISegment>();
+  if (null != segments) {
+    for (    IISegment segment : segments) {
+      if (SegmentStatusEnum.NEW == segment.getStatus() || SegmentStatusEnum.READY_PENDING == segment.getStatus()) {
+        buildingSegments.add(segment);
+      }
+    }
+  }
+  return buildingSegments;
+}

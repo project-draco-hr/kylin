@@ -4,7 +4,7 @@
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata(context.getConfiguration());
   metadataManager=MetadataManager.getInstance(config);
   cube=CubeManager.getInstance(config).getCube(cubeName);
-  cubeSegment=cube.getSegment(segmentName,CubeSegmentStatusEnum.NEW);
+  cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   cubeDesc=cube.getDescriptor();
   factTableDesc=metadataManager.getTableDesc(cubeDesc.getFactTable());
   long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);

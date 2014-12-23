@@ -15,10 +15,10 @@
     String inputDelim=getOptionValue(OPTION_INPUT_DELIM);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
     System.out.println("Starting: " + job.getJobName());
-    CubeInstance cube=getCube(cubeName);
+    IIInstance ii=getII(cubeName);
     setupMapInput(input,inputFormat,inputDelim);
-    setupReduceOutput(output,cube.getInvertedIndexDesc().getSharding());
-    attachMetadata(cube);
+    setupReduceOutput(output,ii.getDescriptor().getSharding());
+    attachMetadata(ii);
     return waitForCompletion(job);
   }
  catch (  Exception e) {

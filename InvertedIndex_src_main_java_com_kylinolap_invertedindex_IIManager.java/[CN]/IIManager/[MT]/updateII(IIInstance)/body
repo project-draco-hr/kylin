@@ -1,0 +1,6 @@
+{
+  logger.info("Updating II instance '" + ii.getName());
+  saveResource(ii);
+  logger.info("II with " + ii.getSegments().size() + " segments is saved");
+  return ii;
+}

@@ -1,3 +1,0 @@
-{
-  return cubes.contains(cubeName.toUpperCase());
-}

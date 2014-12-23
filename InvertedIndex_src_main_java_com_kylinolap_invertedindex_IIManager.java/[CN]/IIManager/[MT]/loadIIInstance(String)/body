@@ -1,0 +1,19 @@
+{
+  ResourceStore store=getStore();
+  logger.debug("Loading IIInstance " + store.getReadableResourcePath(path));
+  IIInstance IIInstance=null;
+  try {
+    IIInstance=store.getResource(path,IIInstance.class,II_SERIALIZER);
+    IIInstance.setConfig(config);
+    if (StringUtils.isBlank(IIInstance.getName()))     throw new IllegalStateException("IIInstance name must not be blank");
+    iiMap.putLocal(IIInstance.getName().toUpperCase(),IIInstance);
+    for (    IISegment segment : IIInstance.getSegments()) {
+      usedStorageLocation.add(segment.getName());
+    }
+    return IIInstance;
+  }
+ catch (  Exception e) {
+    logger.error("Error during load ii instance " + path,e);
+    return null;
+  }
+}

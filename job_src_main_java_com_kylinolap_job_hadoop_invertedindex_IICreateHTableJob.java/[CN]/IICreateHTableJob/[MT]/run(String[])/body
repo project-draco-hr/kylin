@@ -1,15 +1,15 @@
 {
   Options options=new Options();
   try {
-    options.addOption(OPTION_CUBE_NAME);
+    options.addOption(OPTION_II_NAME);
     options.addOption(OPTION_HTABLE_NAME);
     parseOptions(options,args);
     String tableName=getOptionValue(OPTION_HTABLE_NAME);
-    String cubeName=getOptionValue(OPTION_CUBE_NAME);
-    CubeInstance cubeInstance=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).getCube(cubeName);
-    int sharding=cubeInstance.getInvertedIndexDesc().getSharding();
+    String iiName=getOptionValue(OPTION_II_NAME);
+    IIInstance ii=IIManager.getInstance(KylinConfig.getInstanceFromEnv()).getII(iiName);
+    int sharding=ii.getDescriptor().getSharding();
     HTableDescriptor tableDesc=new HTableDescriptor(TableName.valueOf(tableName));
-    HColumnDescriptor cf=new HColumnDescriptor(InvertedIndexDesc.HBASE_FAMILY);
+    HColumnDescriptor cf=new HColumnDescriptor(IIDesc.HBASE_FAMILY);
     cf.setMaxVersions(1);
     cf.setDataBlockEncoding(DataBlockEncoding.FAST_DIFF);
     tableDesc.addFamily(cf);

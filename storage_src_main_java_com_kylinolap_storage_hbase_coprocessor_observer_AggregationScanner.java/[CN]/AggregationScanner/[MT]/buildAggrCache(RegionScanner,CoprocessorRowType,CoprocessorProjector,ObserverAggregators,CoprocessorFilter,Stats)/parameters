@@ -1,0 +1,6 @@
+RegionScanner innerScanner
+CoprocessorRowType type
+CoprocessorProjector projector
+ObserverAggregators aggregators
+CoprocessorFilter filter
+Stats stats

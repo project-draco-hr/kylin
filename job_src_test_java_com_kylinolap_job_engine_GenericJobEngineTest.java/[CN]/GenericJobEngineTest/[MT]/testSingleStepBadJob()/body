@@ -10,5 +10,5 @@
   CubeInstance cube=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).getCube(cubeName);
   String cubeString=JsonUtil.writeValueAsIndentString(cube);
   System.out.println(cubeString);
-  assertEquals(CubeSegmentStatusEnum.NEW,cube.getSegments().get(0).getStatus());
+  assertEquals(SegmentStatusEnum.NEW,cube.getSegments().get(0).getStatus());
 }

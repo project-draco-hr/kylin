@@ -1,6 +1,6 @@
 {
   long sizeRecordSize=0L;
-  for (  CubeSegment cubeSegment : this.getSegments(CubeSegmentStatusEnum.READY)) {
+  for (  CubeSegment cubeSegment : this.getSegments(SegmentStatusEnum.READY)) {
     sizeRecordSize+=cubeSegment.getSourceRecordsSize();
   }
   return sizeRecordSize;

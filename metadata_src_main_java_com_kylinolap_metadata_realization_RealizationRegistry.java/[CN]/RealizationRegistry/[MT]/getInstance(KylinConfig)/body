@@ -1,0 +1,23 @@
+{
+  RealizationRegistry r=CACHE.get(config);
+  if (r != null) {
+    return r;
+  }
+synchronized (RealizationRegistry.class) {
+    r=CACHE.get(config);
+    if (r != null) {
+      return r;
+    }
+    try {
+      r=new RealizationRegistry(config);
+      CACHE.put(config,r);
+      if (CACHE.size() > 1) {
+        logger.warn("More than one singleton of RealizationRegistry exist");
+      }
+      return r;
+    }
+ catch (    IOException e) {
+      throw new IllegalStateException("Failed to init CubeManager from " + config,e);
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  IIManager mgr=IIManager.getInstance(KylinConfig.getInstanceFromEnv());
+  IIInstance cube=mgr.getII(iiName);
+  if (cube == null)   throw new IllegalArgumentException("No Inverted Index found by name " + iiName);
+  return cube;
+}

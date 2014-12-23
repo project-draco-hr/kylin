@@ -1,0 +1,16 @@
+{
+  List<String> columnValues=tableRecord.getValueList();
+  for (int i=0; i < columnNames.size(); i++) {
+    TblColRef column=columns.get(i);
+    if (!tuple.hasColumn(column)) {
+      continue;
+    }
+    tuple.setValue(columnNames.get(i),columnValues.get(i));
+  }
+  if (measureValues != null) {
+    for (int i=0; i < measures.size(); ++i) {
+      tuple.setValue(measures.get(i).getRewriteFieldName(),measureValues.get(i));
+    }
+  }
+  return tuple;
+}

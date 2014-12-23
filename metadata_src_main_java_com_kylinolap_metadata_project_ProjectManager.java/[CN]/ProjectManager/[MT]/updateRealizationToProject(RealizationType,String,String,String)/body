@@ -1,0 +1,4 @@
+{
+  removeRealizationsFromProjects(type,realizationName);
+  return addRealizationToProject(type,realizationName,newProjectName,owner);
+}

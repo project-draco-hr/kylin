@@ -1,0 +1,16 @@
+{
+  IIProtos.IIResponse.Builder responseBuilder=IIProtos.IIResponse.newBuilder();
+  for (  Slice slice : slices) {
+    ConciseSet result=null;
+    if (filter != null) {
+      result=new BitMapFilterEvaluator(new SliceBitMapProvider(slice,type)).evaluate(filter.getFilter());
+    }
+    Iterator<RawTableRecord> iterator=slice.iterateWithBitmap(result);
+    while (iterator.hasNext()) {
+      byte[] data=iterator.next().getBytes();
+      IIRow.Builder rowBuilder=IIRow.newBuilder().setColumns(ByteString.copyFrom(data));
+      responseBuilder.addRows(rowBuilder.build());
+    }
+  }
+  return responseBuilder.build();
+}

@@ -22,7 +22,7 @@
       }
       String jarPath=valueMatcher.group(1).trim();
       String clsName=valueMatcher.group(2).trim();
-      if (AGGR_COPROCESSOR_CLS_NAME.equals(clsName)) {
+      if (OBSERVER_CLS_NAME.equals(clsName)) {
         result.add(jarPath);
       }
     }

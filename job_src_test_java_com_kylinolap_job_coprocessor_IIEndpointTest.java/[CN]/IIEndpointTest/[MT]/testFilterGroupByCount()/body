@@ -1,0 +1,9 @@
+{
+  ColumnDesc columnDesc=tableDesc.findColumnByName("LSTG_FORMAT_NAME");
+  TblColRef lfn=new TblColRef(columnDesc);
+  TupleFilter filterA=mockEQFiter(lfn,"ABIN");
+  TupleFilter filterB=mockNEQFiter(lfn,"ABIN");
+  int countA=filteredGrouByCount(filterA);
+  int countB=filteredGrouByCount(filterB);
+  assertEquals(countA + countB,10000);
+}

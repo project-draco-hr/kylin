@@ -1,6 +1,6 @@
 {
   String cubeName="test_kylin_cube_without_slr_left_join_ready_2_segments";
-  List<CubeSegment> newSegments=cubeManager.allocateSegments(cube,CubeBuildTypeEnum.MERGE,1384240200000L,1386835200000L);
+  List<CubeSegment> newSegments=cubeManager.allocateSegments(cube,RealizationBuildTypeEnum.MERGE,1384240200000L,1386835200000L);
   logger.info("Size of new segments: " + newSegments.size());
   CubeSegment newSeg=newSegments.get(0);
   String segmentName=newSeg.getName();

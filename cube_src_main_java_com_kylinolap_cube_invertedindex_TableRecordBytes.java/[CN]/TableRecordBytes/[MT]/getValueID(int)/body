@@ -1,3 +1,0 @@
-{
-  return BytesUtil.readUnsigned(buf,info.offset(col),info.length(col));
-}

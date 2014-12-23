@@ -1,0 +1,40 @@
+{
+  String factTableName=olapContext.firstTableScan.getCubeTable();
+  String projectName=olapContext.olapSchema.getProjectName();
+  Collection<TblColRef> dimensionColumns=getDimensionColumns(olapContext);
+  Collection<FunctionDesc> functions=olapContext.aggregations;
+  Collection<TblColRef> metricsColumns=olapContext.metricsColumns;
+  Collection<JoinDesc> joins=olapContext.joins;
+  Map<String,RelDataType> rewriteFields=olapContext.rewriteFields;
+  List<CubeInstance> candidates=filterCubes(projectManager.getRealizationsByTable(projectName,factTableName));
+  logger.info("Find candidates by table " + factTableName + " and project="+ projectName+ " : "+ StringUtils.join(candidates,","));
+  Iterator<CubeInstance> it=candidates.iterator();
+  List<CubeInstance> backups=new ArrayList<CubeInstance>();
+  while (it.hasNext()) {
+    CubeInstance cube=it.next();
+    boolean isOnline=cube.isReady();
+    boolean matchDimensions=isMatchedWithDimensions(dimensionColumns,cube);
+    boolean matchAggregation=isMatchedWithAggregations(functions,cube);
+    boolean matchJoin=isMatchedWithJoins(joins,cube);
+    if (isOnline && matchDimensions && !matchAggregation&& matchJoin) {
+      if (isWeaklyMatchedWithAggregations(functions,metricsColumns,cube)) {
+        logger.info("Weak matched cube " + cube);
+        backups.add(cube);
+      }
+    }
+    if (!isOnline || !matchDimensions || !matchAggregation|| !matchJoin) {
+      logger.info("Remove cube " + cube.getName() + " because "+ " isOnlne="+ isOnline+ ",matchDimensions="+ matchDimensions+ ",matchAggregation="+ matchAggregation+ ",matchJoin="+ matchJoin);
+      it.remove();
+    }
+  }
+  if (!candidates.isEmpty()) {
+    return getCheapestCube(candidates);
+  }
+ else   if (!backups.isEmpty()) {
+    CubeInstance cube=getCheapestCube(backups);
+    adjustOLAPContext(dimensionColumns,functions,metricsColumns,cube,rewriteFields,olapContext);
+    logger.info("Use weak matched cube " + cube.getName());
+    return cube;
+  }
+  return null;
+}

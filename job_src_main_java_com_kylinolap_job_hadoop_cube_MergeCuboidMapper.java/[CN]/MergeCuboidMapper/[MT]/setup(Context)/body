@@ -5,7 +5,7 @@
   cubeManager=CubeManager.getInstance(config);
   cube=cubeManager.getCube(cubeName);
   cubeDesc=cube.getDescriptor();
-  mergedCubeSegment=cube.getSegment(segmentName,CubeSegmentStatusEnum.NEW);
+  mergedCubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   newKeyBuf=new byte[256];
   org.apache.hadoop.mapreduce.InputSplit inputSplit=context.getInputSplit();
   String filePath=((FileSplit)inputSplit).getPath().toString();

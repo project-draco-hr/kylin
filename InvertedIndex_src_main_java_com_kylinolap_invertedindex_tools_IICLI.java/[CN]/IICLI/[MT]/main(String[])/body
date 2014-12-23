@@ -1,0 +1,18 @@
+{
+  Configuration hconf=HadoopUtil.getDefaultConfiguration();
+  IIManager mgr=IIManager.getInstance(KylinConfig.getInstanceFromEnv());
+  String iiName=args[0];
+  IIInstance ii=mgr.getII(iiName);
+  String path=args[1];
+  System.out.println("Reading from " + path + " ...");
+  TableRecordInfo info=new TableRecordInfo(ii.getFirstSegment());
+  IIKeyValueCodec codec=new IIKeyValueCodec(info.getDigest());
+  int count=0;
+  for (  Slice slice : codec.decodeKeyValue(readSequenceKVs(hconf,path))) {
+    for (    RawTableRecord rec : slice) {
+      System.out.printf(new TableRecord(rec,info).toString());
+      count++;
+    }
+  }
+  System.out.println("Total " + count + " records");
+}

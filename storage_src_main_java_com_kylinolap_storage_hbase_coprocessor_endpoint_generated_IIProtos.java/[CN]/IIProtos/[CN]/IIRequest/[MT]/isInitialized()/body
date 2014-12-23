@@ -1,11 +1,19 @@
 {
   byte isInitialized=memoizedIsInitialized;
   if (isInitialized != -1)   return isInitialized == 1;
-  if (!hasTableInfo()) {
+  if (!hasType()) {
     memoizedIsInitialized=0;
     return false;
   }
-  if (!hasSRowType()) {
+  if (!hasFilter()) {
+    memoizedIsInitialized=0;
+    return false;
+  }
+  if (!hasProjector()) {
+    memoizedIsInitialized=0;
+    return false;
+  }
+  if (!hasAggregator()) {
     memoizedIsInitialized=0;
     return false;
   }

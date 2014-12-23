@@ -1,6 +1,6 @@
 {
   long sizeKb=0L;
-  for (  CubeSegment cubeSegment : this.getSegments(CubeSegmentStatusEnum.READY)) {
+  for (  CubeSegment cubeSegment : this.getSegments(SegmentStatusEnum.READY)) {
     sizeKb+=cubeSegment.getSizeKB();
   }
   return sizeKb;

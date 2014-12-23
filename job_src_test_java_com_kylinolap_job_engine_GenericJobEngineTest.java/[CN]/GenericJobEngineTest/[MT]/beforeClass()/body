@@ -1,8 +1,8 @@
 {
-  FileUtils.forceMkdir(new File(KylinConfig.getInstanceFromEnv().getKylinJobLogDir()));
   FileUtils.deleteDirectory(new File(tempTestMetadataUrl));
   FileUtils.copyDirectory(new File(AbstractKylinTestCase.LOCALMETA_TEST_DATA),new File(tempTestMetadataUrl));
   System.setProperty(KylinConfig.KYLIN_CONF,tempTestMetadataUrl);
+  FileUtils.forceMkdir(new File(KylinConfig.getInstanceFromEnv().getKylinJobLogDir()));
   SSHClient hadoopCli=new SSHClient(getHadoopCliHostname(),getHadoopCliUsername(),getHadoopCliPassword());
   scpFilesToHdfs(hadoopCli,new String[]{"src/test/resources/json/dummy_jobinstance.json"},mrInputDir);
   hadoopCli.scpFileToRemote("src/test/resources/jarfile/SampleJavaProgram.jarfile","/tmp");

@@ -1,0 +1,5 @@
+{
+  ResourceStore store=getStore();
+  store.putResource(ii.getResourcePath(),ii,II_SERIALIZER);
+  this.afterIIUpdated(ii);
+}

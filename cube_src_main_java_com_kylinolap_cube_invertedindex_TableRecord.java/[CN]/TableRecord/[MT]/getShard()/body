@@ -1,4 +1,0 @@
-{
-  int timestampID=getValueID(info().getTimestampColumn());
-  return (short)(Math.abs(ShardingHash.hashInt(timestampID)) % info().getDescriptor().getSharding());
-}

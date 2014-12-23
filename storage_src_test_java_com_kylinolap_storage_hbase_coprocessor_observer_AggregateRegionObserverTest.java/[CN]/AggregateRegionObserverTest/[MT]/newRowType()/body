@@ -3,5 +3,5 @@
   t.setName("TABLE");
   TblColRef[] cols=new TblColRef[]{newCol("A",t),newCol("B",t),newCol("C",t),newCol("D",t)};
   int[] sizes=new int[]{1,1,1,1};
-  return new ObserverRowType(cols,sizes);
+  return new CoprocessorRowType(cols,sizes);
 }

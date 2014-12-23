@@ -9,7 +9,7 @@
       long startDate=buildingSegments.get(0).getDateRangeStart();
       long endDate=buildingSegments.get(buildingSegments.size() - 1).getDateRangeEnd();
       for (      CubeSegment segment : this.segments) {
-        if (segment.getStatus() == CubeSegmentStatusEnum.READY) {
+        if (segment.getStatus() == SegmentStatusEnum.READY) {
           if (startDate >= segment.getDateRangeStart() && startDate < segment.getDateRangeEnd() && segment.getDateRangeEnd() < endDate) {
             rebuildingSegments.add(segment);
             continue;

@@ -1,0 +1,26 @@
+{
+  CompressedValueContainer container=new CompressedValueContainer(info.getDigest(),0,500);
+  Dictionary<String> dict=info.dict(0);
+  byte[] buf=new byte[dict.getSizeOfId()];
+  ImmutableBytesWritable bytes=new ImmutableBytesWritable(buf);
+  for (int v=dict.getMinId(); v <= dict.getMaxId(); v++) {
+    BytesUtil.writeUnsigned(v,buf,0,dict.getSizeOfId());
+    container.append(bytes);
+  }
+  BytesUtil.writeUnsigned(Dictionary.NULL_ID[dict.getSizeOfId()],buf,0,dict.getSizeOfId());
+  container.append(bytes);
+  container.closeForChange();
+  ImmutableBytesWritable copy=container.toBytes();
+  CompressedValueContainer container2=new CompressedValueContainer(info.getDigest(),0,500);
+  container2.fromBytes(copy);
+  int i=0;
+  for (int v=dict.getMinId(); v <= dict.getMaxId(); v++) {
+    container2.getValueAt(i++,bytes);
+    int value=BytesUtil.readUnsigned(bytes.get(),bytes.getOffset(),bytes.getLength());
+    assertEquals(v,value);
+  }
+  container2.getValueAt(i++,bytes);
+  int value=BytesUtil.readUnsigned(bytes.get(),bytes.getOffset(),bytes.getLength());
+  assertEquals(Dictionary.NULL_ID[dict.getSizeOfId()],value);
+  assertEquals(container,container2);
+}

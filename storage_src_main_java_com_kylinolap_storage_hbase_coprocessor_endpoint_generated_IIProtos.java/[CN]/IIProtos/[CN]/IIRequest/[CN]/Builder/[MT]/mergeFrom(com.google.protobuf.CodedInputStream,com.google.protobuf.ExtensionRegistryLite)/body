@@ -1,10 +1,10 @@
 {
-  IIProtos.IIRequest parsedMessage=null;
+  com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIRequest parsedMessage=null;
   try {
     parsedMessage=PARSER.parsePartialFrom(input,extensionRegistry);
   }
  catch (  com.google.protobuf.InvalidProtocolBufferException e) {
-    parsedMessage=(IIProtos.IIRequest)e.getUnfinishedMessage();
+    parsedMessage=(com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIRequest)e.getUnfinishedMessage();
     throw e;
   }
  finally {

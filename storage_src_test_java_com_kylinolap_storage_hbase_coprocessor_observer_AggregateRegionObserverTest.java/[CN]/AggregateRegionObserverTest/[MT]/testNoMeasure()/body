@@ -1,5 +1,5 @@
 {
-  ObserverRowType rowType=newRowType();
+  CoprocessorRowType rowType=newRowType();
   CoprocessorProjector projector=new CoprocessorProjector(mask);
   ObserverAggregators aggregators=new ObserverAggregators(new HCol[]{});
   CoprocessorFilter filter=CoprocessorFilter.deserialize(null);

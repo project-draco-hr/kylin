@@ -1,0 +1,3 @@
+{
+  return realizationTable.get(type,name.toUpperCase());
+}

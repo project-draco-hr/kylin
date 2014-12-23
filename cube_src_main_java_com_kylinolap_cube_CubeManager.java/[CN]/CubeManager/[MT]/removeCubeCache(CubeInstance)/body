@@ -1,5 +1,6 @@
 {
   cubeMap.remove(cube.getName().toUpperCase());
+  RealizationRegistry.getInstance(config).unregisterRealization(cube);
   for (  CubeSegment segment : cube.getSegments()) {
     usedStorageLocation.remove(segment.getName());
   }

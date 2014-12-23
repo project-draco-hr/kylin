@@ -6,7 +6,7 @@
   segment.setCreateTime(DateStrDictionary.dateToString(new Date()));
   segment.setDateRangeStart(startDate);
   segment.setDateRangeEnd(endDate);
-  segment.setStatus(CubeSegmentStatusEnum.NEW);
+  segment.setStatus(SegmentStatusEnum.NEW);
   segment.setStorageLocationIdentifier(generateStorageLocation());
   segment.setCubeInstance(cubeInstance);
   return segment;

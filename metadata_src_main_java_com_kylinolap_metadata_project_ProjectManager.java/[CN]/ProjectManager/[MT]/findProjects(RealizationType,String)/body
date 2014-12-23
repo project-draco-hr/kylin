@@ -1,0 +1,9 @@
+{
+  List<ProjectInstance> projects=Lists.newArrayList();
+  for (  ProjectInstance projectInstance : projectMap.values()) {
+    if (projectInstance.containsRealization(type,realizationName)) {
+      projects.add(projectInstance);
+    }
+  }
+  return projects;
+}
