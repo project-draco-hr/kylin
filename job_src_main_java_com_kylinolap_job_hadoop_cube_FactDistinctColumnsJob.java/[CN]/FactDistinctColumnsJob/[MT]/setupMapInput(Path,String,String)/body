@@ -7,7 +7,7 @@
  else {
     job.setJarByClass(this.getClass());
   }
-  HCatInputFormat.setInput(job,"default",factTableName.toLowerCase());
+  HCatInputFormat.setInput(job,"default",intermediateTable.toLowerCase());
   job.setInputFormatClass(HCatInputFormat.class);
   job.setMapperClass(FactDistinctColumnsMapper.class);
   job.setCombinerClass(FactDistinctColumnsCombiner.class);
