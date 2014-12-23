@@ -11,7 +11,8 @@
   dumpList.add(ii.getResourcePath());
   dumpList.add(ii.getDescriptor().getModel().getResourcePath());
   dumpList.add(ii.getDescriptor().getResourcePath());
-  for (  TableDesc table : ii.getDescriptor().listTables()) {
+  for (  String tableName : ii.getDescriptor().getModel().getAllTables()) {
+    TableDesc table=MetadataManager.getInstance(kylinConfig).getTableDesc(tableName);
     dumpList.add(table.getResourcePath());
   }
   for (  IISegment segment : ii.getSegments()) {
