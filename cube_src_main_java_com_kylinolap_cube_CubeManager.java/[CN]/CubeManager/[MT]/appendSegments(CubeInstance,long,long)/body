@@ -1,0 +1,34 @@
+{
+  if (cubeInstance.getBuildingSegments().size() > 0) {
+    throw new RuntimeException("There is already an allocating segment!");
+  }
+  List<CubeSegment> readySegments=cubeInstance.getSegments(SegmentStatusEnum.READY);
+  List<CubeSegment> newSegments=Lists.newArrayList();
+  final boolean appendBuildOnHllMeasure=cubeInstance.appendBuildOnHllMeasure(startDate,endDate);
+  if (cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateColumn() != null) {
+    if (readySegments.isEmpty()) {
+      newSegments.add(buildSegment(cubeInstance,cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateStart(),endDate));
+    }
+ else {
+      if (appendBuildOnHllMeasure) {
+        newSegments.add(buildSegment(cubeInstance,readySegments.get(0).getDateRangeStart(),endDate));
+      }
+ else {
+        newSegments.add(buildSegment(cubeInstance,readySegments.get(readySegments.size() - 1).getDateRangeEnd(),endDate));
+      }
+    }
+  }
+ else {
+    newSegments.add(buildSegment(cubeInstance,0,Long.MAX_VALUE));
+  }
+  validateNewSegments(cubeInstance,RealizationBuildTypeEnum.BUILD,newSegments);
+  if (appendBuildOnHllMeasure) {
+    List<CubeSegment> mergingSegments=cubeInstance.getSegment(SegmentStatusEnum.READY);
+    this.makeDictForNewSegment(cubeInstance,newSegments.get(0),mergingSegments);
+    this.makeSnapshotForNewSegment(cubeInstance,newSegments.get(0),mergingSegments);
+  }
+  cubeInstance.getSegments().addAll(newSegments);
+  Collections.sort(cubeInstance.getSegments());
+  this.updateCube(cubeInstance);
+  return newSegments;
+}

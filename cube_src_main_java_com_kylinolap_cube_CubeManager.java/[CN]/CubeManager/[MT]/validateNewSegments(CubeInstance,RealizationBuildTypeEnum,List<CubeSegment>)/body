@@ -10,6 +10,6 @@
       throw new CubeIntegrityException(" end date.");
     }
   }
-  CubeSegmentValidator cubeSegmentValidator=CubeSegmentValidator.getCubeSegmentValidator(buildType,cubeInstance.getDescriptor().getCubePartitionDesc().getCubePartitionType());
+  CubeSegmentValidator cubeSegmentValidator=CubeSegmentValidator.getCubeSegmentValidator(buildType);
   cubeSegmentValidator.validate(cubeInstance,newSegments);
 }
