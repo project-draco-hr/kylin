@@ -1,6 +1,6 @@
 {
   loadConfig();
-  HashSet<String> factTableColumns=new HashSet<String>();
+  TreeSet<String> factTableColumns=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
   for (  DimensionDesc dim : desc.getDimensions()) {
     for (    TblColRef col : dim.getColumnRefs()) {
       if (col.getTable().equals(factTableName))       factTableColumns.add(col.getName());

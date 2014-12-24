@@ -2,7 +2,6 @@
   if (this == obj)   return true;
   if (obj == null)   return false;
   if (getClass() != obj.getClass())   return false;
-  RawTableRecord other=(RawTableRecord)obj;
-  if (!Arrays.equals(buf,other.buf))   return false;
-  return true;
+  TableRecord other=(TableRecord)obj;
+  return ObjectUtils.equals(other.rawRecord,this.rawRecord);
 }

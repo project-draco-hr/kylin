@@ -1,2 +1,5 @@
 {
+  Set<String> a=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+  a.add("aaa");
+  System.out.println(a.contains("AaA"));
 }

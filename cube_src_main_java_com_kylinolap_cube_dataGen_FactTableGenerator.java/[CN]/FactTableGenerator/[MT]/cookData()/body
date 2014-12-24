@@ -1,7 +1,7 @@
 {
-  HashMap<String,String> factTableCol2LookupCol=new HashMap<String,String>();
-  HashSet<String> usedCols=new HashSet<String>();
-  HashMap<String,String> lookupCol2factTableCol=new HashMap<String,String>();
+  TreeMap<String,String> factTableCol2LookupCol=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+  TreeSet<String> usedCols=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+  TreeMap<String,String> lookupCol2factTableCol=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
   List<DimensionDesc> dimensions=getSortedDimentsionDescs();
   for (  DimensionDesc dim : dimensions) {
     JoinDesc jDesc=dim.getJoin();

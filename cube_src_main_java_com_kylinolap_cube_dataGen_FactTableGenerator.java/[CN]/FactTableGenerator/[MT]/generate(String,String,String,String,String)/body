@@ -13,5 +13,5 @@
   }
   generator.init(cubeName,Integer.parseInt(rowCount),5,Double.parseDouble(linkableRatio),seed);
   generator.prepare();
-  generator.execute(joinType);
+  return generator.cookData();
 }

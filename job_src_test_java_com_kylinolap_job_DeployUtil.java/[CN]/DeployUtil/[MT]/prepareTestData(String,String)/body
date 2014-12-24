@@ -1,12 +1,20 @@
 {
+  String factTableName=CubeManager.getInstance(config()).getCube(cubeName).getDescriptor().getFactTable();
+  String content=null;
   if (joinType.equalsIgnoreCase("inner")) {
-    FactTableGenerator.generate(cubeName,"10000","1",null,"inner");
+    content=FactTableGenerator.generate(cubeName,"10000","1",null,"inner");
   }
  else   if (joinType.equalsIgnoreCase("left")) {
-    FactTableGenerator.generate(cubeName,"10000","0.6",null,"left");
+    content=FactTableGenerator.generate(cubeName,"10000","0.6",null,"left");
   }
  else {
     throw new IllegalArgumentException("Unsupported join type : " + joinType);
+  }
+  if (content != null) {
+    overrideFactTableData(content,factTableName,joinType);
+  }
+ else {
+    throw new IllegalStateException("generated table content is null");
   }
   deployHiveTables();
 }

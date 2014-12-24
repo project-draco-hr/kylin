@@ -1,0 +1,8 @@
+{
+  if (rawRecord != null) {
+    return rawRecord.hashCode();
+  }
+ else {
+    return 0;
+  }
+}
