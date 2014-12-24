@@ -1,22 +1,16 @@
 {
   System.out.println("Going to start mini cluster.");
-  try {
-    hbaseCluster=UTIL.startMiniCluster();
-    UTIL.startMiniMapReduceCluster();
-    config=hbaseCluster.getConf();
-    String host=config.get(HConstants.ZOOKEEPER_QUORUM);
-    String port=config.get(HConstants.ZOOKEEPER_CLIENT_PORT);
-    String parent=config.get(HConstants.ZOOKEEPER_ZNODE_PARENT);
-    config.set(HConstants.HBASE_CLIENT_PAUSE,"3000");
-    config.set(HConstants.HBASE_CLIENT_RETRIES_NUMBER,"5");
-    config.set(HConstants.HBASE_CLIENT_OPERATION_TIMEOUT,"60000");
-    hbaseconnectionUrl="hbase:" + host + ":"+ port+ ":"+ parent;
-    KylinConfig.getInstanceFromEnv().setMetadataUrl("kylin_metadata_qa@" + hbaseconnectionUrl);
-    KylinConfig.getInstanceFromEnv().setStorageUrl(hbaseconnectionUrl);
-    HBaseResourceStore store=new HBaseResourceStore(KylinConfig.getInstanceFromEnv());
-    importHBaseData(true,true);
-  }
- catch (  Exception e) {
-    e.printStackTrace();
-  }
+  hbaseCluster=UTIL.startMiniCluster();
+  UTIL.startMiniMapReduceCluster();
+  config=hbaseCluster.getConf();
+  String host=config.get(HConstants.ZOOKEEPER_QUORUM);
+  String port=config.get(HConstants.ZOOKEEPER_CLIENT_PORT);
+  String parent=config.get(HConstants.ZOOKEEPER_ZNODE_PARENT);
+  config.set(HConstants.HBASE_CLIENT_PAUSE,"3000");
+  config.set(HConstants.HBASE_CLIENT_RETRIES_NUMBER,"5");
+  config.set(HConstants.HBASE_CLIENT_OPERATION_TIMEOUT,"60000");
+  hbaseconnectionUrl="hbase:" + host + ":"+ port+ ":"+ parent;
+  updateKylinConfigWithMinicluster();
+  HBaseResourceStore store=new HBaseResourceStore(KylinConfig.getInstanceFromEnv());
+  importHBaseData(true,true);
 }
