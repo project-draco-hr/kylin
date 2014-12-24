@@ -5,7 +5,7 @@
   store.deleteResource(factTablePath);
   store.putResource(factTablePath,in,System.currentTimeMillis());
   in.close();
-  in=new FileInputStream(factTableContent);
+  in=new StringInputStream(factTableContent);
   String factTablePathWithJoinType="/data/" + factTableName + ".csv."+ joinType.toLowerCase();
   store.deleteResource(factTablePathWithJoinType);
   store.putResource(factTablePathWithJoinType,in,System.currentTimeMillis());
