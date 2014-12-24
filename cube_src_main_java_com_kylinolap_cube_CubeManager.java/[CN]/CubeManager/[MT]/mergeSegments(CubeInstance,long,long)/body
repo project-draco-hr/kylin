@@ -4,26 +4,26 @@
   }
   List<CubeSegment> segments=new ArrayList<CubeSegment>();
   if (null != cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateColumn()) {
-    if (startDate == 0 && cubeInstance.getSegments().size() == 0) {
-      startDate=cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateStart();
+    List<CubeSegment> readySegments=cubeInstance.getSegment(SegmentStatusEnum.READY);
+    if (readySegments.isEmpty()) {
+      throw new CubeIntegrityException("there are no segments in ready state");
     }
-    CubeSegment lastSegment=null;
-    for (    CubeSegment segment : cubeInstance.getSegments()) {
-      if (segment.getDateRangeStart() == startDate) {
-        segments.add(buildSegment(cubeInstance,startDate,endDate));
+    long start=Long.MIN_VALUE;
+    long end=Long.MAX_VALUE;
+    for (    CubeSegment readySegment : readySegments) {
+      if (hasOverlap(startDate,endDate,readySegment.getDateRangeStart(),readySegment.getDateRangeEnd())) {
+        if (start > readySegment.getDateRangeStart()) {
+          start=readySegment.getDateRangeStart();
+        }
+        if (end < readySegment.getDateRangeEnd()) {
+          end=readySegment.getDateRangeEnd();
+        }
       }
-      if (segment.getDateRangeStart() < startDate && startDate < segment.getDateRangeEnd()) {
-        segments.add(buildSegment(cubeInstance,segment.getDateRangeStart(),startDate));
-        segments.add(buildSegment(cubeInstance,startDate,endDate));
-      }
-      lastSegment=segment;
     }
-    if (null == lastSegment || (lastSegment.getDateRangeEnd() == startDate)) {
-      segments.add(buildSegment(cubeInstance,startDate,endDate));
-    }
+    segments.add(buildSegment(cubeInstance,start,end));
   }
  else {
-    segments.add(buildSegment(cubeInstance,0,0));
+    throw new CubeIntegrityException("there is no partition date, only full build is supported");
   }
   validateNewSegments(cubeInstance,RealizationBuildTypeEnum.MERGE,segments);
   CubeSegment newSeg=segments.get(0);
