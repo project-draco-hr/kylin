@@ -1,5 +1,4 @@
 {
   staticCreateTestMetadata(MINICLUSTER_TEST_DATA);
-  KylinConfig.getInstanceFromEnv().setMetadataUrl("kylin_metadata_qa@" + hbaseconnectionUrl);
-  KylinConfig.getInstanceFromEnv().setStorageUrl(hbaseconnectionUrl);
+  updateKylinConfigWithMinicluster();
 }

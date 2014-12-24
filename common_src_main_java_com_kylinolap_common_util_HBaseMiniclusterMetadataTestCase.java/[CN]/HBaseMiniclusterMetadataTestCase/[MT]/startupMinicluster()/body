@@ -8,4 +8,7 @@ synchronized (HBaseMiniclusterMetadataTestCase.class) {
       }
     }
   }
+ else {
+    updateKylinConfigWithMinicluster();
+  }
 }
