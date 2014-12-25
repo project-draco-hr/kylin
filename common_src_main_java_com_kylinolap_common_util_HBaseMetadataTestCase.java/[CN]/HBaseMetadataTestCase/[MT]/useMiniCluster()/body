@@ -1,0 +1,4 @@
+{
+  String queryUseMinicluster=System.getProperty("queryUseMinicluster");
+  return Boolean.parseBoolean(queryUseMinicluster);
+}

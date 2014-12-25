@@ -1,6 +1,5 @@
 {
-  String queryUseMinicluster=System.getProperty("queryUseMinicluster");
-  if (Boolean.parseBoolean(queryUseMinicluster)) {
+  if (HBaseMetadataTestCase.useMiniCluster()) {
     HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.MINICLUSTER_TEST_DATA);
     HBaseMiniclusterMetadataTestCase.startupMinicluster();
   }
