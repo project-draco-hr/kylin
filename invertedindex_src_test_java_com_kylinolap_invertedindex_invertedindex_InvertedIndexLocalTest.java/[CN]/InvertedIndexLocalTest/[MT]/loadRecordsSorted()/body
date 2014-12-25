@@ -14,7 +14,10 @@
   }
   Collections.sort(records,new Comparator<TableRecord>(){
     @Override public int compare(    TableRecord a,    TableRecord b){
-      return (int)(a.getTimestamp() - b.getTimestamp());
+      long x=a.getTimestamp() - b.getTimestamp();
+      if (x > 0)       return 1;
+ else       if (x == 0)       return 0;
+ else       return -1;
     }
   }
 );
