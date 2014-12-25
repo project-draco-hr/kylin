@@ -1,8 +1,11 @@
 {
   int compositResult=0;
+  System.out.println(this.getName());
   for (  JobStep step : this.getSteps()) {
+    System.out.println("step: " + step.getSequenceID() + "'s status:"+ step.getStatus());
     compositResult=compositResult | step.getStatus().getCode();
   }
+  System.out.println();
   if (compositResult == JobStatusEnum.FINISHED.getCode()) {
     return JobStatusEnum.FINISHED;
   }

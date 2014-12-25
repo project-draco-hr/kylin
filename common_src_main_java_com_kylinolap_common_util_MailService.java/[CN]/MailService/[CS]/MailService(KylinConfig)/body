@@ -1,2 +1,10 @@
 {
+  enabled="true".equalsIgnoreCase(config.getProperty(KylinConfig.MAIL_ENABLED,"false"));
+  host=config.getProperty(KylinConfig.MAIL_HOST,"");
+  username=config.getProperty(KylinConfig.MAIL_USERNAME,"");
+  password=config.getProperty(KylinConfig.MAIL_PASSWORD,"");
+  sender=config.getProperty(KylinConfig.MAIL_SENDER,"");
+  if (enabled) {
+    if (host.isEmpty())     throw new RuntimeException("mail service host is empty");
+  }
 }
