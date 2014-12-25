@@ -8,8 +8,8 @@
     if (readySegments.isEmpty()) {
       throw new CubeIntegrityException("there are no segments in ready state");
     }
-    long start=Long.MIN_VALUE;
-    long end=Long.MAX_VALUE;
+    long start=Long.MAX_VALUE;
+    long end=Long.MIN_VALUE;
     for (    CubeSegment readySegment : readySegments) {
       if (hasOverlap(startDate,endDate,readySegment.getDateRangeStart(),readySegment.getDateRangeEnd())) {
         if (start > readySegment.getDateRangeStart()) {
