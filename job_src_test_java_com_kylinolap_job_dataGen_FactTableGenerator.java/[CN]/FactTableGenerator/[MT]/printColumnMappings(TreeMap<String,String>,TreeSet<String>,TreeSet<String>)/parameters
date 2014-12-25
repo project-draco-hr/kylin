@@ -1,0 +1,3 @@
+TreeMap<String,String> factTableCol2LookupCol
+TreeSet<String> usedCols
+TreeSet<String> defaultColumns

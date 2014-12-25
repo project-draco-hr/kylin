@@ -1,4 +1,0 @@
-{
-  CubeDesc cube=getCubeDescManager().getCubeDesc("clsfd_ga_week");
-  CuboidCLI.simulateCuboidGeneration(cube);
-}

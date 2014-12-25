@@ -1,0 +1,2 @@
+TreeMap<String,String> lookupCol2FactTableCol
+LinkedList<String> columnValues

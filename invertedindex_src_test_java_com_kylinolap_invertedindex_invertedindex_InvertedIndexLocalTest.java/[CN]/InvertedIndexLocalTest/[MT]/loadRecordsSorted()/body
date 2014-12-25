@@ -1,5 +1,5 @@
 {
-  File file=new File(LOCALMETA_TEST_DATA,"data/TEST_KYLIN_FACT.csv");
+  File file=new File(LOCALMETA_TEST_DATA,"data/DEFAULT.TEST_KYLIN_FACT.gen.csv");
   FileInputStream in=new FileInputStream(file);
   List<String> lines=IOUtils.readLines(in,"UTF-8");
   in.close();

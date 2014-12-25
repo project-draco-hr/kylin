@@ -2,7 +2,4 @@
   printInfo("tearDown");
   printInfo("Closing connection...");
   clean();
-  if (HBaseMetadataTestCase.useMiniCluster()) {
-    HBaseMiniclusterMetadataTestCase.shutdownMiniCluster();
-  }
 }

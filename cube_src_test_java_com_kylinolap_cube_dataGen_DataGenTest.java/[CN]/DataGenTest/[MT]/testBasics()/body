@@ -1,3 +1,0 @@
-{
-  FactTableGenerator.generate("test_kylin_cube_with_slr_ready","10000","0.6",null,"left");
-}

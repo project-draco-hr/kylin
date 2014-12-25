@@ -1,0 +1,28 @@
+{
+  try {
+    TreeSet<String> defaultColumns=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+    StringBuffer sb=new StringBuffer();
+    for (int i=0; i < rowCount; ) {
+      LinkedList<String> columnValues=createRow(factTableCol2LookupCol,usedCols,defaultColumns);
+      if (!matchAllCompositeKeys(lookupCol2FactTableCol,columnValues)) {
+        if (unlinkableRowCount < unlinkableRowCountMax) {
+          unlinkableRowCount++;
+        }
+ else {
+          continue;
+        }
+      }
+      for (      String c : columnValues)       sb.append(c + ",");
+      sb.deleteCharAt(sb.length() - 1);
+      sb.append(System.getProperty("line.separator"));
+      i++;
+    }
+    printColumnMappings(factTableCol2LookupCol,usedCols,defaultColumns);
+    return sb.toString();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    System.exit(1);
+  }
+  return null;
+}
