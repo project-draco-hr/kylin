@@ -2,8 +2,5 @@
   if (cubeConnection != null)   closeConnection(cubeConnection);
   if (h2Connection != null)   closeConnection(h2Connection);
   ObserverEnabler.forceCoprocessorUnset();
-  if (HBaseMetadataTestCase.useMiniCluster()) {
-    HBaseMiniclusterMetadataTestCase.shutdownMiniCluster();
-  }
   HBaseMetadataTestCase.staticCleanupTestMetadata();
 }

@@ -1,4 +1,0 @@
-{
-  String queryUseMinicluster=System.getProperty("querySkipUsingMinicluster");
-  return !Boolean.parseBoolean(queryUseMinicluster);
-}

@@ -1,10 +1,4 @@
 {
-  if (HBaseMetadataTestCase.useMiniCluster()) {
-    HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.MINICLUSTER_TEST_DATA);
-    HBaseMiniclusterMetadataTestCase.startupMinicluster();
-  }
- else {
-    HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.SANDBOX_TEST_DATA);
-  }
+  HBaseMetadataTestCase.staticCreateTestMetadata();
   config=KylinConfig.getInstanceFromEnv();
 }
