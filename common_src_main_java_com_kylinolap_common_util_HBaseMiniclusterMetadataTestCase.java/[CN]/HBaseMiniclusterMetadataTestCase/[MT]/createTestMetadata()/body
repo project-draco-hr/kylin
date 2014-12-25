@@ -1,4 +1,0 @@
-{
-  staticCreateTestMetadata(MINICLUSTER_TEST_DATA);
-  updateKylinConfigWithMinicluster();
-}

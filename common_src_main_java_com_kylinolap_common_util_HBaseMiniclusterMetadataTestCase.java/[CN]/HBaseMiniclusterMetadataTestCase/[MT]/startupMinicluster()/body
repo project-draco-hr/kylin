@@ -1,5 +1,5 @@
 {
-  staticCreateTestMetadata(MINICLUSTER_TEST_DATA);
+  HBaseMetadataTestCase.staticCreateTestMetadata(HBaseMetadataTestCase.MINICLUSTER_TEST_DATA);
   if (!clusterStarted) {
 synchronized (HBaseMiniclusterMetadataTestCase.class) {
       if (!clusterStarted) {

@@ -1,4 +1,0 @@
-{
-  System.clearProperty(KylinConfig.KYLIN_CONF);
-  KylinConfig.destoryInstance();
-}

@@ -1,3 +1,3 @@
 {
-  ClasspathUtil.addClasspath(new File(SANDBOX_TEST_DATA).getAbsolutePath());
+  ClasspathUtil.addClasspath(new File(HBaseMetadataTestCase.SANDBOX_TEST_DATA).getAbsolutePath());
 }
