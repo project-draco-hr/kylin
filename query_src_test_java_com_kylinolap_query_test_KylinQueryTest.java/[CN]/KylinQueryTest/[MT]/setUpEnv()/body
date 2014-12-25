@@ -1,11 +1,11 @@
 {
-  String queryUseMinicluster=System.getProperty("queryUseMinicluster");
-  if (Boolean.parseBoolean(queryUseMinicluster)) {
-    HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.MINICLUSTER_TEST_DATA);
-    HBaseMiniclusterMetadataTestCase.startupMinicluster();
+  String querySkipUsingMinicluster=System.getProperty("querySkipUsingMinicluster");
+  if (Boolean.parseBoolean(querySkipUsingMinicluster)) {
+    HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.SANDBOX_TEST_DATA);
   }
  else {
-    HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.SANDBOX_TEST_DATA);
+    HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.MINICLUSTER_TEST_DATA);
+    HBaseMiniclusterMetadataTestCase.startupMinicluster();
   }
   config=KylinConfig.getInstanceFromEnv();
 }

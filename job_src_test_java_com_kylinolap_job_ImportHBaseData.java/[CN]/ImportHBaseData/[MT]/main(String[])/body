@@ -1,0 +1,12 @@
+{
+  ImportHBaseData export=new ImportHBaseData();
+  try {
+    export.setup();
+    export.importTables();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+ finally {
+  }
+}

@@ -1,0 +1,38 @@
+{
+  config=mgr.getConfig();
+  if (this.modelName == null || this.modelName.length() == 0) {
+    throw new RuntimeException("The cubeDesc '" + this.getName() + "' doesn't have data model specified.");
+  }
+  this.model=MetadataManager.getInstance(config).getDataModelDesc(this.modelName);
+  if (this.model == null) {
+    throw new RuntimeException("No data model found with name '" + modelName + "'.");
+  }
+  factTable=factTable.toUpperCase();
+  timestampDimension=timestampDimension.toUpperCase();
+  StringUtil.toUpperCaseArray(bitmapDimensions,bitmapDimensions);
+  StringUtil.toUpperCaseArray(valueDimensions,valueDimensions);
+  StringUtil.toUpperCaseArray(metrics,metrics);
+  tableDesc=mgr.getTableDesc(factTable);
+  bitmapCols=new int[bitmapDimensions.length];
+  valueCols=new int[valueDimensions.length];
+  metricsCols=new int[metrics.length];
+  metricsColSet=new BitSet(tableDesc.getColumnCount());
+  measureDescs=Lists.newArrayList();
+  int i=0, j=0, k=0;
+  for (  ColumnDesc col : tableDesc.getColumns()) {
+    if (ArrayUtils.contains(bitmapDimensions,col.getName())) {
+      bitmapCols[i++]=col.getZeroBasedIndex();
+    }
+    if (ArrayUtils.contains(valueDimensions,col.getName())) {
+      valueCols[j++]=col.getZeroBasedIndex();
+    }
+    if (ArrayUtils.contains(metrics,col.getName())) {
+      metricsCols[k++]=col.getZeroBasedIndex();
+      metricsColSet.set(col.getZeroBasedIndex());
+      measureDescs.add(makeMeasureDescs("SUM",col));
+      measureDescs.add(makeMeasureDescs("MIN",col));
+      measureDescs.add(makeMeasureDescs("MAX",col));
+    }
+  }
+  tsCol=tableDesc.findColumnByName(timestampDimension).getZeroBasedIndex();
+}

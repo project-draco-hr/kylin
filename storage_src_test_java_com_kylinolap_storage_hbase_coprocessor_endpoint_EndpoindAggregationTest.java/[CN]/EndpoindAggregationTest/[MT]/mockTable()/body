@@ -1,6 +1,6 @@
 {
   TableRecord temp1=(TableRecord)tableRecordInfo.createTableRecord();
-  temp1.setValueString(0,"10000000252");
+  temp1.setValueString(0,"0");
   temp1.setValueString(1,"2012-03-22");
   temp1.setValueString(2,"Auction");
   temp1.setValueString(3,"80135");
@@ -10,7 +10,7 @@
   temp1.setValueString(7,"1");
   temp1.setValueString(8,"10000005");
   TableRecord temp2=(TableRecord)tableRecordInfo.createTableRecord();
-  temp2.setValueString(0,"10000000242");
+  temp2.setValueString(0,"0");
   temp2.setValueString(1,"2012-11-11");
   temp2.setValueString(2,"Auction");
   temp2.setValueString(3,"16509");
@@ -20,7 +20,7 @@
   temp2.setValueString(7,"1");
   temp2.setValueString(8,"10000004");
   TableRecord temp3=(TableRecord)tableRecordInfo.createTableRecord();
-  temp3.setValueString(0,"10000000258");
+  temp3.setValueString(0,"0");
   temp3.setValueString(1,"2012-07-12");
   temp3.setValueString(2,"Others");
   temp3.setValueString(3,"15687");

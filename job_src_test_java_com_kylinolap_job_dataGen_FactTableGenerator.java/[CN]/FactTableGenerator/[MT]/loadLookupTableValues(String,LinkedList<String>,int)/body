@@ -1,0 +1,65 @@
+{
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  if (columnNames.size() > 1 && !lookupTableCompositeKeyValues.containsKey(lookupTableName)) {
+    lookupTableCompositeKeyValues.put(lookupTableName,new HashSet<Array<String>>());
+  }
+  InputStream tableStream=null;
+  BufferedReader tableReader=null;
+  try {
+    TreeMap<String,Integer> zeroBasedInice=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    for (    String columnName : columnNames) {
+      ColumnDesc cDesc=MetadataManager.getInstance(config).getTableDesc(lookupTableName).findColumnByName(columnName);
+      zeroBasedInice.put(columnName,cDesc.getZeroBasedIndex());
+    }
+    String path="/data/" + lookupTableName + ".csv";
+    tableStream=store.getResource(path);
+    tableReader=new BufferedReader(new InputStreamReader(tableStream));
+    tableReader.mark(0);
+    int rowCount=0;
+    int curRowNum=0;
+    String curRow;
+    while (tableReader.readLine() != null)     rowCount++;
+    HashSet<Integer> rows=new HashSet<Integer>();
+    distinctRowCount=(distinctRowCount < rowCount) ? distinctRowCount : rowCount;
+    while (rows.size() < distinctRowCount) {
+      rows.add(r.nextInt(rowCount));
+    }
+    tableStream.close();
+    tableReader.close();
+    tableStream=null;
+    tableReader=null;
+    tableStream=store.getResource(path);
+    tableReader=new BufferedReader(new InputStreamReader(tableStream));
+    while ((curRow=tableReader.readLine()) != null) {
+      if (rows.contains(curRowNum)) {
+        String[] tokens=curRow.split(",");
+        String[] comboKeys=null;
+        int index=0;
+        if (columnNames.size() > 1)         comboKeys=new String[columnNames.size()];
+        for (        String columnName : columnNames) {
+          int zeroBasedIndex=zeroBasedInice.get(columnName);
+          if (!feasibleValues.containsKey(lookupTableName + "/" + columnName))           feasibleValues.put(lookupTableName + "/" + columnName,new ArrayList<String>());
+          feasibleValues.get(lookupTableName + "/" + columnName).add(tokens[zeroBasedIndex]);
+          if (columnNames.size() > 1) {
+            comboKeys[index]=tokens[zeroBasedIndex];
+            index++;
+          }
+        }
+        if (columnNames.size() > 1) {
+          Array<String> wrap=new Array<String>(comboKeys);
+          if (lookupTableCompositeKeyValues.get(lookupTableName).contains(wrap)) {
+            throw new Exception("The composite key already exist in the lookup table");
+          }
+          lookupTableCompositeKeyValues.get(lookupTableName).add(wrap);
+        }
+      }
+      curRowNum++;
+    }
+    if (tableStream != null)     tableStream.close();
+    if (tableReader != null)     tableReader.close();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    System.exit(1);
+  }
+}

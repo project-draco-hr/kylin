@@ -1,0 +1,3 @@
+{
+  kylinConfig.setProperty(KYLIN_JOB_RUN_AS_REMOTE_CMD,v);
+}
