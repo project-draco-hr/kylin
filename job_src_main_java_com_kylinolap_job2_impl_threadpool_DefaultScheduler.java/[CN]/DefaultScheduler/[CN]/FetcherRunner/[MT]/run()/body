@@ -24,6 +24,8 @@
         }
       }
     }
-    resetStatus(executable);
+    if (!context.getRunningJobs().containsKey(executable.getId())) {
+      resetStatusFromRunningToError(executable);
+    }
   }
 }

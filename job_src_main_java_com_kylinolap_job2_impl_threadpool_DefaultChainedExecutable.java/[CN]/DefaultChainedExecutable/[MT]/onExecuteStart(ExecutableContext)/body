@@ -1,4 +1,3 @@
 {
-  this.setStatus(ExecutableStatus.RUNNING);
-  jobService.updateJobStatus(this);
+  jobService.updateJobStatus(this,ExecutableStatus.RUNNING);
 }

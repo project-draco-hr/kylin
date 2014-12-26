@@ -1,6 +1,7 @@
 {
   try {
-    jobDao.addJob(parseTo(executable));
+    jobDao.addJob(getJobPO(executable));
+    addJobOutput(executable);
   }
  catch (  PersistentException e) {
     logger.error("fail to submit job:" + executable.getId(),e);

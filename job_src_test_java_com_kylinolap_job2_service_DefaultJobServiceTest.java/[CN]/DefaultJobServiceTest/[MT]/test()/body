@@ -2,18 +2,15 @@
   assertNotNull(service);
   BaseTestExecutable executable=new SucceedTestExecutable();
   executable.setStatus(ExecutableStatus.READY);
-  HashMap<String,String> extra=new HashMap<>();
-  extra.put("test1","test1");
-  extra.put("test2","test2");
-  extra.put("test3","test3");
-  executable.setExtra(extra);
+  executable.setParam("test1","test1");
+  executable.setParam("test2","test2");
+  executable.setParam("test3","test3");
   service.addJob(executable);
   List<AbstractExecutable> result=service.getAllExecutables();
   assertEquals(1,result.size());
   AbstractExecutable another=service.getJob(executable.getId());
   assertJobEqual(executable,another);
-  executable.setStatus(ExecutableStatus.SUCCEED);
   executable.setOutput("test output");
-  service.updateJobStatus(executable);
+  service.updateJobStatus(executable,ExecutableStatus.RUNNING);
   assertJobEqual(executable,service.getJob(executable.getId()));
 }

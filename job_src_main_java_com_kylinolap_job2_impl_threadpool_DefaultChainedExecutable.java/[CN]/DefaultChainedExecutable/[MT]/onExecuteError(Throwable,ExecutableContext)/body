@@ -1,4 +1,3 @@
 {
-  this.setStatus(ExecutableStatus.ERROR);
-  jobService.updateJobStatus(this);
+  jobService.updateJobStatus(this,ExecutableStatus.ERROR);
 }

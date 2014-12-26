@@ -6,17 +6,30 @@
     return;
   }
   this.jobEngineConfig=jobEngineConfig;
+  RetryPolicy retryPolicy=new ExponentialBackoffRetry(1000,3);
+  this.zkClient=CuratorFrameworkFactory.newClient(jobEngineConfig.getZookeeperString(),retryPolicy);
+  this.zkClient.start();
+  this.sharedLock=new InterProcessMutex(zkClient,schedulerId());
+  boolean hasLock=false;
+  try {
+    hasLock=sharedLock.acquire(3,TimeUnit.SECONDS);
+  }
+ catch (  Exception e) {
+    logger.warn("error acquire lock",e);
+  }
+  if (!hasLock) {
+    logger.warn("fail to acquire lock, scheduler has not been started");
+    zkClient.close();
+    return;
+  }
   jobService=DefaultJobService.getInstance(jobEngineConfig.getConfig());
   fetcherPool=Executors.newScheduledThreadPool(1);
   int corePoolSize=jobEngineConfig.getMaxConcurrentJobLimit();
   jobPool=new ThreadPoolExecutor(corePoolSize,corePoolSize,Long.MAX_VALUE,TimeUnit.DAYS,new SynchronousQueue<Runnable>());
   context=new DefaultContext(Maps.<String,Executable>newConcurrentMap());
-  RetryPolicy retryPolicy=new ExponentialBackoffRetry(1000,3);
-  this.zkClient=CuratorFrameworkFactory.newClient(jobEngineConfig.getZookeeperString(),retryPolicy);
-  this.zkClient.start();
   for (  AbstractExecutable executable : jobService.getAllExecutables()) {
     if (executable.getStatus() == ExecutableStatus.RUNNING) {
-      jobService.updateJobStatus(executable.getId(),ExecutableStatus.READY,null);
+      jobService.resetRunningJobToError(executable,"scheduler initializing work to reset job to ERROR status");
     }
   }
   Runtime.getRuntime().addShutdownHook(new Thread(){
@@ -32,4 +45,5 @@
   }
 );
   fetcherPool.scheduleAtFixedRate(new FetcherRunner(),10,JobConstants.DEFAULT_SCHEDULER_INTERVAL_SECONDS,TimeUnit.SECONDS);
+  hasStarted=true;
 }

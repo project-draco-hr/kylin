@@ -2,10 +2,8 @@
   String type=jobPO.getType();
   try {
     Class<? extends AbstractExecutable> clazz=(Class<? extends AbstractExecutable>)Class.forName(type);
-    Constructor<? extends AbstractExecutable> constructor=clazz.getConstructor();
-    AbstractExecutable result=constructor.newInstance();
-    result.setId(jobPO.getUuid());
-    result.setExtra(jobPO.getExtra());
+    Constructor<? extends AbstractExecutable> constructor=clazz.getConstructor(JobPO.class,JobOutputPO.class);
+    AbstractExecutable result=constructor.newInstance(jobPO,jobOutput);
     List<JobPO> tasks=jobPO.getTasks();
     if (tasks != null && !tasks.isEmpty()) {
       Preconditions.checkArgument(result instanceof DefaultChainedExecutable);

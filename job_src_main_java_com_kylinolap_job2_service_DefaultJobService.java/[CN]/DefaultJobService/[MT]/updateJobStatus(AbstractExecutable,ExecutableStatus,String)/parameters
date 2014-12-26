@@ -1,0 +1,3 @@
+AbstractExecutable executable
+ExecutableStatus newStatus
+String reason

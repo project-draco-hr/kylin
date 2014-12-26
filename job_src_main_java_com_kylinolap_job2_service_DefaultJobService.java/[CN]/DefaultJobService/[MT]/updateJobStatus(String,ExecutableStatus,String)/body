@@ -1,7 +1,0 @@
-{
-  JobOutputPO jobOutputPO=new JobOutputPO();
-  jobOutputPO.setUuid(uuid);
-  jobOutputPO.setContent(output);
-  jobOutputPO.setStatus(status.toString());
-  updateJobOutput(uuid,jobOutputPO);
-}

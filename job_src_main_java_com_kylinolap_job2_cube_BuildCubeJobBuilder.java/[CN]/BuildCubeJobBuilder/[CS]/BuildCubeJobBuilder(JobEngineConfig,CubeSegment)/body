@@ -1,0 +1,4 @@
+{
+  this.jobEngineConfig=engineCfg;
+  this.segment=segment;
+}

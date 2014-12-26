@@ -1,0 +1,10 @@
+{
+  if (executable.getStatus() == ExecutableStatus.RUNNING) {
+    updateJobStatus(executable,ExecutableStatus.ERROR,reason);
+    if (executable instanceof DefaultChainedExecutable) {
+      for (      AbstractExecutable subTask : ((DefaultChainedExecutable)executable).getTasks()) {
+        resetRunningJobToError(subTask,reason);
+      }
+    }
+  }
+}

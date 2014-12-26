@@ -1,8 +1,8 @@
 {
-  List<AbstractExecutable> executables=getExecutables();
+  List<? extends Executable> executables=getTasks();
   final int size=executables.size();
   for (int i=0; i < size; ++i) {
-    AbstractExecutable subTask=executables.get(i);
+    Executable subTask=executables.get(i);
     if (subTask.isRunnable()) {
       return subTask.execute(context);
     }

@@ -1,0 +1,6 @@
+{
+  SucceedTestExecutable job=new SucceedTestExecutable();
+  service.addJob(job);
+  service.updateJobStatus(job,ExecutableStatus.RUNNING);
+  service.updateJobStatus(job,ExecutableStatus.DISCARDED);
+}

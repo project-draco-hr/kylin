@@ -1,0 +1,3 @@
+{
+  return jobEngineConfig.getHdfsWorkingDirectory() + "/" + JOB_WORKING_DIR_PREFIX+ jobUuid;
+}

@@ -1,0 +1,12 @@
+{
+  SucceedTestExecutable job=new SucceedTestExecutable();
+  service.addJob(job);
+  service.updateJobStatus(job,ExecutableStatus.RUNNING);
+  service.updateJobStatus(job,ExecutableStatus.ERROR);
+  service.updateJobStatus(job,ExecutableStatus.READY);
+  service.updateJobStatus(job,ExecutableStatus.RUNNING);
+  service.updateJobStatus(job,ExecutableStatus.STOPPED);
+  service.updateJobStatus(job,ExecutableStatus.READY);
+  service.updateJobStatus(job,ExecutableStatus.RUNNING);
+  service.updateJobStatus(job,ExecutableStatus.SUCCEED);
+}

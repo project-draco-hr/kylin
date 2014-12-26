@@ -1,0 +1,14 @@
+{
+  try {
+    Integer result=cliCommandExecutor.execute(getShellCmd(),null).getFirst();
+    if (result == 0) {
+      return new ExecuteResult(true,null);
+    }
+ else {
+      return new ExecuteResult(false,"");
+    }
+  }
+ catch (  IOException e) {
+    throw new ExecuteException(e);
+  }
+}
