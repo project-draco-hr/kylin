@@ -1,6 +1,6 @@
 {
-  if (filter == null)   return filter;
-  if (filter.getOperator() == FilterOperatorEnum.NOT && TupleFilter.isEvaluableRecursively(filter) == false)   return ConstantTupleFilter.TRUE;
+  if (filter == null)   return null;
+  if (filter.getOperator() == FilterOperatorEnum.NOT && !TupleFilter.isEvaluableRecursively(filter))   return ConstantTupleFilter.TRUE;
   if (!(filter instanceof CompareTupleFilter))   return filter;
   if (!TupleFilter.isEvaluableRecursively(filter))   return ConstantTupleFilter.TRUE;
   CompareTupleFilter compf=(CompareTupleFilter)filter;
@@ -26,7 +26,7 @@ case IN:
     Set<String> newValues=Sets.newHashSet();
   for (  String value : constValues) {
     v=translate(col,value,0);
-    if (nullString.equals(v) == false)     newValues.add(v);
+    if (!nullString.equals(v))     newValues.add(v);
   }
 if (newValues.isEmpty()) {
   result=ConstantTupleFilter.FALSE;
