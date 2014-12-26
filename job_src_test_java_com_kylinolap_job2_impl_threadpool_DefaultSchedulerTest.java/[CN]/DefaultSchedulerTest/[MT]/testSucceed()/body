@@ -1,5 +1,4 @@
 {
-  assertNotNull(scheduler);
   DefaultChainedExecutable job=new DefaultChainedExecutable();
   BaseTestExecutable task1=new SucceedTestExecutable();
   BaseTestExecutable task2=new SucceedTestExecutable();

@@ -1,2 +1,3 @@
 {
+  jobService.updateJobStatus(this,ExecutableStatus.ERROR,exception.getLocalizedMessage());
 }

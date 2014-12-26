@@ -1,0 +1,2 @@
+ConcurrentMap<String,Executable> runningJobs
+KylinConfig kylinConfig

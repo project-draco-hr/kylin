@@ -1,3 +1,5 @@
 {
-  return null;
+  CommonJob result=new CommonJob();
+  result.addTask(createIntermediateHiveTableStep());
+  return result;
 }
