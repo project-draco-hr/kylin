@@ -5,7 +5,8 @@
     parseOptions(options,args);
     String iiname=getOptionValue(OPTION_II_NAME);
     KylinConfig config=KylinConfig.getInstanceFromEnv();
-    IIDesc iidesc=IIDescManager.getInstance(config).getIIDesc(iiname);
+    IIInstance iiInstance=IIManager.getInstance(config).getII(iiname);
+    IIDesc iidesc=IIDescManager.getInstance(config).getIIDesc(iiInstance.getDescName());
     String jobUUID="00bf87b5-c7b5-4420-a12a-07f6b37b3187";
     JobEngineConfig engineConfig=new JobEngineConfig(config);
     IJoinedFlatTableDesc intermediateTableDesc=new IIJoinedFlatTableDesc(iidesc);
@@ -19,6 +20,11 @@
     buf.append(insertDataHql + "\n");
     buf.append("\"");
     System.out.println(buf.toString());
+    System.out.println("========================");
+    ShellCmd cmd=new ShellCmd(buf.toString(),null,null,null,false);
+    ICommandOutput output=cmd.execute();
+    System.out.println(output.getOutput());
+    System.out.println(output.getExitCode());
     return 0;
   }
  catch (  Exception e) {
