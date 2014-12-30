@@ -20,7 +20,7 @@
       logger.error("Dup IIDesc name '" + desc.getName() + "' on path "+ path);
       continue;
     }
-    iiDescMap.putLocal(desc.getName().toUpperCase(),desc);
+    iiDescMap.putLocal(desc.getName(),desc);
   }
   logger.debug("Loaded " + iiDescMap.size() + " II(s)");
 }
