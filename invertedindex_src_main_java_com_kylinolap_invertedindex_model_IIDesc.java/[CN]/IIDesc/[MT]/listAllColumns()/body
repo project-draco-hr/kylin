@@ -1,7 +1,3 @@
 {
-  List<TblColRef> ret=Lists.newArrayList();
-  for (  ColumnDesc columnDesc : this.tableDesc.getColumns()) {
-    ret.add(new TblColRef(columnDesc));
-  }
-  return ret;
+  return allColumns;
 }

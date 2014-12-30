@@ -4,8 +4,9 @@
   if (parameter == null)   return null;
   String columnName=parameter.getValue();
   for (  TblColRef col : dimensionColumns) {
-    String name=col.getName();
-    if (name != null && name.equals(columnName))     return col;
+    if (col.matchFullName(factTableName,columnName)) {
+      return col;
+    }
   }
   return null;
 }
