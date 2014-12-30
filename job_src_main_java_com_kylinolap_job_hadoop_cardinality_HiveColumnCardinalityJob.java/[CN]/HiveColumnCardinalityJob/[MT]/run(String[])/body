@@ -2,10 +2,7 @@
   Options options=new Options();
   try {
     options.addOption(OPTION_TABLE);
-    options.addOption(OPTION_INPUT_PATH);
     options.addOption(OPTION_OUTPUT_PATH);
-    options.addOption(OPTION_FORMAT);
-    options.addOption(OPTION_INPUT_DELIM);
     parseOptions(options,args);
     String jobName=JOB_TITLE + getOptionsAsString();
     System.out.println("Starting: " + jobName);
@@ -17,23 +14,9 @@
  else {
       job.setJar(jarPath);
     }
-    FileInputFormat.setInputDirRecursive(job,true);
-    addInputDirs(getOptionValue(OPTION_INPUT_PATH),job);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
     FileOutputFormat.setOutputPath(job,output);
     job.getConfiguration().set("dfs.block.size","67108864");
-    String format=getOptionValue(OPTION_FORMAT);
-    @SuppressWarnings("rawtypes") Class cformat=getFormat(format);
-    String delim=getOptionValue(OPTION_INPUT_DELIM);
-    if (delim != null) {
-      if (delim.equals("t")) {
-        delim="\t";
-      }
- else       if (delim.equals("177")) {
-        delim="\177";
-      }
-      job.getConfiguration().set(KEY_INPUT_DELIM,delim);
-    }
     this.table=getOptionValue(OPTION_TABLE);
     System.out.println("Going to start HiveColumnCardinalityJob on table '" + table + "'");
     HCatInputFormat.setInput(job,"default",table);
