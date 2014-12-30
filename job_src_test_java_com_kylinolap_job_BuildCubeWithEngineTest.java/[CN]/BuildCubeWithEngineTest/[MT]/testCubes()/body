@@ -1,6 +1,5 @@
 {
   jobManager.startJobEngine(10);
   testLeftJoinCube();
-  testInnerJoinCube();
   jobManager.stopJobEngine();
 }

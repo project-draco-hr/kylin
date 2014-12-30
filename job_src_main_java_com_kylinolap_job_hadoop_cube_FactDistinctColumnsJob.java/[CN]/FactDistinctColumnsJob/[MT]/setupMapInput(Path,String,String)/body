@@ -7,12 +7,8 @@
  else {
     job.setJarByClass(this.getClass());
   }
-  if ("text".equalsIgnoreCase(inputFormat) || "textinputformat".equalsIgnoreCase(inputFormat)) {
-    job.setInputFormatClass(TextInputFormat.class);
-  }
- else {
-    job.setInputFormatClass(SequenceFileInputFormat.class);
-  }
+  HCatInputFormat.setInput(job,"default",intermediateTable.toLowerCase());
+  job.setInputFormatClass(HCatInputFormat.class);
   job.setMapperClass(FactDistinctColumnsMapper.class);
   job.setCombinerClass(FactDistinctColumnsCombiner.class);
   job.setMapOutputKeyClass(ShortWritable.class);

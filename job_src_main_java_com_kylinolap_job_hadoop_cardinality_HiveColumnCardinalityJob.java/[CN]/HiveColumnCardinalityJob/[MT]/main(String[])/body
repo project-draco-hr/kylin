@@ -4,7 +4,7 @@
   String inputFormat="org.apache.hadoop.mapred.SequenceFileInputFormat";
   String delim="177";
   String jarPath="/usr/lib/kylin/kylin-index-latest.jar";
-  args=new String[]{"-input",location,"-output","/tmp/cardinality/" + tempName,"-iformat",inputFormat,"-idelim",delim};
+  args=new String[]{"-output","/tmp/cardinality/" + tempName,"-table","shipping_sisense_cube_desc_intermediate_table"};
   HiveColumnCardinalityJob job=new HiveColumnCardinalityJob(jarPath,"/tmp/krb5cc_882");
   try {
     ToolRunner.run(job,args);
