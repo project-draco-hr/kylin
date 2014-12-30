@@ -8,17 +8,17 @@
  else {
     this.tableName="kylin_intermediate_" + cubeDesc.getName() + "_"+ cubeSegment.getName();
   }
-  Map<String,Integer> dimensionIndexMap=new HashMap<String,Integer>();
+  Map<String,Integer> dimensionIndexMap=Maps.newHashMap();
   int columnIndex=0;
   for (  TblColRef col : cubeDesc.listDimensionColumnsExcludingDerived()) {
-    dimensionIndexMap.put(col.getName(),columnIndex);
-    columnList.add(new IntermediateColumnDesc(String.valueOf(columnIndex),col.getName(),col.getDatatype(),col.getTable()));
+    dimensionIndexMap.put(col.getCanonicalName(),columnIndex);
+    columnList.add(new IntermediateColumnDesc(String.valueOf(columnIndex),col));
     columnIndex++;
   }
   List<TblColRef> cuboidColumns=baseCuboid.getColumns();
   rowKeyColumnIndexes=new int[rowkeyColCount];
   for (int i=0; i < rowkeyColCount; i++) {
-    String colName=cuboidColumns.get(i).getName();
+    String colName=cuboidColumns.get(i).getCanonicalName();
     Integer dimIdx=dimensionIndexMap.get(colName);
     if (dimIdx == null) {
       throw new RuntimeException("Can't find column " + colName);
@@ -41,7 +41,7 @@
         measureColumnIndexes[i][j]=contains(columnList,c);
         if (measureColumnIndexes[i][j] < 0) {
           measureColumnIndexes[i][j]=columnIndex;
-          columnList.add(new IntermediateColumnDesc(String.valueOf(columnIndex),c.getName(),c.getDatatype(),c.getTable()));
+          columnList.add(new IntermediateColumnDesc(String.valueOf(columnIndex),c));
           columnIndex++;
         }
       }

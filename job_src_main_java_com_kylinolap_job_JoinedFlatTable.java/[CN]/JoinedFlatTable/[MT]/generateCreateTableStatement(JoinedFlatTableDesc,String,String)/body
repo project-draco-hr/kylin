@@ -7,8 +7,7 @@
     if (i > 0) {
       ddl.append(",");
     }
-    String fullColumnName=(col.getTableName() + "_" + col.getColumnName()).replace(".","_");
-    ddl.append(fullColumnName + " " + SqlHiveDataTypeMapping.getHiveDataType(col.getDataType())+ "\n");
+    ddl.append(col.getCanonicalName() + " " + SqlHiveDataTypeMapping.getHiveDataType(col.getDataType())+ "\n");
   }
   ddl.append(")" + "\n");
   ddl.append("ROW FORMAT DELIMITED FIELDS TERMINATED BY '\\177'" + "\n");

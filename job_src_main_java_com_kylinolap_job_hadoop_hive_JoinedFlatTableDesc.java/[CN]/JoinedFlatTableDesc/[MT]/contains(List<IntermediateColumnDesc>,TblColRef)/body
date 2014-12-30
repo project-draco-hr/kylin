@@ -1,7 +1,7 @@
 {
   for (int i=0; i < columnList.size(); i++) {
     IntermediateColumnDesc col=columnList.get(i);
-    if (col.getColumnName().equals(c.getName()) && col.getTableName().equals(c.getTable()))     return i;
+    if (col.isSameAs(c.getTable(),c.getName()))     return i;
   }
   return -1;
 }
