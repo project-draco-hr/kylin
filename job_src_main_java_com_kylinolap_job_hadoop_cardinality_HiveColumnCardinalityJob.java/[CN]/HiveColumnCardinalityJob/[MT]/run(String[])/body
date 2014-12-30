@@ -35,6 +35,7 @@
       job.getConfiguration().set(KEY_INPUT_DELIM,delim);
     }
     this.table=getOptionValue(OPTION_TABLE);
+    System.out.println("Going to start HiveColumnCardinalityJob on table '" + table + "'");
     HCatInputFormat.setInput(job,"default",table);
     HCatSchema tableSchema=HCatInputFormat.getTableSchema(job.getConfiguration());
     job.getConfiguration().set(KEY_TABLE_COLUMN_NUMBER,String.valueOf(tableSchema.size()));
