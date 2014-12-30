@@ -1,6 +1,7 @@
 {
   Options options=new Options();
   try {
+    options.addOption(OPTION_TABLE);
     options.addOption(OPTION_INPUT_PATH);
     options.addOption(OPTION_OUTPUT_PATH);
     options.addOption(OPTION_FORMAT);
@@ -33,7 +34,11 @@
       }
       job.getConfiguration().set(KEY_INPUT_DELIM,delim);
     }
-    job.setInputFormatClass(cformat);
+    this.table=getOptionValue(OPTION_TABLE);
+    HCatInputFormat.setInput(job,"default",table);
+    HCatSchema tableSchema=HCatInputFormat.getTableSchema(job.getConfiguration());
+    job.getConfiguration().set(KEY_TABLE_COLUMN_NUMBER,String.valueOf(tableSchema.size()));
+    job.setInputFormatClass(HCatInputFormat.class);
     job.setMapperClass(ColumnCardinalityMapper.class);
     job.setMapOutputKeyClass(IntWritable.class);
     job.setMapOutputValueClass(BytesWritable.class);
