@@ -1,5 +1,5 @@
 {
-  IIFlatenHiveJob job=new IIFlatenHiveJob();
+  IIFlattenHiveJob job=new IIFlattenHiveJob();
   int exitCode=ToolRunner.run(job,args);
   System.exit(exitCode);
 }
