@@ -7,7 +7,7 @@
   cubeName=conf.get(BatchConstants.CFG_CUBE_NAME);
   cube=CubeManager.getInstance(config).getCube(cubeName);
   cubeDesc=cube.getDescriptor();
-  intermediateTableDesc=new JoinedFlatTableDesc(cubeDesc,null);
+  intermediateTableDesc=new CubeJoinedFlatTableDesc(cubeDesc,null);
   long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
   Cuboid baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
   List<TblColRef> columns=baseCuboid.getColumns();

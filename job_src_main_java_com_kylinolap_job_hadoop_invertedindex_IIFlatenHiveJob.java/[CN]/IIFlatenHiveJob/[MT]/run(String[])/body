@@ -1,0 +1,29 @@
+{
+  Options options=new Options();
+  try {
+    options.addOption(OPTION_II_NAME);
+    parseOptions(options,args);
+    String iiname=getOptionValue(OPTION_II_NAME);
+    KylinConfig config=KylinConfig.getInstanceFromEnv();
+    IIDesc iidesc=IIDescManager.getInstance(config).getIIDesc(iiname);
+    String jobUUID="00bf87b5-c7b5-4420-a12a-07f6b37b3187";
+    JobEngineConfig engineConfig=new JobEngineConfig(config);
+    IJoinedFlatTableDesc intermediateTableDesc=new IIJoinedFlatTableDesc(iidesc);
+    String dropTableHql=JoinedFlatTable.generateDropTableStatement(intermediateTableDesc,jobUUID);
+    String createTableHql=JoinedFlatTable.generateCreateTableStatement(intermediateTableDesc,JobInstance.getJobWorkingDir(jobUUID,engineConfig.getHdfsWorkingDirectory()),jobUUID);
+    String insertDataHql=JoinedFlatTable.generateInsertDataStatement(intermediateTableDesc,jobUUID,engineConfig);
+    StringBuffer buf=new StringBuffer();
+    buf.append("hive -e \"");
+    buf.append(dropTableHql + "\n");
+    buf.append(createTableHql + "\n");
+    buf.append(insertDataHql + "\n");
+    buf.append("\"");
+    System.out.println(buf.toString());
+    return 0;
+  }
+ catch (  Exception e) {
+    printUsage(options);
+    log.error(e.getLocalizedMessage(),e);
+    return 2;
+  }
+}

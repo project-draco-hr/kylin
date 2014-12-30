@@ -2,6 +2,6 @@
   CubeInstance cube=CubeManager.getInstance(config).getCube(cubeName);
   CubeDesc cubeDesc=cube.getDescriptor();
   CubeSegment cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.READY);
-  JoinedFlatTableDesc flatTableDesc=new JoinedFlatTableDesc(cubeDesc,cubeSegment);
+  CubeJoinedFlatTableDesc flatTableDesc=new CubeJoinedFlatTableDesc(cubeDesc,cubeSegment);
   return JoinedFlatTable.generateSelectDataStatement(flatTableDesc);
 }
