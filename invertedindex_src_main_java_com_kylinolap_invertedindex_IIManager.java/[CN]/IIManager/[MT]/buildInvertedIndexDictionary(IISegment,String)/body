@@ -1,12 +1,12 @@
 {
   DictionaryManager dictMgr=getDictionaryManager();
   IIDesc iiDesc=iiSeg.getIIInstance().getDescriptor();
-  TableDesc tableDesc=iiDesc.getFactTableDesc();
-  for (  ColumnDesc colDesc : tableDesc.getColumns()) {
-    TblColRef col=new TblColRef(colDesc);
-    if (iiDesc.isMetricsCol(col))     continue;
-    DictionaryInfo dict=dictMgr.buildDictionary(null,null,col,factColumnsPath);
-    iiSeg.putDictResPath(col,dict.getResourcePath());
+  for (  TblColRef column : iiDesc.listAllColumns()) {
+    if (iiDesc.isMetricsCol(column)) {
+      continue;
+    }
+    DictionaryInfo dict=dictMgr.buildDictionary(iiDesc.getModel(),"true",column,factColumnsPath);
+    iiSeg.putDictResPath(column,dict.getResourcePath());
   }
   saveResource(iiSeg.getIIInstance());
 }
