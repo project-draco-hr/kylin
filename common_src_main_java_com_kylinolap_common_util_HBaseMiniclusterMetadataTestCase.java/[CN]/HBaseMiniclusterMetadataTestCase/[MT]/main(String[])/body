@@ -1,5 +1,6 @@
 {
   HBaseMiniclusterMetadataTestCase t=new HBaseMiniclusterMetadataTestCase();
+  System.out.println(t);
   try {
     HBaseMiniclusterMetadataTestCase.startupMinicluster();
   }

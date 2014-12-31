@@ -6,7 +6,7 @@ synchronized (RealizationRegistry.class) {
         List<String> realizationProviders=Lists.newArrayList("com.kylinolap.cube.CubeManager");
         for (        String clsName : realizationProviders) {
           try {
-            Class cls=Class.forName(clsName);
+            Class<?> cls=Class.forName(clsName);
             cls.getMethod("getInstance",KylinConfig.class).invoke(null,this.config);
           }
  catch (          Exception|NoClassDefFoundError e) {
