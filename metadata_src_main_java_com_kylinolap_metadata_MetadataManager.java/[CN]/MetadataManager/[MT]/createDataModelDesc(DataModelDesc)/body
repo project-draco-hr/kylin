@@ -1,16 +1,5 @@
 {
-  if (dataModelDescMap.containsKey(dataModelDesc.getName()))   throw new IllegalArgumentException("DataModelDesc '" + dataModelDesc.getName() + "' already exists");
-  try {
-    dataModelDesc.init(this.getAllTablesMap());
-  }
- catch (  IllegalStateException e) {
-    dataModelDesc.addError(e.getMessage(),true);
-  }
-  if (!dataModelDesc.getError().isEmpty()) {
-    return dataModelDesc;
-  }
-  String path=dataModelDesc.getResourcePath();
-  getStore().putResource(path,dataModelDesc,MODELDESC_SERIALIZER);
-  dataModelDescMap.put(dataModelDesc.getName(),dataModelDesc);
-  return dataModelDesc;
+  String name=dataModelDesc.getName();
+  if (dataModelDescMap.containsKey(name))   throw new IllegalArgumentException("DataModelDesc '" + name + "' already exists");
+  return saveDataModelDesc(dataModelDesc);
 }

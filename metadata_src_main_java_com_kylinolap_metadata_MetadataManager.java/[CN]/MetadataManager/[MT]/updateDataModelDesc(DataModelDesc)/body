@@ -3,20 +3,5 @@
   if (!dataModelDescMap.containsKey(name)) {
     throw new IllegalArgumentException("DataModelDesc '" + name + "' does not exist.");
   }
-  try {
-    desc.init(this.getAllTablesMap());
-  }
- catch (  IllegalStateException e) {
-    desc.addError(e.getMessage(),true);
-    return desc;
-  }
-catch (  IllegalArgumentException e) {
-    desc.addError(e.getMessage(),true);
-    return desc;
-  }
-  String path=desc.getResourcePath();
-  getStore().putResource(path,desc,MODELDESC_SERIALIZER);
-  DataModelDesc ndesc=loadDataModelDesc(path);
-  dataModelDescMap.put(ndesc.getName(),desc);
-  return ndesc;
+  return saveDataModelDesc(desc);
 }

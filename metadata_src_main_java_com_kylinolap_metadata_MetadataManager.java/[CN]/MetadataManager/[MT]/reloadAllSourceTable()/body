@@ -4,7 +4,10 @@
   srcTableMap.clear();
   List<String> paths=store.collectResourceRecursively(ResourceStore.TABLE_RESOURCE_ROOT,MetadataConstances.FILE_SURFIX);
   for (  String path : paths) {
-    loadSourceTable(path);
+    TableDesc t=loadSourceTable(path);
+    String tableIdentity=TableDesc.getTableIdentity(t);
+    checkNoDupName(tableIdentity,srcTableMap.containsKey(tableIdentity),"SourceTable",path);
+    srcTableMap.putLocal(tableIdentity,t);
   }
-  logger.debug("Loaded " + paths.size() + " SourceTable(s)");
+  logger.debug("Loaded " + srcTableMap.size() + " SourceTable(s)");
 }
