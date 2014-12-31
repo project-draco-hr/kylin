@@ -2,3 +2,4 @@ String cubeName
 String segmentName
 String segmentId
 RealizationBuildTypeEnum jobType
+String submitter

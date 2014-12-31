@@ -1,3 +1,4 @@
 {
-  logger.error("Internal error (Exception) throw out of controller",ex);
+  logger.error("",ex);
+  return new ErrorResponse(req.getRequestURL().toString(),ex);
 }

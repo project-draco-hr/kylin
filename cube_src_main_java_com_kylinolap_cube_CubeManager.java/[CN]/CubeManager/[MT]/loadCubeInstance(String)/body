@@ -1,6 +1,5 @@
 {
   ResourceStore store=getStore();
-  logger.debug("Loading CubeInstance " + store.getReadableResourcePath(path));
   CubeInstance cubeInstance=null;
   try {
     cubeInstance=store.getResource(path,CubeInstance.class,CUBE_SERIALIZER);

@@ -1,6 +1,5 @@
 {
   ResourceStore store=getStore();
-  logger.debug("Loading SourceTable " + store.getReadableResourcePath(path));
   TableDesc t=store.getResource(path,TableDesc.class,TABLE_SERIALIZER);
   t.init();
   String tableIdentity=TableDesc.getTableIdentity(t);
