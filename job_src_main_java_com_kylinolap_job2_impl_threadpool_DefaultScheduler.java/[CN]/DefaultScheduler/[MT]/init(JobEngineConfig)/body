@@ -28,8 +28,8 @@
   jobPool=new ThreadPoolExecutor(corePoolSize,corePoolSize,Long.MAX_VALUE,TimeUnit.DAYS,new SynchronousQueue<Runnable>());
   context=new DefaultContext(Maps.<String,Executable>newConcurrentMap(),jobEngineConfig.getConfig());
   for (  AbstractExecutable executable : jobService.getAllExecutables()) {
-    if (executable.getStatus() == ExecutableStatus.RUNNING) {
-      jobService.resetRunningJobToError(executable,"scheduler initializing work to reset job to ERROR status");
+    if (executable.getStatus() == ExecutableState.RUNNING) {
+      jobService.updateJobStatus(executable.getId(),ExecutableState.ERROR,"scheduler initializing work to reset job to ERROR status");
     }
   }
   Runtime.getRuntime().addShutdownHook(new Thread(){

@@ -3,7 +3,6 @@
     JobOutputPO result=readJobOutputResource(pathOfJobOutput(uuid));
     if (result == null) {
       result=new JobOutputPO();
-      result.setStatus(ExecutableStatus.READY.toString());
       result.setUuid(uuid);
       return result;
     }

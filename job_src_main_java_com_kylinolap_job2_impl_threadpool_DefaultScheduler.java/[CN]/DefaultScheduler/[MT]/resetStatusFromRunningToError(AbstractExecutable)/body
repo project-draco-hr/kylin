@@ -1,6 +1,7 @@
 {
-  if (executable.getStatus() == ExecutableStatus.RUNNING) {
-    logger.warn("job:" + executable.getId() + " status should not be:"+ ExecutableStatus.RUNNING+ ", reset it to ERROR");
-    jobService.resetRunningJobToError(executable,"job:" + executable.getId() + " status should not be:"+ ExecutableStatus.RUNNING+ ", reset it to ERROR");
+  if (executable.getStatus() == ExecutableState.RUNNING) {
+    final String errMsg="job:" + executable.getId() + " status should not be:"+ ExecutableState.RUNNING+ ", reset it to ERROR";
+    logger.warn(errMsg);
+    jobService.updateJobStatus(executable.getId(),ExecutableState.ERROR,errMsg);
   }
 }

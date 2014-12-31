@@ -1,3 +1,3 @@
 {
-  return ExecutableStatus.valueOf(jobOutput.getStatus());
+  return jobService.getJobStatus(this.getId());
 }

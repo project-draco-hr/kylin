@@ -1,0 +1,18 @@
+{
+  final ExecutableState status=job.getStatus();
+  if (status == ExecutableState.RUNNING) {
+    updateJobStatus(job.getId(),ExecutableState.STOPPED);
+    if (job instanceof DefaultChainedExecutable) {
+      final List<AbstractExecutable> tasks=((DefaultChainedExecutable)job).getTasks();
+      for (      AbstractExecutable task : tasks) {
+        if (task.getStatus() == ExecutableState.RUNNING) {
+          stopJob(task);
+          break;
+        }
+      }
+    }
+  }
+ else {
+    updateJobStatus(job.getId(),ExecutableState.STOPPED);
+  }
+}

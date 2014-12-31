@@ -1,0 +1,35 @@
+{
+  if (result.succeed()) {
+    List<? extends Executable> jobs=getTasks();
+    boolean allSucceed=true;
+    boolean hasError=false;
+    for (    Executable task : jobs) {
+      final ExecutableState status=task.getStatus();
+      if (status == ExecutableState.ERROR) {
+        hasError=true;
+      }
+      if (status != ExecutableState.SUCCEED) {
+        allSucceed=false;
+      }
+    }
+    if (allSucceed) {
+      jobService.updateJobStatus(getId(),ExecutableState.SUCCEED);
+    }
+ else     if (hasError) {
+      jobService.updateJobStatus(getId(),ExecutableState.ERROR);
+    }
+ else {
+      jobService.updateJobStatus(getId(),ExecutableState.READY);
+    }
+  }
+ else   if (result.state() == ExecuteResult.State.STOPPED) {
+    if (getStatus() == ExecutableState.STOPPED) {
+    }
+ else {
+      jobService.updateJobStatus(getId(),ExecutableState.ERROR);
+    }
+  }
+ else {
+    jobService.updateJobStatus(getId(),ExecutableState.ERROR,null);
+  }
+}

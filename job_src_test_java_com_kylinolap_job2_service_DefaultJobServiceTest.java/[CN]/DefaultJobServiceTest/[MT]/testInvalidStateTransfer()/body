@@ -1,6 +1,6 @@
 {
   SucceedTestExecutable job=new SucceedTestExecutable();
   service.addJob(job);
-  service.updateJobStatus(job,ExecutableStatus.RUNNING);
-  service.updateJobStatus(job,ExecutableStatus.DISCARDED);
+  service.updateJobStatus(job.getId(),ExecutableState.RUNNING);
+  assertFalse(service.updateJobStatus(job.getId(),ExecutableState.DISCARDED));
 }

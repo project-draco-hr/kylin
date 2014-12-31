@@ -1,0 +1,11 @@
+{
+  if (result.succeed()) {
+    jobService.updateJobStatus(getId(),ExecutableState.SUCCEED,result.output());
+  }
+ else   if (result.state() == ExecuteResult.State.STOPPED) {
+    jobService.updateJobStatus(getId(),ExecutableState.STOPPED,result.output());
+  }
+ else {
+    jobService.updateJobStatus(getId(),ExecutableState.ERROR,result.output());
+  }
+}

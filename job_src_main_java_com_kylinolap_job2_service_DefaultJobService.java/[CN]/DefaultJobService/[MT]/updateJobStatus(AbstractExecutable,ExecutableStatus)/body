@@ -1,3 +1,0 @@
-{
-  updateJobStatus(executable,newStatus,null);
-}

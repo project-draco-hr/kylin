@@ -6,5 +6,5 @@
   final BuildCubeJob job=buildCubeJobBuilder.build();
   jobService.addJob(job);
   waitForJob(job.getId());
-  assertEquals(ExecutableStatus.SUCCEED,jobService.getJobStatus(job.getId()));
+  assertEquals(ExecutableState.SUCCEED,jobService.getJobStatus(job.getId()));
 }

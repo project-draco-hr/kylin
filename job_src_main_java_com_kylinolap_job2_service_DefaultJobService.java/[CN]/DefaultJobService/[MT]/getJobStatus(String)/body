@@ -1,6 +1,6 @@
 {
   try {
-    return ExecutableStatus.valueOf(jobDao.getJobOutput(uuid).getStatus());
+    return ExecutableState.valueOf(jobDao.getJobOutput(uuid).getStatus());
   }
  catch (  PersistentException e) {
     logger.error("fail to get job output:" + uuid,e);

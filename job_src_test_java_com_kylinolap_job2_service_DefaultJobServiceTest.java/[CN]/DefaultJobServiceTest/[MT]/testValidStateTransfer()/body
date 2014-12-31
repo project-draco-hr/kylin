@@ -1,12 +1,13 @@
 {
   SucceedTestExecutable job=new SucceedTestExecutable();
+  String id=job.getId();
   service.addJob(job);
-  service.updateJobStatus(job,ExecutableStatus.RUNNING);
-  service.updateJobStatus(job,ExecutableStatus.ERROR);
-  service.updateJobStatus(job,ExecutableStatus.READY);
-  service.updateJobStatus(job,ExecutableStatus.RUNNING);
-  service.updateJobStatus(job,ExecutableStatus.STOPPED);
-  service.updateJobStatus(job,ExecutableStatus.READY);
-  service.updateJobStatus(job,ExecutableStatus.RUNNING);
-  service.updateJobStatus(job,ExecutableStatus.SUCCEED);
+  service.updateJobStatus(id,ExecutableState.RUNNING);
+  service.updateJobStatus(id,ExecutableState.ERROR);
+  service.updateJobStatus(id,ExecutableState.READY);
+  service.updateJobStatus(id,ExecutableState.RUNNING);
+  service.updateJobStatus(id,ExecutableState.STOPPED);
+  service.updateJobStatus(id,ExecutableState.READY);
+  service.updateJobStatus(id,ExecutableState.RUNNING);
+  service.updateJobStatus(id,ExecutableState.SUCCEED);
 }

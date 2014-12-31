@@ -1,7 +1,6 @@
 {
   assertNotNull(service);
   BaseTestExecutable executable=new SucceedTestExecutable();
-  executable.setStatus(ExecutableStatus.READY);
   executable.setParam("test1","test1");
   executable.setParam("test2","test2");
   executable.setParam("test3","test3");
@@ -10,7 +9,6 @@
   assertEquals(1,result.size());
   AbstractExecutable another=service.getJob(executable.getId());
   assertJobEqual(executable,another);
-  executable.setOutput("test output");
-  service.updateJobStatus(executable,ExecutableStatus.RUNNING);
+  service.updateJobStatus(executable.getId(),ExecutableState.RUNNING,"test output");
   assertJobEqual(executable,service.getJob(executable.getId()));
 }

@@ -3,7 +3,7 @@
   BaseTestExecutable task1=new SucceedTestExecutable();
   job.addTask(task1);
   jobService.addJob(job);
-  waitForJob(job.getId());
-  assertEquals(ExecutableStatus.SUCCEED,jobService.getJobStatus(job.getId()));
-  assertEquals(ExecutableStatus.SUCCEED,jobService.getJobStatus(task1.getId()));
+  waitForJobFinish(job.getId());
+  assertEquals(ExecutableState.SUCCEED,jobService.getJobStatus(job.getId()));
+  assertEquals(ExecutableState.SUCCEED,jobService.getJobStatus(task1.getId()));
 }

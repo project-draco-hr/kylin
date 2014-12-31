@@ -1,0 +1,4 @@
+{
+  final AbstractExecutable job=getJob(id);
+  stopJob(job);
+}

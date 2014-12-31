@@ -1,6 +1,6 @@
 {
   BuildCubeJob result=new BuildCubeJob();
-  final JoinedFlatTableDesc intermediateTableDesc=new JoinedFlatTableDesc(segment.getCubeDesc(),this.segment);
+  final CubeJoinedFlatTableDesc intermediateTableDesc=new CubeJoinedFlatTableDesc(segment.getCubeDesc(),this.segment);
   final ShellExecutable intermediateHiveTableStep=createIntermediateHiveTableStep(intermediateTableDesc);
   final String intermediateHiveTableName=getIntermediateHiveTableName(intermediateTableDesc,intermediateHiveTableStep.getId());
   result.addTask(intermediateHiveTableStep);

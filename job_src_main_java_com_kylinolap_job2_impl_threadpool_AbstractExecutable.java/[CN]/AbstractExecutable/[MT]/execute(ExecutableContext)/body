@@ -9,6 +9,6 @@
     onExecuteError(e,executableContext);
     throw new ExecuteException(e);
   }
-  onExecuteSucceed(result,executableContext);
+  onExecuteFinished(result,executableContext);
   return result;
 }
