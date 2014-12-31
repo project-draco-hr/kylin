@@ -1,9 +1,0 @@
-{
-  queryController=new QueryController();
-  queryController.setQueryService(queryService);
-  queryController.setCacheManager(cacheManager);
-  SQLRequest sqlRequest=new SQLRequest();
-  sqlRequest.setSql("select * from not_exist_table");
-  sqlRequest.setProject("default");
-  queryController.query(sqlRequest);
-}

@@ -1,7 +1,0 @@
-{
-  adminController=new AdminController();
-  adminController.setAdminService(adminService);
-  adminController.setCubeMgmtService(cubeService);
-  Assert.assertNotNull(adminController.getConfig());
-  Assert.assertNotNull(adminController.getEnv());
-}
