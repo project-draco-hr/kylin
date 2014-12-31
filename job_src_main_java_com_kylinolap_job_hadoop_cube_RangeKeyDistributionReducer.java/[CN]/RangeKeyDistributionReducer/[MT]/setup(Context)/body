@@ -1,6 +1,6 @@
 {
-  cubeCapacity=CubeCapacity.valueOf(context.getConfiguration().get(BatchConstants.CUBE_CAPACITY));
-switch (cubeCapacity) {
+  realizationCapacity=RealizationCapacity.valueOf(context.getConfiguration().get(BatchConstants.CUBE_CAPACITY));
+switch (realizationCapacity) {
 case SMALL:
     cut=FIVE_GIGA_BYTES;
   break;

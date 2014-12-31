@@ -5,7 +5,7 @@
   while (it.hasNext()) {
     FunctionDesc functionDesc=it.next();
     if (!cubeFuncs.contains(functionDesc)) {
-      TblColRef col=findTblColByMetrics(metricColumns,functionDesc);
+      TblColRef col=findTblColByMetrics(metricColumns,functionDesc,cubeDesc.getFactTable());
       functionDesc.setAppliedOnDimension(true);
       rewriteFields.remove(functionDesc.getRewriteFieldName());
       if (col != null) {

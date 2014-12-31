@@ -1,0 +1,6 @@
+{
+  for (  IIDimension iiDimension : dimensions) {
+    iiDimension.setTable(iiDimension.getTable().toUpperCase());
+    StringUtil.toUpperCaseArray(iiDimension.getColumns(),iiDimension.getColumns());
+  }
+}

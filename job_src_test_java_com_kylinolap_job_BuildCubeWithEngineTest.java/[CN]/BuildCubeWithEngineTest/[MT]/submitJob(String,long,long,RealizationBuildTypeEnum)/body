@@ -1,7 +1,7 @@
 {
   CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
   CubeInstance cube=cubeMgr.getCube(cubename);
-  CubeManager.getInstance(this.getTestConfig()).loadCubeCache(cube);
+  CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).loadCubeCache(cube);
   System.out.println(JsonUtil.writeValueAsIndentString(cube));
   List<CubeSegment> newSegments=cubeMgr.allocateSegments(cube,jobType,startDate,endDate);
   System.out.println(JsonUtil.writeValueAsIndentString(cube));

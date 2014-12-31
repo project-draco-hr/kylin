@@ -1,9 +1,3 @@
 {
-  ColumnDesc[] columns=getColumns();
-  for (int i=0; i < columns.length; ++i) {
-    if (col.getColumn().equals(columns[i])) {
-      return i;
-    }
-  }
-  return -1;
+  return desc.findColumn(col);
 }

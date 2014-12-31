@@ -6,7 +6,7 @@
     if (cubeFuncs.contains(functionDesc))     continue;
     if (functionDesc.isCount())     continue;
     if (functionDesc.isCountDistinct())     matched=false;
-    TblColRef col=findTblColByMetrics(metricColumns,functionDesc);
+    TblColRef col=findTblColByMetrics(metricColumns,functionDesc,cubeDesc.getFactTable());
     if (col == null || !cubeDesc.listDimensionColumnsIncludingDerived().contains(col)) {
       matched=false;
     }

@@ -1,0 +1,12 @@
+{
+  tableAliasMap=Maps.newHashMap();
+  tableAliasMap.put(iiDesc.getFactTableName(),FACT_TABLE_ALIAS);
+  int i=1;
+  for (  LookupDesc lookupDesc : iiDesc.getModel().getLookups()) {
+    JoinDesc join=lookupDesc.getJoin();
+    if (join != null) {
+      tableAliasMap.put(lookupDesc.getTable(),LOOKUP_TABLE_ALAIS_PREFIX + i);
+      i++;
+    }
+  }
+}

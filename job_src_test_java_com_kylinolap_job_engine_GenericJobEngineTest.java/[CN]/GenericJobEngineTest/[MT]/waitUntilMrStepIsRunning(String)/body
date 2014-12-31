@@ -1,7 +1,7 @@
 {
   boolean running=false;
   while (running == false) {
-    Thread.sleep(1 * 1000L);
+    Thread.sleep(1 * 100L);
     JobInstance savedJob=jobManager.getJob(jobUuid);
     for (    JobStep step : savedJob.getSteps()) {
       if (step.getCmdType().equals(JobStepCmdTypeEnum.SHELL_CMD_HADOOP) && step.getStatus().equals(JobStepStatusEnum.RUNNING) && step.getInfo(JobInstance.MR_JOB_ID) != null) {

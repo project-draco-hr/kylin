@@ -1,4 +1,4 @@
 {
-  ColumnDesc columnDesc=this.tableDesc.findColumnByName(column);
+  ColumnDesc columnDesc=this.getTableDesc(table).findColumnByName(column);
   return new TblColRef(columnDesc);
 }

@@ -1,0 +1,3 @@
+Collection<TblColRef> dimensionColumns
+FunctionDesc func
+String factTableName

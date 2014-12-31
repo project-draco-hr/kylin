@@ -1,0 +1,3 @@
+{
+  return CubeDesc.RealizationCapacity.SMALL;
+}

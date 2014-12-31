@@ -1,0 +1,3 @@
+{
+  return tableName + "_" + jobUUID.replace("-","_");
+}

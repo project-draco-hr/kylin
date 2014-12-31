@@ -1,7 +1,8 @@
 {
-  if (name == null)   return -1;
-  for (int i=0; i < colNames.length; ++i) {
-    if (measureSerializers[i] != null && name.equals(colNames[i])) {
+  if (metricColumnName == null)   return -1;
+  for (int i=0; i < allColumns.size(); ++i) {
+    TblColRef tblColRef=allColumns.get(i);
+    if (measureSerializers[i] != null && tblColRef.isSameAs(desc.getFactTableName(),metricColumnName)) {
       return i;
     }
   }

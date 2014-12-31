@@ -1,27 +1,27 @@
 {
   seg=iiSegment;
   desc=seg.getIIInstance().getDescriptor();
-  tableDesc=desc.getFactTableDesc();
-  nColumns=tableDesc.getColumnCount();
-  colNames=new String[nColumns];
+  allColumns=desc.listAllColumns();
+  nColumns=allColumns.size();
   dictionaries=new Dictionary<?>[nColumns];
   measureSerializers=new FixedLenMeasureCodec<?>[nColumns];
   DictionaryManager dictMgr=DictionaryManager.getInstance(desc.getConfig());
-  for (  ColumnDesc col : tableDesc.getColumns()) {
-    int i=col.getZeroBasedIndex();
-    colNames[i]=col.getName();
-    if (desc.isMetricsCol(i)) {
-      measureSerializers[i]=FixedLenMeasureCodec.get(col.getType());
+  int index=0;
+  for (  TblColRef tblColRef : desc.listAllColumns()) {
+    ColumnDesc col=tblColRef.getColumn();
+    if (desc.isMetricsCol(index)) {
+      measureSerializers[index]=FixedLenMeasureCodec.get(col.getType());
     }
  else {
-      String dictPath=seg.getDictResPath(new TblColRef(col));
+      String dictPath=seg.getDictResPath(tblColRef);
       try {
-        dictionaries[i]=dictMgr.getDictionary(dictPath);
+        dictionaries[index]=dictMgr.getDictionary(dictPath);
       }
  catch (      IOException e) {
         throw new RuntimeException("dictionary " + dictPath + " does not exist ",e);
       }
     }
+    index++;
   }
   digest=createDigest();
 }

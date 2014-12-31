@@ -1,0 +1,3 @@
+{
+  return this.allColumns.indexOf(col);
+}
