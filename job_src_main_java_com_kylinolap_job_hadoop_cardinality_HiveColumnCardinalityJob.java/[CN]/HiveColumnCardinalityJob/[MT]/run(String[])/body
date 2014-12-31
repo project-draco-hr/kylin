@@ -20,6 +20,7 @@
     this.table=getOptionValue(OPTION_TABLE);
     System.out.println("Going to start HiveColumnCardinalityJob on table '" + table + "'");
     HCatInputFormat.setInput(job,"default",table);
+    System.out.println("Set input format as HCat on table '" + table + "'");
     HCatSchema tableSchema=HCatInputFormat.getTableSchema(job.getConfiguration());
     job.getConfiguration().set(KEY_TABLE_COLUMN_NUMBER,String.valueOf(tableSchema.size()));
     job.setInputFormatClass(HCatInputFormat.class);
@@ -32,7 +33,11 @@
     job.setOutputValueClass(LongWritable.class);
     job.setNumReduceTasks(1);
     this.deletePath(job.getConfiguration(),output);
+    isAsync=true;
+    System.out.println("Going to submit HiveColumnCardinalityJob for table '" + table + "'");
     int result=waitForCompletion(job);
+    System.out.println("Get job track url " + job.getJobID() + "\n");
+    System.out.println("Get job track url " + job.getTrackingURL() + "\n");
     return result;
   }
  catch (  Exception e) {
