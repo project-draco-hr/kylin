@@ -7,5 +7,5 @@
       return subTask.execute(context);
     }
   }
-  return new ExecuteResult(true,null);
+  return new ExecuteResult(ExecuteResult.State.SUCCEED,null);
 }

@@ -1,0 +1,12 @@
+{
+  try {
+    String jobConf=engineConfig.getHadoopJobConfFilePath(segment.getCubeDesc().getCapacity());
+    if (StringUtils.isBlank(jobConf) == false) {
+      builder.append(" -conf ").append(jobConf);
+    }
+    return builder;
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

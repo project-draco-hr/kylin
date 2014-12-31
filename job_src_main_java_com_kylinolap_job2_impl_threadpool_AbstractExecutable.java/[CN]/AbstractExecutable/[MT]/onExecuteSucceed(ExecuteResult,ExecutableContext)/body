@@ -2,6 +2,9 @@
   if (result.succeed()) {
     jobService.updateJobStatus(this,ExecutableStatus.SUCCEED,result.output());
   }
+ else   if (!result.finished()) {
+    jobService.updateJobStatus(this,ExecutableStatus.STOPPED,result.output());
+  }
  else {
     jobService.updateJobStatus(this,ExecutableStatus.ERROR,result.output());
   }

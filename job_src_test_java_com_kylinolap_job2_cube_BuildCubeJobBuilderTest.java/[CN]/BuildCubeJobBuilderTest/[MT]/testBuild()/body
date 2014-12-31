@@ -3,7 +3,7 @@
   assertNotNull(cubeInstance);
   final List<CubeSegment> cubeSegments=cubeManager.appendSegments(cubeInstance,0,System.currentTimeMillis());
   final BuildCubeJobBuilder buildCubeJobBuilder=BuildCubeJobBuilder.newBuilder(jobEngineConfig,cubeSegments.get(0));
-  final CommonJob job=buildCubeJobBuilder.build();
+  final BuildCubeJob job=buildCubeJobBuilder.build();
   jobService.addJob(job);
   waitForJob(job.getId());
   assertEquals(ExecutableStatus.SUCCEED,jobService.getJobStatus(job.getId()));

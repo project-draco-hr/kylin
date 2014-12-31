@@ -4,5 +4,5 @@
   }
  catch (  InterruptedException e) {
   }
-  return new ExecuteResult(true,"succeed");
+  return new ExecuteResult(ExecuteResult.State.SUCCEED,"succeed");
 }

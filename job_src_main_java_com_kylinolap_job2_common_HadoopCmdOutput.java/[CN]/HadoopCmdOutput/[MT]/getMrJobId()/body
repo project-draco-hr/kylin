@@ -1,0 +1,11 @@
+{
+  try {
+    if (mrJobID == null) {
+      mrJobID=job.getInfo().get(JobInstance.MR_JOB_ID);
+    }
+    return mrJobID;
+  }
+ catch (  JobException e) {
+    throw new RuntimeException(e);
+  }
+}

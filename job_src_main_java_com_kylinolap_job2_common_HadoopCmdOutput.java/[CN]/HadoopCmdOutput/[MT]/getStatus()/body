@@ -1,0 +1,9 @@
+{
+  getTrackUrl();
+  getMrJobId();
+  final JobStepStatusEnum jobStepStatusEnum=new HadoopStatusChecker(this.yarnUrl,this.mrJobID,output).checkStatus();
+  if (jobStepStatusEnum.isComplete()) {
+    updateJobCounter();
+  }
+  return jobStepStatusEnum;
+}

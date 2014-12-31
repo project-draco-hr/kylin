@@ -11,6 +11,9 @@
  else {
     }
   }
+ else   if (result.state() == ExecuteResult.State.STOPPED) {
+    jobService.updateJobStatus(this,ExecutableStatus.STOPPED,null);
+  }
  else {
     jobService.updateJobStatus(this,ExecutableStatus.ERROR,null);
   }
