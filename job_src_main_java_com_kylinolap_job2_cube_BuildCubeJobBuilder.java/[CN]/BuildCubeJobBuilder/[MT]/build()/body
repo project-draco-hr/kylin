@@ -7,5 +7,7 @@
   final MapReduceExecutable factDistinctColumnsStep=createFactDistinctColumnsStep(intermediateHiveTableName);
   result.addTask(factDistinctColumnsStep);
   final String factDistinctColumnsPath=getFactDistinctColumnsPath(factDistinctColumnsStep.getId());
+  final HadoopShellExecutable buildDictionaryStep=createBuildDictionaryStep(factDistinctColumnsPath);
+  result.addTask(buildDictionaryStep);
   return result;
 }
