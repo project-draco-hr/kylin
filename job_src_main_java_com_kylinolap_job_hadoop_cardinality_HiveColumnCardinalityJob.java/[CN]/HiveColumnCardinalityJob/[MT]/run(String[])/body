@@ -21,8 +21,6 @@
     System.out.println("Going to start HiveColumnCardinalityJob on table '" + table + "'");
     HCatInputFormat.setInput(job,"default",table);
     System.out.println("Set input format as HCat on table '" + table + "'");
-    HCatSchema tableSchema=HCatInputFormat.getTableSchema(job.getConfiguration());
-    job.getConfiguration().set(KEY_TABLE_COLUMN_NUMBER,String.valueOf(tableSchema.size()));
     job.setInputFormatClass(HCatInputFormat.class);
     job.setMapperClass(ColumnCardinalityMapper.class);
     job.setMapOutputKeyClass(IntWritable.class);
