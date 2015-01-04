@@ -11,6 +11,7 @@ synchronized (RealizationRegistry.class) {
     try {
       r=new RealizationRegistry(config);
       CACHE.put(config,r);
+      r.loadRealizations();
       if (CACHE.size() > 1) {
         logger.warn("More than one singleton of RealizationRegistry exist");
       }
