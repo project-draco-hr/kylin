@@ -1,3 +1,3 @@
 {
-  return getJobWorkingDir(jobId) + "/" + getCubeName()+ "/hfile";
+  return getJobWorkingDir(jobId) + "/" + getCubeName()+ "/hfile/";
 }
