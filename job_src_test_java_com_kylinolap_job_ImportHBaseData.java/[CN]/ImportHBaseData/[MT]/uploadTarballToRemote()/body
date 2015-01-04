@@ -1,6 +1,6 @@
 {
   cli.execute("mkdir -p /tmp/hbase-export/");
-  SSHClient ssh=new SSHClient(kylinConfig.getRemoteHadoopCliHostname(),kylinConfig.getRemoteHadoopCliUsername(),kylinConfig.getRemoteHadoopCliPassword());
+  @SuppressWarnings("unused") SSHClient ssh=new SSHClient(kylinConfig.getRemoteHadoopCliHostname(),kylinConfig.getRemoteHadoopCliUsername(),kylinConfig.getRemoteHadoopCliPassword());
   try {
   }
  catch (  Exception e) {

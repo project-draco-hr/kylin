@@ -1,5 +1,5 @@
 {
-  HBaseResourceStore store=new HBaseResourceStore(KylinConfig.getInstanceFromEnv());
+  new HBaseResourceStore(KylinConfig.getInstanceFromEnv());
   List<String> tablelocations=getTablesBackupLocations(importFolder);
   for (  String tableLocation : tablelocations) {
     String table=tableLocation.substring(tableLocation.lastIndexOf("/") + 1);
