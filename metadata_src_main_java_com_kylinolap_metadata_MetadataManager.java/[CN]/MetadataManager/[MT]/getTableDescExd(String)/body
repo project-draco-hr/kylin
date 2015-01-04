@@ -1,5 +1,5 @@
 {
-  String tableIdentity=TableDesc.getTableIdentity(tableName);
+  String tableIdentity=tableName;
   Map<String,String> result=new HashMap<String,String>();
   if (srcTableExdMap.containsKey(tableIdentity)) {
     Map<String,String> tmp=srcTableExdMap.get(tableIdentity);
