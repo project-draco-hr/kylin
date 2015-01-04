@@ -11,4 +11,5 @@ case LARGE:
 cut=HUNDRED_GIGA_BYTES;
 break;
 }
+logger.info("Chosen cut for htable is " + cut);
 }

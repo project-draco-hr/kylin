@@ -1,5 +1,5 @@
 CubeInstance cubeInstance
-RealizationBuildTypeEnum buildType
+CubeBuildTypeEnum buildType
 String segmentName
 String jobUuid
 long lastBuildTime

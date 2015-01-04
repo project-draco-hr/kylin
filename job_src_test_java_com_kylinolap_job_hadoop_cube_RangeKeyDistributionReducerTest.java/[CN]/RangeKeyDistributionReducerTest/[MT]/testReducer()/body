@@ -20,7 +20,7 @@
   reduceDriver.withInput(key3,values3);
   reduceDriver.withInput(key4,values4);
   reduceDriver.withInput(key5,values5);
-  reduceDriver.getConfiguration().set(BatchConstants.CUBE_CAPACITY,"MEDIUM");
+  reduceDriver.getConfiguration().set(BatchConstants.CUBE_CAPACITY,"SMALL");
   List<Pair<Text,LongWritable>> result=reduceDriver.run();
   assertEquals(4,result.size());
   byte[] outputKey1=result.get(0).getFirst().getBytes();

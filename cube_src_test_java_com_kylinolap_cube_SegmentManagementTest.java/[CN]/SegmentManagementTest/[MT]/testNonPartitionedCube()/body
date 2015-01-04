@@ -11,7 +11,7 @@
   assertEquals(0,cubeInstance.getBuildingSegments().size());
   assertEquals(0,cubeInstance.getAllocatedEndDate());
   System.out.println("Initial Build");
-  CubeSegment initialSegment=cubeMgr.allocateSegments(cubeInstance,RealizationBuildTypeEnum.BUILD,desc.getCubePartitionDesc().getPartitionDateStart(),dateEnd).get(0);
+  CubeSegment initialSegment=cubeMgr.allocateSegments(cubeInstance,CubeBuildTypeEnum.BUILD,desc.getCubePartitionDesc().getPartitionDateStart(),dateEnd).get(0);
   System.out.println(JsonUtil.writeValueAsIndentString(cubeInstance));
   assertEquals(RealizationStatusEnum.DISABLED,cubeInstance.getStatus());
   assertEquals(SegmentStatusEnum.NEW,cubeInstance.getBuildingSegments().get(0).getStatus());
@@ -24,7 +24,7 @@
   assertEquals(desc.getCubePartitionDesc().getPartitionDateStart(),cubeInstance.getAllocatedStartDate());
   assertEquals(0,cubeInstance.getAllocatedEndDate());
   System.out.println("Initial Build Success");
-  cubeMgr.updateSegmentOnJobSucceed(cubeInstance,RealizationBuildTypeEnum.BUILD,initialSegment.getName(),"job_5",System.currentTimeMillis(),111L,222L,333L);
+  cubeMgr.updateSegmentOnJobSucceed(cubeInstance,CubeBuildTypeEnum.BUILD,initialSegment.getName(),"job_5",System.currentTimeMillis(),111L,222L,333L);
   assertEquals(RealizationStatusEnum.READY,cubeInstance.getStatus());
   assertEquals(1,cubeInstance.getSegments(SegmentStatusEnum.READY).size());
   assertEquals(0,cubeInstance.getBuildingSegments().size());
@@ -33,7 +33,7 @@
   assertEquals(0,cubeInstance.getAllocatedEndDate());
   System.out.println(JsonUtil.writeValueAsIndentString(cubeInstance));
   System.out.println("Rebuild Segment");
-  CubeSegment rebuildSegment=cubeMgr.allocateSegments(cubeInstance,RealizationBuildTypeEnum.BUILD,1364688000000L,1386806400000L).get(0);
+  CubeSegment rebuildSegment=cubeMgr.allocateSegments(cubeInstance,CubeBuildTypeEnum.BUILD,1364688000000L,1386806400000L).get(0);
   System.out.println(JsonUtil.writeValueAsIndentString(cubeInstance));
   assertEquals(RealizationStatusEnum.READY,cubeInstance.getStatus());
   assertEquals(SegmentStatusEnum.NEW,cubeInstance.getBuildingSegments().get(0).getStatus());
@@ -44,7 +44,7 @@
   assertEquals(0,cubeInstance.getAllocatedStartDate());
   assertEquals(0,cubeInstance.getAllocatedEndDate());
   System.out.println("Rebuild Success");
-  cubeMgr.updateSegmentOnJobSucceed(cubeInstance,RealizationBuildTypeEnum.BUILD,rebuildSegment.getName(),"job_6",System.currentTimeMillis(),111,222,333);
+  cubeMgr.updateSegmentOnJobSucceed(cubeInstance,CubeBuildTypeEnum.BUILD,rebuildSegment.getName(),"job_6",System.currentTimeMillis(),111,222,333);
   assertEquals(RealizationStatusEnum.READY,cubeInstance.getStatus());
   assertEquals(1,cubeInstance.getSegments().size());
   assertEquals(1,cubeInstance.getSegments(SegmentStatusEnum.READY).size());
