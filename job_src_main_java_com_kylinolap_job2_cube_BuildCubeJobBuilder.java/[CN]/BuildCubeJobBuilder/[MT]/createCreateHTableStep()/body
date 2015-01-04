@@ -1,0 +1,11 @@
+{
+  HadoopShellExecutable createHtableStep=new HadoopShellExecutable();
+  createHtableStep.setName(JobConstants.STEP_NAME_CREATE_HBASE_TABLE);
+  StringBuilder cmd=new StringBuilder();
+  appendExecCmdParameters(cmd,"cubename",getCubeName());
+  appendExecCmdParameters(cmd,"input",getRowkeyDistributionOutputPath() + "/part-r-00000");
+  appendExecCmdParameters(cmd,"htablename",getHTableName());
+  createHtableStep.setMapReduceParams(cmd.toString());
+  createHtableStep.setJobClass(CreateHTableJob.class);
+  return createHtableStep;
+}

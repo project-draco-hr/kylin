@@ -1,1 +1,2 @@
 String intermediateHiveTableName
+String jobId

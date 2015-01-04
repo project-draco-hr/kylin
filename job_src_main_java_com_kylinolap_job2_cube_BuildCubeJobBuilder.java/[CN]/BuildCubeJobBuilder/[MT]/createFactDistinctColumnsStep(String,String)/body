@@ -3,10 +3,10 @@
   result.setName(JobConstants.STEP_NAME_FACT_DISTINCT_COLUMNS);
   result.setMapReduceJobClass(FactDistinctColumnsJob.class);
   StringBuilder cmd=new StringBuilder();
-  appendMapReduceParameters(jobEngineConfig,cmd);
+  appendMapReduceParameters(cmd,jobEngineConfig);
   appendExecCmdParameters(cmd,"cubename",segment.getCubeInstance().getName());
   appendExecCmdParameters(cmd,"input",intermediateHiveTableName);
-  appendExecCmdParameters(cmd,"output",getFactDistinctColumnsPath(result.getId()));
+  appendExecCmdParameters(cmd,"output",getFactDistinctColumnsPath(jobId));
   appendExecCmdParameters(cmd,"jobname","Kylin_Fact_Distinct_Columns_" + getCubeName() + "_Step");
   result.setMapReduceParams(cmd.toString());
   return result;

@@ -2,10 +2,9 @@
   try {
     ShellExecutable result=new ShellExecutable();
     result.setName(JobConstants.STEP_NAME_CREATE_FLAT_HIVE_TABLE);
-    String jobUUID=result.getId();
-    String dropTableHql=JoinedFlatTable.generateDropTableStatement(intermediateTableDesc,jobUUID);
-    String createTableHql=JoinedFlatTable.generateCreateTableStatement(intermediateTableDesc,getJobWorkingDir(jobUUID),jobUUID);
-    String insertDataHql=JoinedFlatTable.generateInsertDataStatement(intermediateTableDesc,jobUUID,this.jobEngineConfig);
+    String dropTableHql=JoinedFlatTable.generateDropTableStatement(intermediateTableDesc,jobId);
+    String createTableHql=JoinedFlatTable.generateCreateTableStatement(intermediateTableDesc,getJobWorkingDir(jobId),jobId);
+    String insertDataHql=JoinedFlatTable.generateInsertDataStatement(intermediateTableDesc,jobId,this.jobEngineConfig);
     StringBuilder buf=new StringBuilder();
     buf.append("hive -e \"");
     buf.append(dropTableHql + "\n");
