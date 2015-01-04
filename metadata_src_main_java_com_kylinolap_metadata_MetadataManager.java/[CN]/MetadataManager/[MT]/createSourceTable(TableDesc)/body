@@ -2,7 +2,7 @@
   if (srcTable.getUuid() == null || srcTable.getIdentity() == null) {
     throw new IllegalArgumentException();
   }
-  String tableIdentity=TableDesc.getTableIdentity(srcTable);
+  String tableIdentity=srcTable.getIdentity();
   if (srcTableMap.containsKey(tableIdentity)) {
     throw new IllegalArgumentException("SourceTable '" + srcTable.getIdentity() + "' already exists");
   }
