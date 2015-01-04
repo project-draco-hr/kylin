@@ -13,5 +13,13 @@
     e.printStackTrace();
     throw new IOException(e);
   }
-  return table.getSd().getLocation();
+  String hdfsDir=table.getSd().getLocation();
+  if (needFilePath) {
+    FileSystem fs=HadoopUtil.getFileSystem(hdfsDir);
+    FileStatus file=findOnlyFile(hdfsDir,fs);
+    return file.getPath().toString();
+  }
+ else {
+    return hdfsDir;
+  }
 }

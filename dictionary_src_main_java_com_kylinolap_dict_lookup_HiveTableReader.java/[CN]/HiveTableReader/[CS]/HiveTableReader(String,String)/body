@@ -1,0 +1,6 @@
+{
+  this.dbName=dbName;
+  this.tableName=tableName;
+  this.readCntxt=HiveClient.getInstance().getReaderContext(dbName,tableName);
+  this.numberOfSplits=readCntxt.numSplits();
+}
