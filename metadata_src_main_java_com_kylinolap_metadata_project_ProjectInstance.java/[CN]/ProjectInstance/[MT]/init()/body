@@ -7,4 +7,5 @@
     String r=realizationEntries.get(i).getRealization();
     realizationEntries.get(i).setRealization(r.toUpperCase());
   }
+  if (tables == null)   tables=new TreeSet<String>();
 }
