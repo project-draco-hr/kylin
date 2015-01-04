@@ -1,0 +1,11 @@
+{
+  hiveConf=new HiveConf(HiveSourceTableLoader.class);
+  driver=new Driver(hiveConf);
+  try {
+    metaStoreClient=new HiveMetaStoreClient(hiveConf);
+  }
+ catch (  MetaException e) {
+    e.printStackTrace();
+  }
+  SessionState.start(new CliSessionState(hiveConf));
+}
