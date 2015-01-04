@@ -2,6 +2,7 @@
   this.createTestMetadata();
   this.ii=IIManager.getInstance(getTestConfig()).getII("test_kylin_ii");
   this.tableRecordInfo=new TableRecordInfo(ii.getFirstSegment());
+  factTableDesc=MetadataManager.getInstance(getTestConfig()).getTableDesc("DEFAULT.TEST_KYLIN_FACT");
   TblColRef formatName=this.ii.getDescriptor().findColumnRef("DEFAULT.TEST_KYLIN_FACT","LSTG_FORMAT_NAME");
   TblColRef siteId=this.ii.getDescriptor().findColumnRef("DEFAULT.TEST_KYLIN_FACT","LSTG_SITE_ID");
   Collection<TblColRef> dims=new HashSet<>();
