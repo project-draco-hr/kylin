@@ -1,4 +1,4 @@
 CubeInstance cubeInstance
-RealizationBuildTypeEnum buildType
+CubeBuildTypeEnum buildType
 long startDate
 long endDate

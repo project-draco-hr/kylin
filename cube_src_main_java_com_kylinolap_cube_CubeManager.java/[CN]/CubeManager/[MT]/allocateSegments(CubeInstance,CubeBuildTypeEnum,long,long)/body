@@ -34,7 +34,7 @@
   }
   validateNewSegments(cubeInstance,buildType,segments);
   CubeSegment newSeg=segments.get(0);
-  if (buildType == RealizationBuildTypeEnum.MERGE) {
+  if (buildType == CubeBuildTypeEnum.MERGE) {
     List<CubeSegment> mergingSegments=cubeInstance.getMergingSegments(newSeg);
     this.makeDictForNewSegment(cubeInstance,newSeg,mergingSegments);
     this.makeSnapshotForNewSegment(cubeInstance,newSeg,mergingSegments);

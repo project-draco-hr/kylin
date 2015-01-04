@@ -1,7 +1,7 @@
 {
   CubeInstance cubeInstance=cubeMgr.getCube("test_kylin_cube_with_slr_ready");
   System.out.println("Rebuild Segment");
-  CubeSegment rebuildSegment=cubeMgr.allocateSegments(cubeInstance,RealizationBuildTypeEnum.BUILD,1364688000000L,1386806400000L).get(0);
+  CubeSegment rebuildSegment=cubeMgr.allocateSegments(cubeInstance,CubeBuildTypeEnum.BUILD,1364688000000L,1386806400000L).get(0);
   System.out.println(JsonUtil.writeValueAsIndentString(cubeInstance));
   assertEquals(RealizationStatusEnum.READY,cubeInstance.getStatus());
   assertEquals(1,cubeInstance.getBuildingSegments().size());
@@ -12,7 +12,7 @@
   assertEquals(1364688000000L,cubeInstance.getAllocatedStartDate());
   assertEquals(1386806400000L,cubeInstance.getAllocatedEndDate());
   System.out.println("Rebuild Success");
-  cubeMgr.updateSegmentOnJobSucceed(cubeInstance,RealizationBuildTypeEnum.BUILD,rebuildSegment.getName(),"job_3",System.currentTimeMillis(),111,222,333);
+  cubeMgr.updateSegmentOnJobSucceed(cubeInstance,CubeBuildTypeEnum.BUILD,rebuildSegment.getName(),"job_3",System.currentTimeMillis(),111,222,333);
   assertEquals(RealizationStatusEnum.READY,cubeInstance.getStatus());
   assertEquals(1,cubeInstance.getSegments().size());
   assertEquals(1,cubeInstance.getSegments(SegmentStatusEnum.READY).size());

@@ -1,5 +1,5 @@
 CubeInstance cube
 long startDate
 long endDate
-RealizationBuildTypeEnum buildType
+CubeBuildTypeEnum buildType
 String submitter

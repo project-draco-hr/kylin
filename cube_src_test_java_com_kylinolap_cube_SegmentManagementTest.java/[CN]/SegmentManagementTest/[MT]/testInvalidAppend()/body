@@ -11,7 +11,7 @@
   assertEquals(0,cubeInstance.getBuildingSegments().size());
   assertEquals(0,cubeInstance.getAllocatedEndDate());
   System.out.println("Initial Build");
-  CubeSegment initialSegment=cubeMgr.allocateSegments(cubeInstance,RealizationBuildTypeEnum.BUILD,desc.getCubePartitionDesc().getPartitionDateStart(),dateEnd).get(0);
+  CubeSegment initialSegment=cubeMgr.allocateSegments(cubeInstance,CubeBuildTypeEnum.BUILD,desc.getCubePartitionDesc().getPartitionDateStart(),dateEnd).get(0);
   System.out.println(JsonUtil.writeValueAsIndentString(cubeInstance));
   assertEquals(RealizationStatusEnum.DISABLED,cubeInstance.getStatus());
   assertEquals(SegmentStatusEnum.NEW,cubeInstance.getBuildingSegments().get(0).getStatus());
@@ -22,7 +22,7 @@
   assertEquals(desc.getCubePartitionDesc().getPartitionDateStart(),cubeInstance.getAllocatedStartDate());
   assertEquals(dateEnd,cubeInstance.getAllocatedEndDate());
   System.out.println("Initial Build Success");
-  cubeMgr.updateSegmentOnJobSucceed(cubeInstance,RealizationBuildTypeEnum.BUILD,initialSegment.getName(),"job_1",System.currentTimeMillis(),111L,222L,333L);
+  cubeMgr.updateSegmentOnJobSucceed(cubeInstance,CubeBuildTypeEnum.BUILD,initialSegment.getName(),"job_1",System.currentTimeMillis(),111L,222L,333L);
   System.out.println(JsonUtil.writeValueAsIndentString(cubeInstance));
   assertEquals(RealizationStatusEnum.READY,cubeInstance.getStatus());
   assertEquals(1,cubeInstance.getSegments(SegmentStatusEnum.READY).size());
@@ -32,5 +32,5 @@
   assertEquals(dateEnd,cubeInstance.getAllocatedEndDate());
   System.out.println("Invalid Incremental Build");
   long dateEnd2=f.parse("2013-12-12").getTime();
-  cubeMgr.allocateSegments(cubeInstance,RealizationBuildTypeEnum.BUILD,dateEnd + 1000,dateEnd2);
+  cubeMgr.allocateSegments(cubeInstance,CubeBuildTypeEnum.BUILD,dateEnd + 1000,dateEnd2);
 }
