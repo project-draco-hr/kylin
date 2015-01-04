@@ -5,5 +5,4 @@
   assertTrue(new BigDecimal(m1).equals(values[0]));
   assertTrue(new BigDecimal(m2).equals(values[1]));
   assertTrue(new BigDecimal(m3).equals(values[2]));
-  assertTrue(m4 == ((LongWritable)values[3]).get());
 }
