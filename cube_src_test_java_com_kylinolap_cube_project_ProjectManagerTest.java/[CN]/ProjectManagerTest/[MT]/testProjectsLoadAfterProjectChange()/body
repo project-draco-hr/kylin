@@ -3,6 +3,6 @@
   assertTrue(ProjectManager.getInstance(this.getTestConfig()).getRealizationsByTable("default","test_kylin_fact").contains(cube));
   ProjectManager.getInstance(getTestConfig()).removeRealizationsFromProjects(RealizationType.CUBE,cube.getName());
   assertTrue(!ProjectManager.getInstance(this.getTestConfig()).getRealizationsByTable("default","test_kylin_fact").contains(cube));
-  ProjectManager.getInstance(getTestConfig()).updateRealizationToProject(RealizationType.CUBE,cube.getName(),"default","tester");
+  ProjectManager.getInstance(getTestConfig()).moveRealizationToProject(RealizationType.CUBE,cube.getName(),"default","tester");
   assertTrue(ProjectManager.getInstance(this.getTestConfig()).getRealizationsByTable("default","test_kylin_fact").contains(cube));
 }
