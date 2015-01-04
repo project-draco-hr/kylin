@@ -8,7 +8,7 @@
       context.cubeDesc=cube.getDescriptor();
     }
   }
- catch (  CubeNotFoundException e) {
+ catch (  NoRealizationFoundException e) {
     OLAPContext ctx0=(OLAPContext)OLAPContext.getThreadLocalContexts().toArray()[0];
     if (ctx0 != null && ctx0.olapSchema.hasStarSchemaUrl()) {
       return buildHiveResult(enumImplementor,pref,ctx0);
