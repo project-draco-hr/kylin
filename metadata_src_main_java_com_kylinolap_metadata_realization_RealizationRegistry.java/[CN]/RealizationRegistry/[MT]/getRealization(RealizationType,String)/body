@@ -1,3 +1,5 @@
 {
-  return realizationTable.get(type,name.toUpperCase());
+  IRealizationProvider p=providers.get(type);
+  if (p == null)   throw new IllegalStateException("No provider for realization type " + type);
+  return p.getRealization(name);
 }
