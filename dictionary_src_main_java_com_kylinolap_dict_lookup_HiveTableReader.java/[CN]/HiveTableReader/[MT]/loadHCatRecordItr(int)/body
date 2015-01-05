@@ -1,0 +1,4 @@
+{
+  HCatReader currentHCatReader=DataTransferFactory.getHCatReader(readCntxt,dataSplit);
+  return currentHCatReader.read();
+}

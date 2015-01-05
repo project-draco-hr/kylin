@@ -7,6 +7,6 @@
     buf.clear();
     hllc.writeRegisters(buf);
     buf.flip();
-    context.write(new IntWritable(key),new BytesWritable(buf.array()));
+    context.write(new IntWritable(key),new BytesWritable(buf.array(),buf.limit()));
   }
 }

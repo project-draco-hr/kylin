@@ -1,6 +1,6 @@
 {
+  int skey=key.get();
   for (  BytesWritable v : values) {
-    int skey=key.get();
     ByteBuffer buffer=ByteBuffer.wrap(v.getBytes());
     HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter();
     hll.readRegisters(buffer);

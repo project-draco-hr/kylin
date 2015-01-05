@@ -7,21 +7,10 @@
  else {
     job.setJarByClass(this.getClass());
   }
-  if ("textinputformat".equalsIgnoreCase(inputFormat) || "text".equalsIgnoreCase(inputFormat)) {
-    job.setInputFormatClass(TextInputFormat.class);
-  }
- else {
-    job.setInputFormatClass(SequenceFileInputFormat.class);
-  }
-  if ("t".equals(inputDelim)) {
-    inputDelim="\t";
-  }
- else   if ("177".equals(inputDelim)) {
-    inputDelim="\177";
-  }
-  if (inputDelim != null) {
-    job.getConfiguration().set(BatchConstants.INPUT_DELIM,inputDelim);
-  }
+  String tableName=job.getConfiguration().get(BatchConstants.TABLE_NAME);
+  String[] dbTableNames=HadoopUtil.parseHiveTableName(tableName);
+  HCatInputFormat.setInput(job,dbTableNames[0],dbTableNames[1]);
+  job.setInputFormatClass(HCatInputFormat.class);
   job.setMapperClass(IIDistinctColumnsMapper.class);
   job.setCombinerClass(IIDistinctColumnsCombiner.class);
   job.setMapOutputKeyClass(ShortWritable.class);

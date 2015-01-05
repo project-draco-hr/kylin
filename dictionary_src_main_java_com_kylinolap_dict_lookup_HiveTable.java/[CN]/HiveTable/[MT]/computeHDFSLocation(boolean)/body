@@ -4,15 +4,17 @@
     logger.debug("Override hive table location " + hiveTable + " -- "+ override);
     return override;
   }
-  String cmd="hive -e \"describe extended " + hiveTable + ";\"";
-  CliCommandExecutor exec=KylinConfig.getInstanceFromEnv().getCliCommandExecutor();
-  String output=exec.execute(cmd).getSecond();
-  Pattern ptn=Pattern.compile("location:(.*?),");
-  Matcher m=ptn.matcher(output);
-  if (m.find() == false) {
-    throw new IOException("Failed to find HDFS location for hive table " + hiveTable + " from output -- "+ output);
+  Table table=null;
+  try {
+    HiveClient hiveClient=new HiveClient();
+    HiveMetaStoreClient metaDataClient=hiveClient.getMetaStoreClient();
+    table=metaDataClient.getTable(database,hiveTable);
   }
-  String hdfsDir=m.group(1);
+ catch (  Exception e) {
+    e.printStackTrace();
+    throw new IOException(e);
+  }
+  String hdfsDir=table.getSd().getLocation();
   if (needFilePath) {
     FileSystem fs=HadoopUtil.getFileSystem(hdfsDir);
     FileStatus file=findOnlyFile(hdfsDir,fs);

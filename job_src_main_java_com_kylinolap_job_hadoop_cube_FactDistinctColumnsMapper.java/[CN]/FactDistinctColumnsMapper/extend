@@ -1,1 +1,1 @@
-Mapper<KEYIN,Text,ShortWritable,Text>
+Mapper<KEYIN,HCatRecord,ShortWritable,Text>

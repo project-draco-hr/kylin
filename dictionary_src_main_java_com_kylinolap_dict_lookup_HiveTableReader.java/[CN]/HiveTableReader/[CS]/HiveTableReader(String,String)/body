@@ -1,0 +1,13 @@
+{
+  this.dbName=dbName;
+  this.tableName=tableName;
+  try {
+    HiveClient hiveClient=new HiveClient();
+    this.readCntxt=hiveClient.getReaderContext(dbName,tableName);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    throw new IOException(e);
+  }
+  this.numberOfSplits=readCntxt.numSplits();
+}

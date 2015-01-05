@@ -1,4 +1,6 @@
 {
-  this.hiveTable=table;
-  this.nColumns=metaMgr.getTableDesc(table).getColumnCount();
+  TableDesc tableDesc=metaMgr.getTableDesc(table);
+  this.database=tableDesc.getDatabase();
+  this.hiveTable=tableDesc.getName();
+  this.nColumns=tableDesc.getColumnCount();
 }
