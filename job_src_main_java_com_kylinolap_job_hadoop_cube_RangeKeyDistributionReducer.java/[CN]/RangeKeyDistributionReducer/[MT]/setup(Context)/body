@@ -2,13 +2,13 @@
   cubeCapacity=CubeCapacity.valueOf(context.getConfiguration().get(BatchConstants.CUBE_CAPACITY));
 switch (cubeCapacity) {
 case SMALL:
-    cut=FIVE_GIGA_BYTES;
+    cut=TEN_GIGA_BYTES;
   break;
 case MEDIUM:
-cut=TEN_GIGA_BYTES;
+cut=TWENTY_GIGA_BYTES;
 break;
 case LARGE:
-cut=TWENTY_GIGA_BYTES;
+cut=HUNDRED_GIGA_BYTES;
 break;
 }
 }
