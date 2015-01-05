@@ -1,7 +1,7 @@
 {
   try {
     ShellExecutable result=new ShellExecutable();
-    result.setName(JobConstants.STEP_NAME_CREATE_FLAT_HIVE_TABLE);
+    result.setName(ExecutableConstants.STEP_NAME_CREATE_FLAT_HIVE_TABLE);
     String dropTableHql=JoinedFlatTable.generateDropTableStatement(intermediateTableDesc,jobId);
     String createTableHql=JoinedFlatTable.generateCreateTableStatement(intermediateTableDesc,getJobWorkingDir(jobId),jobId);
     String insertDataHql=JoinedFlatTable.generateInsertDataStatement(intermediateTableDesc,jobId,this.jobEngineConfig);

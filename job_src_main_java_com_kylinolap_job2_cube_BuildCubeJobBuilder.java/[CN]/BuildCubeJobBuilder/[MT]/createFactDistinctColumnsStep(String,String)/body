@@ -1,6 +1,6 @@
 {
   MapReduceExecutable result=new MapReduceExecutable();
-  result.setName(JobConstants.STEP_NAME_FACT_DISTINCT_COLUMNS);
+  result.setName(ExecutableConstants.STEP_NAME_FACT_DISTINCT_COLUMNS);
   result.setMapReduceJobClass(FactDistinctColumnsJob.class);
   StringBuilder cmd=new StringBuilder();
   appendMapReduceParameters(cmd,jobEngineConfig);

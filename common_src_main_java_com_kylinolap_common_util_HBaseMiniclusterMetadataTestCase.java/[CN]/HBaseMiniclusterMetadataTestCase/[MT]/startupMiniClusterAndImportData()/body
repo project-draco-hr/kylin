@@ -13,6 +13,6 @@
   hbaseconnectionUrl="hbase:" + host + ":"+ port+ ":"+ parent;
   updateKylinConfigWithMinicluster();
   UTIL.startMiniMapReduceCluster();
-  HBaseResourceStore store=new HBaseResourceStore(KylinConfig.getInstanceFromEnv());
+  @SuppressWarnings("unused") HBaseResourceStore store=new HBaseResourceStore(KylinConfig.getInstanceFromEnv());
   importHBaseData();
 }

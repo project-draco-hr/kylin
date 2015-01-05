@@ -25,7 +25,7 @@
  else {
     throw new CubeIntegrityException("there is no partition date, only full build is supported");
   }
-  validateNewSegments(cubeInstance,RealizationBuildTypeEnum.MERGE,segments);
+  validateNewSegments(cubeInstance,CubeBuildTypeEnum.MERGE,segments);
   CubeSegment newSeg=segments.get(0);
   List<CubeSegment> mergingSegments=cubeInstance.getMergingSegments(newSeg);
   this.makeDictForNewSegment(cubeInstance,newSeg,mergingSegments);

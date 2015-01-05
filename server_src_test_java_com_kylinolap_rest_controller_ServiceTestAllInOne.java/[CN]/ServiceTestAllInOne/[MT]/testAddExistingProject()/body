@@ -1,7 +1,0 @@
-{
-  projectController=new ProjectController();
-  projectController.setProjectService(projectService);
-  CreateProjectRequest request=new CreateProjectRequest();
-  request.setName("default");
-  projectController.saveProject(request);
-}

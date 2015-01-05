@@ -21,7 +21,7 @@
  else {
     newSegments.add(buildSegment(cubeInstance,0,Long.MAX_VALUE));
   }
-  validateNewSegments(cubeInstance,RealizationBuildTypeEnum.BUILD,newSegments);
+  validateNewSegments(cubeInstance,CubeBuildTypeEnum.BUILD,newSegments);
   if (appendBuildOnHllMeasure) {
     List<CubeSegment> mergingSegments=cubeInstance.getSegment(SegmentStatusEnum.READY);
     this.makeDictForNewSegment(cubeInstance,newSegments.get(0),mergingSegments);

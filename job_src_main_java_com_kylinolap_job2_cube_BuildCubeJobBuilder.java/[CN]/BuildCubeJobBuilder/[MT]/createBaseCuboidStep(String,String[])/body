@@ -2,7 +2,7 @@
   MapReduceExecutable baseCuboidStep=new MapReduceExecutable();
   StringBuilder cmd=new StringBuilder();
   appendMapReduceParameters(cmd,jobEngineConfig);
-  baseCuboidStep.setName(JobConstants.STEP_NAME_BUILD_BASE_CUBOID);
+  baseCuboidStep.setName(ExecutableConstants.STEP_NAME_BUILD_BASE_CUBOID);
   appendExecCmdParameters(cmd,"cubename",getCubeName());
   appendExecCmdParameters(cmd,"segmentname",getSegmentName());
   appendExecCmdParameters(cmd,"input",intermediateHiveTableName);

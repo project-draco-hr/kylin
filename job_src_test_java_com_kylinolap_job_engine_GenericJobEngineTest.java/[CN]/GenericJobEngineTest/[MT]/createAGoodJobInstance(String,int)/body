@@ -2,13 +2,13 @@
   CubeInstance cube=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).getCube(cubeName);
   cube.getSegments().clear();
   CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).updateCube(cube);
-  CubeSegment seg=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).allocateSegments(cube,RealizationBuildTypeEnum.BUILD,0,12345L).get(0);
+  CubeSegment seg=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).allocateSegments(cube,CubeBuildTypeEnum.BUILD,0,12345L).get(0);
   JobInstance jobInstance=new JobInstance();
   jobInstance.setUuid(uuid);
   jobInstance.setRelatedCube(cubeName);
   jobInstance.setRelatedSegment(seg.getName());
   jobInstance.setName("A_Good_Job");
-  jobInstance.setType(RealizationBuildTypeEnum.BUILD);
+  jobInstance.setType(CubeBuildTypeEnum.BUILD);
   JobStep step1=new JobStep();
   step1.setName("step1");
   step1.setExecCmd("java -jar /tmp/SampleJavaProgram.jarfile " + syncCmdSleepSeconds);

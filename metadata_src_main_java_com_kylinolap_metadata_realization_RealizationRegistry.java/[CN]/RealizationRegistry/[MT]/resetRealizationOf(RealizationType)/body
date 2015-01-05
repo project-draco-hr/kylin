@@ -1,4 +1,0 @@
-{
-  realizationTable.rowMap().remove(type);
-  realizationsLoaded=false;
-}

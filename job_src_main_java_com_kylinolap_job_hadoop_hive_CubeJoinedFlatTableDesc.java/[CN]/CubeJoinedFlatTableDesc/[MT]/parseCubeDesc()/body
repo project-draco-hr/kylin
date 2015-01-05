@@ -47,5 +47,6 @@
       }
     }
   }
+  columnCount=columnIndex;
   buildTableAliasMap();
 }

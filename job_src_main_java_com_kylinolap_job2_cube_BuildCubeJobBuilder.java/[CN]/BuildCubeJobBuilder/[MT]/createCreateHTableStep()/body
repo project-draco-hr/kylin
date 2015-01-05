@@ -1,6 +1,6 @@
 {
   HadoopShellExecutable createHtableStep=new HadoopShellExecutable();
-  createHtableStep.setName(JobConstants.STEP_NAME_CREATE_HBASE_TABLE);
+  createHtableStep.setName(ExecutableConstants.STEP_NAME_CREATE_HBASE_TABLE);
   StringBuilder cmd=new StringBuilder();
   appendExecCmdParameters(cmd,"cubename",getCubeName());
   appendExecCmdParameters(cmd,"input",getRowkeyDistributionOutputPath() + "/part-r-00000");

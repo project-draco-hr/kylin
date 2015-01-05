@@ -1,3 +1,0 @@
-CubeInstance cubeInstance
-RealizationBuildTypeEnum buildType
-List<CubeSegment> newSegments

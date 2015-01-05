@@ -1,6 +1,6 @@
 {
   MapReduceExecutable rowkeyDistributionStep=new MapReduceExecutable();
-  rowkeyDistributionStep.setName(JobConstants.STEP_NAME_GET_CUBOID_KEY_DISTRIBUTION);
+  rowkeyDistributionStep.setName(ExecutableConstants.STEP_NAME_GET_CUBOID_KEY_DISTRIBUTION);
   StringBuilder cmd=new StringBuilder();
   appendMapReduceParameters(cmd,jobEngineConfig);
   appendExecCmdParameters(cmd,"input",inputPath);

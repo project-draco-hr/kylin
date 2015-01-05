@@ -1,5 +1,0 @@
-{
-  EndpointAggregators endpointAggregators=EndpointAggregators.fromFunctions(tableRecordInfo,buildAggregations());
-  byte[] x=EndpointAggregators.serialize(endpointAggregators);
-  EndpointAggregators d=EndpointAggregators.deserialize(x);
-}

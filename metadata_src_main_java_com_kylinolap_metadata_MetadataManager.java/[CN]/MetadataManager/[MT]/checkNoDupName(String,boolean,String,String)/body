@@ -1,0 +1,8 @@
+{
+  if (StringUtils.isBlank(name)) {
+    throw new IllegalStateException(entityType + " name at " + path+ ", must not be blank");
+  }
+  if (containsKey) {
+    throw new IllegalStateException("Dup " + entityType + " name '"+ name+ "' at "+ path);
+  }
+}

@@ -1,0 +1,5 @@
+String cubeName
+String segmentName
+String segmentId
+CubeBuildTypeEnum jobType
+String submitter

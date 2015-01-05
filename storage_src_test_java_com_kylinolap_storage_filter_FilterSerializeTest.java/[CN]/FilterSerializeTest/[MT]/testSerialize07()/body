@@ -1,6 +1,7 @@
 {
   TableDesc table=new TableDesc();
   table.setName("TEST_KYLIN_FACT");
+  table.setDatabase("DEFAULT");
   ColumnDesc column=new ColumnDesc();
   column.setTable(table);
   TblColRef colRef=new TblColRef(column);

@@ -1,0 +1,4 @@
+String name
+boolean containsKey
+String entityType
+String path

@@ -1,6 +1,6 @@
 {
   MapReduceExecutable ndCuboidStep=new MapReduceExecutable();
-  ndCuboidStep.setName(JobConstants.STEP_NAME_BUILD_N_D_CUBOID + " : " + dimNum+ "-Dimension");
+  ndCuboidStep.setName(ExecutableConstants.STEP_NAME_BUILD_N_D_CUBOID + " : " + dimNum+ "-Dimension");
   StringBuilder cmd=new StringBuilder();
   appendMapReduceParameters(cmd,jobEngineConfig);
   appendExecCmdParameters(cmd,"cubename",getCubeName());

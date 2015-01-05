@@ -1,6 +1,6 @@
 {
   MapReduceExecutable createHFilesStep=new MapReduceExecutable();
-  createHFilesStep.setName(JobConstants.STEP_NAME_CONVERT_CUBOID_TO_HFILE);
+  createHFilesStep.setName(ExecutableConstants.STEP_NAME_CONVERT_CUBOID_TO_HFILE);
   StringBuilder cmd=new StringBuilder();
   appendMapReduceParameters(cmd,jobEngineConfig);
   appendExecCmdParameters(cmd,"cubename",getCubeName());

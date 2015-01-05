@@ -6,7 +6,9 @@
   for (  String path : paths) {
     Map<String,String> attrContainer=new HashMap<String,String>();
     String tableName=loadSourceTableExd(getStore(),path,attrContainer);
-    srcTableExdMap.putLocal(TableDesc.getTableIdentity(tableName),attrContainer);
+    String tableIdentity=tableName;
+    checkNoDupName(tableIdentity,srcTableExdMap.containsKey(tableIdentity),"SourceTableExd",path);
+    srcTableExdMap.putLocal(tableIdentity,attrContainer);
   }
-  logger.debug("Loaded " + paths.size() + " SourceTable EXD(s)");
+  logger.debug("Loaded " + srcTableExdMap.size() + " SourceTable EXD(s)");
 }
