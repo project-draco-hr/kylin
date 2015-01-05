@@ -1,0 +1,3 @@
+{
+  return getParam(CREATE_FLAT_TABLE_STEP_ID);
+}

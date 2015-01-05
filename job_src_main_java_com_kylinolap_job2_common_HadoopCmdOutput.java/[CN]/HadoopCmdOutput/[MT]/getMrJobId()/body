@@ -1,7 +1,7 @@
 {
   try {
     if (mrJobID == null) {
-      mrJobID=job.getInfo().get(JobInstance.MR_JOB_ID);
+      mrJobID=job.getInfo().get(ExecutableConstants.MR_JOB_ID);
     }
     return mrJobID;
   }

@@ -1,0 +1,9 @@
+{
+  final UpdateCubeInfoExecutable executable=new UpdateCubeInfoExecutable();
+  executable.setCubeName(getCubeName());
+  executable.setSegmentId(segment.getUuid());
+  executable.setCreateFlatTableStepId(createFlatTableStepId);
+  executable.setBaseCuboidStepId(baseCuboidStepId);
+  executable.setConvertToHFileStepId(convertToHFileStepId);
+  return executable;
+}
