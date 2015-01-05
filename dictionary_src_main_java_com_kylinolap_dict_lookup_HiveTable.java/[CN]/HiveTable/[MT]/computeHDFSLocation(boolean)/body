@@ -7,7 +7,7 @@
   HiveMetaStoreClient hiveClient=HiveClient.getInstance().getMetaStoreClient();
   Table table=null;
   try {
-    table=hiveClient.getTable(hiveTable);
+    table=hiveClient.getTable(database,hiveTable);
   }
  catch (  Exception e) {
     e.printStackTrace();

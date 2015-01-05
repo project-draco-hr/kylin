@@ -4,8 +4,13 @@
     outputKey.set(i);
     fieldSchema=schema.get(i);
     Object fieldValue=record.get(fieldSchema.getName(),schema);
-    if (fieldValue == null)     fieldValue="NULL";
-    byte[] bytes=Bytes.toBytes(fieldValue.toString());
+    byte[] bytes;
+    if (fieldValue != null) {
+      bytes=Bytes.toBytes(fieldValue.toString());
+    }
+ else {
+      bytes=NULL_VALUE;
+    }
     outputValue.set(bytes,0,bytes.length);
     context.write(outputKey,outputValue);
   }
