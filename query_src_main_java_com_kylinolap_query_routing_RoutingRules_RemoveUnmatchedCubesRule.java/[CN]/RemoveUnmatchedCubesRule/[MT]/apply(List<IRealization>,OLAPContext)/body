@@ -16,8 +16,9 @@
     boolean matchJoin=isMatchedWithJoins(joins,cube);
     if (isOnline && matchDimensions && !matchAggregation&& matchJoin) {
       if (isWeaklyMatchedWithAggregations(functions,metricsColumns,cube)) {
-        logger.info("Weakly matched cube found" + cube.getName());
+        logger.info("Weakly matched cube found " + cube.getName());
         olapContext.isWeekMatch.put(cube,true);
+        continue;
       }
     }
     if (!isOnline || !matchDimensions || !matchAggregation|| !matchJoin) {

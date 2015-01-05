@@ -1,6 +1,8 @@
 {
-  if (olapContext.isWeekMatch.containsKey(realizations.get(0))) {
-    CubeInstance cube=(CubeInstance)realizations.get(0);
-    adjustOLAPContext(cube,olapContext);
+  if (realizations.size() > 0) {
+    if (olapContext.isWeekMatch.containsKey(realizations.get(0))) {
+      CubeInstance cube=(CubeInstance)realizations.get(0);
+      adjustOLAPContext(cube,olapContext);
+    }
   }
 }
