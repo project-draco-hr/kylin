@@ -1,0 +1,10 @@
+{
+  List<T> temp=Lists.newLinkedList();
+  for (  int index : items) {
+    temp.add(list.get(index));
+  }
+  Collections.sort(temp,c);
+  for (int i=0; i < temp.size(); ++i) {
+    list.set(items.get(i),temp.get(i));
+  }
+}

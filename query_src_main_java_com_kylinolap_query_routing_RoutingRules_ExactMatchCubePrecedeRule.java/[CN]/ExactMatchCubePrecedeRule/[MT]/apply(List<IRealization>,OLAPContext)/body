@@ -1,0 +1,20 @@
+{
+  List<Integer> itemIndexes=super.findRealizationsOf(realizations,RealizationType.CUBE);
+  final Map<IRealization,Boolean> isWeekMatch=olapContext.isWeekMatch;
+  PartialSorter.partialSort(realizations,itemIndexes,new Comparator<IRealization>(){
+    @Override public int compare(    IRealization o1,    IRealization o2){
+      CubeInstance c1=(CubeInstance)o1;
+      CubeInstance c2=(CubeInstance)o2;
+      if (isWeekMatch.containsKey(c1) && !isWeekMatch.containsKey(c2)) {
+        return 1;
+      }
+ else       if (!isWeekMatch.containsKey(c1) && isWeekMatch.containsKey(c2)) {
+        return -1;
+      }
+ else {
+        return 0;
+      }
+    }
+  }
+);
+}

@@ -1,0 +1,12 @@
+{
+  if (this.isCount())   return null;
+  ParameterDesc parameter=this.getParameter();
+  if (parameter == null)   return null;
+  String columnName=parameter.getValue();
+  for (  TblColRef col : dimensionColumns) {
+    if (col.isSameAs(factTableName,columnName)) {
+      return col;
+    }
+  }
+  return null;
+}

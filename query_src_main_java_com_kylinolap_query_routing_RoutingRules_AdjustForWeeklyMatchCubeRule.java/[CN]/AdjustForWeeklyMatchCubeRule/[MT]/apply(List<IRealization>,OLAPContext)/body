@@ -1,0 +1,6 @@
+{
+  if (olapContext.isWeekMatch.containsKey(realizations.get(0))) {
+    CubeInstance cube=(CubeInstance)realizations.get(0);
+    adjustOLAPContext(cube,olapContext);
+  }
+}

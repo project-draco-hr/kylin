@@ -3,9 +3,8 @@
   olapImplementor.visitChild(getChild(),this);
   try {
     for (    OLAPContext context : OLAPContext.getThreadLocalContexts()) {
-      CubeInstance cube=QueryRouter.findCube(context);
-      context.cubeInstance=cube;
-      context.cubeDesc=cube.getDescriptor();
+      IRealization realization=QueryRouter.selectRealization(context);
+      context.realization=realization;
     }
   }
  catch (  NoRealizationFoundException e) {
