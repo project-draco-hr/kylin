@@ -3,4 +3,5 @@
   testLeftJoinCube();
   testInnerJoinCube();
   jobManager.stopJobEngine();
+  cleanupAndExport();
 }

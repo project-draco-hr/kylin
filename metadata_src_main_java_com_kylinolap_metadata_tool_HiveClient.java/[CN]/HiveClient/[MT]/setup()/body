@@ -1,0 +1,6 @@
+{
+  hiveConf=new HiveConf(HiveSourceTableLoader.class);
+  driver=new Driver(hiveConf);
+  metaStoreClient=new HiveMetaStoreClient(hiveConf);
+  SessionState.start(new CliSessionState(hiveConf));
+}

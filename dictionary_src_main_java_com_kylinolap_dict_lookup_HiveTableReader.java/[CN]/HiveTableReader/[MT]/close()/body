@@ -1,0 +1,6 @@
+{
+  this.readCntxt=null;
+  this.currentHCatRecordItr=null;
+  this.currentHCatRecord=null;
+  this.currentSplit=-1;
+}
