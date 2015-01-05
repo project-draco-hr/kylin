@@ -1,0 +1,10 @@
+{
+  System.err.println("Insane record: " + record.getAll());
+  ex.printStackTrace(System.err);
+  errorRecordCounter++;
+  if (errorRecordCounter > BatchConstants.ERROR_RECORD_THRESHOLD) {
+    if (ex instanceof IOException)     throw (IOException)ex;
+ else     if (ex instanceof RuntimeException)     throw (RuntimeException)ex;
+ else     throw new RuntimeException("",ex);
+  }
+}

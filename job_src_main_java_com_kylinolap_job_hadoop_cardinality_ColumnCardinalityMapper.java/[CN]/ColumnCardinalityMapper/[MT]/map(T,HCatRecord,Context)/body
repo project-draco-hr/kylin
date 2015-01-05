@@ -1,11 +1,8 @@
 {
-  HCatSchema schema=HCatInputFormat.getTableSchema(context.getConfiguration());
-  List<HCatFieldSchema> fieldList=schema.getFields();
   HCatFieldSchema field;
   Object fieldValue;
-  Integer columnSize=fieldList.size();
   for (int m=0; m < columnSize; m++) {
-    field=fieldList.get(m);
+    field=schema.get(m);
     fieldValue=value.get(field.getName(),schema);
     if (fieldValue == null)     fieldValue="NULL";
     if (counter < 5 && m < 10) {

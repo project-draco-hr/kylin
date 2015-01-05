@@ -1,0 +1,8 @@
+{
+  if (instance == null) {
+synchronized (HiveClient.class) {
+      if (instance == null)       instance=new HiveClient();
+    }
+  }
+  return instance;
+}

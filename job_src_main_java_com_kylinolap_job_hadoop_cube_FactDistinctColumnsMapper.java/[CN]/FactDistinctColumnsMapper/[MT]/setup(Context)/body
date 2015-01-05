@@ -1,8 +1,5 @@
 {
   Configuration conf=context.getConfiguration();
-  intermediateTableRowDelimiter=conf.get(BatchConstants.CFG_CUBE_INTERMEDIATE_TABLE_ROW_DELIMITER,Character.toString(BatchConstants.INTERMEDIATE_TABLE_ROW_DELIMITER));
-  byteRowDelimiter=intermediateTableRowDelimiter.getBytes("UTF-8")[0];
-  bytesSplitter=new BytesSplitter(200,4096);
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata(conf);
   cubeName=conf.get(BatchConstants.CFG_CUBE_NAME);
   cube=CubeManager.getInstance(config).getCube(cubeName);
@@ -24,4 +21,5 @@
   }
   this.factDictCols=new int[factDictCols.size()];
   for (int i=0; i < factDictCols.size(); i++)   this.factDictCols[i]=factDictCols.get(i);
+  schema=HCatInputFormat.getTableSchema(context.getConfiguration());
 }
