@@ -1,5 +1,5 @@
 {
   logger.info("Initializing RealizationRegistry with metadata url " + config);
   this.config=config;
-  loadRealizations();
+  init();
 }

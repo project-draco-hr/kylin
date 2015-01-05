@@ -1,4 +1,3 @@
 {
-  tables=tables == null ? new TreeSet<String>() : tables;
   return tables;
 }

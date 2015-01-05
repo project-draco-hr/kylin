@@ -1,15 +1,13 @@
 {
+  MetadataManager metaMgr=getMetadataManager();
   ProjectInstance projectInstance=getProject(projectName);
   String[] tokens=StringUtils.split(tables,",");
   for (int i=0; i < tokens.length; i++) {
     String token=tokens[i].trim();
-    if (StringUtils.isNotEmpty(token)) {
-      projectInstance.addTable(token);
+    TableDesc table=metaMgr.getTableDesc(token);
+    if (table != null) {
+      projectInstance.addTable(table.getIdentity());
     }
-  }
-  List<TableDesc> exposedTables=listExposedTables(projectName);
-  for (  TableDesc table : exposedTables) {
-    projectInstance.addTable(table.getName());
   }
   saveResource(projectInstance);
   return projectInstance;

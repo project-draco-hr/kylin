@@ -1,8 +1,8 @@
 {
   CubeInstance cube=CubeManager.getInstance(getTestConfig()).getCube("test_kylin_cube_with_slr_empty");
-  assertTrue(ProjectManager.getInstance(this.getTestConfig()).getRealizationsByTable("default","test_kylin_fact").contains(cube));
+  assertTrue(ProjectManager.getInstance(this.getTestConfig()).getRealizationsByTable("default","default.test_kylin_fact").contains(cube));
   assertTrue(ProjectManager.getInstance(this.getTestConfig()).listAllRealizations("default").contains(cube));
   CubeManager.getInstance(getTestConfig()).dropCube(cube.getName(),true);
-  assertTrue(!ProjectManager.getInstance(this.getTestConfig()).getRealizationsByTable("default","test_kylin_fact").contains(cube));
+  assertTrue(!ProjectManager.getInstance(this.getTestConfig()).getRealizationsByTable("default","default.test_kylin_fact").contains(cube));
   assertTrue(!ProjectManager.getInstance(this.getTestConfig()).listAllRealizations("default").contains(cube));
 }

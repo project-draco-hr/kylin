@@ -1,7 +1,7 @@
 {
   for (  LookupDesc lookup : this.lookups) {
     lookup.setTable(lookup.getTable().toUpperCase());
-    TableDesc dimTable=tables.get(TableDesc.getTableIdentity(lookup.getTable()));
+    TableDesc dimTable=tables.get(lookup.getTable());
     JoinDesc join=lookup.getJoin();
     if (join == null)     continue;
     StringUtil.toUpperCaseArray(join.getForeignKey(),join.getForeignKey());
@@ -18,7 +18,7 @@
       pkCols[i]=colRef;
     }
     join.setPrimaryKeyColumns(pkCols);
-    TableDesc factTable=tables.get(TableDesc.getTableIdentity(this.factTable));
+    TableDesc factTable=tables.get(this.factTable.toUpperCase());
     if (factTable == null) {
       addError("Fact table does not exist:" + this.getFactTable());
     }

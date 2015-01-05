@@ -1,0 +1,22 @@
+{
+  providers=Maps.newConcurrentMap();
+  List<String> realizationProviders=Lists.newArrayList("com.kylinolap.cube.CubeManager");
+  List<Throwable> es=Lists.newArrayList();
+  for (  String clsName : realizationProviders) {
+    try {
+      Class<?> cls=Class.forName(clsName);
+      IRealizationProvider p=(IRealizationProvider)cls.getMethod("getInstance",KylinConfig.class).invoke(null,config);
+      providers.put(p.getRealizationType(),p);
+    }
+ catch (    Exception|NoClassDefFoundError e) {
+      es.add(e);
+    }
+    if (es.size() > 0) {
+      for (      Throwable exceptionOrError : es) {
+        logger.error("Create new store instance failed ",exceptionOrError);
+      }
+      throw new IllegalArgumentException("Failed to find metadata store by url: " + config.getMetadataUrl());
+    }
+  }
+  logger.info("RealizationRegistry is " + providers);
+}

@@ -7,7 +7,6 @@
   if (this.model == null) {
     throw new RuntimeException("No data model found with name '" + modelName + "'.");
   }
-  factTableName=TableDesc.getTableIdentity(factTableName);
   timestampDimension=timestampDimension.toUpperCase();
   IIDimension.capicalizeStrings(bitmapDimensions);
   IIDimension.capicalizeStrings(valueDimensions);
@@ -56,7 +55,7 @@
   tsCol=-1;
   for (int i=0; i < allColumns.size(); ++i) {
     TblColRef col=allColumns.get(i);
-    if (col.getTable().equalsIgnoreCase(TableDesc.getTableIdentity(this.factTableName)) && col.getColumn().getName().equalsIgnoreCase(this.timestampDimension)) {
+    if (col.getTable().equalsIgnoreCase(this.factTableName) && col.getColumn().getName().equalsIgnoreCase(this.timestampDimension)) {
       tsCol=i;
       break;
     }
