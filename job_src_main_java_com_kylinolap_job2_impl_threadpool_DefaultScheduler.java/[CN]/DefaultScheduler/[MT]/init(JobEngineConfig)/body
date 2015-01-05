@@ -22,7 +22,7 @@
     zkClient.close();
     return;
   }
-  jobService=DefaultJobService.getInstance(jobEngineConfig.getConfig());
+  jobService=ExecutableManager.getInstance(jobEngineConfig.getConfig());
   fetcherPool=Executors.newScheduledThreadPool(1);
   int corePoolSize=jobEngineConfig.getMaxConcurrentJobLimit();
   jobPool=new ThreadPoolExecutor(corePoolSize,corePoolSize,Long.MAX_VALUE,TimeUnit.DAYS,new SynchronousQueue<Runnable>());

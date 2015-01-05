@@ -6,7 +6,7 @@
   DeployUtil.overrideJobConf(HBaseMetadataTestCase.SANDBOX_TEST_DATA);
   setFinalStatic(JobConstants.class.getField("DEFAULT_SCHEDULER_INTERVAL_SECONDS"),10);
   final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
-  jobService=DefaultJobService.getInstance(kylinConfig);
+  jobService=ExecutableManager.getInstance(kylinConfig);
   scheduler=DefaultScheduler.getInstance();
   scheduler.init(new JobEngineConfig(kylinConfig));
   if (!scheduler.hasStarted()) {
