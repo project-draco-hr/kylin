@@ -1,3 +1,3 @@
 {
-  this.getJobManager().resumeJob(job.getUuid());
+  getExecutableManager().updateJobStatus(job.getId(),ExecutableState.READY);
 }

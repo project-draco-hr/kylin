@@ -1,0 +1,5 @@
+{
+  Preconditions.checkState(job instanceof BuildCubeJob,"illegal job type, id:" + job.getId());
+  final JobInstance result=new JobInstance();
+  return result;
+}

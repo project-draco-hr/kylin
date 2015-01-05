@@ -9,9 +9,6 @@
       @Override public void run(){
         JobManager jobManager=null;
         try {
-          jobManager=jobService.getJobManager();
-          jobManager.startJobEngine();
-          metricsService.registerJobMetrics(jobManager);
         }
  catch (        Exception e) {
           throw new RuntimeException(e);

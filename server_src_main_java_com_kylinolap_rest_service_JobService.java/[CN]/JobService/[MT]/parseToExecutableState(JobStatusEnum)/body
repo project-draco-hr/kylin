@@ -1,0 +1,18 @@
+{
+switch (status) {
+case DISCARDED:
+    return ExecutableState.DISCARDED;
+case ERROR:
+  return ExecutableState.ERROR;
+case FINISHED:
+return ExecutableState.SUCCEED;
+case NEW:
+return ExecutableState.READY;
+case PENDING:
+return ExecutableState.READY;
+case RUNNING:
+return ExecutableState.RUNNING;
+default :
+throw new RuntimeException("illegal status:" + status);
+}
+}

@@ -1,9 +1,6 @@
 {
   CubeInstance cube=this.getCubeManager().getCube(job.getRelatedCube());
-  List<JobInstance> jobs=this.getJobManager().listJobs(cube.getName(),null);
-  for (  JobInstance jobInstance : jobs) {
-    if (jobInstance.getStatus() != JobStatusEnum.DISCARDED && jobInstance.getStatus() != JobStatusEnum.FINISHED) {
-      this.getJobManager().discardJob(jobInstance.getUuid());
-    }
+  for (  BuildCubeJob cubeJob : listAllCubingJobs(cube.getName(),null,EnumSet.of(ExecutableState.READY,ExecutableState.RUNNING))) {
+    getExecutableManager().stopJob(cubeJob.getId());
   }
 }

@@ -1,8 +1,8 @@
 {
-  List<JobInstance> jobInstances=this.getJobManager().listJobs(cube.getName(),null);
-  for (  JobInstance jobInstance : jobInstances) {
-    if (jobInstance.getStatus() == JobStatusEnum.PENDING || jobInstance.getStatus() == JobStatusEnum.RUNNING) {
-      throw new JobException("The cube " + cube.getName() + " has running job("+ jobInstance.getUuid()+ ") please discard it and try again.");
+  final List<BuildCubeJob> buildCubeJobs=listAllCubingJobs(cube.getName(),null,EnumSet.allOf(ExecutableState.class));
+  for (  BuildCubeJob job : buildCubeJobs) {
+    if (job.getStatus() == ExecutableState.READY || job.getStatus() == ExecutableState.RUNNING) {
+      throw new JobException("The cube " + cube.getName() + " has running job("+ job.getId()+ ") please discard it and try again.");
     }
   }
   String uuid=null;
@@ -17,18 +17,12 @@
  else {
       throw new JobException("invalid build type:" + buildType);
     }
-    List<JobInstance> jobs=Lists.newArrayListWithExpectedSize(cubeSegments.size());
+    getCubeManager().updateCube(cube);
     for (    CubeSegment segment : cubeSegments) {
       uuid=segment.getUuid();
-      JobInstance job=getJobManager().createJob(cube.getName(),segment.getName(),segment.getUuid(),buildType,submitter);
+      BuildCubeJobBuilder builder=BuildCubeJobBuilder.newBuilder(new JobEngineConfig(getConfig()),segment);
+      getExecutableManager().addJob(builder.build());
       segment.setLastBuildJobID(uuid);
-      jobs.add(job);
-    }
-    getCubeManager().updateCube(cube);
-    for (    JobInstance job : jobs) {
-      this.getJobManager().submitJob(job);
-      permissionService.init(job,null);
-      permissionService.inherit(job,cube);
     }
   }
  catch (  CubeIntegrityException e) {

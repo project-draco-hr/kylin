@@ -1,0 +1,12 @@
+{
+  Set<ExecutableState> states=Sets.newHashSet();
+  for (  JobStatusEnum status : statusList) {
+    states.add(parseToExecutableState(status));
+  }
+  return Lists.newArrayList(FluentIterable.from(listAllCubingJobs(cubeName,projectName,states)).transform(new Function<BuildCubeJob,JobInstance>(){
+    @Override public JobInstance apply(    BuildCubeJob buildCubeJob){
+      return parseToJobInstance(buildCubeJob);
+    }
+  }
+));
+}

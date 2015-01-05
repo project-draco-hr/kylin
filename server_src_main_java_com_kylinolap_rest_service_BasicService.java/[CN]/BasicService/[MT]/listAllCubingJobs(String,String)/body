@@ -1,0 +1,3 @@
+{
+  return listAllCubingJobs(cubeName,projectName,EnumSet.allOf(ExecutableState.class));
+}
