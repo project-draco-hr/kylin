@@ -6,12 +6,11 @@ case RUNNING:
   return JobStepStatusEnum.RUNNING;
 case ERROR:
 return JobStepStatusEnum.ERROR;
-case STOPPED:
-return JobStepStatusEnum.PENDING;
 case DISCARDED:
 return JobStepStatusEnum.DISCARDED;
 case SUCCEED:
 return JobStepStatusEnum.FINISHED;
+case STOPPED:
 default :
 throw new RuntimeException("invalid state:" + state);
 }

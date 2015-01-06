@@ -8,6 +8,7 @@
 );
   }
  catch (  PersistentException e) {
+    logger.error("error get All Jobs",e);
     throw new RuntimeException(e);
   }
 }

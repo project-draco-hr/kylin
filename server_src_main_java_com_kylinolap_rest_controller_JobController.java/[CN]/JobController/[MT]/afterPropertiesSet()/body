@@ -2,13 +2,18 @@
   String timeZone=jobService.getKylinConfig().getTimeZone();
   TimeZone tzone=TimeZone.getTimeZone(timeZone);
   TimeZone.setDefault(tzone);
-  String serverMode=KylinConfig.getInstanceFromEnv().getServerMode();
+  final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  String serverMode=kylinConfig.getServerMode();
   if (Constant.SERVER_MODE_JOB.equals(serverMode.toLowerCase()) || Constant.SERVER_MODE_ALL.equals(serverMode.toLowerCase())) {
     logger.info("Initializing Job Engine ....");
     new Thread(new Runnable(){
       @Override public void run(){
-        JobManager jobManager=null;
         try {
+          DefaultScheduler scheduler=DefaultScheduler.getInstance();
+          scheduler.init(new JobEngineConfig(kylinConfig));
+          if (!scheduler.hasStarted()) {
+            throw new RuntimeException("scheduler has not been started");
+          }
         }
  catch (        Exception e) {
           throw new RuntimeException(e);

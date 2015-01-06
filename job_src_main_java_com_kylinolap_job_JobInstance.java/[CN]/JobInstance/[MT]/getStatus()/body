@@ -1,30 +1,3 @@
 {
-  int compositResult=0;
-  System.out.println(this.getName());
-  for (  JobStep step : this.getSteps()) {
-    compositResult=compositResult | step.getStatus().getCode();
-  }
-  System.out.println();
-  if (compositResult == JobStatusEnum.FINISHED.getCode()) {
-    return JobStatusEnum.FINISHED;
-  }
- else   if (compositResult == JobStatusEnum.NEW.getCode()) {
-    return JobStatusEnum.NEW;
-  }
- else   if (compositResult == JobStatusEnum.PENDING.getCode()) {
-    return JobStatusEnum.PENDING;
-  }
- else   if (compositResult == (JobStatusEnum.FINISHED.getCode() | JobStatusEnum.PENDING.getCode())) {
-    return JobStatusEnum.PENDING;
-  }
- else   if ((compositResult & JobStatusEnum.ERROR.getCode()) == JobStatusEnum.ERROR.getCode()) {
-    return JobStatusEnum.ERROR;
-  }
- else   if ((compositResult & JobStatusEnum.DISCARDED.getCode()) == JobStatusEnum.DISCARDED.getCode()) {
-    return JobStatusEnum.DISCARDED;
-  }
- else   if ((compositResult & JobStatusEnum.RUNNING.getCode()) == JobStatusEnum.RUNNING.getCode()) {
-    return JobStatusEnum.RUNNING;
-  }
-  return JobStatusEnum.RUNNING;
+  return this.status;
 }

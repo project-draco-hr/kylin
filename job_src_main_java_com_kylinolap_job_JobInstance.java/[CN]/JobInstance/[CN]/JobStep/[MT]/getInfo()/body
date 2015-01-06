@@ -1,6 +1,3 @@
 {
-  if (info == null) {
-    info=new ConcurrentHashMap<String,String>();
-  }
   return info;
 }

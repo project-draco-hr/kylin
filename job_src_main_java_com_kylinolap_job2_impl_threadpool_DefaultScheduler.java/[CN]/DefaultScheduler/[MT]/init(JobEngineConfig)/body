@@ -22,16 +22,18 @@
     zkClient.close();
     return;
   }
-  jobService=ExecutableManager.getInstance(jobEngineConfig.getConfig());
+  executableManager=ExecutableManager.getInstance(jobEngineConfig.getConfig());
   fetcherPool=Executors.newScheduledThreadPool(1);
   int corePoolSize=jobEngineConfig.getMaxConcurrentJobLimit();
   jobPool=new ThreadPoolExecutor(corePoolSize,corePoolSize,Long.MAX_VALUE,TimeUnit.DAYS,new SynchronousQueue<Runnable>());
   context=new DefaultContext(Maps.<String,Executable>newConcurrentMap(),jobEngineConfig.getConfig());
-  for (  AbstractExecutable executable : jobService.getAllExecutables()) {
-    if (executable.getStatus() == ExecutableState.RUNNING) {
-      jobService.updateJobStatus(executable.getId(),ExecutableState.ERROR,"scheduler initializing work to reset job to ERROR status");
+  for (  AbstractExecutable executable : executableManager.getAllExecutables()) {
+    final ExecutableState status=executable.getStatus();
+    if (status == ExecutableState.READY) {
+      executableManager.updateJobStatus(executable.getId(),ExecutableState.ERROR,"scheduler initializing work to reset job to ERROR status");
     }
   }
+  executableManager.updateAllRunningJobsToError();
   Runtime.getRuntime().addShutdownHook(new Thread(){
     public void run(){
       logger.debug("Closing zk connection");

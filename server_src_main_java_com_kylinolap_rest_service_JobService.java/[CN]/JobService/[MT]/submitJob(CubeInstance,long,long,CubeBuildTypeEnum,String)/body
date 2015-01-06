@@ -5,7 +5,6 @@
       throw new JobException("The cube " + cube.getName() + " has running job("+ job.getId()+ ") please discard it and try again.");
     }
   }
-  String uuid=null;
   try {
     List<CubeSegment> cubeSegments;
     if (buildType == CubeBuildTypeEnum.BUILD) {
@@ -17,16 +16,16 @@
  else {
       throw new JobException("invalid build type:" + buildType);
     }
+    Preconditions.checkState(cubeSegments.size() == 1,"can only allocate one segment");
+    CubeSegment segment=cubeSegments.get(0);
+    BuildCubeJobBuilder builder=BuildCubeJobBuilder.newBuilder(new JobEngineConfig(getConfig()),segment);
+    final BuildCubeJob job=builder.build();
+    segment.setLastBuildJobID(job.getId());
     getCubeManager().updateCube(cube);
-    for (    CubeSegment segment : cubeSegments) {
-      uuid=segment.getUuid();
-      BuildCubeJobBuilder builder=BuildCubeJobBuilder.newBuilder(new JobEngineConfig(getConfig()),segment);
-      getExecutableManager().addJob(builder.build());
-      segment.setLastBuildJobID(uuid);
-    }
+    getExecutableManager().addJob(job);
+    return parseToJobInstance(job);
   }
  catch (  CubeIntegrityException e) {
     throw new InternalErrorException(e.getLocalizedMessage(),e);
   }
-  return uuid;
 }

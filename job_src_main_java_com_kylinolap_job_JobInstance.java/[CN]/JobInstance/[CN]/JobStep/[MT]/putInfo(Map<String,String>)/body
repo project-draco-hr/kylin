@@ -1,5 +1,0 @@
-{
-  if (maps != null) {
-    getInfo().putAll(maps);
-  }
-}

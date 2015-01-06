@@ -1,0 +1,15 @@
+{
+  try {
+    final List<JobOutputPO> jobOutputs=jobDao.getJobOutputs();
+    for (    JobOutputPO jobOutputPO : jobOutputs) {
+      if (jobOutputPO.getStatus().equalsIgnoreCase(ExecutableState.RUNNING.toString())) {
+        jobOutputPO.setStatus(ExecutableState.ERROR.toString());
+        jobDao.updateJobOutput(jobOutputPO);
+      }
+    }
+  }
+ catch (  PersistentException e) {
+    logger.error("error reset job status from RUNNING to ERROR",e);
+    throw new RuntimeException(e);
+  }
+}

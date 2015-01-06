@@ -2,6 +2,6 @@
   if (executable.getStatus() == ExecutableState.RUNNING) {
     final String errMsg="job:" + executable.getId() + " status should not be:"+ ExecutableState.RUNNING+ ", reset it to ERROR";
     logger.warn(errMsg);
-    jobService.updateJobStatus(executable.getId(),ExecutableState.ERROR,errMsg);
+    executableManager.updateJobStatus(executable.getId(),ExecutableState.ERROR,errMsg);
   }
 }

@@ -1,6 +1,6 @@
 {
   logger.info("Job Fetcher is running...");
-  for (  final AbstractExecutable executable : jobService.getAllExecutables()) {
+  for (  final AbstractExecutable executable : executableManager.getAllExecutables()) {
     boolean hasLock=false;
     try {
       hasLock=acquireJobLock(executable,1);
