@@ -1,0 +1,7 @@
+{
+  if (applyOrder > rules.size()) {
+    logger.warn("apply order " + applyOrder + "  is larger than rules size "+ rules.size()+ ", will put the new rule at the end");
+    rules.add(rule);
+  }
+  rules.add(applyOrder,rule);
+}

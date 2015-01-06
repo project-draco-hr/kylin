@@ -1,0 +1,18 @@
+{
+  List<IRealization> temp=Lists.newLinkedList();
+  for (Iterator<IRealization> iter=realizations.iterator(); iter.hasNext(); ) {
+    IRealization realization=iter.next();
+    if (realization instanceof IIInstance) {
+      temp.add(realization);
+      iter.remove();
+    }
+  }
+  for (  IRealization realization : temp) {
+    if (olapContext.isSimpleQuery()) {
+      realizations.add(0,realization);
+    }
+ else {
+      realizations.add(realization);
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  String factTableName=olapContext.firstTableScan.getCubeTable();
+  String projectName=olapContext.olapSchema.getProjectName();
+  Collection<TblColRef> dimensionColumns=(olapContext).getDimensionColumns();
+  Collection<FunctionDesc> functions=olapContext.aggregations;
+  Collection<TblColRef> metricsColumns=olapContext.metricsColumns;
+  Collection<JoinDesc> joins=olapContext.joins;
+  List<CubeInstance> candidates=filterCubes(realizations);
+  logger.info("Find candidates by table " + factTableName + " and project="+ projectName+ " : "+ StringUtils.join(candidates,","));
+  Iterator<CubeInstance> it=candidates.iterator();
+  while (it.hasNext()) {
+    CubeInstance cube=it.next();
+    boolean isOnline=cube.isReady();
+    boolean matchDimensions=isMatchedWithDimensions(dimensionColumns,cube);
+    boolean matchAggregation=isMatchedWithAggregations(functions,cube);
+    boolean matchJoin=isMatchedWithJoins(joins,cube);
+    if (isOnline && matchDimensions && !matchAggregation&& matchJoin) {
+      if (isWeaklyMatchedWithAggregations(functions,metricsColumns,cube)) {
+        logger.info("Weakly matched cube found " + cube.getName());
+        olapContext.isWeekMatch.put(cube,true);
+        continue;
+      }
+    }
+    if (!isOnline || !matchDimensions || !matchAggregation|| !matchJoin) {
+      logger.info("Remove cube " + cube.getName() + " because "+ " isOnlne="+ isOnline+ ",matchDimensions="+ matchDimensions+ ",matchAggregation="+ matchAggregation+ ",matchJoin="+ matchJoin);
+      realizations.remove(cube);
+    }
+  }
+}

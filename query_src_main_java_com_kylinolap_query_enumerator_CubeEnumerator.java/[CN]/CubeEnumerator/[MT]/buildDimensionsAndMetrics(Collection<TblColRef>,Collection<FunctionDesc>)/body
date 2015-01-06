@@ -5,12 +5,10 @@
     }
   }
   if (olapContext.isSimpleQuery()) {
-    for (    DimensionDesc dim : olapContext.cubeDesc.getDimensions()) {
-      for (      TblColRef col : dim.getColumnRefs()) {
-        dimensions.add(col);
-      }
+    for (    TblColRef col : olapContext.realization.getDimensions()) {
+      dimensions.add(col);
     }
-    for (    MeasureDesc measure : olapContext.cubeDesc.getMeasures()) {
+    for (    MeasureDesc measure : olapContext.realization.getMeasures()) {
       FunctionDesc func=measure.getFunction();
       if (func.isSum()) {
         metrics.add(func);
