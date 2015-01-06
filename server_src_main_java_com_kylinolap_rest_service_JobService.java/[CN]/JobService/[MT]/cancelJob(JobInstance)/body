@@ -1,6 +1,0 @@
-{
-  CubeInstance cube=this.getCubeManager().getCube(job.getRelatedCube());
-  for (  BuildCubeJob cubeJob : listAllCubingJobs(cube.getName(),null,EnumSet.of(ExecutableState.READY,ExecutableState.RUNNING))) {
-    getExecutableManager().stopJob(cubeJob.getId());
-  }
-}
