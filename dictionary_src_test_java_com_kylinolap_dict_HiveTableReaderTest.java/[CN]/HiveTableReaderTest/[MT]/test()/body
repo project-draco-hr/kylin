@@ -1,4 +1,5 @@
 {
+  HiveTableReader reader=new HiveTableReader("default","test_kylin_fact");
   int rowNumber=0;
   while (reader.next()) {
     String[] row=reader.getRow();
@@ -7,4 +8,5 @@
     rowNumber++;
   }
   Assert.assertEquals(10000,rowNumber);
+  reader.close();
 }

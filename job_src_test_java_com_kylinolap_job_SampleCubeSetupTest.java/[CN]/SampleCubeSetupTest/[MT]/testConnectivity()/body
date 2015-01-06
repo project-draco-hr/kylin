@@ -1,4 +1,0 @@
-{
-  KylinConfig cfg=KylinConfig.getInstanceFromEnv();
-  cfg.getCliCommandExecutor().execute("echo hello");
-}

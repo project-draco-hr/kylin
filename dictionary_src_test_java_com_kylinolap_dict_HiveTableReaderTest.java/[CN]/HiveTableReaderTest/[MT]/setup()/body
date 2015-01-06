@@ -1,4 +1,0 @@
-{
-  ClasspathUtil.addClasspath(new File("../examples/test_case_data/sandbox/").getAbsolutePath());
-  reader=new HiveTableReader("default","test_kylin_fact");
-}

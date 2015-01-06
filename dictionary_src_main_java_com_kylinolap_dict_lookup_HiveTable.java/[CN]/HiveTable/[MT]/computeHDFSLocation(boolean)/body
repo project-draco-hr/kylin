@@ -4,17 +4,15 @@
     logger.debug("Override hive table location " + hiveTable + " -- "+ override);
     return override;
   }
-  Table table=null;
+  String hdfsDir=null;
   try {
     HiveClient hiveClient=new HiveClient();
-    HiveMetaStoreClient metaDataClient=hiveClient.getMetaStoreClient();
-    table=metaDataClient.getTable(database,hiveTable);
+    hdfsDir=hiveClient.getHiveTableLocation(database,hiveTable);
   }
  catch (  Exception e) {
     e.printStackTrace();
     throw new IOException(e);
   }
-  String hdfsDir=table.getSd().getLocation();
   if (needFilePath) {
     FileSystem fs=HadoopUtil.getFileSystem(hdfsDir);
     FileStatus file=findOnlyFile(hdfsDir,fs);
