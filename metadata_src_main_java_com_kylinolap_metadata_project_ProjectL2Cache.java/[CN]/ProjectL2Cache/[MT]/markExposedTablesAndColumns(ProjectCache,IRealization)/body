@@ -4,13 +4,8 @@
   }
   for (  TblColRef col : realization.getAllColumns()) {
     TableCache tableCache=prjCache.tables.get(col.getTable());
-    if (tableCache != null) {
-      prjCache.exposedTables.add(tableCache.tableDesc);
-      tableCache.exposed=true;
-      tableCache.exposedColumns.add(col.getColumn());
-    }
- else {
-      logger.warn("Realization '" + realization.getCanonicalName() + "' reports columcn '"+ col.getCanonicalName()+ "' whose table is not defined in project '"+ prjCache.project+ "'");
-    }
+    prjCache.exposedTables.add(tableCache.tableDesc);
+    tableCache.exposed=true;
+    tableCache.exposedColumns.add(col.getColumn());
   }
 }

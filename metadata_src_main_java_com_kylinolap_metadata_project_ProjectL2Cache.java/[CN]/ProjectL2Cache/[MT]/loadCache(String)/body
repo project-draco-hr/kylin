@@ -23,7 +23,7 @@
     }
   }
   for (  IRealization realization : result.realizations) {
-    if (sanityCheck(realization)) {
+    if (sanityCheck(result,realization)) {
       mapTableToRealization(result,realization);
       markExposedTablesAndColumns(result,realization);
     }
