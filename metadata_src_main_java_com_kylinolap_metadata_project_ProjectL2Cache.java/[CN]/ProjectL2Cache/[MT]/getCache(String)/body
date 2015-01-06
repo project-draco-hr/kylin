@@ -1,0 +1,8 @@
+{
+  ProjectCache result=projectCaches.get(project);
+  if (result == null) {
+    result=loadCache(project);
+    projectCaches.put(project,result);
+  }
+  return result;
+}

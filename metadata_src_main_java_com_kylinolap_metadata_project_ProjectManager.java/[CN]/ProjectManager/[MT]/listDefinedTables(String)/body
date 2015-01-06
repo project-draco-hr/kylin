@@ -1,14 +1,3 @@
 {
-  if (null == project) {
-    return Collections.emptyList();
-  }
-  ProjectInstance projectInstance=getProject(project);
-  List<TableDesc> tables=Lists.newArrayList();
-  for (  String table : projectInstance.getTables()) {
-    TableDesc tableDesc=getMetadataManager().getTableDesc(table);
-    if (tableDesc != null) {
-      tables.add(tableDesc);
-    }
-  }
-  return tables;
+  return l2Cache.listDefinedTables(norm(project));
 }

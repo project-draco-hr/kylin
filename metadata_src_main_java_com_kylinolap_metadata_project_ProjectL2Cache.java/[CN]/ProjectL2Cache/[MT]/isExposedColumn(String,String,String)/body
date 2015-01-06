@@ -1,0 +1,8 @@
+{
+  TableCache tableCache=getCache(project).tables.get(table);
+  if (tableCache == null)   return false;
+  for (  ColumnDesc colDesc : tableCache.exposedColumns) {
+    if (colDesc.getName().equals(col))     return true;
+  }
+  return false;
+}

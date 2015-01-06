@@ -1,6 +1,0 @@
-{
-  if (!realization.isReady())   return;
-  for (  TblColRef col : realization.getAllColumns()) {
-    markExposedTableAndColumn(projectName,col.getTable(),col.getName());
-  }
-}

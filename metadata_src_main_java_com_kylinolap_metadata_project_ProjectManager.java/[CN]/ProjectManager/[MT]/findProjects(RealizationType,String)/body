@@ -1,9 +1,12 @@
 {
-  List<ProjectInstance> projects=Lists.newArrayList();
-  for (  ProjectInstance projectInstance : projectMap.values()) {
-    if (projectInstance.containsRealization(type,realizationName)) {
-      projects.add(projectInstance);
+  List<ProjectInstance> result=Lists.newArrayList();
+  for (  ProjectInstance prj : projectMap.values()) {
+    for (    RealizationEntry entry : prj.getRealizationEntries()) {
+      if (entry.getType().equals(type) && entry.getRealization().equals(realizationName)) {
+        result.add(prj);
+        break;
+      }
     }
   }
-  return projects;
+  return result;
 }

@@ -1,4 +1,3 @@
 {
-  project=ProjectInstance.getNormalizedProjectName(project);
-  return projectTables.containsEntry(project,new ProjectTable(table));
+  return l2Cache.isExposedTable(norm(project),table);
 }

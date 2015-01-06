@@ -1,0 +1,10 @@
+{
+  Set<IRealization> realizations=getRealizationsByTable(project,factTable);
+  List<IRealization> result=Lists.newArrayListWithCapacity(realizations.size());
+  for (  IRealization r : realizations) {
+    if (r.getFactTable().equalsIgnoreCase(factTable) && r.isReady()) {
+      result.add(r);
+    }
+  }
+  return result;
+}

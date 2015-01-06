@@ -1,0 +1,9 @@
+{
+  ResourceStore store=getStore();
+  ProjectInstance projectInstance=store.getResource(path,ProjectInstance.class,PROJECT_SERIALIZER);
+  projectInstance.init();
+  if (StringUtils.isBlank(projectInstance.getName()))   throw new IllegalStateException("Project name must not be blank");
+  projectMap.putLocal(projectInstance.getName().toUpperCase(),projectInstance);
+  clearL2Cache();
+  return projectInstance;
+}
