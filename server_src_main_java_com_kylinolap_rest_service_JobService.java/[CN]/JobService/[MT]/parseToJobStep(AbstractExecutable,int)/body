@@ -1,0 +1,7 @@
+{
+  JobInstance.JobStep result=new JobInstance.JobStep();
+  result.setName(task.getName());
+  result.setSequenceID(i);
+  result.setStatus(parseToJobStepStatus(task.getStatus()));
+  return result;
+}
