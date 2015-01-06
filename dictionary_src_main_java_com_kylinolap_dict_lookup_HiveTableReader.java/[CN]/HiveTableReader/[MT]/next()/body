@@ -1,0 +1,11 @@
+{
+  while (currentHCatRecordItr == null || !currentHCatRecordItr.hasNext()) {
+    currentSplit++;
+    if (currentSplit == numberOfSplits) {
+      return false;
+    }
+    currentHCatRecordItr=loadHCatRecordItr(currentSplit);
+  }
+  currentHCatRecord=currentHCatRecordItr.next();
+  return true;
+}

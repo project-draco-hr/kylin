@@ -1,0 +1,10 @@
+{
+  for (  RoutingRule rule : rules) {
+    logger.info("Initial realizations order:");
+    logger.info(getPrintableText(realizations));
+    logger.info("Applying rule " + rule);
+    rule.apply(realizations,olapContext);
+    logger.info(getPrintableText(realizations));
+    logger.info("===================================================");
+  }
+}

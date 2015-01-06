@@ -1,14 +1,64 @@
 {
-  StringBuilder cmd=new StringBuilder();
-  cmd.append("hive -e \"");
-  if (StringUtils.isEmpty(database) == false) {
-    cmd.append("use " + database + "; ");
+  File tableDescDir=new File(metaTmpDir,TABLE_FOLDER_NAME);
+  File tableExdDir=new File(metaTmpDir,TABLE_EXD_FOLDER_NAME);
+  mkdirs(tableDescDir);
+  mkdirs(tableExdDir);
+  List<TableDesc> tableDescList=new ArrayList<TableDesc>();
+  List<Map<String,String>> tableAttrsList=new ArrayList<Map<String,String>>();
+  for (  String tableName : tables) {
+    Table table=null;
+    List<FieldSchema> fields=null;
+    try {
+      HiveClient hiveClient=new HiveClient();
+      HiveMetaStoreClient metaDataClient=hiveClient.getMetaStoreClient();
+      table=metaDataClient.getTable(database,tableName);
+      fields=metaDataClient.getFields(database,tableName);
+    }
+ catch (    Exception e) {
+      e.printStackTrace();
+      throw new IOException(e);
+    }
+    TableDesc tableDesc=new TableDesc();
+    tableDesc.setDatabase(database.toUpperCase());
+    tableDesc.setName(tableName.toUpperCase());
+    tableDesc.setUuid(UUID.randomUUID().toString());
+    int columnNumber=fields.size();
+    List<ColumnDesc> columns=new ArrayList<ColumnDesc>(columnNumber);
+    for (int i=0; i < columnNumber; i++) {
+      FieldSchema field=fields.get(i);
+      ColumnDesc cdesc=new ColumnDesc();
+      cdesc.setName(field.getName().toUpperCase());
+      cdesc.setDatatype(field.getType());
+      cdesc.setId(String.valueOf(i + 1));
+      columns.add(cdesc);
+    }
+    tableDesc.setColumns(columns.toArray(new ColumnDesc[columnNumber]));
+    List<FieldSchema> partitionCols=table.getPartitionKeys();
+    StringBuffer partitionColumnString=new StringBuffer();
+    for (int i=0, n=partitionCols.size(); i < n; i++) {
+      if (i > 0)       partitionColumnString.append(", ");
+      partitionColumnString.append(partitionCols.get(i).getName().toUpperCase());
+    }
+    tableDescList.add(tableDesc);
+    Map<String,String> map=new HashMap<String,String>();
+    map.put("tableName",table.getTableName());
+    map.put("location",table.getSd().getLocation());
+    map.put("inputformat",table.getSd().getInputFormat());
+    map.put("outputformat",table.getSd().getOutputFormat());
+    map.put("owner",table.getOwner());
+    map.put("lastAccessTime",String.valueOf(table.getLastAccessTime()));
+    map.put("partitionColumns",partitionColumnString.toString());
+    tableAttrsList.add(map);
   }
-  for (  String table : tables) {
-    cmd.append("show table extended like " + table + "; ");
+  List<String> loadedTables=Lists.newArrayList();
+  for (  TableDesc table : tableDescList) {
+    File file=new File(tableDescDir,table.getIdentity().toUpperCase() + "." + OUTPUT_SURFIX);
+    JsonUtil.writeValueIndent(new FileOutputStream(file),table);
+    loadedTables.add(table.getIdentity());
   }
-  cmd.append("\"");
-  CliCommandExecutor cmdExec=config.getCliCommandExecutor();
-  String output=cmdExec.execute(cmd.toString()).getSecond();
-  return extractTableDescFromHiveOutput(database,output,metaTmpDir);
+  for (  Map<String,String> tableAttrs : tableAttrsList) {
+    File file=new File(tableExdDir,(database + "." + tableAttrs.get("tableName")).toUpperCase() + "." + OUTPUT_SURFIX);
+    JsonUtil.writeValueIndent(new FileOutputStream(file),tableAttrs);
+  }
+  return loadedTables;
 }

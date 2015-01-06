@@ -1,0 +1,8 @@
+{
+  List<Object> allFields=currentHCatRecord.getAll();
+  List<String> rowValues=new ArrayList<String>(allFields.size());
+  for (  Object o : allFields) {
+    rowValues.add(o != null ? o.toString() : "NULL");
+  }
+  return rowValues.toArray(new String[allFields.size()]);
+}

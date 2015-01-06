@@ -1,0 +1,8 @@
+{
+  for (Iterator<RoutingRule> iter=rules.iterator(); iter.hasNext(); ) {
+    RoutingRule r=iter.next();
+    if (r.getClass() == rule.getClass()) {
+      iter.remove();
+    }
+  }
+}

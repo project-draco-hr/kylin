@@ -1,15 +1,13 @@
 {
   Map<String,Set<String>> db2tables=Maps.newHashMap();
   for (  String table : hiveTables) {
-    int cut=table.indexOf('.');
-    String database=cut >= 0 ? table.substring(0,cut).trim() : "DEFAULT";
-    String tableName=cut >= 0 ? table.substring(cut + 1).trim() : table.trim();
-    Set<String> set=db2tables.get(database);
+    String[] dbtableNames=HadoopUtil.parseHiveTableName(table);
+    Set<String> set=db2tables.get(dbtableNames[0]);
     if (set == null) {
       set=Sets.newHashSet();
-      db2tables.put(database,set);
+      db2tables.put(dbtableNames[0],set);
     }
-    set.add(tableName);
+    set.add(dbtableNames[1]);
   }
   File metaTmpDir=File.createTempFile("meta_tmp",null);
   metaTmpDir.delete();

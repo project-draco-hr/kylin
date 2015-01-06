@@ -1,0 +1,2 @@
+Collection<TblColRef> dimensionColumns
+String factTableName
