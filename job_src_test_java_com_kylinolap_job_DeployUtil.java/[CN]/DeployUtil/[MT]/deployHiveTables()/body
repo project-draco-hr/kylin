@@ -11,19 +11,20 @@
     IOUtils.copy(hbaseDataStream,localFileStream);
     hbaseDataStream.close();
     localFileStream.close();
-    config().getCliCommandExecutor().copyFile(localBufferFile.getPath(),config().getCliWorkingDir());
-    localBufferFile.delete();
+    localBufferFile.deleteOnExit();
   }
+  String tableFileDir=temp.getParent();
   temp.delete();
-  execHiveCommand("CREATE DATABASE IF NOT EXISTS EDW;");
-  execHiveCommand(generateCreateTableHql(metaMgr.getTableDesc(TABLE_CAL_DT.toUpperCase())));
-  execHiveCommand(generateCreateTableHql(metaMgr.getTableDesc(TABLE_CATEGORY_GROUPINGS.toUpperCase())));
-  execHiveCommand(generateCreateTableHql(metaMgr.getTableDesc(TABLE_KYLIN_FACT.toUpperCase())));
-  execHiveCommand(generateCreateTableHql(metaMgr.getTableDesc(TABLE_SELLER_TYPE_DIM.toUpperCase())));
-  execHiveCommand(generateCreateTableHql(metaMgr.getTableDesc(TABLE_SITES.toUpperCase())));
-  execHiveCommand(generateLoadDataHql(TABLE_CAL_DT));
-  execHiveCommand(generateLoadDataHql(TABLE_CATEGORY_GROUPINGS));
-  execHiveCommand(generateLoadDataHql(TABLE_KYLIN_FACT));
-  execHiveCommand(generateLoadDataHql(TABLE_SELLER_TYPE_DIM));
-  execHiveCommand(generateLoadDataHql(TABLE_SITES));
+  HiveClient hiveClient=new HiveClient();
+  hiveClient.executeHQL("CREATE DATABASE IF NOT EXISTS EDW");
+  hiveClient.executeHQL(generateCreateTableHql(metaMgr.getTableDesc(TABLE_CAL_DT.toUpperCase())));
+  hiveClient.executeHQL(generateCreateTableHql(metaMgr.getTableDesc(TABLE_CATEGORY_GROUPINGS.toUpperCase())));
+  hiveClient.executeHQL(generateCreateTableHql(metaMgr.getTableDesc(TABLE_KYLIN_FACT.toUpperCase())));
+  hiveClient.executeHQL(generateCreateTableHql(metaMgr.getTableDesc(TABLE_SELLER_TYPE_DIM.toUpperCase())));
+  hiveClient.executeHQL(generateCreateTableHql(metaMgr.getTableDesc(TABLE_SITES.toUpperCase())));
+  hiveClient.executeHQL(generateLoadDataHql(TABLE_CAL_DT,tableFileDir));
+  hiveClient.executeHQL(generateLoadDataHql(TABLE_CATEGORY_GROUPINGS,tableFileDir));
+  hiveClient.executeHQL(generateLoadDataHql(TABLE_KYLIN_FACT,tableFileDir));
+  hiveClient.executeHQL(generateLoadDataHql(TABLE_SELLER_TYPE_DIM,tableFileDir));
+  hiveClient.executeHQL(generateLoadDataHql(TABLE_SITES,tableFileDir));
 }

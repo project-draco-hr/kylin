@@ -1,5 +1,4 @@
 {
-  ClasspathUtil.addClasspath(new File("../examples/test_case_data/sandbox/").getAbsolutePath());
   createTestMetadata();
   snapshotMgr=SnapshotManager.getInstance(this.getTestConfig());
 }

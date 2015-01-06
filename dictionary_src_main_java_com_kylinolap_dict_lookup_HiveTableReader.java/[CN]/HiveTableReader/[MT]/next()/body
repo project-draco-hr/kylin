@@ -4,7 +4,7 @@
     if (currentSplit == numberOfSplits) {
       return false;
     }
-    currentHCatRecordItr=loadHCatRecordItr(currentSplit);
+    currentHCatRecordItr=loadHCatRecordItr(readCntxt,currentSplit);
   }
   currentHCatRecord=currentHCatRecordItr.next();
   return true;
