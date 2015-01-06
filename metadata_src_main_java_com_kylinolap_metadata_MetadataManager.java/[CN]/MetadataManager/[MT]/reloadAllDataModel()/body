@@ -4,10 +4,7 @@
   dataModelDescMap.clear();
   List<String> paths=store.collectResourceRecursively(ResourceStore.DATA_MODEL_DESC_RESOURCE_ROOT,MetadataConstances.FILE_SURFIX);
   for (  String path : paths) {
-    DataModelDesc modelDesc=loadDataModelDesc(path);
-    String name=modelDesc.getName();
-    checkNoDupName(name,dataModelDescMap.containsKey(name),"DataModel",path);
-    dataModelDescMap.putLocal(name,modelDesc);
+    reloadDataModelDescAt(path);
   }
   logger.debug("Loaded " + dataModelDescMap.size() + " DataModel(s)");
 }

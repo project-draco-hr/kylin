@@ -1,0 +1,3 @@
+{
+  return reloadDataModelDescAt(DataModelDesc.concatResourcePath(name));
+}

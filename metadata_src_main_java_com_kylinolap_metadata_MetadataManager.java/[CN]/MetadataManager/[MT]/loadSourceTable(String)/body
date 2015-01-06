@@ -1,6 +1,0 @@
-{
-  ResourceStore store=getStore();
-  TableDesc t=store.getResource(path,TableDesc.class,TABLE_SERIALIZER);
-  t.init();
-  return t;
-}

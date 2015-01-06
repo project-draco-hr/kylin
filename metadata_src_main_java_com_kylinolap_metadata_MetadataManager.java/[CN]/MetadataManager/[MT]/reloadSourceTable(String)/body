@@ -1,0 +1,3 @@
+{
+  return reloadSourceTableAt(TableDesc.concatResourcePath(tableIdentity));
+}

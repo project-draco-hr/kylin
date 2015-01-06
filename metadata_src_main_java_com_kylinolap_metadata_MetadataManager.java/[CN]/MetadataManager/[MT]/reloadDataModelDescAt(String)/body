@@ -11,5 +11,8 @@
   if (ndesc.getError().isEmpty() == false) {
     throw new IllegalStateException("DataModelDesc at " + path + " has issues: "+ ndesc.getError());
   }
+  String name=ndesc.getName();
+  checkNoDupName(name,dataModelDescMap.containsKey(name),"DataModel",path);
+  dataModelDescMap.putLocal(name,ndesc);
   return ndesc;
 }
