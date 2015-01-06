@@ -1,5 +1,5 @@
 {
-  String newProjectName=ProjectInstance.getNormalizedProjectName(project);
+  String newProjectName=norm(project);
   ProjectInstance newProject=getProject(newProjectName);
   if (newProject == null) {
     newProject=this.createProject(newProjectName,user,"This is a project automatically added when adding realization " + realizationName + "("+ type+ ")");

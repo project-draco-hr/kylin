@@ -10,9 +10,8 @@
     List<FieldSchema> fields=null;
     try {
       HiveClient hiveClient=new HiveClient();
-      HiveMetaStoreClient metaDataClient=hiveClient.getMetaStoreClient();
-      table=metaDataClient.getTable(database,tableName);
-      fields=metaDataClient.getFields(database,tableName);
+      table=hiveClient.getHiveTable(database,tableName);
+      fields=hiveClient.getHiveTableFields(database,tableName);
     }
  catch (    Exception e) {
       e.printStackTrace();

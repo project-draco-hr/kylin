@@ -1,0 +1,32 @@
+{
+  logger.info("Loading L2 project cache for " + project);
+  ProjectCache result=new ProjectCache(project);
+  ProjectInstance pi=mgr.getProject(project);
+  MetadataManager metaMgr=mgr.getMetadataManager();
+  for (  String tableName : pi.getTables()) {
+    TableDesc tableDesc=metaMgr.getTableDesc(tableName);
+    if (tableDesc != null) {
+      result.tables.put(tableDesc.getIdentity(),new TableCache(tableDesc));
+    }
+ else {
+      logger.warn("Table '" + tableName + "' defined under project '"+ project+ "' is not found");
+    }
+  }
+  RealizationRegistry registry=RealizationRegistry.getInstance(mgr.getConfig());
+  for (  RealizationEntry entry : pi.getRealizationEntries()) {
+    IRealization realization=registry.getRealization(entry.getType(),entry.getRealization());
+    if (realization != null) {
+      result.realizations.add(realization);
+    }
+ else {
+      logger.warn("Realization '" + entry + "' defined under project '"+ project+ "' is not found");
+    }
+  }
+  for (  IRealization realization : result.realizations) {
+    if (sanityCheck(result,realization)) {
+      mapTableToRealization(result,realization);
+      markExposedTablesAndColumns(result,realization);
+    }
+  }
+  return result;
+}

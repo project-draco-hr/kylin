@@ -1,6 +1,5 @@
 {
   ResourceStore store=getStore();
-  logger.debug("Loading CubeDesc " + store.getReadableResourcePath(path));
   CubeDesc ndesc=store.getResource(path,CubeDesc.class,CUBE_DESC_SERIALIZER);
   if (StringUtils.isBlank(ndesc.getName())) {
     throw new IllegalStateException("CubeDesc name must not be blank");

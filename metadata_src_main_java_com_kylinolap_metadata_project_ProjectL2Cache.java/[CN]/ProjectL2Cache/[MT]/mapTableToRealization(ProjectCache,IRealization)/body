@@ -1,0 +1,6 @@
+{
+  for (  TblColRef col : realization.getAllColumns()) {
+    TableCache tableCache=prjCache.tables.get(col.getTable());
+    tableCache.realizations.add(realization);
+  }
+}

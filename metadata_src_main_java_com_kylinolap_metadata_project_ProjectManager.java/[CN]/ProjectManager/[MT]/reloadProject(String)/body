@@ -1,0 +1,4 @@
+{
+  ProjectInstance prj=getProject(project);
+  return reloadProjectAt(prj.getResourcePath());
+}

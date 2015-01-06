@@ -1,7 +1,7 @@
 {
-  ProjectManager projectMgr=ProjectManager.getInstance(olapSchema.getConfig());
-  List<ColumnDesc> exposedColumns=projectMgr.listExposedColumns(olapSchema.getProjectName(),sourceTable.getIdentity());
-  List<MeasureDesc> countMeasures=projectMgr.listEffectiveRewriteMeasures(olapSchema.getProjectName(),sourceTable.getIdentity());
+  ProjectManager mgr=ProjectManager.getInstance(olapSchema.getConfig());
+  List<ColumnDesc> exposedColumns=Lists.newArrayList(mgr.listExposedColumns(olapSchema.getProjectName(),sourceTable.getIdentity()));
+  List<MeasureDesc> countMeasures=mgr.listEffectiveRewriteMeasures(olapSchema.getProjectName(),sourceTable.getIdentity());
   HashSet<String> metFields=new HashSet<String>();
   for (  MeasureDesc m : countMeasures) {
     FunctionDesc func=m.getFunction();

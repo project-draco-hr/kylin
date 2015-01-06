@@ -1,0 +1,10 @@
+{
+  try {
+    this.readCntxt=getHiveReaderContext(dbName,tableName);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    throw new IOException(e);
+  }
+  this.numberOfSplits=readCntxt.numSplits();
+}

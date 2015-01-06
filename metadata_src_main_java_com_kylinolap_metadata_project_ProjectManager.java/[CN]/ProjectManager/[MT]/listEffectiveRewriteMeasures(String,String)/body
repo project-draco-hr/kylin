@@ -1,13 +1,3 @@
 {
-  factTable=factTable.toUpperCase();
-  List<MeasureDesc> result=Lists.newArrayList();
-  for (  IRealization realization : getProjectTable(project,factTable).getRealizations()) {
-    if (realization.isReady() == false)     continue;
-    if (!realization.getFactTable().equalsIgnoreCase(factTable))     continue;
-    for (    MeasureDesc m : realization.getMeasures()) {
-      FunctionDesc func=m.getFunction();
-      if (func.needRewrite())       result.add(m);
-    }
-  }
-  return result;
+  return l2Cache.listEffectiveRewriteMeasures(norm(project),factTable.toUpperCase());
 }

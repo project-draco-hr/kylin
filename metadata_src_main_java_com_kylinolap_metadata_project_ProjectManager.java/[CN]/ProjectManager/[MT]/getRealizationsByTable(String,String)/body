@@ -1,8 +1,3 @@
 {
-  project=ProjectInstance.getNormalizedProjectName(project);
-  tableName=tableName.toUpperCase();
-  List<IRealization> realizations=new ArrayList<IRealization>();
-  ProjectTable projectTable=getProjectTable(project,tableName);
-  realizations.addAll(projectTable.getRealizations());
-  return realizations;
+  return l2Cache.getRealizationsByTable(norm(project),tableName.toUpperCase());
 }

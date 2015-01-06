@@ -1,0 +1,5 @@
+{
+  TableCache tableCache=getCache(project).tables.get(table);
+  if (tableCache == null)   return Collections.emptySet();
+ else   return Collections.unmodifiableSet(tableCache.exposedColumns);
+}

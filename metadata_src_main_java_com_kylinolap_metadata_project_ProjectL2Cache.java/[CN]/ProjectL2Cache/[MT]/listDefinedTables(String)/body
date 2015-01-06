@@ -1,0 +1,8 @@
+{
+  ProjectCache prjCache=getCache(project);
+  List<TableDesc> result=Lists.newArrayListWithCapacity(prjCache.tables.size());
+  for (  TableCache tableCache : prjCache.tables.values()) {
+    result.add(tableCache.tableDesc);
+  }
+  return result;
+}

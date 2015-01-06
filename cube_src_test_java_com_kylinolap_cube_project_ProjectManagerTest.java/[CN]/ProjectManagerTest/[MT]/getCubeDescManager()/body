@@ -1,3 +1,0 @@
-{
-  return CubeDescManager.getInstance(getTestConfig());
-}

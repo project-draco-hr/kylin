@@ -1,0 +1,3 @@
+{
+  return "LOAD DATA LOCAL INPATH '" + tableFileDir + "/"+ tableName.toUpperCase()+ ".csv' OVERWRITE INTO TABLE "+ tableName.toUpperCase();
+}
