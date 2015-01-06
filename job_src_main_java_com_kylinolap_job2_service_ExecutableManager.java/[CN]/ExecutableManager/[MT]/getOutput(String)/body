@@ -1,0 +1,15 @@
+{
+  try {
+    final JobOutputPO jobOutput=jobDao.getJobOutput(uuid);
+    final DefaultOutput result=new DefaultOutput();
+    result.setExtra(jobOutput.getInfo());
+    result.setState(ExecutableState.valueOf(jobOutput.getStatus()));
+    result.setVerboseMsg(jobOutput.getContent());
+    result.setLastModified(jobOutput.getLastModified());
+    return result;
+  }
+ catch (  PersistentException e) {
+    logger.error("fail to get job output:" + uuid,e);
+    throw new RuntimeException(e);
+  }
+}

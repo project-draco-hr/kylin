@@ -6,7 +6,7 @@
   job.addTask(task2);
   jobService.addJob(job);
   waitForJobFinish(job.getId());
-  assertEquals(ExecutableState.SUCCEED,jobService.getJobStatus(job.getId()));
-  assertEquals(ExecutableState.SUCCEED,jobService.getJobStatus(task1.getId()));
-  assertEquals(ExecutableState.SUCCEED,jobService.getJobStatus(task2.getId()));
+  assertEquals(ExecutableState.SUCCEED,jobService.getOutput(job.getId()).getState());
+  assertEquals(ExecutableState.SUCCEED,jobService.getOutput(task1.getId()).getState());
+  assertEquals(ExecutableState.SUCCEED,jobService.getOutput(task2.getId()).getState());
 }

@@ -3,5 +3,16 @@
   result.setName(task.getName());
   result.setSequenceID(i);
   result.setStatus(parseToJobStepStatus(task.getStatus()));
+  final Output output=getExecutableManager().getOutput(task.getId());
+  result.putInfo(output.getExtra());
+  if (task instanceof ShellExecutable) {
+    result.setExecCmd(((ShellExecutable)task).getCmd());
+  }
+  if (task instanceof MapReduceExecutable) {
+    result.setExecCmd(((MapReduceExecutable)task).getMapReduceParams());
+  }
+  if (task instanceof HadoopShellExecutable) {
+    result.setExecCmd(((HadoopShellExecutable)task).getJobParams());
+  }
   return result;
 }

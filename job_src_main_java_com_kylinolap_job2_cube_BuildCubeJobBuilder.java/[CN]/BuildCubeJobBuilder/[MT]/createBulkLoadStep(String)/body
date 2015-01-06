@@ -5,7 +5,7 @@
   appendExecCmdParameters(cmd,"input",getHFilePath(jobId));
   appendExecCmdParameters(cmd,"htablename",getHTableName());
   appendExecCmdParameters(cmd,"cubename",getCubeName());
-  bulkLoadStep.setMapReduceParams(cmd.toString());
+  bulkLoadStep.setJobParams(cmd.toString());
   bulkLoadStep.setJobClass(BulkLoadJob.class);
   return bulkLoadStep;
 }

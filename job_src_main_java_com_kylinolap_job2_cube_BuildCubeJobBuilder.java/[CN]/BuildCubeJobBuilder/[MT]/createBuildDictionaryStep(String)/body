@@ -5,7 +5,7 @@
   appendExecCmdParameters(cmd,"cubename",getCubeName());
   appendExecCmdParameters(cmd,"segmentname",segment.getName());
   appendExecCmdParameters(cmd,"input",factDistinctColumnsPath);
-  buildDictionaryStep.setMapReduceParams(cmd.toString());
+  buildDictionaryStep.setJobParams(cmd.toString());
   buildDictionaryStep.setJobClass(CreateDictionaryJob.class);
   return buildDictionaryStep;
 }

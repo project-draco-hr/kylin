@@ -6,6 +6,6 @@
   waitForJobStatus(job.getId(),ExecutableState.RUNNING,500);
   jobService.stopJob(job.getId());
   waitForJobFinish(job.getId());
-  assertEquals(ExecutableState.STOPPED,jobService.getJobStatus(job.getId()));
-  assertEquals(ExecutableState.STOPPED,jobService.getJobStatus(task1.getId()));
+  assertEquals(ExecutableState.STOPPED,jobService.getOutput(job.getId()).getState());
+  assertEquals(ExecutableState.STOPPED,jobService.getOutput(task1.getId()).getState());
 }

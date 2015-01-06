@@ -1,3 +1,0 @@
-{
-  jobService.updateJobStatus(getId(),ExecutableState.RUNNING);
-}

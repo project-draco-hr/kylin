@@ -1,6 +1,6 @@
 {
   final String mapReduceJobClass=getJobClass();
-  String params=getMapReduceParams();
+  String params=getJobParams();
   Preconditions.checkNotNull(mapReduceJobClass);
   Preconditions.checkNotNull(params);
   try {
