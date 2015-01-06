@@ -1,3 +1,6 @@
 {
+  if (metaStoreClient == null) {
+    metaStoreClient=new HiveMetaStoreClient(hiveConf);
+  }
   return metaStoreClient;
 }
