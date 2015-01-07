@@ -6,7 +6,13 @@
     Entry<String,String> kv=itr.next();
     map.put(kv.getKey(),kv.getValue());
   }
-  ReadEntity entity=new ReadEntity.Builder().withDatabase(database).withTable(table).build();
+  ReadEntity entity;
+  if (partitionKV == null || partitionKV.size() == 0) {
+    entity=new ReadEntity.Builder().withDatabase(database).withTable(table).build();
+  }
+ else {
+    entity=new ReadEntity.Builder().withDatabase(database).withTable(table).withPartition(partitionKV).build();
+  }
   HCatReader reader=DataTransferFactory.getHCatReader(entity,map);
   ReaderContext cntxt=reader.prepareRead();
   return cntxt;

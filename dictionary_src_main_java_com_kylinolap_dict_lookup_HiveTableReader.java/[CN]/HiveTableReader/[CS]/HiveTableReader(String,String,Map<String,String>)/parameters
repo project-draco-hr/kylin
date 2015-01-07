@@ -1,0 +1,3 @@
+String dbName
+String tableName
+Map<String,String> partitionKV

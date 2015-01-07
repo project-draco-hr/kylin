@@ -1,4 +1,7 @@
 {
+  File metaTmpDir=File.createTempFile("meta_tmp",null);
+  metaTmpDir.delete();
+  metaTmpDir.mkdirs();
   File tableDescDir=new File(metaTmpDir,TABLE_FOLDER_NAME);
   File tableExdDir=new File(metaTmpDir,TABLE_EXD_FOLDER_NAME);
   mkdirs(tableDescDir);
@@ -47,7 +50,9 @@
     map.put("owner",table.getOwner());
     map.put("lastAccessTime",String.valueOf(table.getLastAccessTime()));
     map.put("partitionColumns",partitionColumnString.toString());
+    map.put("partitioned",Boolean.valueOf(partitionCols != null && partitionCols.size() > 0).toString());
     tableAttrsList.add(map);
+    MetadataManager.getInstance(KylinConfig.getInstanceFromEnv()).saveTableExd(tableDesc.getIdentity(),map);
   }
   List<String> loadedTables=Lists.newArrayList();
   for (  TableDesc table : tableDescList) {
@@ -59,5 +64,6 @@
     File file=new File(tableExdDir,(database + "." + tableAttrs.get("tableName")).toUpperCase() + "." + OUTPUT_SURFIX);
     JsonUtil.writeValueIndent(new FileOutputStream(file),tableAttrs);
   }
+  ResourceTool.copy(KylinConfig.createInstanceFromUri(metaTmpDir.getAbsolutePath()),config);
   return loadedTables;
 }
