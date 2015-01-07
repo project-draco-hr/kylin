@@ -1,0 +1,27 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  HBaseKeyRange other=(HBaseKeyRange)obj;
+  if (cubeSeg == null) {
+    if (other.cubeSeg != null)     return false;
+  }
+ else   if (!cubeSeg.equals(other.cubeSeg))   return false;
+  if (cuboid == null) {
+    if (other.cuboid != null)     return false;
+  }
+ else   if (!cuboid.equals(other.cuboid))   return false;
+  if (fuzzyKeyString == null) {
+    if (other.fuzzyKeyString != null)     return false;
+  }
+ else   if (!fuzzyKeyString.equals(other.fuzzyKeyString))   return false;
+  if (startKeyString == null) {
+    if (other.startKeyString != null)     return false;
+  }
+ else   if (!startKeyString.equals(other.startKeyString))   return false;
+  if (stopKeyString == null) {
+    if (other.stopKeyString != null)     return false;
+  }
+ else   if (!stopKeyString.equals(other.stopKeyString))   return false;
+  return true;
+}

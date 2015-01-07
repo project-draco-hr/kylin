@@ -1,0 +1,5 @@
+{
+  setUpEnv();
+  setUpCubeConn();
+  setUpH2Conn();
+}

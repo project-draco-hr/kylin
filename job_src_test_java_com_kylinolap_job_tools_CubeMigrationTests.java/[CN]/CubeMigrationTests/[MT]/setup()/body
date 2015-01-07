@@ -1,0 +1,4 @@
+{
+  super.createTestMetadata();
+  ClasspathUtil.addClasspath(new File(AbstractKylinTestCase.SANDBOX_TEST_DATA).getAbsolutePath());
+}

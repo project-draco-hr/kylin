@@ -1,0 +1,4 @@
+{
+  rec.setBytes(value.get(),value.getOffset(),value.getLength());
+  return rec.getShard();
+}

@@ -1,0 +1,3 @@
+{
+  return Boolean.parseBoolean(this.getOptional("kylin.query.cache.enabled","true"));
+}

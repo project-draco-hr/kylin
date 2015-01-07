@@ -1,0 +1,7 @@
+{
+  long n=readVLong(in);
+  if ((n > Integer.MAX_VALUE) || (n < Integer.MIN_VALUE)) {
+    throw new IllegalArgumentException("value too long to fit in integer");
+  }
+  return (int)n;
+}

@@ -1,0 +1,5 @@
+Cuboid cuboid
+Collection<TblColRef> groups
+Set<TblColRef> othersD
+Set<TblColRef> singleValuesD
+Set<TblColRef> derivedPostAggregation

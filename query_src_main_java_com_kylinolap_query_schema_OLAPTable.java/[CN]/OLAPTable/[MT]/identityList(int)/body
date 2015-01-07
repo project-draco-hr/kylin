@@ -1,0 +1,7 @@
+{
+  int[] integers=new int[n];
+  for (int i=0; i < n; i++) {
+    integers[i]=i;
+  }
+  return integers;
+}

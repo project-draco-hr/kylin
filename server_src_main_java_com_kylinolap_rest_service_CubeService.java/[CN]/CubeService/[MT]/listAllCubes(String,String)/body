@@ -1,0 +1,18 @@
+{
+  List<CubeInstance> cubeInstances=null;
+  ProjectInstance project=(null != projectName) ? getProjectManager().getProject(projectName) : null;
+  if (null == project) {
+    cubeInstances=getCubeManager().listAllCubes();
+  }
+ else {
+    cubeInstances=getProjectManager().listAllCubes(projectName);
+  }
+  List<CubeInstance> filterCubes=new ArrayList<CubeInstance>();
+  for (  CubeInstance cubeInstance : cubeInstances) {
+    boolean isCubeMatch=(null == cubeName) || cubeInstance.getName().toLowerCase().contains(cubeName.toLowerCase());
+    if (isCubeMatch) {
+      filterCubes.add(cubeInstance);
+    }
+  }
+  return filterCubes;
+}

@@ -1,0 +1,64 @@
+{
+  Options options=new Options();
+  try {
+    options.addOption(OPTION_JOB_NAME);
+    options.addOption(OPTION_CUBE_NAME);
+    options.addOption(OPTION_SEGMENT_NAME);
+    options.addOption(OPTION_INPUT_PATH);
+    options.addOption(OPTION_OUTPUT_PATH);
+    options.addOption(OPTION_NCUBOID_LEVEL);
+    options.addOption(OPTION_INPUT_FORMAT);
+    parseOptions(options,args);
+    Path input=new Path(getOptionValue(OPTION_INPUT_PATH));
+    Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
+    String cubeName=getOptionValue(OPTION_CUBE_NAME).toUpperCase();
+    int nCuboidLevel=Integer.parseInt(getOptionValue(OPTION_NCUBOID_LEVEL));
+    String segmentName=getOptionValue(OPTION_SEGMENT_NAME);
+    KylinConfig config=KylinConfig.getInstanceFromEnv();
+    CubeManager cubeMgr=CubeManager.getInstance(config);
+    CubeInstance cube=cubeMgr.getCube(cubeName);
+    job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
+    System.out.println("Starting: " + job.getJobName());
+    FileInputFormat.setInputPaths(job,input);
+    File jarFile=new File(config.getKylinJobJarPath());
+    if (jarFile.exists()) {
+      job.setJar(config.getKylinJobJarPath());
+    }
+ else {
+      job.setJarByClass(this.getClass());
+    }
+    if (this.mapperClass == null) {
+      throw new Exception("Mapper class is not set!");
+    }
+    boolean isInputTextFormat=false;
+    if (hasOption(OPTION_INPUT_FORMAT) && ("textinputformat".equalsIgnoreCase(getOptionValue(OPTION_INPUT_FORMAT)))) {
+      isInputTextFormat=true;
+    }
+    if (isInputTextFormat) {
+      job.setInputFormatClass(TextInputFormat.class);
+    }
+ else {
+      job.setInputFormatClass(SequenceFileInputFormat.class);
+    }
+    job.setMapperClass(this.mapperClass);
+    job.setMapOutputKeyClass(Text.class);
+    job.setMapOutputValueClass(Text.class);
+    job.setCombinerClass(CuboidReducer.class);
+    job.setReducerClass(CuboidReducer.class);
+    job.setOutputFormatClass(SequenceFileOutputFormat.class);
+    job.setOutputKeyClass(Text.class);
+    job.setOutputValueClass(Text.class);
+    FileOutputFormat.setOutputPath(job,output);
+    job.getConfiguration().set(BatchConstants.CFG_CUBE_NAME,cubeName);
+    job.getConfiguration().set(BatchConstants.CFG_CUBE_SEGMENT_NAME,segmentName);
+    attachKylinPropsAndMetadata(cube,job.getConfiguration());
+    setReduceTaskNum(job,config,cubeName,nCuboidLevel);
+    this.deletePath(job.getConfiguration(),output);
+    return waitForCompletion(job);
+  }
+ catch (  Exception e) {
+    printUsage(options);
+    log.error(e.getLocalizedMessage(),e);
+    return 2;
+  }
+}

@@ -1,0 +1,46 @@
+{
+switch (node.getKind()) {
+case AND:
+case OR:
+case EQUALS:
+    RexCall call=(RexCall)node;
+  List<RexNode> list=new ArrayList<RexNode>();
+List<RexNode> operands=Lists.newArrayList(call.getOperands());
+for (int i=0; i < operands.size(); i++) {
+RexNode operand=operands.get(i);
+final int left2=leftCount + extraLeftExprs.size();
+final int right2=rightCount + extraRightExprs.size();
+final RexNode e=pushDownJoinConditions(operand,leftCount,rightCount,extraLeftExprs,extraRightExprs);
+final List<RexNode> remainingOperands=Util.skip(operands,i + 1);
+final int left3=leftCount + extraLeftExprs.size();
+final int right3=rightCount + extraRightExprs.size();
+fix(remainingOperands,left2,left3);
+fix(list,left2,left3);
+list.add(e);
+}
+if (!list.equals(call.getOperands())) {
+return call.clone(call.getType(),list);
+}
+return call;
+case INPUT_REF:
+case LITERAL:
+return node;
+default :
+BitSet bits=RelOptUtil.InputFinder.bits(node);
+final int mid=leftCount + extraLeftExprs.size();
+switch (Side.of(bits,mid)) {
+case LEFT:
+fix(extraRightExprs,mid,mid + 1);
+extraLeftExprs.add(node);
+return new RexInputRef(mid,node.getType());
+case RIGHT:
+final int index2=mid + rightCount + extraRightExprs.size();
+extraRightExprs.add(node);
+return new RexInputRef(index2,node.getType());
+case BOTH:
+case EMPTY:
+default :
+return node;
+}
+}
+}

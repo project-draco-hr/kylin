@@ -1,0 +1,12 @@
+{
+  List<ProjectInstance> projects=getProjectManager().listAllProjects();
+  int climit=(null == limit) ? 30 : limit;
+  int coffset=(null == offset) ? 0 : offset;
+  if (projects.size() <= coffset) {
+    return Collections.emptyList();
+  }
+  if ((projects.size() - coffset) < climit) {
+    return projects.subList(coffset,projects.size());
+  }
+  return projects.subList(coffset,coffset + climit);
+}

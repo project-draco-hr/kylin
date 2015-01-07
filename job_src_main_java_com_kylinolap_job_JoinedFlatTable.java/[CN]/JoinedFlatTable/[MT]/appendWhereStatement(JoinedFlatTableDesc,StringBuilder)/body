@@ -1,0 +1,32 @@
+{
+  boolean hasCondition=false;
+  StringBuilder whereBuilder=new StringBuilder();
+  whereBuilder.append("WHERE");
+  CubeDesc cubeDesc=intermediateTableDesc.getCubeDesc();
+  if (cubeDesc.getFilterCondition() != null && cubeDesc.getFilterCondition().equals("") == false) {
+    whereBuilder.append(" (").append(cubeDesc.getFilterCondition()).append(") ");
+    hasCondition=true;
+  }
+  CubeSegment cubeSegment=intermediateTableDesc.getCubeSegment();
+  if (null != cubeSegment) {
+    long dateStart=cubeSegment.getDateRangeStart();
+    long dateEnd=cubeSegment.getDateRangeEnd();
+    if (cubeSegment.getCubeInstance().needMergeImmediatelyAfterBuild(cubeSegment)) {
+      dateStart=cubeSegment.getCubeInstance().getDateRange()[1];
+    }
+    if (!(dateStart == 0 && dateEnd == 0)) {
+      String partitionColumnName=cubeDesc.getCubePartitionDesc().getPartitionDateColumn();
+      whereBuilder.append(hasCondition ? " AND (" : " (");
+      if (dateStart > 0) {
+        whereBuilder.append(partitionColumnName + " >= '" + formatDateTimeInWhereClause(dateStart)+ "' ");
+        whereBuilder.append("AND ");
+      }
+      whereBuilder.append(partitionColumnName + " < '" + formatDateTimeInWhereClause(dateEnd)+ "'");
+      whereBuilder.append(")\n");
+      hasCondition=true;
+    }
+  }
+  if (hasCondition) {
+    sql.append(whereBuilder.toString());
+  }
+}

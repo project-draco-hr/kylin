@@ -1,0 +1,5 @@
+JobInstance jobInstance
+int stepSeqNum
+String[] cuboidOutputTempPath
+int dimNum
+int totalRowkeyColumnCount

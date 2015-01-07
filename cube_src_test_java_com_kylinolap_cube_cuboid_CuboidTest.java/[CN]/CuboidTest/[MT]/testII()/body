@@ -1,0 +1,8 @@
+{
+  CubeDesc cube=getTestKylinCubeII();
+  assertEquals(toLong("111111111"),Cuboid.getBaseCuboidId(cube));
+  assertEquals(true,Cuboid.isValid(cube,toLong("111111111")));
+  assertEquals(false,Cuboid.isValid(cube,toLong("111111011")));
+  assertEquals(false,Cuboid.isValid(cube,toLong("101011011")));
+  assertEquals(false,Cuboid.isValid(cube,toLong("000000000")));
+}

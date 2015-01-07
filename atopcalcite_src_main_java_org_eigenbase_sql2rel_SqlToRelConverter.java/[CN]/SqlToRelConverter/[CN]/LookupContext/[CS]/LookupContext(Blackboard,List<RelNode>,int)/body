@@ -1,0 +1,3 @@
+{
+  bb.flatten(rels,systemFieldCount,new int[]{0},relOffsetList);
+}

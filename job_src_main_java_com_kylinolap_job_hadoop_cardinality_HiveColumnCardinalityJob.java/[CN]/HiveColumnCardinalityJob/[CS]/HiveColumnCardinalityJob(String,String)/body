@@ -1,0 +1,4 @@
+{
+  this.jarPath=path;
+  this.tokenPath=tokenPath;
+}

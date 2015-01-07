@@ -1,0 +1,12 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  BitMapContainer other=(BitMapContainer)obj;
+  if (closedForChange != other.closedForChange)   return false;
+  if (nValues != other.nValues)   return false;
+  if (!Arrays.equals(sets,other.sets))   return false;
+  if (size != other.size)   return false;
+  if (valueLen != other.valueLen)   return false;
+  return true;
+}

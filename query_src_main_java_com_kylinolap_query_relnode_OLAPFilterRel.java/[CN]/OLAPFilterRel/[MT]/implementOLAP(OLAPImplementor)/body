@@ -1,0 +1,8 @@
+{
+  implementor.visitChild(getChild(),this);
+  this.columnRowType=buildColumnRowType();
+  this.context=implementor.getContext();
+  if (!context.afterAggregate) {
+    translateFilter(context);
+  }
+}

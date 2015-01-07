@@ -1,0 +1,3 @@
+{
+  batchExecuteQuery("src/test/resources/query/sql_tableau");
+}

@@ -1,0 +1,5 @@
+{
+  resPath=norm(resPath);
+  logger.debug("Saving resource " + resPath + " (Store "+ kylinConfig.getMetadataUrl()+ ")");
+  putResourceImpl(resPath,content,ts);
+}

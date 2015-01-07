@@ -1,0 +1,6 @@
+{
+  List<GrantedAuthority> authorities=new ArrayList<GrantedAuthority>();
+  User user=new User("ADMIN","ADMIN",authorities);
+  Authentication authentication=new TestingAuthenticationToken(user,"ADMIN","ROLE_ADMIN");
+  SecurityContextHolder.getContext().setAuthentication(authentication);
+}

@@ -1,0 +1,4 @@
+{
+  OLAPRel olapChild=(OLAPRel)getChild();
+  return olapChild.hasSubQuery();
+}

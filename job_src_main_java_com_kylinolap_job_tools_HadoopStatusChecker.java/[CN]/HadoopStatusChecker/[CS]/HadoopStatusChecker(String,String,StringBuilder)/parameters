@@ -1,0 +1,3 @@
+String yarnUrl
+String mrJobID
+StringBuilder output

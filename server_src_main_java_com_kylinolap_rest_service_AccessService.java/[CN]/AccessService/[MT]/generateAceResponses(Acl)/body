@@ -1,0 +1,10 @@
+{
+  if (null == acl) {
+    return Collections.emptyList();
+  }
+  List<AccessEntryResponse> accessControlEntities=new ArrayList<AccessEntryResponse>();
+  for (  AccessControlEntry ace : acl.getEntries()) {
+    accessControlEntities.add(new AccessEntryResponse(ace.getId(),ace.getSid(),ace.getPermission(),ace.isGranting()));
+  }
+  return accessControlEntities;
+}

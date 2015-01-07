@@ -1,0 +1,3 @@
+Queue<Long> queue
+List<Long> parents
+HashSet<Long> dedupped

@@ -1,0 +1,16 @@
+{
+  validate(jobInstance);
+  List<JobStep> steps=jobInstance.getSteps();
+  Collections.sort(steps);
+  JobStep jobStep=jobInstance.getSteps().get(stepId);
+  long duration=jobStep.getExecEndTime() - jobStep.getExecStartTime();
+  jobInstance.setDuration(jobInstance.getDuration() + (duration > 0 ? duration : 0) / 1000);
+  jobInstance.setMrWaiting(jobInstance.getMrWaiting() + jobStep.getExecWaitTime());
+  try {
+    JobDAO.getInstance(engineConfig.getConfig()).updateJobInstance(jobInstance);
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    log.error(e.getLocalizedMessage(),e);
+  }
+}

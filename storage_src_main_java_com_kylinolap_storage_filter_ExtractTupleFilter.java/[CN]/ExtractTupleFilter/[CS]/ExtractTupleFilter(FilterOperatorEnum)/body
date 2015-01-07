@@ -1,0 +1,7 @@
+{
+  super(new ArrayList<TupleFilter>(3),op);
+  assert(op == FilterOperatorEnum.EXTRACT);
+  this.values=new ArrayList<String>(1);
+  this.values.add(null);
+  this.date=0;
+}

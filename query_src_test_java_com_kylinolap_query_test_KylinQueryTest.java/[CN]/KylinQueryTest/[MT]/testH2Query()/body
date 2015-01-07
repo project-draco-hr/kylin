@@ -1,0 +1,3 @@
+{
+  this.execQueryUsingH2("src/test/resources/query/h2",false);
+}

@@ -1,0 +1,5 @@
+{
+  CubeManager cubeMgr=CubeManager.getInstance(engineConfig.getConfig());
+  CubeInstance cubeInstance=cubeMgr.getCube(jobInstance.getRelatedCube());
+  cubeMgr.updateSegmentOnJobDiscard(cubeInstance,jobInstance.getRelatedSegment());
+}

@@ -1,0 +1,6 @@
+{
+  if (null == obj) {
+    return null;
+  }
+  return JsonUtil.writeValueAsBytes(obj);
+}

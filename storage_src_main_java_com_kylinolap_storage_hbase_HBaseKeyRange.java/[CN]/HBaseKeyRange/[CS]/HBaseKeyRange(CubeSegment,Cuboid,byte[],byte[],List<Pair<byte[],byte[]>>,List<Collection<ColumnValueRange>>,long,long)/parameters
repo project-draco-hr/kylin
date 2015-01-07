@@ -1,0 +1,8 @@
+CubeSegment cubeSeg
+Cuboid cuboid
+byte[] startKey
+byte[] stopKey
+List<Pair<byte[],byte[]>> fuzzyKeys
+List<Collection<ColumnValueRange>> flatColumnValueFilter
+long partitionColumnStartDate
+long partitionColumnEndDate

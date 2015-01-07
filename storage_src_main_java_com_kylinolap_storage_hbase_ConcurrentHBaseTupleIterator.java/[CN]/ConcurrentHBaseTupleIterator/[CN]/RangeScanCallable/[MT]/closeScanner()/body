@@ -1,0 +1,11 @@
+{
+  try {
+    if (scanner != null) {
+      scanner.close();
+      scanner=null;
+    }
+  }
+ catch (  Throwable t) {
+    throw new StorageException("Error when close scanner for table " + tableName,t);
+  }
+}

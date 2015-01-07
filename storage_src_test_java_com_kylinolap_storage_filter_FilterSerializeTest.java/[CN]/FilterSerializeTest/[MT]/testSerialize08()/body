@@ -1,0 +1,12 @@
+{
+  TableDesc table=new TableDesc();
+  ColumnDesc column=new ColumnDesc();
+  column.setTable(table);
+  TblColRef colRef=new TblColRef(column);
+  List<TblColRef> groups=new ArrayList<TblColRef>();
+  groups.add(colRef);
+  TupleFilter filter=buildCompareFilter(groups,0);
+  byte[] bytes=TupleFilterSerializer.serialize(filter);
+  TupleFilter newFilter=TupleFilterSerializer.deserialize(bytes);
+  compareFilter(filter,newFilter);
+}

@@ -1,0 +1,20 @@
+{
+  String uuid="a_long_running_good_job_uuid_2";
+  JobInstance job=createAGoodJobInstance(uuid,1);
+  jobManager.submitJob(job);
+  try {
+    waitUntilMrStepIsRunning(uuid);
+    jobManager.discardJob(uuid);
+  }
+ catch (  RuntimeException e) {
+    throw e;
+  }
+  waitUntilJobComplete(uuid);
+  JobInstance killedJob=jobManager.getJob(uuid);
+  assertEquals(JobStepStatusEnum.ERROR,killedJob.getSteps().get(1).getStatus());
+  assertEquals(JobStatusEnum.ERROR,killedJob.getStatus());
+  CubeInstance cube=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).getCube(cubeName);
+  String cubeString=JsonUtil.writeValueAsIndentString(cube);
+  System.out.println(cubeString);
+  assertEquals(0,cube.getSegments().size());
+}

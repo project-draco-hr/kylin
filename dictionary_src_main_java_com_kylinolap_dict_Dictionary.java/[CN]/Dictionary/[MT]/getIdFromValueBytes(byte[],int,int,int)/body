@@ -1,0 +1,4 @@
+{
+  if (isNullByteForm(value,offset,len))   return nullId();
+ else   return getIdFromValueBytesImpl(value,offset,len,roundingFlag);
+}

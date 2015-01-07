@@ -1,0 +1,17 @@
+{
+  List<ColumnMetaData> tableTypeMeta=new ArrayList<ColumnMetaData>();
+  tableTypeMeta.add(ColumnMetaData.dummy(ColumnMetaData.scalar(Types.VARCHAR,"varchar",Rep.STRING),false));
+  List<Object[]> data=new ArrayList<Object[]>();
+  Object[] row=new Object[1];
+  row[0]="TABLE";
+  data.add(row);
+  AvaticaResultSet resultSet=null;
+  try {
+    resultSet=this.conn.getFactory().newResultSet(this.conn.createStatement(),new KylinPrepare.PrepareResult(null,null,new KylinEnumerator<Object[]>(data),ColumnMetaData.struct(tableTypeMeta)),this.conn.getTimeZone());
+    KylinConnectionImpl.TROJAN.execute(resultSet);
+  }
+ catch (  SQLException e) {
+    logger.error(e.getLocalizedMessage(),e);
+  }
+  return resultSet;
+}

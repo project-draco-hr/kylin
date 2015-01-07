@@ -1,0 +1,4 @@
+ByteString s
+ByteString r
+int start
+int length

@@ -1,0 +1,3 @@
+Blackboard bb
+BitSet groupSet
+List<AggregateCall> aggCalls

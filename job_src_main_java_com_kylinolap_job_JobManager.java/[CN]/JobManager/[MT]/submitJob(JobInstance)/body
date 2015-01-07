@@ -1,0 +1,9 @@
+{
+  if (hasDuplication(job) == false) {
+    jobDAO.updateJobInstance(job);
+    return job.getUuid();
+  }
+ else {
+    throw new InvalidJobInstanceException("Job " + job.getName() + " is duplicated!");
+  }
+}

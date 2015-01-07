@@ -1,0 +1,10 @@
+{
+  EnumerableAggregateRel enumAggRel;
+  try {
+    enumAggRel=new EnumerableAggregateRel(getCluster(),getCluster().traitSetOf(EnumerableConvention.INSTANCE),getChild(),this.groupSet,rewriteAggCalls);
+  }
+ catch (  InvalidRelException e) {
+    throw new IllegalStateException("Can't create EnumerableAggregateRel!",e);
+  }
+  return enumAggRel.implement(implementor,pref);
+}

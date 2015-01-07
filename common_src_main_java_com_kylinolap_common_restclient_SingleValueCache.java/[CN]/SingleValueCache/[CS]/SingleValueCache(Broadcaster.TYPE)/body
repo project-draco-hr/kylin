@@ -1,0 +1,4 @@
+{
+  super(syncType);
+  innerCache=new ConcurrentHashMap<K,V>();
+}

@@ -1,0 +1,4 @@
+{
+  logger.info("Kylin Config was updated with " + key + " : "+ value);
+  kylinConfig.setProperty(key,value);
+}

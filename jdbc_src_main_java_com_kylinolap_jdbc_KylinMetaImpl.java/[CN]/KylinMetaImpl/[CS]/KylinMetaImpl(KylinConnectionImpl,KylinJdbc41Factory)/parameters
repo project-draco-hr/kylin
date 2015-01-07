@@ -1,0 +1,2 @@
+KylinConnectionImpl conn
+KylinJdbc41Factory factory

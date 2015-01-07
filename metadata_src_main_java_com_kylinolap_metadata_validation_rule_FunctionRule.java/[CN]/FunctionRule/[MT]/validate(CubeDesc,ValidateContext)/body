@@ -1,0 +1,39 @@
+{
+  List<MeasureDesc> measures=cube.getMeasures();
+  List<FunctionDesc> countFuncs=new ArrayList<FunctionDesc>();
+  Iterator<MeasureDesc> it=measures.iterator();
+  while (it.hasNext()) {
+    MeasureDesc measure=it.next();
+    FunctionDesc func=measure.getFunction();
+    ParameterDesc parameter=func.getParameter();
+    if (parameter == null) {
+      context.addResult(ResultLevel.ERROR,"Must define parameter for function " + func.getExpression() + " in "+ measure.getName());
+      return;
+    }
+    String type=func.getParameter().getType();
+    String value=func.getParameter().getValue();
+    if (StringUtils.isEmpty(type)) {
+      context.addResult(ResultLevel.ERROR,"Must define type for parameter type " + func.getExpression() + " in "+ measure.getName());
+      return;
+    }
+    if (StringUtils.isEmpty(value)) {
+      context.addResult(ResultLevel.ERROR,"Must define type for parameter value " + func.getExpression() + " in "+ measure.getName());
+      return;
+    }
+    if (StringUtils.isEmpty(func.getReturnType())) {
+      context.addResult(ResultLevel.ERROR,"Must define return type for function " + func.getExpression() + " in "+ measure.getName());
+      return;
+    }
+    if (StringUtils.equalsIgnoreCase(FunctionDesc.PARAMETER_TYPE_COLUMN,type)) {
+      validateColumnParameter(context,cube,value);
+    }
+ else     if (StringUtils.equals(FunctionDesc.PARAMTER_TYPE_CONSTANT,type)) {
+      validateCostantParameter(context,cube,value);
+    }
+    validateReturnType(context,cube,func);
+    if (func.isCount())     countFuncs.add(func);
+  }
+  if (countFuncs.size() != 1) {
+    context.addResult(ResultLevel.ERROR,"Must define one and only one count(1) function, but there are " + countFuncs.size() + " -- "+ countFuncs);
+  }
+}

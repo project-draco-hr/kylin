@@ -1,0 +1,5 @@
+{
+  if (v1 == null)   return v2;
+ else   if (v2 == null)   return v1;
+ else   return compare(v1,v2) >= 0 ? v1 : v2;
+}

@@ -1,0 +1,20 @@
+{
+  validate(jobInstance);
+  List<JobStep> steps=jobInstance.getSteps();
+  Collections.sort(steps);
+  JobStep jobStep=jobInstance.getSteps().get(stepId);
+  jobInstance.setExecStartTime(steps.get(0).getExecStartTime());
+  long duration=jobStep.getExecEndTime() - jobStep.getExecStartTime();
+  jobInstance.setDuration(jobInstance.getDuration() + (duration > 0 ? duration / 1000 : 0));
+  jobInstance.setMrWaiting(jobInstance.getMrWaiting() + jobStep.getExecWaitTime());
+  if (jobInstance.getStatus().equals(JobStatusEnum.FINISHED)) {
+    jobInstance.setExecEndTime(steps.get(steps.size() - 1).getExecEndTime());
+  }
+  try {
+    JobDAO.getInstance(engineConfig.getConfig()).updateJobInstance(jobInstance);
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    log.error(e.getLocalizedMessage(),e);
+  }
+}

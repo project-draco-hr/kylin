@@ -1,0 +1,6 @@
+{
+  AclEntity ae=accessService.getAclEntity(type,uuid);
+  Permission permission=AclPermissionFactory.getPermission(accessRequest.getPermission());
+  Acl acl=accessService.update(ae,accessRequest.getAccessEntryId(),permission);
+  return accessService.generateAceResponses(acl);
+}

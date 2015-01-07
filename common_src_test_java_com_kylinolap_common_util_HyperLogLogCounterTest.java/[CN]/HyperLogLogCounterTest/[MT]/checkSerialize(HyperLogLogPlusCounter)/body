@@ -1,0 +1,8 @@
+{
+  long estimate=hllc.getCountEstimate();
+  buf.clear();
+  hllc.writeRegisters(buf);
+  buf.flip();
+  hllc.readRegisters(buf);
+  Assert.assertEquals(estimate,hllc.getCountEstimate());
+}

@@ -1,0 +1,38 @@
+{
+  Options options=new Options();
+  options.addOption(OPTION_METADATA);
+  options.addOption(OPTION_SQL);
+  CommandLineParser parser=new GnuParser();
+  CommandLine commandLine=parser.parse(options,args);
+  KylinConfig config=KylinConfig.createInstanceFromUri(commandLine.getOptionValue(OPTION_METADATA.getOpt()));
+  String sql=commandLine.getOptionValue(OPTION_SQL.getOpt());
+  Class.forName("net.hydromatic.optiq.jdbc.Driver");
+  File olapTmp=OLAPSchemaFactory.createTempOLAPJson(null,config);
+  Connection conn=null;
+  Statement stmt=null;
+  ResultSet rs=null;
+  try {
+    conn=DriverManager.getConnection("jdbc:calcite:model=" + olapTmp.getAbsolutePath());
+    stmt=conn.createStatement();
+    rs=stmt.executeQuery(sql);
+    int n=0;
+    ResultSetMetaData meta=rs.getMetaData();
+    while (rs.next()) {
+      n++;
+      for (int i=1; i <= meta.getColumnCount(); i++) {
+        System.out.println(n + " - " + meta.getColumnLabel(i)+ ":\t"+ rs.getObject(i));
+      }
+    }
+  }
+  finally {
+    if (rs != null) {
+      rs.close();
+    }
+    if (stmt != null) {
+      stmt.close();
+    }
+    if (conn != null) {
+      conn.close();
+    }
+  }
+}

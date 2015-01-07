@@ -1,0 +1,10 @@
+{
+  if (results.isEmpty()) {
+    out.print("The element is perfect.");
+  }
+  Iterator<Result> it=results.iterator();
+  while (it.hasNext()) {
+    Result result=it.next();
+    out.println(result.level + " : " + result.message);
+  }
+}

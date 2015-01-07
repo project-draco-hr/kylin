@@ -1,0 +1,4 @@
+{
+  cubeName=cubeName.toUpperCase();
+  return cubeMap.get(cubeName);
+}

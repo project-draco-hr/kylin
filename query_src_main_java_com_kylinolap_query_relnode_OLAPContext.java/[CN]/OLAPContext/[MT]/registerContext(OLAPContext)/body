@@ -1,0 +1,7 @@
+{
+  if (_localContexts.get() == null) {
+    Map<Integer,OLAPContext> contextMap=new HashMap<Integer,OLAPContext>();
+    _localContexts.set(contextMap);
+  }
+  _localContexts.get().put(ctx.id,ctx);
+}

@@ -1,0 +1,3 @@
+{
+  return !number.equals(0);
+}

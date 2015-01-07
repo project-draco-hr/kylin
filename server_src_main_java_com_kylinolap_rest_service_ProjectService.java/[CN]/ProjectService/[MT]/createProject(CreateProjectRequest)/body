@@ -1,0 +1,13 @@
+{
+  String projectName=projectRequest.getName();
+  String description=projectRequest.getDescription();
+  ProjectInstance currentProject=getProjectManager().getProject(projectName);
+  if (currentProject != null) {
+    throw new InternalErrorException("The project named " + projectName + " already exists");
+  }
+  String owner=SecurityContextHolder.getContext().getAuthentication().getName();
+  ProjectInstance createdProject=getProjectManager().createProject(projectName,owner,description);
+  accessService.init(createdProject,AclPermission.ADMINISTRATION);
+  logger.debug("New project created.");
+  return createdProject;
+}

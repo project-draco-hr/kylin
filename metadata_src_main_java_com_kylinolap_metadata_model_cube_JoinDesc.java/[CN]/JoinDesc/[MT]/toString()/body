@@ -1,0 +1,3 @@
+{
+  return "JoinDesc [type=" + type + ", primary_key="+ Arrays.toString(primaryKey)+ ", foreign_key="+ Arrays.toString(foreignKey)+ "]";
+}

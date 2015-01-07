@@ -1,0 +1,8 @@
+{
+  double[] biasVector=biasData[precision - 4];
+  double biasTotal=0.0d;
+  for (  int nearestNeighbor : nearestNeighbors) {
+    biasTotal+=biasVector[nearestNeighbor];
+  }
+  return biasTotal / (nearestNeighbors.length);
+}

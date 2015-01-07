@@ -1,0 +1,19 @@
+{
+  BitMapContainer container=new BitMapContainer(info,0);
+  Dictionary<String> dict=info.dict(0);
+  for (int v=dict.getMinId(); v <= dict.getMaxId(); v++) {
+    container.append(v);
+  }
+  container.append(Dictionary.NULL_ID[dict.getSizeOfId()]);
+  container.closeForChange();
+  List<ImmutableBytesWritable> bytes=container.toBytes();
+  BitMapContainer container2=new BitMapContainer(info,0);
+  container2.fromBytes(bytes);
+  int i=0;
+  for (int v=dict.getMinId(); v <= dict.getMaxId(); v++) {
+    int value=container2.getValueIntAt(i++);
+    assertEquals(v,value);
+  }
+  assertEquals(Dictionary.NULL_ID[dict.getSizeOfId()],container2.getValueIntAt(i++));
+  assertEquals(container,container2);
+}

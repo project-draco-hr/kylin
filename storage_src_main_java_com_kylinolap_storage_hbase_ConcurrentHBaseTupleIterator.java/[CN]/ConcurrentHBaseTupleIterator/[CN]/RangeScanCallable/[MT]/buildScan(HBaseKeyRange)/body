@@ -1,0 +1,15 @@
+{
+  Scan scan=new Scan();
+  scan.setCaching(SCAN_CACHE);
+  scan.setCacheBlocks(true);
+  for (  RowValueDecoder valueDecoder : rowValueDecoders) {
+    HBaseColumnDesc hbaseColumn=valueDecoder.getHBaseColumn();
+    byte[] byteFamily=Bytes.toBytes(hbaseColumn.getColumnFamilyName());
+    byte[] byteQualifier=Bytes.toBytes(hbaseColumn.getQualifier());
+    scan.addColumn(byteFamily,byteQualifier);
+  }
+  scan.setStartRow(keyRange.getStartKey());
+  InclusiveStopFilter endFilter=new InclusiveStopFilter(keyRange.getStopKey());
+  scan.setFilter(endFilter);
+  return scan;
+}

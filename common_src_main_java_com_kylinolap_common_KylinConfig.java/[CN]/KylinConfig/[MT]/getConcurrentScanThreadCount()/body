@@ -1,0 +1,3 @@
+{
+  return Integer.parseInt(this.getOptional("kylin.query.scan.thread.count","40"));
+}

@@ -1,0 +1,22 @@
+{
+  super();
+  this.isAutoIncrement=isAutoIncrement;
+  this.isCaseSensitive=isCaseSensitive;
+  this.isSearchable=isSearchable;
+  this.isCurrency=isCurrency;
+  this.isNullable=isNullalbe;
+  this.isSigned=isSigned;
+  this.displaySize=displaySize;
+  this.label=label;
+  this.name=name;
+  this.schemaName=schemaName;
+  this.catelogName=catelogName;
+  this.tableName=tableName;
+  this.precision=precision;
+  this.scale=scale;
+  this.columnType=columnType;
+  this.columnTypeName=columnTypeName;
+  this.isReadOnly=isReadOnly;
+  this.isWritable=isWritable;
+  this.isDefinitelyWritable=isDefinitelyWritable;
+}

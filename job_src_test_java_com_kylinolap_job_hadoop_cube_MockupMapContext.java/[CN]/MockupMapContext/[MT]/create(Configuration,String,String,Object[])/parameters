@@ -1,0 +1,4 @@
+Configuration hconf
+String metadataUrl
+String cubeName
+Object[] outKV

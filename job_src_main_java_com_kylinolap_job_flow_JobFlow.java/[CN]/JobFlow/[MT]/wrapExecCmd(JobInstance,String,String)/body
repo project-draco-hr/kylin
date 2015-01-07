@@ -1,0 +1,13 @@
+{
+  if (StringUtils.isBlank(cmd))   return cmd;
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  try {
+    FileUtils.forceMkdir(new File(config.getKylinJobLogDir()));
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("Create log dir " + config.getKylinJobLogDir() + " failed.",e);
+  }
+  String log=config.getKylinJobLogDir() + "/" + job.getUuid()+ "_"+ suffix+ ".log";
+  String mkLogDir="mkdir -p " + config.getKylinJobLogDir();
+  return mkLogDir + ";" + "set -o pipefail; "+ cmd+ " 2>&1 | tee "+ log;
+}

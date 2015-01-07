@@ -1,0 +1,5 @@
+{
+  for (  String path : args) {
+    dump(new File(path));
+  }
+}

@@ -1,0 +1,5 @@
+{
+  StringBuffer buf=new StringBuffer(cmd);
+  buf.append(" -" + paraName + " "+ paraValue);
+  return buf.toString();
+}

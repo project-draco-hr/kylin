@@ -1,0 +1,4 @@
+{
+  super(connection,prepareResult,resultSetType,resultSetConcurrency,resultSetHoldability);
+  this.prequeryResult=prepareResult;
+}

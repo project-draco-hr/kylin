@@ -1,0 +1,15 @@
+{
+  RowKeyColDesc[] rowKeyColDescs=rowKeyDesc.getRowKeyColumns();
+  int[] ret=new int[rowKeyColDescs.length];
+  for (int i=0; i < rowKeyColDescs.length; ++i) {
+    RowKeyColDesc rowKeyColDesc=rowKeyColDescs[rowKeyColDescs.length - 1 - i];
+    if (rowKeyColDesc.getDictionary() == null) {
+      if (rowKeyColDesc.getLength() == 0)       throw new IllegalStateException("The non-dictionary col " + rowKeyColDesc.getColumn() + " has length of 0");
+      ret[i]=rowKeyColDesc.getLength();
+    }
+ else {
+      ret[i]=estimateDictionaryColSpace(cardinality[i]);
+    }
+  }
+  return ret;
+}

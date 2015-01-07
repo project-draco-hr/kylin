@@ -1,0 +1,10 @@
+{
+  if (descriptor.getReadMethod() == null && descriptor.getPropertyType() == Boolean.class) {
+    try {
+      PropertyDescriptor pd=new PropertyDescriptor(descriptor.getName(),clazz);
+      descriptor.setReadMethod(pd.getReadMethod());
+    }
+ catch (    IntrospectionException e) {
+    }
+  }
+}

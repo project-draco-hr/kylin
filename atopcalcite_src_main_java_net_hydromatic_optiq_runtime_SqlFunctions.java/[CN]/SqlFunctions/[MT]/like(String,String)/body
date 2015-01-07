@@ -1,0 +1,4 @@
+{
+  final String regex=Like.sqlToRegexLike(pattern,null);
+  return Pattern.matches(regex,s);
+}

@@ -1,0 +1,6 @@
+{
+  Slice doneSlice=doneSlice();
+  this.sliceTimestamp=Long.MIN_VALUE;
+  this.nRecords=0;
+  return doneSlice;
+}

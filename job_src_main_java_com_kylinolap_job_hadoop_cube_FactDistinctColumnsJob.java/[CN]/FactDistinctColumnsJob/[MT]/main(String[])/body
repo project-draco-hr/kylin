@@ -1,0 +1,5 @@
+{
+  FactDistinctColumnsJob job=new FactDistinctColumnsJob();
+  int exitCode=ToolRunner.run(job,args);
+  System.exit(exitCode);
+}

@@ -1,0 +1,4 @@
+{
+  int exitCode=ToolRunner.run(new HiveColumnCardinalityJob(),args);
+  System.exit(exitCode);
+}

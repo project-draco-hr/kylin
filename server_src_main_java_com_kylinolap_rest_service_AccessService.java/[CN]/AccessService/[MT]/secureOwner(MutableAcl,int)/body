@@ -1,0 +1,5 @@
+{
+  if (acl.getOwner().equals(acl.getEntries().get(indexOfAce).getSid()) && BasePermission.ADMINISTRATION.equals(acl.getEntries().get(indexOfAce).getPermission())) {
+    throw new ForbiddenException("Can't revoke admin permission of owner.");
+  }
+}

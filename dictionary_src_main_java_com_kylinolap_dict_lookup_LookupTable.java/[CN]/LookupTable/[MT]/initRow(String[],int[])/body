@@ -1,0 +1,8 @@
+{
+  T[] value=convertRow(cols);
+  T[] keyCols=(T[])java.lang.reflect.Array.newInstance(value[0].getClass(),keyIndex.length);
+  for (int i=0; i < keyCols.length; i++)   keyCols[i]=value[keyIndex[i]];
+  Array<T> key=new Array<T>(keyCols);
+  if (data.containsKey(key))   throw new IllegalStateException("Dup key found, key=" + toString(keyCols) + ", value1="+ toString(data.get(key))+ ", value2="+ toString(value));
+  data.put(key,value);
+}

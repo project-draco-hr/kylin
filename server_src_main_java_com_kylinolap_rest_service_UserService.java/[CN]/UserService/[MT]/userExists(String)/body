@@ -1,0 +1,14 @@
+{
+  HTableInterface htable=null;
+  try {
+    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    Result result=htable.get(new Get(Bytes.toBytes(username)));
+    return null != result && !result.isEmpty();
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e.getMessage(),e);
+  }
+ finally {
+    IOUtils.closeQuietly(htable);
+  }
+}

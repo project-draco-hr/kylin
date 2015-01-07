@@ -1,0 +1,26 @@
+{
+  if (satisfyingHostRecords.size() == 0) {
+    return ConstantTupleFilter.FALSE;
+  }
+  int hn=hostCols.length;
+  if (hn == 1) {
+    CompareTupleFilter in=new CompareTupleFilter(FilterOperatorEnum.IN);
+    in.addChild(new ColumnTupleFilter(hostCols[0]));
+    in.addChild(new ConstantTupleFilter(asValues(satisfyingHostRecords)));
+    return in;
+  }
+ else {
+    LogicalTupleFilter or=new LogicalTupleFilter(FilterOperatorEnum.OR);
+    for (    Array<String> rec : satisfyingHostRecords) {
+      LogicalTupleFilter and=new LogicalTupleFilter(FilterOperatorEnum.AND);
+      for (int i=0; i < hn; i++) {
+        CompareTupleFilter eq=new CompareTupleFilter(FilterOperatorEnum.EQ);
+        eq.addChild(new ColumnTupleFilter(hostCols[i]));
+        eq.addChild(new ConstantTupleFilter(rec.data[i]));
+        and.addChild(eq);
+      }
+      or.addChild(and);
+    }
+    return or;
+  }
+}

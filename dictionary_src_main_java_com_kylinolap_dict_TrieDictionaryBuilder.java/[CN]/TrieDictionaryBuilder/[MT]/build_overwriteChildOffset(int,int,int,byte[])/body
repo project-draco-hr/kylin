@@ -1,0 +1,5 @@
+{
+  int flags=(int)trieBytes[parentOffset] & (BIT_IS_LAST_CHILD | BIT_IS_END_OF_VALUE);
+  BytesUtil.writeUnsigned(childOffset,trieBytes,parentOffset,sizeChildOffset);
+  trieBytes[parentOffset]|=flags;
+}

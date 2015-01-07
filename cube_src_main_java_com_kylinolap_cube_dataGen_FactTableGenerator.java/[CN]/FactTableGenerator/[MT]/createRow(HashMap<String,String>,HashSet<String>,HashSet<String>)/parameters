@@ -1,0 +1,3 @@
+HashMap<String,String> factTableCol2LookupCol
+HashSet<String> usedCols
+HashSet<String> defaultColumns

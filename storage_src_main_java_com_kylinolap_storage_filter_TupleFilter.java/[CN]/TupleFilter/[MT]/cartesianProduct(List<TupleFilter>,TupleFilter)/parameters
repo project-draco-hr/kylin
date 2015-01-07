@@ -1,0 +1,2 @@
+List<TupleFilter> leftOrFilters
+TupleFilter partialAndFilter

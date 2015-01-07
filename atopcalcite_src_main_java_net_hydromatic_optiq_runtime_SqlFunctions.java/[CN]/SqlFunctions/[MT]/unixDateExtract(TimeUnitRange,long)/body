@@ -1,0 +1,3 @@
+{
+  return julianExtract(range,(int)date + EPOCH_JULIAN);
+}

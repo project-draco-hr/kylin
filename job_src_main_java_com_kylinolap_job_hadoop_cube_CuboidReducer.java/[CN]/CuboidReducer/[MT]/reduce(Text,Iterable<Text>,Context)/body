@@ -1,0 +1,16 @@
+{
+  aggs.reset();
+  for (  Text value : values) {
+    codec.decode(value,input);
+    aggs.aggregate(input);
+  }
+  aggs.collectStates(result);
+  valueBuf.clear();
+  codec.encode(result,valueBuf);
+  outputValue.set(valueBuf.array(),0,valueBuf.position());
+  context.write(key,outputValue);
+  counter++;
+  if (counter % BatchConstants.COUNTER_MAX == 0) {
+    logger.info("Handled " + counter + " records!");
+  }
+}

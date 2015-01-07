@@ -1,0 +1,8 @@
+{
+  super();
+  this.cubeSeg=cubeSeg;
+  this.keyRange=keyRange;
+  this.rowValueDecoders=rowValueDecoders;
+  this.tableName=cubeSeg.getStorageLocationIdentifier();
+  this.rowKeyDecoder=new RowKeyDecoder(cubeSeg);
+}

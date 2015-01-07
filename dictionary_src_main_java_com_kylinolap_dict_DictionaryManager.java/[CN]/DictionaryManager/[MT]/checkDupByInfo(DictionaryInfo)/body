@@ -1,0 +1,11 @@
+{
+  ResourceStore store=MetadataManager.getInstance(config).getStore();
+  ArrayList<String> existings=store.listResources(dictInfo.getResourceDir());
+  if (existings == null)   return null;
+  TableSignature input=dictInfo.getInput();
+  for (  String existing : existings) {
+    DictionaryInfo existingInfo=load(existing,false);
+    if (input.equals(existingInfo.getInput()))     return existing;
+  }
+  return null;
+}

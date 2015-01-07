@@ -1,0 +1,14 @@
+{
+  EnumerableCalcRel enumCalcRel;
+  RelNode child=getChild();
+  if (child instanceof OLAPFilterRel) {
+    OLAPFilterRel filter=(OLAPFilterRel)getChild();
+    RexProgram program=RexProgram.create(filter.getChild().getRowType(),this.rewriteProjects,filter.getCondition(),this.rowType,getCluster().getRexBuilder());
+    enumCalcRel=new EnumerableCalcRel(getCluster(),getCluster().traitSetOf(EnumerableConvention.INSTANCE),filter.getChild(),this.rowType,program,ImmutableList.<RelCollation>of());
+  }
+ else {
+    RexProgram program=RexProgram.create(child.getRowType(),this.rewriteProjects,null,this.rowType,getCluster().getRexBuilder());
+    enumCalcRel=new EnumerableCalcRel(getCluster(),getCluster().traitSetOf(EnumerableConvention.INSTANCE),child,this.rowType,program,ImmutableList.<RelCollation>of());
+  }
+  return enumCalcRel.implement(implementor,pref);
+}

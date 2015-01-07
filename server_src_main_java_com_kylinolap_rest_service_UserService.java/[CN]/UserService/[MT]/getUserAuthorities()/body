@@ -1,0 +1,28 @@
+{
+  Scan s=new Scan();
+  s.addColumn(Bytes.toBytes(USER_AUTHORITY_FAMILY),Bytes.toBytes(USER_AUTHORITY_COLUMN));
+  List<String> authorities=new ArrayList<String>();
+  HTableInterface htable=null;
+  ResultScanner scanner=null;
+  try {
+    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    scanner=htable.getScanner(s);
+    for (Result result=scanner.next(); result != null; result=scanner.next()) {
+      byte[] uaBytes=result.getValue(Bytes.toBytes(USER_AUTHORITY_FAMILY),Bytes.toBytes(USER_AUTHORITY_COLUMN));
+      Collection<? extends GrantedAuthority> authCollection=Arrays.asList(ugaSerializer.deserialize(uaBytes));
+      for (      GrantedAuthority auth : authCollection) {
+        if (!authorities.contains(auth.getAuthority())) {
+          authorities.add(auth.getAuthority());
+        }
+      }
+    }
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e.getMessage(),e);
+  }
+ finally {
+    IOUtils.closeQuietly(scanner);
+    IOUtils.closeQuietly(htable);
+  }
+  return authorities;
+}

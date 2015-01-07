@@ -1,0 +1,13 @@
+{
+  ResourceStore store=getStore();
+  store.deleteResource("/cube/a_whole_new_cube.json");
+  MetadataManager metaMgr=getMetadataManager();
+  CubeDesc desc=metaMgr.getCubeDesc("test_kylin_cube_with_slr_desc");
+  cubeManager.createCube("a_whole_new_cube","default",desc,null);
+  CubeInstance createdCube=cubeManager.getCube("a_whole_new_cube");
+  assertEquals(0,createdCube.getSegments().size());
+  assertEquals(CubeStatusEnum.DISABLED,createdCube.getStatus());
+  createdCube.setStatus(CubeStatusEnum.DESCBROKEN);
+  cubeManager.updateCube(createdCube);
+  assertEquals(CubeStatusEnum.DESCBROKEN,cubeManager.getCube("a_whole_new_cube").getStatus());
+}

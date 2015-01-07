@@ -1,0 +1,8 @@
+{
+  implementor.visitChild(getChild(),this);
+  this.columnRowType=buildColumnRowType();
+  this.context=implementor.getContext();
+  Number limitValue=(Number)(((RexLiteral)localFetch).getValue());
+  int limit=limitValue.intValue();
+  this.context.storageContext.setLimit(limit);
+}

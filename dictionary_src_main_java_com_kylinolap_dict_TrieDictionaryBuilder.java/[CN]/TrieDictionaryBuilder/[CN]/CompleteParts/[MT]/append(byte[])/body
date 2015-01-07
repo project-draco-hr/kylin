@@ -1,0 +1,5 @@
+{
+  while (current + part.length > data.length)   expand();
+  System.arraycopy(part,0,data,current,part.length);
+  current+=part.length;
+}

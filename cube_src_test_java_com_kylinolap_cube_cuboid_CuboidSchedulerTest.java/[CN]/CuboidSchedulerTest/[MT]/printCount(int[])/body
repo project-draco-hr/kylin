@@ -1,0 +1,5 @@
+{
+  int sum=0;
+  for (  int c : counts)   sum+=c;
+  System.out.println(sum + " = " + Arrays.toString(counts));
+}

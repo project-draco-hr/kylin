@@ -1,0 +1,6 @@
+Node n
+int offset
+boolean isLastChild
+int sizeNoValuesBeneath
+int sizeChildOffset
+byte[] trieBytes

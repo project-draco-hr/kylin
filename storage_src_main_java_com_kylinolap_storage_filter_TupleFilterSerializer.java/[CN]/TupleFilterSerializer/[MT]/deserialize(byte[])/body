@@ -1,0 +1,30 @@
+{
+  ByteBuffer buffer=ByteBuffer.wrap(bytes);
+  TupleFilter rootFilter=null;
+  Stack<TupleFilter> parentStack=new Stack<TupleFilter>();
+  while (buffer.hasRemaining()) {
+    int opVal=BytesUtil.readVInt(buffer);
+    if (opVal < 0) {
+      parentStack.pop();
+      continue;
+    }
+    TupleFilter filter=createTupleFilter(opVal);
+    byte[] filetrBytes=BytesUtil.readByteArray(buffer);
+    filter.deserialize(filetrBytes);
+    if (rootFilter == null) {
+      rootFilter=filter;
+      parentStack.push(filter);
+      BytesUtil.readVInt(buffer);
+      continue;
+    }
+    TupleFilter parentFilter=parentStack.peek();
+    if (parentFilter != null) {
+      parentFilter.addChild(filter);
+    }
+    int hasChild=BytesUtil.readVInt(buffer);
+    if (hasChild == 1) {
+      parentStack.push(filter);
+    }
+  }
+  return rootFilter;
+}

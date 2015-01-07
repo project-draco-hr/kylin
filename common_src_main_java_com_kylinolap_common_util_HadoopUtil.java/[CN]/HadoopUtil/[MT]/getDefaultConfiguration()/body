@@ -1,0 +1,6 @@
+{
+  if (hadoopConfig == null) {
+    hadoopConfig=new Configuration();
+  }
+  return hadoopConfig;
+}

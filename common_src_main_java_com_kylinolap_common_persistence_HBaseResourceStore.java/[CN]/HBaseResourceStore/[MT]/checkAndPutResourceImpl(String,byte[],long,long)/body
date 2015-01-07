@@ -1,0 +1,15 @@
+{
+  HTableInterface table=getConnection().getTable(getTableName(resPath));
+  try {
+    byte[] row=Bytes.toBytes(resPath);
+    byte[] bOldTS=oldTS == 0 ? null : Bytes.toBytes(oldTS);
+    Put put=buildPut(resPath,newTS,row,content,table);
+    boolean ok=table.checkAndPut(row,B_FAMILY,B_COLUMN_TS,bOldTS,put);
+    if (!ok)     throw new IllegalStateException("Overwriting conflict " + resPath + ", expect old TS "+ oldTS+ ", but it is "+ getResourceTimestamp(resPath));
+    table.flushCommits();
+    return newTS;
+  }
+  finally {
+    IOUtils.closeQuietly(table);
+  }
+}

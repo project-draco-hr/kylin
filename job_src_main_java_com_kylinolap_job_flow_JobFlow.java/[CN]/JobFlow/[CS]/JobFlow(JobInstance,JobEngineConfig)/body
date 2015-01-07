@@ -1,0 +1,16 @@
+{
+  this.engineConfig=context;
+  this.jobInstance=job;
+  List<JobStep> sortedSteps=jobInstance.getSteps();
+  if (sortedSteps == null || sortedSteps.size() == 0) {
+    throw new IllegalStateException("Steps of job " + jobInstance.getUuid() + " is null or empty!");
+  }
+  Collections.sort(sortedSteps);
+  int firstStepIndex=findFirstStep(sortedSteps);
+  log.info("Job " + jobInstance.getUuid() + " will be started at step "+ firstStepIndex+ " (sequence number)");
+  flowNodes=new LinkedList<JobDetail>();
+  for (int i=firstStepIndex; i < sortedSteps.size(); i++) {
+    JobDetail node=createJobFlowNode(jobInstance,i);
+    flowNodes.add(node);
+  }
+}

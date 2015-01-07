@@ -1,0 +1,7 @@
+{
+  this.splitBuffers=new SplittedBytes[splitLen];
+  for (int i=0; i < splitLen; i++) {
+    this.splitBuffers[i]=new SplittedBytes(bytesLen);
+  }
+  this.bufferSize=0;
+}

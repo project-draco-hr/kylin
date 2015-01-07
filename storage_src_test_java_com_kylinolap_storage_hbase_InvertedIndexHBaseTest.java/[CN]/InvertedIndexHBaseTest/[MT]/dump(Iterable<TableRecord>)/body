@@ -1,0 +1,5 @@
+{
+  for (  TableRecord rec : records) {
+    System.out.println(rec.toString());
+  }
+}

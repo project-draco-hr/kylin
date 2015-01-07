@@ -1,0 +1,16 @@
+{
+  if (RowValueDecoder.hasMemHungryCountDistinct(valueDecoders) == false) {
+    return;
+  }
+  int rowSizeEst=dimensions.size() * 3;
+  for (  RowValueDecoder decoder : valueDecoders) {
+    MeasureDesc[] measures=decoder.getMeasures();
+    BitSet projectionIndex=decoder.getProjectionIndex();
+    for (int i=projectionIndex.nextSetBit(0); i >= 0; i=projectionIndex.nextSetBit(i + 1)) {
+      FunctionDesc func=measures[i].getFunction();
+      rowSizeEst+=func.getReturnDataType().getSpaceEstimate();
+    }
+  }
+  long rowEst=MEM_BUDGET_PER_QUERY / rowSizeEst;
+  context.setThreshold((int)rowEst);
+}

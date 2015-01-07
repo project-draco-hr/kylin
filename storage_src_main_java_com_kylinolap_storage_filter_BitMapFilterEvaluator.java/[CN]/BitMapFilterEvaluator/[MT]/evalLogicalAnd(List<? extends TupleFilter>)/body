@@ -1,0 +1,10 @@
+{
+  ConciseSet set=new ConciseSet();
+  not(set);
+  for (  TupleFilter c : children) {
+    ConciseSet t=evaluate(c);
+    if (t == null)     continue;
+    set.retainAll(t);
+  }
+  return set;
+}

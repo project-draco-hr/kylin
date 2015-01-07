@@ -1,0 +1,15 @@
+{
+  if ((valueBits | valueMask) != valueMask) {
+    throw new IllegalArgumentException("Dismatch " + Long.toBinaryString(valueBits) + " from "+ Long.toBinaryString(valueMask));
+  }
+  int n=Long.bitCount(valueMask);
+  int k=Long.bitCount(valueBits);
+  long[] bitMasks=new long[n];
+  long leftBits=valueMask;
+  for (int i=0; i < n; i++) {
+    long lowestBit=Long.lowestOneBit(leftBits);
+    bitMasks[i]=lowestBit;
+    leftBits&=~lowestBit;
+  }
+  return combination(valueBits,bitMasks,0,0L,k);
+}

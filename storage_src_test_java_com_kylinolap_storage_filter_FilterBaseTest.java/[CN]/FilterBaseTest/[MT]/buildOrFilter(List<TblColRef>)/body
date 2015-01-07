@@ -1,0 +1,8 @@
+{
+  CompareTupleFilter compareFilter1=buildCompareFilter(columns,0);
+  CompareTupleFilter compareFilter2=buildCompareFilter(columns,1);
+  LogicalTupleFilter logicFilter=new LogicalTupleFilter(FilterOperatorEnum.OR);
+  logicFilter.addChild(compareFilter1);
+  logicFilter.addChild(compareFilter2);
+  return logicFilter;
+}

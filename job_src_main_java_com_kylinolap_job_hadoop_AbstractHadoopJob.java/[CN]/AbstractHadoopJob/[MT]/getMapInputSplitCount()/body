@@ -1,0 +1,7 @@
+{
+  if (job == null) {
+    throw new JobException("Job is null");
+  }
+  InputFormat<?,?> input=ReflectionUtils.newInstance(job.getInputFormatClass(),job.getConfiguration());
+  return input.getSplits(job).size();
+}

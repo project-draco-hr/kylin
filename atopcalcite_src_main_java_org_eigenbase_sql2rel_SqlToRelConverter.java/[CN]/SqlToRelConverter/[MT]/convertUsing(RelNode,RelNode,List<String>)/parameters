@@ -1,0 +1,3 @@
+RelNode leftRel
+RelNode rightRel
+List<String> nameList

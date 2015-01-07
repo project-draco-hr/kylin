@@ -1,0 +1,36 @@
+{
+  Map<String,String> tableAttrs=new HashMap<String,String>();
+  TableDesc tableDesc=new TableDesc();
+  String line;
+  boolean hit=false;
+  while ((line=reader.readLine()) != null) {
+    logger.info(line);
+    int i=line.indexOf(":");
+    if (i == -1) {
+      continue;
+    }
+    String key=line.substring(0,i);
+    String value=line.substring(i + 1,line.length());
+    if (key.equals("tableName")) {
+      hit=true;
+      tableAttrs=new HashMap<String,String>();
+      tableAttrsList.add(tableAttrs);
+      tableDesc=new TableDesc();
+      tableDescList.add(tableDesc);
+    }
+    if (!hit) {
+      continue;
+    }
+    if (line.startsWith("columns")) {
+      String tname=tableAttrs.get("tableName");
+      tableDesc.setDatabase(database.toUpperCase());
+      tableDesc.setName(tname.toUpperCase());
+      tableDesc.setUuid(UUID.randomUUID().toString());
+      addColumns(tableDesc,value);
+    }
+    tableAttrs.put(key,value);
+    if (key.equals("lastUpdateTime")) {
+      hit=false;
+    }
+  }
+}

@@ -1,0 +1,2 @@
+Map<TblColRef,Set<String>> fuzzyValues
+long cap

@@ -1,0 +1,4 @@
+{
+  this.info=info;
+  this.values=new Object[info.size()];
+}

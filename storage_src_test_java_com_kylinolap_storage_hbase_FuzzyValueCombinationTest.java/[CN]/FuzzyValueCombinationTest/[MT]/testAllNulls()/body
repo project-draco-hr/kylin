@@ -1,0 +1,12 @@
+{
+  System.out.println("test all nulls ============================================================================");
+  Map<TblColRef,Set<String>> values=Maps.newHashMap();
+  values.put(col1,set());
+  values.put(col2,set());
+  values.put(col3,set());
+  List<Map<TblColRef,String>> result=FuzzyValueCombination.calculate(values,10);
+  for (  Map<TblColRef,String> item : result) {
+    System.out.println(item);
+  }
+  assertEquals(0,result.size());
+}

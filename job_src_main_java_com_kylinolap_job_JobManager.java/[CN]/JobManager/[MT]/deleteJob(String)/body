@@ -1,0 +1,3 @@
+{
+  jobDAO.deleteJob(uuid);
+}

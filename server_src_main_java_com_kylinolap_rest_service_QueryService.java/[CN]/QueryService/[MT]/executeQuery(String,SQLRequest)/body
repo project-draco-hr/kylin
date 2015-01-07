@@ -1,0 +1,15 @@
+{
+  sql=sql.trim().replace(";","");
+  int limit=sqlRequest.getLimit();
+  if (limit > 0 && !sql.toLowerCase().contains("limit")) {
+    sql+=(" LIMIT " + limit);
+  }
+  int offset=sqlRequest.getOffset();
+  if (offset > 0 && !sql.toLowerCase().contains("offset")) {
+    sql+=(" OFFSET " + offset);
+  }
+  Map<String,String> parameters=new HashMap<String,String>();
+  parameters.put(OLAPContext.PRM_ACCEPT_PARTIAL_RESULT,String.valueOf(sqlRequest.isAcceptPartial()));
+  OLAPContext.setParameters(parameters);
+  return execute(sql,sqlRequest);
+}

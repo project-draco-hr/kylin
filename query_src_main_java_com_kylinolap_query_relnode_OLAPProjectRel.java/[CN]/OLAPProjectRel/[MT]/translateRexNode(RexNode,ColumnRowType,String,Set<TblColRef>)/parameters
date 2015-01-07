@@ -1,0 +1,4 @@
+RexNode rexNode
+ColumnRowType inputColumnRowType
+String fieldName
+Set<TblColRef> sourceCollector

@@ -1,0 +1,15 @@
+{
+  if (targetType.equalsIgnoreCase("default"))   return sql;
+  String specialStr="changeJoinType_DELIMITERS";
+  sql=sql.replaceAll(System.getProperty("line.separator")," " + specialStr + " ");
+  String[] tokens=StringUtils.split(sql,null);
+  for (int i=0; i < tokens.length - 1; ++i) {
+    if ((tokens[i].equalsIgnoreCase("inner") || tokens[i].equalsIgnoreCase("left")) && tokens[i + 1].equalsIgnoreCase("join")) {
+      tokens[i]=targetType.toLowerCase();
+    }
+  }
+  String ret=StringUtils.join(tokens," ");
+  ret=ret.replaceAll(specialStr,System.getProperty("line.separator"));
+  System.out.println("The actual sql executed is: " + ret);
+  return ret;
+}

@@ -1,0 +1,3 @@
+{
+  execAndCompQuery("src/test/resources/query/sql_lookup",null,true);
+}

@@ -1,0 +1,12 @@
+{
+  RexNode convExpr=bb.convertExpression(expr);
+  final RexNode rex=lookupGroupExpr(expr);
+  if (rex != null) {
+    return;
+  }
+  groupExprs.add(expr);
+  String name=nameMap.get(expr.toString());
+  addExpr(convExpr,name);
+  final RelDataType type=convExpr.getType();
+  inputRefs.add(rexBuilder.makeInputRef(type,inputRefs.size()));
+}

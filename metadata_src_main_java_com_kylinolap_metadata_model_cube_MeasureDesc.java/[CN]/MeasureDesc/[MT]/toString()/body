@@ -1,0 +1,3 @@
+{
+  return "MeasureDesc [name=" + name + ", function="+ function+ "]";
+}

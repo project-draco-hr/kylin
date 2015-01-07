@@ -1,0 +1,8 @@
+{
+  int max=-1;
+  for (  ColumnDesc col : columns) {
+    int idx=col.getZeroBasedIndex();
+    max=Math.max(max,idx);
+  }
+  return max;
+}

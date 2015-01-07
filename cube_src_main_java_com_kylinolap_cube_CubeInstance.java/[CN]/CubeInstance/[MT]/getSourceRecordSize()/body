@@ -1,0 +1,7 @@
+{
+  long sizeRecordSize=0L;
+  for (  CubeSegment cubeSegment : this.getSegments(CubeSegmentStatusEnum.READY)) {
+    sizeRecordSize+=cubeSegment.getSourceRecordsSize();
+  }
+  return sizeRecordSize;
+}

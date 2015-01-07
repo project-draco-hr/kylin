@@ -1,0 +1,6 @@
+{
+  List<MeasureDesc> measures=cubeDesc.getMeasures();
+  String[] result=new String[measures.size()];
+  for (int i=0; i < measures.size(); i++)   result[i]=measures.get(i).getName();
+  return result;
+}

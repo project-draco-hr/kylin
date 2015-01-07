@@ -1,0 +1,3 @@
+{
+  return o instanceof Number ? toBigDecimal((Number)o) : toBigDecimal(o.toString());
+}

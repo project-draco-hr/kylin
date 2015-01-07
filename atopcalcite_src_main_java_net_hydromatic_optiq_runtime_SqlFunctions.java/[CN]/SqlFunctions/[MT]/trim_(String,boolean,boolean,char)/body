@@ -1,0 +1,27 @@
+{
+  int j=s.length();
+  if (right) {
+    for (; ; ) {
+      if (j == 0) {
+        return "";
+      }
+      if (s.charAt(j - 1) != c) {
+        break;
+      }
+      --j;
+    }
+  }
+  int i=0;
+  if (left) {
+    for (; ; ) {
+      if (i == j) {
+        return "";
+      }
+      if (s.charAt(i) != c) {
+        break;
+      }
+      ++i;
+    }
+  }
+  return s.substring(i,j);
+}

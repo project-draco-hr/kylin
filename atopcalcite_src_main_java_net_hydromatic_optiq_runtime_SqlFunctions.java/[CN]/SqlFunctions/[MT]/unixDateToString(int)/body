@@ -1,0 +1,5 @@
+{
+  final StringBuilder buf=new StringBuilder(10);
+  unixDateToString(buf,date);
+  return buf.toString();
+}

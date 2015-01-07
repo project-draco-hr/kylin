@@ -1,0 +1,37 @@
+{
+  final SqlOperator operator=call.getOperator();
+  if (operator == SqlStdOperatorTable.TABLESAMPLE) {
+    final String sampleName=SqlLiteral.stringValue(call.operand(0));
+    datasetStack.push(sampleName);
+    SqlCall cursorCall=call.operand(1);
+    SqlNode query=cursorCall.operand(0);
+    RelNode converted=convertQuery(query,false,false);
+    bb.setRoot(converted,false);
+    datasetStack.pop();
+    return;
+  }
+  replaceSubqueries(bb,call,RelOptUtil.Logic.TRUE_FALSE_UNKNOWN);
+  if (operator instanceof SqlUserDefinedTableMacro) {
+    final SqlUserDefinedTableMacro udf=(SqlUserDefinedTableMacro)operator;
+    final TranslatableTable table=udf.getTable(typeFactory,call.getOperandList());
+    final RelDataType rowType=table.getRowType(typeFactory);
+    RelOptTable relOptTable=RelOptTableImpl.create(null,rowType,table);
+    RelNode converted=toRel(relOptTable);
+    bb.setRoot(converted,true);
+    return;
+  }
+  Type elementType;
+  if (operator instanceof SqlUserDefinedTableFunction) {
+    SqlUserDefinedTableFunction udtf=(SqlUserDefinedTableFunction)operator;
+    elementType=udtf.getElementType(typeFactory,call.getOperandList());
+  }
+ else {
+    elementType=null;
+  }
+  RexNode rexCall=bb.convertExpression(call);
+  final List<RelNode> inputs=bb.retrieveCursors();
+  Set<RelColumnMapping> columnMappings=getColumnMappings(operator);
+  TableFunctionRel callRel=new TableFunctionRel(cluster,inputs,rexCall,elementType,validator.getValidatedNodeType(call),columnMappings);
+  bb.setRoot(callRel,true);
+  afterTableFunction(bb,call,callRel);
+}

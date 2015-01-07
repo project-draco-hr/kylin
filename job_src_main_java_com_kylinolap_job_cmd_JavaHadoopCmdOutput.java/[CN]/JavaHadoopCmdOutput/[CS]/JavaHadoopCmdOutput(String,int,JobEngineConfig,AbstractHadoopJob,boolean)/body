@@ -1,0 +1,10 @@
+{
+  super();
+  this.config=engineConfig.getConfig();
+  this.yarnUrl=engineConfig.getYarnStatusServiceUrl();
+  this.jobInstanceID=jobInstanceID;
+  this.jobStepID=jobStepID;
+  this.job=job;
+  this.isAsync=isAsync;
+  init();
+}

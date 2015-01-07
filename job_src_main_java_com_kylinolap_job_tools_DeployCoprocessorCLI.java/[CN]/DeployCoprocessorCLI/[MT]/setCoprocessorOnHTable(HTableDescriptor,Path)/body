@@ -1,0 +1,4 @@
+{
+  logger.info("Set coprocessor on " + desc.getNameAsString());
+  desc.addCoprocessor(AGGR_COPROCESSOR_CLS_NAME,hdfsCoprocessorJar,1001,null);
+}

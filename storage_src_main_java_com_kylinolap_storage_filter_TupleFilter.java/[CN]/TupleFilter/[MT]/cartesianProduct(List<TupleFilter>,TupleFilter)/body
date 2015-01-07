@@ -1,0 +1,16 @@
+{
+  List<TupleFilter> oldProductFilters=new LinkedList<TupleFilter>();
+  oldProductFilters.add(partialAndFilter);
+  for (  TupleFilter orFilter : leftOrFilters) {
+    List<TupleFilter> newProductFilters=new LinkedList<TupleFilter>();
+    for (    TupleFilter orChildFilter : orFilter.getChildren()) {
+      for (      TupleFilter productFilter : oldProductFilters) {
+        TupleFilter fullAndFilter=productFilter.copy();
+        fullAndFilter.addChildren(orChildFilter.getChildren());
+        newProductFilters.add(fullAndFilter);
+      }
+    }
+    oldProductFilters=newProductFilters;
+  }
+  return oldProductFilters;
+}

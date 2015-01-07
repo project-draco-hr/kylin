@@ -1,0 +1,3 @@
+{
+  start(JobConstants.DEFAULT_SCHEDULER_INTERVAL_SECONDS);
+}

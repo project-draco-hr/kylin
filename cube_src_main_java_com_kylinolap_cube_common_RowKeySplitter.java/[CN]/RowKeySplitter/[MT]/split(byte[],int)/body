@@ -1,0 +1,19 @@
+{
+  this.bufferSize=0;
+  int offset=0;
+  SplittedBytes cuboidIdSplit=this.splitBuffers[this.bufferSize++];
+  cuboidIdSplit.length=RowConstants.ROWKEY_CUBOIDID_LEN;
+  System.arraycopy(bytes,offset,cuboidIdSplit.value,0,RowConstants.ROWKEY_CUBOIDID_LEN);
+  offset+=RowConstants.ROWKEY_CUBOIDID_LEN;
+  long cuboidId=Bytes.toLong(cuboidIdSplit.value,0,cuboidIdSplit.length);
+  Cuboid cuboid=Cuboid.findById(cubeDesc,cuboidId);
+  for (int i=0; i < cuboid.getColumns().size(); i++) {
+    TblColRef col=cuboid.getColumns().get(i);
+    int colLength=colIO.getColumnLength(col);
+    SplittedBytes split=this.splitBuffers[this.bufferSize++];
+    split.length=colLength;
+    System.arraycopy(bytes,offset,split.value,0,colLength);
+    offset+=colLength;
+  }
+  return cuboidId;
+}

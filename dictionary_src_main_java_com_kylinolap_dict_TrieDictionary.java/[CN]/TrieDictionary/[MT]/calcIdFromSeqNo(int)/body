@@ -1,0 +1,4 @@
+{
+  if (seq < 0 || seq >= nValues)   return -1;
+ else   return baseId + seq;
+}

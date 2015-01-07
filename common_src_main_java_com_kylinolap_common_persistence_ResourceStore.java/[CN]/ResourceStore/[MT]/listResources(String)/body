@@ -1,0 +1,4 @@
+{
+  resPath=norm(resPath);
+  return listResourcesImpl(resPath);
+}

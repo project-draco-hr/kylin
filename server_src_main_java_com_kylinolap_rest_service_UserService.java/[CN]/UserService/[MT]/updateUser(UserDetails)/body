@@ -1,0 +1,17 @@
+{
+  HTableInterface htable=null;
+  try {
+    byte[] userAuthorities=serialize(user.getAuthorities());
+    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    Put put=new Put(Bytes.toBytes(user.getUsername()));
+    put.add(Bytes.toBytes(USER_AUTHORITY_FAMILY),Bytes.toBytes(USER_AUTHORITY_COLUMN),userAuthorities);
+    htable.put(put);
+    htable.flushCommits();
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e.getMessage(),e);
+  }
+ finally {
+    IOUtils.closeQuietly(htable);
+  }
+}

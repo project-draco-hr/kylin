@@ -1,0 +1,10 @@
+{
+  StorageCleanupJob job=new StorageCleanupJob();
+  String[] args=new String[]{"-delete","true"};
+  try {
+    ToolRunner.run(job,args);
+  }
+ catch (  Exception e) {
+    throw new InternalErrorException(e.getMessage(),e);
+  }
+}

@@ -1,0 +1,3 @@
+{
+  return "long".equalsIgnoreCase(type) || "bigint".equalsIgnoreCase(type) || "int".equalsIgnoreCase(type)|| "integer".equalsIgnoreCase(type);
+}

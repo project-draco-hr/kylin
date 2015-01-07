@@ -1,0 +1,3 @@
+{
+  this.setMapperClass(BaseCuboidMapper.class);
+}

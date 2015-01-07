@@ -1,0 +1,35 @@
+{
+  final SqlOperator op=call.getOperator();
+  if (!(op instanceof SqlAggFunction)) {
+    return super.visitCall(call);
+  }
+  final SqlAggFunction aggOp=(SqlAggFunction)op;
+  final RelDataType type=call.getType();
+  List<RexNode> exprs=call.getOperands();
+  SqlFunction histogramOp=!ENABLE_HISTOGRAM_AGG ? null : getHistogramOp(aggOp);
+  if (histogramOp != null) {
+    final RelDataType histogramType=computeHistogramType(type);
+    boolean reinterpretCast=type.getSqlTypeName() == SqlTypeName.DECIMAL;
+    if (histogramType != type) {
+      exprs=new ArrayList<RexNode>(exprs);
+      exprs.set(0,reinterpretCast ? rexBuilder.makeReinterpretCast(histogramType,exprs.get(0),rexBuilder.makeLiteral(false)) : rexBuilder.makeCast(histogramType,exprs.get(0)));
+    }
+    RexCallBinding bind=new RexCallBinding(rexBuilder.getTypeFactory(),SqlStdOperatorTable.HISTOGRAM_AGG,exprs);
+    RexNode over=rexBuilder.makeOver(SqlStdOperatorTable.HISTOGRAM_AGG.inferReturnType(bind),SqlStdOperatorTable.HISTOGRAM_AGG,exprs,partitionKeys,orderKeys,lowerBound,upperBound,window.isRows(),window.isAllowPartial(),false);
+    RexNode histogramCall=rexBuilder.makeCall(histogramType,histogramOp,ImmutableList.of(over));
+    if (histogramType != type) {
+      if (reinterpretCast) {
+        histogramCall=rexBuilder.makeReinterpretCast(type,histogramCall,rexBuilder.makeLiteral(false));
+      }
+ else {
+        histogramCall=rexBuilder.makeCast(type,histogramCall);
+      }
+    }
+    return histogramCall;
+  }
+ else {
+    boolean needSum0=aggOp == SqlStdOperatorTable.SUM && type.isNullable();
+    SqlAggFunction aggOpToUse=needSum0 ? SqlStdOperatorTable.SUM0 : aggOp;
+    return rexBuilder.makeOver(type,aggOpToUse,exprs,partitionKeys,orderKeys,lowerBound,upperBound,window.isRows(),window.isAllowPartial(),needSum0);
+  }
+}

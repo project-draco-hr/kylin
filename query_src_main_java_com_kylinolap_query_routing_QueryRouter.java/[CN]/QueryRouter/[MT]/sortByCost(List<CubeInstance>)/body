@@ -1,0 +1,18 @@
+{
+  Collections.sort(matchCubes,new Comparator<CubeInstance>(){
+    @Override public int compare(    CubeInstance c1,    CubeInstance c2){
+      int comp=0;
+      comp=c1.getCost() - c2.getCost();
+      if (comp != 0) {
+        return comp;
+      }
+      CubeDesc schema1=c1.getDescriptor();
+      CubeDesc schema2=c2.getDescriptor();
+      comp=schema1.listDimensionColumnsIncludingDerived().size() - schema2.listDimensionColumnsIncludingDerived().size();
+      if (comp != 0)       return comp;
+      comp=schema1.getMeasures().size() - schema2.getMeasures().size();
+      return comp;
+    }
+  }
+);
+}

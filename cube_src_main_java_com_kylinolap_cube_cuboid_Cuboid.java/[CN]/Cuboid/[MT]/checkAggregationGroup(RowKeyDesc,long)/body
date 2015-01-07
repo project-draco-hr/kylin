@@ -1,0 +1,12 @@
+{
+  long cuboidWithoutMandatory=cuboidID & ~rowkey.getMandatoryColumnMask();
+  long leftover;
+  for (  AggrGroupMask mask : rowkey.getAggrGroupMasks()) {
+    if ((cuboidWithoutMandatory & mask.uniqueMask) != 0) {
+      leftover=cuboidWithoutMandatory & ~mask.groupMask;
+      return leftover == 0 || leftover == mask.leftoverMask;
+    }
+  }
+  leftover=cuboidWithoutMandatory & rowkey.getTailMask();
+  return leftover == 0 || leftover == rowkey.getTailMask();
+}

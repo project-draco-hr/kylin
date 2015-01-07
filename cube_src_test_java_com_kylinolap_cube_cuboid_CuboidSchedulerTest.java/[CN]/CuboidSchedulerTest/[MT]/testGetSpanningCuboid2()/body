@@ -1,0 +1,16 @@
+{
+  CubeDesc cube=getTestKylinCubeWithSeller();
+  CuboidScheduler scheduler=new CuboidScheduler(cube);
+  System.out.println("Spanning for 8D Cuboids");
+  testSpanningAndGetParent(scheduler,cube,new long[]{511});
+  System.out.println("Spanning for 7D Cuboids");
+  testSpanningAndGetParent(scheduler,cube,new long[]{504,447,503,383});
+  System.out.println("Spanning for 6D Cuboids");
+  testSpanningAndGetParent(scheduler,cube,new long[]{440,496,376,439,487,319,375});
+  System.out.println("Spanning for 5D Cuboids");
+  testSpanningAndGetParent(scheduler,cube,new long[]{432,480,312,368,423,455,311,359});
+  System.out.println("Spanning for 4D Cuboids");
+  testSpanningAndGetParent(scheduler,cube,new long[]{416,448,304,352,391,295,327});
+  System.out.println("Spanning for 3D Cuboids");
+  testSpanningAndGetParent(scheduler,cube,new long[]{384,288,320,263});
+}

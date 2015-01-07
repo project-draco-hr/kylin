@@ -1,0 +1,21 @@
+{
+  ColumnRowType inputColumnRowType=((OLAPRel)getChild()).getColumnRowType();
+  this.aggregations=new ArrayList<FunctionDesc>();
+  for (  AggregateCall aggCall : this.rewriteAggCalls) {
+    ParameterDesc parameter=null;
+    if (!aggCall.getArgList().isEmpty()) {
+      int index=aggCall.getArgList().get(0);
+      TblColRef column=inputColumnRowType.getColumnByIndex(index);
+      if (!column.isInnerColumn()) {
+        parameter=new ParameterDesc();
+        parameter.setValue(column.getName());
+        parameter.setType("column");
+      }
+    }
+    FunctionDesc aggFunc=new FunctionDesc();
+    String funcName=getFuncName(aggCall);
+    aggFunc.setExpression(funcName);
+    aggFunc.setParameter(parameter);
+    this.aggregations.add(aggFunc);
+  }
+}

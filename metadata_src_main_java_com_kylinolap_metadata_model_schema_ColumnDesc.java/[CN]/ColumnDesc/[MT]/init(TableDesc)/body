@@ -1,0 +1,6 @@
+{
+  this.table=table;
+  if (name != null)   name=name.toUpperCase();
+  if (id != null)   zeroBasedIndex=Integer.parseInt(id) - 1;
+  type=DataType.getInstance(datatype);
+}

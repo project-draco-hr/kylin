@@ -1,0 +1,3 @@
+{
+  return "HCol [bFamily=" + Bytes.toString(family) + ", bQualifier="+ Bytes.toString(qualifier)+ ", nMeasures="+ nMeasures+ "]";
+}

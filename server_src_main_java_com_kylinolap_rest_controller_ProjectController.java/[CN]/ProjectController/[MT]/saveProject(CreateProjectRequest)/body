@@ -1,0 +1,14 @@
+{
+  if (StringUtils.isEmpty(projectRequest.getName())) {
+    throw new InternalErrorException("A project name must be given to create a project");
+  }
+  ProjectInstance createdProj=null;
+  try {
+    createdProj=projectService.createProject(projectRequest);
+  }
+ catch (  Exception e) {
+    logger.error("Failed to deal with the request.",e);
+    throw new InternalErrorException(e.getLocalizedMessage());
+  }
+  return createdProj;
+}

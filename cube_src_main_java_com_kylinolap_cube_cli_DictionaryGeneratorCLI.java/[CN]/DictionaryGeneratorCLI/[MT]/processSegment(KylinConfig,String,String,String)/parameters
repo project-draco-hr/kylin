@@ -1,0 +1,4 @@
+KylinConfig config
+String cubeName
+String segmentName
+String factColumnsPath

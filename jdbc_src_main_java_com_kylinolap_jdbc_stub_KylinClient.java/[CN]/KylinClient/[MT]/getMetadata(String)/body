@@ -1,0 +1,54 @@
+{
+  GetMethod get=new GetMethod(conn.getMetaProjectUrl(project));
+  HttpClient httpClient=new HttpClient();
+  if (conn.getConnectUrl().toLowerCase().startsWith("https://")) {
+    registerSsl();
+  }
+  addPostHeaders(get);
+  List<TableMetaStub> tableMetaStubs=null;
+  try {
+    httpClient.executeMethod(get);
+    if (get.getStatusCode() != 200 && get.getStatusCode() != 201) {
+      logger.error("Authentication Failed with error code " + get.getStatusCode() + " and message:\n"+ get.getResponseBodyAsString());
+      throw new ConnectionException("Authentication Failed.");
+    }
+    tableMetaStubs=new ObjectMapper().readValue(get.getResponseBodyAsString(),new TypeReference<List<TableMetaStub>>(){
+    }
+);
+    List<MetaTable> tables=new ArrayList<MetaTable>();
+    HashMultimap<String,MetaTable> schemasMap=HashMultimap.create();
+    for (    TableMetaStub tableMetaStub : tableMetaStubs) {
+      List<MetaColumn> columns=new ArrayList<MetaColumn>();
+      for (      ColumnMetaStub columnMetaStub : tableMetaStub.getColumns()) {
+        MetaColumn column=createNewColumn(columnMetaStub);
+        columns.add(column);
+      }
+      MetaTable table=createNewTable(tableMetaStub,columns);
+      tables.add(table);
+      schemasMap.put(tableMetaStub.getTABLE_CAT() + "#" + tableMetaStub.getTABLE_SCHEM(),table);
+    }
+    HashMultimap<String,MetaSchema> catalogMap=HashMultimap.create();
+    List<MetaSchema> schemas=new ArrayList<MetaSchema>();
+    for (    String key : schemasMap.keySet()) {
+      String cat=key.split("#")[0];
+      String schema=key.split("#")[1];
+      MetaSchema metaSchema=new MetaSchema(cat,schema,new ArrayList<MetaTable>(schemasMap.get(key)));
+      schemas.add(metaSchema);
+      catalogMap.put(cat,metaSchema);
+    }
+    List<MetaCatalog> catalogs=new ArrayList<MetaCatalog>();
+    for (    String key : catalogMap.keySet()) {
+      MetaCatalog metaCatalog=new MetaCatalog(key,new ArrayList<MetaSchema>(catalogMap.get(key)));
+      catalogs.add(metaCatalog);
+    }
+    return new MetaProject(project,catalogs);
+  }
+ catch (  HttpException e) {
+    logger.error(e.getLocalizedMessage(),e);
+    throw new ConnectionException(e.getLocalizedMessage());
+  }
+catch (  IOException e) {
+    logger.error(e.getLocalizedMessage(),e);
+    throw new ConnectionException(e.getLocalizedMessage());
+  }
+}

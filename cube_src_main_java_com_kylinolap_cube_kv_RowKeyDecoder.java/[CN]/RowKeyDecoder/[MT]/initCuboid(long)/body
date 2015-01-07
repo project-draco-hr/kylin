@@ -1,0 +1,6 @@
+{
+  if (this.cuboid != null && this.cuboid.getId() == cuboidID) {
+    return;
+  }
+  this.cuboid=Cuboid.findById(cubeDesc,cuboidID);
+}

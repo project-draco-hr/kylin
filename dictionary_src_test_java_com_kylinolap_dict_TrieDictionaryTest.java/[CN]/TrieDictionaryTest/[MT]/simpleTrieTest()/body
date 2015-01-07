@@ -1,0 +1,19 @@
+{
+  ArrayList<String> str=new ArrayList<String>();
+  str.add("part");
+  str.add("part");
+  str.add("par");
+  str.add("partition");
+  str.add("party");
+  str.add("parties");
+  str.add("paint");
+  ArrayList<String> notFound=new ArrayList<String>();
+  notFound.add("");
+  notFound.add("p");
+  notFound.add("pa");
+  notFound.add("pb");
+  notFound.add("parti");
+  notFound.add("partz");
+  notFound.add("partyz");
+  testStringDictionary(str,notFound);
+}

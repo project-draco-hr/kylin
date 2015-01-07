@@ -1,0 +1,4 @@
+{
+  buf.append((char)('0' + (i / 10) % 10));
+  buf.append((char)('0' + i % 10));
+}

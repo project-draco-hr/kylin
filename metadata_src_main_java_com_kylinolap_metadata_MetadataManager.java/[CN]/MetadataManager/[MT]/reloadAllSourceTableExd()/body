@@ -1,0 +1,12 @@
+{
+  ResourceStore store=getStore();
+  logger.debug("Reloading SourceTable exd info from folder " + store.getReadableResourcePath(ResourceStore.TABLE_EXD_RESOURCE_ROOT));
+  srcTableExdMap.clear();
+  List<String> paths=store.collectResourceRecursively(ResourceStore.TABLE_EXD_RESOURCE_ROOT,MetadataConstances.FILE_SURFIX);
+  for (  String path : paths) {
+    Map<String,String> attrContainer=new HashMap<String,String>();
+    String tableName=loadSourceTableExd(getStore(),path,attrContainer);
+    srcTableExdMap.putLocal(tableName.toUpperCase(),attrContainer);
+  }
+  logger.debug("Loaded " + paths.size() + " SourceTable EXD(s)");
+}

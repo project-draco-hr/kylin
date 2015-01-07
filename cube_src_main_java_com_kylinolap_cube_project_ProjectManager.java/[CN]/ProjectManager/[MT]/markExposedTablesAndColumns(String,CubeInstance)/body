@@ -1,0 +1,25 @@
+{
+  if (!cubeInstance.isReady())   return;
+  CubeDesc cubeDesc=cubeInstance.getDescriptor();
+  String factTable=cubeDesc.getFactTable();
+  for (  DimensionDesc dim : cubeDesc.getDimensions()) {
+    String lookupTable=dim.getTable();
+    JoinDesc join=dim.getJoin();
+    if (join == null)     continue;
+    if (join.getForeignKeyColumns() == null) {
+      throw new IllegalStateException("Null FK for " + join);
+    }
+    for (    TblColRef fkCol : join.getForeignKeyColumns()) {
+      markExposedTableAndColumn(projectName,factTable,fkCol.getName(),dim);
+    }
+    if (join.getPrimaryKeyColumns() == null) {
+      throw new IllegalStateException("Null PK for " + join);
+    }
+    for (    TblColRef pkCol : join.getPrimaryKeyColumns()) {
+      markExposedTableAndColumn(projectName,lookupTable,pkCol.getName(),dim);
+    }
+  }
+  for (  TblColRef col : cubeDesc.listAllColumns()) {
+    markExposedTableAndColumn(projectName,col.getTable(),col.getName(),col);
+  }
+}

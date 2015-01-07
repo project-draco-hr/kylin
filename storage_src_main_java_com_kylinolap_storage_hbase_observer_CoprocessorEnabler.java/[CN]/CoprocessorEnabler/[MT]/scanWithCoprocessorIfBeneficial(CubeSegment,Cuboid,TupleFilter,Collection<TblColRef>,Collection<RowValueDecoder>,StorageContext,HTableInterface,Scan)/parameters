@@ -1,0 +1,8 @@
+CubeSegment segment
+Cuboid cuboid
+TupleFilter tupleFiler
+Collection<TblColRef> groupBy
+Collection<RowValueDecoder> rowValueDecoders
+StorageContext context
+HTableInterface table
+Scan scan

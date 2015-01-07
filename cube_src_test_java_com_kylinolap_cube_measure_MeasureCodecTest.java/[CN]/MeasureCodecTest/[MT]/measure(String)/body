@@ -1,0 +1,7 @@
+{
+  MeasureDesc desc=new MeasureDesc();
+  FunctionDesc func=new FunctionDesc();
+  func.setReturnType(returnType);
+  desc.setFunction(func);
+  return desc;
+}

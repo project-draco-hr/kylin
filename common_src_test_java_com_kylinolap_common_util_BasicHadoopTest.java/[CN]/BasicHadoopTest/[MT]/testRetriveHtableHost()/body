@@ -1,0 +1,17 @@
+{
+  Configuration conf=HBaseConfiguration.create();
+  HBaseAdmin hbaseAdmin=new HBaseAdmin(conf);
+  HTableDescriptor[] tableDescriptors=hbaseAdmin.listTables();
+  for (  HTableDescriptor table : tableDescriptors) {
+    String value=table.getValue("KYLIN_HOST");
+    if (value != null) {
+      System.out.println(table.getTableName());
+      System.out.println("host is " + value);
+      hbaseAdmin.disableTable(table.getTableName());
+      table.setValue("KYLIN_HOST_ANOTHER","dev02");
+      hbaseAdmin.modifyTable(table.getTableName(),table);
+      hbaseAdmin.enableTable(table.getTableName());
+    }
+  }
+  hbaseAdmin.close();
+}

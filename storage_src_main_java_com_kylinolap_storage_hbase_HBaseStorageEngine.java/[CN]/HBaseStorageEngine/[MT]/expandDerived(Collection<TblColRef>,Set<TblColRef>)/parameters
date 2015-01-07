@@ -1,0 +1,2 @@
+Collection<TblColRef> cols
+Set<TblColRef> derivedPostAggregation

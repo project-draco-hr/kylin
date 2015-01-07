@@ -1,0 +1,5 @@
+{
+  int fieldCount=relOptTable.getRowType().getFieldCount();
+  int[] fields=identityList(fieldCount);
+  return new OLAPTableScan(context.getCluster(),relOptTable,this,fields);
+}

@@ -1,0 +1,13 @@
+{
+  ByteBuffer buffer=ByteBuffer.allocate(BUFFER_SIZE);
+  int size=this.dynamicVariables.size();
+  BytesUtil.writeVInt(size,buffer);
+  for (  Map.Entry<String,String> entry : this.dynamicVariables.entrySet()) {
+    BytesUtil.writeUTFString(entry.getKey(),buffer);
+    BytesUtil.writeUTFString(entry.getValue(),buffer);
+  }
+  BytesUtil.writeAsciiString(nullString,buffer);
+  byte[] result=new byte[buffer.position()];
+  System.arraycopy(buffer.array(),0,result,0,buffer.position());
+  return result;
+}

@@ -1,0 +1,2 @@
+HBaseAdmin hbaseAdmin
+List<String> tableNames

@@ -1,0 +1,10 @@
+{
+  if (v instanceof Long) {
+    long l=(Long)v;
+    return new FixedValueHLLCMockup(l);
+  }
+ else {
+    HyperLogLogPlusCounter c=(HyperLogLogPlusCounter)v;
+    return new HyperLogLogPlusCounter(c);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  CompressedValueContainer other=(CompressedValueContainer)obj;
+  if (size != other.size)   return false;
+  if (valueLen != other.valueLen)   return false;
+  if (!Bytes.equals(uncompressed,0,size * valueLen,uncompressed,0,size * valueLen))   return false;
+  return true;
+}

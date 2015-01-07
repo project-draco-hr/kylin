@@ -1,0 +1,9 @@
+{
+  for (  long cuboidId : cuboidIds) {
+    Collection<Long> spannings=scheduler.getSpanningCuboid(cuboidId);
+    System.out.println("Spanning result for " + cuboidId + "("+ Long.toBinaryString(cuboidId)+ "): "+ toString(spannings));
+    for (    long child : spannings) {
+      assertTrue(Cuboid.isValid(cube,child));
+    }
+  }
+}

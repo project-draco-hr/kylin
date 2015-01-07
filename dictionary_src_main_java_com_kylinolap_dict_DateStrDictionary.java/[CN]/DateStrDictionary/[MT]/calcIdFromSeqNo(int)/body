@@ -1,0 +1,3 @@
+{
+  return seq < 0 ? seq : baseId + seq;
+}

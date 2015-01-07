@@ -1,0 +1,4 @@
+CubeManager cubeMgr
+String factTableName
+Collection<TblColRef> dimensionColumns
+Collection<FunctionDesc> functions

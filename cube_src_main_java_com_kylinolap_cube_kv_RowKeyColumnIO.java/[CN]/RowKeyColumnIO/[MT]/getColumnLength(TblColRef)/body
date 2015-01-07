@@ -1,0 +1,9 @@
+{
+  Dictionary<String> dict=getDictionary(col);
+  if (dict == null) {
+    return rowkeyDesc.getColumnLength(col);
+  }
+ else {
+    return dict.getSizeOfId();
+  }
+}

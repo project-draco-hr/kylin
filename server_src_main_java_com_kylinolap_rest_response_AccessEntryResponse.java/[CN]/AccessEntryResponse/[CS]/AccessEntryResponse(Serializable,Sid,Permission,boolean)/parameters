@@ -1,0 +1,4 @@
+Serializable id
+Sid sid
+Permission permission
+boolean granting

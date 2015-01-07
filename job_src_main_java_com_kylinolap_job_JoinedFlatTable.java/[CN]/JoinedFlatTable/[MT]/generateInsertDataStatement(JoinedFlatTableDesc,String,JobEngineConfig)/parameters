@@ -1,0 +1,3 @@
+JoinedFlatTableDesc intermediateTableDesc
+String jobUUID
+JobEngineConfig engineConfig

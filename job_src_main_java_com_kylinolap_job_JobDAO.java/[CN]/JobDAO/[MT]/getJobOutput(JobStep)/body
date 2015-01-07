@@ -1,0 +1,3 @@
+{
+  return getJobOutput(jobStep.getJobInstance().getUuid(),jobStep.getSequenceID());
+}

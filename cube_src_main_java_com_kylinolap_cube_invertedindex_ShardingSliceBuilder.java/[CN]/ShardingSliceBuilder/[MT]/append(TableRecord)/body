@@ -1,0 +1,4 @@
+{
+  short shard=rec.getShard();
+  return builders[shard].append(rec);
+}

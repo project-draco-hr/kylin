@@ -1,0 +1,4 @@
+{
+  RelStructuredTypeFlattener typeFlattener=new RelStructuredTypeFlattener(rexBuilder,createToRelContext());
+  return typeFlattener.rewrite(rootRel,restructure);
+}

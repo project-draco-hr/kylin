@@ -1,0 +1,6 @@
+{
+  List<Cell> cells=Lists.newArrayList();
+  scanner.next(cells);
+  if (cells.isEmpty())   return null;
+ else   return Result.create(cells);
+}

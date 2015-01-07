@@ -1,0 +1,6 @@
+{
+  for (  RowValueDecoder decoder : rowValueDecoders) {
+    if (decoder.hasMemHungryCountDistinct())     return true;
+  }
+  return false;
+}

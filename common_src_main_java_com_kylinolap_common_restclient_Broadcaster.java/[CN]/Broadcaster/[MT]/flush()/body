@@ -1,0 +1,12 @@
+{
+  String[] nodes=KylinConfig.getInstanceFromEnv().getRestServers();
+  if (nodes == null)   return;
+  for (  BroadcastEvent event : broadcaseEvents) {
+    for (    String nodeUri : nodes) {
+      logger.debug("Broadcast nodeUri: " + nodeUri + ", type: "+ event.getType()+ ", action: "+ event.getAction()+ ", name: "+ event.getName());
+      WipeCacheThread thread=BroadcasterHolder.INSTANCE.new WipeCacheThread(nodeUri,event.getType(),event.getAction(),event.getName());
+      thread.start();
+    }
+  }
+  broadcaseEvents.clear();
+}

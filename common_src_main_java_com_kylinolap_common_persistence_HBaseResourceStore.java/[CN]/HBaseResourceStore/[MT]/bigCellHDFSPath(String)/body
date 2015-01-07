@@ -1,0 +1,5 @@
+{
+  String hdfsWorkingDirectory=this.kylinConfig.getHdfsWorkingDirectory();
+  Path redirectPath=new Path(hdfsWorkingDirectory,"resources" + resPath);
+  return redirectPath;
+}

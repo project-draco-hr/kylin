@@ -1,0 +1,3 @@
+{
+  super(SortRel.class,Convention.NONE,OLAPRel.CONVENTION,"OLAPSortRule");
+}

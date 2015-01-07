@@ -1,0 +1,5 @@
+{
+  String path=cubeDesc.getResourcePath();
+  getStore().deleteResource(path);
+  cubeDescMap.remove(cubeDesc.getName());
+}

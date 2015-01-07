@@ -1,0 +1,7 @@
+{
+  List<String> values=Lists.newArrayListWithCapacity(satisfyingHostRecords.size());
+  for (  Array<String> rec : satisfyingHostRecords) {
+    values.add(rec.data[0]);
+  }
+  return values;
+}

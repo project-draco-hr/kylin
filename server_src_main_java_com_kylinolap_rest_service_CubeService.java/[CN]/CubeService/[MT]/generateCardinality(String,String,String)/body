@@ -1,0 +1,95 @@
+{
+  TableDesc table=getMetadataManager().getTableDesc(tableName);
+  Map<String,String> tableExd=getMetadataManager().getTableDescExd(tableName);
+  if (tableExd == null || table == null) {
+    IllegalArgumentException e=new IllegalArgumentException("Cannot find table descirptor " + tableName);
+    logger.error("Cannot find table descirptor " + tableName,e);
+    throw e;
+  }
+  Map<String,String> exd=getMetadataManager().getTableDescExd(tableName);
+  if (exd == null || !Boolean.valueOf(exd.get(MetadataConstances.TABLE_EXD_STATUS_KEY))) {
+    throw new IllegalArgumentException("Table " + tableName + " does not exist.");
+  }
+  String location=exd.get(MetadataConstances.TABLE_EXD_LOCATION);
+  if (location == null || MetadataConstances.TABLE_EXD_DEFAULT_VALUE.equals(location)) {
+    throw new IllegalArgumentException("Cannot get table " + tableName + " location, the location is "+ location);
+  }
+  String inputFormat=exd.get(MetadataConstances.TABLE_EXD_IF);
+  if (inputFormat == null || MetadataConstances.TABLE_EXD_DEFAULT_VALUE.equals(inputFormat)) {
+    throw new IllegalArgumentException("Cannot get table " + tableName + " input format, the format is "+ inputFormat);
+  }
+  String delim=exd.get(MetadataConstances.TABLE_EXD_DELIM);
+  if (delimiter != null) {
+    delim=delimiter;
+  }
+  String jarPath=getKylinConfig().getKylinJobJarPath();
+  String outPath=HiveColumnCardinalityJob.OUTPUT_PATH + "/" + tableName;
+  String[] args=null;
+  if (delim == null) {
+    args=new String[]{"-input",location,"-output",outPath,"-iformat",inputFormat};
+  }
+ else {
+    args=new String[]{"-input",location,"-output",outPath,"-iformat",inputFormat,"-idelim",delim};
+  }
+  HiveColumnCardinalityJob job=new HiveColumnCardinalityJob(jarPath,null);
+  int hresult=0;
+  try {
+    hresult=ToolRunner.run(job,args);
+  }
+ catch (  Exception e) {
+    logger.error("Cardinality calculation failed. ",e);
+    throw new IllegalArgumentException("Hadoop job failed with exception ",e);
+  }
+  if (hresult != 0) {
+    throw new IllegalArgumentException("Hadoop job failed with result " + hresult);
+  }
+  List<String> columns=null;
+  try {
+    columns=job.readLines(new Path(outPath),job.getConf());
+  }
+ catch (  IllegalArgumentException e) {
+    logger.error("Failed to resolve cardinality for " + tableName + " from "+ outPath,e);
+    return;
+  }
+catch (  Exception e) {
+    logger.error("Failed to resolve cardinality for " + tableName + " from "+ outPath,e);
+    return;
+  }
+  StringBuffer cardi=new StringBuffer();
+  ColumnDesc[] cols=table.getColumns();
+  if (columns.isEmpty() || cols.length != columns.size()) {
+    logger.error("The hadoop cardinality column size " + columns.size() + " is not equal metadata column size "+ cols.length+ ". Table "+ tableName);
+  }
+  Iterator<String> it=columns.iterator();
+  while (it.hasNext()) {
+    String string=(String)it.next();
+    String[] ss=StringUtils.split(string,"\t");
+    if (ss.length != 2) {
+      logger.error("The hadoop cardinality value is not valid " + string);
+      continue;
+    }
+    cardi.append(ss[1]);
+    cardi.append(",");
+  }
+  String scardi=cardi.toString();
+  scardi=scardi.substring(0,scardi.length() - 1);
+  tableExd.put(MetadataConstances.TABLE_EXD_CARDINALITY,scardi);
+  try {
+    ByteArrayOutputStream bos=new ByteArrayOutputStream();
+    JsonUtil.writeValueIndent(bos,tableExd);
+    System.out.println(bos.toString());
+    ByteArrayInputStream bis=new ByteArrayInputStream(bos.toByteArray());
+    String xPath=ResourceStore.TABLE_EXD_RESOURCE_ROOT + "/" + tableName.toUpperCase()+ "."+ HiveSourceTableLoader.OUTPUT_SURFIX;
+    writeResource(bis,KylinConfig.getInstanceFromEnv(),xPath);
+  }
+ catch (  JsonGenerationException e) {
+    e.printStackTrace();
+  }
+catch (  JsonMappingException e) {
+    e.printStackTrace();
+  }
+catch (  IOException e) {
+    e.printStackTrace();
+  }
+  getMetadataManager().reload();
+}

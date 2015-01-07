@@ -1,0 +1,5 @@
+{
+  ArrayList<Cell> list=Lists.newArrayList();
+  list.add(new KeyValue(rowkey,null,null,null));
+  return list;
+}

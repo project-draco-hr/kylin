@@ -1,0 +1,5 @@
+String cubeName
+String rowCount
+String linkableRatio
+String randomSeed
+String joinType

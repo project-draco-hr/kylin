@@ -1,0 +1,3 @@
+{
+  return LZOSupportnessChecker.getSupportness() ? "true" : "false";
+}

@@ -1,0 +1,24 @@
+{
+  JobKey jobKey=new JobKey(JobInstance.getStepIdentity(jobInstance,jobStep),JobConstants.CUBE_JOB_GROUP_NAME);
+  boolean res=false;
+  try {
+    JobDetail jobDetail=this.scheduler.getJobDetail(jobKey);
+    IJobCommand iJobStepCmd=(IJobCommand)jobDetail.getJobDataMap().get(JobConstants.PROP_JOB_CMD_EXECUTOR);
+    if (null != iJobStepCmd) {
+      iJobStepCmd.cancel();
+    }
+    jobDetail.getJobDataMap().put(JobConstants.PROP_JOB_KILLED,true);
+    this.scheduler.addJob(jobDetail,true,true);
+    @SuppressWarnings("unchecked") ConcurrentHashMap<String,JobFlow> jobFlows=(ConcurrentHashMap<String,JobFlow>)this.scheduler.getContext().get(JobConstants.PROP_JOB_RUNTIME_FLOWS);
+    jobFlows.remove(JobInstance.getJobIdentity(jobInstance));
+  }
+ catch (  UnableToInterruptJobException e) {
+    log.error(e.getLocalizedMessage(),e);
+    throw new JobException(e);
+  }
+catch (  SchedulerException e) {
+    log.error(e.getLocalizedMessage(),e);
+    throw new JobException(e);
+  }
+  return res;
+}

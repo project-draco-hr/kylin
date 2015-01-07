@@ -1,0 +1,3 @@
+{
+  reset(value,isEndOfValue);
+}

@@ -1,0 +1,3 @@
+{
+  return com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.internal_static_CountRequest_fieldAccessorTable.ensureFieldAccessorsInitialized(com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountRequest.class,com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountRequest.Builder.class);
+}

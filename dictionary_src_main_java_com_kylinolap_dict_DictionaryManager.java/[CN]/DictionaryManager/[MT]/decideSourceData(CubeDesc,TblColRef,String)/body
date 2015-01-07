@@ -1,0 +1,40 @@
+{
+  String srcTable;
+  String srcCol;
+  int srcColIdx;
+  ReadableTable table;
+  MetadataManager metaMgr=MetadataManager.getInstance(config);
+  if (cube == null) {
+    srcTable=col.getTable();
+    srcCol=col.getName();
+    srcColIdx=col.getColumn().getZeroBasedIndex();
+    int nColumns=metaMgr.getTableDesc(col.getTable()).getColumnCount();
+    table=new FileTable(factColumnsPath + "/" + col.getName(),nColumns);
+    return new Object[]{srcTable,srcCol,srcColIdx,table};
+  }
+  String useDict=cube.getRowkey().getDictionary(col);
+  if ("true".equals(useDict) || "string".equals(useDict) || "number".equals(useDict)|| "any".equals(useDict)) {
+    if (cube.isFactTable(col.getTable())) {
+      TblColRef pkCol=cube.findPKByFK(col);
+      if (pkCol != null)       col=pkCol;
+    }
+    srcTable=col.getTable();
+    srcCol=col.getName();
+    srcColIdx=col.getColumn().getZeroBasedIndex();
+    if (cube.isFactTable(col.getTable())) {
+      table=new FileTable(factColumnsPath + "/" + col.getName(),-1);
+    }
+ else {
+      table=new HiveTable(metaMgr,col.getTable());
+    }
+  }
+ else {
+    String dictDataSetPath=unpackDataSet(this.config.getTempHDFSDir(),useDict);
+    if (dictDataSetPath == null)     throw new IllegalArgumentException("Unknown dictionary data set '" + useDict + "', referred from "+ col);
+    srcTable="PREDEFINED";
+    srcCol=useDict;
+    srcColIdx=0;
+    table=new FileTable(dictDataSetPath,-1);
+  }
+  return new Object[]{srcTable,srcCol,srcColIdx,table};
+}

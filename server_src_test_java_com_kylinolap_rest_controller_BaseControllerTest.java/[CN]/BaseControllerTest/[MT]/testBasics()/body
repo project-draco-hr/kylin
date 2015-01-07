@@ -1,0 +1,16 @@
+{
+  MockHttpServletRequest request=new MockHttpServletRequest();
+  request.setRequestURI("http://localhost");
+  NotFoundException notFoundException=new NotFoundException("not found");
+  ErrorResponse errorResponse=basicController.handleBadRequest(request,notFoundException);
+  Assert.assertNotNull(errorResponse);
+  ForbiddenException forbiddenException=new ForbiddenException("forbidden");
+  errorResponse=basicController.handleForbidden(request,forbiddenException);
+  Assert.assertNotNull(errorResponse);
+  InternalErrorException internalErrorException=new InternalErrorException("error");
+  errorResponse=basicController.handleError(request,internalErrorException);
+  Assert.assertNotNull(errorResponse);
+  BadRequestException badRequestException=new BadRequestException("error");
+  errorResponse=basicController.handleBadRequest(request,badRequestException);
+  Assert.assertNotNull(errorResponse);
+}

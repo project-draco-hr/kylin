@@ -1,0 +1,4 @@
+{
+  Map<ObjectIdentity,Acl> aclsMap=readAclsById(Arrays.asList(object),null);
+  return aclsMap.get(object);
+}

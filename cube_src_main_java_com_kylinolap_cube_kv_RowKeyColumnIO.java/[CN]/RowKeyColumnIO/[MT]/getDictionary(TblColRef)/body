@@ -1,0 +1,4 @@
+{
+  if (forceNoDict)   return null;
+  return (Dictionary<String>)CubeManager.getInstance(seg.getCubeInstance().getConfig()).getDictionary(seg,col);
+}

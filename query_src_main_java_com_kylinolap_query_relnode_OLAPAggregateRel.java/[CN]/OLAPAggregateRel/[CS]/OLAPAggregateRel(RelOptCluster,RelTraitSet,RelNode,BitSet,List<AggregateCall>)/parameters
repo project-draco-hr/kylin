@@ -1,0 +1,5 @@
+RelOptCluster cluster
+RelTraitSet traits
+RelNode child
+BitSet groupSet
+List<AggregateCall> aggCalls

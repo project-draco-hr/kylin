@@ -1,0 +1,11 @@
+{
+  if (a == null) {
+    return null;
+  }
+  try {
+    return Primitive.asList(a.getArray());
+  }
+ catch (  SQLException e) {
+    throw new RuntimeException(e);
+  }
+}

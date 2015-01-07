@@ -1,0 +1,26 @@
+{
+  List<CubeSegment> mergingSegments=cube.getMergingSegments();
+  if (mergingSegments == null || mergingSegments.size() < 2) {
+    throw new IllegalArgumentException("Merging segments count should be more than 2");
+  }
+  String[] cuboidPaths=new String[mergingSegments.size()];
+  for (int i=0; i < mergingSegments.size(); i++) {
+    cuboidPaths[i]=getPathToMerge(jobInstance,mergingSegments.get(i));
+  }
+  String formattedPath=formatPaths(cuboidPaths);
+  int stepSeqNum=0;
+  List<JobStep> result=Lists.newArrayList();
+  final String mergedCuboidPath=jobWorkingDir + "/" + cubeName+ "/cuboid";
+  result.add(createMergeCuboidDataStep(jobInstance,stepSeqNum++,formattedPath,mergedCuboidPath));
+  result.add(createRangeRowkeyDistributionStep(jobInstance,stepSeqNum++,mergedCuboidPath));
+  result.add(createCreateHTableStep(jobInstance,stepSeqNum++));
+  result.add(createConvertCuboidToHfileStep(jobInstance,stepSeqNum++,mergedCuboidPath));
+  result.add(createBulkLoadStep(jobInstance,stepSeqNum++));
+  try {
+    log.debug(JsonUtil.writeValueAsIndentString(jobInstance));
+  }
+ catch (  Exception e) {
+    log.error(e.getMessage());
+  }
+  return result;
+}

@@ -1,0 +1,4 @@
+{
+  closeScanner();
+  closeTable();
+}

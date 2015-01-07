@@ -1,0 +1,5 @@
+List<RexNode> partitionKeys
+ImmutableList<RexFieldCollation> orderKeys
+RexWindowBound lowerBound
+RexWindowBound upperBound
+SqlWindow window

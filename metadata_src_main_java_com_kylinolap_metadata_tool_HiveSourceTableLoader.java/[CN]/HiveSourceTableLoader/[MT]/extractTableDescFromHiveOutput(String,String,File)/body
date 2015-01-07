@@ -1,0 +1,9 @@
+{
+  BufferedReader reader=new BufferedReader(new StringReader(hiveOutput));
+  try {
+    return extractTables(database,reader,metaTmpDir);
+  }
+  finally {
+    IOUtils.closeQuietly(reader);
+  }
+}

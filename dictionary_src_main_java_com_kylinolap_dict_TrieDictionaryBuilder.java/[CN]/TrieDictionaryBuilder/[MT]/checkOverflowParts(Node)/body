@@ -1,0 +1,19 @@
+{
+  LinkedList<Node> childrenCopy=new LinkedList<Node>(node.children);
+  for (  Node child : childrenCopy) {
+    if (child.part.length > 255) {
+      byte[] first255=Arrays.copyOf(child.part,255);
+      completeParts.append(node.part);
+      completeParts.append(first255);
+      byte[] visited=completeParts.retrieve();
+      this.addValue(visited);
+      completeParts.withdraw(255);
+      completeParts.withdraw(node.part.length);
+    }
+  }
+  completeParts.append(node.part);
+  for (  Node child : node.children) {
+    checkOverflowParts(child);
+  }
+  completeParts.withdraw(node.part.length);
+}

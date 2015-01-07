@@ -1,0 +1,18 @@
+{
+  try {
+    this.output.append(job.getCounters().toString()).append("\n");
+    log.debug(job.getCounters().toString());
+    JobDAO jobDAO=JobDAO.getInstance(config);
+    JobInstance jobInstance=jobDAO.getJob(jobInstanceID);
+    JobStep jobStep=jobInstance.getSteps().get(jobStepID);
+    long mapInputRecords=job.getCounters().findCounter(TaskCounter.MAP_INPUT_RECORDS).getValue();
+    jobStep.putInfo(JobInstance.SOURCE_RECORDS_COUNT,String.valueOf(mapInputRecords));
+    long hdfsBytesWritten=job.getCounters().findCounter("FileSystemCounters","HDFS_BYTES_WRITTEN").getValue();
+    jobStep.putInfo(JobInstance.HDFS_BYTES_WRITTEN,String.valueOf(hdfsBytesWritten));
+    jobDAO.updateJobInstance(jobInstance);
+  }
+ catch (  Exception e) {
+    log.error(e.getLocalizedMessage(),e);
+    output.append(e.getLocalizedMessage());
+  }
+}

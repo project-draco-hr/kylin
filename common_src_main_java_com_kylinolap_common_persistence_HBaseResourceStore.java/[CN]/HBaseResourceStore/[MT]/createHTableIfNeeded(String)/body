@@ -1,0 +1,3 @@
+{
+  HBaseConnection.createHTableIfNeeded(getConnection(),tableName,FAMILY);
+}

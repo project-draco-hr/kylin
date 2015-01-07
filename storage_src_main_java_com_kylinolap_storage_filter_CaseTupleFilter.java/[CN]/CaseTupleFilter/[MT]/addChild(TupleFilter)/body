@@ -1,0 +1,10 @@
+{
+  super.addChild(child);
+  if (this.filterIndex % 2 == 0) {
+    this.whenFilters.add(child);
+  }
+ else {
+    this.thenFilters.add(child);
+  }
+  this.filterIndex++;
+}

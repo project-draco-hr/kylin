@@ -1,0 +1,7 @@
+{
+  assertTrue(a.nMeasures == b.nMeasures);
+  assertTrue(Arrays.equals(a.family,b.family));
+  assertTrue(Arrays.equals(a.qualifier,b.qualifier));
+  assertTrue(Arrays.equals(a.funcNames,b.funcNames));
+  assertTrue(Arrays.equals(a.dataTypes,b.dataTypes));
+}

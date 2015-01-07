@@ -1,0 +1,3 @@
+Collection<FunctionDesc> aggregations
+Collection<TblColRef> metricColumns
+CubeInstance cube

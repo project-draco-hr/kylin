@@ -1,0 +1,11 @@
+{
+  int kvSizeLimit=this.kylinConfig.getHBaseKeyValueSize();
+  if (content.length > kvSizeLimit) {
+    writeLargeCellToHdfs(resPath,content,table);
+    content=BytesUtil.EMPTY_BYTE_ARRAY;
+  }
+  Put put=new Put(row);
+  put.add(B_FAMILY,B_COLUMN,content);
+  put.add(B_FAMILY,B_COLUMN_TS,Bytes.toBytes(ts));
+  return put;
+}

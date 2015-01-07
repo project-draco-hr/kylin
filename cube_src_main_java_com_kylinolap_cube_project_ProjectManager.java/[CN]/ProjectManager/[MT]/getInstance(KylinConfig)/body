@@ -1,0 +1,23 @@
+{
+  ProjectManager r=CACHE.get(config);
+  if (r != null) {
+    return r;
+  }
+synchronized (ProjectManager.class) {
+    r=CACHE.get(config);
+    if (r != null) {
+      return r;
+    }
+    try {
+      r=new ProjectManager(config);
+      CACHE.put(config,r);
+      if (CACHE.size() > 1) {
+        logger.warn("More than one singleton exist");
+      }
+      return r;
+    }
+ catch (    IOException e) {
+      throw new IllegalStateException("Failed to init CubeManager from " + config,e);
+    }
+  }
+}

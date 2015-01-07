@@ -1,0 +1,6 @@
+{
+  Slice slice=builder.close();
+  if (slice != null) {
+    output(slice,context);
+  }
+}

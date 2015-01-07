@@ -1,0 +1,18 @@
+{
+  if (this.isAsync) {
+    if (this.status == JobStepStatusEnum.ERROR) {
+      return status;
+    }
+    if (null == this.mrJobID || null == this.trackUrl) {
+      updateHadoopJobInfo();
+    }
+    status=new HadoopStatusChecker(this.yarnUrl,this.mrJobID,output).checkStatus();
+    if (this.status.isComplete()) {
+      updateJobCounter();
+    }
+  }
+ else {
+    status=(this.exitCode == 0) ? JobStepStatusEnum.FINISHED : JobStepStatusEnum.ERROR;
+  }
+  return status;
+}

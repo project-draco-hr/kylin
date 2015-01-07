@@ -1,0 +1,6 @@
+{
+  if (names == null) {
+    names=buildNameList(aliasMap);
+  }
+  return names;
+}

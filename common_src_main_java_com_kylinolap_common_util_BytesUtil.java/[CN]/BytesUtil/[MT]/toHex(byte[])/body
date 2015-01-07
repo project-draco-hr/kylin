@@ -1,0 +1,3 @@
+{
+  return toHex(new ImmutableBytesWritable(array));
+}

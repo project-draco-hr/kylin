@@ -1,0 +1,3 @@
+{
+  execAndCompQuery("src/test/resources/query/sql_casewhen",null,true);
+}

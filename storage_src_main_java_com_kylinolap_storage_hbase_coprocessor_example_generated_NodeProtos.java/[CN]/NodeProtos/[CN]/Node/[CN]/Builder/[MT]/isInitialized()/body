@@ -1,0 +1,16 @@
+{
+  if (!hasName()) {
+    return false;
+  }
+  if (hasLeft()) {
+    if (!getLeft().isInitialized()) {
+      return false;
+    }
+  }
+  if (hasRight()) {
+    if (!getRight().isInitialized()) {
+      return false;
+    }
+  }
+  return true;
+}

@@ -1,0 +1,18 @@
+{
+  List<HierarchyMask> hierarchyMaskList=rowkey.getHierarchyMasks();
+  if (hierarchyMaskList == null || hierarchyMaskList.size() == 0) {
+    return true;
+  }
+  hier:   for (  HierarchyMask hierarchyMasks : hierarchyMaskList) {
+    long result=cuboidID & hierarchyMasks.fullMask;
+    if (result > 0) {
+      for (      long mask : hierarchyMasks.allMasks) {
+        if (result == mask) {
+          continue hier;
+        }
+      }
+      return false;
+    }
+  }
+  return true;
+}

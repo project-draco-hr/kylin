@@ -1,0 +1,13 @@
+{
+  RelDataTypeFactory typeFactory=getCluster().getTypeFactory();
+  SqlIdentifier sqlIdentifier=new SqlIdentifier("HLL_COUNT",new SqlParserPos(1,1));
+  AggregateFunction aggFunction=AggregateFunctionImpl.create(HLLDistinctCountAggFunc.class);
+  List<RelDataType> argTypes=new ArrayList<RelDataType>();
+  List<SqlTypeFamily> typeFamilies=new ArrayList<SqlTypeFamily>();
+  for (  FunctionParameter o : aggFunction.getParameters()) {
+    final RelDataType type=o.getType(typeFactory);
+    argTypes.add(type);
+    typeFamilies.add(Util.first(type.getSqlTypeName().getFamily(),SqlTypeFamily.ANY));
+  }
+  return new SqlUserDefinedAggFunction(sqlIdentifier,ReturnTypes.explicit(returnType),InferTypes.explicit(argTypes),OperandTypes.family(typeFamilies),aggFunction);
+}

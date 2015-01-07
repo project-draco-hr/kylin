@@ -1,0 +1,8 @@
+{
+  long length=0;
+  for (  LongWritable v : values) {
+    length+=v.get();
+  }
+  outputKey.set(length);
+  context.write(key,outputKey);
+}

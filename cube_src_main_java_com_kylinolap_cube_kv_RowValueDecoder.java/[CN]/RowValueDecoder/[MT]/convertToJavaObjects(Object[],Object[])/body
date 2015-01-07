@@ -1,0 +1,10 @@
+{
+  for (int i=0; i < mapredObjs.length; i++) {
+    Object o=mapredObjs[i];
+    if (o instanceof LongWritable)     o=Long.valueOf(((LongWritable)o).get());
+ else     if (o instanceof IntWritable)     o=Integer.valueOf(((IntWritable)o).get());
+ else     if (o instanceof DoubleWritable)     o=Double.valueOf(((DoubleWritable)o).get());
+ else     if (o instanceof FloatWritable)     o=Float.valueOf(((FloatWritable)o).get());
+    results[i]=o;
+  }
+}

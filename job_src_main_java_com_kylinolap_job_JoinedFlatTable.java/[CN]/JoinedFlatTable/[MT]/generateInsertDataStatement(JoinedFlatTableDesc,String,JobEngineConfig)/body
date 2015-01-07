@@ -1,0 +1,34 @@
+{
+  StringBuilder sql=new StringBuilder();
+  File hadoopPropertiesFile=new File(engineConfig.getHadoopJobConfFilePath(intermediateTableDesc.getCubeDesc().getCapacity()));
+  if (hadoopPropertiesFile.exists()) {
+    DocumentBuilderFactory factory=DocumentBuilderFactory.newInstance();
+    DocumentBuilder builder;
+    Document doc;
+    try {
+      builder=factory.newDocumentBuilder();
+      doc=builder.parse(hadoopPropertiesFile);
+      NodeList nl=doc.getElementsByTagName("property");
+      for (int i=0; i < nl.getLength(); i++) {
+        String name=doc.getElementsByTagName("name").item(i).getFirstChild().getNodeValue();
+        String value=doc.getElementsByTagName("value").item(i).getFirstChild().getNodeValue();
+        if (name.equals("tmpjars") == false) {
+          sql.append("SET " + name + "="+ value+ ";\n");
+        }
+      }
+    }
+ catch (    ParserConfigurationException e) {
+      throw new IOException(e);
+    }
+catch (    SAXException e) {
+      throw new IOException(e);
+    }
+  }
+  sql.append("SET hive.exec.compress.output=true;" + "\n");
+  sql.append("SET hive.auto.convert.join.noconditionaltask = true;" + "\n");
+  sql.append("SET hive.auto.convert.join.noconditionaltask.size = 300000000;" + "\n");
+  sql.append("INSERT OVERWRITE TABLE " + intermediateTableDesc.getTableName(jobUUID) + "\n");
+  sql.append(generateSelectDataStatement(intermediateTableDesc));
+  sql.append(";");
+  return sql.toString();
+}

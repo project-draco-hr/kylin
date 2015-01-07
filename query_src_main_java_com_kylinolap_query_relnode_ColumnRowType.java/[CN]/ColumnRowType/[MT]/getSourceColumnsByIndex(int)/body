@@ -1,0 +1,10 @@
+{
+  Set<TblColRef> result=null;
+  if (sourceColumns != null) {
+    result=sourceColumns.get(i);
+  }
+  if (result == null || result.isEmpty()) {
+    result=Collections.singleton(getColumnByIndex(i));
+  }
+  return result;
+}

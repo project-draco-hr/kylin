@@ -1,0 +1,15 @@
+{
+  if ((rex instanceof RexLiteral) || (rex instanceof RexDynamicParam)) {
+    return true;
+  }
+  if (rex instanceof RexCall) {
+    RexCall call=(RexCall)rex;
+    if (call.getOperator() == SqlStdOperatorTable.CAST) {
+      RexNode operand=call.getOperands().get(0);
+      if (operand instanceof RexLiteral) {
+        return true;
+      }
+    }
+  }
+  return false;
+}

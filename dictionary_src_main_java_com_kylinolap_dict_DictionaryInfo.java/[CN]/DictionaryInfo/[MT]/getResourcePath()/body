@@ -1,0 +1,3 @@
+{
+  return ResourceStore.DICT_RESOURCE_ROOT + "/" + sourceTable+ "/"+ sourceColumn+ "/"+ uuid+ ".dict";
+}

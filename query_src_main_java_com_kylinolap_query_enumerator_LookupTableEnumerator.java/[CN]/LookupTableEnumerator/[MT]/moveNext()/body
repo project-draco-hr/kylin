@@ -1,0 +1,17 @@
+{
+  boolean hasNext=iterator.hasNext();
+  if (hasNext) {
+    String[] row=iterator.next();
+    for (int i=0, n=colDescs.size(); i < n; i++) {
+      ColumnDesc colDesc=colDescs.get(i);
+      int colIdx=colDesc.getZeroBasedIndex();
+      if (colIdx >= 0) {
+        current[i]=Tuple.convertOptiqCellValue(row[colIdx],colDesc.getType().getName());
+      }
+ else {
+        current[i]=null;
+      }
+    }
+  }
+  return hasNext;
+}

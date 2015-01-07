@@ -1,0 +1,4 @@
+byte[] bFamily
+byte[] bQualifier
+String[] funcNames
+String[] dataTypes

@@ -1,0 +1,8 @@
+{
+  for (  JobStep step : this.getSteps()) {
+    if (step.getStatus().equals(JobStepStatusEnum.RUNNING) || step.getStatus().equals(JobStepStatusEnum.WAITING)) {
+      return step;
+    }
+  }
+  return null;
+}

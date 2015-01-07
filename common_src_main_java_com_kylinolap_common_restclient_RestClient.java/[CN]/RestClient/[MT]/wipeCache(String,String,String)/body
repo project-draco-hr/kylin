@@ -1,0 +1,15 @@
+{
+  String url=baseUrl + "/cache/" + type+ "/"+ name+ "/"+ action;
+  HttpMethod get=new PutMethod(url);
+  try {
+    int code=client.executeMethod(get);
+    String msg=Bytes.toString(get.getResponseBody());
+    if (code != 200)     throw new IOException("Invalid response " + code + " with cache wipe url "+ url+ "\n"+ msg);
+  }
+ catch (  HttpException ex) {
+    throw new IOException(ex);
+  }
+ finally {
+    get.releaseConnection();
+  }
+}

@@ -1,0 +1,11 @@
+{
+  try {
+    CoprocessorEnabler.updateCubeOverride(cubeName,force);
+    return CoprocessorEnabler.getCubeOverrides();
+  }
+ catch (  Exception e) {
+    String message="Failed to update cube coprocessor: " + cubeName + " : "+ force;
+    logger.error(message,e);
+    throw new InternalErrorException(message + " Caused by: " + e.getMessage(),e);
+  }
+}

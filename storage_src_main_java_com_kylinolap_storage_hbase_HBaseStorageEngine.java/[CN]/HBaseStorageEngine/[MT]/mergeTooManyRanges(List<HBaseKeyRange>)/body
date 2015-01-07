@@ -1,0 +1,9 @@
+{
+  if (keyRanges.size() < MERGE_KEYRANGE_THRESHOLD) {
+    return keyRanges;
+  }
+  List<HBaseKeyRange> mergedRanges=new LinkedList<HBaseKeyRange>();
+  HBaseKeyRange mergedRange=mergeKeyRange(keyRanges,0,keyRanges.size() - 1);
+  mergedRanges.add(mergedRange);
+  return mergedRanges;
+}

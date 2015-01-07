@@ -1,0 +1,15 @@
+{
+  List<String> list=new ArrayList<String>();
+  int index=0, offset=0;
+  int l=delimiter.length();
+  if (str.startsWith(delimiter)) {
+    list.add("");
+    offset=offset + l;
+  }
+  while ((index=str.indexOf(delimiter,index + 1)) != -1) {
+    list.add(str.substring(offset,index));
+    offset=index + l;
+  }
+  list.add(str.substring(offset));
+  return list.toArray(new String[0]);
+}

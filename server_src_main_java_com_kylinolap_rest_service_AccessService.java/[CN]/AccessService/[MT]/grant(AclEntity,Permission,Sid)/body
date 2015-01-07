@@ -1,0 +1,29 @@
+{
+  Assert.notNull(ae,"Acl domain object required");
+  Assert.notNull(permission,"Acl permission required");
+  Assert.notNull(sid,"Sid required");
+  ObjectIdentity objectIdentity=new ObjectIdentityImpl(ae.getClass(),ae.getId());
+  MutableAcl acl=null;
+  try {
+    acl=(MutableAcl)aclService.readAclById(objectIdentity);
+  }
+ catch (  NotFoundException e) {
+    acl=(MutableAcl)init(ae,null);
+  }
+  int indexOfAce=-1;
+  for (int i=0; i < acl.getEntries().size(); i++) {
+    AccessControlEntry ace=acl.getEntries().get(i);
+    if (ace.getSid().equals(sid)) {
+      indexOfAce=i;
+    }
+  }
+  if (indexOfAce != -1) {
+    secureOwner(acl,indexOfAce);
+    acl.updateAce(indexOfAce,permission);
+  }
+ else {
+    acl.insertAce(acl.getEntries().size(),permission,sid,true);
+  }
+  acl=aclService.updateAcl(acl);
+  return acl;
+}

@@ -1,0 +1,4 @@
+{
+  this.pattern=datePattern;
+  this.baseId=baseId;
+}

@@ -1,0 +1,22 @@
+{
+  if (cuboid > max || cuboid < 0) {
+    throw new IllegalArgumentException("Cuboid " + cuboid + " is out of scope 0-"+ max);
+  }
+  Collection<Long> result=cache.get(cuboid);
+  if (result != null) {
+    return result;
+  }
+  Collection<Long> allPrevOffspring=new HashSet<Long>();
+  for (  Long sibling : findSmallerSibling(cuboid)) {
+    Collection<Long> prevOffsprings=generateChildren(sibling);
+    allPrevOffspring.addAll(prevOffsprings);
+  }
+  result=new ArrayList<Long>();
+  for (  Long offspring : generateChildren(cuboid)) {
+    if (!allPrevOffspring.contains(offspring)) {
+      result.add(offspring);
+    }
+  }
+  cache.put(cuboid,result);
+  return result;
+}

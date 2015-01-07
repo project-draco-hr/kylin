@@ -1,0 +1,8 @@
+{
+  if (metrics.containsKey(key)) {
+    metrics.put(key,metrics.get(key) + value);
+  }
+ else {
+    metrics.put(key,value);
+  }
+}

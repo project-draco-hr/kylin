@@ -1,0 +1,3 @@
+TblColRef col
+byte[] bytes
+int bytesLen

@@ -1,0 +1,12 @@
+{
+  if (patterns.length == 1) {
+    return findChildren(patterns[0]);
+  }
+ else {
+    List<Node> children=new ArrayList<Node>();
+    for (    Node child : this.findChildren(patterns[0])) {
+      children.addAll(child.searchByPatterns(Arrays.copyOfRange(patterns,1,patterns.length)));
+    }
+    return children;
+  }
+}

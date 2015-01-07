@@ -1,0 +1,5 @@
+{
+  ResourceStore src=ResourceStore.getStore(srcConfig);
+  ResourceStore dst=ResourceStore.getStore(dstConfig);
+  copyR(src,dst,"/");
+}

@@ -1,0 +1,20 @@
+{
+  int levels=cube.getRowkey().getNCuboidBuildLevels();
+  int[] allLevelCounts=new int[levels + 1];
+  CuboidScheduler scheduler=new CuboidScheduler(cube);
+  LinkedList<Long> nextQueue=new LinkedList<Long>();
+  LinkedList<Long> currentQueue=new LinkedList<Long>();
+  long baseCuboid=Cuboid.getBaseCuboidId(cube);
+  currentQueue.push(baseCuboid);
+  for (int i=0; i <= levels; i++) {
+    allLevelCounts[i]=currentQueue.size();
+    while (!currentQueue.isEmpty()) {
+      long cuboid=currentQueue.pop();
+      Collection<Long> spnanningCuboids=scheduler.getSpanningCuboid(cuboid);
+      nextQueue.addAll(spnanningCuboids);
+    }
+    currentQueue=nextQueue;
+    nextQueue=new LinkedList<Long>();
+  }
+  return allLevelCounts;
+}

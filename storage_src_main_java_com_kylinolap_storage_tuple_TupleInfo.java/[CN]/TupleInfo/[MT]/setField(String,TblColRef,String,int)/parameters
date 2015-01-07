@@ -1,0 +1,4 @@
+String fieldName
+TblColRef col
+String dataType
+int index

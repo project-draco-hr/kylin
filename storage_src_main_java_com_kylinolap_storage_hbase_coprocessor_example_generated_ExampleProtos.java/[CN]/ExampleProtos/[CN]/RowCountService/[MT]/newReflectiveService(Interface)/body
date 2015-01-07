@@ -1,0 +1,11 @@
+{
+  return new RowCountService(){
+    @java.lang.Override public void getRowCount(    com.google.protobuf.RpcController controller,    com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountRequest request,    com.google.protobuf.RpcCallback<com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountResponse> done){
+      impl.getRowCount(controller,request,done);
+    }
+    @java.lang.Override public void getKeyValueCount(    com.google.protobuf.RpcController controller,    com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountRequest request,    com.google.protobuf.RpcCallback<com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountResponse> done){
+      impl.getKeyValueCount(controller,request,done);
+    }
+  }
+;
+}

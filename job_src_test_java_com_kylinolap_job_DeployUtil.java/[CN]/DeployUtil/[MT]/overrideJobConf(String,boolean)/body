@@ -1,0 +1,5 @@
+{
+  File src=new File(confDir,JobEngineConfig.HADOOP_JOB_CONF_FILENAME + (enableLzo ? ".lzo_enabled" : ".lzo_disabled") + ".xml");
+  File dst=new File(confDir,JobEngineConfig.HADOOP_JOB_CONF_FILENAME + ".xml");
+  FileUtils.copyFile(src,dst);
+}

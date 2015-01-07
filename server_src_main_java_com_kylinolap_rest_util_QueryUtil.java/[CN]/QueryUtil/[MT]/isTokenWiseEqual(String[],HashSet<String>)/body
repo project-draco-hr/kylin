@@ -1,0 +1,8 @@
+{
+  for (  String token : tokens) {
+    if (!tokenSet.contains(token)) {
+      return false;
+    }
+  }
+  return true;
+}

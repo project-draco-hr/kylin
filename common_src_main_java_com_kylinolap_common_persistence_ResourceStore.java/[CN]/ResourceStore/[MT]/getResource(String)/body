@@ -1,0 +1,3 @@
+{
+  return getResourceImpl(norm(resPath));
+}

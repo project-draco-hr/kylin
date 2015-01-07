@@ -1,0 +1,134 @@
+{
+  final StringBuilder buf=new StringBuilder();
+  if (v >= 0) {
+    buf.append('+');
+  }
+ else {
+    buf.append('-');
+    v=-v;
+  }
+  final long ms;
+  final long s;
+  final long m;
+  final long h;
+  final long d;
+switch (range) {
+case DAY_TO_SECOND:
+    v=roundUp(v,powerX(10,3 - scale));
+  ms=v % 1000;
+v/=1000;
+s=v % 60;
+v/=60;
+m=v % 60;
+v/=60;
+h=v % 24;
+v/=24;
+d=v;
+buf.append((int)d);
+buf.append(' ');
+number(buf,(int)h,2);
+buf.append(':');
+number(buf,(int)m,2);
+buf.append(':');
+number(buf,(int)s,2);
+fraction(buf,scale,ms);
+break;
+case DAY_TO_MINUTE:
+v=roundUp(v,1000 * 60);
+v/=1000;
+v/=60;
+m=v % 60;
+v/=60;
+h=v % 24;
+v/=24;
+d=v;
+buf.append((int)d);
+buf.append(' ');
+number(buf,(int)h,2);
+buf.append(':');
+number(buf,(int)m,2);
+break;
+case DAY_TO_HOUR:
+v=roundUp(v,1000 * 60 * 60);
+v/=1000;
+v/=60;
+v/=60;
+h=v % 24;
+v/=24;
+d=v;
+buf.append((int)d);
+buf.append(' ');
+number(buf,(int)h,2);
+break;
+case DAY:
+v=roundUp(v,1000 * 60 * 60* 24);
+d=v / (1000 * 60 * 60* 24);
+buf.append((int)d);
+break;
+case HOUR:
+v=roundUp(v,1000 * 60 * 60);
+v/=1000;
+v/=60;
+v/=60;
+h=v;
+buf.append((int)h);
+break;
+case HOUR_TO_MINUTE:
+v=roundUp(v,1000 * 60);
+v/=1000;
+v/=60;
+m=v % 60;
+v/=60;
+h=v;
+buf.append((int)h);
+buf.append(':');
+number(buf,(int)m,2);
+break;
+case HOUR_TO_SECOND:
+v=roundUp(v,powerX(10,3 - scale));
+ms=v % 1000;
+v/=1000;
+s=v % 60;
+v/=60;
+m=v % 60;
+v/=60;
+h=v;
+buf.append((int)h);
+buf.append(':');
+number(buf,(int)m,2);
+buf.append(':');
+number(buf,(int)s,2);
+fraction(buf,scale,ms);
+break;
+case MINUTE_TO_SECOND:
+v=roundUp(v,powerX(10,3 - scale));
+ms=v % 1000;
+v/=1000;
+s=v % 60;
+v/=60;
+m=v;
+buf.append((int)m);
+buf.append(':');
+number(buf,(int)s,2);
+fraction(buf,scale,ms);
+break;
+case MINUTE:
+v=roundUp(v,1000 * 60);
+v/=1000;
+v/=60;
+m=v;
+buf.append((int)m);
+break;
+case SECOND:
+v=roundUp(v,powerX(10,3 - scale));
+ms=v % 1000;
+v/=1000;
+s=v;
+buf.append((int)s);
+fraction(buf,scale,ms);
+break;
+default :
+throw new AssertionError(range);
+}
+return buf.toString();
+}

@@ -1,0 +1,14 @@
+{
+  printInfo("---------- verify result count in folder: " + queryFolder);
+  List<File> sqlFiles=getFilesFromFolder(new File(queryFolder),".sql");
+  for (  File sqlFile : sqlFiles) {
+    String queryName=StringUtils.split(sqlFile.getName(),'.')[0];
+    String sql=getTextFromFile(sqlFile);
+    File expectResultFile=new File(sqlFile.getParent(),sqlFile.getName() + ".expected");
+    int expectRowCount=Integer.parseInt(Files.readFirstLine(expectResultFile,Charset.defaultCharset()));
+    printInfo("Query Result from Kylin - " + queryName + "  ("+ queryFolder+ ")");
+    IDatabaseConnection kylinConn=new DatabaseConnection(cubeConnection);
+    ITable kylinTable=executeQuery(kylinConn,queryName,sql,false);
+    Assert.assertEquals(expectRowCount,kylinTable.getRowCount());
+  }
+}

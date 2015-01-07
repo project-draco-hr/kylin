@@ -1,0 +1,4 @@
+{
+  if (min == null)   min=new LongWritable(value.get());
+ else   if (min.get() > value.get())   min.set(value.get());
+}

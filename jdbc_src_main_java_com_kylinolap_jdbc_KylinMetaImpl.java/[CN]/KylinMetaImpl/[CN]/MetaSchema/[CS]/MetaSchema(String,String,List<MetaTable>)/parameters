@@ -1,0 +1,3 @@
+String tableCatalog
+String tableSchem
+List<MetaTable> tables

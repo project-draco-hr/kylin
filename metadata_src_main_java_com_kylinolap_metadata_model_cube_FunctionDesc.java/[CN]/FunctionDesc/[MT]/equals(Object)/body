@@ -1,0 +1,17 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  FunctionDesc other=(FunctionDesc)obj;
+  if (expression == null) {
+    if (other.expression != null)     return false;
+  }
+ else   if (!expression.equals(other.expression))   return false;
+  if (isCount() == false) {
+    if (parameter == null) {
+      if (other.parameter != null)       return false;
+    }
+ else     if (!parameter.equals(other.parameter))     return false;
+  }
+  return true;
+}

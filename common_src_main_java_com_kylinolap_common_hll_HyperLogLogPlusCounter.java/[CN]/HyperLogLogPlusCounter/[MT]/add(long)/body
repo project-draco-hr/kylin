@@ -1,0 +1,6 @@
+{
+  int bucketMask=m - 1;
+  int bucket=(int)(hash & bucketMask);
+  int firstOnePos=Long.numberOfLeadingZeros(hash | bucketMask) + 1;
+  if (firstOnePos > registers[bucket])   registers[bucket]=(byte)firstOnePos;
+}

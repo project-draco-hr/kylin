@@ -1,0 +1,9 @@
+{
+  if (other instanceof com.kylinolap.storage.hbase.coprocessor.generated.IIProtos.IIRequest) {
+    return mergeFrom((com.kylinolap.storage.hbase.coprocessor.generated.IIProtos.IIRequest)other);
+  }
+ else {
+    super.mergeFrom(other);
+    return this;
+  }
+}

@@ -1,0 +1,9 @@
+{
+  List<CubeSegment> result=Lists.newArrayList();
+  for (  CubeSegment segment : segments) {
+    if (segment.getStatus() == status) {
+      result.add(segment);
+    }
+  }
+  return result;
+}

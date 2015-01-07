@@ -1,0 +1,23 @@
+{
+  try {
+    JobInstance updatedJob=getJob(jobInstance.getUuid());
+    if (updatedJob == null) {
+      saveJob(jobInstance);
+      return;
+    }
+    updatedJob.setExecEndTime(jobInstance.getExecEndTime());
+    updatedJob.setExecStartTime(jobInstance.getExecStartTime());
+    updatedJob.setDuration(jobInstance.getDuration());
+    updatedJob.setMrWaiting(jobInstance.getMrWaiting());
+    updatedJob.setRelatedCube(jobInstance.getRelatedCube());
+    updatedJob.setRelatedSegment(jobInstance.getRelatedSegment());
+    updatedJob.setType(jobInstance.getType());
+    updatedJob.clearSteps();
+    updatedJob.addSteps(jobInstance.getSteps());
+    saveJob(updatedJob);
+  }
+ catch (  IOException e) {
+    log.error(e.getLocalizedMessage(),e);
+    throw e;
+  }
+}

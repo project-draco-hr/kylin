@@ -1,0 +1,3 @@
+{
+  return super.explainTerms(pw).item("fields",Primitive.asList(fields));
+}

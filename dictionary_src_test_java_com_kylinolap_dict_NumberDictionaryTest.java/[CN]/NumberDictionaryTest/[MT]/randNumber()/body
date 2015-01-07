@@ -1,0 +1,16 @@
+{
+  int digits1=rand.nextInt(10);
+  int digits2=rand.nextInt(3);
+  int sign=rand.nextInt(2);
+  if (digits1 == 0 && digits2 == 0) {
+    return randNumber();
+  }
+  StringBuilder buf=new StringBuilder();
+  if (sign == 1)   buf.append("-");
+  for (int i=0; i < digits1; i++)   buf.append("" + rand.nextInt(10));
+  if (digits2 > 0) {
+    buf.append(".");
+    for (int i=0; i < digits2; i++)     buf.append("" + rand.nextInt(9) + 1);
+  }
+  return buf.toString();
+}

@@ -1,0 +1,4 @@
+{
+  this(another.p,another.hashFunc);
+  merge(another);
+}

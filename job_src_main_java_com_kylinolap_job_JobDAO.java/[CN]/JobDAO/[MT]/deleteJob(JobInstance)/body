@@ -1,0 +1,3 @@
+{
+  store.deleteResource(pathOfJob(job));
+}

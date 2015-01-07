@@ -1,0 +1,35 @@
+{
+  Map<ObjectIdentity,Acl> aclMaps=new HashMap<ObjectIdentity,Acl>();
+  HTableInterface htable=null;
+  Result result=null;
+  try {
+    htable=HBaseConnection.get(hbaseUrl).getTable(aclTableName);
+    for (    ObjectIdentity oid : oids) {
+      result=htable.get(new Get(Bytes.toBytes(String.valueOf(oid.getIdentifier()))));
+      if (null != result && !result.isEmpty()) {
+        SidInfo owner=sidSerializer.deserialize(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_OWNER_COLUMN)));
+        Sid ownerSid=(null == owner) ? null : (owner.isPrincipal() ? new PrincipalSid(owner.getSid()) : new GrantedAuthoritySid(owner.getSid()));
+        boolean entriesInheriting=Bytes.toBoolean(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_ENTRY_INHERIT_COLUMN)));
+        Acl parentAcl=null;
+        DomainObjectInfo parentInfo=domainObjSerializer.deserialize(result.getValue(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_PARENT_COLUMN)));
+        if (null != parentInfo) {
+          ObjectIdentity parentObj=new ObjectIdentityImpl(parentInfo.getType(),parentInfo.getId());
+          parentAcl=readAclById(parentObj,null);
+        }
+        AclImpl acl=new AclImpl(oid,oid.getIdentifier(),aclAuthorizationStrategy,permissionGrantingStrategy,parentAcl,null,entriesInheriting,ownerSid);
+        genAces(sids,result,acl);
+        aclMaps.put(oid,acl);
+      }
+ else {
+        throw new NotFoundException("Unable to find ACL information for object identity '" + oid + "'");
+      }
+    }
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e.getMessage(),e);
+  }
+ finally {
+    IOUtils.closeQuietly(htable);
+  }
+  return aclMaps;
+}

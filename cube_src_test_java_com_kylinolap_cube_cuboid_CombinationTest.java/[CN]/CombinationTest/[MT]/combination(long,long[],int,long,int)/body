@@ -1,0 +1,21 @@
+{
+  if (k == 0) {
+    if (prefix < valueBits) {
+      System.out.println(Long.toBinaryString(prefix));
+      return 1;
+    }
+ else {
+      return 0;
+    }
+  }
+ else {
+    int count=0;
+    for (int i=offset; i < bitMasks.length; i++) {
+      long newPrefix=prefix | bitMasks[i];
+      if (newPrefix < valueBits) {
+        count+=combination(valueBits,bitMasks,i + 1,newPrefix,k - 1);
+      }
+    }
+    return count;
+  }
+}

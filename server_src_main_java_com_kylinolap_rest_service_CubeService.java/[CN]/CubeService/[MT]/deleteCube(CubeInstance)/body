@@ -1,0 +1,11 @@
+{
+  List<JobInstance> jobInstances=this.getJobManager().listJobs(cube.getName(),null);
+  for (  JobInstance jobInstance : jobInstances) {
+    if (jobInstance.getStatus() == JobStatusEnum.PENDING || jobInstance.getStatus() == JobStatusEnum.RUNNING) {
+      throw new JobException("The cube " + cube.getName() + " has running job, please discard it and try again.");
+    }
+  }
+  this.releaseAllSegments(cube);
+  getCubeManager().dropCube(cube.getName(),true);
+  accessService.clean(cube,true);
+}

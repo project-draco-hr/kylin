@@ -1,0 +1,8 @@
+{
+  int size=this.rowType.getFieldList().size();
+  for (int i=0; i < size; i++) {
+    RelDataTypeField field=this.rowType.getFieldList().get(i);
+    TblColRef column=this.columnRowType.getColumnByIndex(i);
+    context.storageContext.addAlias(column,field.getName());
+  }
+}

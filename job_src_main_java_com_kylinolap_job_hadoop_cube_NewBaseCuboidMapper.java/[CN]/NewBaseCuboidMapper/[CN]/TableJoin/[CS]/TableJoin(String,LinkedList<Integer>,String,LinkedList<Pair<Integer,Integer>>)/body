@@ -1,0 +1,6 @@
+{
+  this.joinType=joinType;
+  this.fkIndice=fkIndice;
+  this.lookupTableName=lookupTableName;
+  this.dimTblColAsRowKey=dimTblColAsRowKey;
+}

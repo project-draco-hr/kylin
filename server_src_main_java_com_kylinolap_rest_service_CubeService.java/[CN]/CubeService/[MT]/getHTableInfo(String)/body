@@ -1,0 +1,26 @@
+{
+  String hbaseUrl=KylinConfig.getInstanceFromEnv().getStorageUrl();
+  Configuration hconf=HadoopUtil.newHBaseConfiguration(hbaseUrl);
+  HTable table=null;
+  HBaseResponse hr=null;
+  long tableSize=0;
+  int regionCount=0;
+  try {
+    table=new HTable(hconf,tableName);
+    HBaseRegionSizeCalculator cal=new HBaseRegionSizeCalculator(table);
+    Map<byte[],Long> sizeMap=cal.getRegionSizeMap();
+    for (    long s : sizeMap.values()) {
+      tableSize+=s;
+    }
+    regionCount=sizeMap.size();
+    hr=new HBaseResponse();
+    hr.setTableSize(tableSize);
+    hr.setRegionCount(regionCount);
+  }
+  finally {
+    if (null != table) {
+      table.close();
+    }
+  }
+  return hr;
+}

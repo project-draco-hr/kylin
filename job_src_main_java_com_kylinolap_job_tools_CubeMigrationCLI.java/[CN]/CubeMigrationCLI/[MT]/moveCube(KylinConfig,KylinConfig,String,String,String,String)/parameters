@@ -1,0 +1,6 @@
+KylinConfig srcCfg
+KylinConfig dstCfg
+String cubeName
+String projectName
+String overwriteIfExists
+String realExecute

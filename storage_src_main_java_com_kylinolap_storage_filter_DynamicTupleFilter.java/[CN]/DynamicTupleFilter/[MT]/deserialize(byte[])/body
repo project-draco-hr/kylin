@@ -1,0 +1,4 @@
+{
+  ByteBuffer buffer=ByteBuffer.wrap(bytes);
+  this.variableName=BytesUtil.readUTFString(buffer);
+}

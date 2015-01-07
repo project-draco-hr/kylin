@@ -1,0 +1,13 @@
+{
+  int h=time / 3600000;
+  int time2=time % 3600000;
+  int m=time2 / 60000;
+  int time3=time2 % 60000;
+  int s=time3 / 1000;
+  int ms=time3 % 1000;
+  int2(buf,h);
+  buf.append(':');
+  int2(buf,m);
+  buf.append(':');
+  int2(buf,s);
+}

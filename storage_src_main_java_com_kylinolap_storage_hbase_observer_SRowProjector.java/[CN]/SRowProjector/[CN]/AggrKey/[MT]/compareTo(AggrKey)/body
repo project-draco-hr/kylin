@@ -1,0 +1,12 @@
+{
+  int comp=this.length() - o.length();
+  if (comp != 0)   return comp;
+  int n=this.length();
+  for (int i=0, j=offset, k=o.offset; i < n; i++, j++, k++) {
+    if (groupByMask[i] != 0) {
+      comp=BytesUtil.compareByteUnsigned(this.data[j],o.data[k]);
+      if (comp != 0)       return comp;
+    }
+  }
+  return 0;
+}

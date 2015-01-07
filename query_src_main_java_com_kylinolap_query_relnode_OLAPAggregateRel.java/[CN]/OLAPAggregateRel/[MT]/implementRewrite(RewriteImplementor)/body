@@ -1,0 +1,16 @@
+{
+  implementor.visitChild(this,getChild());
+  if (!this.afterAggregate && RewriteImplementor.needRewrite(this.context)) {
+    this.rewriteAggCalls=new ArrayList<AggregateCall>(aggCalls.size());
+    for (int i=0; i < this.aggCalls.size(); i++) {
+      AggregateCall aggCall=this.aggCalls.get(i);
+      FunctionDesc cubeFunc=this.context.aggregations.get(i);
+      if (cubeFunc.needRewrite()) {
+        aggCall=rewriteAggregateCall(aggCall,cubeFunc);
+      }
+      this.rewriteAggCalls.add(aggCall);
+    }
+  }
+  this.rowType=this.deriveRowType();
+  this.columnRowType=this.buildColumnRowType();
+}

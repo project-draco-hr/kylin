@@ -1,0 +1,18 @@
+{
+  int hn=hostCols.length;
+  String[] min=new String[hn];
+  String[] max=new String[hn];
+  findMinMax(satisfyingHostRecords,hostCols,min,max);
+  LogicalTupleFilter and=new LogicalTupleFilter(FilterOperatorEnum.AND);
+  for (int i=0; i < hn; i++) {
+    CompareTupleFilter compMin=new CompareTupleFilter(FilterOperatorEnum.GTE);
+    compMin.addChild(new ColumnTupleFilter(hostCols[i]));
+    compMin.addChild(new ConstantTupleFilter(min[i]));
+    and.addChild(compMin);
+    CompareTupleFilter compMax=new CompareTupleFilter(FilterOperatorEnum.LTE);
+    compMax.addChild(new ColumnTupleFilter(hostCols[i]));
+    compMax.addChild(new ConstantTupleFilter(max[i]));
+    and.addChild(compMax);
+  }
+  return and;
+}

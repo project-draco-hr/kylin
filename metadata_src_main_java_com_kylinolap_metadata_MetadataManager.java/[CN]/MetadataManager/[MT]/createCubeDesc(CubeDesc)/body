@@ -1,0 +1,23 @@
+{
+  if (cubeDesc.getUuid() == null || cubeDesc.getName() == null)   throw new IllegalArgumentException();
+  if (cubeDescMap.containsKey(cubeDesc.getName()))   throw new IllegalArgumentException("CubeDesc '" + cubeDesc.getName() + "' already exists");
+  try {
+    cubeDesc.init(config,srcTableMap.getMap());
+  }
+ catch (  IllegalStateException e) {
+    cubeDesc.addError(e.getMessage(),true);
+  }
+  if (!cubeDesc.getError().isEmpty()) {
+    return cubeDesc;
+  }
+  CubeMetadataValidator validator=new CubeMetadataValidator();
+  ValidateContext context=validator.validate(cubeDesc,true);
+  if (!context.ifPass()) {
+    return cubeDesc;
+  }
+  cubeDesc.setSignature(cubeDesc.calculateSignature());
+  String path=cubeDesc.getResourcePath();
+  getStore().putResource(path,cubeDesc,CUBE_SERIALIZER);
+  cubeDescMap.put(cubeDesc.getName(),cubeDesc);
+  return cubeDesc;
+}

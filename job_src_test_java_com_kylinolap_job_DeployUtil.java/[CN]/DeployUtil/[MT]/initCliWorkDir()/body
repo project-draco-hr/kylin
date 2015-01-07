@@ -1,0 +1,4 @@
+{
+  execCliCommand("rm -rf " + getHadoopCliWorkingDir());
+  execCliCommand("mkdir -p " + config().getKylinJobLogDir());
+}

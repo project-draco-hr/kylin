@@ -1,0 +1,29 @@
+{
+  if (keyRanges.size() <= 1) {
+    return keyRanges;
+  }
+  if (logger.isDebugEnabled()) {
+    logger.debug("Merging key range from " + keyRanges.size());
+  }
+  Collections.sort(keyRanges);
+  List<HBaseKeyRange> mergedRanges=new LinkedList<HBaseKeyRange>();
+  int beginIndex=0;
+  byte[] maxStopKey=keyRanges.get(0).getStopKey();
+  for (int index=0; index < keyRanges.size(); index++) {
+    HBaseKeyRange keyRange=keyRanges.get(index);
+    if (Bytes.compareTo(maxStopKey,keyRange.getStartKey()) < 0) {
+      HBaseKeyRange mergedRange=mergeKeyRange(keyRanges,beginIndex,index - 1);
+      mergedRanges.add(mergedRange);
+      beginIndex=index;
+    }
+    if (Bytes.compareTo(maxStopKey,keyRange.getStopKey()) < 0) {
+      maxStopKey=keyRange.getStopKey();
+    }
+  }
+  HBaseKeyRange mergedRange=mergeKeyRange(keyRanges,beginIndex,keyRanges.size() - 1);
+  mergedRanges.add(mergedRange);
+  if (logger.isDebugEnabled()) {
+    logger.debug("Merging key range to " + mergedRanges.size());
+  }
+  return mergedRanges;
+}

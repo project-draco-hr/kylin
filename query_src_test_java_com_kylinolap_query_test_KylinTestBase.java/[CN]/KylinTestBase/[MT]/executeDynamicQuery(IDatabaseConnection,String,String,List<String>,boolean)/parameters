@@ -1,0 +1,5 @@
+IDatabaseConnection dbConn
+String queryName
+String sql
+List<String> parameters
+boolean needSort

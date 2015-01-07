@@ -1,0 +1,12 @@
+{
+  ShardingSliceBuilder builder=new ShardingSliceBuilder(info);
+  List<Slice> slices=Lists.newArrayList();
+  for (  TableRecord rec : records) {
+    Slice slice=builder.append(rec);
+    if (slice != null)     slices.add(slice);
+  }
+  List<Slice> finals=builder.close();
+  slices.addAll(finals);
+  Collections.sort(slices);
+  return slices;
+}

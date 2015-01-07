@@ -1,0 +1,13 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  HyperLogLogPlusCounter other=(HyperLogLogPlusCounter)obj;
+  if (hashFunc == null) {
+    if (other.hashFunc != null)     return false;
+  }
+ else   if (!hashFunc.equals(other.hashFunc))   return false;
+  if (p != other.p)   return false;
+  if (!Arrays.equals(registers,other.registers))   return false;
+  return true;
+}

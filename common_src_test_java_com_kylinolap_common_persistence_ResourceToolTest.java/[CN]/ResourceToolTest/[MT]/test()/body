@@ -1,0 +1,3 @@
+{
+  ResourceTool.copy(KylinConfig.createInstanceFromUri("../examples/test_case_data"),KylinConfig.createInstanceFromUri("../examples/test_case_data/kylin.properties"));
+}

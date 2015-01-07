@@ -1,0 +1,4 @@
+{
+  if (isNullObjectForm(value))   return nullId();
+ else   return getIdFromValueImpl(value,roundingFlag);
+}

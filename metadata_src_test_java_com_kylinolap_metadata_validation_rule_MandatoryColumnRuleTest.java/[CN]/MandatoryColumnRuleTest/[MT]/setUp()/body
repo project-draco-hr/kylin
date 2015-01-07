@@ -1,0 +1,4 @@
+{
+  CubeDesc desc2=JsonUtil.readValue(getClass().getClassLoader().getResourceAsStream("data/TEST1_desc.json"),CubeDesc.class);
+  this.cube=desc2;
+}

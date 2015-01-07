@@ -1,0 +1,11 @@
+{
+  String input="src/test/resources/data/base_cuboid/";
+  String output="target/test-output/6d_cuboid";
+  String cubeName="test_kylin_cube_with_slr_1_new_segment";
+  String segmentName="20130331080000_20131212080000";
+  String jobname="6d_cuboid";
+  String level="1";
+  FileUtil.fullyDelete(new File(output));
+  String[] args={"-input",input,"-cubename",cubeName,"-segmentname",segmentName,"-output",output,"-jobname",jobname,"-level",level};
+  assertEquals("Job failed",0,ToolRunner.run(conf,new NDCuboidJob(),args));
+}

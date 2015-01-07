@@ -1,0 +1,5 @@
+{
+  logger.info("Initializing CubeManager with config " + config);
+  this.config=config;
+  loadAllCubeInstance();
+}

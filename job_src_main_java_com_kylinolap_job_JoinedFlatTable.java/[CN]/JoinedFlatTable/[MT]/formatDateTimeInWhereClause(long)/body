@@ -1,0 +1,7 @@
+{
+  SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  f.setTimeZone(TimeZone.getTimeZone("GMT"));
+  Date date=new Date(datetime);
+  String str=f.format(date);
+  return StringUtil.dropSuffix(str," 00:00:00");
+}

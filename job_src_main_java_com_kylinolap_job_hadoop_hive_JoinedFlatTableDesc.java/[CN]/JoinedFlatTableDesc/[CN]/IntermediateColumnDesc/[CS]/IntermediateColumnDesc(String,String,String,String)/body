@@ -1,0 +1,6 @@
+{
+  this.id=id;
+  this.columnName=columnName;
+  this.dataType=dataType;
+  this.tableName=tableName;
+}

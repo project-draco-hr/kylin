@@ -1,0 +1,3 @@
+{
+  return b0.equals(b1);
+}

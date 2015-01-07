@@ -1,0 +1,11 @@
+{
+  byte[] array=bytes.get();
+  int offset=bytes.getOffset();
+  int length=bytes.getLength();
+  StringBuilder sb=new StringBuilder(length * 4);
+  for (int i=0; i < length; i++) {
+    int b=array[offset + i];
+    sb.append(String.format("\\x%02X",b & 0xFF));
+  }
+  return sb.toString();
+}

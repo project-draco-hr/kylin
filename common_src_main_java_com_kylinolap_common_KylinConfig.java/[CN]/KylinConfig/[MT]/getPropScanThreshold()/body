@@ -1,0 +1,3 @@
+{
+  return kylinConfig.getInt(PROP_SCAN_THRESHOLD,-1);
+}

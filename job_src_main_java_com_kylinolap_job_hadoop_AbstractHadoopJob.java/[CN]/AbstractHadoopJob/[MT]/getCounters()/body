@@ -1,0 +1,13 @@
+{
+  if (job != null) {
+    try {
+      return job.getCounters();
+    }
+ catch (    IOException e) {
+      throw new JobException(e);
+    }
+  }
+ else {
+    throw new JobException("Job is null");
+  }
+}

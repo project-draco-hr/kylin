@@ -1,0 +1,17 @@
+{
+  if (query instanceof SqlSelect) {
+    SqlSelect select=(SqlSelect)query;
+    SqlNodeList selectList=select.getSelectList();
+    SqlNodeList groupList=select.getGroup();
+    if ((selectList.size() == 1) && ((groupList == null) || (groupList.size() == 0))) {
+      SqlNode selectExpr=selectList.get(0);
+      if (selectExpr instanceof SqlCall) {
+        SqlCall selectExprCall=(SqlCall)selectExpr;
+        if (selectExprCall.getOperator() instanceof SqlAggFunction) {
+          return plan;
+        }
+      }
+    }
+  }
+  return RelOptUtil.createSingleValueAggRel(cluster,plan);
+}

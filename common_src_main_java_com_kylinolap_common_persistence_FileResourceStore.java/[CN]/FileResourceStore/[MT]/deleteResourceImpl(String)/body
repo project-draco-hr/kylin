@@ -1,0 +1,4 @@
+{
+  File f=file(resPath);
+  f.delete();
+}

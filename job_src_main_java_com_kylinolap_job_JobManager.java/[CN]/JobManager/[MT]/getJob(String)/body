@@ -1,0 +1,3 @@
+{
+  return jobDAO.getJob(uuid);
+}

@@ -1,0 +1,6 @@
+List<SelectedColumnMeta> columnMetas
+List<List<String>> results
+String cube
+int affectedRowCount
+boolean isException
+String exceptionMessage

@@ -1,0 +1,6 @@
+{
+  conf=new Configuration();
+  conf.set("fs.default.name","file:///");
+  conf.set("mapred.job.tracker","local");
+  this.createTestMetadata();
+}

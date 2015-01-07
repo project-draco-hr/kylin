@@ -1,0 +1,26 @@
+{
+  List<? extends TupleFilter> children=filter.getChildren();
+  TblColRef inColumn=null;
+  List<String> inValues=new LinkedList<String>();
+  for (  TupleFilter child : children) {
+    if (child.getOperator() == FilterOperatorEnum.EQ) {
+      CompareTupleFilter compFilter=(CompareTupleFilter)child;
+      TblColRef column=compFilter.getColumn();
+      if (inColumn == null) {
+        inColumn=column;
+      }
+      if (column == null || !column.equals(inColumn)) {
+        return null;
+      }
+      inValues.addAll(compFilter.getValues());
+    }
+ else {
+      return null;
+    }
+  }
+  children.clear();
+  CompareTupleFilter inFilter=new CompareTupleFilter(FilterOperatorEnum.IN);
+  inFilter.addChild(new ColumnTupleFilter(inColumn));
+  inFilter.addChild(new ConstantTupleFilter(inValues));
+  return inFilter;
+}

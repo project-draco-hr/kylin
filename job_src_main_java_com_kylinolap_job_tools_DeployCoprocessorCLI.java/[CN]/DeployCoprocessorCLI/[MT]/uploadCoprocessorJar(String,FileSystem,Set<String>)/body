@@ -1,0 +1,46 @@
+{
+  Path uploadPath=null;
+  File localCoprocessorFile=new File(localCoprocessorJar);
+  if (oldJarPaths == null) {
+    oldJarPaths=new HashSet<String>();
+  }
+  Path coprocessorDir=getCoprocessorHDFSDir(fileSystem,KylinConfig.getInstanceFromEnv());
+  for (  FileStatus fileStatus : fileSystem.listStatus(coprocessorDir)) {
+    if (fileStatus.getLen() == localCoprocessorJar.length() && fileStatus.getModificationTime() == localCoprocessorFile.lastModified()) {
+      uploadPath=fileStatus.getPath();
+      break;
+    }
+    String filename=fileStatus.getPath().toString();
+    if (filename.endsWith(".jar")) {
+      oldJarPaths.add(filename);
+    }
+  }
+  if (uploadPath == null) {
+    Set<String> oldJarNames=new HashSet<String>();
+    for (    String path : oldJarPaths) {
+      oldJarNames.add(new Path(path).getName());
+    }
+    String baseName=getBaseFileName(localCoprocessorJar);
+    String newName=null;
+    int i=0;
+    while (newName == null) {
+      newName=baseName + "-" + (i++)+ ".jar";
+      if (oldJarNames.contains(newName))       newName=null;
+    }
+    uploadPath=new Path(coprocessorDir,newName);
+    FileInputStream in=null;
+    FSDataOutputStream out=null;
+    try {
+      in=new FileInputStream(localCoprocessorFile);
+      out=fileSystem.create(uploadPath);
+      IOUtils.copy(in,out);
+    }
+  finally {
+      IOUtils.closeQuietly(in);
+      IOUtils.closeQuietly(out);
+    }
+    fileSystem.setTimes(uploadPath,localCoprocessorFile.lastModified(),System.currentTimeMillis());
+  }
+  uploadPath=uploadPath.makeQualified(fileSystem.getUri(),null);
+  return uploadPath;
+}

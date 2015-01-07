@@ -1,0 +1,6 @@
+{
+  if (rs == null) {
+    rs=executeQuery();
+  }
+  return populateResult();
+}

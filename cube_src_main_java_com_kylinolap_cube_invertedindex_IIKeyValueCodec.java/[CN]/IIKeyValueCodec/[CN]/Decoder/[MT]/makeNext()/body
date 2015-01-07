@@ -1,0 +1,12 @@
+{
+  if (bitMapValues.isEmpty() == false) {
+    addBitMapContainer(lastCol);
+  }
+  if (containers != null) {
+    next=new Slice(info,lastShard,lastSliceTimestamp,containers);
+  }
+  lastSliceTimestamp=Long.MIN_VALUE;
+  lastCol=-1;
+  containers=null;
+  bitMapValues.clear();
+}

@@ -1,0 +1,3 @@
+String resPath
+byte[] largeColumn
+HTableInterface table

@@ -1,0 +1,4 @@
+String family
+String qualifier
+String[] funcNames
+String[] dataTypes

@@ -1,0 +1,5 @@
+{
+  if (roundingFlag == 0)   return j;
+ else   if (roundingFlag < 0)   return i;
+ else   return k;
+}

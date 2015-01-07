@@ -1,0 +1,15 @@
+{
+  TblColRef column=groups.get(index);
+  CompareTupleFilter compareFilter=new CompareTupleFilter(FilterOperatorEnum.EQ);
+  ColumnTupleFilter columnFilter=new ColumnTupleFilter(column);
+  compareFilter.addChild(columnFilter);
+  ConstantTupleFilter constantFilter=null;
+  if (index == 0) {
+    constantFilter=new ConstantTupleFilter("2013-03-10");
+  }
+ else   if (index == 1) {
+    constantFilter=new ConstantTupleFilter("ClothinShoes & Accessories");
+  }
+  compareFilter.addChild(constantFilter);
+  return compareFilter;
+}

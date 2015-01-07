@@ -1,0 +1,6 @@
+{
+  Result result=scanner.next();
+  if (result == null)   return false;
+  results.addAll(result.listCells());
+  return true;
+}

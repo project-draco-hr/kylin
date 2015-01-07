@@ -1,0 +1,3 @@
+AclEntity ae
+Long accessEntryId
+Permission newPermission

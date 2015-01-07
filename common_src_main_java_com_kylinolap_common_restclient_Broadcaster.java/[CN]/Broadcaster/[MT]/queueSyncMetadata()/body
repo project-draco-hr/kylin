@@ -1,0 +1,3 @@
+{
+  queue(TYPE.METADATA.getType(),EVENT.CREATE.getType(),"metadata");
+}

@@ -1,0 +1,5 @@
+{
+  printInfo("tearDown");
+  printInfo("Closing connection...");
+  clean();
+}

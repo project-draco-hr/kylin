@@ -1,0 +1,16 @@
+{
+  Field[] fields=AclPermission.class.getFields();
+  for (  Field field : fields) {
+    try {
+      Object fieldValue=field.get(null);
+      if (Permission.class.isAssignableFrom(fieldValue.getClass())) {
+        if (perName.equals(field.getName())) {
+          return (Permission)fieldValue;
+        }
+      }
+    }
+ catch (    Exception ignore) {
+    }
+  }
+  return null;
+}

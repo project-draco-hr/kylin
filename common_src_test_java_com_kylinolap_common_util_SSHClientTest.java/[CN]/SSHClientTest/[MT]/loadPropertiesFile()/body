@@ -1,0 +1,7 @@
+{
+  KylinConfig cfg=KylinConfig.getInstanceFromEnv();
+  this.isRemote=cfg.getRunAsRemoteCommand();
+  this.hostname=cfg.getRemoteHadoopCliHostname();
+  this.username=cfg.getRemoteHadoopCliUsername();
+  this.password=cfg.getRemoteHadoopCliPassword();
+}

@@ -1,0 +1,3 @@
+{
+  return "CompareFilter [" + column + " "+ operator+ " "+ conditionValues+ ", children="+ children+ "]";
+}

@@ -1,0 +1,8 @@
+{
+  try {
+    loadCubeInstance(cube.getResourcePath());
+  }
+ catch (  IOException e) {
+    logger.error(e.getLocalizedMessage(),e);
+  }
+}

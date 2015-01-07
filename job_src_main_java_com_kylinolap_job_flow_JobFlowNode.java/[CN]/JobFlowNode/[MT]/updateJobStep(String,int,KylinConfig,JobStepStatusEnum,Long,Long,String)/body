@@ -1,0 +1,39 @@
+{
+  JobInstance jobInstance=JobDAO.getInstance(config).getJob(jobInstanceUuid);
+  JobStep currentStep=null;
+  try {
+    currentStep=jobInstance.getSteps().get(jobInstanceStepSeqId);
+    JobStepStatusEnum currentStatus=currentStep.getStatus();
+    boolean hasChange=false;
+    if (null != execStartTime) {
+      hasChange=true;
+      currentStep.setExecStartTime(execStartTime);
+    }
+    if (null != execEndTime) {
+      hasChange=true;
+      currentStep.setExecEndTime(execEndTime);
+    }
+    if (null != output) {
+      hasChange=true;
+      JobDAO.getInstance(config).saveJobOutput(currentStep,output);
+    }
+    if (JobStepStatusEnum.WAITING == currentStatus && (JobStepStatusEnum.RUNNING == newStatus || JobStepStatusEnum.FINISHED == newStatus)) {
+      hasChange=true;
+      currentStep.setExecWaitTime((System.currentTimeMillis() - currentStep.getExecStartTime()) / 1000);
+    }
+    if (null != newStatus) {
+      hasChange=true;
+      currentStep.setStatus(newStatus);
+    }
+    if (hasChange) {
+      JobDAO.getInstance(config).updateJobInstance(jobInstance);
+    }
+  }
+ catch (  IOException e) {
+    log.error(e.getLocalizedMessage(),e);
+  }
+  if (null != execEndTime) {
+    JobEngine.JOB_DURATION.put(JobInstance.getStepIdentity(jobInstance,currentStep) + " - " + String.valueOf(currentStep.getExecStartTime()),(double)(currentStep.getExecEndTime() - currentStep.getExecStartTime()) / 1000);
+  }
+  return jobInstance;
+}

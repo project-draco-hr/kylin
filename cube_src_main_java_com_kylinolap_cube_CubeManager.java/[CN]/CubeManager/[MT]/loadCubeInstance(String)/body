@@ -1,0 +1,18 @@
+{
+  ResourceStore store=getStore();
+  CubeInstance cubeInstance=null;
+  try {
+    cubeInstance=store.getResource(path,CubeInstance.class,CUBE_SERIALIZER);
+    cubeInstance.setConfig(config);
+    if (StringUtils.isBlank(cubeInstance.getName()))     throw new IllegalStateException("CubeInstance name must not be blank");
+    cubeMap.putLocal(cubeInstance.getName().toUpperCase(),cubeInstance);
+    for (    CubeSegment segment : cubeInstance.getSegments()) {
+      usedStorageLocation.add(segment.getName());
+    }
+    return cubeInstance;
+  }
+ catch (  Exception e) {
+    logger.error("Error during load cube instance " + path,e);
+    return null;
+  }
+}

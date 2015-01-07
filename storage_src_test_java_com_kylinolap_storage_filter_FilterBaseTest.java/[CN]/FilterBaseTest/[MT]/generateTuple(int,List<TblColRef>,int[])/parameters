@@ -1,0 +1,3 @@
+int number
+List<TblColRef> columns
+int[] matches

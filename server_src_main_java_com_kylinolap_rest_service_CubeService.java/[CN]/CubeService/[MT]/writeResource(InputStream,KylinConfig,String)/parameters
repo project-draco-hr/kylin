@@ -1,0 +1,3 @@
+InputStream source
+KylinConfig dstConfig
+String path

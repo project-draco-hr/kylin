@@ -1,0 +1,4 @@
+{
+  final long time=v.getTime();
+  return time + timeZone.getOffset(time);
+}

@@ -1,0 +1,3 @@
+{
+  System.arraycopy(bytes.get(),bytes.getOffset(),buf,info.offset(col),info.length(col));
+}

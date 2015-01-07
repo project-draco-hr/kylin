@@ -1,0 +1,23 @@
+{
+  buildGroups();
+  buildAggregations();
+  ColumnRowType inputColumnRowType=((OLAPRel)getChild()).getColumnRowType();
+  List<TblColRef> columns=new ArrayList<TblColRef>(this.rowType.getFieldCount());
+  columns.addAll(this.groups);
+  for (int i=0; i < this.aggregations.size(); i++) {
+    FunctionDesc aggFunc=this.aggregations.get(i);
+    TblColRef aggCol=null;
+    if (aggFunc.needRewrite()) {
+      aggCol=buildRewriteColumn(aggFunc);
+    }
+ else {
+      AggregateCall aggCall=this.rewriteAggCalls.get(i);
+      if (!aggCall.getArgList().isEmpty()) {
+        int index=aggCall.getArgList().get(0);
+        aggCol=inputColumnRowType.getColumnByIndex(index);
+      }
+    }
+    columns.add(aggCol);
+  }
+  return new ColumnRowType(columns);
+}

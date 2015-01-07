@@ -1,0 +1,6 @@
+short shard
+long timestamp
+int col
+int colValue
+byte[] buf
+int offset

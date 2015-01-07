@@ -1,0 +1,11 @@
+{
+  JobInstance jobInstance=null;
+  try {
+    jobInstance=jobService.getJobInstance(jobId);
+  }
+ catch (  Exception e) {
+    logger.error(e.getLocalizedMessage(),e);
+    throw new InternalErrorException(e);
+  }
+  return jobInstance;
+}

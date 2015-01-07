@@ -1,0 +1,18 @@
+{
+  final RelOptTable targetTable=getTargetTable(call);
+  final RelDataType targetRowType=targetTable.getRowType();
+  SqlNodeList targetColumnList=call.getTargetColumnList();
+  if (targetColumnList == null) {
+    targetColumnNames.addAll(targetRowType.getFieldNames());
+  }
+ else {
+    for (int i=0; i < targetColumnList.size(); i++) {
+      SqlIdentifier id=(SqlIdentifier)targetColumnList.get(i);
+      targetColumnNames.add(id.getSimple());
+    }
+  }
+  for (int i=0; i < targetColumnNames.size(); i++) {
+    final RexNode expr=rexBuilder.makeFieldAccess(sourceRef,i);
+    columnExprs.add(expr);
+  }
+}

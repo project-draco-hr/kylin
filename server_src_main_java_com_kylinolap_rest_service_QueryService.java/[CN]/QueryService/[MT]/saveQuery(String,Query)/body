@@ -1,0 +1,17 @@
+{
+  List<Query> queries=getQueries(creator);
+  queries.add(query);
+  Query[] queryArray=new Query[queries.size()];
+  byte[] bytes=querySerializer.serialize(queries.toArray(queryArray));
+  HTableInterface htable=null;
+  try {
+    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    Put put=new Put(Bytes.toBytes(creator));
+    put.add(Bytes.toBytes(USER_QUERY_FAMILY),Bytes.toBytes(USER_QUERY_COLUMN),bytes);
+    htable.put(put);
+    htable.flushCommits();
+  }
+  finally {
+    IOUtils.closeQuietly(htable);
+  }
+}

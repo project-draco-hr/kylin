@@ -1,0 +1,22 @@
+{
+  String json=in.readUTF();
+  DictionaryInfo obj=JsonUtil.readValue(json,DictionaryInfo.class);
+  if (infoOnly == false) {
+    Dictionary<?> dict;
+    try {
+      dict=(Dictionary<?>)Class.forName(obj.getDictionaryClass()).newInstance();
+    }
+ catch (    InstantiationException e) {
+      throw new RuntimeException(e);
+    }
+catch (    IllegalAccessException e) {
+      throw new RuntimeException(e);
+    }
+catch (    ClassNotFoundException e) {
+      throw new RuntimeException(e);
+    }
+    dict.readFields(in);
+    obj.setDictionaryObject(dict);
+  }
+  return obj;
+}

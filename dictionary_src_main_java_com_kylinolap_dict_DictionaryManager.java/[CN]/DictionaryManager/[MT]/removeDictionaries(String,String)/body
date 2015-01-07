@@ -1,0 +1,9 @@
+{
+  DictionaryInfo info=new DictionaryInfo();
+  info.setSourceTable(srcTable);
+  info.setSourceColumn(srcCol);
+  ResourceStore store=MetadataManager.getInstance(config).getStore();
+  ArrayList<String> existings=store.listResources(info.getResourceDir());
+  if (existings == null)   return;
+  for (  String existing : existings)   removeDictionary(existing);
+}

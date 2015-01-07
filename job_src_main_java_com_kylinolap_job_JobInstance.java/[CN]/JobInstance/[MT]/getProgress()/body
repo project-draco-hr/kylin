@@ -1,0 +1,9 @@
+{
+  int completedStepCount=0;
+  for (  JobStep step : this.getSteps()) {
+    if (step.getStatus().equals(JobStepStatusEnum.FINISHED)) {
+      completedStepCount++;
+    }
+  }
+  return 100.0 * completedStepCount / steps.size();
+}

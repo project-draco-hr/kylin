@@ -1,0 +1,23 @@
+{
+  PrintStream out=System.out;
+  out.println("============================================================================");
+  out.println("No. values:             " + nValues);
+  out.println("No. bytes raw:          " + nValueBytesPlain);
+  out.println("No. bytes in trie:      " + nValueBytesCompressed);
+  out.println("Longest value length:   " + maxValueLength);
+  out.println("----------------------------------------------------------------------------");
+  out.println("OBPN node size:  " + (obpn_sizeValue + obpn_sizeNoValuesBeneath + obpn_sizeChildCount+ obpn_sizeChildOffset) + " = "+ obpn_sizeValue+ " + "+ obpn_sizeNoValuesBeneath+ " + "+ obpn_sizeChildCount+ " + "+ obpn_sizeChildOffset);
+  out.println("OBPN no. nodes:  " + obpn_nNodes);
+  out.println("OBPN trie depth: " + maxValueLength);
+  out.println("OBPN footprint:  " + obpn_footprint + " in bytes");
+  out.println("----------------------------------------------------------------------------");
+  out.println("MBPN max fan out:       " + mbpn_maxFanOut);
+  out.println("MBPN no. child lookups: " + mbpn_nChildLookups);
+  out.println("MBPN total fan out:     " + mbpn_nTotalFanOut);
+  out.println("MBPN average fan out:   " + (double)mbpn_nTotalFanOut / mbpn_nChildLookups);
+  out.println("MBPN values size total: " + mbpn_sizeValueTotal);
+  out.println("MBPN node size:         " + (mbpn_sizeNoValueBytes + mbpn_sizeNoValueBeneath + mbpn_sizeChildOffset) + " = "+ mbpn_sizeNoValueBytes+ " + "+ mbpn_sizeNoValueBeneath+ " + "+ mbpn_sizeChildOffset);
+  out.println("MBPN no. nodes:         " + mbpn_nNodes);
+  out.println("MBPN trie depth:        " + mbpn_trieDepth);
+  out.println("MBPN footprint:         " + mbpn_footprint + " in bytes");
+}

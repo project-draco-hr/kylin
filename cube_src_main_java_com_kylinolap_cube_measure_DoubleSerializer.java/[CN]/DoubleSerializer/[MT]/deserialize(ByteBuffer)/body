@@ -1,0 +1,4 @@
+{
+  current.set(in.getDouble());
+  return current;
+}

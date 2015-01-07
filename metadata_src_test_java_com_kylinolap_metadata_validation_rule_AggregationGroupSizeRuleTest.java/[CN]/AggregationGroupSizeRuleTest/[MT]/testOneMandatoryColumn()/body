@@ -1,0 +1,13 @@
+{
+  IValidatorRule<CubeDesc> rule=new AggregationGroupSizeRule(){
+    @Override protected int getMaxAgrGroupSize(){
+      return 3;
+    }
+  }
+;
+  rule.validate(cube,vContext);
+  vContext.print(System.out);
+  assertEquals("Failed to validate aggragation group error",vContext.getResults().length,2);
+  assertTrue("Failed to validate aggragation group error",vContext.getResults()[0].getMessage().startsWith("Length of the number"));
+  assertTrue("Failed to validate aggragation group error",vContext.getResults()[1].getMessage().startsWith("Length of the number"));
+}

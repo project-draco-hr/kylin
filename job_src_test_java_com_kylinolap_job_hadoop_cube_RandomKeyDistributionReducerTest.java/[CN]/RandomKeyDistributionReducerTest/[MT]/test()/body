@@ -1,0 +1,15 @@
+{
+  List<Text> data=new ArrayList<Text>();
+  for (int i=0; i < 1001; i++) {
+    data.add(new Text(String.valueOf(i)));
+  }
+  for (  Text t : data) {
+    reduceDriver.addInput(t,new ArrayList<LongWritable>());
+  }
+  reduceDriver.getConfiguration().set(BatchConstants.REGION_NUMBER,"2");
+  List<Pair<Text,LongWritable>> result=reduceDriver.run();
+  assertEquals(2,result.size());
+  for (  Pair<Text,LongWritable> p : result) {
+    System.out.println(p.getFirst());
+  }
+}

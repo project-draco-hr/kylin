@@ -1,0 +1,38 @@
+{
+  String type=cDesc.getTypeName();
+  String s=type.toLowerCase();
+  if (s.equals("string") || s.equals("char") || s.equals("varchar")) {
+    StringBuilder sb=new StringBuilder();
+    for (int i=0; i < 2; i++) {
+      sb.append((char)('a' + r.nextInt(10)));
+    }
+    return sb.toString();
+  }
+ else   if (s.equals("bigint") || s.equals("int") || s.equals("tinyint")|| s.equals("smallint")) {
+    return Integer.toString(r.nextInt(128));
+  }
+ else   if (s.equals("double")) {
+    return String.format("%.4f",r.nextDouble() * 100);
+  }
+ else   if (s.equals("float")) {
+    return String.format("%.4f",r.nextFloat() * 100);
+  }
+ else   if (s.equals("decimal")) {
+    return String.format("%.4f",r.nextDouble() * 100);
+  }
+ else   if (s.equals("date")) {
+    long date20131231=61349312153265L;
+    long date20010101=60939158400000L;
+    long diff=date20131231 - date20010101;
+    Date temp=new Date(date20010101 + (long)(diff * r.nextDouble()));
+    Calendar cal=Calendar.getInstance();
+    cal.setTime(temp);
+    cal.set(Calendar.DAY_OF_WEEK,cal.getFirstDayOfWeek());
+    return cal.get(Calendar.YEAR) + "-" + normToTwoDigits(cal.get(Calendar.MONTH) + 1)+ "-"+ normToTwoDigits(cal.get(Calendar.DAY_OF_MONTH));
+  }
+ else {
+    System.out.println("The data type " + type + "is not recognized");
+    System.exit(1);
+  }
+  return null;
+}

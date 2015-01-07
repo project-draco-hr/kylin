@@ -1,0 +1,51 @@
+{
+  TupleFilter flatFilter=null;
+  if (!(filter instanceof LogicalTupleFilter)) {
+    flatFilter=new LogicalTupleFilter(FilterOperatorEnum.AND);
+    flatFilter.addChild(filter);
+    return flatFilter;
+  }
+  FilterOperatorEnum op=filter.getOperator();
+  List<TupleFilter> andChildren=new LinkedList<TupleFilter>();
+  List<TupleFilter> orChildren=new LinkedList<TupleFilter>();
+  for (  TupleFilter child : filter.getChildren()) {
+    TupleFilter flatChild=flattenInternal(child);
+    FilterOperatorEnum childOp=flatChild.getOperator();
+    if (childOp == FilterOperatorEnum.AND) {
+      andChildren.add(flatChild);
+    }
+ else     if (childOp == FilterOperatorEnum.OR) {
+      orChildren.add(flatChild);
+    }
+ else {
+      throw new IllegalStateException("Filter is " + filter + " and child is "+ flatChild);
+    }
+  }
+  if (op == FilterOperatorEnum.AND) {
+    flatFilter=new LogicalTupleFilter(FilterOperatorEnum.AND);
+    for (    TupleFilter andChild : andChildren) {
+      flatFilter.addChildren(andChild.getChildren());
+    }
+    if (!orChildren.isEmpty()) {
+      List<TupleFilter> fullAndFilters=cartesianProduct(orChildren,flatFilter);
+      flatFilter=new LogicalTupleFilter(FilterOperatorEnum.OR);
+      flatFilter.addChildren(fullAndFilters);
+    }
+  }
+ else   if (op == FilterOperatorEnum.OR) {
+    flatFilter=new LogicalTupleFilter(FilterOperatorEnum.OR);
+    for (    TupleFilter orChild : orChildren) {
+      flatFilter.addChildren(orChild.getChildren());
+    }
+    flatFilter.addChildren(andChildren);
+  }
+ else   if (op == FilterOperatorEnum.NOT) {
+    assert(filter.children.size() == 1);
+    TupleFilter reverse=filter.children.get(0).reverse();
+    flatFilter=flattenInternal(reverse);
+  }
+ else {
+    throw new IllegalStateException("Filter is " + filter);
+  }
+  return flatFilter;
+}

@@ -1,0 +1,6 @@
+{
+  final SqlValidatorScope selectScope=validator.getWhereScope(select);
+  final Blackboard bb=createBlackboard(selectScope,null);
+  convertSelectImpl(bb,select);
+  return bb.root;
+}

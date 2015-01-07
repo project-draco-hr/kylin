@@ -1,0 +1,42 @@
+{
+  DataType type=cDesc.getType();
+  if (type.isStringFamily()) {
+    throw new Exception("Can't handle range values for string");
+  }
+ else   if (type.isIntegerFamily()) {
+    int low=Integer.parseInt(range.get(0));
+    int high=Integer.parseInt(range.get(1));
+    return Integer.toString(r.nextInt(high - low) + low);
+  }
+ else   if (type.isDouble()) {
+    double low=Double.parseDouble(range.get(0));
+    double high=Double.parseDouble(range.get(1));
+    return String.format("%.4f",r.nextDouble() * (high - low) + low);
+  }
+ else   if (type.isFloat()) {
+    float low=Float.parseFloat(range.get(0));
+    float high=Float.parseFloat(range.get(1));
+    return String.format("%.4f",r.nextFloat() * (high - low) + low);
+  }
+ else   if (type.isDecimal()) {
+    double low=Double.parseDouble(range.get(0));
+    double high=Double.parseDouble(range.get(1));
+    return String.format("%.4f",r.nextDouble() * (high - low) + low);
+  }
+ else   if (type.isDateTimeFamily()) {
+    SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+    Date start=format.parse(range.get(0));
+    Date end=format.parse(range.get(1));
+    long diff=end.getTime() - start.getTime();
+    Date temp=new Date(start.getTime() + (long)(diff * r.nextDouble()));
+    Calendar cal=Calendar.getInstance();
+    cal.setTime(temp);
+    cal.set(Calendar.DAY_OF_WEEK,cal.getFirstDayOfWeek());
+    return cal.get(Calendar.YEAR) + "-" + normToTwoDigits(cal.get(Calendar.MONTH) + 1)+ "-"+ normToTwoDigits(cal.get(Calendar.DAY_OF_MONTH));
+  }
+ else {
+    System.out.println("The data type " + type + "is not recognized");
+    System.exit(1);
+  }
+  return null;
+}

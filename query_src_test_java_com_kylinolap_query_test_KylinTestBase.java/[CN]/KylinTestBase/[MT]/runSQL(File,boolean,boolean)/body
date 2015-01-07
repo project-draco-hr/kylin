@@ -1,0 +1,18 @@
+{
+  if (debug) {
+    System.setProperty("calcite.debug","true");
+    InputStream inputStream=new FileInputStream("src/test/resources/logging.properties");
+    LogManager.getLogManager().readConfiguration(inputStream);
+  }
+  String queryName=StringUtils.split(sqlFile.getName(),'.')[0];
+  printInfo("Testing Query " + queryName);
+  String sql=getTextFromFile(sqlFile);
+  if (explain) {
+    sql="explain plan for " + sql;
+  }
+  int count=executeQuery(sql,true);
+  if (debug) {
+    System.clearProperty("optiq.debug");
+  }
+  return count;
+}

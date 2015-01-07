@@ -1,0 +1,3 @@
+{
+  return readJobResource(ResourceStore.JOB_PATH_ROOT + "/" + uuid);
+}

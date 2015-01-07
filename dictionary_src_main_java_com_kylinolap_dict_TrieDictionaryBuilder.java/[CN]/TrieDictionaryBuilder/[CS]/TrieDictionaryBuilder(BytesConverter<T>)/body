@@ -1,0 +1,4 @@
+{
+  this.root=new Node(new byte[0],false);
+  this.bytesConverter=bytesConverter;
+}

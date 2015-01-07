@@ -1,0 +1,12 @@
+{
+  int size=Long.bitCount(groupAllBitMask);
+  long[] r=new long[size];
+  long l=groupAllBitMask;
+  int i=0;
+  while (l != 0) {
+    long bit=Long.highestOneBit(l);
+    r[i++]=bit;
+    l^=bit;
+  }
+  return r;
+}

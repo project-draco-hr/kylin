@@ -1,0 +1,4 @@
+String cubeName
+String projectName
+CubeDesc desc
+String owner

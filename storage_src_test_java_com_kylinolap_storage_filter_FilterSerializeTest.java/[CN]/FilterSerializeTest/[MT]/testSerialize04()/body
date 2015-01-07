@@ -1,0 +1,7 @@
+{
+  List<TblColRef> groups=buildGroups();
+  TupleFilter filter=buildOrFilter(groups);
+  byte[] bytes=TupleFilterSerializer.serialize(filter);
+  TupleFilter newFilter=TupleFilterSerializer.deserialize(bytes);
+  compareFilter(filter,newFilter);
+}

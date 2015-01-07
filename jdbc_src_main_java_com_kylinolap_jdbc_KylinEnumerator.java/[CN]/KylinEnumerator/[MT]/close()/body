@@ -1,0 +1,4 @@
+{
+  this.cursor=null;
+  this.dataCollection=null;
+}

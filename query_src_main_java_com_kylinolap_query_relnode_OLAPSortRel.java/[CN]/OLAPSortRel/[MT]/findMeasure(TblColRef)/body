@@ -1,0 +1,8 @@
+{
+  for (  MeasureDesc measure : this.context.cubeDesc.getMeasures()) {
+    if (col.getName().equals(measure.getFunction().getRewriteFieldName())) {
+      return measure;
+    }
+  }
+  return null;
+}

@@ -1,0 +1,15 @@
+{
+  String path=getHadoopJobConfFilePath(capaticy,true);
+  if (!StringUtils.isEmpty(path)) {
+    logger.info("Chosen job conf is : " + path);
+    return path;
+  }
+ else {
+    path=getHadoopJobConfFilePath(capaticy,false);
+    if (!StringUtils.isEmpty(path)) {
+      logger.info("Chosen job conf is : " + path);
+      return path;
+    }
+  }
+  return "";
+}

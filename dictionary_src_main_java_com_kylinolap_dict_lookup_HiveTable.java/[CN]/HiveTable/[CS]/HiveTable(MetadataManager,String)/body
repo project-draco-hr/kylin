@@ -1,0 +1,4 @@
+{
+  this.hiveTable=table;
+  this.nColumns=metaMgr.getTableDesc(table).getColumnCount();
+}

@@ -1,0 +1,6 @@
+{
+  if (o != null && o instanceof Array) {
+    return Arrays.equals(this.data,((Array<?>)o).data);
+  }
+  return false;
+}

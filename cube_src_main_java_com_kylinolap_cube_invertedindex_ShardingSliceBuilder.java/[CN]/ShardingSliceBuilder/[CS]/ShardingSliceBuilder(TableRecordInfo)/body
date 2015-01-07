@@ -1,0 +1,7 @@
+{
+  int sharding=info.getDescriptor().getSharding();
+  builders=new SliceBuilder[sharding];
+  for (short i=0; i < sharding; i++) {
+    builders[i]=new SliceBuilder(info,i);
+  }
+}

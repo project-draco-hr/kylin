@@ -1,0 +1,18 @@
+{
+  cubeName=jobInstance.getRelatedCube();
+  if (cubeName == null) {
+    throw new IllegalArgumentException("Cube name is null or empty!");
+  }
+  cube=CubeManager.getInstance(this.engineConfig.getConfig()).getCube(cubeName);
+  jobUUID=jobInstance.getUuid();
+  if (jobUUID == null || jobUUID.equals("")) {
+    throw new IllegalArgumentException("Job UUID is null or empty!");
+  }
+  segmentName=jobInstance.getRelatedSegment();
+  if (segmentName == null || segmentName.equals("")) {
+    throw new IllegalArgumentException("Cube segment name is null or empty!");
+  }
+  cubeSegment=cube.getSegment(segmentName,CubeSegmentStatusEnum.NEW);
+  htablename=cubeSegment.getStorageLocationIdentifier();
+  this.jobWorkingDir=JobInstance.getJobWorkingDir(jobInstance,engineConfig);
+}

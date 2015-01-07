@@ -1,0 +1,5 @@
+{
+  AclEntity ae=accessService.getAclEntity(type,uuid);
+  Acl acl=accessService.revoke(ae,accessRequest.getAccessEntryId());
+  return accessService.generateAceResponses(acl);
+}

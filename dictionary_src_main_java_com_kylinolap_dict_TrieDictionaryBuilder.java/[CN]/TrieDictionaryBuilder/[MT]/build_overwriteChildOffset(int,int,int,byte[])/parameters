@@ -1,0 +1,4 @@
+int parentOffset
+int childOffset
+int sizeChildOffset
+byte[] trieBytes

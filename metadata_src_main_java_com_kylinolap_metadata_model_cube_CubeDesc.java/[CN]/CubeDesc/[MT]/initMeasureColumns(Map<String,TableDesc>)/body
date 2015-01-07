@@ -1,0 +1,27 @@
+{
+  if (measures == null || measures.isEmpty()) {
+    return;
+  }
+  TableDesc factTable=tables.get(getFactTable());
+  for (  MeasureDesc m : measures) {
+    m.setName(m.getName().toUpperCase());
+    if (m.getDependentMeasureRef() != null) {
+      m.setDependentMeasureRef(m.getDependentMeasureRef().toUpperCase());
+    }
+    FunctionDesc f=m.getFunction();
+    f.setExpression(f.getExpression().toUpperCase());
+    f.setReturnDataType(DataType.getInstance(f.getReturnType()));
+    ParameterDesc p=f.getParameter();
+    p.normalizeColumnValue();
+    if (p.isColumnType()) {
+      ArrayList<TblColRef> colRefs=Lists.newArrayList();
+      for (      String cName : p.getValue().split("\\s*,\\s*")) {
+        ColumnDesc sourceColumn=factTable.findColumnByName(cName);
+        TblColRef colRef=new TblColRef(sourceColumn);
+        colRefs.add(colRef);
+        allColumns.add(colRef);
+      }
+      if (colRefs.isEmpty() == false)       p.setColRefs(colRefs);
+    }
+  }
+}

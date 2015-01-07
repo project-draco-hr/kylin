@@ -1,0 +1,27 @@
+{
+  config=mgr.getConfig();
+  factTable=factTable.toUpperCase();
+  timestampDimension=timestampDimension.toUpperCase();
+  StringUtil.toUpperCaseArray(bitmapDimensions,bitmapDimensions);
+  StringUtil.toUpperCaseArray(valueDimensions,valueDimensions);
+  StringUtil.toUpperCaseArray(metrics,metrics);
+  tableDesc=mgr.getTableDesc(factTable);
+  bitmapCols=new int[bitmapDimensions.length];
+  valueCols=new int[valueDimensions.length];
+  metricsCols=new int[metrics.length];
+  metricsColSet=new BitSet(tableDesc.getColumnCount());
+  int i=0, j=0, k=0;
+  for (  ColumnDesc col : tableDesc.getColumns()) {
+    if (ArrayUtils.contains(bitmapDimensions,col.getName())) {
+      bitmapCols[i++]=col.getZeroBasedIndex();
+    }
+    if (ArrayUtils.contains(valueDimensions,col.getName())) {
+      valueCols[j++]=col.getZeroBasedIndex();
+    }
+    if (ArrayUtils.contains(metrics,col.getName())) {
+      metricsCols[k++]=col.getZeroBasedIndex();
+      metricsColSet.set(col.getZeroBasedIndex());
+    }
+  }
+  tsCol=tableDesc.findColumnByName(timestampDimension).getZeroBasedIndex();
+}

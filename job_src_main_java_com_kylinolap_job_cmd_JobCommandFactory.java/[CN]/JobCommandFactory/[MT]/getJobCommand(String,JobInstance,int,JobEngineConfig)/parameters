@@ -1,0 +1,4 @@
+String command
+JobInstance jobInstance
+int jobStepID
+JobEngineConfig engineConfig

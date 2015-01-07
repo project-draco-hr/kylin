@@ -1,0 +1,8 @@
+{
+  if (isCountDistinct() && returnDataType != null && returnDataType.isBigInt()) {
+    return true;
+  }
+ else {
+    return false;
+  }
+}

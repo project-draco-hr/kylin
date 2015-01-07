@@ -1,0 +1,9 @@
+{
+  Set<String> exclusiveSet=new HashSet<String>();
+  if (exclusiveQuerys != null) {
+    for (    String query : exclusiveQuerys) {
+      exclusiveSet.add(query);
+    }
+  }
+  return exclusiveSet;
+}

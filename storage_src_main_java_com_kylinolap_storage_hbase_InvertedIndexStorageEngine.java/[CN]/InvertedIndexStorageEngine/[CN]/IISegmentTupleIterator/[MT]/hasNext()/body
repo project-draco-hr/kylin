@@ -1,0 +1,14 @@
+{
+  while (next == null) {
+    if (recordIterator != null && recordIterator.hasNext()) {
+      next=toTuple((TableRecord)recordIterator.next());
+      break;
+    }
+    if (sliceIterator.hasNext()) {
+      recordIterator=sliceIterator.next().iterator();
+      continue;
+    }
+    break;
+  }
+  return next != null;
+}

@@ -1,0 +1,4 @@
+String database
+Set<String> tables
+File metaTmpDir
+KylinConfig config

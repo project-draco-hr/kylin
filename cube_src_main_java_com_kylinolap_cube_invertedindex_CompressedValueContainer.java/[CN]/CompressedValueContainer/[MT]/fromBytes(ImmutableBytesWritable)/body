@@ -1,0 +1,10 @@
+{
+  try {
+    uncompressed=LZFDecoder.decode(bytes.get(),bytes.getOffset(),bytes.getLength());
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("LZF decode failure",e);
+  }
+  size=cap=uncompressed.length / valueLen;
+  compressed=BytesUtil.EMPTY_BYTE_ARRAY;
+}

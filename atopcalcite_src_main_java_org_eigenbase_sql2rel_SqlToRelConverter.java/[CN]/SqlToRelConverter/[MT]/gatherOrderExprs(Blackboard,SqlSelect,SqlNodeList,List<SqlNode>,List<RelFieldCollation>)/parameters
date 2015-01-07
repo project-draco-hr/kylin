@@ -1,0 +1,5 @@
+Blackboard bb
+SqlSelect select
+SqlNodeList orderList
+List<SqlNode> extraOrderExprs
+List<RelFieldCollation> collationList

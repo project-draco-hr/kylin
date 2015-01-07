@@ -1,0 +1,6 @@
+{
+  ResourceStore store=MetadataManager.getInstance(config).getStore();
+  String path=dict.getResourcePath();
+  logger.info("Saving dictionary at " + path);
+  store.putResource(path,dict,DictionaryInfoSerializer.FULL_SERIALIZER);
+}

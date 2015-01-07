@@ -1,0 +1,4 @@
+{
+  if (project == null)   throw new IllegalStateException("Trying to normalized a project name which is null");
+  return project.toUpperCase();
+}

@@ -1,0 +1,17 @@
+{
+  try {
+    ByteArrayOutputStream bout=new ByteArrayOutputStream();
+    DataOutputStream dataout=new DataOutputStream(bout);
+    dict.write(dataout);
+    dataout.close();
+    ByteArrayInputStream bin=new ByteArrayInputStream(bout.toByteArray());
+    DataInputStream datain=new DataInputStream(bin);
+    TrieDictionary<String> r=new TrieDictionary<String>();
+    r.readFields(datain);
+    datain.close();
+    return r;
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

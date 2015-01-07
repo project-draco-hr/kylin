@@ -1,0 +1,6 @@
+{
+  List<JobStep> steps=jobInstance.getSteps();
+  if (steps == null || steps.size() == 0) {
+    throw new RuntimeException("Steps of job " + jobInstance.getUuid() + " is null or empty!");
+  }
+}

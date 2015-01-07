@@ -1,0 +1,7 @@
+{
+  LongWritable outputValue=new LongWritable();
+  for (  Entry<Text,Long> kv : resultMap.entrySet()) {
+    outputValue.set(kv.getValue());
+    context.write(kv.getKey(),outputValue);
+  }
+}

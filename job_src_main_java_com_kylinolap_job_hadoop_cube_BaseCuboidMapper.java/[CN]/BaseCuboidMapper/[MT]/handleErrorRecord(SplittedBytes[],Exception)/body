@@ -1,0 +1,18 @@
+{
+  StringBuilder buf=new StringBuilder();
+  buf.append("Error record: [");
+  for (int i=0; i < splitBuffers.length; i++) {
+    if (i > 0)     buf.append(", ");
+    buf.append(Bytes.toString(splitBuffers[i].value,0,splitBuffers[i].length));
+  }
+  buf.append("] -- ");
+  buf.append(ex.toString());
+  System.err.println(buf.toString());
+  ex.printStackTrace(System.err);
+  errorRecordCounter++;
+  if (errorRecordCounter > BatchConstants.ERROR_RECORD_THRESHOLD) {
+    if (ex instanceof IOException)     throw (IOException)ex;
+ else     if (ex instanceof RuntimeException)     throw (RuntimeException)ex;
+ else     throw new RuntimeException("",ex);
+  }
+}

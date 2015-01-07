@@ -1,0 +1,17 @@
+{
+  long start=System.currentTimeMillis();
+  List<TableDesc> tables=null;
+  try {
+    tables=cubeMgmtService.getProjectManager().listDefinedTablesInProject(project);
+  }
+ catch (  IOException e) {
+    logger.error("Failed to deal with the request.",e);
+    throw new InternalErrorException(e.getLocalizedMessage());
+  }
+  if (withExt) {
+    tables=cloneTableDesc(tables);
+  }
+  long end=System.currentTimeMillis();
+  logger.info("Return all table metadata in " + (end - start) + " seconds");
+  return tables;
+}

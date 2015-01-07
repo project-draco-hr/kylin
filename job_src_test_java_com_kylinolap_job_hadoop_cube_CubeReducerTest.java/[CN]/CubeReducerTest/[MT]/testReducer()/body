@@ -1,0 +1,28 @@
+{
+  reduceDriver.getConfiguration().set(BatchConstants.CFG_CUBE_NAME,"test_kylin_cube_with_slr_ready");
+  CubeDesc cubeDesc=CubeManager.getInstance(this.getTestConfig()).getCube("test_kylin_cube_with_slr_ready").getDescriptor();
+  MeasureCodec codec=new MeasureCodec(cubeDesc.getMeasures());
+  Text key1=new Text("72010ustech");
+  List<Text> values1=new ArrayList<Text>();
+  values1.add(newValueText(codec,"15.09","15.09","15.09",1));
+  values1.add(newValueText(codec,"20.34","20.34","20.34",1));
+  values1.add(newValueText(codec,"10","10","10",1));
+  Text key2=new Text("1tech");
+  List<Text> values2=new ArrayList<Text>();
+  values2.add(newValueText(codec,"15.09","15.09","15.09",1));
+  values2.add(newValueText(codec,"20.34","20.34","20.34",1));
+  Text key3=new Text("0");
+  List<Text> values3=new ArrayList<Text>();
+  values3.add(newValueText(codec,"146.52","146.52","146.52",4));
+  reduceDriver.withInput(key1,values1);
+  reduceDriver.withInput(key2,values2);
+  reduceDriver.withInput(key3,values3);
+  List<Pair<Text,Text>> result=reduceDriver.run();
+  Pair<Text,Text> p1=new Pair<Text,Text>(new Text("72010ustech"),newValueText(codec,"45.43","10","20.34",3));
+  Pair<Text,Text> p2=new Pair<Text,Text>(new Text("1tech"),newValueText(codec,"35.43","15.09","20.34",2));
+  Pair<Text,Text> p3=new Pair<Text,Text>(new Text("0"),newValueText(codec,"146.52","146.52","146.52",4));
+  assertEquals(3,result.size());
+  assertTrue(result.contains(p1));
+  assertTrue(result.contains(p2));
+  assertTrue(result.contains(p3));
+}

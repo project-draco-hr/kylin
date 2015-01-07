@@ -1,0 +1,4 @@
+{
+  Map<Integer,OLAPContext> map=_localContexts.get();
+  return map == null ? null : map.values();
+}

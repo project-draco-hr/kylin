@@ -1,0 +1,3 @@
+CubeSegment cubeSeg
+HBaseKeyRange keyRange
+Collection<RowValueDecoder> rowValueDecoders

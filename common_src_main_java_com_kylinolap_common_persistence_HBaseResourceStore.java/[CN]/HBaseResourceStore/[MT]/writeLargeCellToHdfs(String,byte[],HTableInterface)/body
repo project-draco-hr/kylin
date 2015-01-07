@@ -1,0 +1,16 @@
+{
+  Path redirectPath=bigCellHDFSPath(resPath);
+  Configuration hconf=HadoopUtil.getDefaultConfiguration();
+  FileSystem fileSystem=FileSystem.get(hconf);
+  if (fileSystem.exists(redirectPath)) {
+    fileSystem.delete(redirectPath,true);
+  }
+  FSDataOutputStream out=fileSystem.create(redirectPath);
+  try {
+    out.write(largeColumn);
+  }
+  finally {
+    IOUtils.closeQuietly(out);
+  }
+  return redirectPath;
+}

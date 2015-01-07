@@ -1,0 +1,3 @@
+{
+  return optionsHelper.hasOption(option);
+}

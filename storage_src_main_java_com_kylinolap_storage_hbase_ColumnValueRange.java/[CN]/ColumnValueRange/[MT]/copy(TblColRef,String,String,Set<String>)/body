@@ -1,0 +1,7 @@
+{
+  this.column=column;
+  this.order=RowKeyColumnOrder.getInstance(column.getType());
+  this.beginValue=beginValue;
+  this.endValue=endValue;
+  this.equalValues=equalValues;
+}

@@ -1,0 +1,5 @@
+{
+  byte[] bytes=new byte[20];
+  int len=encodeKey(shard,timestamp,col,colValue,bytes,0);
+  return new ImmutableBytesWritable(bytes,0,len);
+}

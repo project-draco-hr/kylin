@@ -1,0 +1,10 @@
+{
+  if (!enableDecorrelation()) {
+    return rootRel;
+  }
+  final RelNode result=decorrelateQuery(rootRel);
+  if (result != rootRel) {
+    checkConvertedType(query,result);
+  }
+  return result;
+}

@@ -1,0 +1,5 @@
+{
+  OLAPRel olapChild=(OLAPRel)getChild();
+  ColumnRowType inputColumnRowType=olapChild.getColumnRowType();
+  return inputColumnRowType;
+}

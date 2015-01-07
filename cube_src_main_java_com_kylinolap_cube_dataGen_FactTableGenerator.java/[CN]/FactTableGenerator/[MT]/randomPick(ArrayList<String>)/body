@@ -1,0 +1,4 @@
+{
+  int index=r.nextInt(candidates.size());
+  return candidates.get(index);
+}

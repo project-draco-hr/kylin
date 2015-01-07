@@ -1,0 +1,6 @@
+{
+  Collection<Double> values=JOB_DURATION.values();
+  Double[] all=(Double[])values.toArray(new Double[values.size()]);
+  Percentile p=new Percentile(percentile);
+  return p.evaluate(ArrayUtils.toPrimitive(all));
+}

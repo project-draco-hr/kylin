@@ -1,0 +1,11 @@
+{
+  DeployUtil.initCliWorkDir();
+  DeployUtil.deployMetadata();
+  DeployUtil.deployJobJars();
+  deployJobConfToEtc();
+  DeployUtil.prepareTestData("inner","test_kylin_cube_with_slr_empty");
+  CubeManager cubeManager=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
+  for (  CubeInstance cubeInstance : cubeManager.listAllCubes()) {
+    if (!cubeInstance.getName().equalsIgnoreCase("test_kylin_cube_without_slr_empty") && !cubeInstance.getName().equalsIgnoreCase("test_kylin_cube_with_slr_empty"))     cubeManager.dropCube(cubeInstance.getName(),false);
+  }
+}

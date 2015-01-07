@@ -1,0 +1,9 @@
+{
+  InputStream is=getKylinPropertiesAsInputSteam();
+  if (is == null) {
+    throw new IllegalArgumentException("Failed to load kylin config");
+  }
+  KylinConfig config=new KylinConfig();
+  config.reloadKylinConfig(is);
+  return config;
+}

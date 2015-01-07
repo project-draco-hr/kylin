@@ -1,0 +1,6 @@
+{
+  if (File.separatorChar != '/') {
+    path=path.replace(File.separatorChar,'/');
+  }
+  return path;
+}

@@ -1,0 +1,6 @@
+{
+  super.setUp();
+  queryController=new QueryController();
+  queryController.setQueryService(queryService);
+  queryController.setCacheManager(cacheManager);
+}

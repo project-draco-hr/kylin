@@ -1,0 +1,3 @@
+{
+  return s0.concat(s1);
+}

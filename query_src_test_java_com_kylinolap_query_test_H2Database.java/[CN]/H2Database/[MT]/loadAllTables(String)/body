@@ -1,0 +1,5 @@
+{
+  for (  String tableName : ALL_TABLES) {
+    loadH2Table(tableName,joinType);
+  }
+}

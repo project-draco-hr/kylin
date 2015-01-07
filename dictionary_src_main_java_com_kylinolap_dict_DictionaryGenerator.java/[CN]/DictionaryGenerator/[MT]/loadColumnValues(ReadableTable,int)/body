@@ -1,0 +1,28 @@
+{
+  TableReader reader=inpTable.getReader();
+  try {
+    ArrayList<byte[]> result=Lists.newArrayList();
+    HashSet<String> dedup=new HashSet<String>();
+    while (reader.next()) {
+      String[] split=reader.getRow();
+      String colValue;
+      if (split.length == 1) {
+        colValue=split[0];
+      }
+ else {
+        if (split.length <= colIndex) {
+          throw new ArrayIndexOutOfBoundsException("Column no. " + colIndex + " not found, line split is "+ Arrays.asList(split));
+        }
+        colValue=split[colIndex];
+      }
+      if (dedup.contains(colValue) == false) {
+        dedup.add(colValue);
+        result.add(Bytes.toBytes(colValue));
+      }
+    }
+    return result;
+  }
+  finally {
+    reader.close();
+  }
+}

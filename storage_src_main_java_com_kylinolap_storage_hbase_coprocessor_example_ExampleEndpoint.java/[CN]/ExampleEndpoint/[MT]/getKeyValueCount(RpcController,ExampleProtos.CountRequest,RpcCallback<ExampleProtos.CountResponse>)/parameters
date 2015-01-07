@@ -1,0 +1,3 @@
+RpcController controller
+ExampleProtos.CountRequest request
+RpcCallback<ExampleProtos.CountResponse> done

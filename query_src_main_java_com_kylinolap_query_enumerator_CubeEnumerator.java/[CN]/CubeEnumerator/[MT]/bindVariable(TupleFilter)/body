@@ -1,0 +1,18 @@
+{
+  if (filter == null) {
+    return;
+  }
+  for (  TupleFilter childFilter : filter.getChildren()) {
+    bindVariable(childFilter);
+  }
+  if (filter instanceof CompareTupleFilter && optiqContext != null) {
+    CompareTupleFilter compFilter=(CompareTupleFilter)filter;
+    for (    Map.Entry<String,String> entry : compFilter.getVariables().entrySet()) {
+      String variable=entry.getKey();
+      Object value=optiqContext.get(variable);
+      if (value != null) {
+        compFilter.bindVariable(variable,value.toString());
+      }
+    }
+  }
+}

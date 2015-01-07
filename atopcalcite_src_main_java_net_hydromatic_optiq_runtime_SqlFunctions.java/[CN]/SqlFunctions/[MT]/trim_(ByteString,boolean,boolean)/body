@@ -1,0 +1,27 @@
+{
+  int j=s.length();
+  if (right) {
+    for (; ; ) {
+      if (j == 0) {
+        return ByteString.EMPTY;
+      }
+      if (s.byteAt(j - 1) != 0) {
+        break;
+      }
+      --j;
+    }
+  }
+  int i=0;
+  if (left) {
+    for (; ; ) {
+      if (i == j) {
+        return ByteString.EMPTY;
+      }
+      if (s.byteAt(i) != 0) {
+        break;
+      }
+      ++i;
+    }
+  }
+  return s.substring(i,j);
+}

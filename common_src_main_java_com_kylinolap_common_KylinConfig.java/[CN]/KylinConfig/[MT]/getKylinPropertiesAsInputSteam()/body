@@ -1,0 +1,26 @@
+{
+  File propFile=null;
+  String path=System.getProperty(KYLIN_CONF);
+  if (path == null) {
+    path=System.getenv(KYLIN_CONF);
+  }
+  propFile=getKylinPropertiesFile(path);
+  if (propFile == null) {
+    propFile=getKylinPropertiesFile(KYLIN_CONF_DEFAULT);
+  }
+  if (propFile != null) {
+    logger.debug("Loading property file " + propFile.getAbsolutePath());
+    try {
+      return new FileInputStream(propFile);
+    }
+ catch (    FileNotFoundException e) {
+      logger.warn("Failed to read properties " + propFile.getAbsolutePath() + " and skip");
+    }
+  }
+  logger.info("Search " + KYLIN_CONF_PROPERTIES_FILE + " from classpath ...");
+  InputStream is=KylinConfig.class.getClassLoader().getResourceAsStream("kylin.properties");
+  if (is == null) {
+    logger.info("Did not find properties file " + KYLIN_CONF_PROPERTIES_FILE + " from classpath");
+  }
+  return is;
+}

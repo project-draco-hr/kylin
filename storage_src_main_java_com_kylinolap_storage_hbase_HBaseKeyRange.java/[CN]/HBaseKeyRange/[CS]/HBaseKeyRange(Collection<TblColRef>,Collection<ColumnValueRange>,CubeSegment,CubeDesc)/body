@@ -1,0 +1,9 @@
+{
+  this.cubeSeg=cubeSeg;
+  long cuboidId=this.calculateCuboidID(cubeDesc,dimensionColumns);
+  this.cuboid=Cuboid.findById(cubeDesc,cuboidId);
+  this.flatOrAndFilter=Lists.newLinkedList();
+  this.flatOrAndFilter.add(andDimensionRanges);
+  init(andDimensionRanges);
+  initDebugString();
+}

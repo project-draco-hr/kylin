@@ -1,0 +1,7 @@
+{
+  String min=null;
+  for (  String s : strs) {
+    if (min == null || min.compareTo(s) > 0)     min=s;
+  }
+  return min;
+}

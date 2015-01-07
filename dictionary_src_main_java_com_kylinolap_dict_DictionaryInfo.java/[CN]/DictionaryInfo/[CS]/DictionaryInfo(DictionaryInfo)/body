@@ -1,0 +1,9 @@
+{
+  this.updateRandomUuid();
+  this.sourceTable=other.sourceTable;
+  this.sourceColumn=other.sourceColumn;
+  this.sourceColumnIndex=other.sourceColumnIndex;
+  this.dataType=other.dataType;
+  this.input=other.input;
+  this.inputDelimeter=other.inputDelimeter;
+}

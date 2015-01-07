@@ -1,0 +1,3 @@
+{
+  return getOptional(KYLIN_TMP_HDFS_DIR,"/tmp/kylin");
+}

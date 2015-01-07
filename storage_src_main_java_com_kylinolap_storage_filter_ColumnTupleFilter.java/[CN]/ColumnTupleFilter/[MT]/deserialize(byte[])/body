@@ -1,0 +1,10 @@
+{
+  ByteBuffer buffer=ByteBuffer.wrap(bytes);
+  TableDesc table=new TableDesc();
+  table.setName(BytesUtil.readUTFString(buffer));
+  ColumnDesc column=new ColumnDesc();
+  column.setTable(table);
+  column.setName(BytesUtil.readUTFString(buffer));
+  column.setDatatype(BytesUtil.readUTFString(buffer));
+  this.columnRef=new TblColRef(column);
+}

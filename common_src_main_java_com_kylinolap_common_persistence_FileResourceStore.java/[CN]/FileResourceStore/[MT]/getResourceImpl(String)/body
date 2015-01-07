@@ -1,0 +1,5 @@
+{
+  File f=file(resPath);
+  if (f.exists() && f.isFile())   return new FileInputStream(file(resPath));
+ else   return null;
+}

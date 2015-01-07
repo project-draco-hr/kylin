@@ -1,0 +1,12 @@
+{
+  int allTriggersCount=0;
+  try {
+    for (    String groupName : scheduler.getJobGroupNames()) {
+      allTriggersCount+=scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupName)).size();
+    }
+  }
+ catch (  SchedulerException e) {
+    log.error("Can't get scheduler metadata!",e);
+  }
+  return allTriggersCount;
+}

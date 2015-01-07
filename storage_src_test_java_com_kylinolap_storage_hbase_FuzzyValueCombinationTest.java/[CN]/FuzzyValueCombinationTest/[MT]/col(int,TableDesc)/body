@@ -1,0 +1,8 @@
+{
+  ColumnDesc col=new ColumnDesc();
+  col.setId("" + i);
+  col.setName("Col" + i);
+  col.setDatatype("string");
+  col.setTable(t);
+  return new TblColRef(col);
+}

@@ -1,0 +1,6 @@
+{
+  if (!hllcMap.containsKey(key)) {
+    hllcMap.put(key,new HyperLogLogPlusCounter());
+  }
+  return hllcMap.get(key);
+}

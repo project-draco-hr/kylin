@@ -1,0 +1,19 @@
+{
+  int padCount=0;
+  for (int i=offset; i < bytes.length; i++) {
+    byte vb=bytes[i];
+    if (vb == RowConstants.ROWKEY_PLACE_HOLDER_BYTE) {
+      padCount++;
+    }
+  }
+  int size=bytes.length - offset - padCount;
+  byte[] stripBytes=new byte[size];
+  int index=0;
+  for (int i=offset; i < bytes.length; i++) {
+    byte vb=bytes[i];
+    if (vb != RowConstants.ROWKEY_PLACE_HOLDER_BYTE) {
+      stripBytes[index++]=vb;
+    }
+  }
+  return stripBytes;
+}

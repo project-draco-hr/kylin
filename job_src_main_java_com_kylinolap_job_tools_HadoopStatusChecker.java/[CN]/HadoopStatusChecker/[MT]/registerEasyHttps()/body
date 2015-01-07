@@ -1,0 +1,6 @@
+{
+  if (EASY_HTTPS == null) {
+    EASY_HTTPS=new Protocol("https",(ProtocolSocketFactory)new DefaultSslProtocolSocketFactory(),443);
+    Protocol.registerProtocol("https",EASY_HTTPS);
+  }
+}

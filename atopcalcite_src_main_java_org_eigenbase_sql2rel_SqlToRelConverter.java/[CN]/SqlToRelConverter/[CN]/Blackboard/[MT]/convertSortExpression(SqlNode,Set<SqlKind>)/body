@@ -1,0 +1,12 @@
+{
+switch (expr.getKind()) {
+case DESCENDING:
+case NULLS_LAST:
+case NULLS_FIRST:
+    flags.add(expr.getKind());
+  final SqlNode operand=((SqlCall)expr).operand(0);
+return convertSortExpression(operand,flags);
+default :
+return convertExpression(expr);
+}
+}

@@ -1,0 +1,18 @@
+{
+  CubeDesc cube=getTestKylinCubeWithSeller();
+  Cuboid cuboid;
+  cuboid=Cuboid.findById(cube,0);
+  assertEquals(toLong("100100000"),cuboid.getId());
+  cuboid=Cuboid.findById(cube,1);
+  assertEquals(toLong("100000111"),cuboid.getId());
+  cuboid=Cuboid.findById(cube,toLong("010"));
+  assertEquals(toLong("100000111"),cuboid.getId());
+  cuboid=Cuboid.findById(cube,toLong("0100000"));
+  assertEquals(toLong("100100000"),cuboid.getId());
+  cuboid=Cuboid.findById(cube,toLong("1001000"));
+  assertEquals(toLong("101111000"),cuboid.getId());
+  cuboid=Cuboid.findById(cube,toLong("1000111"));
+  assertEquals(toLong("101000111"),cuboid.getId());
+  cuboid=Cuboid.findById(cube,toLong("111111111"));
+  assertEquals(toLong("111111111"),cuboid.getId());
+}

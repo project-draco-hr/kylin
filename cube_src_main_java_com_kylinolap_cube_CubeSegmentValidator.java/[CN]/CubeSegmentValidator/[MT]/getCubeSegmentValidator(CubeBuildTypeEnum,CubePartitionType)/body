@@ -1,0 +1,15 @@
+{
+switch (buildType) {
+case MERGE:
+    return new MergeOperationValidator();
+case BUILD:
+switch (partitionType) {
+case APPEND:
+    return new IncrementalBuildOperationValidator();
+case UPDATE_INSERT:
+  return new UpdateBuildOperationValidator();
+}
+default :
+return new CubeSegmentValidator();
+}
+}

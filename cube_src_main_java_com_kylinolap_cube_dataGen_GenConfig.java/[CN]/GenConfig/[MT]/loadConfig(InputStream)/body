@@ -1,0 +1,16 @@
+{
+  try {
+    GenConfig config=JsonUtil.readValue(stream,GenConfig.class);
+    return config;
+  }
+ catch (  JsonMappingException e) {
+    e.printStackTrace();
+  }
+catch (  JsonParseException e) {
+    e.printStackTrace();
+  }
+catch (  IOException e) {
+    e.printStackTrace();
+  }
+  return null;
+}

@@ -1,0 +1,14 @@
+{
+  String alias=validator.deriveAlias(node,ordinal);
+  if ((alias == null) || aliases.contains(alias)) {
+    String aliasBase=(alias == null) ? "EXPR$" : alias;
+    for (int j=0; ; j++) {
+      alias=aliasBase + j;
+      if (!aliases.contains(alias)) {
+        break;
+      }
+    }
+  }
+  aliases.add(alias);
+  return alias;
+}

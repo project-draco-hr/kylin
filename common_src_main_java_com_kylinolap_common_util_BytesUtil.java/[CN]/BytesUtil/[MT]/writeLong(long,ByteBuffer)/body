@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < 8; i++) {
+    out.put((byte)num);
+    num>>>=8;
+  }
+}

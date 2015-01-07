@@ -1,0 +1,4 @@
+{
+  boolean enableLzo=LZOSupportnessChecker.getSupportness();
+  overrideJobConf(confDir,enableLzo);
+}

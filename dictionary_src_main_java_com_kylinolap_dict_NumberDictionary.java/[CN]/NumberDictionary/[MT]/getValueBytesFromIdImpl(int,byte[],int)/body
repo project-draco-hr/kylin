@@ -1,0 +1,6 @@
+{
+  NumberBytesCodec codec=getCodec();
+  codec.bufOffset=0;
+  codec.bufLen=super.getValueBytesFromIdImpl(id,codec.buf,0);
+  return codec.decodeNumber(returnValue,offset);
+}

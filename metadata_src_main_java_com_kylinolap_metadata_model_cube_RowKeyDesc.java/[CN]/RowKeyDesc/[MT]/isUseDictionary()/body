@@ -1,0 +1,8 @@
+{
+  for (  RowKeyColDesc col : getRowKeyColumns()) {
+    if (isUseDictionary(col.getColRef())) {
+      return true;
+    }
+  }
+  return false;
+}

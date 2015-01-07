@@ -1,0 +1,15 @@
+{
+  List<JobInstance> allJobs=listAllJobs();
+  if (allJobs.size() == 0) {
+    return Collections.emptyList();
+  }
+  ArrayList<JobInstance> result=new ArrayList<JobInstance>();
+  for (  JobInstance job : allJobs) {
+    if (job != null) {
+      if (job.getStatus().equals(status)) {
+        result.add(job);
+      }
+    }
+  }
+  return result;
+}

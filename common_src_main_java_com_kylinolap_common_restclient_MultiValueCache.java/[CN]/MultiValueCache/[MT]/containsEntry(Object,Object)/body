@@ -1,0 +1,3 @@
+{
+  return innerCache.containsEntry(key,value);
+}

@@ -1,0 +1,23 @@
+{
+  cubeName=context.getConfiguration().get(BatchConstants.CFG_CUBE_NAME).toUpperCase();
+  segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME);
+  intermediateTableRowDelimiter=context.getConfiguration().get(BatchConstants.CFG_CUBE_INTERMEDIATE_TABLE_ROW_DELIMITER,Character.toString(BatchConstants.INTERMEDIATE_TABLE_ROW_DELIMITER));
+  if (Bytes.toBytes(intermediateTableRowDelimiter).length > 1) {
+    throw new RuntimeException("Expected delimiter byte length is 1, but got " + Bytes.toBytes(intermediateTableRowDelimiter).length);
+  }
+  byteRowDelimiter=Bytes.toBytes(intermediateTableRowDelimiter)[0];
+  KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata(context.getConfiguration());
+  cube=CubeManager.getInstance(config).getCube(cubeName);
+  cubeDesc=cube.getDescriptor();
+  cubeSegment=cube.getSegment(segmentName,CubeSegmentStatusEnum.NEW);
+  long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
+  baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
+  intermediateTableDesc=new JoinedFlatTableDesc(cube.getDescriptor(),cubeSegment);
+  bytesSplitter=new BytesSplitter(200,4096);
+  rowKeyEncoder=AbstractRowKeyEncoder.createInstance(cubeSegment,baseCuboid);
+  measureCodec=new MeasureCodec(cubeDesc.getMeasures());
+  measures=new Object[cubeDesc.getMeasures().size()];
+  int colCount=cubeDesc.getRowkey().getRowKeyColumns().length;
+  keyBytesBuf=new byte[colCount][];
+  initNullBytes();
+}

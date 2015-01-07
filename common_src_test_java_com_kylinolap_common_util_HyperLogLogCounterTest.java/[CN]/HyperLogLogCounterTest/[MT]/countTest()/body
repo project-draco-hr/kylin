@@ -1,0 +1,7 @@
+{
+  int n=10;
+  for (int i=0; i < 5; i++) {
+    count(n);
+    n*=10;
+  }
+}

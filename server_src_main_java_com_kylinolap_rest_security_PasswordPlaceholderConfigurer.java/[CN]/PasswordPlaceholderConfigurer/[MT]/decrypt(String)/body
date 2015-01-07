@@ -1,0 +1,12 @@
+{
+  try {
+    Cipher cipher=Cipher.getInstance("AES/ECB/PKCS5PADDING");
+    final SecretKeySpec secretKey=new SecretKeySpec(key,"AES");
+    cipher.init(Cipher.DECRYPT_MODE,secretKey);
+    final String decryptedString=new String(cipher.doFinal(Base64.decodeBase64(strToDecrypt)));
+    return decryptedString;
+  }
+ catch (  Exception e) {
+    throw new RuntimeException(e.getMessage(),e);
+  }
+}

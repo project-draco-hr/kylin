@@ -1,0 +1,6 @@
+{
+  super(cluster,traits,child,condition);
+  Preconditions.checkArgument(getConvention() == OLAPRel.CONVENTION);
+  Preconditions.checkArgument(getConvention() == child.getConvention());
+  this.rowType=getRowType();
+}

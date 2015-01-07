@@ -1,0 +1,34 @@
+{
+  TupleInfo info=new TupleInfo();
+  int index=0;
+  rowKeyDecoder.setCuboid(cuboid);
+  List<TblColRef> rowColumns=rowKeyDecoder.getColumns();
+  List<String> colNames=rowKeyDecoder.getNames(aliasMap);
+  for (int i=0; i < rowColumns.size(); i++) {
+    TblColRef column=rowColumns.get(i);
+    if (!dimensions.contains(column)) {
+      continue;
+    }
+    info.setField(colNames.get(i),rowColumns.get(i),rowColumns.get(i).getType().getName(),index++);
+  }
+  Map<Array<TblColRef>,List<DeriveInfo>> hostToDerivedInfo=cubeSeg.getCubeDesc().getHostToDerivedInfo(rowColumns,null);
+  for (  Entry<Array<TblColRef>,List<DeriveInfo>> entry : hostToDerivedInfo.entrySet()) {
+    TblColRef[] hostCols=entry.getKey().data;
+    for (    DeriveInfo deriveInfo : entry.getValue()) {
+      for (      TblColRef derivedCol : deriveInfo.columns) {
+        String derivedField=getFieldName(derivedCol,aliasMap);
+        info.setField(derivedField,derivedCol,derivedCol.getType().getName(),index++);
+      }
+      info.addDerivedColumnFiller(Tuple.newDerivedColumnFiller(rowColumns,hostCols,deriveInfo,info,CubeManager.getInstance(cube.getConfig()),cubeSeg));
+    }
+  }
+  for (  RowValueDecoder rowValueDecoder : rowValueDecoders) {
+    List<String> names=rowValueDecoder.getNames();
+    MeasureDesc[] measures=rowValueDecoder.getMeasures();
+    for (int i=0; i < measures.length; i++) {
+      String dataType=measures[i].getFunction().getSQLType();
+      info.setField(names.get(i),null,dataType,index++);
+    }
+  }
+  return info;
+}

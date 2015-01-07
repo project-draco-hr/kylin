@@ -1,0 +1,5 @@
+Blackboard bb
+RelNode leftRel
+RelNode rightRel
+RexNode joinCond
+JoinRelType joinType

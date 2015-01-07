@@ -1,0 +1,12 @@
+{
+switch (this.operator) {
+case AND:
+    return evalAnd(tuple);
+case OR:
+  return evalOr(tuple);
+case NOT:
+return evalNot(tuple);
+default :
+return false;
+}
+}

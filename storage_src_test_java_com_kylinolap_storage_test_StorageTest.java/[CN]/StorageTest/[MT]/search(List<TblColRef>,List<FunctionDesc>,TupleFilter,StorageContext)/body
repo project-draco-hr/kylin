@@ -1,0 +1,21 @@
+{
+  int count=0;
+  ITupleIterator iterator=null;
+  try {
+    iterator=storageEngine.search(groups,filter,groups,aggregations,context);
+    while (iterator.hasNext()) {
+      ITuple tuple=iterator.next();
+      System.out.println("Tuple = " + tuple);
+      count++;
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+ finally {
+    if (iterator != null) {
+      iterator.close();
+    }
+  }
+  return count;
+}

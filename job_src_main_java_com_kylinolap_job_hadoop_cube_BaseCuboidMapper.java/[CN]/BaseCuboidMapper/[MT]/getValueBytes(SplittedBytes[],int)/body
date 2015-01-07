@@ -1,0 +1,31 @@
+{
+  MeasureDesc desc=cubeDesc.getMeasures().get(measureIdx);
+  FunctionDesc func=desc.getFunction();
+  ParameterDesc paramDesc=func.getParameter();
+  int[] flatTableIdx=intermediateTableDesc.getMeasureColumnIndexes()[measureIdx];
+  byte[] result=null;
+  if (flatTableIdx == null) {
+    result=Bytes.toBytes(paramDesc.getValue());
+  }
+ else {
+    for (int i=0; i < flatTableIdx.length; i++) {
+      SplittedBytes split=splitBuffers[flatTableIdx[i]];
+      if (result == null) {
+        result=Arrays.copyOf(split.value,split.length);
+      }
+ else {
+        byte[] newResult=new byte[result.length + split.length];
+        System.arraycopy(result,0,newResult,0,result.length);
+        System.arraycopy(split.value,0,newResult,result.length,split.length);
+        result=newResult;
+      }
+    }
+  }
+  if (func.isCount() || func.isHolisticCountDistinct()) {
+    result=ONE;
+  }
+  if (isNull(result)) {
+    result=null;
+  }
+  return result;
+}

@@ -1,0 +1,3 @@
+{
+  return new DataSet<MetaCatalog>(MetaCatalog.meta,new KylinEnumerator<MetaCatalog>(catalogs));
+}

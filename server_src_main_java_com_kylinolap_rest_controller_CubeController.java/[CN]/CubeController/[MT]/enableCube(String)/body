@@ -1,0 +1,14 @@
+{
+  try {
+    CubeInstance cube=cubeService.getCubeManager().getCube(cubeName);
+    if (null == cube) {
+      throw new InternalErrorException("Cannot find cube " + cubeName);
+    }
+    return cubeService.enableCube(cube);
+  }
+ catch (  Exception e) {
+    String message="Failed to enable cube: " + cubeName;
+    logger.error(message,e);
+    throw new InternalErrorException(message + " Caused by: " + e.getMessage(),e);
+  }
+}

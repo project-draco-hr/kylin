@@ -1,0 +1,6 @@
+{
+  if (!sqlResponse.getIsException() && KylinConfig.getInstanceFromEnv().isQuerySecureEnabled()) {
+    CubeInstance cubeInstance=this.queryService.getCubeManager().getCube(sqlResponse.getCube());
+    queryService.checkAuthorization(cubeInstance);
+  }
+}

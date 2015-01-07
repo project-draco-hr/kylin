@@ -1,0 +1,11 @@
+{
+  CubeInstance cubeInstance=new CubeInstance();
+  cubeInstance.setConfig(cubeDesc.getConfig());
+  cubeInstance.setName(cubeName);
+  cubeInstance.setDescName(cubeDesc.getName());
+  cubeInstance.setCreateTime(formatTime(System.currentTimeMillis()));
+  cubeInstance.setSegments(new ArrayList<CubeSegment>());
+  cubeInstance.setStatus(CubeStatusEnum.DISABLED);
+  cubeInstance.updateRandomUuid();
+  return cubeInstance;
+}

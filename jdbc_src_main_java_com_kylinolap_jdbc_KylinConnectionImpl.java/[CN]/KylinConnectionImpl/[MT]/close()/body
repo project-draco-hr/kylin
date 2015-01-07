@@ -1,0 +1,5 @@
+{
+  super.close();
+  this.metaProject=null;
+  this.statements.clear();
+}

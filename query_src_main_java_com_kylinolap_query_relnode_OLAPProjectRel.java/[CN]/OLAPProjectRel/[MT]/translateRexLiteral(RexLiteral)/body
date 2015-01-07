@@ -1,0 +1,8 @@
+{
+  if (RexLiteral.isNullLiteral(literal)) {
+    return TblColRef.newInnerColumn("null",InnerDataTypeEnum.LITERAL);
+  }
+ else {
+    return TblColRef.newInnerColumn(literal.getValue().toString(),InnerDataTypeEnum.LITERAL);
+  }
+}

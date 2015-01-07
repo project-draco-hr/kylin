@@ -1,0 +1,17 @@
+{
+  this.threshold=DEFAULT_THRESHOLD;
+  this.limit=DEFAULT_THRESHOLD;
+  this.totalScanCount=0;
+  this.cuboid=null;
+  this.aliasMap=HashBiMap.create();
+  this.hasSort=false;
+  this.sortOrders=new ArrayList<OrderEnum>();
+  this.sortMeasures=new ArrayList<MeasureDesc>();
+  this.avoidAggregation=false;
+  this.exactAggregation=false;
+  this.otherMandatoryColumns=new HashSet<TblColRef>();
+  this.enableLimit=false;
+  this.enableCoprocessor=false;
+  this.acceptPartialResult=false;
+  this.partialResultReturned=false;
+}

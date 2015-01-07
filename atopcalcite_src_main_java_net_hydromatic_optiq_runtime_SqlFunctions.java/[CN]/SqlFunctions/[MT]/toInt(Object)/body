@@ -1,0 +1,3 @@
+{
+  return o instanceof Integer ? (Integer)o : o instanceof Number ? toInt((Number)o) : o instanceof String ? toInt((String)o) : (Integer)cannotConvert(o,int.class);
+}

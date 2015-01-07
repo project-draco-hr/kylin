@@ -1,0 +1,14 @@
+{
+  if (cursor == null) {
+    cursor=queryStorage();
+  }
+  if (!cursor.hasNext()) {
+    return false;
+  }
+  ITuple tuple=cursor.next();
+  if (tuple == null) {
+    return false;
+  }
+  convertCurrentRow(tuple);
+  return true;
+}

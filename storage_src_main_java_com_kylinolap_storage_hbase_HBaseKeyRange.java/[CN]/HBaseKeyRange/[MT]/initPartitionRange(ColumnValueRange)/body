@@ -1,0 +1,8 @@
+{
+  if (null != dimRange.getBeginValue()) {
+    this.partitionColumnStartDate=DateStrDictionary.stringToDate(dimRange.getBeginValue()).getTime();
+  }
+  if (null != dimRange.getEndValue()) {
+    this.partitionColumnEndDate=DateStrDictionary.stringToDate(dimRange.getEndValue()).getTime();
+  }
+}

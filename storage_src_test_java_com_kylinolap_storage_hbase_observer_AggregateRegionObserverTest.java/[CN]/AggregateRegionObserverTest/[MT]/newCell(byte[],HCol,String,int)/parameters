@@ -1,0 +1,4 @@
+byte[] key
+HCol col
+String decimal
+int number

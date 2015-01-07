@@ -1,0 +1,12 @@
+{
+  if (ENV_INSTANCE == null) {
+    try {
+      KylinConfig config=loadKylinConfig();
+      ENV_INSTANCE=config;
+    }
+ catch (    IllegalArgumentException e) {
+      throw new IllegalStateException("Failed to find KylinConfig ",e);
+    }
+  }
+  return ENV_INSTANCE;
+}

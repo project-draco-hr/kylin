@@ -1,0 +1,27 @@
+{
+  return new HandlerImpl(){
+    @Override public void onConnectionInit(    AvaticaConnection connection_) throws SQLException {
+      KylinConnectionImpl kylinConn=(KylinConnectionImpl)connection_;
+      RemoteClient runner=((KylinJdbc41Factory)factory).newRemoteClient(kylinConn);
+      try {
+        runner.connect();
+        kylinConn.setMetaProject(runner.getMetadata(kylinConn.getProject()));
+        logger.debug("Connection inited.");
+      }
+ catch (      ConnectionException e) {
+        logger.error(e.getLocalizedMessage(),e);
+        throw new SQLException(e.getLocalizedMessage());
+      }
+    }
+    public void onConnectionClose(    AvaticaConnection connection){
+      logger.debug("Connection closed.");
+    }
+    public void onStatementExecute(    AvaticaStatement statement,    ResultSink resultSink){
+      logger.debug("statement executed.");
+    }
+    public void onStatementClose(    AvaticaStatement statement){
+      logger.debug("statement closed.");
+    }
+  }
+;
+}

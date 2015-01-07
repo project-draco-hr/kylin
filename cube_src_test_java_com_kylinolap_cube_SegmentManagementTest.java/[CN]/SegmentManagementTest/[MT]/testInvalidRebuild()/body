@@ -1,0 +1,5 @@
+{
+  CubeInstance cubeInstance=cubeMgr.getCube("test_kylin_cube_with_slr_ready");
+  System.out.println("Rebuild Segment");
+  cubeMgr.allocateSegments(cubeInstance,CubeBuildTypeEnum.BUILD,1364688000000L + 1000L,1386806400000L).get(0);
+}

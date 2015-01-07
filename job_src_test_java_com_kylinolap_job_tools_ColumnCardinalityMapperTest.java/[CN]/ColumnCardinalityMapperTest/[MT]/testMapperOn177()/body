@@ -1,0 +1,24 @@
+{
+  mapDriver.clearInput();
+  File file=new File("src/test/resources/data/test_cal_dt/part-r-00000");
+  FileReader reader=new FileReader(file);
+  BufferedReader breader=new BufferedReader(reader);
+  String s=breader.readLine();
+  int i=0;
+  while (s != null) {
+    LongWritable inputKey=new LongWritable(i++);
+    mapDriver.addInput(inputKey,new Text(s));
+    s=breader.readLine();
+  }
+  mapDriver.getConfiguration().set(HiveColumnCardinalityJob.KEY_INPUT_DELIM,"\20");
+  List<Pair<IntWritable,BytesWritable>> result=mapDriver.run();
+  breader.close();
+  assertEquals(9,result.size());
+  int key1=result.get(0).getFirst().get();
+  BytesWritable value1=result.get(0).getSecond();
+  byte[] bytes=value1.getBytes();
+  HyperLogLogPlusCounter hllc=new HyperLogLogPlusCounter();
+  hllc.readRegisters(ByteBuffer.wrap(bytes));
+  assertTrue(key1 > 0);
+  assertEquals(8,hllc.getCountEstimate());
+}

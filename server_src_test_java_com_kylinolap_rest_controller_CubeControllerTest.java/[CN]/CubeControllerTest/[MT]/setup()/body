@@ -1,0 +1,8 @@
+{
+  super.setUp();
+  cubeController=new CubeController();
+  cubeController.setCubeService(cubeService);
+  cubeController.setJobService(jobService);
+  cubeDescController=new CubeDescController();
+  cubeDescController.setCubeService(cubeService);
+}

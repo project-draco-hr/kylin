@@ -1,0 +1,35 @@
+{
+  try {
+    readAclById(acl.getObjectIdentity());
+  }
+ catch (  NotFoundException e) {
+    throw e;
+  }
+  HTableInterface htable=null;
+  try {
+    htable=HBaseConnection.get(hbaseUrl).getTable(aclTableName);
+    Delete delete=new Delete(Bytes.toBytes(String.valueOf(acl.getObjectIdentity().getIdentifier())));
+    delete.deleteFamily(Bytes.toBytes(ACL_ACES_FAMILY));
+    htable.delete(delete);
+    Put put=new Put(Bytes.toBytes(String.valueOf(acl.getObjectIdentity().getIdentifier())));
+    if (null != acl.getParentAcl()) {
+      put.add(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_PARENT_COLUMN),domainObjSerializer.serialize(new DomainObjectInfo(acl.getParentAcl().getObjectIdentity())));
+    }
+    for (    AccessControlEntry ace : acl.getEntries()) {
+      AceInfo aceInfo=new AceInfo(ace);
+      put.add(Bytes.toBytes(ACL_ACES_FAMILY),Bytes.toBytes(aceInfo.getSidInfo().getSid()),aceSerializer.serialize(aceInfo));
+    }
+    if (!put.isEmpty()) {
+      htable.put(put);
+      htable.flushCommits();
+      logger.debug("ACL of " + acl.getObjectIdentity() + " updated successfully.");
+    }
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e.getMessage(),e);
+  }
+ finally {
+    IOUtils.closeQuietly(htable);
+  }
+  return (MutableAcl)readAclById(acl.getObjectIdentity());
+}

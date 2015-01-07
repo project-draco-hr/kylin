@@ -1,0 +1,3 @@
+{
+  return o instanceof Float ? (Float)o : o instanceof Number ? toFloat((Number)o) : o instanceof String ? toFloat((String)o) : (Float)cannotConvert(o,float.class);
+}

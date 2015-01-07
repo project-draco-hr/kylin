@@ -1,0 +1,2 @@
+List<? extends TupleFilter> andFilters
+CubeSegment cubeSegment

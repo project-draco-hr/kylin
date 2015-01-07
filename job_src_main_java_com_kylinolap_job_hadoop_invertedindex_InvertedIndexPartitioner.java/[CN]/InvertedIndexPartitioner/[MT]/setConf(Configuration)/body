@@ -1,0 +1,14 @@
+{
+  this.conf=conf;
+  try {
+    KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata(conf);
+    CubeManager mgr=CubeManager.getInstance(config);
+    CubeInstance cube=mgr.getCube(conf.get(BatchConstants.CFG_CUBE_NAME));
+    CubeSegment seg=cube.getSegment(conf.get(BatchConstants.CFG_CUBE_SEGMENT_NAME),CubeSegmentStatusEnum.NEW);
+    this.info=new TableRecordInfo(seg);
+    this.rec=new TableRecord(this.info);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("",e);
+  }
+}

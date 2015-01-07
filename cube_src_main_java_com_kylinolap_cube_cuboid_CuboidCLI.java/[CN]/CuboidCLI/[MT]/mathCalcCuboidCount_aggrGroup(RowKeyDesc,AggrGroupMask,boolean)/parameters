@@ -1,0 +1,3 @@
+RowKeyDesc rowkey
+AggrGroupMask aggrGroupMask
+boolean hasTail

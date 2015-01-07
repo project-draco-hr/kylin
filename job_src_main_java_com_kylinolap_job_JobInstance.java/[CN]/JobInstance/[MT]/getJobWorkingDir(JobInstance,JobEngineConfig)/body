@@ -1,0 +1,3 @@
+{
+  return getJobWorkingDir(jobInstance.getUuid(),engineConfig.getHdfsWorkingDirectory());
+}

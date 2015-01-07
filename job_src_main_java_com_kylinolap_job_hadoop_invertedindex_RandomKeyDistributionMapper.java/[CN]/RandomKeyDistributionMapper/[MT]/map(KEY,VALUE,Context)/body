@@ -1,0 +1,5 @@
+{
+  KEY keyCopy=(KEY)ReflectionUtils.newInstance(key.getClass(),conf);
+  ReflectionUtils.copy(conf,key,keyCopy);
+  allKeys.add(keyCopy);
+}

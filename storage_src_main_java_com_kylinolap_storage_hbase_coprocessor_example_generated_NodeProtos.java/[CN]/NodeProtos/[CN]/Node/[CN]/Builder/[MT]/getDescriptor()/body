@@ -1,0 +1,3 @@
+{
+  return com.kylinolap.storage.hbase.coprocessor.example.generated.NodeProtos.internal_static_Node_descriptor;
+}

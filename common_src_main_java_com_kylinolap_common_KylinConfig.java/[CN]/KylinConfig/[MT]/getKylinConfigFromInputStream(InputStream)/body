@@ -1,0 +1,5 @@
+{
+  KylinConfig config=new KylinConfig();
+  config.reloadKylinConfig(is);
+  return config;
+}

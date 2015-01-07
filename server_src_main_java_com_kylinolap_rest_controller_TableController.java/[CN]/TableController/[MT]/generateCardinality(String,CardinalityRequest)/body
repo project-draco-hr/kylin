@@ -1,0 +1,7 @@
+{
+  String[] tables=tableNames.split(",");
+  for (  String table : tables) {
+    cubeMgmtService.generateCardinality(table.trim(),request.getFormat(),request.getDelimiter());
+  }
+  return request;
+}
