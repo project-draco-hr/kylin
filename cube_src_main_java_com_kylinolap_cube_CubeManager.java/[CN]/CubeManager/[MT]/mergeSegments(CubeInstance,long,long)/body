@@ -2,36 +2,32 @@
   if (cubeInstance.getBuildingSegments().size() > 0) {
     throw new RuntimeException("There is already an allocating segment!");
   }
-  List<CubeSegment> segments=new ArrayList<CubeSegment>();
-  if (null != cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateColumn()) {
-    List<CubeSegment> readySegments=cubeInstance.getSegment(SegmentStatusEnum.READY);
-    if (readySegments.isEmpty()) {
-      throw new CubeIntegrityException("there are no segments in ready state");
-    }
-    long start=Long.MAX_VALUE;
-    long end=Long.MIN_VALUE;
-    for (    CubeSegment readySegment : readySegments) {
-      if (hasOverlap(startDate,endDate,readySegment.getDateRangeStart(),readySegment.getDateRangeEnd())) {
-        if (start > readySegment.getDateRangeStart()) {
-          start=readySegment.getDateRangeStart();
-        }
-        if (end < readySegment.getDateRangeEnd()) {
-          end=readySegment.getDateRangeEnd();
-        }
-      }
-    }
-    segments.add(buildSegment(cubeInstance,start,end));
-  }
- else {
+  if (cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateColumn() == null) {
     throw new CubeIntegrityException("there is no partition date, only full build is supported");
   }
-  validateNewSegments(cubeInstance,CubeBuildTypeEnum.MERGE,segments);
-  CubeSegment newSeg=segments.get(0);
-  List<CubeSegment> mergingSegments=cubeInstance.getMergingSegments(newSeg);
-  this.makeDictForNewSegment(cubeInstance,newSeg,mergingSegments);
-  this.makeSnapshotForNewSegment(cubeInstance,newSeg,mergingSegments);
-  cubeInstance.getSegments().addAll(segments);
+  List<CubeSegment> readySegments=cubeInstance.getSegment(SegmentStatusEnum.READY);
+  if (readySegments.isEmpty()) {
+    throw new CubeIntegrityException("there are no segments in ready state");
+  }
+  long start=Long.MAX_VALUE;
+  long end=Long.MIN_VALUE;
+  for (  CubeSegment readySegment : readySegments) {
+    if (hasOverlap(startDate,endDate,readySegment.getDateRangeStart(),readySegment.getDateRangeEnd())) {
+      if (start > readySegment.getDateRangeStart()) {
+        start=readySegment.getDateRangeStart();
+      }
+      if (end < readySegment.getDateRangeEnd()) {
+        end=readySegment.getDateRangeEnd();
+      }
+    }
+  }
+  CubeSegment newSegment=buildSegment(cubeInstance,start,end);
+  validateNewSegments(cubeInstance,CubeBuildTypeEnum.MERGE,newSegment);
+  List<CubeSegment> mergingSegments=cubeInstance.getMergingSegments(newSegment);
+  this.makeDictForNewSegment(cubeInstance,newSegment,mergingSegments);
+  this.makeSnapshotForNewSegment(cubeInstance,newSegment,mergingSegments);
+  cubeInstance.getSegments().add(newSegment);
   Collections.sort(cubeInstance.getSegments());
   this.updateCube(cubeInstance);
-  return segments;
+  return newSegment;
 }

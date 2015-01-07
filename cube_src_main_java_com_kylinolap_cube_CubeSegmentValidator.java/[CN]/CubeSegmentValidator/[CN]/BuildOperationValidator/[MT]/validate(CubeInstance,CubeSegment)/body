@@ -11,10 +11,6 @@
       throw new CubeIntegrityException("there is gap in cube segments");
     }
   }
-  if (newSegments.size() != 1) {
-    throw new CubeIntegrityException("there are more than 2 segments");
-  }
-  final CubeSegment newSegment=newSegments.get(0);
   if (cubeInstance.appendOnHll()) {
     if (newSegment.getDateRangeStart() == initStartDate && startDate < newSegment.getDateRangeEnd()) {
       return;

@@ -6,21 +6,19 @@
     }
   }
   try {
-    List<CubeSegment> cubeSegments;
+    CubeSegment cubeSegment=null;
     if (buildType == CubeBuildTypeEnum.BUILD) {
-      cubeSegments=this.getCubeManager().appendSegments(cube,startDate,endDate);
+      cubeSegment=this.getCubeManager().appendSegments(cube,startDate,endDate);
     }
  else     if (buildType == CubeBuildTypeEnum.MERGE) {
-      cubeSegments=this.getCubeManager().mergeSegments(cube,startDate,endDate);
+      throw new RuntimeException("has not implemented yet");
     }
  else {
       throw new JobException("invalid build type:" + buildType);
     }
-    Preconditions.checkState(cubeSegments.size() == 1,"can only allocate one segment");
-    CubeSegment segment=cubeSegments.get(0);
-    BuildCubeJobBuilder builder=BuildCubeJobBuilder.newBuilder(new JobEngineConfig(getConfig()),segment);
+    BuildCubeJobBuilder builder=BuildCubeJobBuilder.newBuilder(new JobEngineConfig(getConfig()),cubeSegment);
     final BuildCubeJob job=builder.build();
-    segment.setLastBuildJobID(job.getId());
+    cubeSegment.setLastBuildJobID(job.getId());
     getCubeManager().updateCube(cube);
     getExecutableManager().addJob(job);
     return parseToJobInstance(job);

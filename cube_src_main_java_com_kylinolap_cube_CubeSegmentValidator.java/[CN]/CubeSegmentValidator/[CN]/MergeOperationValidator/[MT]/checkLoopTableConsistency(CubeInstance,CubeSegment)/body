@@ -1,13 +1,12 @@
 {
-  CubeSegment cubeSeg=newSegments.get(0);
   DictionaryManager dictMgr=DictionaryManager.getInstance(cube.getConfig());
-  List<CubeSegment> segmentList=cube.getMergingSegments(cubeSeg);
+  List<CubeSegment> segmentList=cube.getMergingSegments(newSegment);
   HashSet<TblColRef> cols=new HashSet<TblColRef>();
   CubeDesc cubeDesc=cube.getDescriptor();
   for (  DimensionDesc dim : cubeDesc.getDimensions()) {
     for (    TblColRef col : dim.getColumnRefs()) {
       try {
-        if (cubeSeg.getCubeDesc().getRowkey().isUseDictionary(col)) {
+        if (newSegment.getCubeDesc().getRowkey().isUseDictionary(col)) {
           String dictTable=(String)dictMgr.decideSourceData(cubeDesc.getModel(),cubeDesc.getRowkey().getDictionary(col),col,null)[0];
           if (!cubeDesc.getFactTable().equalsIgnoreCase(dictTable)) {
             cols.add(col);

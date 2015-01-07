@@ -16,7 +16,7 @@
   }
   if (task instanceof MapReduceExecutable) {
     result.setExecCmd(((MapReduceExecutable)task).getMapReduceParams());
-    result.setExecWaitTime(((MapReduceExecutable)task).getMapReduceWaitTime());
+    result.setExecWaitTime(((MapReduceExecutable)task).getMapReduceWaitTime() / 1000);
   }
   if (task instanceof HadoopShellExecutable) {
     result.setExecCmd(((HadoopShellExecutable)task).getJobParams());
