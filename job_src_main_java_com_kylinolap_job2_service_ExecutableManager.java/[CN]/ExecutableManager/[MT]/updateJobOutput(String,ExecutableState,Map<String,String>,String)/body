@@ -1,0 +1,24 @@
+{
+  try {
+    final JobOutputPO jobOutput=jobDao.getJobOutput(jobId);
+    ExecutableState oldStatus=ExecutableState.valueOf(jobOutput.getStatus());
+    if (newStatus != null && oldStatus != newStatus) {
+      if (!ExecutableState.isValidStateTransfer(oldStatus,newStatus)) {
+        throw new IllegalStateTranferException("there is no valid state transfer from:" + oldStatus + " to:"+ newStatus);
+      }
+      jobOutput.setStatus(newStatus.toString());
+    }
+    if (info != null) {
+      jobOutput.setInfo(info);
+    }
+    if (output != null) {
+      jobOutput.setContent(output);
+    }
+    jobDao.updateJobOutput(jobOutput);
+    logger.info("job id:" + jobId + " from "+ oldStatus+ " to "+ newStatus);
+  }
+ catch (  PersistentException e) {
+    logger.error("error change job:" + jobId + " to "+ newStatus.toString());
+    throw new RuntimeException(e);
+  }
+}

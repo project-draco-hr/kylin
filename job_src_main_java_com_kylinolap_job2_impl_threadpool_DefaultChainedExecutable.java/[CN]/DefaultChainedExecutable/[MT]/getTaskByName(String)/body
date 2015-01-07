@@ -1,0 +1,8 @@
+{
+  for (  AbstractExecutable task : subTasks) {
+    if (task.getName() != null && task.getName().equalsIgnoreCase(name)) {
+      return task;
+    }
+  }
+  return null;
+}

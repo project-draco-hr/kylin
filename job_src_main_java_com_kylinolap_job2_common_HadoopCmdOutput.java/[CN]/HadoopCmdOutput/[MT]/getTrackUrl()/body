@@ -1,0 +1,11 @@
+{
+  try {
+    if (trackUrl == null) {
+      trackUrl=job.getInfo().get(ExecutableConstants.YARN_APP_URL);
+    }
+    return trackUrl;
+  }
+ catch (  JobException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -1,9 +1,7 @@
 {
-  List<JobInstance> jobInstances=this.getJobManager().listJobs(cube.getName(),null);
-  for (  JobInstance jobInstance : jobInstances) {
-    if (jobInstance.getStatus() == JobStatusEnum.PENDING || jobInstance.getStatus() == JobStatusEnum.RUNNING) {
-      throw new JobException("Cube schema shouldn't be changed with running job.");
-    }
+  final List<CubingJob> cubingJobs=listAllCubingJobs(cube.getName(),null,EnumSet.of(ExecutableState.READY,ExecutableState.RUNNING));
+  if (!cubingJobs.isEmpty()) {
+    throw new JobException("Cube schema shouldn't be changed with running job.");
   }
   try {
     if (!cube.getDescriptor().calculateSignature().equals(cube.getDescriptor().getSignature())) {

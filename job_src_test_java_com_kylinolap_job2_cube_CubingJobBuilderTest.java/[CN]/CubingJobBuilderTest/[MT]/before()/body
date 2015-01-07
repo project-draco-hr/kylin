@@ -1,0 +1,23 @@
+{
+  HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.SANDBOX_TEST_DATA);
+  DeployUtil.initCliWorkDir();
+  DeployUtil.deployMetadata();
+  DeployUtil.overrideJobJarLocations();
+  DeployUtil.overrideJobConf(HBaseMetadataTestCase.SANDBOX_TEST_DATA);
+  setFinalStatic(JobConstants.class.getField("DEFAULT_SCHEDULER_INTERVAL_SECONDS"),10);
+  final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  jobService=ExecutableManager.getInstance(kylinConfig);
+  scheduler=DefaultScheduler.getInstance();
+  scheduler.init(new JobEngineConfig(kylinConfig));
+  if (!scheduler.hasStarted()) {
+    throw new RuntimeException("scheduler has not been started");
+  }
+  cubeManager=CubeManager.getInstance(kylinConfig);
+  jobEngineConfig=new JobEngineConfig(kylinConfig);
+  for (  AbstractExecutable job : jobService.getAllExecutables()) {
+    jobService.deleteJob(job);
+  }
+  final CubeInstance testCube=cubeManager.getCube("test_kylin_cube_without_slr_left_join_empty");
+  testCube.getSegments().clear();
+  cubeManager.updateCube(testCube);
+}

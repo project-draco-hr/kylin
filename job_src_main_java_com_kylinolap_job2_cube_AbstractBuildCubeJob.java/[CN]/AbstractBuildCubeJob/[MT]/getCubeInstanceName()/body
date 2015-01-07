@@ -1,0 +1,3 @@
+{
+  return getParam(CUBE_INSTANCE_NAME);
+}

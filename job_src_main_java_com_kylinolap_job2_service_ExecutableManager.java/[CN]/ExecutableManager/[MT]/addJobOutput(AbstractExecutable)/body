@@ -1,0 +1,10 @@
+{
+  JobOutputPO jobOutputPO=new JobOutputPO();
+  jobOutputPO.setUuid(executable.getId());
+  jobDao.addJobOutput(jobOutputPO);
+  if (executable instanceof DefaultChainedExecutable) {
+    for (    AbstractExecutable subTask : ((DefaultChainedExecutable)executable).getTasks()) {
+      addJobOutput(subTask);
+    }
+  }
+}

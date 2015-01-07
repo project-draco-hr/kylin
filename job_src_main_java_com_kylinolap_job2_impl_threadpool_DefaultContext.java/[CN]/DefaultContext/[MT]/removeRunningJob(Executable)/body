@@ -1,0 +1,3 @@
+{
+  runningJobs.remove(executable.getId());
+}

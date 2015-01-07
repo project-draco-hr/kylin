@@ -1,0 +1,10 @@
+{
+switch (buildType) {
+case MERGE:
+    return new MergeOperationValidator();
+case BUILD:
+  return new BuildOperationValidator();
+default :
+throw new RuntimeException("invalid build type:" + buildType);
+}
+}

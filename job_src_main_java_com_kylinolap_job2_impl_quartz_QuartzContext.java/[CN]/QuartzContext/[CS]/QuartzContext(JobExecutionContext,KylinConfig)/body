@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument(context != null,"context cannot be null");
+  innerContext=context;
+  this.kylinConfig=kylinConfig;
+}

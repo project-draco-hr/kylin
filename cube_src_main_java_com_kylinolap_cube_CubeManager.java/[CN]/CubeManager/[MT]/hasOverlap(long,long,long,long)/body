@@ -1,0 +1,15 @@
+{
+  if (startDate >= endDate) {
+    throw new IllegalArgumentException("startDate must be less than endDate");
+  }
+  if (anotherStartDate >= anotherEndDate) {
+    throw new IllegalArgumentException("anotherStartDate must be less than anotherEndDate");
+  }
+  if (startDate <= anotherStartDate && anotherStartDate < endDate) {
+    return true;
+  }
+  if (startDate < anotherEndDate && anotherEndDate <= endDate) {
+    return true;
+  }
+  return false;
+}

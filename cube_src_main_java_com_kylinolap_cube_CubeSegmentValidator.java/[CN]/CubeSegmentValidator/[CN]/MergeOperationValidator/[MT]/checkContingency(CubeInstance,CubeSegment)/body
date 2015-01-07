@@ -1,0 +1,18 @@
+{
+  if (cubeInstance.getSegments().size() < 2) {
+    throw new CubeIntegrityException("No segments to merge.");
+  }
+  CubeSegment startSeg=null;
+  CubeSegment endSeg=null;
+  for (  CubeSegment segment : cubeInstance.getSegments()) {
+    if (segment.getDateRangeStart() == newSegment.getDateRangeStart()) {
+      startSeg=segment;
+    }
+    if (segment.getDateRangeEnd() == newSegment.getDateRangeEnd()) {
+      endSeg=segment;
+    }
+  }
+  if (null == startSeg || null == endSeg || startSeg.getDateRangeStart() >= endSeg.getDateRangeStart()) {
+    throw new CubeIntegrityException("Invalid date range.");
+  }
+}

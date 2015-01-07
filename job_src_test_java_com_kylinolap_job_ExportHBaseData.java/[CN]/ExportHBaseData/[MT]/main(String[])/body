@@ -1,7 +1,6 @@
 {
   ExportHBaseData export=new ExportHBaseData();
   try {
-    export.setup();
     export.exportTables();
   }
  catch (  IOException e) {

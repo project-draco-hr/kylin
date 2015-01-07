@@ -1,0 +1,28 @@
+{
+  final CubeInstance cube=cubeManager.getCube(getCubeName());
+  final CubeSegment segment=cube.getSegmentById(getSegmentId());
+  String sourceRecordsSize=jobService.getOutput(getCreateFlatTableStepId()).getExtra().get(ExecutableConstants.SOURCE_RECORDS_SIZE);
+  Preconditions.checkState(StringUtils.isNotEmpty(sourceRecordsSize),"Can't get cube source record size.");
+  long sourceSize=Long.parseLong(sourceRecordsSize);
+  String sourceRecordsCount=jobService.getOutput(getBaseCuboidStepId()).getExtra().get(ExecutableConstants.SOURCE_RECORDS_COUNT);
+  Preconditions.checkState(StringUtils.isNotEmpty(sourceRecordsCount),"Can't get cube source record count.");
+  long sourceCount=Long.parseLong(sourceRecordsCount);
+  String cubeSizeString=jobService.getOutput(getConvertToHfileStepId()).getExtra().get(ExecutableConstants.HDFS_BYTES_WRITTEN);
+  Preconditions.checkState(StringUtils.isNotEmpty(cubeSizeString),"Can't get cube segment size.");
+  long size=Long.parseLong(cubeSizeString) / 1024;
+  segment.setLastBuildJobID(getCubingJobId());
+  segment.setLastBuildTime(System.currentTimeMillis());
+  segment.setSizeKB(size);
+  segment.setSourceRecords(sourceCount);
+  segment.setSourceRecordsSize(sourceSize);
+  segment.setStatus(SegmentStatusEnum.READY);
+  cube.setStatus(RealizationStatusEnum.READY);
+  try {
+    cubeManager.updateCube(cube);
+    return new ExecuteResult(ExecuteResult.State.SUCCEED,"succeed");
+  }
+ catch (  IOException e) {
+    logger.error("fail to update cube after build",e);
+    return new ExecuteResult(ExecuteResult.State.ERROR,e.getLocalizedMessage());
+  }
+}

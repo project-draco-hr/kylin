@@ -1,0 +1,26 @@
+{
+  assertEquals(one.getClass(),another.getClass());
+  assertEquals(one.getId(),another.getId());
+  assertEquals(one.getStatus(),another.getStatus());
+  assertEquals(one.isRunnable(),another.isRunnable());
+  assertEquals(one.getOutput(),another.getOutput());
+  assertTrue((one.getParams() == null && another.getParams() == null) || (one.getParams() != null && another.getParams() != null));
+  if (one.getParams() != null) {
+    assertEquals(one.getParams().size(),another.getParams().size());
+    for (    String key : one.getParams().keySet()) {
+      assertEquals(one.getParams().get(key),another.getParams().get(key));
+    }
+  }
+  if (one instanceof ChainedExecutable) {
+    assertTrue(another instanceof ChainedExecutable);
+    List<? extends Executable> onesSubs=((ChainedExecutable)one).getTasks();
+    List<? extends Executable> anotherSubs=((ChainedExecutable)another).getTasks();
+    assertTrue((onesSubs == null && anotherSubs == null) || (onesSubs != null && anotherSubs != null));
+    if (onesSubs != null) {
+      assertEquals(onesSubs.size(),anotherSubs.size());
+      for (int i=0; i < onesSubs.size(); ++i) {
+        assertJobEqual(onesSubs.get(i),anotherSubs.get(i));
+      }
+    }
+  }
+}

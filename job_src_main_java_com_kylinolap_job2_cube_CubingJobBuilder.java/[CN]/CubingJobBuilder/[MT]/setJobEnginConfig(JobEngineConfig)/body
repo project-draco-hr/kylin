@@ -1,0 +1,4 @@
+{
+  this.jobEngineConfig=enginConfig;
+  return this;
+}

@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument(state != null,"state cannot be null");
+  this.state=state;
+  this.output=output;
+}

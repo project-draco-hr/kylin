@@ -1,0 +1,3 @@
+{
+  return getParam(CONVERT_TO_HFILE_STEP_ID);
+}

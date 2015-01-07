@@ -32,7 +32,7 @@
  else {
     segments.add(buildSegment(cubeInstance,0,0));
   }
-  validateNewSegments(cubeInstance,buildType,segments);
+  validateNewSegments(cubeInstance,buildType,segments.get(0));
   CubeSegment newSeg=segments.get(0);
   if (buildType == CubeBuildTypeEnum.MERGE) {
     List<CubeSegment> mergingSegments=cubeInstance.getMergingSegments(newSeg);

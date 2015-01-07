@@ -15,14 +15,12 @@ case JAVA_CMD_HADOOP_FACTDISTINCT:
 factDistinctJob.setAsync(isAsync);
 return new JavaHadoopCmd(command,instanceID,jobStepID,engineConfig,factDistinctJob,isAsync);
 case JAVA_CMD_HADOOP_BASECUBOID:
-CuboidJob baseCuboidJob=new CuboidJob();
+BaseCuboidJob baseCuboidJob=new BaseCuboidJob();
 baseCuboidJob.setAsync(isAsync);
-baseCuboidJob.setMapperClass(BaseCuboidMapper.class);
 return new JavaHadoopCmd(command,instanceID,jobStepID,engineConfig,baseCuboidJob,isAsync);
 case JAVA_CMD_HADOOP_NDCUBOID:
-CuboidJob ndCuboidJob=new CuboidJob();
+NDCuboidJob ndCuboidJob=new NDCuboidJob();
 ndCuboidJob.setAsync(isAsync);
-ndCuboidJob.setMapperClass(NDCuboidMapper.class);
 return new JavaHadoopCmd(command,instanceID,jobStepID,engineConfig,ndCuboidJob,isAsync);
 case JAVA_CMD_HADOOP_RANGEKEYDISTRIBUTION:
 AbstractHadoopJob rangeKeyDistributionJob=new RangeKeyDistributionJob();

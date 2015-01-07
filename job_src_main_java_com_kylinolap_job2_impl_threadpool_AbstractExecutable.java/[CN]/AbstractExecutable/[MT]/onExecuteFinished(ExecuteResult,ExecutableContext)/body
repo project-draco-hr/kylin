@@ -1,0 +1,12 @@
+{
+  jobService.addJobInfo(getId(),END_TIME,Long.toString(System.currentTimeMillis()));
+  if (result.succeed()) {
+    jobService.updateJobOutput(getId(),ExecutableState.SUCCEED,null,result.output());
+  }
+ else   if (result.state() == ExecuteResult.State.STOPPED) {
+    jobService.updateJobOutput(getId(),ExecutableState.STOPPED,null,result.output());
+  }
+ else {
+    jobService.updateJobOutput(getId(),ExecutableState.ERROR,null,result.output());
+  }
+}
