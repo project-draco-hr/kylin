@@ -1,4 +1,4 @@
 {
-  final ExecutableState status=getStatus();
+  final ExecutableState status=jobService.getOutput(getId()).getState();
   return status == ExecutableState.STOPPED || status == ExecutableState.DISCARDED;
 }
