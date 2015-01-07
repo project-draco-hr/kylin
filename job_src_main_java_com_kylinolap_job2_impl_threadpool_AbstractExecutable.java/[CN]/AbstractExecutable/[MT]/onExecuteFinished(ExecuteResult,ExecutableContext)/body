@@ -1,11 +1,12 @@
 {
+  jobService.addJobInfo(getId(),END_TIME,Long.toString(System.currentTimeMillis()));
   if (result.succeed()) {
-    jobService.updateJobStatus(getId(),ExecutableState.SUCCEED,result.output());
+    jobService.updateJobOutput(getId(),ExecutableState.SUCCEED,null,result.output());
   }
  else   if (result.state() == ExecuteResult.State.STOPPED) {
-    jobService.updateJobStatus(getId(),ExecutableState.STOPPED,result.output());
+    jobService.updateJobOutput(getId(),ExecutableState.STOPPED,null,result.output());
   }
  else {
-    jobService.updateJobStatus(getId(),ExecutableState.ERROR,result.output());
+    jobService.updateJobOutput(getId(),ExecutableState.ERROR,null,result.output());
   }
 }

@@ -4,9 +4,9 @@
     List<AbstractExecutable> tasks=((DefaultChainedExecutable)job).getTasks();
     for (    AbstractExecutable task : tasks) {
       if (!task.getStatus().isFinalState()) {
-        updateJobStatus(task.getId(),ExecutableState.DISCARDED);
+        updateJobOutput(task.getId(),ExecutableState.DISCARDED,null,null);
       }
     }
   }
-  updateJobStatus(jobId,ExecutableState.DISCARDED);
+  updateJobOutput(jobId,ExecutableState.DISCARDED,null,null);
 }

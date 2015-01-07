@@ -1,3 +1,4 @@
 {
-  jobService.updateJobStatus(getId(),ExecutableState.ERROR,exception.getLocalizedMessage());
+  jobService.addJobInfo(getId(),END_TIME,Long.toString(System.currentTimeMillis()));
+  jobService.updateJobOutput(getId(),ExecutableState.ERROR,null,exception.getLocalizedMessage());
 }

@@ -1,0 +1,9 @@
+{
+  final String str=jobService.getOutput(getId()).getExtra().get(START_TIME);
+  if (str != null) {
+    return Long.parseLong(str);
+  }
+ else {
+    return 0;
+  }
+}

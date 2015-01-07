@@ -1,3 +1,5 @@
 {
-  jobService.updateJobStatus(getId(),ExecutableState.RUNNING);
+  Map<String,String> info=Maps.newHashMap();
+  info.put(START_TIME,Long.toString(System.currentTimeMillis()));
+  jobService.updateJobOutput(getId(),ExecutableState.RUNNING,info,null);
 }

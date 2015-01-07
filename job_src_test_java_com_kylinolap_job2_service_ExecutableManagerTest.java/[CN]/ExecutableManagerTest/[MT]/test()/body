@@ -9,6 +9,6 @@
   assertEquals(1,result.size());
   AbstractExecutable another=service.getJob(executable.getId());
   assertJobEqual(executable,another);
-  service.updateJobStatus(executable.getId(),ExecutableState.RUNNING,"test output");
+  service.updateJobOutput(executable.getId(),ExecutableState.RUNNING,null,"test output");
   assertJobEqual(executable,service.getJob(executable.getId()));
 }

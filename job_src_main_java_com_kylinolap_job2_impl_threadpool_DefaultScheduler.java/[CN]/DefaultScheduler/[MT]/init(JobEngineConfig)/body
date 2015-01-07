@@ -30,7 +30,7 @@
   for (  AbstractExecutable executable : executableManager.getAllExecutables()) {
     final ExecutableState status=executable.getStatus();
     if (status == ExecutableState.READY) {
-      executableManager.updateJobStatus(executable.getId(),ExecutableState.ERROR,"scheduler initializing work to reset job to ERROR status");
+      executableManager.updateJobOutput(executable.getId(),ExecutableState.ERROR,null,"scheduler initializing work to reset job to ERROR status");
     }
   }
   executableManager.updateAllRunningJobsToError();

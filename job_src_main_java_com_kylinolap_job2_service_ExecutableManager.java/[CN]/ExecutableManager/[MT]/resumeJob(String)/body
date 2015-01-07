@@ -1,11 +1,11 @@
 {
   AbstractExecutable job=getJob(jobId);
-  updateJobStatus(jobId,ExecutableState.READY);
+  updateJobOutput(jobId,ExecutableState.READY,null,null);
   if (job instanceof DefaultChainedExecutable) {
     List<AbstractExecutable> tasks=((DefaultChainedExecutable)job).getTasks();
     for (    AbstractExecutable task : tasks) {
       if (task.getStatus() == ExecutableState.ERROR) {
-        updateJobStatus(task.getId(),ExecutableState.READY);
+        updateJobOutput(task.getId(),ExecutableState.READY,null,null);
         break;
       }
     }
