@@ -1,9 +1,0 @@
-{
-  final String param=getParam(key);
-  if (param != null) {
-    return Long.parseLong(param);
-  }
- else {
-    return defaultValue;
-  }
-}

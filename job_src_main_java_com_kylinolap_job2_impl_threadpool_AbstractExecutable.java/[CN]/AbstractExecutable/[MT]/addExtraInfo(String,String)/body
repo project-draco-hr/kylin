@@ -1,0 +1,3 @@
+{
+  jobService.addJobInfo(getId(),key,value);
+}

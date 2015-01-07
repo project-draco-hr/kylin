@@ -10,9 +10,14 @@
     String[] args=params.trim().split("\\s+");
     ToolRunner.run(job,args);
     final HadoopCmdOutput hadoopCmdOutput=new HadoopCmdOutput(context.getConfig().getYarnStatusServiceUrl(),job);
-    JobStepStatusEnum status;
+    JobStepStatusEnum status=JobStepStatusEnum.NEW;
     do {
-      status=hadoopCmdOutput.getStatus();
+      JobStepStatusEnum newStatus=hadoopCmdOutput.getStatus();
+      if (status == JobStepStatusEnum.WAITING && (newStatus == JobStepStatusEnum.FINISHED || newStatus == JobStepStatusEnum.ERROR || newStatus == JobStepStatusEnum.RUNNING)) {
+        final long waitTime=System.currentTimeMillis() - getStartTime();
+        addExtraInfo(MAP_REDUCE_WAIT_TIME,Long.toString(waitTime));
+      }
+      status=newStatus;
       jobService.addJobInfo(getId(),job.getInfo());
       if (status.isComplete()) {
         final Map<String,String> info=job.getInfo();
