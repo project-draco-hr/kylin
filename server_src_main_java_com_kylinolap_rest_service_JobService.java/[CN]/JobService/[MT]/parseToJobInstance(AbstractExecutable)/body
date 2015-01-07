@@ -1,6 +1,6 @@
 {
-  Preconditions.checkState(job instanceof BuildCubeJob,"illegal job type, id:" + job.getId());
-  BuildCubeJob cubeJob=(BuildCubeJob)job;
+  Preconditions.checkState(job instanceof CubingJob,"illegal job type, id:" + job.getId());
+  CubingJob cubeJob=(CubingJob)job;
   final JobInstance result=new JobInstance();
   result.setName(job.getName());
   result.setRelatedCube(cubeJob.getCubeName());

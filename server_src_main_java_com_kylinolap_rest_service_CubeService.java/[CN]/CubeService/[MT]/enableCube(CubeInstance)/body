@@ -7,8 +7,8 @@
   if (cube.getSegments(SegmentStatusEnum.READY).size() == 0) {
     throw new InternalErrorException("Cube " + cubeName + " dosen't contain any READY segment");
   }
-  final List<BuildCubeJob> buildCubeJobs=listAllCubingJobs(cube.getName(),null,EnumSet.of(ExecutableState.READY,ExecutableState.RUNNING));
-  if (!buildCubeJobs.isEmpty()) {
+  final List<CubingJob> cubingJobs=listAllCubingJobs(cube.getName(),null,EnumSet.of(ExecutableState.READY,ExecutableState.RUNNING));
+  if (!cubingJobs.isEmpty()) {
     throw new JobException("Enable is not allowed with a running job.");
   }
   if (!cube.getDescriptor().calculateSignature().equals(cube.getDescriptor().getSignature())) {
