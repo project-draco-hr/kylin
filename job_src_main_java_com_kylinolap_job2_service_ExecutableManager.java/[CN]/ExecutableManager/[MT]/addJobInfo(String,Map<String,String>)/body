@@ -1,0 +1,14 @@
+{
+  if (info == null) {
+    return;
+  }
+  try {
+    JobOutputPO output=jobDao.getJobOutput(id);
+    output.getInfo().putAll(info);
+    jobDao.updateJobOutput(output);
+  }
+ catch (  PersistentException e) {
+    logger.error("error update job info, id:" + id + "  info:"+ info.toString());
+    throw new RuntimeException(e);
+  }
+}

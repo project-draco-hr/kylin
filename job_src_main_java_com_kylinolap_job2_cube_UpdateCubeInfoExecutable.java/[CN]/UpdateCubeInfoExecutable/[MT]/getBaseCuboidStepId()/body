@@ -1,0 +1,3 @@
+{
+  return getParam(BASE_CUBOID_STEP_ID);
+}

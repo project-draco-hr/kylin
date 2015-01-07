@@ -1,0 +1,20 @@
+{
+  try {
+    ShellExecutable result=new ShellExecutable();
+    result.setName(ExecutableConstants.STEP_NAME_CREATE_FLAT_HIVE_TABLE);
+    String dropTableHql=JoinedFlatTable.generateDropTableStatement(intermediateTableDesc,jobId);
+    String createTableHql=JoinedFlatTable.generateCreateTableStatement(intermediateTableDesc,getJobWorkingDir(jobId),jobId);
+    String insertDataHql=JoinedFlatTable.generateInsertDataStatement(intermediateTableDesc,jobId,this.jobEngineConfig);
+    StringBuilder buf=new StringBuilder();
+    buf.append("hive -e \"");
+    buf.append(dropTableHql + "\n");
+    buf.append(createTableHql + "\n");
+    buf.append(insertDataHql + "\n");
+    buf.append("\"");
+    result.setCmd(buf.toString());
+    return result;
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("fail to create job",e);
+  }
+}

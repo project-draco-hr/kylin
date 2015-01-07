@@ -1,0 +1,34 @@
+{
+  List<BuildCubeJob> results=Lists.newArrayList(FluentIterable.from(getExecutableManager().getAllExecutables()).filter(new Predicate<AbstractExecutable>(){
+    @Override public boolean apply(    AbstractExecutable executable){
+      if (cubeName == null) {
+        return true;
+      }
+      return executable instanceof BuildCubeJob && ((BuildCubeJob)executable).getCubeName().equalsIgnoreCase(cubeName);
+    }
+  }
+).transform(new Function<AbstractExecutable,BuildCubeJob>(){
+    @Override public BuildCubeJob apply(    AbstractExecutable executable){
+      return (BuildCubeJob)executable;
+    }
+  }
+).filter(new Predicate<BuildCubeJob>(){
+    @Override public boolean apply(    BuildCubeJob executable){
+      if (null == projectName || null == getProjectManager().getProject(projectName)) {
+        return true;
+      }
+ else {
+        List<JobInstance> filtedJobs=new ArrayList<JobInstance>();
+        ProjectInstance project=getProjectManager().getProject(projectName);
+        return project.containsRealization(RealizationType.CUBE,executable.getCubeName());
+      }
+    }
+  }
+).filter(new Predicate<BuildCubeJob>(){
+    @Override public boolean apply(    BuildCubeJob executable){
+      return statusList.contains(executable.getStatus());
+    }
+  }
+));
+  return results;
+}

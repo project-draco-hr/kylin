@@ -1,0 +1,14 @@
+{
+  Preconditions.checkArgument(executableContext instanceof DefaultContext);
+  ExecuteResult result;
+  try {
+    onExecuteStart(executableContext);
+    result=doWork(executableContext);
+  }
+ catch (  Throwable e) {
+    onExecuteError(e,executableContext);
+    throw new ExecuteException(e);
+  }
+  onExecuteFinished(result,executableContext);
+  return result;
+}

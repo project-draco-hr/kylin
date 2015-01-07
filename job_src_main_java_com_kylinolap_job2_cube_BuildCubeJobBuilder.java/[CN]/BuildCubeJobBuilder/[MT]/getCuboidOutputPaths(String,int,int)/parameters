@@ -1,0 +1,3 @@
+String cuboidRootPath
+int totalRowkeyColumnCount
+int groupRowkeyColumnsCount

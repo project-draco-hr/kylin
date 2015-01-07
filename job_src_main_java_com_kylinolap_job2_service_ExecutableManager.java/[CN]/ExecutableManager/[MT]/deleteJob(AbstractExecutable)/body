@@ -1,0 +1,9 @@
+{
+  try {
+    jobDao.deleteJob(executable.getId());
+  }
+ catch (  PersistentException e) {
+    logger.error("fail to delete job:" + executable.getId(),e);
+    throw new RuntimeException(e);
+  }
+}

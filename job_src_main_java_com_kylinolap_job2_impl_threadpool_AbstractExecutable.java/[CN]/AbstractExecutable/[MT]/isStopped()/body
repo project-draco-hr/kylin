@@ -1,0 +1,4 @@
+{
+  final ExecutableState status=getStatus();
+  return status == ExecutableState.STOPPED || status == ExecutableState.DISCARDED;
+}

@@ -1,0 +1,9 @@
+{
+  try {
+    return readJobResource(pathOfJob(uuid));
+  }
+ catch (  IOException e) {
+    logger.error("error get job:" + uuid,e);
+    throw new PersistentException(e);
+  }
+}

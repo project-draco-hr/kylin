@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument(job != null,"job cannot be null");
+  Preconditions.checkArgument(job.getId() != null,"job id cannot be null");
+  this.job=job;
+}

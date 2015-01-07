@@ -1,0 +1,3 @@
+{
+  return store.getResource(path,JobOutputPO.class,JOB_OUTPUT_SERIALIZER);
+}

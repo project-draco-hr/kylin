@@ -1,0 +1,4 @@
+{
+  logger.info("Using metadata url: " + config);
+  this.store=MetadataManager.getInstance(config).getStore();
+}

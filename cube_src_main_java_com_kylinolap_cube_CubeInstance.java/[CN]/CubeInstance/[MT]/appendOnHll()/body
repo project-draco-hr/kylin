@@ -1,13 +1,3 @@
 {
-  CubePartitionDesc cubePartitionDesc=getDescriptor().getCubePartitionDesc();
-  if (cubePartitionDesc == null) {
-    return false;
-  }
-  if (cubePartitionDesc.getPartitionDateColumn() == null) {
-    return false;
-  }
-  if (cubePartitionDesc.getCubePartitionType() != CubePartitionDesc.CubePartitionType.APPEND) {
-    return false;
-  }
-  return getDescriptor().hasHolisticCountDistinctMeasures();
+  return false;
 }

@@ -1,0 +1,11 @@
+{
+  List<? extends Executable> executables=getTasks();
+  final int size=executables.size();
+  for (int i=0; i < size; ++i) {
+    Executable subTask=executables.get(i);
+    if (subTask.isRunnable()) {
+      return subTask.execute(context);
+    }
+  }
+  return new ExecuteResult(ExecuteResult.State.SUCCEED,null);
+}

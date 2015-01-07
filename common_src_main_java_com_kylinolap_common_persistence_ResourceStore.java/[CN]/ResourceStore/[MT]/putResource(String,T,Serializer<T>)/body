@@ -12,6 +12,7 @@
     buf.close();
     newTS=checkAndPutResourceImpl(resPath,buf.toByteArray(),oldTS,newTS);
     obj.setLastModified(newTS);
+    return newTS;
   }
  catch (  IOException e) {
     obj.setLastModified(oldTS);

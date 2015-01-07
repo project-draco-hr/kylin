@@ -1,0 +1,10 @@
+{
+  final CubeInstance cubeInstance=cubeManager.getCube("test_kylin_cube_without_slr_left_join_empty");
+  assertNotNull(cubeInstance);
+  final CubeSegment cubeSegment=cubeManager.appendSegments(cubeInstance,0,System.currentTimeMillis());
+  final BuildCubeJobBuilder buildCubeJobBuilder=BuildCubeJobBuilder.newBuilder(jobEngineConfig,cubeSegment);
+  final BuildCubeJob job=buildCubeJobBuilder.build();
+  jobService.addJob(job);
+  waitForJob(job.getId());
+  assertEquals(ExecutableState.SUCCEED,jobService.getOutput(job.getId()).getState());
+}

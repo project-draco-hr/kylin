@@ -1,12 +1,9 @@
 {
-  for (  JobInstance jobInstance : this.getJobManager().listJobs(cube.getName(),null)) {
-    if (jobInstance.getStatus() != JobStatusEnum.FINISHED && jobInstance.getStatus() != JobStatusEnum.DISCARDED) {
-      for (      JobStep jobStep : jobInstance.getSteps()) {
-        if (jobStep.getStatus() != JobStepStatusEnum.FINISHED) {
-          jobStep.setStatus(JobStepStatusEnum.DISCARDED);
-        }
-      }
-      JobDAO.getInstance(this.getConfig()).updateJobInstance(jobInstance);
+  final List<BuildCubeJob> buildCubeJobs=listAllCubingJobs(cube.getName(),null);
+  for (  BuildCubeJob buildCubeJob : buildCubeJobs) {
+    final ExecutableState status=buildCubeJob.getStatus();
+    if (status != ExecutableState.SUCCEED && status != ExecutableState.STOPPED && status != ExecutableState.DISCARDED) {
+      getExecutableManager().discardJob(buildCubeJob.getId());
     }
   }
   cube.getSegments().clear();
