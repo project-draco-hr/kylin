@@ -1,6 +1,6 @@
 {
-  final List<BuildCubeJob> buildCubeJobs=listAllCubingJobs(cube.getName(),null,EnumSet.of(ExecutableState.READY,ExecutableState.RUNNING));
-  if (!buildCubeJobs.isEmpty()) {
+  final List<CubingJob> cubingJobs=listAllCubingJobs(cube.getName(),null,EnumSet.of(ExecutableState.READY,ExecutableState.RUNNING));
+  if (!cubingJobs.isEmpty()) {
     throw new JobException("Cube schema shouldn't be changed with running job.");
   }
   try {

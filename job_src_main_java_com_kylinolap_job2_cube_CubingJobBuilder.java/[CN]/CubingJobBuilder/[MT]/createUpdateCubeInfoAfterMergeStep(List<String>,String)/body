@@ -1,0 +1,8 @@
+{
+  UpdateCubeInfoAfterMergeExecutable result=new UpdateCubeInfoAfterMergeExecutable();
+  result.setCubeName(getCubeName());
+  result.setSegmentId(segment.getUuid());
+  result.setMergingSegmentIds(mergingSegmentIds);
+  result.setConvertToHFileStepId(convertToHFileStepId);
+  return result;
+}

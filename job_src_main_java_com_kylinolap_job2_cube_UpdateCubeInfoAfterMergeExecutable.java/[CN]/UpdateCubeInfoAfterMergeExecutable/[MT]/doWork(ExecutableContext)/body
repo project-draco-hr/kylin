@@ -1,0 +1,38 @@
+{
+  final CubeInstance cube=cubeManager.getCube(getCubeName());
+  List<String> mergingSegmentIds=getMergingSegmentIds();
+  if (mergingSegmentIds.isEmpty()) {
+    return new ExecuteResult(ExecuteResult.State.FAILED,"there are no merging segments");
+  }
+  CubeSegment mergedSegment=cube.getSegmentById(getSegmentId());
+  if (mergedSegment == null) {
+    return new ExecuteResult(ExecuteResult.State.FAILED,"there is no segment with id:" + getSegmentId());
+  }
+  String cubeSizeString=jobService.getOutput(getConvertToHfileStepId()).getExtra().get(ExecutableConstants.HDFS_BYTES_WRITTEN);
+  Preconditions.checkState(StringUtils.isNotEmpty(cubeSizeString),"Can't get cube segment size.");
+  long cubeSize=Long.parseLong(cubeSizeString) / 1024;
+  List<CubeSegment> toBeRemoved=Lists.newArrayListWithExpectedSize(mergingSegmentIds.size());
+  for (  CubeSegment segment : cube.getSegments()) {
+    if (mergingSegmentIds.contains(segment.getUuid())) {
+      toBeRemoved.add(segment);
+    }
+  }
+  long sourceCount=0L;
+  long sourceSize=0L;
+  for (  CubeSegment segment : toBeRemoved) {
+    sourceCount+=segment.getSourceRecords();
+    sourceSize+=segment.getSourceRecordsSize();
+  }
+  mergedSegment.setSizeKB(cubeSize);
+  mergedSegment.setSourceRecords(sourceCount);
+  mergedSegment.setSourceRecordsSize(sourceSize);
+  cube.getSegments().removeAll(toBeRemoved);
+  try {
+    cubeManager.updateCube(cube);
+    return new ExecuteResult(ExecuteResult.State.SUCCEED);
+  }
+ catch (  IOException e) {
+    logger.error("fail to update cube after merge",e);
+    return new ExecuteResult(ExecuteResult.State.ERROR,e.getLocalizedMessage());
+  }
+}

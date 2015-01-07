@@ -1,0 +1,3 @@
+{
+  return getJobWorkingDir(segment.getUuid()) + "/" + getCubeName()+ "/cuboid/*";
+}
