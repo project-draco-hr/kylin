@@ -1,0 +1,3 @@
+{
+  return Objects.toStringHelper(this).add("id",getId()).add("name",getName()).add("state",getStatus()).toString();
+}

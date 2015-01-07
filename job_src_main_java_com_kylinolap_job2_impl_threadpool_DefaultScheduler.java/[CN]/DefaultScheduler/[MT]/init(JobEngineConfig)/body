@@ -28,8 +28,7 @@
   jobPool=new ThreadPoolExecutor(corePoolSize,corePoolSize,Long.MAX_VALUE,TimeUnit.DAYS,new SynchronousQueue<Runnable>());
   context=new DefaultContext(Maps.<String,Executable>newConcurrentMap(),jobEngineConfig.getConfig());
   for (  AbstractExecutable executable : executableManager.getAllExecutables()) {
-    final ExecutableState status=executable.getStatus();
-    if (status == ExecutableState.READY) {
+    if (executable.getStatus() == ExecutableState.READY) {
       executableManager.updateJobOutput(executable.getId(),ExecutableState.ERROR,null,"scheduler initializing work to reset job to ERROR status");
     }
   }
