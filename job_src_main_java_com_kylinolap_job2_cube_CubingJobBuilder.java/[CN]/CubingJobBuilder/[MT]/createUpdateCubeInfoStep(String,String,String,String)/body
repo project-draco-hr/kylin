@@ -6,5 +6,6 @@
   updateCubeInfoStep.setCreateFlatTableStepId(createFlatTableStepId);
   updateCubeInfoStep.setBaseCuboidStepId(baseCuboidStepId);
   updateCubeInfoStep.setConvertToHFileStepId(convertToHFileStepId);
+  updateCubeInfoStep.setCubingJobId(jobId);
   return updateCubeInfoStep;
 }

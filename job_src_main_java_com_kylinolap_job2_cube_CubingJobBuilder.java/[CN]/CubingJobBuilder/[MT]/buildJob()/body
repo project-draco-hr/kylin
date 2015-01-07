@@ -25,6 +25,6 @@
   final MapReduceExecutable convertCuboidToHfileStep=createConvertCuboidToHfileStep(cuboidPath,jobId);
   result.addTask(convertCuboidToHfileStep);
   result.addTask(createBulkLoadStep(jobId));
-  result.addTask(createUpdateCubeInfoStep(intermediateHiveTableStep.getId(),baseCuboidStep.getId(),convertCuboidToHfileStep.getId()));
+  result.addTask(createUpdateCubeInfoStep(intermediateHiveTableStep.getId(),baseCuboidStep.getId(),convertCuboidToHfileStep.getId(),jobId));
   return result;
 }

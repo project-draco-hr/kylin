@@ -10,7 +10,7 @@
   String cubeSizeString=jobService.getOutput(getConvertToHfileStepId()).getExtra().get(ExecutableConstants.HDFS_BYTES_WRITTEN);
   Preconditions.checkState(StringUtils.isNotEmpty(cubeSizeString),"Can't get cube segment size.");
   long size=Long.parseLong(cubeSizeString) / 1024;
-  segment.setLastBuildJobID(getId());
+  segment.setLastBuildJobID(getCubingJobId());
   segment.setLastBuildTime(System.currentTimeMillis());
   segment.setSizeKB(size);
   segment.setSourceRecords(sourceCount);

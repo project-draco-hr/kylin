@@ -5,5 +5,6 @@
   result.setSegmentId(segment.getUuid());
   result.setMergingSegmentIds(mergingSegmentIds);
   result.setConvertToHFileStepId(convertToHFileStepId);
+  result.setCubingJobId(jobId);
   return result;
 }

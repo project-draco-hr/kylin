@@ -22,6 +22,6 @@
     }
   }
 );
-  result.addTask(createUpdateCubeInfoAfterMergeStep(mergingSegmentIds,convertCuboidToHfileStep.getId()));
+  result.addTask(createUpdateCubeInfoAfterMergeStep(mergingSegmentIds,convertCuboidToHfileStep.getId(),jobId));
   return result;
 }
