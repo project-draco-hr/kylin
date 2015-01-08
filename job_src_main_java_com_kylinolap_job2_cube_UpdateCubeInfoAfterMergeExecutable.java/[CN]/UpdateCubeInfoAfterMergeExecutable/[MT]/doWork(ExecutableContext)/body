@@ -27,6 +27,8 @@
   mergedSegment.setSourceRecords(sourceCount);
   mergedSegment.setSourceRecordsSize(sourceSize);
   mergedSegment.setLastBuildJobID(getCubingJobId());
+  mergedSegment.setStatus(SegmentStatusEnum.READY);
+  mergedSegment.setLastBuildTime(System.currentTimeMillis());
   cube.getSegments().removeAll(toBeRemoved);
   try {
     cubeManager.updateCube(cube);

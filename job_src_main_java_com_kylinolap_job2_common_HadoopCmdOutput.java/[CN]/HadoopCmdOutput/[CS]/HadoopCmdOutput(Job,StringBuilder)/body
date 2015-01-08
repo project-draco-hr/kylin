@@ -1,0 +1,5 @@
+{
+  super();
+  this.job=job;
+  this.output=output;
+}
