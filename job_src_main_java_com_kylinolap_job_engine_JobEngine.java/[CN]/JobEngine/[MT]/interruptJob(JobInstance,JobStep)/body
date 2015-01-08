@@ -1,3 +1,0 @@
-{
-  this.scheduler.interrupt(jobInstance,jobStep);
-}
