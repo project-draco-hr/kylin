@@ -1,0 +1,17 @@
+{
+  try {
+    ArrayList<String> resources=store.listResources(JOB_PATH_ROOT);
+    if (resources == null) {
+      return Collections.emptyList();
+    }
+    ArrayList<String> result=Lists.newArrayListWithExpectedSize(resources.size());
+    for (    String path : resources) {
+      result.add(path.substring(path.lastIndexOf("/") + 1));
+    }
+    return result;
+  }
+ catch (  IOException e) {
+    logger.error("error get all Jobs:",e);
+    throw new PersistentException(e);
+  }
+}
