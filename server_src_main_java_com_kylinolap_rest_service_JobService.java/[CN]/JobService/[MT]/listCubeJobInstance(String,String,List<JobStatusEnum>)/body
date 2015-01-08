@@ -9,9 +9,9 @@
       states.add(parseToExecutableState(status));
     }
   }
-  return Lists.newArrayList(FluentIterable.from(listAllCubingJobs(cubeName,projectName,states)).transform(new Function<BuildCubeJob,JobInstance>(){
-    @Override public JobInstance apply(    BuildCubeJob buildCubeJob){
-      return parseToJobInstance(buildCubeJob);
+  return Lists.newArrayList(FluentIterable.from(listAllCubingJobs(cubeName,projectName,states)).transform(new Function<CubingJob,JobInstance>(){
+    @Override public JobInstance apply(    CubingJob cubingJob){
+      return parseToJobInstance(cubingJob);
     }
   }
 ));

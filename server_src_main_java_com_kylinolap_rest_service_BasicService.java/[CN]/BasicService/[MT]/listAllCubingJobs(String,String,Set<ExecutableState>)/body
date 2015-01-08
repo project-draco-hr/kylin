@@ -1,19 +1,19 @@
 {
-  List<BuildCubeJob> results=Lists.newArrayList(FluentIterable.from(getExecutableManager().getAllExecutables()).filter(new Predicate<AbstractExecutable>(){
+  List<CubingJob> results=Lists.newArrayList(FluentIterable.from(getExecutableManager().getAllExecutables()).filter(new Predicate<AbstractExecutable>(){
     @Override public boolean apply(    AbstractExecutable executable){
       if (cubeName == null) {
         return true;
       }
-      return executable instanceof BuildCubeJob && ((BuildCubeJob)executable).getCubeName().equalsIgnoreCase(cubeName);
+      return executable instanceof CubingJob && ((CubingJob)executable).getCubeName().equalsIgnoreCase(cubeName);
     }
   }
-).transform(new Function<AbstractExecutable,BuildCubeJob>(){
-    @Override public BuildCubeJob apply(    AbstractExecutable executable){
-      return (BuildCubeJob)executable;
+).transform(new Function<AbstractExecutable,CubingJob>(){
+    @Override public CubingJob apply(    AbstractExecutable executable){
+      return (CubingJob)executable;
     }
   }
-).filter(new Predicate<BuildCubeJob>(){
-    @Override public boolean apply(    BuildCubeJob executable){
+).filter(new Predicate<CubingJob>(){
+    @Override public boolean apply(    CubingJob executable){
       if (null == projectName || null == getProjectManager().getProject(projectName)) {
         return true;
       }
@@ -23,8 +23,8 @@
       }
     }
   }
-).filter(new Predicate<BuildCubeJob>(){
-    @Override public boolean apply(    BuildCubeJob executable){
+).filter(new Predicate<CubingJob>(){
+    @Override public boolean apply(    CubingJob executable){
       return statusList.contains(executable.getStatus());
     }
   }

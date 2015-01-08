@@ -1,0 +1,10 @@
+{
+  UpdateCubeInfoAfterMergeExecutable result=new UpdateCubeInfoAfterMergeExecutable();
+  result.setName(ExecutableConstants.STEP_NAME_UPDATE_CUBE_INFO);
+  result.setCubeName(getCubeName());
+  result.setSegmentId(segment.getUuid());
+  result.setMergingSegmentIds(mergingSegmentIds);
+  result.setConvertToHFileStepId(convertToHFileStepId);
+  result.setCubingJobId(jobId);
+  return result;
+}

@@ -1,25 +1,24 @@
 {
-  final List<BuildCubeJob> buildCubeJobs=listAllCubingJobs(cube.getName(),null,EnumSet.allOf(ExecutableState.class));
-  for (  BuildCubeJob job : buildCubeJobs) {
+  final List<CubingJob> cubingJobs=listAllCubingJobs(cube.getName(),null,EnumSet.allOf(ExecutableState.class));
+  for (  CubingJob job : cubingJobs) {
     if (job.getStatus() == ExecutableState.READY || job.getStatus() == ExecutableState.RUNNING) {
       throw new JobException("The cube " + cube.getName() + " has running job("+ job.getId()+ ") please discard it and try again.");
     }
   }
   try {
-    CubeSegment cubeSegment=null;
+    CubingJob job;
+    CubingJobBuilder builder=CubingJobBuilder.newBuilder().setJobEnginConfig(new JobEngineConfig(getConfig())).setSubmitter(submitter);
     if (buildType == CubeBuildTypeEnum.BUILD) {
-      cubeSegment=this.getCubeManager().appendSegments(cube,startDate,endDate);
+      builder.setSegment(getCubeManager().appendSegments(cube,startDate,endDate));
+      job=builder.buildJob();
     }
  else     if (buildType == CubeBuildTypeEnum.MERGE) {
-      throw new RuntimeException("has not implemented yet");
+      builder.setSegment(getCubeManager().mergeSegments(cube,startDate,endDate));
+      job=builder.mergeJob();
     }
  else {
       throw new JobException("invalid build type:" + buildType);
     }
-    BuildCubeJobBuilder builder=BuildCubeJobBuilder.newBuilder(new JobEngineConfig(getConfig()),cubeSegment);
-    final BuildCubeJob job=builder.build();
-    cubeSegment.setLastBuildJobID(job.getId());
-    getCubeManager().updateCube(cube);
     getExecutableManager().addJob(job);
     return parseToJobInstance(job);
   }
