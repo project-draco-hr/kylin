@@ -1,9 +1,0 @@
-{
-  try {
-    int cleanupExitCode=cleanupOldCubes();
-    if (cleanupExitCode == 0)     exportHBaseData();
-  }
- catch (  Exception e) {
-    e.printStackTrace();
-  }
-}

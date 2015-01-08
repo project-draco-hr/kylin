@@ -1,4 +1,0 @@
-{
-  jobDAO.updateRunningJobToError();
-  jobEngine.start(daemonJobIntervalInSeconds);
-}
