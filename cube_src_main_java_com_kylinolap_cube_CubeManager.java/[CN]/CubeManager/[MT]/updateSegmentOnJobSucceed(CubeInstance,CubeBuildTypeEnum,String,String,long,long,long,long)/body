@@ -4,12 +4,7 @@
   Preconditions.checkArgument(segmentsInNewStatus.size() == 1,"there are " + segmentsInNewStatus.size() + " new segments");
 switch (buildType) {
 case BUILD:
-    if (cubeInstance.needMergeImmediatelyAfterBuild(cubeSegment)) {
-      cubeInstance.getSegments().removeAll(cubeInstance.getMergingSegments());
-    }
- else {
-      cubeInstance.getSegments().removeAll(cubeInstance.getRebuildingSegments());
-    }
+    cubeInstance.getSegments().removeAll(cubeInstance.getMergingSegments());
   break;
 case MERGE:
 cubeInstance.getSegments().removeAll(cubeInstance.getMergingSegments());

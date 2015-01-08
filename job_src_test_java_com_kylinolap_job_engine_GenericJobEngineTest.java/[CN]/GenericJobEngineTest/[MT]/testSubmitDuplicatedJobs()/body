@@ -1,6 +1,0 @@
-{
-  String uuid="bad_job_2";
-  JobInstance job=createASingleStepBadJobInstance(uuid);
-  jobManager.submitJob(job);
-  jobManager.submitJob(job);
-}

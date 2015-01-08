@@ -1,7 +1,7 @@
 {
   CubeInstance cubeInstance=cubeMgr.getCube("test_kylin_cube_with_slr_ready_2_segments");
   System.out.println("Merge Segment");
-  CubeSegment mergedSegment=cubeMgr.allocateSegments(cubeInstance,CubeBuildTypeEnum.MERGE,1384240200000L,1386835200000L).get(0);
+  CubeSegment mergedSegment=cubeMgr.mergeSegments(cubeInstance,1384240200000L,1386835200000L);
   System.out.println(JsonUtil.writeValueAsIndentString(cubeInstance));
   assertEquals(RealizationStatusEnum.READY,cubeInstance.getStatus());
   assertEquals(SegmentStatusEnum.NEW,cubeInstance.getBuildingSegments().get(0).getStatus());

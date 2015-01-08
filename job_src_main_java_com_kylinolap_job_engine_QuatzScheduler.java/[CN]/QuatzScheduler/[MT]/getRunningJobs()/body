@@ -1,9 +1,0 @@
-{
-  try {
-    return this.scheduler.getCurrentlyExecutingJobs().size();
-  }
- catch (  SchedulerException e) {
-    log.error("Can't get scheduler metadata!",e);
-    return 0;
-  }
-}

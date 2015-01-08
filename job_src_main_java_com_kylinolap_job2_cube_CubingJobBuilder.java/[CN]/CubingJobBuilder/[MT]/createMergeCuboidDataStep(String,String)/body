@@ -1,6 +1,6 @@
 {
   MapReduceExecutable mergeCuboidDataStep=new MapReduceExecutable();
-  mergeCuboidDataStep.setName(JobConstants.STEP_NAME_MERGE_CUBOID);
+  mergeCuboidDataStep.setName(ExecutableConstants.STEP_NAME_MERGE_CUBOID);
   StringBuilder cmd=new StringBuilder();
   appendMapReduceParameters(cmd,jobEngineConfig);
   appendExecCmdParameters(cmd,"cubename",getCubeName());

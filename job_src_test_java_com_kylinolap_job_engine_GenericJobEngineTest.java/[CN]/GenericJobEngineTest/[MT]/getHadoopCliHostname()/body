@@ -1,3 +1,0 @@
-{
-  return getHadoopCliAsRemote() ? KylinConfig.getInstanceFromEnv().getRemoteHadoopCliHostname() : null;
-}

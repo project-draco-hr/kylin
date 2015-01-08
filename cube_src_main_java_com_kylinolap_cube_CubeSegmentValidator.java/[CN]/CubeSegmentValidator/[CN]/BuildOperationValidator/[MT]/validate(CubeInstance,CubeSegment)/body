@@ -11,15 +11,8 @@
       throw new CubeIntegrityException("there is gap in cube segments");
     }
   }
-  if (cubeInstance.appendOnHll()) {
-    if (newSegment.getDateRangeStart() == initStartDate && startDate < newSegment.getDateRangeEnd()) {
-      return;
-    }
-  }
- else {
-    if (newSegment.getDateRangeStart() == startDate) {
-      return;
-    }
+  if (newSegment.getDateRangeStart() == initStartDate && startDate < newSegment.getDateRangeEnd()) {
+    return;
   }
   throw new CubeIntegrityException("invalid segment date range from " + newSegment.getDateRangeStart() + " to "+ newSegment.getDateRangeEnd());
 }

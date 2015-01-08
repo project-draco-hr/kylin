@@ -1,6 +1,0 @@
-{
-  if (name == null) {
-    throw new IllegalArgumentException("Listener name cannot be null!");
-  }
-  this.name=name;
-}
