@@ -1,5 +1,5 @@
 {
-  String factTableName=olapContext.firstTableScan.getCubeTable();
+  String factTableName=olapContext.firstTableScan.getTableName();
   String projectName=olapContext.olapSchema.getProjectName();
   Collection<TblColRef> dimensionColumns=(olapContext).getDimensionColumns();
   Collection<FunctionDesc> functions=olapContext.aggregations;

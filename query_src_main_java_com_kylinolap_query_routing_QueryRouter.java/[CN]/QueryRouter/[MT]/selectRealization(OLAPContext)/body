@@ -1,11 +1,11 @@
 {
   ProjectManager prjMgr=ProjectManager.getInstance(olapContext.olapSchema.getConfig());
-  String factTableName=olapContext.firstTableScan.getCubeTable();
+  String factTableName=olapContext.firstTableScan.getTableName();
   String projectName=olapContext.olapSchema.getProjectName();
   List<IRealization> realizations=Lists.newArrayList(prjMgr.getRealizationsByTable(projectName,factTableName));
   RoutingRule.applyRules(realizations,olapContext);
   if (realizations.size() == 0) {
-    throw new NoRealizationFoundException("Can't find any realization for fact table " + olapContext.firstTableScan.getCubeTable() + " in project "+ olapContext.olapSchema.getProjectName()+ " with dimensions "+ olapContext.getDimensionColumns()+ " and measures "+ olapContext.aggregations+ ". Also please check whether join types match what defined in realization.");
+    throw new NoRealizationFoundException("Can't find any realization for fact table " + olapContext.firstTableScan.getTableName() + " in project "+ olapContext.olapSchema.getProjectName()+ " with dimensions "+ olapContext.getDimensionColumns()+ " and measures "+ olapContext.aggregations+ ". Also please check whether join types match what defined in realization.");
   }
   logger.info("The realizations remaining: ");
   logger.info(RoutingRule.getPrintableText(realizations));
