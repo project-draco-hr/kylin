@@ -1,0 +1,11 @@
+{
+  if (!jobService.getOutput(getId()).getExtra().containsKey(START_TIME)) {
+    Map<String,String> info=Maps.newHashMap();
+    info.put(START_TIME,Long.toString(System.currentTimeMillis()));
+    jobService.updateJobOutput(getId(),ExecutableState.RUNNING,info,null);
+    ;
+  }
+ else {
+    jobService.updateJobOutput(getId(),ExecutableState.RUNNING,null,null);
+  }
+}
