@@ -1,5 +1,0 @@
-{
-  if ((newState == ConnectionState.SUSPENDED) || (newState == ConnectionState.LOST)) {
-    releaseLock();
-  }
-}

@@ -4,7 +4,16 @@
   DeployUtil.deployMetadata();
   DeployUtil.overrideJobJarLocations();
   DeployUtil.overrideJobConf(HBaseMetadataTestCase.SANDBOX_TEST_DATA);
-  engineConfig=new JobEngineConfig(KylinConfig.getInstanceFromEnv());
-  jobManager=new JobManager("Build_Test_Cube_Engine",engineConfig);
-  jobManager.deleteAllJobs();
+  final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  jobService=ExecutableManager.getInstance(kylinConfig);
+  scheduler=DefaultScheduler.getInstance();
+  scheduler.init(new JobEngineConfig(kylinConfig));
+  if (!scheduler.hasStarted()) {
+    throw new RuntimeException("scheduler has not been started");
+  }
+  cubeManager=CubeManager.getInstance(kylinConfig);
+  jobEngineConfig=new JobEngineConfig(kylinConfig);
+  for (  AbstractExecutable job : jobService.getAllExecutables()) {
+    jobService.deleteJob(job);
+  }
 }

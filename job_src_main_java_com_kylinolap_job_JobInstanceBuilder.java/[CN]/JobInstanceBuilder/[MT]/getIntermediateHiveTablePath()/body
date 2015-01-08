@@ -1,4 +1,0 @@
-{
-  CubeJoinedFlatTableDesc intermediateTableDesc=new CubeJoinedFlatTableDesc(cube.getDescriptor(),this.cubeSegment);
-  return JoinedFlatTable.getTableDir(intermediateTableDesc,jobWorkingDir,jobUUID);
-}

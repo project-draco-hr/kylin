@@ -1,0 +1,16 @@
+{
+  if (!(obj instanceof DefaultOutput)) {
+    return false;
+  }
+  DefaultOutput another=((DefaultOutput)obj);
+  if (this.state != another.state) {
+    return false;
+  }
+  if (!extra.equals(another.extra)) {
+    return false;
+  }
+  if (this.lastModified != another.lastModified) {
+    return false;
+  }
+  return StringUtils.equals(verboseMsg,another.verboseMsg);
+}

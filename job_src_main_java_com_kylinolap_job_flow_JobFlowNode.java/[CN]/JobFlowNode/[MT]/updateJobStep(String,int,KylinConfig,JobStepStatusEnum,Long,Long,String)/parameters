@@ -1,7 +1,0 @@
-String jobInstanceUuid
-int jobInstanceStepSeqId
-KylinConfig config
-JobStepStatusEnum newStatus
-Long execStartTime
-Long execEndTime
-String output

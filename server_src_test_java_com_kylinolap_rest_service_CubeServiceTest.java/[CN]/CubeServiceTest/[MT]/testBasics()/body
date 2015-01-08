@@ -1,5 +1,4 @@
 {
-  Assert.assertNotNull(cubeService.getJobManager());
   Assert.assertNotNull(cubeService.getConfig());
   Assert.assertNotNull(cubeService.getKylinConfig());
   Assert.assertNotNull(cubeService.getMetadataManager());

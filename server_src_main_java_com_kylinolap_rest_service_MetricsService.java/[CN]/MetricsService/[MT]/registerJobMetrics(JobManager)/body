@@ -1,5 +1,0 @@
-{
-  JobMetrics jobMetrics=JobMetrics.getInstance();
-  jobMetrics.setJobManager(jobManager);
-  metricRegistry.register("JobMetrics",jobMetrics);
-}
