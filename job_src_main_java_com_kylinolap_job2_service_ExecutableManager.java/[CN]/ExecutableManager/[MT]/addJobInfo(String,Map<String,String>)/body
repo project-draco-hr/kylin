@@ -4,6 +4,7 @@
   }
   try {
     JobOutputPO output=jobDao.getJobOutput(id);
+    Preconditions.checkArgument(output != null,"there is no related output for job id:" + id);
     output.getInfo().putAll(info);
     jobDao.updateJobOutput(output);
   }

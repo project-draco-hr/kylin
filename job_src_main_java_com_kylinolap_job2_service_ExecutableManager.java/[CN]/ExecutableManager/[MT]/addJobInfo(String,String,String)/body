@@ -1,11 +1,5 @@
 {
-  try {
-    JobOutputPO output=jobDao.getJobOutput(id);
-    output.getInfo().put(key,value);
-    jobDao.updateJobOutput(output);
-  }
- catch (  PersistentException e) {
-    logger.error("error update job info, id:" + id + "  key:"+ key+ " value:"+ value);
-    throw new RuntimeException(e);
-  }
+  Map<String,String> info=Maps.newHashMap();
+  info.put(key,value);
+  addJobInfo(id,info);
 }
