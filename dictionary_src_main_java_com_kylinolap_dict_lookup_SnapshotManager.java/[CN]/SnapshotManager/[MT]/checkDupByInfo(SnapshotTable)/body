@@ -6,7 +6,7 @@
   TableSignature sig=snapshot.getSignature();
   for (  String existing : existings) {
     SnapshotTable existingTable=load(existing,false);
-    if (sig.equals(existingTable.getSignature()))     return existing;
+    if (existingTable != null && sig.equals(existingTable.getSignature()))     return existing;
   }
   return null;
 }
