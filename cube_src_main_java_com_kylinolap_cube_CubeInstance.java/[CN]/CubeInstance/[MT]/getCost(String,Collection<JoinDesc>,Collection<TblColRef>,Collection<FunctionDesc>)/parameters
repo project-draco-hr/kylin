@@ -1,4 +1,0 @@
-String factTable
-Collection<JoinDesc> joins
-Collection<TblColRef> allColumns
-Collection<FunctionDesc> aggrFunctions

@@ -1,5 +1,5 @@
 {
-  tableAliasMap=Maps.newHashMap();
+  tableAliasMap=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
   tableAliasMap.put(iiDesc.getFactTableName(),FACT_TABLE_ALIAS);
   int i=1;
   for (  LookupDesc lookupDesc : iiDesc.getModel().getLookups()) {
