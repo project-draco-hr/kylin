@@ -1,25 +1,19 @@
 {
-  final String testCubeName="test_kylin_cube_without_slr_left_join_empty";
-  final CubeInstance testCube=cubeManager.getCube(testCubeName);
-  testCube.getSegments().clear();
-  cubeManager.updateCube(testCube);
-  SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
-  Date date1=dateFormat.parse("2013-01-01");
-  final CubeSegment cubeSegment1=cubeManager.appendSegments(testCube,0,date1.getTime());
-  final CubingJobBuilder cubingJobBuilder=CubingJobBuilder.newBuilder().setJobEnginConfig(jobEngineConfig).setSegment(cubeSegment1);
-  final CubingJob job=cubingJobBuilder.buildJob();
-  jobService.addJob(job);
-  waitForJob(job.getId());
-  assertEquals(ExecutableState.SUCCEED,jobService.getOutput(job.getId()).getState());
-  Date date2=dateFormat.parse("2013-04-01");
-  final CubeSegment cubeSegment2=cubeManager.appendSegments(testCube,date1.getTime(),date2.getTime());
-  final CubingJob job2=CubingJobBuilder.newBuilder().setJobEnginConfig(jobEngineConfig).setSegment(cubeSegment2).buildJob();
-  jobService.addJob(job2);
-  waitForJob(job2.getId());
-  assertEquals(ExecutableState.SUCCEED,jobService.getOutput(job2.getId()).getState());
-  final CubeSegment cubeSegment3=cubeManager.mergeSegments(testCube,0,date2.getTime());
-  final CubingJob job3=CubingJobBuilder.newBuilder().setJobEnginConfig(jobEngineConfig).setSegment(cubeSegment3).mergeJob();
-  jobService.addJob(job3);
-  waitForJob(job3.getId());
-  assertEquals(ExecutableState.SUCCEED,jobService.getOutput(job3.getId()).getState());
+  DeployUtil.prepareTestData("inner","test_kylin_cube_with_slr_empty");
+  DeployUtil.prepareTestData("left","test_kylin_cube_with_slr_left_join_empty");
+  String[] testCase=new String[]{"testInnerJoinCube","testInnerJoinCube2","testLeftJoinCube","testLeftJoinCube2"};
+  ExecutorService executorService=Executors.newFixedThreadPool(testCase.length);
+  final CountDownLatch countDownLatch=new CountDownLatch(testCase.length);
+  List<Future<List<String>>> tasks=Lists.newArrayListWithExpectedSize(testCase.length);
+  for (int i=0; i < testCase.length; i++) {
+    tasks.add(executorService.submit(new TestCallable(testCase[i],countDownLatch)));
+  }
+  countDownLatch.await();
+  for (int i=0; i < tasks.size(); ++i) {
+    Future<List<String>> task=tasks.get(i);
+    final List<String> jobIds=task.get();
+    for (    String jobId : jobIds) {
+      assertJobSucceed(jobId);
+    }
+  }
 }
