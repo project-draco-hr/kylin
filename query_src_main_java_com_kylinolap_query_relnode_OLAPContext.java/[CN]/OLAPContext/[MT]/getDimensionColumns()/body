@@ -1,8 +1,0 @@
-{
-  Collection<TblColRef> dimensionColumns=new HashSet<TblColRef>();
-  dimensionColumns.addAll(allColumns);
-  for (  TblColRef measureColumn : metricsColumns) {
-    dimensionColumns.remove(measureColumn);
-  }
-  return dimensionColumns;
-}

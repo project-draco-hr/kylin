@@ -1,0 +1,2 @@
+Collection<TblColRef> groupByColumns
+Collection<TblColRef> filterColumns
