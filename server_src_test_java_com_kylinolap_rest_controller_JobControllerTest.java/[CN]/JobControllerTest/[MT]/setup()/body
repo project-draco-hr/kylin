@@ -8,5 +8,5 @@
   KylinConfig testConfig=getTestConfig();
   cubeManager=CubeManager.getInstance(testConfig);
   cubeDescManager=CubeDescManager.getInstance(testConfig);
-  jobDAO=JobDAO.getInstance(testConfig);
+  jobDAO=JobDao.getInstance(testConfig);
 }
