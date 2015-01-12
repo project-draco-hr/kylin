@@ -1,7 +1,0 @@
-{
-  if (!metaTmpDir.exists()) {
-    if (!metaTmpDir.mkdirs()) {
-      throw new IllegalArgumentException("Failed to create Output dir : " + metaTmpDir.getAbsolutePath());
-    }
-  }
-}
