@@ -3,9 +3,9 @@
   MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
   for (  String tableName : tables) {
     Table table=null;
+    HiveClient hiveClient=new HiveClient();
     List<FieldSchema> fields=null;
     try {
-      HiveClient hiveClient=new HiveClient();
       table=hiveClient.getHiveTable(database,tableName);
       fields=hiveClient.getHiveTableFields(database,tableName);
     }
@@ -13,6 +13,8 @@
       e.printStackTrace();
       throw new IOException(e);
     }
+    long tableSize=hiveClient.getFileSizeForTable(table);
+    long tableFileNum=hiveClient.getFileNumberForTable(table);
     TableDesc tableDesc=metaMgr.getTableDesc(database + "." + tableName);
     if (tableDesc == null) {
       tableDesc=new TableDesc();
@@ -46,6 +48,8 @@
     map.put(MetadataConstances.TABLE_EXD_OWNER,table.getOwner());
     map.put(MetadataConstances.TABLE_EXD_LAT,String.valueOf(table.getLastAccessTime()));
     map.put(MetadataConstances.TABLE_EXD_PC,partitionColumnString.toString());
+    map.put(MetadataConstances.TABLE_EXD_TFS,String.valueOf(tableSize));
+    map.put(MetadataConstances.TABLE_EXD_TNF,String.valueOf(tableFileNum));
     map.put(MetadataConstances.TABLE_EXD_PARTITIONED,Boolean.valueOf(partitionCols != null && partitionCols.size() > 0).toString());
     metaMgr.saveSourceTable(tableDesc);
     metaMgr.saveTableExd(tableDesc.getIdentity(),map);
