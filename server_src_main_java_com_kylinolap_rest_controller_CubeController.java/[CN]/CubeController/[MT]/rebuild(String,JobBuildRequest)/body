@@ -12,8 +12,4 @@ catch (  IOException e) {
     logger.error(e.getLocalizedMessage(),e);
     throw new InternalErrorException(e.getLocalizedMessage());
   }
-catch (  InvalidJobInstanceException e) {
-    logger.error(e.getLocalizedMessage(),e);
-    throw new InternalErrorException(e.getLocalizedMessage());
-  }
 }

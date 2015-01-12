@@ -11,12 +11,13 @@
       allHdfsPathsNeedToBeDeleted.add(kylinJobPath);
     }
   }
-  List<JobInstance> allJobs=JobDAO.getInstance(KylinConfig.getInstanceFromEnv()).listAllJobs();
-  for (  JobInstance jobInstance : allJobs) {
-    if (isJobInUse(jobInstance) == true) {
-      String path=JobInstance.getJobWorkingDir(jobInstance,engineConfig);
+  List<String> allJobs=executableManager.getAllJobIds();
+  for (  String jobId : allJobs) {
+    final ExecutableState state=executableManager.getOutput(jobId).getState();
+    if (!state.isFinalState()) {
+      String path=JobInstance.getJobWorkingDir(jobId,engineConfig.getHdfsWorkingDirectory());
       allHdfsPathsNeedToBeDeleted.remove(path);
-      log.info("Remove " + path + " from deletion list, as the path belongs to job "+ jobInstance.getUuid()+ " with status "+ jobInstance.getStatus());
+      log.info("Remove " + path + " from deletion list, as the path belongs to job "+ jobId+ " with status "+ state);
     }
   }
   for (  CubeInstance cube : cubeMgr.listAllCubes()) {
