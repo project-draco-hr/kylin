@@ -1,0 +1,3 @@
+{
+  return StatsUtils.getBasicStatForTable(new org.apache.hadoop.hive.ql.metadata.Table(table),StatsSetupConst.NUM_FILES);
+}

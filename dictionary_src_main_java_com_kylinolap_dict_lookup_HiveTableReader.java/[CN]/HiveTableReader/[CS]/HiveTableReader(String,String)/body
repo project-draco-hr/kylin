@@ -1,5 +1,3 @@
 {
-  this.dbName=dbName;
-  this.tableName=tableName;
-  initialize();
+  this(dbName,tableName,null);
 }

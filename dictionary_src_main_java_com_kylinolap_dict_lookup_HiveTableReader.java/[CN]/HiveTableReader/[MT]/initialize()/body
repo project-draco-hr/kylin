@@ -1,6 +1,6 @@
 {
   try {
-    this.readCntxt=getHiveReaderContext(dbName,tableName);
+    this.readCntxt=getHiveReaderContext(dbName,tableName,partitionKV);
   }
  catch (  Exception e) {
     e.printStackTrace();
