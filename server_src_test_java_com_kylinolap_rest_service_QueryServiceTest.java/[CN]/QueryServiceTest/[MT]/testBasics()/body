@@ -1,5 +1,4 @@
 {
-  Assert.assertNotNull(queryService.getJobManager());
   Assert.assertNotNull(queryService.getConfig());
   Assert.assertNotNull(queryService.getKylinConfig());
   Assert.assertNotNull(queryService.getMetadataManager());

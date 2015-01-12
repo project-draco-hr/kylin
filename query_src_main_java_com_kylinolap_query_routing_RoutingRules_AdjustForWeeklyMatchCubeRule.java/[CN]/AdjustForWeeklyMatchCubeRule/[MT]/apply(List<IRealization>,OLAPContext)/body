@@ -1,8 +1,11 @@
 {
   if (realizations.size() > 0) {
-    if (olapContext.isWeekMatch.containsKey(realizations.get(0))) {
-      CubeInstance cube=(CubeInstance)realizations.get(0);
-      adjustOLAPContext(cube,olapContext);
+    IRealization first=realizations.get(0);
+    if (first instanceof CubeInstance) {
+      CubeInstance cube=(CubeInstance)first;
+      if (!CubeCapabilityChecker.check(cube,olapContext.getSQLDigest(),false)) {
+        adjustOLAPContext(cube,olapContext);
+      }
     }
   }
 }

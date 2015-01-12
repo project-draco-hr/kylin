@@ -4,7 +4,7 @@
   }
  catch (  InterruptedException e) {
   }
-  if (isStopped()) {
+  if (isDiscarded()) {
     return new ExecuteResult(ExecuteResult.State.STOPPED,"stopped");
   }
  else {

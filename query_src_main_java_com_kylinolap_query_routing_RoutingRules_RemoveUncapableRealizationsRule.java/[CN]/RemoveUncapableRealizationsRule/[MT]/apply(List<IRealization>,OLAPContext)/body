@@ -1,0 +1,8 @@
+{
+  for (Iterator<IRealization> iterator=realizations.iterator(); iterator.hasNext(); ) {
+    IRealization realization=iterator.next();
+    if (!realization.isCapable(olapContext.getSQLDigest())) {
+      iterator.remove();
+    }
+  }
+}

@@ -1,7 +1,0 @@
-{
-  String uuid=segment.getUuid();
-  if (uuid == null) {
-    uuid=segment.getLastBuildJobID();
-  }
-  return JobInstance.getJobWorkingDir(uuid,engineConfig.getHdfsWorkingDirectory()) + "/" + jobInstance.getRelatedCube()+ "/cuboid/*";
-}

@@ -1,0 +1,8 @@
+{
+  final int prime=31;
+  int hashCode=state.hashCode();
+  hashCode=hashCode * prime + extra.hashCode();
+  hashCode=hashCode * prime + verboseMsg.hashCode();
+  hashCode=hashCode * prime + Long.valueOf(lastModified).hashCode();
+  return hashCode;
+}

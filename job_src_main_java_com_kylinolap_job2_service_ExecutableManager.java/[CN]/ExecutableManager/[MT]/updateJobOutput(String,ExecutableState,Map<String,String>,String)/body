@@ -1,6 +1,7 @@
 {
   try {
     final JobOutputPO jobOutput=jobDao.getJobOutput(jobId);
+    Preconditions.checkArgument(jobOutput != null,"there is no related output for job id:" + jobId);
     ExecutableState oldStatus=ExecutableState.valueOf(jobOutput.getStatus());
     if (newStatus != null && oldStatus != newStatus) {
       if (!ExecutableState.isValidStateTransfer(oldStatus,newStatus)) {

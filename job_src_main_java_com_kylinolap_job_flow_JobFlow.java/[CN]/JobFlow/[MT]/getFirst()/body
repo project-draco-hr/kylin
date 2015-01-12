@@ -1,6 +1,0 @@
-{
-  if (flowNodes.isEmpty()) {
-    return null;
-  }
-  return flowNodes.get(0);
-}

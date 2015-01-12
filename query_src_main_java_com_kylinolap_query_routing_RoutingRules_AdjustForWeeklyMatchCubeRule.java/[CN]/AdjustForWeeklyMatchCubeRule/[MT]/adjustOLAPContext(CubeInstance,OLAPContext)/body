@@ -1,5 +1,5 @@
 {
-  Collection<TblColRef> dimensionColumns=(olapContext).getDimensionColumns();
+  Collection<TblColRef> dimensionColumns=CubeDimensionDeriver.getDimensionColumns(olapContext.groupByColumns,olapContext.filterColumns);
   Collection<FunctionDesc> functions=olapContext.aggregations;
   Collection<TblColRef> metricsColumns=olapContext.metricsColumns;
   Map<String,RelDataType> rewriteFields=olapContext.rewriteFields;

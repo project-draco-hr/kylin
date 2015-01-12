@@ -1,3 +1,0 @@
-JobInstance jobInstance
-int stepId
-JobEngineConfig engineConfig

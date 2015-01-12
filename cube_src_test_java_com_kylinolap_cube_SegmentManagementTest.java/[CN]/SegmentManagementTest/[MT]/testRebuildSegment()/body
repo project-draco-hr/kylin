@@ -1,7 +1,7 @@
 {
   CubeInstance cubeInstance=cubeMgr.getCube("test_kylin_cube_with_slr_ready");
   System.out.println("Rebuild Segment");
-  CubeSegment rebuildSegment=cubeMgr.allocateSegments(cubeInstance,CubeBuildTypeEnum.BUILD,1364688000000L,1386806400000L).get(0);
+  CubeSegment rebuildSegment=cubeMgr.appendSegments(cubeInstance,1364688000000L,1386806400000L);
   System.out.println(JsonUtil.writeValueAsIndentString(cubeInstance));
   assertEquals(RealizationStatusEnum.READY,cubeInstance.getStatus());
   assertEquals(1,cubeInstance.getBuildingSegments().size());

@@ -2,7 +2,7 @@
   try {
     Counters counters=job.getCounters();
     if (counters == null) {
-      String errorMsg="no counters for job " + mrJobID;
+      String errorMsg="no counters for job " + getMrJobId();
       log.warn(errorMsg);
       output.append(errorMsg);
       return;

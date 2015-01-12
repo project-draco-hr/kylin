@@ -1,6 +1,0 @@
-{
-  super();
-  this.yarnUrl=yarnUrl;
-  this.job=job;
-  this.output=new StringBuilder();
-}
