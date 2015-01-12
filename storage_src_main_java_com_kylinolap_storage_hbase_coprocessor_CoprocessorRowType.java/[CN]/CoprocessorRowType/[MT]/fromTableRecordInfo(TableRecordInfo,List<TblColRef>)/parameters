@@ -1,2 +1,2 @@
 TableRecordInfo tableRecordInfo
-ColumnDesc[] columnDescs
+List<TblColRef> cols

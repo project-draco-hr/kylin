@@ -1,5 +1,4 @@
 IISegment cubeSegment
-ColumnDesc[] columnDescs
 TupleFilter rootFilter
 Collection<TblColRef> groupBy
 List<FunctionDesc> measures

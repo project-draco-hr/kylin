@@ -1,2 +1,2 @@
 List<FunctionDesc> measures
-ColumnDesc[] columns
+List<TblColRef> columns

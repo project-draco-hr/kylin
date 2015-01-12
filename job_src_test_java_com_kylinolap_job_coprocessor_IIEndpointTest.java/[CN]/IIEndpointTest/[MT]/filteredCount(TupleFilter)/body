@@ -1,5 +1,5 @@
 {
-  EndpointTupleIterator iterator=new EndpointTupleIterator(seg,tableDesc.getColumns(),tupleFilter,null,null,context,hconn);
+  EndpointTupleIterator iterator=new EndpointTupleIterator(seg,tupleFilter,null,null,context,hconn);
   int count=0;
   while (iterator.hasNext()) {
     ITuple tuple=iterator.next();

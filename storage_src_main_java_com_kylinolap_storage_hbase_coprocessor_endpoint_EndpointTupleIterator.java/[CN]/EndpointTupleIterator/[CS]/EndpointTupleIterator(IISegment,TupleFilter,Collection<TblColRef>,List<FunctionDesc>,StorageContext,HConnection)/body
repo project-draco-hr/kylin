@@ -1,6 +1,7 @@
 {
   String tableName=cubeSegment.getStorageLocationIdentifier();
   table=conn.getTable(tableName);
+  factTableName=cubeSegment.getIIDesc().getFactTableName();
   if (rootFilter == null) {
     rootFilter=ConstantTupleFilter.TRUE;
   }
@@ -10,18 +11,15 @@
   if (measures == null) {
     measures=Lists.newArrayList();
   }
-  initMeaureParameters(measures,columnDescs);
+  initMeaureParameters(measures,cubeSegment.getColumns());
   this.seg=cubeSegment;
   this.context=context;
   this.measures=measures;
-  this.columns=Lists.newArrayList();
-  for (  ColumnDesc columnDesc : columnDescs) {
-    columns.add(new TblColRef(columnDesc));
-  }
-  columnNames=getColumnNames(columns);
+  this.columns=cubeSegment.getColumns();
+  this.columnNames=getColumnNames(columns);
   this.tupleInfo=buildTupleInfo();
   this.tableRecordInfo=new TableRecordInfo(this.seg);
-  this.pushedDownRowType=CoprocessorRowType.fromTableRecordInfo(tableRecordInfo,columnDescs);
+  this.pushedDownRowType=CoprocessorRowType.fromTableRecordInfo(tableRecordInfo,this.columns);
   this.pushedDownFilter=CoprocessorFilter.fromFilter(this.seg,rootFilter);
   this.pushedDownProjector=CoprocessorProjector.makeForEndpoint(tableRecordInfo,groupBy);
   this.pushedDownAggregators=EndpointAggregators.fromFunctions(tableRecordInfo,measures);
