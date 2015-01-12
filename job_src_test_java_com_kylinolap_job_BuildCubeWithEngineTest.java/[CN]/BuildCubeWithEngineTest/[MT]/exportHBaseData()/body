@@ -1,4 +1,0 @@
-{
-  ExportHBaseData export=new ExportHBaseData();
-  export.exportTables();
-}

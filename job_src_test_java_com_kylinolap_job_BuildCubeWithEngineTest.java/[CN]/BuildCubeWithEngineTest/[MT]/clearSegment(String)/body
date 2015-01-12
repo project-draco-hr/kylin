@@ -1,5 +1,0 @@
-{
-  CubeInstance cube=cubeManager.getCube(cubeName);
-  cube.getSegments().clear();
-  cubeManager.updateCube(cube);
-}
