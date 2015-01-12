@@ -1,3 +1,0 @@
-{
-  return readJobOutputResource(ResourceStore.JOB_OUTPUT_PATH_ROOT + "/" + JobStepOutput.nameOfOutput(jobUuid,stepSequenceId));
-}

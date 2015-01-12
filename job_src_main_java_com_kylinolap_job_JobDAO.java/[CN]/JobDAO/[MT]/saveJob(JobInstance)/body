@@ -1,3 +1,0 @@
-{
-  writeJobResource(pathOfJob(job),job);
-}
