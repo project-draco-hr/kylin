@@ -1,7 +1,6 @@
 {
   DeployUtil.prepareTestData("inner","test_kylin_cube_with_slr_empty");
-  DeployUtil.prepareTestData("left","test_kylin_cube_with_slr_left_join_empty");
-  String[] testCase=new String[]{"testInnerJoinCube","testInnerJoinCube2","testLeftJoinCube","testLeftJoinCube2"};
+  String[] testCase=new String[]{"testInnerJoinCube","testInnerJoinCube2"};
   ExecutorService executorService=Executors.newFixedThreadPool(testCase.length);
   final CountDownLatch countDownLatch=new CountDownLatch(testCase.length);
   List<Future<List<String>>> tasks=Lists.newArrayListWithExpectedSize(testCase.length);
