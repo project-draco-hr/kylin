@@ -1,3 +1,3 @@
 {
-  return "fact table " + this.factTable + ","+ "group by "+ this.groupbyColumns+ ","+ "filter on "+ this.filterColumns+ ","+ "with aggregates"+ this.aggregateFunc+ ".";
+  return "fact table " + this.factTable + ","+ "group by "+ this.groupbyColumns+ ","+ "filter on "+ this.filterColumns+ ","+ "with aggregates"+ this.aggregations+ ".";
 }

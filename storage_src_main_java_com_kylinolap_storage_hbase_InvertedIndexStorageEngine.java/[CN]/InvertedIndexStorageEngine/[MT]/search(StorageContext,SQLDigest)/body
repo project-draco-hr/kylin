@@ -2,7 +2,7 @@
   String tableName=seg.getStorageLocationIdentifier();
   HConnection conn=HBaseConnection.get(context.getConnUrl());
   try {
-    return new EndpointTupleIterator(seg,filter,groups,new ArrayList(metrics),context,conn);
+    return new EndpointTupleIterator(seg,sqlDigest.filter,sqlDigest.groupbyColumns,new ArrayList<>(sqlDigest.aggregations),context,conn);
   }
  catch (  Throwable e) {
     e.printStackTrace();

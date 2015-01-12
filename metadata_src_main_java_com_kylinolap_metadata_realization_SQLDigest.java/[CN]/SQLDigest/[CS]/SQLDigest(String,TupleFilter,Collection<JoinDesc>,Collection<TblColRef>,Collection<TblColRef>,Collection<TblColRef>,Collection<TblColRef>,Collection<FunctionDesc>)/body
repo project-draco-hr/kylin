@@ -1,9 +1,10 @@
 {
   this.factTable=factTable;
+  this.filter=filter;
   this.joinDescs=joinDescs;
   this.allColumns=allColumns;
   this.groupbyColumns=groupbyColumns;
   this.filterColumns=filterColumns;
-  this.aggregatedColumns=aggregatedColumns;
-  this.aggregateFunc=aggregateFunnc;
+  this.metricColumns=aggregatedColumns;
+  this.aggregations=aggregateFunnc;
 }

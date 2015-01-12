@@ -1,4 +1,5 @@
 String factTable
+TupleFilter filter
 Collection<JoinDesc> joinDescs
 Collection<TblColRef> allColumns
 Collection<TblColRef> groupbyColumns

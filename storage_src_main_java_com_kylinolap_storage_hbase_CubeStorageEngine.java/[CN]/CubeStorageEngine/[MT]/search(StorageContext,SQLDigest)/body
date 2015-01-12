@@ -1,4 +1,9 @@
 {
+  Collection<TblColRef> groups=sqlDigest.groupbyColumns;
+  TupleFilter filter=sqlDigest.filter;
+  Collection<TblColRef> dimensions=new HashSet<TblColRef>();
+  Collection<FunctionDesc> metrics=new HashSet<FunctionDesc>();
+  buildDimensionsAndMetrics(dimensions,metrics,sqlDigest);
   Set<TblColRef> others=Sets.newHashSet(dimensions);
   others.removeAll(groups);
   Set<TblColRef> derivedPostAggregation=Sets.newHashSet();

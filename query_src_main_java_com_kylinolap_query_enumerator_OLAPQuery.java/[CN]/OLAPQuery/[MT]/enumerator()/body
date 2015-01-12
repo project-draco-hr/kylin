@@ -1,7 +1,7 @@
 {
   OLAPContext olapContext=OLAPContext.getThreadLocalContextById(contextId);
 switch (type) {
-case CUBE:
+case INDEX:
     return new CubeEnumerator(olapContext,optiqContext);
 case LOOKUP_TABLE:
   return new LookupTableEnumerator(olapContext);
