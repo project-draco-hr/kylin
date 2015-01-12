@@ -7,6 +7,6 @@
     System.out.println(ArrayUtils.toString(row));
     rowNumber++;
   }
-  Assert.assertEquals(10000,rowNumber);
   reader.close();
+  Assert.assertEquals(10000,rowNumber);
 }
