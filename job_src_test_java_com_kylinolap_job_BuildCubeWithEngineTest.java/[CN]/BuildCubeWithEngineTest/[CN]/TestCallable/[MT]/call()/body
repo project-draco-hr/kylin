@@ -1,0 +1,10 @@
+{
+  try {
+    final Method method=BuildCubeWithEngineTest.class.getDeclaredMethod(methodName);
+    method.setAccessible(true);
+    return (List<String>)method.invoke(BuildCubeWithEngineTest.this);
+  }
+  finally {
+    countDownLatch.countDown();
+  }
+}

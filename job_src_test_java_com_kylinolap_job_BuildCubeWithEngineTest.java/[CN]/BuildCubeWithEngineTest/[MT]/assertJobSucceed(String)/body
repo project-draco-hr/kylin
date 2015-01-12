@@ -1,0 +1,3 @@
+{
+  assertEquals(ExecutableState.SUCCEED,jobService.getOutput(jobId).getState());
+}
