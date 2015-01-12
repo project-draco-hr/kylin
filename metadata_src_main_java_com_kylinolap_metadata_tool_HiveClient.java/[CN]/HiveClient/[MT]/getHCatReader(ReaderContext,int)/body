@@ -1,4 +1,0 @@
-{
-  HCatReader reader=DataTransferFactory.getHCatReader(cntxt,slaveNum);
-  return reader;
-}

@@ -14,7 +14,7 @@
     String inputFormat=getOptionValue(OPTION_INPUT_FORMAT);
     String inputDelim=getOptionValue(OPTION_INPUT_DELIM);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
-    System.out.println("Starting: " + job.getJobName());
+    log.info("Starting: " + job.getJobName());
     MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
     TableDesc table=metaMgr.getTableDesc(tableName);
     job.getConfiguration().set(BatchConstants.TABLE_NAME,tableName);

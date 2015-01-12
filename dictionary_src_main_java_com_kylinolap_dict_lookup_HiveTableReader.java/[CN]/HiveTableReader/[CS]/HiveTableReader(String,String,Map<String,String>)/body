@@ -1,0 +1,6 @@
+{
+  this.dbName=dbName;
+  this.tableName=tableName;
+  this.partitionKV=partitionKV;
+  initialize();
+}

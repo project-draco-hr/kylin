@@ -1,0 +1,18 @@
+{
+  if (tableId == null) {
+    throw new IllegalArgumentException("tableId couldn't be null");
+  }
+  TableDesc srcTable=srcTableMap.get(tableId);
+  if (srcTable == null) {
+    throw new IllegalArgumentException("Couldn't find Source Table with identifier: " + tableId);
+  }
+  String path=TableDesc.concatExdResourcePath(tableId);
+  ByteArrayOutputStream os=new ByteArrayOutputStream();
+  JsonUtil.writeValueIndent(os,tableExdProperties);
+  os.flush();
+  InputStream is=new ByteArrayInputStream(os.toByteArray());
+  getStore().putResource(path,is,System.currentTimeMillis());
+  os.close();
+  is.close();
+  srcTableExdMap.putLocal(tableId,tableExdProperties);
+}
