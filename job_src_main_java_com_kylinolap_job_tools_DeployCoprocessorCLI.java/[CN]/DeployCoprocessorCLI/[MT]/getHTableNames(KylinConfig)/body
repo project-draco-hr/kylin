@@ -4,7 +4,19 @@
   for (  CubeInstance cube : cubeMgr.listAllCubes()) {
     for (    CubeSegment seg : cube.getSegments(SegmentStatusEnum.READY)) {
       String tableName=seg.getStorageLocationIdentifier();
-      if (StringUtils.isBlank(tableName) == false)       result.add(tableName);
+      if (StringUtils.isBlank(tableName) == false) {
+        result.add(tableName);
+        System.out.println("added new table: " + tableName);
+      }
+    }
+  }
+  for (  IIInstance ii : IIManager.getInstance(config).listAllIIs()) {
+    for (    IISegment seg : ii.getSegment(SegmentStatusEnum.READY)) {
+      String tableName=seg.getStorageLocationIdentifier();
+      if (StringUtils.isBlank(tableName) == false) {
+        result.add(tableName);
+        System.out.println("added new table: " + tableName);
+      }
     }
   }
   return result;
