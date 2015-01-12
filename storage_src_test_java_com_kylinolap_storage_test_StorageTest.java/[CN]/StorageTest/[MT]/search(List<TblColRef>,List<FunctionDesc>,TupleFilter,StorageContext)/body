@@ -2,7 +2,8 @@
   int count=0;
   ITupleIterator iterator=null;
   try {
-    iterator=storageEngine.search(groups,filter,groups,aggregations,context);
+    SQLDigest sqlDigest=new SQLDigest("default.test_kylin_fact",filter,null,Collections.<TblColRef>emptySet(),groups,Collections.<TblColRef>emptySet(),Collections.<TblColRef>emptySet(),aggregations);
+    iterator=storageEngine.search(context,sqlDigest);
     while (iterator.hasNext()) {
       ITuple tuple=iterator.next();
       System.out.println("Tuple = " + tuple);

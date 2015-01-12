@@ -1,5 +1,5 @@
 {
-  FilterOperatorEnum op=ID_OP_MAP.get(opVal);
+  TupleFilter.FilterOperatorEnum op=ID_OP_MAP.get(opVal);
   if (op == null) {
     throw new IllegalStateException("operator value is " + opVal);
   }
