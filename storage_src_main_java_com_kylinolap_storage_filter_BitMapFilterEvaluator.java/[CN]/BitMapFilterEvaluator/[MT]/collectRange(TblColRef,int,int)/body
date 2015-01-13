@@ -1,9 +1,3 @@
 {
-  ConciseSet set=new ConciseSet();
-  for (int i=from; i <= to; i++) {
-    ConciseSet bitMap=provider.getBitMap(column,i);
-    if (bitMap == null)     return null;
-    set.addAll(bitMap);
-  }
-  return set;
+  return provider.getBitMap(column,from,to + 1);
 }

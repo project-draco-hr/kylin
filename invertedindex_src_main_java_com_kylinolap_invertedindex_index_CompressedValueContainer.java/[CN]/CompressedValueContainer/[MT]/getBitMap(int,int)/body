@@ -1,0 +1,20 @@
+{
+  ConciseSet ret=new ConciseSet();
+  if (startInclusiveId == endExclusiveId) {
+    int nullId=com.kylinolap.dict.Dictionary.NULL_ID[valueLen];
+    for (int i=0; i < size; ++i) {
+      int valueID=BytesUtil.readUnsigned(uncompressed,i * valueLen,valueLen);
+      if (nullId == valueID) {
+        ret.add(i);
+      }
+    }
+    return ret;
+  }
+  for (int i=0; i < size; ++i) {
+    int valueID=BytesUtil.readUnsigned(uncompressed,i * valueLen,valueLen);
+    if (valueID >= startInclusiveId && valueID < endExclusiveId) {
+      ret.add(i);
+    }
+  }
+  return ret;
+}

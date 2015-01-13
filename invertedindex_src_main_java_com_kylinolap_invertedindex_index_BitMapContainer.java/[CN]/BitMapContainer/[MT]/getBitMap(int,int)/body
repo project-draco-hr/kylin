@@ -1,0 +1,21 @@
+{
+  if (startInclusiveId == endExclusiveId) {
+    return sets[this.nValues];
+  }
+  ConciseSet ret=null;
+  for (int i=startInclusiveId; i < endExclusiveId; ++i) {
+    ConciseSet temp=getBitMap(i);
+    if (ret == null) {
+      ret=temp;
+    }
+ else {
+      ret.addAll(temp);
+    }
+  }
+  if (ret != null) {
+    return ret;
+  }
+ else {
+    return new ConciseSet();
+  }
+}

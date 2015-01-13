@@ -1,4 +1,0 @@
-{
-  createBitMapWrapperIfNecessary();
-  return wrapper.getBitMap(valueId);
-}
