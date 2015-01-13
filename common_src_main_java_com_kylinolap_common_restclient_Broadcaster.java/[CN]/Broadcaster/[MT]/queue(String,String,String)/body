@@ -1,6 +1,8 @@
 {
-  BroadcastEvent event=BroadcasterHolder.INSTANCE.new BroadcastEvent(type,action,key);
-  if (!broadcaseEvents.contains(event)) {
-    broadcaseEvents.add(event);
+  try {
+    broadcaseEvents.putFirst(new BroadcastEvent(type,action,key));
+  }
+ catch (  Exception e) {
+    logger.error("error putting BroadcastEvent",e);
   }
 }
