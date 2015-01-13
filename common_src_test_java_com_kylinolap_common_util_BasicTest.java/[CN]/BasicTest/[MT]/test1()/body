@@ -1,3 +1,10 @@
 {
-  log.info("xxx {} yyy {}",100,290);
+  RangeSet<Integer> rangeSet=TreeRangeSet.create();
+  Range a=Range.closed(1,10);
+  Range b=Range.closedOpen(11,15);
+  Range newa=a.canonical(DiscreteDomain.integers());
+  Range newb=b.canonical(DiscreteDomain.integers());
+  rangeSet.add(newa);
+  rangeSet.add(newb);
+  System.out.println(rangeSet);
 }
