@@ -1,7 +1,0 @@
-String factTable
-Collection<JoinDesc> joinDescs
-Collection<TblColRef> allColumns
-Collection<TblColRef> groupbyColumns
-Collection<TblColRef> filterColumns
-Collection<TblColRef> aggregatedColumns
-Collection<FunctionDesc> aggregateFunnc

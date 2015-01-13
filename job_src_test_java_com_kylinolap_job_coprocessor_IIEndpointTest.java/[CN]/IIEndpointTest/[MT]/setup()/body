@@ -1,6 +1,6 @@
 {
   this.ii=IIManager.getInstance(getTestConfig()).getII("test_kylin_ii");
   this.seg=ii.getFirstSegment();
-  this.tableDesc=MetadataManager.getInstance(getTestConfig()).getTableDesc("test_kylin_fact");
+  this.tableDesc=MetadataManager.getInstance(getTestConfig()).getTableDesc("default.test_kylin_fact");
   this.tableName=seg.getStorageLocationIdentifier();
 }

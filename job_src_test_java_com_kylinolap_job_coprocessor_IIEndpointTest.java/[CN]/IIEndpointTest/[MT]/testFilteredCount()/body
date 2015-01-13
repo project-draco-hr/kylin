@@ -5,5 +5,5 @@
   TupleFilter filterB=mockNEQFiter(lstg,"ABIN");
   int countA=filteredCount(filterA);
   int countB=filteredCount(filterB);
-  assertEquals(countA + countB,10000);
+  assertEquals(countA + countB,402);
 }

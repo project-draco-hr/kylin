@@ -2,11 +2,8 @@
   logger.debug("query storage...");
   setConnectionProperties();
   bindVariable(olapContext.filter);
-  Collection<TblColRef> dimensions=new HashSet<TblColRef>();
-  Collection<FunctionDesc> metrics=new HashSet<FunctionDesc>();
-  buildDimensionsAndMetrics(dimensions,metrics);
   IStorageEngine storageEngine=StorageEngineFactory.getStorageEngine(olapContext.realization);
-  ITupleIterator iterator=storageEngine.search(dimensions,olapContext.filter,olapContext.groupByColumns,metrics,olapContext.storageContext);
+  ITupleIterator iterator=storageEngine.search(olapContext.storageContext,olapContext.getSQLDigest());
   if (logger.isDebugEnabled()) {
     logger.debug("return TupleIterator...");
   }

@@ -1,7 +1,7 @@
 {
   return new AbstractTableQueryable<T>(queryProvider,schema,this,tableName){
     @SuppressWarnings("unchecked") public Enumerator<T> enumerator(){
-      final OLAPQuery query=new OLAPQuery(EnumeratorTypeEnum.CUBE,0);
+      final OLAPQuery query=new OLAPQuery(EnumeratorTypeEnum.INDEX,0);
       return (Enumerator<T>)query.enumerator();
     }
   }

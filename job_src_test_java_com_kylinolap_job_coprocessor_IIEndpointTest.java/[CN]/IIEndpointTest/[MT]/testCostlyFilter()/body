@@ -5,7 +5,7 @@
   TblColRef lfn=new TblColRef(sellerDessc);
   Collection<TblColRef> groupby=ImmutableSet.of(lfn);
   List<FunctionDesc> measures=buildAggregations(sellerDessc);
-  EndpointTupleIterator iterator=new EndpointTupleIterator(seg,tableDesc.getColumns(),tupleFilter,groupby,measures,context,hconn);
+  EndpointTupleIterator iterator=new EndpointTupleIterator(seg,tupleFilter,groupby,measures,context,hconn);
   int count=0;
   while (iterator.hasNext()) {
     ITuple tuple=iterator.next();

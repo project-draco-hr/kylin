@@ -5,5 +5,5 @@
   TupleFilter filterB=mockNEQFiter(lfn,"ABIN");
   int countA=filteredGrouByCount(filterA);
   int countB=filteredGrouByCount(filterB);
-  assertEquals(countA + countB,10000);
+  assertEquals(countA + countB,402);
 }

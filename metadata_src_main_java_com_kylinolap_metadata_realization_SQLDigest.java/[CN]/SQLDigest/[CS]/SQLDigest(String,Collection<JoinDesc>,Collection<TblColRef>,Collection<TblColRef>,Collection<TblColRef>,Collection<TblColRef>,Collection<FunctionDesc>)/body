@@ -1,9 +1,0 @@
-{
-  this.factTable=factTable;
-  this.joinDescs=joinDescs;
-  this.allColumns=allColumns;
-  this.groupbyColumns=groupbyColumns;
-  this.filterColumns=filterColumns;
-  this.aggregatedColumns=aggregatedColumns;
-  this.aggregateFunc=aggregateFunnc;
-}

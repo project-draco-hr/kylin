@@ -1,4 +1,4 @@
 {
   staticCreateTestMetadata(SANDBOX_TEST_DATA);
-  hconn=HBaseConnection.get(context.getConnUrl());
+  hconn=HBaseConnection.get(KylinConfig.getInstanceFromEnv().getStorageUrl());
 }

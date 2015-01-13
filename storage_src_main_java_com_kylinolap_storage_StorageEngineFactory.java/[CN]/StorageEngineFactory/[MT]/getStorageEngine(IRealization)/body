@@ -3,6 +3,6 @@
     return new InvertedIndexStorageEngine((IIInstance)realization);
   }
  else {
-    return new HBaseStorageEngine((CubeInstance)realization);
+    return new CubeStorageEngine((CubeInstance)realization);
   }
 }
