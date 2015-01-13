@@ -1,8 +1,4 @@
 {
-  if (context.isAvoidAggregation()) {
-    logger.info("Coprocessor is disabled because context tells to avoid aggregation");
-    return false;
-  }
   String forceFlag=System.getProperty(FORCE_COPROCESSOR);
   if (forceFlag != null) {
     return Boolean.parseBoolean(forceFlag);
