@@ -18,10 +18,8 @@
     FileOutputFormat.setOutputPath(job,output);
     job.getConfiguration().set("dfs.block.size","67108864");
     this.table=getOptionValue(OPTION_TABLE);
-    System.out.println("Going to start HiveColumnCardinalityJob on table '" + table + "'");
     String[] dbTableNames=HadoopUtil.parseHiveTableName(table);
     HCatInputFormat.setInput(job,dbTableNames[0],dbTableNames[1]);
-    System.out.println("Set input format as HCat on table '" + table + "'");
     job.setInputFormatClass(HCatInputFormat.class);
     job.setMapperClass(ColumnCardinalityMapper.class);
     job.setMapOutputKeyClass(IntWritable.class);
@@ -32,11 +30,8 @@
     job.setOutputValueClass(LongWritable.class);
     job.setNumReduceTasks(1);
     this.deletePath(job.getConfiguration(),output);
-    isAsync=true;
     System.out.println("Going to submit HiveColumnCardinalityJob for table '" + table + "'");
     int result=waitForCompletion(job);
-    System.out.println("Get job track url " + job.getJobID() + "\n");
-    System.out.println("Get job track url " + job.getTrackingURL() + "\n");
     return result;
   }
  catch (  Exception e) {

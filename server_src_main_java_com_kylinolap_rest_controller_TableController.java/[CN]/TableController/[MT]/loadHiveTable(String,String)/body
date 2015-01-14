@@ -1,8 +1,10 @@
 {
-  String[] arr=cubeMgmtService.reloadHiveTable(tables);
+  String submitter=SecurityContextHolder.getContext().getAuthentication().getName();
+  String[] loaded=cubeMgmtService.reloadHiveTable(tables);
+  cubeMgmtService.calculateCardinalityIfNotPresent(loaded,submitter);
   cubeMgmtService.syncTableToProject(tables,project);
   Map<String,String[]> result=new HashMap<String,String[]>();
-  result.put("result.loaded",arr);
+  result.put("result.loaded",loaded);
   result.put("result.unloaded",new String[]{});
   return result;
 }

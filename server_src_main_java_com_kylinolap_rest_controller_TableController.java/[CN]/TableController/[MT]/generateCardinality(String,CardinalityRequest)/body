@@ -1,7 +1,8 @@
 {
+  String submitter=SecurityContextHolder.getContext().getAuthentication().getName();
   String[] tables=tableNames.split(",");
   for (  String table : tables) {
-    cubeMgmtService.generateCardinality(table.trim(),request.getFormat(),request.getDelimiter());
+    cubeMgmtService.calculateCardinality(table.trim().toUpperCase(),submitter);
   }
   return request;
 }

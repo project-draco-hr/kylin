@@ -40,7 +40,10 @@
       if (i > 0)       partitionColumnString.append(", ");
       partitionColumnString.append(partitionCols.get(i).getName().toUpperCase());
     }
-    Map<String,String> map=new HashMap<String,String>();
+    Map<String,String> map=metaMgr.getTableDescExd(tableDesc.getIdentity());
+    if (map == null) {
+      map=Maps.newHashMap();
+    }
     map.put(MetadataConstances.TABLE_EXD_TABLENAME,table.getTableName());
     map.put(MetadataConstances.TABLE_EXD_LOCATION,table.getSd().getLocation());
     map.put(MetadataConstances.TABLE_EXD_IF,table.getSd().getInputFormat());
