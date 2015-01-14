@@ -1,3 +1,0 @@
-{
-  MetadataManager.getInstance(getConfig()).reload();
-}

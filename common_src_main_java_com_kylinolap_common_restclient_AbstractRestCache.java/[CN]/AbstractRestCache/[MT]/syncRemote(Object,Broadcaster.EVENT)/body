@@ -1,4 +1,0 @@
-{
-  String syncKey=(syncType == Broadcaster.TYPE.METADATA) ? "metadata" : key.toString();
-  Broadcaster.getInstance().queue(syncType.getType(),syncAction.getType(),syncKey);
-}

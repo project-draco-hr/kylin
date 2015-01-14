@@ -1,4 +1,3 @@
 {
-  MetadataManager.getInstance(config).reload();
   cubeMap.put(updatedCube.getName().toUpperCase(),updatedCube);
 }
