@@ -1,10 +1,39 @@
 {
-  Timer timer=new Timer();
-  TimerTask task=new TimerTask(){
-    public void run(){
-      Broadcaster.flush();
+  Executors.newSingleThreadExecutor().execute(new Runnable(){
+    @Override public void run(){
+      final String[] nodes=KylinConfig.getInstanceFromEnv().getRestServers();
+      if (nodes == null || nodes.length < 1) {
+        logger.warn("there are no available rest servers, please check the KYLIN_REST_SERVERS config");
+        return;
+      }
+      final List<RestClient> restClients=Lists.newArrayList();
+      for (      String node : nodes) {
+        restClients.add(new RestClient(node));
+      }
+      final ExecutorService wipingCachePool=Executors.newFixedThreadPool(restClients.size());
+      while (true) {
+        try {
+          final BroadcastEvent broadcastEvent=broadcaseEvents.takeFirst();
+          logger.info("new broadcast event:" + broadcastEvent);
+          for (          final RestClient restClient : restClients) {
+            wipingCachePool.execute(new Runnable(){
+              @Override public void run(){
+                try {
+                  restClient.wipeCache(broadcastEvent.getType(),broadcastEvent.getAction(),broadcastEvent.getName());
+                }
+ catch (                IOException e) {
+                  logger.warn("Thread failed during wipe cache at " + broadcastEvent);
+                }
+              }
+            }
+);
+          }
+        }
+ catch (        Exception e) {
+          logger.error("error running wiping",e);
+        }
+      }
     }
   }
-;
-  timer.schedule(task,new Date(),10 * 1000);
+);
 }
