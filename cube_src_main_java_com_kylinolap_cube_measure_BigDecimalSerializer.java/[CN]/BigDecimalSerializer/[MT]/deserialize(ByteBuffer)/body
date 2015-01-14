@@ -1,7 +1,0 @@
-{
-  int scale=BytesUtil.readVInt(in);
-  int n=BytesUtil.readVInt(in);
-  byte[] bytes=new byte[n];
-  in.get(bytes);
-  return new BigDecimal(new BigInteger(bytes),scale);
-}

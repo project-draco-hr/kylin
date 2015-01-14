@@ -1,9 +1,0 @@
-{
-  this.columnMetas=columnMetas;
-  this.results=results;
-  this.cube=cube;
-  this.affectedRowCount=affectedRowCount;
-  this.isException=isException;
-  this.exceptionMessage=exceptionMessage;
-  this.isPartial=isPartial;
-}

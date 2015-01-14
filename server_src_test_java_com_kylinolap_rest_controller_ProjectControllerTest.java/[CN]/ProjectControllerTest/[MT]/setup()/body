@@ -1,5 +1,0 @@
-{
-  super.setUp();
-  projectController=new ProjectController();
-  projectController.setProjectService(projectService);
-}

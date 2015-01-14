@@ -1,7 +1,0 @@
-{
-  this.valueLen=info.length(col);
-  this.cap=cap;
-  this.size=0;
-  this.uncompressed=null;
-  this.compressed=null;
-}

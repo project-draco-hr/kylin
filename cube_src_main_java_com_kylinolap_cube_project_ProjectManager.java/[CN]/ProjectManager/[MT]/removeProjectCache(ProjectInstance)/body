@@ -1,7 +1,0 @@
-{
-  String projectName=ProjectInstance.getNormalizedProjectName(project.getName());
-  if (projectMap.containsKey(projectName)) {
-    projectMap.remove(projectName);
-    projectTables.removeAll(projectName);
-  }
-}

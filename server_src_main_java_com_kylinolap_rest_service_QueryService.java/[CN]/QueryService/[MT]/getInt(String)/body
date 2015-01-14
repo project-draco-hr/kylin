@@ -1,8 +1,0 @@
-{
-  try {
-    return Integer.parseInt(content);
-  }
- catch (  Exception e) {
-    return -1;
-  }
-}

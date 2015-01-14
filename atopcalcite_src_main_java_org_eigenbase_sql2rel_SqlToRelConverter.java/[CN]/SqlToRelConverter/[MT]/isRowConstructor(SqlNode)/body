@@ -1,7 +1,0 @@
-{
-  if (!(node.getKind() == SqlKind.ROW)) {
-    return false;
-  }
-  SqlCall call=(SqlCall)node;
-  return call.getOperator().getName().equalsIgnoreCase("row");
-}

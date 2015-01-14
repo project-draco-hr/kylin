@@ -1,3 +1,0 @@
-HBaseAdmin hbaseAdmin
-Path hdfsCoprocessorJar
-List<String> tableNames

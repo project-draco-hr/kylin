@@ -1,5 +1,0 @@
-{
-  curLine=reader.nextLine();
-  curColumns=null;
-  return curLine != null;
-}

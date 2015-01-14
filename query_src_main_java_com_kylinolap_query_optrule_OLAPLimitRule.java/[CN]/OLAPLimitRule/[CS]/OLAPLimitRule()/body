@@ -1,3 +1,0 @@
-{
-  super(operand(SortRel.class,any()),"OLAPLimitRule");
-}

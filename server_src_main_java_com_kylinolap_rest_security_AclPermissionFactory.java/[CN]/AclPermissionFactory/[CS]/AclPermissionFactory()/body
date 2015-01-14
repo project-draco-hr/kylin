@@ -1,4 +1,0 @@
-{
-  super();
-  registerPublicPermissions(AclPermission.class);
-}

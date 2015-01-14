@@ -1,4 +1,0 @@
-{
-  List<? extends Node> metaSchemas=this.searchByPatterns(Pat.of(catalog),schemaPattern);
-  return new DataSet<MetaSchema>(MetaSchema.meta,new KylinEnumerator<MetaSchema>((Collection<MetaSchema>)metaSchemas));
-}

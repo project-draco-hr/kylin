@@ -1,3 +1,0 @@
-{
-  return getRequired(COPROCESSOR_LOCAL_JAR);
-}

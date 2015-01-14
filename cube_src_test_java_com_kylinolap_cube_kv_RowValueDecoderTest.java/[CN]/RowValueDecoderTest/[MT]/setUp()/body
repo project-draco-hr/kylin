@@ -1,4 +1,0 @@
-{
-  this.createTestMetadata();
-  MetadataManager.removeInstance(this.getTestConfig());
-}

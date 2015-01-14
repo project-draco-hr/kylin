@@ -1,4 +1,0 @@
-{
-  int index=info.getFieldIndex(fieldName);
-  return values[index];
-}

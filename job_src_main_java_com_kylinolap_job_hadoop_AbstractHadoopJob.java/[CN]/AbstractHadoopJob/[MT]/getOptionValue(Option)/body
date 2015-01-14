@@ -1,3 +1,0 @@
-{
-  return optionsHelper.getOptionValue(option);
-}

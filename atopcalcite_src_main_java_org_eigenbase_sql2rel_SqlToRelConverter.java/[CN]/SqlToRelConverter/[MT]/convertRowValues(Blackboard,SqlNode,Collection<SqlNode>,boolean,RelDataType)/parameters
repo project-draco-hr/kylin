@@ -1,5 +1,0 @@
-Blackboard bb
-SqlNode rowList
-Collection<SqlNode> rows
-boolean allowLiteralsOnly
-RelDataType targetRowType

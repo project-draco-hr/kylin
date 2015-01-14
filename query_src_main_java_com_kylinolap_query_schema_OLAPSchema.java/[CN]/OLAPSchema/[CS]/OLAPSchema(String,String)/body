@@ -1,5 +1,0 @@
-{
-  this.projectName=ProjectInstance.getNormalizedProjectName(project);
-  this.schemaName=schemaName;
-  init();
-}

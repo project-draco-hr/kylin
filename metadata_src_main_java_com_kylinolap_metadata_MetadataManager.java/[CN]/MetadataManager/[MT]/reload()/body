@@ -1,4 +1,0 @@
-{
-  removeInstance(config);
-  getInstance(config);
-}

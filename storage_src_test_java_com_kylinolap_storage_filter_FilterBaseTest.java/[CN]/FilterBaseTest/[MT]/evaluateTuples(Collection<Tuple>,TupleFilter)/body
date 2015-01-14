@@ -1,9 +1,0 @@
-{
-  int match=0;
-  for (  Tuple t : tuples) {
-    if (filter.evaluate(t)) {
-      match++;
-    }
-  }
-  return match;
-}

@@ -1,4 +1,0 @@
-{
-  super(Collections.<TupleFilter>emptyList(),FilterOperatorEnum.DYNAMIC);
-  this.variableName=name;
-}

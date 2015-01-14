@@ -1,4 +1,0 @@
-{
-  runSqlFile("src/test/resources/query/sql_optimize/enable-limit01.sql");
-  assertLimitWasEnabled();
-}

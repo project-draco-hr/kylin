@@ -1,7 +1,0 @@
-{
-  this.partitionKeys=partitionKeys;
-  this.orderKeys=orderKeys;
-  this.lowerBound=lowerBound;
-  this.upperBound=upperBound;
-  this.window=window;
-}

@@ -1,8 +1,0 @@
-{
-  if (context.hasJoin == false && cubeTable.equals(context.cubeDesc.getFactTable()) == false) {
-    return "executeLookupTableQuery";
-  }
- else {
-    return "executeCubeQuery";
-  }
-}

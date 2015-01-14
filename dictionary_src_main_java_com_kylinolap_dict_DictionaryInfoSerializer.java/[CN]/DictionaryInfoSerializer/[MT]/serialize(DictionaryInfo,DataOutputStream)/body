@@ -1,5 +1,0 @@
-{
-  String json=JsonUtil.writeValueAsIndentString(obj);
-  out.writeUTF(json);
-  if (infoOnly == false)   obj.getDictionaryObject().write(out);
-}

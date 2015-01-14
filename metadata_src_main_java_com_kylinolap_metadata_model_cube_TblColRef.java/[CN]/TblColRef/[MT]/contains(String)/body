@@ -1,3 +1,0 @@
-{
-  return LITERAL.getDataType().equals(name) || DERIVED.getDataType().equals(name);
-}

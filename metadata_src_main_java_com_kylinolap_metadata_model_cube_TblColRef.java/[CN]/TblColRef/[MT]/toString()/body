@@ -1,3 +1,0 @@
-{
-  return (column.getTable() == null ? null : column.getTable().getName()) + "." + column.getName();
-}

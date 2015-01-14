@@ -1,7 +1,0 @@
-{
-  double[] estimateVector=rawEstimateData[precision - 4];
-  SortedMap<Double,Integer> estimateDistances=calcDistances(estimate,estimateVector);
-  int[] nearestNeighbors=getNearestNeighbors(estimateDistances);
-  double bias=getBias(precision,nearestNeighbors);
-  return estimate - bias;
-}

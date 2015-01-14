@@ -1,6 +1,0 @@
-{
-  if (!RexLiteral.isNullLiteral(node)) {
-    return node;
-  }
-  return rexBuilder.makeCast(type,node);
-}

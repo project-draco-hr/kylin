@@ -1,5 +1,0 @@
-{
-  byte[] temp=new byte[2 * data.length];
-  System.arraycopy(data,0,temp,0,data.length);
-  data=temp;
-}

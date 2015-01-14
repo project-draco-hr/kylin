@@ -1,4 +1,0 @@
-HConnection hconn
-String tableName
-byte[] family
-byte[] qualifier

@@ -1,8 +1,0 @@
-{
-  if (env instanceof RegionCoprocessorEnvironment) {
-    this.env=(RegionCoprocessorEnvironment)env;
-  }
- else {
-    throw new CoprocessorException("Must be loaded on a table region!");
-  }
-}

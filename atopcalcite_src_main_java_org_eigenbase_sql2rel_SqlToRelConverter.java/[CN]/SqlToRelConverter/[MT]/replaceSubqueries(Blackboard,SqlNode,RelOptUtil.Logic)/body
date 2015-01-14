@@ -1,6 +1,0 @@
-{
-  findSubqueries(bb,expr,logic,false);
-  for (  SubQuery node : bb.subqueryList) {
-    substituteSubquery(bb,node);
-  }
-}

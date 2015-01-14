@@ -1,7 +1,0 @@
-{
-  checkPair("0001-01-01");
-  checkPair("1970-01-02");
-  checkPair("1975-06-24");
-  checkPair("2024-10-04");
-  checkPair("9999-12-31");
-}

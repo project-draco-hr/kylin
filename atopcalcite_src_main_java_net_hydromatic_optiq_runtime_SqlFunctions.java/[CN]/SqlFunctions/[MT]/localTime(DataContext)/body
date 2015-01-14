@@ -1,3 +1,0 @@
-{
-  return (int)(localTimestamp(root) % DateTimeUtil.MILLIS_PER_DAY);
-}

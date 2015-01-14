@@ -1,4 +1,0 @@
-{
-  OLAPContext context=getFirstOLAPContext();
-  assertTrue(context.storageContext.isLimitEnabled());
-}

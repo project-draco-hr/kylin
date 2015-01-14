@@ -1,4 +1,0 @@
-{
-  int idx=getFieldIndex(fieldName);
-  return dataTypes.get(idx);
-}

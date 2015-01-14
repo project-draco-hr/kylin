@@ -1,3 +1,0 @@
-{
-  return (joins.size() == 0) && (groupByColumns.size() == 0) && (aggregations.size() == 0);
-}

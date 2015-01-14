@@ -1,3 +1,0 @@
-{
-  return (beginValue == null || beginValue.compareTo(v) <= 0) && (endValue == null || v.compareTo(endValue) <= 0);
-}

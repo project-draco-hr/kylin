@@ -1,9 +1,0 @@
-{
-  Boolean ret=dictsNeedMerging.get(col);
-  if (ret != null)   return ret;
- else {
-    ret=cubeDesc.getRowkey().isUseDictionary(col) && cubeDesc.getFactTable().equalsIgnoreCase((String)DictionaryManager.getInstance(config).decideSourceData(cubeDesc,col,null)[0]);
-    dictsNeedMerging.put(col,ret);
-    return ret;
-  }
-}

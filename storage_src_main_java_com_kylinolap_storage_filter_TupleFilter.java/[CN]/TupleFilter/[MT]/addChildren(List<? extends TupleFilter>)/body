@@ -1,3 +1,0 @@
-{
-  for (  TupleFilter c : children)   addChild(c);
-}

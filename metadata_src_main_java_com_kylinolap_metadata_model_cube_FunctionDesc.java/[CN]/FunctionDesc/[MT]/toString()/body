@@ -1,3 +1,0 @@
-{
-  return "FunctionDesc [expression=" + expression + ", parameter="+ parameter+ ", returnType="+ returnType+ "]";
-}

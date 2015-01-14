@@ -1,3 +1,0 @@
-{
-  return Boolean.parseBoolean(this.getOptional("kylin.query.security.enabled","false"));
-}

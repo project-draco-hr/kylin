@@ -1,4 +1,0 @@
-{
-  ColumnCardinalityReducer reducer=new ColumnCardinalityReducer();
-  reduceDriver=ReduceDriver.newReduceDriver(reducer);
-}

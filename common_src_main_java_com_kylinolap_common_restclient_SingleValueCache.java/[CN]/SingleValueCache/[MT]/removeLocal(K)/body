@@ -1,3 +1,0 @@
-{
-  innerCache.remove(key);
-}

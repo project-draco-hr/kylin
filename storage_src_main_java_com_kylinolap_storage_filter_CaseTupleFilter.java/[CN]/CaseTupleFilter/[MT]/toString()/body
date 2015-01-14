@@ -1,3 +1,0 @@
-{
-  return "CaseTupleFilter [when=" + whenFilters + ", then="+ thenFilters+ ", else="+ elseFilter+ ", children="+ children+ "]";
-}

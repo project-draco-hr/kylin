@@ -1,5 +1,0 @@
-{
-  super(new ArrayList<TupleFilter>(2),op);
-  boolean opGood=(op == FilterOperatorEnum.AND || op == FilterOperatorEnum.OR || op == FilterOperatorEnum.NOT);
-  if (opGood == false)   throw new IllegalArgumentException("Unsupported operator " + op);
-}

@@ -1,6 +1,0 @@
-{
-  String config=adminService.getConfigAsString();
-  GeneralResponse configRes=new GeneralResponse();
-  configRes.put("config",config);
-  return configRes;
-}

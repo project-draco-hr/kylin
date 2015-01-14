@@ -1,3 +1,0 @@
-{
-  optionsHelper.parseOptions(options,args);
-}

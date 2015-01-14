@@ -1,7 +1,0 @@
-{
-  ByteBuffer buffer=ByteBuffer.allocate(BUFFER_SIZE);
-  BytesUtil.writeUTFString(variableName,buffer);
-  byte[] result=new byte[buffer.position()];
-  System.arraycopy(buffer.array(),0,result,0,buffer.position());
-  return result;
-}

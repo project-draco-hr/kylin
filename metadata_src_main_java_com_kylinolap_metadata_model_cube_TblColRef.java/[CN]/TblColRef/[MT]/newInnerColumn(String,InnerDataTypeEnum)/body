@@ -1,9 +1,0 @@
-{
-  ColumnDesc column=new ColumnDesc();
-  column.setName(columnName);
-  TableDesc table=new TableDesc();
-  column.setTable(table);
-  TblColRef colRef=new TblColRef(column);
-  colRef.markInnerColumn(dataType);
-  return colRef;
-}

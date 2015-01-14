@@ -1,8 +1,0 @@
-{
-  int integer=(bytes[offset] & 0x80) == 0 ? 0 : -1;
-  for (int i=offset, n=offset + size; i < n; i++) {
-    integer<<=8;
-    integer|=(int)bytes[i] & 0xFF;
-  }
-  return integer;
-}

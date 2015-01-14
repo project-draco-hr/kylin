@@ -1,9 +1,0 @@
-{
-  for (int i=0; i < count; i++) {
-    RexNode expr=exprs.get(i);
-    if (expr.toString().equals(seek.toString())) {
-      return i;
-    }
-  }
-  return -1;
-}

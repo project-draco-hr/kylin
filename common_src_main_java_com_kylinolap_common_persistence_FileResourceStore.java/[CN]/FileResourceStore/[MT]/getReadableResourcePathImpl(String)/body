@@ -1,3 +1,0 @@
-{
-  return file(resPath).toString();
-}

@@ -1,8 +1,0 @@
-{
-  super();
-  this.config=engineConfig.getConfig();
-  this.yarnUrl=engineConfig.getYarnStatusServiceUrl();
-  this.jobInstanceID=jobInstanceID;
-  this.jobStepID=jobStepID;
-  this.mrJobID=null;
-}

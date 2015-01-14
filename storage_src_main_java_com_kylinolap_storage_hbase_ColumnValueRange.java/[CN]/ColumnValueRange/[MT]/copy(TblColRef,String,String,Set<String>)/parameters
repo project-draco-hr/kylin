@@ -1,4 +1,0 @@
-TblColRef column
-String beginValue
-String endValue
-Set<String> equalValues

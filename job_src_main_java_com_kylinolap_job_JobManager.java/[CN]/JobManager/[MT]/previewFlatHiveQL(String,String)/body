@@ -1,7 +1,0 @@
-{
-  CubeInstance cube=CubeManager.getInstance(config).getCube(cubeName);
-  CubeDesc cubeDesc=cube.getDescriptor();
-  CubeSegment cubeSegment=cube.getSegment(segmentName,CubeSegmentStatusEnum.READY);
-  JoinedFlatTableDesc flatTableDesc=new JoinedFlatTableDesc(cubeDesc,cubeSegment);
-  return JoinedFlatTable.generateSelectDataStatement(flatTableDesc);
-}

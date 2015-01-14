@@ -1,3 +1,0 @@
-{
-  return Bytes.toString(cell.data);
-}

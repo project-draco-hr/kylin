@@ -1,5 +1,0 @@
-{
-  File src=new File(localFile);
-  File dest=new File(destDir,src.getName());
-  FileUtils.copyFile(src,dest);
-}

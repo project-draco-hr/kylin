@@ -1,8 +1,0 @@
-{
-  SortedMap<Double,Integer> distances=new TreeMap<Double,Integer>();
-  int index=0;
-  for (  double anEstimateVector : estimateVector) {
-    distances.put(Math.pow(estimate - anEstimateVector,2),index++);
-  }
-  return distances;
-}

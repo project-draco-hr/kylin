@@ -1,6 +1,0 @@
-{
-  String env=adminService.getEnv();
-  GeneralResponse envRes=new GeneralResponse();
-  envRes.put("env",env);
-  return envRes;
-}

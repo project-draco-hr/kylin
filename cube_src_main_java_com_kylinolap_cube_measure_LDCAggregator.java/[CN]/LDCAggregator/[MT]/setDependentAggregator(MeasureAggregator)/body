@@ -1,3 +1,0 @@
-{
-  this.hllAgg=(HLLCAggregator)agg;
-}

@@ -1,4 +1,0 @@
-IDatabaseConnection dbConn
-String queryName
-String sql
-boolean needSort

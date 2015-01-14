@@ -1,3 +1,0 @@
-{
-  return "ParameterDesc [type=" + type + ", value="+ value+ "]";
-}

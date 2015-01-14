@@ -1,3 +1,0 @@
-{
-  return "HierarchyDesc [level=" + level + ", column="+ column+ "]";
-}

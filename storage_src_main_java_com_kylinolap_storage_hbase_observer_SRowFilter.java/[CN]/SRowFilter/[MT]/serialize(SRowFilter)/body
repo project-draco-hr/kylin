@@ -1,3 +1,0 @@
-{
-  return (o.filter == null) ? BytesUtil.EMPTY_BYTE_ARRAY : TupleFilterSerializer.serialize(o.filter);
-}

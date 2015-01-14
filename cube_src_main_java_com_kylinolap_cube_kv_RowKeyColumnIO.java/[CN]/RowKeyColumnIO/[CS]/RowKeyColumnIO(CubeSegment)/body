@@ -1,4 +1,0 @@
-{
-  this.seg=cubeSeg;
-  this.rowkeyDesc=seg.getCubeDesc().getRowkey();
-}

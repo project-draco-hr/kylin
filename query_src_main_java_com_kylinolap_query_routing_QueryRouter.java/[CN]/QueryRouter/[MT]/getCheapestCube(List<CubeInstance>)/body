@@ -1,8 +1,0 @@
-{
-  sortByCost(candidates);
-  CubeInstance bestCube=null;
-  if (!candidates.isEmpty()) {
-    bestCube=candidates.iterator().next();
-  }
-  return bestCube;
-}

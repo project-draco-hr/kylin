@@ -1,4 +1,0 @@
-{
-  long mask=1L << bitIndex;
-  return (cuboidID & mask) != 0;
-}

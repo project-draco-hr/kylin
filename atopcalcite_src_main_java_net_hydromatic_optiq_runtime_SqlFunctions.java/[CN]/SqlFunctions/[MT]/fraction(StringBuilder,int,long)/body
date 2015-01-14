@@ -1,7 +1,0 @@
-{
-  if (scale > 0) {
-    buf.append('.');
-    long v1=scale == 3 ? ms : scale == 2 ? ms / 10 : scale == 1 ? ms / 100 : 0;
-    number(buf,(int)v1,scale);
-  }
-}

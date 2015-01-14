@@ -1,6 +1,0 @@
-{
-  System.out.println("Copy from " + srcUri + " to "+ dstUri);
-  KylinConfig srcConfig=KylinConfig.createInstanceFromUri(srcUri);
-  KylinConfig dstConfig=KylinConfig.createInstanceFromUri(dstUri);
-  copy(srcConfig,dstConfig);
-}

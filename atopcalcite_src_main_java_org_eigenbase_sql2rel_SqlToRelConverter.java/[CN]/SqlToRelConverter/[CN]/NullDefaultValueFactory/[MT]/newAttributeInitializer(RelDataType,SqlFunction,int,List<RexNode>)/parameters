@@ -1,4 +1,0 @@
-RelDataType type
-SqlFunction constructor
-int iAttribute
-List<RexNode> constructorArgs

@@ -1,8 +1,0 @@
-{
-  try {
-    kylinConfig.save(file);
-  }
- catch (  ConfigurationException ex) {
-    throw new IOException("Error writing KylinConfig to " + file,ex);
-  }
-}

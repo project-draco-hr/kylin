@@ -1,3 +1,0 @@
-{
-  return getRequired(KYLIN_HDFS_WORKING_DIR);
-}

@@ -1,6 +1,0 @@
-{
-  super(Object[].class);
-  this.olapSchema=schema;
-  this.sourceTable=tableDesc;
-  this.rowType=null;
-}

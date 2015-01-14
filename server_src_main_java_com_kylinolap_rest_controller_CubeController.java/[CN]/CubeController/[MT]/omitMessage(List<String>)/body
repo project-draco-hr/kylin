@@ -1,9 +1,0 @@
-{
-  StringBuffer buffer=new StringBuffer();
-  for (Iterator<String> iterator=errors.iterator(); iterator.hasNext(); ) {
-    String string=(String)iterator.next();
-    buffer.append(string);
-    buffer.append("\n");
-  }
-  return buffer.toString();
-}

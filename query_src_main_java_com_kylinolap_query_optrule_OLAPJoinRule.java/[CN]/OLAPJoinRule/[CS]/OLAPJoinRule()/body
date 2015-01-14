@@ -1,3 +1,0 @@
-{
-  super(JoinRel.class,Convention.NONE,OLAPRel.CONVENTION,"OLAPJoinRule");
-}

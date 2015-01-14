@@ -1,3 +1,0 @@
-{
-  return stringToDate(str,DEFAULT_DATE_PATTERN);
-}

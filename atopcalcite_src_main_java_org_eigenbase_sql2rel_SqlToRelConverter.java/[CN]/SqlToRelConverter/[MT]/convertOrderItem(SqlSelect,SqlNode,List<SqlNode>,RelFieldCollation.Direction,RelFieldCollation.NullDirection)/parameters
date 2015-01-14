@@ -1,5 +1,0 @@
-SqlSelect select
-SqlNode orderItem
-List<SqlNode> extraExprs
-RelFieldCollation.Direction direction
-RelFieldCollation.NullDirection nullDirection

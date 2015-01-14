@@ -1,4 +1,0 @@
-{
-  byte[] bytes=readByteArray(in);
-  return bytes == null ? null : Bytes.toString(bytes);
-}

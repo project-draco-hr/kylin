@@ -1,6 +1,0 @@
-String msg
-TrieDictionary<String> dict
-TreeSet<String> set
-HashMap<String,Integer> map
-String[] strArray
-byte[][] array

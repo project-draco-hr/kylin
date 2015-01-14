@@ -1,4 +1,0 @@
-List<TblColRef> groups
-List<FunctionDesc> aggregations
-TupleFilter filter
-StorageContext context

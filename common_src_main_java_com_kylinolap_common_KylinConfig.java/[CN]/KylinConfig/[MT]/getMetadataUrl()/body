@@ -1,3 +1,0 @@
-{
-  return getOptional(KYLIN_METADATA_URL);
-}

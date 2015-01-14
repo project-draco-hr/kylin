@@ -1,7 +1,0 @@
-{
-  resPath=resPath.trim();
-  while (resPath.startsWith("//"))   resPath=resPath.substring(1);
-  while (resPath.endsWith("/"))   resPath=resPath.substring(0,resPath.length() - 1);
-  if (resPath.startsWith("/") == false)   resPath="/" + resPath;
-  return resPath;
-}

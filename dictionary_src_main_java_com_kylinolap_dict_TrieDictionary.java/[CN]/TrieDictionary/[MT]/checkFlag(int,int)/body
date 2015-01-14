@@ -1,3 +1,0 @@
-{
-  return (trieBytes[offset] & bit) > 0;
-}

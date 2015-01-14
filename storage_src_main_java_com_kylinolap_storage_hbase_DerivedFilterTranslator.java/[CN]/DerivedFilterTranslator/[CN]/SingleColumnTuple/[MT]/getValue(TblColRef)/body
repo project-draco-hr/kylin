@@ -1,4 +1,0 @@
-{
-  if (this.col.equals(col))   return value;
- else   throw new IllegalArgumentException("unexpected column " + col);
-}

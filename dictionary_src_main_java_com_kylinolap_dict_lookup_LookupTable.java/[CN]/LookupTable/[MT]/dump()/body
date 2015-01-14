@@ -1,5 +1,0 @@
-{
-  for (  Array<T> key : data.keySet()) {
-    System.out.println(toString(key.data) + " => " + toString(data.get(key)));
-  }
-}

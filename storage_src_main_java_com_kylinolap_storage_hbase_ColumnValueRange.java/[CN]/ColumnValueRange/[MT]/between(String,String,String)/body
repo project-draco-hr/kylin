@@ -1,3 +1,0 @@
-{
-  return (beginValue == null || order.compare(beginValue,v) <= 0) && (endValue == null || order.compare(v,endValue) <= 0);
-}

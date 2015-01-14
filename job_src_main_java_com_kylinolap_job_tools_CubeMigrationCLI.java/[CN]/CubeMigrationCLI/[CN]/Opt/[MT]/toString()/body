@@ -1,6 +1,0 @@
-{
-  StringBuilder sb=new StringBuilder();
-  sb.append(type).append(":");
-  for (  Object s : params)   sb.append(s).append(", ");
-  return sb.toString();
-}

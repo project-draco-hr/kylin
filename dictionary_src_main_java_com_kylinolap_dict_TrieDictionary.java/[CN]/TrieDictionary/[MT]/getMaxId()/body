@@ -1,3 +1,0 @@
-{
-  return baseId + nValues - 1;
-}

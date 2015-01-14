@@ -1,4 +1,0 @@
-{
-  logger.info("resetOLAPDataSources is called.");
-  olapDataSources=new ConcurrentHashMap<String,DataSource>();
-}

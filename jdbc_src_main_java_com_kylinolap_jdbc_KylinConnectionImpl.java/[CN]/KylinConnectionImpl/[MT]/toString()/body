@@ -1,3 +1,0 @@
-{
-  return "KylinConnectionImpl [baseUrl=" + baseUrl + ", project="+ project+ ", metaProject="+ metaProject+ "]";
-}

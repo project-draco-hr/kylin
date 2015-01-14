@@ -1,3 +1,0 @@
-{
-  return "DatabaseDesc [name=" + name + "]";
-}

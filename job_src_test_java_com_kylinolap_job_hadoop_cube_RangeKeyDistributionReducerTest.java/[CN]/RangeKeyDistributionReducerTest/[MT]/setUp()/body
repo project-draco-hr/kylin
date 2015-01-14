@@ -1,4 +1,0 @@
-{
-  RangeKeyDistributionReducer reducer=new RangeKeyDistributionReducer();
-  reduceDriver=ReduceDriver.newReduceDriver(reducer);
-}

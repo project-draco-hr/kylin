@@ -1,4 +1,0 @@
-{
-  this.hostIndex=hostIndex;
-  this.derivedFieldName=derivedFieldName;
-}

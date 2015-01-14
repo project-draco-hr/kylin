@@ -1,9 +1,0 @@
-{
-  if (agg != null) {
-    return agg.groupExprs.size();
-  }
-  if (window != null) {
-    return window.isAlwaysNonEmpty() ? 1 : 0;
-  }
-  return -1;
-}

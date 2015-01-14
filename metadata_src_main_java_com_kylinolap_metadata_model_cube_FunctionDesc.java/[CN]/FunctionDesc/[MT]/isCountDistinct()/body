@@ -1,3 +1,0 @@
-{
-  return FUNC_COUNT_DISTINCT.equalsIgnoreCase(expression);
-}

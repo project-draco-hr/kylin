@@ -1,3 +1,0 @@
-{
-  return new OLAPQuery(optiqContext,EnumeratorTypeEnum.LOOKUP_TABLE,ctxSeq);
-}

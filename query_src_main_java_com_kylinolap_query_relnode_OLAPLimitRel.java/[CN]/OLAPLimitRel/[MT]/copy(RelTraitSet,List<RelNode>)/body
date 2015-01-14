@@ -1,3 +1,0 @@
-{
-  return new OLAPLimitRel(getCluster(),traitSet,sole(inputs),localOffset,localFetch);
-}

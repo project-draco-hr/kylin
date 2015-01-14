@@ -1,3 +1,0 @@
-{
-  return Long.parseLong(this.getOptional("kylin.query.cache.threshold.duration",String.valueOf(2000)));
-}

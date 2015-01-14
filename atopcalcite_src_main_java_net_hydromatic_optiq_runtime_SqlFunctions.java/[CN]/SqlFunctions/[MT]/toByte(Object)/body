@@ -1,3 +1,0 @@
-{
-  return o instanceof Byte ? (Byte)o : o instanceof Number ? toByte((Number)o) : Byte.parseByte(o.toString());
-}

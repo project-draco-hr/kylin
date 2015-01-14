@@ -1,7 +1,0 @@
-{
-  String max=null;
-  for (  String s : strs) {
-    if (max == null || max.compareTo(s) < 0)     max=s;
-  }
-  return max;
-}

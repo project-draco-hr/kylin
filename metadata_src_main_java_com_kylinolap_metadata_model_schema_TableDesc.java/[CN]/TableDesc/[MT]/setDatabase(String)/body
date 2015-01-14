@@ -1,4 +1,0 @@
-{
-  this.database=new DatabaseDesc();
-  this.database.setName(database);
-}

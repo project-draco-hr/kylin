@@ -1,7 +1,0 @@
-{
-  this.config=KylinConfig.getInstanceFromEnv();
-  this.storageUrl=config.getStorageUrl();
-  this.starSchemaUrl=config.getHiveUrl();
-  this.starSchemaUser=config.getHiveUser();
-  this.starSchemaPassword=config.getHivePassword();
-}

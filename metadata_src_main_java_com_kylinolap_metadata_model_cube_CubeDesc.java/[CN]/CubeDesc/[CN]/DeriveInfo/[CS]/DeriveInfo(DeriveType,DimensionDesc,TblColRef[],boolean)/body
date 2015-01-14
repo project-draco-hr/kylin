@@ -1,6 +1,0 @@
-{
-  this.type=type;
-  this.dimension=dimension;
-  this.columns=columns;
-  this.isOneToOne=isOneToOne;
-}

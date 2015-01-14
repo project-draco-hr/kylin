@@ -1,6 +1,0 @@
-Blackboard bb
-AggConverter aggConverter
-SqlNodeList selectList
-SqlNodeList groupList
-SqlNode having
-List<SqlNode> orderExprList

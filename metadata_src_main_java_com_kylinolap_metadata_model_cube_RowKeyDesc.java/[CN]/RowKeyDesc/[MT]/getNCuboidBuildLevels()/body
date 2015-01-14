@@ -1,9 +1,0 @@
-{
-  Set<String> aggDims=new HashSet<String>();
-  for (  String[] aggrGroup : aggregationGroups) {
-    for (    String dim : aggrGroup) {
-      aggDims.add(dim);
-    }
-  }
-  return aggDims.size();
-}

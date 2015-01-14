@@ -1,4 +1,0 @@
-{
-  CubeDesc cube=getMetadataManager().getCubeDesc("geox_trans_mtrc_sd_cube_desc");
-  CuboidCLI.simulateCuboidGeneration(cube);
-}

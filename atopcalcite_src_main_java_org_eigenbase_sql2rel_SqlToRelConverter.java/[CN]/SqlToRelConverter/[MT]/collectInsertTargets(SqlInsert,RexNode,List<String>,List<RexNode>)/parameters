@@ -1,4 +1,0 @@
-SqlInsert call
-RexNode sourceRef
-List<String> targetColumnNames
-List<RexNode> columnExprs

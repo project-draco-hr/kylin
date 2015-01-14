@@ -1,8 +1,0 @@
-{
-  if (filter == null)   return true;
-  if (filter.isEvaluable() == false)   return false;
-  for (  TupleFilter child : filter.getChildren()) {
-    if (isEvaluableRecursively(child) == false)     return false;
-  }
-  return true;
-}

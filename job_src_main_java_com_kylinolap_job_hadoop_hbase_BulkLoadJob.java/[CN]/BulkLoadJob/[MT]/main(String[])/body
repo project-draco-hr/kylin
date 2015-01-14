@@ -1,4 +1,0 @@
-{
-  int exitCode=ToolRunner.run(new BulkLoadJob(),args);
-  System.exit(exitCode);
-}

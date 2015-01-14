@@ -1,4 +1,0 @@
-{
-  Pair<RelNode,Integer> pair=lookupContext.findRel(offset);
-  return rexBuilder.makeRangeReference(pair.left.getRowType(),pair.right,false);
-}

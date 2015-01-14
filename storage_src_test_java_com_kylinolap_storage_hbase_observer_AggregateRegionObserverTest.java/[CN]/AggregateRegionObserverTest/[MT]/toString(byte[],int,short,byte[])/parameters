@@ -1,4 +1,0 @@
-byte[] array
-int offset
-short length
-byte[] mask

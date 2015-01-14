@@ -1,6 +1,0 @@
-{
-  byte[] bytes=value.unscaledValue().toByteArray();
-  BytesUtil.writeVInt(value.scale(),out);
-  BytesUtil.writeVInt(bytes.length,out);
-  out.put(bytes);
-}

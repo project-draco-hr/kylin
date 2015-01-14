@@ -1,5 +1,0 @@
-{
-  this.part=value;
-  this.isEndOfValue=isEndOfValue;
-  this.children=children;
-}

@@ -1,6 +1,0 @@
-{
-  if (column.getTable() == null) {
-    return null;
-  }
-  return column.getTable().getName();
-}

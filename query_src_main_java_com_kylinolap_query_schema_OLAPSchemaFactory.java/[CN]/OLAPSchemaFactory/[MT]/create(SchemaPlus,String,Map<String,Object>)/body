@@ -1,5 +1,0 @@
-{
-  String project=(String)operand.get(SCHEMA_PROJECT);
-  Schema newSchema=new OLAPSchema(project,schemaName);
-  return newSchema;
-}

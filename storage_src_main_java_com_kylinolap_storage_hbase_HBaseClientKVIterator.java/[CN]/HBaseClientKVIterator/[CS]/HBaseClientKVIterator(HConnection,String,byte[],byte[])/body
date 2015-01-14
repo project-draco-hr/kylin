@@ -1,7 +1,0 @@
-{
-  this.family=family;
-  this.qualifier=qualifier;
-  this.table=hconn.getTable(tableName);
-  this.scanner=table.getScanner(family,qualifier);
-  this.iterator=scanner.iterator();
-}

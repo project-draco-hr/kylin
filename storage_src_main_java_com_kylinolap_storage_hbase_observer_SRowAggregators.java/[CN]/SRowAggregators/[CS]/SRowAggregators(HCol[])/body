@@ -1,8 +1,0 @@
-{
-  this.hcols=sort(_hcols);
-  this.nHCols=hcols.length;
-  this.hColValues=new ByteBuffer[nHCols];
-  int nTotalMeasures=0;
-  for (  HCol col : hcols)   nTotalMeasures+=col.nMeasures;
-  this.nTotalMeasures=nTotalMeasures;
-}

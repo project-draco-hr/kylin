@@ -1,5 +1,0 @@
-{
-  ResourceStore store=getStore();
-  store.putResource(proj.getResourcePath(),proj,PROJECT_SERIALIZER);
-  afterProjectUpdated(proj);
-}

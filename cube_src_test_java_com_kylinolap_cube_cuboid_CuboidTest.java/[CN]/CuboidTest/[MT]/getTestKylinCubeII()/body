@@ -1,3 +1,0 @@
-{
-  return getMetadataManager().getCubeDesc("test_kylin_cube_ii");
-}

@@ -1,7 +1,0 @@
-{
-  List<Slice> slices=Lists.newArrayList();
-  for (  Slice slice : codec.decodeKeyValue(kvs)) {
-    slices.add(slice);
-  }
-  return slices;
-}

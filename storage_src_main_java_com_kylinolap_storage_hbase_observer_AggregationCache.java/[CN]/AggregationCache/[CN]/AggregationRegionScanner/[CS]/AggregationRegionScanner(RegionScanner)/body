@@ -1,4 +1,0 @@
-{
-  this.innerScanner=innerScanner;
-  this.iterator=aggBufMap.entrySet().iterator();
-}

@@ -1,6 +1,0 @@
-{
-  if (containers == null) {
-    containers=new ColumnValueContainer[info.getColumnCount()];
-  }
-  containers[col]=c;
-}

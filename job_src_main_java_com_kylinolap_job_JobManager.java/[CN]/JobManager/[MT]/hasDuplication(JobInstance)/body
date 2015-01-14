@@ -1,9 +1,0 @@
-{
-  List<JobInstance> allJobs=listJobs(null,null);
-  for (  JobInstance job : allJobs) {
-    if (job.getRelatedCube().equals(newJob.getRelatedCube()) && job.getRelatedSegment().equals(newJob.getRelatedSegment()) && job.getType().equals(newJob.getType())&& job.getStatus().equals(newJob.getStatus())) {
-      return true;
-    }
-  }
-  return false;
-}

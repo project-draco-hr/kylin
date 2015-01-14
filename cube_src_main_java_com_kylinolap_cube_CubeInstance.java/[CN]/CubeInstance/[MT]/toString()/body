@@ -1,3 +1,0 @@
-{
-  return "Cube [name=" + name + "]";
-}

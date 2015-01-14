@@ -1,4 +1,0 @@
-{
-  this.column.setDatatype(dataType.getDataType());
-  this.column.getTable().setName(INNER_TABLE_NAME);
-}

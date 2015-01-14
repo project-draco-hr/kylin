@@ -1,7 +1,0 @@
-{
-  String[] rec=new String[pi.length];
-  for (int i=0; i < pi.length; i++) {
-    rec[i]=row[pi[i]];
-  }
-  satisfyingHostRecords.add(new Array<String>(rec));
-}

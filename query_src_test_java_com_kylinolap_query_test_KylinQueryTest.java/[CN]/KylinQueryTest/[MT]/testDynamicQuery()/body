@@ -1,3 +1,0 @@
-{
-  execAndCompDynamicQuery("src/test/resources/query/sql_dynamic",null,true);
-}

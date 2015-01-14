@@ -1,5 +1,0 @@
-{
-  NumberBytesCodec codec=getCodec();
-  codec.encodeNumber(value,offset,len);
-  return super.getIdFromValueBytesImpl(codec.buf,codec.bufOffset,codec.bufLen,roundingFlag);
-}

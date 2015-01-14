@@ -1,3 +1,0 @@
-{
-  return ResourceStore.CUBE_DESC_RESOURCE_ROOT + "/" + descName+ MetadataConstances.FILE_SURFIX;
-}

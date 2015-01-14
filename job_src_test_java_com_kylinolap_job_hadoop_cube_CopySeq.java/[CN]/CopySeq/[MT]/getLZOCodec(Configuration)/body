@@ -1,4 +1,0 @@
-{
-  CompressionCodecFactory factory=new CompressionCodecFactory(hconf);
-  return factory.getCodecByClassName("org.apache.hadoop.io.compress.LzoCodec");
-}

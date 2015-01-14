@@ -1,9 +1,0 @@
-{
-  Assert.notNull(ae,"Acl domain object required");
-  ObjectIdentity objectIdentity=new ObjectIdentityImpl(ae.getClass(),ae.getId());
-  try {
-    aclService.deleteAcl(objectIdentity,deleteChildren);
-  }
- catch (  NotFoundException e) {
-  }
-}

@@ -1,9 +1,0 @@
-{
-  StringBuilder sb=new StringBuilder(expression);
-  sb.append("(");
-  if (parameter != null) {
-    sb.append(parameter.getValue());
-  }
-  sb.append(")");
-  return sb.toString();
-}

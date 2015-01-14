@@ -1,1 +1,0 @@
-Mapper<ImmutableBytesWritable,ImmutableBytesWritable,ImmutableBytesWritable,KeyValue>

@@ -1,3 +1,0 @@
-{
-  traversePostOrderR(root,visitor,0);
-}

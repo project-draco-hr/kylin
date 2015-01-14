@@ -1,5 +1,0 @@
-{
-  byte[] endRow=Arrays.copyOf(startRow,startRow.length + 1);
-  endRow[endRow.length - 1]=0;
-  return endRow;
-}

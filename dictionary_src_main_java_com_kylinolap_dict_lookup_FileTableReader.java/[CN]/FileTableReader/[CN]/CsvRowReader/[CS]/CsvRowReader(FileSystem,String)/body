@@ -1,4 +1,0 @@
-{
-  FSDataInputStream in=fs.open(new Path(path));
-  reader=new BufferedReader(new InputStreamReader(in,"UTF-8"));
-}

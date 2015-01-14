@@ -1,7 +1,0 @@
-{
-  long count=1;
-  for (  Dim dim : dims) {
-    count*=Math.max(dim.values.size(),1);
-  }
-  return count;
-}

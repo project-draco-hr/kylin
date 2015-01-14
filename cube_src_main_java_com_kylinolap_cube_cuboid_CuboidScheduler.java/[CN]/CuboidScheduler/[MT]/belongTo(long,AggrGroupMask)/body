@@ -1,5 +1,0 @@
-{
-  long groupBits=cuboidWithoutMandatory & mask.groupMask;
-  long leftoverBits=cuboidWithoutMandatory & mask.leftoverMask;
-  return groupBits > 0 && (leftoverBits == 0 || leftoverBits == mask.leftoverMask);
-}

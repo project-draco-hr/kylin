@@ -1,5 +1,0 @@
-{
-  InputStream is=new FileInputStream("src/test/resources/dict/eng_com.dic");
-  ArrayList<String> str=loadStrings(is);
-  testStringDictionary(str,null);
-}

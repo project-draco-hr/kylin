@@ -1,8 +1,0 @@
-{
-  try {
-    Integer.parseInt(value);
-  }
- catch (  Exception e) {
-    context.addResult(ResultLevel.ERROR,"Parameter value must be number, but it is " + value);
-  }
-}

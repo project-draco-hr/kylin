@@ -1,4 +1,0 @@
-{
-  out.writeUTF(pattern);
-  out.writeInt(baseId);
-}

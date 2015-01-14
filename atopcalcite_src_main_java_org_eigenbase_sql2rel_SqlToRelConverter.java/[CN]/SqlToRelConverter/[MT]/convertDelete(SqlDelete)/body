@@ -1,5 +1,0 @@
-{
-  RelOptTable targetTable=getTargetTable(call);
-  RelNode sourceRel=convertSelect(call.getSourceSelect());
-  return new TableModificationRel(cluster,targetTable,catalogReader,sourceRel,TableModificationRel.Operation.DELETE,null,false);
-}

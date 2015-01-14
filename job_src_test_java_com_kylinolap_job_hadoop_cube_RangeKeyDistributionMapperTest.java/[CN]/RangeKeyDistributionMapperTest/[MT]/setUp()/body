@@ -1,4 +1,0 @@
-{
-  RangeKeyDistributionMapper mapper=new RangeKeyDistributionMapper();
-  mapDriver=MapDriver.newMapDriver(mapper);
-}

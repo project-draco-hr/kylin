@@ -1,7 +1,0 @@
-{
-  sortDimensionsByID();
-  sortMeasuresByID();
-  for (  DimensionDesc dim : dimensions) {
-    sortHierarchiesByLevel(dim.getHierarchy());
-  }
-}

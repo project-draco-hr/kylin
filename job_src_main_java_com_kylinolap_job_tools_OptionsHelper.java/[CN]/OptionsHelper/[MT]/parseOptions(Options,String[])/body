@@ -1,4 +1,0 @@
-{
-  CommandLineParser parser=new GnuParser();
-  commandLine=parser.parse(options,args);
-}

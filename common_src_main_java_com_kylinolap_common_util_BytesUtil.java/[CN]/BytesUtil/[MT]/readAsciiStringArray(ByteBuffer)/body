@@ -1,6 +1,0 @@
-{
-  int len=readVInt(in);
-  String[] strs=new String[len];
-  for (int i=0; i < len; i++)   strs[i]=readAsciiString(in);
-  return strs;
-}

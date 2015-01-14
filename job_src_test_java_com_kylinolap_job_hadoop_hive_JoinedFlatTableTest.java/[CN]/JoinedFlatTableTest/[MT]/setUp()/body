@@ -1,6 +1,0 @@
-{
-  this.createTestMetadata();
-  cube=CubeManager.getInstance(this.getTestConfig()).getCube("test_kylin_cube_with_slr_ready");
-  cubeSegment=cube.getSegments().get(0);
-  intermediateTableDesc=new JoinedFlatTableDesc(cube.getDescriptor(),cubeSegment);
-}

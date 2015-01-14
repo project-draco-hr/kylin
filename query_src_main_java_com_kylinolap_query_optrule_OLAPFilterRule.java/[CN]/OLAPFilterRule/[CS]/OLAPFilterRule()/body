@@ -1,3 +1,0 @@
-{
-  super(operand(FilterRel.class,any()));
-}

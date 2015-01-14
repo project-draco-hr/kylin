@@ -1,4 +1,0 @@
-Blackboard bb
-SqlNode node
-RelOptUtil.Logic logic
-boolean registerOnlyScalarSubqueries

@@ -1,3 +1,0 @@
-{
-  return ResourceStore.SNAPSHOT_RESOURCE_ROOT + "/" + new Path(signature.getPath()).getName();
-}

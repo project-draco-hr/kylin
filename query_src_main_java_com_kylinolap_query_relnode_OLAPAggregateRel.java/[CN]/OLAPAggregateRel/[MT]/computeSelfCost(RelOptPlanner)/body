@@ -1,9 +1,0 @@
-{
-  double factor=.5;
-  for (  AggregateCall aggCall : aggCalls) {
-    if ("$SUM0".equals(aggCall.getAggregation().getName())) {
-      factor=.2;
-    }
-  }
-  return super.computeSelfCost(planner).multiplyBy(factor);
-}

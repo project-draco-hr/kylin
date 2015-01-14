@@ -1,2 +1,0 @@
-TupleFilter flatFilter
-Collection<TblColRef> dimensionColumns

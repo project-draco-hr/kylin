@@ -1,8 +1,0 @@
-{
-  int size=0;
-  while (maxValue > 0) {
-    size++;
-    maxValue>>>=8;
-  }
-  return size;
-}

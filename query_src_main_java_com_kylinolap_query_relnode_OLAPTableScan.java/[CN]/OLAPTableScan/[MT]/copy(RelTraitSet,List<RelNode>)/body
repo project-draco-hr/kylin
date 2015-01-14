@@ -1,4 +1,0 @@
-{
-  Preconditions.checkArgument(inputs.isEmpty());
-  return new OLAPTableScan(getCluster(),table,olapTable,fields);
-}

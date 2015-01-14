@@ -1,3 +1,0 @@
-{
-  batchExecuteQuery("src/test/resources/query/tableau_probing");
-}

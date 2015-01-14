@@ -1,4 +1,0 @@
-{
-  this.config=config;
-  snapshotCache=new ConcurrentHashMap<String,SnapshotTable>();
-}

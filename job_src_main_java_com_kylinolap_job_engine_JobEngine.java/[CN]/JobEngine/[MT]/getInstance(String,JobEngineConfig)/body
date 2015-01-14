@@ -1,8 +1,0 @@
-{
-  JobEngine r=CACHE.get(engineCfg);
-  if (r == null) {
-    r=new JobEngine(engineID,engineCfg);
-    CACHE.putIfAbsent(engineCfg,r);
-  }
-  return r;
-}

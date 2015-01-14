@@ -1,6 +1,0 @@
-{
-  context.setThreshold(1);
-  List<TblColRef> groups=buildGroups();
-  List<FunctionDesc> aggregations=buildAggregations();
-  search(groups,aggregations,null,context);
-}

@@ -1,8 +1,0 @@
-{
-  out.println("Total " + nValues + " values");
-  for (int i=0; i < nValues; i++) {
-    int id=calcIdFromSeqNo(i);
-    T value=getValueFromId(id);
-    out.println(id + " (" + Integer.toHexString(id)+ "): "+ value);
-  }
-}

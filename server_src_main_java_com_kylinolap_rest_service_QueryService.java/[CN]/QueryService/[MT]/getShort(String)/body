@@ -1,8 +1,0 @@
-{
-  try {
-    return Short.parseShort(content);
-  }
- catch (  Exception e) {
-    return -1;
-  }
-}

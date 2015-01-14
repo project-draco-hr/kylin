@@ -1,3 +1,0 @@
-{
-  add(hashFunc.hashBytes(value).asLong());
-}

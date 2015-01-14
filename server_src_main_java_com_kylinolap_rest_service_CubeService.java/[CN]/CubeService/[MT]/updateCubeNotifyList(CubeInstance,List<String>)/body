@@ -1,5 +1,0 @@
-{
-  CubeDesc desc=cube.getDescriptor();
-  desc.setNotifyList(notifyList);
-  getMetadataManager().updateCubeDesc(desc);
-}

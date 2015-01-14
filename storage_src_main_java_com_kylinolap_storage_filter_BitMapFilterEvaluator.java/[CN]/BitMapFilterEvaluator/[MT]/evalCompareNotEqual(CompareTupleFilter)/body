@@ -1,6 +1,0 @@
-{
-  ConciseSet set=evalCompareEqual(filter);
-  not(set);
-  dropNull(set,filter);
-  return set;
-}

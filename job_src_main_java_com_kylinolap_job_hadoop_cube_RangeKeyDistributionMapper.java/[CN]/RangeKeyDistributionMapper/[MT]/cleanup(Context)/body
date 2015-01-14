@@ -1,6 +1,0 @@
-{
-  if (lastKey != null) {
-    outputValue.set(bytesRead);
-    context.write(lastKey,outputValue);
-  }
-}

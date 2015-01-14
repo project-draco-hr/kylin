@@ -1,5 +1,0 @@
-{
-  implementor.visitChild(getChild(),this);
-  this.context=implementor.getContext();
-  this.columnRowType=buildColumnRowType();
-}

@@ -1,6 +1,0 @@
-{
-  IValidatorRule<CubeDesc> rule=new MandatoryColumnRule();
-  rule.validate(cube,vContext);
-  assertTrue("Failed to validate mandatory error",vContext.getResults().length == 1);
-  assertTrue("Failed to validate mandatory error",vContext.getResults()[0].getMessage().startsWith("mandatory column"));
-}

@@ -1,3 +1,0 @@
-{
-  return constantValues.size() > 0;
-}

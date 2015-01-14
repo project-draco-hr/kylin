@@ -1,5 +1,0 @@
-{
-  if (value == null)   current.set(0d);
- else   current.set(Double.parseDouble(Bytes.toString(value)));
-  return current;
-}

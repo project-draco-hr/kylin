@@ -1,4 +1,0 @@
-CubeInstance cube
-Collection<TblColRef> groupBy
-Collection<RowValueDecoder> rowValueDecoders
-StorageContext context

@@ -1,5 +1,0 @@
-{
-  List<TupleFilter> cloneChildren=new LinkedList<TupleFilter>(children);
-  TupleFilter cloneTuple=new LogicalTupleFilter(cloneChildren,operator);
-  return cloneTuple;
-}

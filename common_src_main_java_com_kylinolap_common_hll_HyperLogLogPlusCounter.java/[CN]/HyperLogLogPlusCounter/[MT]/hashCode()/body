@@ -1,8 +1,0 @@
-{
-  final int prime=31;
-  int result=1;
-  result=prime * result + ((hashFunc == null) ? 0 : hashFunc.hashCode());
-  result=prime * result + p;
-  result=prime * result + Arrays.hashCode(registers);
-  return result;
-}

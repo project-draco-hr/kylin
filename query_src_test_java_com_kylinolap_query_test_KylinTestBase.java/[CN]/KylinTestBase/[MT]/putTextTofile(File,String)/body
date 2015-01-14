@@ -1,5 +1,0 @@
-{
-  BufferedWriter writer=new BufferedWriter(new FileWriter(file));
-  writer.write(sql,0,sql.length());
-  writer.close();
-}

@@ -1,6 +1,0 @@
-{
-  for (int i=0; i < nodeList.size(); i++) {
-    nodeList.get(i).accept(this);
-  }
-  return null;
-}

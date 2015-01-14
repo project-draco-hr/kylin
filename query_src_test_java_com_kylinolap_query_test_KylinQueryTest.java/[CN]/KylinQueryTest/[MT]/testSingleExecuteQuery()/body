@@ -1,7 +1,0 @@
-{
-  String queryFileName="src/test/resources/query/sql/query39.sql";
-  File sqlFile=new File(queryFileName);
-  String sql=getTextFromFile(sqlFile);
-  IDatabaseConnection kylinConn=new DatabaseConnection(cubeConnection);
-  executeQuery(kylinConn,queryFileName,sql,true);
-}

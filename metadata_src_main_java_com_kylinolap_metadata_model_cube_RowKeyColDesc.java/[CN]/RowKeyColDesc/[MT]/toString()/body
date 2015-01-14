@@ -1,3 +1,0 @@
-{
-  return "RowKeyColDesc [column=" + column + ", length="+ length+ ", dictionary="+ dictionary+ ", mandatory="+ mandatory+ "]";
-}

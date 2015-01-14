@@ -1,2 +1,0 @@
-ColumnValueRange range
-Map<TblColRef,ColumnValueRange> rangeMap

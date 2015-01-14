@@ -1,4 +1,0 @@
-{
-  long diff=id ^ inputID;
-  return eliminateHierarchyAggregation(diff);
-}

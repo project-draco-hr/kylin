@@ -1,3 +1,0 @@
-{
-  return Arrays.asList(new Object[][]{{"inner","unset"},{"left","unset"},{"inner","off"},{"left","off"},{"inner","on"},{"left","on"}});
-}

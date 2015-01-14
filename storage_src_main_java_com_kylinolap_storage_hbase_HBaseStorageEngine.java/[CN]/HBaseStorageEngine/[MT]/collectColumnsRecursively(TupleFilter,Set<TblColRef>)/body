@@ -1,8 +1,0 @@
-{
-  if (filter instanceof ColumnTupleFilter) {
-    collectColumns(((ColumnTupleFilter)filter).getColumn(),collector);
-  }
-  for (  TupleFilter child : filter.getChildren()) {
-    collectColumnsRecursively(child,collector);
-  }
-}

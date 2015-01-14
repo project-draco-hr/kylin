@@ -1,4 +1,0 @@
-{
-  ResourceStore store=ResourceStore.getStore(config);
-  resetR(store,"/");
-}

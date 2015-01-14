@@ -1,6 +1,0 @@
-{
-  SQLRequest sqlRequest=new SQLRequest();
-  sqlRequest.setSql("select * from not_exist_table");
-  sqlRequest.setProject("default");
-  queryController.query(sqlRequest);
-}

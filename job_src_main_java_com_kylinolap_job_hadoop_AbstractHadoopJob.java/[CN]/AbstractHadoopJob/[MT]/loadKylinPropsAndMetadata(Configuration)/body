@@ -1,8 +1,0 @@
-{
-  File metaDir=new File("meta");
-  System.setProperty(KylinConfig.KYLIN_CONF,metaDir.getAbsolutePath());
-  System.out.println("The absolute path for meta dir is " + metaDir.getAbsolutePath());
-  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
-  kylinConfig.setMetadataUrl(metaDir.getCanonicalPath());
-  return kylinConfig;
-}

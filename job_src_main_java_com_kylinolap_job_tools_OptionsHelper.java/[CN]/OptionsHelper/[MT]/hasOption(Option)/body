@@ -1,3 +1,0 @@
-{
-  return commandLine.hasOption(option.getOpt());
-}

@@ -1,2 +1,0 @@
-SqlNode node
-Map<String,RexNode> nameToNodeMap

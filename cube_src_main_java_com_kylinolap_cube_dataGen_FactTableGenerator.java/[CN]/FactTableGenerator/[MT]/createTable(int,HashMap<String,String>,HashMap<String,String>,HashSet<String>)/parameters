@@ -1,4 +1,0 @@
-int rowCount
-HashMap<String,String> factTableCol2LookupCol
-HashMap<String,String> lookupCol2FactTableCol
-HashSet<String> usedCols

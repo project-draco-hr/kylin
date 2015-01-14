@@ -1,6 +1,0 @@
-{
-  super();
-  this.executeCommand=executeCommand;
-  this.job=job;
-  this.output=new JavaHadoopCmdOutput(jobInstanceID,jobStepID,engineConfig,job,isAsync);
-}

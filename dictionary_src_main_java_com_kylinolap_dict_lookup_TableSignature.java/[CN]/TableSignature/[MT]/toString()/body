@@ -1,3 +1,0 @@
-{
-  return "FileSignature [path=" + path + ", size="+ size+ ", lastModifiedTime="+ lastModifiedTime+ "]";
-}

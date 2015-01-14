@@ -1,9 +1,0 @@
-{
-  List<File> files=new ArrayList<File>();
-  for (  final File fileEntry : folder.listFiles()) {
-    if (fileEntry.getName().toLowerCase().endsWith(fileType.toLowerCase())) {
-      files.add(fileEntry);
-    }
-  }
-  return files;
-}

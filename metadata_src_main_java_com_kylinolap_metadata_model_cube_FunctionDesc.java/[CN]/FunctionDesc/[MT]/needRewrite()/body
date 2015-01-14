@@ -1,3 +1,0 @@
-{
-  return !isSum() && !isHolisticCountDistinct() && !isAppliedOnDimension();
-}

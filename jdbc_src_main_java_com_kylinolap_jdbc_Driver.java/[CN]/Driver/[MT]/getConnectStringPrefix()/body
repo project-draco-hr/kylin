@@ -1,3 +1,0 @@
-{
-  return CONNECT_STRING_PREFIX;
-}

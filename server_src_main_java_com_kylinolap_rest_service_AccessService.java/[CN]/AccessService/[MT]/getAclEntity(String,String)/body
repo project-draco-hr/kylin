@@ -1,6 +1,0 @@
-{
-  if (null == uuid) {
-    return null;
-  }
-  return AclEntityFactory.createAclEntity(entityType,uuid);
-}

@@ -1,4 +1,0 @@
-HBaseMappingDesc hbaseMapping
-Collection<FunctionDesc> metrics
-List<HBaseKeyRange> scans
-StorageContext context

@@ -1,5 +1,0 @@
-{
-  String dataType=info.getDataType(fieldName);
-  Object objectValue=convertOptiqCellValue(fieldValue,dataType);
-  setFieldObjectValue(fieldName,objectValue);
-}

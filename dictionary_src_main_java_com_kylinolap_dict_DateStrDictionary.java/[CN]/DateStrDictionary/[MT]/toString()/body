@@ -1,3 +1,0 @@
-{
-  return "DateStrDictionary [pattern=" + pattern + ", baseId="+ baseId+ "]";
-}

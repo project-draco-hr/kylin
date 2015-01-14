@@ -1,7 +1,0 @@
-{
-  ByteArray[] r=new ByteArray[cols.length];
-  for (int i=0; i < cols.length; i++) {
-    r[i]=cols[i] == null ? null : new ByteArray(Bytes.toBytes(cols[i]));
-  }
-  return r;
-}

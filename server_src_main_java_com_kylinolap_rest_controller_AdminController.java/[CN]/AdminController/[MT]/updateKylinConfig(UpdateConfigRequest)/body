@@ -1,3 +1,0 @@
-{
-  KylinConfig.getInstanceFromEnv().setProperty(updateConfigRequest.getKey(),updateConfigRequest.getValue());
-}

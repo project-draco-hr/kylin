@@ -1,6 +1,0 @@
-{
-  for (  byte[] nullByte : nullBytes) {
-    if (Bytes.equals(v,nullByte))     return true;
-  }
-  return false;
-}

@@ -1,9 +1,0 @@
-{
-  try {
-    return queryService.getMetadata(metaRequest.getProject());
-  }
- catch (  SQLException e) {
-    logger.error(e.getLocalizedMessage(),e);
-    throw new InternalErrorException(e.getLocalizedMessage(),e);
-  }
-}

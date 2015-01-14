@@ -1,5 +1,0 @@
-{
-  String nodes=getOptional(KYLIN_REST_SERVERS);
-  if (nodes == null)   return null;
-  return nodes.split("\\s*,\\s*");
-}

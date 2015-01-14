@@ -1,4 +1,0 @@
-{
-  int nullId=NULL_ID[getSizeOfId()];
-  return (nullId & id) == nullId;
-}

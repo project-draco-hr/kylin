@@ -1,4 +1,0 @@
-{
-  if (max == null)   max=value;
- else   if (max.compareTo(value) < 0)   max=value;
-}

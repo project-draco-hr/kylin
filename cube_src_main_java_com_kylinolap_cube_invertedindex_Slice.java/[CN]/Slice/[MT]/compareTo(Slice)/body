@@ -1,6 +1,0 @@
-{
-  int comp=this.shard - o.shard;
-  if (comp != 0)   return comp;
-  comp=(int)(this.timestamp - o.timestamp);
-  return comp;
-}

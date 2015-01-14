@@ -1,6 +1,0 @@
-{
-  this.setColumns(table.getColumns());
-  this.setDatabase(table.getDatabase());
-  this.setName(table.getName());
-  this.setUuid(table.getUuid());
-}

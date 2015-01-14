@@ -1,5 +1,0 @@
-{
-  if (innerCache.containsKey(key)) {
-    innerCache.removeAll(key);
-  }
-}

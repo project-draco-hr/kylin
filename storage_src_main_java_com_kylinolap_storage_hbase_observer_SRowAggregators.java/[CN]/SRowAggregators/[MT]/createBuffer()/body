@@ -1,8 +1,0 @@
-{
-  MeasureAggregator[] aggrs=new MeasureAggregator[nTotalMeasures];
-  int i=0;
-  for (  HCol col : hcols) {
-    for (int j=0; j < col.nMeasures; j++)     aggrs[i++]=MeasureAggregator.create(col.funcNames[j],col.dataTypes[j]);
-  }
-  return aggrs;
-}

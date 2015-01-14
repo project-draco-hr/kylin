@@ -1,4 +1,0 @@
-{
-  RestClient a=new RestClient("prod01:80");
-  RestClient b=new RestClient("sandbox.hortonworks.com:7070");
-}

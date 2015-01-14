@@ -1,3 +1,0 @@
-{
-  return new JoinRel(cluster,left,right,condition,joinType,variablesStopped);
-}

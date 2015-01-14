@@ -1,8 +1,0 @@
-{
-  String[] t=primaryKey;
-  primaryKey=foreignKey;
-  foreignKey=t;
-  TblColRef[] tt=primaryKeyColumns;
-  primaryKeyColumns=foreignKeyColumns;
-  foreignKeyColumns=tt;
-}

@@ -1,3 +1,0 @@
-{
-  kylinConfig.setProperty(COPROCESSOR_LOCAL_JAR,path);
-}

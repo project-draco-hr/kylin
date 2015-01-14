@@ -1,4 +1,0 @@
-RelTraitSet traitSet
-RelNode input
-BitSet groupSet
-List<AggregateCall> aggCalls

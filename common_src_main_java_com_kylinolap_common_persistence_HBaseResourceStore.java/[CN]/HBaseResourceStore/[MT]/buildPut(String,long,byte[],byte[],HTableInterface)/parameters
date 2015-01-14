@@ -1,5 +1,0 @@
-String resPath
-long ts
-byte[] row
-byte[] content
-HTableInterface table

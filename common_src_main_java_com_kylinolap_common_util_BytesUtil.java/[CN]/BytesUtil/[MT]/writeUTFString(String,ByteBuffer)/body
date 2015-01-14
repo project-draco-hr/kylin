@@ -1,4 +1,0 @@
-{
-  byte[] bytes=str == null ? null : Bytes.toBytes(str);
-  writeByteArray(bytes,out);
-}

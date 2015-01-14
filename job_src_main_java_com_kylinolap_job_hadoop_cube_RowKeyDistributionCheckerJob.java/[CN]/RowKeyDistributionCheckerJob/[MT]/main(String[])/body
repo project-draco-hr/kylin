@@ -1,4 +1,0 @@
-{
-  int exitCode=ToolRunner.run(new RowKeyDistributionCheckerJob(),args);
-  System.exit(exitCode);
-}

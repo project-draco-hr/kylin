@@ -1,3 +1,0 @@
-{
-  super(RelNode.class,OLAPRel.CONVENTION,EnumerableConvention.INSTANCE,"OLAPToEnumerableConverterRule");
-}

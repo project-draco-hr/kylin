@@ -1,7 +1,0 @@
-{
-  this.olapContext=olapContext;
-  this.optiqContext=optiqContext;
-  this.current=new Object[olapContext.olapRowType.getFieldCount()];
-  this.cursor=null;
-  this.fieldIndexes=null;
-}

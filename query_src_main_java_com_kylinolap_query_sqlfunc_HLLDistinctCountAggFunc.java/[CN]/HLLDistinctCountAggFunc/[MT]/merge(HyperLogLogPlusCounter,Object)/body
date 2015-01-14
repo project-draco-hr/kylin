@@ -1,3 +1,0 @@
-{
-  return add(counter0,counter1);
-}

@@ -1,9 +1,0 @@
-{
-  for (int i=0; i < cubeInstance.getSegments().size(); i++) {
-    CubeSegment segment=cubeInstance.getSegments().get(i);
-    if (segment.getName().equals(segmentName) && segment.getStatus() != CubeSegmentStatusEnum.READY) {
-      cubeInstance.getSegments().remove(segment);
-    }
-  }
-  updateCube(cubeInstance);
-}

@@ -1,5 +1,0 @@
-{
-  byte[] num1=Bytes.toBytes(number);
-  codec.encodeNumber(num1,0,num1.length);
-  return Bytes.toString(codec.buf,codec.bufOffset,codec.bufLen);
-}

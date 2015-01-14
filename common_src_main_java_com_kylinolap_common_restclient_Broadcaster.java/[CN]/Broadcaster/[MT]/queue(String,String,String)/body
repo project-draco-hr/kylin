@@ -1,6 +1,0 @@
-{
-  BroadcastEvent event=BroadcasterHolder.INSTANCE.new BroadcastEvent(type,action,key);
-  if (!broadcaseEvents.contains(event)) {
-    broadcaseEvents.add(event);
-  }
-}

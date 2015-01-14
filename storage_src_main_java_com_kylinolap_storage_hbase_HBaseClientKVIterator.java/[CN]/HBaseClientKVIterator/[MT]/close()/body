@@ -1,4 +1,0 @@
-{
-  IOUtils.closeQuietly(scanner);
-  IOUtils.closeQuietly(table);
-}

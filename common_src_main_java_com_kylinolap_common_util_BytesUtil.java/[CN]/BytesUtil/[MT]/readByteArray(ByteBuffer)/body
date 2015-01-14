@@ -1,7 +1,0 @@
-{
-  int len=readVInt(in);
-  if (len < 0)   return null;
-  byte[] array=new byte[len];
-  in.get(array);
-  return array;
-}

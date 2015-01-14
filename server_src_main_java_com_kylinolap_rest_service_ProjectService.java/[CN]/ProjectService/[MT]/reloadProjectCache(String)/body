@@ -1,4 +1,0 @@
-{
-  ProjectInstance project=this.getProjectManager().getProject(name);
-  this.getProjectManager().loadProjectCache(project,false);
-}

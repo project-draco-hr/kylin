@@ -1,3 +1,0 @@
-{
-  getParameter(parameterIndex).setBlob(inputStream);
-}

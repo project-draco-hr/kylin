@@ -1,8 +1,0 @@
-{
-  if (this.containsKey(key)) {
-    this.put(key,(this.get(key) - decreased));
-  }
- else {
-    this.put(key,decreased);
-  }
-}

@@ -1,3 +1,0 @@
-{
-  return "LogicalFilter [operator=" + operator + ", children="+ children+ "]";
-}

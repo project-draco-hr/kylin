@@ -1,5 +1,0 @@
-{
-  Assert.assertNotNull(MetadataManager.getInstance(this.getTestConfig()));
-  Assert.assertNotNull(MetadataManager.getInstance(this.getTestConfig()).listAllTables());
-  Assert.assertTrue(MetadataManager.getInstance(this.getTestConfig()).listAllTables().size() > 0);
-}

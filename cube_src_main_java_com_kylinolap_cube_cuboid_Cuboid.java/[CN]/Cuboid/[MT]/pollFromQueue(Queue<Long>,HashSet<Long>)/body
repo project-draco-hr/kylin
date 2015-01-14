@@ -1,5 +1,0 @@
-{
-  long element=queue.poll();
-  dedupped.remove(element);
-  return element;
-}

@@ -1,3 +1,0 @@
-{
-  return "ColumnRowType [" + columns + "]";
-}

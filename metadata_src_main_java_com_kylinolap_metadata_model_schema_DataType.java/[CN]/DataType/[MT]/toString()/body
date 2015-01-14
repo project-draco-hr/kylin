@@ -1,5 +1,0 @@
-{
-  if (precision < 0 && scale < 0)   return name;
- else   if (scale < 0)   return name + "(" + precision+ ")";
- else   return name + "(" + precision+ ","+ scale+ ")";
-}

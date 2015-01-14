@@ -1,9 +1,0 @@
-{
-  int t=k;
-  if (n - k < k) {
-    t=n - k;
-    reverse=true;
-  }
-  boolean[] flags=new boolean[n];
-  inner(flags,0,t);
-}

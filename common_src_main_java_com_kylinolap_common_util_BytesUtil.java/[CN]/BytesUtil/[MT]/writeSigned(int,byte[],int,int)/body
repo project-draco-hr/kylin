@@ -1,3 +1,0 @@
-{
-  writeUnsigned(num,bytes,offset,size);
-}

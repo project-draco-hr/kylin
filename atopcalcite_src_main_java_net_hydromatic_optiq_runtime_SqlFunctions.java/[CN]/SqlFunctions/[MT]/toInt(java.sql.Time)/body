@@ -1,3 +1,0 @@
-{
-  return (int)(toLong(v) % DateTimeUtil.MILLIS_PER_DAY);
-}

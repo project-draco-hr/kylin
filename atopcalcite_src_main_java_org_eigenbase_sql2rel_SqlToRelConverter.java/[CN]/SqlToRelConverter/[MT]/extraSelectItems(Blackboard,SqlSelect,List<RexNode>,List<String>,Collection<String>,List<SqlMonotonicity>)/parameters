@@ -1,6 +1,0 @@
-Blackboard bb
-SqlSelect select
-List<RexNode> exprList
-List<String> nameList
-Collection<String> aliasList
-List<SqlMonotonicity> columnMonotonicityList

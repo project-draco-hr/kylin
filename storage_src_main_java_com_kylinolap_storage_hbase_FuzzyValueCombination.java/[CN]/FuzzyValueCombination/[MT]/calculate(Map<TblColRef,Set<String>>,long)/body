@@ -1,5 +1,0 @@
-{
-  Dim[] dims=toDims(fuzzyValues);
-  capDims(dims,cap);
-  return combination(dims);
-}

@@ -1,3 +1,0 @@
-{
-  return Long.parseLong(getOptional("kylin.job.step.timeout",String.valueOf(2 * 60 * 60)));
-}

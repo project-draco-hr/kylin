@@ -1,6 +1,0 @@
-{
-  if (measure != null) {
-    sortMeasures.add(measure);
-    sortOrders.add(order);
-  }
-}

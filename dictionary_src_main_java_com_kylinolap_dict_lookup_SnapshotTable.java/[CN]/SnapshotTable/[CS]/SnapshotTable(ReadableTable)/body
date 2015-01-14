@@ -1,4 +1,0 @@
-{
-  this.signature=table.getSignature();
-  this.columnDelimeter=table.getColumnDelimeter();
-}

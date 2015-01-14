@@ -1,4 +1,0 @@
-RelOptCluster cluster
-RelTraitSet traits
-RelNode child
-RexNode condition

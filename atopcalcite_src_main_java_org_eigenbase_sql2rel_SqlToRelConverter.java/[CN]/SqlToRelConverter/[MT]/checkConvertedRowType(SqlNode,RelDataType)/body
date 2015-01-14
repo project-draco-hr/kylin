@@ -1,5 +1,0 @@
-{
-  RelDataType validatedRowType=validator.getValidatedNodeType(query);
-  validatedRowType=uniquifyFields(validatedRowType);
-  return RelOptUtil.equal("validated row type",validatedRowType,"converted row type",convertedRowType,false);
-}

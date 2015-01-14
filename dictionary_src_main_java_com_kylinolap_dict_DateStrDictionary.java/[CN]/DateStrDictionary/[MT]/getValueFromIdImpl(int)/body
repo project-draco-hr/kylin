@@ -1,5 +1,0 @@
-{
-  if (id < baseId)   throw new IllegalArgumentException("ID '" + id + "' must not be less than base ID "+ baseId);
-  Date d=getDateFromNumOfDaysSince0000(calcSeqNoFromId(id));
-  return dateToString(d,pattern);
-}

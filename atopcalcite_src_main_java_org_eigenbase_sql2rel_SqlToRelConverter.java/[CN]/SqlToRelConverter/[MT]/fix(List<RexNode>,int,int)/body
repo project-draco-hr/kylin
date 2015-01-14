@@ -1,9 +1,0 @@
-{
-  if (before == after) {
-    return;
-  }
-  for (int i=0; i < operands.size(); i++) {
-    RexNode node=operands.get(i);
-    operands.set(i,RexUtil.shift(node,before,after - before));
-  }
-}

@@ -1,3 +1,0 @@
-{
-  return projectService.listAllProjects(limit,offset);
-}

@@ -1,4 +1,0 @@
-{
-  super.setUp();
-  basicController=new BasicController();
-}

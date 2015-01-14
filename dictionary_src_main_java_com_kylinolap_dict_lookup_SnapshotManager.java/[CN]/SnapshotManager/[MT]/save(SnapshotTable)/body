@@ -1,5 +1,0 @@
-{
-  ResourceStore store=MetadataManager.getInstance(this.config).getStore();
-  String path=snapshot.getResourcePath();
-  store.putResource(path,snapshot,SnapshotTableSerializer.FULL_SERIALIZER);
-}

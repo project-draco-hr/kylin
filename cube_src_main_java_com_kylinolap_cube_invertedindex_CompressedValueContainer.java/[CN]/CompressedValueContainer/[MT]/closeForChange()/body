@@ -1,9 +1,0 @@
-{
-  checkUpdateMode();
-  try {
-    compressed=LZFEncoder.encode(uncompressed,0,valueLen * size);
-  }
- catch (  Exception e) {
-    throw new RuntimeException("LZF encode failure",e);
-  }
-}

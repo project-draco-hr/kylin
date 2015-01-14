@@ -1,5 +1,0 @@
-{
-  String projectResPath=ProjectInstance.concatResourcePath(projectName);
-  if (!dstStore.exists(projectResPath))   throw new IllegalStateException("The target project " + projectName + "does not exist");
-  operations.add(new Opt(OptType.ADD_INTO_PROJECT,new Object[]{cubeName,projectName}));
-}

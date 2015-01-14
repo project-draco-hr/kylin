@@ -1,9 +1,0 @@
-{
-  this.createTestMetadata();
-  CubeManager cubeMgr=CubeManager.getInstance(this.getTestConfig());
-  cube=cubeMgr.getCube("TEST_KYLIN_CUBE_WITHOUT_SLR_EMPTY");
-  storageEngine=StorageEngineFactory.getStorageEngine(cube);
-  String url=KylinConfig.getInstanceFromEnv().getStorageUrl();
-  context=new StorageContext();
-  context.setConnUrl(url);
-}

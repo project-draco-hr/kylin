@@ -1,3 +1,0 @@
-{
-  optionsHelper.printUsage(getClass().getSimpleName(),options);
-}

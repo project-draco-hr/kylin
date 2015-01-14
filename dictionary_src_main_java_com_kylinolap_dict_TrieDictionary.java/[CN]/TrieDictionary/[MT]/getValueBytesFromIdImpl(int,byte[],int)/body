@@ -1,5 +1,0 @@
-{
-  if (id < baseId || id >= baseId + nValues)   throw new IllegalArgumentException("Not a valid ID: " + id);
-  int seq=calcSeqNoFromId(id);
-  return lookupValueFromSeqNo(headSize,seq,returnValue,offset);
-}

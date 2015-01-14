@@ -1,4 +1,0 @@
-List<RelNode> rels
-int systemFieldCount
-int[] start
-List<Pair<RelNode,Integer>> relOffsetList

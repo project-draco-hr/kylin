@@ -1,3 +1,0 @@
-{
-  return estimate <= thresholdData[precision - 4];
-}

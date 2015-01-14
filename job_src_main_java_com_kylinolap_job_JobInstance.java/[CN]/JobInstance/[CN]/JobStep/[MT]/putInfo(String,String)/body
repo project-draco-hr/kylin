@@ -1,3 +1,0 @@
-{
-  getInfo().put(key,value);
-}

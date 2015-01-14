@@ -1,3 +1,0 @@
-{
-  return getIdFromValueBytes(value,offset,len,0);
-}

@@ -1,5 +1,0 @@
-{
-  String r=kylinConfig.getString(prop);
-  if (StringUtils.isEmpty(r))   throw new IllegalArgumentException("missing '" + prop + "' in conf/kylin_instance.properties");
-  return r;
-}

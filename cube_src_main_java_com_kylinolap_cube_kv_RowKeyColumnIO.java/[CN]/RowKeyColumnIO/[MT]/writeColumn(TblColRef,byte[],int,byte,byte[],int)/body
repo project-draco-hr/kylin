@@ -1,3 +1,0 @@
-{
-  writeColumn(column,value,valueLen,0,dft,output,outputOffset);
-}

@@ -1,5 +1,0 @@
-{
-  byte[][] result=new byte[nHCols][];
-  for (int i=0; i < nHCols; i++)   result[i]=hcols[i].family;
-  return result;
-}

@@ -1,8 +1,0 @@
-{
-  for (  CubeSegment segment : segments) {
-    if (Objects.equal(segment.getUuid(),segmentId)) {
-      return segment;
-    }
-  }
-  return null;
-}

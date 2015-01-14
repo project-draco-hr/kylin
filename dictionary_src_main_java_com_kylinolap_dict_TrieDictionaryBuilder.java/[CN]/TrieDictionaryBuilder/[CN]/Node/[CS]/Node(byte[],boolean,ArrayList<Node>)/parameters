@@ -1,3 +1,0 @@
-byte[] value
-boolean isEndOfValue
-ArrayList<Node> children

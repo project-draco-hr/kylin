@@ -1,9 +1,0 @@
-{
-  if (hllAgg == null) {
-    return ZERO;
-  }
- else {
-    state.set(hllAgg.getState().getCountEstimate());
-    return state;
-  }
-}

@@ -1,4 +1,0 @@
-{
-  String value=rowValues.get(hostIndex);
-  tuple.setDimensionValue(derivedFieldName,value);
-}

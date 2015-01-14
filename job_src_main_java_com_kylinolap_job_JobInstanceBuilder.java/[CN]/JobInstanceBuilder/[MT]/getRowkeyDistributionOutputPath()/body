@@ -1,3 +1,0 @@
-{
-  return jobWorkingDir + "/" + cubeName+ "/rowkey_stats";
-}

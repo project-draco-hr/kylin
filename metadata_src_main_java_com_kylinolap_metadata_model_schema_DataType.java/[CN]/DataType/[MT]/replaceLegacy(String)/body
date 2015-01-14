@@ -1,4 +1,0 @@
-{
-  String replace=LEGACY_TYPE_MAP.get(str);
-  return replace == null ? str : replace;
-}

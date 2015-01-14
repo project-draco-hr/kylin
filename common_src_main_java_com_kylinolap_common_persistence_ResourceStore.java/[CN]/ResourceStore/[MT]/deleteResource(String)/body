@@ -1,4 +1,0 @@
-{
-  logger.debug("Deleting resource " + resPath + " (Store "+ kylinConfig.getMetadataUrl()+ ")");
-  deleteResourceImpl(norm(resPath));
-}

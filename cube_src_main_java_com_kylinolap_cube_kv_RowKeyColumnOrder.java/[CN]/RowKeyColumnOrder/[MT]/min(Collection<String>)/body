@@ -1,7 +1,0 @@
-{
-  String min=null;
-  for (  String v : values) {
-    if (min == null || compare(min,v) > 0)     min=v;
-  }
-  return min;
-}

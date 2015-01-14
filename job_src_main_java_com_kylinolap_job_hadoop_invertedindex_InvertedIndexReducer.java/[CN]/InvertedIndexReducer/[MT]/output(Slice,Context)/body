@@ -1,5 +1,0 @@
-{
-  for (  Pair<ImmutableBytesWritable,ImmutableBytesWritable> pair : kv.encodeKeyValue(slice)) {
-    context.write(pair.getFirst(),pair.getSecond());
-  }
-}

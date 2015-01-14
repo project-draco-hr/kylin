@@ -1,2 +1,0 @@
-List<TblColRef> columns
-List<Set<TblColRef>> sourceColumns

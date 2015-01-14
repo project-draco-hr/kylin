@@ -1,7 +1,0 @@
-{
-  if (col.equals(colA) == false)   return null;
-  ConciseSet bitMap=new ConciseSet();
-  if (valueId < 0 || valueId > getMaxValueId(col))   bitMap.add(getRecordCount() - 1);
- else   bitMap.add(valueId);
-  return bitMap;
-}

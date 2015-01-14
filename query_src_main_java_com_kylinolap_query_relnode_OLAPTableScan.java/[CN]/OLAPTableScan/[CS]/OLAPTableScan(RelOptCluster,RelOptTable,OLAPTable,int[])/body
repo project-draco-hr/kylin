@@ -1,7 +1,0 @@
-{
-  super(cluster,cluster.traitSetOf(OLAPRel.CONVENTION),table);
-  this.olapTable=olapTable;
-  this.fields=fields;
-  this.cubeTable=olapTable.getTableName();
-  this.rowType=getRowType();
-}

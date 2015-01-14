@@ -1,6 +1,0 @@
-{
-  if (null == auths) {
-    return null;
-  }
-  return JsonUtil.writeValueAsBytes(auths);
-}

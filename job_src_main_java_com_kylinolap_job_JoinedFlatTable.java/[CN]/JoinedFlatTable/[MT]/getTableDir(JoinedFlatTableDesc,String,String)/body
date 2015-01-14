@@ -1,3 +1,0 @@
-{
-  return storageDfsDir + "/" + intermediateTableDesc.getTableName(jobUUID);
-}

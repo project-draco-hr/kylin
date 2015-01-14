@@ -1,4 +1,0 @@
-{
-  CubeHFileMapper mapper=new CubeHFileMapper();
-  mapDriver=MapDriver.newMapDriver(mapper);
-}

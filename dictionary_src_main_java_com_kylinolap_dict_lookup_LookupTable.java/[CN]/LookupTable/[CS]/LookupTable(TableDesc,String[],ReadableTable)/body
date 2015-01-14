@@ -1,7 +1,0 @@
-{
-  this.tableDesc=tableDesc;
-  this.keyColumns=keyColumns;
-  this.table=table;
-  this.data=new ConcurrentHashMap<Array<T>,T[]>();
-  init();
-}

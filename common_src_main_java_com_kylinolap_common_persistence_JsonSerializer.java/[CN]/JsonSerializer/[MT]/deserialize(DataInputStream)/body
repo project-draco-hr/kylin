@@ -1,3 +1,0 @@
-{
-  return JsonUtil.readValue(in,clz);
-}

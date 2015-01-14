@@ -1,4 +1,0 @@
-{
-  int idx=columnMap.get(col);
-  return fields.get(idx);
-}

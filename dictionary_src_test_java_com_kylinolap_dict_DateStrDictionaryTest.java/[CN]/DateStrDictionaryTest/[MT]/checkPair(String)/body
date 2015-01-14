@@ -1,5 +1,0 @@
-{
-  int id=dict.getIdFromValue(dateStr);
-  String dateStrBack=dict.getValueFromId(id);
-  assertEquals(dateStr,dateStrBack);
-}

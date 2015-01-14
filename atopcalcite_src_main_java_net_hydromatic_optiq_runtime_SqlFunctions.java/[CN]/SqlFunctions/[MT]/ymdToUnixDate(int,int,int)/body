@@ -1,4 +1,0 @@
-{
-  final int julian=ymdToJulian(year,month,day);
-  return julian - EPOCH_JULIAN;
-}

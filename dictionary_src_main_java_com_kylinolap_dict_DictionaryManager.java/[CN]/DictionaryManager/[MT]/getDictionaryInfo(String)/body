@@ -1,9 +1,0 @@
-{
-  DictionaryInfo dictInfo=dictCache.get(resourcePath);
-  if (dictInfo == null) {
-    dictInfo=load(resourcePath,true);
-    if (dictInfo == null)     dictInfo=NONE_INDICATOR;
-    dictCache.put(resourcePath,dictInfo);
-  }
-  return dictInfo == NONE_INDICATOR ? null : dictInfo;
-}

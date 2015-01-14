@@ -1,3 +1,0 @@
-{
-  return new OLAPToEnumerableConverter(getCluster(),traitSet,sole(inputs));
-}

@@ -1,6 +1,0 @@
-{
-  this.p=p;
-  this.m=(int)Math.pow(2,p);
-  this.hashFunc=hashFunc;
-  this.registers=new byte[m];
-}

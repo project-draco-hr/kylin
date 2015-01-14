@@ -1,8 +1,0 @@
-{
-  String sqlFileName=sqlFile.getAbsolutePath();
-  int prefixIndex=sqlFileName.lastIndexOf(".sql");
-  String dataFielName=sqlFileName.substring(0,prefixIndex) + ".dat";
-  File dataFile=new File(dataFielName);
-  List<String> parameters=Files.readLines(dataFile,Charset.defaultCharset());
-  return parameters;
-}

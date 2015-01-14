@@ -1,3 +1,0 @@
-{
-  return super.explainTerms(pw).itemIf("offset",localOffset,localOffset != null).itemIf("fetch",localFetch,localFetch != null);
-}

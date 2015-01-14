@@ -1,9 +1,0 @@
-{
-  JobStepOutput output=jobDAO.getJobOutput(jobUuid,stepSequenceId);
-  if (null == output) {
-    return "";
-  }
- else {
-    return output.getOutput();
-  }
-}

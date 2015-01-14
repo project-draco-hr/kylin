@@ -1,5 +1,0 @@
-{
-  this.path=path;
-  this.delim=delim;
-  this.nColumns=nColumns;
-}

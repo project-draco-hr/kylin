@@ -1,3 +1,0 @@
-{
-  return "LookupTable [path=" + table + "]";
-}

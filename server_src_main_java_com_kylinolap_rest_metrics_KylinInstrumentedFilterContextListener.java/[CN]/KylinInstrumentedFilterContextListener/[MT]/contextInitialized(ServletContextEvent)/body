@@ -1,4 +1,0 @@
-{
-  WebApplicationContextUtils.getRequiredWebApplicationContext(event.getServletContext()).getAutowireCapableBeanFactory().autowireBean(this);
-  innerKylinInstrumentedFilterContextListener.contextInitialized(event);
-}

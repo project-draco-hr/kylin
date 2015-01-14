@@ -1,5 +1,0 @@
-{
-  String pattern=in.readUTF();
-  int baseId=in.readInt();
-  init(pattern,baseId);
-}

@@ -1,6 +1,0 @@
-{
-  List<File> sqlFiles=getFilesFromFolder(new File(queryFolder),".sql");
-  for (  File sqlFile : sqlFiles) {
-    runSQL(sqlFile,false,false);
-  }
-}

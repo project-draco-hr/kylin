@@ -1,4 +1,0 @@
-{
-  log.debug(message);
-  output.append(message).append("\n");
-}

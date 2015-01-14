@@ -1,6 +1,0 @@
-String executeCmd
-ICommandOutput out
-String host
-String user
-String password
-boolean async

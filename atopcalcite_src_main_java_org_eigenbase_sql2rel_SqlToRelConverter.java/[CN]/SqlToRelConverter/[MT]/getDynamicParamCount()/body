@@ -1,3 +1,0 @@
-{
-  return dynamicParamSqlNodes.size();
-}

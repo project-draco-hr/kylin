@@ -1,8 +1,0 @@
-{
-  List<File> files=new LinkedList<File>();
-  getFilesFromFolderR("src/test/resources/query",files,".sql");
-  for (  File file : files) {
-    String x=changeJoinType(getTextFromFile(file),targetType);
-    putTextTofile(file,x);
-  }
-}

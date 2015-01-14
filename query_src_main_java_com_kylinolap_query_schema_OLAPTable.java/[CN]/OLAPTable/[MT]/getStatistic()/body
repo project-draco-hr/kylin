@@ -1,4 +1,0 @@
-{
-  List<BitSet> keys=new ArrayList<BitSet>();
-  return Statistics.of(100,keys);
-}

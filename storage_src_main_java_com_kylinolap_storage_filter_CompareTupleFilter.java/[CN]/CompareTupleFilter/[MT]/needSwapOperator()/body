@@ -1,3 +1,0 @@
-{
-  return operator == FilterOperatorEnum.LT || operator == FilterOperatorEnum.GT || operator == FilterOperatorEnum.LTE || operator == FilterOperatorEnum.GTE;
-}

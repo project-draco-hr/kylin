@@ -1,3 +1,0 @@
-{
-  return trim_(s,leading,trailing,seek.charAt(0));
-}

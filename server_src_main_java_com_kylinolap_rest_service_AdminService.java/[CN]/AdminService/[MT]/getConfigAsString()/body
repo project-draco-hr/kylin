@@ -1,9 +1,0 @@
-{
-  logger.debug("Get Kylin Runtime Config");
-  try {
-    return KylinConfig.getInstanceFromEnv().getConfigAsString();
-  }
- catch (  IOException e) {
-    throw new InternalErrorException("Failed to get Kylin Runtime Config",e);
-  }
-}

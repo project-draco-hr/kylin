@@ -1,3 +1,0 @@
-{
-  sum.set(sum.get() + value.get());
-}

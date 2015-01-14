@@ -1,3 +1,0 @@
-{
-  return estimate <= 5 * numberOfBuckets;
-}

@@ -1,8 +1,0 @@
-{
-  implementor.visitChild(getChild(),this);
-  this.context=implementor.getContext();
-  this.hasJoin=context.hasJoin;
-  this.afterJoin=context.afterJoin;
-  this.afterAggregate=context.afterAggregate;
-  this.columnRowType=buildColumnRowType();
-}

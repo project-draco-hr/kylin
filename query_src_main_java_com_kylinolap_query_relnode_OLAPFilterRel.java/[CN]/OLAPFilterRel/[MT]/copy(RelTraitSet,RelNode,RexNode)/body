@@ -1,3 +1,0 @@
-{
-  return new OLAPFilterRel(getCluster(),traitSet,input,condition);
-}

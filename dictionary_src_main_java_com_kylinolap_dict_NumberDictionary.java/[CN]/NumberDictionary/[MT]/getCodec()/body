@@ -1,8 +1,0 @@
-{
-  NumberBytesCodec codec=localCodec.get();
-  if (codec == null) {
-    codec=new NumberBytesCodec();
-    localCodec.set(codec);
-  }
-  return codec;
-}

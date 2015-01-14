@@ -1,7 +1,0 @@
-{
-  this.columnMetas=columnMetas;
-  this.results=results;
-  this.affectedRowCount=affectedRowCount;
-  this.isException=isException;
-  this.exceptionMessage=exceptionMessage;
-}

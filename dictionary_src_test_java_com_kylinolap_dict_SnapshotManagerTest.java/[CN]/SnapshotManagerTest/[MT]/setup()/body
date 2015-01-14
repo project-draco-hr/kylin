@@ -1,4 +1,0 @@
-{
-  createTestMetadata();
-  snapshotMgr=SnapshotManager.getInstance(this.getTestConfig());
-}

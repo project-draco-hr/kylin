@@ -1,3 +1,0 @@
-{
-  return getDateFormat(pattern).format(date);
-}

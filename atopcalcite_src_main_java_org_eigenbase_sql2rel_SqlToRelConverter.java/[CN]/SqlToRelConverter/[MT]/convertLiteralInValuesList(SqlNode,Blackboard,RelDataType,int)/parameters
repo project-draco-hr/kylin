@@ -1,4 +1,0 @@
-SqlNode sqlNode
-Blackboard bb
-RelDataType rowType
-int iField

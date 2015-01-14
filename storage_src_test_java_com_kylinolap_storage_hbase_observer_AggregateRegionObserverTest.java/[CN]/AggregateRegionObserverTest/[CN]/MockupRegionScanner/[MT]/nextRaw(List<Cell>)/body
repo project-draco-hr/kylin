@@ -1,7 +1,0 @@
-{
-  if (i < input.size()) {
-    result.add(input.get(i));
-    i++;
-  }
-  return i < input.size();
-}

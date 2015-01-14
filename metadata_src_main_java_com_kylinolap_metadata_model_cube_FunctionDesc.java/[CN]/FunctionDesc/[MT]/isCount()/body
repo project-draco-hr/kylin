@@ -1,3 +1,0 @@
-{
-  return FUNC_COUNT.equalsIgnoreCase(expression);
-}

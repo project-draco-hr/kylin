@@ -1,3 +1,0 @@
-{
-  return Long.parseLong(this.getOptional("kylin.query.cache.threshold.scancount",String.valueOf(10 * 1024)));
-}

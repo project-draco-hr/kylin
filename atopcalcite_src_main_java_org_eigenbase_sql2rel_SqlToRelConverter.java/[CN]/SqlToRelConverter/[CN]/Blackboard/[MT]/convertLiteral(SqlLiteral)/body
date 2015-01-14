@@ -1,3 +1,0 @@
-{
-  return exprConverter.convertLiteral(this,literal);
-}

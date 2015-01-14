@@ -1,9 +1,0 @@
-{
-  if (filter == null)   return;
-  if (filter.isEvaluable()) {
-    for (    TupleFilter child : filter.getChildren())     collectNonEvaluable(child,collector);
-  }
- else {
-    collectColumnsRecursively(filter,collector);
-  }
-}

@@ -1,8 +1,0 @@
-{
-  List<Slice> result=Lists.newArrayList();
-  for (  SliceBuilder builder : builders) {
-    Slice slice=builder.close();
-    if (slice != null)     result.add(slice);
-  }
-  return result;
-}

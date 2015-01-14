@@ -1,9 +1,0 @@
-{
-  Matcher matcher=JOB_NAME_PATTERN.matcher(path);
-  if (matcher.find()) {
-    return matcher.group(1);
-  }
- else {
-    throw new IllegalStateException("Can not extract job ID from file path : " + path);
-  }
-}

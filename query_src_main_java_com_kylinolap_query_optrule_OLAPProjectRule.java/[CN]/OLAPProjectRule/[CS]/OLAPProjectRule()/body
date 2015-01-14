@@ -1,3 +1,0 @@
-{
-  super(operand(ProjectRel.class,any()));
-}

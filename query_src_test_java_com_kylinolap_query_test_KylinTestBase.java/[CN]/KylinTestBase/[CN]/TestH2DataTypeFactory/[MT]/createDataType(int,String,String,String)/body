@@ -1,6 +1,0 @@
-{
-  if ((columnName.startsWith("COL") || columnName.startsWith("col")) && sqlType == Types.BIGINT) {
-    return DataType.INTEGER;
-  }
-  return super.createDataType(sqlType,sqlTypeName);
-}

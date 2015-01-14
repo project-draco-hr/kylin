@@ -1,3 +1,0 @@
-{
-  return getOptional(HIVE_TABLE_LOCATION_PREFIX + table.toUpperCase());
-}

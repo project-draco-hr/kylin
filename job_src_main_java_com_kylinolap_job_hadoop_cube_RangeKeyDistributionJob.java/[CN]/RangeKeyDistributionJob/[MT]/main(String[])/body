@@ -1,4 +1,0 @@
-{
-  int exitCode=ToolRunner.run(new RangeKeyDistributionJob(),args);
-  System.exit(exitCode);
-}

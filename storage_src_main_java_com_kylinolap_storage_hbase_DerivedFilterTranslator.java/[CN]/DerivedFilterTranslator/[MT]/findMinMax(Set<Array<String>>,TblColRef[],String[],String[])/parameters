@@ -1,4 +1,0 @@
-Set<Array<String>> satisfyingHostRecords
-TblColRef[] hostCols
-String[] min
-String[] max

@@ -1,3 +1,0 @@
-{
-  this.aliasMap.put(column,alias);
-}

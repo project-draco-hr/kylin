@@ -1,3 +1,0 @@
-String tableName
-HBaseAdmin hbaseAdmin
-Path hdfsCoprocessorJar

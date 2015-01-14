@@ -1,8 +1,0 @@
-{
-  for (  JobStep step : getSteps()) {
-    if (stepName.equals(step.getName())) {
-      return step;
-    }
-  }
-  return null;
-}

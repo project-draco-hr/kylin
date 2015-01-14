@@ -1,3 +1,0 @@
-{
-  return runSQL(new File(file),true,false);
-}

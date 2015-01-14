@@ -1,4 +1,0 @@
-{
-  assertEquals(code,encodeNumber(number));
-  assertEquals(number,decodeNumber(code));
-}

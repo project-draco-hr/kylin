@@ -1,4 +1,0 @@
-String cubename
-long startDate
-long endDate
-CubeBuildTypeEnum jobType

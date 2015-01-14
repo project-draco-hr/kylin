@@ -1,3 +1,0 @@
-{
-  queryController.getMetadata(new MetaRequest(ProjectInstance.DEFAULT_PROJECT_NAME));
-}

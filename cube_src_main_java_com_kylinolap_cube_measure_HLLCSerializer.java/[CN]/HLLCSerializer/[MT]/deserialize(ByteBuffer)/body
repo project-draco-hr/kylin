@@ -1,9 +1,0 @@
-{
-  try {
-    current.readRegisters(in);
-  }
- catch (  IOException e) {
-    throw new RuntimeException(e);
-  }
-  return current;
-}

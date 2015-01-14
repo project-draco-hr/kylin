@@ -1,7 +1,0 @@
-{
-  final String input="src/test/resources/data/test_cal_dt/";
-  final String output="target/test-output/column-cardinality/";
-  FileUtil.fullyDelete(new File(output));
-  String[] args={"-input",input,"-output",output,"-cols","1,2,3,4,5,6,9,0"};
-  assertEquals("Job failed",0,ToolRunner.run(new HiveColumnCardinalityJob(),args));
-}

@@ -1,6 +1,0 @@
-{
-  int stepLength=allSplits.size() / regionNumber;
-  for (int i=stepLength; i < allSplits.size(); i+=stepLength) {
-    context.write(allSplits.get(i),NullWritable.get());
-  }
-}

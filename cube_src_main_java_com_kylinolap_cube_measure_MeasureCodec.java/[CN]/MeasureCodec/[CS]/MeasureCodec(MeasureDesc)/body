@@ -1,7 +1,0 @@
-{
-  String[] dataTypes=new String[measureDescs.length];
-  for (int i=0; i < dataTypes.length; i++) {
-    dataTypes[i]=measureDescs[i].getFunction().getReturnType();
-  }
-  init(dataTypes);
-}

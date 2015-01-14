@@ -1,8 +1,0 @@
-{
-  try {
-    fieldAces.set(acl,aces);
-  }
- catch (  IllegalAccessException e) {
-    throw new IllegalStateException("Could not set AclImpl entries",e);
-  }
-}

@@ -1,5 +1,0 @@
-{
-  byte[] trieBytes=buildTrieBytes(baseId);
-  NumberDictionary<T> r=new NumberDictionary<T>(trieBytes);
-  return r;
-}

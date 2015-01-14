@@ -1,8 +1,0 @@
-{
-  StringBuilder result=new StringBuilder();
-  for (int i=0; i < length; i++) {
-    int ch=array[offset + i] & 0xFF & mask[i];
-    result.append(String.format("\\x%02X",ch));
-  }
-  return result.toString();
-}

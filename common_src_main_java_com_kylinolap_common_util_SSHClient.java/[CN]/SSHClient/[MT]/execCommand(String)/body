@@ -1,3 +1,0 @@
-{
-  return execCommand(command,7200);
-}

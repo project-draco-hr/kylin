@@ -1,8 +1,0 @@
-{
-  if (filter instanceof LogicalTupleFilter) {
-    LogicalTupleFilter r=new LogicalTupleFilter(filter.getOperator());
-    r.addChildren(newChildren);
-    return r;
-  }
- else   throw new IllegalStateException("Cannot replaceChildren on " + filter);
-}

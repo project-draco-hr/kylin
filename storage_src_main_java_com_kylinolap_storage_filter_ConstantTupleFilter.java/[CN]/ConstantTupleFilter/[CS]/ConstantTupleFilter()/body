@@ -1,4 +1,0 @@
-{
-  super(Collections.<TupleFilter>emptyList(),FilterOperatorEnum.CONSTANT);
-  this.constantValues=new HashSet<String>();
-}

@@ -1,4 +1,0 @@
-{
-  Map<String,String> tableExd=cubeMgmtService.getMetadataManager().getTableDescExd(tableName);
-  return tableExd;
-}

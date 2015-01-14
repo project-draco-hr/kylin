@@ -1,3 +1,0 @@
-{
-  copy(column,beginValue,endValue,equalValues);
-}

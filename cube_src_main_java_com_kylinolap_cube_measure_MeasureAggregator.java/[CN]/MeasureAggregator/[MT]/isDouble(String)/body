@@ -1,3 +1,0 @@
-{
-  return "double".equalsIgnoreCase(type) || "float".equalsIgnoreCase(type) || "real".equalsIgnoreCase(type);
-}

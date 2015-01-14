@@ -1,4 +1,0 @@
-{
-  int index=info.getColumnIndex(col);
-  return values[index];
-}

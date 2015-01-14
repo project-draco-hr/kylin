@@ -1,4 +1,0 @@
-{
-  ResourceStore store=ResourceStore.getStore(dstConfig);
-  store.putResource(path,source,System.currentTimeMillis());
-}

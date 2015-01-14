@@ -1,5 +1,0 @@
-{
-  this.optiqContext=optiqContext;
-  this.type=type;
-  this.contextId=ctxId;
-}

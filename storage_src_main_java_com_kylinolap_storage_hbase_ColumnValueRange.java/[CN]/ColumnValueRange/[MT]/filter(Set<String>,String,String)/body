@@ -1,9 +1,0 @@
-{
-  Set<String> result=Sets.newHashSetWithExpectedSize(equalValues.size());
-  for (  String v : equalValues) {
-    if (between(v,beginValue,endValue)) {
-      result.add(v);
-    }
-  }
-  return equalValues;
-}

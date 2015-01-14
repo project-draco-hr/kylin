@@ -1,9 +1,0 @@
-{
-  final int prime=31;
-  int result=1;
-  result=prime * result + ((description == null) ? 0 : description.hashCode());
-  result=prime * result + ((name == null) ? 0 : name.hashCode());
-  result=prime * result + ((project == null) ? 0 : project.hashCode());
-  result=prime * result + ((sql == null) ? 0 : sql.hashCode());
-  return result;
-}

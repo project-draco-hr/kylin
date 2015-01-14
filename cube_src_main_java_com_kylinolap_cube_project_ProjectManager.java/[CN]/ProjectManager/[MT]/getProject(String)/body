@@ -1,5 +1,0 @@
-{
-  if (projectName == null)   return null;
-  projectName=ProjectInstance.getNormalizedProjectName(projectName);
-  return projectMap.get(projectName);
-}

@@ -1,4 +1,0 @@
-int sqlType
-String sqlTypeName
-String tableName
-String columnName

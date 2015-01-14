@@ -1,5 +1,0 @@
-{
-  IIDistinctColumnsJob job=new IIDistinctColumnsJob();
-  int exitCode=ToolRunner.run(job,args);
-  System.exit(exitCode);
-}

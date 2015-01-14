@@ -1,8 +1,0 @@
-{
-  super(new ArrayList<TupleFilter>(),FilterOperatorEnum.CASE);
-  this.filterIndex=0;
-  this.values=Collections.emptyList();
-  this.whenFilters=new ArrayList<TupleFilter>();
-  this.thenFilters=new ArrayList<TupleFilter>();
-  this.elseFilter=null;
-}

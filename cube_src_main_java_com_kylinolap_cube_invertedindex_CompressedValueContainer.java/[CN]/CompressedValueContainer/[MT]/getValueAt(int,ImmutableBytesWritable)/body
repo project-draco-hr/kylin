@@ -1,3 +1,0 @@
-{
-  valueBytes.set(uncompressed,valueLen * i,valueLen);
-}

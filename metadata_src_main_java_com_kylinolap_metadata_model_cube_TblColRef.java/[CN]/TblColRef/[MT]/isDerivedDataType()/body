@@ -1,3 +1,0 @@
-{
-  return InnerDataTypeEnum.DERIVED.getDataType().equals(getDatatype());
-}

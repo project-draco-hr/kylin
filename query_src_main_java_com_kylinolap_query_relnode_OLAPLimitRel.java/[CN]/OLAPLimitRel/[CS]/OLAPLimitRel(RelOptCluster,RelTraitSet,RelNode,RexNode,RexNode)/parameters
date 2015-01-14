@@ -1,5 +1,0 @@
-RelOptCluster cluster
-RelTraitSet traitSet
-RelNode child
-RexNode offset
-RexNode fetch

@@ -1,4 +1,0 @@
-{
-  value=new byte[length];
-  length=0;
-}

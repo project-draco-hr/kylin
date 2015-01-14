@@ -1,9 +1,0 @@
-{
-  try {
-    return cubeService.rebuildLookupSnapshot(cubeName,segmentName,lookupTable);
-  }
- catch (  IOException e) {
-    logger.error(e.getLocalizedMessage(),e);
-    throw new InternalErrorException(e.getLocalizedMessage());
-  }
-}

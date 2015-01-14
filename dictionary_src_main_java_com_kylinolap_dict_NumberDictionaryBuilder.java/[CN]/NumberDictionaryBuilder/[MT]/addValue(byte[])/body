@@ -1,5 +1,0 @@
-{
-  codec.encodeNumber(value,0,value.length);
-  byte[] copy=Bytes.copy(codec.buf,codec.bufOffset,codec.bufLen);
-  super.addValue(copy);
-}

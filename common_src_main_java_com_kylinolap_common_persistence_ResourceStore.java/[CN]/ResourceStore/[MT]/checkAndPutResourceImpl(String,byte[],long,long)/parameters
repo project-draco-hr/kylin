@@ -1,4 +1,0 @@
-String resPath
-byte[] content
-long oldTS
-long newTS

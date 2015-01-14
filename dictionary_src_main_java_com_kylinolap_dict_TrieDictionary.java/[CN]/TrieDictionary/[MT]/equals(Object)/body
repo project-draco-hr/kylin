@@ -1,8 +1,0 @@
-{
-  if ((o instanceof TrieDictionary) == false) {
-    logger.info("Equals return false because o is not TrieDictionary");
-    return false;
-  }
-  TrieDictionary that=(TrieDictionary)o;
-  return Arrays.equals(this.trieBytes,that.trieBytes);
-}

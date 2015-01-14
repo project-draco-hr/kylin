@@ -1,4 +1,0 @@
-{
-  Assert.assertNotNull(adminController.getConfig());
-  Assert.assertNotNull(adminController.getEnv());
-}

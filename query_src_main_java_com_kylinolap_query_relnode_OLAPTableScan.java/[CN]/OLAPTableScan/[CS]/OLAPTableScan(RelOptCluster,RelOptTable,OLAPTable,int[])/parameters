@@ -1,4 +1,0 @@
-RelOptCluster cluster
-RelOptTable table
-OLAPTable olapTable
-int[] fields

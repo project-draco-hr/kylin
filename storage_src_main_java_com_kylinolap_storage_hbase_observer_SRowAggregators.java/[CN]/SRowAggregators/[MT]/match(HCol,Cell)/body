@@ -1,3 +1,0 @@
-{
-  return Bytes.compareTo(col.family,0,col.family.length,cell.getFamilyArray(),cell.getFamilyOffset(),cell.getFamilyLength()) == 0 && Bytes.compareTo(col.qualifier,0,col.qualifier.length,cell.getQualifierArray(),cell.getQualifierOffset(),cell.getQualifierLength()) == 0;
-}

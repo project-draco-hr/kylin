@@ -1,4 +1,0 @@
-{
-  if (resPath.equals("/"))   return root;
- else   return new File(root,resPath);
-}

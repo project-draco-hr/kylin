@@ -1,6 +1,0 @@
-{
-  printInfo("setUp in KylinQueryTest");
-  joinType="left";
-  setupAll();
-  preferCubeOf(joinType);
-}

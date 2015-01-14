@@ -1,8 +1,0 @@
-{
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
-  AggrKey other=(AggrKey)obj;
-  if (this.length() != other.length())   return false;
-  return compareTo(other) == 0;
-}

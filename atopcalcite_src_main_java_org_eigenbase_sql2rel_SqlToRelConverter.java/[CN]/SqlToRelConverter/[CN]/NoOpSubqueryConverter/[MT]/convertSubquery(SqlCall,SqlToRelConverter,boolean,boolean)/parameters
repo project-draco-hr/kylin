@@ -1,4 +1,0 @@
-SqlCall subquery
-SqlToRelConverter parentConverter
-boolean isExists
-boolean isExplain

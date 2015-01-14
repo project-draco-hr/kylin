@@ -1,3 +1,0 @@
-{
-  return super.getRows() * 0.1;
-}

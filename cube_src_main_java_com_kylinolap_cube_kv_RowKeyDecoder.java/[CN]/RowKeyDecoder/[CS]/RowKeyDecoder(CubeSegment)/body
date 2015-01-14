@@ -1,6 +1,0 @@
-{
-  this.cubeDesc=cubeSegment.getCubeDesc();
-  this.rowKeySplitter=new RowKeySplitter(cubeSegment,65,255);
-  this.colIO=new RowKeyColumnIO(cubeSegment);
-  this.values=new ArrayList<String>();
-}

@@ -1,7 +1,0 @@
-{
-  TEST_UTIL=new HBaseTestingUtility();
-  CONF=TEST_UTIL.getConfiguration();
-  CONF.setStrings(CoprocessorHost.REGION_COPROCESSOR_CONF_KEY,ExampleEndpoint.class.getName());
-  TEST_UTIL.startMiniCluster();
-  TEST_UTIL.createTable(TEST_TABLE,new byte[][]{TEST_FAMILY});
-}

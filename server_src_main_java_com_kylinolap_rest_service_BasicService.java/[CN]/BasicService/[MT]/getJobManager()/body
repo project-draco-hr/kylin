@@ -1,6 +1,0 @@
-{
-  KylinConfig config=KylinConfig.getInstanceFromEnv();
-  JobEngineConfig engineCntx=new JobEngineConfig(config);
-  InetAddress ia=InetAddress.getLocalHost();
-  return new JobManager(ia.getCanonicalHostName(),engineCntx);
-}

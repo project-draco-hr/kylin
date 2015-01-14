@@ -1,3 +1,0 @@
-{
-  return "DeriveInfo [type=" + type + ", dimension="+ dimension+ ", columns="+ Arrays.toString(columns)+ ", isOneToOne="+ isOneToOne+ "]";
-}

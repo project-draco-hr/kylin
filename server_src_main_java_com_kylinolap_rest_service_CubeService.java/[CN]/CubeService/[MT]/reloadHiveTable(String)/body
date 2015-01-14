@@ -1,5 +1,0 @@
-{
-  Set<String> loaded=HiveSourceTableLoader.reloadHiveTables(tables.split(","),getConfig());
-  getMetadataManager().reload();
-  return (String[])loaded.toArray(new String[loaded.size()]);
-}

@@ -1,5 +1,0 @@
-{
-  UserDetails user=userController.authenticate();
-  Assert.assertNotNull(user);
-  Assert.assertTrue(user.getUsername().equals("ADMIN"));
-}

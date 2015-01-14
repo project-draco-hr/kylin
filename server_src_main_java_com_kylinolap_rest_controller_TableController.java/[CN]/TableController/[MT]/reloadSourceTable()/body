@@ -1,4 +1,0 @@
-{
-  cubeMgmtService.getMetadataManager().reload();
-  return "ok";
-}
