@@ -1,10 +1,9 @@
 {
   providers=Maps.newConcurrentMap();
-  List<String> realizationProviders=Lists.newArrayList("com.kylinolap.cube.CubeManager","com.kylinolap.invertedindex.IIManager");
+  final Set<Class<? extends IRealizationProvider>> realizationProviders=new Reflections("").getSubTypesOf(IRealizationProvider.class);
   List<Throwable> es=Lists.newArrayList();
-  for (  String clsName : realizationProviders) {
+  for (  Class<? extends IRealizationProvider> cls : realizationProviders) {
     try {
-      Class<?> cls=Class.forName(clsName);
       IRealizationProvider p=(IRealizationProvider)cls.getMethod("getInstance",KylinConfig.class).invoke(null,config);
       providers.put(p.getRealizationType(),p);
     }
