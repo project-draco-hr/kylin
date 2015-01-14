@@ -1,3 +1,0 @@
-{
-  return provider.getBitMap(column,from,to + 1);
-}
