@@ -1,20 +1,30 @@
 {
+  final String dropTableHql=JoinedFlatTable.generateDropTableStatement(intermediateTableDesc,jobId);
+  final String createTableHql=JoinedFlatTable.generateCreateTableStatement(intermediateTableDesc,getJobWorkingDir(jobId),jobId);
+  String[] insertDataHqls;
   try {
-    ShellExecutable result=new ShellExecutable();
-    result.setName(ExecutableConstants.STEP_NAME_CREATE_FLAT_HIVE_TABLE);
-    String dropTableHql=JoinedFlatTable.generateDropTableStatement(intermediateTableDesc,jobId);
-    String createTableHql=JoinedFlatTable.generateCreateTableStatement(intermediateTableDesc,getJobWorkingDir(jobId),jobId);
-    String insertDataHql=JoinedFlatTable.generateInsertDataStatement(intermediateTableDesc,jobId,this.jobEngineConfig);
-    StringBuilder buf=new StringBuilder();
-    buf.append("hive -e \"");
-    buf.append(dropTableHql + "\n");
-    buf.append(createTableHql + "\n");
-    buf.append(insertDataHql + "\n");
-    buf.append("\"");
-    result.setCmd(buf.toString());
-    return result;
+    insertDataHqls=JoinedFlatTable.generateInsertDataStatement(intermediateTableDesc,jobId,this.jobEngineConfig);
   }
- catch (  IOException e) {
-    throw new RuntimeException("fail to create job",e);
+ catch (  IOException e1) {
+    e1.printStackTrace();
+    throw new RuntimeException("Failed to generate insert data SQL for intermediate table.");
   }
+  final String[] insertDataHqlsCopy=insertDataHqls;
+  AbstractExecutable step=new AbstractExecutable(){
+    @Override protected ExecuteResult doWork(    ExecutableContext context) throws ExecuteException {
+      HiveClient hiveClient=new HiveClient();
+      try {
+        hiveClient.executeHQL(new String[]{dropTableHql,createTableHql});
+        hiveClient.executeHQL(insertDataHqlsCopy);
+      }
+ catch (      Exception e) {
+        e.printStackTrace();
+        throw new ExecuteException("Failed to createIntermediateHiveTable;",e);
+      }
+      return new ExecuteResult(ExecuteResult.State.SUCCEED);
+    }
+  }
+;
+  step.setName(ExecutableConstants.STEP_NAME_CREATE_FLAT_HIVE_TABLE);
+  return step;
 }
