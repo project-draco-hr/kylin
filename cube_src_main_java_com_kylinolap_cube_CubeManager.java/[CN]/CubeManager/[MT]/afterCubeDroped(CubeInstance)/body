@@ -1,4 +1,0 @@
-{
-  MetadataManager.getInstance(config).reload();
-  removeCubeCache(droppedCube);
-}

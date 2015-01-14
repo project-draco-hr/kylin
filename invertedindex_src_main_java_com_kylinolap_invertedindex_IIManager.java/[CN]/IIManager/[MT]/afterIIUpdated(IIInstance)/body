@@ -1,4 +1,3 @@
 {
-  MetadataManager.getInstance(config).reload();
   iiMap.put(updatedII.getName().toUpperCase(),updatedII);
 }

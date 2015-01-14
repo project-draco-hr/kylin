@@ -5,6 +5,6 @@
   if (deleteDesc && cube.getDescriptor() != null)   store.deleteResource(cube.getDescriptor().getResourcePath());
   store.deleteResource(cube.getResourcePath());
   ProjectManager.getInstance(config).removeRealizationsFromProjects(RealizationType.CUBE,cubeName);
-  this.afterCubeDroped(cube);
+  this.afterCubeDropped(cube);
   return cube;
 }

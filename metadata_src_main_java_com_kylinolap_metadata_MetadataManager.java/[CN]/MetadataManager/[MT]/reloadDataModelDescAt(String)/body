@@ -1,18 +1,16 @@
 {
   ResourceStore store=getStore();
-  DataModelDesc ndesc=null;
   try {
-    ndesc=store.getResource(path,DataModelDesc.class,MODELDESC_SERIALIZER);
+    DataModelDesc dataModelDesc=store.getResource(path,DataModelDesc.class,MODELDESC_SERIALIZER);
+    dataModelDesc.init(this.getAllTablesMap());
+    if (dataModelDesc.getError().isEmpty() == false) {
+      throw new IllegalStateException("DataModelDesc at " + path + " has issues: "+ dataModelDesc.getError());
+    }
+    String name=dataModelDesc.getName();
+    dataModelDescMap.putLocal(name,dataModelDesc);
+    return dataModelDesc;
   }
  catch (  IOException e) {
     throw new IllegalStateException("Error to load" + path,e);
   }
-  ndesc.init(this.getAllTablesMap());
-  if (ndesc.getError().isEmpty() == false) {
-    throw new IllegalStateException("DataModelDesc at " + path + " has issues: "+ ndesc.getError());
-  }
-  String name=ndesc.getName();
-  checkNoDupName(name,dataModelDescMap.containsKey(name),"DataModel",path);
-  dataModelDescMap.putLocal(name,ndesc);
-  return ndesc;
 }

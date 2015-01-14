@@ -3,7 +3,6 @@
   TableDesc t=store.getResource(path,TableDesc.class,TABLE_SERIALIZER);
   t.init();
   String tableIdentity=t.getIdentity();
-  checkNoDupName(tableIdentity,srcTableMap.containsKey(tableIdentity),"SourceTable",path);
   srcTableMap.putLocal(tableIdentity,t);
   return t;
 }
