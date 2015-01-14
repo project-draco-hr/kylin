@@ -1,6 +1,5 @@
 {
   ResourceStore store=getStore();
-  logger.debug("Loading SourceTable " + store.getReadableResourcePath(path));
   TableDesc t=store.getResource(path,TableDesc.class,TABLE_SERIALIZER);
   t.init();
   if (StringUtils.isBlank(t.getName()))   throw new IllegalStateException("SourceTable name must not be blank");
