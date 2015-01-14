@@ -10,7 +10,7 @@
   final String cuboidRootPath=getJobWorkingDir(jobId) + "/" + getCubeName()+ "/cuboid/";
   final String cuboidPath=cuboidRootPath + "*";
   final String[] cuboidOutputTempPath=getCuboidOutputPaths(cuboidRootPath,totalRowkeyColumnsCount,groupRowkeyColumnsCount);
-  final ShellExecutable intermediateHiveTableStep=createIntermediateHiveTableStep(intermediateTableDesc,jobId);
+  final AbstractExecutable intermediateHiveTableStep=createIntermediateHiveTableStep(intermediateTableDesc,jobId);
   result.addTask(intermediateHiveTableStep);
   result.addTask(createFactDistinctColumnsStep(intermediateHiveTableName,jobId));
   result.addTask(createBuildDictionaryStep(factDistinctColumnsPath));

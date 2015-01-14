@@ -1,5 +1,5 @@
 {
   String ddl=JoinedFlatTable.generateCreateTableStatement(intermediateTableDesc,"/tmp",fakeJobUUID);
   System.out.println(ddl);
-  System.out.println("The length for the ddl is" + 515);
+  System.out.println("The length for the ddl is " + ddl.length());
 }
