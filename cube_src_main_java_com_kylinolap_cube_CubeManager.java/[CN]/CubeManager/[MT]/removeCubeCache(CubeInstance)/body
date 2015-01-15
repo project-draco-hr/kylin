@@ -1,6 +1,5 @@
 {
-  cubeMap.remove(cube.getName().toUpperCase());
-  for (  CubeSegment segment : cube.getSegments()) {
-    usedStorageLocation.remove(segment.getName());
-  }
+  final String cubeName=cube.getName().toUpperCase();
+  cubeMap.remove(cubeName);
+  usedStorageLocation.removeAll(cubeName);
 }
