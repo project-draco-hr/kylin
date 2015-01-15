@@ -1,0 +1,13 @@
+{
+  try {
+    HiveClient hiveClient=new HiveClient();
+    for (    String hql : getHqls()) {
+      hiveClient.executeHQL(hql);
+    }
+    return new ExecuteResult(ExecuteResult.State.SUCCEED);
+  }
+ catch (  Exception e) {
+    logger.error("error run hive query:" + getHqls(),e);
+    return new ExecuteResult(ExecuteResult.State.ERROR,e.getLocalizedMessage());
+  }
+}
