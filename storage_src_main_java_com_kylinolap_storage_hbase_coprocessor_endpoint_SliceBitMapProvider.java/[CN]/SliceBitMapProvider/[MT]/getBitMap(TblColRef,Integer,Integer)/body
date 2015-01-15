@@ -1,0 +1,3 @@
+{
+  return slice.getColumnValueContainer(type.getColIndexByTblColRef(col)).getBitMap(startId,endId);
+}
