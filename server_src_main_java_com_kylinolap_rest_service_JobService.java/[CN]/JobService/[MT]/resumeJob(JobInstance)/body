@@ -1,3 +1,0 @@
-{
-  getExecutableManager().resumeJob(job.getId());
-}
