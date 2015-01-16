@@ -12,9 +12,6 @@
         if (segment.getDateRangeEnd() == newSegment.getDateRangeEnd()) {
           hasMatchSegment=true;
         }
- else {
-          throw new CubeIntegrityException("Invalid date range.");
-        }
       }
     }
     if (!hasMatchSegment) {
