@@ -1,5 +1,4 @@
 {
-  if (true)   return false;
   if (!appendOnHll()) {
     return false;
   }
