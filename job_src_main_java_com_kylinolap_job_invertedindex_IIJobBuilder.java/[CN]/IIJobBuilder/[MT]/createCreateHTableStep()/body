@@ -1,0 +1,10 @@
+{
+  HadoopShellExecutable createHtableStep=new HadoopShellExecutable();
+  createHtableStep.setName(ExecutableConstants.STEP_NAME_CREATE_HBASE_TABLE);
+  StringBuilder cmd=new StringBuilder();
+  appendExecCmdParameters(cmd,"iiname",getIIName());
+  appendExecCmdParameters(cmd,"htablename",getHTableName());
+  createHtableStep.setJobParams(cmd.toString());
+  createHtableStep.setJobClass(IICreateHTableJob.class);
+  return createHtableStep;
+}

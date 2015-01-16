@@ -1,3 +1,0 @@
-{
-  return JoinedFlatTable.getTableDir(intermediateTableDesc,getJobWorkingDir(jobUuid),jobUuid);
-}

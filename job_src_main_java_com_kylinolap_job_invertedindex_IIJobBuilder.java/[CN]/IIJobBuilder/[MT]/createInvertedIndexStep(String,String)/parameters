@@ -1,0 +1,2 @@
+String intermediateHiveTableLocation
+String iiOutputTempPath

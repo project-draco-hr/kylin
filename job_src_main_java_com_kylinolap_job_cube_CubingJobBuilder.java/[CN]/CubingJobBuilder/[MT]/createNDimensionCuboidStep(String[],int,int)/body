@@ -4,7 +4,7 @@
   StringBuilder cmd=new StringBuilder();
   appendMapReduceParameters(cmd,jobEngineConfig);
   appendExecCmdParameters(cmd,"cubename",getCubeName());
-  appendExecCmdParameters(cmd,"segmentname",getSegmentName());
+  appendExecCmdParameters(cmd,"segmentname",segment.getName());
   appendExecCmdParameters(cmd,"input",cuboidOutputTempPath[totalRowkeyColumnCount - dimNum - 1]);
   appendExecCmdParameters(cmd,"output",cuboidOutputTempPath[totalRowkeyColumnCount - dimNum]);
   appendExecCmdParameters(cmd,"jobname","Kylin_ND-Cuboid_Builder_" + getCubeName() + "_Step");

@@ -1,0 +1,16 @@
+{
+  while (true) {
+    AbstractExecutable job=jobService.getJob(jobId);
+    if (job.getStatus() == ExecutableState.SUCCEED || job.getStatus() == ExecutableState.ERROR) {
+      break;
+    }
+ else {
+      try {
+        Thread.sleep(5000);
+      }
+ catch (      InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+}

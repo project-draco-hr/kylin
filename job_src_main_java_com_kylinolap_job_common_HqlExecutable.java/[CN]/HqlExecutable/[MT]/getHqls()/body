@@ -1,7 +1,7 @@
 {
   final String hqls=getParam(HQL);
   if (hqls != null) {
-    return Lists.newArrayList(StringUtils.split(hqls,","));
+    return Lists.newArrayList(StringUtils.split(hqls,";"));
   }
  else {
     return Collections.emptyList();

@@ -1,6 +1,7 @@
 {
   try {
-    HiveClient hiveClient=new HiveClient();
+    Map<String,String> configMap=getConfiguration();
+    HiveClient hiveClient=new HiveClient(configMap);
     for (    String hql : getHqls()) {
       hiveClient.executeHQL(hql);
     }

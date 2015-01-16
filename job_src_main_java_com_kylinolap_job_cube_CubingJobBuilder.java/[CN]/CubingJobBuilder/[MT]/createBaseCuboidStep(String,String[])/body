@@ -4,8 +4,8 @@
   appendMapReduceParameters(cmd,jobEngineConfig);
   baseCuboidStep.setName(ExecutableConstants.STEP_NAME_BUILD_BASE_CUBOID);
   appendExecCmdParameters(cmd,"cubename",getCubeName());
-  appendExecCmdParameters(cmd,"segmentname",getSegmentName());
-  appendExecCmdParameters(cmd,"input",intermediateHiveTableName);
+  appendExecCmdParameters(cmd,"segmentname",segment.getName());
+  appendExecCmdParameters(cmd,"input",intermediateHiveTableLocation);
   appendExecCmdParameters(cmd,"output",cuboidOutputTempPath[0]);
   appendExecCmdParameters(cmd,"jobname","Kylin_Base_Cuboid_Builder_" + getCubeName());
   appendExecCmdParameters(cmd,"level","0");
