@@ -1,2 +1,3 @@
 {
+  super.publishConfiguration(context.getConfiguration());
 }

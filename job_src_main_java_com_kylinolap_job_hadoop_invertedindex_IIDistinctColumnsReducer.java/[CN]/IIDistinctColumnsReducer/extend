@@ -1,1 +1,1 @@
-Reducer<ShortWritable,Text,NullWritable,Text>
+KylinReducer<ShortWritable,Text,NullWritable,Text>
