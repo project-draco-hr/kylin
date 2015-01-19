@@ -1,8 +1,0 @@
-{
-  StringBuilder buf=new StringBuilder();
-  for (  ColumnDesc col : table.getColumns()) {
-    if (buf.length() > 0)     buf.append(",");
-    buf.append(col.getName());
-  }
-  return buf.toString();
-}

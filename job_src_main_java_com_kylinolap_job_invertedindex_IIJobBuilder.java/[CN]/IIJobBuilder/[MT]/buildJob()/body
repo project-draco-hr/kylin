@@ -4,16 +4,14 @@
   final String jobId=result.getId();
   final IIJoinedFlatTableDesc intermediateTableDesc=new IIJoinedFlatTableDesc(getIIDesc());
   final String intermediateHiveTableName=getIntermediateHiveTableName(intermediateTableDesc,jobId);
-  final String intermediateHiveTableLocation=getIntermediateHiveTableLocation(intermediateTableDesc,jobId);
-  final String factTableName=getIIDesc().getFactTableName();
   final String factDistinctColumnsPath=getIIDistinctColumnsPath(jobId);
   final String iiRootPath=getJobWorkingDir(jobId) + "/" + getIIName()+ "/";
   final String iiPath=iiRootPath + "*";
   final AbstractExecutable intermediateHiveTableStep=createIntermediateHiveTableStep(intermediateTableDesc,jobId);
   result.addTask(intermediateHiveTableStep);
-  result.addTask(createFactDistinctColumnsStep(factTableName,jobId,factDistinctColumnsPath));
+  result.addTask(createFactDistinctColumnsStep(intermediateHiveTableName,jobId,factDistinctColumnsPath));
   result.addTask(createBuildDictionaryStep(factDistinctColumnsPath));
-  result.addTask(createInvertedIndexStep(intermediateHiveTableLocation,iiRootPath));
+  result.addTask(createInvertedIndexStep(intermediateHiveTableName,iiRootPath));
   result.addTask(this.createCreateHTableStep());
   result.addTask(createCreateHTableStep());
   result.addTask(createConvertToHfileStep(iiPath,jobId));
