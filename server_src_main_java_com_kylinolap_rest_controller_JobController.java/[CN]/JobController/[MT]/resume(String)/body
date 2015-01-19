@@ -1,13 +1,10 @@
 {
-  JobInstance jobInstance=null;
   try {
-    jobInstance=jobService.getJobInstance(jobId);
-    jobService.resumeJob(jobInstance);
-    jobInstance=jobService.getJobInstance(jobId);
+    jobService.resumeJob(jobId);
+    return jobService.getJobInstance(jobId);
   }
  catch (  Exception e) {
     logger.error(e.getLocalizedMessage(),e);
     throw new InternalErrorException(e);
   }
-  return jobInstance;
 }
