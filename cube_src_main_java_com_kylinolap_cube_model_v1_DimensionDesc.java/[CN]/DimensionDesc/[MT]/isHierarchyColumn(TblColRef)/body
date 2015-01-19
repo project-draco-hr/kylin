@@ -1,0 +1,7 @@
+{
+  if (hierarchy == null)   return false;
+  for (  HierarchyDesc hier : hierarchy) {
+    if (hier.getColumnRef().equals(col))     return true;
+  }
+  return false;
+}

@@ -21,6 +21,9 @@
       continue;
     }
     cubeDescMap.putLocal(desc.getName(),desc);
+    if (desc.isUpgraded()) {
+      updateCubeDesc(desc);
+    }
   }
   logger.debug("Loaded " + cubeDescMap.size() + " Cube(s)");
 }

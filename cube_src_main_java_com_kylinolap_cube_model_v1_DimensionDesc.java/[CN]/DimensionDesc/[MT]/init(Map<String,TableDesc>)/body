@@ -1,0 +1,19 @@
+{
+  if (name != null)   name=name.toUpperCase();
+  if (table != null)   table=table.toUpperCase();
+  if (column != null)   column=column.toUpperCase();
+  TableDesc tableDesc=tables.get(table);
+  if (tableDesc == null)   throw new IllegalStateException("Can't find table " + table + " on dimension "+ name);
+  if (hierarchy != null && hierarchy.length == 0)   hierarchy=null;
+  if (derived != null && derived.length == 0)   derived=null;
+  if (join != null) {
+    StringUtil.toUpperCaseArray(join.getForeignKey(),join.getForeignKey());
+    StringUtil.toUpperCaseArray(join.getPrimaryKey(),join.getPrimaryKey());
+  }
+  if (hierarchy != null) {
+    for (    HierarchyDesc h : hierarchy)     h.setColumn(h.getColumn().toUpperCase());
+  }
+  if (derived != null) {
+    StringUtil.toUpperCaseArray(derived,derived);
+  }
+}

@@ -1,0 +1,4 @@
+DeriveType type
+DimensionDesc dimension
+TblColRef[] columns
+boolean isOneToOne

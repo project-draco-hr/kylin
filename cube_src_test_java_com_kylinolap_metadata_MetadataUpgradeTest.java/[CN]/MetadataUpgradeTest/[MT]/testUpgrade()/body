@@ -1,0 +1,4 @@
+{
+  MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+  CubeDescManager cubeDescMgr=CubeDescManager.getInstance(KylinConfig.getInstanceFromEnv());
+}

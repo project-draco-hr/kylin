@@ -1,0 +1,9 @@
+{
+  if (null != partitionDateColumn) {
+    String[] columns=partitionDateColumn.split("\\.");
+    if (null != columns && columns.length == 2) {
+      Map<String,TblColRef> cols=columnMap.get(columns[0].toUpperCase());
+      if (cols != null)       partitionDateColumnRef=cols.get(columns[1].toUpperCase());
+    }
+  }
+}
