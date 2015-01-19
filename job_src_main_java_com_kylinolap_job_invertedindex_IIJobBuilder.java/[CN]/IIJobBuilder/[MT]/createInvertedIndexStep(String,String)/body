@@ -1,14 +1,13 @@
 {
-  MapReduceExecutable baseCuboidStep=new MapReduceExecutable();
+  MapReduceExecutable buildIIStep=new MapReduceExecutable();
   StringBuilder cmd=new StringBuilder();
   appendMapReduceParameters(cmd,jobEngineConfig);
-  baseCuboidStep.setName(ExecutableConstants.STEP_NAME_BUILD_BASE_CUBOID);
+  buildIIStep.setName(ExecutableConstants.STEP_NAME_BUILD_BASE_CUBOID);
   appendExecCmdParameters(cmd,"iiname",getIIName());
-  appendExecCmdParameters(cmd,"segmentname",segment.getName());
-  appendExecCmdParameters(cmd,"input",intermediateHiveTableLocation);
+  appendExecCmdParameters(cmd,"tablename",intermediateHiveTable);
   appendExecCmdParameters(cmd,"output",iiOutputTempPath);
   appendExecCmdParameters(cmd,"jobname",ExecutableConstants.STEP_NAME_BUILD_II);
-  baseCuboidStep.setMapReduceParams(cmd.toString());
-  baseCuboidStep.setMapReduceJobClass(InvertedIndexJob.class);
-  return baseCuboidStep;
+  buildIIStep.setMapReduceParams(cmd.toString());
+  buildIIStep.setMapReduceJobClass(InvertedIndexJob.class);
+  return buildIIStep;
 }
