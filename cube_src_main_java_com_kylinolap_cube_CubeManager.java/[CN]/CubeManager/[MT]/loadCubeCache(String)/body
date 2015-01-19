@@ -1,6 +1,6 @@
 {
   try {
-    loadCubeInstance(cube.getResourcePath());
+    loadCubeInstance(CubeInstance.concatResourcePath(cubeName));
   }
  catch (  IOException e) {
     logger.error(e.getLocalizedMessage(),e);
