@@ -1,0 +1,11 @@
+{
+  this.createTestMetadata();
+  server=new Server(8080);
+  ServletContextHandler context=new ServletContextHandler(ServletContextHandler.SESSIONS);
+  context.setContextPath("/");
+  server.setHandler(context);
+  context.addServlet(new ServletHolder(new BroadcasterReceiveServlet(null)),"/");
+  server.start();
+  configA=KylinConfig.getInstanceFromEnv();
+  configB=KylinConfig.getKylinConfigFromInputStream(KylinConfig.getKylinPropertiesAsInputSteam());
+}

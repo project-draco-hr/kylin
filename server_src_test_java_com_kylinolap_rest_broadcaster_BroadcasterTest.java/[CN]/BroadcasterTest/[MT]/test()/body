@@ -1,0 +1,7 @@
+{
+  getStore().deleteResource("/cube/a_whole_new_cube.json");
+  CubeDesc desc=getCubeDescManager(configA).getCubeDesc("test_kylin_cube_with_slr_desc");
+  CubeInstance createdCube=getCubeManager(configA).createCube("a_whole_new_cube",ProjectInstance.DEFAULT_PROJECT_NAME,desc,null);
+  assertTrue(createdCube == getCubeManager(configA).getCube("a_whole_new_cube"));
+  getStore().deleteResource("/cube/a_whole_new_cube.json");
+}

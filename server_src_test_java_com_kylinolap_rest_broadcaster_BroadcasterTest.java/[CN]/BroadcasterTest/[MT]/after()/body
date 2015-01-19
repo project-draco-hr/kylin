@@ -1,0 +1,4 @@
+{
+  this.cleanupTestMetadata();
+  server.stop();
+}
