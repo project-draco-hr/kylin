@@ -1,6 +1,8 @@
 {
-  int retCode=getDriver().run(hql).getResponseCode();
+  CommandProcessorResponse response=getDriver().run(hql);
+  int retCode=response.getResponseCode();
   if (retCode != 0) {
-    throw new IOException("Failed to execute hql [" + hql + "], return code from hive driver : ["+ retCode+ "]");
+    String err=response.getErrorMessage();
+    throw new IOException("Failed to execute hql [" + hql + "], error message is: "+ err);
   }
 }

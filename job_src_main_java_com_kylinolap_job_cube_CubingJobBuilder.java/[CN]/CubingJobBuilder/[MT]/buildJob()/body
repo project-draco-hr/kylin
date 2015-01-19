@@ -1,11 +1,12 @@
 {
   checkPreconditions();
-  final int groupRowkeyColumnsCount=segment.getCubeDesc().getRowkey().getNCuboidBuildLevels();
-  final int totalRowkeyColumnsCount=segment.getCubeDesc().getRowkey().getRowKeyColumns().length;
+  final int groupRowkeyColumnsCount=getCubeDesc().getRowkey().getNCuboidBuildLevels();
+  final int totalRowkeyColumnsCount=getCubeDesc().getRowkey().getRowKeyColumns().length;
   CubingJob result=initialJob("BUILD");
   final String jobId=result.getId();
-  final CubeJoinedFlatTableDesc intermediateTableDesc=new CubeJoinedFlatTableDesc(segment.getCubeDesc(),this.segment);
+  final CubeJoinedFlatTableDesc intermediateTableDesc=new CubeJoinedFlatTableDesc(getCubeDesc(),(CubeSegment)this.segment);
   final String intermediateHiveTableName=getIntermediateHiveTableName(intermediateTableDesc,jobId);
+  final String intermediateHiveTableLocation=getIntermediateHiveTableLocation(intermediateTableDesc,jobId);
   final String factDistinctColumnsPath=getFactDistinctColumnsPath(jobId);
   final String cuboidRootPath=getJobWorkingDir(jobId) + "/" + getCubeName()+ "/cuboid/";
   final String cuboidPath=cuboidRootPath + "*";
@@ -14,7 +15,7 @@
   result.addTask(intermediateHiveTableStep);
   result.addTask(createFactDistinctColumnsStep(intermediateHiveTableName,jobId));
   result.addTask(createBuildDictionaryStep(factDistinctColumnsPath));
-  final MapReduceExecutable baseCuboidStep=createBaseCuboidStep(intermediateHiveTableName,cuboidOutputTempPath);
+  final MapReduceExecutable baseCuboidStep=createBaseCuboidStep(intermediateHiveTableLocation,cuboidOutputTempPath);
   result.addTask(baseCuboidStep);
   for (int i=1; i <= groupRowkeyColumnsCount; i++) {
     int dimNum=totalRowkeyColumnsCount - i;

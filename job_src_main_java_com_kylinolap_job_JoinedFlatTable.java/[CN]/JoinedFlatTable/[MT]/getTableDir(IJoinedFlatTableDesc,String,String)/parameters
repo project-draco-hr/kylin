@@ -1,0 +1,3 @@
+IJoinedFlatTableDesc intermediateTableDesc
+String storageDfsDir
+String jobUUID

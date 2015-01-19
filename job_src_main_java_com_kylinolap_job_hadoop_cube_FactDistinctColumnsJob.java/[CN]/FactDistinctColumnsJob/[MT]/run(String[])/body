@@ -3,23 +3,18 @@
   try {
     options.addOption(OPTION_JOB_NAME);
     options.addOption(OPTION_CUBE_NAME);
-    options.addOption(OPTION_INPUT_PATH);
-    options.addOption(OPTION_INPUT_FORMAT);
     options.addOption(OPTION_OUTPUT_PATH);
-    options.addOption(OPTION_HTABLE_NAME);
+    options.addOption(OPTION_TABLE_NAME);
     parseOptions(options,args);
     job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
     String cubeName=getOptionValue(OPTION_CUBE_NAME);
-    Path input=new Path(getOptionValue(OPTION_INPUT_PATH));
-    String inputFormat=getOptionValue(OPTION_INPUT_FORMAT);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
-    String intermediateTable=getOptionValue(OPTION_HTABLE_NAME);
+    String intermediateTable=getOptionValue(OPTION_TABLE_NAME);
     CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
     CubeInstance cubeInstance=cubeMgr.getCube(cubeName);
-    String factTableName=cubeInstance.getDescriptor().getFactTable();
     job.getConfiguration().set(BatchConstants.CFG_CUBE_NAME,cubeName);
     System.out.println("Starting: " + job.getJobName());
-    setupMapInput(input,inputFormat,intermediateTable);
+    setupMapInput(intermediateTable);
     setupReduceOutput(output);
     attachKylinPropsAndMetadata(cubeInstance,job.getConfiguration());
     return waitForCompletion(job);
