@@ -3,6 +3,7 @@
     dataModelDesc.init(this.getAllTablesMap());
   }
  catch (  Exception e) {
+    e.printStackTrace();
     dataModelDesc.addError(e.getMessage(),true);
   }
   if (!dataModelDesc.getError().isEmpty()) {

@@ -1,0 +1,6 @@
+{
+  for (  DimensionDesc dim : dimensions) {
+    if (ArrayUtils.contains(dim.getColumnRefs(),col))     return dim;
+  }
+  return null;
+}

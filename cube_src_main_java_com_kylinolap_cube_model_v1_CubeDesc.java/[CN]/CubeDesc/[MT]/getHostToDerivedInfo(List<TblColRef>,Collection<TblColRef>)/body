@@ -1,0 +1,14 @@
+{
+  Map<Array<TblColRef>,List<DeriveInfo>> result=new HashMap<Array<TblColRef>,List<DeriveInfo>>();
+  for (  Entry<Array<TblColRef>,List<DeriveInfo>> entry : hostToDerivedMap.entrySet()) {
+    Array<TblColRef> hostCols=entry.getKey();
+    boolean hostOnRow=rowCols.containsAll(Arrays.asList(hostCols.data));
+    if (!hostOnRow)     continue;
+    List<DeriveInfo> wantedInfo=new ArrayList<DeriveInfo>();
+    for (    DeriveInfo info : entry.getValue()) {
+      if (wantedCols == null || Collections.disjoint(wantedCols,Arrays.asList(info.columns)) == false)       wantedInfo.add(info);
+    }
+    if (wantedInfo.size() > 0)     result.put(hostCols,wantedInfo);
+  }
+  return result;
+}

@@ -1,0 +1,7 @@
+{
+  dimName=dimName.toUpperCase();
+  for (  DimensionDesc dim : dimensions) {
+    if (dimName.equals(dim.getName()))     return dim;
+  }
+  return null;
+}

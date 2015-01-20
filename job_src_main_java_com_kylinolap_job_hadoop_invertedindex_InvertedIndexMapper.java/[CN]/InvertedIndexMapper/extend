@@ -1,1 +1,1 @@
-KylinMapper<KEYIN,Text,LongWritable,ImmutableBytesWritable>
+KylinMapper<KEYIN,HCatRecord,LongWritable,ImmutableBytesWritable>
