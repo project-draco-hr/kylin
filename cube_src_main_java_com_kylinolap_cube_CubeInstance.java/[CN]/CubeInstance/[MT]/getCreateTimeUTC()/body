@@ -1,3 +1,6 @@
 {
+  if (createTimeUTC == 0 && createTime != null) {
+    createTimeUTC=parseTime(createTime);
+  }
   return createTimeUTC;
 }

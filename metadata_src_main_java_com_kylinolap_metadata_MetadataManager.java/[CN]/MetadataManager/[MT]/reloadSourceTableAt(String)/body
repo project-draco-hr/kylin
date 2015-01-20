@@ -4,13 +4,5 @@
   t.init();
   String tableIdentity=t.getIdentity();
   srcTableMap.putLocal(tableIdentity,t);
-  if (path.substring(path.indexOf(".")).length() > 4) {
-    String old_path=t.getResourcePathV1();
-    if (getStore().exists(old_path)) {
-      getStore().deleteResource(old_path);
-      t.setLastModified(0);
-      saveSourceTable(t);
-    }
-  }
   return t;
 }

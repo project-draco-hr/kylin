@@ -1,0 +1,9 @@
+{
+  try {
+    Date dt=df.parse(timeString);
+    return dt.getTime();
+  }
+ catch (  ParseException e) {
+  }
+  return 0l;
+}
