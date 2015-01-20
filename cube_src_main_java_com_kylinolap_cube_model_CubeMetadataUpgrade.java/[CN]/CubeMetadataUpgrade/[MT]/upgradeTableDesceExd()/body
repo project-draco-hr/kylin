@@ -1,18 +1,23 @@
 {
-  logger.debug("Reloading SourceTable exd info from folder " + store.getReadableResourcePath(ResourceStore.TABLE_EXD_RESOURCE_ROOT));
-  List<String> paths=store.collectResourceRecursively(ResourceStore.TABLE_EXD_RESOURCE_ROOT,MetadataConstances.FILE_SURFIX);
+  List<String> paths=listResourceStore(ResourceStore.TABLE_EXD_RESOURCE_ROOT);
   for (  String path : paths) {
     Map<String,String> attrs=Maps.newHashMap();
-    InputStream is=store.getResource(path);
-    if (is == null) {
-      logger.warn("Failed to get table exd info from " + path);
-      continue;
-    }
+    InputStream is=null;
     try {
-      attrs.putAll(JsonUtil.readValue(is,HashMap.class));
-    }
+      is=store.getResource(path);
+      if (is == null) {
+        continue;
+      }
+      try {
+        attrs.putAll(JsonUtil.readValue(is,HashMap.class));
+      }
   finally {
-      if (is != null)       is.close();
+        if (is != null)         is.close();
+      }
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+      errorMsgs.add("Upgrade TableDescExd at '" + path + "' failed: "+ e.getLocalizedMessage());
     }
     String file=path;
     if (file.indexOf("/") > -1) {
@@ -20,11 +25,15 @@
     }
     String tableIdentity=file.substring(0,file.length() - MetadataConstances.FILE_SURFIX.length()).toUpperCase();
     if (tableIdentity.indexOf(".") < 0) {
-      String oldResPath=TableDesc.concatExdResourcePath(tableIdentity);
       tableIdentity=appendDBName(tableIdentity);
-      this.getMetadataManager().saveTableExd(tableIdentity,attrs);
-      if (getStore().exists(oldResPath)) {
-        getStore().deleteResource(oldResPath);
+      try {
+        getMetadataManager().saveTableExd(tableIdentity,attrs);
+        getStore().deleteResource(path);
+        updatedResources.add(path);
+      }
+ catch (      IOException e) {
+        e.printStackTrace();
+        errorMsgs.add("Upgrade TableDescExd at '" + path + "' failed: "+ e.getLocalizedMessage());
       }
     }
   }

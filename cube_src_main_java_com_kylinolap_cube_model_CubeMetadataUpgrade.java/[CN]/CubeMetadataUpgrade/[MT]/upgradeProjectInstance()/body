@@ -1,14 +1,7 @@
 {
-  ResourceStore store=getStore();
-  List<String> paths=store.collectResourceRecursively(ResourceStore.PROJECT_RESOURCE_ROOT,".json");
-  logger.debug("Loading Project from folder " + store.getReadableResourcePath(ResourceStore.PROJECT_RESOURCE_ROOT));
+  List<String> paths=listResourceStore(ResourceStore.PROJECT_RESOURCE_ROOT);
   for (  String path : paths) {
-    path=ProjectInstance.concatResourcePath(path);
     try {
-      store.getResource(path,ProjectInstance.class,ProjectManager.PROJECT_SERIALIZER);
-    }
- catch (    IOException e) {
-      logger.debug("Get exception when load Project on " + path + ", going to do Project upgrade...");
       com.kylinolap.cube.model.v1.ProjectInstance oldPrj=store.getResource(path,com.kylinolap.cube.model.v1.ProjectInstance.class,new JsonSerializer<com.kylinolap.cube.model.v1.ProjectInstance>(com.kylinolap.cube.model.v1.ProjectInstance.class));
       ProjectInstance newPrj=new ProjectInstance();
       newPrj.setUuid(oldPrj.getUuid());
@@ -33,6 +26,11 @@
       }
       newPrj.setTables(tables);
       store.putResource(newPrj.getResourcePath(),newPrj,ProjectManager.PROJECT_SERIALIZER);
+      updatedResources.add(path);
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+      errorMsgs.add("Upgrade Project at '" + path + "' failed: "+ e.getLocalizedMessage());
     }
   }
 }

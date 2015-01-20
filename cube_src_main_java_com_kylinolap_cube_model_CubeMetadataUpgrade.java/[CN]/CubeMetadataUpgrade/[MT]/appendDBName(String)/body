@@ -11,7 +11,7 @@
   }
   if (count == 1)   return result;
   if (count > 1) {
-    logger.warn("There are more than 1 table named with '" + table + "' in different database; The program couldn't determine, randomly pick '"+ result+ "'");
+    errorMsgs.add("There are more than 1 table named with '" + table + "' in different database; The program couldn't determine, randomly pick '"+ result+ "'");
   }
   return result;
 }
