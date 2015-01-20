@@ -4,8 +4,6 @@
     return;
   }
   String exportFolder=args[0];
-  KylinConfig.destoryInstance();
-  System.setProperty(KylinConfig.KYLIN_CONF,exportFolder);
   File oldMetaFolder=new File(exportFolder);
   if (!oldMetaFolder.exists()) {
     System.out.println("Provided folder doesn't exist: '" + exportFolder + "'");
@@ -23,13 +21,8 @@
  catch (  IOException e) {
     e.printStackTrace();
   }
-  if (System.getProperty(KylinConfig.KYLIN_CONF) == null && System.getenv(KylinConfig.KYLIN_CONF) == null)   System.setProperty(KylinConfig.KYLIN_CONF,newMetadataUrl);
-  KylinConfig.getInstanceFromEnv().setMetadataUrl(newMetadataUrl);
-  CubeMetadataUpgrade instance=new CubeMetadataUpgrade();
-  instance.upgradeTableDesc();
-  instance.upgradeTableDesceExd();
-  instance.upgradeCubeDesc();
-  instance.upgradeProjectInstance();
+  CubeMetadataUpgrade instance=new CubeMetadataUpgrade(newMetadataUrl);
+  instance.upgrade();
   logger.info("Run CubeMetadataUpgrade completed, check the following messages.");
   logger.info("The following resources have been successfully updated in : " + newMetadataUrl);
   for (  String s : instance.updatedResources) {

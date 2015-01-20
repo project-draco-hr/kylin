@@ -20,6 +20,7 @@
         realizationEntries.add(entry);
       }
       newPrj.setRealizationEntries(realizationEntries);
+      newPrj.getCreateTimeUTC();
       Set<String> tables=Sets.newHashSet();
       for (      String table : oldPrj.getTables()) {
         tables.add(this.appendDBName(table));
