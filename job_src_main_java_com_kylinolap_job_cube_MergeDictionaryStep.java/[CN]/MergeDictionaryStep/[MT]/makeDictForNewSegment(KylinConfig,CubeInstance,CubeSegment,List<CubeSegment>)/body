@@ -1,7 +1,7 @@
 {
   HashSet<TblColRef> colsNeedMeringDict=new HashSet<TblColRef>();
   HashSet<TblColRef> colsNeedCopyDict=new HashSet<TblColRef>();
-  DictionaryManager dictMgr=this.getDictionaryManager();
+  DictionaryManager dictMgr=DictionaryManager.getInstance(conf);
   CubeDesc cubeDesc=cube.getDescriptor();
   for (  DimensionDesc dim : cubeDesc.getDimensions()) {
     for (    TblColRef col : dim.getColumnRefs()) {
@@ -24,7 +24,7 @@
       DictionaryInfo dictInfo=dictMgr.getDictionaryInfo(segment.getDictResPath(col));
       dictInfos.add(dictInfo);
     }
-    this.mergeDictionaries(newSeg,dictInfos,col);
+    mergeDictionaries(dictMgr,newSeg,dictInfos,col);
   }
   for (  TblColRef col : colsNeedCopyDict) {
     String path=mergingSegments.get(0).getDictResPath(col);

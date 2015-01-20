@@ -1,5 +1,4 @@
 {
-  DictionaryManager dictMgr=getDictionaryManager();
   DictionaryInfo dictInfo=dictMgr.mergeDictionary(dicts);
   cubeSeg.putDictResPath(col,dictInfo.getResourcePath());
   return dictInfo;

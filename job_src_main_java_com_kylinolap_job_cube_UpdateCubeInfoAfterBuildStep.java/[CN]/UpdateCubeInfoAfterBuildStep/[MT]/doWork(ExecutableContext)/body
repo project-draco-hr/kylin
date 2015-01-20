@@ -1,4 +1,5 @@
 {
+  final CubeManager cubeManager=CubeManager.getInstance(context.getConfig());
   final CubeInstance cube=cubeManager.getCube(getCubeName());
   final CubeSegment segment=cube.getSegmentById(getSegmentId());
   String sourceRecordsSize=jobService.getOutput(getCreateFlatTableStepId()).getExtra().get(ExecutableConstants.SOURCE_RECORDS_SIZE);
