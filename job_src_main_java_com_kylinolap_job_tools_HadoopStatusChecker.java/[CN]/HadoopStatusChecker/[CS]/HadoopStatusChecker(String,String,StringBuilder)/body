@@ -1,5 +1,4 @@
 {
-  super();
   this.yarnUrl=yarnUrl;
   this.mrJobID=mrJobID;
   this.output=output;

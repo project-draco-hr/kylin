@@ -23,13 +23,11 @@
       }
       if (redirect == null) {
         response=get.getResponseBodyAsString();
-        output.append("Job " + mrJobID + " get status check result.\n");
-        log.debug("Job " + mrJobID + " get status check result.\n");
+        log.debug("Job " + mrJobId + " get status check result.\n");
       }
  else {
         url=redirect;
-        output.append("Job " + mrJobID + " check redirect url "+ url+ ".\n");
-        log.debug("Job " + mrJobID + " check redirect url "+ url+ ".\n");
+        log.debug("Job " + mrJobId + " check redirect url "+ url+ ".\n");
       }
     }
   finally {
