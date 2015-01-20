@@ -9,6 +9,7 @@
     CubeDescUpgrader upgrade=new CubeDescUpgrader(path);
     ndesc=upgrade.upgrade();
     ndesc.setUpgraded(true);
+    getMetadataManager().createDataModelDesc(ndesc.getModel());
     logger.debug("CubeDesc upgrade successful for " + path);
   }
   if (StringUtils.isBlank(ndesc.getName())) {

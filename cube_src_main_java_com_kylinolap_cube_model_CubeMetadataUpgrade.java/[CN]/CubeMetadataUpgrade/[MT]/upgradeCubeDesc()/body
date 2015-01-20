@@ -1,0 +1,25 @@
+{
+  logger.info("Reloading Cube Metadata from folder " + store.getReadableResourcePath(ResourceStore.CUBE_DESC_RESOURCE_ROOT));
+  List<String> paths=store.collectResourceRecursively(ResourceStore.CUBE_DESC_RESOURCE_ROOT,MetadataConstances.FILE_SURFIX);
+  for (  String path : paths) {
+    CubeDesc ndesc;
+    try {
+      ndesc=store.getResource(path,CubeDesc.class,CubeDescManager.CUBE_DESC_SERIALIZER);
+    }
+ catch (    IOException e) {
+      logger.debug("Get exception when load CubeDesc on " + path + ", going to do CubeDesc upgrade...");
+      CubeDescUpgrader upgrade=new CubeDescUpgrader(path);
+      ndesc=upgrade.upgrade();
+      ndesc.setUpgraded(true);
+      logger.debug("CubeDesc upgrade successful for " + path);
+    }
+    if (path.equals(ndesc.getResourcePath()) == false) {
+      logger.error("Skip suspicious desc at " + path + ", "+ ndesc+ " should be at "+ ndesc.getResourcePath());
+      continue;
+    }
+    if (ndesc.isUpgraded()) {
+      getStore().putResource(ndesc.getModel().getResourcePath(),ndesc.getModel(),MetadataManager.MODELDESC_SERIALIZER);
+      getStore().putResource(ndesc.getResourcePath(),ndesc,CubeDescManager.CUBE_DESC_SERIALIZER);
+    }
+  }
+}

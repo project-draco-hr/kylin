@@ -1,0 +1,14 @@
+{
+  if (!(args != null && args.length == 1)) {
+    System.out.println("Usage: java CubeMetadataUpgrade <kylin_config_folder>; e.g, /etc/kylin/");
+    return;
+  }
+  String kylinConfigFolder=args[0];
+  KylinConfig.destoryInstance();
+  System.setProperty(KylinConfig.KYLIN_CONF,kylinConfigFolder);
+  CubeMetadataUpgrade instance=new CubeMetadataUpgrade();
+  instance.upgradeTableDesc();
+  instance.upgradeTableDesceExd();
+  instance.upgradeCubeDesc();
+  instance.upgradeProjectInstance();
+}

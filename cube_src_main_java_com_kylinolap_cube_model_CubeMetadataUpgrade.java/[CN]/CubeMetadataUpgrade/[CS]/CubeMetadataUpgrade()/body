@@ -1,0 +1,4 @@
+{
+  config=KylinConfig.getInstanceFromEnv();
+  store=getStore();
+}

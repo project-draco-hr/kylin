@@ -1,0 +1,16 @@
+{
+  logger.debug("Reloading SourceTable from folder " + store.getReadableResourcePath(ResourceStore.TABLE_RESOURCE_ROOT));
+  List<String> paths=store.collectResourceRecursively(ResourceStore.TABLE_RESOURCE_ROOT,MetadataConstances.FILE_SURFIX);
+  for (  String path : paths) {
+    TableDesc t=store.getResource(path,TableDesc.class,MetadataManager.TABLE_SERIALIZER);
+    t.init();
+    if (path.substring(path.indexOf(".")).length() == MetadataConstances.FILE_SURFIX.length()) {
+      String old_path=t.getResourcePathV1();
+      if (getStore().exists(old_path)) {
+        getStore().deleteResource(old_path);
+        t.setLastModified(0);
+        getStore().putResource(t.getResourcePath(),t,MetadataManager.TABLE_SERIALIZER);
+      }
+    }
+  }
+}

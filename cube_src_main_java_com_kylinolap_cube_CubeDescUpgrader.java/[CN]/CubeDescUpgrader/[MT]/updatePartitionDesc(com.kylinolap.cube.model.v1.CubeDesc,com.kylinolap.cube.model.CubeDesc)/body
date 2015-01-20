@@ -5,7 +5,7 @@
   if (partition.getPartitionDateColumn() != null) {
     String[] tablecolumn=partition.getPartitionDateColumn().split("\\.");
     if (tablecolumn != null && tablecolumn.length == 2) {
-      String tableFullName=this.appendDBName(tablecolumn[0]);
+      String tableFullName=getMetadataManager().appendDBName(tablecolumn[0]);
       newPartition.setPartitionDateColumn(tableFullName + "." + tablecolumn[1]);
     }
  else {
