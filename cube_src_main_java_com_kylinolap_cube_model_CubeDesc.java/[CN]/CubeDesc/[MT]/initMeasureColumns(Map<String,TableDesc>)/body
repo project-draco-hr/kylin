@@ -23,5 +23,8 @@
       }
       if (colRefs.isEmpty() == false)       p.setColRefs(colRefs);
     }
+    if (m.isHolisticCountDistinct() && Strings.isEmpty(m.getDependentMeasureRef())) {
+      throw new IllegalStateException(m + " is a holistic count distinct but it has no DependentMeasureRef defined!");
+    }
   }
 }
