@@ -1,4 +1,0 @@
-{
-  staticCleanupTestMetadata();
-  hconn.close();
-}
