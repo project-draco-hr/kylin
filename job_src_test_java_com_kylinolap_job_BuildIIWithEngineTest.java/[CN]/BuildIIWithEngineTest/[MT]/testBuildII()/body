@@ -1,10 +1,17 @@
 {
-  clearSegment(TEST_II_NAME);
-  SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd");
-  f.setTimeZone(TimeZone.getTimeZone("GMT"));
-  long date1=0;
-  long date2=f.parse("2013-01-01").getTime();
-  List<String> result=Lists.newArrayList();
-  result.add(buildSegment(TEST_II_NAME,date1,date2));
-  return result;
+  String[] testCase=new String[]{"buildII"};
+  ExecutorService executorService=Executors.newFixedThreadPool(testCase.length);
+  final CountDownLatch countDownLatch=new CountDownLatch(testCase.length);
+  List<Future<List<String>>> tasks=Lists.newArrayListWithExpectedSize(testCase.length);
+  for (int i=0; i < testCase.length; i++) {
+    tasks.add(executorService.submit(new TestCallable(testCase[i],countDownLatch)));
+  }
+  countDownLatch.await();
+  for (int i=0; i < tasks.size(); ++i) {
+    Future<List<String>> task=tasks.get(i);
+    final List<String> jobIds=task.get();
+    for (    String jobId : jobIds) {
+      assertJobSucceed(jobId);
+    }
+  }
 }

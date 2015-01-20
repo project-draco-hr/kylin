@@ -1,5 +1,8 @@
 {
-  IISegment segment=iiManager.buildSegment(iiManager.getII(iiName),startDate,endDate);
+  IIInstance iiInstance=iiManager.getII(iiName);
+  IISegment segment=iiManager.buildSegment(iiInstance,startDate,endDate);
+  iiInstance.getSegments().add(segment);
+  iiManager.updateII(iiInstance);
   IIJobBuilder iiJobBuilder=(IIJobBuilder)IIJobBuilder.newBuilder().setJobEnginConfig(jobEngineConfig).setSegment(segment);
   IIJob job=iiJobBuilder.buildJob();
   jobService.addJob(job);

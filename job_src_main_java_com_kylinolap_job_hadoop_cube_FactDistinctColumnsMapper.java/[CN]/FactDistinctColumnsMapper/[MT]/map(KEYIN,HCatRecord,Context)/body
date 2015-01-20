@@ -6,7 +6,7 @@
       outputKey.set((short)i);
       fieldSchema=schema.get(flatTableIndexes[i]);
       Object fieldValue=record.get(fieldSchema.getName(),schema);
-      if (fieldValue == null)       fieldValue="NULL";
+      if (fieldValue == null)       continue;
       byte[] bytes=Bytes.toBytes(fieldValue.toString());
       outputValue.set(bytes,0,bytes.length);
       context.write(outputKey,outputValue);

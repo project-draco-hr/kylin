@@ -1,0 +1,14 @@
+{
+  if (hostCols.length == 0 || derivedCols.length == 0)   throw new IllegalStateException("host/derived columns must not be empty");
+  Array<TblColRef> hostColArray=new Array<TblColRef>(hostCols);
+  List<DeriveInfo> infoList=hostToDerivedMap.get(hostColArray);
+  if (infoList == null) {
+    hostToDerivedMap.put(hostColArray,infoList=new ArrayList<DeriveInfo>());
+  }
+  infoList.add(new DeriveInfo(type,dimension,derivedCols,false));
+  for (int i=0; i < derivedCols.length; i++) {
+    TblColRef derivedCol=derivedCols[i];
+    boolean isOneToOne=type == DeriveType.PK_FK || ArrayUtils.contains(hostCols,derivedCol) || (extra != null && extra[i].contains("1-1"));
+    derivedToHostMap.put(derivedCol,new DeriveInfo(type,dimension,hostCols,isOneToOne));
+  }
+}

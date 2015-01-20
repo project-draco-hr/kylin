@@ -1,2 +1,2 @@
-String intermediateHiveTableLocation
+String intermediateHiveTable
 String iiOutputTempPath

@@ -1,0 +1,12 @@
+{
+  if (hierarchies != null) {
+    Arrays.sort(hierarchies,new Comparator<HierarchyDesc>(){
+      @Override public int compare(      HierarchyDesc h1,      HierarchyDesc h2){
+        Integer level1=Integer.parseInt(h1.getLevel());
+        Integer level2=Integer.parseInt(h2.getLevel());
+        return level1.compareTo(level2);
+      }
+    }
+);
+  }
+}
