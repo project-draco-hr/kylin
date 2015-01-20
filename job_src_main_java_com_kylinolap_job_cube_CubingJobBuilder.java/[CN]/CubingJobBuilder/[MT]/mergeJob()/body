@@ -5,24 +5,25 @@
   CubeSegment seg=(CubeSegment)segment;
   List<CubeSegment> mergingSegments=seg.getCubeInstance().getMergingSegments(seg);
   Preconditions.checkState(mergingSegments != null && mergingSegments.size() > 1,"there should be more than 2 segments to merge");
-  String[] cuboidPaths=new String[mergingSegments.size()];
-  for (int i=0; i < mergingSegments.size(); i++) {
-    cuboidPaths[i]=getPathToMerge(mergingSegments.get(i));
-  }
-  final String formattedPath=StringUtils.join(cuboidPaths,",");
-  final String mergedCuboidPath=getJobWorkingDir(jobId) + "/" + getCubeName()+ "/cuboid";
-  result.addTask(createMergeCuboidDataStep(formattedPath,mergedCuboidPath));
-  result.addTask(createRangeRowkeyDistributionStep(mergedCuboidPath));
-  result.addTask(createCreateHTableStep());
-  final MapReduceExecutable convertCuboidToHfileStep=createConvertCuboidToHfileStep(mergedCuboidPath,jobId);
-  result.addTask(convertCuboidToHfileStep);
-  result.addTask(createBulkLoadStep(jobId));
   final List<String> mergingSegmentIds=Lists.transform(mergingSegments,new Function<CubeSegment,String>(){
     @Nullable @Override public String apply(    CubeSegment input){
       return input.getUuid();
     }
   }
 );
+  String[] cuboidPaths=new String[mergingSegments.size()];
+  for (int i=0; i < mergingSegments.size(); i++) {
+    cuboidPaths[i]=getPathToMerge(mergingSegments.get(i));
+  }
+  final String formattedPath=StringUtils.join(cuboidPaths,",");
+  final String mergedCuboidPath=getJobWorkingDir(jobId) + "/" + getCubeName()+ "/cuboid";
+  result.addTask(createMergeDictionaryStep(mergingSegmentIds));
+  result.addTask(createMergeCuboidDataStep(formattedPath,mergedCuboidPath));
+  result.addTask(createRangeRowkeyDistributionStep(mergedCuboidPath));
+  result.addTask(createCreateHTableStep());
+  final MapReduceExecutable convertCuboidToHfileStep=createConvertCuboidToHfileStep(mergedCuboidPath,jobId);
+  result.addTask(convertCuboidToHfileStep);
+  result.addTask(createBulkLoadStep(jobId));
   result.addTask(createUpdateCubeInfoAfterMergeStep(mergingSegmentIds,convertCuboidToHfileStep.getId(),jobId));
   return result;
 }

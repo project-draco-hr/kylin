@@ -3,8 +3,8 @@
   final CubeManager mgr=CubeManager.getInstance(conf);
   final CubeInstance cube=mgr.getCube(getCubeName());
   final CubeSegment newSegment=cube.getSegmentById(getSegmentId());
+  final List<CubeSegment> mergingSegments=getMergingSegments(cube);
   try {
-    List<CubeSegment> mergingSegments=cube.getMergingSegments(newSegment);
     makeDictForNewSegment(conf,cube,newSegment,mergingSegments);
     makeSnapshotForNewSegment(cube,newSegment,mergingSegments);
     cube.getSegments().add(newSegment);

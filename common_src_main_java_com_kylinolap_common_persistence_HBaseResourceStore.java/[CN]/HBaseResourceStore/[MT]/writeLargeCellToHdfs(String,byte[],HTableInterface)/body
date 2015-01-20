@@ -1,6 +1,6 @@
 {
   Path redirectPath=bigCellHDFSPath(resPath);
-  Configuration hconf=HadoopUtil.getDefaultConfiguration();
+  Configuration hconf=HadoopUtil.getCurrentConfiguration();
   FileSystem fileSystem=FileSystem.get(hconf);
   if (fileSystem.exists(redirectPath)) {
     fileSystem.delete(redirectPath,true);
