@@ -18,6 +18,7 @@
       Broadcaster.TYPE wipeType=Broadcaster.TYPE.getType(type);
       Broadcaster.EVENT wipeEvent=Broadcaster.EVENT.getEvent(event);
       final String log="wipe cache type: " + wipeType + " event:"+ wipeEvent+ " name:"+ name;
+      logger.info(log);
 switch (wipeEvent) {
 case CREATE:
 case UPDATE:
