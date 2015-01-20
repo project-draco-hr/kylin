@@ -4,7 +4,7 @@
   this.expectedColumnNumber=expectedColumnNumber;
   FileSystem fs=HadoopUtil.getFileSystem(filePath);
   try {
-    this.reader=new SeqRowReader(HadoopUtil.getDefaultConfiguration(),fs,filePath);
+    this.reader=new SeqRowReader(HadoopUtil.getCurrentConfiguration(),fs,filePath);
   }
  catch (  IOException e) {
     if (isExceptionSayingNotSeqFile(e) == false)     throw e;

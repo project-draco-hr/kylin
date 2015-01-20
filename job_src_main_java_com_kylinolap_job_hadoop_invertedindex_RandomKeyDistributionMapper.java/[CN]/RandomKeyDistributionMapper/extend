@@ -1,1 +1,1 @@
-Mapper<KEY,VALUE,KEY,NullWritable>
+KylinMapper<KEY,VALUE,KEY,NullWritable>

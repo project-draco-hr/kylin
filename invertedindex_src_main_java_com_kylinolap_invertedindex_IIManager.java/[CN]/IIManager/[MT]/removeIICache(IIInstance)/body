@@ -1,5 +1,5 @@
 {
-  iiMap.remove(ii.getName().toUpperCase());
+  iiMap.remove(ii.getName());
   for (  IISegment segment : ii.getSegments()) {
     usedStorageLocation.remove(segment.getName());
   }

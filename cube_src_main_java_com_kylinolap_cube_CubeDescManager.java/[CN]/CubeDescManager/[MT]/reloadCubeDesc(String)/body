@@ -1,6 +1,6 @@
 {
   String path=CubeDesc.getCubeDescResourcePath(name);
   CubeDesc ndesc=loadCubeDesc(path);
-  cubeDescMap.put(ndesc.getName(),ndesc);
+  cubeDescMap.putLocal(ndesc.getName(),ndesc);
   return ndesc;
 }

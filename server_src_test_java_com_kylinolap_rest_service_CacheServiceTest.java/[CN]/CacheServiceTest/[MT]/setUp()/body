@@ -1,0 +1,37 @@
+{
+  this.createTestMetadata();
+  server=new Server(8080);
+  ServletContextHandler context=new ServletContextHandler(ServletContextHandler.SESSIONS);
+  context.setContextPath("/");
+  server.setHandler(context);
+  configA=KylinConfig.getInstanceFromEnv();
+  configB=KylinConfig.getKylinConfigFromInputStream(KylinConfig.getKylinPropertiesAsInputSteam());
+  configB.setMetadataUrl(tempTestMetadataUrl);
+  context.addServlet(new ServletHolder(new BroadcasterReceiveServlet(new BroadcasterReceiveServlet.BroadcasterHandler(){
+    @Override public void handle(    String type,    String name,    String event){
+      final CacheService cacheService=new CacheService(){
+        @Override public KylinConfig getConfig(){
+          return configB;
+        }
+      }
+;
+      Broadcaster.TYPE wipeType=Broadcaster.TYPE.getType(type);
+      Broadcaster.EVENT wipeEvent=Broadcaster.EVENT.getEvent(event);
+      final String log="wipe cache type: " + wipeType + " event:"+ wipeEvent+ " name:"+ name;
+      logger.info(log);
+switch (wipeEvent) {
+case CREATE:
+case UPDATE:
+        cacheService.rebuildCache(wipeType,name);
+      break;
+case DROP:
+    cacheService.removeCache(wipeType,name);
+  break;
+default :
+throw new RuntimeException("invalid type:" + wipeEvent);
+}
+}
+}
+)),"/");
+server.start();
+}

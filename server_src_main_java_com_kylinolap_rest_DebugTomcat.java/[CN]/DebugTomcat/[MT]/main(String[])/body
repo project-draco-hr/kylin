@@ -3,17 +3,33 @@
   if (args.length >= 1) {
     port=Integer.parseInt(args[0]);
   }
+  if (Shell.WINDOWS) {
+{
+      Field field=Shell.class.getDeclaredField("WINDOWS");
+      field.setAccessible(true);
+      Field modifiersField=Field.class.getDeclaredField("modifiers");
+      modifiersField.setAccessible(true);
+      modifiersField.setInt(field,field.getModifiers() & ~Modifier.FINAL);
+      field.set(null,false);
+    }
+{
+      Field field=java.io.File.class.getDeclaredField("pathSeparator");
+      field.setAccessible(true);
+      Field modifiersField=Field.class.getDeclaredField("modifiers");
+      modifiersField.setAccessible(true);
+      modifiersField.setInt(field,field.getModifiers() & ~Modifier.FINAL);
+      field.set(null,":");
+    }
+  }
   ClasspathUtil.addClasspath(new File("../examples/test_case_data/sandbox").getAbsolutePath());
   String webBase=new File("../webapp/app").getAbsolutePath();
-  String apiBase=new File("src/main/webapp").getAbsolutePath();
   Tomcat tomcat=new Tomcat();
   tomcat.setPort(port);
   tomcat.setBaseDir(".");
   StandardServer server=(StandardServer)tomcat.getServer();
   AprLifecycleListener listener=new AprLifecycleListener();
   server.addLifecycleListener(listener);
-  tomcat.addWebapp("/kylin",apiBase);
-  Context webContext=tomcat.addWebapp("/",webBase);
+  Context webContext=tomcat.addWebapp("/kylin",webBase);
   ErrorPage notFound=new ErrorPage();
   notFound.setErrorCode(404);
   notFound.setLocation("/index.html");

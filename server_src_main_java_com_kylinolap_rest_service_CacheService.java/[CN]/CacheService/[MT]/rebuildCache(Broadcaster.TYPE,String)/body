@@ -1,0 +1,37 @@
+{
+  final String log="rebuild cache type: " + cacheType + " name:"+ cacheKey;
+  try {
+switch (cacheType) {
+case CUBE:
+      getCubeManager().loadCubeCache(cacheKey);
+    break;
+case CUBE_DESC:
+  getCubeDescManager().reloadCubeDesc(cacheKey);
+break;
+case PROJECT:
+getProjectManager().reloadProject(cacheKey);
+break;
+case INVERTED_INDEX:
+getIIManager().loadIICache(cacheKey);
+break;
+case INVERTED_INDEX_DESC:
+getIIDescManager().reloadIIDesc(cacheKey);
+break;
+case TABLE:
+getMetadataManager().reloadTableCache(cacheKey);
+IIDescManager.clearCache();
+CubeDescManager.clearCache();
+break;
+case DATA_MODEL:
+getMetadataManager().reloadDataModelDesc(cacheKey);
+IIDescManager.clearCache();
+CubeDescManager.clearCache();
+break;
+default :
+throw new RuntimeException("invalid cacheType:" + cacheType);
+}
+}
+ catch (IOException e) {
+throw new RuntimeException("error " + log,e);
+}
+}
