@@ -1,4 +1,3 @@
 {
-  this.errors.clear();
   initJoinColumns(tables);
 }

@@ -3,9 +3,6 @@
   try {
     DataModelDesc dataModelDesc=store.getResource(path,DataModelDesc.class,MODELDESC_SERIALIZER);
     dataModelDesc.init(this.getAllTablesMap());
-    if (dataModelDesc.getError().isEmpty() == false) {
-      throw new IllegalStateException("DataModelDesc at " + path + " has issues: "+ dataModelDesc.getError());
-    }
     dataModelDescMap.putLocal(dataModelDesc.getName(),dataModelDesc);
     return dataModelDesc;
   }
