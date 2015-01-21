@@ -1,0 +1,13 @@
+{
+  MetadataManager metaMgr=getMetadataManager();
+  ProjectInstance projectInstance=getProject(projectName);
+  for (  String tableId : tableIdentities) {
+    TableDesc table=metaMgr.getTableDesc(tableId);
+    if (table == null) {
+      throw new IllegalStateException("Cannot find table '" + table + "' in metadata manager");
+    }
+    projectInstance.addTable(table.getIdentity());
+  }
+  saveResource(projectInstance);
+  return projectInstance;
+}

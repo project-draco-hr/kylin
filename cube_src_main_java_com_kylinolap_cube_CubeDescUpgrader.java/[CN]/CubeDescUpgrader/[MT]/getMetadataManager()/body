@@ -1,0 +1,3 @@
+{
+  return MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+}

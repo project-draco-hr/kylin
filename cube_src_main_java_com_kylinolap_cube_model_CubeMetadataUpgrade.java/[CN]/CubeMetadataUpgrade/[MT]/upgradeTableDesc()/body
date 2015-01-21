@@ -1,0 +1,20 @@
+{
+  List<String> paths=listResourceStore(ResourceStore.TABLE_RESOURCE_ROOT);
+  for (  String path : paths) {
+    TableDesc t;
+    try {
+      t=store.getResource(path,TableDesc.class,MetadataManager.TABLE_SERIALIZER);
+      t.init();
+      if (path.substring(path.indexOf(".")).length() == MetadataConstances.FILE_SURFIX.length()) {
+        getStore().deleteResource(path);
+        t.setLastModified(0);
+        getStore().putResource(t.getResourcePath(),t,MetadataManager.TABLE_SERIALIZER);
+        updatedResources.add(t.getResourcePath());
+      }
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+      errorMsgs.add("Upgrade TableDesc at '" + path + "' failed: "+ e.getLocalizedMessage());
+    }
+  }
+}

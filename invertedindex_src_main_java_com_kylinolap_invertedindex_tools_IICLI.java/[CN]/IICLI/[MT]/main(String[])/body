@@ -1,5 +1,5 @@
 {
-  Configuration hconf=HadoopUtil.getDefaultConfiguration();
+  Configuration hconf=HadoopUtil.getCurrentConfiguration();
   IIManager mgr=IIManager.getInstance(KylinConfig.getInstanceFromEnv());
   String iiName=args[0];
   IIInstance ii=mgr.getII(iiName);

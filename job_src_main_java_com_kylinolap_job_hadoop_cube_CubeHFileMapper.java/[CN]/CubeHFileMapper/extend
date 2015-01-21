@@ -1,1 +1,1 @@
-Mapper<Text,Text,ImmutableBytesWritable,KeyValue>
+KylinMapper<Text,Text,ImmutableBytesWritable,KeyValue>

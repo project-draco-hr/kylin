@@ -5,6 +5,7 @@
   StringBuilder cmd=new StringBuilder();
   appendMapReduceParameters(cmd,jobEngineConfig);
   appendExecCmdParameters(cmd,"tablename",factTableName);
+  appendExecCmdParameters(cmd,"iiname",getIIName());
   appendExecCmdParameters(cmd,"output",output);
   appendExecCmdParameters(cmd,"jobname","Kylin_Fact_Distinct_Columns_" + getIIName() + "_Step");
   result.setMapReduceParams(cmd.toString());

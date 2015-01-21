@@ -1,0 +1,10 @@
+{
+  com.kylinolap.cube.model.v1.CubeDesc oldModel=loadOldCubeDesc(resourcePath);
+  com.kylinolap.cube.model.CubeDesc newModel=new com.kylinolap.cube.model.CubeDesc();
+  copyUnChangedProperties(oldModel,newModel);
+  updatePartitionDesc(oldModel,newModel);
+  DataModelDesc model=extractDataModel(oldModel,newModel);
+  newModel.setModel(model);
+  updateDimensions(oldModel,newModel);
+  return newModel;
+}

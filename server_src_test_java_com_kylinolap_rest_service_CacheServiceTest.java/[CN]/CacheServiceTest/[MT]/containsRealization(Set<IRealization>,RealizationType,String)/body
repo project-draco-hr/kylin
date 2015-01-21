@@ -1,0 +1,8 @@
+{
+  for (  IRealization realization : realizations) {
+    if (realization.getType() == type && realization.getName().equals(name)) {
+      return true;
+    }
+  }
+  return false;
+}

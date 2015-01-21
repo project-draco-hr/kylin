@@ -1,1 +1,1 @@
-Reducer<LongWritable,ImmutableBytesWritable,ImmutableBytesWritable,ImmutableBytesWritable>
+KylinReducer<LongWritable,ImmutableBytesWritable,ImmutableBytesWritable,ImmutableBytesWritable>

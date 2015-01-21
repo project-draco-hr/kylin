@@ -1,0 +1,19 @@
+{
+  final String startString="/kylin/api/cache";
+  final String requestURI=req.getRequestURI();
+  final String substring=requestURI.substring(requestURI.indexOf(startString) + startString.length());
+  final Matcher matcher=PATTERN.matcher(substring);
+  if (matcher.matches()) {
+    String type=matcher.group(1);
+    String name=matcher.group(2);
+    String event=matcher.group(3);
+    if (handler != null) {
+      handler.handle(type,name,event);
+    }
+    resp.getWriter().write("type:" + type + " name:"+ name+ " event:"+ event);
+  }
+ else {
+    resp.getWriter().write("not valid uri");
+  }
+  resp.getWriter().close();
+}

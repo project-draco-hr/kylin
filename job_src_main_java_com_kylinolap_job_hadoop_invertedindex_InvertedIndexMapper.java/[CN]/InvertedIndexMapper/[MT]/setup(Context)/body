@@ -1,8 +1,6 @@
 {
+  super.publishConfiguration(context.getConfiguration());
   Configuration conf=context.getConfiguration();
-  String inputDelim=conf.get(BatchConstants.INPUT_DELIM);
-  this.delim=inputDelim == null ? -1 : inputDelim.codePointAt(0);
-  this.splitter=new BytesSplitter(200,4096);
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata(conf);
   IIManager mgr=IIManager.getInstance(config);
   IIInstance ii=mgr.getII(conf.get(BatchConstants.CFG_II_NAME));
@@ -11,4 +9,6 @@
   this.rec=this.info.createTableRecord();
   outputKey=new LongWritable();
   outputValue=new ImmutableBytesWritable(rec.getBytes());
+  schema=HCatInputFormat.getTableSchema(context.getConfiguration());
+  fields=schema.getFields();
 }

@@ -1,4 +1,5 @@
 {
+  super.publishConfiguration(context.getConfiguration());
   realizationCapacity=RealizationCapacity.valueOf(context.getConfiguration().get(BatchConstants.CUBE_CAPACITY));
 switch (realizationCapacity) {
 case SMALL:

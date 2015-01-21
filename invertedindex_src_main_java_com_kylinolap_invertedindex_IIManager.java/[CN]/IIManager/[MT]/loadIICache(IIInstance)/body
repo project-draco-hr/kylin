@@ -1,8 +1,0 @@
-{
-  try {
-    loadIIInstance(ii.getResourcePath());
-  }
- catch (  IOException e) {
-    logger.error(e.getLocalizedMessage(),e);
-  }
-}

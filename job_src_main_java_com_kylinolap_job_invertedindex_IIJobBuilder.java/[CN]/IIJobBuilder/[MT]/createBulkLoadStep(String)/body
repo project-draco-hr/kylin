@@ -4,7 +4,7 @@
   StringBuilder cmd=new StringBuilder();
   appendExecCmdParameters(cmd,"input",getHFilePath(jobId));
   appendExecCmdParameters(cmd,"htablename",getHTableName());
-  appendExecCmdParameters(cmd,"cubename",getIIName());
+  appendExecCmdParameters(cmd,"iiname",getIIName());
   bulkLoadStep.setJobParams(cmd.toString());
   bulkLoadStep.setJobClass(IIBulkLoadJob.class);
   return bulkLoadStep;

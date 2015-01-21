@@ -1,0 +1,9 @@
+{
+  IIJoinedFlatTableDesc iiflat=new IIJoinedFlatTableDesc(ii.getDescriptor());
+  StringBuilder buf=new StringBuilder();
+  for (  IntermediateColumnDesc col : iiflat.getColumnList()) {
+    if (buf.length() > 0)     buf.append(",");
+    buf.append(col.getColumnName());
+  }
+  return buf.toString();
+}
