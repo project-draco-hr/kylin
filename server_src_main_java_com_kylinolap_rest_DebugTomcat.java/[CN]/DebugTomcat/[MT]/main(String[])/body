@@ -3,6 +3,8 @@
   if (args.length >= 1) {
     port=Integer.parseInt(args[0]);
   }
+  ClasspathUtil.addClasspath(new File("../examples/test_case_data/sandbox").getAbsolutePath());
+  System.setProperty("hdp.version","2.2.0.0-2041");
   if (Shell.WINDOWS) {
 {
       Field field=Shell.class.getDeclaredField("WINDOWS");
@@ -21,7 +23,6 @@
       field.set(null,":");
     }
   }
-  ClasspathUtil.addClasspath(new File("../examples/test_case_data/sandbox").getAbsolutePath());
   String webBase=new File("../webapp/app").getAbsolutePath();
   if (new File(webBase,"WEB-INF").exists() == false) {
     throw new RuntimeException("In order to launch Kylin web app from IDE, please make a symblink from webapp/app/WEB-INF to server/src/main/webapp/WEB-INF");

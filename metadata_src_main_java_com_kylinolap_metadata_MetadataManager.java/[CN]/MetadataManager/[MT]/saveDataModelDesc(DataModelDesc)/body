@@ -1,14 +1,5 @@
 {
-  try {
-    dataModelDesc.init(this.getAllTablesMap());
-  }
- catch (  Exception e) {
-    e.printStackTrace();
-    dataModelDesc.addError(e.getMessage(),true);
-  }
-  if (!dataModelDesc.getError().isEmpty()) {
-    return dataModelDesc;
-  }
+  dataModelDesc.init(this.getAllTablesMap());
   String path=dataModelDesc.getResourcePath();
   getStore().putResource(path,dataModelDesc,MODELDESC_SERIALIZER);
   dataModelDescMap.put(dataModelDesc.getName(),dataModelDesc);
