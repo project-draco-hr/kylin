@@ -4,7 +4,7 @@
   }
   List<CubeSegment> readySegments=cubeInstance.getSegments(SegmentStatusEnum.READY);
   CubeSegment newSegment;
-  if (cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateColumn() != null) {
+  if (cubeInstance.getDescriptor().getCubePartitionDesc().isPartitioned()) {
     if (readySegments.isEmpty()) {
       newSegment=buildSegment(cubeInstance,cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateStart(),endDate);
     }
