@@ -5,9 +5,13 @@
  else {
     return;
   }
+  String ZKConnectString=getZKConnectString(jobEngineConfig);
+  if (StringUtils.isEmpty(ZKConnectString)) {
+    throw new IllegalArgumentException("ZOOKEEPER_QUORUM is empty!");
+  }
   this.jobEngineConfig=jobEngineConfig;
   RetryPolicy retryPolicy=new ExponentialBackoffRetry(1000,3);
-  this.zkClient=CuratorFrameworkFactory.newClient(jobEngineConfig.getZookeeperString(),retryPolicy);
+  this.zkClient=CuratorFrameworkFactory.newClient(ZKConnectString,retryPolicy);
   this.zkClient.start();
   this.sharedLock=new InterProcessMutex(zkClient,schedulerId());
   boolean hasLock=false;

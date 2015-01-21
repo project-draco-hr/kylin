@@ -1,0 +1,30 @@
+{
+  List<com.kylinolap.cube.model.v1.DimensionDesc> oldDimensions=oldModel.getDimensions();
+  List<com.kylinolap.cube.model.DimensionDesc> newDimensions=Lists.newArrayList();
+  newModel.setDimensions(newDimensions);
+  for (  com.kylinolap.cube.model.v1.DimensionDesc dim : oldDimensions) {
+    com.kylinolap.cube.model.DimensionDesc newDim=new com.kylinolap.cube.model.DimensionDesc();
+    newDimensions.add(newDim);
+    newDim.setId(dim.getId());
+    newDim.setName(dim.getName());
+    newDim.setTable(getMetadataManager().appendDBName(dim.getTable()));
+    newDim.setDerived(dim.getDerived());
+    if ("{FK}".equalsIgnoreCase(dim.getColumn()) || dim.getColumn() == null) {
+      if (dim.getHierarchy() == null || dim.getHierarchy().length == 0) {
+        newDim.setHierarchy(false);
+        newDim.setColumn(dim.getJoin().getPrimaryKey());
+      }
+ else {
+        newDim.setHierarchy(true);
+        List<String> columns=Lists.newArrayList();
+        for (        HierarchyDesc hierarch : dim.getHierarchy()) {
+          columns.add(hierarch.getColumn());
+        }
+        newDim.setColumn(columns.toArray(new String[columns.size()]));
+      }
+    }
+ else {
+      newDim.setColumn(new String[]{dim.getColumn()});
+    }
+  }
+}

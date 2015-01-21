@@ -1,0 +1,4 @@
+{
+  cubeName=cubeName.toUpperCase();
+  this.cubes.add(cubeName);
+}

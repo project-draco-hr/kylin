@@ -1,0 +1,4 @@
+{
+  Configuration conf=HadoopUtil.newHBaseConfiguration(context.getConfig().getStorageUrl());
+  return conf.get(HConstants.ZOOKEEPER_QUORUM);
+}

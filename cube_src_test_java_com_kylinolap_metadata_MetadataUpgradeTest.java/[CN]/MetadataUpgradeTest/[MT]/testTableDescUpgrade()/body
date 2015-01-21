@@ -1,0 +1,13 @@
+{
+  MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+  TableDesc fact=metaMgr.getTableDesc("default.test_kylin_fact");
+  String oldResLocation=fact.getResourcePathV1();
+  String newResLocation=fact.getResourcePath();
+  ResourceStore store=ResourceStore.getStore(KylinConfig.getInstanceFromEnv());
+  Assert.assertTrue(store.exists(newResLocation));
+  Assert.assertTrue(!store.exists(oldResLocation));
+  String oldExdResLocation=TableDesc.concatExdResourcePath("test_kylin_fact".toUpperCase());
+  String newExdResLocation=TableDesc.concatExdResourcePath("default.test_kylin_fact".toUpperCase());
+  Assert.assertTrue(store.exists(newExdResLocation));
+  Assert.assertTrue(!store.exists(oldExdResLocation));
+}

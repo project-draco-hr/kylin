@@ -1,0 +1,3 @@
+{
+  return "CubeDesc [name=" + name + ", factTable="+ factTable+ ", cubePartitionDesc="+ cubePartitionDesc+ ", dimensions="+ dimensions+ ", measures="+ measures+ ", rowkey="+ rowkey+ ", hbaseMapping="+ hbaseMapping+ "]";
+}

@@ -1,0 +1,9 @@
+{
+  RealizationRegistry registry=RealizationRegistry.getInstance(config);
+  for (  ProjectInstance projectInstance : projectInstances) {
+    for (    RealizationEntry realization : projectInstance.getRealizationEntries()) {
+      IRealization rel=registry.getRealization(realization.getType(),realization.getRealization());
+      rel.setProjectName(projectInstance.getName());
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  DataModelDesc dm=new DataModelDesc();
+  dm.setUuid(UUID.randomUUID().toString());
+  String factTable=oldModel.getFactTable();
+  dm.setName("model_" + oldModel.getName());
+  dm.setFactTable(getMetadataManager().appendDBName(factTable));
+  newModel.setModelName(dm.getName());
+  List<com.kylinolap.cube.model.v1.DimensionDesc> oldDimensions=oldModel.getDimensions();
+  List<LookupDesc> lookups=Lists.newArrayList();
+  for (  com.kylinolap.cube.model.v1.DimensionDesc dim : oldDimensions) {
+    JoinDesc join=dim.getJoin();
+    if (join != null && join.getType() != null) {
+      LookupDesc lookup=new LookupDesc();
+      lookup.setJoin(join);
+      String table=dim.getTable();
+      lookup.setTable(getMetadataManager().appendDBName(table));
+      lookups.add(lookup);
+    }
+  }
+  dm.setLookups(lookups.toArray(new LookupDesc[lookups.size()]));
+  return dm;
+}

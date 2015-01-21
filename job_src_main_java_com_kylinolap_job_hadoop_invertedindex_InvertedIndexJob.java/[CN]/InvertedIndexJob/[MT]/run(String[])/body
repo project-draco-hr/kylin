@@ -3,21 +3,17 @@
   try {
     options.addOption(OPTION_JOB_NAME);
     options.addOption(OPTION_II_NAME);
-    options.addOption(OPTION_INPUT_PATH);
-    options.addOption(OPTION_INPUT_FORMAT);
-    options.addOption(OPTION_INPUT_DELIM);
+    options.addOption(OPTION_TABLE_NAME);
     options.addOption(OPTION_OUTPUT_PATH);
     parseOptions(options,args);
     job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
     String iiname=getOptionValue(OPTION_II_NAME);
-    Path input=new Path(getOptionValue(OPTION_INPUT_PATH));
-    String inputFormat=getOptionValue(OPTION_INPUT_FORMAT);
-    String inputDelim=getOptionValue(OPTION_INPUT_DELIM);
+    String intermediateTable=getOptionValue(OPTION_TABLE_NAME);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
     System.out.println("Starting: " + job.getJobName());
     IIInstance ii=getII(iiname);
     short sharding=ii.getDescriptor().getSharding();
-    setupMapInput(input,inputFormat,inputDelim);
+    setupMapInput(intermediateTable);
     setupReduceOutput(output,sharding);
     attachMetadata(ii);
     return waitForCompletion(job);
