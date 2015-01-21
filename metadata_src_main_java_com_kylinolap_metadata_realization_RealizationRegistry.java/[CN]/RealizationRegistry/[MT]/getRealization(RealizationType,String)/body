@@ -1,5 +1,11 @@
 {
   IRealizationProvider p=providers.get(type);
   if (p == null)   throw new IllegalStateException("No provider for realization type " + type);
-  return p.getRealization(name);
+  try {
+    return p.getRealization(name);
+  }
+ catch (  Exception ex) {
+    logger.warn("Failed to load realization " + type + ":"+ name,ex);
+    return null;
+  }
 }
