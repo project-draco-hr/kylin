@@ -1,8 +1,6 @@
 {
-  if (result.state() == ExecuteResult.State.DISCARDED) {
-    jobService.updateJobOutput(getId(),ExecutableState.DISCARDED,null,null);
-  }
- else   if (isDiscarded()) {
+  if (isDiscarded()) {
+    notifyUserStatusChange(ExecutableState.DISCARDED);
   }
  else   if (result.succeed()) {
     List<? extends Executable> jobs=getTasks();
@@ -19,9 +17,11 @@
     }
     if (allSucceed) {
       jobService.updateJobOutput(getId(),ExecutableState.SUCCEED,null,null);
+      notifyUserStatusChange(ExecutableState.SUCCEED);
     }
  else     if (hasError) {
       jobService.updateJobOutput(getId(),ExecutableState.ERROR,null,null);
+      notifyUserStatusChange(ExecutableState.ERROR);
     }
  else {
       jobService.updateJobOutput(getId(),ExecutableState.READY,null,null);
@@ -29,5 +29,6 @@
   }
  else {
     jobService.updateJobOutput(getId(),ExecutableState.ERROR,null,null);
+    notifyUserStatusChange(ExecutableState.ERROR);
   }
 }
