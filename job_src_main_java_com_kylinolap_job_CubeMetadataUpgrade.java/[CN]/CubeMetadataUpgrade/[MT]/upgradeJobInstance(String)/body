@@ -1,0 +1,37 @@
+{
+  JobInstance job=getStore().getResource(path,JobInstance.class,new JsonSerializer<JobInstance>(JobInstance.class));
+  CubingJob cubingJob=new CubingJob();
+  cubingJob.setId(job.getId());
+  cubingJob.setName(job.getName());
+  cubingJob.setSubmitter(job.getSubmitter());
+  for (  JobInstance.JobStep step : job.getSteps()) {
+    final AbstractExecutable executable=parseToExecutable(step);
+    cubingJob.addTask(executable);
+  }
+  getExecutableManager().addJob(cubingJob);
+  cubingJob.setStartTime(job.getExecStartTime());
+  cubingJob.setEndTime(job.getExecEndTime());
+  cubingJob.setMapReduceWaitTime(job.getMrWaiting());
+  getExecutableManager().resetJobOutput(cubingJob.getId(),parseState(job.getStatus()),job.getStatus().toString());
+  for (int i=0, size=job.getSteps().size(); i < size; ++i) {
+    final JobInstance.JobStep jobStep=job.getSteps().get(i);
+    final InputStream inputStream=getStore().getResource(ResourceStore.JOB_OUTPUT_PATH_ROOT + "/" + job.getId()+ "."+ i);
+    String output=null;
+    if (inputStream != null) {
+      JsonElement json=new JsonParser().parse(new InputStreamReader(inputStream));
+      if (json instanceof JsonObject) {
+        final JsonElement element=((JsonObject)json).get("output");
+        if (element != null) {
+          output=element.getAsString();
+        }
+ else {
+          output=json.getAsString();
+        }
+      }
+ else {
+        output=json.getAsString();
+      }
+    }
+    updateJobStepOutput(jobStep,output,cubingJob.getTasks().get(i));
+  }
+}
