@@ -6,10 +6,12 @@
   CubeSegment newSegment;
   if (cubeInstance.getDescriptor().getCubePartitionDesc().isPartitioned()) {
     if (readySegments.isEmpty()) {
-      newSegment=buildSegment(cubeInstance,cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateStart(),endDate);
+      startDate=cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateStart();
+      newSegment=buildSegment(cubeInstance,startDate,endDate);
     }
  else {
-      newSegment=buildSegment(cubeInstance,readySegments.get(readySegments.size() - 1).getDateRangeEnd(),endDate);
+      startDate=readySegments.get(readySegments.size() - 1).getDateRangeEnd();
+      newSegment=buildSegment(cubeInstance,startDate,endDate);
     }
   }
  else {
