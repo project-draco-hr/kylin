@@ -6,5 +6,6 @@
   DataModelDesc model=extractDataModel(oldModel,newModel);
   newModel.setModel(model);
   updateDimensions(oldModel,newModel);
+  updateRowkeyDictionary(oldModel,newModel);
   return newModel;
 }

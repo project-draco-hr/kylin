@@ -4,7 +4,7 @@
   String segmentName=newSeg.getName();
   ((TrieDictionary)cubeManager.getDictionary(newSeg,lfn)).dump(System.out);
   File metaDir=new File("../job/meta");
-  FileUtils.copyDirectory(new File(this.getTestConfig().getMetadataUrl()),metaDir);
+  FileUtils.copyDirectory(new File(getTestConfig().getMetadataUrl()),metaDir);
   mapDriver.getConfiguration().set(BatchConstants.CFG_CUBE_NAME,cubeName);
   mapDriver.getConfiguration().set(BatchConstants.CFG_CUBE_SEGMENT_NAME,segmentName);
   byte[] key=new byte[]{0,0,0,0,0,0,0,-92,1,1,1};
