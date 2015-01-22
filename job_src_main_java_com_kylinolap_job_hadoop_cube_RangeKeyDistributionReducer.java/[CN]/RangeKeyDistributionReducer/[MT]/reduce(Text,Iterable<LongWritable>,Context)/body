@@ -1,14 +1,9 @@
 {
-  lastKey=key;
-  long length=0;
   for (  LongWritable v : values) {
-    length+=v.get();
+    bytesRead+=v.get();
   }
-  bytesRead+=length;
-  if (bytesRead >= cut) {
-    outputValue.set(bytesRead);
-    context.write(key,outputValue);
-    System.out.println(StringUtils.byteToHexString(key.getBytes()) + "\t" + outputValue.get());
+  if (bytesRead >= ONE_GIGA_BYTES) {
+    gbPoints.add(new Text(key));
     bytesRead=0;
   }
 }
