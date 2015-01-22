@@ -14,7 +14,7 @@
         }
       }
  catch (      IOException e) {
-        throw new CubeIntegrityException("checkLoopTableConsistency not passed when allocating a new segment.");
+        throw new IllegalStateException("checkLoopTableConsistency not passed when allocating a new segment.");
       }
     }
   }
@@ -23,14 +23,14 @@
     for (    CubeSegment segment : segmentList) {
       String temp=segment.getDictResPath(col);
       if (temp == null) {
-        throw new CubeIntegrityException("Dictionary is null on column: " + col + " Segment: "+ segment);
+        throw new IllegalStateException("Dictionary is null on column: " + col + " Segment: "+ segment);
       }
       if (dictOfFirstSegment == null) {
         dictOfFirstSegment=temp;
       }
  else {
         if (!dictOfFirstSegment.equalsIgnoreCase(temp)) {
-          throw new CubeIntegrityException("Segments with different dictionaries(on lookup table) cannot be merged");
+          throw new IllegalStateException("Segments with different dictionaries(on lookup table) cannot be merged");
         }
       }
     }
@@ -43,7 +43,7 @@
  else {
       Collection<String> a=firstSegment.getSnapshots().values();
       Collection<String> b=segment.getSnapshots().values();
-      if (!((a.size() == b.size()) && a.containsAll(b)))       throw new CubeIntegrityException("Segments with different snapshots cannot be merged");
+      if (!((a.size() == b.size()) && a.containsAll(b)))       throw new IllegalStateException("Segments with different snapshots cannot be merged");
     }
   }
 }
