@@ -1,0 +1,6 @@
+{
+  RowKeyDesc rowKey=newModel.getRowkey();
+  for (  RowKeyColDesc rowkeyCol : rowKey.getRowKeyColumns()) {
+    if (rowkeyCol.getDictionary() != null && rowkeyCol.getDictionary().length() > 0)     rowkeyCol.setDictionary("true");
+  }
+}

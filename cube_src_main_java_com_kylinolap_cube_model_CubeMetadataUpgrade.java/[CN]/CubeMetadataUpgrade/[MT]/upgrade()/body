@@ -3,4 +3,5 @@
   upgradeTableDesceExd();
   upgradeCubeDesc();
   upgradeProjectInstance();
+  verify();
 }
