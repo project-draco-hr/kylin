@@ -1,4 +1,5 @@
 {
+  setEndTime(System.currentTimeMillis());
   if (isDiscarded()) {
     notifyUserStatusChange(ExecutableState.DISCARDED);
   }
@@ -24,6 +25,7 @@
       notifyUserStatusChange(ExecutableState.ERROR);
     }
  else {
+      notifyUserStatusChange(ExecutableState.READY);
       jobService.updateJobOutput(getId(),ExecutableState.READY,null,null);
     }
   }
