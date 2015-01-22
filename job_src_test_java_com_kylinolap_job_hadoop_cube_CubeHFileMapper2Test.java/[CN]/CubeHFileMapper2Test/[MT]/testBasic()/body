@@ -1,6 +1,6 @@
 {
   Configuration hconf=new Configuration();
-  Context context=MockupMapContext.create(hconf,this.getTestConfig().getMetadataUrl(),cubeName,outKV);
+  Context context=MockupMapContext.create(hconf,getTestConfig().getMetadataUrl(),cubeName,outKV);
   CubeHFileMapper mapper=new CubeHFileMapper();
   mapper.setup(context);
   Text key=new Text("not important");
