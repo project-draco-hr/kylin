@@ -1,7 +1,0 @@
-{
-  upgradeTableDesc();
-  upgradeTableDesceExd();
-  upgradeCubeDesc();
-  upgradeProjectInstance();
-  verify();
-}
