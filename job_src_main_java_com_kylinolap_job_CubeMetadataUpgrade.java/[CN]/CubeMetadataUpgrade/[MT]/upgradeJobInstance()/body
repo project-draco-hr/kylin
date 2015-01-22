@@ -1,0 +1,12 @@
+{
+  try {
+    List<String> paths=getStore().collectResourceRecursively(ResourceStore.JOB_PATH_ROOT,"");
+    for (    String path : paths) {
+      upgradeJobInstance(path);
+    }
+  }
+ catch (  IOException ex) {
+    errorMsgs.add("upgrade job failed" + ex.getLocalizedMessage());
+    throw new RuntimeException(ex);
+  }
+}

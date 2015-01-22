@@ -1,9 +1,9 @@
 {
-  if (null == cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateColumn()) {
+  if (cubeInstance.getDescriptor().getCubePartitionDesc().isPartitioned() == false) {
     return;
   }
   if (newSegment.getDateRangeEnd() <= newSegment.getDateRangeStart()) {
-    throw new CubeIntegrityException(" end date.");
+    throw new IllegalStateException(" end date.");
   }
   CubeSegmentValidator cubeSegmentValidator=CubeSegmentValidator.getCubeSegmentValidator(buildType);
   cubeSegmentValidator.validate(cubeInstance,newSegment);

@@ -1,18 +1,18 @@
 {
   List<CubeSegment> readySegments=cubeInstance.getSegments(SegmentStatusEnum.READY);
   CubePartitionDesc cubePartitionDesc=cubeInstance.getDescriptor().getCubePartitionDesc();
-  final long initStartDate=cubePartitionDesc.getPartitionDateColumn() != null ? cubePartitionDesc.getPartitionDateStart() : 0;
+  final long initStartDate=cubePartitionDesc.isPartitioned() ? cubePartitionDesc.getPartitionDateStart() : 0;
   long startDate=initStartDate;
   for (  CubeSegment readySegment : readySegments) {
     if (startDate == readySegment.getDateRangeStart() && startDate < readySegment.getDateRangeEnd()) {
       startDate=readySegment.getDateRangeEnd();
     }
  else {
-      throw new CubeIntegrityException("there is gap in cube segments");
+      throw new IllegalStateException("there is gap in cube segments");
     }
   }
   if (newSegment.getDateRangeStart() == startDate && startDate < newSegment.getDateRangeEnd()) {
     return;
   }
-  throw new CubeIntegrityException("invalid segment date range from " + newSegment.getDateRangeStart() + " to "+ newSegment.getDateRangeEnd());
+  throw new IllegalStateException("invalid segment date range from " + newSegment.getDateRangeStart() + " to "+ newSegment.getDateRangeEnd());
 }

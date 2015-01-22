@@ -27,7 +27,7 @@
       JobStepStatusEnum newStatus=statusChecker.checkStatus();
       if (status == JobStepStatusEnum.WAITING && (newStatus == JobStepStatusEnum.FINISHED || newStatus == JobStepStatusEnum.ERROR || newStatus == JobStepStatusEnum.RUNNING)) {
         final long waitTime=System.currentTimeMillis() - getStartTime();
-        addExtraInfo(MAP_REDUCE_WAIT_TIME,Long.toString(waitTime));
+        setMapReduceWaitTime(waitTime);
       }
       status=newStatus;
       jobService.addJobInfo(getId(),hadoopCmdOutput.getInfo());
