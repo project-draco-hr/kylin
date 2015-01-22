@@ -1,3 +1,0 @@
-{
-  return getParam(CUBE_SEGMENT_NAME);
-}

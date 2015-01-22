@@ -1,4 +1,5 @@
 {
   logger.info("Using metadata url: " + config);
+  this.config=config;
   this.jobDao=JobDao.getInstance(config);
 }
