@@ -1,0 +1,9 @@
+{
+  final String str=getParam(NOTIFY_LIST);
+  if (str != null) {
+    return Lists.newArrayList(StringUtils.split(str,","));
+  }
+ else {
+    return Collections.emptyList();
+  }
+}

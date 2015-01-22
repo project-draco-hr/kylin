@@ -1,0 +1,3 @@
+{
+  setNotifyList(StringUtils.join(notifications,","));
+}

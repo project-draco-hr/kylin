@@ -1,0 +1,3 @@
+{
+  addExtraInfo(MAP_REDUCE_WAIT_TIME,t + "");
+}

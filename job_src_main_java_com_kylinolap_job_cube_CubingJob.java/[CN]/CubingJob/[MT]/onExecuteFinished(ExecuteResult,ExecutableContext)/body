@@ -1,0 +1,14 @@
+{
+  long time=0L;
+  for (  AbstractExecutable task : getTasks()) {
+    final ExecutableState status=task.getStatus();
+    if (status != ExecutableState.SUCCEED) {
+      break;
+    }
+    if (task instanceof MapReduceExecutable) {
+      time+=((MapReduceExecutable)task).getMapReduceWaitTime();
+    }
+  }
+  setMapReduceWaitTime(time);
+  super.onExecuteFinished(result,executableContext);
+}
