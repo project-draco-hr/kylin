@@ -1,0 +1,9 @@
+{
+  try {
+    return parseTo(executableDao.getJob(uuid));
+  }
+ catch (  PersistentException e) {
+    logger.error("fail to get job:" + uuid,e);
+    throw new RuntimeException(e);
+  }
+}

@@ -1,0 +1,3 @@
+{
+  setId(UUID.randomUUID().toString());
+}

@@ -1,0 +1,3 @@
+{
+  return executableManager.getOutput(this.getId()).getState();
+}

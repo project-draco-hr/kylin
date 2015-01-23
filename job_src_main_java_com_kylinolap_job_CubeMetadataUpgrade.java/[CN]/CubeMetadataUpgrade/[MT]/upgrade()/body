@@ -1,4 +1,8 @@
 {
+  upgradeTableDesc();
+  upgradeTableDesceExd();
+  upgradeCubeDesc();
+  upgradeProjectInstance();
   upgradeJobInstance();
   verify();
 }

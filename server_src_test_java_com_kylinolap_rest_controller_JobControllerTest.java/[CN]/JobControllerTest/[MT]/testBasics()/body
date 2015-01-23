@@ -10,7 +10,7 @@
   jobBuildRequest.setEndTime(new Date().getTime());
   JobInstance job=cubeController.rebuild(CUBE_NAME,jobBuildRequest);
   Assert.assertNotNull(jobSchedulerController.get(job.getId()));
-  jobDAO.deleteJob(job.getId());
+  executableDAO.deleteJob(job.getId());
   if (cubeManager.getCube(CUBE_NAME) != null) {
     cubeManager.dropCube(CUBE_NAME,false);
   }

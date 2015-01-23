@@ -1,0 +1,5 @@
+{
+  logger.info("Using metadata url: " + config);
+  this.config=config;
+  this.executableDao=ExecutableDao.getInstance(config);
+}
