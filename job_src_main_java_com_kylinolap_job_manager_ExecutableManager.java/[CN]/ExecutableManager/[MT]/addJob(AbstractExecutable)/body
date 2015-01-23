@@ -1,6 +1,6 @@
 {
   try {
-    executableDao.addJob(getJobPO(executable));
+    executableDao.addJob(parse(executable));
     addJobOutput(executable);
   }
  catch (  PersistentException e) {
