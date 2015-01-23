@@ -1,0 +1,6 @@
+{
+  String uuid=UUID.randomUUID().toString();
+  this.executablePO=new ExecutablePO();
+  this.executablePO.setType(this.getClass().getName());
+  this.executablePO.setUuid(uuid);
+}

@@ -1,0 +1,22 @@
+{
+  if (executablePO == null) {
+    return null;
+  }
+  String type=executablePO.getType();
+  try {
+    Class<? extends AbstractExecutable> clazz=(Class<? extends AbstractExecutable>)Class.forName(type);
+    Constructor<? extends AbstractExecutable> constructor=clazz.getConstructor(ExecutablePO.class);
+    AbstractExecutable result=constructor.newInstance(executablePO);
+    List<ExecutablePO> tasks=executablePO.getTasks();
+    if (tasks != null && !tasks.isEmpty()) {
+      Preconditions.checkArgument(result instanceof DefaultChainedExecutable);
+      for (      ExecutablePO subTask : tasks) {
+        ((DefaultChainedExecutable)result).addTask(parseTo(subTask));
+      }
+    }
+    return result;
+  }
+ catch (  ReflectiveOperationException e) {
+    throw new IllegalArgumentException("cannot parse this job:" + executablePO.getId(),e);
+  }
+}

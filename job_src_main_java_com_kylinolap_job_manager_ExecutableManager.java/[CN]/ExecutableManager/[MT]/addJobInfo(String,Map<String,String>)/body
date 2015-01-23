@@ -1,0 +1,15 @@
+{
+  if (info == null) {
+    return;
+  }
+  try {
+    ExecutableOutputPO output=executableDao.getJobOutput(id);
+    Preconditions.checkArgument(output != null,"there is no related output for job id:" + id);
+    output.getInfo().putAll(info);
+    executableDao.updateJobOutput(output);
+  }
+ catch (  PersistentException e) {
+    logger.error("error update job info, id:" + id + "  info:"+ info.toString());
+    throw new RuntimeException(e);
+  }
+}

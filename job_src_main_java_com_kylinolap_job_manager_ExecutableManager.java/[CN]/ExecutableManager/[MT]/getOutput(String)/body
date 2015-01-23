@@ -1,0 +1,16 @@
+{
+  try {
+    final ExecutableOutputPO jobOutput=executableDao.getJobOutput(uuid);
+    Preconditions.checkArgument(jobOutput != null,"there is no related output for job id:" + uuid);
+    final DefaultOutput result=new DefaultOutput();
+    result.setExtra(jobOutput.getInfo());
+    result.setState(ExecutableState.valueOf(jobOutput.getStatus()));
+    result.setVerboseMsg(jobOutput.getContent());
+    result.setLastModified(jobOutput.getLastModified());
+    return result;
+  }
+ catch (  PersistentException e) {
+    logger.error("fail to get job output:" + uuid,e);
+    throw new RuntimeException(e);
+  }
+}

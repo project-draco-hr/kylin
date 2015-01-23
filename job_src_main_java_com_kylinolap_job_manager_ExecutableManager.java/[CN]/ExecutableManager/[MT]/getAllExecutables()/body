@@ -1,0 +1,14 @@
+{
+  try {
+    return Lists.transform(executableDao.getJobs(),new Function<ExecutablePO,AbstractExecutable>(){
+      @Nullable @Override public AbstractExecutable apply(      ExecutablePO input){
+        return parseTo(input);
+      }
+    }
+);
+  }
+ catch (  PersistentException e) {
+    logger.error("error get All Jobs",e);
+    throw new RuntimeException(e);
+  }
+}

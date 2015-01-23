@@ -1,0 +1,9 @@
+{
+  final ExecutablePO result=executable.getJobPO();
+  if (executable instanceof DefaultChainedExecutable) {
+    for (    AbstractExecutable task : ((DefaultChainedExecutable)executable).getTasks()) {
+      result.getTasks().add(getJobPO(task));
+    }
+  }
+  return result;
+}

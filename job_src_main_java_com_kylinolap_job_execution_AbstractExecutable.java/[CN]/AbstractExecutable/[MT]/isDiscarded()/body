@@ -1,0 +1,4 @@
+{
+  final ExecutableState status=executableManager.getOutput(getId()).getState();
+  return status == ExecutableState.DISCARDED;
+}

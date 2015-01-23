@@ -1,9 +1,0 @@
-{
-  try {
-    return jobDao.getJobIds();
-  }
- catch (  PersistentException e) {
-    logger.error("error get All Job Ids",e);
-    throw new RuntimeException(e);
-  }
-}

@@ -1,9 +1,9 @@
 {
-  final Output output=jobService.getOutput(getId());
+  final Output output=executableManager.getOutput(getId());
   if (output.getExtra().containsKey(START_TIME)) {
     final String mrJobId=output.getExtra().get(ExecutableConstants.MR_JOB_ID);
     if (mrJobId == null) {
-      jobService.updateJobOutput(getId(),ExecutableState.RUNNING,null,null);
+      executableManager.updateJobOutput(getId(),ExecutableState.RUNNING,null,null);
       return;
     }
     try {
@@ -12,7 +12,7 @@
         super.onExecuteStart(executableContext);
       }
  else {
-        jobService.updateJobOutput(getId(),ExecutableState.RUNNING,null,null);
+        executableManager.updateJobOutput(getId(),ExecutableState.RUNNING,null,null);
       }
     }
  catch (    IOException e) {
