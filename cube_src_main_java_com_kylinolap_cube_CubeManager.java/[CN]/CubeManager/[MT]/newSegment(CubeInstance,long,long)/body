@@ -1,4 +1,5 @@
 {
+  if (startDate >= endDate)   throw new IllegalArgumentException("New segment range invalid, start date must be earlier than end date, " + startDate + " < "+ endDate);
   CubeSegment segment=new CubeSegment();
   String incrementalSegName=CubeSegment.getSegmentName(startDate,endDate);
   segment.setUuid(UUID.randomUUID().toString());

@@ -21,8 +21,8 @@
       }
     }
   }
-  CubeSegment newSegment=buildSegment(cubeInstance,start,end);
-  validateNewSegments(cubeInstance,CubeBuildTypeEnum.MERGE,newSegment);
+  CubeSegment newSegment=newSegment(cubeInstance,start,end);
+  validateNewSegments(cubeInstance,newSegment);
   cubeInstance.getSegments().add(newSegment);
   Collections.sort(cubeInstance.getSegments());
   this.updateCube(cubeInstance);

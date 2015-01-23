@@ -8,7 +8,7 @@
       FileStatus[] fileStatuses=fs.listStatus(path);
       boolean hasDir=false;
       for (      FileStatus stat : fileStatuses) {
-        if (stat.isDirectory()) {
+        if (stat.isDirectory() && !stat.getPath().getName().startsWith("_")) {
           hasDir=true;
           addInputDirs(stat.getPath().toString(),job);
         }
@@ -18,7 +18,7 @@
       }
     }
  else {
-      System.out.println("Add input " + inp);
+      logger.debug("Add input " + inp);
       FileInputFormat.addInputPath(job,new Path(inp));
     }
   }

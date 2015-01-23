@@ -1,9 +1,5 @@
 {
   final CubeInstance cube=cubeManager.getCube(getCubeName());
-  List<String> mergingSegmentIds=getMergingSegmentIds();
-  if (mergingSegmentIds.isEmpty()) {
-    return new ExecuteResult(ExecuteResult.State.FAILED,"there are no merging segments");
-  }
   CubeSegment mergedSegment=cube.getSegmentById(getSegmentId());
   if (mergedSegment == null) {
     return new ExecuteResult(ExecuteResult.State.FAILED,"there is no segment with id:" + getSegmentId());
@@ -11,15 +7,14 @@
   String cubeSizeString=executableManager.getOutput(getConvertToHfileStepId()).getExtra().get(ExecutableConstants.HDFS_BYTES_WRITTEN);
   Preconditions.checkState(StringUtils.isNotEmpty(cubeSizeString),"Can't get cube segment size.");
   long cubeSize=Long.parseLong(cubeSizeString) / 1024;
-  List<CubeSegment> toBeRemoved=Lists.newArrayListWithExpectedSize(mergingSegmentIds.size());
-  for (  CubeSegment segment : cube.getSegments()) {
-    if (mergingSegmentIds.contains(segment.getUuid())) {
-      toBeRemoved.add(segment);
-    }
+  List<String> mergingSegmentIds=getMergingSegmentIds();
+  if (mergingSegmentIds.isEmpty()) {
+    return new ExecuteResult(ExecuteResult.State.FAILED,"there are no merging segments");
   }
   long sourceCount=0L;
   long sourceSize=0L;
-  for (  CubeSegment segment : toBeRemoved) {
+  for (  String id : mergingSegmentIds) {
+    CubeSegment segment=cube.getSegmentById(id);
     sourceCount+=segment.getSourceRecords();
     sourceSize+=segment.getSourceRecordsSize();
   }
@@ -27,11 +22,9 @@
   mergedSegment.setSourceRecords(sourceCount);
   mergedSegment.setSourceRecordsSize(sourceSize);
   mergedSegment.setLastBuildJobID(getCubingJobId());
-  mergedSegment.setStatus(SegmentStatusEnum.READY);
   mergedSegment.setLastBuildTime(System.currentTimeMillis());
-  cube.getSegments().removeAll(toBeRemoved);
   try {
-    cubeManager.updateCube(cube);
+    cubeManager.promoteNewlyBuiltSegments(cube,mergedSegment);
     return new ExecuteResult(ExecuteResult.State.SUCCEED);
   }
  catch (  IOException e) {
