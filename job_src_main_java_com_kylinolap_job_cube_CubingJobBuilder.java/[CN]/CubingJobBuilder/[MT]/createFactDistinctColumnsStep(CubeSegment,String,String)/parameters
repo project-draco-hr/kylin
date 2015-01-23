@@ -1,0 +1,3 @@
+CubeSegment seg
+String intermediateHiveTableName
+String jobId

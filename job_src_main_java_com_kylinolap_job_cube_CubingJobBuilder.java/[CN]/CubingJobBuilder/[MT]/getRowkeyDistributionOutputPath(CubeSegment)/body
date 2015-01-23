@@ -1,0 +1,3 @@
+{
+  return engineConfig.getHdfsWorkingDirectory() + "/" + seg.getCubeInstance().getName()+ "/rowkey_stats";
+}
