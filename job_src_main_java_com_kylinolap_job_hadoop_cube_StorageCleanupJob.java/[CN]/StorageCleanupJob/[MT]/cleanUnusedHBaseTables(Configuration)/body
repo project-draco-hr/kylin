@@ -5,7 +5,7 @@
   HTableDescriptor[] tableDescriptors=hbaseAdmin.listTables(tableNamePrefix + ".*");
   List<String> allTablesNeedToBeDropped=new ArrayList<String>();
   for (  HTableDescriptor desc : tableDescriptors) {
-    String host=desc.getValue(CubeManager.getHtableMetadataKey());
+    String host=desc.getValue(CubeManager.getHTableMetadataKey());
     if (KylinConfig.getInstanceFromEnv().getMetadataUrlPrefix().equalsIgnoreCase(host)) {
       allTablesNeedToBeDropped.add(desc.getTableName().getNameAsString());
     }

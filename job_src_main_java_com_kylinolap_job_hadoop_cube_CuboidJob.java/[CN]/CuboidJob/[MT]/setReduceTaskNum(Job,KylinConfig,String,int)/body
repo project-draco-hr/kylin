@@ -22,8 +22,8 @@
   numReduceTasks=Math.max(1,numReduceTasks);
   numReduceTasks=Math.min(kylinConfig.getHadoopJobMaxReducerNumber(),numReduceTasks);
   jobConf.setInt(MAPRED_REDUCE_TASKS,numReduceTasks);
-  System.out.println("Having total map input MB " + Math.round(totalMapInputMB));
-  System.out.println("Having level " + level + ", pre-level cuboids "+ preLevelCuboids+ ", this level cuboids "+ thisLevelCuboids);
-  System.out.println("Having per reduce MB " + perReduceInputMB + ", reduce count ratio "+ reduceCountRatio);
-  System.out.println("Setting " + MAPRED_REDUCE_TASKS + "="+ numReduceTasks);
+  logger.info("Having total map input MB " + Math.round(totalMapInputMB));
+  logger.info("Having level " + level + ", pre-level cuboids "+ preLevelCuboids+ ", this level cuboids "+ thisLevelCuboids);
+  logger.info("Having per reduce MB " + perReduceInputMB + ", reduce count ratio "+ reduceCountRatio);
+  logger.info("Setting " + MAPRED_REDUCE_TASKS + "="+ numReduceTasks);
 }
