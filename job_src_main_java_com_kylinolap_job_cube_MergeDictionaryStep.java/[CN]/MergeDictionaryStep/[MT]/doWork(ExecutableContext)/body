@@ -4,7 +4,9 @@
   final CubeInstance cube=mgr.getCube(getCubeName());
   final CubeSegment newSegment=cube.getSegmentById(getSegmentId());
   final List<CubeSegment> mergingSegments=getMergingSegments(cube);
+  Collections.sort(mergingSegments);
   try {
+    checkLookupSnapshotsMustIncremental(mergingSegments);
     makeDictForNewSegment(conf,cube,newSegment,mergingSegments);
     makeSnapshotForNewSegment(cube,newSegment,mergingSegments);
     mgr.updateCube(cube);

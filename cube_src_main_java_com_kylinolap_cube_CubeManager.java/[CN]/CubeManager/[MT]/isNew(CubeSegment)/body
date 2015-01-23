@@ -1,0 +1,3 @@
+{
+  return seg.getStatus() == SegmentStatusEnum.NEW || seg.getStatus() == SegmentStatusEnum.READY_PENDING;
+}
