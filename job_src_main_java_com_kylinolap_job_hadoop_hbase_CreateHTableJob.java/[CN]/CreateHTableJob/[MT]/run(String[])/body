@@ -24,11 +24,11 @@
       HColumnDescriptor cf=new HColumnDescriptor(cfDesc.getName());
       cf.setMaxVersions(1);
       if (LZOSupportnessChecker.getSupportness()) {
-        log.info("hbase will use lzo to compress data");
+        logger.info("hbase will use lzo to compress data");
         cf.setCompressionType(Algorithm.LZO);
       }
  else {
-        log.info("hbase will not use lzo to compress data");
+        logger.info("hbase will not use lzo to compress data");
       }
       cf.setDataBlockEncoding(DataBlockEncoding.FAST_DIFF);
       cf.setInMemory(false);
@@ -41,20 +41,20 @@
     }
     try {
       initHTableCoprocessor(tableDesc);
-      log.info("hbase table " + tableName + " deployed with coprocessor.");
+      logger.info("hbase table " + tableName + " deployed with coprocessor.");
     }
  catch (    Exception ex) {
-      log.error("Error deploying coprocessor on " + tableName,ex);
-      log.error("Will try creating the table without coprocessor.");
+      logger.error("Error deploying coprocessor on " + tableName,ex);
+      logger.error("Will try creating the table without coprocessor.");
     }
     admin.createTable(tableDesc,splitKeys);
-    log.info("create hbase table " + tableName + " done.");
+    logger.info("create hbase table " + tableName + " done.");
     return 0;
   }
  catch (  Exception e) {
     printUsage(options);
     e.printStackTrace(System.err);
-    log.error(e.getLocalizedMessage(),e);
+    logger.error(e.getLocalizedMessage(),e);
     return 2;
   }
  finally {

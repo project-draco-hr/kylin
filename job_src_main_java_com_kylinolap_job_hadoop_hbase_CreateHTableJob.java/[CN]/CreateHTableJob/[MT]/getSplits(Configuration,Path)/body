@@ -21,8 +21,8 @@
  finally {
     IOUtils.closeStream(reader);
   }
-  System.out.println((rowkeyList.size() + 1) + " regions");
-  System.out.println(rowkeyList.size() + " splits");
+  logger.info((rowkeyList.size() + 1) + " regions");
+  logger.info(rowkeyList.size() + " splits");
   for (  byte[] split : rowkeyList) {
     System.out.println(StringUtils.byteToHexString(split));
   }
