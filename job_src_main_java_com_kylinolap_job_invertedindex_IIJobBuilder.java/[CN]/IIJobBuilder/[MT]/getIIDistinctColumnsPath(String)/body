@@ -1,3 +1,0 @@
-{
-  return getJobWorkingDir(jobUuid) + "/" + getIIName()+ "/ii_distinct_columns";
-}

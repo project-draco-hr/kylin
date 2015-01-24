@@ -1,7 +1,5 @@
 {
-  if (cubeInstance.getBuildingSegments().size() > 0) {
-    throw new RuntimeException("There is already an allocating segment!");
-  }
+  checkNoBuildingSegment(cubeInstance);
   if (cubeInstance.getDescriptor().getCubePartitionDesc().isPartitioned() == false) {
     throw new IllegalStateException("there is no partition date column specified, only full build is supported");
   }
@@ -21,8 +19,8 @@
       }
     }
   }
-  CubeSegment newSegment=buildSegment(cubeInstance,start,end);
-  validateNewSegments(cubeInstance,CubeBuildTypeEnum.MERGE,newSegment);
+  CubeSegment newSegment=newSegment(cubeInstance,start,end);
+  validateNewSegments(cubeInstance,newSegment);
   cubeInstance.getSegments().add(newSegment);
   Collections.sort(cubeInstance.getSegments());
   this.updateCube(cubeInstance);

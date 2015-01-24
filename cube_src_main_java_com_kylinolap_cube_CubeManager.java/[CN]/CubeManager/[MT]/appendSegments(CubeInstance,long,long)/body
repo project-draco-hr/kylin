@@ -1,23 +1,17 @@
 {
-  if (cubeInstance.getBuildingSegments().size() > 0) {
-    throw new RuntimeException("There is already an allocating segment!");
-  }
+  checkNoBuildingSegment(cubeInstance);
   List<CubeSegment> readySegments=cubeInstance.getSegments(SegmentStatusEnum.READY);
   CubeSegment newSegment;
   if (cubeInstance.getDescriptor().getCubePartitionDesc().isPartitioned()) {
     if (readySegments.isEmpty()) {
       startDate=cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateStart();
-      newSegment=buildSegment(cubeInstance,startDate,endDate);
     }
- else {
-      startDate=readySegments.get(readySegments.size() - 1).getDateRangeEnd();
-      newSegment=buildSegment(cubeInstance,startDate,endDate);
-    }
+    newSegment=newSegment(cubeInstance,startDate,endDate);
   }
  else {
-    newSegment=buildSegment(cubeInstance,0,Long.MAX_VALUE);
+    newSegment=newSegment(cubeInstance,0,Long.MAX_VALUE);
   }
-  validateNewSegments(cubeInstance,CubeBuildTypeEnum.BUILD,newSegment);
+  validateNewSegments(cubeInstance,newSegment);
   cubeInstance.getSegments().add(newSegment);
   Collections.sort(cubeInstance.getSegments());
   this.updateCube(cubeInstance);

@@ -1,3 +1,0 @@
-{
-  return getJobWorkingDir(jobUuid) + "/" + getCubeName()+ "/fact_distinct_columns";
-}

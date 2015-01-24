@@ -1,0 +1,4 @@
+CubeSegment seg
+String[] cuboidOutputTempPath
+int dimNum
+int totalRowkeyColumnCount

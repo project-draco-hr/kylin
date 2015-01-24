@@ -1,3 +1,0 @@
-{
-  return ((IISegment)segment).getIIDesc();
-}

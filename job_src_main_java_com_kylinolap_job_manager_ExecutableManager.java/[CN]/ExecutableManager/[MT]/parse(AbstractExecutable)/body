@@ -1,0 +1,15 @@
+{
+  ExecutablePO result=new ExecutablePO();
+  result.setName(executable.getName());
+  result.setUuid(executable.getId());
+  result.setType(executable.getClass().getName());
+  result.setParams(executable.getParams());
+  if (executable instanceof DefaultChainedExecutable) {
+    List<ExecutablePO> tasks=Lists.newArrayList();
+    for (    AbstractExecutable task : ((DefaultChainedExecutable)executable).getTasks()) {
+      tasks.add(parse(task));
+    }
+    result.setTasks(tasks);
+  }
+  return result;
+}

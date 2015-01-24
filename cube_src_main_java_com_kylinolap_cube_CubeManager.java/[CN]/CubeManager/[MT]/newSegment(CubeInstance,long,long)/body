@@ -1,0 +1,16 @@
+{
+  if (startDate >= endDate)   throw new IllegalArgumentException("New segment range invalid, start date must be earlier than end date, " + startDate + " < "+ endDate);
+  CubeSegment segment=new CubeSegment();
+  String incrementalSegName=CubeSegment.getSegmentName(startDate,endDate);
+  segment.setUuid(UUID.randomUUID().toString());
+  segment.setName(incrementalSegName);
+  Date creatTime=new Date();
+  segment.setCreateTime(DateStrDictionary.dateToString(creatTime));
+  segment.setCreateTimeUTC(creatTime.getTime());
+  segment.setDateRangeStart(startDate);
+  segment.setDateRangeEnd(endDate);
+  segment.setStatus(SegmentStatusEnum.NEW);
+  segment.setStorageLocationIdentifier(generateStorageLocation());
+  segment.setCubeInstance(cubeInstance);
+  return segment;
+}

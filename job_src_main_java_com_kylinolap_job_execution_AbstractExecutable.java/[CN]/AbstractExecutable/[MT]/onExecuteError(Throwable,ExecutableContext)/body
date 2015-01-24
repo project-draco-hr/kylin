@@ -1,0 +1,8 @@
+{
+  if (!isDiscarded()) {
+    executableManager.addJobInfo(getId(),END_TIME,Long.toString(System.currentTimeMillis()));
+    executableManager.updateJobOutput(getId(),ExecutableState.ERROR,null,exception.getLocalizedMessage());
+  }
+ else {
+  }
+}

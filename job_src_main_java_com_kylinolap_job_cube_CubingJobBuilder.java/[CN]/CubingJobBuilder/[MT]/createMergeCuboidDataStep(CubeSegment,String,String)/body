@@ -1,0 +1,14 @@
+{
+  MapReduceExecutable mergeCuboidDataStep=new MapReduceExecutable();
+  mergeCuboidDataStep.setName(ExecutableConstants.STEP_NAME_MERGE_CUBOID);
+  StringBuilder cmd=new StringBuilder();
+  appendMapReduceParameters(cmd,seg);
+  appendExecCmdParameters(cmd,"cubename",seg.getCubeInstance().getName());
+  appendExecCmdParameters(cmd,"segmentname",seg.getName());
+  appendExecCmdParameters(cmd,"input",inputPath);
+  appendExecCmdParameters(cmd,"output",outputPath);
+  appendExecCmdParameters(cmd,"jobname","Kylin_Merge_Cuboid_" + seg.getCubeInstance().getName() + "_Step");
+  mergeCuboidDataStep.setMapReduceParams(cmd.toString());
+  mergeCuboidDataStep.setMapReduceJobClass(MergeCuboidJob.class);
+  return mergeCuboidDataStep;
+}

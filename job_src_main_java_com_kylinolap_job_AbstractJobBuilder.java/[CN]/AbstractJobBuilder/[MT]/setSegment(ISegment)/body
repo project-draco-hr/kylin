@@ -1,4 +1,0 @@
-{
-  this.segment=segment;
-  return this;
-}

@@ -1,6 +1,0 @@
-{
-  String uuid=UUID.randomUUID().toString();
-  this.job=new JobPO();
-  this.job.setType(this.getClass().getName());
-  this.job.setUuid(uuid);
-}

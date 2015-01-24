@@ -1,4 +1,0 @@
-{
-  final ExecutableState status=jobService.getOutput(getId()).getState();
-  return status == ExecutableState.DISCARDED;
-}

@@ -1,0 +1,13 @@
+{
+  try {
+    final ExecutableOutputPO jobOutput=executableDao.getJobOutput(jobId);
+    jobOutput.setStatus(state.toString());
+    if (output != null) {
+      jobOutput.setContent(output);
+    }
+    executableDao.updateJobOutput(jobOutput);
+  }
+ catch (  PersistentException e) {
+    throw new RuntimeException(e);
+  }
+}
