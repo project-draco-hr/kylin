@@ -10,7 +10,9 @@
   CubeDesc desc=cubeDescMgr.getCubeDesc("test_kylin_cube_with_slr_desc");
   CubeInstance createdCube=cubeMgr.createCube("cube_in_alien_project","alien",desc,null);
   assertTrue(createdCube == cubeMgr.getCube("cube_in_alien_project"));
-  assertTrue(ProjectManager.getInstance(getTestConfig()).listAllRealizations("alien").contains(createdCube));
+  ProjectManager proMgr=ProjectManager.getInstance(getTestConfig());
+  Set<IRealization> realizations=proMgr.listAllRealizations("alien");
+  assertTrue(realizations.contains(createdCube));
   System.out.println(JsonUtil.writeValueAsIndentString(createdCube));
   assertTrue(prjMgr.listAllProjects().size() == originalProjectCount + 1);
   assertTrue(prjMgr.listAllRealizations("ALIEN").iterator().next().getName().equalsIgnoreCase("CUBE_IN_ALIEN_PROJECT"));
