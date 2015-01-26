@@ -1,6 +1,6 @@
 {
   this.createTestMetadata();
-  server=new Server(8080);
+  server=new Server(7070);
   ServletContextHandler context=new ServletContextHandler(ServletContextHandler.SESSIONS);
   context.setContextPath("/");
   server.setHandler(context);
