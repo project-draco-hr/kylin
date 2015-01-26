@@ -13,7 +13,6 @@
   result.addTask(createBuildDictionaryStep(seg,factDistinctColumnsPath));
   result.addTask(createInvertedIndexStep(seg,intermediateHiveTableName,iiRootPath));
   result.addTask(createCreateHTableStep(seg));
-  result.addTask(createCreateHTableStep(seg));
   result.addTask(createConvertToHfileStep(seg,iiPath,jobId));
   result.addTask(createBulkLoadStep(seg,jobId));
   return result;
