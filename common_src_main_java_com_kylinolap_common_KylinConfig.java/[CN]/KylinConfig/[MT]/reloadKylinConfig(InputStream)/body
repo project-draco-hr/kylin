@@ -15,4 +15,6 @@
     }
   }
   this.kylinConfig=config;
+  this.metadataUrl=getOptional(KYLIN_METADATA_URL);
+  this.storageUrl=getOptional(KYLIN_STORAGE_URL);
 }

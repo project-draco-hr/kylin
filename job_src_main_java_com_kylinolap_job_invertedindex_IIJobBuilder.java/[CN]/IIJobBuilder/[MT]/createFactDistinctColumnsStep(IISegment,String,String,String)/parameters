@@ -1,0 +1,4 @@
+IISegment seg
+String factTableName
+String jobId
+String output

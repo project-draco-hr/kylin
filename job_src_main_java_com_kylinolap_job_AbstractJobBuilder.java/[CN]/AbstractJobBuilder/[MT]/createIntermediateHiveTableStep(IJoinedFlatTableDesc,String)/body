@@ -3,7 +3,7 @@
   final String createTableHql=JoinedFlatTable.generateCreateTableStatement(intermediateTableDesc,getJobWorkingDir(jobId),jobId);
   String insertDataHqls;
   try {
-    insertDataHqls=JoinedFlatTable.generateInsertDataStatement(intermediateTableDesc,jobId,this.jobEngineConfig);
+    insertDataHqls=JoinedFlatTable.generateInsertDataStatement(intermediateTableDesc,jobId,this.engineConfig);
   }
  catch (  IOException e1) {
     e1.printStackTrace();

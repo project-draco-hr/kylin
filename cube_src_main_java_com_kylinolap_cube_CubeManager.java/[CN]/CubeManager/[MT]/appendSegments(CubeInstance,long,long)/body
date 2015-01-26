@@ -1,7 +1,5 @@
 {
-  if (cubeInstance.getBuildingSegments().size() > 0) {
-    throw new RuntimeException("There is already an allocating segment!");
-  }
+  checkNoBuildingSegment(cubeInstance);
   List<CubeSegment> readySegments=cubeInstance.getSegments(SegmentStatusEnum.READY);
   CubeSegment newSegment;
   if (cubeInstance.getDescriptor().getCubePartitionDesc().isPartitioned()) {

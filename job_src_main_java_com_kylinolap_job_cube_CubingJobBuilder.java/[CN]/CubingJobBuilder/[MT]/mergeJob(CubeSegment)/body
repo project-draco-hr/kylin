@@ -1,0 +1,28 @@
+{
+  checkPreconditions(seg);
+  CubingJob result=initialJob(seg,"MERGE");
+  final String jobId=result.getId();
+  List<CubeSegment> mergingSegments=seg.getCubeInstance().getMergingSegments(seg);
+  Preconditions.checkState(mergingSegments != null && mergingSegments.size() > 1,"there should be more than 2 segments to merge");
+  final List<String> mergingSegmentIds=Lists.transform(mergingSegments,new Function<CubeSegment,String>(){
+    @Nullable @Override public String apply(    CubeSegment input){
+      return input.getUuid();
+    }
+  }
+);
+  String[] cuboidPaths=new String[mergingSegments.size()];
+  for (int i=0; i < mergingSegments.size(); i++) {
+    cuboidPaths[i]=getPathToMerge(mergingSegments.get(i));
+  }
+  final String formattedPath=StringUtils.join(cuboidPaths,",");
+  final String mergedCuboidPath=getJobWorkingDir(jobId) + "/" + seg.getCubeInstance().getName()+ "/cuboid";
+  result.addTask(createMergeDictionaryStep(seg,mergingSegmentIds));
+  result.addTask(createMergeCuboidDataStep(seg,formattedPath,mergedCuboidPath));
+  result.addTask(createRangeRowkeyDistributionStep(seg,mergedCuboidPath));
+  result.addTask(createCreateHTableStep(seg));
+  final MapReduceExecutable convertCuboidToHfileStep=createConvertCuboidToHfileStep(seg,mergedCuboidPath,jobId);
+  result.addTask(convertCuboidToHfileStep);
+  result.addTask(createBulkLoadStep(seg,jobId));
+  result.addTask(createUpdateCubeInfoAfterMergeStep(seg,mergingSegmentIds,convertCuboidToHfileStep.getId(),jobId));
+  return result;
+}

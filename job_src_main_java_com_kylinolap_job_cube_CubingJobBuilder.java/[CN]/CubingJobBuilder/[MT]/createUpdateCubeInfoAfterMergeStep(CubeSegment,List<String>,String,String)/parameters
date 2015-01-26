@@ -1,0 +1,4 @@
+CubeSegment seg
+List<String> mergingSegmentIds
+String convertToHFileStepId
+String jobId

@@ -1,0 +1,15 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  KylinConfig other=(KylinConfig)obj;
+  if (metadataUrl == null) {
+    if (other.metadataUrl != null)     return false;
+  }
+ else   if (!metadataUrl.equals(other.metadataUrl))   return false;
+  if (storageUrl == null) {
+    if (other.storageUrl != null)     return false;
+  }
+ else   if (!storageUrl.equals(other.storageUrl))   return false;
+  return true;
+}
