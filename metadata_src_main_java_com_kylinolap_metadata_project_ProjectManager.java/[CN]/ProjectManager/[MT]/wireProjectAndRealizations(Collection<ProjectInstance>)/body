@@ -1,4 +1,5 @@
 {
+  if (projectInstances.isEmpty())   return;
   RealizationRegistry registry=RealizationRegistry.getInstance(config);
   for (  ProjectInstance projectInstance : projectInstances) {
     for (    RealizationEntry realization : projectInstance.getRealizationEntries()) {
