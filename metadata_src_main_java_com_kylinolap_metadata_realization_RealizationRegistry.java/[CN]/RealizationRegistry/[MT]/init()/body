@@ -1,6 +1,6 @@
 {
   providers=Maps.newConcurrentMap();
-  final Set<Class<? extends IRealizationProvider>> realizationProviders=new Reflections("").getSubTypesOf(IRealizationProvider.class);
+  final Set<Class<? extends IRealizationProvider>> realizationProviders=new Reflections("com.kylinolap",new SubTypesScanner()).getSubTypesOf(IRealizationProvider.class);
   List<Throwable> es=Lists.newArrayList();
   for (  Class<? extends IRealizationProvider> cls : realizationProviders) {
     try {
