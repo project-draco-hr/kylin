@@ -1,0 +1,5 @@
+{
+  result.addTask(createMergeDictionaryStep(seg,mergingSegmentIds));
+  String formattedPath=StringUtils.join(mergingCuboidPaths,",");
+  result.addTask(createMergeCuboidDataStep(seg,formattedPath,mergedCuboidPath));
+}
