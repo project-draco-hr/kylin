@@ -17,6 +17,7 @@
     if (User.isHBaseSecurityEnabled(conf)) {
       tableDesc.addCoprocessor("org.apache.hadoop.hbase.security.access.SecureBulkLoadEndpoint");
     }
+    DeployCoprocessorCLI.deployCoprocessor(tableDesc);
     HBaseAdmin admin=new HBaseAdmin(conf);
     if (admin.tableExists(tableName)) {
       admin.disableTable(tableName);

@@ -9,7 +9,7 @@
   while (desc.hasCoprocessor(ENDPOINT_CLS_NAMAE)) {
     desc.removeCoprocessor(ENDPOINT_CLS_NAMAE);
   }
-  setCoprocessorOnHTable(desc,hdfsCoprocessorJar);
+  addCoprocessorOnHTable(desc,hdfsCoprocessorJar);
   hbaseAdmin.modifyTable(tableName,desc);
   logger.info("Enable " + tableName);
   hbaseAdmin.enableTable(tableName);
