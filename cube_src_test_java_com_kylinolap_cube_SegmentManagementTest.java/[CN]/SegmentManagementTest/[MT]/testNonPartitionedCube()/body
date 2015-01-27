@@ -11,7 +11,7 @@
   assertEquals(0,cubeInstance.getBuildingSegments().size());
   assertEquals(0,cubeInstance.getAllocatedEndDate());
   System.out.println("Initial Build");
-  CubeSegment initialSegment=cubeMgr.appendSegments(cubeInstance,desc.getCubePartitionDesc().getPartitionDateStart(),dateEnd);
+  CubeSegment initialSegment=cubeMgr.appendSegments(cubeInstance,dateEnd);
   System.out.println(JsonUtil.writeValueAsIndentString(cubeInstance));
   assertEquals(RealizationStatusEnum.DISABLED,cubeInstance.getStatus());
   assertEquals(SegmentStatusEnum.NEW,cubeInstance.getBuildingSegments().get(0).getStatus());
@@ -33,7 +33,7 @@
   assertEquals(0,cubeInstance.getAllocatedEndDate());
   System.out.println(JsonUtil.writeValueAsIndentString(cubeInstance));
   System.out.println("Rebuild Segment");
-  CubeSegment rebuildSegment=cubeMgr.appendSegments(cubeInstance,1364688000000L,1386806400000L);
+  CubeSegment rebuildSegment=cubeMgr.appendSegments(cubeInstance,1386806400000L);
   System.out.println(JsonUtil.writeValueAsIndentString(cubeInstance));
   assertEquals(RealizationStatusEnum.READY,cubeInstance.getStatus());
   assertEquals(SegmentStatusEnum.NEW,cubeInstance.getBuildingSegments().get(0).getStatus());

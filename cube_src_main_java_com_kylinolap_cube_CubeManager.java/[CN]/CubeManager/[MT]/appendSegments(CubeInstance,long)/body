@@ -2,7 +2,7 @@
   checkNoBuildingSegment(cube);
   CubeSegment newSegment;
   if (cube.getDescriptor().getCubePartitionDesc().isPartitioned()) {
-    startDate=calculateStartDateForAppendSegment(cube);
+    long startDate=calculateStartDateForAppendSegment(cube);
     newSegment=newSegment(cube,startDate,endDate);
   }
  else {

@@ -3,6 +3,7 @@
   checkCubeIsPartitioned(cube);
   long appendStart=calculateStartDateForAppendSegment(cube);
   CubeSegment appendSegment=newSegment(cube,appendStart,endDate);
+  long startDate=cube.getDescriptor().getCubePartitionDesc().getPartitionDateStart();
   Pair<Long,Long> range=alignMergeRange(cube,startDate,endDate);
   CubeSegment mergeSegment=newSegment(cube,range.getFirst(),range.getSecond());
   validateNewSegments(cube,appendSegment,mergeSegment);
