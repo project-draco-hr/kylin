@@ -35,6 +35,7 @@
         hadoopCmdOutput.updateJobCounter();
         final Map<String,String> info=hadoopCmdOutput.getInfo();
         info.put(ExecutableConstants.SOURCE_RECORDS_COUNT,hadoopCmdOutput.getMapInputRecords());
+        info.put(ExecutableConstants.SOURCE_RECORDS_SIZE,hadoopCmdOutput.getHdfsBytesRead());
         info.put(ExecutableConstants.HDFS_BYTES_WRITTEN,hadoopCmdOutput.getHdfsBytesWritten());
         executableManager.addJobInfo(getId(),info);
         if (status == JobStepStatusEnum.FINISHED) {

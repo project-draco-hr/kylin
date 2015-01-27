@@ -12,5 +12,6 @@
   segment.setStatus(SegmentStatusEnum.NEW);
   segment.setStorageLocationIdentifier(generateStorageLocation());
   segment.setCubeInstance(cubeInstance);
+  segment.validate();
   return segment;
 }
