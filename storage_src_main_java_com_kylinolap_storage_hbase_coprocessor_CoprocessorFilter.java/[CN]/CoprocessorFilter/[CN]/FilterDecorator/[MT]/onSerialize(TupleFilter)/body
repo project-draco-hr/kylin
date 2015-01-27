@@ -1,8 +1,14 @@
 {
   if (filter == null)   return null;
-  if (filter.getOperator() == FilterOperatorEnum.NOT && !TupleFilter.isEvaluableRecursively(filter))   return ConstantTupleFilter.TRUE;
+  if (filter.getOperator() == FilterOperatorEnum.NOT && !TupleFilter.isEvaluableRecursively(filter)) {
+    TupleFilter.collectColumns(filter,unstrictlyFilteredColumns);
+    return ConstantTupleFilter.TRUE;
+  }
   if (!(filter instanceof CompareTupleFilter))   return filter;
-  if (!TupleFilter.isEvaluableRecursively(filter))   return ConstantTupleFilter.TRUE;
+  if (!TupleFilter.isEvaluableRecursively(filter)) {
+    TupleFilter.collectColumns(filter,unstrictlyFilteredColumns);
+    return ConstantTupleFilter.TRUE;
+  }
   CompareTupleFilter compf=(CompareTupleFilter)filter;
   TblColRef col=compf.getColumn();
   if (col == null) {

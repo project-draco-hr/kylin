@@ -6,7 +6,7 @@
     rootFilter=ConstantTupleFilter.TRUE;
   }
   if (groupBy == null) {
-    groupBy=Lists.newArrayList();
+    groupBy=Sets.newHashSet();
   }
   if (measures == null) {
     measures=Lists.newArrayList();
@@ -21,6 +21,9 @@
   this.tableRecordInfo=new TableRecordInfo(this.seg);
   this.pushedDownRowType=CoprocessorRowType.fromTableRecordInfo(tableRecordInfo,this.columns);
   this.pushedDownFilter=CoprocessorFilter.fromFilter(this.seg,rootFilter);
+  for (  TblColRef column : this.pushedDownFilter.getUnstrictlyFilteredColumns()) {
+    groupBy.add(column);
+  }
   this.pushedDownProjector=CoprocessorProjector.makeForEndpoint(tableRecordInfo,groupBy);
   this.pushedDownAggregators=EndpointAggregators.fromFunctions(tableRecordInfo,measures);
   IIProtos.IIRequest endpointRequest=prepareRequest();

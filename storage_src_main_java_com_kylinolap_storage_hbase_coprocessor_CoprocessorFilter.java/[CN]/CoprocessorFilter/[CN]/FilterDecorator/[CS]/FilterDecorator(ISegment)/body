@@ -1,3 +1,4 @@
 {
-  columnIO=new RowKeyColumnIO(seg);
+  this.columnIO=new RowKeyColumnIO(seg);
+  this.unstrictlyFilteredColumns=Sets.newHashSet();
 }
