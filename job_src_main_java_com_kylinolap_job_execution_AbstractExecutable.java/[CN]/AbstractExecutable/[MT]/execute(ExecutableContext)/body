@@ -1,4 +1,5 @@
 {
+  LogTitlePrinter.printTitle(this.getName());
   Preconditions.checkArgument(executableContext instanceof DefaultContext);
   ExecuteResult result;
   try {
