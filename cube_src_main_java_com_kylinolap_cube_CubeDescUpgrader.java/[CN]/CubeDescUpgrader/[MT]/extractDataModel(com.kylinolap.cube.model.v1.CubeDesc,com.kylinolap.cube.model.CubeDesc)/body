@@ -9,7 +9,7 @@
   List<LookupDesc> lookups=Lists.newArrayList();
   for (  com.kylinolap.cube.model.v1.DimensionDesc dim : oldDimensions) {
     JoinDesc join=dim.getJoin();
-    if (join != null && join.getType() != null) {
+    if (join != null && !StringUtils.isEmpty(join.getType()) && join.getForeignKey() != null && join.getForeignKey().length > 0) {
       LookupDesc lookup=new LookupDesc();
       lookup.setJoin(join);
       String table=dim.getTable();

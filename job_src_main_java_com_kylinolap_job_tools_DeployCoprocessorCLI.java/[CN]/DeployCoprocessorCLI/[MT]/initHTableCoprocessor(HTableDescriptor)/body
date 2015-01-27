@@ -4,5 +4,5 @@
   FileSystem fileSystem=FileSystem.get(hconf);
   String localCoprocessorJar=kylinConfig.getCoprocessorLocalJar();
   Path hdfsCoprocessorJar=DeployCoprocessorCLI.uploadCoprocessorJar(localCoprocessorJar,fileSystem,null);
-  DeployCoprocessorCLI.setCoprocessorOnHTable(desc,hdfsCoprocessorJar);
+  DeployCoprocessorCLI.addCoprocessorOnHTable(desc,hdfsCoprocessorJar);
 }
