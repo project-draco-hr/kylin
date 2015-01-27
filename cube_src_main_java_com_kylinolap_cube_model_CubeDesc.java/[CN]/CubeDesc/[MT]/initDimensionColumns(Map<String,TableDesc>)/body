@@ -4,21 +4,20 @@
     JoinDesc join=dim.getJoin();
     ArrayList<TblColRef> dimColList=new ArrayList<TblColRef>();
     ArrayList<TblColRef> hostColList=new ArrayList<TblColRef>();
-    if (join != null && !StringUtils.isEmpty(join.getType()) && !ArrayUtils.isEmpty(join.getForeignKey())) {
-      if (dim.getDerived() != null && dim.getDerived().length > 0) {
+    if (dim.getColumn() != null) {
+      if (join != null) {
         for (        TblColRef ref : join.getForeignKeyColumns()) {
           TblColRef inited=initDimensionColRef(ref);
           dimColList.add(inited);
           hostColList.add(inited);
         }
       }
-    }
-    if (!ArrayUtils.isEmpty(dim.getColumn())) {
-      for (      String aColumn : dim.getColumn()) {
-        TblColRef ref=initDimensionColRef(dimTable,aColumn);
-        if (!dimColList.contains(ref)) {
-          dimColList.add(ref);
-          hostColList.add(ref);
+ else {
+        for (        String aColumn : dim.getColumn()) {
+          TblColRef ref=initDimensionColRef(dimTable,aColumn);
+          if (!dimColList.contains(ref)) {
+            dimColList.add(ref);
+          }
         }
       }
     }
@@ -46,13 +45,20 @@
       }
       initDerivedMap(hostCols,DeriveType.LOOKUP,dim,derivedCols,derivedExtra);
     }
-    if (join != null && !StringUtils.isEmpty(join.getType()) && join.getForeignKey() != null && join.getForeignKey().length > 0) {
+    if (join != null) {
       TblColRef[] fk=join.getForeignKeyColumns();
       TblColRef[] pk=join.getPrimaryKeyColumns();
       for (int i=0; i < fk.length; i++) {
         int find=ArrayUtils.indexOf(hostCols,fk[i]);
         if (find >= 0) {
           TblColRef derivedCol=initDimensionColRef(pk[i]);
+          initDerivedMap(hostCols[find],DeriveType.PK_FK,dim,derivedCol);
+        }
+      }
+      for (int i=0; i < pk.length; i++) {
+        int find=ArrayUtils.indexOf(hostCols,pk[i]);
+        if (find >= 0) {
+          TblColRef derivedCol=initDimensionColRef(fk[i]);
           initDerivedMap(hostCols[find],DeriveType.PK_FK,dim,derivedCol);
         }
       }
