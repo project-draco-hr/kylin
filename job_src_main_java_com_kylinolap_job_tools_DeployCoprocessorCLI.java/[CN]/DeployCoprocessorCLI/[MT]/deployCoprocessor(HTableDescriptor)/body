@@ -1,0 +1,10 @@
+{
+  try {
+    initHTableCoprocessor(tableDesc);
+    logger.info("hbase table " + tableDesc.getName() + " deployed with coprocessor.");
+  }
+ catch (  Exception ex) {
+    logger.error("Error deploying coprocessor on " + tableDesc.getName(),ex);
+    logger.error("Will try creating the table without coprocessor.");
+  }
+}

@@ -1,19 +1,16 @@
 {
-  checkNoBuildingSegment(cubeInstance);
-  List<CubeSegment> readySegments=cubeInstance.getSegments(SegmentStatusEnum.READY);
+  checkNoBuildingSegment(cube);
   CubeSegment newSegment;
-  if (cubeInstance.getDescriptor().getCubePartitionDesc().isPartitioned()) {
-    if (readySegments.isEmpty()) {
-      startDate=cubeInstance.getDescriptor().getCubePartitionDesc().getPartitionDateStart();
-    }
-    newSegment=newSegment(cubeInstance,startDate,endDate);
+  if (cube.getDescriptor().getCubePartitionDesc().isPartitioned()) {
+    startDate=calculateStartDateForAppendSegment(cube);
+    newSegment=newSegment(cube,startDate,endDate);
   }
  else {
-    newSegment=newSegment(cubeInstance,0,Long.MAX_VALUE);
+    newSegment=newSegment(cube,0,Long.MAX_VALUE);
   }
-  validateNewSegments(cubeInstance,newSegment);
-  cubeInstance.getSegments().add(newSegment);
-  Collections.sort(cubeInstance.getSegments());
-  this.updateCube(cubeInstance);
+  validateNewSegments(cube,newSegment);
+  cube.getSegments().add(newSegment);
+  Collections.sort(cube.getSegments());
+  updateCube(cube);
   return newSegment;
 }

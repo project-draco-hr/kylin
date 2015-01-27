@@ -1,28 +1,11 @@
 {
-  checkNoBuildingSegment(cubeInstance);
-  if (cubeInstance.getDescriptor().getCubePartitionDesc().isPartitioned() == false) {
-    throw new IllegalStateException("there is no partition date column specified, only full build is supported");
-  }
-  List<CubeSegment> readySegments=cubeInstance.getSegment(SegmentStatusEnum.READY);
-  if (readySegments.isEmpty()) {
-    throw new IllegalStateException("there are no segments in ready state");
-  }
-  long start=Long.MAX_VALUE;
-  long end=Long.MIN_VALUE;
-  for (  CubeSegment readySegment : readySegments) {
-    if (hasOverlap(startDate,endDate,readySegment.getDateRangeStart(),readySegment.getDateRangeEnd())) {
-      if (start > readySegment.getDateRangeStart()) {
-        start=readySegment.getDateRangeStart();
-      }
-      if (end < readySegment.getDateRangeEnd()) {
-        end=readySegment.getDateRangeEnd();
-      }
-    }
-  }
-  CubeSegment newSegment=newSegment(cubeInstance,start,end);
-  validateNewSegments(cubeInstance,newSegment);
-  cubeInstance.getSegments().add(newSegment);
-  Collections.sort(cubeInstance.getSegments());
-  this.updateCube(cubeInstance);
+  checkNoBuildingSegment(cube);
+  checkCubeIsPartitioned(cube);
+  Pair<Long,Long> range=alignMergeRange(cube,startDate,endDate);
+  CubeSegment newSegment=newSegment(cube,range.getFirst(),range.getSecond());
+  validateNewSegments(cube,newSegment);
+  cube.getSegments().add(newSegment);
+  Collections.sort(cube.getSegments());
+  updateCube(cube);
   return newSegment;
 }

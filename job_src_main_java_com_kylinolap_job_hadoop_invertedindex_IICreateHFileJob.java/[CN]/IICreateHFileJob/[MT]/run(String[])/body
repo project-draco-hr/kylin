@@ -23,7 +23,7 @@
     job.setMapOutputKeyClass(ImmutableBytesWritable.class);
     job.setMapOutputValueClass(KeyValue.class);
     String tableName=getOptionValue(OPTION_HTABLE_NAME);
-    HTable htable=new HTable(getConf(),tableName);
+    HTable htable=new HTable(HBaseConfiguration.create(getConf()),tableName);
     HFileOutputFormat.configureIncrementalLoad(job,htable);
     this.deletePath(job.getConfiguration(),output);
     return waitForCompletion(job);

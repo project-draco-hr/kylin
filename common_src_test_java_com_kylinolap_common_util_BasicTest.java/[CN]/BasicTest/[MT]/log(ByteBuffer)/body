@@ -1,0 +1,4 @@
+{
+  Integer x=4;
+  foo(x);
+}

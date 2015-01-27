@@ -1,0 +1,24 @@
+{
+  checkPreconditions(appendSegment,mergeSegment);
+  CubingJob result=initialJob(mergeSegment,"BUILD");
+  final String jobId=result.getId();
+  final String appendRootPath=getJobWorkingDir(jobId) + "/" + appendSegment.getCubeInstance().getName()+ "/append_cuboid/";
+  final String mergedRootPath=getJobWorkingDir(jobId) + "/" + appendSegment.getCubeInstance().getName()+ "/cuboid/";
+  Pair<AbstractExecutable,AbstractExecutable> twoSteps=addCubingSteps(appendSegment,appendRootPath,result);
+  final String intermediateHiveTableStepId=twoSteps.getFirst().getId();
+  final String baseCuboidStepId=twoSteps.getSecond().getId();
+  result.addTask(createUpdateCubeInfoAfterBuildStep(appendSegment,intermediateHiveTableStepId,baseCuboidStepId,null,jobId));
+  List<CubeSegment> mergingSegments=mergeSegment.getCubeInstance().getMergingSegments(mergeSegment);
+  Preconditions.checkState(mergingSegments.size() > 1,"there should be more than 2 segments to merge");
+  List<String> mergingSegmentIds=Lists.newArrayList();
+  List<String> mergingCuboidPaths=Lists.newArrayList();
+  for (  CubeSegment merging : mergingSegments) {
+    mergingSegmentIds.add(merging.getUuid());
+    if (merging.equals(appendSegment))     mergingCuboidPaths.add(appendRootPath + "*");
+ else     mergingCuboidPaths.add(getPathToMerge(merging));
+  }
+  addMergeSteps(mergeSegment,mergingSegmentIds,mergingCuboidPaths,mergedRootPath,result);
+  AbstractExecutable convertCuboidToHfileStep=addHTableSteps(mergeSegment,mergedRootPath,result);
+  result.addTask(createUpdateCubeInfoAfterMergeStep(mergeSegment,mergingSegmentIds,convertCuboidToHfileStep.getId(),jobId));
+  return result;
+}

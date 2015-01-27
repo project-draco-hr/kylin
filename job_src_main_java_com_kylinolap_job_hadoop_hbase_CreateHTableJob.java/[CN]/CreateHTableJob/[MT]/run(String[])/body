@@ -39,14 +39,7 @@
     if (admin.tableExists(tableName)) {
       throw new RuntimeException("HBase table " + tableName + " exists!");
     }
-    try {
-      initHTableCoprocessor(tableDesc);
-      logger.info("hbase table " + tableName + " deployed with coprocessor.");
-    }
- catch (    Exception ex) {
-      logger.error("Error deploying coprocessor on " + tableName,ex);
-      logger.error("Will try creating the table without coprocessor.");
-    }
+    DeployCoprocessorCLI.deployCoprocessor(tableDesc);
     admin.createTable(tableDesc,splitKeys);
     logger.info("create hbase table " + tableName + " done.");
     return 0;

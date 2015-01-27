@@ -2,7 +2,7 @@
   CubeDesc cubeDesc=cube.getDescriptor();
   CubePartitionDesc partDesc=cubeDesc.getCubePartitionDesc();
   List<CubeSegment> tobe=Lists.newArrayList(cube.getSegments());
-  if (extraSegments != null)   tobe.addAll(Arrays.asList(extraSegments));
+  if (newSegments != null)   tobe.addAll(Arrays.asList(newSegments));
   if (tobe.size() == 0)   return tobe;
   Collections.sort(tobe);
   CubeSegment firstSeg=tobe.get(0);
