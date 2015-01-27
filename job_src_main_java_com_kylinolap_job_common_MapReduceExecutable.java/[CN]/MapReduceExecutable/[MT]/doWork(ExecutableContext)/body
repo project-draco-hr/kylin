@@ -17,7 +17,18 @@
       logger.info("parameters of the MapReduceExecutable:");
       logger.info(params);
       String[] args=params.trim().split("\\s+");
-      ToolRunner.run(hadoopJob,args);
+      try {
+        ToolRunner.run(hadoopJob,args);
+      }
+ catch (      Exception ex) {
+        StringBuilder log=new StringBuilder();
+        logger.error("error execute " + this.toString(),ex);
+        StringWriter stringWriter=new StringWriter();
+        ex.printStackTrace(new PrintWriter(stringWriter));
+        log.append(stringWriter.toString()).append("\n");
+        log.append("result code:").append(2);
+        return new ExecuteResult(ExecuteResult.State.ERROR,log.toString());
+      }
       job=hadoopJob.getJob();
     }
     final StringBuilder output=new StringBuilder();
@@ -56,7 +67,7 @@
     return new ExecuteResult(ExecuteResult.State.ERROR,e.getLocalizedMessage());
   }
 catch (  Exception e) {
-    logger.error("error execute MapReduceJob, id:" + getId(),e);
+    logger.error("error execute " + this.toString(),e);
     return new ExecuteResult(ExecuteResult.State.ERROR,e.getLocalizedMessage());
   }
 }

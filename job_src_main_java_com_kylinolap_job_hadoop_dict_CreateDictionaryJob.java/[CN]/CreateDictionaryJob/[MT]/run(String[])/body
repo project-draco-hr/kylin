@@ -13,9 +13,7 @@
   }
  catch (  Exception e) {
     printUsage(options);
-    e.printStackTrace(System.err);
-    logger.error(e.getLocalizedMessage(),e);
-    returnCode=2;
+    throw e;
   }
   return returnCode;
 }
