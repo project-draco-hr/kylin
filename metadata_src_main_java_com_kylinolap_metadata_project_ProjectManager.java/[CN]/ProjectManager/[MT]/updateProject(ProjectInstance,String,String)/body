@@ -1,7 +1,7 @@
 {
   if (!project.getName().equals(newName)) {
     ProjectInstance newProject=this.createProject(newName,project.getOwner(),newDesc);
-    newProject.setCreateTime(project.getCreateTime());
+    newProject.setCreateTimeUTC(project.getCreateTimeUTC());
     newProject.recordUpdateTime(System.currentTimeMillis());
     newProject.setRealizationEntries(project.getRealizationEntries());
     deleteResource(project);

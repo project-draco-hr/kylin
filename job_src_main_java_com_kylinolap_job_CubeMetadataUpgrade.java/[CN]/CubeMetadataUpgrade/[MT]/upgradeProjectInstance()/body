@@ -10,7 +10,7 @@
       newPrj.setDescription(oldPrj.getDescription());
       newPrj.setLastModified(oldPrj.getLastModified());
       newPrj.setLastUpdateTime(oldPrj.getLastUpdateTime());
-      newPrj.setCreateTime(oldPrj.getCreateTime());
+      newPrj.setCreateTimeUTC(RootPersistentEntity.parseTime(oldPrj.getCreateTime()));
       newPrj.setStatus(oldPrj.getStatus());
       List<RealizationEntry> realizationEntries=Lists.newArrayList();
       for (      String cube : oldPrj.getCubes()) {

@@ -1,0 +1,8 @@
+{
+  if (startDate == 0 && endDate == 0) {
+    return "FULL_BUILD";
+  }
+  SimpleDateFormat dateFormat=new SimpleDateFormat("yyyyMMddHHmmss");
+  dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+  return dateFormat.format(startDate) + "_" + dateFormat.format(endDate);
+}

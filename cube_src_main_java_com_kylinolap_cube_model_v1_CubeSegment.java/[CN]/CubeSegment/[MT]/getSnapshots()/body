@@ -1,0 +1,4 @@
+{
+  if (snapshots == null)   snapshots=new ConcurrentHashMap<String,String>();
+  return snapshots;
+}
