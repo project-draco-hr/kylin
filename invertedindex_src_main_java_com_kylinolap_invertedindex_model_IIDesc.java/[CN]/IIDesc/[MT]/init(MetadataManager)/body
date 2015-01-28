@@ -52,6 +52,7 @@
     measureDescs.add(makeMeasureDescs("MIN",col));
     measureDescs.add(makeMeasureDescs("MAX",col));
   }
+  measureDescs.add(makeCountMeasure());
   tsCol=-1;
   for (int i=0; i < allColumns.size(); ++i) {
     TblColRef col=allColumns.get(i);

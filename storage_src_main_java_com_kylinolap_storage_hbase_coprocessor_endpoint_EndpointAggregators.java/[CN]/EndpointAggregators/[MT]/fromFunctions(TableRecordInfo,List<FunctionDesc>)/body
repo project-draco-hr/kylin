@@ -9,6 +9,9 @@
     if (functionDesc.isCount()) {
       refColIndex[i]=-1;
     }
+ else     if (functionDesc.isAppliedOnDimension()) {
+      refColIndex[i]=-2;
+    }
  else {
       refColIndex[i]=tableInfo.findMetric(functionDesc.getParameter().getValue());
       if (refColIndex[i] < 0) {
