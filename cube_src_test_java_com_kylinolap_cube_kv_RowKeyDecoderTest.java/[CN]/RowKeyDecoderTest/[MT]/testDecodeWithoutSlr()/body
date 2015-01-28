@@ -1,5 +1,5 @@
 {
-  CubeInstance cube=CubeManager.getInstance(this.getTestConfig()).getCube("TEST_KYLIN_CUBE_WITHOUT_SLR_READY");
+  CubeInstance cube=CubeManager.getInstance(getTestConfig()).getCube("TEST_KYLIN_CUBE_WITHOUT_SLR_READY");
   RowKeyDecoder rowKeyDecoder=new RowKeyDecoder(cube.getFirstSegment());
   byte[] key={0,0,0,0,0,0,0,-1,11,55,-13,13,22,34,121,70,80,45,71,84,67,9,9,9,9,9,9,0,10,5};
   rowKeyDecoder.decode(key);

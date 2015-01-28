@@ -1,4 +1,4 @@
 {
   createTestMetadata();
-  dictMgr=DictionaryManager.getInstance(this.getTestConfig());
+  dictMgr=DictionaryManager.getInstance(getTestConfig());
 }
