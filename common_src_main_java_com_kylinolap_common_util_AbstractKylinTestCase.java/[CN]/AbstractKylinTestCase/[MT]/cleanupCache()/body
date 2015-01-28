@@ -6,7 +6,10 @@
       Method method=cls.getDeclaredMethod("removeInstance",KylinConfig.class);
       method.invoke(null,config);
     }
- catch (    Exception e) {
+ catch (    ClassNotFoundException e) {
+    }
+catch (    Exception e) {
+      System.err.println("Error clean up cache " + serviceClass);
       e.printStackTrace();
     }
   }
