@@ -16,7 +16,7 @@
     for (int j=0; j < aggGrp.length; j++) {
       TblColRef aggCol=colNameAbbr.get(aggGrp[j].toUpperCase());
       if (aggCol == null) {
-        throw new IllegalArgumentException("Can't find aggregation column " + aggGrp[j] + " in  cube "+ this.cubeRef.getName());
+        throw new IllegalArgumentException("Can't find aggregation column " + aggGrp[j] + " in  cube "+ this.cubeDesc.getName());
       }
       Integer index=getColumnBitIndex(aggCol);
       mask.groupMask|=1L << index;
