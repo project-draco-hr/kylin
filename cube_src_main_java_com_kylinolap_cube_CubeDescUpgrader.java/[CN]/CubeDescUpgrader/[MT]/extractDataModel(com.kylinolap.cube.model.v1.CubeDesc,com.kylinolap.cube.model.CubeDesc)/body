@@ -2,7 +2,7 @@
   DataModelDesc dm=new DataModelDesc();
   dm.setUuid(UUID.randomUUID().toString());
   String factTable=oldModel.getFactTable();
-  dm.setName("model_" + oldModel.getName());
+  dm.setName(oldModel.getName());
   dm.setFactTable(getMetadataManager().appendDBName(factTable));
   newModel.setModelName(dm.getName());
   List<com.kylinolap.cube.model.v1.DimensionDesc> oldDimensions=oldModel.getDimensions();
@@ -18,5 +18,16 @@
     }
   }
   dm.setLookups(lookups.toArray(new LookupDesc[lookups.size()]));
+  dm.setFilterCondition(oldModel.getFilterCondition());
+  updatePartitionDesc(oldModel,dm);
+  if (oldModel.getCapacity() == com.kylinolap.cube.model.v1.CubeDesc.CubeCapacity.SMALL) {
+    dm.setCapacity(com.kylinolap.metadata.model.DataModelDesc.RealizationCapacity.SMALL);
+  }
+ else   if (oldModel.getCapacity() == com.kylinolap.cube.model.v1.CubeDesc.CubeCapacity.MEDIUM) {
+    dm.setCapacity(com.kylinolap.metadata.model.DataModelDesc.RealizationCapacity.MEDIUM);
+  }
+ else   if (oldModel.getCapacity() == com.kylinolap.cube.model.v1.CubeDesc.CubeCapacity.LARGE) {
+    dm.setCapacity(com.kylinolap.metadata.model.DataModelDesc.RealizationCapacity.LARGE);
+  }
   return dm;
 }

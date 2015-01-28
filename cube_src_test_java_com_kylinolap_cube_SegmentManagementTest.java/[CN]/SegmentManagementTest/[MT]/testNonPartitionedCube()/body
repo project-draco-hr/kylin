@@ -21,7 +21,7 @@
   assertEquals(0,cubeInstance.getRebuildingSegments().size());
   assertTrue("".equals(initialSegment.getStorageLocationIdentifier()) == false);
   assertEquals("FULL_BUILD",initialSegment.getName());
-  assertEquals(desc.getCubePartitionDesc().getPartitionDateStart(),cubeInstance.getAllocatedStartDate());
+  assertEquals(desc.getModel().getPartitionDesc().getPartitionDateStart(),cubeInstance.getAllocatedStartDate());
   assertEquals(0,cubeInstance.getAllocatedEndDate());
   System.out.println("Initial Build Success");
   cubeMgr.updateSegmentOnJobSucceed(cubeInstance,CubeBuildTypeEnum.BUILD,initialSegment.getName(),"job_5",System.currentTimeMillis(),111L,222L,333L);

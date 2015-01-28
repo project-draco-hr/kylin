@@ -1,2 +1,2 @@
 com.kylinolap.cube.model.v1.CubeDesc oldModel
-com.kylinolap.cube.model.CubeDesc newModel
+com.kylinolap.metadata.model.DataModelDesc dm

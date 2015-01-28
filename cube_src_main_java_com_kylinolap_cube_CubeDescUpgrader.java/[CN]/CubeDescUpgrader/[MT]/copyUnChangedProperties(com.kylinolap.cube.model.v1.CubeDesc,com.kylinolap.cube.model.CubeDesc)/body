@@ -3,20 +3,10 @@
   newModel.setName(oldModel.getName());
   newModel.setDescription(oldModel.getDescription());
   newModel.setNullStrings(oldModel.getNullStrings());
-  newModel.setFilterCondition(oldModel.getFilterCondition());
   newModel.setMeasures(oldModel.getMeasures());
   newModel.setRowkey(oldModel.getRowkey());
   newModel.setHbaseMapping(oldModel.getHBaseMapping());
   newModel.setSignature(oldModel.getSignature());
-  if (oldModel.getCapacity() == com.kylinolap.cube.model.v1.CubeDesc.CubeCapacity.SMALL) {
-    newModel.setCapacity(com.kylinolap.cube.model.CubeDesc.RealizationCapacity.SMALL);
-  }
- else   if (oldModel.getCapacity() == com.kylinolap.cube.model.v1.CubeDesc.CubeCapacity.MEDIUM) {
-    newModel.setCapacity(com.kylinolap.cube.model.CubeDesc.RealizationCapacity.MEDIUM);
-  }
- else   if (oldModel.getCapacity() == com.kylinolap.cube.model.v1.CubeDesc.CubeCapacity.LARGE) {
-    newModel.setCapacity(com.kylinolap.cube.model.CubeDesc.RealizationCapacity.LARGE);
-  }
   newModel.setNotifyList(oldModel.getNotifyList());
   newModel.setLastModified(oldModel.getLastModified());
 }

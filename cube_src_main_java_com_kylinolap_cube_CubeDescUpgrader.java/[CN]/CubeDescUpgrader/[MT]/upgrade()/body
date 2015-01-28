@@ -4,7 +4,6 @@
   copyUnChangedProperties(oldModel,newModel);
   DataModelDesc model=extractDataModel(oldModel,newModel);
   newModel.setModel(model);
-  updatePartitionDesc(oldModel,newModel);
   updateDimensions(oldModel,newModel);
   updateRowkeyDictionary(oldModel,newModel);
   return newModel;

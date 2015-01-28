@@ -5,10 +5,12 @@
   int dimId=0;
   for (  com.kylinolap.cube.model.v1.DimensionDesc dim : oldDimensions) {
     com.kylinolap.cube.model.DimensionDesc newDim=null;
+    boolean needNameSuffix=false;
     if (dim.getColumn() != null && !"{FK}".equals(dim.getColumn())) {
       newDim=newDimensionDesc(dim,dimId++,dim.getName());
       newDimensions.add(newDim);
       newDim.setColumn(new String[]{dim.getColumn()});
+      needNameSuffix=true;
     }
  else     if (ArrayUtils.isEmpty(dim.getDerived()) && ArrayUtils.isEmpty(dim.getHierarchy())) {
       newDim=newDimensionDesc(dim,dimId++,dim.getName());
@@ -17,13 +19,14 @@
       newDim.setColumn(dim.getJoin().getForeignKey());
     }
     if (!ArrayUtils.isEmpty(dim.getDerived())) {
-      newDim=newDimensionDesc(dim,dimId++,dim.getName() + "_derived");
+      newDim=newDimensionDesc(dim,dimId++,dim.getName() + (needNameSuffix ? "_DERIVED" : ""));
       newDimensions.add(newDim);
       newDim.setDerived(dim.getDerived());
       newDim.setColumn(null);
+      needNameSuffix=true;
     }
     if (!ArrayUtils.isEmpty(dim.getHierarchy())) {
-      newDim=newDimensionDesc(dim,dimId++,dim.getName() + "_hierarchy");
+      newDim=newDimensionDesc(dim,dimId++,dim.getName() + (needNameSuffix ? "_HIERARCHY" : ""));
       newDimensions.add(newDim);
       newDim.setHierarchy(true);
       List<String> columns=Lists.newArrayList();
