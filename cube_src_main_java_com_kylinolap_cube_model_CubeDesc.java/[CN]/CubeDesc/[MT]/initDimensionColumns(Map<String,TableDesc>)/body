@@ -3,7 +3,7 @@
     JoinDesc join=dim.getJoin();
     ArrayList<TblColRef> dimCols=Lists.newArrayList();
     String[] colStrs=dim.getColumn();
-    if (colStrs == null && dim.isDerived() || StringUtil.contains(colStrs,"{FK}")) {
+    if (colStrs == null && dim.isDerived() || ArrayUtils.contains(colStrs,"{FK}")) {
       for (      TblColRef col : join.getForeignKeyColumns()) {
         dimCols.add(initDimensionColRef(col));
       }
