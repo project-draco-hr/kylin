@@ -1,0 +1,4 @@
+{
+  if (dictionaries == null)   dictionaries=new ConcurrentHashMap<String,String>();
+  return dictionaries;
+}

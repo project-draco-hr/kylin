@@ -5,7 +5,6 @@
   segment.setUuid(UUID.randomUUID().toString());
   segment.setName(incrementalSegName);
   Date creatTime=new Date();
-  segment.setCreateTime(DateStrDictionary.dateToString(creatTime));
   segment.setCreateTimeUTC(creatTime.getTime());
   segment.setDateRangeStart(startDate);
   segment.setDateRangeEnd(endDate);

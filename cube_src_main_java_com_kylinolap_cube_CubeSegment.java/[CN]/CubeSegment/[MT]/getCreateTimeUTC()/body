@@ -1,6 +1,3 @@
 {
-  if (createTimeUTC == 0 && createTime != null) {
-    createTimeUTC=RootPersistentEntity.parseTime(createTime);
-  }
   return createTimeUTC;
 }

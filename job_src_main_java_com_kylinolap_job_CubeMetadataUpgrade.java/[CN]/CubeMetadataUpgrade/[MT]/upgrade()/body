@@ -3,6 +3,7 @@
   upgradeTableDesceExd();
   upgradeCubeDesc();
   upgradeProjectInstance();
+  upgradeCubeInstance();
   upgradeJobInstance();
   verify();
 }
