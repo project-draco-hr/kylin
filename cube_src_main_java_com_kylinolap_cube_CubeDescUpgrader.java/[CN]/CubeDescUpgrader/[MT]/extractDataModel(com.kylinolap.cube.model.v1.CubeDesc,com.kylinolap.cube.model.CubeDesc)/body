@@ -2,7 +2,7 @@
   DataModelDesc dm=new DataModelDesc();
   dm.setUuid(UUID.randomUUID().toString());
   String factTable=oldModel.getFactTable();
-  dm.setName("model_" + oldModel.getName());
+  dm.setName(oldModel.getName());
   dm.setFactTable(getMetadataManager().appendDBName(factTable));
   newModel.setModelName(dm.getName());
   List<com.kylinolap.cube.model.v1.DimensionDesc> oldDimensions=oldModel.getDimensions();

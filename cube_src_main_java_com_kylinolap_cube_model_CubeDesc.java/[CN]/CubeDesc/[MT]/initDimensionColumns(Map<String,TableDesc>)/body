@@ -2,40 +2,27 @@
   for (  DimensionDesc dim : dimensions) {
     TableDesc dimTable=dim.getTableDesc();
     JoinDesc join=dim.getJoin();
-    ArrayList<TblColRef> dimColList=new ArrayList<TblColRef>();
-    ArrayList<TblColRef> hostColList=new ArrayList<TblColRef>();
-    if (dim.getColumn() != null) {
-      if (join != null) {
-        for (        TblColRef ref : join.getForeignKeyColumns()) {
-          TblColRef inited=initDimensionColRef(ref);
-          dimColList.add(inited);
-          hostColList.add(inited);
-        }
+    ArrayList<TblColRef> dimCols=Lists.newArrayList();
+    String[] colStrs=dim.getColumn();
+    if (colStrs == null && dim.isDerived() || StringUtil.contains(colStrs,"{FK}")) {
+      for (      TblColRef col : join.getForeignKeyColumns()) {
+        dimCols.add(initDimensionColRef(col));
       }
+    }
  else {
-        for (        String aColumn : dim.getColumn()) {
-          TblColRef ref=initDimensionColRef(dimTable,aColumn);
-          if (!dimColList.contains(ref)) {
-            dimColList.add(ref);
-          }
-        }
+      if (colStrs == null || colStrs.length == 0)       throw new IllegalStateException("Dimension column must not be blank " + dim);
+      for (      String colStr : colStrs) {
+        dimCols.add(initDimensionColRef(dimTable,colStr));
+      }
+      if (dim.isHierarchy()) {
+        for (int i=0; i < dimCols.size(); i++)         dim.getHierarchy()[i].setColumnRef(dimCols.get(i));
       }
     }
-    if (dim.getHierarchy() != null) {
-      for (      HierarchyDesc hier : dim.getHierarchy()) {
-        TblColRef ref=initDimensionColRef(dimTable,hier.getColumn());
-        hier.setColumnRef(ref);
-        if (!dimColList.contains(ref))         dimColList.add(ref);
-      }
-      if (hostColList.isEmpty()) {
-        hostColList.add(dimColList.get(dimColList.size() - 1));
-      }
-    }
-    TblColRef[] dimCols=(TblColRef[])dimColList.toArray(new TblColRef[dimColList.size()]);
-    dim.setColumnRefs(dimCols);
-    TblColRef[] hostCols=(TblColRef[])hostColList.toArray(new TblColRef[hostColList.size()]);
-    String[] derived=dim.getDerived();
-    if (derived != null) {
+    TblColRef[] dimColArray=(TblColRef[])dimCols.toArray(new TblColRef[dimCols.size()]);
+    dim.setColumnRefs(dimColArray);
+    TblColRef[] hostCols=dimColArray;
+    if (dim.isDerived()) {
+      String[] derived=dim.getDerived();
       String[][] split=splitDerivedColumnAndExtra(derived);
       String[] derivedNames=split[0];
       String[] derivedExtra=split[1];
