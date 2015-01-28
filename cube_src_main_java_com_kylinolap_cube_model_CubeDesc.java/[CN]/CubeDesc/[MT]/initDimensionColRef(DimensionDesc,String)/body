@@ -1,4 +1,5 @@
 {
+  TableDesc table=dim.getTableDesc();
   ColumnDesc col=table.findColumnByName(colName);
   if (col == null)   throw new IllegalArgumentException("No column '" + colName + "' found in table "+ table);
   TblColRef ref=new TblColRef(col);

@@ -1,6 +1,5 @@
 {
   for (  DimensionDesc dim : dimensions) {
-    TableDesc dimTable=dim.getTableDesc();
     JoinDesc join=dim.getJoin();
     ArrayList<TblColRef> dimCols=Lists.newArrayList();
     String[] colStrs=dim.getColumn();
@@ -12,7 +11,7 @@
  else {
       if (colStrs == null || colStrs.length == 0)       throw new IllegalStateException("Dimension column must not be blank " + dim);
       for (      String colStr : colStrs) {
-        dimCols.add(initDimensionColRef(dimTable,colStr));
+        dimCols.add(initDimensionColRef(dim,colStr));
       }
       if (dim.isHierarchy()) {
         for (int i=0; i < dimCols.size(); i++)         dim.getHierarchy()[i].setColumnRef(dimCols.get(i));
@@ -28,7 +27,7 @@
       String[] derivedExtra=split[1];
       TblColRef[] derivedCols=new TblColRef[derivedNames.length];
       for (int i=0; i < derivedNames.length; i++) {
-        derivedCols[i]=initDimensionColRef(dimTable,derivedNames[i]);
+        derivedCols[i]=initDimensionColRef(dim,derivedNames[i]);
       }
       initDerivedMap(hostCols,DeriveType.LOOKUP,dim,derivedCols,derivedExtra);
     }
