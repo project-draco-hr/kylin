@@ -1,0 +1,8 @@
+{
+  if (haystack != null) {
+    for (int i=0, n=haystack.length; i < n; i++) {
+      if (StringUtils.equals(haystack[i],needle))       return true;
+    }
+  }
+  return false;
+}

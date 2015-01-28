@@ -8,32 +8,8 @@
   if (this.model == null) {
     this.addError("No data model found with name '" + modelName + "'.");
   }
-  Map<String,List<TableDesc>> columnTableMap=new HashMap<String,List<TableDesc>>();
-  String colName;
-  for (  TableDesc table : tables.values()) {
-    for (    ColumnDesc col : table.getColumns()) {
-      colName=col.getName();
-      List<TableDesc> tableNames=columnTableMap.get(colName);
-      if (tableNames == null) {
-        tableNames=new LinkedList<TableDesc>();
-        columnTableMap.put(colName,tableNames);
-      }
-      tableNames.add(table);
-    }
-  }
-  Map<String,List<String>> tableDatabaseMap=new HashMap<String,List<String>>();
-  String tableName;
-  for (  TableDesc table : tables.values()) {
-    tableName=table.getName();
-    List<String> dbNames=tableDatabaseMap.get(tableName);
-    if (dbNames == null) {
-      dbNames=new LinkedList<String>();
-      tableDatabaseMap.put(tableName,dbNames);
-    }
-    dbNames.add(table.getDatabase());
-  }
   for (  DimensionDesc dim : dimensions) {
-    dim.init(this,tables,columnTableMap,tableDatabaseMap);
+    dim.init(this,tables);
   }
   sortDimAndMeasure();
   initDimensionColumns(tables);

@@ -1,4 +1,0 @@
-CubeDesc cubeDesc
-Map<String,TableDesc> tables
-Map<String,List<TableDesc>> columnTableMap
-Map<String,List<String>> tableDatabaseMap
