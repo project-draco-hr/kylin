@@ -1,6 +1,6 @@
 {
   CubeDesc cubeDesc=cube.getDescriptor();
-  CubePartitionDesc partDesc=cubeDesc.getCubePartitionDesc();
+  PartitionDesc partDesc=cubeDesc.getModel().getPartitionDesc();
   List<CubeSegment> tobe=Lists.newArrayList(cube.getSegments());
   if (newSegments != null)   tobe.addAll(Arrays.asList(newSegments));
   if (tobe.size() == 0)   return tobe;

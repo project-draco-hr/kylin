@@ -1,5 +1,5 @@
 {
-  if (cubeDesc.getCubePartitionDesc().isPartitioned()) {
+  if (cubeDesc.getModel().getPartitionDesc().isPartitioned()) {
     Iterator<HBaseKeyRange> iterator=scans.iterator();
     while (iterator.hasNext()) {
       HBaseKeyRange scan=iterator.next();

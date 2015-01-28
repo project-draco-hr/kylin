@@ -13,5 +13,8 @@
   if (count > 1) {
     errorMsgs.add("There are more than 1 table named with '" + table + "' in different database; The program couldn't determine, randomly pick '"+ result+ "'");
   }
+  if (count == 0) {
+    errorMsgs.add("There is no table named with '" + table + "'");
+  }
   return result;
 }

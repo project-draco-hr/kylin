@@ -1,5 +1,5 @@
 {
-  if (cube.getDescriptor().getCubePartitionDesc().isPartitioned() == false) {
+  if (cube.getDescriptor().getModel().getPartitionDesc().isPartitioned() == false) {
     throw new IllegalStateException("there is no partition date column specified, only full build is supported");
   }
 }

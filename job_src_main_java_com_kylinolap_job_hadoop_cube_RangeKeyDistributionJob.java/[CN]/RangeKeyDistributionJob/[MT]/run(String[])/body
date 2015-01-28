@@ -31,7 +31,7 @@
     String cubeName=getOptionValue(OPTION_CUBE_NAME).toUpperCase();
     CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
     CubeInstance cube=cubeMgr.getCube(cubeName);
-    RealizationCapacity realizationCapacity=cube.getDescriptor().getCapacity();
+    RealizationCapacity realizationCapacity=cube.getDescriptor().getModel().getCapacity();
     job.getConfiguration().set(BatchConstants.CUBE_CAPACITY,realizationCapacity.toString());
     return waitForCompletion(job);
   }

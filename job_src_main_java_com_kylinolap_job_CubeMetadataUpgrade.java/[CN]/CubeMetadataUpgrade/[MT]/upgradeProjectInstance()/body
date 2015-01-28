@@ -9,7 +9,6 @@
       newPrj.setOwner(oldPrj.getOwner());
       newPrj.setDescription(oldPrj.getDescription());
       newPrj.setLastModified(oldPrj.getLastModified());
-      newPrj.setLastUpdateTime(oldPrj.getLastUpdateTime());
       newPrj.setCreateTimeUTC(RootPersistentEntity.parseTime(oldPrj.getCreateTime()));
       newPrj.setStatus(oldPrj.getStatus());
       List<RealizationEntry> realizationEntries=Lists.newArrayList();
@@ -20,7 +19,6 @@
         realizationEntries.add(entry);
       }
       newPrj.setRealizationEntries(realizationEntries);
-      newPrj.getCreateTimeUTC();
       Set<String> tables=Sets.newHashSet();
       for (      String table : oldPrj.getTables()) {
         tables.add(this.appendDBName(table));

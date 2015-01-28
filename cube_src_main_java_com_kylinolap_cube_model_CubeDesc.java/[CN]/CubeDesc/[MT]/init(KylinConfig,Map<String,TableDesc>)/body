@@ -43,8 +43,8 @@
     hbaseMapping.init(this);
   }
   initMeasureReferenceToColumnFamily();
-  if (null != this.cubePartitionDesc) {
-    this.cubePartitionDesc.init(columnMap);
+  if (null != this.model.getPartitionDesc()) {
+    this.model.getPartitionDesc().init(columnMap);
   }
   List<TblColRef> dimCols=listDimensionColumnsExcludingDerived();
   if (rowkey.getRowKeyColumns().length != dimCols.size()) {
