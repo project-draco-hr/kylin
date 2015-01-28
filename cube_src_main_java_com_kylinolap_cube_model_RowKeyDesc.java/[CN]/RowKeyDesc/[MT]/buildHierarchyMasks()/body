@@ -1,6 +1,6 @@
 {
   this.hierarchyMasks=new ArrayList<HierarchyMask>();
-  for (  DimensionDesc dimension : this.cubeRef.getDimensions()) {
+  for (  DimensionDesc dimension : this.cubeDesc.getDimensions()) {
     HierarchyDesc[] hierarchies=dimension.getHierarchy();
     if (hierarchies == null || hierarchies.length == 0)     continue;
     HierarchyMask mask=new HierarchyMask();
