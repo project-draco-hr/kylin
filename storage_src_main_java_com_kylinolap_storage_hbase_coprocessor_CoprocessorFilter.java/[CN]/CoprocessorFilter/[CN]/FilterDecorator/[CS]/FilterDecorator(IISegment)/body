@@ -1,3 +1,0 @@
-{
-  columnIO=new RowKeyColumnIO(seg);
-}

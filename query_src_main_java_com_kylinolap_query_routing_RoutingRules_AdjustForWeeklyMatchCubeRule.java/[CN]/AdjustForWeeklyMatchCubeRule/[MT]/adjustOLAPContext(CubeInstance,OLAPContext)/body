@@ -9,7 +9,7 @@
   while (it.hasNext()) {
     FunctionDesc functionDesc=it.next();
     if (!cubeFuncs.contains(functionDesc)) {
-      TblColRef col=functionDesc.selectTblColByMetrics(metricsColumns,cubeDesc.getFactTable());
+      TblColRef col=functionDesc.selectTblColRef(metricsColumns,cubeDesc.getFactTable());
       functionDesc.setAppliedOnDimension(true);
       rewriteFields.remove(functionDesc.getRewriteFieldName());
       if (col != null) {

@@ -1,0 +1,7 @@
+{
+  Map<String,String> result=new HashMap<String,String>();
+  result.put("jobId",jobId);
+  result.put("stepId",String.valueOf(stepId));
+  result.put("cmd_output",jobService.getExecutableManager().getOutput(stepId).getVerboseMsg());
+  return result;
+}

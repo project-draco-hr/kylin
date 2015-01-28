@@ -22,7 +22,6 @@
   }
  catch (  Exception e) {
     printUsage(options);
-    e.printStackTrace(System.err);
-    return 2;
+    throw e;
   }
 }

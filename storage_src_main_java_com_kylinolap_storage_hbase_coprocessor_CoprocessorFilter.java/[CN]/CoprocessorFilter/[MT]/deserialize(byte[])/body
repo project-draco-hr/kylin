@@ -1,4 +1,4 @@
 {
   TupleFilter filter=(filterBytes == null || filterBytes.length == 0) ? null : TupleFilterSerializer.deserialize(filterBytes);
-  return new CoprocessorFilter(filter);
+  return new CoprocessorFilter(filter,null);
 }

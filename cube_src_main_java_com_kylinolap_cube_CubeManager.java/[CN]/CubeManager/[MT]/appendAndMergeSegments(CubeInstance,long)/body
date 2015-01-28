@@ -1,0 +1,14 @@
+{
+  checkNoBuildingSegment(cube);
+  checkCubeIsPartitioned(cube);
+  long appendStart=calculateStartDateForAppendSegment(cube);
+  CubeSegment appendSegment=newSegment(cube,appendStart,endDate);
+  long startDate=cube.getDescriptor().getCubePartitionDesc().getPartitionDateStart();
+  CubeSegment mergeSegment=newSegment(cube,startDate,endDate);
+  validateNewSegments(cube,mergeSegment);
+  cube.getSegments().add(appendSegment);
+  cube.getSegments().add(mergeSegment);
+  Collections.sort(cube.getSegments());
+  updateCube(cube);
+  return new Pair<CubeSegment,CubeSegment>(appendSegment,mergeSegment);
+}
