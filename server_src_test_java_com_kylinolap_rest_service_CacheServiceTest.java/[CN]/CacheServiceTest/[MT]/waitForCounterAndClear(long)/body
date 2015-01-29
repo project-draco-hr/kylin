@@ -1,5 +1,9 @@
 {
-  while (!counter.compareAndSet(count,0L)) {
+  int retryTimes=0;
+  while ((!counter.compareAndSet(count,0L))) {
+    if (++retryTimes > 30) {
+      throw new RuntimeException("timeout");
+    }
     try {
       Thread.sleep(100L);
     }

@@ -12,4 +12,5 @@
   assertTrue(!getCubeDescManager(configA).equals(getCubeDescManager(configB)));
   assertTrue(!getProjectManager(configA).equals(getProjectManager(configB)));
   assertTrue(!getMetadataManager(configA).equals(getMetadataManager(configB)));
+  assertEquals(getProjectManager(configA).listAllProjects().size(),getProjectManager(configB).listAllProjects().size());
 }
