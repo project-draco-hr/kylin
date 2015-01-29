@@ -1,7 +1,7 @@
 {
   MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
   TableDesc fact=metaMgr.getTableDesc("default.test_kylin_fact");
-  String oldResLocation=fact.getResourcePathV1();
+  @SuppressWarnings("deprecation") String oldResLocation=fact.getResourcePathV1();
   String newResLocation=fact.getResourcePath();
   ResourceStore store=ResourceStore.getStore(KylinConfig.getInstanceFromEnv());
   Assert.assertTrue(store.exists(newResLocation));
