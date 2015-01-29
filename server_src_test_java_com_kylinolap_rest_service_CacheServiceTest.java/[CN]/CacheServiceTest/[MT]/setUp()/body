@@ -19,6 +19,7 @@
       Broadcaster.EVENT wipeEvent=Broadcaster.EVENT.getEvent(event);
       final String log="wipe cache type: " + wipeType + " event:"+ wipeEvent+ " name:"+ name;
       logger.info(log);
+      counter.incrementAndGet();
 switch (wipeEvent) {
 case CREATE:
 case UPDATE:
@@ -34,4 +35,5 @@ throw new RuntimeException("invalid type:" + wipeEvent);
 }
 )),"/");
 server.start();
+counter.set(0L);
 }

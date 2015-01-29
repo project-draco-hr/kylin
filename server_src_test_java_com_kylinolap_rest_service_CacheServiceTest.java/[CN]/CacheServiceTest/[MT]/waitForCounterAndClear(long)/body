@@ -1,0 +1,10 @@
+{
+  while (!counter.compareAndSet(count,0L)) {
+    try {
+      Thread.sleep(100L);
+    }
+ catch (    InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+}
