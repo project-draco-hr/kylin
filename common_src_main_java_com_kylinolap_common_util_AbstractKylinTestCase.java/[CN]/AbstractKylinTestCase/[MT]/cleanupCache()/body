@@ -3,7 +3,7 @@
   try {
     config=KylinConfig.getInstanceFromEnv();
   }
- catch (  IllegalArgumentException e) {
+ catch (  Exception e) {
   }
   if (config == null)   return;
   for (  String serviceClass : SERVICES_WITH_CACHE) {
