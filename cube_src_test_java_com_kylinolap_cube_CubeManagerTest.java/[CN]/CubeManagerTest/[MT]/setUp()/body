@@ -1,6 +1,6 @@
 {
   this.createTestMetadata();
-  MetadataManager.removeInstance(getTestConfig());
-  CubeManager.removeInstance(getTestConfig());
-  ProjectManager.removeInstance(getTestConfig());
+  MetadataManager.clearCache();
+  CubeManager.clearCache();
+  ProjectManager.clearCache();
 }
