@@ -16,7 +16,7 @@
     t.close();
   }
   System.out.println("dfs uri: -------" + dfsCluster.getFileSystem().getUri().toString());
-  System.out.println("dfs base directory: -------" + dfsCluster.getBaseDirectory().toString());
+  System.out.println("dfs base directory: -------" + MiniDFSCluster.getBaseDirectory().toString());
   Configuration config=hbaseCluster.getConf();
   String host=config.get(HConstants.ZOOKEEPER_QUORUM);
   String port=config.get(HConstants.ZOOKEEPER_CLIENT_PORT);

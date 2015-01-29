@@ -1,5 +1,11 @@
 {
-  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  KylinConfig config=null;
+  try {
+    config=KylinConfig.getInstanceFromEnv();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  if (config == null)   return;
   for (  String serviceClass : SERVICES_WITH_CACHE) {
     try {
       Class<?> cls=Class.forName(serviceClass);
