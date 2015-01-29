@@ -1,0 +1,10 @@
+{
+  String tempTestMetadataUrl="../examples/test_metadata";
+  try {
+    FileUtils.deleteDirectory(new File(tempTestMetadataUrl));
+  }
+ catch (  IOException e) {
+    throw new IllegalStateException("Can't delete directory " + tempTestMetadataUrl,e);
+  }
+  staticCleanupTestMetadata();
+}

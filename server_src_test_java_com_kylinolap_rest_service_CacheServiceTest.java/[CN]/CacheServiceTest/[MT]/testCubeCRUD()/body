@@ -1,5 +1,4 @@
 {
-  final int sleepTime=400;
   final Broadcaster broadcaster=Broadcaster.getInstance();
   broadcaster.getCounterAndClear();
   getStore().deleteResource("/cube/a_whole_new_cube.json");
@@ -18,7 +17,7 @@
   cubeManager.createCube(cubeName,ProjectInstance.DEFAULT_PROJECT_NAME,cubeDesc,null);
   assertNotNull(cubeManager.getCube(cubeName));
   assertEquals(2,broadcaster.getCounterAndClear());
-  Thread.sleep(sleepTime);
+  waitForCounterAndClear(2);
   assertNotNull(cubeManagerB.getCube(cubeName));
   assertTrue(containsRealization(projectManager.listAllRealizations(ProjectInstance.DEFAULT_PROJECT_NAME),RealizationType.CUBE,cubeName));
   assertTrue(containsRealization(projectManagerB.listAllRealizations(ProjectInstance.DEFAULT_PROJECT_NAME),RealizationType.CUBE,cubeName));
@@ -30,14 +29,14 @@
   cube.getSegments().add(segment);
   cubeManager.updateCube(cube);
   assertEquals(1,broadcaster.getCounterAndClear());
-  Thread.sleep(sleepTime);
+  waitForCounterAndClear(1);
   assertEquals(1,cubeManagerB.getCube(cubeName).getSegments().size());
   assertEquals(segment.getName(),cubeManagerB.getCube(cubeName).getSegments().get(0).getName());
   cubeManager.dropCube(cubeName,false);
   assertTrue(cubeManager.getCube(cubeName) == null);
   assertTrue(!containsRealization(projectManager.listAllRealizations(ProjectInstance.DEFAULT_PROJECT_NAME),RealizationType.CUBE,cubeName));
   assertEquals(2,broadcaster.getCounterAndClear());
-  Thread.sleep(sleepTime);
+  waitForCounterAndClear(2);
   assertTrue(cubeManagerB.getCube(cubeName) == null);
   assertTrue(!containsRealization(projectManagerB.listAllRealizations(ProjectInstance.DEFAULT_PROJECT_NAME),RealizationType.CUBE,cubeName));
   final String cubeDescName="test_cube_desc";
@@ -47,17 +46,17 @@
   assertTrue(cubeDescManagerB.getCubeDesc(cubeDescName) == null);
   cubeDescManager.createCubeDesc(cubeDesc);
   assertEquals(1,broadcaster.getCounterAndClear());
-  Thread.sleep(sleepTime);
+  waitForCounterAndClear(1);
   assertNotNull(cubeDescManager.getCubeDesc(cubeDescName));
   assertNotNull(cubeDescManagerB.getCubeDesc(cubeDescName));
   cubeDesc.setNotifyList(Arrays.asList("test@email","test@email","test@email"));
   cubeDescManager.updateCubeDesc(cubeDesc);
   assertEquals(1,broadcaster.getCounterAndClear());
-  Thread.sleep(sleepTime);
+  waitForCounterAndClear(1);
   assertEquals(cubeDesc.getNotifyList(),cubeDescManagerB.getCubeDesc(cubeDescName).getNotifyList());
   cubeDescManager.removeCubeDesc(cubeDesc);
   assertEquals(1,broadcaster.getCounterAndClear());
-  Thread.sleep(sleepTime);
+  waitForCounterAndClear(1);
   assertTrue(cubeDescManager.getCubeDesc(cubeDescName) == null);
   assertTrue(cubeDescManagerB.getCubeDesc(cubeDescName) == null);
   getStore().deleteResource("/cube/a_whole_new_cube.json");
