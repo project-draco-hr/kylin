@@ -1,4 +1,3 @@
 {
   this.seg=ii.getFirstSegment();
-  this.hbaseUrl=KylinConfig.getInstanceFromEnv().getStorageUrl();
 }
