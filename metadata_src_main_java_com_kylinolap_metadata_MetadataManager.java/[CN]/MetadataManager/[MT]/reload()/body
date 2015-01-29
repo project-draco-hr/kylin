@@ -1,4 +1,4 @@
 {
-  removeInstance(config);
+  clearCache();
   getInstance(config);
 }

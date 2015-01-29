@@ -1,10 +1,10 @@
 {
   createTestMetadata();
   logger.info("The metadataUrl is : " + getTestConfig());
-  MetadataManager.removeInstance(getTestConfig());
-  CubeManager.removeInstance(getTestConfig());
-  ProjectManager.removeInstance(getTestConfig());
-  DictionaryManager.removeInstance(getTestConfig());
+  MetadataManager.clearCache();
+  CubeManager.clearCache();
+  ProjectManager.clearCache();
+  DictionaryManager.clearCache();
   FileUtils.deleteDirectory(new File("../job/meta"));
   MergeCuboidMapper mapper=new MergeCuboidMapper();
   mapDriver=MapDriver.newMapDriver(mapper);
