@@ -1,4 +1,16 @@
 {
+  MetadataManager metaManager=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+  DataModelDesc modelDesc=deserializeDataModelDesc(cubeRequest);
+  if (modelDesc == null) {
+    return cubeRequest;
+  }
+  try {
+    metaManager.updateDataModelDesc(modelDesc);
+  }
+ catch (  IOException e) {
+    logger.error("Failed to deal with the request:" + e.getLocalizedMessage(),e);
+    throw new InternalErrorException("Failed to deal with the request: " + e.getLocalizedMessage() + e.getMessage());
+  }
   CubeDesc desc=deserializeCubeDesc(cubeRequest);
   if (desc == null) {
     return cubeRequest;
