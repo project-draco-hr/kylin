@@ -1,3 +1,4 @@
 {
   counter.set(0L);
+  createTestMetadata();
 }
