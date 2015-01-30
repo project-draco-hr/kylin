@@ -1,8 +1,8 @@
 {
-  CoprocessorRowType type=null;
-  CoprocessorProjector projector=null;
-  EndpointAggregators aggregators=null;
-  CoprocessorFilter filter=null;
+  CoprocessorRowType type;
+  CoprocessorProjector projector;
+  EndpointAggregators aggregators;
+  CoprocessorFilter filter;
   type=CoprocessorRowType.deserialize(request.getType().toByteArray());
   projector=CoprocessorProjector.deserialize(request.getProjector().toByteArray());
   aggregators=EndpointAggregators.deserialize(request.getAggregator().toByteArray());
