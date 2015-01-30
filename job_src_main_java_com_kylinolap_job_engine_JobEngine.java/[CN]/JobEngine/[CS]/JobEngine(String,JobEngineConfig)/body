@@ -1,13 +1,14 @@
 {
-  if (context.getZookeeperString() == null || context.getZookeeperString().equals("")) {
-    throw new IllegalArgumentException("Zookeeper connection string is null or empty");
-  }
   log.info("Using metadata url: " + context.getConfig());
+  String ZKConnectString=getZKConnectString(context);
+  if (StringUtils.isEmpty(ZKConnectString)) {
+    throw new IllegalArgumentException("ZOOKEEPER_QUORUM is empty!");
+  }
   this.engineID=engineID;
   this.engineConfig=context;
   this.scheduler=new QuatzScheduler();
   RetryPolicy retryPolicy=new ExponentialBackoffRetry(1000,3);
-  this.zkClient=CuratorFrameworkFactory.newClient(context.getZookeeperString(),retryPolicy);
+  this.zkClient=CuratorFrameworkFactory.newClient(ZKConnectString,retryPolicy);
   this.zkClient.start();
   Runtime.getRuntime().addShutdownHook(new Thread(){
     public void run(){

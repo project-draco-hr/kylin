@@ -1,0 +1,6 @@
+{
+  if (hadoopConfig.get() == null) {
+    hadoopConfig.set(new Configuration());
+  }
+  return hadoopConfig.get();
+}

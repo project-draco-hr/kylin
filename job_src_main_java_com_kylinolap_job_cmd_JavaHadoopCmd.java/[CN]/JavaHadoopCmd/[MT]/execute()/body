@@ -10,6 +10,10 @@
     output.appendOutput(e.getLocalizedMessage());
     output.setExitCode(-1);
   }
+  final String errorLog=job.getErrorLog();
+  if (!StringUtils.isEmpty(errorLog)) {
+    output.appendOutput(errorLog);
+  }
   output.appendOutput("Command execute return code " + output.getExitCode());
   if (output.getExitCode() != 0) {
     output.setStatus(JobStepStatusEnum.ERROR);

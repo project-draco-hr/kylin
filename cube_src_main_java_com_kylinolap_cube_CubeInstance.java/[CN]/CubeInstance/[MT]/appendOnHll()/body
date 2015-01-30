@@ -1,4 +1,5 @@
 {
+  if (true)   return false;
   CubePartitionDesc cubePartitionDesc=getDescriptor().getCubePartitionDesc();
   if (cubePartitionDesc == null) {
     return false;

@@ -1,1 +1,1 @@
-Mapper<KEYIN,Text,ShortWritable,Text>
+KylinMapper<KEYIN,Text,ShortWritable,Text>
