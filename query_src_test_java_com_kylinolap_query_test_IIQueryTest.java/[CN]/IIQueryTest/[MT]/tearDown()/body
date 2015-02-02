@@ -1,0 +1,8 @@
+{
+  KylinQueryTest.tearDown();
+  distinctCountSupported=true;
+  Map<RealizationType,Integer> priorities=Maps.newHashMap();
+  priorities.put(RealizationType.INVERTED_INDEX,1);
+  priorities.put(RealizationType.CUBE,0);
+  RealizationPriorityRule.setPriorities(priorities);
+}
