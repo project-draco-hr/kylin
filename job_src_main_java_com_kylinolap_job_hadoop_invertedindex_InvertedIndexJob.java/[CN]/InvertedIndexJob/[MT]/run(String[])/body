@@ -13,8 +13,8 @@
     System.out.println("Starting: " + job.getJobName());
     IIInstance ii=getII(iiname);
     short sharding=ii.getDescriptor().getSharding();
-    setupMapInput(intermediateTable);
-    setupReduceOutput(output,sharding);
+    setupMapper(intermediateTable);
+    setupReducer(output,sharding);
     attachMetadata(ii);
     return waitForCompletion(job);
   }
