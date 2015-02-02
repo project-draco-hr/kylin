@@ -1,0 +1,5 @@
+{
+  MetadataManager metaManager=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+  DataModelDesc modeDesc=metaManager.getDataModelDesc(model_name);
+  return modeDesc;
+}
