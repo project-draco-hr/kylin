@@ -14,8 +14,8 @@
     CubeInstance cubeInstance=cubeMgr.getCube(cubeName);
     job.getConfiguration().set(BatchConstants.CFG_CUBE_NAME,cubeName);
     System.out.println("Starting: " + job.getJobName());
-    setupMapInput(intermediateTable);
-    setupReduceOutput(output);
+    setupMapper(intermediateTable);
+    setupReducer(output);
     attachKylinPropsAndMetadata(cubeInstance,job.getConfiguration());
     return waitForCompletion(job);
   }
