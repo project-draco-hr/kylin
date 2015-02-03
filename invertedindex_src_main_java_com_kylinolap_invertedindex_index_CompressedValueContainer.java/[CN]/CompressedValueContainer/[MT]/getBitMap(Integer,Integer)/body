@@ -1,6 +1,6 @@
 {
   ConciseSet ret=new ConciseSet();
-  int nullId=com.kylinolap.dict.Dictionary.NULL_ID[valueLen];
+  int nullId=Dictionary.NULL_ID[valueLen];
   if (startId == null && endId == null) {
     for (int i=0; i < size; ++i) {
       int valueID=BytesUtil.readUnsigned(uncompressed,i * valueLen,valueLen);

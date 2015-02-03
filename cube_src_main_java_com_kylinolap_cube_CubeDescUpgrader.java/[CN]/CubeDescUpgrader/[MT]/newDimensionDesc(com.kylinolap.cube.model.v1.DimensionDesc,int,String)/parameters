@@ -1,3 +1,0 @@
-com.kylinolap.cube.model.v1.DimensionDesc dim
-int dimId
-String name

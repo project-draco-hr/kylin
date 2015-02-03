@@ -2,7 +2,7 @@
   List<String> paths=listResourceStore(ResourceStore.PROJECT_RESOURCE_ROOT);
   for (  String path : paths) {
     try {
-      com.kylinolap.cube.model.v1.ProjectInstance oldPrj=store.getResource(path,com.kylinolap.cube.model.v1.ProjectInstance.class,new JsonSerializer<com.kylinolap.cube.model.v1.ProjectInstance>(com.kylinolap.cube.model.v1.ProjectInstance.class));
+      org.apache.kylin.cube.model.v1.ProjectInstance oldPrj=store.getResource(path,org.apache.kylin.cube.model.v1.ProjectInstance.class,new JsonSerializer<org.apache.kylin.cube.model.v1.ProjectInstance>(org.apache.kylin.cube.model.v1.ProjectInstance.class));
       ProjectInstance newPrj=new ProjectInstance();
       newPrj.setUuid(oldPrj.getUuid());
       newPrj.setName(oldPrj.getName());

@@ -1,0 +1,20 @@
+{
+  ResourceStore store=getStore();
+  CubeDesc ndesc=store.getResource(path,CubeDesc.class,CUBE_DESC_SERIALIZER_V1);
+  if (StringUtils.isBlank(ndesc.getName())) {
+    throw new IllegalStateException("CubeDesc name must not be blank");
+  }
+  Map<String,TableDesc> tableMap=getMetadataManager().getAllTablesMap();
+  Map<String,TableDesc> newMap=Maps.newHashMap();
+  for (  Entry<String,TableDesc> entry : tableMap.entrySet()) {
+    String t=entry.getKey();
+    if (t.indexOf(".") > 0) {
+      newMap.put(t.substring(t.indexOf(".") + 1),entry.getValue());
+    }
+  }
+  ndesc.init(KylinConfig.getInstanceFromEnv(),newMap);
+  if (ndesc.getError().isEmpty() == false) {
+    throw new IllegalStateException("Cube desc at " + path + " has issues: "+ ndesc.getError());
+  }
+  return ndesc;
+}

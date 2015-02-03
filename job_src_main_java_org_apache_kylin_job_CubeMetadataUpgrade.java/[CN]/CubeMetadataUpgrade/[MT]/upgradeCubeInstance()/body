@@ -2,11 +2,11 @@
   ResourceStore store=getStore();
   List<String> paths=listResourceStore(ResourceStore.CUBE_RESOURCE_ROOT);
   for (  String path : paths) {
-    com.kylinolap.cube.model.v1.CubeInstance cubeInstance=null;
+    CubeInstance cubeInstance=null;
     try {
-      cubeInstance=store.getResource(path,com.kylinolap.cube.model.v1.CubeInstance.class,new JsonSerializer<com.kylinolap.cube.model.v1.CubeInstance>(com.kylinolap.cube.model.v1.CubeInstance.class));
+      cubeInstance=store.getResource(path,CubeInstance.class,new JsonSerializer<CubeInstance>(CubeInstance.class));
       cubeInstance.setConfig(config);
-      com.kylinolap.cube.CubeInstance newInstance=new com.kylinolap.cube.CubeInstance();
+      org.apache.kylin.cube.CubeInstance newInstance=new org.apache.kylin.cube.CubeInstance();
       newInstance.setName(cubeInstance.getName());
       newInstance.setDescName(cubeInstance.getDescName());
       newInstance.setOwner(cubeInstance.getOwner());
@@ -26,9 +26,9 @@
  else       if (cubeInstance.getStatus() == CubeStatusEnum.READY) {
         newInstance.setStatus(RealizationStatusEnum.READY);
       }
-      List<com.kylinolap.cube.CubeSegment> newSegments=Lists.newArrayList();
-      for (      com.kylinolap.cube.model.v1.CubeSegment segment : cubeInstance.getSegments()) {
-        com.kylinolap.cube.CubeSegment newSeg=new com.kylinolap.cube.CubeSegment();
+      List<org.apache.kylin.cube.CubeSegment> newSegments=Lists.newArrayList();
+      for (      CubeSegment segment : cubeInstance.getSegments()) {
+        org.apache.kylin.cube.CubeSegment newSeg=new org.apache.kylin.cube.CubeSegment();
         newSegments.add(newSeg);
         newSeg.setUuid(segment.getUuid());
         newSeg.setName(segment.getName());
