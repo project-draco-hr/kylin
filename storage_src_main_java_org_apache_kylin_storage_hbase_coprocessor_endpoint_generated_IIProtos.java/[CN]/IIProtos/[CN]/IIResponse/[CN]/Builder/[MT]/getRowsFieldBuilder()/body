@@ -1,0 +1,7 @@
+{
+  if (rowsBuilder_ == null) {
+    rowsBuilder_=new com.google.protobuf.RepeatedFieldBuilder<IIProtos.IIResponse.IIRow,IIProtos.IIResponse.IIRow.Builder,IIProtos.IIResponse.IIRowOrBuilder>(rows_,((bitField0_ & 0x00000001) == 0x00000001),getParentForChildren(),isClean());
+    rows_=null;
+  }
+  return rowsBuilder_;
+}

@@ -1,0 +1,3 @@
+{
+  return new ObserverAggregators.HCol(Bytes.toBytes(family),Bytes.toBytes(qualifier),funcNames,dataTypes);
+}

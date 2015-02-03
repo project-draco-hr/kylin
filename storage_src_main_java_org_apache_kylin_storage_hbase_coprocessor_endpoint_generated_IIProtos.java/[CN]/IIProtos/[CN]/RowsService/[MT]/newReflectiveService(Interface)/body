@@ -1,0 +1,8 @@
+{
+  return new RowsService(){
+    @java.lang.Override public void getRows(    com.google.protobuf.RpcController controller,    IIProtos.IIRequest request,    com.google.protobuf.RpcCallback<IIProtos.IIResponse> done){
+      impl.getRows(controller,request,done);
+    }
+  }
+;
+}

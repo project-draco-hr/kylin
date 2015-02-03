@@ -1,0 +1,3 @@
+{
+  return IIProtos.internal_static_IIRequest_fieldAccessorTable.ensureFieldAccessorsInitialized(IIProtos.IIRequest.class,IIProtos.IIRequest.Builder.class);
+}
