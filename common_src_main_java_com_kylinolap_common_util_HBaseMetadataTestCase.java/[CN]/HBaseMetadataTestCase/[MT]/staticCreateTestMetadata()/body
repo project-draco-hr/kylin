@@ -1,9 +1,0 @@
-{
-  if (useSandbox()) {
-    staticCreateTestMetadata(AbstractKylinTestCase.SANDBOX_TEST_DATA);
-  }
- else {
-    staticCreateTestMetadata(AbstractKylinTestCase.MINICLUSTER_TEST_DATA);
-    HBaseMiniclusterMetadataTestCase.startupMinicluster();
-  }
-}
