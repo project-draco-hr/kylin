@@ -15,12 +15,7 @@
       newPartition.setPartitionDateColumn(partitionCol);
     }
   }
-  if (partition.getCubePartitionType() == com.kylinolap.cube.model.v1.CubePartitionDesc.CubePartitionType.APPEND) {
-    newPartition.setCubePartitionType(com.kylinolap.metadata.model.PartitionDesc.PartitionType.APPEND);
-  }
- else   if (partition.getCubePartitionType() == CubePartitionDesc.CubePartitionType.UPDATE_INSERT) {
-    newPartition.setCubePartitionType(com.kylinolap.metadata.model.PartitionDesc.PartitionType.UPDATE_INSERT);
-  }
+  newPartition.setCubePartitionType(com.kylinolap.metadata.model.PartitionDesc.PartitionType.APPEND);
   newPartition.setPartitionDateStart(partition.getPartitionDateStart());
   dm.setPartitionDesc(newPartition);
 }
