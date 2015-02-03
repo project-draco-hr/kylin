@@ -1,0 +1,14 @@
+{
+  List<ColumnMetaData> meta=new ArrayList<ColumnMetaData>();
+  for (int i=0; i < 10; i++) {
+    meta.add(ColumnMetaData.dummy(ColumnMetaData.scalar(Types.VARCHAR,"varchar",Rep.STRING),true));
+  }
+  List<KylinMetaImpl.MetaTable> tables=new ArrayList<KylinMetaImpl.MetaTable>();
+  KylinMetaImpl.MetaTable table=new KylinMetaImpl.MetaTable("dummy","dummy","dummy","dummy","dummy","dummy","dummy","dummy","dummy","dummy",new ArrayList<KylinMetaImpl.MetaColumn>());
+  tables.add(table);
+  List<KylinMetaImpl.MetaSchema> schemas=new ArrayList<KylinMetaImpl.MetaSchema>();
+  schemas.add(new KylinMetaImpl.MetaSchema("dummy","dummy",tables));
+  List<KylinMetaImpl.MetaCatalog> catalogs=new ArrayList<KylinMetaImpl.MetaCatalog>();
+  catalogs.add(new KylinMetaImpl.MetaCatalog("dummy",schemas));
+  return new KylinMetaImpl.MetaProject(null,catalogs);
+}

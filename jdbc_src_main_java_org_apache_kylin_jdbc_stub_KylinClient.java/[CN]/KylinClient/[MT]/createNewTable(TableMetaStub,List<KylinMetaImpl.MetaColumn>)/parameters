@@ -1,0 +1,2 @@
+TableMetaStub tableMetaStub
+List<KylinMetaImpl.MetaColumn> columns
