@@ -1,4 +1,13 @@
 {
-  Configuration conf=HBaseConfiguration.create();
-  return conf.get(HConstants.ZOOKEEPER_CLIENT_PORT);
+  String output=HBASE_CLASSPATH_LOADER.loadValue();
+  String[] paths=output.split(":");
+  StringBuilder sb=new StringBuilder();
+  for (  String path : paths) {
+    path=path.trim();
+    File f=new File(path);
+    if (StringUtils.containsIgnoreCase(path,"conf") && f.exists() && f.isDirectory()&& f.getName().equalsIgnoreCase("conf")) {
+      sb.append(":" + path);
+    }
+  }
+  return sb.toString();
 }

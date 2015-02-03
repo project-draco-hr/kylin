@@ -1,5 +1,5 @@
 {
-  Driver driver=(Driver)Class.forName("com.kylinolap.kylin.jdbc.Driver").newInstance();
+  Driver driver=(Driver)Class.forName("org.apache.kylin.kylin.jdbc.Driver").newInstance();
   Properties info=new Properties();
   info.put("user","");
   info.put("password","");
