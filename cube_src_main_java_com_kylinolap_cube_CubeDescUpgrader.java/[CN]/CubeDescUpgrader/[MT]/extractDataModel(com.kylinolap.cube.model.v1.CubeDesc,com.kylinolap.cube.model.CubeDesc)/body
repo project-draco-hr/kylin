@@ -21,13 +21,13 @@
   dm.setFilterCondition(oldModel.getFilterCondition());
   updatePartitionDesc(oldModel,dm);
   if (oldModel.getCapacity() == com.kylinolap.cube.model.v1.CubeDesc.CubeCapacity.SMALL) {
-    dm.setCapacity(com.kylinolap.metadata.model.DataModelDesc.RealizationCapacity.SMALL);
+    dm.setCapacity(DataModelDesc.RealizationCapacity.SMALL);
   }
  else   if (oldModel.getCapacity() == com.kylinolap.cube.model.v1.CubeDesc.CubeCapacity.MEDIUM) {
-    dm.setCapacity(com.kylinolap.metadata.model.DataModelDesc.RealizationCapacity.MEDIUM);
+    dm.setCapacity(DataModelDesc.RealizationCapacity.MEDIUM);
   }
  else   if (oldModel.getCapacity() == com.kylinolap.cube.model.v1.CubeDesc.CubeCapacity.LARGE) {
-    dm.setCapacity(com.kylinolap.metadata.model.DataModelDesc.RealizationCapacity.LARGE);
+    dm.setCapacity(DataModelDesc.RealizationCapacity.LARGE);
   }
   return dm;
 }
