@@ -1,0 +1,14 @@
+{
+  Configuration conf=HBaseConfiguration.create();
+  HBaseAdmin hbaseAdmin=new HBaseAdmin(conf);
+  for (  HTableDescriptor descriptor : hbaseAdmin.listTables()) {
+    String name=descriptor.getNameAsString().toLowerCase();
+    if (name.startsWith("kylin") || name.startsWith("_kylin")) {
+      String x=descriptor.getValue("KYLIN_HOST");
+      System.out.println("table name " + descriptor.getNameAsString() + " host: "+ x);
+      System.out.println(descriptor);
+      System.out.println();
+    }
+  }
+  hbaseAdmin.close();
+}
