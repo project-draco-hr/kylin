@@ -1,3 +1,0 @@
-{
-  return getRowNoByID(dict.getIdFromValue(key));
-}

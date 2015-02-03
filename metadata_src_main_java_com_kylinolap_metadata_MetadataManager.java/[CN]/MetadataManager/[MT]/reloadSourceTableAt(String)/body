@@ -1,8 +1,0 @@
-{
-  ResourceStore store=getStore();
-  TableDesc t=store.getResource(path,TableDesc.class,TABLE_SERIALIZER);
-  t.init();
-  String tableIdentity=t.getIdentity();
-  srcTableMap.putLocal(tableIdentity,t);
-  return t;
-}

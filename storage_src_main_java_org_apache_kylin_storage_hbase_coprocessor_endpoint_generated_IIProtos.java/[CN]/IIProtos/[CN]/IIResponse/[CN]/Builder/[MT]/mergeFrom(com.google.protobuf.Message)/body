@@ -1,0 +1,9 @@
+{
+  if (other instanceof IIProtos.IIResponse) {
+    return mergeFrom((IIProtos.IIResponse)other);
+  }
+ else {
+    super.mergeFrom(other);
+    return this;
+  }
+}

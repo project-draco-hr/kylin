@@ -1,0 +1,6 @@
+{
+  IIDesc iiDesc=IIDescManager.getInstance(getTestConfig()).getIIDesc("test_kylin_ii_desc");
+  DataModelDesc model=iiDesc.getModel();
+  Assert.assertNotNull(iiDesc);
+  Assert.assertNotNull(model);
+}

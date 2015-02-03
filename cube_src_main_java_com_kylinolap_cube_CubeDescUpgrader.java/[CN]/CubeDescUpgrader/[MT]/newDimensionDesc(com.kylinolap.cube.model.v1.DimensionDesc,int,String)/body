@@ -1,7 +1,0 @@
-{
-  com.kylinolap.cube.model.DimensionDesc newDim=new com.kylinolap.cube.model.DimensionDesc();
-  newDim.setId(dimId);
-  newDim.setName(name);
-  newDim.setTable(getMetadataManager().appendDBName(dim.getTable()));
-  return newDim;
-}

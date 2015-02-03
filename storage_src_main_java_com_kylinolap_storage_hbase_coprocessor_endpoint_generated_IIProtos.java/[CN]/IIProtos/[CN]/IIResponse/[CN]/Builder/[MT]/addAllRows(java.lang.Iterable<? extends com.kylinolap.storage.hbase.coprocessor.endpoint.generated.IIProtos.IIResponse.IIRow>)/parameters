@@ -1,1 +1,0 @@
-java.lang.Iterable<? extends com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow> values

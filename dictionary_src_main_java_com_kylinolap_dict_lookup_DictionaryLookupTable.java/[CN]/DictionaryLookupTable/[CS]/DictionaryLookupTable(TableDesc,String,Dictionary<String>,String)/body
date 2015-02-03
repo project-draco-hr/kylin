@@ -1,7 +1,0 @@
-{
-  this.tableDesc=tableDesc;
-  this.keyCol=keyCol;
-  this.dict=dict;
-  this.tablePath=tablePath;
-  init();
-}

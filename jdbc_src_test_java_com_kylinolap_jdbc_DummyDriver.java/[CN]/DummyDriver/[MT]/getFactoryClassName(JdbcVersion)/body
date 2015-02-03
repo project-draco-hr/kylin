@@ -1,3 +1,0 @@
-{
-  return "com.kylinolap.jdbc.DummyJdbc41Factory";
-}

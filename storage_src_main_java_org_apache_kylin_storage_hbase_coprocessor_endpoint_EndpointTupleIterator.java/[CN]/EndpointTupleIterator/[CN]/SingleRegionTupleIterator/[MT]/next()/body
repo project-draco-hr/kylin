@@ -1,0 +1,14 @@
+{
+  if (!hasNext()) {
+    throw new IllegalStateException("No more Tuple in the SingleRegionTupleIterator");
+  }
+  IIProtos.IIResponse.IIRow currentRow=rows.get(index);
+  byte[] columnsBytes=currentRow.getColumns().toByteArray();
+  this.tableRecord.setBytes(columnsBytes,0,columnsBytes.length);
+  if (currentRow.hasMeasures()) {
+    byte[] measuresBytes=currentRow.getMeasures().toByteArray();
+    this.measureValues=pushedDownAggregators.deserializeMetricValues(measuresBytes,0);
+  }
+  index++;
+  return makeTuple(this.tableRecord,this.measureValues);
+}

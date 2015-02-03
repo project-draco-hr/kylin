@@ -1,0 +1,17 @@
+{
+  if (other == IIProtos.IIRequest.getDefaultInstance())   return this;
+  if (other.hasType()) {
+    setType(other.getType());
+  }
+  if (other.hasFilter()) {
+    setFilter(other.getFilter());
+  }
+  if (other.hasProjector()) {
+    setProjector(other.getProjector());
+  }
+  if (other.hasAggregator()) {
+    setAggregator(other.getAggregator());
+  }
+  this.mergeUnknownFields(other.getUnknownFields());
+  return this;
+}

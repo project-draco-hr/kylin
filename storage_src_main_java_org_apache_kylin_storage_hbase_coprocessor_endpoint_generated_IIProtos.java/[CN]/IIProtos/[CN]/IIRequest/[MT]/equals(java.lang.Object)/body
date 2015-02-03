@@ -1,0 +1,28 @@
+{
+  if (obj == this) {
+    return true;
+  }
+  if (!(obj instanceof IIProtos.IIRequest)) {
+    return super.equals(obj);
+  }
+  IIProtos.IIRequest other=(IIProtos.IIRequest)obj;
+  boolean result=true;
+  result=result && (hasType() == other.hasType());
+  if (hasType()) {
+    result=result && getType().equals(other.getType());
+  }
+  result=result && (hasFilter() == other.hasFilter());
+  if (hasFilter()) {
+    result=result && getFilter().equals(other.getFilter());
+  }
+  result=result && (hasProjector() == other.hasProjector());
+  if (hasProjector()) {
+    result=result && getProjector().equals(other.getProjector());
+  }
+  result=result && (hasAggregator() == other.hasAggregator());
+  if (hasAggregator()) {
+    result=result && getAggregator().equals(other.getAggregator());
+  }
+  result=result && getUnknownFields().equals(other.getUnknownFields());
+  return result;
+}

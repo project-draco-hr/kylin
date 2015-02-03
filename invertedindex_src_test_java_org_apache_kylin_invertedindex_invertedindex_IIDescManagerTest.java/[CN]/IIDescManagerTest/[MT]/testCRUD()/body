@@ -1,0 +1,20 @@
+{
+  IIDescManager mgr=IIDescManager.getInstance(getTestConfig());
+  String newDescName="Copy of test_kylin_ii_desc";
+  try {
+    IIDesc testRecord=mgr.getIIDesc(newDescName);
+    if (testRecord != null)     mgr.removeIIDesc(testRecord);
+  }
+ catch (  IOException e) {
+  }
+  Assert.assertNull(mgr.getIIDesc(newDescName));
+  IIDesc desc=mgr.getIIDesc("test_kylin_ii_desc");
+  desc.setName(newDescName);
+  desc.setLastModified(0);
+  mgr.createIIDesc(desc);
+  desc=mgr.getIIDesc(newDescName);
+  Assert.assertNotNull(desc);
+  mgr.updateIIDesc(desc);
+  mgr.removeIIDesc(desc);
+  Assert.assertNull(mgr.getIIDesc(newDescName));
+}

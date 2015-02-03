@@ -1,4 +1,0 @@
-TableDesc tableDesc
-String keyCol
-Dictionary<String> dict
-String tablePath

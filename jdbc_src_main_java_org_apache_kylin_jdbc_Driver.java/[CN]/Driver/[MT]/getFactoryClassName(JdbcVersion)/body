@@ -1,0 +1,11 @@
+{
+switch (jdbcVersion) {
+case JDBC_30:
+    throw new UnsupportedOperationException();
+case JDBC_40:
+  return "org.apache.kylin.jdbc.KylinJdbc40Factory";
+case JDBC_41:
+default :
+return "org.apache.kylin.jdbc.KylinJdbc41Factory";
+}
+}

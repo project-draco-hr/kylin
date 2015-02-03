@@ -1,0 +1,7 @@
+{
+  super(cluster,traitSet,child);
+  Preconditions.checkArgument(getConvention() == CONVENTION);
+  Preconditions.checkArgument(getConvention() == child.getConvention());
+  this.localOffset=offset;
+  this.localFetch=fetch;
+}

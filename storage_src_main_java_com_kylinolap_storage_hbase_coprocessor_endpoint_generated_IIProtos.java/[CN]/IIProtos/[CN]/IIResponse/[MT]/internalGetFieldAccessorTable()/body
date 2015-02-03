@@ -1,3 +1,0 @@
-{
-  return com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.internal_static_IIResponse_fieldAccessorTable.ensureFieldAccessorsInitialized(com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.class,com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.Builder.class);
-}

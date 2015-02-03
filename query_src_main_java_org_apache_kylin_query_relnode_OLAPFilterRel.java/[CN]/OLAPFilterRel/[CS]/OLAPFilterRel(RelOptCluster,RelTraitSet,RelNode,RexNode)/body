@@ -1,0 +1,6 @@
+{
+  super(cluster,traits,child,condition);
+  Preconditions.checkArgument(getConvention() == CONVENTION);
+  Preconditions.checkArgument(getConvention() == child.getConvention());
+  this.rowType=getRowType();
+}

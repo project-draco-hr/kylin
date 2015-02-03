@@ -1,4 +1,0 @@
-{
-  cleanAfterClass();
-  server.stop();
-}

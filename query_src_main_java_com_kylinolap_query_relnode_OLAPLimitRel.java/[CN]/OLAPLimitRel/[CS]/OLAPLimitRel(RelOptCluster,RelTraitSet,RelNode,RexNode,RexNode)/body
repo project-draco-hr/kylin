@@ -1,7 +1,0 @@
-{
-  super(cluster,traitSet,child);
-  Preconditions.checkArgument(getConvention() == OLAPRel.CONVENTION);
-  Preconditions.checkArgument(getConvention() == child.getConvention());
-  this.localOffset=offset;
-  this.localFetch=fetch;
-}

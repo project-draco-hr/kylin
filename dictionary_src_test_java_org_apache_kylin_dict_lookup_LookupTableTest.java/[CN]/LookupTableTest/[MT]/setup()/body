@@ -1,0 +1,5 @@
+{
+  createTestMetadata();
+  config=KylinConfig.getInstanceFromEnv();
+  lookupTable=initLookupTable();
+}

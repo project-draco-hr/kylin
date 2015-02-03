@@ -1,0 +1,10 @@
+{
+  Collections.sort(realizations,new Comparator<IRealization>(){
+    @Override public int compare(    IRealization o1,    IRealization o2){
+      int i1=priorities.get(o1.getType());
+      int i2=priorities.get(o2.getType());
+      return i1 - i2;
+    }
+  }
+);
+}
