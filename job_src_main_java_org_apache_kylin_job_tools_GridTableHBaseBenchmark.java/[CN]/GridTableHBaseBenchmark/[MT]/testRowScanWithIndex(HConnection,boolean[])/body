@@ -1,0 +1,3 @@
+{
+  jumpScan(conn,hits,new Stats("ROW_SCAN_IDX"));
+}

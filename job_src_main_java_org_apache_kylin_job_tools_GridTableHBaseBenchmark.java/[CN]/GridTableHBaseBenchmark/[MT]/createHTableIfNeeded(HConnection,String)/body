@@ -1,0 +1,26 @@
+{
+  HBaseAdmin hbase=new HBaseAdmin(conn);
+  try {
+    boolean tableExist=false;
+    try {
+      hbase.getTableDescriptor(TableName.valueOf(tableName));
+      tableExist=true;
+    }
+ catch (    TableNotFoundException e) {
+    }
+    if (tableExist) {
+      System.out.println("HTable '" + tableName + "' already exists");
+      return;
+    }
+    System.out.println("Creating HTable '" + tableName + "'");
+    HTableDescriptor desc=new HTableDescriptor(TableName.valueOf(tableName));
+    HColumnDescriptor fd=new HColumnDescriptor(CF);
+    fd.setBlocksize(CELL_SIZE);
+    desc.addFamily(fd);
+    hbase.createTable(desc);
+    System.out.println("HTable '" + tableName + "' created");
+  }
+  finally {
+    hbase.close();
+  }
+}
