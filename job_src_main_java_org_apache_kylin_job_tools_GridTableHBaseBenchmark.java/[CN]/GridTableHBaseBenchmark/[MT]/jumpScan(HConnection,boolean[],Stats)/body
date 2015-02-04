@@ -1,0 +1,37 @@
+{
+  final int jumpThreshold=6;
+  HTableInterface table=conn.getTable(TEST_TABLE);
+  try {
+    stats.markStart();
+    int i=0;
+    while (i < N_ROWS) {
+      int start, end;
+      for (start=i; start < N_ROWS; start++) {
+        if (hits[start])         break;
+      }
+      for (end=start + 1; end < N_ROWS; end++) {
+        boolean isEnd=true;
+        for (int j=0; j < jumpThreshold && end + j < N_ROWS; j++)         if (hits[end + j])         isEnd=false;
+        if (isEnd)         break;
+      }
+      if (start < N_ROWS) {
+        Scan scan=new Scan();
+        scan.setStartRow(Bytes.toBytes(start));
+        scan.setStopRow(Bytes.toBytes(end));
+        scan.addFamily(CF);
+        ResultScanner scanner=table.getScanner(scan);
+        i=start;
+        for (        Result r : scanner) {
+          stats.consume(r);
+          dot(i,N_ROWS);
+          i++;
+        }
+      }
+      i=end;
+    }
+    stats.markEnd();
+  }
+  finally {
+    IOUtils.closeQuietly(table);
+  }
+}

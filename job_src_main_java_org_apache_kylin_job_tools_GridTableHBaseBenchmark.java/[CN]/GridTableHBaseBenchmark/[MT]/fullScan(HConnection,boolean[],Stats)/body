@@ -1,0 +1,19 @@
+{
+  HTableInterface table=conn.getTable(TEST_TABLE);
+  try {
+    stats.markStart();
+    Scan scan=new Scan();
+    scan.addFamily(CF);
+    ResultScanner scanner=table.getScanner(scan);
+    int i=0;
+    for (    Result r : scanner) {
+      if (hits[i])       stats.consume(r);
+      dot(i,N_ROWS);
+      i++;
+    }
+    stats.markEnd();
+  }
+  finally {
+    IOUtils.closeQuietly(table);
+  }
+}

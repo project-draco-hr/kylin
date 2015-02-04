@@ -1,0 +1,5 @@
+{
+  endTime=System.currentTimeMillis();
+  System.out.println();
+  System.out.println(name + " ends, " + (endTime - startTime)+ " ms, "+ rowsRead+ " rows read, "+ bytesRead+ " bytes read");
+}
