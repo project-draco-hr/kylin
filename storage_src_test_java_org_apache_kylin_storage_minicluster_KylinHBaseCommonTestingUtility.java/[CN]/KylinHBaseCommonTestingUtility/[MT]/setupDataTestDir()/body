@@ -1,7 +1,0 @@
-{
-  Path testPath=new Path(getBaseTestDir(),"testPath");
-  dataTestDir=new File(testPath.toString()).getAbsoluteFile();
-  System.setProperty("test.build.dir",dataTestDir.toString());
-  createSubDir("hbase.local.dir",testPath,"hbase-local-dir");
-  return testPath;
-}

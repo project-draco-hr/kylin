@@ -1,5 +1,0 @@
-{
-  stopCluster();
-  String baseTempDir=MiniDFSCluster.getBaseDirectory();
-  FileUtils.cleanDirectory(new File(LOG_DIR));
-}

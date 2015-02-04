@@ -1,7 +1,7 @@
 {
-  String tableName=cubeSegment.getStorageLocationIdentifier();
+  String tableName=segment.getStorageLocationIdentifier();
   table=conn.getTable(tableName);
-  factTableName=cubeSegment.getIIDesc().getFactTableName();
+  factTableName=segment.getIIDesc().getFactTableName();
   if (rootFilter == null) {
     rootFilter=ConstantTupleFilter.TRUE;
   }
@@ -11,11 +11,11 @@
   if (measures == null) {
     measures=Lists.newArrayList();
   }
-  initMeaureParameters(measures,cubeSegment.getColumns());
-  this.seg=cubeSegment;
+  initMeaureParameters(measures,segment.getColumns());
+  this.seg=segment;
   this.context=context;
   this.measures=measures;
-  this.columns=cubeSegment.getColumns();
+  this.columns=segment.getColumns();
   this.columnNames=getColumnNames(columns);
   this.tupleInfo=buildTupleInfo();
   this.tableRecordInfo=new TableRecordInfo(this.seg);
