@@ -1,4 +1,0 @@
-{
-  String PathName=System.getProperty(BASE_TEST_DIRECTORY_KEY,DEFAULT_BASE_TEST_DIRECTORY);
-  return new Path(PathName);
-}

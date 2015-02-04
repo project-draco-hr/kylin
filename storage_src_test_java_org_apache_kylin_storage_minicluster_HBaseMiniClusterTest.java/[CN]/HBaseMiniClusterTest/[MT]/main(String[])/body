@@ -1,4 +1,0 @@
-{
-  HBaseMiniClusterTest test=new HBaseMiniClusterTest();
-  test.runTests();
-}

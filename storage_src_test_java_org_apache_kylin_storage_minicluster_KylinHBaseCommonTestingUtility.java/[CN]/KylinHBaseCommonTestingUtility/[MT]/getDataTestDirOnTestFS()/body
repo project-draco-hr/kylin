@@ -1,4 +1,0 @@
-{
-  FileSystem fs=getTestFileSystem();
-  return new Path(fs.getWorkingDirectory(),"testPath");
-}

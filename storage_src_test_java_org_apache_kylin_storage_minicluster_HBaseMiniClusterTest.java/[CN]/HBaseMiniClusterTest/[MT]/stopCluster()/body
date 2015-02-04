@@ -1,5 +1,0 @@
-{
-  if (testUtil != null) {
-    testUtil.shutdownMiniCluster();
-  }
-}

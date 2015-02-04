@@ -1,8 +1,0 @@
-{
-  try {
-    tearDownAfterClass();
-  }
- catch (  Exception e) {
-    e.printStackTrace();
-  }
-}

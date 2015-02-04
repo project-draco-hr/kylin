@@ -1,6 +1,0 @@
-{
-  if (this.dataTestDir == null) {
-    setupDataTestDir();
-  }
-  return new Path(this.dataTestDir.getAbsolutePath());
-}
