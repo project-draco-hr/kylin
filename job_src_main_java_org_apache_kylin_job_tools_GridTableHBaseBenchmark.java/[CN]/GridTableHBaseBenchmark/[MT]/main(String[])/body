@@ -1,0 +1,15 @@
+{
+  double hitRatio=DFT_HIT_RATIO;
+  try {
+    hitRatio=Double.parseDouble(args[0]);
+  }
+ catch (  Exception e) {
+  }
+  double indexRatio=DFT_INDEX_RATIO;
+  try {
+    indexRatio=Double.parseDouble(args[1]);
+  }
+ catch (  Exception e) {
+  }
+  testGridTable(hitRatio,indexRatio);
+}

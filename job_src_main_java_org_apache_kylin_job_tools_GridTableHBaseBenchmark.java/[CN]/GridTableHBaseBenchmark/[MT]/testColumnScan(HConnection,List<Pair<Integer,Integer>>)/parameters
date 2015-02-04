@@ -1,0 +1,2 @@
+HConnection conn
+List<Pair<Integer,Integer>> colScans

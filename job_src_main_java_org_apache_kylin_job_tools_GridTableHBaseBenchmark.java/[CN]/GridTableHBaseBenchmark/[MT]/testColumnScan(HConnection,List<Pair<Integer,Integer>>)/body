@@ -1,0 +1,27 @@
+{
+  Stats stats=new Stats("COLUMN_SCAN");
+  HTableInterface table=conn.getTable(TEST_TABLE);
+  try {
+    stats.markStart();
+    int nLogicCols=colScans.size();
+    int nLogicRows=colScans.get(0).getSecond() - colScans.get(0).getFirst();
+    Scan[] scans=new Scan[nLogicCols];
+    ResultScanner[] scanners=new ResultScanner[nLogicCols];
+    for (int i=0; i < nLogicCols; i++) {
+      scans[i]=new Scan();
+      scans[i].addFamily(CF);
+      scanners[i]=table.getScanner(scans[i]);
+    }
+    for (int i=0; i < nLogicRows; i++) {
+      for (int c=0; c < nLogicCols; c++) {
+        Result r=scanners[c].next();
+        stats.consume(r);
+      }
+      dot(i,nLogicRows);
+    }
+    stats.markEnd();
+  }
+  finally {
+    IOUtils.closeQuietly(table);
+  }
+}

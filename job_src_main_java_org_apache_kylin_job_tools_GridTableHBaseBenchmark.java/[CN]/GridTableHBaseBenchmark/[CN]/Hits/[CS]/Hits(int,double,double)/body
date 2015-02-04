@@ -1,0 +1,26 @@
+{
+  Random rand=new Random();
+  hitsForRowScanWithIndex=new boolean[nRows];
+  hitsForRowScanNoIndex=new boolean[nRows];
+  int blockSize=(int)(1.0 / indexRatio);
+  int nBlocks=nRows / blockSize;
+  for (int i=0; i < nBlocks; i++) {
+    if (rand.nextDouble() < hitRatio) {
+      for (int j=0; j < blockSize; j++) {
+        hitsForRowScanNoIndex[i * blockSize + j]=true;
+        hitsForRowScanWithIndex[i * blockSize + j]=true;
+      }
+    }
+ else {
+      hitsForRowScanNoIndex[i * blockSize]=true;
+    }
+  }
+  hitsForColumnScan=Lists.newArrayList();
+  int nColumns=20;
+  int logicRows=nRows / nColumns;
+  for (int i=0; i < nColumns; i++) {
+    if (rand.nextDouble() < hitRatio) {
+      hitsForColumnScan.add(new Pair<Integer,Integer>(i * logicRows,(i + 1) * logicRows));
+    }
+  }
+}
