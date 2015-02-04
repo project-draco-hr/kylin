@@ -1,4 +1,0 @@
-{
-  HiveMiniClusterTest2 test=new HiveMiniClusterTest2();
-  test.runTests();
-}

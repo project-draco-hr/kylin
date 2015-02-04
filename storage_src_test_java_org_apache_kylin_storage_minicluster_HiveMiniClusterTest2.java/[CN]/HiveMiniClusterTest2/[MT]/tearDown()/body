@@ -1,9 +1,0 @@
-{
-  try {
-    testUtil.shutdownMiniCluster();
-  }
- catch (  Exception e) {
-    e.printStackTrace();
-  }
-  super.tearDown();
-}

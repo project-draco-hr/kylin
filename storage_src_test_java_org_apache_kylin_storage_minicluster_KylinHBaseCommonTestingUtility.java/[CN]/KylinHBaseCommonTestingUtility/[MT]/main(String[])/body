@@ -1,6 +1,0 @@
-{
-  KylinHBaseCommonTestingUtility util=new KylinHBaseCommonTestingUtility();
-  util.startMiniCluster();
-  Thread.sleep(5 * 1000);
-  util.shutdownMiniCluster();
-}
