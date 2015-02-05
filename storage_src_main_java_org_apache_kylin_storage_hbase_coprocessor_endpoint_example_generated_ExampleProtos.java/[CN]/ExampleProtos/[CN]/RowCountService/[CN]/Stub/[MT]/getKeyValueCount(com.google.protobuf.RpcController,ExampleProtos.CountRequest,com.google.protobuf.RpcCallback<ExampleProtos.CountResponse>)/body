@@ -1,3 +1,0 @@
-{
-  channel.callMethod(getDescriptor().getMethods().get(1),controller,request,ExampleProtos.CountResponse.getDefaultInstance(),com.google.protobuf.RpcUtil.generalizeCallback(done,ExampleProtos.CountResponse.class,ExampleProtos.CountResponse.getDefaultInstance()));
-}

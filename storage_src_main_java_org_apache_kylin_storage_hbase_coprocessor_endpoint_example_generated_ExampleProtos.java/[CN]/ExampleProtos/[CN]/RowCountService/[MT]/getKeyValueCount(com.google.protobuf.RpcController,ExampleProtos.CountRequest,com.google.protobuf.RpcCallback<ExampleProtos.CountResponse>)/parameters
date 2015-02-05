@@ -1,3 +1,0 @@
-com.google.protobuf.RpcController controller
-ExampleProtos.CountRequest request
-com.google.protobuf.RpcCallback<ExampleProtos.CountResponse> done

@@ -1,3 +1,0 @@
-{
-  return (ExampleProtos.CountResponse)channel.callBlockingMethod(getDescriptor().getMethods().get(1),controller,request,ExampleProtos.CountResponse.getDefaultInstance());
-}

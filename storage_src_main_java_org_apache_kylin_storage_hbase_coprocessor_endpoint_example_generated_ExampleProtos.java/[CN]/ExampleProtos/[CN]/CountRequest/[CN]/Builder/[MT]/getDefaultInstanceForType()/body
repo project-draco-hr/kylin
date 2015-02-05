@@ -1,3 +1,0 @@
-{
-  return ExampleProtos.CountRequest.getDefaultInstance();
-}
