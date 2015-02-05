@@ -1,11 +1,5 @@
 {
-  String kylinHome=System.getenv(KYLIN_HOME);
-  if (StringUtils.isEmpty(kylinHome)) {
-    logger.error("KYLIN_HOME has not been set");
-    throw new RuntimeException("KYLIN_HOME has not been set");
-  }
-  String path=kylinHome + "/conf";
-  File propFile=getKylinPropertiesFile(path);
+  File propFile=getKylinProperties();
   if (propFile == null || !propFile.exists()) {
     logger.error("fail to locate kylin.properties");
     throw new RuntimeException("fail to locate kylin.properties");

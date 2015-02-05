@@ -1,0 +1,15 @@
+{
+  String kylinConfHome=System.getProperty(KYLIN_CONF_HOME);
+  if (StringUtils.isEmpty(kylinConfHome)) {
+    logger.warn("KYLIN_CONF_HOME has not been set");
+  }
+ else {
+    return getKylinPropertiesFile(kylinConfHome);
+  }
+  String kylinHome=System.getenv(KYLIN_HOME);
+  if (StringUtils.isEmpty(kylinHome)) {
+    logger.warn("KYLIN_HOME has not been set");
+  }
+  String path=kylinHome + "/conf";
+  return getKylinPropertiesFile(path);
+}
