@@ -1,0 +1,11 @@
+{
+  Driver driver=(Driver)Class.forName("org.apache.kylin.jdbc.Driver").newInstance();
+  Properties info=new Properties();
+  info.put("user","KYLIN");
+  info.put("password","ADMIN");
+  Connection conn=driver.connect("jdbc:kylin://localhost/default",info);
+  Statement statement=conn.createStatement();
+  statement.execute("select count(*) from test_kylin_fact");
+  ResultSet rs=statement.getResultSet();
+  System.out.println(rs.next());
+}
