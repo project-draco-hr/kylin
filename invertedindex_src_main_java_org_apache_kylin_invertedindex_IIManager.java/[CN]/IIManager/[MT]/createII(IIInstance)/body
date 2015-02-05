@@ -1,0 +1,4 @@
+{
+  if (this.getII(ii.getName()) != null)   throw new IllegalArgumentException("The II name '" + ii.getName() + "' already exists.");
+  return updateII(ii);
+}

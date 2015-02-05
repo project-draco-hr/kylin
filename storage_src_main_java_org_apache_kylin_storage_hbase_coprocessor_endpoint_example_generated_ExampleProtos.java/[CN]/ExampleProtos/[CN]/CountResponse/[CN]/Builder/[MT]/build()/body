@@ -1,7 +1,0 @@
-{
-  ExampleProtos.CountResponse result=buildPartial();
-  if (!result.isInitialized()) {
-    throw AbstractMessage.Builder.newUninitializedMessageException(result);
-  }
-  return result;
-}

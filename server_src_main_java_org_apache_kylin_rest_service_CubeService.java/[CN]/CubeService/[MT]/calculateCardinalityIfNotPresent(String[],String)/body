@@ -2,7 +2,7 @@
   MetadataManager metaMgr=getMetadataManager();
   for (  String table : tables) {
     Map<String,String> exdMap=metaMgr.getTableDescExd(table);
-    if (exdMap == null || !exdMap.containsKey(MetadataConstances.TABLE_EXD_CARDINALITY)) {
+    if (exdMap == null || !exdMap.containsKey(MetadataConstants.TABLE_EXD_CARDINALITY)) {
       calculateCardinality(table,submitter);
     }
   }

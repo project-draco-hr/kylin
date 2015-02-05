@@ -6,7 +6,7 @@ case CHANGE_HTABLE_HOST:
       String tableName=(String)opt.params[0];
       HTableDescriptor desc=hbaseAdmin.getTableDescriptor(TableName.valueOf(tableName));
       hbaseAdmin.disableTable(tableName);
-      desc.setValue(CubeManager.getHTableMetadataKey(),srcConfig.getMetadataUrlPrefix());
+      desc.setValue(IRealizationConstants.HTableTag,srcConfig.getMetadataUrlPrefix());
       hbaseAdmin.modifyTable(tableName,desc);
       hbaseAdmin.enableTable(tableName);
       break;

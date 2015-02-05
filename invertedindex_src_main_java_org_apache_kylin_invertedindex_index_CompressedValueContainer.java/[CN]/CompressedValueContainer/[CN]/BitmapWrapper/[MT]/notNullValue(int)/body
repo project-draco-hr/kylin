@@ -1,3 +1,0 @@
-{
-  return valueId >= 0 && valueId <= getMaxValueId();
-}

@@ -1,7 +1,0 @@
-{
-  ResourceStore store=getStore();
-  store.deleteResource("/cube/a_whole_new_cube.json");
-  CubeInstance createdCube=cubeMgr.createCube("a_whole_new_cube",ProjectInstance.DEFAULT_PROJECT_NAME,cubeDesc,"username");
-  assertTrue(createdCube == cubeMgr.getCube("a_whole_new_cube"));
-  System.out.println(JsonUtil.writeValueAsIndentString(createdCube));
-}

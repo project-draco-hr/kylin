@@ -1,0 +1,26 @@
+{
+  CubeManager mgr=mgr();
+  CubeInstance cube=mgr.getCube("test_kylin_cube_without_slr_left_join_empty");
+  assertEquals(0,cube.getSegments().size());
+  try {
+    mgr.appendAndMergeSegments(cube,1000);
+    fail();
+  }
+ catch (  IllegalStateException ex) {
+  }
+  CubeSegment seg1=mgr.appendSegments(cube,1000);
+  seg1.setStatus(SegmentStatusEnum.READY);
+  Pair<CubeSegment,CubeSegment> appendAndMergeSegments=mgr.appendAndMergeSegments(cube,2000);
+  CubeSegment seg2=appendAndMergeSegments.getFirst();
+  CubeSegment merge=appendAndMergeSegments.getSecond();
+  assertEquals(3,cube.getSegments().size());
+  assertEquals(0,seg1.getDateRangeStart());
+  assertEquals(1000,seg1.getDateRangeEnd());
+  assertEquals(1000,seg2.getDateRangeStart());
+  assertEquals(2000,seg2.getDateRangeEnd());
+  assertEquals(0,merge.getDateRangeStart());
+  assertEquals(2000,merge.getDateRangeEnd());
+  assertEquals(seg1,cube.getSegments().get(0));
+  assertEquals(merge,cube.getSegments().get(1));
+  assertEquals(seg2,cube.getSegments().get(2));
+}

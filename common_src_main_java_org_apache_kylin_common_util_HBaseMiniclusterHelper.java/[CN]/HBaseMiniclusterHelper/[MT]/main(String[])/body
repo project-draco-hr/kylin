@@ -1,0 +1,13 @@
+{
+  HBaseMiniclusterHelper t=new HBaseMiniclusterHelper();
+  System.out.println(t);
+  try {
+    HBaseMiniclusterHelper.startupMinicluster();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+ finally {
+    HBaseMiniclusterHelper.shutdownMiniCluster();
+  }
+}

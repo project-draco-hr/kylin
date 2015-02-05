@@ -1,5 +1,0 @@
-{
-  name_="";
-  left_=NodeProtos.Node.getDefaultInstance();
-  right_=NodeProtos.Node.getDefaultInstance();
-}
