@@ -1,0 +1,10 @@
+{
+  IIInstance iii=new IIInstance();
+  iii.setConfig(iiDesc.getConfig());
+  iii.setName(iiName);
+  iii.setDescName(iiDesc.getName());
+  iii.setCreateTimeUTC(System.currentTimeMillis());
+  iii.setStatus(RealizationStatusEnum.DISABLED);
+  iii.updateRandomUuid();
+  return iii;
+}
