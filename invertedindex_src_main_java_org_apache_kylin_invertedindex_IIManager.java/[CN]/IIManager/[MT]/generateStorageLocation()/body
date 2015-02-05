@@ -1,5 +1,5 @@
 {
-  String namePrefix=getHBaseStorageLocationPrefix();
+  String namePrefix=IRealizationConstants.IIHbaseStorageLocationPrefix;
   String tableName="";
   do {
     StringBuffer sb=new StringBuffer();

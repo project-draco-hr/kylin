@@ -5,7 +5,7 @@
     try {
       t=store.getResource(path,TableDesc.class,MetadataManager.TABLE_SERIALIZER);
       t.init();
-      if (path.substring(path.indexOf(".")).length() == MetadataConstances.FILE_SURFIX.length()) {
+      if (path.substring(path.indexOf(".")).length() == MetadataConstants.FILE_SURFIX.length()) {
         getStore().deleteResource(path);
         t.setLastModified(0);
         getStore().putResource(t.getResourcePath(),t,MetadataManager.TABLE_SERIALIZER);
