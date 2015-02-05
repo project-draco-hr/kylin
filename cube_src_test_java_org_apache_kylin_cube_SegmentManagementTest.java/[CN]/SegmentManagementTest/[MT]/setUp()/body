@@ -1,7 +1,0 @@
-{
-  this.createTestMetadata();
-  MetadataManager.clearCache();
-  CubeManager.clearCache();
-  ProjectManager.clearCache();
-  cubeMgr=CubeManager.getInstance(getTestConfig());
-}
