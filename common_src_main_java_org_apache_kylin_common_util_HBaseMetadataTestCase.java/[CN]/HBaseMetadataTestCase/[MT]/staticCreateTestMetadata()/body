@@ -4,6 +4,6 @@
   }
  else {
     staticCreateTestMetadata(MINICLUSTER_TEST_DATA);
-    HBaseMiniclusterMetadataTestCase.startupMinicluster();
+    HBaseMiniclusterHelper.startupMinicluster();
   }
 }
