@@ -1,3 +1,8 @@
 {
-  return getRequired(COPROCESSOR_LOCAL_JAR);
+  final String coprocessorJar=getOptional(COPROCESSOR_LOCAL_JAR);
+  if (StringUtils.isNotEmpty(coprocessorJar)) {
+    return coprocessorJar;
+  }
+  String kylinHome=getKylinHome();
+  return kylinHome + File.separator + "lib"+ File.separator+ COPROCESSOR_JAR_NAME.replace("{version}",VERSION);
 }

@@ -1,3 +1,8 @@
 {
-  return getRequired(KYLIN_JOB_JAR);
+  final String jobJar=getOptional(KYLIN_JOB_JAR);
+  if (StringUtils.isNotEmpty(jobJar)) {
+    return jobJar;
+  }
+  String kylinHome=getKylinHome();
+  return kylinHome + File.separator + "lib"+ File.separator+ JOB_JAR_NAME.replace("{version}",VERSION);
 }

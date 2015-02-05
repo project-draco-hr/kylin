@@ -4,6 +4,7 @@
     port=Integer.parseInt(args[0]);
   }
   ClasspathUtil.addClasspath(new File("../examples/test_case_data/sandbox").getAbsolutePath());
+  System.setProperty(KylinConfig.KYLIN_CONF_HOME,"../examples/test_case_data/sandbox");
   System.setProperty("hdp.version","2.2.0.0-2041");
   if (Shell.WINDOWS) {
 {
