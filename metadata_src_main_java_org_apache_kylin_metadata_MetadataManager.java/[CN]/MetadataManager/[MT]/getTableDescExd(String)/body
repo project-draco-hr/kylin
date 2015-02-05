@@ -8,10 +8,10 @@
       Entry<String,String> entry=it.next();
       result.put(entry.getKey(),entry.getValue());
     }
-    result.put(MetadataConstances.TABLE_EXD_STATUS_KEY,"true");
+    result.put(MetadataConstants.TABLE_EXD_STATUS_KEY,"true");
   }
  else {
-    result.put(MetadataConstances.TABLE_EXD_STATUS_KEY,"false");
+    result.put(MetadataConstants.TABLE_EXD_STATUS_KEY,"false");
   }
   return result;
 }

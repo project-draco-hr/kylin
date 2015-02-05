@@ -24,6 +24,6 @@
   scardi=scardi.substring(0,scardi.length() - 1);
   MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
   Map<String,String> tableExd=metaMgr.getTableDescExd(tableName);
-  tableExd.put(MetadataConstances.TABLE_EXD_CARDINALITY,scardi);
+  tableExd.put(MetadataConstants.TABLE_EXD_CARDINALITY,scardi);
   metaMgr.saveTableExd(tableName.toUpperCase(),tableExd);
 }

@@ -13,9 +13,9 @@
  else {
       TableDescResponse rtableDesc=new TableDescResponse(table);
       rtableDesc.setDescExd(exd);
-      if (exd.containsKey(MetadataConstances.TABLE_EXD_CARDINALITY)) {
+      if (exd.containsKey(MetadataConstants.TABLE_EXD_CARDINALITY)) {
         Map<String,Long> cardinality=new HashMap<String,Long>();
-        String scard=exd.get(MetadataConstances.TABLE_EXD_CARDINALITY);
+        String scard=exd.get(MetadataConstants.TABLE_EXD_CARDINALITY);
         if (!StringUtils.isEmpty(scard)) {
           String[] cards=StringUtils.split(scard,",");
           ColumnDesc[] cdescs=rtableDesc.getColumns();

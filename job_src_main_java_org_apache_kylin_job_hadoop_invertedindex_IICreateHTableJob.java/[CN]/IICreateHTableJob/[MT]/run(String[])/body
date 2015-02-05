@@ -6,13 +6,16 @@
     parseOptions(options,args);
     String tableName=getOptionValue(OPTION_HTABLE_NAME);
     String iiName=getOptionValue(OPTION_II_NAME);
-    IIInstance ii=IIManager.getInstance(KylinConfig.getInstanceFromEnv()).getII(iiName);
+    KylinConfig config=KylinConfig.getInstanceFromEnv();
+    IIManager iiManager=IIManager.getInstance(config);
+    IIInstance ii=iiManager.getII(iiName);
     int sharding=ii.getDescriptor().getSharding();
     HTableDescriptor tableDesc=new HTableDescriptor(TableName.valueOf(tableName));
     HColumnDescriptor cf=new HColumnDescriptor(IIDesc.HBASE_FAMILY);
     cf.setMaxVersions(1);
     cf.setDataBlockEncoding(DataBlockEncoding.FAST_DIFF);
     tableDesc.addFamily(cf);
+    tableDesc.setValue(IRealizationConstants.HTableTag,config.getMetadataUrlPrefix());
     Configuration conf=HBaseConfiguration.create(getConf());
     if (User.isHBaseSecurityEnabled(conf)) {
       tableDesc.addCoprocessor("org.apache.hadoop.hbase.security.access.SecureBulkLoadEndpoint");

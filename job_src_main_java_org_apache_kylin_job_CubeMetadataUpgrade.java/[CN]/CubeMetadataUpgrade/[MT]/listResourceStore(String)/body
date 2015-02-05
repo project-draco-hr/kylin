@@ -1,7 +1,7 @@
 {
   List<String> paths=null;
   try {
-    paths=store.collectResourceRecursively(pathRoot,MetadataConstances.FILE_SURFIX);
+    paths=store.collectResourceRecursively(pathRoot,MetadataConstants.FILE_SURFIX);
   }
  catch (  IOException e1) {
     e1.printStackTrace();
