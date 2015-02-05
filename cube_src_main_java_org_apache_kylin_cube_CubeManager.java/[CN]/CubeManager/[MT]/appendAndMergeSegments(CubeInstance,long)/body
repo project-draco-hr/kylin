@@ -1,6 +1,7 @@
 {
   checkNoBuildingSegment(cube);
   checkCubeIsPartitioned(cube);
+  if (cube.getSegments().size() == 0)   throw new IllegalStateException("expect at least one existing segment");
   long appendStart=calculateStartDateForAppendSegment(cube);
   CubeSegment appendSegment=newSegment(cube,appendStart,endDate);
   long startDate=cube.getDescriptor().getModel().getPartitionDesc().getPartitionDateStart();
