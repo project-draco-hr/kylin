@@ -2,7 +2,7 @@
   cli.execute("mkdir -p " + exportFolder);
   for (  HTableDescriptor table : allTables) {
     String tName=table.getNameAsString();
-    if (!tName.equals(tableNameBase) && !tName.startsWith(HBaseMiniclusterHelper.CUBE_STORAGE_PREFIX))     continue;
+    if (!tName.equals(tableNameBase) && !tName.startsWith(HBaseMiniclusterHelper.SHARED_STORAGE_PREFIX))     continue;
     cli.execute("hbase org.apache.hadoop.hbase.mapreduce.Export " + tName + " "+ exportFolder+ tName);
   }
   cli.execute("hadoop fs -copyToLocal " + exportFolder + " "+ exportFolder);

@@ -16,5 +16,4 @@
     e.printStackTrace();
     throw e;
   }
-  uploadTarballToRemote();
 }
