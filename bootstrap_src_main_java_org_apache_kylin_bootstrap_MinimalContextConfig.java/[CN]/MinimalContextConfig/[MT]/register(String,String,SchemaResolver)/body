@@ -1,9 +1,0 @@
-{
-  URL url=DigesterFactory.class.getResource(resourceURL);
-  if (url == null) {
-    log.warn("Could not get URL [%s]",resourceURL);
-  }
- else {
-    schemaResolver.register(resourcePublicId,url.toString());
-  }
-}
