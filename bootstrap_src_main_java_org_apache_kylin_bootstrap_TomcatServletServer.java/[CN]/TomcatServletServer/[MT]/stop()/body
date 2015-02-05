@@ -1,0 +1,26 @@
+{
+  if (server == null) {
+    throw new IllegalStateException("Web server is not running.");
+  }
+  server.stop();
+  server.destroy();
+  if (tmpDir != null) {
+    Deque<File> stack=new ArrayDeque<File>();
+    stack.push(tmpDir);
+    while (stack.size() > 0) {
+      File parent=stack.pop();
+      if (parent.isDirectory()) {
+        File[] children=parent.listFiles();
+        if (children.length > 0) {
+          stack.push(parent);
+          for (          File child : children) {
+            stack.push(child);
+          }
+        }
+      }
+      parent.delete();
+    }
+    tmpDir=null;
+  }
+  server=null;
+}

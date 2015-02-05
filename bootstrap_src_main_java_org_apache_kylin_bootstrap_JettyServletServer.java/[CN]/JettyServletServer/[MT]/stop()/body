@@ -1,0 +1,7 @@
+{
+  if (server == null) {
+    throw new IllegalStateException("Web server is not running.");
+  }
+  server.stop();
+  server=null;
+}

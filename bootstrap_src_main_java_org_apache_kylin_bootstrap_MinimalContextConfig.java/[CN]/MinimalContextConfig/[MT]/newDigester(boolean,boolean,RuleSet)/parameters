@@ -1,0 +1,3 @@
+boolean xmlValidation
+boolean xmlNamespaceAware
+RuleSet rule

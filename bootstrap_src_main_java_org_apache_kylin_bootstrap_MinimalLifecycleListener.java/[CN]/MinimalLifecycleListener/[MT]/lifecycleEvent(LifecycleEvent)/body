@@ -1,0 +1,18 @@
+{
+  if (!Lifecycle.BEFORE_START_EVENT.equals(event.getType())) {
+    return;
+  }
+  Context cx=(Context)event.getLifecycle();
+  Wrapper servlet=cx.createWrapper();
+  servlet.setName("default");
+  servlet.setServletClass("org.apache.catalina.servlets.DefaultServlet");
+  servlet.setLoadOnStartup(1);
+  servlet.setOverridable(true);
+  cx.addChild(servlet);
+  cx.addServletMapping("/","default");
+  for (  String extension : MIME_TYPES.stringPropertyNames()) {
+    String mimeType=MIME_TYPES.getProperty(extension);
+    cx.addMimeMapping(extension,mimeType);
+  }
+  cx.addWelcomeFile("index.html");
+}

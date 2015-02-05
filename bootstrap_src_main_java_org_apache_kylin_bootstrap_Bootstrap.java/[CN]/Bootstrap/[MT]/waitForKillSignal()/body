@@ -1,0 +1,5 @@
+{
+  log.info("Press ENTER to exit.");
+  log.info(SEPARATOR);
+  System.in.read();
+}

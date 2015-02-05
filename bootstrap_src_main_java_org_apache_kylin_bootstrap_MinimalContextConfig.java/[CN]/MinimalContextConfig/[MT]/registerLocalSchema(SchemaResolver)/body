@@ -1,0 +1,21 @@
+{
+  register(Constants.J2eeSchemaResourcePath_14,Constants.J2eeSchemaPublicId_14,schemaResolver);
+  register(Constants.JavaeeSchemaResourcePath_5,Constants.JavaeeSchemaPublicId_5,schemaResolver);
+  register(Constants.JavaeeSchemaResourcePath_6,Constants.JavaeeSchemaPublicId_6,schemaResolver);
+  register(Constants.W3cSchemaResourcePath_10,Constants.W3cSchemaPublicId_10,schemaResolver);
+  register(Constants.W3cSchemaDTDResourcePath_10,Constants.W3cSchemaDTDPublicId_10,schemaResolver);
+  register(Constants.W3cDatatypesDTDResourcePath_10,Constants.W3cDatatypesDTDPublicId_10,schemaResolver);
+  register(Constants.WebDtdResourcePath_22,Constants.WebDtdPublicId_22,schemaResolver);
+  register(Constants.WebDtdResourcePath_23,Constants.WebDtdPublicId_23,schemaResolver);
+  register(Constants.WebSchemaResourcePath_24,Constants.WebSchemaPublicId_24,schemaResolver);
+  register(Constants.WebSchemaResourcePath_25,Constants.WebSchemaPublicId_25,schemaResolver);
+  register(Constants.WebSchemaResourcePath_30,Constants.WebSchemaPublicId_30,schemaResolver);
+  register(Constants.WebCommonSchemaResourcePath_30,Constants.WebCommonSchemaPublicId_30,schemaResolver);
+  register(Constants.WebFragmentSchemaResourcePath_30,Constants.WebFragmentSchemaPublicId_30,schemaResolver);
+  register(Constants.J2eeWebServiceSchemaResourcePath_11,Constants.J2eeWebServiceSchemaPublicId_11,schemaResolver);
+  register(Constants.J2eeWebServiceClientSchemaResourcePath_11,Constants.J2eeWebServiceClientSchemaPublicId_11,schemaResolver);
+  register(Constants.JavaeeWebServiceSchemaResourcePath_12,Constants.JavaeeWebServiceSchemaPublicId_12,schemaResolver);
+  register(Constants.JavaeeWebServiceClientSchemaResourcePath_12,Constants.JavaeeWebServiceClientSchemaPublicId_12,schemaResolver);
+  register(Constants.JavaeeWebServiceSchemaResourcePath_13,Constants.JavaeeWebServiceSchemaPublicId_13,schemaResolver);
+  register(Constants.JavaeeWebServiceClientSchemaResourcePath_13,Constants.JavaeeWebServiceClientSchemaPublicId_13,schemaResolver);
+}

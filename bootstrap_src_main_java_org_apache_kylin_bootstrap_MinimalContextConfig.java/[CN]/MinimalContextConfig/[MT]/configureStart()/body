@@ -1,0 +1,6 @@
+{
+  super.configureStart();
+  for (  ErrorPage page : cx.findErrorPages()) {
+    cx.removeErrorPage(page);
+  }
+}

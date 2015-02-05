@@ -1,0 +1,79 @@
+{
+  log.info(SEPARATOR);
+  log.info("WAR Bootstrap");
+  log.info(SEPARATOR);
+  Map<String,String> contexts=new HashMap<String,String>();
+  int port=8080;
+  int https=-1;
+  ServletServer server=null;
+  String keystoreFile=null;
+  String keystorePass=null;
+  for (int i=0; i < args.length; i++) {
+    String arg=args[i];
+    if ("-p".equals(arg)) {
+      port=Integer.parseInt(args[++i]);
+    }
+ else     if ("-s".equals(arg)) {
+      https=Integer.parseInt(args[++i]);
+    }
+ else     if ("-ks".equals(arg)) {
+      keystoreFile=args[++i];
+    }
+ else     if ("-kp".equals(arg)) {
+      keystorePass=args[++i];
+    }
+ else     if ("-war".equals(arg)) {
+      String contextPath;
+      String warPath=args[++i];
+      int delim=warPath.indexOf('=');
+      if (delim < 1) {
+        contextPath="/";
+      }
+ else {
+        contextPath=warPath.substring(0,delim);
+      }
+      warPath=new File(warPath.substring(delim + 1)).getCanonicalPath();
+      contexts.put(contextPath,warPath);
+    }
+ else     if ("--jetty".equalsIgnoreCase(arg)) {
+      server=new JettyServletServer();
+    }
+ else     if ("--tomcat".equalsIgnoreCase(arg)) {
+      server=new TomcatServletServer();
+    }
+ else     if ("--help".equalsIgnoreCase(arg)) {
+      log.info(HELP);
+      log.info(SEPARATOR);
+      return null;
+    }
+ else {
+      log.info(HELP);
+      log.info(SEPARATOR);
+      return null;
+    }
+  }
+  if (server == null) {
+    server=new TomcatServletServer();
+  }
+  log.info(" - servlet container: " + server.getName());
+  for (  String contextPath : contexts.keySet()) {
+    log.info(" - context root: " + contextPath);
+    log.info(" - war path: " + contexts.get(contextPath));
+  }
+  if (port > 0) {
+    log.info(" - Listening to HTTP on port: " + port);
+  }
+ else {
+    log.info(" - Not listening to HTTP");
+  }
+  if (https > 0) {
+    log.info(" - Listening to HTTPS on port: " + https);
+  }
+ else {
+    log.info(" - Not listening to HTTPS");
+  }
+  log.info(SEPARATOR);
+  server.start(contexts,port,https,keystoreFile,keystorePass);
+  log.info(SEPARATOR);
+  return server;
+}

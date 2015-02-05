@@ -1,0 +1,8 @@
+{
+  webRuleSet=new WebRuleSet(false);
+  webDigester=newDigester(validation,namespaceAware,webRuleSet);
+  webDigester.getParser();
+  webFragmentRuleSet=new WebRuleSet(true);
+  webFragmentDigester=newDigester(validation,namespaceAware,webFragmentRuleSet);
+  webFragmentDigester.getParser();
+}

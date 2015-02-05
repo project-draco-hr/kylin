@@ -1,0 +1,10 @@
+{
+  MIME_TYPES=new Properties();
+  try {
+    InputStream stream=MinimalLifecycleListener.class.getResourceAsStream(MIME_TYPES_RESOURCE);
+    MIME_TYPES.load(stream);
+  }
+ catch (  IOException ex) {
+    ex.printStackTrace();
+  }
+}
