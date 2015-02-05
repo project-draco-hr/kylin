@@ -1,19 +1,8 @@
 {
-  CubeSegment buildingSegment;
-  if (cubeSegment == null) {
-    List<CubeSegment> buildingSegments=getBuildingSegments();
-    if (buildingSegments.size() == 0) {
-      return Collections.emptyList();
-    }
-    buildingSegment=buildingSegments.get(0);
-  }
- else {
-    buildingSegment=cubeSegment;
-  }
   List<CubeSegment> mergingSegments=new ArrayList<CubeSegment>();
   if (null != this.segments) {
     for (    CubeSegment segment : this.segments) {
-      if (!buildingSegment.equals(segment) && buildingSegment.getDateRangeStart() <= segment.getDateRangeStart() && buildingSegment.getDateRangeEnd() >= segment.getDateRangeEnd()) {
+      if (!mergedSegment.equals(segment) && mergedSegment.getDateRangeStart() <= segment.getDateRangeStart() && mergedSegment.getDateRangeEnd() >= segment.getDateRangeEnd()) {
         mergingSegments.add(segment);
       }
     }

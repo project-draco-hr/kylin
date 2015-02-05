@@ -1,5 +1,0 @@
-{
-  if (other == ExampleProtos.CountRequest.getDefaultInstance())   return this;
-  this.mergeUnknownFields(other.getUnknownFields());
-  return this;
-}

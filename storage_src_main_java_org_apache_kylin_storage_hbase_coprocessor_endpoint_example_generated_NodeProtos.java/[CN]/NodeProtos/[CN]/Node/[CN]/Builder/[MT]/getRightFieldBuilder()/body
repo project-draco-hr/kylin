@@ -1,7 +1,0 @@
-{
-  if (rightBuilder_ == null) {
-    rightBuilder_=new com.google.protobuf.SingleFieldBuilder<NodeProtos.Node,NodeProtos.Node.Builder,NodeProtos.NodeOrBuilder>(right_,getParentForChildren(),isClean());
-    right_=null;
-  }
-  return rightBuilder_;
-}

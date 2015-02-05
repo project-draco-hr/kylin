@@ -1,4 +1,0 @@
-{
-  getSerializedSize();
-  getUnknownFields().writeTo(output);
-}

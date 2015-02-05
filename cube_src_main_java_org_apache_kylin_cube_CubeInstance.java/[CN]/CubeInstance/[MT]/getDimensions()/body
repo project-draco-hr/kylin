@@ -1,9 +1,0 @@
-{
-  List<TblColRef> ret=Lists.newArrayList();
-  for (  DimensionDesc dim : getDescriptor().getDimensions()) {
-    for (    TblColRef colRef : dim.getColumnRefs()) {
-      ret.add(colRef);
-    }
-  }
-  return ret;
-}
