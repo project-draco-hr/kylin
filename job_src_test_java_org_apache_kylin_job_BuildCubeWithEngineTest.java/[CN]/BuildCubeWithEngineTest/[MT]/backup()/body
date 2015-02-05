@@ -1,7 +1,0 @@
-{
-  int exitCode=cleanupOldCubes();
-  if (exitCode == 0) {
-    exportHBaseData();
-  }
-  HBaseMetadataTestCase.staticCleanupTestMetadata();
-}
