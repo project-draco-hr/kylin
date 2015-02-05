@@ -1,8 +1,0 @@
-{
-  if (leftBuilder_ != null) {
-    return leftBuilder_.getMessageOrBuilder();
-  }
- else {
-    return left_;
-  }
-}

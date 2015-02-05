@@ -1,3 +1,0 @@
-{
-  return NodeProtos.internal_static_Node_descriptor;
-}

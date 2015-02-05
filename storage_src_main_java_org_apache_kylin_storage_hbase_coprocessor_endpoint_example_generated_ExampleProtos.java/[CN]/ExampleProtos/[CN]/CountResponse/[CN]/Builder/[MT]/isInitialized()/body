@@ -1,6 +1,0 @@
-{
-  if (!hasCount()) {
-    return false;
-  }
-  return true;
-}

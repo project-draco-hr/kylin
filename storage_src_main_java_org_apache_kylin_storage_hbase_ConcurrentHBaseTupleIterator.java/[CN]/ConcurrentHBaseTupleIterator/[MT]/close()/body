@@ -1,5 +1,0 @@
-{
-  logger.debug("Total scan count " + scanCounter);
-  context.setTotalScanCount(scanCounter.get());
-  cancalScanTasks();
-}
