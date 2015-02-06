@@ -3,6 +3,5 @@
   if (StringUtils.isNotEmpty(coprocessorJar)) {
     return coprocessorJar;
   }
-  String kylinHome=getKylinHome();
-  return kylinHome + File.separator + "lib"+ File.separator+ COPROCESSOR_JAR_NAME.replace("{version}",VERSION);
+  return getFileName(getKylinHome(),COPROCESSOR_JAR_NAME_PATTERN);
 }

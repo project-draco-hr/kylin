@@ -1,0 +1,18 @@
+{
+  File home=new File(kylinHome);
+  SortedSet<String> files=Sets.newTreeSet();
+  if (home.exists() && home.isDirectory()) {
+    for (    File file : home.listFiles()) {
+      final Matcher matcher=pattern.matcher(file.getName());
+      if (matcher.matches()) {
+        files.add(file.getAbsolutePath());
+      }
+    }
+  }
+  if (files.isEmpty()) {
+    throw new RuntimeException("cannot find " + pattern.toString() + " in KYLIN_HOME");
+  }
+ else {
+    return files.last();
+  }
+}
