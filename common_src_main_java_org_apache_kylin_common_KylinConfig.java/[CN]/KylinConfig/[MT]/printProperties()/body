@@ -1,0 +1,8 @@
+{
+  try {
+    kylinConfig.save(System.out);
+  }
+ catch (  ConfigurationException ex) {
+    throw new IOException("Error printing KylinConfig",ex);
+  }
+}

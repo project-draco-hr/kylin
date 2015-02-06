@@ -1,11 +1,11 @@
 {
-  System.out.println("Going to start mini cluster.");
+  logger.info("Going to start mini cluster.");
   if (existInClassPath(coprocessorClassName)) {
     UTIL.getConfiguration().setStrings(CoprocessorHost.REGION_COPROCESSOR_CONF_KEY,coprocessorClassName);
   }
   UTIL.getConfiguration().setInt("hbase.master.info.port",-1);
-  hbaseCluster=UTIL.startMiniCluster();
-  config=hbaseCluster.getConf();
+  MiniHBaseCluster hbaseCluster=UTIL.startMiniCluster();
+  Configuration config=hbaseCluster.getConf();
   String host=config.get(HConstants.ZOOKEEPER_QUORUM);
   String port=config.get(HConstants.ZOOKEEPER_CLIENT_PORT);
   String parent=config.get(HConstants.ZOOKEEPER_ZNODE_PARENT);
@@ -18,5 +18,5 @@
   updateKylinConfigWithMinicluster();
   UTIL.startMiniMapReduceCluster();
   @SuppressWarnings("unused") HBaseResourceStore store=new HBaseResourceStore(KylinConfig.getInstanceFromEnv());
-  importHBaseData();
+  HbaseImporter.importHBaseData(hbaseTarLocation,UTIL.getConfiguration());
 }

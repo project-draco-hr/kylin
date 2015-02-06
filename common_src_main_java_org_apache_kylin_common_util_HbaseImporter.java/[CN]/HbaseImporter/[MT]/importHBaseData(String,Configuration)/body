@@ -1,0 +1,40 @@
+{
+  if (System.getenv("JAVA_HOME") == null) {
+    logger.error("Didn't find $JAVA_HOME, this will cause HBase data import failed. Please set $JAVA_HOME.");
+    logger.error("Skipping table import...");
+    return;
+  }
+  File exportFile=new File(hbaseTarLocation);
+  if (!exportFile.exists()) {
+    logger.error("Didn't find the export achieve file on " + exportFile.getAbsolutePath());
+    return;
+  }
+  File folder=new File("/tmp/hbase-export/");
+  if (folder.exists()) {
+    FileUtils.deleteDirectory(folder);
+  }
+  folder.mkdirs();
+  folder.deleteOnExit();
+  TarGZUtil.uncompressTarGZ(exportFile,folder);
+  String[] child=folder.list();
+  Preconditions.checkState(child.length == 1);
+  String backupFolderName=child[0];
+  File backupFolder=new File(folder,backupFolderName);
+  String[] tableNames=backupFolder.list();
+  for (  String table : tableNames) {
+    if (!(table.equalsIgnoreCase(HBaseMiniclusterHelper.TEST_METADATA_TABLE) || table.startsWith(HBaseMiniclusterHelper.SHARED_STORAGE_PREFIX))) {
+      continue;
+    }
+    if (table.startsWith(HBaseMiniclusterHelper.II_STORAGE_PREFIX)) {
+      HBaseConnection.createHTableIfNeeded(KylinConfig.getInstanceFromEnv().getStorageUrl(),table,"f");
+    }
+ else     if (table.startsWith(HBaseMiniclusterHelper.CUBE_STORAGE_PREFIX)) {
+      HBaseConnection.createHTableIfNeeded(KylinConfig.getInstanceFromEnv().getStorageUrl(),table,"F1","F2");
+    }
+    String importLocation="file://" + backupFolder.getAbsolutePath() + "/"+ table;
+    String[] args=new String[]{table,importLocation};
+    boolean result=runImport(args,conf);
+    logger.info("importing table '" + table + "' with result:"+ result);
+    if (!result)     break;
+  }
+}

@@ -1,0 +1,11 @@
+{
+  if (args.length != 1) {
+    logger.error("Usage: HbaseImporter hbase_tar_lcoation");
+    System.exit(-1);
+  }
+  logger.info("The KylinConfig being used:");
+  logger.info("=================================================");
+  KylinConfig.getInstanceFromEnv().printProperties();
+  logger.info("=================================================");
+  importHBaseData(args[0],HBaseConfiguration.create());
+}

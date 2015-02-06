@@ -1,6 +1,6 @@
 {
   HBaseMiniclusterHelper t=new HBaseMiniclusterHelper();
-  System.out.println(t);
+  logger.info(t);
   try {
     HBaseMiniclusterHelper.startupMinicluster();
   }
