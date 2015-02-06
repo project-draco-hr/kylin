@@ -1,0 +1,11 @@
+{
+  Connection conn=getConnection();
+  Statement statement=conn.createStatement();
+  statement.execute("select count(*) from test_kylin_fact");
+  ResultSet rs=statement.getResultSet();
+  Assert.assertTrue(rs.next());
+  int result=rs.getInt(1);
+  Assert.assertTrue(result > 0);
+  rs.close();
+  conn.close();
+}
