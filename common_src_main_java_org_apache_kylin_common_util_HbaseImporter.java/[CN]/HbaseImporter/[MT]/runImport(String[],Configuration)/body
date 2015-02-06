@@ -1,0 +1,8 @@
+{
+  GenericOptionsParser opts=new GenericOptionsParser(new Configuration(configuration),args);
+  Configuration newConf=opts.getConfiguration();
+  args=opts.getRemainingArgs();
+  Job job=Import.createSubmittableJob(newConf,args);
+  job.waitForCompletion(false);
+  return job.isSuccessful();
+}

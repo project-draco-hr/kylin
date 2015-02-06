@@ -1,0 +1,9 @@
+{
+  try {
+    Class.forName(className);
+  }
+ catch (  ClassNotFoundException e) {
+    return false;
+  }
+  return true;
+}
