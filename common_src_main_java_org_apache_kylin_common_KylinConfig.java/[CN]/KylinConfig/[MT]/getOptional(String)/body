@@ -1,3 +1,4 @@
 {
-  return kylinConfig.getString(prop);
+  final String property=System.getProperty(prop);
+  return property != null ? property : kylinConfig.getString(prop);
 }

@@ -3,5 +3,5 @@
   if (StringUtils.isNotEmpty(coprocessorJar)) {
     return coprocessorJar;
   }
-  return getFileName(getKylinHome(),COPROCESSOR_JAR_NAME_PATTERN);
+  return getFileName(getKylinHome() + File.separator + "conf",COPROCESSOR_JAR_NAME_PATTERN);
 }

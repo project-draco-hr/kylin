@@ -3,5 +3,5 @@
   if (StringUtils.isNotEmpty(jobJar)) {
     return jobJar;
   }
-  return getFileName(getKylinHome(),JOB_JAR_NAME_PATTERN);
+  return getFileName(getKylinHome() + File.separator + "conf",JOB_JAR_NAME_PATTERN);
 }

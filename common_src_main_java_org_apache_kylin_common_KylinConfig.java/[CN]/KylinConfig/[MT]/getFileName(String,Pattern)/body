@@ -1,5 +1,5 @@
 {
-  File home=new File(kylinHome);
+  File home=new File(homePath);
   SortedSet<String> files=Sets.newTreeSet();
   if (home.exists() && home.isDirectory()) {
     for (    File file : home.listFiles()) {
