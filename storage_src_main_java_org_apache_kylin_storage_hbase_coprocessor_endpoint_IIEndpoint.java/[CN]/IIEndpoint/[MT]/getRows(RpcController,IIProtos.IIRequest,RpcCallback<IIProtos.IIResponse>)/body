@@ -27,6 +27,7 @@ synchronized (innerScanner) {
     }
   }
  catch (  IOException ioe) {
+    System.out.println(ioe.toString());
     ResponseConverter.setControllerException(controller,ioe);
   }
  finally {

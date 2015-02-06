@@ -1,0 +1,8 @@
+{
+  Driver driver=(Driver)Class.forName("org.apache.kylin.jdbc.Driver").newInstance();
+  Properties info=new Properties();
+  info.put("user","ADMIN");
+  info.put("password","KYLIN");
+  Connection conn=driver.connect("jdbc:kylin://localhost:7070/default",info);
+  return conn;
+}

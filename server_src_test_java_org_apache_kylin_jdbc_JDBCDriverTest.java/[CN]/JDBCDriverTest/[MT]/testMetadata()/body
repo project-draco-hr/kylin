@@ -1,0 +1,24 @@
+{
+  Connection conn=getConnection();
+  List<String> tableList=Lists.newArrayList();
+  DatabaseMetaData dbMetadata=conn.getMetaData();
+  ResultSet resultSet=dbMetadata.getTables(null,"%","%",new String[]{"TABLE"});
+  while (resultSet.next()) {
+    String schema=resultSet.getString("TABLE_SCHEM");
+    String name=resultSet.getString("TABLE_NAME");
+    System.out.println("Get table: schema=" + schema + ", name="+ name);
+    tableList.add(schema + "." + name);
+  }
+  resultSet.close();
+  Assert.assertTrue(tableList.contains("DEFAULT.TEST_KYLIN_FACT"));
+  resultSet=dbMetadata.getColumns(null,"%","TEST_KYLIN_FACT","%");
+  List<String> columns=Lists.newArrayList();
+  while (resultSet.next()) {
+    String name=resultSet.getString("COLUMN_NAME");
+    String type=resultSet.getString("TYPE_NAME");
+    System.out.println("Get column: name=" + name + ", data_type="+ type);
+    columns.add(name);
+  }
+  Assert.assertTrue(columns.size() > 0 && columns.contains("CAL_DT"));
+  conn.close();
+}

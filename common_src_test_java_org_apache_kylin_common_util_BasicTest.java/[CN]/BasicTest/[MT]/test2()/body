@@ -1,2 +1,6 @@
 {
+  PropertiesConfiguration a=new PropertiesConfiguration();
+  a.setProperty("hi","dd");
+  System.out.println("dfads");
+  a.save(System.out);
 }
