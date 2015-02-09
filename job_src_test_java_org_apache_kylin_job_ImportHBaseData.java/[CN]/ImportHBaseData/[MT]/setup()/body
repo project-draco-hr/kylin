@@ -1,7 +1,4 @@
 {
-  long currentTIME=System.currentTimeMillis();
-  exportFolder="/tmp/hbase-export/" + currentTIME + "/";
-  backupArchive="/tmp/kylin_" + currentTIME + ".tar.gz";
   KylinConfig.destoryInstance();
   System.setProperty(KylinConfig.KYLIN_CONF_HOME,AbstractKylinTestCase.SANDBOX_TEST_DATA);
   kylinConfig=KylinConfig.getInstanceFromEnv();
@@ -14,10 +11,10 @@
   try {
     hbase=new HBaseAdmin(conn);
     config=hbase.getConfiguration();
-    allTables=hbase.listTables();
   }
  catch (  IOException e) {
     e.printStackTrace();
     throw e;
   }
+  uploadTarballToRemote();
 }

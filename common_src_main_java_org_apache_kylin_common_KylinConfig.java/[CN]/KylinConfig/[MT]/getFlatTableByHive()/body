@@ -1,3 +1,0 @@
-{
-  return Boolean.parseBoolean(getOptional(KYLIN_JOB_HIVE_FLATTEN,"true"));
-}

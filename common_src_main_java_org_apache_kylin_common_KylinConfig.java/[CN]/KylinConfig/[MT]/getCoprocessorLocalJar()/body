@@ -1,3 +1,7 @@
 {
-  return getRequired(COPROCESSOR_LOCAL_JAR);
+  final String coprocessorJar=getOptional(COPROCESSOR_LOCAL_JAR);
+  if (StringUtils.isNotEmpty(coprocessorJar)) {
+    return coprocessorJar;
+  }
+  return getFileName(getKylinHome() + File.separator + "lib",COPROCESSOR_JAR_NAME_PATTERN);
 }
