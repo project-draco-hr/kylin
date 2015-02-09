@@ -20,11 +20,8 @@
         try {
           info.put(parameter,URLDecoder.decode(value,"UTF-8"));
         }
- catch (        UnsupportedEncodingException badEncoding) {
-          info.put(parameter,URLDecoder.decode(value));
-        }
-catch (        NoSuchMethodError nsme) {
-          info.put(parameter,URLDecoder.decode(value));
+ catch (        UnsupportedEncodingException ex) {
+          throw new RuntimeException("",ex);
         }
       }
     }
