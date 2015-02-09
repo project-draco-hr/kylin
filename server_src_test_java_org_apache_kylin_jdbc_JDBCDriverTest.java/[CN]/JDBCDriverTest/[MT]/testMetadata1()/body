@@ -1,0 +1,24 @@
+{
+  Connection conn=getConnection();
+  List<String> schemaList=Lists.newArrayList();
+  DatabaseMetaData dbMetadata=conn.getMetaData();
+  ResultSet resultSet=dbMetadata.getSchemas();
+  while (resultSet.next()) {
+    String schema=resultSet.getString("TABLE_SCHEM");
+    String catalog=resultSet.getString("TABLE_CATALOG");
+    System.out.println("Get schema: schema=" + schema + ", catalog="+ catalog);
+    schemaList.add(schema);
+  }
+  resultSet.close();
+  Assert.assertTrue(schemaList.contains("DEFAULT"));
+  Assert.assertTrue(schemaList.contains("EDW"));
+  resultSet=dbMetadata.getCatalogs();
+  List<String> catalogList=Lists.newArrayList();
+  while (resultSet.next()) {
+    String catalog=resultSet.getString("TABLE_CAT");
+    System.out.println("Get catalog: catalog=" + catalog);
+    catalogList.add(catalog);
+  }
+  Assert.assertTrue(catalogList.size() > 0 && catalogList.contains("defaultCatalog"));
+  conn.close();
+}

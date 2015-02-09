@@ -20,5 +20,6 @@
     columns.add(name);
   }
   Assert.assertTrue(columns.size() > 0 && columns.contains("CAL_DT"));
+  resultSet.close();
   conn.close();
 }

@@ -1,6 +1,0 @@
-{
-  testMetadata();
-  testSimpleStatement();
-  testResultSet();
-  testPreparedStatement();
-}

@@ -7,5 +7,6 @@
   String format_name=rs.getString(1);
   Assert.assertTrue("FP-GTC".equals(format_name));
   rs.close();
+  statement.close();
   conn.close();
 }
