@@ -5,4 +5,6 @@
   cubeController.setJobService(jobService);
   cubeDescController=new CubeDescController();
   cubeDescController.setCubeService(cubeService);
+  modelController=new ModelController();
+  modelController.setCubeService(cubeService);
 }
