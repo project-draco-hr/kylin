@@ -1,5 +1,5 @@
 {
-  IIProtos.IIResponse result=new IIProtos.IIResponse(this);
+  org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse result=new org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse(this);
   int from_bitField0_=bitField0_;
   if (rowsBuilder_ == null) {
     if (((bitField0_ & 0x00000001) == 0x00000001)) {

@@ -2,10 +2,10 @@
   if (obj == this) {
     return true;
   }
-  if (!(obj instanceof IIProtos.IIResponse)) {
+  if (!(obj instanceof org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse)) {
     return super.equals(obj);
   }
-  IIProtos.IIResponse other=(IIProtos.IIResponse)obj;
+  org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse other=(org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse)obj;
   boolean result=true;
   result=result && getRowsList().equals(other.getRowsList());
   result=result && getUnknownFields().equals(other.getUnknownFields());

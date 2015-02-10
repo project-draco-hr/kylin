@@ -1,7 +1,7 @@
 {
-  IIProtos.IIResponse.IIRow result=buildPartial();
+  org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow result=buildPartial();
   if (!result.isInitialized()) {
-    throw AbstractMessage.Builder.newUninitializedMessageException(result);
+    throw newUninitializedMessageException(result);
   }
   return result;
 }
