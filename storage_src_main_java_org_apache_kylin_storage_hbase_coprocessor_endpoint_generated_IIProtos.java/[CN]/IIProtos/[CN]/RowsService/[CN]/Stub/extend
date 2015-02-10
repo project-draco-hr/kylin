@@ -1,1 +1,1 @@
-IIProtos.RowsService
+org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.RowsService

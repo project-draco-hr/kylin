@@ -1,0 +1,18 @@
+{
+  logger.info("Going to shutdown mini cluster.");
+  if (!StringUtils.isEmpty(hbaseconnectionUrl)) {
+    HBaseConnection.removeConfig(hbaseconnectionUrl);
+  }
+  try {
+    UTIL.shutdownMiniMapReduceCluster();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  try {
+    UTIL.shutdownMiniCluster();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}

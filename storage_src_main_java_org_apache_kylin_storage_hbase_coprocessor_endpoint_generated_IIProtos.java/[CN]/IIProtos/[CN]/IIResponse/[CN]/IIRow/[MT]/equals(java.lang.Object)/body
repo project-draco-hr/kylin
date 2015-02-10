@@ -2,10 +2,10 @@
   if (obj == this) {
     return true;
   }
-  if (!(obj instanceof IIProtos.IIResponse.IIRow)) {
+  if (!(obj instanceof org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow)) {
     return super.equals(obj);
   }
-  IIProtos.IIResponse.IIRow other=(IIProtos.IIResponse.IIRow)obj;
+  org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow other=(org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow)obj;
   boolean result=true;
   result=result && (hasColumns() == other.hasColumns());
   if (hasColumns()) {

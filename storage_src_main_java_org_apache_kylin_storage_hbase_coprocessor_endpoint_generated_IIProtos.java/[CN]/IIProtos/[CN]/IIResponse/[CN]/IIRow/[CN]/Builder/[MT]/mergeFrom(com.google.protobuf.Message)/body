@@ -1,6 +1,6 @@
 {
-  if (other instanceof IIProtos.IIResponse.IIRow) {
-    return mergeFrom((IIProtos.IIResponse.IIRow)other);
+  if (other instanceof org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow) {
+    return mergeFrom((org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow)other);
   }
  else {
     super.mergeFrom(other);

@@ -20,10 +20,10 @@ default :
 case 10:
 {
     if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-      rows_=new java.util.ArrayList<IIProtos.IIResponse.IIRow>();
+      rows_=new java.util.ArrayList<org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow>();
       mutable_bitField0_|=0x00000001;
     }
-    rows_.add(input.readMessage(IIProtos.IIResponse.IIRow.PARSER,extensionRegistry));
+    rows_.add(input.readMessage(org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow.PARSER,extensionRegistry));
     break;
   }
 }

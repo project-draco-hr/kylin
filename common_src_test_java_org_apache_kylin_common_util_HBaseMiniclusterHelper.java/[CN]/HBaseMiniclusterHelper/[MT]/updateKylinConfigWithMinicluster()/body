@@ -1,0 +1,5 @@
+{
+  KylinConfig.getInstanceFromEnv().setMetadataUrl(TEST_METADATA_TABLE + "@" + hbaseconnectionUrl);
+  KylinConfig.getInstanceFromEnv().setStorageUrl(hbaseconnectionUrl);
+  HBaseConnection.putConfig(hbaseconnectionUrl,UTIL.getConfiguration());
+}
