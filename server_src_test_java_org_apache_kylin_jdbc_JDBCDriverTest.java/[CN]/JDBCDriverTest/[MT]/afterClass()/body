@@ -1,5 +1,6 @@
 {
   stopJetty();
+  staticCleanupTestMetadata();
   if (previousSpringProfile == null) {
     System.clearProperty(SPRING_PROFILE_PROPERTY);
   }
