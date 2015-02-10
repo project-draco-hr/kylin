@@ -26,14 +26,14 @@
       continue;
     }
     if (table.startsWith(HBaseMiniclusterHelper.II_STORAGE_PREFIX)) {
-      UTIL.createTable(table,"f");
+      HBaseConnection.createHTableIfNeeded(KylinConfig.getInstanceFromEnv().getStorageUrl(),table,"f");
     }
  else     if (table.startsWith(HBaseMiniclusterHelper.CUBE_STORAGE_PREFIX)) {
-      UTIL.createTable(TableName.valueOf(table),new String[]{"F1","F2"});
+      HBaseConnection.createHTableIfNeeded(KylinConfig.getInstanceFromEnv().getStorageUrl(),table,"F1","F2");
     }
     String importLocation="file://" + backupFolder.getAbsolutePath() + "/"+ table;
     String[] args=new String[]{table,importLocation};
-    boolean result=runImport(args,UTIL.getConfiguration());
+    boolean result=runImport(args,conf);
     logger.info("importing table '" + table + "' with result:"+ result);
     if (!result)     break;
   }

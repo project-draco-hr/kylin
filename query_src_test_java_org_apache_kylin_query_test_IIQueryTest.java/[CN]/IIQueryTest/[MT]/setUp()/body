@@ -1,5 +1,4 @@
 {
-  HBaseMiniclusterHelper.UTIL.getConfiguration().setStrings(CoprocessorHost.REGION_COPROCESSOR_CONF_KEY,IIEndpoint.class.getName());
   KylinQueryTest.setUp();
   distinctCountSupported=false;
   Map<RealizationType,Integer> priorities=Maps.newHashMap();

@@ -1,5 +1,8 @@
 {
   logger.info("Going to start mini cluster.");
+  if (existInClassPath(iiEndpointClassName)) {
+    HBaseMiniclusterHelper.UTIL.getConfiguration().setStrings(CoprocessorHost.REGION_COPROCESSOR_CONF_KEY,iiEndpointClassName);
+  }
   UTIL.getConfiguration().setInt("hbase.master.info.port",-1);
   MiniHBaseCluster hbaseCluster=UTIL.startMiniCluster();
   Configuration config=hbaseCluster.getConf();
@@ -15,5 +18,5 @@
   updateKylinConfigWithMinicluster();
   UTIL.startMiniMapReduceCluster();
   @SuppressWarnings("unused") HBaseResourceStore store=new HBaseResourceStore(KylinConfig.getInstanceFromEnv());
-  HbaseImporter.importHBaseData(hbaseTarLocation,UTIL);
+  HbaseImporter.importHBaseData(hbaseTarLocation,UTIL.getConfiguration());
 }
