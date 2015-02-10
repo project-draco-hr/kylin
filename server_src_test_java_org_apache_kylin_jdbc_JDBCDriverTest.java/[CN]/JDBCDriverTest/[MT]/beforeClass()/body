@@ -1,5 +1,6 @@
 {
   previousSpringProfile=System.getProperty(SPRING_PROFILE_PROPERTY);
   System.setProperty(SPRING_PROFILE_PROPERTY,"testing");
+  staticCreateTestMetadata();
   startJetty();
 }
