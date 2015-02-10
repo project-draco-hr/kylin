@@ -33,7 +33,16 @@
     }
     final StringBuilder output=new StringBuilder();
     final HadoopCmdOutput hadoopCmdOutput=new HadoopCmdOutput(job,output);
-    final String rmWebHost=job.getConfiguration().get("yarn.resourcemanager.webapp.address");
+    String rmWebHost=job.getConfiguration().get("yarn.resourcemanager.webapp.address");
+    if (StringUtils.isEmpty(rmWebHost)) {
+      return new ExecuteResult(ExecuteResult.State.ERROR,"yarn.resourcemanager.webapp.address is empty");
+    }
+    if (rmWebHost.startsWith("http://") || rmWebHost.startsWith("https://")) {
+    }
+ else {
+      rmWebHost="http://" + rmWebHost;
+    }
+    logger.info("yarn.resourcemanager.webapp.address:" + rmWebHost);
     final String restStatusCheckUrl=rmWebHost + "/ws/v1/cluster/apps/${job_id}?anonymous=true";
     String mrJobId=hadoopCmdOutput.getMrJobId();
     HadoopStatusChecker statusChecker=new HadoopStatusChecker(restStatusCheckUrl,mrJobId,output);
