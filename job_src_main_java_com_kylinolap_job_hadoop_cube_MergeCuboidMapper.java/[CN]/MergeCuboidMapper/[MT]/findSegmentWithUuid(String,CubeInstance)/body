@@ -1,6 +1,7 @@
 {
   for (  CubeSegment segment : cubeInstance.getSegments()) {
-    if (segment.getUuid().equalsIgnoreCase(jobID)) {
+    String lastBuildJobID=segment.getLastBuildJobID();
+    if (lastBuildJobID != null && lastBuildJobID.equalsIgnoreCase(jobID)) {
       return segment;
     }
   }

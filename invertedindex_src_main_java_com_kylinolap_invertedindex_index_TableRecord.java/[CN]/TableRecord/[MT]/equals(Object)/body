@@ -1,0 +1,7 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  TableRecord other=(TableRecord)obj;
+  return ObjectUtils.equals(other.rawRecord,this.rawRecord);
+}

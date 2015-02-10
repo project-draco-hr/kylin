@@ -1,3 +1,0 @@
-{
-  return getProjectTable(project,table,false);
-}

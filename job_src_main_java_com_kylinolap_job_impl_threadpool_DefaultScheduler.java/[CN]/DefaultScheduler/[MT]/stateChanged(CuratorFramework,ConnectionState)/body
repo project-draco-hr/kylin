@@ -1,0 +1,10 @@
+{
+  if ((newState == ConnectionState.SUSPENDED) || (newState == ConnectionState.LOST)) {
+    try {
+      shutdown();
+    }
+ catch (    SchedulerException e) {
+      throw new RuntimeException("failed to shutdown scheduler",e);
+    }
+  }
+}

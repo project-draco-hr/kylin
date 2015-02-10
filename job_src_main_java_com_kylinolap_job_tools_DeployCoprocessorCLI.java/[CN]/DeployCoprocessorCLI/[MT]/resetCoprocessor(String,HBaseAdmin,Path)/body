@@ -3,10 +3,13 @@
   hbaseAdmin.disableTable(tableName);
   logger.info("Unset coprocessor on " + tableName);
   HTableDescriptor desc=hbaseAdmin.getTableDescriptor(TableName.valueOf(tableName));
-  while (desc.hasCoprocessor(AGGR_COPROCESSOR_CLS_NAME)) {
-    desc.removeCoprocessor(AGGR_COPROCESSOR_CLS_NAME);
+  while (desc.hasCoprocessor(OBSERVER_CLS_NAME)) {
+    desc.removeCoprocessor(OBSERVER_CLS_NAME);
   }
-  setCoprocessorOnHTable(desc,hdfsCoprocessorJar);
+  while (desc.hasCoprocessor(ENDPOINT_CLS_NAMAE)) {
+    desc.removeCoprocessor(ENDPOINT_CLS_NAMAE);
+  }
+  addCoprocessorOnHTable(desc,hdfsCoprocessorJar);
   hbaseAdmin.modifyTable(tableName,desc);
   logger.info("Enable " + tableName);
   hbaseAdmin.enableTable(tableName);

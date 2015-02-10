@@ -1,3 +1,0 @@
-{
-  return new FixedPointLongCodec(type.getScale());
-}

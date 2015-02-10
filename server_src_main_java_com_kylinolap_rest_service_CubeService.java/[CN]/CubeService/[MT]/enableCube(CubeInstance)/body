@@ -1,22 +1,20 @@
 {
   String cubeName=cube.getName();
-  CubeStatusEnum ostatus=cube.getStatus();
-  if (!cube.getStatus().equals(CubeStatusEnum.DISABLED)) {
+  RealizationStatusEnum ostatus=cube.getStatus();
+  if (!cube.getStatus().equals(RealizationStatusEnum.DISABLED)) {
     throw new InternalErrorException("Only disabled cube can be enabled, status of " + cubeName + " is "+ ostatus);
   }
-  if (cube.getSegments(CubeSegmentStatusEnum.READY).size() == 0) {
+  if (cube.getSegments(SegmentStatusEnum.READY).size() == 0) {
     throw new InternalErrorException("Cube " + cubeName + " dosen't contain any READY segment");
   }
-  List<JobInstance> jobInstances=this.getJobManager().listJobs(cube.getName(),null);
-  for (  JobInstance jobInstance : jobInstances) {
-    if (jobInstance.getStatus() == JobStatusEnum.PENDING || jobInstance.getStatus() == JobStatusEnum.RUNNING) {
-      throw new JobException("Enable is not allowed with a running job.");
-    }
+  final List<CubingJob> cubingJobs=listAllCubingJobs(cube.getName(),null,EnumSet.of(ExecutableState.READY,ExecutableState.RUNNING));
+  if (!cubingJobs.isEmpty()) {
+    throw new JobException("Enable is not allowed with a running job.");
   }
   if (!cube.getDescriptor().calculateSignature().equals(cube.getDescriptor().getSignature())) {
     this.releaseAllSegments(cube);
   }
-  cube.setStatus(CubeStatusEnum.READY);
+  cube.setStatus(RealizationStatusEnum.READY);
   try {
     return getCubeManager().updateCube(cube);
   }

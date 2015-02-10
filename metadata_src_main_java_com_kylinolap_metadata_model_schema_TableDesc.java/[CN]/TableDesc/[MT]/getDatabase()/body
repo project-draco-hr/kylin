@@ -1,6 +1,0 @@
-{
-  if (database == null) {
-    return "DEFAULT";
-  }
-  return database.getName();
-}

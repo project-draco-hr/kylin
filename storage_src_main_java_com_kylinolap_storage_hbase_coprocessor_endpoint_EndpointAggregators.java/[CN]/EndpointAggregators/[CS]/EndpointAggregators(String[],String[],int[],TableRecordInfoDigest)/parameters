@@ -1,0 +1,4 @@
+String[] funcNames
+String[] dataTypes
+int[] refColIndex
+TableRecordInfoDigest tableInfo

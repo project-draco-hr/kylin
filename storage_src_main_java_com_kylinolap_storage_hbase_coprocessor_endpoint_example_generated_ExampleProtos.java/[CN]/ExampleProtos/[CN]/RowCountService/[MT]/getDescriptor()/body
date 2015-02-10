@@ -1,0 +1,3 @@
+{
+  return ExampleProtos.getDescriptor().getServices().get(0);
+}

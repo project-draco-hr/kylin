@@ -1,0 +1,4 @@
+{
+  String useSandbox=System.getProperty("useSandbox");
+  return Boolean.parseBoolean(useSandbox);
+}

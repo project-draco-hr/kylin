@@ -1,0 +1,4 @@
+{
+  projectName=norm(projectName);
+  return projectMap.get(projectName);
+}

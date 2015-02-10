@@ -1,0 +1,3 @@
+{
+  return IIManager.getInstance(getConfig());
+}

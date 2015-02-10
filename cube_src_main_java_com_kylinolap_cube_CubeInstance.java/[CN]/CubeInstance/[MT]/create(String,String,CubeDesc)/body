@@ -3,9 +3,10 @@
   cubeInstance.setConfig(cubeDesc.getConfig());
   cubeInstance.setName(cubeName);
   cubeInstance.setDescName(cubeDesc.getName());
-  cubeInstance.setCreateTime(formatTime(System.currentTimeMillis()));
+  cubeInstance.setCreateTimeUTC(System.currentTimeMillis());
   cubeInstance.setSegments(new ArrayList<CubeSegment>());
-  cubeInstance.setStatus(CubeStatusEnum.DISABLED);
+  cubeInstance.setStatus(RealizationStatusEnum.DISABLED);
   cubeInstance.updateRandomUuid();
+  cubeInstance.setProjectName(projectName);
   return cubeInstance;
 }

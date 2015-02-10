@@ -1,0 +1,3 @@
+{
+  setParam(II_INSTANCE_NAME,name);
+}

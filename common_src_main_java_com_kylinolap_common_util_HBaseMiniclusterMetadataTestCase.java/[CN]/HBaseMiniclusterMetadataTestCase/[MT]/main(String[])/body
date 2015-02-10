@@ -1,0 +1,13 @@
+{
+  HBaseMiniclusterMetadataTestCase t=new HBaseMiniclusterMetadataTestCase();
+  System.out.println(t);
+  try {
+    HBaseMiniclusterMetadataTestCase.startupMinicluster();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+ finally {
+    HBaseMiniclusterMetadataTestCase.shutdownMiniCluster();
+  }
+}

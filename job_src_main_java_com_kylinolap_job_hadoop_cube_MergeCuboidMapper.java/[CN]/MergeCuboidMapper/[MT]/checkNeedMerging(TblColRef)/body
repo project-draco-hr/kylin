@@ -2,7 +2,11 @@
   Boolean ret=dictsNeedMerging.get(col);
   if (ret != null)   return ret;
  else {
-    ret=cubeDesc.getRowkey().isUseDictionary(col) && cubeDesc.getFactTable().equalsIgnoreCase((String)DictionaryManager.getInstance(config).decideSourceData(cubeDesc,col,null)[0]);
+    ret=cubeDesc.getRowkey().isUseDictionary(col);
+    if (ret) {
+      String dictTable=(String)DictionaryManager.getInstance(config).decideSourceData(cubeDesc.getModel(),cubeDesc.getRowkey().getDictionary(col),col,null)[0];
+      ret=cubeDesc.getFactTable().equalsIgnoreCase(dictTable);
+    }
     dictsNeedMerging.put(col,ret);
     return ret;
   }

@@ -1,7 +1,7 @@
 {
   String cubeName=cube.getName();
-  CubeStatusEnum ostatus=cube.getStatus();
-  if (null != ostatus && !CubeStatusEnum.DISABLED.equals(ostatus)) {
+  RealizationStatusEnum ostatus=cube.getStatus();
+  if (null != ostatus && !RealizationStatusEnum.DISABLED.equals(ostatus)) {
     throw new InternalErrorException("Only disabled cube can be purged, status of " + cubeName + " is "+ ostatus);
   }
   try {

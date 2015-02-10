@@ -1,5 +1,0 @@
-SRowType type
-SRowFilter filter
-SRowProjector groupBy
-SRowAggregators aggrs
-RegionScanner innerScanner

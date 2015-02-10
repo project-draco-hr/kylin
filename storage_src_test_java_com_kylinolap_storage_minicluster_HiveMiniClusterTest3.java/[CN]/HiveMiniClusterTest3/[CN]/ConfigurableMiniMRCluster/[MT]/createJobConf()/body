@@ -1,0 +1,9 @@
+{
+  JobConf conf=super.createJobConf();
+  if (config != null) {
+    for (    Map.Entry entry : config.entrySet()) {
+      conf.set((String)entry.getKey(),(String)entry.getValue());
+    }
+  }
+  return conf;
+}

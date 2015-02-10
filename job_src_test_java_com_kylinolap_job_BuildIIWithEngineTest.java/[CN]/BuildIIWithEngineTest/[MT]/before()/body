@@ -1,0 +1,22 @@
+{
+  HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.SANDBOX_TEST_DATA);
+  DeployUtil.initCliWorkDir();
+  DeployUtil.overrideJobJarLocations();
+  final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  jobService=ExecutableManager.getInstance(kylinConfig);
+  scheduler=DefaultScheduler.getInstance();
+  scheduler.init(new JobEngineConfig(kylinConfig));
+  if (!scheduler.hasStarted()) {
+    throw new RuntimeException("scheduler has not been started");
+  }
+  iiManager=IIManager.getInstance(kylinConfig);
+  jobEngineConfig=new JobEngineConfig(kylinConfig);
+  for (  String jobId : jobService.getAllJobIds()) {
+    jobService.deleteJob(jobId);
+  }
+  IIInstance ii=iiManager.getII(TEST_II_NAME);
+  if (ii.getStatus() != RealizationStatusEnum.DISABLED) {
+    ii.setStatus(RealizationStatusEnum.DISABLED);
+    iiManager.updateII(ii);
+  }
+}

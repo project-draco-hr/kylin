@@ -1,4 +1,0 @@
-{
-  double i2=3234.4324234324234;
-  System.out.println(String.format("%.2f",i2));
-}

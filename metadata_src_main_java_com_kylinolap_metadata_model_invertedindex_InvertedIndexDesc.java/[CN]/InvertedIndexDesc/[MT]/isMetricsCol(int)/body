@@ -1,3 +1,0 @@
-{
-  return metricsColSet.get(colZeroBasedIndex);
-}

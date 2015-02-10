@@ -1,7 +1,0 @@
-{
-  final int prime=31;
-  int result=1;
-  result=prime * result + column.getTable().getName().hashCode();
-  result=prime * result + column.getName().hashCode();
-  return result;
-}

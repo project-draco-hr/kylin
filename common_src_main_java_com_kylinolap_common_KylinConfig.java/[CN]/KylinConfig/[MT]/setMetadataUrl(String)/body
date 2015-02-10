@@ -1,3 +1,4 @@
 {
   kylinConfig.setProperty(KYLIN_METADATA_URL,metadataUrl);
+  this.metadataUrl=metadataUrl;
 }

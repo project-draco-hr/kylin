@@ -1,10 +1,8 @@
 {
-  JobInstance jobInstance=null;
   try {
-    CubeInstance cube=jobService.getCubeManager().getCube(cubeName);
     String submitter=SecurityContextHolder.getContext().getAuthentication().getName();
-    String jobId=jobService.submitJob(cube,jobBuildRequest.getStartTime(),jobBuildRequest.getEndTime(),CubeBuildTypeEnum.valueOf(jobBuildRequest.getBuildType()),submitter);
-    jobInstance=jobService.getJobInstance(jobId);
+    CubeInstance cube=jobService.getCubeManager().getCube(cubeName);
+    return jobService.submitJob(cube,jobBuildRequest.getStartTime(),jobBuildRequest.getEndTime(),CubeBuildTypeEnum.valueOf(jobBuildRequest.getBuildType()),submitter);
   }
  catch (  JobException e) {
     logger.error(e.getLocalizedMessage(),e);
@@ -14,9 +12,4 @@ catch (  IOException e) {
     logger.error(e.getLocalizedMessage(),e);
     throw new InternalErrorException(e.getLocalizedMessage());
   }
-catch (  InvalidJobInstanceException e) {
-    logger.error(e.getLocalizedMessage(),e);
-    throw new InternalErrorException(e.getLocalizedMessage());
-  }
-  return jobInstance;
 }

@@ -1,0 +1,11 @@
+{
+  String[] tokens=text.split("\\\\x");
+  byte[] ret=new byte[tokens.length - 1];
+  for (int i=1; i < tokens.length; ++i) {
+    int x=Bytes.toBinaryFromHex((byte)tokens[i].charAt(0));
+    x=x << 4;
+    int y=Bytes.toBinaryFromHex((byte)tokens[i].charAt(1));
+    ret[i - 1]=(byte)(x + y);
+  }
+  return ret;
+}

@@ -1,0 +1,10 @@
+{
+  ResourceStore store=getStore();
+  logger.info("Loading IIDesc " + store.getReadableResourcePath(path));
+  IIDesc ndesc=store.getResource(path,IIDesc.class,II_DESC_SERIALIZER);
+  if (StringUtils.isBlank(ndesc.getName())) {
+    throw new IllegalStateException("IIDesc name must not be blank");
+  }
+  ndesc.init(getMetadataManager());
+  return ndesc;
+}

@@ -1,0 +1,4 @@
+{
+  if (rawRecord.isMetric(col))   return rawRecord.codec(col).toString(getValueMetrics(col));
+ else   return info.dict(col).getValueFromId(rawRecord.getValueID(col));
+}

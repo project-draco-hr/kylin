@@ -1,5 +1,0 @@
-{
-  this.info=info;
-  this.buf=new byte[info.byteFormLen];
-  reset();
-}

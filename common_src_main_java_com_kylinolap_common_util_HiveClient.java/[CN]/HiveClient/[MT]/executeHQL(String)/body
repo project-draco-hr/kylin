@@ -1,0 +1,8 @@
+{
+  CommandProcessorResponse response=getDriver().run(hql);
+  int retCode=response.getResponseCode();
+  if (retCode != 0) {
+    String err=response.getErrorMessage();
+    throw new IOException("Failed to execute hql [" + hql + "], error message is: "+ err);
+  }
+}

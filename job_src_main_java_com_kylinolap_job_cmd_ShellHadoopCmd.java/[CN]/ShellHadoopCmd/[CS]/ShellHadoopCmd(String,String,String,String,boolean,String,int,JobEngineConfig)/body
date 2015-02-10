@@ -1,6 +1,0 @@
-{
-  super(executeCmd,new ShellHadoopCmdOutput(instanceID,stepID,engineConfig),host,user,password,async);
-  this.jobInstanceID=instanceID;
-  this.jobStepID=stepID;
-  this.engineConfig=engineConfig;
-}

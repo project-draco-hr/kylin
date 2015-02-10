@@ -1,5 +1,0 @@
-{
-  if (other == com.kylinolap.storage.hbase.coprocessor.example.generated.ExampleProtos.CountRequest.getDefaultInstance())   return this;
-  this.mergeUnknownFields(other.getUnknownFields());
-  return this;
-}

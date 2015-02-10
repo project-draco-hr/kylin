@@ -1,0 +1,7 @@
+{
+  if (driver == null) {
+    driver=new Driver(hiveConf);
+    SessionState.start(new CliSessionState(hiveConf));
+  }
+  return driver;
+}

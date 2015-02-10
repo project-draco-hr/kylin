@@ -1,0 +1,36 @@
+{
+  final Output output=jobService.getOutput(getId());
+  String logMsg;
+switch (output.getState()) {
+case ERROR:
+    logMsg=output.getVerboseMsg();
+  break;
+case DISCARDED:
+logMsg="";
+break;
+case SUCCEED:
+logMsg="";
+break;
+default :
+return null;
+}
+String content=ExecutableConstants.NOTIFY_EMAIL_TEMPLATE;
+content=content.replaceAll("\\$\\{job_name\\}",getName());
+content=content.replaceAll("\\$\\{result\\}",state.toString());
+content=content.replaceAll("\\$\\{cube_name\\}",getCubeName());
+content=content.replaceAll("\\$\\{start_time\\}",new Date(getStartTime()).toString());
+content=content.replaceAll("\\$\\{duration\\}",getDuration() / 60000 + "mins");
+content=content.replaceAll("\\$\\{mr_waiting\\}",getMapReduceWaitTime() / 60000 + "mins");
+content=content.replaceAll("\\$\\{last_update_time\\}",new Date(getLastModified()).toString());
+content=content.replaceAll("\\$\\{submitter\\}",getSubmitter());
+content=content.replaceAll("\\$\\{error_log\\}",logMsg);
+try {
+InetAddress inetAddress=InetAddress.getLocalHost();
+content=content.replaceAll("\\$\\{job_engine\\}",inetAddress.getCanonicalHostName());
+}
+ catch (UnknownHostException e) {
+logger.warn(e.getLocalizedMessage(),e);
+}
+String title="[" + state.toString() + "] - [Kylin Cube Build Job]-"+ getCubeName();
+return Pair.of(title,content);
+}

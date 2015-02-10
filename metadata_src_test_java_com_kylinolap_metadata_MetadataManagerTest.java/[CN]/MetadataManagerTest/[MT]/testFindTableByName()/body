@@ -1,5 +1,5 @@
 {
-  TableDesc table=MetadataManager.getInstance(this.getTestConfig()).getTableDesc("TEST_CAL_DT");
+  TableDesc table=MetadataManager.getInstance(getTestConfig()).getTableDesc("EDW.TEST_CAL_DT");
   Assert.assertNotNull(table);
-  Assert.assertEquals("TEST_CAL_DT",table.getName());
+  Assert.assertEquals("EDW.TEST_CAL_DT",table.getIdentity());
 }

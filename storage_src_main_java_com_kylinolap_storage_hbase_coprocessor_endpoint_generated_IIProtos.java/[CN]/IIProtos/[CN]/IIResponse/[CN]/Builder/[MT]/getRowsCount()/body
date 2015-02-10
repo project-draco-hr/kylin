@@ -1,0 +1,8 @@
+{
+  if (rowsBuilder_ == null) {
+    return rows_.size();
+  }
+ else {
+    return rowsBuilder_.getCount();
+  }
+}

@@ -1,15 +1,7 @@
 {
   this.executeCommand=executeCmd;
   this.output=out;
-  this.remoteHost=host;
-  this.remoteUser=user;
-  if (password != null && new File(password).exists()) {
-    this.identityPath=new File(password).getAbsolutePath();
-    this.remotePassword=null;
-  }
- else {
-    this.remotePassword=password;
-    this.identityPath=null;
-  }
+  cliCommandExecutor=new CliCommandExecutor();
+  cliCommandExecutor.setRunAtRemote(host,user,password);
   this.isAsync=async;
 }

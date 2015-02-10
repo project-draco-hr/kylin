@@ -1,7 +1,7 @@
 {
   this.createTestMetadata();
-  MetadataManager.removeInstance(this.getTestConfig());
-  CubeManager.removeInstance(this.getTestConfig());
-  ProjectManager.removeInstance(this.getTestConfig());
-  cubeMgr=CubeManager.getInstance(this.getTestConfig());
+  MetadataManager.clearCache();
+  CubeManager.clearCache();
+  ProjectManager.clearCache();
+  cubeMgr=CubeManager.getInstance(getTestConfig());
 }

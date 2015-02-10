@@ -1,0 +1,38 @@
+{
+  if (isDiscarded()) {
+    setEndTime(System.currentTimeMillis());
+    notifyUserStatusChange(ExecutableState.DISCARDED);
+  }
+ else   if (result.succeed()) {
+    List<? extends Executable> jobs=getTasks();
+    boolean allSucceed=true;
+    boolean hasError=false;
+    for (    Executable task : jobs) {
+      final ExecutableState status=task.getStatus();
+      if (status == ExecutableState.ERROR) {
+        hasError=true;
+      }
+      if (status != ExecutableState.SUCCEED) {
+        allSucceed=false;
+      }
+    }
+    if (allSucceed) {
+      setEndTime(System.currentTimeMillis());
+      jobService.updateJobOutput(getId(),ExecutableState.SUCCEED,null,null);
+      notifyUserStatusChange(ExecutableState.SUCCEED);
+    }
+ else     if (hasError) {
+      setEndTime(System.currentTimeMillis());
+      jobService.updateJobOutput(getId(),ExecutableState.ERROR,null,null);
+      notifyUserStatusChange(ExecutableState.ERROR);
+    }
+ else {
+      jobService.updateJobOutput(getId(),ExecutableState.READY,null,null);
+    }
+  }
+ else {
+    setEndTime(System.currentTimeMillis());
+    jobService.updateJobOutput(getId(),ExecutableState.ERROR,null,null);
+    notifyUserStatusChange(ExecutableState.ERROR);
+  }
+}

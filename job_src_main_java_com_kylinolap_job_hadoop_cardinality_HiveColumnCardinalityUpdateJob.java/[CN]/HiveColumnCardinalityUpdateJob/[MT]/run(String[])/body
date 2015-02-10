@@ -1,0 +1,19 @@
+{
+  Options options=new Options();
+  try {
+    options.addOption(OPTION_TABLE);
+    options.addOption(OPTION_OUTPUT_PATH);
+    parseOptions(options,args);
+    this.table=getOptionValue(OPTION_TABLE).toUpperCase();
+    String jobName=JOB_TITLE + getOptionsAsString();
+    System.out.println("Starting: " + jobName);
+    Configuration conf=getConf();
+    Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
+    updateKylinTableExd(table.toUpperCase(),output.toString(),conf);
+    return 0;
+  }
+ catch (  Exception e) {
+    printUsage(options);
+    throw e;
+  }
+}

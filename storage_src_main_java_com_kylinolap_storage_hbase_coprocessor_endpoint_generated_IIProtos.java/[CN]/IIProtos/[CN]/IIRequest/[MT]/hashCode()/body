@@ -1,0 +1,26 @@
+{
+  if (memoizedHashCode != 0) {
+    return memoizedHashCode;
+  }
+  int hash=41;
+  hash=(19 * hash) + getDescriptorForType().hashCode();
+  if (hasType()) {
+    hash=(37 * hash) + TYPE_FIELD_NUMBER;
+    hash=(53 * hash) + getType().hashCode();
+  }
+  if (hasFilter()) {
+    hash=(37 * hash) + FILTER_FIELD_NUMBER;
+    hash=(53 * hash) + getFilter().hashCode();
+  }
+  if (hasProjector()) {
+    hash=(37 * hash) + PROJECTOR_FIELD_NUMBER;
+    hash=(53 * hash) + getProjector().hashCode();
+  }
+  if (hasAggregator()) {
+    hash=(37 * hash) + AGGREGATOR_FIELD_NUMBER;
+    hash=(53 * hash) + getAggregator().hashCode();
+  }
+  hash=(29 * hash) + getUnknownFields().hashCode();
+  memoizedHashCode=hash;
+  return hash;
+}

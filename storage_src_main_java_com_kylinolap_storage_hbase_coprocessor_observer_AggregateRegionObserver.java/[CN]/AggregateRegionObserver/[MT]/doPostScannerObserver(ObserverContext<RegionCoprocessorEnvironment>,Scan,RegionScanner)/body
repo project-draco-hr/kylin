@@ -1,0 +1,24 @@
+{
+  byte[] coprocessorEnableBytes=scan.getAttribute(COPROCESSOR_ENABLE);
+  if (coprocessorEnableBytes == null || coprocessorEnableBytes.length == 0 || coprocessorEnableBytes[0] == 0) {
+    return innerScanner;
+  }
+  byte[] typeBytes=scan.getAttribute(TYPE);
+  CoprocessorRowType type=CoprocessorRowType.deserialize(typeBytes);
+  byte[] projectorBytes=scan.getAttribute(PROJECTOR);
+  CoprocessorProjector projector=CoprocessorProjector.deserialize(projectorBytes);
+  byte[] aggregatorBytes=scan.getAttribute(AGGREGATORS);
+  ObserverAggregators aggregators=ObserverAggregators.deserialize(aggregatorBytes);
+  byte[] filterBytes=scan.getAttribute(FILTER);
+  CoprocessorFilter filter=CoprocessorFilter.deserialize(filterBytes);
+  HRegion region=ctxt.getEnvironment().getRegion();
+  region.startRegionOperation();
+  try {
+synchronized (innerScanner) {
+      return new AggregationScanner(type,filter,projector,aggregators,innerScanner);
+    }
+  }
+  finally {
+    region.closeRegionOperation();
+  }
+}

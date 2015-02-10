@@ -1,8 +1,0 @@
-{
-  try {
-    return new IISegmentTupleIterator(context);
-  }
- catch (  IOException e) {
-    throw new StorageException(e.getMessage(),e);
-  }
-}

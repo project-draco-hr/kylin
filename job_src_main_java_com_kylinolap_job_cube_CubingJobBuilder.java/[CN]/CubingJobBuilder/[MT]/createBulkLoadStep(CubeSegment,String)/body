@@ -1,0 +1,11 @@
+{
+  HadoopShellExecutable bulkLoadStep=new HadoopShellExecutable();
+  bulkLoadStep.setName(ExecutableConstants.STEP_NAME_BULK_LOAD_HFILE);
+  StringBuilder cmd=new StringBuilder();
+  appendExecCmdParameters(cmd,"input",getHFilePath(seg,jobId));
+  appendExecCmdParameters(cmd,"htablename",seg.getStorageLocationIdentifier());
+  appendExecCmdParameters(cmd,"cubename",seg.getCubeInstance().getName());
+  bulkLoadStep.setJobParams(cmd.toString());
+  bulkLoadStep.setJobClass(BulkLoadJob.class);
+  return bulkLoadStep;
+}

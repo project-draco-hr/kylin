@@ -1,0 +1,3 @@
+String database
+String table
+Map<String,String> partitionKV

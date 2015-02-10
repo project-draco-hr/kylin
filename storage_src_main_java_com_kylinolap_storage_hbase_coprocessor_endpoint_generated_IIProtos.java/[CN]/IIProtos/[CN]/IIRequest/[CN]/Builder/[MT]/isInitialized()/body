@@ -1,0 +1,15 @@
+{
+  if (!hasType()) {
+    return false;
+  }
+  if (!hasFilter()) {
+    return false;
+  }
+  if (!hasProjector()) {
+    return false;
+  }
+  if (!hasAggregator()) {
+    return false;
+  }
+  return true;
+}

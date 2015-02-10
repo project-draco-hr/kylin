@@ -1,0 +1,6 @@
+{
+  if (clusterTestDir != null)   return;
+  Path testDir=getDataTestDir("dfscluster_kylin");
+  clusterTestDir=new File(testDir.toString()).getAbsoluteFile();
+  conf.set("test.build.data",clusterTestDir.getPath());
+}

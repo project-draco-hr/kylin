@@ -1,0 +1,11 @@
+{
+  checkNoBuildingSegment(cube);
+  checkCubeIsPartitioned(cube);
+  Pair<Long,Long> range=alignMergeRange(cube,startDate,endDate);
+  CubeSegment newSegment=newSegment(cube,range.getFirst(),range.getSecond());
+  validateNewSegments(cube,newSegment);
+  cube.getSegments().add(newSegment);
+  Collections.sort(cube.getSegments());
+  updateCube(cube);
+  return newSegment;
+}

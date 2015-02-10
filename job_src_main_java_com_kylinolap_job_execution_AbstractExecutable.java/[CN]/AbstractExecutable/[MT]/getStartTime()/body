@@ -1,0 +1,3 @@
+{
+  return getExtraInfoAsLong(START_TIME,0L);
+}

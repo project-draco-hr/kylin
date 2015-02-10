@@ -1,6 +1,0 @@
-{
-  this.engineConfig=engineCfg;
-  this.config=engineConfig.getConfig();
-  this.jobDAO=JobDAO.getInstance(config);
-  this.jobEngine=JobEngine.getInstance(engineID,engineCfg);
-}

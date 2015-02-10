@@ -1,14 +1,14 @@
 {
+  super.publishConfiguration(context.getConfiguration());
   Configuration conf=context.getConfiguration();
-  String inputDelim=conf.get(BatchConstants.INPUT_DELIM);
-  this.delim=inputDelim == null ? -1 : inputDelim.codePointAt(0);
-  this.splitter=new BytesSplitter(200,4096);
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata(conf);
-  CubeManager mgr=CubeManager.getInstance(config);
-  CubeInstance cube=mgr.getCube(conf.get(BatchConstants.CFG_CUBE_NAME));
-  CubeSegment seg=cube.getSegment(conf.get(BatchConstants.CFG_CUBE_SEGMENT_NAME),CubeSegmentStatusEnum.NEW);
+  IIManager mgr=IIManager.getInstance(config);
+  IIInstance ii=mgr.getII(conf.get(BatchConstants.CFG_II_NAME));
+  IISegment seg=ii.getSegment(conf.get(BatchConstants.CFG_II_SEGMENT_NAME),SegmentStatusEnum.NEW);
   this.info=new TableRecordInfo(seg);
-  this.rec=new TableRecord(this.info);
+  this.rec=this.info.createTableRecord();
   outputKey=new LongWritable();
   outputValue=new ImmutableBytesWritable(rec.getBytes());
+  schema=HCatInputFormat.getTableSchema(context.getConfiguration());
+  fields=schema.getFields();
 }

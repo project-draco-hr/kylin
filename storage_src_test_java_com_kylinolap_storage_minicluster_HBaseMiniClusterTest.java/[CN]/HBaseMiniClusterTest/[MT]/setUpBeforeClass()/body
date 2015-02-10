@@ -1,0 +1,17 @@
+{
+  File logPath=new File(LOG_DIR);
+  if (!logPath.exists()) {
+    logPath.mkdirs();
+  }
+  System.setProperty("hadoop.log.dir",LOG_DIR);
+  System.setProperty("javax.xml.parsers.SAXParserFactory","com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
+  System.setProperty("javax.xml.parsers.DocumentBuilderFactory","com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl");
+  Properties props=new Properties();
+  props.setProperty("dfs.datanode.data.dir.perm","775");
+  conf=new JobConf();
+  File miniclusterFolder=new File(AbstractKylinTestCase.MINICLUSTER_TEST_DATA);
+  System.out.println("----" + miniclusterFolder.getAbsolutePath());
+  System.setProperty("test.build.data.basedirectory",miniclusterFolder.getAbsolutePath());
+  System.setProperty("hbase.testing.preserve.testdir","true");
+  startCluster(true,conf,props);
+}

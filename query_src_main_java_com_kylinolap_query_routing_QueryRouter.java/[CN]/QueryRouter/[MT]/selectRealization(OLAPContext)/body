@@ -1,0 +1,15 @@
+{
+  ProjectManager prjMgr=ProjectManager.getInstance(olapContext.olapSchema.getConfig());
+  String factTableName=olapContext.firstTableScan.getTableName();
+  String projectName=olapContext.olapSchema.getProjectName();
+  List<IRealization> realizations=Lists.newArrayList(prjMgr.getRealizationsByTable(projectName,factTableName));
+  logger.info("Find candidates by table " + factTableName + " and project="+ projectName+ " : "+ StringUtils.join(realizations,","));
+  RoutingRule.applyRules(realizations,olapContext);
+  if (realizations.size() == 0) {
+    throw new NoRealizationFoundException("Can't find any realization. Please confirm with providers. SQL digest: " + olapContext.getSQLDigest().toString());
+  }
+  logger.info("The realizations remaining: ");
+  logger.info(RoutingRule.getPrintableText(realizations));
+  logger.info("The realization being chosen: " + realizations.get(0).getName());
+  return realizations.get(0);
+}

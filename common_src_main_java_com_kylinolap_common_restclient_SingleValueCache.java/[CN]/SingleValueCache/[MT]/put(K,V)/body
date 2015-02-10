@@ -1,5 +1,9 @@
 {
-  Broadcaster.EVENT eventType=innerCache.containsKey(key) ? Broadcaster.EVENT.UPDATE : Broadcaster.EVENT.CREATE;
-  innerCache.put(key,value);
-  syncRemote(key,eventType);
+  final V result=innerCache.put(key,value);
+  if (result == null) {
+    syncRemote(key,Broadcaster.EVENT.CREATE);
+  }
+ else {
+    syncRemote(key,Broadcaster.EVENT.UPDATE);
+  }
 }

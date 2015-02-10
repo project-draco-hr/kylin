@@ -1,0 +1,6 @@
+{
+  type_=com.google.protobuf.ByteString.EMPTY;
+  filter_=com.google.protobuf.ByteString.EMPTY;
+  projector_=com.google.protobuf.ByteString.EMPTY;
+  aggregator_=com.google.protobuf.ByteString.EMPTY;
+}

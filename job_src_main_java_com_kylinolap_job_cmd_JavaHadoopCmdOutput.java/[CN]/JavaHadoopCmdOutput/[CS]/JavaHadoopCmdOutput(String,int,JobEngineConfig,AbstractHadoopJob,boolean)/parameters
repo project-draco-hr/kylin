@@ -1,5 +1,0 @@
-String jobInstanceID
-int jobStepID
-JobEngineConfig engineConfig
-AbstractHadoopJob job
-boolean isAsync

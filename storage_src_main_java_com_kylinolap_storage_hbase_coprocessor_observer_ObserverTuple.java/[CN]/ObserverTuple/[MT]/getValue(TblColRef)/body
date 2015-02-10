@@ -1,0 +1,4 @@
+{
+  int i=type.getColIndexByTblColRef(col);
+  return getValueAt(i);
+}

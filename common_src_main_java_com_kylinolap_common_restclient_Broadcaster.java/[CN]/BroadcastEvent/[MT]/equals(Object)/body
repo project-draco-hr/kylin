@@ -1,20 +1,22 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (obj == null) {
+    return false;
+  }
+  if (this == obj) {
+    return true;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   BroadcastEvent other=(BroadcastEvent)obj;
-  if (!getOuterType().equals(other.getOuterType()))   return false;
-  if (action == null) {
-    if (other.action != null)     return false;
+  if (!StringUtils.equals(action,other.action)) {
+    return false;
   }
- else   if (!action.equals(other.action))   return false;
-  if (name == null) {
-    if (other.name != null)     return false;
+  if (!StringUtils.equals(name,other.name)) {
+    return false;
   }
- else   if (!name.equals(other.name))   return false;
-  if (type == null) {
-    if (other.type != null)     return false;
+  if (!StringUtils.equals(type,other.type)) {
+    return false;
   }
- else   if (!type.equals(other.type))   return false;
   return true;
 }

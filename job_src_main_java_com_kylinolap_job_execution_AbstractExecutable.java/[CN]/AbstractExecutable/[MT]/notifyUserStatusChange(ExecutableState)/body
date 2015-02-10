@@ -1,0 +1,27 @@
+{
+  try {
+    List<String> users=Lists.newArrayList();
+    users.addAll(getNotifyList());
+    final String adminDls=KylinConfig.getInstanceFromEnv().getAdminDls();
+    if (null != adminDls) {
+      for (      String adminDl : adminDls.split(",")) {
+        users.add(adminDl);
+      }
+    }
+    if (users.isEmpty()) {
+      return;
+    }
+    final Pair<String,String> email=formatNotifications(state);
+    if (email == null) {
+      return;
+    }
+    logger.info("prepare to send email to:" + users);
+    logger.info("job name:" + getName());
+    logger.info("submitter:" + getSubmitter());
+    logger.info("notify list:" + users);
+    new MailService().sendMail(users,email.getLeft(),email.getRight());
+  }
+ catch (  Exception e) {
+    logger.error(e.getLocalizedMessage(),e);
+  }
+}

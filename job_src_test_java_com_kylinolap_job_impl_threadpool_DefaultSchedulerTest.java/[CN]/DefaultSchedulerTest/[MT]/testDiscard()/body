@@ -1,0 +1,13 @@
+{
+  DefaultChainedExecutable job=new DefaultChainedExecutable();
+  BaseTestExecutable task1=new SelfStopExecutable();
+  job.addTask(task1);
+  jobService.addJob(job);
+  waitForJobStatus(job.getId(),ExecutableState.RUNNING,500);
+  jobService.discardJob(job.getId());
+  waitForJobFinish(job.getId());
+  assertEquals(ExecutableState.DISCARDED,jobService.getOutput(job.getId()).getState());
+  assertEquals(ExecutableState.DISCARDED,jobService.getOutput(task1.getId()).getState());
+  Thread.sleep(5000);
+  System.out.println(job);
+}

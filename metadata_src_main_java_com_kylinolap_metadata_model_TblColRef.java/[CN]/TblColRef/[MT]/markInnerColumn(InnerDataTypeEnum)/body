@@ -1,0 +1,5 @@
+{
+  this.column.setDatatype(dataType.getDataType());
+  this.column.getTable().setName(INNER_TABLE_NAME);
+  this.column.getTable().setDatabase("DEFAULT");
+}

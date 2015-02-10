@@ -1,0 +1,29 @@
+{
+  if (dfsCluster == null) {
+    if (props != null) {
+      for (      Map.Entry entry : props.entrySet()) {
+        conf.set((String)entry.getKey(),(String)entry.getValue());
+      }
+    }
+    dfsCluster=new MiniDFSCluster(NAMENODE_PORT,conf,2,reformatDFS,true,null,null);
+    hbaseCluster=new MiniHBaseCluster(c,1,1,null,null);
+    HTable t=new HTable(c,TableName.META_TABLE_NAME);
+    ResultScanner s=t.getScanner(new Scan());
+    while (s.next() != null) {
+      continue;
+    }
+    s.close();
+    t.close();
+  }
+  System.out.println("dfs uri: -------" + dfsCluster.getFileSystem().getUri().toString());
+  System.out.println("dfs base directory: -------" + MiniDFSCluster.getBaseDirectory().toString());
+  Configuration config=hbaseCluster.getConf();
+  String host=config.get(HConstants.ZOOKEEPER_QUORUM);
+  String port=config.get(HConstants.ZOOKEEPER_CLIENT_PORT);
+  String parent=config.get(HConstants.ZOOKEEPER_ZNODE_PARENT);
+  config.set(HConstants.HBASE_CLIENT_PAUSE,"3000");
+  config.set(HConstants.HBASE_CLIENT_RETRIES_NUMBER,"5");
+  config.set(HConstants.HBASE_CLIENT_OPERATION_TIMEOUT,"60000");
+  String hbaseconnectionUrl="hbase:" + host + ":"+ port+ ":"+ parent;
+  System.out.println("hbase connection url: -----" + hbaseconnectionUrl);
+}

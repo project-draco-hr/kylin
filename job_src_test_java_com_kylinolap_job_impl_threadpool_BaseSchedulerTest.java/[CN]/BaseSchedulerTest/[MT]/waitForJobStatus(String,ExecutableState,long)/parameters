@@ -1,0 +1,3 @@
+String jobId
+ExecutableState state
+long interval

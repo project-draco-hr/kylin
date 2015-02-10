@@ -1,7 +1,8 @@
 {
-  KylinConfig.destoryInstance();
   this.createTestMetadata();
-  MetadataManager.removeInstance(getTestConfig());
-  CubeManager.removeInstance(this.getTestConfig());
-  ProjectManager.removeInstance(this.getTestConfig());
+  MetadataManager.clearCache();
+  DictionaryManager.clearCache();
+  CubeManager.clearCache();
+  IIManager.clearCache();
+  ProjectManager.clearCache();
 }

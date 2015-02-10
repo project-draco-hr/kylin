@@ -1,0 +1,16 @@
+{
+  ArrayList<Pair<ImmutableBytesWritable,ImmutableBytesWritable>> result=Lists.newArrayList();
+  ColumnValueContainer[] containers=slice.getColumnValueContainers();
+  for (int col=0; col < containers.length; col++) {
+    if (containers[col] instanceof BitMapContainer) {
+      collectKeyValues(slice,col,(BitMapContainer)containers[col],result);
+    }
+ else     if (containers[col] instanceof CompressedValueContainer) {
+      collectKeyValues(slice,col,(CompressedValueContainer)containers[col],result);
+    }
+ else {
+      throw new IllegalArgumentException("Unkown container class " + containers[col].getClass());
+    }
+  }
+  return result;
+}

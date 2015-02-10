@@ -1,0 +1,24 @@
+{
+  loadConfig();
+  TreeSet<String> factTableColumns=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+  for (  DimensionDesc dim : desc.getDimensions()) {
+    for (    TblColRef col : dim.getColumnRefs()) {
+      if (col.getTable().equals(factTableName))       factTableColumns.add(col.getName());
+    }
+    JoinDesc join=dim.getJoin();
+    if (join != null) {
+      String lookupTable=dim.getTable();
+      for (      String column : join.getPrimaryKey()) {
+        if (!lookupTableKeys.containsKey(lookupTable)) {
+          lookupTableKeys.put(lookupTable,new LinkedList<String>());
+        }
+        if (!lookupTableKeys.get(lookupTable).contains(column))         lookupTableKeys.get(lookupTable).add(column);
+      }
+    }
+  }
+  int distinctRowCount=(int)(this.rowCount / this.conflictRatio);
+  distinctRowCount=(distinctRowCount == 0) ? 1 : distinctRowCount;
+  for (  String lookupTable : lookupTableKeys.keySet()) {
+    this.loadLookupTableValues(lookupTable,lookupTableKeys.get(lookupTable),distinctRowCount);
+  }
+}

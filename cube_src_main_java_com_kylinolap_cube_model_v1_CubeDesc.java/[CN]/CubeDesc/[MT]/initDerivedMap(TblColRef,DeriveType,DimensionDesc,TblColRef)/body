@@ -1,0 +1,3 @@
+{
+  initDerivedMap(new TblColRef[]{hostCol},type,dimension,new TblColRef[]{derivedCol},null);
+}

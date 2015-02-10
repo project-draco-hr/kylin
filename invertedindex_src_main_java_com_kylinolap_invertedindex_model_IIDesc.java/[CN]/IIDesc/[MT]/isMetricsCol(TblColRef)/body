@@ -1,0 +1,4 @@
+{
+  if (!col.getTable().equalsIgnoreCase(this.getFactTableName()))   return false;
+  return isMetricsCol(this.findColumn(col));
+}

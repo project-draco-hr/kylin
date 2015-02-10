@@ -5,4 +5,8 @@
   cubeController=new CubeController();
   cubeController.setJobService(jobService);
   cubeController.setCubeService(cubeService);
+  KylinConfig testConfig=getTestConfig();
+  cubeManager=CubeManager.getInstance(testConfig);
+  cubeDescManager=CubeDescManager.getInstance(testConfig);
+  executableDAO=ExecutableDao.getInstance(testConfig);
 }

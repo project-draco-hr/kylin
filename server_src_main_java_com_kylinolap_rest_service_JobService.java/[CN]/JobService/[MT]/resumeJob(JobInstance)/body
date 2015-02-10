@@ -1,3 +1,0 @@
-{
-  this.getJobManager().resumeJob(job.getUuid());
-}

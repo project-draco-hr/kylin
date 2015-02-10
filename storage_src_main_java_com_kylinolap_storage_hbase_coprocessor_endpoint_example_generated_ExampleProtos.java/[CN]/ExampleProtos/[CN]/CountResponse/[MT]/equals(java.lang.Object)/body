@@ -1,0 +1,16 @@
+{
+  if (obj == this) {
+    return true;
+  }
+  if (!(obj instanceof ExampleProtos.CountResponse)) {
+    return super.equals(obj);
+  }
+  ExampleProtos.CountResponse other=(ExampleProtos.CountResponse)obj;
+  boolean result=true;
+  result=result && (hasCount() == other.hasCount());
+  if (hasCount()) {
+    result=result && (getCount() == other.getCount());
+  }
+  result=result && getUnknownFields().equals(other.getUnknownFields());
+  return result;
+}

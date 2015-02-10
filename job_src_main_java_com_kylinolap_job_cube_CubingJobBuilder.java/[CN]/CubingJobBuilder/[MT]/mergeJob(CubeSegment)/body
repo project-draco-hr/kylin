@@ -1,0 +1,18 @@
+{
+  checkPreconditions(seg);
+  CubingJob result=initialJob(seg,"MERGE");
+  final String jobId=result.getId();
+  final String mergedCuboidPath=getJobWorkingDir(jobId) + "/" + seg.getCubeInstance().getName()+ "/cuboid/";
+  List<CubeSegment> mergingSegments=seg.getCubeInstance().getMergingSegments(seg);
+  Preconditions.checkState(mergingSegments.size() > 1,"there should be more than 2 segments to merge");
+  List<String> mergingSegmentIds=Lists.newArrayList();
+  List<String> mergingCuboidPaths=Lists.newArrayList();
+  for (  CubeSegment merging : mergingSegments) {
+    mergingSegmentIds.add(merging.getUuid());
+    mergingCuboidPaths.add(getPathToMerge(merging));
+  }
+  addMergeSteps(seg,mergingSegmentIds,mergingCuboidPaths,mergedCuboidPath,result);
+  AbstractExecutable convertCuboidToHfileStep=addHTableSteps(seg,mergedCuboidPath,result);
+  result.addTask(createUpdateCubeInfoAfterMergeStep(seg,mergingSegmentIds,convertCuboidToHfileStep.getId(),jobId));
+  return result;
+}

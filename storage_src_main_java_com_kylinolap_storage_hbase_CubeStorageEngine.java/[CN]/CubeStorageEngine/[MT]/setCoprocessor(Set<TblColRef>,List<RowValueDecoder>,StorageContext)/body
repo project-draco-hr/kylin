@@ -1,0 +1,3 @@
+{
+  ObserverEnabler.enableCoprocessorIfBeneficial(cubeInstance,groupsCopD,valueDecoders,context);
+}

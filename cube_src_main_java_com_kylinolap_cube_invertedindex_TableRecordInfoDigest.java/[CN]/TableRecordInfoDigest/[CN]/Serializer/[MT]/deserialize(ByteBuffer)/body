@@ -1,9 +1,0 @@
-{
-  TableRecordInfoDigest result=new TableRecordInfoDigest();
-  result.nColumns=BytesUtil.readVInt(in);
-  result.byteFormLen=BytesUtil.readVInt(in);
-  result.offsets=BytesUtil.readIntArray(in);
-  result.dictMaxIds=BytesUtil.readIntArray(in);
-  result.lengths=BytesUtil.readIntArray(in);
-  return result;
-}

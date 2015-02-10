@@ -1,0 +1,7 @@
+{
+  String name=desc.getName();
+  if (!dataModelDescMap.containsKey(name)) {
+    throw new IllegalArgumentException("DataModelDesc '" + name + "' does not exist.");
+  }
+  return saveDataModelDesc(desc);
+}

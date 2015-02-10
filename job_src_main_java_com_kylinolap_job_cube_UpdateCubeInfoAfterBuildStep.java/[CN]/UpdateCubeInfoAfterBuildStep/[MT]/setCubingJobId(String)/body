@@ -1,0 +1,3 @@
+{
+  setParam(CUBING_JOB_ID,id);
+}

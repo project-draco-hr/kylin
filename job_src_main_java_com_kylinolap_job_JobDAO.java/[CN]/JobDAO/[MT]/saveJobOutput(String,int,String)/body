@@ -1,9 +1,0 @@
-{
-  JobStepOutput output=this.getJobOutput(jobUuid,stepSequenceId);
-  if (output == null) {
-    output=new JobStepOutput();
-    output.setName(JobStepOutput.nameOfOutput(jobUuid,stepSequenceId));
-  }
-  output.setOutput(outputString);
-  writeJobOutputResource(pathOfJobOutput(output),output);
-}

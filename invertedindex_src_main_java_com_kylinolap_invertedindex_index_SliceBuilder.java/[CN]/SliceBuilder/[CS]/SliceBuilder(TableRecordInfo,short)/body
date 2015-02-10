@@ -1,0 +1,10 @@
+{
+  this.info=info;
+  this.nColumns=info.getDigest().getColumnCount();
+  this.nRecordsCap=Math.max(1,info.getDescriptor().getSliceSize());
+  this.shard=shard;
+  this.sliceTimestamp=Long.MIN_VALUE;
+  this.nRecords=0;
+  this.containers=null;
+  doneSlice();
+}

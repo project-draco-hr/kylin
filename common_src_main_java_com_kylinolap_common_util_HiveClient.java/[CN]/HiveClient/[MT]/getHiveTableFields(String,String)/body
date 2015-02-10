@@ -1,0 +1,3 @@
+{
+  return getMetaStoreClient().getFields(database,tableName);
+}

@@ -1,0 +1,3 @@
+{
+  setParam(KEY_MR_JOB,clazzName.getName());
+}

@@ -1,0 +1,18 @@
+{
+  if (!project.getName().equals(newName)) {
+    ProjectInstance newProject=this.createProject(newName,project.getOwner(),newDesc);
+    newProject.setCreateTimeUTC(project.getCreateTimeUTC());
+    newProject.recordUpdateTime(System.currentTimeMillis());
+    newProject.setRealizationEntries(project.getRealizationEntries());
+    deleteResource(project);
+    saveResource(newProject);
+    return newProject;
+  }
+ else {
+    project.setName(newName);
+    project.setDescription(newDesc);
+    if (project.getUuid() == null)     project.updateRandomUuid();
+    saveResource(project);
+    return project;
+  }
+}

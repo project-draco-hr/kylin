@@ -1,0 +1,3 @@
+{
+  if (dateRangeStart >= dateRangeEnd)   throw new IllegalStateException("dateRangeStart(" + dateRangeStart + ") must be greater than dateRangeEnd("+ dateRangeEnd+ ") in segment "+ this);
+}

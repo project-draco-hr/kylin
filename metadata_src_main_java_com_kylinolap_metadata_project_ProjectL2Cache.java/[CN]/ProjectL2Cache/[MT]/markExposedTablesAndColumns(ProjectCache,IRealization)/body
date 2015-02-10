@@ -1,0 +1,11 @@
+{
+  if (!realization.isReady()) {
+    return;
+  }
+  for (  TblColRef col : realization.getAllColumns()) {
+    TableCache tableCache=prjCache.tables.get(col.getTable());
+    prjCache.exposedTables.add(tableCache.tableDesc);
+    tableCache.exposed=true;
+    tableCache.exposedColumns.add(col.getColumn());
+  }
+}

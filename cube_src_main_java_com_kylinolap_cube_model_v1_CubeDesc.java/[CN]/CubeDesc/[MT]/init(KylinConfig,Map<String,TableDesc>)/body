@@ -1,0 +1,20 @@
+{
+  this.errors.clear();
+  this.config=config;
+  if (factTable != null)   factTable=factTable.toUpperCase();
+  for (  DimensionDesc dim : dimensions) {
+    dim.init(tables);
+  }
+  sortDimAndMeasure();
+  initJoinColumns(tables);
+  initDimensionColumns(tables);
+  initMeasureColumns(tables);
+  initMeasureReferenceToColumnFamily();
+  if (null != this.cubePartitionDesc) {
+    this.cubePartitionDesc.init(columnMap);
+  }
+  List<TblColRef> dimCols=listDimensionColumnsExcludingDerived();
+  if (rowkey.getRowKeyColumns().length != dimCols.size()) {
+    addError("RowKey columns count (" + rowkey.getRowKeyColumns().length + ") does not match dimension columns count ("+ dimCols.size()+ "). ");
+  }
+}

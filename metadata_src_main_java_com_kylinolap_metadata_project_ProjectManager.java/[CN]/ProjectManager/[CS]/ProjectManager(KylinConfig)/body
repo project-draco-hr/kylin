@@ -1,0 +1,6 @@
+{
+  logger.info("Initializing ProjectManager with metadata url " + config);
+  this.config=config;
+  this.l2Cache=new ProjectL2Cache(this);
+  reloadAllProjects();
+}

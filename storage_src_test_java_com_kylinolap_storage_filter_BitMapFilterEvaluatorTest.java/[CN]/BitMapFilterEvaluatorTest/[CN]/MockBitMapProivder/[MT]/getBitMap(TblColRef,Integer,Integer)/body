@@ -1,0 +1,22 @@
+{
+  if (!col.equals(colA))   return null;
+  if (startId == null && endId == null) {
+    ConciseSet s=new ConciseSet();
+    s.add(getRecordCount() - 1);
+    return s;
+  }
+  int start=0;
+  int end=MAX_ID;
+  if (startId != null) {
+    start=startId;
+  }
+  if (endId != null) {
+    end=endId;
+  }
+  ConciseSet ret=new ConciseSet();
+  for (int i=start; i <= end; ++i) {
+    ConciseSet temp=getBitMap(col,i);
+    ret.addAll(temp);
+  }
+  return ret;
+}

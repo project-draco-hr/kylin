@@ -1,0 +1,12 @@
+{
+  super.clear();
+  type_=com.google.protobuf.ByteString.EMPTY;
+  bitField0_=(bitField0_ & ~0x00000001);
+  filter_=com.google.protobuf.ByteString.EMPTY;
+  bitField0_=(bitField0_ & ~0x00000002);
+  projector_=com.google.protobuf.ByteString.EMPTY;
+  bitField0_=(bitField0_ & ~0x00000004);
+  aggregator_=com.google.protobuf.ByteString.EMPTY;
+  bitField0_=(bitField0_ & ~0x00000008);
+  return this;
+}

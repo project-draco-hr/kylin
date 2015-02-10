@@ -1,0 +1,44 @@
+{
+  Matcher matcher=PATTERN_APP_ID.matcher(message);
+  if (matcher.find()) {
+    String appId=matcher.group(1);
+    info.put(ExecutableConstants.YARN_APP_ID,appId);
+  }
+  matcher=PATTERN_APP_URL.matcher(message);
+  if (matcher.find()) {
+    String appTrackingUrl=matcher.group(1);
+    info.put(ExecutableConstants.YARN_APP_URL,appTrackingUrl);
+  }
+  matcher=PATTERN_JOB_ID.matcher(message);
+  if (matcher.find()) {
+    String mrJobID=matcher.group(1);
+    info.put(ExecutableConstants.MR_JOB_ID,mrJobID);
+  }
+  matcher=PATTERN_HDFS_BYTES_WRITTEN.matcher(message);
+  if (matcher.find()) {
+    String hdfsWritten=matcher.group(1);
+    info.put(ExecutableConstants.HDFS_BYTES_WRITTEN,hdfsWritten);
+  }
+  matcher=PATTERN_SOURCE_RECORDS_COUNT.matcher(message);
+  if (matcher.find()) {
+    String sourceCount=matcher.group(1);
+    info.put(ExecutableConstants.SOURCE_RECORDS_COUNT,sourceCount);
+  }
+  matcher=PATTERN_SOURCE_RECORDS_SIZE.matcher(message);
+  if (matcher.find()) {
+    String sourceSize=matcher.group(1);
+    info.put(ExecutableConstants.SOURCE_RECORDS_SIZE,sourceSize);
+  }
+  matcher=PATTERN_HIVE_APP_ID_URL.matcher(message);
+  if (matcher.find()) {
+    String jobId=matcher.group(1);
+    String trackingUrl=matcher.group(2);
+    info.put(ExecutableConstants.MR_JOB_ID,jobId);
+    info.put(ExecutableConstants.YARN_APP_URL,trackingUrl);
+  }
+  matcher=PATTERN_HIVE_BYTES_WRITTEN.matcher(message);
+  if (matcher.find()) {
+    String hdfsWritten=matcher.group(2);
+    info.put(ExecutableConstants.HDFS_BYTES_WRITTEN,hdfsWritten);
+  }
+}

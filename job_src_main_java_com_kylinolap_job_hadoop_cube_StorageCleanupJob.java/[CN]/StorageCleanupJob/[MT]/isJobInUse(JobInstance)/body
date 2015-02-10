@@ -1,8 +1,0 @@
-{
-  if (job.getStatus().equals(JobStatusEnum.NEW) || job.getStatus().equals(JobStatusEnum.PENDING) || job.getStatus().equals(JobStatusEnum.RUNNING)|| job.getStatus().equals(JobStatusEnum.ERROR)) {
-    return true;
-  }
- else {
-    return false;
-  }
-}

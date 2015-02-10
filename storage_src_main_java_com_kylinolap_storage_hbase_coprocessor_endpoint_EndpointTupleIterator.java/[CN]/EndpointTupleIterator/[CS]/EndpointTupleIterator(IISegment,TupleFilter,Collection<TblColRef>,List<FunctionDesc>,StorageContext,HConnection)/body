@@ -1,0 +1,37 @@
+{
+  String tableName=cubeSegment.getStorageLocationIdentifier();
+  table=conn.getTable(tableName);
+  factTableName=cubeSegment.getIIDesc().getFactTableName();
+  if (rootFilter == null) {
+    rootFilter=ConstantTupleFilter.TRUE;
+  }
+  if (groupBy == null) {
+    groupBy=Sets.newHashSet();
+  }
+  if (measures == null) {
+    measures=Lists.newArrayList();
+  }
+  initMeaureParameters(measures,cubeSegment.getColumns());
+  this.seg=cubeSegment;
+  this.context=context;
+  this.measures=measures;
+  this.columns=cubeSegment.getColumns();
+  this.columnNames=getColumnNames(columns);
+  this.tupleInfo=buildTupleInfo();
+  this.tableRecordInfo=new TableRecordInfo(this.seg);
+  this.pushedDownRowType=CoprocessorRowType.fromTableRecordInfo(tableRecordInfo,this.columns);
+  this.pushedDownFilter=CoprocessorFilter.fromFilter(this.seg,rootFilter);
+  for (  TblColRef column : this.pushedDownFilter.getUnstrictlyFilteredColumns()) {
+    groupBy.add(column);
+  }
+  this.pushedDownProjector=CoprocessorProjector.makeForEndpoint(tableRecordInfo,groupBy);
+  this.pushedDownAggregators=EndpointAggregators.fromFunctions(tableRecordInfo,measures);
+  IIProtos.IIRequest endpointRequest=prepareRequest();
+  regionResponsesIterator=getResults(endpointRequest,table);
+  if (this.regionResponsesIterator.hasNext()) {
+    this.tupleIterator=new SingleRegionTupleIterator(this.regionResponsesIterator.next());
+  }
+ else {
+    this.tupleIterator=ITupleIterator.EMPTY_TUPLE_ITERATOR;
+  }
+}

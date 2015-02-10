@@ -1,5 +1,5 @@
 {
-  CubeInstance cube=CubeManager.getInstance(this.getTestConfig()).getCube("TEST_KYLIN_CUBE_WITH_SLR_READY");
+  CubeInstance cube=CubeManager.getInstance(getTestConfig()).getCube("TEST_KYLIN_CUBE_WITH_SLR_READY");
   CubeDesc cubeDesc=cube.getDescriptor();
   byte[][] data=new byte[9][];
   data[0]=Bytes.toBytes("123456789");

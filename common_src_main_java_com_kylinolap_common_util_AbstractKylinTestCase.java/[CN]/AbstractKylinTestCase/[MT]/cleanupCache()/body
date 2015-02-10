@@ -1,0 +1,15 @@
+{
+  for (  String serviceClass : SERVICES_WITH_CACHE) {
+    try {
+      Class<?> cls=Class.forName(serviceClass);
+      Method method=cls.getDeclaredMethod("clearCache");
+      method.invoke(null);
+    }
+ catch (    ClassNotFoundException e) {
+    }
+catch (    Exception e) {
+      System.err.println("Error clean up cache " + serviceClass);
+      e.printStackTrace();
+    }
+  }
+}

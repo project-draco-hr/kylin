@@ -1,0 +1,5 @@
+{
+  Map<String,String> info=Maps.newHashMap();
+  info.put(key,value);
+  addJobInfo(id,info);
+}

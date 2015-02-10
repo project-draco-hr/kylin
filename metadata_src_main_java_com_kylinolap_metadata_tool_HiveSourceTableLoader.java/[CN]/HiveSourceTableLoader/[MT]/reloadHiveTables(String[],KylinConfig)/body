@@ -1,38 +1,18 @@
 {
   Map<String,Set<String>> db2tables=Maps.newHashMap();
   for (  String table : hiveTables) {
-    int cut=table.indexOf('.');
-    String database=cut >= 0 ? table.substring(0,cut).trim() : "DEFAULT";
-    String tableName=cut >= 0 ? table.substring(cut + 1).trim() : table.trim();
-    Set<String> set=db2tables.get(database);
+    String[] parts=HadoopUtil.parseHiveTableName(table);
+    Set<String> set=db2tables.get(parts[0]);
     if (set == null) {
       set=Sets.newHashSet();
-      db2tables.put(database,set);
+      db2tables.put(parts[0],set);
     }
-    set.add(tableName);
-  }
-  File metaTmpDir=File.createTempFile("meta_tmp",null);
-  metaTmpDir.delete();
-  metaTmpDir.mkdirs();
-  for (  String database : db2tables.keySet()) {
-    for (    String table : db2tables.get(database)) {
-      TableDesc tableDesc=MetadataManager.getInstance(config).getTableDesc(table);
-      if (tableDesc == null) {
-        continue;
-      }
-      if (tableDesc.getDatabase().equalsIgnoreCase(database)) {
-        continue;
-      }
- else {
-        throw new UnsupportedOperationException(String.format("there is already a table[%s] in database[%s]",tableDesc.getName(),tableDesc.getDatabase()));
-      }
-    }
+    set.add(parts[1]);
   }
   Set<String> loadedTables=Sets.newHashSet();
   for (  String database : db2tables.keySet()) {
-    List<String> loaded=extractHiveTables(database,db2tables.get(database),metaTmpDir,config);
+    List<String> loaded=extractHiveTables(database,db2tables.get(database),config);
     loadedTables.addAll(loaded);
   }
-  ResourceTool.copy(KylinConfig.createInstanceFromUri(metaTmpDir.getAbsolutePath()),config);
   return loadedTables;
 }

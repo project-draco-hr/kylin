@@ -1,0 +1,3 @@
+{
+  return JOB_PATH_ROOT + "/" + uuid;
+}

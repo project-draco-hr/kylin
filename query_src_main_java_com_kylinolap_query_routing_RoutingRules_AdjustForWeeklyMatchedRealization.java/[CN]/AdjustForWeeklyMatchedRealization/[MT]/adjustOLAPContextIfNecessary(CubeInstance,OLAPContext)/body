@@ -1,0 +1,6 @@
+{
+  if (CubeCapabilityChecker.check(cube,olapContext.getSQLDigest(),false))   return;
+  CubeDesc cubeDesc=cube.getDescriptor();
+  Collection<FunctionDesc> cubeFuncs=cubeDesc.listAllFunctions();
+  convertAggreationToDimension(olapContext,cubeFuncs,cubeDesc.getFactTable());
+}

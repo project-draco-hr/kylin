@@ -1,0 +1,12 @@
+{
+  ResourceStore store=getStore();
+  try {
+    DataModelDesc dataModelDesc=store.getResource(path,DataModelDesc.class,MODELDESC_SERIALIZER);
+    dataModelDesc.init(this.getAllTablesMap());
+    dataModelDescMap.putLocal(dataModelDesc.getName(),dataModelDesc);
+    return dataModelDesc;
+  }
+ catch (  IOException e) {
+    throw new IllegalStateException("Error to load" + path,e);
+  }
+}

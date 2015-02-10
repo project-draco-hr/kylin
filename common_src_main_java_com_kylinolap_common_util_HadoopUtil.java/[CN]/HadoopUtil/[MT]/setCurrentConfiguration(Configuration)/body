@@ -1,0 +1,3 @@
+{
+  hadoopConfig.set(conf);
+}

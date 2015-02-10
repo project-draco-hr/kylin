@@ -1,4 +1,0 @@
-{
-  this.aggregators=aggregators;
-  this.aggBufMap=Maps.newTreeMap();
-}

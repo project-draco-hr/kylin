@@ -1,0 +1,3 @@
+{
+  this.createTestMetadata(LOCALMETA_TEST_DATA_V1);
+}

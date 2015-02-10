@@ -3,18 +3,12 @@
     this.output.append("Skip status check with empty job id..\n");
     return JobStepStatusEnum.WAITING;
   }
-  String applicationId=mrJobID.replace("job","application");
-  String url=yarnUrl.replace("${job_id}",applicationId);
   JobStepStatusEnum status=null;
-  String checkResponse=null;
   try {
-    checkResponse=getHttpResponse(url);
-    JsonNode root=new ObjectMapper().readTree(checkResponse);
-    RMAppState state=RMAppState.valueOf(root.findValue("state").getTextValue());
-    FinalApplicationStatus finalStatus=FinalApplicationStatus.valueOf(root.findValue("finalStatus").getTextValue());
-    log.debug("State of Hadoop job: " + mrJobID + ":"+ state+ "-"+ finalStatus);
-    output.append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(new Date()) + " - State of Hadoop job: " + mrJobID+ ":"+ state+ " - "+ finalStatus+ "\n");
-switch (finalStatus) {
+    final Pair<RMAppState,FinalApplicationStatus> result=new HadoopStatusGetter(yarnUrl,mrJobID).get();
+    log.debug("State of Hadoop job: " + mrJobID + ":"+ result.getLeft()+ "-"+ result.getRight());
+    output.append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(new Date()) + " - State of Hadoop job: " + mrJobID+ ":"+ result.getLeft()+ " - "+ result.getRight()+ "\n");
+switch (result.getRight()) {
 case SUCCEEDED:
       status=JobStepStatusEnum.FINISHED;
     break;
@@ -25,7 +19,7 @@ case KILLED:
 status=JobStepStatusEnum.ERROR;
 break;
 case UNDEFINED:
-switch (state) {
+switch (result.getLeft()) {
 case NEW:
 case NEW_SAVING:
 case SUBMITTED:
@@ -46,9 +40,7 @@ break;
 }
 }
  catch (Exception e) {
-output.append("Failed to get status from response with url + " + url + "\n");
 output.append("Exception: " + e.getLocalizedMessage() + "\n");
-log.error("Failed to get status from response with url + " + url + "!\n"+ checkResponse,e);
 status=JobStepStatusEnum.ERROR;
 }
 return status;

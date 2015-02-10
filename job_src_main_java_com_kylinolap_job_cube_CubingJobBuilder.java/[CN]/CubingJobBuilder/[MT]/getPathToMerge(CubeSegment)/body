@@ -1,0 +1,3 @@
+{
+  return getJobWorkingDir(seg.getLastBuildJobID()) + "/" + seg.getCubeInstance().getName()+ "/cuboid/*";
+}

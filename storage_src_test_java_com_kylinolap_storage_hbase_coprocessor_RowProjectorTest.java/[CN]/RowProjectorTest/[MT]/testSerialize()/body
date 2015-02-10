@@ -1,0 +1,5 @@
+{
+  byte[] bytes=CoprocessorProjector.serialize(sample);
+  CoprocessorProjector copy=CoprocessorProjector.deserialize(bytes);
+  assertTrue(Arrays.equals(sample.groupByMask,copy.groupByMask));
+}

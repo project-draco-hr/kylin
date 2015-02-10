@@ -1,0 +1,6 @@
+{
+  HashSet<String> ret=Sets.newHashSet();
+  ret.add(factTable);
+  for (  LookupDesc lookupDesc : lookups)   ret.add(lookupDesc.getTable());
+  return ret;
+}

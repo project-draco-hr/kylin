@@ -1,0 +1,12 @@
+{
+  if (obj == this) {
+    return true;
+  }
+  if (!(obj instanceof ExampleProtos.CountRequest)) {
+    return super.equals(obj);
+  }
+  ExampleProtos.CountRequest other=(ExampleProtos.CountRequest)obj;
+  boolean result=true;
+  result=result && getUnknownFields().equals(other.getUnknownFields());
+  return result;
+}

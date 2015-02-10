@@ -1,0 +1,9 @@
+{
+  this.nColumns=nColumns;
+  this.byteFormLen=byteFormLen;
+  this.offsets=offsets;
+  this.dictMaxIds=dictMaxIds;
+  this.lengths=lengths;
+  this.isMetric=isMetric;
+  this.measureSerializers=measureSerializers;
+}

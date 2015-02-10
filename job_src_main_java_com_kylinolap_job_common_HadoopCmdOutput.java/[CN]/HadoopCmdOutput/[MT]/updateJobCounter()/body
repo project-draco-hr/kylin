@@ -1,0 +1,20 @@
+{
+  try {
+    Counters counters=job.getCounters();
+    if (counters == null) {
+      String errorMsg="no counters for job " + getMrJobId();
+      log.warn(errorMsg);
+      output.append(errorMsg);
+      return;
+    }
+    this.output.append(counters.toString()).append("\n");
+    log.debug(counters.toString());
+    mapInputRecords=String.valueOf(counters.findCounter(TaskCounter.MAP_INPUT_RECORDS).getValue());
+    hdfsBytesWritten=String.valueOf(counters.findCounter("FileSystemCounters","HDFS_BYTES_WRITTEN").getValue());
+    hdfsBytesRead=String.valueOf(counters.findCounter("FileSystemCounters","HDFS_BYTES_READ").getValue());
+  }
+ catch (  Exception e) {
+    log.error(e.getLocalizedMessage(),e);
+    output.append(e.getLocalizedMessage());
+  }
+}

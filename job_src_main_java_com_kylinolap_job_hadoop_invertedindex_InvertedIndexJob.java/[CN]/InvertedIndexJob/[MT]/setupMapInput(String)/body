@@ -1,0 +1,16 @@
+{
+  File JarFile=new File(KylinConfig.getInstanceFromEnv().getKylinJobJarPath());
+  if (JarFile.exists()) {
+    job.setJar(KylinConfig.getInstanceFromEnv().getKylinJobJarPath());
+  }
+ else {
+    job.setJarByClass(this.getClass());
+  }
+  String[] dbTableNames=HadoopUtil.parseHiveTableName(intermediateTable);
+  HCatInputFormat.setInput(job,dbTableNames[0],dbTableNames[1]);
+  job.setInputFormatClass(HCatInputFormat.class);
+  job.setMapperClass(InvertedIndexMapper.class);
+  job.setMapOutputKeyClass(LongWritable.class);
+  job.setMapOutputValueClass(ImmutableBytesWritable.class);
+  job.setPartitionerClass(InvertedIndexPartitioner.class);
+}

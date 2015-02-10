@@ -1,0 +1,11 @@
+{
+  if (method.getService() != getDescriptor()) {
+    throw new java.lang.IllegalArgumentException("Service.getRequestPrototype() given method " + "descriptor for wrong service type.");
+  }
+switch (method.getIndex()) {
+case 0:
+    return com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIRequest.getDefaultInstance();
+default :
+  throw new java.lang.AssertionError("Can't get here.");
+}
+}

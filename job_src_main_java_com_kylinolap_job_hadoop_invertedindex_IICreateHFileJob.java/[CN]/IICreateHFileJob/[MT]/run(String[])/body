@@ -2,7 +2,7 @@
   Options options=new Options();
   try {
     options.addOption(OPTION_JOB_NAME);
-    options.addOption(OPTION_CUBE_NAME);
+    options.addOption(OPTION_II_NAME);
     options.addOption(OPTION_INPUT_PATH);
     options.addOption(OPTION_OUTPUT_PATH);
     options.addOption(OPTION_HTABLE_NAME);
@@ -23,14 +23,13 @@
     job.setMapOutputKeyClass(ImmutableBytesWritable.class);
     job.setMapOutputValueClass(KeyValue.class);
     String tableName=getOptionValue(OPTION_HTABLE_NAME);
-    HTable htable=new HTable(getConf(),tableName);
+    HTable htable=new HTable(HBaseConfiguration.create(getConf()),tableName);
     HFileOutputFormat.configureIncrementalLoad(job,htable);
     this.deletePath(job.getConfiguration(),output);
     return waitForCompletion(job);
   }
  catch (  Exception e) {
     printUsage(options);
-    log.error(e.getLocalizedMessage(),e);
-    return 2;
+    throw e;
   }
 }

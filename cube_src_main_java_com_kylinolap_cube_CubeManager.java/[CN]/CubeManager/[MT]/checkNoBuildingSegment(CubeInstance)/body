@@ -1,0 +1,5 @@
+{
+  if (cube.getBuildingSegments().size() > 0) {
+    throw new IllegalStateException("There is already a building segment!");
+  }
+}

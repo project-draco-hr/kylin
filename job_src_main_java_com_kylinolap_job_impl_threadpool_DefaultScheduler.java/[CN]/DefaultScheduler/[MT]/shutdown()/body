@@ -1,0 +1,5 @@
+{
+  fetcherPool.shutdown();
+  jobPool.shutdown();
+  releaseLock();
+}

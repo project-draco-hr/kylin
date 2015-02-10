@@ -1,0 +1,5 @@
+{
+  DeployUtil.prepareTestData("left","test_kylin_cube_with_slr_left_join_empty");
+  String[] testCase=new String[]{"testLeftJoinCube","testLeftJoinCube2"};
+  runTestAndAssertSucceed(testCase);
+}

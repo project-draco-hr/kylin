@@ -1,0 +1,18 @@
+{
+  System.out.println("Going to start mini cluster.");
+  hbaseCluster=UTIL.startMiniCluster();
+  config=hbaseCluster.getConf();
+  String host=config.get(HConstants.ZOOKEEPER_QUORUM);
+  String port=config.get(HConstants.ZOOKEEPER_CLIENT_PORT);
+  String parent=config.get(HConstants.ZOOKEEPER_ZNODE_PARENT);
+  config.set("zookeeper.session.timeout","1200000");
+  config.set("hbase.zookeeper.property.tickTime","6000");
+  config.set(HConstants.HBASE_CLIENT_PAUSE,"3000");
+  config.set(HConstants.HBASE_CLIENT_RETRIES_NUMBER,"1");
+  config.set(HConstants.HBASE_CLIENT_OPERATION_TIMEOUT,"60000");
+  hbaseconnectionUrl="hbase:" + host + ":"+ port+ ":"+ parent;
+  updateKylinConfigWithMinicluster();
+  UTIL.startMiniMapReduceCluster();
+  @SuppressWarnings("unused") HBaseResourceStore store=new HBaseResourceStore(KylinConfig.getInstanceFromEnv());
+  importHBaseData();
+}

@@ -1,0 +1,29 @@
+{
+  List<String> columns=null;
+  try {
+    columns=readLines(new Path(outPath),config);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    System.out.println("Failed to resolve cardinality for " + tableName + " from "+ outPath);
+    return;
+  }
+  StringBuffer cardi=new StringBuffer();
+  Iterator<String> it=columns.iterator();
+  while (it.hasNext()) {
+    String string=(String)it.next();
+    String[] ss=StringUtils.split(string,"\t");
+    if (ss.length != 2) {
+      System.out.println("The hadoop cardinality value is not valid " + string);
+      continue;
+    }
+    cardi.append(ss[1]);
+    cardi.append(",");
+  }
+  String scardi=cardi.toString();
+  scardi=scardi.substring(0,scardi.length() - 1);
+  MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+  Map<String,String> tableExd=metaMgr.getTableDescExd(tableName);
+  tableExd.put(MetadataConstances.TABLE_EXD_CARDINALITY,scardi);
+  metaMgr.saveTableExd(tableName.toUpperCase(),tableExd);
+}

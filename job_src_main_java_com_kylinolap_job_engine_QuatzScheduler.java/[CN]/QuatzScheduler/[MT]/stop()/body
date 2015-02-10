@@ -1,8 +1,0 @@
-{
-  try {
-    this.scheduler.standby();
-  }
- catch (  SchedulerException e) {
-    throw new JobException(e);
-  }
-}

@@ -1,5 +1,5 @@
 {
-  List<CubeSegment> readySegments=getSegment(CubeSegmentStatusEnum.READY);
+  List<CubeSegment> readySegments=getSegment(SegmentStatusEnum.READY);
   if (readySegments.isEmpty()) {
     return new long[]{0L,0L};
   }

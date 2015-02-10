@@ -1,0 +1,9 @@
+{
+  if (srcTable.getUuid() == null || srcTable.getIdentity() == null) {
+    throw new IllegalArgumentException();
+  }
+  srcTable.init();
+  String path=srcTable.getResourcePath();
+  getStore().putResource(path,srcTable,TABLE_SERIALIZER);
+  srcTableMap.put(srcTable.getIdentity(),srcTable);
+}

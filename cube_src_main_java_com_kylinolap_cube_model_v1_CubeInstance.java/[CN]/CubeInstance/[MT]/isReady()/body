@@ -1,0 +1,3 @@
+{
+  return getStatus() == CubeStatusEnum.READY;
+}

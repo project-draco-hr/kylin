@@ -1,38 +1,25 @@
 {
-  List<CubeSegment> segmentsInNewStatus=cubeInstance.getSegments(CubeSegmentStatusEnum.NEW);
+  List<CubeSegment> segmentsInNewStatus=cubeInstance.getSegments(SegmentStatusEnum.NEW);
   CubeSegment cubeSegment=cubeInstance.getSegmentById(jobUuid);
-  if (cubeSegment == null) {
-    cubeSegment=cubeInstance.getSegment(segmentName,CubeSegmentStatusEnum.NEW);
-  }
+  Preconditions.checkArgument(segmentsInNewStatus.size() == 1,"there are " + segmentsInNewStatus.size() + " new segments");
 switch (buildType) {
 case BUILD:
-    if (cubeInstance.needMergeImmediatelyAfterBuild(cubeSegment)) {
-      cubeInstance.getSegments().removeAll(cubeInstance.getMergingSegments());
-    }
- else {
-      if (segmentsInNewStatus.size() == 1) {
-        cubeInstance.getSegments().removeAll(cubeInstance.getRebuildingSegments());
-      }
-    }
+    cubeInstance.getSegments().removeAll(cubeInstance.getMergingSegments());
   break;
 case MERGE:
 cubeInstance.getSegments().removeAll(cubeInstance.getMergingSegments());
 break;
+case REFRESH:
+break;
+default :
+throw new RuntimeException("invalid build type:" + buildType);
 }
 cubeSegment.setLastBuildJobID(jobUuid);
 cubeSegment.setLastBuildTime(lastBuildTime);
 cubeSegment.setSizeKB(sizeKB);
-cubeSegment.setSourceRecords(sourceRecordCount);
-cubeSegment.setSourceRecordsSize(sourceRecordsSize);
-if (segmentsInNewStatus.size() == 1) {
-cubeSegment.setStatus(CubeSegmentStatusEnum.READY);
-cubeInstance.setStatus(CubeStatusEnum.READY);
-for (CubeSegment seg : cubeInstance.getSegments(CubeSegmentStatusEnum.READY_PENDING)) {
-seg.setStatus(CubeSegmentStatusEnum.READY);
-}
-}
- else {
-cubeSegment.setStatus(CubeSegmentStatusEnum.READY_PENDING);
-}
+cubeSegment.setInputRecords(sourceRecordCount);
+cubeSegment.setInputRecordsSize(sourceRecordsSize);
+cubeSegment.setStatus(SegmentStatusEnum.READY);
+cubeInstance.setStatus(RealizationStatusEnum.READY);
 this.updateCube(cubeInstance);
 }

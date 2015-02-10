@@ -1,0 +1,3 @@
+{
+  super(JOBTRACKER_PORT,0,numTaskTrackers,namenode,numDir,null,null,null,conf);
+}

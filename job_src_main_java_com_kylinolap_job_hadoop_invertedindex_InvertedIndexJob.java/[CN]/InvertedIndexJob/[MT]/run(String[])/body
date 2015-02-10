@@ -2,28 +2,24 @@
   Options options=new Options();
   try {
     options.addOption(OPTION_JOB_NAME);
-    options.addOption(OPTION_CUBE_NAME);
-    options.addOption(OPTION_INPUT_PATH);
-    options.addOption(OPTION_INPUT_FORMAT);
-    options.addOption(OPTION_INPUT_DELIM);
+    options.addOption(OPTION_II_NAME);
+    options.addOption(OPTION_TABLE_NAME);
     options.addOption(OPTION_OUTPUT_PATH);
     parseOptions(options,args);
     job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
-    String cubeName=getOptionValue(OPTION_CUBE_NAME);
-    Path input=new Path(getOptionValue(OPTION_INPUT_PATH));
-    String inputFormat=getOptionValue(OPTION_INPUT_FORMAT);
-    String inputDelim=getOptionValue(OPTION_INPUT_DELIM);
+    String iiname=getOptionValue(OPTION_II_NAME);
+    String intermediateTable=getOptionValue(OPTION_TABLE_NAME);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
     System.out.println("Starting: " + job.getJobName());
-    CubeInstance cube=getCube(cubeName);
-    setupMapInput(input,inputFormat,inputDelim);
-    setupReduceOutput(output,cube.getInvertedIndexDesc().getSharding());
-    attachMetadata(cube);
+    IIInstance ii=getII(iiname);
+    short sharding=ii.getDescriptor().getSharding();
+    setupMapInput(intermediateTable);
+    setupReduceOutput(output,sharding);
+    attachMetadata(ii);
     return waitForCompletion(job);
   }
  catch (  Exception e) {
     printUsage(options);
-    log.error(e.getLocalizedMessage(),e);
-    return 2;
+    throw e;
   }
 }

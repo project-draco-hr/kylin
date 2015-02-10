@@ -5,9 +5,9 @@
   String owner=SecurityContextHolder.getContext().getAuthentication().getName();
   CubeDesc createdDesc=null;
   CubeInstance createdCube=null;
-  createdDesc=getMetadataManager().createCubeDesc(desc);
+  createdDesc=getCubeDescManager().createCubeDesc(desc);
   if (!createdDesc.getError().isEmpty()) {
-    getMetadataManager().removeCubeDesc(createdDesc);
+    getCubeDescManager().removeCubeDesc(createdDesc);
     throw new InternalErrorException(createdDesc.getError().get(0));
   }
   try {
@@ -15,8 +15,8 @@
     logger.info("New cube " + cubeName + " has "+ cuboidCount+ " cuboids");
   }
  catch (  Exception e) {
-    getMetadataManager().removeCubeDesc(createdDesc);
-    throw new InternalErrorException("Failed to deal with the request." + e.getLocalizedMessage(),e);
+    getCubeDescManager().removeCubeDesc(createdDesc);
+    throw new InternalErrorException("Failed to deal with the request.",e);
   }
   createdCube=getCubeManager().createCube(cubeName,projectName,createdDesc,owner);
   accessService.init(createdCube,AclPermission.ADMINISTRATION);

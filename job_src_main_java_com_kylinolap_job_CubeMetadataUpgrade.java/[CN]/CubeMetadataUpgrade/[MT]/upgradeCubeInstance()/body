@@ -1,0 +1,75 @@
+{
+  ResourceStore store=getStore();
+  List<String> paths=listResourceStore(ResourceStore.CUBE_RESOURCE_ROOT);
+  for (  String path : paths) {
+    com.kylinolap.cube.model.v1.CubeInstance cubeInstance=null;
+    try {
+      cubeInstance=store.getResource(path,com.kylinolap.cube.model.v1.CubeInstance.class,new JsonSerializer<com.kylinolap.cube.model.v1.CubeInstance>(com.kylinolap.cube.model.v1.CubeInstance.class));
+      cubeInstance.setConfig(config);
+      com.kylinolap.cube.CubeInstance newInstance=new com.kylinolap.cube.CubeInstance();
+      newInstance.setName(cubeInstance.getName());
+      newInstance.setDescName(cubeInstance.getDescName());
+      newInstance.setOwner(cubeInstance.getOwner());
+      newInstance.setUuid(cubeInstance.getUuid());
+      newInstance.setVersion(cubeInstance.getVersion());
+      newInstance.setCreateTimeUTC(RootPersistentEntity.parseTime(cubeInstance.getCreateTime()));
+      newInstance.setLastModified(cubeInstance.getLastModified());
+      if (cubeInstance.getStatus() == CubeStatusEnum.BUILDING) {
+        newInstance.setStatus(RealizationStatusEnum.BUILDING);
+      }
+ else       if (cubeInstance.getStatus() == CubeStatusEnum.DESCBROKEN) {
+        newInstance.setStatus(RealizationStatusEnum.DESCBROKEN);
+      }
+ else       if (cubeInstance.getStatus() == CubeStatusEnum.DISABLED) {
+        newInstance.setStatus(RealizationStatusEnum.DISABLED);
+      }
+ else       if (cubeInstance.getStatus() == CubeStatusEnum.READY) {
+        newInstance.setStatus(RealizationStatusEnum.READY);
+      }
+      List<com.kylinolap.cube.CubeSegment> newSegments=Lists.newArrayList();
+      for (      com.kylinolap.cube.model.v1.CubeSegment segment : cubeInstance.getSegments()) {
+        com.kylinolap.cube.CubeSegment newSeg=new com.kylinolap.cube.CubeSegment();
+        newSegments.add(newSeg);
+        newSeg.setUuid(segment.getUuid());
+        newSeg.setName(segment.getName());
+        newSeg.setStorageLocationIdentifier(segment.getStorageLocationIdentifier());
+        newSeg.setDateRangeStart(segment.getDateRangeStart());
+        newSeg.setDateRangeEnd(segment.getDateRangeEnd());
+        if (segment.getStatus() == CubeSegmentStatusEnum.NEW) {
+          newSeg.setStatus(SegmentStatusEnum.NEW);
+        }
+ else         if (segment.getStatus() == CubeSegmentStatusEnum.READY) {
+          newSeg.setStatus(SegmentStatusEnum.READY);
+        }
+ else         if (segment.getStatus() == CubeSegmentStatusEnum.READY_PENDING) {
+          newSeg.setStatus(SegmentStatusEnum.READY_PENDING);
+        }
+        newSeg.setSizeKB(segment.getSizeKB());
+        newSeg.setInputRecords(segment.getSourceRecords());
+        newSeg.setInputRecordsSize(segment.getSourceRecordsSize());
+        newSeg.setLastBuildTime(segment.getLastBuildTime());
+        newSeg.setLastBuildJobID(segment.getLastBuildJobID());
+        newSeg.setCreateTimeUTC(RootPersistentEntity.parseTime(segment.getCreateTime()));
+        newSeg.setBinarySignature(segment.getBinarySignature());
+        ConcurrentHashMap<String,String> newDictionaries=new ConcurrentHashMap<String,String>();
+        for (        Map.Entry<String,String> e : segment.getDictionaries().entrySet()) {
+          String key=e.getKey();
+          String[] tableCol=StringUtils.split(key,"/");
+          key=appendDBName(tableCol[0]) + "/" + tableCol[1];
+          newDictionaries.put(key,e.getValue());
+        }
+        newSeg.setDictionaries(newDictionaries);
+        ConcurrentHashMap<String,String> newSnapshots=new ConcurrentHashMap<String,String>();
+        for (        Map.Entry<String,String> e : segment.getSnapshots().entrySet()) {
+          newSnapshots.put(appendDBName(e.getKey()),e.getValue());
+        }
+        newSeg.setSnapshots(newSnapshots);
+      }
+      newInstance.setSegments(newSegments);
+      store.putResource(newInstance.getResourcePath(),newInstance,CubeManager.CUBE_SERIALIZER);
+    }
+ catch (    Exception e) {
+      logger.error("Error during load cube instance " + path,e);
+    }
+  }
+}

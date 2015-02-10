@@ -1,3 +1,0 @@
-{
-  return ResourceStore.JOB_OUTPUT_PATH_ROOT + "/" + output.getName();
-}

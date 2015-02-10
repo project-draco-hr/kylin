@@ -1,15 +1,19 @@
 {
+  super.publishConfiguration(context.getConfiguration());
   cubeName=context.getConfiguration().get(BatchConstants.CFG_CUBE_NAME).toUpperCase();
   segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME).toUpperCase();
   config=AbstractHadoopJob.loadKylinPropsAndMetadata(context.getConfiguration());
   cubeManager=CubeManager.getInstance(config);
   cube=cubeManager.getCube(cubeName);
   cubeDesc=cube.getDescriptor();
-  mergedCubeSegment=cube.getSegment(segmentName,CubeSegmentStatusEnum.NEW);
+  mergedCubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   newKeyBuf=new byte[256];
-  org.apache.hadoop.mapreduce.InputSplit inputSplit=context.getInputSplit();
+  InputSplit inputSplit=context.getInputSplit();
   String filePath=((FileSplit)inputSplit).getPath().toString();
+  System.out.println("filePath:" + filePath);
   String jobID=extractJobIDFromPath(filePath);
+  System.out.println("jobID:" + jobID);
   sourceCubeSegment=findSegmentWithUuid(jobID,cube);
+  System.out.println(sourceCubeSegment);
   this.rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
 }

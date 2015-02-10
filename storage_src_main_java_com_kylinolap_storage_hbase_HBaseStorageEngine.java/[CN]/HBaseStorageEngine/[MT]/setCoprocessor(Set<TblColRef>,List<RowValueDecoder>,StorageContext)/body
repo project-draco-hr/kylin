@@ -1,3 +1,0 @@
-{
-  CoprocessorEnabler.enableCoprocessorIfBeneficial(cubeInstance,groupsCopD,valueDecoders,context);
-}

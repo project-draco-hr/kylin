@@ -1,12 +1,3 @@
 {
-  MetadataManager.getInstance(config).reload();
-  cubeMap.put(updatedCube.getName().toUpperCase(),updatedCube);
-  for (  ProjectInstance project : ProjectManager.getInstance(config).getProjects(updatedCube.getName())) {
-    try {
-      ProjectManager.getInstance(config).loadProjectCache(project,true);
-    }
- catch (    IOException e) {
-      logger.error(e.getLocalizedMessage(),e);
-    }
-  }
+  cubeMap.put(updatedCube.getName(),updatedCube);
 }

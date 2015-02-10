@@ -1,0 +1,9 @@
+{
+  List<Integer> itemIndexes=Lists.newArrayList();
+  for (int i=0; i < realizations.size(); ++i) {
+    if (realizations.get(i).getType() == type) {
+      itemIndexes.add(i);
+    }
+  }
+  return itemIndexes;
+}

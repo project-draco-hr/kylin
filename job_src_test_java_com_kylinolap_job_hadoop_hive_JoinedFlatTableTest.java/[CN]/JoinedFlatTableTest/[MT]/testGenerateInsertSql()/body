@@ -1,5 +1,6 @@
 {
-  String sql=JoinedFlatTable.generateInsertDataStatement(intermediateTableDesc,fakeJobUUID,new JobEngineConfig(KylinConfig.getInstanceFromEnv()));
-  System.out.println(sql);
-  assertEquals(1239,sql.length());
+  String sqls=JoinedFlatTable.generateInsertDataStatement(intermediateTableDesc,fakeJobUUID,new JobEngineConfig(KylinConfig.getInstanceFromEnv()));
+  System.out.println(sqls);
+  int length=sqls.length();
+  assertEquals(1155,length);
 }

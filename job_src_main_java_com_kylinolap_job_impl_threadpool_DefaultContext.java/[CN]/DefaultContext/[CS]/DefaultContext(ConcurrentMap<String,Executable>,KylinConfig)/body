@@ -1,0 +1,4 @@
+{
+  this.runningJobs=runningJobs;
+  this.kylinConfig=kylinConfig;
+}

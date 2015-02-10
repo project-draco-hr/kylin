@@ -1,4 +1,0 @@
-JobInstance jobInstance
-int stepSeqNum
-String inputPath
-String outputPath

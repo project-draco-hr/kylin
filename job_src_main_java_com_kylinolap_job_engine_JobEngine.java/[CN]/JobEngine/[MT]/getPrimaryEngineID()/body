@@ -1,9 +1,0 @@
-{
-  byte[] data=zkClient.getData().forPath(ZOOKEEPER_LOCK_PATH + "/" + this.engineID);
-  if (data == null) {
-    return "";
-  }
- else {
-    return Bytes.toString(data);
-  }
-}

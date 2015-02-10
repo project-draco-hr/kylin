@@ -1,0 +1,17 @@
+{
+  Iterator<FunctionDesc> it=olapContext.aggregations.iterator();
+  while (it.hasNext()) {
+    FunctionDesc functionDesc=it.next();
+    if (!availableAggregations.contains(functionDesc)) {
+      TblColRef col=functionDesc.selectTblColRef(olapContext.metricsColumns,factTableName);
+      functionDesc.setAppliedOnDimension(true);
+      olapContext.rewriteFields.remove(functionDesc.getRewriteFieldName());
+      if (col != null) {
+        olapContext.metricsColumns.remove(col);
+        olapContext.groupByColumns.add(col);
+        olapContext.storageContext.addOtherMandatoryColumns(col);
+      }
+      logger.info("Adjust OLAPContext for " + functionDesc);
+    }
+  }
+}

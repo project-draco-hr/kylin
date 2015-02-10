@@ -1,0 +1,3 @@
+{
+  return l2Cache.getOnlineRealizationByFactTable(norm(project),factTable.toUpperCase());
+}

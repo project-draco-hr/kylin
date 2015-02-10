@@ -1,0 +1,8 @@
+{
+  final RealizationRegistry registry=RealizationRegistry.getInstance(KylinConfig.getInstanceFromEnv());
+  final Set<RealizationType> realizationTypes=registry.getRealizationTypes();
+  assertEquals(RealizationType.values().length,realizationTypes.size());
+  for (  RealizationType type : RealizationType.values()) {
+    assertTrue(realizationTypes.contains(type));
+  }
+}

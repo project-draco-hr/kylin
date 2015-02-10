@@ -1,0 +1,3 @@
+{
+  return ResourceStore.II_RESOURCE_ROOT + "/" + cubeName+ ".json";
+}

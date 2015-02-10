@@ -1,4 +1,3 @@
 {
-  CubeInstance cube=CubeManager.getInstance(this.getConfig()).getCube(cubeName);
-  CubeManager.getInstance(this.getConfig()).removeCubeCache(cube);
+  CubeManager.getInstance(this.getConfig()).removeCubeCacheLocal(cubeName);
 }

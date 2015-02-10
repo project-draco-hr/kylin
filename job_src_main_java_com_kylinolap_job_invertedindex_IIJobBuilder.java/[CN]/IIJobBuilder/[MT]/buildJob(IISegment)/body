@@ -1,0 +1,19 @@
+{
+  checkPreconditions(seg);
+  IIJob result=initialJob(seg,"BUILD");
+  final String jobId=result.getId();
+  final IIJoinedFlatTableDesc intermediateTableDesc=new IIJoinedFlatTableDesc(seg.getIIDesc());
+  final String intermediateHiveTableName=getIntermediateHiveTableName(intermediateTableDesc,jobId);
+  final String factDistinctColumnsPath=getIIDistinctColumnsPath(seg,jobId);
+  final String iiRootPath=getJobWorkingDir(jobId) + "/" + seg.getIIInstance().getName()+ "/";
+  final String iiPath=iiRootPath + "*";
+  final AbstractExecutable intermediateHiveTableStep=createIntermediateHiveTableStep(intermediateTableDesc,jobId);
+  result.addTask(intermediateHiveTableStep);
+  result.addTask(createFactDistinctColumnsStep(seg,intermediateHiveTableName,jobId,factDistinctColumnsPath));
+  result.addTask(createBuildDictionaryStep(seg,factDistinctColumnsPath));
+  result.addTask(createInvertedIndexStep(seg,intermediateHiveTableName,iiRootPath));
+  result.addTask(createCreateHTableStep(seg));
+  result.addTask(createConvertToHfileStep(seg,iiPath,jobId));
+  result.addTask(createBulkLoadStep(seg,jobId));
+  return result;
+}

@@ -1,3 +1,0 @@
-{
-  return store.getResource(path,JobInstance.class,JOB_SERIALIZER);
-}

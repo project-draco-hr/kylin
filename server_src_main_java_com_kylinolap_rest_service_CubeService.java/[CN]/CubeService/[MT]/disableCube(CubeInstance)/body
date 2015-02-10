@@ -1,10 +1,10 @@
 {
   String cubeName=cube.getName();
-  CubeStatusEnum ostatus=cube.getStatus();
-  if (null != ostatus && !CubeStatusEnum.READY.equals(ostatus)) {
+  RealizationStatusEnum ostatus=cube.getStatus();
+  if (null != ostatus && !RealizationStatusEnum.READY.equals(ostatus)) {
     throw new InternalErrorException("Only ready cube can be disabled, status of " + cubeName + " is "+ ostatus);
   }
-  cube.setStatus(CubeStatusEnum.DISABLED);
+  cube.setStatus(RealizationStatusEnum.DISABLED);
   try {
     return getCubeManager().updateCube(cube);
   }

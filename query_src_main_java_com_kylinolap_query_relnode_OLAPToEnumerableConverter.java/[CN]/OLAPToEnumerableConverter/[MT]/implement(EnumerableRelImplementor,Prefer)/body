@@ -3,12 +3,11 @@
   olapImplementor.visitChild(getChild(),this);
   try {
     for (    OLAPContext context : OLAPContext.getThreadLocalContexts()) {
-      CubeInstance cube=QueryRouter.findCube(context);
-      context.cubeInstance=cube;
-      context.cubeDesc=cube.getDescriptor();
+      IRealization realization=QueryRouter.selectRealization(context);
+      context.realization=realization;
     }
   }
- catch (  CubeNotFoundException e) {
+ catch (  NoRealizationFoundException e) {
     OLAPContext ctx0=(OLAPContext)OLAPContext.getThreadLocalContexts().toArray()[0];
     if (ctx0 != null && ctx0.olapSchema.hasStarSchemaUrl()) {
       return buildHiveResult(enumImplementor,pref,ctx0);

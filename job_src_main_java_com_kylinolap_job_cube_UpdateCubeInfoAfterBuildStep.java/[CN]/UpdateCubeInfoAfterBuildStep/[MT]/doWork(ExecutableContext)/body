@@ -1,0 +1,40 @@
+{
+  final CubeManager cubeManager=CubeManager.getInstance(context.getConfig());
+  final CubeInstance cube=cubeManager.getCube(getCubeName());
+  final CubeSegment segment=cube.getSegmentById(getSegmentId());
+  Output baseCuboidOutput=executableManager.getOutput(getBaseCuboidStepId());
+  String sourceRecordsCount=baseCuboidOutput.getExtra().get(ExecutableConstants.SOURCE_RECORDS_COUNT);
+  Preconditions.checkState(StringUtils.isNotEmpty(sourceRecordsCount),"Can't get cube source record count.");
+  long sourceCount=Long.parseLong(sourceRecordsCount);
+  String sourceRecordsSize=baseCuboidOutput.getExtra().get(ExecutableConstants.SOURCE_RECORDS_SIZE);
+  Preconditions.checkState(StringUtils.isNotEmpty(sourceRecordsSize),"Can't get cube source record size.");
+  long sourceSize=Long.parseLong(sourceRecordsSize);
+  long size=0;
+  boolean segmentReady=true;
+  if (!StringUtils.isBlank(getConvertToHfileStepId())) {
+    String cubeSizeString=executableManager.getOutput(getConvertToHfileStepId()).getExtra().get(ExecutableConstants.HDFS_BYTES_WRITTEN);
+    Preconditions.checkState(StringUtils.isNotEmpty(cubeSizeString),"Can't get cube segment size.");
+    size=Long.parseLong(cubeSizeString) / 1024;
+  }
+ else {
+    segmentReady=false;
+  }
+  segment.setLastBuildJobID(getCubingJobId());
+  segment.setLastBuildTime(System.currentTimeMillis());
+  segment.setSizeKB(size);
+  segment.setInputRecords(sourceCount);
+  segment.setInputRecordsSize(sourceSize);
+  try {
+    if (segmentReady) {
+      cubeManager.promoteNewlyBuiltSegments(cube,segment);
+    }
+ else {
+      cubeManager.updateCube(cube);
+    }
+    return new ExecuteResult(ExecuteResult.State.SUCCEED,"succeed");
+  }
+ catch (  IOException e) {
+    logger.error("fail to update cube after build",e);
+    return new ExecuteResult(ExecuteResult.State.ERROR,e.getLocalizedMessage());
+  }
+}

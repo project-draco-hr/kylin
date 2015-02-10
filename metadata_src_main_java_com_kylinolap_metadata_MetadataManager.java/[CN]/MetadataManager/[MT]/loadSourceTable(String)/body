@@ -1,9 +1,0 @@
-{
-  ResourceStore store=getStore();
-  TableDesc t=store.getResource(path,TableDesc.class,TABLE_SERIALIZER);
-  t.init();
-  if (StringUtils.isBlank(t.getName()))   throw new IllegalStateException("SourceTable name must not be blank");
-  if (srcTableMap.containsKey(t.getName()))   throw new IllegalStateException("Dup SourceTable name '" + t.getName() + "'");
-  srcTableMap.putLocal(t.getName(),t);
-  return t;
-}

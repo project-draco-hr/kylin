@@ -1,0 +1,4 @@
+int rowCount
+TreeMap<String,String> factTableCol2LookupCol
+TreeMap<String,String> lookupCol2FactTableCol
+TreeSet<String> usedCols

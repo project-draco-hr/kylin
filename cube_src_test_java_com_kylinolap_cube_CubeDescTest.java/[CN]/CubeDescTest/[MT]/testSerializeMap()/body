@@ -1,0 +1,9 @@
+{
+  Map<String,String> map=Maps.newHashMap();
+  map.put("key1","value1");
+  map.put("key2","value2");
+  String mapStr=JsonUtil.writeValueAsString(map);
+  System.out.println(mapStr);
+  Map<?,?> map2=JsonUtil.readValue(mapStr,HashMap.class);
+  Assert.assertEquals(map,map2);
+}

@@ -1,0 +1,16 @@
+{
+  ExampleProtos.CountResponse parsedMessage=null;
+  try {
+    parsedMessage=PARSER.parsePartialFrom(input,extensionRegistry);
+  }
+ catch (  com.google.protobuf.InvalidProtocolBufferException e) {
+    parsedMessage=(ExampleProtos.CountResponse)e.getUnfinishedMessage();
+    throw e;
+  }
+ finally {
+    if (parsedMessage != null) {
+      mergeFrom(parsedMessage);
+    }
+  }
+  return this;
+}

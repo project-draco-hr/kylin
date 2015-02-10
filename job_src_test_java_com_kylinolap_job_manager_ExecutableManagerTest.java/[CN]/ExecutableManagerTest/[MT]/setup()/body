@@ -1,0 +1,8 @@
+{
+  createTestMetadata();
+  service=ExecutableManager.getInstance(KylinConfig.getInstanceFromEnv());
+  for (  String jobId : service.getAllJobIds()) {
+    System.out.println("deleting " + jobId);
+    service.deleteJob(jobId);
+  }
+}

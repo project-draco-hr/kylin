@@ -1,0 +1,50 @@
+{
+  CubeDesc cubeDesc=cube.getDescriptor();
+  PartitionDesc partDesc=cubeDesc.getModel().getPartitionDesc();
+  List<CubeSegment> tobe=Lists.newArrayList(cube.getSegments());
+  if (newSegments != null)   tobe.addAll(Arrays.asList(newSegments));
+  if (tobe.size() == 0)   return tobe;
+  Collections.sort(tobe);
+  CubeSegment firstSeg=tobe.get(0);
+  if (firstSeg.getDateRangeStart() != partDesc.getPartitionDateStart()) {
+    throw new IllegalStateException("For " + cube + ", the first segment, "+ firstSeg+ ", must start at "+ partDesc.getPartitionDateStart());
+  }
+  firstSeg.validate();
+  for (int i=0, j=1; j < tobe.size(); ) {
+    CubeSegment is=tobe.get(i);
+    CubeSegment js=tobe.get(j);
+    js.validate();
+    if (!isNew(is) && !isReady(is)) {
+      tobe.remove(i);
+      continue;
+    }
+    if (!isNew(js) && !isReady(js)) {
+      tobe.remove(j);
+      continue;
+    }
+    if (is.getDateRangeStart() == js.getDateRangeStart()) {
+      if (isReady(is) && isReady(js) || isNew(is) && isNew(js)) {
+        if (is.getDateRangeEnd() <= js.getDateRangeEnd()) {
+          tobe.remove(i);
+        }
+ else {
+          tobe.remove(j);
+        }
+      }
+ else       if (isNew(is)) {
+        tobe.remove(j);
+      }
+ else {
+        tobe.remove(i);
+      }
+      continue;
+    }
+    if (is.getDateRangeEnd() == js.getDateRangeStart()) {
+      i++;
+      j++;
+      continue;
+    }
+    tobe.remove(j);
+  }
+  return tobe;
+}

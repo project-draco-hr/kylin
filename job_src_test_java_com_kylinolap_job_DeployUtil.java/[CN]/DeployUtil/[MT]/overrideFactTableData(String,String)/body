@@ -1,0 +1,8 @@
+{
+  ResourceStore store=ResourceStore.getStore(config());
+  InputStream in=new StringInputStream(factTableContent);
+  String factTablePath="/data/" + factTableName + ".csv";
+  store.deleteResource(factTablePath);
+  store.putResource(factTablePath,in,System.currentTimeMillis());
+  in.close();
+}

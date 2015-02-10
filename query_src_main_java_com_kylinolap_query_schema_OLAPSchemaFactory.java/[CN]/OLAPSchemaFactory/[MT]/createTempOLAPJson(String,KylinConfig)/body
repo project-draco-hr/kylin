@@ -1,10 +1,14 @@
 {
   project=ProjectInstance.getNormalizedProjectName(project);
-  List<TableDesc> tables=ProjectManager.getInstance(config).listExposedTables(project);
+  Set<TableDesc> tables=ProjectManager.getInstance(config).listExposedTables(project);
   HashMap<String,Integer> schemaCounts=DatabaseDesc.extractDatabaseOccurenceCounts(tables);
   String majoritySchemaName="";
   int majoritySchemaCount=0;
   for (  Map.Entry<String,Integer> e : schemaCounts.entrySet()) {
+    if (e.getKey().equalsIgnoreCase("default")) {
+      majoritySchemaCount=Integer.MAX_VALUE;
+      majoritySchemaName=e.getKey();
+    }
     if (e.getValue() >= majoritySchemaCount) {
       majoritySchemaCount=e.getValue();
       majoritySchemaName=e.getKey();

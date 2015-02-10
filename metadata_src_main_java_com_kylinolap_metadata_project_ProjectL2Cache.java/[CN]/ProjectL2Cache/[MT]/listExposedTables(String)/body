@@ -1,0 +1,4 @@
+{
+  ProjectCache prjCache=getCache(project);
+  return Collections.unmodifiableSet(prjCache.exposedTables);
+}

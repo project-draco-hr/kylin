@@ -1,0 +1,3 @@
+{
+  return CubeCapabilityChecker.check(this,digest,true);
+}

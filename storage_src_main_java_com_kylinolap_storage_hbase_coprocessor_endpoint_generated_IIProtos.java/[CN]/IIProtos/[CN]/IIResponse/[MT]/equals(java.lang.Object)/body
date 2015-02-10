@@ -1,0 +1,13 @@
+{
+  if (obj == this) {
+    return true;
+  }
+  if (!(obj instanceof com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse)) {
+    return super.equals(obj);
+  }
+  com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse other=(com.kylinolap.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse)obj;
+  boolean result=true;
+  result=result && getRowsList().equals(other.getRowsList());
+  result=result && getUnknownFields().equals(other.getUnknownFields());
+  return result;
+}

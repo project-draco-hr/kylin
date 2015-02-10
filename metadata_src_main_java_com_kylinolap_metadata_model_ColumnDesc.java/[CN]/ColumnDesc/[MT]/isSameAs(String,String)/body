@@ -1,0 +1,3 @@
+{
+  return StringUtils.equalsIgnoreCase(table.getIdentity(),tableName) && StringUtils.equalsIgnoreCase(name,columnName);
+}

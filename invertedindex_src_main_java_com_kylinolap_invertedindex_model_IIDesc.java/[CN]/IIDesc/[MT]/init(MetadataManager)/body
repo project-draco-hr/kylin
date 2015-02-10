@@ -1,0 +1,65 @@
+{
+  config=metadataManager.getConfig();
+  if (this.modelName == null || this.modelName.length() == 0) {
+    throw new RuntimeException("The cubeDesc '" + this.getName() + "' doesn't have data model specified.");
+  }
+  this.model=MetadataManager.getInstance(config).getDataModelDesc(this.modelName);
+  if (this.model == null) {
+    throw new RuntimeException("No data model found with name '" + modelName + "'.");
+  }
+  timestampDimension=timestampDimension.toUpperCase();
+  IIDimension.capicalizeStrings(bitmapDimensions);
+  IIDimension.capicalizeStrings(valueDimensions);
+  StringUtil.toUpperCaseArray(metricNames,metricNames);
+  HashSet<String> allTableNames=Sets.newHashSet();
+  for (  IIDimension iiDimension : Iterables.concat(bitmapDimensions,valueDimensions)) {
+    TableDesc tableDesc=this.getTableDesc(iiDimension.getTable());
+    for (    String column : iiDimension.getColumns()) {
+      ColumnDesc columnDesc=tableDesc.findColumnByName(column);
+      allColumns.add(new TblColRef(columnDesc));
+    }
+    if (!allTableNames.contains(tableDesc.getIdentity())) {
+      allTableNames.add(tableDesc.getIdentity());
+      allTables.add(tableDesc);
+    }
+  }
+  for (  String column : metricNames) {
+    TableDesc tableDesc=this.getTableDesc(this.getFactTableName());
+    ColumnDesc columnDesc=tableDesc.findColumnByName(column);
+    allColumns.add(new TblColRef(columnDesc));
+    if (!allTableNames.contains(tableDesc.getIdentity())) {
+      allTableNames.add(tableDesc.getIdentity());
+      allTables.add(tableDesc);
+    }
+  }
+  bitmapCols=new int[IIDimension.getColumnCount(bitmapDimensions)];
+  valueCols=new int[IIDimension.getColumnCount(valueDimensions)];
+  metricsCols=new int[metricNames.length];
+  metricsColSet=new BitSet(this.getTableDesc(this.getFactTableName()).getColumnCount());
+  measureDescs=Lists.newArrayList();
+  int totalIndex=0;
+  for (int i=0; i < bitmapCols.length; ++i, ++totalIndex) {
+    bitmapCols[i]=totalIndex;
+  }
+  for (int i=0; i < valueCols.length; ++i, ++totalIndex) {
+    valueCols[i]=totalIndex;
+  }
+  for (int i=0; i < metricsCols.length; ++i, ++totalIndex) {
+    metricsCols[i]=totalIndex;
+    metricsColSet.set(totalIndex);
+    ColumnDesc col=this.getTableDesc(this.getFactTableName()).findColumnByName(metricNames[i]);
+    measureDescs.add(makeMeasureDescs("SUM",col));
+    measureDescs.add(makeMeasureDescs("MIN",col));
+    measureDescs.add(makeMeasureDescs("MAX",col));
+  }
+  measureDescs.add(makeCountMeasure());
+  tsCol=-1;
+  for (int i=0; i < allColumns.size(); ++i) {
+    TblColRef col=allColumns.get(i);
+    if (col.isSameAs(this.getFactTableName(),this.timestampDimension)) {
+      tsCol=i;
+      break;
+    }
+  }
+  if (tsCol < 0)   throw new RuntimeException("timestamp_dimension is not in bitmapDimensions or valueDimensions");
+}

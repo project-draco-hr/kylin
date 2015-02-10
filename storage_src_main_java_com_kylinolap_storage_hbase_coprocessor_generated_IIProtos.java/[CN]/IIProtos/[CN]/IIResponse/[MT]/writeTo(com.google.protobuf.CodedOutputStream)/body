@@ -1,7 +1,0 @@
-{
-  getSerializedSize();
-  for (int i=0; i < rows_.size(); i++) {
-    output.writeBytes(1,rows_.get(i));
-  }
-  getUnknownFields().writeTo(output);
-}

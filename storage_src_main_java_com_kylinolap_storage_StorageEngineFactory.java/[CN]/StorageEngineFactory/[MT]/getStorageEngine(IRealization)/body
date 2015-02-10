@@ -1,0 +1,8 @@
+{
+  if (realization.getType() == RealizationType.INVERTED_INDEX) {
+    return new InvertedIndexStorageEngine((IIInstance)realization);
+  }
+ else {
+    return new CubeStorageEngine((CubeInstance)realization);
+  }
+}

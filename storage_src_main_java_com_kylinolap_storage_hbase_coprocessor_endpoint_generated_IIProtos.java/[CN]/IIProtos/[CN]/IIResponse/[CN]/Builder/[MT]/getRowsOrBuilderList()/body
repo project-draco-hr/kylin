@@ -1,0 +1,8 @@
+{
+  if (rowsBuilder_ != null) {
+    return rowsBuilder_.getMessageOrBuilderList();
+  }
+ else {
+    return java.util.Collections.unmodifiableList(rows_);
+  }
+}

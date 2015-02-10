@@ -1,0 +1,8 @@
+{
+  task.setStartTime(step.getExecStartTime());
+  task.setEndTime(step.getExecEndTime());
+  if (task instanceof MapReduceExecutable) {
+    ((MapReduceExecutable)task).setMapReduceWaitTime(step.getExecWaitTime() * 1000);
+  }
+  getExecutableManager().resetJobOutput(task.getId(),parseState(step.getStatus()),output);
+}

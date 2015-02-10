@@ -1,0 +1,3 @@
+List<T> list
+List<Integer> items
+Comparator<? super T> c

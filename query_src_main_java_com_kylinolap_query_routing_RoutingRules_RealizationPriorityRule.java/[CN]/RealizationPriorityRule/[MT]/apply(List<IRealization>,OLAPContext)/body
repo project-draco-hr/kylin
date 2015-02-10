@@ -1,0 +1,13 @@
+{
+  final HashMap<RealizationType,Integer> priority=Maps.newHashMap();
+  priority.put(RealizationType.CUBE,1);
+  priority.put(RealizationType.INVERTED_INDEX,0);
+  Collections.sort(realizations,new Comparator<IRealization>(){
+    @Override public int compare(    IRealization o1,    IRealization o2){
+      int i1=priority.get(o1.getType());
+      int i2=priority.get(o2.getType());
+      return i1 - i2;
+    }
+  }
+);
+}

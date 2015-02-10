@@ -1,0 +1,4 @@
+{
+  HiveJDBCClientTest test=new HiveJDBCClientTest();
+  test.runTests();
+}

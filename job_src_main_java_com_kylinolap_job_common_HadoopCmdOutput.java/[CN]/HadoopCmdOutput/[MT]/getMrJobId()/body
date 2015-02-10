@@ -1,0 +1,3 @@
+{
+  return getInfo().get(ExecutableConstants.MR_JOB_ID);
+}

@@ -1,0 +1,6 @@
+{
+  BytesUtil.writeAsciiStringArray(value.funcNames,out);
+  BytesUtil.writeAsciiStringArray(value.dataTypes,out);
+  BytesUtil.writeIntArray(value.refColIndex,out);
+  BytesUtil.writeByteArray(TableRecordInfoDigest.serialize(value.tableRecordInfo),out);
+}

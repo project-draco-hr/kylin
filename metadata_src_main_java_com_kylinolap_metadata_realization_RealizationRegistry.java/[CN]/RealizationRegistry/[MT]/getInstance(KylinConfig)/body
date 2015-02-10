@@ -1,0 +1,20 @@
+{
+  RealizationRegistry r=CACHE.get(config);
+  if (r != null) {
+    return r;
+  }
+synchronized (RealizationRegistry.class) {
+    r=CACHE.get(config);
+    if (r != null) {
+      return r;
+    }
+    try {
+      r=new RealizationRegistry(config);
+      CACHE.put(config,r);
+      return r;
+    }
+ catch (    IOException e) {
+      throw new IllegalStateException("Failed to init CubeManager from " + config,e);
+    }
+  }
+}

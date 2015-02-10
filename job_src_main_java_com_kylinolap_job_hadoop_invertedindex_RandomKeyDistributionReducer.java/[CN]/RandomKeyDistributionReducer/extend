@@ -1,1 +1,1 @@
-Reducer<KEY,NullWritable,KEY,NullWritable>
+KylinReducer<KEY,NullWritable,KEY,NullWritable>

@@ -1,0 +1,4 @@
+{
+  if (tableRecordInfo == null)   tableRecordInfo=new TableRecordInfo(this);
+  return tableRecordInfo;
+}

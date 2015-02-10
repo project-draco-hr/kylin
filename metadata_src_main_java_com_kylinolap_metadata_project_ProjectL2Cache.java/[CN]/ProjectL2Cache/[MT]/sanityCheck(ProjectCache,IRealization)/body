@@ -1,0 +1,25 @@
+{
+  MetadataManager metaMgr=mgr.getMetadataManager();
+  List<TblColRef> allColumns=realization.getAllColumns();
+  if (allColumns == null || allColumns.isEmpty()) {
+    logger.error("Realization '" + realization.getCanonicalName() + "' does not report any columns");
+    return false;
+  }
+  for (  TblColRef col : allColumns) {
+    TableDesc table=metaMgr.getTableDesc(col.getTable());
+    if (table == null) {
+      logger.error("Realization '" + realization.getCanonicalName() + "' reports column '"+ col.getCanonicalName()+ "', but its table is not found by MetadataManager");
+      return false;
+    }
+    ColumnDesc foundCol=table.findColumnByName(col.getName());
+    if (col.getColumn().equals(foundCol) == false) {
+      logger.error("Realization '" + realization.getCanonicalName() + "' reports column '"+ col.getCanonicalName()+ "', but it is not equal to '"+ foundCol+ "' according to MetadataManager");
+      return false;
+    }
+    if (prjCache.tables.get(table.getIdentity()) == null) {
+      prjCache.tables.put(table.getIdentity(),new TableCache(table));
+      logger.warn("Realization '" + realization.getCanonicalName() + "' reports columcn '"+ col.getCanonicalName()+ "' whose table is not defined in project '"+ prjCache.project+ "'");
+    }
+  }
+  return true;
+}

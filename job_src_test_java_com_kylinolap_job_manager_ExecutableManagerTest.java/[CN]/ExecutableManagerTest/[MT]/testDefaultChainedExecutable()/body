@@ -1,0 +1,11 @@
+{
+  DefaultChainedExecutable job=new DefaultChainedExecutable();
+  job.addTask(new SucceedTestExecutable());
+  job.addTask(new SucceedTestExecutable());
+  service.addJob(job);
+  assertEquals(2,job.getTasks().size());
+  AbstractExecutable anotherJob=service.getJob(job.getId());
+  assertEquals(DefaultChainedExecutable.class,anotherJob.getClass());
+  assertEquals(2,((DefaultChainedExecutable)anotherJob).getTasks().size());
+  assertJobEqual(job,anotherJob);
+}

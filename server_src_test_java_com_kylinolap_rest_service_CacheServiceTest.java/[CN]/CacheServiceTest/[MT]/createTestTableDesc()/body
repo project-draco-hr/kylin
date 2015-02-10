@@ -1,0 +1,8 @@
+{
+  TableDesc tableDesc=new TableDesc();
+  tableDesc.setDatabase("TEST_DB");
+  tableDesc.setName("TEST_TABLE");
+  tableDesc.setUuid(UUID.randomUUID().toString());
+  tableDesc.setLastModified(0);
+  return tableDesc;
+}

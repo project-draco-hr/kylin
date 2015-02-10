@@ -1,46 +1,17 @@
 {
   Broadcaster.TYPE wipeType=Broadcaster.TYPE.getType(type);
   EVENT wipeEvent=Broadcaster.EVENT.getEvent(event);
-switch (wipeType) {
-case METADATA:
-    logger.debug("Reload all metadata");
-  cubeMgmtService.reloadMetadataCache();
-projectService.cleanDataCache();
-cubeMgmtService.cleanDataCache();
-break;
-case CUBE:
-logger.debug("Reload cube " + name + " with type:"+ type+ ", event type "+ event);
-cubeMgmtService.reloadMetadataCache();
-if ("ALL".equalsIgnoreCase(name.toUpperCase())) {
-cubeMgmtService.cleanDataCache();
-break;
-}
+  final String log="wipe cache type: " + wipeType + " event:"+ wipeEvent+ " name:"+ name;
+  logger.info(log);
 switch (wipeEvent) {
 case CREATE:
 case UPDATE:
-cubeMgmtService.reloadCubeCache(name);
-break;
+    cacheService.rebuildCache(wipeType,name);
+  break;
 case DROP:
-cubeMgmtService.removeCubeCache(name);
+cacheService.removeCache(wipeType,name);
 break;
-}
-break;
-case PROJECT:
-logger.debug("Reload project " + name + " with type:"+ type+ ", event type "+ event);
-cubeMgmtService.reloadMetadataCache();
-if ("ALL".equalsIgnoreCase(name.toUpperCase())) {
-projectService.cleanDataCache();
-break;
-}
-switch (wipeEvent) {
-case CREATE:
-case UPDATE:
-projectService.reloadProjectCache(name);
-break;
-case DROP:
-projectService.removeProjectCache(name);
-break;
-}
-break;
+default :
+throw new RuntimeException("invalid type:" + wipeEvent);
 }
 }

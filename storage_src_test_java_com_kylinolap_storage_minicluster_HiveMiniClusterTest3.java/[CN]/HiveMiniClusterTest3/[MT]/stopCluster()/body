@@ -1,0 +1,14 @@
+{
+  if (mrCluster != null) {
+    mrCluster.shutdown();
+    mrCluster=null;
+  }
+  if (dfsCluster != null) {
+    dfsCluster.shutdown();
+    dfsCluster=null;
+  }
+  if (hbaseCluster != null) {
+    hbaseCluster.shutdown();
+    hbaseCluster=null;
+  }
+}

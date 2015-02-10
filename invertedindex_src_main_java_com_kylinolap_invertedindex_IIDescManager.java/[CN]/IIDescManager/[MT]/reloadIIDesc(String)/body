@@ -1,0 +1,6 @@
+{
+  String path=IIDesc.getIIDescResourcePath(name);
+  IIDesc ndesc=loadIIDesc(path);
+  iiDescMap.putLocal(ndesc.getName(),ndesc);
+  return ndesc;
+}

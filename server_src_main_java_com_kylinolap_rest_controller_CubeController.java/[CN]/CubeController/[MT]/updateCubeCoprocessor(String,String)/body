@@ -1,7 +1,7 @@
 {
   try {
-    CoprocessorEnabler.updateCubeOverride(cubeName,force);
-    return CoprocessorEnabler.getCubeOverrides();
+    ObserverEnabler.updateCubeOverride(cubeName,force);
+    return ObserverEnabler.getCubeOverrides();
   }
  catch (  Exception e) {
     String message="Failed to update cube coprocessor: " + cubeName + " : "+ force;

@@ -1,0 +1,19 @@
+{
+  List<HBaseKeyRange> result=Lists.newArrayList();
+  for (  CubeSegment cubeSeg : cubeInstance.getSegments(SegmentStatusEnum.READY)) {
+    List<Collection<ColumnValueRange>> orAndDimRanges=translateToOrAndDimRanges(flatFilter,cubeSeg);
+    if (orAndDimRanges == null) {
+      continue;
+    }
+    List<HBaseKeyRange> scanRanges=Lists.newArrayListWithCapacity(orAndDimRanges.size());
+    for (    Collection<ColumnValueRange> andDimRanges : orAndDimRanges) {
+      HBaseKeyRange rowKeyRange=new HBaseKeyRange(dimensionColumns,andDimRanges,cubeSeg,cubeDesc);
+      scanRanges.add(rowKeyRange);
+    }
+    List<HBaseKeyRange> mergedRanges=mergeOverlapRanges(scanRanges);
+    mergedRanges=mergeTooManyRanges(mergedRanges);
+    result.addAll(mergedRanges);
+  }
+  dropUnhitSegments(result);
+  return result;
+}

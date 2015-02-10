@@ -1,0 +1,5 @@
+Iterable<Slice> slices
+CoprocessorFilter filter
+CoprocessorRowType type
+CoprocessorProjector projector
+EndpointAggregators aggregators

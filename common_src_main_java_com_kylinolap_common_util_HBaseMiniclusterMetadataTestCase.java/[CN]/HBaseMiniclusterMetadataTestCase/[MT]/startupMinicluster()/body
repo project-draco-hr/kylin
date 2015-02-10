@@ -1,0 +1,14 @@
+{
+  HBaseMetadataTestCase.staticCreateTestMetadata(HBaseMetadataTestCase.MINICLUSTER_TEST_DATA);
+  if (!clusterStarted) {
+synchronized (HBaseMiniclusterMetadataTestCase.class) {
+      if (!clusterStarted) {
+        startupMiniClusterAndImportData();
+        clusterStarted=true;
+      }
+    }
+  }
+ else {
+    updateKylinConfigWithMinicluster();
+  }
+}

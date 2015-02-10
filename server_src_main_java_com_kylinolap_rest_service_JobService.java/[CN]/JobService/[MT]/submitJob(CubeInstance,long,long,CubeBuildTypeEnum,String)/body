@@ -1,29 +1,30 @@
 {
-  List<JobInstance> jobInstances=this.getJobManager().listJobs(cube.getName(),null);
-  for (  JobInstance jobInstance : jobInstances) {
-    if (jobInstance.getStatus() == JobStatusEnum.PENDING || jobInstance.getStatus() == JobStatusEnum.RUNNING) {
-      throw new JobException("The cube " + cube.getName() + " has running job("+ jobInstance.getUuid()+ ") please discard it and try again.");
+  final List<CubingJob> cubingJobs=listAllCubingJobs(cube.getName(),null,EnumSet.allOf(ExecutableState.class));
+  for (  CubingJob job : cubingJobs) {
+    if (job.getStatus() == ExecutableState.READY || job.getStatus() == ExecutableState.RUNNING) {
+      throw new JobException("The cube " + cube.getName() + " has running job("+ job.getId()+ ") please discard it and try again.");
     }
   }
-  String uuid=null;
-  try {
-    List<CubeSegment> cubeSegments=this.getCubeManager().allocateSegments(cube,buildType,startDate,endDate);
-    List<JobInstance> jobs=Lists.newArrayListWithExpectedSize(cubeSegments.size());
-    for (    CubeSegment segment : cubeSegments) {
-      uuid=segment.getUuid();
-      JobInstance job=this.getJobManager().createJob(cube.getName(),segment.getName(),segment.getUuid(),buildType,submitter);
-      segment.setLastBuildJobID(uuid);
-      jobs.add(job);
+  CubingJob job;
+  CubingJobBuilder builder=new CubingJobBuilder(new JobEngineConfig(getConfig()));
+  builder.setSubmitter(submitter);
+  if (buildType == CubeBuildTypeEnum.BUILD) {
+    if (cube.getDescriptor().hasHolisticCountDistinctMeasures() && cube.getSegments().size() > 0) {
+      Pair<CubeSegment,CubeSegment> segs=getCubeManager().appendAndMergeSegments(cube,endDate);
+      job=builder.buildAndMergeJob(segs.getFirst(),segs.getSecond());
     }
-    getCubeManager().updateCube(cube);
-    for (    JobInstance job : jobs) {
-      this.getJobManager().submitJob(job);
-      permissionService.init(job,null);
-      permissionService.inherit(job,cube);
+ else {
+      CubeSegment newSeg=getCubeManager().appendSegments(cube,endDate);
+      job=builder.buildJob(newSeg);
     }
   }
- catch (  CubeIntegrityException e) {
-    throw new InternalErrorException(e.getLocalizedMessage(),e);
+ else   if (buildType == CubeBuildTypeEnum.MERGE) {
+    CubeSegment newSeg=getCubeManager().mergeSegments(cube,startDate,endDate);
+    job=builder.mergeJob(newSeg);
   }
-  return uuid;
+ else {
+    throw new JobException("invalid build type:" + buildType);
+  }
+  getExecutableManager().addJob(job);
+  return parseToJobInstance(job);
 }

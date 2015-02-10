@@ -1,0 +1,14 @@
+{
+  if (rowsBuilder_ == null) {
+    if (value == null) {
+      throw new NullPointerException();
+    }
+    ensureRowsIsMutable();
+    rows_.add(index,value);
+    onChanged();
+  }
+ else {
+    rowsBuilder_.addMessage(index,value);
+  }
+  return this;
+}

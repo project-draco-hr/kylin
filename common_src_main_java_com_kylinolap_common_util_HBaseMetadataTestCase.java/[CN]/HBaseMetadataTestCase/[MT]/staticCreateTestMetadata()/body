@@ -1,4 +1,9 @@
 {
-  KylinConfig.destoryInstance();
-  if (System.getProperty(KylinConfig.KYLIN_CONF) == null && System.getenv(KylinConfig.KYLIN_CONF) == null)   System.setProperty(KylinConfig.KYLIN_CONF,SANDBOX_TEST_DATA);
+  if (useSandbox()) {
+    staticCreateTestMetadata(AbstractKylinTestCase.SANDBOX_TEST_DATA);
+  }
+ else {
+    staticCreateTestMetadata(AbstractKylinTestCase.MINICLUSTER_TEST_DATA);
+    HBaseMiniclusterMetadataTestCase.startupMinicluster();
+  }
 }

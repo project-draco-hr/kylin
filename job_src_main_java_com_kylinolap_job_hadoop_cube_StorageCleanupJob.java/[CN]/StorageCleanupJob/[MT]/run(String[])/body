@@ -1,8 +1,11 @@
 {
   Options options=new Options();
+  log.info("----- jobs args: " + Arrays.toString(args));
   try {
     options.addOption(OPTION_DELETE);
     parseOptions(options,args);
+    log.info("options: '" + getOptionsAsString() + "'");
+    log.info("delete option value: '" + getOptionValue(OPTION_DELETE) + "'");
     delete=Boolean.parseBoolean(getOptionValue(OPTION_DELETE));
     Configuration conf=HBaseConfiguration.create(getConf());
     cleanUnusedHdfsFiles(conf);
@@ -12,7 +15,6 @@
   }
  catch (  Exception e) {
     e.printStackTrace(System.err);
-    log.error(e.getLocalizedMessage(),e);
-    return 2;
+    throw e;
   }
 }

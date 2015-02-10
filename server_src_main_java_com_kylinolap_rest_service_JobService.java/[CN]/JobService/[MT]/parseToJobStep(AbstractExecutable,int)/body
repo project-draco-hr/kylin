@@ -1,0 +1,26 @@
+{
+  JobInstance.JobStep result=new JobInstance.JobStep();
+  result.setId(task.getId());
+  result.setName(task.getName());
+  result.setSequenceID(i);
+  result.setStatus(parseToJobStepStatus(task.getStatus()));
+  final Output output=getExecutableManager().getOutput(task.getId());
+  for (  Map.Entry<String,String> entry : output.getExtra().entrySet()) {
+    if (entry.getKey() != null && entry.getValue() != null) {
+      result.putInfo(entry.getKey(),entry.getValue());
+    }
+  }
+  result.setExecStartTime(task.getStartTime());
+  result.setExecEndTime(task.getEndTime());
+  if (task instanceof ShellExecutable) {
+    result.setExecCmd(((ShellExecutable)task).getCmd());
+  }
+  if (task instanceof MapReduceExecutable) {
+    result.setExecCmd(((MapReduceExecutable)task).getMapReduceParams());
+    result.setExecWaitTime(((MapReduceExecutable)task).getMapReduceWaitTime() / 1000);
+  }
+  if (task instanceof HadoopShellExecutable) {
+    result.setExecCmd(((HadoopShellExecutable)task).getJobParams());
+  }
+  return result;
+}

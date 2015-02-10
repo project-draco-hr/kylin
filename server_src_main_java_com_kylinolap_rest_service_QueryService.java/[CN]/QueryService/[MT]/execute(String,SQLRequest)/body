@@ -40,7 +40,7 @@
   if (OLAPContext.getThreadLocalContexts() != null) {
     for (    OLAPContext ctx : OLAPContext.getThreadLocalContexts()) {
       isPartialResult|=ctx.storageContext.isPartialResultReturned();
-      cube=ctx.cubeInstance.getName();
+      cube=ctx.realization.getName();
       totalScanCount+=ctx.storageContext.getTotalScanCount();
     }
   }

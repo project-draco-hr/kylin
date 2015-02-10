@@ -1,0 +1,13 @@
+{
+  try {
+    Thread.sleep(5000);
+  }
+ catch (  InterruptedException e) {
+  }
+  if (isDiscarded()) {
+    return new ExecuteResult(ExecuteResult.State.STOPPED,"stopped");
+  }
+ else {
+    return new ExecuteResult(ExecuteResult.State.SUCCEED,"succeed");
+  }
+}
