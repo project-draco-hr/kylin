@@ -2,7 +2,6 @@
   DeployUtil.initCliWorkDir();
   DeployUtil.deployMetadata();
   DeployUtil.deployJobJars();
-  deployJobConfToEtc();
   DeployUtil.prepareTestData("inner","test_kylin_cube_with_slr_empty");
   CubeManager cubeManager=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
   for (  CubeInstance cubeInstance : cubeManager.listAllCubes()) {
