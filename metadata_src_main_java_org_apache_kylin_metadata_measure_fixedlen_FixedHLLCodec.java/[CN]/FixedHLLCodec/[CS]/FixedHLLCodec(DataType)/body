@@ -1,0 +1,5 @@
+{
+  this.type=type;
+  this.presision=type.getPrecision();
+  this.current=new HyperLogLogPlusCounter(this.presision);
+}

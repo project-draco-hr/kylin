@@ -1,7 +1,7 @@
 {
   this.funcNames=funcNames;
   this.dataTypes=dataTypes;
-  this.refColIndex=refColIndex;
+  this.metricInfos=metricInfos;
   this.tableRecordInfo=tableInfo;
   this.metricValues=new Object[funcNames.length];
   this.measureSerializers=new FixedLenMeasureCodec[funcNames.length];

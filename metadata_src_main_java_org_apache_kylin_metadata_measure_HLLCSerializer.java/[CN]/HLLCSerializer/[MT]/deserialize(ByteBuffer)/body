@@ -1,6 +1,6 @@
 {
   try {
-    current.readRegisters(in);
+    current.readCompactRegisters(in);
   }
  catch (  IOException e) {
     throw new RuntimeException(e);

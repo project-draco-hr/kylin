@@ -3,7 +3,7 @@
   for (  BytesWritable v : values) {
     ByteBuffer buffer=ByteBuffer.wrap(v.getBytes());
     HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter();
-    hll.readRegisters(buffer);
+    hll.readCompactRegisters(buffer);
     getHllc(skey).merge(hll);
     hll.clear();
   }

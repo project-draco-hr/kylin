@@ -1,0 +1,24 @@
+{
+  byte scheme=in.get();
+  if ((scheme & COMPRESSION_FLAG) > 0) {
+    scheme^=COMPRESSION_FLAG;
+    int compressedLen=BytesUtil.readVInt(in);
+    int end=in.position() + compressedLen;
+    byte[] decompressed=DEFAULT_COMPRESSOR.decompress(in,in.position(),compressedLen);
+    in.position(end);
+    in=ByteBuffer.wrap(decompressed);
+  }
+  if (scheme == 0) {
+    clear();
+    int size=BytesUtil.readVInt(in);
+    if (size > m)     throw new IllegalArgumentException("register size (" + size + ") cannot be larger than m ("+ m+ ")");
+    int indexLen=getRegisterIndexSize();
+    for (int i=0; i < size; i++) {
+      int key=BytesUtil.readUnsigned(in,indexLen);
+      registers[key]=in.get();
+    }
+  }
+ else {
+    in.get(registers);
+  }
+}

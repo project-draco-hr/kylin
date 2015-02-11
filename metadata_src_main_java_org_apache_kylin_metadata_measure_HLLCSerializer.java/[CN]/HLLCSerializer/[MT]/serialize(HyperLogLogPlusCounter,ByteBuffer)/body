@@ -1,6 +1,6 @@
 {
   try {
-    value.writeRegisters(out);
+    value.writeCompactRegisters(out);
   }
  catch (  IOException e) {
     throw new RuntimeException(e);
