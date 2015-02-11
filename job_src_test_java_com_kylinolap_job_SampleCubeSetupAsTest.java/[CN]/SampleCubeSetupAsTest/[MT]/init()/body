@@ -1,6 +1,6 @@
 {
   try {
-    this.testConnectivity();
+    testConnectivity();
   }
  catch (  Exception e) {
     System.out.println("Failed to connect to remote CLI with given password");
