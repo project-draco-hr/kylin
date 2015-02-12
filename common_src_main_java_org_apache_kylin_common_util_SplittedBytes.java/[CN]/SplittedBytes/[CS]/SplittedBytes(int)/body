@@ -1,4 +1,4 @@
 {
-  value=new byte[length];
-  length=0;
+  this.value=new byte[length];
+  this.length=0;
 }
