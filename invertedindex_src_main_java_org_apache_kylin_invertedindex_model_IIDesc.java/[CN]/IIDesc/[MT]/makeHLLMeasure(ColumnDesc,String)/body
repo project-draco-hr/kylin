@@ -1,0 +1,14 @@
+{
+  String columnName=columnDesc.getName();
+  MeasureDesc measureDesc=new MeasureDesc();
+  FunctionDesc f1=new FunctionDesc();
+  f1.setExpression("COUNT_DISTINCT");
+  ParameterDesc p1=new ParameterDesc();
+  p1.setType("column");
+  p1.setValue(columnName);
+  p1.setColRefs(ImmutableList.of(new TblColRef(columnDesc)));
+  f1.setParameter(p1);
+  f1.setReturnType(hllType);
+  measureDesc.setFunction(f1);
+  return measureDesc;
+}
