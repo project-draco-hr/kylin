@@ -18,18 +18,9 @@
     final InputStream inputStream=getStore().getResource(ResourceStore.JOB_OUTPUT_PATH_ROOT + "/" + job.getId()+ "."+ i);
     String output=null;
     if (inputStream != null) {
-      JsonElement json=new JsonParser().parse(new InputStreamReader(inputStream));
-      if (json instanceof JsonObject) {
-        final JsonElement element=((JsonObject)json).get("output");
-        if (element != null) {
-          output=element.getAsString();
-        }
- else {
-          output=json.getAsString();
-        }
-      }
- else {
-        output=json.getAsString();
+      HashMap<String,String> job_output=JsonUtil.readValue(inputStream,HashMap.class);
+      if (job_output != null) {
+        output=job_output.get("output");
       }
     }
     updateJobStepOutput(jobStep,output,cubingJob.getTasks().get(i));
