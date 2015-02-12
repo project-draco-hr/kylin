@@ -1,3 +1,16 @@
 {
-  in.get(registers,0,m);
+  byte scheme=in.get();
+  if (scheme == 0) {
+    clear();
+    int size=BytesUtil.readVInt(in);
+    if (size > m)     throw new IllegalArgumentException("register size (" + size + ") cannot be larger than m ("+ m+ ")");
+    int indexLen=getRegisterIndexSize();
+    for (int i=0; i < size; i++) {
+      int key=BytesUtil.readUnsigned(in,indexLen);
+      registers[key]=in.get();
+    }
+  }
+ else {
+    in.get(registers);
+  }
 }

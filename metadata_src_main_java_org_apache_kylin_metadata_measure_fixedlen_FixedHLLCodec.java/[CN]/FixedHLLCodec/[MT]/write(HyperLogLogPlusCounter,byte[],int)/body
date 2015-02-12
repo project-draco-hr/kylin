@@ -1,3 +1,3 @@
 {
-  current.writeRegisters(ByteBuffer.wrap(buf,offset,buf.length - offset));
+  current.writeRegistersArray(ByteBuffer.wrap(buf,offset,buf.length - offset));
 }
