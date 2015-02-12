@@ -1,0 +1,3 @@
+HyperLogLogPlusCounter v
+byte[] buf
+int offset

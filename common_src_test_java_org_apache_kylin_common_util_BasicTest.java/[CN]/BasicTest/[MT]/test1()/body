@@ -1,2 +1,6 @@
 {
+  String x=MetricType.DimensionAsMetric.toString();
+  System.out.println(x);
+  MetricType y=MetricType.valueOf(x);
+  System.out.println(y == MetricType.DimensionAsMetric);
 }

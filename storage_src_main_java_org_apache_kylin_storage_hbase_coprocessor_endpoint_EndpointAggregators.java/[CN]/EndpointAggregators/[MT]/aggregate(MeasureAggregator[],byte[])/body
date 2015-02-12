@@ -1,19 +1,28 @@
 {
-  int rawIndex=0;
-  int columnCount=tableRecordInfo.getColumnCount();
-  for (int columnIndex=0; columnIndex < columnCount; ++columnIndex) {
-    if (tableRecordInfo.isMetrics(columnIndex)) {
-      for (int metricIndex=0; metricIndex < refColIndex.length; ++metricIndex) {
-        if (refColIndex[metricIndex] == columnIndex) {
-          measureAggrs[metricIndex].aggregate(measureSerializers[metricIndex].read(row,rawIndex));
-        }
-      }
+  rawTableRecord.setBytes(row,0,row.length);
+  for (int metricIndex=0; metricIndex < metricInfos.length; ++metricIndex) {
+    if (metricInfos[metricIndex].type == MetricType.Count) {
+      measureAggrs[metricIndex].aggregate(ONE);
+      continue;
     }
-    rawIndex+=tableRecordInfo.length(columnIndex);
-  }
-  for (int i=0; i < refColIndex.length; ++i) {
-    if (refColIndex[i] == -1) {
-      measureAggrs[i].aggregate(one);
+    if (metricInfos[metricIndex].type == MetricType.DimensionAsMetric) {
+      continue;
+    }
+    MetricInfo metricInfo=metricInfos[metricIndex];
+    MeasureAggregator aggregator=measureAggrs[metricIndex];
+    FixedLenMeasureCodec measureSerializer=measureSerializers[metricIndex];
+    rawTableRecord.getValueBytes(metricInfo.refIndex,byteBuffer);
+    if (metricInfo.type == MetricType.Normal) {
+      aggregator.aggregate(measureSerializer.read(byteBuffer.get(),byteBuffer.getOffset()));
+    }
+ else     if (metricInfo.type == MetricType.DistinctCount) {
+      HyperLogLogPlusCounter hllc=hllcs[metricIndex];
+      if (hllc == null) {
+        hllc=new HyperLogLogPlusCounter(metricInfo.presision);
+      }
+      hllc.clear();
+      hllc.add(byteBuffer.get(),byteBuffer.getOffset(),byteBuffer.getLength());
+      aggregator.aggregate(hllc);
     }
   }
 }

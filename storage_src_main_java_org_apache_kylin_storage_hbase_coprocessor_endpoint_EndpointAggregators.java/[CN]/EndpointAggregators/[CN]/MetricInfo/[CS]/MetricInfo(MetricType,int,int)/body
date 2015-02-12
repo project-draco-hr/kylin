@@ -1,0 +1,5 @@
+{
+  this.type=type;
+  this.refIndex=refIndex;
+  this.presision=presision;
+}

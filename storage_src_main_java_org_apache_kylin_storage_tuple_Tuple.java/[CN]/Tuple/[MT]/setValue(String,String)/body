@@ -1,3 +1,0 @@
-{
-  this.setDimensionValue(fieldName,fieldValue);
-}
