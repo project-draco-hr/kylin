@@ -2,7 +2,11 @@
   Pair<File,File> files=getJobJarFiles();
   File originalJobJar=files.getFirst();
   File originalCoprocessorJar=files.getSecond();
-  File targetJobJar=new File(config().getKylinJobJarPath());
+  String jobJarPath=config().getKylinJobJarPath();
+  if (StringUtils.isEmpty(jobJarPath)) {
+    throw new RuntimeException("deployJobJars cannot find job jar");
+  }
+  File targetJobJar=new File(jobJarPath);
   File jobJarRenamedAsTarget=new File(originalJobJar.getParentFile(),targetJobJar.getName());
   if (originalJobJar.equals(jobJarRenamedAsTarget) == false) {
     FileUtils.copyFile(originalJobJar,jobJarRenamedAsTarget);
