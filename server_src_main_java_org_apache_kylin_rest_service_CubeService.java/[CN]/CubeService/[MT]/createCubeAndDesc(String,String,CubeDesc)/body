@@ -5,9 +5,18 @@
   String owner=SecurityContextHolder.getContext().getAuthentication().getName();
   CubeDesc createdDesc=null;
   CubeInstance createdCube=null;
-  createdDesc=getCubeDescManager().createCubeDesc(desc);
+  boolean isNew=false;
+  if (getCubeDescManager().getCubeDesc(desc.getName()) == null) {
+    createdDesc=getCubeDescManager().createCubeDesc(desc);
+    isNew=true;
+  }
+ else {
+    createdDesc=getCubeDescManager().updateCubeDesc(desc);
+  }
   if (!createdDesc.getError().isEmpty()) {
-    getCubeDescManager().removeCubeDesc(createdDesc);
+    if (isNew) {
+      getCubeDescManager().removeCubeDesc(createdDesc);
+    }
     throw new InternalErrorException(createdDesc.getError().get(0));
   }
   try {

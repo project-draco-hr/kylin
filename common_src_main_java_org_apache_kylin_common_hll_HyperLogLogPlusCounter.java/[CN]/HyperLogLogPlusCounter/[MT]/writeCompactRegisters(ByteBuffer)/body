@@ -20,12 +20,4 @@
       out.put(registers[i]);
     }
   }
-  int len=out.position() - startPos;
-  if (len < COMPRESSION_THRESHOLD)   return;
-  scheme|=COMPRESSION_FLAG;
-  byte[] compressed=DEFAULT_COMPRESSOR.compress(out,startPos + 1,len - 1);
-  out.position(startPos);
-  out.put(scheme);
-  BytesUtil.writeVInt(compressed.length,out);
-  out.put(compressed);
 }
