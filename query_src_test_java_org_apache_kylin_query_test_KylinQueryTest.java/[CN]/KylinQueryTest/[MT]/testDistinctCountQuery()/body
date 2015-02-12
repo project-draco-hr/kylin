@@ -1,8 +1,3 @@
 {
-  if (distinctCountSupported) {
-    batchExecuteQuery("src/test/resources/query/sql_distinct");
-  }
- else {
-    System.out.println("distinct count query omiited");
-  }
+  batchExecuteQuery("src/test/resources/query/sql_distinct");
 }
