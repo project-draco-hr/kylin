@@ -11,8 +11,6 @@
     }
   }
  else {
-    for (int i=0; i < m; i++) {
-      registers[i]=in.get();
-    }
+    in.get(registers);
   }
 }

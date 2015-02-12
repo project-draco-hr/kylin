@@ -1,0 +1,3 @@
+MetricType type
+int refIndex
+int presision

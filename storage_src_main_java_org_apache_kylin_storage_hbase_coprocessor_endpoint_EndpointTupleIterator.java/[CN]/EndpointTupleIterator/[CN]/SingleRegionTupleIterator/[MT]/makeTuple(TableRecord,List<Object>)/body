@@ -1,0 +1,24 @@
+{
+  List<String> columnValues=tableRecord.getOriginTableColumnValues();
+  for (int i=0; i < columnNames.size(); i++) {
+    TblColRef column=columns.get(i);
+    if (!tuple.hasColumn(column)) {
+      continue;
+    }
+    tuple.setDimensionValue(columnNames.get(i),columnValues.get(i));
+  }
+  if (measureValues != null) {
+    for (int i=0; i < measures.size(); ++i) {
+      if (!measures.get(i).isAppliedOnDimension()) {
+        String fieldName=measures.get(i).getRewriteFieldName();
+        Object value=measureValues.get(i);
+        String dataType=tuple.getDataType(fieldName);
+        if (dataType.toLowerCase().equalsIgnoreCase("hllc")) {
+          value=Tuple.convertOptiqCellValue((String)value,dataType);
+        }
+        tuple.setMeasureValue(fieldName,value);
+      }
+    }
+  }
+  return tuple;
+}

@@ -1,8 +1,15 @@
 {
   String[] funcNames=BytesUtil.readAsciiStringArray(in);
   String[] dataTypes=BytesUtil.readAsciiStringArray(in);
-  int[] refColIndex=BytesUtil.readIntArray(in);
+  int metricInfoLength=BytesUtil.readVInt(in);
+  MetricInfo[] infos=new MetricInfo[metricInfoLength];
+  for (int i=0; i < infos.length; ++i) {
+    MetricType type=MetricType.valueOf(BytesUtil.readAsciiString(in));
+    int refIndex=BytesUtil.readVInt(in);
+    int presision=BytesUtil.readVInt(in);
+    infos[i]=new MetricInfo(type,refIndex,presision);
+  }
   byte[] temp=BytesUtil.readByteArray(in);
   TableRecordInfoDigest tableInfo=TableRecordInfoDigest.deserialize(temp);
-  return new EndpointAggregators(funcNames,dataTypes,refColIndex,tableInfo);
+  return new EndpointAggregators(funcNames,dataTypes,infos,tableInfo);
 }
