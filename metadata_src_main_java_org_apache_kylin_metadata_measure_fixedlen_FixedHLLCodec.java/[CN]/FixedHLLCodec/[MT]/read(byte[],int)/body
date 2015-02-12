@@ -1,3 +1,4 @@
 {
-  return serializer.deserialize();
+  current.readRegisters(ByteBuffer.wrap(buf,offset,buf.length - offset));
+  return current;
 }

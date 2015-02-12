@@ -2,7 +2,10 @@
   this.funcNames=funcNames;
   this.dataTypes=dataTypes;
   this.metricInfos=metricInfos;
-  this.tableRecordInfo=tableInfo;
+  this.tableRecordInfoDigest=tableInfo;
+  this.rawTableRecord=tableInfo.createTableRecordBytes();
+  this.byteBuffer=new ImmutableBytesWritable();
+  this.hllcs=new HyperLogLogPlusCounter[this.metricInfos.length];
   this.metricValues=new Object[funcNames.length];
   this.measureSerializers=new FixedLenMeasureCodec[funcNames.length];
   for (int i=0; i < this.measureSerializers.length; ++i) {

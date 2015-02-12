@@ -18,7 +18,7 @@
         throw new IllegalStateException("Column " + functionDesc.getParameter().getColRefs().get(0) + " is not found in II");
       }
       if (functionDesc.isCountDistinct()) {
-        metricInfos[i]=new MetricInfo(MetricType.DistinctCount,index);
+        metricInfos[i]=new MetricInfo(MetricType.DistinctCount,index,functionDesc.getReturnDataType().getPrecision());
       }
  else {
         metricInfos[i]=new MetricInfo(MetricType.Normal,index);

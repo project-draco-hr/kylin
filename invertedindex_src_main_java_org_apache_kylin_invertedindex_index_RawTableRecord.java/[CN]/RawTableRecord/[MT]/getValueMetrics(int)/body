@@ -1,3 +1,0 @@
-{
-  return digest.codec(col).read(buf,digest.offset(col));
-}
