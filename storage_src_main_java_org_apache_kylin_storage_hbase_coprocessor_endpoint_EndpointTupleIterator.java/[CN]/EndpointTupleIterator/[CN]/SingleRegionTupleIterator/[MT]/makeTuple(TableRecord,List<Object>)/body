@@ -9,7 +9,7 @@
   }
   if (measureValues != null) {
     for (int i=0; i < measures.size(); ++i) {
-      if (!measures.get(i).isAppliedOnDimension()) {
+      if (!measures.get(i).isDimensionAsMetric()) {
         String fieldName=measures.get(i).getRewriteFieldName();
         Object value=measureValues.get(i);
         String dataType=tuple.getDataType(fieldName);

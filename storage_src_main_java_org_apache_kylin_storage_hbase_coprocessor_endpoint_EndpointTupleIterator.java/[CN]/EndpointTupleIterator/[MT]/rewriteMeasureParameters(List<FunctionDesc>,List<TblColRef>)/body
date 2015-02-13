@@ -8,8 +8,15 @@
       boolean updated=false;
       for (      TblColRef column : columns) {
         if (column.isSameAs(factTableName,functionDesc.getParameter().getValue())) {
-          functionDesc.setReturnType(column.getColumn().getType().toString());
-          functionDesc.setReturnDataType(DataType.getInstance(functionDesc.getReturnType()));
+          if (functionDesc.isCountDistinct()) {
+            String iiDefaultHLLC="hllc10";
+            functionDesc.setReturnType(iiDefaultHLLC);
+            functionDesc.setReturnDataType(DataType.getInstance(iiDefaultHLLC));
+          }
+ else {
+            functionDesc.setReturnType(column.getColumn().getType().toString());
+            functionDesc.setReturnDataType(DataType.getInstance(functionDesc.getReturnType()));
+          }
           functionDesc.getParameter().setColRefs(ImmutableList.of(column));
           updated=true;
           break;

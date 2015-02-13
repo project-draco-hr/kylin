@@ -11,7 +11,7 @@
   if (measures == null) {
     measures=Lists.newArrayList();
   }
-  initMeaureParameters(measures,segment.getColumns());
+  rewriteMeasureParameters(measures,segment.getColumns());
   this.seg=segment;
   this.context=context;
   this.measures=measures;

@@ -12,11 +12,14 @@
   IIDimension.capicalizeStrings(valueDimensions);
   StringUtil.toUpperCaseArray(metricNames,metricNames);
   HashSet<String> allTableNames=Sets.newHashSet();
+  measureDescs=Lists.newArrayList();
+  measureDescs.add(makeCountMeasure());
   for (  IIDimension iiDimension : Iterables.concat(bitmapDimensions,valueDimensions)) {
     TableDesc tableDesc=this.getTableDesc(iiDimension.getTable());
     for (    String column : iiDimension.getColumns()) {
       ColumnDesc columnDesc=tableDesc.findColumnByName(column);
       allColumns.add(new TblColRef(columnDesc));
+      measureDescs.add(makeHLLMeasure(columnDesc,null));
     }
     if (!allTableNames.contains(tableDesc.getIdentity())) {
       allTableNames.add(tableDesc.getIdentity());
@@ -27,6 +30,9 @@
     TableDesc tableDesc=this.getTableDesc(this.getFactTableName());
     ColumnDesc columnDesc=tableDesc.findColumnByName(column);
     allColumns.add(new TblColRef(columnDesc));
+    measureDescs.add(makeNormalMeasure("SUM",columnDesc));
+    measureDescs.add(makeNormalMeasure("MIN",columnDesc));
+    measureDescs.add(makeNormalMeasure("MAX",columnDesc));
     if (!allTableNames.contains(tableDesc.getIdentity())) {
       allTableNames.add(tableDesc.getIdentity());
       allTables.add(tableDesc);
@@ -36,7 +42,6 @@
   valueCols=new int[IIDimension.getColumnCount(valueDimensions)];
   metricsCols=new int[metricNames.length];
   metricsColSet=new BitSet(this.getTableDesc(this.getFactTableName()).getColumnCount());
-  measureDescs=Lists.newArrayList();
   int totalIndex=0;
   for (int i=0; i < bitmapCols.length; ++i, ++totalIndex) {
     bitmapCols[i]=totalIndex;
@@ -47,12 +52,7 @@
   for (int i=0; i < metricsCols.length; ++i, ++totalIndex) {
     metricsCols[i]=totalIndex;
     metricsColSet.set(totalIndex);
-    ColumnDesc col=this.getTableDesc(this.getFactTableName()).findColumnByName(metricNames[i]);
-    measureDescs.add(makeMeasureDescs("SUM",col));
-    measureDescs.add(makeMeasureDescs("MIN",col));
-    measureDescs.add(makeMeasureDescs("MAX",col));
   }
-  measureDescs.add(makeCountMeasure());
   tsCol=-1;
   for (int i=0; i < allColumns.size(); ++i) {
     TblColRef col=allColumns.get(i);

@@ -1,3 +1,8 @@
 {
-  return new FixedPointLongCodec(type);
+  if (type.isHLLC()) {
+    return new FixedHLLCodec(type);
+  }
+ else {
+    return new FixedPointLongCodec(type);
+  }
 }
