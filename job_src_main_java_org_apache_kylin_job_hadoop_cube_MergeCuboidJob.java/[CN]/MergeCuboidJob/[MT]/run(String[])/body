@@ -15,13 +15,7 @@
     String jobName=getOptionValue(OPTION_JOB_NAME);
     System.out.println("Starting: " + jobName);
     job=Job.getInstance(getConf(),jobName);
-    File JarFile=new File(config.getKylinJobJarPath());
-    if (JarFile.exists()) {
-      job.setJar(config.getKylinJobJarPath());
-    }
- else {
-      job.setJarByClass(this.getClass());
-    }
+    setJobClasspath(job);
     addInputDirs(getOptionValue(OPTION_INPUT_PATH),job);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
     FileOutputFormat.setOutputPath(job,output);
