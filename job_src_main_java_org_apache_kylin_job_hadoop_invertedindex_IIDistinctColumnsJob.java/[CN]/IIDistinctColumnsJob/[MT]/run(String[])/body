@@ -15,6 +15,7 @@
     IIInstance ii=iiMgr.getII(iiName);
     job.getConfiguration().set(BatchConstants.TABLE_NAME,tableName);
     job.getConfiguration().set(BatchConstants.TABLE_COLUMNS,getColumns(ii));
+    setJobClasspath(job);
     setupMapper();
     setupReducer(output);
     return waitForCompletion(job);

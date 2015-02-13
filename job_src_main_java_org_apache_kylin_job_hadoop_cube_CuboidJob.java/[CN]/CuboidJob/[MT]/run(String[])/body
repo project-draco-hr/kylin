@@ -20,13 +20,7 @@
     job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
     logger.info("Starting: " + job.getJobName());
     FileInputFormat.setInputPaths(job,input);
-    File jarFile=new File(config.getKylinJobJarPath());
-    if (jarFile.exists()) {
-      job.setJar(config.getKylinJobJarPath());
-    }
- else {
-      job.setJarByClass(this.getClass());
-    }
+    setJobClasspath(job);
     if (this.mapperClass == null) {
       throw new Exception("Mapper class is not set!");
     }

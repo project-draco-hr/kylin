@@ -1,3 +1,3 @@
 {
-  return StatsUtils.getTotalSize(new org.apache.hadoop.hive.ql.metadata.Table(table));
+  return getBasicStatForTable(new org.apache.hadoop.hive.ql.metadata.Table(table),StatsSetupConst.TOTAL_SIZE);
 }
