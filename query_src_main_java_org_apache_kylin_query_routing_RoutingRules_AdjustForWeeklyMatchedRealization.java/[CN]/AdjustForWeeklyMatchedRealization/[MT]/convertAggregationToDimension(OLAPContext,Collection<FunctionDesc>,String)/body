@@ -4,7 +4,7 @@
     FunctionDesc functionDesc=it.next();
     if (!availableAggregations.contains(functionDesc)) {
       TblColRef col=functionDesc.selectTblColRef(olapContext.metricsColumns,factTableName);
-      functionDesc.setAppliedOnDimension(true);
+      functionDesc.setDimensionAsMetric(true);
       olapContext.rewriteFields.remove(functionDesc.getRewriteFieldName());
       if (col != null) {
         olapContext.metricsColumns.remove(col);

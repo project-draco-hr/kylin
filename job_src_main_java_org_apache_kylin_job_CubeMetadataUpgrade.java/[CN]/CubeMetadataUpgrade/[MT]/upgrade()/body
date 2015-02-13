@@ -4,6 +4,5 @@
   upgradeCubeDesc();
   upgradeProjectInstance();
   upgradeCubeInstance();
-  upgradeJobInstance();
   verify();
 }

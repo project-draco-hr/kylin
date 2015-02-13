@@ -1,2 +1,4 @@
 {
+  int m=1 << 15;
+  System.out.println(m);
 }

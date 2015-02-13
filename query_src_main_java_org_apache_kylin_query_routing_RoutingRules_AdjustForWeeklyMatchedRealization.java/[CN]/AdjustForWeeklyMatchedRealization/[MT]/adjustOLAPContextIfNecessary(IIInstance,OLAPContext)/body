@@ -1,5 +1,5 @@
 {
   IIDesc iiDesc=ii.getDescriptor();
   Collection<FunctionDesc> iiFuncs=iiDesc.listAllFunctions();
-  convertAggreationToDimension(olapContext,iiFuncs,iiDesc.getFactTableName());
+  convertAggregationToDimension(olapContext,iiFuncs,iiDesc.getFactTableName());
 }

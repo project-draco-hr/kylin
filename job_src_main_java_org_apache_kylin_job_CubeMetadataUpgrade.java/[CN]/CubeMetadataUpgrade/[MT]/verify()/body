@@ -4,34 +4,4 @@
   CubeDescManager.getInstance(config);
   CubeManager cubeManager=CubeManager.getInstance(config);
   ProjectManager.getInstance(config);
-  DictionaryManager dictManager=DictionaryManager.getInstance(config);
-  SnapshotManager snapshotManager=SnapshotManager.getInstance(config);
-  List<org.apache.kylin.cube.CubeInstance> allCubes=cubeManager.listAllCubes();
-  for (  org.apache.kylin.cube.CubeInstance cube : allCubes) {
-    for (    org.apache.kylin.cube.CubeSegment cubeSegment : cube.getSegments()) {
-      Collection<String> snapshots=cubeSegment.getSnapshots().values();
-      for (      String s : snapshots) {
-        try {
-          SnapshotTable t=snapshotManager.getSnapshotTable(s);
-          TableReader reader=t.getReader();
-          while (reader.next()) {
-            System.out.println(Arrays.toString(reader.getRow()));
-          }
-        }
- catch (        IOException e) {
-          e.printStackTrace();
-        }
-      }
-      Collection<String> dicts=cubeSegment.getDictionaries().values();
-      for (      String s : dicts) {
-        try {
-          org.apache.kylin.dict.Dictionary<?> dict=dictManager.getDictionary(s);
-          System.out.println(dict.getMaxId());
-        }
- catch (        IOException e) {
-          e.printStackTrace();
-        }
-      }
-    }
-  }
 }

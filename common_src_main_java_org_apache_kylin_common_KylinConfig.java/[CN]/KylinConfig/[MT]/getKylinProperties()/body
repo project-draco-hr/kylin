@@ -6,6 +6,8 @@
  else {
     return getKylinPropertiesFile(kylinConfHome);
   }
-  String path=getKylinHome() + File.separator + "conf";
+  String kylinHome=getKylinHome();
+  if (StringUtils.isEmpty(kylinHome))   throw new RuntimeException("getKylinProperties needs KYLIN_HOME");
+  String path=kylinHome + File.separator + "conf";
   return getKylinPropertiesFile(path);
 }

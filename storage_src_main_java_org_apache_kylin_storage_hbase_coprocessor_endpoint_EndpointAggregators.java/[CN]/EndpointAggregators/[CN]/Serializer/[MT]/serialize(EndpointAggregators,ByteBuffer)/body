@@ -6,7 +6,7 @@
     MetricInfo metricInfo=value.metricInfos[i];
     BytesUtil.writeAsciiString(metricInfo.type.toString(),out);
     BytesUtil.writeVInt(metricInfo.refIndex,out);
-    BytesUtil.writeVInt(metricInfo.presision,out);
+    BytesUtil.writeVInt(metricInfo.precision,out);
   }
   BytesUtil.writeByteArray(TableRecordInfoDigest.serialize(value.tableRecordInfoDigest),out);
 }

@@ -2,7 +2,7 @@
   String kylinHome=System.getenv(KYLIN_HOME);
   if (StringUtils.isEmpty(kylinHome)) {
     logger.warn("KYLIN_HOME has not been set");
-    throw new RuntimeException("KYLIN_HOME has not been set");
+    return kylinHome;
   }
   return kylinHome;
 }
