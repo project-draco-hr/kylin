@@ -1,0 +1,4 @@
+{
+  int cost=Math.min(historyRealizationInstance.getCost(digest),realTimeRealizationInstance.getCost(digest)) - 1;
+  return cost < 0 ? 0 : cost;
+}

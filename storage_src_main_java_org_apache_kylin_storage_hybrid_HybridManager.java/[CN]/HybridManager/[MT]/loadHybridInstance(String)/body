@@ -1,0 +1,20 @@
+{
+  ResourceStore store=getStore();
+  HybridInstance hybridInstance=null;
+  try {
+    hybridInstance=store.getResource(path,HybridInstance.class,HYBRID_SERIALIZER);
+    hybridInstance.setConfig(config);
+    if (StringUtils.isBlank(hybridInstance.getName()))     throw new IllegalStateException("HybridInstance name must not be blank, at " + path);
+    if (hybridInstance.getHistoryRealization() == null || hybridInstance.getRealTimeRealization() == null) {
+      throw new IllegalStateException("HybridInstance must have both historyRealization and realTimeRealization set, at " + path);
+    }
+    hybridInstance.init();
+    final String name=hybridInstance.getName();
+    hybridMap.putLocal(name,hybridInstance);
+    return hybridInstance;
+  }
+ catch (  Exception e) {
+    logger.error("Error during load hybrid instance " + path,e);
+    return null;
+  }
+}

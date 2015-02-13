@@ -1,0 +1,8 @@
+{
+  List<IISegment> readySegs=getSegments(SegmentStatusEnum.READY);
+  long endTime=0;
+  for (  IISegment seg : readySegs) {
+    if (seg.getDateRangeEnd() > endTime)     endTime=seg.getDateRangeEnd();
+  }
+  return endTime;
+}
