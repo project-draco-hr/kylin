@@ -1,5 +1,5 @@
 {
   RealizationRegistry registry=RealizationRegistry.getInstance(config);
   historyRealizationInstance=registry.getRealization(historyRealization.getType(),historyRealization.getRealization());
-  realTimeRealizationInstance=registry.getRealization(realTimeRealizationInstance.getType(),historyRealization.getRealization());
+  realTimeRealizationInstance=registry.getRealization(realTimeRealization.getType(),realTimeRealization.getRealization());
 }

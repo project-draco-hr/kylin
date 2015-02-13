@@ -8,16 +8,11 @@
     System.out.println("Starting: " + jobName);
     Configuration conf=getConf();
     job=Job.getInstance(conf,jobName);
-    if (jarPath == null || !new File(jarPath).exists()) {
-      job.setJarByClass(getClass());
-    }
- else {
-      job.setJar(jarPath);
-    }
+    setJobClasspath(job);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
     FileOutputFormat.setOutputPath(job,output);
     job.getConfiguration().set("dfs.block.size","67108864");
-    this.table=getOptionValue(OPTION_TABLE);
+    String table=getOptionValue(OPTION_TABLE);
     String[] dbTableNames=HadoopUtil.parseHiveTableName(table);
     HCatInputFormat.setInput(job,dbTableNames[0],dbTableNames[1]);
     job.setInputFormatClass(HCatInputFormat.class);

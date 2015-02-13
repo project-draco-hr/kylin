@@ -1,0 +1,5 @@
+{
+  long conditionBoundry=hybridInstance.getHistoryRealizationInstance().getDateRangeEnd();
+  TupleFilter filter=sqlDigest.filter;
+  return null;
+}

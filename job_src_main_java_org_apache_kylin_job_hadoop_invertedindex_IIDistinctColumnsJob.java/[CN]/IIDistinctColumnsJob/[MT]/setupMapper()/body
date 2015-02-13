@@ -1,11 +1,4 @@
 {
-  File JarFile=new File(KylinConfig.getInstanceFromEnv().getKylinJobJarPath());
-  if (JarFile.exists()) {
-    job.setJar(KylinConfig.getInstanceFromEnv().getKylinJobJarPath());
-  }
- else {
-    job.setJarByClass(this.getClass());
-  }
   String tableName=job.getConfiguration().get(BatchConstants.TABLE_NAME);
   String[] dbTableNames=HadoopUtil.parseHiveTableName(tableName);
   log.info("setting hcat input format, db name {} , table name {}",dbTableNames[0],dbTableNames[1]);
