@@ -1,0 +1,20 @@
+{
+  final String yarnStatusCheckUrl=config.getYarnStatusCheckUrl();
+  if (yarnStatusCheckUrl != null) {
+    return yarnStatusCheckUrl;
+  }
+ else {
+    logger.info(KylinConfig.KYLIN_JOB_YARN_APP_REST_CHECK_URL + " is not set, read from job configuration");
+  }
+  String rmWebHost=job.getConfiguration().get("yarn.resourcemanager.webapp.address");
+  if (StringUtils.isEmpty(rmWebHost)) {
+    return null;
+  }
+  if (rmWebHost.startsWith("http://") || rmWebHost.startsWith("https://")) {
+  }
+ else {
+    rmWebHost="http://" + rmWebHost;
+  }
+  logger.info("yarn.resourcemanager.webapp.address:" + rmWebHost);
+  return rmWebHost + "/ws/v1/cluster/apps/${job_id}?anonymous=true";
+}
