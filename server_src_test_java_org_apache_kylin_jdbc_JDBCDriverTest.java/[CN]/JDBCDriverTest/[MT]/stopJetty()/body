@@ -1,3 +1,7 @@
 {
   if (server != null)   server.stop();
+  File workFolder=new File("work");
+  if (workFolder.isDirectory() && workFolder.exists()) {
+    FileUtils.deleteDirectory(workFolder);
+  }
 }

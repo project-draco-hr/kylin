@@ -12,6 +12,5 @@
   if (needSort) {
     queryTable=new SortedTable(queryTable,columnNames);
   }
-  printResult(queryTable);
   return queryTable;
 }
