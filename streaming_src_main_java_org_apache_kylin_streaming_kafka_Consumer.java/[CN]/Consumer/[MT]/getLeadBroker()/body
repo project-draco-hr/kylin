@@ -1,0 +1,10 @@
+{
+  final PartitionMetadata partitionMetadata=Requester.getPartitionMetadata(topic,partitionId,replicaBrokers,consumerConfig);
+  if (partitionMetadata != null && partitionMetadata.errorCode() == 0) {
+    replicaBrokers=partitionMetadata.replicas();
+    return partitionMetadata.leader();
+  }
+ else {
+    return null;
+  }
+}

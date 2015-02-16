@@ -1,0 +1,26 @@
+{
+  SimpleConsumer consumer;
+  for (  Broker broker : brokers) {
+    consumer=new SimpleConsumer(broker.host(),broker.port(),consumerConfig.getTimeout(),consumerConfig.getBufferSize(),"topic_meta_lookup");
+    List<String> topics=Collections.singletonList(topic);
+    TopicMetadataRequest req=new TopicMetadataRequest(topics);
+    TopicMetadataResponse resp=consumer.send(req);
+    final List<TopicMetadata> topicMetadatas=resp.topicsMetadata();
+    if (topicMetadatas.size() != 1) {
+      logger.warn("invalid topicMetadata size:" + topicMetadatas.size());
+      break;
+    }
+    final TopicMetadata topicMetadata=topicMetadatas.get(0);
+    if (topicMetadata.errorCode() != 0) {
+      logger.warn("fetching topicMetadata with errorCode:" + topicMetadata.errorCode());
+      break;
+    }
+    for (    PartitionMetadata partitionMetadata : topicMetadata.partitionsMetadata()) {
+      if (partitionMetadata.partitionId() == partitionId) {
+        return partitionMetadata;
+      }
+    }
+  }
+  logger.debug("cannot find PartitionMetadata, topic:" + topic + " partitionId:"+ partitionId);
+  return null;
+}

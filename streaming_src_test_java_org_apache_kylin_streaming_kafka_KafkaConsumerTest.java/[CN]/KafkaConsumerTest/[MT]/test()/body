@@ -1,0 +1,23 @@
+{
+  TopicConfig topicConfig=new TopicConfig();
+  topicConfig.setTopic(TestConstants.TOPIC);
+  topicConfig.setBrokers(Collections.singletonList(TestConstants.BROKER));
+  ConsumerConfig consumerConfig=new ConsumerConfig();
+  consumerConfig.setBufferSize(64 * 1024);
+  consumerConfig.setMaxReadCount(1000);
+  consumerConfig.setTimeout(60 * 1000);
+  final TopicMeta kafkaTopicMeta=Requester.getKafkaTopicMeta(topicConfig,consumerConfig);
+  final ExecutorService executorService=Executors.newFixedThreadPool(kafkaTopicMeta.getPartitionIds().size());
+  List<BlockingQueue<Stream>> queues=Lists.newArrayList();
+  for (  Integer partitionId : kafkaTopicMeta.getPartitionIds()) {
+    Consumer consumer=new Consumer(kafkaTopicMeta.getName(),partitionId,Lists.asList(TestConstants.BROKER,new Broker[0]),consumerConfig);
+    queues.add(consumer.getStreamQueue());
+    executorService.execute(consumer);
+  }
+  waitForProducerToStop(producer);
+  int count=0;
+  for (  BlockingQueue<Stream> queue : queues) {
+    count+=queue.size();
+  }
+  assertTrue(count >= TOTAL_SEND_COUNT);
+}

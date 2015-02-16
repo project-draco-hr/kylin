@@ -1,0 +1,4 @@
+{
+  producer=new TestProducer(TOTAL_SEND_COUNT);
+  producer.start();
+}
