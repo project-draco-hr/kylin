@@ -1,0 +1,4 @@
+{
+  this.streamQueues=streamQueues;
+  this.batchBuildCount=batchBuildCount;
+}

@@ -1,0 +1,21 @@
+{
+  try {
+    Stream[] streamHead=new Stream[streamQueues.size()];
+    for (int i=0; i < streamQueues.size(); i++) {
+      streamHead[i]=streamQueues.get(i).take();
+    }
+    List<Stream> streamToBuild=Lists.newArrayListWithCapacity(batchBuildCount);
+    while (true) {
+      if (streamToBuild.size() >= batchBuildCount) {
+        build(streamToBuild);
+        streamToBuild.clear();
+      }
+      int idx=getEarliestStreamIndex(streamHead);
+      streamToBuild.add(streamHead[idx]);
+      streamHead[idx]=streamQueues.get(idx).take();
+    }
+  }
+ catch (  InterruptedException e) {
+    logger.error("",e);
+  }
+}
