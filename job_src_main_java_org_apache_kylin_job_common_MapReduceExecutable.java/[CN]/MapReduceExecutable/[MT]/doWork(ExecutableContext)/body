@@ -11,7 +11,7 @@
       logger.info("mr_job_id:" + extra.get(ExecutableConstants.MR_JOB_ID + " resumed"));
     }
  else {
-      final Constructor<? extends AbstractHadoopJob> constructor=(Constructor<? extends AbstractHadoopJob>)Class.forName(mapReduceJobClass).getConstructor();
+      final Constructor<? extends AbstractHadoopJob> constructor=ClassUtil.forName(mapReduceJobClass,AbstractHadoopJob.class).getConstructor();
       final AbstractHadoopJob hadoopJob=constructor.newInstance();
       hadoopJob.setAsync(true);
       logger.info("parameters of the MapReduceExecutable:");

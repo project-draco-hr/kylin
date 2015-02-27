@@ -4,7 +4,7 @@
   }
   String type=executablePO.getType();
   try {
-    Class<? extends AbstractExecutable> clazz=(Class<? extends AbstractExecutable>)Class.forName(type);
+    Class<? extends AbstractExecutable> clazz=ClassUtil.forName(type,AbstractExecutable.class);
     Constructor<? extends AbstractExecutable> constructor=clazz.getConstructor();
     AbstractExecutable result=constructor.newInstance();
     result.setId(executablePO.getUuid());

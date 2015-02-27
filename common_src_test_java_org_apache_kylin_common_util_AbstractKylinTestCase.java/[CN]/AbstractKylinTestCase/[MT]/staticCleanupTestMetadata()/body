@@ -1,5 +1,5 @@
 {
   cleanupCache();
-  System.clearProperty(KylinConfig.KYLIN_CONF_HOME);
+  System.clearProperty(KylinConfig.KYLIN_CONF);
   KylinConfig.destoryInstance();
 }

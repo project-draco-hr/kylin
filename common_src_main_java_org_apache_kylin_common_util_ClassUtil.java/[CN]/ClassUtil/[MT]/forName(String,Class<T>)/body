@@ -1,0 +1,6 @@
+{
+  if (name.startsWith("com.kylinolap")) {
+    name="org.apache.kylin" + name.substring("com.kylinolap".length());
+  }
+  return (Class<? extends T>)Class.forName(name);
+}
