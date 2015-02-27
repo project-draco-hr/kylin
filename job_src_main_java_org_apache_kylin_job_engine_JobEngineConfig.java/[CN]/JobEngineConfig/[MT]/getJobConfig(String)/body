@@ -1,5 +1,5 @@
 {
-  String path=System.getProperty(KylinConfig.KYLIN_CONF_HOME);
+  String path=System.getProperty(KylinConfig.KYLIN_CONF);
   if (StringUtils.isNotEmpty(path)) {
     return new File(path,fileName);
   }
