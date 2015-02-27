@@ -4,7 +4,7 @@
   if (infoOnly == false) {
     Dictionary<?> dict;
     try {
-      dict=(Dictionary<?>)Util.classForName(obj.getDictionaryClass()).newInstance();
+      dict=(Dictionary<?>)ClassUtil.forName(obj.getDictionaryClass(),Dictionary.class).newInstance();
     }
  catch (    InstantiationException e) {
       throw new RuntimeException(e);
