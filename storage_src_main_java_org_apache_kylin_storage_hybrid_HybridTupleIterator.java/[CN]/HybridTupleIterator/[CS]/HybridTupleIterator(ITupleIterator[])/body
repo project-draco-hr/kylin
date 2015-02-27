@@ -1,0 +1,4 @@
+{
+  this.iterators=iterators;
+  currentIndex=0;
+}

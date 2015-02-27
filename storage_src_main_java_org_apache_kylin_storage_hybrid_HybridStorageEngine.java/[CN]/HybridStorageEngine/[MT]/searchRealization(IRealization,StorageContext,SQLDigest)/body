@@ -1,0 +1,4 @@
+{
+  IStorageEngine storageEngine=StorageEngineFactory.getStorageEngine(realization);
+  return storageEngine.search(context,sqlDigest);
+}

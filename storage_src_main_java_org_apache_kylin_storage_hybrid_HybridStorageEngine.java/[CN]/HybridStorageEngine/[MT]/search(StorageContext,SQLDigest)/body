@@ -1,5 +1,33 @@
 {
-  long conditionBoundry=hybridInstance.getHistoryRealizationInstance().getDateRangeEnd();
-  TupleFilter filter=sqlDigest.filter;
-  return null;
+  long boundary=hybridInstance.getHistoryRealizationInstance().getDateRangeEnd();
+  FastDateFormat format=FastDateFormat.getInstance("yyyy-MM-dd");
+  String boundaryDate=format.format(boundary);
+  Collection<TblColRef> filterCols=sqlDigest.filterColumns;
+  String modelName=hybridInstance.getModelName();
+  MetadataManager metaMgr=getMetadataManager();
+  DataModelDesc modelDesc=metaMgr.getDataModelDesc(modelName);
+  String partitionColFull=modelDesc.getPartitionDesc().getPartitionDateColumn();
+  String partitionTable=partitionColFull.substring(0,partitionColFull.lastIndexOf("."));
+  String partitionCol=partitionColFull.substring(partitionColFull.lastIndexOf(".") + 1);
+  TableDesc factTbl=metaMgr.getTableDesc(partitionTable);
+  ColumnDesc columnDesc=factTbl.findColumnByName(partitionCol);
+  TblColRef partitionColRef=new TblColRef(columnDesc);
+  ITupleIterator iterator1=searchRealization(hybridInstance.getHistoryRealizationInstance(),context,sqlDigest);
+  CompareTupleFilter compareTupleFilter=new CompareTupleFilter(TupleFilter.FilterOperatorEnum.GTE);
+  ColumnTupleFilter columnTupleFilter=new ColumnTupleFilter(partitionColRef);
+  ConstantTupleFilter constantTupleFilter=new ConstantTupleFilter(boundaryDate);
+  compareTupleFilter.addChild(columnTupleFilter);
+  compareTupleFilter.addChild(constantTupleFilter);
+  LogicalTupleFilter logicalTupleFilter=new LogicalTupleFilter(TupleFilter.FilterOperatorEnum.AND);
+  logicalTupleFilter.addChild(sqlDigest.filter);
+  logicalTupleFilter.addChild(compareTupleFilter);
+  sqlDigest.filter=logicalTupleFilter;
+  if (!sqlDigest.filterColumns.contains(partitionColRef)) {
+    sqlDigest.filterColumns.add(partitionColRef);
+  }
+  if (!sqlDigest.allColumns.contains(partitionColRef)) {
+    sqlDigest.allColumns.add(partitionColRef);
+  }
+  ITupleIterator iterator2=searchRealization(hybridInstance.getRealTimeRealizationInstance(),context,sqlDigest);
+  return new HybridTupleIterator(new ITupleIterator[]{iterator1,iterator2});
 }

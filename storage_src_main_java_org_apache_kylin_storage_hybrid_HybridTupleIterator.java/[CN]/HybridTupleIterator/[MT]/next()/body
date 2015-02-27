@@ -1,0 +1,6 @@
+{
+  if (!iterators[currentIndex].hasNext() && currentIndex + 1 < iterators.length) {
+    currentIndex++;
+  }
+  return iterators[currentIndex].next();
+}
