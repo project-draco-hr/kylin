@@ -1,5 +1,5 @@
 {
-  if (historyRealizationInstance instanceof CubeInstance) {
+  if (getHistoryRealizationInstance() instanceof CubeInstance) {
     return ((CubeInstance)historyRealizationInstance).getDescriptor().getModelName();
   }
   return ((IIInstance)historyRealizationInstance).getDescriptor().getModelName();

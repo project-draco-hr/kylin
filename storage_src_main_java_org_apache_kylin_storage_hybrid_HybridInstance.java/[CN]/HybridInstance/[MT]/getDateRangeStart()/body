@@ -1,3 +1,3 @@
 {
-  return historyRealizationInstance.getDateRangeStart();
+  return Math.min(getHistoryRealizationInstance().getDateRangeStart(),getRealTimeRealizationInstance().getDateRangeStart());
 }

@@ -8,7 +8,4 @@
   if (realTimeRealizationInstance == null) {
     throw new IllegalArgumentException("Didn't find realization '" + realTimeRealization.getType() + "'"+ " with name '"+ realTimeRealization.getRealization()+ "' in '"+ name+ "'");
   }
-  if (realTimeRealizationInstance.getDateRangeEnd() < historyRealizationInstance.getDateRangeEnd()) {
-    throw new IllegalStateException("The real time realization's dateRangeEnd should be greater than history realization's dateRangeEnd.");
-  }
 }

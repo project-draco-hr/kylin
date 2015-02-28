@@ -1,2 +1,5 @@
 {
+  for (  ITupleIterator i : iterators) {
+    i.close();
+  }
 }
