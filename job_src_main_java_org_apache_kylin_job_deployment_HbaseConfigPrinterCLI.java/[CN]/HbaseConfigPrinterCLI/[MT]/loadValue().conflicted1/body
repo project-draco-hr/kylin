@@ -1,4 +1,3 @@
 {
-  Configuration conf=HBaseConfiguration.create();
-  return conf.get(HConstants.ZOOKEEPER_ZNODE_PARENT);
+  return LZOSupportnessChecker.getSupportness() ? "true" : "false";
 }

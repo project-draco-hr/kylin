@@ -1,0 +1,21 @@
+{
+  HBaseAdmin hadmin=new HBaseAdmin(getConnection());
+  try {
+    boolean tableExist=hadmin.tableExists(tableName);
+    if (tableExist) {
+      logger.info("HTable '" + tableName + "' already exists");
+      return;
+    }
+    logger.info("Creating HTable '" + tableName + "'");
+    HTableDescriptor desc=new HTableDescriptor(TableName.valueOf(tableName));
+    desc.setValue(HTableDescriptor.SPLIT_POLICY,DisabledRegionSplitPolicy.class.getName());
+    HColumnDescriptor fd=new HColumnDescriptor(CF);
+    fd.setBlocksize(CELL_SIZE);
+    desc.addFamily(fd);
+    hadmin.createTable(desc);
+    logger.info("HTable '" + tableName + "' created");
+  }
+  finally {
+    hadmin.close();
+  }
+}

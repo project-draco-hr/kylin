@@ -1,4 +1,4 @@
 {
   Configuration conf=HBaseConfiguration.create();
-  return conf.get(HConstants.ZOOKEEPER_CLIENT_PORT);
+  return conf.get(HConstants.ZOOKEEPER_ZNODE_PARENT);
 }

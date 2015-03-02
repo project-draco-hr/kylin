@@ -1,0 +1,6 @@
+{
+  byte[] bytes=new byte[lenth];
+  Random rand=new Random();
+  rand.nextBytes(bytes);
+  return bytes;
+}
