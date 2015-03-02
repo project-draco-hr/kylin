@@ -18,7 +18,9 @@
     TableDesc tableDesc=this.getTableDesc(iiDimension.getTable());
     for (    String column : iiDimension.getColumns()) {
       ColumnDesc columnDesc=tableDesc.findColumnByName(column);
-      allColumns.add(new TblColRef(columnDesc));
+      TblColRef tcr=new TblColRef(columnDesc);
+      allColumns.add(tcr);
+      allDimensions.add(tcr);
       measureDescs.add(makeHLLMeasure(columnDesc,null));
     }
     if (!allTableNames.contains(tableDesc.getIdentity())) {
