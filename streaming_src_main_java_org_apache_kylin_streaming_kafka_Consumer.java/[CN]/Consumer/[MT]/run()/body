@@ -5,9 +5,9 @@
       logger.warn("cannot find lead broker");
       continue;
     }
-    final long lastOffset=Requester.getLastOffset(topic,partitionId,OffsetRequest.EarliestTime(),leadBroker,consumerConfig);
+    final long lastOffset=Requester.getLastOffset(topic,partitionId,OffsetRequest.EarliestTime(),leadBroker,kafkaConfig);
     offset.set(lastOffset);
-    final FetchResponse fetchResponse=Requester.fetchResponse(topic,partitionId,offset.get(),leadBroker,consumerConfig);
+    final FetchResponse fetchResponse=Requester.fetchResponse(topic,partitionId,offset.get(),leadBroker,kafkaConfig);
     if (fetchResponse.errorCode(topic,partitionId) != 0) {
       logger.warn("fetch response offset:" + offset.get() + " errorCode:"+ fetchResponse.errorCode(topic,partitionId));
       continue;

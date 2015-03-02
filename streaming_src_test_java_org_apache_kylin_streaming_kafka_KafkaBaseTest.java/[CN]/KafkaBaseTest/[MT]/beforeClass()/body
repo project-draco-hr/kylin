@@ -1,3 +1,6 @@
 {
-  zkClient=new ZkClient(TestConstants.ZOOKEEPER);
+  final Properties properties=new Properties();
+  properties.load(ClassLoader.getSystemResourceAsStream("kafka_streaming_test/kafka.properties"));
+  kafkaConfig=KafkaConfig.load(properties);
+  zkClient=new ZkClient(kafkaConfig.getZookeeper());
 }

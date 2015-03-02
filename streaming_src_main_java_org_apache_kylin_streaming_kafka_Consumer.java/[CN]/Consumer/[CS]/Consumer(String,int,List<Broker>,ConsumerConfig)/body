@@ -1,8 +1,0 @@
-{
-  this.topic=topic;
-  this.partitionId=partitionId;
-  this.consumerConfig=consumerConfig;
-  this.replicaBrokers=initialBrokers;
-  logger=LoggerFactory.getLogger("KafkaConsumer_" + topic + "_"+ partitionId);
-  streamQueue=new ArrayBlockingQueue<Stream>(consumerConfig.getMaxReadCount());
-}

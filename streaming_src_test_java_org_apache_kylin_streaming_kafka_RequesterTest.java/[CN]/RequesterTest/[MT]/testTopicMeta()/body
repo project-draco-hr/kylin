@@ -1,11 +1,10 @@
 {
-  TopicMeta kafkaTopicMeta=Requester.getKafkaTopicMeta(topicConfig,consumerConfig);
+  TopicMeta kafkaTopicMeta=Requester.getKafkaTopicMeta(kafkaConfig);
   assertNotNull(kafkaTopicMeta);
   assertEquals(2,kafkaTopicMeta.getPartitionIds().size());
-  assertEquals(topicConfig.getTopic(),kafkaTopicMeta.getName());
-  TopicConfig anotherTopicConfig=new TopicConfig();
-  anotherTopicConfig.setBrokers(Collections.singletonList(TestConstants.BROKER));
-  anotherTopicConfig.setTopic(UNEXISTED_TOPIC);
-  kafkaTopicMeta=Requester.getKafkaTopicMeta(anotherTopicConfig,consumerConfig);
+  assertEquals(kafkaConfig.getTopic(),kafkaTopicMeta.getName());
+  KafkaConfig anotherTopicConfig=KafkaConfig.load(kafkaConfig);
+  anotherTopicConfig.setTopic(NON_EXISTED_TOPIC);
+  kafkaTopicMeta=Requester.getKafkaTopicMeta(anotherTopicConfig);
   assertTrue(kafkaTopicMeta == null);
 }
