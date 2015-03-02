@@ -36,7 +36,9 @@
       for (      Result result : scanner) {
         Cell cell=result.getColumnLatestCell(CF,QN);
         byte[] value=cell.getValueArray();
-        if (cell.getValueLength() != CELL_SIZE)         logger.error("value size invalid!!!!!");
+        if (cell.getValueLength() != CELL_SIZE) {
+          logger.error("value size invalid!!!!!");
+        }
         hash+=Arrays.hashCode(Arrays.copyOfRange(value,cell.getValueOffset(),cell.getValueLength() + cell.getValueOffset()));
         rowCount++;
       }

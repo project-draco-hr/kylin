@@ -1,4 +1,5 @@
 {
+  createTable(tableName);
   final Semaphore semaphore=new Semaphore(0);
   new Thread(new Runnable(){
     @Override public void run(){
