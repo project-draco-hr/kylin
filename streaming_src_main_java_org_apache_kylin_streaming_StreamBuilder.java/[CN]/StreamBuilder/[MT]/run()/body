@@ -1,0 +1,23 @@
+{
+  try {
+    List<Stream> streamToBuild=Lists.newArrayList();
+    clearCounter();
+    while (true) {
+      final Stream stream=streamQueue.take();
+      streamToBuild.add(stream);
+      bytesTotal+=stream.getRawData().length;
+      if (bytesTotal >= BATCH_BUILD_BYTES_THRESHOLD) {
+        buildStream(streamToBuild);
+      }
+ else       if ((System.currentTimeMillis() - lastBuildTime) > BATCH_BUILD_INTERVAL_THRESHOLD) {
+        buildStream(streamToBuild);
+      }
+ else {
+        continue;
+      }
+    }
+  }
+ catch (  InterruptedException e) {
+    logger.error("StreamBuilder has been interrupted",e);
+  }
+}

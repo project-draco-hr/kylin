@@ -1,0 +1,16 @@
+{
+  final TopicMeta kafkaTopicMeta=Requester.getKafkaTopicMeta(kafkaConfig);
+  final ExecutorService executorService=Executors.newFixedThreadPool(kafkaTopicMeta.getPartitionIds().size());
+  List<BlockingQueue<Stream>> queues=Lists.newArrayList();
+  for (  Integer partitionId : kafkaTopicMeta.getPartitionIds()) {
+    KafkaConsumer consumer=new KafkaConsumer(kafkaTopicMeta.getName(),partitionId,kafkaConfig.getBrokers(),kafkaConfig);
+    queues.add(consumer.getStreamQueue());
+    executorService.execute(consumer);
+  }
+  waitForProducerToStop(producer);
+  int count=0;
+  for (  BlockingQueue<Stream> queue : queues) {
+    count+=queue.size();
+  }
+  assertTrue(count >= TOTAL_SEND_COUNT);
+}
