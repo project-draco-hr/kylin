@@ -1,0 +1,11 @@
+{
+  if (args[0].equalsIgnoreCase("createtable")) {
+    createTable(args[1]);
+  }
+ else   if (args[0].equalsIgnoreCase("adddata")) {
+    addData(args[1]);
+  }
+ else   if (args[0].equalsIgnoreCase("randomscan")) {
+    randomScan(args[1]);
+  }
+}

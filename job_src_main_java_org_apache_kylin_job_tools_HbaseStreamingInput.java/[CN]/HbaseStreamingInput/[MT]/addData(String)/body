@@ -1,0 +1,46 @@
+{
+  createTable(tableName);
+  final Semaphore semaphore=new Semaphore(0);
+  new Thread(new Runnable(){
+    @Override public void run(){
+      scheduleJob(semaphore,300000);
+    }
+  }
+).start();
+  while (true) {
+    try {
+      semaphore.acquire();
+      int waiting=semaphore.availablePermits();
+      if (waiting > 0) {
+        logger.warn("There are another " + waiting + " batches waiting to be added");
+      }
+    }
+ catch (    InterruptedException e) {
+      e.printStackTrace();
+    }
+    HConnection conn=getConnection();
+    HTableInterface table=conn.getTable(tableName);
+    byte[] key=new byte[8 + 4];
+    logger.info("============================================");
+    long startTime=System.currentTimeMillis();
+    logger.info("data load start time in millis: " + startTime);
+    logger.info("data load start at " + formatTime(startTime));
+    List<Put> buffer=Lists.newArrayList();
+    for (int i=0; i < (1 << 10); ++i) {
+      long time=System.currentTimeMillis();
+      Bytes.putLong(key,0,time);
+      Bytes.putInt(key,8,i);
+      Put put=new Put(key);
+      byte[] cell=randomBytes(CELL_SIZE);
+      put.add(CF,QN,cell);
+      buffer.add(put);
+    }
+    table.put(buffer);
+    table.close();
+    conn.close();
+    long endTime=System.currentTimeMillis();
+    logger.info("data load end at " + formatTime(endTime));
+    logger.info("data load time consumed: " + (endTime - startTime));
+    logger.info("============================================");
+  }
+}

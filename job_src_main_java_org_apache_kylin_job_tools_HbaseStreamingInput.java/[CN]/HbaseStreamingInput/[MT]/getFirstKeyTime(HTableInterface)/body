@@ -1,0 +1,15 @@
+{
+  long startTime=0;
+  Scan scan=new Scan();
+  scan.addFamily(CF);
+  ResultScanner scanner=table.getScanner(scan);
+  for (  Result result : scanner) {
+    Cell cell=result.getColumnLatestCell(CF,QN);
+    byte[] key=cell.getRowArray();
+    startTime=Bytes.toLong(key,cell.getRowOffset(),8);
+    logger.info("Retrieved first record time: " + formatTime(startTime));
+    break;
+  }
+  scanner.close();
+  return startTime;
+}
