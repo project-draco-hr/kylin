@@ -1,0 +1,5 @@
+String topic
+int partitionId
+long offset
+Broker broker
+KafkaConfig kafkaConfig

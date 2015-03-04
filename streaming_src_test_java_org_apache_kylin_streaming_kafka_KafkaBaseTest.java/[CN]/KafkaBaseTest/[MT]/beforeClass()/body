@@ -1,3 +1,0 @@
-{
-  zkClient=new ZkClient(TestConstants.ZOOKEEPER);
-}

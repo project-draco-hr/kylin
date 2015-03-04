@@ -1,0 +1,19 @@
+{
+  Preconditions.checkNotNull(properties);
+  KafkaConfig result=new KafkaConfig();
+  result.setBufferSize(Integer.parseInt(properties.getProperty("consumer.bufferSize")));
+  result.setMaxReadCount(Integer.parseInt(properties.getProperty("consumer.maxReadCount")));
+  result.setTimeout(Integer.parseInt(properties.getProperty("consumer.timeout")));
+  result.setTopic(properties.getProperty("topic"));
+  result.setZookeeper(properties.getProperty("zookeeper"));
+  result.setPartitionId(Integer.parseInt(properties.getProperty("partitionId")));
+  int id=0;
+  List<Broker> brokers=Lists.newArrayList();
+  for (  String str : properties.getProperty("brokers").split(",")) {
+    final String[] split=str.split(":");
+    final Broker broker=new Broker(id++,split[0],Integer.parseInt(split[1]));
+    brokers.add(broker);
+  }
+  result.setBrokers(brokers);
+  return result;
+}

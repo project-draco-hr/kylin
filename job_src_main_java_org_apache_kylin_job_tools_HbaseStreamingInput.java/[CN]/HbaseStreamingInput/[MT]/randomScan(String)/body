@@ -1,0 +1,51 @@
+{
+  final Semaphore semaphore=new Semaphore(0);
+  new Thread(new Runnable(){
+    @Override public void run(){
+      scheduleJob(semaphore,60000);
+    }
+  }
+).start();
+  while (true) {
+    try {
+      semaphore.acquire();
+      int waiting=semaphore.drainPermits();
+      if (waiting > 0) {
+        logger.warn("Too many queries to handle! Blocking " + waiting + " sets of scan requests");
+      }
+    }
+ catch (    InterruptedException e) {
+      e.printStackTrace();
+    }
+    Random r=new Random();
+    HConnection conn=getConnection();
+    HTableInterface table=conn.getTable(tableName);
+    long leftBound=getFirstKeyTime(table);
+    long rightBound=System.currentTimeMillis();
+    for (int t=0; t < 5; ++t) {
+      long start=(long)(leftBound + r.nextDouble() * (rightBound - leftBound));
+      long end=start + 600000;
+      logger.info("A scan from " + formatTime(start) + " to "+ formatTime(end));
+      Scan scan=new Scan();
+      scan.setStartRow(Bytes.toBytes(start));
+      scan.setStopRow(Bytes.toBytes(end));
+      scan.addFamily(CF);
+      ResultScanner scanner=table.getScanner(scan);
+      long hash=0;
+      int rowCount=0;
+      for (      Result result : scanner) {
+        Cell cell=result.getColumnLatestCell(CF,QN);
+        byte[] value=cell.getValueArray();
+        if (cell.getValueLength() != CELL_SIZE) {
+          logger.error("value size invalid!!!!!");
+        }
+        hash+=Arrays.hashCode(Arrays.copyOfRange(value,cell.getValueOffset(),cell.getValueLength() + cell.getValueOffset()));
+        rowCount++;
+      }
+      scanner.close();
+      logger.info("Scanned " + rowCount + " rows, the (meaningless) hash for the scan is "+ hash);
+    }
+    table.close();
+    conn.close();
+  }
+}

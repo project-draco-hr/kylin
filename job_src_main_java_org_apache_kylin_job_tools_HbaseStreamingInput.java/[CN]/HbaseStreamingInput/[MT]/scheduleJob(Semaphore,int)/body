@@ -1,0 +1,11 @@
+{
+  while (true) {
+    semaphore.release();
+    try {
+      Thread.sleep(interval);
+    }
+ catch (    InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+}
