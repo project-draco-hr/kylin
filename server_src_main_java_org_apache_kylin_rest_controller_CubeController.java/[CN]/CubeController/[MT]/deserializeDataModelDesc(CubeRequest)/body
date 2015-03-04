@@ -1,7 +1,7 @@
 {
   DataModelDesc desc=null;
   try {
-    logger.debug("Saving cube " + cubeRequest.getModelDescData());
+    logger.debug("Saving MODEL " + cubeRequest.getModelDescData());
     desc=JsonUtil.readValue(cubeRequest.getModelDescData(),DataModelDesc.class);
   }
  catch (  JsonParseException e) {
