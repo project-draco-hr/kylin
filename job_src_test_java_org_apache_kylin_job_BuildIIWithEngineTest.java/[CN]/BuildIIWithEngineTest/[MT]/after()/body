@@ -6,4 +6,5 @@
       iiManager.updateII(ii);
     }
   }
+  backup();
 }
