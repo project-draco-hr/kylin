@@ -1,10 +1,8 @@
 {
   seg=iiSegment;
   desc=seg.getIIInstance().getDescriptor();
-  allColumns=desc.listAllColumns();
-  nColumns=allColumns.size();
-  dictionaries=new Dictionary<?>[nColumns];
-  measureSerializers=new FixedLenMeasureCodec<?>[nColumns];
+  dictionaries=new Dictionary<?>[desc.listAllColumns().size()];
+  measureSerializers=new FixedLenMeasureCodec<?>[desc.listAllColumns().size()];
   DictionaryManager dictMgr=DictionaryManager.getInstance(desc.getConfig());
   int index=0;
   for (  TblColRef tblColRef : desc.listAllColumns()) {

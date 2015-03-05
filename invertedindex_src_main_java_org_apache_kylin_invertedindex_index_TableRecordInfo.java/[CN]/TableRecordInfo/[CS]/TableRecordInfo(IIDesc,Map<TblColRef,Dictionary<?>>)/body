@@ -1,0 +1,21 @@
+{
+  this.seg=null;
+  this.desc=desc;
+  dictionaries=new Dictionary<?>[desc.listAllColumns().size()];
+  measureSerializers=new FixedLenMeasureCodec<?>[desc.listAllColumns().size()];
+  int index=0;
+  for (  TblColRef tblColRef : desc.listAllColumns()) {
+    if (desc.isMetricsCol(index)) {
+      measureSerializers[index]=FixedLenMeasureCodec.get(tblColRef.getColumn().getType());
+    }
+ else {
+      String dictPath=seg.getDictResPath(tblColRef);
+      dictionaries[index]=dictionaryMap.get(tblColRef);
+      if (dictionaries[index] == null) {
+        throw new RuntimeException("dictionary " + dictPath + " does not exist ");
+      }
+    }
+    index++;
+  }
+  digest=createDigest();
+}

@@ -1,4 +1,5 @@
 {
+  int nColumns=getColumns().size();
   boolean[] isMetric=new boolean[nColumns];
   for (int i=0; i < nColumns; ++i) {
     isMetric[i]=desc.isMetricsCol(i);
