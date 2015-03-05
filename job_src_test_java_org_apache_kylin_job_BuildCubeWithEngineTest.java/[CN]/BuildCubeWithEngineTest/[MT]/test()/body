@@ -1,4 +1,5 @@
 {
+  DeployUtil.prepareTestData("left","test_kylin_cube_with_slr_left_join_empty");
   testInner();
   testLeft();
 }

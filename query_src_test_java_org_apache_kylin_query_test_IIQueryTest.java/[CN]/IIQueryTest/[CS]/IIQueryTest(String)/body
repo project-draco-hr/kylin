@@ -1,0 +1,5 @@
+{
+  KylinQueryTest.clean();
+  KylinQueryTest.joinType=joinType;
+  KylinQueryTest.setupAll();
+}

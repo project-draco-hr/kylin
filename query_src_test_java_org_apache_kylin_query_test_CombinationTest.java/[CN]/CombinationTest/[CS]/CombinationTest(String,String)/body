@@ -2,7 +2,6 @@
   KylinQueryTest.clean();
   KylinQueryTest.joinType=joinType;
   KylinQueryTest.setupAll();
-  KylinQueryTest.preferCubeOf(joinType);
   if (coprocessorToggle.equals("on")) {
     ObserverEnabler.forceCoprocessorOn();
   }

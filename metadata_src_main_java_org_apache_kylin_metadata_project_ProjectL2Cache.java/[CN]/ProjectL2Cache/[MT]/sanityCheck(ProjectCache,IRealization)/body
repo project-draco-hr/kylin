@@ -1,4 +1,5 @@
 {
+  if (realization == null)   return false;
   MetadataManager metaMgr=mgr.getMetadataManager();
   List<TblColRef> allColumns=realization.getAllColumns();
   if (allColumns == null || allColumns.isEmpty()) {

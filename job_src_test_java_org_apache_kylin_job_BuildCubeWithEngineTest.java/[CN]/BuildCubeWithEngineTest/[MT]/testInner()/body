@@ -1,5 +1,4 @@
 {
-  DeployUtil.prepareTestData("inner","test_kylin_cube_with_slr_empty");
-  String[] testCase=new String[]{"testInnerJoinCube","testInnerJoinCube2"};
+  String[] testCase=new String[]{"testInnerJoinCube"};
   runTestAndAssertSucceed(testCase);
 }
