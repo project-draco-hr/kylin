@@ -1,0 +1,77 @@
+{
+  String firstValue=oldCompareFilter.getValues().iterator().next();
+  String nullString=newCompareFilter.getNullString();
+  TblColRef col=newCompareFilter.getColumn();
+  TupleFilter result;
+  String v;
+switch (newCompareFilter.getOperator()) {
+case EQ:
+case IN:
+    Set<String> newValues=Sets.newHashSet();
+  for (  String value : oldCompareFilter.getValues()) {
+    v=translate(col,value,0);
+    if (!nullString.equals(v))     newValues.add(v);
+  }
+if (newValues.isEmpty()) {
+  result=ConstantTupleFilter.FALSE;
+}
+ else {
+  newCompareFilter.addChild(new ConstantTupleFilter(newValues));
+  result=newCompareFilter;
+}
+break;
+case NEQ:
+v=translate(col,firstValue,0);
+if (nullString.equals(v)) {
+result=ConstantTupleFilter.TRUE;
+}
+ else {
+newCompareFilter.addChild(new ConstantTupleFilter(v));
+result=newCompareFilter;
+}
+break;
+case LT:
+v=translate(col,firstValue,1);
+if (nullString.equals(v)) {
+result=ConstantTupleFilter.TRUE;
+}
+ else {
+newCompareFilter.addChild(new ConstantTupleFilter(v));
+result=newCompareFilter;
+}
+break;
+case LTE:
+v=translate(col,firstValue,-1);
+if (nullString.equals(v)) {
+result=ConstantTupleFilter.FALSE;
+}
+ else {
+newCompareFilter.addChild(new ConstantTupleFilter(v));
+result=newCompareFilter;
+}
+break;
+case GT:
+v=translate(col,firstValue,-1);
+if (nullString.equals(v)) {
+result=ConstantTupleFilter.TRUE;
+}
+ else {
+newCompareFilter.addChild(new ConstantTupleFilter(v));
+result=newCompareFilter;
+}
+break;
+case GTE:
+v=translate(col,firstValue,1);
+if (nullString.equals(v)) {
+result=ConstantTupleFilter.FALSE;
+}
+ else {
+newCompareFilter.addChild(new ConstantTupleFilter(v));
+result=newCompareFilter;
+}
+break;
+default :
+throw new IllegalStateException("Cannot handle operator " + newCompareFilter.getOperator());
+}
+return result;
+}

@@ -1,0 +1,3 @@
+{
+  getTableRecordInfo().updateDictionary(dicts);
+}

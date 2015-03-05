@@ -19,10 +19,10 @@ synchronized (innerScanner) {
       IIKeyValueCodec codec=new IIKeyValueCodec(tableRecordInfoDigest);
       Iterable<Slice> slices=codec.decodeKeyValue(new HbaseServerKVIterator(innerScanner));
       if (aggregators.isEmpty()) {
-        response=getNonAggregatedResponse(slices,filter,type);
+        response=getNonAggregatedResponse(slices,tableRecordInfoDigest,filter,type);
       }
  else {
-        response=getAggregatedResponse(slices,filter,type,projector,aggregators);
+        response=getAggregatedResponse(slices,tableRecordInfoDigest,filter,type,projector,aggregators);
       }
     }
   }

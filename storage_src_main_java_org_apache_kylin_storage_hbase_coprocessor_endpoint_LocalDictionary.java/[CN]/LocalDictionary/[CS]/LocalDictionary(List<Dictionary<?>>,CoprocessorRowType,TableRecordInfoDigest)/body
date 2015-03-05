@@ -1,0 +1,5 @@
+{
+  this.dicts=dicts;
+  this.type=type;
+  this.recordInfo=recordInfo;
+}

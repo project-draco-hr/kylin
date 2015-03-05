@@ -1,5 +1,5 @@
 {
   this.type=type;
   this.refIndex=refIndex;
-  this.precision=presision;
+  this.precision=precision;
 }

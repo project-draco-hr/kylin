@@ -1,0 +1,9 @@
+{
+  List<Integer> columns=getLocalDictColumnList();
+  if (columns.size() != dicts.size()) {
+    throw new RuntimeException("columns size not equal to dicts size");
+  }
+  for (  Integer index : columns) {
+    this.dictionaries[index]=dicts.get(index);
+  }
+}

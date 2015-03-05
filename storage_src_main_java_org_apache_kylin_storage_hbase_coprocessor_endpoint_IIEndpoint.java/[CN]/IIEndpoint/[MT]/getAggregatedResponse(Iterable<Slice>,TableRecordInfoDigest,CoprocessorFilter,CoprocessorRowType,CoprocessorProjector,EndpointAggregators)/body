@@ -1,0 +1,29 @@
+{
+  EndpointAggregationCache aggCache=new EndpointAggregationCache(aggregators);
+  IIProtos.IIResponse.Builder responseBuilder=IIProtos.IIResponse.newBuilder();
+  for (  Slice slice : slices) {
+    LocalDictionary localDictionary=new LocalDictionary(slice.getLocalDictionaries(),type,recordInfo);
+    CoprocessorFilter newFilter=CoprocessorFilter.fromFilter(localDictionary,filter.getFilter(),FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_LOCAL_DICT);
+    ConciseSet result=null;
+    if (filter != null) {
+      result=new BitMapFilterEvaluator(new SliceBitMapProvider(slice,type)).evaluate(newFilter.getFilter());
+    }
+    Iterator<RawTableRecord> iterator=slice.iterateWithBitmap(result);
+    while (iterator.hasNext()) {
+      byte[] data=iterator.next().getBytes();
+      CoprocessorProjector.AggrKey aggKey=projector.getAggrKey(data);
+      MeasureAggregator[] bufs=aggCache.getBuffer(aggKey);
+      aggregators.aggregate(bufs,data);
+      aggCache.checkMemoryUsage();
+    }
+  }
+  byte[] metricBuffer=new byte[CoprocessorConstants.METRIC_SERIALIZE_BUFFER_SIZE];
+  for (  Map.Entry<CoprocessorProjector.AggrKey,MeasureAggregator[]> entry : aggCache.getAllEntries()) {
+    CoprocessorProjector.AggrKey aggrKey=entry.getKey();
+    IIProtos.IIResponse.IIRow.Builder rowBuilder=IIProtos.IIResponse.IIRow.newBuilder().setColumns(ByteString.copyFrom(aggrKey.get(),aggrKey.offset(),aggrKey.length()));
+    int length=aggregators.serializeMetricValues(entry.getValue(),metricBuffer);
+    rowBuilder.setMeasures(ByteString.copyFrom(metricBuffer,0,length));
+    responseBuilder.addRows(rowBuilder.build());
+  }
+  return responseBuilder.build();
+}

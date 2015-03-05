@@ -1,3 +1,3 @@
 {
-  return ISegment.getColumnLength(col);
+  return IDictionaryAwareness.getColumnLength(col);
 }

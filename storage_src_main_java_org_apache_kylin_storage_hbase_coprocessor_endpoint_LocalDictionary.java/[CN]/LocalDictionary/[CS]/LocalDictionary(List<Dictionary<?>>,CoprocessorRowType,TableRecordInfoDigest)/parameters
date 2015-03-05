@@ -1,0 +1,3 @@
+List<Dictionary<?>> dicts
+CoprocessorRowType type
+TableRecordInfoDigest recordInfo
