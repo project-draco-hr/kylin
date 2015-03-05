@@ -1,5 +1,6 @@
 {
-  if (this.fieldIndexes == null) {
+  int hashCode=tuple.getAllFields().hashCode();
+  if (this.fieldIndexes == null || tupleFieldsHash != hashCode) {
     List<String> fields=tuple.getAllFields();
     int size=fields.size();
     this.fieldIndexes=new int[size];
@@ -13,6 +14,7 @@
         fieldIndexes[i]=-1;
       }
     }
+    tupleFieldsHash=hashCode;
   }
   Object[] values=tuple.getAllValues();
   for (int i=0, n=values.length; i < n; i++) {

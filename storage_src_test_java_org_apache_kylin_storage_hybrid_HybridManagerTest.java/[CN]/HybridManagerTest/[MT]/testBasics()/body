@@ -1,5 +1,5 @@
 {
-  HybridInstance cube=getHybridManager().getHybridInstance("test_kylin_hybrid");
+  HybridInstance cube=getHybridManager().getHybridInstance("test_kylin_hybrid_left_join");
   cube.init();
   System.out.println(JsonUtil.writeValueAsIndentString(cube));
   IRealization history=cube.getHistoryRealizationInstance();
