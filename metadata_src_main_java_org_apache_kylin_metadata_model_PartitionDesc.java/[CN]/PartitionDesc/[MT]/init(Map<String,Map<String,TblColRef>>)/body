@@ -1,5 +1,5 @@
 {
-  if (null != partitionDateColumn) {
+  if (StringUtils.isNotEmpty(partitionDateColumn)) {
     partitionDateColumn=partitionDateColumn.toUpperCase();
     String[] columns=StringSplitter.split(partitionDateColumn,".");
     if (null != columns && columns.length == 3) {
