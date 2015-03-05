@@ -7,7 +7,7 @@
   boolean matchDimensions=isMatchedWithDimensions(dimensionColumns,cube);
   boolean matchAggregation=isMatchedWithAggregations(functions,cube);
   boolean matchJoin=isMatchedWithJoins(joins,cube);
-  if (allowWeekMatch && isOnline && matchDimensions&& !matchAggregation&& matchJoin) {
+  if (allowWeakMatch && isOnline && matchDimensions&& !matchAggregation&& matchJoin) {
     if (isWeaklyMatchedWithAggregations(functions,metricsColumns,cube)) {
       logger.info("Weakly matched cube found " + cube.getName());
       return true;

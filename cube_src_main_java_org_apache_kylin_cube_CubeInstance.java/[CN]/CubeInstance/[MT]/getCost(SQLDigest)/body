@@ -1,3 +1,5 @@
 {
-  return 0;
+  int calculatedCost=cost;
+  calculatedCost+=getAllDimensions().size() * COST_WEIGHT_DIMENSION + getMeasures().size() * COST_WEIGHT_MEASURE;
+  return calculatedCost;
 }

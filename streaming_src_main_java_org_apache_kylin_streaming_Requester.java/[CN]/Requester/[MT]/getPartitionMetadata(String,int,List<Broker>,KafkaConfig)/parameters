@@ -1,0 +1,4 @@
+String topic
+int partitionId
+List<Broker> brokers
+KafkaConfig kafkaConfig

@@ -1,0 +1,32 @@
+{
+  IIDesc iiDesc=iiInstance.getDescriptor();
+  List<TableDesc> tables=iiDesc.listTables();
+  List<JoinDesc> cubeJoins=new ArrayList<JoinDesc>(tables.size());
+  for (  TableDesc tableDesc : tables) {
+    JoinDesc join=null;
+    for (    LookupDesc lookup : iiDesc.getModel().getLookups()) {
+      if (lookup.getTable().equalsIgnoreCase(tableDesc.getIdentity())) {
+        join=lookup.getJoin();
+        cubeJoins.add(join);
+        break;
+      }
+    }
+  }
+  for (  JoinDesc j : joins) {
+    String pTable=j.getPrimaryKeyColumns()[0].getTable();
+    String factTable=iiDesc.getModel().getFactTable();
+    if (factTable.equals(pTable)) {
+      j.swapPKFK();
+    }
+    String fTable=j.getForeignKeyColumns()[0].getTable();
+    if (!factTable.equals(fTable)) {
+      logger.info("Fact Table" + factTable + " not matched in join: "+ j+ " on ii "+ iiInstance.getName());
+      return false;
+    }
+    if (!cubeJoins.contains(j)) {
+      logger.info("Query joins don't match on ii " + iiInstance.getName());
+      return false;
+    }
+  }
+  return true;
+}

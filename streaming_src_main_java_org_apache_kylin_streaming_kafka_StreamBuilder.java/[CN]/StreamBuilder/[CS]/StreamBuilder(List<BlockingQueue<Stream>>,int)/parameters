@@ -1,2 +1,0 @@
-List<BlockingQueue<Stream>> streamQueues
-int batchBuildCount

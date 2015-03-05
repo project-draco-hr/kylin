@@ -1,0 +1,25 @@
+{
+  Collections.sort(realizations,new Comparator<IRealization>(){
+    @Override public int compare(    IRealization o1,    IRealization o2){
+      int i1=RealizationPriorityRule.priorities.get(o1.getType());
+      int i2=RealizationPriorityRule.priorities.get(o2.getType());
+      int comp=i1 - i2;
+      if (comp != 0) {
+        return comp;
+      }
+      comp=o1.getCost(olapContext.getSQLDigest()) - o2.getCost(olapContext.getSQLDigest());
+      if (comp != 0) {
+        return comp;
+      }
+      comp=o1.getAllDimensions().size() - o2.getAllDimensions().size();
+      if (comp != 0)       return comp;
+      comp=o1.getMeasures().size() - o2.getMeasures().size();
+      if (comp != 0)       return comp;
+      long duration1=o1.getDateRangeEnd() - o1.getDateRangeStart();
+      long duration2=o2.getDateRangeEnd() - o2.getDateRangeStart();
+      comp=(int)(duration2 - duration1);
+      return comp;
+    }
+  }
+);
+}

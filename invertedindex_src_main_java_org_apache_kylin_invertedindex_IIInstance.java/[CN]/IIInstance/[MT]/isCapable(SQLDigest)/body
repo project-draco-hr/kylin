@@ -1,4 +1,4 @@
 {
   if (!digest.factTable.equalsIgnoreCase(this.getFactTable()))   return false;
-  return true;
+  return IICapabilityChecker.check(this,digest);
 }

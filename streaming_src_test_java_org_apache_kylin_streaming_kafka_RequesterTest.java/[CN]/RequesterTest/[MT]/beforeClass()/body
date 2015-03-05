@@ -1,9 +1,0 @@
-{
-  topicConfig=new TopicConfig();
-  topicConfig.setTopic(TestConstants.TOPIC);
-  topicConfig.setBrokers(Collections.singletonList(TestConstants.BROKER));
-  consumerConfig=new ConsumerConfig();
-  consumerConfig.setBufferSize(64 * 1024);
-  consumerConfig.setMaxReadCount(1000);
-  consumerConfig.setTimeout(60 * 1000);
-}
