@@ -16,7 +16,7 @@
   }
  catch (  IOException e) {
     logger.error("Failed to deal with the request:" + e.getLocalizedMessage(),e);
-    throw new InternalErrorException("Failed to deal with the request: " + e.getLocalizedMessage() + e.getMessage());
+    throw new InternalErrorException("Failed to deal with the request: " + e.getLocalizedMessage());
   }
   CubeDesc desc=deserializeCubeDesc(cubeRequest);
   if (desc == null) {
@@ -37,7 +37,7 @@
   }
 catch (  Exception e) {
     logger.error("Failed to deal with the request:" + e.getLocalizedMessage(),e);
-    throw new InternalErrorException("Failed to deal with the request: " + e.getLocalizedMessage() + e.getMessage());
+    throw new InternalErrorException("Failed to deal with the request: " + e.getLocalizedMessage());
   }
   if (desc.getError().isEmpty()) {
     cubeRequest.setSuccessful(true);
