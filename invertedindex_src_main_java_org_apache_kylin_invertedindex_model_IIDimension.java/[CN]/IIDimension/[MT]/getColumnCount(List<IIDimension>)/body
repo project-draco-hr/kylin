@@ -1,7 +1,0 @@
-{
-  int count=0;
-  for (  IIDimension iiDimension : iiDimensions) {
-    count+=iiDimension.getColumns().length;
-  }
-  return count;
-}
