@@ -4,4 +4,4 @@ int[] offsets
 int[] dictMaxIds
 int[] lengths
 boolean[] isMetric
-FixedLenMeasureCodec<?>[] measureSerializers
+String[] metricDataTypes

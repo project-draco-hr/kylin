@@ -1,0 +1,5 @@
+{
+  this.desc=desc;
+  this.dictionaryMap=dictionaryMap;
+  this.digest=createDigest(dictionaryMap,measureCodecMap);
+}

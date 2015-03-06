@@ -5,5 +5,5 @@
   this.dictMaxIds=dictMaxIds;
   this.lengths=lengths;
   this.isMetric=isMetric;
-  this.measureSerializers=measureSerializers;
+  this.metricDataTypes=metricDataTypes;
 }
