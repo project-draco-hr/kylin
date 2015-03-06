@@ -1,10 +1,10 @@
 {
-  TopicMeta kafkaTopicMeta=Requester.getKafkaTopicMeta(kafkaConfig);
+  TopicMeta kafkaTopicMeta=KafkaRequester.getKafkaTopicMeta(kafkaConfig);
   assertNotNull(kafkaTopicMeta);
   assertEquals(2,kafkaTopicMeta.getPartitionIds().size());
   assertEquals(kafkaConfig.getTopic(),kafkaTopicMeta.getName());
   KafkaConfig anotherTopicConfig=KafkaConfig.load(kafkaConfig);
   anotherTopicConfig.setTopic(NON_EXISTED_TOPIC);
-  kafkaTopicMeta=Requester.getKafkaTopicMeta(anotherTopicConfig);
+  kafkaTopicMeta=KafkaRequester.getKafkaTopicMeta(anotherTopicConfig);
   assertTrue(kafkaTopicMeta == null);
 }

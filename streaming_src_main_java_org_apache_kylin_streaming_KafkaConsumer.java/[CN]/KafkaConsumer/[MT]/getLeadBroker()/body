@@ -1,5 +1,5 @@
 {
-  final PartitionMetadata partitionMetadata=Requester.getPartitionMetadata(topic,partitionId,replicaBrokers,kafkaConfig);
+  final PartitionMetadata partitionMetadata=KafkaRequester.getPartitionMetadata(topic,partitionId,replicaBrokers,kafkaConfig);
   if (partitionMetadata != null && partitionMetadata.errorCode() == 0) {
     replicaBrokers=partitionMetadata.replicas();
     return partitionMetadata.leader();
