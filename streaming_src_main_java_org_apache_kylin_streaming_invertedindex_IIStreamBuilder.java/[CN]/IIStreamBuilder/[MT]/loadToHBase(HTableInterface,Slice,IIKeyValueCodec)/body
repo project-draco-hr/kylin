@@ -1,0 +1,16 @@
+{
+  try {
+    List<Put> data=Lists.newArrayList();
+    for (    Pair<ImmutableBytesWritable,ImmutableBytesWritable> pair : codec.encodeKeyValue(slice)) {
+      final byte[] key=pair.getFirst().get();
+      final byte[] value=pair.getSecond().get();
+      Put put=new Put(key);
+      put.add("cf".getBytes(),"qn".getBytes(),value);
+      data.add(put);
+    }
+    hTable.put(data);
+  }
+  finally {
+    hTable.close();
+  }
+}

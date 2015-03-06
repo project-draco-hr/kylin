@@ -1,2 +1,27 @@
 {
+  List<List<String>> table=Lists.transform(streamsToBuild,new Function<Stream,List<String>>(){
+    @Nullable @Override public List<String> apply(    @Nullable Stream input){
+      return parseStream(input,desc);
+    }
+  }
+);
+  final Map<TblColRef,Dictionary<?>> dictionaryMap=buildDictionary(table,desc);
+  Map<TblColRef,FixedLenMeasureCodec<?>> measureCodecMap=Maps.newHashMap();
+  int index=0;
+  for (  TblColRef tblColRef : desc.listAllColumns()) {
+    ColumnDesc col=tblColRef.getColumn();
+    if (desc.isMetricsCol(index++)) {
+      measureCodecMap.put(tblColRef,FixedLenMeasureCodec.get(col.getType()));
+    }
+  }
+  TableRecordInfo tableRecordInfo=new TableRecordInfo(desc,dictionaryMap,measureCodecMap);
+  SliceBuilder sliceBuilder=new SliceBuilder(tableRecordInfo,(short)kafkaConfig.getPartitionId());
+  final Slice slice=buildSlice(table,sliceBuilder,tableRecordInfo);
+  try {
+    loadToHBase(hTable,slice,new IIKeyValueCodec(tableRecordInfo.getDigest()));
+    submitOffset();
+  }
+ catch (  IOException e) {
+    logger.error("error load to hbase, build failed",e);
+  }
 }

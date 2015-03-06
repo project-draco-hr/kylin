@@ -1,4 +1,4 @@
-List<byte[]> values
+Collection<byte[]> values
 int baseId
 int nSamples
 ArrayList samples
