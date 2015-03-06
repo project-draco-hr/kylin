@@ -1,0 +1,6 @@
+{
+  if (block.isEmpty() == false) {
+    flush();
+  }
+  writer.close();
+}

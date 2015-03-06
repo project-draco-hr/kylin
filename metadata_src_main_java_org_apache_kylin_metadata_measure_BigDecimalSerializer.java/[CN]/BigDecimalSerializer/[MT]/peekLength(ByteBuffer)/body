@@ -1,0 +1,8 @@
+{
+  int mark=in.position();
+  @SuppressWarnings("unused") int scale=BytesUtil.readVInt(in);
+  int n=BytesUtil.readVInt(in);
+  int len=in.position() - mark + n;
+  in.position(mark);
+  return len;
+}

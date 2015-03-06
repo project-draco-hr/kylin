@@ -1,1 +1,1 @@
-MeasureSerializer<HyperLogLogPlusCounter>
+DataTypeSerializer<HyperLogLogPlusCounter>

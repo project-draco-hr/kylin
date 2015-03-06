@@ -6,7 +6,7 @@
   Class<?> clz=implementations.get(type.getName());
   if (clz == null)   throw new RuntimeException("No MeasureSerializer for type " + dataType);
   try {
-    return (MeasureSerializer<?>)clz.newInstance();
+    return (DataTypeSerializer<?>)clz.newInstance();
   }
  catch (  Exception e) {
     throw new RuntimeException(e);

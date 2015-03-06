@@ -1,1 +1,1 @@
-MeasureSerializer<BigDecimal>
+DataTypeSerializer<BigDecimal>

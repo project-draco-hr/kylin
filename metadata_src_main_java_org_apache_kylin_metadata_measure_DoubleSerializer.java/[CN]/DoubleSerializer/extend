@@ -1,1 +1,1 @@
-MeasureSerializer<DoubleWritable>
+DataTypeSerializer<DoubleWritable>

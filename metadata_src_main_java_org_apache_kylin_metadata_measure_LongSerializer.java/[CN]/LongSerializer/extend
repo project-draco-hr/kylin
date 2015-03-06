@@ -1,1 +1,1 @@
-MeasureSerializer<LongWritable>
+DataTypeSerializer<LongWritable>
