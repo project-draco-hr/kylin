@@ -12,7 +12,7 @@
   assertNotNull(metadataManager.getTableDesc(tableDesc.getIdentity()));
   assertNotNull(metadataManagerB.getTableDesc(tableDesc.getIdentity()));
   final String dataModelName="test_data_model";
-  DataModelDesc dataModelDesc=metadataManager.getDataModelDesc("test_kylin_ii_model_desc");
+  DataModelDesc dataModelDesc=metadataManager.getDataModelDesc("test_kylin_left_join_model_desc");
   dataModelDesc.setName(dataModelName);
   dataModelDesc.setLastModified(0);
   assertTrue(metadataManager.getDataModelDesc(dataModelName) == null);
@@ -24,7 +24,7 @@
   assertEquals(dataModelDesc.getName(),metadataManagerB.getDataModelDesc(dataModelName).getName());
   final LookupDesc[] lookups=dataModelDesc.getLookups();
   assertTrue(lookups.length > 0);
-  dataModelDesc.setLookups(new LookupDesc[]{lookups[0]});
+  dataModelDesc.setLookups(lookups);
   metadataManager.updateDataModelDesc(dataModelDesc);
   assertEquals(1,broadcaster.getCounterAndClear());
   waitForCounterAndClear(1);

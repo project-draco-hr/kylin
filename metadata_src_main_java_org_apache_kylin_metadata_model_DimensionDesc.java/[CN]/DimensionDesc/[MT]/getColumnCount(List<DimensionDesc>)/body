@@ -1,0 +1,7 @@
+{
+  int count=0;
+  for (  DimensionDesc dimensionDesc : dimensionDescs) {
+    count+=dimensionDesc.getColumns().length;
+  }
+  return count;
+}

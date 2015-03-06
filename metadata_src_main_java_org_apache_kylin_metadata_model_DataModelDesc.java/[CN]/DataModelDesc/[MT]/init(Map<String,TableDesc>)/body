@@ -1,3 +1,4 @@
 {
   initJoinColumns(tables);
+  DimensionDesc.capicalizeStrings(dimensions);
 }

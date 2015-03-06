@@ -1,5 +1,5 @@
 {
-  String[] testCase=new String[]{"buildII"};
+  String[] testCase=new String[]{"buildIIInnerJoin","buildIILeftJoin"};
   ExecutorService executorService=Executors.newFixedThreadPool(testCase.length);
   final CountDownLatch countDownLatch=new CountDownLatch(testCase.length);
   List<Future<List<String>>> tasks=Lists.newArrayListWithExpectedSize(testCase.length);

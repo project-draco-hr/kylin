@@ -4,7 +4,6 @@
   while (reader.next()) {
     String[] row=reader.getRow();
     Assert.assertEquals(9,row.length);
-    System.out.println(ArrayUtils.toString(row));
     rowNumber++;
   }
   reader.close();

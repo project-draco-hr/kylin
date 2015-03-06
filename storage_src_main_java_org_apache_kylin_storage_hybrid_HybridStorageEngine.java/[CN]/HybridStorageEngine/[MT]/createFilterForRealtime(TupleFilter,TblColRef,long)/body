@@ -1,0 +1,14 @@
+{
+  FastDateFormat format=FastDateFormat.getInstance("yyyy-MM-dd");
+  String boundaryDate=format.format(startDate);
+  CompareTupleFilter compareTupleFilter=new CompareTupleFilter(TupleFilter.FilterOperatorEnum.GTE);
+  ColumnTupleFilter columnTupleFilter=new ColumnTupleFilter(partitionColRef);
+  ConstantTupleFilter constantTupleFilter=new ConstantTupleFilter(boundaryDate);
+  compareTupleFilter.addChild(columnTupleFilter);
+  compareTupleFilter.addChild(constantTupleFilter);
+  if (originFilter == null)   return compareTupleFilter;
+  LogicalTupleFilter logicalTupleFilter=new LogicalTupleFilter(TupleFilter.FilterOperatorEnum.AND);
+  logicalTupleFilter.addChild(originFilter);
+  logicalTupleFilter.addChild(compareTupleFilter);
+  return logicalTupleFilter;
+}

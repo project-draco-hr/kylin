@@ -1,0 +1,4 @@
+{
+  DataModelDesc modelDesc=getInstance(getTestConfig()).getDataModelDesc("test_kylin_left_join_model_desc");
+  Assert.assertTrue(modelDesc.getDimensions().size() > 0);
+}

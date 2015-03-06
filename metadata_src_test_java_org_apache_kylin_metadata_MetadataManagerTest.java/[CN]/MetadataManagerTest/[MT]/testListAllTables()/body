@@ -1,5 +1,5 @@
 {
-  List<TableDesc> tables=MetadataManager.getInstance(getTestConfig()).listAllTables();
+  List<TableDesc> tables=getInstance(getTestConfig()).listAllTables();
   Assert.assertNotNull(tables);
   Assert.assertTrue(tables.size() > 0);
 }
