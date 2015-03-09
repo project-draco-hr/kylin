@@ -1,0 +1,7 @@
+{
+  int mark=in.position();
+  BytesUtil.readVLong(in);
+  int len=in.position() - mark;
+  in.position(mark);
+  return len;
+}
