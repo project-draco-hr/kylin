@@ -1,8 +1,0 @@
-{
-  for (  TupleFilter filter : this.children) {
-    if (filter.evaluate(tuple)) {
-      return true;
-    }
-  }
-  return false;
-}

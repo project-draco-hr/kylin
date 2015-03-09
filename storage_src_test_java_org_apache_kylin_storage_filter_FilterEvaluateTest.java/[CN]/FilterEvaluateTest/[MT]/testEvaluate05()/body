@@ -1,8 +1,8 @@
 {
   List<TblColRef> groups=buildGroups();
   TupleFilter filter=buildCompareCaseFilter(groups,"1");
-  byte[] bytes=TupleFilterSerializer.serialize(filter);
-  TupleFilter newFilter=TupleFilterSerializer.deserialize(bytes);
+  byte[] bytes=TupleFilterSerializer.serialize(filter,CS);
+  TupleFilter newFilter=TupleFilterSerializer.deserialize(bytes,CS);
   int number=10000;
   int[] matcheCounts=new int[]{0,0,0};
   Collection<Tuple> tuples=generateTuple(number,groups,matcheCounts);

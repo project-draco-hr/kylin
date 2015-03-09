@@ -1,6 +1,6 @@
 {
   super(Collections.<TupleFilter>emptyList(),FilterOperatorEnum.COLUMN);
   this.columnRef=column;
-  this.values=new ArrayList<String>(1);
+  this.values=new ArrayList<Object>(1);
   this.values.add(null);
 }

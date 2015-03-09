@@ -1,4 +1,0 @@
-{
-  if (filter == null)   return true;
- else   return filter.evaluate(tuple);
-}

@@ -1,4 +1,5 @@
 {
   initJoinColumns(tables);
   DimensionDesc.capicalizeStrings(dimensions);
+  initPartitionDesc(tables);
 }

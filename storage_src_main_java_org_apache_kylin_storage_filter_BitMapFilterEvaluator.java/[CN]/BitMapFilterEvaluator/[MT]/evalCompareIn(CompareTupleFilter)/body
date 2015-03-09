@@ -1,7 +1,7 @@
 {
   ConciseSet set=new ConciseSet();
-  for (  String value : filter.getValues()) {
-    int id=Dictionary.stringToDictId(value);
+  for (  Object value : filter.getValues()) {
+    int id=Dictionary.stringToDictId((String)value);
     ConciseSet bitMap=provider.getBitMap(filter.getColumn(),id,id);
     if (bitMap == null)     return null;
     set.addAll(bitMap);

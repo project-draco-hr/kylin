@@ -18,14 +18,11 @@
     if (col == null) {
       return filter;
     }
-    String nullString=nullString(col);
-    Collection<String> constValues=compareFilter.getValues();
+    Collection<String> constValues=(Collection<String>)compareFilter.getValues();
     if (constValues == null || constValues.isEmpty()) {
-      compareFilter.setNullString(nullString);
       return filter;
     }
     CompareTupleFilter newCompareFilter=new CompareTupleFilter(compareFilter.getOperator());
-    newCompareFilter.setNullString(nullString);
     newCompareFilter.addChild(new ColumnTupleFilter(col));
     if (filterConstantsTreatment == FilterConstantsTreatment.REPLACE_WITH_GLOBAL_DICT) {
       return replaceConstantsWithGlobalDict(compareFilter,newCompareFilter);

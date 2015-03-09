@@ -1,4 +1,4 @@
 {
-  TupleFilter filter=(filterBytes == null || filterBytes.length == 0) ? null : TupleFilterSerializer.deserialize(filterBytes);
+  TupleFilter filter=(filterBytes == null || filterBytes.length == 0) ? null : TupleFilterSerializer.deserialize(filterBytes,DictCodeSystem.INSTANCE);
   return new CoprocessorFilter(filter,null);
 }

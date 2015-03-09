@@ -1,6 +1,6 @@
 {
-  String firstValue=oldCompareFilter.getValues().iterator().next();
-  String nullString=newCompareFilter.getNullString();
+  Collection<String> constValues=(Collection<String>)oldCompareFilter.getValues();
+  String firstValue=constValues.iterator().next();
   TblColRef col=newCompareFilter.getColumn();
   TupleFilter result;
   String v;
@@ -8,9 +8,9 @@ switch (newCompareFilter.getOperator()) {
 case EQ:
 case IN:
     Set<String> newValues=Sets.newHashSet();
-  for (  String value : oldCompareFilter.getValues()) {
+  for (  String value : constValues) {
     v=translate(col,value,0);
-    if (!nullString.equals(v))     newValues.add(v);
+    if (!isDictNull(v))     newValues.add(v);
   }
 if (newValues.isEmpty()) {
   result=ConstantTupleFilter.FALSE;
@@ -22,7 +22,7 @@ if (newValues.isEmpty()) {
 break;
 case NEQ:
 v=translate(col,firstValue,0);
-if (nullString.equals(v)) {
+if (isDictNull(v)) {
 result=ConstantTupleFilter.TRUE;
 }
  else {
@@ -32,7 +32,7 @@ result=newCompareFilter;
 break;
 case LT:
 v=translate(col,firstValue,1);
-if (nullString.equals(v)) {
+if (isDictNull(v)) {
 result=ConstantTupleFilter.TRUE;
 }
  else {
@@ -42,7 +42,7 @@ result=newCompareFilter;
 break;
 case LTE:
 v=translate(col,firstValue,-1);
-if (nullString.equals(v)) {
+if (isDictNull(v)) {
 result=ConstantTupleFilter.FALSE;
 }
  else {
@@ -52,7 +52,7 @@ result=newCompareFilter;
 break;
 case GT:
 v=translate(col,firstValue,-1);
-if (nullString.equals(v)) {
+if (isDictNull(v)) {
 result=ConstantTupleFilter.TRUE;
 }
  else {
@@ -62,7 +62,7 @@ result=newCompareFilter;
 break;
 case GTE:
 v=translate(col,firstValue,1);
-if (nullString.equals(v)) {
+if (isDictNull(v)) {
 result=ConstantTupleFilter.FALSE;
 }
  else {

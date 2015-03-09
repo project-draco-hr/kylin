@@ -1,0 +1,18 @@
+{
+  if (decorator != null) {
+    filter=decorator.onSerialize(filter);
+  }
+  if (filter == null) {
+    return;
+  }
+  if (filter.hasChildren()) {
+    serializeFilter(1,filter,decorator,buffer,cs);
+    for (    TupleFilter child : filter.getChildren()) {
+      internalSerialize(child,decorator,buffer,cs);
+    }
+    serializeFilter(-1,filter,decorator,buffer,cs);
+  }
+ else {
+    serializeFilter(0,filter,decorator,buffer,cs);
+  }
+}
