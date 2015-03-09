@@ -1,7 +1,7 @@
 {
   int match=0;
   for (  Tuple t : tuples) {
-    if (filter.evaluate(t)) {
+    if (filter.evaluate(t,CS)) {
       match++;
     }
   }

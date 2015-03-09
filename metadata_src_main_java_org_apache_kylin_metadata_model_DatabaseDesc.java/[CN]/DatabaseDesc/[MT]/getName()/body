@@ -1,3 +1,3 @@
 {
-  return name.toUpperCase();
+  return name == null ? "null" : name.toUpperCase();
 }

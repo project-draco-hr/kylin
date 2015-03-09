@@ -1,6 +1,6 @@
 {
   FilterDecorator filterDecorator=new FilterDecorator(seg);
-  byte[] bytes=TupleFilterSerializer.serialize(rootFilter,filterDecorator);
-  TupleFilter copy=TupleFilterSerializer.deserialize(bytes);
+  byte[] bytes=TupleFilterSerializer.serialize(rootFilter,filterDecorator,DictCodeSystem.INSTANCE);
+  TupleFilter copy=TupleFilterSerializer.deserialize(bytes,DictCodeSystem.INSTANCE);
   return new CoprocessorFilter(copy,filterDecorator.getUnstrictlyFilteredColumns());
 }

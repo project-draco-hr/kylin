@@ -1,0 +1,8 @@
+{
+  if (value == null)   return true;
+  String v=(String)value;
+  for (int i=0, n=v.length(); i < n; i++) {
+    if ((byte)v.charAt(i) != Dictionary.NULL)     return false;
+  }
+  return true;
+}

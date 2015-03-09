@@ -8,7 +8,7 @@
     if (comp.getColumn() == null) {
       continue;
     }
-    ColumnValueRange range=new ColumnValueRange(comp.getColumn(),comp.getValues(),comp.getOperator());
+    @SuppressWarnings("unchecked") ColumnValueRange range=new ColumnValueRange(comp.getColumn(),(Collection<String>)comp.getValues(),comp.getOperator());
     andMerge(range,rangeMap);
   }
   return rangeMap.values();

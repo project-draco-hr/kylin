@@ -5,7 +5,7 @@
   LogicalTupleFilter logicFilter=new LogicalTupleFilter(FilterOperatorEnum.OR);
   logicFilter.addChild(orFilter);
   logicFilter.addChild(andFilter);
-  byte[] bytes=TupleFilterSerializer.serialize(logicFilter);
-  TupleFilter newFilter=TupleFilterSerializer.deserialize(bytes);
+  byte[] bytes=TupleFilterSerializer.serialize(logicFilter,CS);
+  TupleFilter newFilter=TupleFilterSerializer.deserialize(bytes,CS);
   compareFilter(logicFilter,newFilter);
 }

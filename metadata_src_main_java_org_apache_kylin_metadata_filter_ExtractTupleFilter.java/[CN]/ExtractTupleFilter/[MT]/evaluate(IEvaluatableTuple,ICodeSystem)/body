@@ -1,0 +1,15 @@
+{
+  String extractType=null;
+  String tupleValue=null;
+  for (  TupleFilter filter : this.children) {
+    filter.evaluate(tuple,cs);
+    if (filter instanceof ConstantTupleFilter) {
+      tupleValue=filter.getValues().iterator().next().toString();
+    }
+ else     if (filter instanceof CompareTupleFilter) {
+      extractType=filter.getValues().iterator().next().toString();
+    }
+  }
+  this.date=extractDate(extractType,Integer.valueOf(tupleValue));
+  return true;
+}

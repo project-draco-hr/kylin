@@ -1,8 +1,8 @@
 {
   super(new ArrayList<TupleFilter>(another.children),another.operator);
   this.column=another.column;
-  this.conditionValues=new HashSet<String>();
+  this.conditionValues=new HashSet<Object>();
   this.conditionValues.addAll(another.conditionValues);
-  this.dynamicVariables=new HashMap<String,String>();
+  this.dynamicVariables=new HashMap<String,Object>();
   this.dynamicVariables.putAll(another.dynamicVariables);
 }
