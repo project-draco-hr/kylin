@@ -7,7 +7,7 @@
   }
   if (filter instanceof CompareTupleFilter && optiqContext != null) {
     CompareTupleFilter compFilter=(CompareTupleFilter)filter;
-    for (    Map.Entry<String,String> entry : compFilter.getVariables().entrySet()) {
+    for (    Map.Entry<String,Object> entry : compFilter.getVariables().entrySet()) {
       String variable=entry.getKey();
       Object value=optiqContext.get(variable);
       if (value != null) {

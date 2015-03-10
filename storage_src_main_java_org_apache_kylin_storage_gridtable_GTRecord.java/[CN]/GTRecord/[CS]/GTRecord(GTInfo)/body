@@ -1,0 +1,4 @@
+{
+  this.info=info;
+  this.cols=new ByteBuffer[info.nColumns];
+}

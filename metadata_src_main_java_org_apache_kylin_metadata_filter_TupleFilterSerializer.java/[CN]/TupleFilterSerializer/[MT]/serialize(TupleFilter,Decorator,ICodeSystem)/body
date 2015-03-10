@@ -1,0 +1,7 @@
+{
+  ByteBuffer buffer=ByteBuffer.allocate(BUFFER_SIZE);
+  internalSerialize(rootFilter,decorator,buffer,cs);
+  byte[] result=new byte[buffer.position()];
+  System.arraycopy(buffer.array(),0,result,0,buffer.position());
+  return result;
+}

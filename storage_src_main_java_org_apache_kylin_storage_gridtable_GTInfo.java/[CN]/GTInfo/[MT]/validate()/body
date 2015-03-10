@@ -1,0 +1,14 @@
+{
+  if (nColBlocks != colBlockCuts.length - 1) {
+    throw new IllegalStateException();
+  }
+  for (int i=0; i < nColBlocks; i++) {
+    int cbStart=colBlockCuts[i], cbEnd=colBlockCuts[i + 1];
+    if (cbStart >= cbEnd)     throw new IllegalStateException();
+    if (isRowBlockEnabled() == false) {
+      for (      int ii : primaryKey) {
+        if (ii >= cbStart && ii < cbEnd)         throw new IllegalStateException();
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.SANDBOX_TEST_DATA);
+  kylinConfig=KylinConfig.getInstanceFromEnv();
+  iiManager=IIManager.getInstance(kylinConfig);
+}
