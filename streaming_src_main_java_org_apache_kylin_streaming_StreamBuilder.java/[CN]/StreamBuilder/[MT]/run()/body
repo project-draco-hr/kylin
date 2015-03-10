@@ -3,14 +3,31 @@
     List<Stream> streamToBuild=Lists.newArrayList();
     clearCounter();
     while (true) {
-      final Stream stream=streamQueue.take();
+      final Stream stream=streamQueue.poll(200,TimeUnit.MILLISECONDS);
+      if (stream == null) {
+        continue;
+      }
+ else {
+        if (stream.getOffset() < 0) {
+          if (!streamToBuild.isEmpty()) {
+            build(streamToBuild);
+          }
+          logger.warn("streaming encountered EOF, stop building");
+          break;
+        }
+      }
       streamToBuild.add(stream);
-      bytesTotal+=stream.getRawData().length;
-      if (bytesTotal >= BATCH_BUILD_BYTES_THRESHOLD) {
-        buildStream(streamToBuild);
+      if (streamToBuild.size() >= this.sliceSize) {
+        if (build(streamToBuild)) {
+          clearCounter();
+          streamToBuild.clear();
+        }
       }
  else       if ((System.currentTimeMillis() - lastBuildTime) > BATCH_BUILD_INTERVAL_THRESHOLD) {
-        buildStream(streamToBuild);
+        if (build(streamToBuild)) {
+          clearCounter();
+          streamToBuild.clear();
+        }
       }
  else {
         continue;

@@ -1,1 +1,2 @@
 BlockingQueue<Stream> streamQueue
+int sliceSize

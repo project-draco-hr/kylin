@@ -1,7 +1,13 @@
 {
   if (!isDiscarded()) {
     executableManager.addJobInfo(getId(),END_TIME,Long.toString(System.currentTimeMillis()));
-    executableManager.updateJobOutput(getId(),ExecutableState.ERROR,null,exception.getLocalizedMessage());
+    String output=null;
+    if (exception != null) {
+      final StringWriter out=new StringWriter();
+      exception.printStackTrace(new PrintWriter(out));
+      output=out.toString();
+    }
+    executableManager.updateJobOutput(getId(),ExecutableState.ERROR,null,output);
   }
  else {
   }

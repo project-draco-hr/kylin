@@ -15,13 +15,7 @@
     }
   }
   TableRecordInfo tableRecordInfo=new TableRecordInfo(desc,dictionaryMap,measureCodecMap);
-  SliceBuilder sliceBuilder=new SliceBuilder(tableRecordInfo,(short)kafkaConfig.getPartitionId());
+  SliceBuilder sliceBuilder=new SliceBuilder(tableRecordInfo,(short)partitionId);
   final Slice slice=buildSlice(table,sliceBuilder,tableRecordInfo);
-  try {
-    loadToHBase(hTable,slice,new IIKeyValueCodec(tableRecordInfo.getDigest()));
-    submitOffset();
-  }
- catch (  IOException e) {
-    logger.error("error load to hbase, build failed",e);
-  }
+  return true;
 }
