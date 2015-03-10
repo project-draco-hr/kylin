@@ -1,16 +1,16 @@
 {
-  return new Iterator<Pair<ImmutableBytesWritable,ImmutableBytesWritable>>(){
+  return new Iterator<KeyValuePair>(){
     ImmutableBytesWritable key=new ImmutableBytesWritable();
     ImmutableBytesWritable value=new ImmutableBytesWritable();
-    Pair<ImmutableBytesWritable,ImmutableBytesWritable> pair=new Pair<>(key,value);
+    KeyValuePair pair=new KeyValuePair(key,value);
     private boolean hasMore=true;
     @Override public boolean hasNext(){
       return hasMore;
     }
-    @Override public Pair<ImmutableBytesWritable,ImmutableBytesWritable> next(){
+    @Override public KeyValuePair next(){
       if (hasNext()) {
         try {
-          hasMore=innerScaner.nextRaw(results);
+          hasMore=innerScanner.nextRaw(results);
         }
  catch (        IOException e) {
           throw new RuntimeException(e);

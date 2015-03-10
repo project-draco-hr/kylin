@@ -1,3 +1,3 @@
 {
-  IOUtils.closeQuietly(this.innerScaner);
+  IOUtils.closeQuietly(this.innerScanner);
 }

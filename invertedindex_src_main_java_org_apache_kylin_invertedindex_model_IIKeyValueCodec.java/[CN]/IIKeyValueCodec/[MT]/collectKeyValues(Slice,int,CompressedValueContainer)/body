@@ -1,5 +1,5 @@
 {
   ImmutableBytesWritable key=encodeKey(slice.getShard(),slice.getTimestamp(),col,-1);
   ImmutableBytesWritable value=container.toBytes();
-  return new KeyValuePair(col,key,value);
+  return new KeyValuePair(key,value);
 }

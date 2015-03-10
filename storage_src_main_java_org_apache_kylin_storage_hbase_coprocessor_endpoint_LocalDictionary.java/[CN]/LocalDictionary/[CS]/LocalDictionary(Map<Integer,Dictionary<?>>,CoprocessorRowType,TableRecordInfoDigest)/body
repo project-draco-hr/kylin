@@ -1,5 +1,5 @@
 {
-  this.dicts=dicts;
+  this.colDictMap=colDictMap;
   this.type=type;
   this.recordInfo=recordInfo;
 }
