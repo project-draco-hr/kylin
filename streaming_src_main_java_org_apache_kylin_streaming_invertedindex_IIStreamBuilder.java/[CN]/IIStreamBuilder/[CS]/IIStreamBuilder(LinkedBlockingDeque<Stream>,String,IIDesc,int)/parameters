@@ -1,0 +1,4 @@
+LinkedBlockingDeque<Stream> queue
+String hTableName
+IIDesc desc
+int partitionId

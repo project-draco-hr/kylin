@@ -1,4 +1,3 @@
 {
-  List<String> result=Lists.newArrayList();
-  return result;
+  return Lists.newArrayList(new String(stream.getRawData()).split(","));
 }
