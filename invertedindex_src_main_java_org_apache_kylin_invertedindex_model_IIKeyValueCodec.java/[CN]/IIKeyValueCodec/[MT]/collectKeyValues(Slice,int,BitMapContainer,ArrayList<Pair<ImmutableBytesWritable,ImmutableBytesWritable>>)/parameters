@@ -1,4 +1,0 @@
-Slice slice
-int col
-BitMapContainer container
-ArrayList<Pair<ImmutableBytesWritable,ImmutableBytesWritable>> result

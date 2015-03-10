@@ -1,0 +1,3 @@
+int columnIndex
+ImmutableBytesWritable key
+ImmutableBytesWritable value
