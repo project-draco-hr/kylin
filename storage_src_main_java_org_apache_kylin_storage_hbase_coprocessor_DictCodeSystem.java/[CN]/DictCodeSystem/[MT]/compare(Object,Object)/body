@@ -1,3 +1,0 @@
-{
-  return ((String)tupleValue).compareTo((String)constValue);
-}
