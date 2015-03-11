@@ -1,6 +1,6 @@
 {
   final IIDesc desc=iiManager.getII(II_NAME).getDescriptor();
-  final String tableName="kylin_intermediate_ii_test_kylin_ii_inner_join_desc_f24b8e1f_1c1f_4835_8d78_8f21ce79a536";
+  final String tableName=createIntermediateTable(desc,kylinConfig);
   final Configuration conf=new Configuration();
   HCatInputFormat.setInput(conf,"default",tableName);
   final HCatSchema tableSchema=HCatInputFormat.getTableSchema(conf);
@@ -16,7 +16,10 @@
     }
   }
   LinkedBlockingDeque<Stream> queue=new LinkedBlockingDeque<Stream>();
-  final IIStreamBuilder streamBuilder=new IIStreamBuilder(queue,"test_htable",desc,0);
+  final IISegment segment=createSegment(II_NAME);
+  String[] args=new String[]{"-iiname",II_NAME,"-htablename",segment.getStorageLocationIdentifier()};
+  ToolRunner.run(new IICreateHTableJob(),args);
+  final IIStreamBuilder streamBuilder=new IIStreamBuilder(queue,segment.getStorageLocationIdentifier(),desc,0);
   final Thread thread=new Thread(streamBuilder);
   thread.start();
   while (reader.next()) {
@@ -24,4 +27,5 @@
   }
   queue.put(new Stream(-1,null));
   thread.join();
+  logger.info("stream build finished, htable name:" + segment.getStorageLocationIdentifier());
 }
