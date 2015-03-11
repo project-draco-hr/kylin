@@ -13,13 +13,13 @@
   if (kylinHiveDependency != null) {
     kylinHiveDependency=kylinHiveDependency.replace(":",",");
     Configuration jobConf=job.getConfiguration();
-    final String classpath=jobConf.get(MAP_REDUCE_CLASSPATH);
-    if (classpath == null) {
-      jobConf.set(MAP_REDUCE_CLASSPATH,kylinHiveDependency);
+    String classpath=jobConf.get(MAP_REDUCE_CLASSPATH);
+    if (classpath == null || classpath.length() == 0) {
+      logger.info("Didn't find " + MAP_REDUCE_CLASSPATH + " in job configuration, will run 'mapred classpath' to get the default value.");
+      classpath=getDefaultMapRedClasspath();
+      logger.info("The default mapred classpath is: " + classpath);
     }
- else {
-      jobConf.set(MAP_REDUCE_CLASSPATH,classpath + "," + kylinHiveDependency);
-    }
+    jobConf.set(MAP_REDUCE_CLASSPATH,classpath + "," + kylinHiveDependency);
   }
   logger.info("Hadoop job classpath is: " + job.getConfiguration().get(MAP_REDUCE_CLASSPATH));
 }

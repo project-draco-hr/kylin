@@ -7,7 +7,7 @@
  else {
     job.waitForCompletion(true);
     retVal=job.isSuccessful() ? 0 : 1;
-    logger.debug("Job '" + job.getJobName() + "' finished "+ (job.isSuccessful() ? "successfully in " : "with failures.  Time taken ")+ StringUtils.formatTime((System.nanoTime() - start) / 1000000L));
+    logger.debug("Job '" + job.getJobName() + "' finished "+ (job.isSuccessful() ? "successfully in " : "with failures.  Time taken ")+ formatTime((System.nanoTime() - start) / 1000000L));
   }
   return retVal;
 }
