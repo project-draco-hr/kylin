@@ -1,31 +1,5 @@
 {
-  final IIDesc desc=iiManager.getII(II_NAME).getDescriptor();
-  final String tableName=createIntermediateTable(desc,kylinConfig);
-  final Configuration conf=new Configuration();
-  HCatInputFormat.setInput(conf,"default",tableName);
-  final HCatSchema tableSchema=HCatInputFormat.getTableSchema(conf);
-  logger.info(StringUtils.join(tableSchema.getFieldNames(),"\n"));
-  HiveTableReader reader=new HiveTableReader("default",tableName);
-  final List<TblColRef> tblColRefs=desc.listAllColumns();
-  for (  TblColRef tblColRef : tblColRefs) {
-    if (desc.isMetricsCol(tblColRef)) {
-      logger.info("matrix:" + tblColRef.getName());
-    }
- else {
-      logger.info("measure:" + tblColRef.getName());
-    }
+  for (  String iiName : II_NAME) {
+    buildII(iiName);
   }
-  LinkedBlockingDeque<Stream> queue=new LinkedBlockingDeque<Stream>();
-  final IISegment segment=createSegment(II_NAME);
-  String[] args=new String[]{"-iiname",II_NAME,"-htablename",segment.getStorageLocationIdentifier()};
-  ToolRunner.run(new IICreateHTableJob(),args);
-  final IIStreamBuilder streamBuilder=new IIStreamBuilder(queue,segment.getStorageLocationIdentifier(),desc,0);
-  final Thread thread=new Thread(streamBuilder);
-  thread.start();
-  while (reader.next()) {
-    queue.put(parse(reader.getRow()));
-  }
-  queue.put(new Stream(-1,null));
-  thread.join();
-  logger.info("stream build finished, htable name:" + segment.getStorageLocationIdentifier());
 }
