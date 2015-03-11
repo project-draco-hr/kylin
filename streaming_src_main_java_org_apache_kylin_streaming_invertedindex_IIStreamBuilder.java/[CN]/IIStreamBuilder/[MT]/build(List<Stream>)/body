@@ -17,5 +17,6 @@
   TableRecordInfo tableRecordInfo=new TableRecordInfo(desc,dictionaryMap,measureCodecMap);
   SliceBuilder sliceBuilder=new SliceBuilder(tableRecordInfo,(short)partitionId);
   final Slice slice=buildSlice(table,sliceBuilder,tableRecordInfo);
-  return true;
+  loadToHBase(hTable,slice,new IIKeyValueCodec(tableRecordInfo.getDigest()),desc.listAllColumns(),dictionaryMap);
+  submitOffset();
 }

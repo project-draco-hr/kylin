@@ -4,9 +4,11 @@
   }
   if (containers != null) {
     next=new Slice(info,lastShard,lastSliceTimestamp,containers);
+    next.setLocalDictionaries(Maps.newHashMap(localDictionaries));
   }
   lastSliceTimestamp=Long.MIN_VALUE;
   lastCol=-1;
   containers=null;
   bitMapValues.clear();
+  localDictionaries.clear();
 }

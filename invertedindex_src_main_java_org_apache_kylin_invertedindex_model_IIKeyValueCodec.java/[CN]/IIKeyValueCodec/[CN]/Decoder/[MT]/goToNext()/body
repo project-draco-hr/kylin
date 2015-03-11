@@ -7,6 +7,7 @@
     ImmutableBytesWritable k=kv.getKey();
     ImmutableBytesWritable v=kv.getValue();
     decodeKey(k);
+    localDictionaries.put(curCol,kv.getDictionary());
     if (curShard != lastShard || curSliceTimestamp != lastSliceTimestamp) {
       makeNext();
     }
