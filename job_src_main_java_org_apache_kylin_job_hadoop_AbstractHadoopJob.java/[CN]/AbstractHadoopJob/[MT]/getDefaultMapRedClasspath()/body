@@ -1,0 +1,13 @@
+{
+  String classpath="";
+  try {
+    CliCommandExecutor executor=KylinConfig.getInstanceFromEnv().getCliCommandExecutor();
+    ShellCmdOutput output=new ShellCmdOutput();
+    executor.execute("mapred classpath",output);
+    classpath=output.getOutput();
+  }
+ catch (  IOException e) {
+    logger.error("Failed to run: 'mapred classpath'.",e);
+  }
+  return classpath;
+}
