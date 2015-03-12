@@ -1,8 +1,4 @@
 {
-  File file=new File(LOCALMETA_TEST_DATA,"data/flatten_data_for_ii.csv");
-  FileInputStream in=new FileInputStream(file);
-  List<String> lines=IOUtils.readLines(in,"UTF-8");
-  in.close();
   List<TableRecord> records=Lists.newArrayList();
   for (  String line : lines) {
     String[] fields=line.split(",");

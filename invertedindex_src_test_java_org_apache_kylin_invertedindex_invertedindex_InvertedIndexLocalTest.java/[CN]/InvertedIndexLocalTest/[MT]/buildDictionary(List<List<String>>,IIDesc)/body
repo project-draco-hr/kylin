@@ -1,0 +1,25 @@
+{
+  SetMultimap<TblColRef,String> valueMap=HashMultimap.create();
+  Set<TblColRef> dimensionColumns=Sets.newHashSet();
+  for (int i=0; i < desc.listAllColumns().size(); i++) {
+    if (!desc.isMetricsCol(i)) {
+      dimensionColumns.add(desc.listAllColumns().get(i));
+    }
+  }
+  for (  List<String> row : table) {
+    for (int i=0; i < row.size(); i++) {
+      String cell=row.get(i);
+      valueMap.put(desc.listAllColumns().get(i),cell);
+    }
+  }
+  Map<Integer,Dictionary<?>> result=Maps.newHashMap();
+  for (  TblColRef tblColRef : valueMap.keys()) {
+    result.put(desc.findColumn(tblColRef),DictionaryGenerator.buildDictionaryFromValueList(Collections2.transform(valueMap.get(tblColRef),new Function<String,byte[]>(){
+      @Nullable @Override public byte[] apply(      String input){
+        return input.getBytes();
+      }
+    }
+),tblColRef.getType()));
+  }
+  return result;
+}

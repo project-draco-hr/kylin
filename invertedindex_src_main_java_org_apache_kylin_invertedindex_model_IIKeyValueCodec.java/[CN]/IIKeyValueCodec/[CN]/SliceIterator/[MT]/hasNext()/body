@@ -1,6 +1,0 @@
-{
-  if (!rowIterator.hasNext()) {
-    return false;
-  }
-  return false;
-}

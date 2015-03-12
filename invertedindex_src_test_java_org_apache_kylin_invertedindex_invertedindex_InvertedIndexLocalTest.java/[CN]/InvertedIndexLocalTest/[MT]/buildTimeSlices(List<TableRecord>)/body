@@ -3,9 +3,15 @@
   List<Slice> slices=Lists.newArrayList();
   for (  TableRecord rec : records) {
     Slice slice=builder.append(rec);
-    if (slice != null)     slices.add(slice);
+    if (slice != null) {
+      slice.setLocalDictionaries(dictionaryMap);
+      slices.add(slice);
+    }
   }
   List<Slice> finals=builder.close();
+  for (  Slice slice : finals) {
+    slice.setLocalDictionaries(dictionaryMap);
+  }
   slices.addAll(finals);
   Collections.sort(slices);
   return slices;

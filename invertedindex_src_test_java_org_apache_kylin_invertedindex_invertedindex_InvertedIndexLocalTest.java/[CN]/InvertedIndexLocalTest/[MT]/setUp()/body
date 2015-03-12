@@ -1,5 +1,15 @@
 {
   this.createTestMetadata();
   this.ii=IIManager.getInstance(getTestConfig()).getII("test_kylin_ii_left_join");
-  this.info=new TableRecordInfo(ii.getFirstSegment());
+  File file=new File(LOCALMETA_TEST_DATA,"data/flatten_data_for_ii.csv");
+  FileInputStream in=new FileInputStream(file);
+  this.lines=IOUtils.readLines(in,"UTF-8");
+  in.close();
+  dictionaryMap=buildDictionary(Lists.transform(lines,new Function<String,List<String>>(){
+    @Nullable @Override public List<String> apply(    @Nullable String input){
+      return Lists.newArrayList(input.split(","));
+    }
+  }
+),ii.getDescriptor());
+  this.info=new TableRecordInfo(ii.getDescriptor(),dictionaryMap);
 }

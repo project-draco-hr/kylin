@@ -17,6 +17,9 @@
       containers[curCol].append(buffer);
     }
     localDictionaries.put(curCol,dictionary);
+    if (localDictionaries.size() < digest.getColumnCount()) {
+      continue;
+    }
     if (curShard != lastShard || curSliceTimestamp != lastSliceTimestamp) {
       makeNext();
     }

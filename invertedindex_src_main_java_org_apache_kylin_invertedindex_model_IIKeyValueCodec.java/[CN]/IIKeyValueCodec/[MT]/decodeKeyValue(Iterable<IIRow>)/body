@@ -1,3 +1,3 @@
 {
-  return new Decoder(kvs);
+  return new Decoder(kvs,digest);
 }

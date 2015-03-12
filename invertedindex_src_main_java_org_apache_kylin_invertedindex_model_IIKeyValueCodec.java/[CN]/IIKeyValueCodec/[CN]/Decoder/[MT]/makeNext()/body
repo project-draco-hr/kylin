@@ -1,6 +1,6 @@
 {
   if (containers != null) {
-    slice=new Slice(info,lastShard,lastSliceTimestamp,containers);
+    slice=new Slice(digest,lastShard,lastSliceTimestamp,containers);
     slice.setLocalDictionaries(Maps.newHashMap(localDictionaries));
   }
   lastSliceTimestamp=Long.MIN_VALUE;

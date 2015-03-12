@@ -1,3 +1,0 @@
-IIDesc desc
-Map<Integer,Dictionary<?>> dictionaryMap
-Map<TblColRef,FixedLenMeasureCodec<?>> measureCodecMap
