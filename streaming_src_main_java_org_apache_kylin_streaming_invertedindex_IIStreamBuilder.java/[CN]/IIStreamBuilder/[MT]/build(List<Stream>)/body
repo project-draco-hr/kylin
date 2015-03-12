@@ -1,4 +1,6 @@
 {
+  logger.info("stream build start, size:" + streamsToBuild.size());
+  Stopwatch stopwatch=new Stopwatch().start();
   List<List<String>> table=Lists.transform(streamsToBuild,new Function<Stream,List<String>>(){
     @Nullable @Override public List<String> apply(    @Nullable Stream input){
       return parseStream(input,desc);
@@ -19,4 +21,6 @@
   final Slice slice=buildSlice(table,sliceBuilder,tableRecordInfo);
   loadToHBase(hTable,slice,new IIKeyValueCodec(tableRecordInfo.getDigest()),desc.listAllColumns(),dictionaryMap);
   submitOffset();
+  stopwatch.stop();
+  logger.info("stream build finished, size:" + streamsToBuild.size() + " elapsed time:"+ stopwatch.elapsedTime(TimeUnit.MILLISECONDS)+ TimeUnit.MILLISECONDS);
 }
