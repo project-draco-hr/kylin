@@ -1,8 +1,3 @@
 {
-  this.valueLen=digest.length(col);
-  this.nValues=digest.getMaxID(col) + 1;
-  this.cap=cap;
-  this.size=0;
-  this.uncompressed=null;
-  this.compressed=null;
+  this(digest.length(col),digest.getMaxID(col) + 1,cap);
 }

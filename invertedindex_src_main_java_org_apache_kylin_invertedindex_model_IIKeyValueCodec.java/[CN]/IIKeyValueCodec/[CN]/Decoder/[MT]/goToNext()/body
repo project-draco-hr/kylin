@@ -7,6 +7,9 @@
     ImmutableBytesWritable k=kv.getKey();
     ImmutableBytesWritable v=kv.getValue();
     decodeKey(k);
+    final Dictionary<?> dictionary=deserialize(kv.getDictionary());
+    addContainer(curCol,new CompressedValueContainer(dictionary.getSizeOfId(),(dictionary.getMaxId() - dictionary.getMinId() + 1),(dictionary.getMaxId() - dictionary.getMinId() + 1)));
+    localDictionaries.put(curCol,dictionary);
     if (curShard != lastShard || curSliceTimestamp != lastSliceTimestamp) {
       makeNext();
     }
