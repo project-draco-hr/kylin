@@ -8,5 +8,5 @@
   info=new TableRecordInfo(seg);
   rec=info.createTableRecord();
   builder=null;
-  kv=new IIKeyValueCodec(info.getDigest());
+  kv=new IIKeyValueCodec();
 }

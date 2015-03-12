@@ -1,5 +1,5 @@
 {
-  List<KeyValuePair> kvs=Lists.newArrayList();
+  List<IIRow> kvs=Lists.newArrayList();
   for (  Slice slice : slices) {
     kvs.addAll(codec.encodeKeyValue(slice));
   }

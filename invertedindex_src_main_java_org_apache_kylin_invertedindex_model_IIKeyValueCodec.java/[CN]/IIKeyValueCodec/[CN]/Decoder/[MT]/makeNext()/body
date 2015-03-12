@@ -1,14 +1,10 @@
 {
-  if (bitMapValues.isEmpty() == false) {
-    addBitMapContainer(lastCol);
-  }
   if (containers != null) {
-    next=new Slice(info,lastShard,lastSliceTimestamp,containers);
-    next.setLocalDictionaries(Maps.newHashMap(localDictionaries));
+    slice=new Slice(info,lastShard,lastSliceTimestamp,containers);
+    slice.setLocalDictionaries(Maps.newHashMap(localDictionaries));
   }
   lastSliceTimestamp=Long.MIN_VALUE;
   lastCol=-1;
   containers=null;
-  bitMapValues.clear();
   localDictionaries.clear();
 }

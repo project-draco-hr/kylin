@@ -2,11 +2,11 @@
   return new Iterator<Slice>(){
     @Override public boolean hasNext(){
       goToNext();
-      return next != null;
+      return slice != null;
     }
     @Override public Slice next(){
-      Slice result=next;
-      next=null;
+      Slice result=slice;
+      slice=null;
       return result;
     }
     @Override public void remove(){

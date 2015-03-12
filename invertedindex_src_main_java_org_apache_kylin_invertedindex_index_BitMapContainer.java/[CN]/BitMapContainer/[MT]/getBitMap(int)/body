@@ -1,4 +1,0 @@
-{
-  if (valueId >= 0 && valueId <= getMaxValueId())   return sets[valueId];
- else   return sets[this.nValues];
-}

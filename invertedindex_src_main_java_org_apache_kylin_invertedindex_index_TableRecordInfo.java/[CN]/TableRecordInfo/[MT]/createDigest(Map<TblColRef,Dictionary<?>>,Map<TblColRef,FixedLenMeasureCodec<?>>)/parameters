@@ -1,2 +1,0 @@
-Map<TblColRef,Dictionary<?>> dictionaryMap
-Map<TblColRef,FixedLenMeasureCodec<?>> measureCodecMap

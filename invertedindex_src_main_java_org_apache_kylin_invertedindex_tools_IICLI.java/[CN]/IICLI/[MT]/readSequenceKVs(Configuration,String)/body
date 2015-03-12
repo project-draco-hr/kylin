@@ -1,11 +1,11 @@
 {
   final Reader reader=new Reader(hconf,SequenceFile.Reader.file(new Path(path)));
-  return new Iterable<KeyValuePair>(){
-    @Override public Iterator<KeyValuePair> iterator(){
-      return new Iterator<KeyValuePair>(){
+  return new Iterable<IIRow>(){
+    @Override public Iterator<IIRow> iterator(){
+      return new Iterator<IIRow>(){
         ImmutableBytesWritable k=new ImmutableBytesWritable();
         ImmutableBytesWritable v=new ImmutableBytesWritable();
-        KeyValuePair pair=new KeyValuePair(k,v);
+        IIRow pair=new IIRow(k,v,null);
         @Override public boolean hasNext(){
           boolean hasNext=false;
           try {
@@ -21,7 +21,7 @@
           }
           return hasNext;
         }
-        @Override public KeyValuePair next(){
+        @Override public IIRow next(){
           return pair;
         }
         @Override public void remove(){

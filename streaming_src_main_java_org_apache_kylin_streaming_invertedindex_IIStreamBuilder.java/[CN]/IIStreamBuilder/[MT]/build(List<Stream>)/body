@@ -7,7 +7,7 @@
     }
   }
 );
-  final Map<TblColRef,Dictionary<?>> dictionaryMap=buildDictionary(table,desc);
+  final Map<Integer,Dictionary<?>> dictionaryMap=buildDictionary(table,desc);
   Map<TblColRef,FixedLenMeasureCodec<?>> measureCodecMap=Maps.newHashMap();
   int index=0;
   for (  TblColRef tblColRef : desc.listAllColumns()) {
@@ -18,8 +18,8 @@
   }
   TableRecordInfo tableRecordInfo=new TableRecordInfo(desc,dictionaryMap,measureCodecMap);
   SliceBuilder sliceBuilder=new SliceBuilder(tableRecordInfo,(short)partitionId);
-  final Slice slice=buildSlice(table,sliceBuilder,tableRecordInfo);
-  loadToHBase(hTable,slice,new IIKeyValueCodec(tableRecordInfo.getDigest()),desc.listAllColumns(),dictionaryMap);
+  final Slice slice=buildSlice(table,sliceBuilder,tableRecordInfo,dictionaryMap);
+  loadToHBase(hTable,slice,new IIKeyValueCodec());
   submitOffset();
   stopwatch.stop();
   logger.info("stream build finished, size:" + streamsToBuild.size() + " elapsed time:"+ stopwatch.elapsedTime(TimeUnit.MILLISECONDS)+ TimeUnit.MILLISECONDS);

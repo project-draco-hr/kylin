@@ -11,11 +11,13 @@
     }
  else {
       String dictPath=iiSegment.getDictResPath(tblColRef);
-      try {
-        dictionaryMap.put(tblColRef,dictMgr.getDictionary(dictPath));
-      }
- catch (      IOException e) {
-        throw new RuntimeException("dictionary " + dictPath + " does not exist ",e);
+      if (dictPath != null) {
+        try {
+          dictionaryMap.put(index,dictMgr.getDictionary(dictPath));
+        }
+ catch (        IOException e) {
+          throw new RuntimeException("dictionary " + dictPath + " does not exist ",e);
+        }
       }
     }
     index++;

@@ -16,7 +16,7 @@
     innerScanner=region.getScanner(buildScan());
     region.startRegionOperation();
 synchronized (innerScanner) {
-      IIKeyValueCodec codec=new IIKeyValueCodec(tableRecordInfoDigest);
+      IIKeyValueCodec codec=new IIKeyValueCodec();
       Iterable<Slice> slices=codec.decodeKeyValue(new HbaseServerKVIterator(innerScanner));
       if (aggregators.isEmpty()) {
         response=getNonAggregatedResponse(slices,tableRecordInfoDigest,filter,type);

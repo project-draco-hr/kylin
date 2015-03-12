@@ -3,8 +3,8 @@
   System.out.println(records.size() + " records");
   List<Slice> slices=buildTimeSlices(records);
   System.out.println(slices.size() + " slices");
-  IIKeyValueCodec codec=new IIKeyValueCodec(info.getDigest());
-  List<KeyValuePair> kvs=encodeKVs(codec,slices);
+  IIKeyValueCodec codec=new IIKeyValueCodec();
+  List<IIRow> kvs=encodeKVs(codec,slices);
   System.out.println(kvs.size() + " KV pairs");
   List<Slice> slicesCopy=decodeKVs(codec,kvs);
   assertEquals(slices,slicesCopy);

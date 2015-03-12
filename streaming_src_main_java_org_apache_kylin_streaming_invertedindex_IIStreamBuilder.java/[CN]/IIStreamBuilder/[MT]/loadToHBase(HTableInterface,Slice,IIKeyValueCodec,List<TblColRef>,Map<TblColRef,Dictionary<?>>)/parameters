@@ -1,5 +1,0 @@
-HTableInterface hTable
-Slice slice
-IIKeyValueCodec codec
-List<TblColRef> allColumns
-Map<TblColRef,Dictionary<?>> localDictionaries

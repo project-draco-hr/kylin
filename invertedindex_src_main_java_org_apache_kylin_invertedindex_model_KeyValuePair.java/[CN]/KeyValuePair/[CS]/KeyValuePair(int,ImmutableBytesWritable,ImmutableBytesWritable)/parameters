@@ -1,3 +1,0 @@
-int id
-ImmutableBytesWritable key
-ImmutableBytesWritable value

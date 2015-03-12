@@ -1,6 +1,0 @@
-{
-  byte[] array;
-  if (set.isEmpty())   array=BytesUtil.EMPTY_BYTE_ARRAY;
- else   array=set.toByteBuffer().array();
-  return new ImmutableBytesWritable(array);
-}

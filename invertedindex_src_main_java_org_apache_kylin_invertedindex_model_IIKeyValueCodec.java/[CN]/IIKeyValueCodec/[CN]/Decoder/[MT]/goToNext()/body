@@ -1,19 +1,18 @@
 {
-  if (next != null) {
+  if (slice != null) {
     return;
   }
-  while (next == null && iterator.hasNext()) {
-    KeyValuePair kv=iterator.next();
+  while (slice == null && iterator.hasNext()) {
+    IIRow kv=iterator.next();
     ImmutableBytesWritable k=kv.getKey();
     ImmutableBytesWritable v=kv.getValue();
     decodeKey(k);
-    localDictionaries.put(curCol,kv.getDictionary());
     if (curShard != lastShard || curSliceTimestamp != lastSliceTimestamp) {
       makeNext();
     }
     consumeCurrent(v);
   }
-  if (next == null) {
+  if (slice == null) {
     makeNext();
   }
 }
