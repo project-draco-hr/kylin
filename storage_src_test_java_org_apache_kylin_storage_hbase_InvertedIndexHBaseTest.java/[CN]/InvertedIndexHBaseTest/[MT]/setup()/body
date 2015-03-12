@@ -5,5 +5,5 @@
   String hbaseUrl=KylinConfig.getInstanceFromEnv().getStorageUrl();
   Configuration hconf=HadoopUtil.newHBaseConfiguration(hbaseUrl);
   hconn=HConnectionManager.createConnection(hconf);
-  this.info=new TableRecordInfo(seg.getIIDesc(),Collections.<TblColRef,Dictionary<?>>emptyMap(),Collections.<TblColRef,FixedLenMeasureCodec<?>>emptyMap());
+  this.info=new TableRecordInfo(seg.getIIDesc(),Collections.<Integer,Dictionary<?>>emptyMap(),Collections.<TblColRef,FixedLenMeasureCodec<?>>emptyMap());
 }

@@ -3,7 +3,8 @@
   ColumnValueContainer[] containers=slice.getColumnValueContainers();
   for (int col=0; col < containers.length; col++) {
     if (containers[col] instanceof CompressedValueContainer) {
-      result.add(collectKeyValues(slice,col,(CompressedValueContainer)containers[col]));
+      final IIRow row=collectKeyValues(slice,col,(CompressedValueContainer)containers[col]);
+      result.add(row);
     }
  else {
       throw new IllegalArgumentException("Unknown container class " + containers[col].getClass());

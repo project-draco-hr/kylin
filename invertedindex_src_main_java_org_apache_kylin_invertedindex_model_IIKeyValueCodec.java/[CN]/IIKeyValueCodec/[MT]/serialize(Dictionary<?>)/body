@@ -1,0 +1,12 @@
+{
+  try {
+    final ByteArrayOutputStream baos=new ByteArrayOutputStream();
+    DataOutputStream out=new DataOutputStream(baos);
+    out.writeUTF(dict.getClass().getName());
+    dict.write(out);
+    return new ImmutableBytesWritable(baos.toByteArray());
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}
