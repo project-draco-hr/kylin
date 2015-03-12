@@ -1,0 +1,22 @@
+{
+  DataModelDesc modelDesc=deserializeDataModelDesc(modelRequest);
+  if (modelDesc == null || StringUtils.isEmpty(modelDesc.getName())) {
+    return modelRequest;
+  }
+  if (StringUtils.isEmpty(modelDesc.getName())) {
+    logger.info("Model name should not be empty.");
+    throw new BadRequestException("Model name should not be empty.");
+  }
+  try {
+    modelDesc.setUuid(UUID.randomUUID().toString());
+    String projectName=(null == modelRequest.getProject()) ? ProjectInstance.DEFAULT_PROJECT_NAME : modelRequest.getProject();
+    modelService.createModelDesc(projectName,modelDesc);
+  }
+ catch (  IOException e) {
+    logger.error("Failed to deal with the request:" + e.getLocalizedMessage(),e);
+    throw new InternalErrorException("Failed to deal with the request: " + e.getLocalizedMessage());
+  }
+  modelRequest.setUuid(modelDesc.getUuid());
+  modelRequest.setSuccessful(true);
+  return modelRequest;
+}

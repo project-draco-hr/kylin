@@ -1,5 +1,0 @@
-{
-  this.cubeName=cubeName;
-  this.cubeDescData=cubeDescData;
-  this.modelDescData=modelDescData;
-}

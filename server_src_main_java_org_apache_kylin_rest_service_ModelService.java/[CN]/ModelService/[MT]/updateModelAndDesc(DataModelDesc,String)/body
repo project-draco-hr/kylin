@@ -1,0 +1,10 @@
+{
+  DataModelDesc existingModel=getMetadataManager().getDataModelDesc(desc.getName());
+  if (existingModel == null) {
+    getMetadataManager().createDataModelDesc(desc);
+  }
+ else {
+    getMetadataManager().updateDataModelDesc(desc);
+  }
+  return desc;
+}

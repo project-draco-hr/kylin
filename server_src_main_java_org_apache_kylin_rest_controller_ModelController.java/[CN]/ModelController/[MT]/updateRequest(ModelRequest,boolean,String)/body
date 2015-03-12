@@ -1,0 +1,5 @@
+{
+  request.setModelDescData("");
+  request.setSuccessful(success);
+  request.setMessage(message);
+}

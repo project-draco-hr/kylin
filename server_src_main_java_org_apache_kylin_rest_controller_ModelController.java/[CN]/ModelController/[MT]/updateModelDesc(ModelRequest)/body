@@ -1,0 +1,16 @@
+{
+  DataModelDesc modelDesc=deserializeDataModelDesc(modelRequest);
+  if (modelDesc == null) {
+    return modelRequest;
+  }
+  try {
+    modelService.updateModelAndDesc(modelDesc,modelRequest.getProject());
+  }
+ catch (  IOException e) {
+    logger.error("Failed to deal with the request:" + e.getLocalizedMessage(),e);
+    throw new InternalErrorException("Failed to deal with the request: " + e.getLocalizedMessage());
+  }
+  String descData=JsonUtil.writeValueAsIndentString(modelDesc);
+  modelRequest.setModelDescData(descData);
+  return modelRequest;
+}

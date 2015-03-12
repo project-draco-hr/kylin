@@ -1,0 +1,17 @@
+{
+  List<DataModelDesc> models=null;
+  ProjectInstance project=(null != projectName) ? getProjectManager().getProject(projectName) : null;
+  if (null == project) {
+    models=getMetadataManager().getModels();
+  }
+ else {
+  }
+  List<DataModelDesc> filterModels=new ArrayList();
+  for (  DataModelDesc modelDesc : models) {
+    boolean isModelMatch=(null == modelName) || modelDesc.getName().toLowerCase().contains(modelName.toLowerCase());
+    if (isModelMatch) {
+      filterModels.add(modelDesc);
+    }
+  }
+  return filterModels;
+}

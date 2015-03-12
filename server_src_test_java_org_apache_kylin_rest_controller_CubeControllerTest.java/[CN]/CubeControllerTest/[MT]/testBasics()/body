@@ -30,10 +30,7 @@
   modelDescMapper.writeValue(modelDescWriter,newCube.getModel());
   CubeRequest cubeRequest=new CubeRequest();
   cubeRequest.setCubeDescData(cubeDescWriter.toString());
-  cubeRequest.setModelDescData(modelDescWriter.toString());
   cubeRequest=cubeController.saveCubeDesc(cubeRequest);
-  DataModelDesc model=modelController.getModel(newModelName);
-  Assert.assertNotNull(model);
   List<String> notifyList=Lists.newArrayList();
   notifyList.add("john@example.com");
   cubeController.updateNotifyList(newCubeName,notifyList);

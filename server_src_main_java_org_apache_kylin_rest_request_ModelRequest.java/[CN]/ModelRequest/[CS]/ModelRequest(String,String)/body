@@ -1,0 +1,4 @@
+{
+  this.modelName=modelName;
+  this.modelDescData=modelDescData;
+}
