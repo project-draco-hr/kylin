@@ -5,6 +5,7 @@
     models=getMetadataManager().getModels();
   }
  else {
+    models=Collections.emptyList();
   }
   List<DataModelDesc> filterModels=new ArrayList();
   for (  DataModelDesc modelDesc : models) {
