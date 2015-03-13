@@ -27,6 +27,14 @@ getMetadataManager().reloadDataModelDesc(cacheKey);
 IIDescManager.clearCache();
 CubeDescManager.clearCache();
 break;
+case ALL:
+getMetadataManager().reload();
+CubeDescManager.clearCache();
+CubeManager.clearCache();
+IIDescManager.clearCache();
+IIManager.clearCache();
+ProjectManager.clearCache();
+break;
 default :
 throw new RuntimeException("invalid cacheType:" + cacheType);
 }
