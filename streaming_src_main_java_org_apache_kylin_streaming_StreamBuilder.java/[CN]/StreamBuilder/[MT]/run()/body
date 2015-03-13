@@ -41,5 +41,6 @@
   }
  catch (  Exception e) {
     logger.error("build stream error, stop building",e);
+    throw new RuntimeException("build stream error, stop building",e);
   }
 }

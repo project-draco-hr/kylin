@@ -1,4 +1,0 @@
-{
-  this.innerScanner=innerScanner;
-  this.digest=digest;
-}
