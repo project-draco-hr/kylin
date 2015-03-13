@@ -1,4 +1,4 @@
 {
-  this.digest=digest;
+  this.incompleteDigest=digest;
   this.iterator=iterator;
 }

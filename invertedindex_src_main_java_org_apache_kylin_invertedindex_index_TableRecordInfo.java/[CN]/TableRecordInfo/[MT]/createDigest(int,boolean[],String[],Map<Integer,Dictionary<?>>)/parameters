@@ -1,0 +1,4 @@
+int nColumns
+boolean[] isMetric
+String[] dataTypes
+Map<Integer,Dictionary<?>> dictionaryMap
