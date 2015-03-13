@@ -11,7 +11,7 @@
   FSDataOutputStream out=fs.create(new Path(outputPath,columnName));
   try {
     for (    ByteArray value : set) {
-      out.write(value.data);
+      out.write(value.array(),value.offset(),value.length());
       out.write('\n');
     }
   }

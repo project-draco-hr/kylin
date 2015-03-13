@@ -2,11 +2,8 @@
   if (block.isEmpty()) {
     makePrimaryKey(r,block.primaryKey);
   }
-  for (int c=0; c < info.nColBlocks; c++) {
-    ByteBuffer cellBuf=block.cellBlocks[c];
-    for (int i=info.colBlockCuts[c], end=info.colBlockCuts[c + 1]; i < end; i++) {
-      append(cellBuf,r.cols[i]);
-    }
+  for (int i=0; i < info.colBlocks.length; i++) {
+    r.exportColumnBlock(i,block.cellBlockBuffers[i]);
   }
   block.nRows++;
   if (block.nRows >= info.rowBlockSize || info.isRowBlockEnabled() == false) {

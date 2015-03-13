@@ -1,0 +1,7 @@
+{
+  int len=4 + 4 + (4 + primaryKey.length());
+  for (  ByteArray array : cellBlocks) {
+    len+=4 + array.length();
+  }
+  return len;
+}

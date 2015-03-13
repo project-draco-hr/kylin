@@ -1,0 +1,15 @@
+{
+  info.colIsDimension=new BitSet();
+  info.colIsMetrics=new BitSet();
+  info.colMetricsAggrFunc=new String[info.nColumns];
+  for (int i=0; i < info.nColumns; i++) {
+    if (metricsAggrFunc.containsKey(i)) {
+      info.colIsMetrics.set(i);
+      info.colMetricsAggrFunc[i]=metricsAggrFunc.get(i);
+    }
+ else {
+      info.colIsDimension.set(i);
+    }
+  }
+  return this;
+}

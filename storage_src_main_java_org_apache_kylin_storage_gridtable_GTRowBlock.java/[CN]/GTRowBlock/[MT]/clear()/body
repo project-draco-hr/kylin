@@ -1,7 +1,4 @@
 {
   nRows=0;
-  primaryKey.clear();
-  for (int i=0; i < cellBlocks.length; i++) {
-    cellBlocks[i].clear();
-  }
+  rewindBuffers();
 }

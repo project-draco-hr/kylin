@@ -1,0 +1,7 @@
+{
+  AggregationCache aggrCache=new AggregationCache();
+  for (  GTRecord r : rawScanner) {
+    aggrCache.aggregate(r);
+  }
+  return aggrCache.iterator();
+}

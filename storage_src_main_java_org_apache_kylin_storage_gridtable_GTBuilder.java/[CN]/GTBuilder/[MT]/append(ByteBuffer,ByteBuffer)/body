@@ -1,3 +1,0 @@
-{
-  buf.put(data.array(),data.arrayOffset(),data.limit());
-}

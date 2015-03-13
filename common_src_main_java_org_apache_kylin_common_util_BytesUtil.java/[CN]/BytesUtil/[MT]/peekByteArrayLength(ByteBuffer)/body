@@ -1,0 +1,8 @@
+{
+  int start=in.position();
+  int arrayLen=readVInt(in);
+  int sizeLen=in.position() - start;
+  in.position(start);
+  if (arrayLen < 0)   return sizeLen;
+ else   return sizeLen + arrayLen;
+}

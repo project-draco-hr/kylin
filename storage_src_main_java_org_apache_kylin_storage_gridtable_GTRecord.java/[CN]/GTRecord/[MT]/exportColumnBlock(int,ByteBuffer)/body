@@ -1,0 +1,6 @@
+{
+  BitSet setselectedCols=info.colBlocks[c];
+  for (int i=setselectedCols.nextSetBit(0); i >= 0; i=setselectedCols.nextSetBit(i + 1)) {
+    buf.put(cols[i].array(),cols[i].offset(),cols[i].length());
+  }
+}

@@ -1,0 +1,19 @@
+{
+  BitSet merge=new BitSet();
+  for (int i=0; i < colBlocks.length; i++) {
+    merge.or(colBlocks[i]);
+  }
+  if (merge.equals(colAll) == false)   throw new IllegalStateException();
+  if (isRowBlockEnabled() == false) {
+    for (int i=0; i < colBlocks.length; i++) {
+      colBlocks[i].andNot(primaryKey);
+    }
+  }
+  LinkedList<BitSet> tmp=new LinkedList<BitSet>(Arrays.asList(colBlocks));
+  Iterator<BitSet> it=tmp.iterator();
+  while (it.hasNext()) {
+    BitSet cb=it.next();
+    if (cb.isEmpty())     it.remove();
+  }
+  colBlocks=(BitSet[])tmp.toArray(new BitSet[tmp.size()]);
+}

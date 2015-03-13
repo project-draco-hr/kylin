@@ -1,0 +1,3 @@
+{
+  r.exportColumns(info.primaryKey,buf);
+}

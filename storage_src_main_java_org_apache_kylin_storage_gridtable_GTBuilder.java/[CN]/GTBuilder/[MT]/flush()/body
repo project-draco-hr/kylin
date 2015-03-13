@@ -1,4 +1,5 @@
 {
   writer.write(block);
   block.clear();
+  block.seqId++;
 }

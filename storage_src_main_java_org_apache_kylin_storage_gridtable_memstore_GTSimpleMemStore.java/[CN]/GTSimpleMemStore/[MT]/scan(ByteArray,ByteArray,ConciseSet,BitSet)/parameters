@@ -1,0 +1,4 @@
+ByteArray pkStart
+ByteArray pkEndExclusive
+ConciseSet selectedRowBlocks
+BitSet selectedColBlocks

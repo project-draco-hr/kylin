@@ -1,0 +1,12 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  GTRecord o=(GTRecord)obj;
+  if (this.info != o.info)   return false;
+  if (this.maskForEqualHashComp != o.maskForEqualHashComp)   return false;
+  for (int i=maskForEqualHashComp.nextSetBit(0); i >= 0; i=maskForEqualHashComp.nextSetBit(i + 1)) {
+    if (this.cols[i].equals(o.cols[i]) == false)     return false;
+  }
+  return true;
+}
