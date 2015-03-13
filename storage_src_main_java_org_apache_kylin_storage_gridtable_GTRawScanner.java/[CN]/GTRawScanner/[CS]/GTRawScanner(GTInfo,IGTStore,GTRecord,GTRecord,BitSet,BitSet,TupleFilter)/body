@@ -1,0 +1,11 @@
+{
+  this.info=info;
+  this.filter=filter;
+  ByteArray start=pkStart.exportColumns(info.primaryKey);
+  ByteArray endEx=pkEndExclusive.exportColumns(info.primaryKey);
+  ConciseSet selectedRowBlocks=computeHitRowBlocks(start,endEx,filter);
+  this.selectedColBlocks=computeHitColumnBlocks(dimensions,metrics);
+  this.storeScanner=store.scan(start,endEx,selectedRowBlocks,selectedColBlocks);
+  this.oneRecord=new GTRecord(info);
+  this.oneTuple=new TupleAdapter(oneRecord);
+}

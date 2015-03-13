@@ -1,0 +1,2 @@
+int rowBlockSize
+boolean enableIndex

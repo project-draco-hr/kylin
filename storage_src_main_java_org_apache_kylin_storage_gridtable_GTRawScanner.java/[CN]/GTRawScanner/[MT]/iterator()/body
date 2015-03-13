@@ -1,0 +1,67 @@
+{
+  return new Iterator<GTRecord>(){
+    @Override public boolean hasNext(){
+      if (next != null)       return true;
+      IFilterCodeSystem<ByteArray> filterCodeSystem=info.codeSystem.getFilterCodeSystem();
+      while (fetchNext()) {
+        if (filter != null && filter.evaluate(oneTuple,filterCodeSystem) == false) {
+          continue;
+        }
+        next=oneRecord;
+        return true;
+      }
+      return false;
+    }
+    private boolean fetchNext(){
+      if (info.isRowBlockEnabled()) {
+        return fetchNextRowBlockEnabled();
+      }
+ else {
+        return fetchNextRowBlockDisabled();
+      }
+    }
+    private boolean fetchNextRowBlockDisabled(){
+      if (storeScanner.hasNext() == false)       return false;
+      currentBlock=storeScanner.next();
+      oneRecord.loadPrimaryKey(currentBlock.primaryKeyBuffer);
+      for (int c=selectedColBlocks.nextSetBit(0); c >= 0; c=selectedColBlocks.nextSetBit(c + 1)) {
+        oneRecord.loadCellBlock(c,currentBlock.cellBlockBuffers[c]);
+      }
+      return true;
+    }
+    private boolean fetchNextRowBlockEnabled(){
+      while (true) {
+        if (currentBlock == null) {
+          if (storeScanner.hasNext()) {
+            currentBlock=storeScanner.next();
+            currentRow=0;
+          }
+ else {
+            return false;
+          }
+        }
+        if (currentRow >= currentBlock.nRows) {
+          currentBlock=null;
+          continue;
+        }
+        for (int c=selectedColBlocks.nextSetBit(0); c >= 0; c=selectedColBlocks.nextSetBit(c + 1)) {
+          oneRecord.loadCellBlock(c,currentBlock.cellBlockBuffers[c]);
+        }
+        return true;
+      }
+    }
+    @Override public GTRecord next(){
+      if (next == null) {
+        hasNext();
+        if (next == null)         throw new NoSuchElementException();
+      }
+      GTRecord result=next;
+      next=null;
+      return result;
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+  }
+;
+}

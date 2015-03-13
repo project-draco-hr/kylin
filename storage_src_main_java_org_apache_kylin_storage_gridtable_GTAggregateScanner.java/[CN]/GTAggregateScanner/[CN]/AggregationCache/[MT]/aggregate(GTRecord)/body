@@ -1,0 +1,17 @@
+{
+  r.maskForEqualHashComp=dimensions;
+  MeasureAggregator[] aggrs=aggBufMap.get(r);
+  if (aggrs == null) {
+    aggrs=new MeasureAggregator[metrics.cardinality()];
+    for (int i=0, col=-1; i < aggrs.length; i++) {
+      col=metrics.nextSetBit(col + 1);
+      aggrs[i]=info.codeSystem.newMetricsAggregator(col);
+    }
+    aggBufMap.put(r.copy(dimensions),aggrs);
+  }
+  for (int i=0, col=-1; i < aggrs.length; i++) {
+    col=metrics.nextSetBit(col + 1);
+    Object metrics=info.codeSystem.decodeColumnValue(col,r.cols[col].wrapAsBuffer());
+    aggrs[i].aggregate(metrics);
+  }
+}

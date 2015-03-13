@@ -1,0 +1,11 @@
+{
+  rowBlockList.clear();
+  return new IGTStoreWriter(){
+    @Override public void close() throws IOException {
+    }
+    @Override public void write(    GTRowBlock block) throws IOException {
+      rowBlockList.add(block.copy());
+    }
+  }
+;
+}

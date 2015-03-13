@@ -1,0 +1,8 @@
+{
+  GTRowBlock copy=new GTRowBlock(info);
+  ByteBuffer buf=ByteBuffer.allocate(this.exportLength());
+  this.export(buf);
+  buf.clear();
+  copy.load(buf);
+  return copy;
+}

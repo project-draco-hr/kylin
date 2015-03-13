@@ -1,7 +1,0 @@
-{
-  buf.clear();
-  for (  int i : info.primaryKey) {
-    append(buf,r.cols[i]);
-  }
-  buf.flip();
-}

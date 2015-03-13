@@ -1,0 +1,10 @@
+{
+  info.nColumns=colTypes.length;
+  info.colTypes=colTypes;
+  if (info.colBlocks == null) {
+    BitSet all=new BitSet();
+    all.flip(0,info.nColumns);
+    info.colBlocks=new BitSet[]{all};
+  }
+  return this;
+}

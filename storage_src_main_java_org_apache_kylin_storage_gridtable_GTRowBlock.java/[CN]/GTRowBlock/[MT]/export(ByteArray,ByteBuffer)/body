@@ -1,0 +1,4 @@
+{
+  buf.putInt(array.length());
+  buf.put(array.array(),array.offset(),array.length());
+}

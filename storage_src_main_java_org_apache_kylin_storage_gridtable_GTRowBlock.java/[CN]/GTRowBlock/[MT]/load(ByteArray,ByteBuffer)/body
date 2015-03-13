@@ -1,0 +1,6 @@
+{
+  int len=buf.getInt();
+  int pos=buf.position();
+  array.set(buf.array(),buf.arrayOffset() + pos,len);
+  buf.position(pos + len);
+}

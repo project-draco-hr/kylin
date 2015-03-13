@@ -2,7 +2,6 @@
   if (this == obj)   return true;
   if (obj == null)   return false;
   if (getClass() != obj.getClass())   return false;
-  ByteArray other=(ByteArray)obj;
-  if (!Arrays.equals(data,other.data))   return false;
-  return true;
+  ByteArray o=(ByteArray)obj;
+  return Bytes.equals(this.data,this.offset,this.length,o.data,o.offset,o.length);
 }

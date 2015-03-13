@@ -1,3 +1,3 @@
 {
-  this.data=data;
+  set(data,0,data.length);
 }

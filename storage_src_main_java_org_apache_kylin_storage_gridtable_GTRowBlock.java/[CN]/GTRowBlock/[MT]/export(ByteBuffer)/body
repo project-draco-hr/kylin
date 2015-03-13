@@ -1,0 +1,8 @@
+{
+  buf.putInt(seqId);
+  buf.putInt(nRows);
+  export(primaryKey,buf);
+  for (  ByteArray cb : cellBlocks) {
+    export(cb,buf);
+  }
+}

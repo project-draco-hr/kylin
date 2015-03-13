@@ -1,7 +1,9 @@
 {
-  primaryKey=ByteBuffer.allocate(PRIMARY_KEY_CAPACITY);
-  cellBlocks=new ByteBuffer[info.nColBlocks];
+  this.info=info;
+  primaryKey=new ByteArray();
+  cellBlocks=new ByteArray[info.colBlocks.length];
   for (int i=0; i < cellBlocks.length; i++) {
-    cellBlocks[i]=ByteBuffer.allocate(CELL_BLOCK_CAPACITY);
+    cellBlocks[i]=new ByteArray();
   }
+  cellBlockBuffers=new ByteBuffer[info.colBlocks.length];
 }

@@ -1,0 +1,10 @@
+{
+  BitSet result=new BitSet();
+  for (int i=0; i < info.colBlocks.length; i++) {
+    BitSet cb=info.colBlocks[i];
+    if (cb.intersects(dimensions) || cb.intersects(metrics)) {
+      result.set(i);
+    }
+  }
+  return result;
+}

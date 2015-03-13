@@ -1,0 +1,9 @@
+{
+  int len=0;
+  for (int i=selectedCols.nextSetBit(0); i >= 0; i=selectedCols.nextSetBit(i + 1)) {
+    len+=cols[i].length();
+  }
+  ByteArray buf=ByteArray.allocate(len);
+  exportColumns(info.primaryKey,buf);
+  return buf;
+}

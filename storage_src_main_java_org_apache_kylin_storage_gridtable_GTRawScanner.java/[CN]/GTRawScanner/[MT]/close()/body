@@ -1,0 +1,3 @@
+{
+  storeScanner.close();
+}

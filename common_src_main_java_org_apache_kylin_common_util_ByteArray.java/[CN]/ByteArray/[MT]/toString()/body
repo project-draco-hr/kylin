@@ -1,0 +1,3 @@
+{
+  return Bytes.toString(data,offset,length);
+}

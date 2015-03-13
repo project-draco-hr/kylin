@@ -1,0 +1,19 @@
+{
+  return new IGTStoreScanner(){
+    Iterator<GTRowBlock> it=rowBlockList.iterator();
+    @Override public boolean hasNext(){
+      return it.hasNext();
+    }
+    @Override public GTRowBlock next(){
+      GTRowBlock block=it.next();
+      block.rewindBuffers();
+      return block;
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+    @Override public void close() throws IOException {
+    }
+  }
+;
+}
