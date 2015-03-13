@@ -1,13 +1,22 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
-  Slice other=(Slice)obj;
-  if (info == null) {
-    if (other.info != null)     return false;
+  if (this == obj) {
+    return true;
   }
- else   if (!info.equals(other.info))   return false;
-  if (shard != other.shard)   return false;
-  if (timestamp != other.timestamp)   return false;
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  Slice other=(Slice)obj;
+  if (shard != other.shard) {
+    return false;
+  }
+  if (timestamp != other.timestamp) {
+    return false;
+  }
+  if (!Objects.equal(info,other.info)) {
+    return false;
+  }
   return true;
 }
