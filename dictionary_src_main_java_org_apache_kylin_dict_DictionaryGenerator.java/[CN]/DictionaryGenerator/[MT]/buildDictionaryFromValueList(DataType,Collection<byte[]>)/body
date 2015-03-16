@@ -2,7 +2,8 @@
   if (values.size() > DICT_MAX_CARDINALITY) {
     throw new IllegalArgumentException("Too high cardinality is not suitable for dictionary -- cardinality: " + values.size());
   }
-  Dictionary dict=null;
+  Preconditions.checkNotNull(dataType,"dataType cannot be null");
+  Dictionary dict;
   int baseId=0;
   int nSamples=5;
   ArrayList samples=new ArrayList();
