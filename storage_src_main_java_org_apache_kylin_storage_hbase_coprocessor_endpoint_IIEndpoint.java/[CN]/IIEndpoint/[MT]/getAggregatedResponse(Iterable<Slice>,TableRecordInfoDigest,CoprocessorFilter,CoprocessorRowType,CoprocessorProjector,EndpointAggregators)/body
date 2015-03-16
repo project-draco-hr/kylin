@@ -2,7 +2,7 @@
   EndpointAggregationCache aggCache=new EndpointAggregationCache(aggregators);
   IIProtos.IIResponse.Builder responseBuilder=IIProtos.IIResponse.newBuilder();
   for (  Slice slice : slices) {
-    LocalDictionary localDictionary=new LocalDictionary(slice.getLocalDictionaries(),type,recordInfo);
+    LocalDictionary localDictionary=new LocalDictionary(slice.getLocalDictionaries(),type,slice.getInfo());
     CoprocessorFilter newFilter=CoprocessorFilter.fromFilter(localDictionary,filter.getFilter(),FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_LOCAL_DICT);
     ConciseSet result=null;
     if (filter != null) {
