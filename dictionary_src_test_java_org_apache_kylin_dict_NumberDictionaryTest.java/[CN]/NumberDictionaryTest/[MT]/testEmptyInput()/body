@@ -5,5 +5,5 @@
     intBytes.add((s == null) ? null : Bytes.toBytes(s));
   }
   Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueList(DataType.getInstance("integer"),intBytes);
-  assertEquals(4,dict.getSize());
+  assertEquals(5,dict.getSize());
 }
