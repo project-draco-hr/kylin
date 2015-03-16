@@ -1,0 +1,3 @@
+{
+  this(endpointAggregators.funcNames,endpointAggregators.dataTypes,endpointAggregators.metricInfos,digest);
+}
