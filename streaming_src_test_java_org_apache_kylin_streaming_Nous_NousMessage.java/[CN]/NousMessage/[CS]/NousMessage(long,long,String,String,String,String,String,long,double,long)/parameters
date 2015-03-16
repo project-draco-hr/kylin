@@ -1,0 +1,10 @@
+long minute_start
+long hour_start
+String itm
+String t
+String sid
+String p
+String m
+long click
+double gmv
+long qty
