@@ -1,0 +1,9 @@
+{
+  String[] ints=new String[]{"","0","5","100","13"};
+  Collection<byte[]> intBytes=new ArrayList<byte[]>();
+  for (  String s : ints) {
+    intBytes.add((s == null) ? null : Bytes.toBytes(s));
+  }
+  Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueList(DataType.getInstance("integer"),intBytes);
+  assertEquals(4,dict.getSize());
+}
