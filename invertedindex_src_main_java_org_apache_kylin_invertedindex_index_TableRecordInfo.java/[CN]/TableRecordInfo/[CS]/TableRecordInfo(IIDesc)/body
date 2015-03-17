@@ -1,0 +1,3 @@
+{
+  this(desc,Collections.<Integer,Dictionary<?>>emptyMap());
+}

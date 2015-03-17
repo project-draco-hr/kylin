@@ -1,0 +1,7 @@
+{
+  this.digest=tableRecordInfo.getDigest();
+  this.columnIndexMap=Maps.newHashMap();
+  for (int i=0; i < tableRecordInfo.getColumns().size(); i++) {
+    columnIndexMap.put(tableRecordInfo.getColumns().get(i),i);
+  }
+}

@@ -9,14 +9,15 @@
     isMetric[i]=desc.isMetricsCol(i);
     dataTypes[i]=tblColRef.getDatatype();
     if (isMetric[i]) {
-      final FixedLenMeasureCodec<?> fixedLenMeasureCodec=measureCodecMap.get(tblColRef);
-      if (fixedLenMeasureCodec != null) {
-        lengths[i]=fixedLenMeasureCodec.getLength();
-      }
+      lengths[i]=FixedLenMeasureCodec.get(DataType.getInstance(tblColRef.getColumn().getDatatype())).getLength();
     }
  else {
-      final Dictionary<?> dictionary=dictionaryMap.get(i);
-      if (dictionary != null) {
+      if (dictionaryMap.isEmpty()) {
+        lengths[i]=desc.listAllColumns().get(i).getColumn().getTypePrecision();
+        dictMaxIds[i]=Integer.MAX_VALUE;
+      }
+ else {
+        final Dictionary<?> dictionary=dictionaryMap.get(i);
         lengths[i]=dictionary.getSizeOfId();
         dictMaxIds[i]=dictionary.getMaxId();
       }

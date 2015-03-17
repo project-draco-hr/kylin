@@ -1,5 +1,9 @@
 {
-  List<String> columnValues=tableRecord.getOriginTableColumnValues();
+  List<String> columnValues=Lists.newArrayList();
+  for (int i=0; i < columns.size(); ++i) {
+    final TblColRef tblColRef=columns.get(i);
+    columnValues.add(rowKeyColumnIO.readColumnString(tblColRef,tableRecord.getBytes(),tableRecordInfo.getDigest().offset(i),tableRecordInfo.getDigest().length(i)));
+  }
   for (int i=0; i < columnNames.size(); i++) {
     TblColRef column=columns.get(i);
     if (!tuple.hasColumn(column)) {

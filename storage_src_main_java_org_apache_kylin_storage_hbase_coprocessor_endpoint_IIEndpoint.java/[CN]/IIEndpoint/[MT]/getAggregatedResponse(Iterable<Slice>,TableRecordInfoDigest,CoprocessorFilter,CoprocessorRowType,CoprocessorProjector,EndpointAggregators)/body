@@ -1,29 +1,31 @@
 {
   EndpointAggregationCache aggCache=new EndpointAggregationCache(aggregators);
   IIProtos.IIResponse.Builder responseBuilder=IIProtos.IIResponse.newBuilder();
+  final byte[] buffer=new byte[CoprocessorConstants.METRIC_SERIALIZE_BUFFER_SIZE];
+  ClearTextDictionary clearTextDictionary=new ClearTextDictionary(recordInfo,type);
+  RowKeyColumnIO rowKeyColumnIO=new RowKeyColumnIO(clearTextDictionary);
   for (  Slice slice : slices) {
-    LocalDictionary localDictionary=new LocalDictionary(slice.getLocalDictionaries(),type,slice.getInfo());
-    CoprocessorFilter newFilter=CoprocessorFilter.fromFilter(localDictionary,filter.getFilter(),FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_LOCAL_DICT);
+    final Map<Integer,Dictionary<?>> localDictionaries=slice.getLocalDictionaries();
+    CoprocessorFilter newFilter=CoprocessorFilter.fromFilter(new LocalDictionary(localDictionaries,type,slice.getInfo()),filter.getFilter(),FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_LOCAL_DICT);
     ConciseSet result=null;
     if (filter != null) {
       result=new BitMapFilterEvaluator(new SliceBitMapProvider(slice,type)).evaluate(newFilter.getFilter());
     }
     Iterator<RawTableRecord> iterator=slice.iterateWithBitmap(result);
-    final EndpointAggregators endpointAggregators=new EndpointAggregators(aggregators,slice.getInfo());
     while (iterator.hasNext()) {
-      byte[] data=iterator.next().getBytes();
+      final RawTableRecord rawTableRecord=iterator.next();
+      byte[] data=decodeWithDictionary(rawTableRecord,localDictionaries,recordInfo,buffer,rowKeyColumnIO,type);
       CoprocessorProjector.AggrKey aggKey=projector.getAggrKey(data);
       MeasureAggregator[] bufs=aggCache.getBuffer(aggKey);
-      endpointAggregators.aggregate(bufs,data);
+      aggregators.aggregate(bufs,data);
       aggCache.checkMemoryUsage();
     }
   }
-  byte[] metricBuffer=new byte[CoprocessorConstants.METRIC_SERIALIZE_BUFFER_SIZE];
   for (  Map.Entry<CoprocessorProjector.AggrKey,MeasureAggregator[]> entry : aggCache.getAllEntries()) {
     CoprocessorProjector.AggrKey aggrKey=entry.getKey();
     IIProtos.IIResponse.IIRow.Builder rowBuilder=IIProtos.IIResponse.IIRow.newBuilder().setColumns(ByteString.copyFrom(aggrKey.get(),aggrKey.offset(),aggrKey.length()));
-    int length=aggregators.serializeMetricValues(entry.getValue(),metricBuffer);
-    rowBuilder.setMeasures(ByteString.copyFrom(metricBuffer,0,length));
+    int length=aggregators.serializeMetricValues(entry.getValue(),buffer);
+    rowBuilder.setMeasures(ByteString.copyFrom(buffer,0,length));
     responseBuilder.addRows(rowBuilder.build());
   }
   return responseBuilder.build();

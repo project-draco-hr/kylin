@@ -1,5 +1,8 @@
 {
   IIProtos.IIResponse.Builder responseBuilder=IIProtos.IIResponse.newBuilder();
+  final byte[] buffer=new byte[CoprocessorConstants.METRIC_SERIALIZE_BUFFER_SIZE];
+  ClearTextDictionary clearTextDictionary=new ClearTextDictionary(recordInfo,type);
+  RowKeyColumnIO rowKeyColumnIO=new RowKeyColumnIO(clearTextDictionary);
   for (  Slice slice : slices) {
     ConciseSet result=null;
     if (filter != null) {
@@ -7,7 +10,8 @@
     }
     Iterator<RawTableRecord> iterator=slice.iterateWithBitmap(result);
     while (iterator.hasNext()) {
-      byte[] data=iterator.next().getBytes();
+      final RawTableRecord rawTableRecord=iterator.next();
+      byte[] data=decodeWithDictionary(rawTableRecord,slice.getLocalDictionaries(),recordInfo,buffer,rowKeyColumnIO,type);
       IIProtos.IIResponse.IIRow.Builder rowBuilder=IIProtos.IIResponse.IIRow.newBuilder().setColumns(ByteString.copyFrom(data));
       responseBuilder.addRows(rowBuilder.build());
     }

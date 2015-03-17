@@ -6,7 +6,6 @@
     o+=columnSizes[i];
   }
   this.columnOffsets=offsets;
-  this.columnsAsList=Arrays.asList(columns);
   HashMap<TblColRef,Integer> map=Maps.newHashMap();
   for (int i=0; i < columns.length; i++) {
     map.put(columns[i],i);

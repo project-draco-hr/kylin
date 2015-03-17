@@ -1,0 +1,9 @@
+{
+  byte[] result=new byte[digest.getByteFormLen()];
+  for (int i=0; i < coprocessorRowType.getColumnCount(); i++) {
+    final TblColRef column=coprocessorRowType.columns[i];
+    final int length=localDictionaries.get(i).getValueBytesFromId(encodedRecord.getValueID(i),buffer,0);
+    rowKeyColumnIO.writeColumn(column,buffer,length,Dictionary.NULL,result,digest.offset(i));
+  }
+  return result;
+}

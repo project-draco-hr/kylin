@@ -1,5 +1,4 @@
 {
-  int valLen=valueBytes.length;
   if (valLen == length) {
     return valueBytes;
   }
