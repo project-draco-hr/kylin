@@ -1,6 +1,8 @@
 {
-  block.flipCellBlockBuffers();
-  writer.write(block);
+  blockWriter.readyForFlush();
+  storeWriter.write(block);
   writtenRowBlockCount++;
-  block.clearForNext();
+  if (block.isFull()) {
+    blockWriter.clearForNext();
+  }
 }

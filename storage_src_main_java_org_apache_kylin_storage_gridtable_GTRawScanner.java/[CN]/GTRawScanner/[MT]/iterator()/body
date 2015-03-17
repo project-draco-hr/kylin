@@ -13,44 +13,21 @@
       return false;
     }
     private boolean fetchNext(){
-      if (info.isRowBlockEnabled()) {
-        return fetchNextRowBlockEnabled();
-      }
- else {
-        return fetchNextRowBlockDisabled();
-      }
-    }
-    private boolean fetchNextRowBlockDisabled(){
-      if (storeScanner.hasNext() == false)       return false;
-      currentBlock=storeScanner.next();
-      oneRecord.loadPrimaryKey(currentBlock.primaryKeyBuffer);
-      for (int c=selectedColBlocks.nextSetBit(0); c >= 0; c=selectedColBlocks.nextSetBit(c + 1)) {
-        oneRecord.loadCellBlock(c,currentBlock.cellBlockBuffers[c]);
-      }
-      scannedRowCount++;
-      scannedRowBlockCount++;
-      return true;
-    }
-    private boolean fetchNextRowBlockEnabled(){
       while (true) {
-        if (currentBlock == null) {
+        if (curBlockReader == null) {
           if (storeScanner.hasNext()) {
-            currentBlock=storeScanner.next();
-            currentRow=0;
+            curBlockReader=storeScanner.next().getReader(selectedColBlocks);
             scannedRowBlockCount++;
           }
  else {
             return false;
           }
         }
-        if (currentRow >= currentBlock.nRows) {
-          currentBlock=null;
+        if (curBlockReader.hasNext() == false) {
+          curBlockReader=null;
           continue;
         }
-        for (int c=selectedColBlocks.nextSetBit(0); c >= 0; c=selectedColBlocks.nextSetBit(c + 1)) {
-          oneRecord.loadCellBlock(c,currentBlock.cellBlockBuffers[c]);
-        }
-        currentRow++;
+        curBlockReader.fetchNext(oneRecord);
         scannedRowCount++;
         return true;
       }

@@ -5,9 +5,7 @@
       return it.hasNext();
     }
     @Override public GTRowBlock next(){
-      GTRowBlock block=it.next();
-      block.rewindBuffers();
-      return block;
+      return it.next();
     }
     @Override public void remove(){
       throw new UnsupportedOperationException();

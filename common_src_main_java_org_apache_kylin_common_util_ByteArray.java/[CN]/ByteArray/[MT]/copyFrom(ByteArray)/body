@@ -1,0 +1,4 @@
+{
+  System.arraycopy(other.array(),other.offset,data,offset,other.length);
+  this.length=other.length;
+}

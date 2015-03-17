@@ -1,0 +1,5 @@
+{
+  for (int i=0; i < cellBlocks.length; i++) {
+    cellBlocks[i].setLength(cellBlockBuffers[i].position());
+  }
+}
