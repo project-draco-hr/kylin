@@ -1,10 +1,33 @@
 {
   IGTScanner scanner=table.scanAndAggregate(null,null,setOf(0,2),setOf(3,4),new String[]{"count","sum"},null);
+  int i=0;
   for (  GTRecord r : scanner) {
-    System.out.println(r);
-  }
-  scanner.close();
-  System.out.println("Scanned Row Block Count: " + scanner.getScannedRowBlockCount());
-  System.out.println("Scanned Row Count: " + scanner.getScannedRowCount());
-  return scanner;
+    Object[] v=r.getValues();
+switch (i) {
+case 0:
+      assertTrue(((LongWritable)v[3]).get() == 20);
+    assertTrue(((BigDecimal)v[4]).doubleValue() == 21.0);
+  break;
+case 1:
+assertTrue(((LongWritable)v[3]).get() == 30);
+assertTrue(((BigDecimal)v[4]).doubleValue() == 31.5);
+break;
+case 2:
+assertTrue(((LongWritable)v[3]).get() == 40);
+assertTrue(((BigDecimal)v[4]).doubleValue() == 42.0);
+break;
+case 3:
+assertTrue(((LongWritable)v[3]).get() == 10);
+assertTrue(((BigDecimal)v[4]).doubleValue() == 10.5);
+break;
+default :
+fail();
+}
+i++;
+System.out.println(r);
+}
+scanner.close();
+System.out.println("Scanned Row Block Count: " + scanner.getScannedRowBlockCount());
+System.out.println("Scanned Row Count: " + scanner.getScannedRowCount());
+return scanner;
 }
