@@ -1,0 +1,6 @@
+{
+  NousMessage a=new NousMessage(1,2,"a","b","c","d","e",100,200.0,300);
+  String x=JsonUtil.writeValueAsIndentString(a);
+  NousMessage b=JsonUtil.readValue(x,NousMessage.class);
+  System.out.print(b.getClick());
+}

@@ -1,0 +1,11 @@
+{
+  if (frequency > 1000) {
+    logger.warn("max EternalStreamProducer frequency is 1000, changed from {} to 1000",frequency);
+    frequency=1000;
+  }
+  if (frequency <= 0) {
+    logger.warn("EternalStreamProducer frequency must be greater than 0, changed from {} to 1",frequency);
+    frequency=1;
+  }
+  this.frequency=frequency;
+}

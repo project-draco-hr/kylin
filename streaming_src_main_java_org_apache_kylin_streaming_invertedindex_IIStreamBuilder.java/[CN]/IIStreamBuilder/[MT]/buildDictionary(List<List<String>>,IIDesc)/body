@@ -1,5 +1,5 @@
 {
-  SetMultimap<TblColRef,String> valueMap=HashMultimap.create();
+  HashMultimap<TblColRef,String> valueMap=HashMultimap.create();
   Set<TblColRef> dimensionColumns=Sets.newHashSet();
   for (int i=0; i < desc.listAllColumns().size(); i++) {
     if (!desc.isMetricsCol(i)) {
@@ -13,7 +13,7 @@
     }
   }
   Map<Integer,Dictionary<?>> result=Maps.newHashMap();
-  for (  TblColRef tblColRef : valueMap.keys()) {
+  for (  TblColRef tblColRef : valueMap.keySet()) {
     result.put(desc.findColumn(tblColRef),DictionaryGenerator.buildDictionaryFromValueList(tblColRef.getType(),Collections2.transform(valueMap.get(tblColRef),new Function<String,byte[]>(){
       @Nullable @Override public byte[] apply(      String input){
         return input.getBytes();

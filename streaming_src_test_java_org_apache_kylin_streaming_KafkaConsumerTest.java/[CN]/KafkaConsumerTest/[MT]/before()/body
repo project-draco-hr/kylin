@@ -1,4 +1,4 @@
 {
-  producer=new TestProducer(TOTAL_SEND_COUNT);
+  producer=new OneOffStreamProducer(TOTAL_SEND_COUNT);
   producer.start();
 }
