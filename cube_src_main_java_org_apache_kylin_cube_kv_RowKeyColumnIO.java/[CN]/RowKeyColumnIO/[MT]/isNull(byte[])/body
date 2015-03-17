@@ -1,7 +1,3 @@
 {
-  if (bytes.length == 0)   return false;
-  for (int i=0; i < bytes.length; i++) {
-    if (bytes[i] != AbstractRowKeyEncoder.DEFAULT_BLANK_BYTE)     return false;
-  }
-  return true;
+  return isNull(bytes,0,bytes.length);
 }

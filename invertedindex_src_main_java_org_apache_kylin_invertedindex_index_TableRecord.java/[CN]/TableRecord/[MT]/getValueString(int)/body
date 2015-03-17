@@ -1,4 +1,14 @@
 {
-  if (rawRecord.isMetric(col))   return getValueMetric(col);
- else   return info.dict(col).getValueFromId(rawRecord.getValueID(col));
+  if (rawRecord.isMetric(col)) {
+    return getValueMetric(col);
+  }
+ else {
+    final Dictionary<String> dict=info.dict(col);
+    if (dict != null) {
+      return dict.getValueFromId(rawRecord.getValueID(col));
+    }
+ else {
+      throw new UnsupportedOperationException("cannot get value when there is no dictionary");
+    }
+  }
 }

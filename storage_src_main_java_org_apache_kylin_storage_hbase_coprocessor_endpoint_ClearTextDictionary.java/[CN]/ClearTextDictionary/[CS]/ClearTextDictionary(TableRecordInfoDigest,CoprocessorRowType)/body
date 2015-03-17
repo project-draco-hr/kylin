@@ -1,0 +1,4 @@
+{
+  this.digest=digest;
+  this.columnIndexMap=coprocessorRowType.columnIdxMap;
+}

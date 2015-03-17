@@ -1,4 +1,5 @@
 {
   this.pattern=datePattern;
   this.baseId=baseId;
+  this.maxId=baseId + ID_9999_12_31;
 }

@@ -1,8 +1,8 @@
 {
-  Dictionary<String> dict=getDictionary(column);
-  int columnLen=getColumnLength(column);
+  final Dictionary<String> dict=getDictionary(column);
+  final int columnLen=getColumnLength(column);
   if (dict == null) {
-    byte[] valueBytes=padFixLen(columnLen,value);
+    byte[] valueBytes=padFixLen(columnLen,value,valueLen);
     System.arraycopy(valueBytes,0,output,outputOffset,columnLen);
     return;
   }
@@ -11,7 +11,9 @@
     BytesUtil.writeUnsigned(id,output,outputOffset,dict.getSizeOfId());
   }
  catch (  IllegalArgumentException ex) {
-    for (int i=outputOffset; i < outputOffset + columnLen; i++)     output[i]=dft;
-    logger.error("Can't translate value " + Bytes.toString(value,0,valueLen) + " to dictionary ID, roundingFlag "+ roundingFlag+ ". Using default value "+ String.format("\\x%02X",dft));
+    for (int i=outputOffset; i < outputOffset + columnLen; i++) {
+      output[i]=defaultValue;
+    }
+    logger.error("Can't translate value " + Bytes.toString(value,0,valueLen) + " to dictionary ID, roundingFlag "+ roundingFlag+ ". Using default value "+ String.format("\\x%02X",defaultValue));
   }
 }

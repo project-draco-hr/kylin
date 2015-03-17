@@ -1,0 +1,34 @@
+{
+  int nColumns=getColumns().size();
+  boolean[] isMetric=new boolean[nColumns];
+  int[] lengths=new int[nColumns];
+  int[] dictMaxIds=new int[nColumns];
+  String[] dataTypes=new String[nColumns];
+  for (int i=0; i < nColumns; ++i) {
+    final TblColRef tblColRef=getColumns().get(i);
+    isMetric[i]=desc.isMetricsCol(i);
+    dataTypes[i]=tblColRef.getDatatype();
+    if (isMetric[i]) {
+      lengths[i]=FixedLenMeasureCodec.get(DataType.getInstance(tblColRef.getColumn().getDatatype())).getLength();
+    }
+ else {
+      if (dictionaryMap.isEmpty()) {
+        lengths[i]=desc.listAllColumns().get(i).getColumn().getTypePrecision();
+        dictMaxIds[i]=Integer.MAX_VALUE;
+      }
+ else {
+        final Dictionary<?> dictionary=dictionaryMap.get(i);
+        lengths[i]=dictionary.getSizeOfId();
+        dictMaxIds[i]=dictionary.getMaxId();
+      }
+    }
+  }
+  int pos=0;
+  int[] offsets=new int[nColumns];
+  for (int i=0; i < nColumns; i++) {
+    offsets[i]=pos;
+    pos+=lengths[i];
+  }
+  int byteFormLen=pos;
+  return new TableRecordInfoDigest(nColumns,byteFormLen,offsets,dictMaxIds,lengths,isMetric,dataTypes);
+}

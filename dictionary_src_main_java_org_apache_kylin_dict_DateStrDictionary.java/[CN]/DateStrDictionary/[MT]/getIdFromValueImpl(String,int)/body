@@ -1,6 +1,6 @@
 {
   Date date=stringToDate(value,pattern);
   int id=calcIdFromSeqNo(getNumOfDaysSince0000(date));
-  if (id < 0 || id >= 16777216)   throw new IllegalArgumentException("'" + value + "' encodes to '"+ id+ "' which is out of range of 3 bytes");
+  if (id < baseId || id > maxId)   throw new IllegalArgumentException("'" + value + "' encodes to '"+ id+ "' which is out of range ["+ baseId+ ","+ maxId+ "]");
   return id;
 }

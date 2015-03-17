@@ -1,0 +1,3 @@
+int length
+byte[] valueBytes
+int valLen
