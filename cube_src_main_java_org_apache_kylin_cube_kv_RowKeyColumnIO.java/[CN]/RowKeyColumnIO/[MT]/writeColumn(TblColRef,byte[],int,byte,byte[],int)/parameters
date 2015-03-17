@@ -1,6 +1,6 @@
 TblColRef column
 byte[] value
 int valueLen
-byte dft
+byte defaultValue
 byte[] output
 int outputOffset

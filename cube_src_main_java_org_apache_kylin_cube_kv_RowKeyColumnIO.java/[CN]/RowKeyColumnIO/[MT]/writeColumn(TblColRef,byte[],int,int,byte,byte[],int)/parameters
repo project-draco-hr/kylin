@@ -2,6 +2,6 @@ TblColRef column
 byte[] value
 int valueLen
 int roundingFlag
-byte dft
+byte defaultValue
 byte[] output
 int outputOffset

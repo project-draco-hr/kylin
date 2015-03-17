@@ -12,8 +12,8 @@
   }
  catch (  IllegalArgumentException ex) {
     for (int i=outputOffset; i < outputOffset + columnLen; i++) {
-      output[i]=dft;
+      output[i]=defaultValue;
     }
-    logger.error("Can't translate value " + Bytes.toString(value,0,valueLen) + " to dictionary ID, roundingFlag "+ roundingFlag+ ". Using default value "+ String.format("\\x%02X",dft));
+    logger.error("Can't translate value " + Bytes.toString(value,0,valueLen) + " to dictionary ID, roundingFlag "+ roundingFlag+ ". Using default value "+ String.format("\\x%02X",defaultValue));
   }
 }

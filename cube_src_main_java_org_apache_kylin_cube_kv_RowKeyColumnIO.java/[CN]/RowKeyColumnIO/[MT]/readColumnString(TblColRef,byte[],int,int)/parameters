@@ -1,0 +1,4 @@
+TblColRef col
+byte[] bytes
+int offset
+int length
