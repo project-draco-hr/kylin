@@ -1,5 +1,5 @@
 {
-  block.append(r);
+  blockWriter.append(r);
   writtenRowCount++;
   if (block.isFull()) {
     flush();
