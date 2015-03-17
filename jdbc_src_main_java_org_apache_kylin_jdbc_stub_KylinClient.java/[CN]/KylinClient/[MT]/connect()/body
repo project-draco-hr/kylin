@@ -10,8 +10,8 @@
     post.setRequestEntity(requestEntity);
     httpClient.executeMethod(post);
     if (post.getStatusCode() != 200 && post.getStatusCode() != 201) {
-      logger.error("Authentication Failed with error code " + post.getStatusCode() + " and message:\n"+ post.getResponseBodyAsString());
-      throw new ConnectionException("Authentication Failed.");
+      logger.error("Connect failed with error code " + post.getStatusCode() + " and message:\n"+ post.getResponseBodyAsString());
+      throw new ConnectionException("Connect failed, error code " + post.getStatusCode() + " and message: "+ post.getResponseBodyAsString());
     }
   }
  catch (  HttpException e) {

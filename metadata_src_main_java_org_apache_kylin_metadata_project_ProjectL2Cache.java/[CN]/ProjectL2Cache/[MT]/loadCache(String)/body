@@ -2,6 +2,7 @@
   logger.info("Loading L2 project cache for " + project);
   ProjectCache result=new ProjectCache(project);
   ProjectInstance pi=mgr.getProject(project);
+  if (pi == null)   throw new IllegalArgumentException("Project '" + project + "' does not exist;");
   MetadataManager metaMgr=mgr.getMetadataManager();
   for (  String tableName : pi.getTables()) {
     TableDesc tableDesc=metaMgr.getTableDesc(tableName);
