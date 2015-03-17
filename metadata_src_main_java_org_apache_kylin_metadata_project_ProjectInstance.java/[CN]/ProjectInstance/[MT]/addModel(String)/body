@@ -1,0 +1,7 @@
+{
+  modelName=modelName.toUpperCase();
+  if (this.getModels() == null) {
+    this.setModels(new ArrayList<String>());
+  }
+  this.getModels().add(modelName);
+}

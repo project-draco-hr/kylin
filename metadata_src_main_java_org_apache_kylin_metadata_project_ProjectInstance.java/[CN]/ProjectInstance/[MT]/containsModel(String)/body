@@ -1,0 +1,4 @@
+{
+  modelName=modelName.toUpperCase();
+  return models != null && models.contains(modelName);
+}

@@ -1,7 +1,8 @@
 {
   DataModelDesc existingModel=getMetadataManager().getDataModelDesc(desc.getName());
   if (existingModel == null) {
-    getMetadataManager().createDataModelDesc(desc);
+    String owner=SecurityContextHolder.getContext().getAuthentication().getName();
+    getMetadataManager().createDataModelDesc(desc,newProjectName,owner);
   }
  else {
     getMetadataManager().updateDataModelDesc(desc);

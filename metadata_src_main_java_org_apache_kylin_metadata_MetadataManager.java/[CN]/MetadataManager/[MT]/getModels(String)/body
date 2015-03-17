@@ -1,0 +1,16 @@
+{
+  ProjectInstance projectInstance=ProjectManager.getInstance(config).getProject(projectName);
+  HashSet<DataModelDesc> ret=new HashSet<>();
+  if (projectInstance != null) {
+    for (    String modelName : projectInstance.getModels()) {
+      DataModelDesc model=getDataModelDesc(modelName);
+      if (null != model) {
+        ret.add(model);
+      }
+ else {
+        logger.error("Failed to load model" + modelName);
+      }
+    }
+  }
+  return new ArrayList<>(ret);
+}

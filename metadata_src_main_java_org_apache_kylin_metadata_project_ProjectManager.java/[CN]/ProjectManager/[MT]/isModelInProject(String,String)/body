@@ -1,0 +1,3 @@
+{
+  return this.getProject(projectName).containsModel(modelName);
+}

@@ -2,3 +2,4 @@ String name
 String owner
 String description
 List<RealizationEntry> realizationEntries
+List<String> models

@@ -8,5 +8,7 @@
   projectInstance.setCreateTimeUTC(System.currentTimeMillis());
   if (realizationEntries != null)   projectInstance.setRealizationEntries(realizationEntries);
  else   projectInstance.setRealizationEntries(Lists.<RealizationEntry>newArrayList());
+  if (models != null)   projectInstance.setModels(models);
+ else   projectInstance.setModels(new ArrayList<String>());
   return projectInstance;
 }

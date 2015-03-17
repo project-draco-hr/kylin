@@ -1,3 +1,3 @@
 {
-  return new ArrayList<DataModelDesc>(dataModelDescMap.values());
+  return new ArrayList<>(dataModelDescMap.values());
 }

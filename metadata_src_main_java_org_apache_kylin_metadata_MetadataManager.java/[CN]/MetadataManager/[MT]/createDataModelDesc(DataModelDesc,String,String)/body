@@ -1,0 +1,6 @@
+{
+  String name=desc.getName();
+  if (dataModelDescMap.containsKey(name))   throw new IllegalArgumentException("DataModelDesc '" + name + "' already exists");
+  ProjectManager.getInstance(config).updateModelToProject(name,projectName,owner);
+  return saveDataModelDesc(desc);
+}
