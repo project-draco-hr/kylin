@@ -1,5 +1,0 @@
-{
-  info.rowBlockSize=rowBlockSize;
-  info.rowBlockIndexEnabled=enableIndex;
-  return this;
-}

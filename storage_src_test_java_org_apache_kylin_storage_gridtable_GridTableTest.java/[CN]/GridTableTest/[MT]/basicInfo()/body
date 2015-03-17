@@ -1,0 +1,5 @@
+{
+  Builder builder=infoBuilder();
+  GTInfo info=builder.build();
+  return info;
+}

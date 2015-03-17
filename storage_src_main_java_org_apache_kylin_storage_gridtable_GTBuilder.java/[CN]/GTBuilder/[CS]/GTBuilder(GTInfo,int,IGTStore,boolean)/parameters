@@ -1,0 +1,4 @@
+GTInfo info
+int shard
+IGTStore store
+boolean append

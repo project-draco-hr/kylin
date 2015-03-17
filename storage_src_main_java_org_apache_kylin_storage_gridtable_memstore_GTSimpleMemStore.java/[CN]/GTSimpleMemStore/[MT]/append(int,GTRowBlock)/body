@@ -1,0 +1,7 @@
+{
+  if (rowBlockList.size() > 0) {
+    GTRowBlock last=rowBlockList.get(rowBlockList.size() - 1);
+    fillLast.copyAndReadyAppend(last);
+  }
+  return new Writer();
+}

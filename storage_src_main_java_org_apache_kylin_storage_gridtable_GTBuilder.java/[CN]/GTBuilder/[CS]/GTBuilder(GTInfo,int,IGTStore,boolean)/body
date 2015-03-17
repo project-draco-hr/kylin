@@ -1,0 +1,11 @@
+{
+  this.info=info;
+  block=GTRowBlock.allocate(info);
+  if (append) {
+    writer=store.append(shard,block);
+    if (block.isFull())     block.clearForNext();
+  }
+ else {
+    writer=store.rebuild(shard);
+  }
+}

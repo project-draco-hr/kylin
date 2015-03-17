@@ -1,0 +1,3 @@
+{
+  return MeasureAggregator.create(aggrFunction,info.colTypes[col].getName());
+}

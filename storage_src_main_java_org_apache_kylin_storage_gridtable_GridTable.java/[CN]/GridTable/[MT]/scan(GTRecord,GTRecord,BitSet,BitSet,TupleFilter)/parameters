@@ -1,5 +1,0 @@
-GTRecord pkStart
-GTRecord pkEndExclusive
-BitSet dimensions
-BitSet metrics
-TupleFilter filter

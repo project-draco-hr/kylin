@@ -27,6 +27,8 @@
       for (int c=selectedColBlocks.nextSetBit(0); c >= 0; c=selectedColBlocks.nextSetBit(c + 1)) {
         oneRecord.loadCellBlock(c,currentBlock.cellBlockBuffers[c]);
       }
+      scannedRowCount++;
+      scannedRowBlockCount++;
       return true;
     }
     private boolean fetchNextRowBlockEnabled(){
@@ -35,6 +37,7 @@
           if (storeScanner.hasNext()) {
             currentBlock=storeScanner.next();
             currentRow=0;
+            scannedRowBlockCount++;
           }
  else {
             return false;
@@ -47,6 +50,8 @@
         for (int c=selectedColBlocks.nextSetBit(0); c >= 0; c=selectedColBlocks.nextSetBit(c + 1)) {
           oneRecord.loadCellBlock(c,currentBlock.cellBlockBuffers[c]);
         }
+        currentRow++;
+        scannedRowCount++;
         return true;
       }
     }

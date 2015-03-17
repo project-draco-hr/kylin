@@ -1,0 +1,8 @@
+{
+  seqId++;
+  nRows=0;
+  primaryKeyBuffer.clear();
+  for (int i=0; i < cellBlockBuffers.length; i++) {
+    cellBlockBuffers[i].clear();
+  }
+}

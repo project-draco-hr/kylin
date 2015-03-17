@@ -1,0 +1,15 @@
+{
+  IGTScanner scanner=table.scan(null,null,null,null);
+  for (  GTRecord r : scanner) {
+    Object[] v=r.getValues();
+    assertTrue(((String)v[0]).startsWith("2015-"));
+    assertTrue(((String)v[2]).equals("Food"));
+    assertTrue(((LongWritable)v[3]).get() == 10);
+    assertTrue(((BigDecimal)v[4]).doubleValue() == 10.5);
+    System.out.println(r);
+  }
+  scanner.close();
+  System.out.println("Scanned Row Block Count: " + scanner.getScannedRowBlockCount());
+  System.out.println("Scanned Row Count: " + scanner.getScannedRowCount());
+  return scanner;
+}

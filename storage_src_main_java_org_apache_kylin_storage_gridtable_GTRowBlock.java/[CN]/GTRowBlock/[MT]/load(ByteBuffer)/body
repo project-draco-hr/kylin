@@ -2,10 +2,10 @@
   seqId=buf.getInt();
   nRows=buf.getInt();
   load(primaryKey,buf);
-  primaryKeyBuffer=ByteBuffer.wrap(primaryKey.array(),primaryKey.offset(),primaryKey.length());
+  primaryKeyBuffer=primaryKey.asBuffer();
   for (int i=0; i < info.colBlocks.length; i++) {
     ByteArray cb=cellBlocks[i];
     load(cb,buf);
-    cellBlockBuffers[i]=ByteBuffer.wrap(cb.array(),cb.offset(),cb.length());
+    cellBlockBuffers[i]=cb.asBuffer();
   }
 }

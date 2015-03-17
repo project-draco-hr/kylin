@@ -1,4 +1,11 @@
 {
+  colAll=new BitSet();
+  colAll.flip(0,nColumns);
+  for (int i=0; i < colBlocks.length; i++) {
+    for (int j=i + 1; j < colBlocks.length; j++) {
+      if (colBlocks[i].intersects(colBlocks[j]))       throw new IllegalStateException();
+    }
+  }
   BitSet merge=new BitSet();
   for (int i=0; i < colBlocks.length; i++) {
     merge.or(colBlocks[i]);

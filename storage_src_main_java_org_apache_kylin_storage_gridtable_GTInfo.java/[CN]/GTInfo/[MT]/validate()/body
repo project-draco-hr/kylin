@@ -1,6 +1,6 @@
 {
   if (codeSystem == null)   throw new IllegalStateException();
   if (primaryKey.cardinality() == 0)   throw new IllegalStateException();
-  validateColumns();
+  codeSystem.init(this);
   validateColumnBlocks();
 }

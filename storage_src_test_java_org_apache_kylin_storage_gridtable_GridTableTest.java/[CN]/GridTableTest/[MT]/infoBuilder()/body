@@ -1,0 +1,7 @@
+{
+  Builder builder=GTInfo.builder();
+  builder.setCodeSystem(new GTSampleCodeSystem());
+  builder.setColumns(DataType.getInstance("varchar"),DataType.getInstance("varchar"),DataType.getInstance("varchar"),DataType.getInstance("bigint"),DataType.getInstance("decimal"));
+  builder.setPrimaryKey(setOf(0));
+  return builder;
+}

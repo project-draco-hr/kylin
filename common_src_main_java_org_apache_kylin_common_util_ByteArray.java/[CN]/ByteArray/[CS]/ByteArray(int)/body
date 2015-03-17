@@ -1,0 +1,3 @@
+{
+  set(new byte[capacity],0,capacity);
+}
