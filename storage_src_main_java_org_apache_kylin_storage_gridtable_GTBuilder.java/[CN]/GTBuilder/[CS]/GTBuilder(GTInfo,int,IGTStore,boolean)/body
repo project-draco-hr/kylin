@@ -4,7 +4,9 @@
   blockWriter=block.getWriter();
   if (append) {
     storeWriter=store.append(shard,blockWriter);
-    if (block.isFull())     blockWriter.clearForNext();
+    if (block.isFull()) {
+      blockWriter.clearForNext();
+    }
   }
  else {
     storeWriter=store.rebuild(shard);

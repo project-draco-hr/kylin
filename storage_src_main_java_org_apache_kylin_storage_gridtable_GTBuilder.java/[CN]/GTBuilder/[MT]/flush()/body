@@ -2,5 +2,7 @@
   blockWriter.readyForFlush();
   storeWriter.write(block);
   writtenRowBlockCount++;
-  blockWriter.clearForNext();
+  if (block.isFull()) {
+    blockWriter.clearForNext();
+  }
 }
