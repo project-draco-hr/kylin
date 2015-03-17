@@ -22,6 +22,10 @@
     CubeSegment newSeg=getCubeManager().mergeSegments(cube,startDate,endDate);
     job=builder.mergeJob(newSeg);
   }
+ else   if (buildType == CubeBuildTypeEnum.REFRESH) {
+    CubeSegment refreshSeg=getCubeManager().refreshSegment(cube,startDate,endDate);
+    job=builder.buildJob(refreshSeg);
+  }
  else {
     throw new JobException("invalid build type:" + buildType);
   }
