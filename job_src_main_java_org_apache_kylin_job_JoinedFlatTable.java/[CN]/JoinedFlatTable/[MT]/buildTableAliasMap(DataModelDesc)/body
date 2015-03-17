@@ -1,0 +1,13 @@
+{
+  Map<String,String> tableAliasMap=new HashMap<String,String>();
+  tableAliasMap.put(dataModelDesc.getFactTable().toUpperCase(),FACT_TABLE_ALIAS);
+  int i=1;
+  for (  LookupDesc lookupDesc : dataModelDesc.getLookups()) {
+    JoinDesc join=lookupDesc.getJoin();
+    if (join != null) {
+      tableAliasMap.put(lookupDesc.getTable().toUpperCase(),LOOKUP_TABLE_ALAIS_PREFIX + i);
+      i++;
+    }
+  }
+  return tableAliasMap;
+}

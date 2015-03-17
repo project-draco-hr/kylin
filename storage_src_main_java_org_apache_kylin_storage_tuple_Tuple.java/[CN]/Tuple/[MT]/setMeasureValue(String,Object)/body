@@ -6,5 +6,8 @@
  else   if ("integer".equals(dataType) && !(fieldValue instanceof Integer)) {
     fieldValue=((Number)fieldValue).intValue();
   }
+ else   if ("float".equals(dataType) && fieldValue instanceof BigDecimal) {
+    fieldValue=((BigDecimal)fieldValue).floatValue();
+  }
   setFieldObjectValue(fieldName,fieldValue);
 }

@@ -2,7 +2,7 @@
   Set<String> dimTableCache=new HashSet<String>();
   DataModelDesc dataModelDesc=intermediateTableDesc.getDataModel();
   String factTableName=dataModelDesc.getFactTable();
-  String factTableAlias=intermediateTableDesc.getTableAlias(factTableName);
+  String factTableAlias=tableAliasMap.get(factTableName);
   sql.append("FROM " + factTableName + " as "+ factTableAlias+ " \n");
   for (  LookupDesc lookupDesc : dataModelDesc.getLookups()) {
     JoinDesc join=lookupDesc.getJoin();
@@ -15,13 +15,13 @@
         if (pk.length != fk.length) {
           throw new RuntimeException("Invalid join condition of lookup table:" + lookupDesc);
         }
-        sql.append(joinType + " JOIN " + dimTableName+ " as "+ intermediateTableDesc.getTableAlias(dimTableName)+ "\n");
+        sql.append(joinType + " JOIN " + dimTableName+ " as "+ tableAliasMap.get(dimTableName)+ "\n");
         sql.append("ON ");
         for (int i=0; i < pk.length; i++) {
           if (i > 0) {
             sql.append(" AND ");
           }
-          sql.append(factTableAlias + "." + fk[i].getName()+ " = "+ intermediateTableDesc.getTableAlias(dimTableName)+ "."+ pk[i].getName());
+          sql.append(factTableAlias + "." + fk[i].getName()+ " = "+ tableAliasMap.get(dimTableName)+ "."+ pk[i].getName());
         }
         sql.append("\n");
         dimTableCache.add(dimTableName);
