@@ -5,7 +5,7 @@
     return new EndpointTupleIterator(seg,sqlDigest.filter,sqlDigest.groupbyColumns,new ArrayList<>(sqlDigest.aggregations),context,conn);
   }
  catch (  Throwable e) {
-    e.printStackTrace();
+    logger.error("Error when connecting to II htable " + tableName,e);
     throw new IllegalStateException("Error when connecting to II htable " + tableName,e);
   }
 }
