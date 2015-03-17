@@ -1,0 +1,4 @@
+{
+  setValues(new ByteArray(info.maxRecordLength),values);
+  return this;
+}

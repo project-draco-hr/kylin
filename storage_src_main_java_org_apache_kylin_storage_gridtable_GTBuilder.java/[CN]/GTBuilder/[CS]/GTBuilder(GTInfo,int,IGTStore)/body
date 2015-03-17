@@ -1,5 +1,3 @@
 {
-  this.info=info;
-  this.writer=store.rebuild(shard);
-  this.block=GTRowBlock.allocate(info);
+  this(info,shard,store,false);
 }

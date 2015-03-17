@@ -1,3 +1,0 @@
-{
-  return new GTAggregateScanner(info,store,pkStart,pkEndExclusive,dimensions,metrics,filter);
-}

@@ -1,12 +1,7 @@
 {
-  if (block.isEmpty()) {
-    makePrimaryKey(r,block.primaryKey);
-  }
-  for (int i=0; i < info.colBlocks.length; i++) {
-    r.exportColumnBlock(i,block.cellBlockBuffers[i]);
-  }
-  block.nRows++;
-  if (block.nRows >= info.rowBlockSize || info.isRowBlockEnabled() == false) {
+  block.append(r);
+  writtenRowCount++;
+  if (block.isFull()) {
     flush();
   }
 }

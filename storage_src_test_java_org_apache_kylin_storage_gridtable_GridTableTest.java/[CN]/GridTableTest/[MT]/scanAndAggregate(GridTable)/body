@@ -1,0 +1,10 @@
+{
+  IGTScanner scanner=table.scanAndAggregate(null,null,setOf(0,2),setOf(3,4),new String[]{"count","sum"},null);
+  for (  GTRecord r : scanner) {
+    System.out.println(r);
+  }
+  scanner.close();
+  System.out.println("Scanned Row Block Count: " + scanner.getScannedRowBlockCount());
+  System.out.println("Scanned Row Count: " + scanner.getScannedRowCount());
+  return scanner;
+}

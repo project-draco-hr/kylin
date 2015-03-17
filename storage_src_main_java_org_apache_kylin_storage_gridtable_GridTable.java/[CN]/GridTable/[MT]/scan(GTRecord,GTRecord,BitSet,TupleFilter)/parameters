@@ -1,0 +1,4 @@
+GTRecord pkStart
+GTRecord pkEndExclusive
+BitSet columns
+TupleFilter filterPushDown

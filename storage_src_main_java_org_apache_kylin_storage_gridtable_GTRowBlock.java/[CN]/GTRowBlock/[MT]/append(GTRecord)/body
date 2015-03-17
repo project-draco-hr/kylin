@@ -1,0 +1,9 @@
+{
+  if (isEmpty()) {
+    r.exportColumns(info.primaryKey,primaryKey);
+  }
+  for (int i=0; i < info.colBlocks.length; i++) {
+    r.exportColumnBlock(i,cellBlockBuffers[i]);
+  }
+  nRows++;
+}

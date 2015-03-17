@@ -1,5 +1,6 @@
 {
+  block.flipCellBlockBuffers();
   writer.write(block);
-  block.clear();
-  block.seqId++;
+  writtenRowBlockCount++;
+  block.clearForNext();
 }

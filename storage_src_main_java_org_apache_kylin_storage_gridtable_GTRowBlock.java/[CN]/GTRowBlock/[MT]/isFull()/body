@@ -1,0 +1,4 @@
+{
+  if (info.isRowBlockEnabled())   return nRows >= info.rowBlockSize;
+ else   return nRows > 0;
+}

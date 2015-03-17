@@ -1,0 +1,4 @@
+{
+  info.rowBlockSize=rowBlockSize;
+  return this;
+}
