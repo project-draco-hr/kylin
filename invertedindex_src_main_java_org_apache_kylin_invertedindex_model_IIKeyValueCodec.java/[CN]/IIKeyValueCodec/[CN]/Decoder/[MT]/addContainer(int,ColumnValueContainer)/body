@@ -1,6 +1,0 @@
-{
-  if (containers == null) {
-    containers=new ColumnValueContainer[digest.getColumnCount()];
-  }
-  containers[col]=c;
-}
