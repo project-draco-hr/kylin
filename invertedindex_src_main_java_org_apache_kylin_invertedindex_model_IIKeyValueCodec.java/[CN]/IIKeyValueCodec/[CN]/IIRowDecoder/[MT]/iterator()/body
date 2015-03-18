@@ -43,7 +43,7 @@
         firstTime=false;
       }
       Preconditions.checkArgument(columns == incompleteDigest.getColumnCount(),"column count is " + columns + " should be equals to incompleteDigest.getColumnCount() "+ incompleteDigest.getColumnCount());
-      TableRecordInfoDigest digest=TableRecordInfo.createDigest(columns,incompleteDigest.getIsMetric(),incompleteDigest.getMetricDataTypes(),localDictionaries);
+      TableRecordInfoDigest digest=createDigest(columns,incompleteDigest.getIsMetric(),incompleteDigest.getMetricDataTypes(),localDictionaries);
       Slice slice=new Slice(digest,curShard,curTimestamp,valueContainers);
       slice.setLocalDictionaries(localDictionaries);
       return slice;
