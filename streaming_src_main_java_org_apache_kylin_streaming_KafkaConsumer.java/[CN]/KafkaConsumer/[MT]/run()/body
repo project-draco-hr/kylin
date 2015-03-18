@@ -22,15 +22,10 @@
         continue;
       }
       for (      MessageAndOffset messageAndOffset : fetchResponse.messageSet(topic,partitionId)) {
-        final ByteBuffer payload=messageAndOffset.message().payload();
-        byte[] bytes=new byte[payload.limit()];
-        payload.get(bytes);
-        logger.info("get message offset:" + messageAndOffset.offset());
-        logger.info(new String(bytes));
         try {
-          streamQueue.put(new Stream(messageAndOffset.offset(),bytes));
+          consume(messageAndOffset.offset(),messageAndOffset.message().payload());
         }
- catch (        InterruptedException e) {
+ catch (        Exception e) {
           logger.error("error put streamQueue",e);
           break;
         }
