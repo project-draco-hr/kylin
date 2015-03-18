@@ -2,7 +2,7 @@
   int climit=(null == limit) ? 30 : limit;
   int coffset=(null == offset) ? 0 : offset;
   List<CubeInstance> cubes;
-  cubes=listAllCubes(cubeName,projectName);
+  cubes=listAllCubes(cubeName,projectName,modelName);
   if (cubes.size() <= coffset) {
     return Collections.emptyList();
   }

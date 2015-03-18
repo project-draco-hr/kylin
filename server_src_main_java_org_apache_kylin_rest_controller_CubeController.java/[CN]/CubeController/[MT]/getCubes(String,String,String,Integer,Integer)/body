@@ -1,0 +1,3 @@
+{
+  return cubeService.getCubes(cubeName,projectName,modelName,(null == limit) ? 20 : limit,offset);
+}

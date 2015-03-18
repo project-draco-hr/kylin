@@ -1,4 +1,5 @@
 String cubeName
 String projectName
+String modelName
 Integer limit
 Integer offset
