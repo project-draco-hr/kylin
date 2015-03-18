@@ -2,8 +2,16 @@
   byte[] result=new byte[digest.getByteFormLen()];
   for (int i=0; i < coprocessorRowType.getColumnCount(); i++) {
     final TblColRef column=coprocessorRowType.columns[i];
-    final int length=localDictionaries.get(i).getValueBytesFromId(encodedRecord.getValueID(i),buffer,0);
-    rowKeyColumnIO.writeColumn(column,buffer,length,Dictionary.NULL,result,digest.offset(i));
+    if (digest.isMetrics(i)) {
+      final ImmutableBytesWritable bytes=new ImmutableBytesWritable();
+      encodedRecord.getValueBytes(i,bytes);
+      System.arraycopy(bytes.get(),bytes.getOffset(),buffer,0,bytes.getLength());
+      rowKeyColumnIO.writeColumn(column,buffer,bytes.getLength(),Dictionary.NULL,result,digest.offset(i));
+    }
+ else {
+      final int length=localDictionaries.get(i).getValueBytesFromId(encodedRecord.getValueID(i),buffer,0);
+      rowKeyColumnIO.writeColumn(column,buffer,length,Dictionary.NULL,result,digest.offset(i));
+    }
   }
   return result;
 }

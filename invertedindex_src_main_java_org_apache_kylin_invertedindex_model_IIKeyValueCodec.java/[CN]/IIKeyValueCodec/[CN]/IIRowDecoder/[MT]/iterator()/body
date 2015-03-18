@@ -25,25 +25,25 @@
           Preconditions.checkArgument(curTimestamp == lastTimestamp,"timestamp should be equals in one slice, curTimestamp is" + curTimestamp + " lastTimestamp is "+ lastTimestamp);
         }
         int curCol=BytesUtil.readUnsigned(key.get(),i,COLNO_LEN);
-        final Dictionary<?> dictionary=deserialize(row.getDictionary());
         if (incompleteDigest.isMetrics(curCol)) {
           CompressedValueContainer c=new CompressedValueContainer(incompleteDigest,curCol,0);
           c.fromBytes(row.getValue());
           valueContainers[curCol]=c;
         }
  else {
+          final Dictionary<?> dictionary=deserialize(row.getDictionary());
           CompressedValueContainer c=new CompressedValueContainer(dictionary.getSizeOfId(),dictionary.getMaxId() - dictionary.getMinId() + 1,0);
           c.fromBytes(row.getValue());
           valueContainers[curCol]=c;
+          localDictionaries.put(curCol,dictionary);
         }
-        localDictionaries.put(curCol,dictionary);
         columns++;
         lastShard=curShard;
         lastTimestamp=curTimestamp;
         firstTime=false;
       }
       Preconditions.checkArgument(columns == incompleteDigest.getColumnCount(),"column count is " + columns + " should be equals to incompleteDigest.getColumnCount() "+ incompleteDigest.getColumnCount());
-      TableRecordInfoDigest digest=TableRecordInfo.createDigest(columns,incompleteDigest.getIsMetric(),incompleteDigest.getMetricDataTypes(),localDictionaries);
+      TableRecordInfoDigest digest=createDigest(columns,incompleteDigest.getIsMetric(),incompleteDigest.getMetricDataTypes(),localDictionaries);
       Slice slice=new Slice(digest,curShard,curTimestamp,valueContainers);
       slice.setLocalDictionaries(localDictionaries);
       return slice;

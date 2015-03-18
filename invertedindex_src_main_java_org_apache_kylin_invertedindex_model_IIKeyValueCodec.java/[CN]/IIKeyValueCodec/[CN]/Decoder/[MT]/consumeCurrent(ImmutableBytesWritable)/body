@@ -1,5 +1,0 @@
-{
-  lastShard=curShard;
-  lastSliceTimestamp=curSliceTimestamp;
-  lastCol=curCol;
-}

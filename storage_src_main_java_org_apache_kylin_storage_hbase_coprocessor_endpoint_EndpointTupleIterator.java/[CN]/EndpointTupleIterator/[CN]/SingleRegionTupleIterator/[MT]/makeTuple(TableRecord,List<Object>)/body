@@ -9,7 +9,14 @@
     if (!tuple.hasColumn(column)) {
       continue;
     }
-    tuple.setDimensionValue(columnNames.get(i),columnValues.get(i));
+    final String columnName=columnNames.get(i);
+    if (tableRecordInfo.getDigest().isMetrics(i)) {
+      logger.info("column name:" + columnName + " column value:"+ tableRecord.getValueString(i));
+      tuple.setMeasureValue(columnName,tableRecord.getValueString(i));
+    }
+ else {
+      tuple.setDimensionValue(columnName,columnValues.get(i));
+    }
   }
   if (measureValues != null) {
     for (int i=0; i < measures.size(); ++i) {

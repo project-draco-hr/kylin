@@ -1,4 +1,0 @@
-{
-  this.digest=digest;
-  this.iterator=kvs.iterator();
-}
