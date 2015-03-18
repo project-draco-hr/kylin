@@ -1,10 +1,3 @@
 {
-  for (  String iiInstance : II_NAME) {
-    IIInstance ii=iiManager.getII(iiInstance);
-    if (ii.getStatus() != RealizationStatusEnum.READY) {
-      ii.setStatus(RealizationStatusEnum.READY);
-      iiManager.updateII(ii);
-    }
-  }
   backup();
 }
