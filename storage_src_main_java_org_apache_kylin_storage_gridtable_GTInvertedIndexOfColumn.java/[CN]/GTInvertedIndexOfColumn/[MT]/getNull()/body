@@ -1,0 +1,9 @@
+{
+  rwLock.readLock().lock();
+  try {
+    return nullIndex.clone();
+  }
+  finally {
+    rwLock.readLock().unlock();
+  }
+}

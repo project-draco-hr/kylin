@@ -1,0 +1,4 @@
+ByteArray from
+boolean fromInclusive
+ByteArray to
+boolean toInclusive

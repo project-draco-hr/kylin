@@ -1,0 +1,6 @@
+{
+  this.codeSystem=codeSystem;
+  this.rwLock=new ReentrantReadWriteLock();
+  this.rangeIndex=Maps.newTreeMap(codeSystem);
+  this.nullIndex=new ConciseSet();
+}

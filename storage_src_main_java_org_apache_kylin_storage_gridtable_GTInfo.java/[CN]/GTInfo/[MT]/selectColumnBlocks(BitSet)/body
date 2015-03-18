@@ -1,0 +1,11 @@
+{
+  if (columns == null)   columns=colAll;
+  BitSet result=new BitSet();
+  for (int i=0; i < colBlocks.length; i++) {
+    BitSet cb=colBlocks[i];
+    if (cb.intersects(columns)) {
+      result.set(i);
+    }
+  }
+  return result;
+}

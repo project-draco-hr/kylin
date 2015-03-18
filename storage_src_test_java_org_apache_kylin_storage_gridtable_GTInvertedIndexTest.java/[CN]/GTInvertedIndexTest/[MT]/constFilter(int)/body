@@ -1,0 +1,8 @@
+{
+  byte[] space=new byte[10];
+  ByteBuffer buf=ByteBuffer.wrap(space);
+  StringSerializer stringSerializer=new StringSerializer();
+  stringSerializer.serialize("" + id,buf);
+  ByteArray data=new ByteArray(buf.array(),buf.arrayOffset(),buf.position());
+  return new ConstantTupleFilter(data);
+}

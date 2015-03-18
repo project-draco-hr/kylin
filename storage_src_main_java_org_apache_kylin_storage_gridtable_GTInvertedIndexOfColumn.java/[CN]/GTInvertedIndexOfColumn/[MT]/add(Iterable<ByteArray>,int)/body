@@ -1,0 +1,23 @@
+{
+  rwLock.writeLock().lock();
+  try {
+    for (    ByteArray code : codes) {
+      if (codeSystem.isNull(code)) {
+        nullIndex.add(blockId);
+        continue;
+      }
+      ConciseSet set=rangeIndex.get(code);
+      if (set == null) {
+        set=new ConciseSet();
+        rangeIndex.put(code.copy(),set);
+      }
+      set.add(blockId);
+    }
+    if (blockId >= nBlocks) {
+      nBlocks=blockId + 1;
+    }
+  }
+  finally {
+    rwLock.writeLock().unlock();
+  }
+}

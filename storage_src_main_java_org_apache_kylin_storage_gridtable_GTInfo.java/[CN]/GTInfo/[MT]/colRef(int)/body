@@ -1,0 +1,9 @@
+{
+  if (colRefs == null) {
+    colRefs=new TblColRef[nColumns];
+  }
+  if (colRefs[i] == null) {
+    colRefs[i]=GTUtil.tblColRef(i,colTypes[i].toString());
+  }
+  return colRefs[i];
+}

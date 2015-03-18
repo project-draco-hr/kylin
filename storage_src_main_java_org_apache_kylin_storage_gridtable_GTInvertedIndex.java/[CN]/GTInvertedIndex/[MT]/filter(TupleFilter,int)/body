@@ -1,0 +1,9 @@
+{
+  int indexedBlocks=nIndexedBlocks;
+  Evaluator evaluator=new Evaluator(indexedBlocks);
+  ConciseSet r=evaluator.evaluate(filter);
+  for (int i=indexedBlocks; i < totalBlocks; i++) {
+    r.add(i);
+  }
+  return r;
+}
