@@ -5,7 +5,8 @@
   DataModelDesc createdDesc=null;
   String owner=SecurityContextHolder.getContext().getAuthentication().getName();
   createdDesc=getMetadataManager().createDataModelDesc(desc,projectName,owner);
+  accessService.init(createdDesc,AclPermission.ADMINISTRATION);
   ProjectInstance project=getProjectManager().getProject(projectName);
-  accessService.inherit(desc,project);
+  accessService.inherit(createdDesc,project);
   return createdDesc;
 }

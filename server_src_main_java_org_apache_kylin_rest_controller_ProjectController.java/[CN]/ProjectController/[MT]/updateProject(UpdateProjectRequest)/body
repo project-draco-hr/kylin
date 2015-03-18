@@ -4,7 +4,8 @@
   }
   ProjectInstance updatedProj=null;
   try {
-    updatedProj=projectService.updateProject(projectRequest);
+    ProjectInstance currentProject=projectService.getProjectManager().getProject(projectRequest.getFormerProjectName());
+    updatedProj=projectService.updateProject(projectRequest,currentProject);
   }
  catch (  Exception e) {
     logger.error("Failed to deal with the request.",e);

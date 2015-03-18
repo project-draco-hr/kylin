@@ -1,6 +1,7 @@
 {
   try {
-    projectService.deleteProject(projectName);
+    ProjectInstance project=projectService.getProjectManager().getProject(projectName);
+    projectService.deleteProject(projectName,project);
   }
  catch (  Exception e) {
     logger.error(e.getLocalizedMessage(),e);

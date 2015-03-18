@@ -1,1 +1,2 @@
 UpdateProjectRequest projectRequest
+ProjectInstance currentProject
