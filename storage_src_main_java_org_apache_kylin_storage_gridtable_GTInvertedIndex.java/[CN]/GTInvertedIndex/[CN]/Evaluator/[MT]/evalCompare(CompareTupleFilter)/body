@@ -1,0 +1,28 @@
+{
+  int col=col(filter);
+  if (index[col] == null)   return all();
+switch (filter.getOperator()) {
+case ISNULL:
+    return index[col].getNull();
+case ISNOTNULL:
+  return all();
+case EQ:
+return index[col].getEquals((ByteArray)filter.getFirstValue());
+case NEQ:
+return all();
+case IN:
+return index[col].getIn((Iterable<ByteArray>)filter.getValues());
+case NOTIN:
+return all();
+case LT:
+return index[col].getRange(null,false,(ByteArray)filter.getFirstValue(),false);
+case LTE:
+return index[col].getRange(null,false,(ByteArray)filter.getFirstValue(),true);
+case GT:
+return index[col].getRange((ByteArray)filter.getFirstValue(),false,null,false);
+case GTE:
+return index[col].getRange((ByteArray)filter.getFirstValue(),true,null,false);
+default :
+throw new IllegalStateException("Unsupported operator " + filter.getOperator());
+}
+}

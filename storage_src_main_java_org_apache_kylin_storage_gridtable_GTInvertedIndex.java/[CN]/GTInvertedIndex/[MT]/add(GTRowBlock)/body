@@ -1,0 +1,18 @@
+{
+  @SuppressWarnings("unchecked") Set<ByteArray>[] distinctValues=new Set[info.nColumns];
+  for (int i=colPreferIndex.nextSetBit(0); i >= 0; i=colPreferIndex.nextSetBit(i + 1)) {
+    distinctValues[i]=new HashSet<ByteArray>();
+  }
+  GTRowBlock.Reader reader=block.getReader(colBlocks);
+  GTRecord record=new GTRecord(info);
+  while (reader.hasNext()) {
+    reader.fetchNext(record);
+    for (int i=colPreferIndex.nextSetBit(0); i >= 0; i=colPreferIndex.nextSetBit(i + 1)) {
+      distinctValues[i].add(record.get(i));
+    }
+  }
+  for (int i=colPreferIndex.nextSetBit(0); i >= 0; i=colPreferIndex.nextSetBit(i + 1)) {
+    index[i].add(distinctValues[i],block.sequenceId());
+  }
+  nIndexedBlocks=Math.max(nIndexedBlocks,block.seqId + 1);
+}

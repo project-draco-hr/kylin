@@ -1,0 +1,11 @@
+{
+  rwLock.readLock().lock();
+  try {
+    ConciseSet set=rangeIndex.get(code);
+    if (set == null)     return new ConciseSet();
+ else     return set.clone();
+  }
+  finally {
+    rwLock.readLock().unlock();
+  }
+}

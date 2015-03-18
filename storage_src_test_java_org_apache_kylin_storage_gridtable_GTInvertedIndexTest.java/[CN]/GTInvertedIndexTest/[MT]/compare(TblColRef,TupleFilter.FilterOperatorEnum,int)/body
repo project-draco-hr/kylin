@@ -1,0 +1,8 @@
+{
+  CompareTupleFilter filter=new CompareTupleFilter(op);
+  filter.addChild(columnFilter(col));
+  for (  int i : ids) {
+    filter.addChild(constFilter(i));
+  }
+  return filter;
+}

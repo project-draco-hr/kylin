@@ -1,0 +1,5 @@
+{
+  ByteArray copy=new ByteArray(length);
+  copy.copyFrom(this);
+  return copy;
+}

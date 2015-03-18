@@ -1,0 +1,14 @@
+{
+  rwLock.readLock().lock();
+  try {
+    ConciseSet r=new ConciseSet();
+    for (    ByteArray code : codes) {
+      ConciseSet set=rangeIndex.get(code);
+      if (set != null)       r.addAll(set);
+    }
+    return r;
+  }
+  finally {
+    rwLock.readLock().unlock();
+  }
+}

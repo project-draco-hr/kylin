@@ -1,0 +1,28 @@
+{
+  rwLock.readLock().lock();
+  try {
+    ConciseSet r=new ConciseSet();
+    if (from == null && to == null) {
+      r.add(nBlocks);
+      r.complement();
+      return r;
+    }
+    NavigableMap<ByteArray,ConciseSet> subMap;
+    if (from == null) {
+      subMap=rangeIndex.headMap(to,toInclusive);
+    }
+ else     if (to == null) {
+      subMap=rangeIndex.tailMap(from,fromInclusive);
+    }
+ else {
+      subMap=rangeIndex.subMap(from,fromInclusive,to,toInclusive);
+    }
+    for (    ConciseSet set : subMap.values()) {
+      r.addAll(set);
+    }
+    return r;
+  }
+  finally {
+    rwLock.readLock().unlock();
+  }
+}

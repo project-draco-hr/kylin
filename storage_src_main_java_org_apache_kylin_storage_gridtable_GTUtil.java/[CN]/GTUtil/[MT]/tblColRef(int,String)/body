@@ -1,0 +1,9 @@
+{
+  ColumnDesc desc=new ColumnDesc();
+  String id="" + (col + 1);
+  desc.setId(id);
+  desc.setName(id);
+  desc.setDatatype(datatype);
+  desc.init(MOCKUP_TABLE);
+  return new TblColRef(desc);
+}
