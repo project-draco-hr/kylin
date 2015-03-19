@@ -1,12 +1,9 @@
 {
   if (dimensions.intersects(metrics))   throw new IllegalStateException();
   if (metrics.cardinality() != metricsAggrFuncs.length)   throw new IllegalStateException();
-  this.info=info;
+  this.info=rawScanner.getInfo();
   this.dimensions=dimensions;
   this.metrics=metrics;
   this.metricsAggrFuncs=metricsAggrFuncs;
-  BitSet columns=new BitSet();
-  columns.or(dimensions);
-  columns.or(metrics);
-  this.rawScanner=new GTRawScanner(info,store,pkStart,pkEndExclusive,columns,filterPushDown);
+  this.rawScanner=rawScanner;
 }

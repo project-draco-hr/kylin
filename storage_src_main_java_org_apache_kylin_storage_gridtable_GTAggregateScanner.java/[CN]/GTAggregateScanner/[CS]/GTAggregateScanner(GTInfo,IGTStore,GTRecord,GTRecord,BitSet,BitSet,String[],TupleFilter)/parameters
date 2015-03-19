@@ -1,8 +1,0 @@
-GTInfo info
-IGTStore store
-GTRecord pkStart
-GTRecord pkEndExclusive
-BitSet dimensions
-BitSet metrics
-String[] metricsAggrFuncs
-TupleFilter filterPushDown

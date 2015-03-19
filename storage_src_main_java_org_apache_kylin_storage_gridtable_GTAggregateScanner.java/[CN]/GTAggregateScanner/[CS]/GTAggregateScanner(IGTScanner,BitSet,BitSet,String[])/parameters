@@ -1,0 +1,4 @@
+IGTScanner rawScanner
+BitSet dimensions
+BitSet metrics
+String[] metricsAggrFuncs
