@@ -1,0 +1,6 @@
+{
+  GTInfo info=newGTInfo(cuboidID);
+  GTSimpleMemStore store=new GTSimpleMemStore(info);
+  GridTable gridTable=new GridTable(info,store);
+  return gridTable;
+}

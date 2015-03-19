@@ -1,0 +1,22 @@
+{
+  Object[] values=new Object[desc.getMeasures().size()];
+  MeasureDesc measureDesc=null;
+  for (int i=0, n=desc.getMeasures().size(); i < n; i++) {
+    measureDesc=desc.getMeasures().get(i);
+    Object value=null;
+    int[] flatTableIdx=intermediateTableDesc.getMeasureColumnIndexes()[i];
+    if (flatTableIdx == null) {
+      value=measureCodec.getSerializer(i).valueOf(measureDesc.getFunction().getParameter().getValue());
+    }
+ else     if (flatTableIdx.length == 1) {
+      value=measureCodec.getSerializer(i).valueOf(Bytes.toBytes(row.get(flatTableIdx[0])));
+    }
+ else {
+      for (      int x : flatTableIdx) {
+        value=value + row.get(x);
+      }
+    }
+    values[i]=value;
+  }
+  return values;
+}

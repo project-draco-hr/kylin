@@ -1,0 +1,8 @@
+{
+  int keySize=intermediateTableDesc.getRowKeyColumnIndexes().length;
+  String[] key=new String[keySize];
+  for (int i=0; i < keySize; i++) {
+    key[i]=row.get(intermediateTableDesc.getRowKeyColumnIndexes()[i]);
+  }
+  return key;
+}

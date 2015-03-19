@@ -1,0 +1,14 @@
+{
+  Cuboid cuboid=Cuboid.findById(desc,cuboidID);
+  List<DataType> dataTypes=new ArrayList<DataType>(cuboid.getColumns().size() + this.measureNumber);
+  for (  TblColRef col : cuboid.getColumns()) {
+    dataTypes.add(col.getType());
+  }
+  for (  MeasureDesc measure : this.desc.getMeasures()) {
+    dataTypes.add(measure.getFunction().getReturnDataType());
+  }
+  GTInfo.Builder builder=GTInfo.builder();
+  builder.setCodeSystem(new GTSampleCodeSystem());
+  builder.setColumns(dataTypes.toArray(new DataType[dataTypes.size()]));
+  return builder;
+}

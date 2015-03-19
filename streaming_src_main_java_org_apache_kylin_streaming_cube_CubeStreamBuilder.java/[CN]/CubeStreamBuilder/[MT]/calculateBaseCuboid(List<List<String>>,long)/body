@@ -1,0 +1,23 @@
+{
+  GridTable gridTable=newGridTableByCuboidID(baseCuboidId);
+  GTRecord r=new GTRecord(gridTable.getInfo());
+  GTBuilder builder=gridTable.rebuild();
+  for (  List<String> row : table) {
+    String[] dimensions=buildKey(row);
+    Object[] metricsValues=buildValue(row);
+    Object[] recordValues=new Object[dimensions.length + metricsValues.length];
+    System.arraycopy(dimensions,0,recordValues,0,dimensions.length);
+    System.arraycopy(metricsValues,0,recordValues,dimensions.length,metricsValues.length);
+    builder.write(r.setValues(recordValues));
+  }
+  builder.close();
+  Pair<BitSet,BitSet> dimensionMetricsBitSet=getDimensionAndMetricColumBitSet(baseCuboidId);
+  IGTScanner scanner=gridTable.scanAndAggregate(null,null,dimensionMetricsBitSet.getFirst(),dimensionMetricsBitSet.getSecond(),metricsAggrFuncs,null);
+  GridTable baseCuboidGridTable=newGridTableByCuboidID(baseCuboidId);
+  builder=baseCuboidGridTable.rebuild();
+  for (  GTRecord record : scanner) {
+    builder.write(record);
+  }
+  builder.close();
+  return baseCuboidGridTable;
+}

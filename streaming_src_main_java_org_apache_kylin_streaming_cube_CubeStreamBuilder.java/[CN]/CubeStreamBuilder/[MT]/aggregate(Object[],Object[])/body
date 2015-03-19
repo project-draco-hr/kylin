@@ -1,0 +1,6 @@
+{
+  aggs.reset();
+  aggs.aggregate(existing);
+  aggs.aggregate(newRow);
+  aggs.collectStates(existing);
+}
