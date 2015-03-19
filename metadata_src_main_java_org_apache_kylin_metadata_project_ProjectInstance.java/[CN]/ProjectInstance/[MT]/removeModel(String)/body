@@ -1,5 +1,4 @@
 {
-  modelName=modelName.toUpperCase();
   if (this.getModels() != null) {
     this.getModels().remove(modelName);
   }
