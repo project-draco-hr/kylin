@@ -1,0 +1,6 @@
+{
+  IGTScanner scanner=gridTable.scan(null,null,null,null);
+  for (  GTRecord record : scanner) {
+    logger.debug(record.toString());
+  }
+}

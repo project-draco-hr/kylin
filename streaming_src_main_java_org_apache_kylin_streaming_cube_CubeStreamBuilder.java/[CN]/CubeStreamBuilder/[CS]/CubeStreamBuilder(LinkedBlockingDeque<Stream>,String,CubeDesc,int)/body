@@ -1,5 +1,5 @@
 {
-  super(queue,2000);
+  super(queue,10000);
   this.desc=desc;
   this.partitionId=partitionId;
   this.cuboidScheduler=new CuboidScheduler(desc);
