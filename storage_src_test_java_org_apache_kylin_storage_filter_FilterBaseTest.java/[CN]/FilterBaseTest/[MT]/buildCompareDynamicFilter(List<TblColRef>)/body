@@ -1,0 +1,7 @@
+{
+  CompareTupleFilter compareFilter=new CompareTupleFilter(FilterOperatorEnum.EQ);
+  compareFilter.addChild(new ColumnTupleFilter(groups.get(0)));
+  compareFilter.addChild(new DynamicTupleFilter("?0"));
+  compareFilter.bindVariable("?0","abc");
+  return compareFilter;
+}

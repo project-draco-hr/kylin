@@ -10,8 +10,10 @@
     long partitionColumnEndDate=0;
     List<Pair<byte[],byte[]>> newFuzzyKeys=new ArrayList<Pair<byte[],byte[]>>(mergeSize);
     List<Collection<ColumnValueRange>> newFlatOrAndFilter=Lists.newLinkedList();
+    boolean hasNonFuzzyRange=false;
     for (int k=from; k <= to; k++) {
       HBaseKeyRange nextRange=keyRanges.get(k);
+      hasNonFuzzyRange=hasNonFuzzyRange || nextRange.getFuzzyKeys().isEmpty();
       newFuzzyKeys.addAll(nextRange.getFuzzyKeys());
       newFlatOrAndFilter.addAll(nextRange.getFlatOrAndFilter());
       if (Bytes.compareTo(stopKey,nextRange.getStopKey()) < 0) {
@@ -23,6 +25,9 @@
       if (nextRange.getPartitionColumnEndDate() < Long.MAX_VALUE && nextRange.getPartitionColumnEndDate() > partitionColumnEndDate) {
         partitionColumnEndDate=nextRange.getPartitionColumnEndDate();
       }
+    }
+    if (hasNonFuzzyRange) {
+      newFuzzyKeys.clear();
     }
     partitionColumnStartDate=(partitionColumnStartDate == Long.MAX_VALUE) ? 0 : partitionColumnStartDate;
     partitionColumnEndDate=(partitionColumnEndDate == 0) ? Long.MAX_VALUE : partitionColumnEndDate;

@@ -9,8 +9,8 @@
 );
   final Map<Integer,Dictionary<?>> dictionaryMap=buildDictionary(table,desc);
   TableRecordInfo tableRecordInfo=new TableRecordInfo(desc,dictionaryMap);
-  SliceBuilder sliceBuilder=new SliceBuilder(tableRecordInfo,(short)partitionId);
   final Slice slice=buildSlice(table,sliceBuilder,tableRecordInfo,dictionaryMap);
+  logger.info("slice info, shard:" + slice.getShard() + " timestamp:"+ slice.getTimestamp()+ " record count:"+ slice.getRecordCount());
   loadToHBase(hTable,slice,new IIKeyValueCodec(tableRecordInfo.getDigest()));
   submitOffset();
   stopwatch.stop();

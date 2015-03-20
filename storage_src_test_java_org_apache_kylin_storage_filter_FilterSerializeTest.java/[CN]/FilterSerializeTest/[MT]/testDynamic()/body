@@ -1,0 +1,9 @@
+{
+  final CompareTupleFilter compareDynamicFilter=buildCompareDynamicFilter(buildGroups());
+  byte[] bytes=TupleFilterSerializer.serialize(compareDynamicFilter,CS);
+  TupleFilter newFilter=TupleFilterSerializer.deserialize(bytes,CS);
+  bytes=TupleFilterSerializer.serialize(newFilter,CS);
+  TupleFilter newFilter2=TupleFilterSerializer.deserialize(bytes,CS);
+  compareFilter(compareDynamicFilter,newFilter);
+  compareFilter(compareDynamicFilter,newFilter2);
+}

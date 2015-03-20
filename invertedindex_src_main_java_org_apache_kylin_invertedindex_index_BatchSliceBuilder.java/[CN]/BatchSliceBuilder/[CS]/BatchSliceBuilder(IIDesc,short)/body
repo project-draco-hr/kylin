@@ -1,0 +1,7 @@
+{
+  this.desc=desc;
+  this.nColumns=desc.listAllColumns().size();
+  this.nRecordsCap=Math.max(1,desc.getSliceSize());
+  this.shard=shard;
+  this.sliceTimestamp=Long.MIN_VALUE;
+}
