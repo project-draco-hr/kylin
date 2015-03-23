@@ -1,0 +1,5 @@
+{
+  byte[] space=new byte[length];
+  System.arraycopy(array,offset,space,0,length);
+  return new ByteArray(space,0,length);
+}

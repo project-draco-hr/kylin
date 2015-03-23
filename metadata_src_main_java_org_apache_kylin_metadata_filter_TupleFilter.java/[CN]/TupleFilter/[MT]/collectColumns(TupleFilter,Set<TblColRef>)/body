@@ -1,10 +1,10 @@
 {
-  if (filter == null)   return;
+  if (filter == null || collector == null)   return;
   if (filter instanceof ColumnTupleFilter) {
     ColumnTupleFilter columnTupleFilter=(ColumnTupleFilter)filter;
-    container.add(columnTupleFilter.getColumn());
+    collector.add(columnTupleFilter.getColumn());
   }
   for (  TupleFilter child : filter.getChildren()) {
-    collectColumns(child,container);
+    collectColumns(child,collector);
   }
 }
