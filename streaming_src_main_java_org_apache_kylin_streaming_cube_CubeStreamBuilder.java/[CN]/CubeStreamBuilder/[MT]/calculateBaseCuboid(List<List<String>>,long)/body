@@ -18,12 +18,5 @@
   }
   builder.close();
   Pair<BitSet,BitSet> dimensionMetricsBitSet=getDimensionAndMetricColumBitSet(baseCuboidId);
-  IGTScanner scanner=gridTable.scanAndAggregate(null,null,dimensionMetricsBitSet.getFirst(),dimensionMetricsBitSet.getSecond(),metricsAggrFuncs,null);
-  GridTable baseCuboidGridTable=newGridTableByCuboidID(baseCuboidId);
-  builder=baseCuboidGridTable.rebuild();
-  for (  GTRecord record : scanner) {
-    builder.write(record);
-  }
-  builder.close();
-  return baseCuboidGridTable;
+  return scanAndAggregateGridTable(gridTable,baseCuboidId,dimensionMetricsBitSet.getFirst(),dimensionMetricsBitSet.getSecond());
 }
