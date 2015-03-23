@@ -5,7 +5,11 @@
     measureDesc=desc.getMeasures().get(i);
     Object value=null;
     int[] flatTableIdx=intermediateTableDesc.getMeasureColumnIndexes()[i];
-    if (flatTableIdx == null) {
+    FunctionDesc function=desc.getMeasures().get(i).getFunction();
+    if (function.isCount() || function.isHolisticCountDistinct()) {
+      value=ONE;
+    }
+ else     if (flatTableIdx == null) {
       value=measureCodec.getSerializer(i).valueOf(measureDesc.getFunction().getParameter().getValue());
     }
  else     if (flatTableIdx.length == 1) {
@@ -13,8 +17,10 @@
     }
  else {
       for (      int x : flatTableIdx) {
-        value=value + row.get(x);
+        if (value == null)         value=row.get(x);
+ else         value=value + "," + row.get(x);
       }
+      value=measureCodec.getSerializer(i).valueOf(Bytes.toBytes((String)value));
     }
     values[i]=value;
   }

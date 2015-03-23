@@ -1,9 +1,15 @@
 {
+  logger.info("Calculating base cuboid " + baseCuboidId + ", source records number "+ table.size());
+  Cuboid baseCuboid=Cuboid.findById(this.desc,baseCuboidId);
+  DataTypeSerializer[] serializers=new DataTypeSerializer[baseCuboid.getColumns().size()];
+  for (int i=0; i < baseCuboid.getColumns().size(); i++) {
+    serializers[i]=DataTypeSerializer.create(baseCuboid.getColumns().get(i).getType());
+  }
   GridTable gridTable=newGridTableByCuboidID(baseCuboidId);
   GTRecord r=new GTRecord(gridTable.getInfo());
   GTBuilder builder=gridTable.rebuild();
   for (  List<String> row : table) {
-    String[] dimensions=buildKey(row);
+    Object[] dimensions=buildKey(row,serializers);
     Object[] metricsValues=buildValue(row);
     Object[] recordValues=new Object[dimensions.length + metricsValues.length];
     System.arraycopy(dimensions,0,recordValues,0,dimensions.length);

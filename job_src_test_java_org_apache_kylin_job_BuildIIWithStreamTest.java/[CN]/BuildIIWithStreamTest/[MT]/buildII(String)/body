@@ -22,9 +22,24 @@
   ToolRunner.run(new IICreateHTableJob(),args);
   ExecutorService executorService=Executors.newSingleThreadExecutor();
   final IIStreamBuilder streamBuilder=new IIStreamBuilder(queue,segment.getStorageLocationIdentifier(),desc,0);
+  int count=0;
+  List<String[]> rawData=Lists.newArrayList();
   while (reader.next()) {
-    queue.put(parse(reader.getRow()));
+    desc.getTimestampColumn();
+    rawData.add(reader.getRow());
+    count++;
   }
+  final int timestampColumn=desc.getTimestampColumn();
+  Collections.sort(rawData,new Comparator<String[]>(){
+    @Override public int compare(    String[] o1,    String[] o2){
+      return o1[timestampColumn].compareTo(o2[timestampColumn]);
+    }
+  }
+);
+  for (  String[] row : rawData) {
+    queue.put(parse(row));
+  }
+  logger.info("total record count:" + count + " htable:"+ segment.getStorageLocationIdentifier());
   queue.put(new Stream(-1,null));
   final Future<?> future=executorService.submit(streamBuilder);
   try {

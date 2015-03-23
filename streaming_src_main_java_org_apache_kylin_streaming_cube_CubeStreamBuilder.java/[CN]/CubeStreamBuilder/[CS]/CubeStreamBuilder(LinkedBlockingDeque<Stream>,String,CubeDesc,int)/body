@@ -1,5 +1,5 @@
 {
-  super(queue,2000);
+  super(queue,10000);
   this.desc=desc;
   this.partitionId=partitionId;
   this.cuboidScheduler=new CuboidScheduler(desc);
@@ -7,12 +7,21 @@
   List<CubeInstance> cubes=cubeManager.getCubesByDesc(this.desc.getName());
   cube=cubes.get(0);
   measureCodec=new MeasureCodec(desc.getMeasures());
-  aggs=new MeasureAggregators(desc.getMeasures());
   measureNumber=desc.getMeasures().size();
+  holisticCountIndexs=Lists.newArrayList();
+  Map<String,Integer> measureIndexMap=new HashMap<String,Integer>();
   List<String> metricsAggrFuncsList=Lists.newArrayList();
   for (int i=0, n=desc.getMeasures().size(); i < n; i++) {
     MeasureDesc measureDesc=desc.getMeasures().get(i);
     metricsAggrFuncsList.add(measureDesc.getFunction().getExpression());
+    measureIndexMap.put(desc.getMeasures().get(i).getName(),i);
   }
   metricsAggrFuncs=metricsAggrFuncsList.toArray(new String[metricsAggrFuncsList.size()]);
+  for (int i=0; i < measureNumber; i++) {
+    String depMsrRef=desc.getMeasures().get(i).getDependentMeasureRef();
+    if (depMsrRef != null) {
+      int index=measureIndexMap.get(depMsrRef);
+      holisticCountIndexs.add(new Pair(i,index));
+    }
+  }
 }

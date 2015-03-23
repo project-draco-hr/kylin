@@ -1,7 +1,6 @@
 {
   super(queue,desc.getSliceSize());
   this.desc=desc;
-  this.partitionId=partitionId;
   try {
     this.hTable=HConnectionManager.createConnection(HBaseConfiguration.create()).getTable(hTableName);
   }
@@ -9,4 +8,5 @@
     logger.error("cannot open htable name:" + hTableName,e);
     throw new RuntimeException("cannot open htable name:" + hTableName,e);
   }
+  sliceBuilder=new BatchSliceBuilder(desc,(short)partitionId);
 }
