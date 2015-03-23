@@ -24,7 +24,7 @@
   allNeededColumns.or(childDimensions);
   allNeededColumns.or(measureColumns);
   for (  GTRecord record : scanner) {
-    buildNewGTRecord(record,r,allNeededColumns);
+    updateMeasureRef(record,r,allNeededColumns);
     builder.write(r);
   }
   builder.close();
