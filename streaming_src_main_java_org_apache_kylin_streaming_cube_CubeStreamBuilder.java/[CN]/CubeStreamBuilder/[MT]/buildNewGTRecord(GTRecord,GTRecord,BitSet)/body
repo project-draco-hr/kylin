@@ -1,5 +1,0 @@
-{
-  for (int i=dimensions.nextSetBit(0), index=0; i >= 0; i=dimensions.nextSetBit(i + 1), index++) {
-    newRecord.set(index,record.get(i));
-  }
-}
