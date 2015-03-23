@@ -1,4 +1,4 @@
 LinkedBlockingDeque<Stream> queue
 String hTableName
-CubeDesc desc
+CubeInstance cube
 int partitionId

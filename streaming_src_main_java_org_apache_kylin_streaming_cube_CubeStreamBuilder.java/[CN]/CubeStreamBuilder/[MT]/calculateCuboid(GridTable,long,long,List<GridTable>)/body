@@ -13,4 +13,5 @@
   }
   result.add(thisCuboid);
   logger.info("Cuboid " + cuboidId + " is built.");
+  outputGT(thisCuboid);
 }
