@@ -3,7 +3,7 @@
     @Override public void run(){
       final String[] nodes=KylinConfig.getInstanceFromEnv().getRestServers();
       if (nodes == null || nodes.length < 1) {
-        logger.info("There is no available rest server; check the 'kylin.rest.servers' config");
+        logger.warn("There is no available rest server; check the 'kylin.rest.servers' config");
         return;
       }
       final List<RestClient> restClients=Lists.newArrayList();
@@ -13,7 +13,7 @@
       final ExecutorService wipingCachePool=Executors.newFixedThreadPool(restClients.size());
       while (true) {
         try {
-          final BroadcastEvent broadcastEvent=broadcaseEvents.takeFirst();
+          final BroadcastEvent broadcastEvent=broadcastEvents.takeFirst();
           logger.info("new broadcast event:" + broadcastEvent);
           for (          final RestClient restClient : restClients) {
             wipingCachePool.execute(new Runnable(){

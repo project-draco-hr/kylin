@@ -4,4 +4,5 @@
     realizationEntries=new ArrayList<RealizationEntry>();
   }
   if (tables == null)   tables=new TreeSet<String>();
+  if (StringUtils.isBlank(this.name))   throw new IllegalStateException("Project name must not be blank");
 }

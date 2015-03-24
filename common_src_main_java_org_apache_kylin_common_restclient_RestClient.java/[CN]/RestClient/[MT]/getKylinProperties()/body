@@ -1,9 +1,9 @@
 {
   String url=baseUrl + "/admin/config";
-  HttpMethod get=new GetMethod(url);
+  HttpMethod request=new GetMethod(url);
   try {
-    int code=client.executeMethod(get);
-    String msg=Bytes.toString(get.getResponseBody());
+    int code=client.executeMethod(request);
+    String msg=Bytes.toString(request.getResponseBody());
     JSONObject obj=new JSONObject(msg);
     msg=obj.getString("config");
     if (code != 200)     throw new IOException("Invalid response " + code + " with cache wipe url "+ url+ "\n"+ msg);
@@ -13,6 +13,6 @@
     throw new IOException("Error when parsing json response from REST");
   }
  finally {
-    get.releaseConnection();
+    request.releaseConnection();
   }
 }
