@@ -1,9 +1,10 @@
 {
-  super(queue,10000);
+  super(queue,sliceSize);
   this.cube=cube;
   this.desc=cube.getDescriptor();
-  this.partitionId=partitionId;
   this.cuboidScheduler=new CuboidScheduler(desc);
+  this.dictionaryMap=dictionaryMap;
+  this.generatedCuboids=generatedCuboids;
   measureCodec=new MeasureCodec(desc.getMeasures());
   measureNumber=desc.getMeasures().size();
   dependentMeasures=Maps.newHashMap();

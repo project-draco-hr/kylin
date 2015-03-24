@@ -1,0 +1,18 @@
+{
+  super.publishConfiguration(context.getConfiguration());
+  Configuration conf=context.getConfiguration();
+  KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata(conf);
+  cubeName=conf.get(BatchConstants.CFG_CUBE_NAME);
+  cube=CubeManager.getInstance(config).getCube(cubeName);
+  cubeDesc=cube.getDescriptor();
+  dictionaryMap=Maps.newHashMap();
+  cuboidsMap=Maps.newHashMap();
+  streamBuilder=new CubeStreamBuilder(queue,Integer.MAX_VALUE,cube,dictionaryMap,cuboidsMap);
+  ExecutorService executorService=Executors.newSingleThreadExecutor();
+  future=executorService.submit(streamBuilder);
+  schema=HCatInputFormat.getTableSchema(context.getConfiguration());
+  long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
+  baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
+  mapperTaskId=context.getTaskAttemptID().getTaskID().getId();
+  nReducders=context.getNumReduceTasks();
+}

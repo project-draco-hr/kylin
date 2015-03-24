@@ -7,19 +7,21 @@
       valueMap.put(dimColumns.get(i),cell);
     }
   }
-  Map<TblColRef,Dictionary<?>> result=Maps.newHashMap();
   for (  DimensionDesc dim : desc.getDimensions()) {
     for (    TblColRef col : dim.getColumnRefs()) {
       if (desc.getRowkey().isUseDictionary(col)) {
-        logger.info("Building dictionary for " + col);
-        result.put(col,DictionaryGenerator.buildDictionaryFromValueList(col.getType(),Collections2.transform(valueMap.get(col),new Function<String,byte[]>(){
+        Dictionary dict=DictionaryGenerator.buildDictionaryFromValueList(col.getType(),Collections2.transform(valueMap.get(col),new Function<String,byte[]>(){
           @Nullable @Override public byte[] apply(          String input){
             return input.getBytes();
           }
         }
-)));
+));
+        logger.info("Building dictionary for " + col);
+        DictionaryInfo dictInfo=new DictionaryInfo(col.getTable(),col.getName(),0,col.getDatatype(),null,"");
+        dictInfo.setDictionaryObject(dict);
+        dictInfo.setDictionaryClass(dict.getClass().getName());
+        dictionaryMap.put(col,dictInfo);
       }
     }
   }
-  return result;
 }

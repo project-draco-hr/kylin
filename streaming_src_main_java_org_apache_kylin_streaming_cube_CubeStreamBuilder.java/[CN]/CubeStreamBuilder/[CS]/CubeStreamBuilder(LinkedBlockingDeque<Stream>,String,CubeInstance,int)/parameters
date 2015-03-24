@@ -1,4 +1,0 @@
-LinkedBlockingDeque<Stream> queue
-String hTableName
-CubeInstance cube
-int partitionId

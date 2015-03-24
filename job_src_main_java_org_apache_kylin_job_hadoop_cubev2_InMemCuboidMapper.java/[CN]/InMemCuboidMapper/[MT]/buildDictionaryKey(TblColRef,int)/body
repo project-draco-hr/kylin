@@ -1,0 +1,13 @@
+{
+  int offset=0;
+  System.arraycopy(ZERO_BYTES,0,keyBuf,offset,ZERO_BYTES.length);
+  offset+=ZERO_BYTES.length;
+  int indexOfCol=baseCuboid.getColumns().indexOf(col);
+  System.arraycopy(Bytes.toBytes(indexOfCol),0,keyBuf,offset,Bytes.toBytes(indexOfCol).length);
+  offset+=Bytes.toBytes(indexOfCol).length;
+  System.arraycopy(Bytes.toBytes(mapperTaskId),0,keyBuf,offset,Bytes.toBytes(mapperTaskId).length);
+  offset+=Bytes.toBytes(mapperTaskId).length;
+  System.arraycopy(Bytes.toBytes(reducer),0,keyBuf,offset,Bytes.toBytes(reducer).length);
+  offset+=Bytes.toBytes(reducer).length;
+  return offset;
+}

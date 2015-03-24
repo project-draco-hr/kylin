@@ -1,4 +1,4 @@
 GridTable parentCuboid
 long parentCuboidId
 long cuboidId
-List<GridTable> result
+Map<Long,GridTable> result
