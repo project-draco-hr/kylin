@@ -16,11 +16,20 @@
       value=measureCodec.getSerializer(i).valueOf(Bytes.toBytes(row.get(flatTableIdx[0])));
     }
  else {
-      for (      int x : flatTableIdx) {
-        if (value == null)         value=row.get(x);
- else         value=value + "," + row.get(x);
+      byte[] result=null;
+      for (int x=0; x < flatTableIdx.length; x++) {
+        byte[] split=Bytes.toBytes(row.get(flatTableIdx[x]));
+        if (result == null) {
+          result=Arrays.copyOf(split,split.length);
+        }
+ else {
+          byte[] newResult=new byte[result.length + split.length];
+          System.arraycopy(result,0,newResult,0,result.length);
+          System.arraycopy(split,0,newResult,result.length,split.length);
+          result=newResult;
+        }
       }
-      value=measureCodec.getSerializer(i).valueOf(Bytes.toBytes((String)value));
+      value=measureCodec.getSerializer(i).valueOf(result);
     }
     values[i]=value;
   }

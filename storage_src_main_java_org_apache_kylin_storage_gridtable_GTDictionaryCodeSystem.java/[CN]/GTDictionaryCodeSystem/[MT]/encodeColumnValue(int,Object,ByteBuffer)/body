@@ -1,0 +1,4 @@
+{
+  int id=dictionaries[col].getIdFromValue(value);
+  BytesUtil.writeVInt(id,buf);
+}

@@ -8,7 +8,7 @@
   cube=cubes.get(0);
   measureCodec=new MeasureCodec(desc.getMeasures());
   measureNumber=desc.getMeasures().size();
-  holisticCountIndexs=Lists.newArrayList();
+  dependentMeasures=Maps.newHashMap();
   Map<String,Integer> measureIndexMap=new HashMap<String,Integer>();
   List<String> metricsAggrFuncsList=Lists.newArrayList();
   for (int i=0, n=desc.getMeasures().size(); i < n; i++) {
@@ -21,7 +21,7 @@
     String depMsrRef=desc.getMeasures().get(i).getDependentMeasureRef();
     if (depMsrRef != null) {
       int index=measureIndexMap.get(depMsrRef);
-      holisticCountIndexs.add(new Pair(i,index));
+      dependentMeasures.put(i,index);
     }
   }
 }
