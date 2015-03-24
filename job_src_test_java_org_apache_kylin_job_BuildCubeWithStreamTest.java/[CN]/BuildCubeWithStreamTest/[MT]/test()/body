@@ -13,7 +13,7 @@
   HiveTableReader reader=new HiveTableReader("default",tableName);
   LinkedBlockingDeque<Stream> queue=new LinkedBlockingDeque<Stream>();
   ExecutorService executorService=Executors.newSingleThreadExecutor();
-  final CubeStreamBuilder streamBuilder=new CubeStreamBuilder(queue,"",desc,0);
+  final CubeStreamBuilder streamBuilder=new CubeStreamBuilder(queue,"",cube,0);
   while (reader.next()) {
     queue.put(parse(reader.getRow()));
   }

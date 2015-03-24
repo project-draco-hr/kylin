@@ -1,0 +1,3 @@
+{
+  return encodedColumns.get(col);
+}

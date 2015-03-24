@@ -1,4 +1,9 @@
 {
-  int id=BytesUtil.readVInt(buf);
-  return dictionaries[col].getValueFromId(id);
+  if (useDictionary(col)) {
+    int id=BytesUtil.readUnsigned(buf,dictionaryMaps.get(col).getSizeOfId());
+    return dictionaryMaps.get(col).getValueFromId(id);
+  }
+ else {
+    return serializerMap.get(col).deserialize(buf);
+  }
 }
