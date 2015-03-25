@@ -21,7 +21,7 @@
       if (indexOfDot > 0) {
         String partitionTableName=partitionColumnName.substring(0,indexOfDot);
         String columeOnly=partitionColumnName.substring(indexOfDot);
-        String partitionTableAlias=desc.getTableAlias(partitionTableName);
+        String partitionTableAlias=tableAliasMap.get(partitionTableName);
         partitionColumnName=partitionTableAlias + columeOnly;
       }
       whereBuilder.append(hasCondition ? " AND (" : " (");

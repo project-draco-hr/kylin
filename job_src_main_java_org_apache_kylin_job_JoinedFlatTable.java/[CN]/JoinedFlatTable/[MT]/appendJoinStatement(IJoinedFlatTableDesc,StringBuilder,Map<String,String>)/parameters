@@ -1,2 +1,3 @@
 IJoinedFlatTableDesc intermediateTableDesc
 StringBuilder sql
+Map<String,String> tableAliasMap
