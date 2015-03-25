@@ -1,0 +1,5 @@
+{
+  CuboidJob job=new InMemCuboidJob();
+  int exitCode=ToolRunner.run(job,args);
+  System.exit(exitCode);
+}

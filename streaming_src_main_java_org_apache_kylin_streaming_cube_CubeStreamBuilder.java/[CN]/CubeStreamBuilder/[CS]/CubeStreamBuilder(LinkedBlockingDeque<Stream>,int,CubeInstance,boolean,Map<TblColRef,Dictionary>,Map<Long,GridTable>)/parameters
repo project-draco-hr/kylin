@@ -1,0 +1,6 @@
+LinkedBlockingDeque<Stream> queue
+int sliceSize
+CubeInstance cube
+boolean needBuildDictionary
+Map<TblColRef,Dictionary> dictionaryMap
+Map<Long,GridTable> generatedCuboids
