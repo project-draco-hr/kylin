@@ -1,0 +1,10 @@
+{
+  try {
+    final ByteArrayOutputStream baos=new ByteArrayOutputStream();
+    SERIALIZER.serialize(this,new DataOutputStream(baos));
+    return SERIALIZER.deserialize(new DataInputStream(new ByteArrayInputStream(baos.toByteArray())));
+  }
+ catch (  IOException e) {
+    return null;
+  }
+}
