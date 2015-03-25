@@ -1,0 +1,4 @@
+int col
+Object value
+int roundingFlag
+ByteBuffer buf

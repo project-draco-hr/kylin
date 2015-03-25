@@ -1,0 +1,8 @@
+{
+  this.info=info;
+  this.pkStart=pkStart;
+  this.pkEnd=pkEnd;
+  this.columns=columns;
+  this.filterPushDown=filterPushDown;
+  validate();
+}

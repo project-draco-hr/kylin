@@ -1,0 +1,8 @@
+{
+  List<Object> allFields=record.getAll();
+  List<String> rowValues=new ArrayList<String>(allFields.size());
+  for (  Object o : allFields) {
+    rowValues.add(o != null ? o.toString() : "");
+  }
+  return rowValues.toArray(new String[allFields.size()]);
+}

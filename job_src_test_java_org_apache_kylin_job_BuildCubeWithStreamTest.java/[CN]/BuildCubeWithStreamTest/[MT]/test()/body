@@ -13,7 +13,9 @@
   HiveTableReader reader=new HiveTableReader("default",tableName);
   LinkedBlockingDeque<Stream> queue=new LinkedBlockingDeque<Stream>();
   ExecutorService executorService=Executors.newSingleThreadExecutor();
-  final CubeStreamBuilder streamBuilder=new CubeStreamBuilder(queue,"",cube,0);
+  Map<TblColRef,DictionaryInfo> dictionaryMap=Maps.newHashMap();
+  Map<Long,GridTable> cuboidsMap=Maps.newHashMap();
+  final CubeStreamBuilder streamBuilder=new CubeStreamBuilder(queue,10000,cube,dictionaryMap,cuboidsMap);
   while (reader.next()) {
     queue.put(parse(reader.getRow()));
   }
@@ -26,5 +28,5 @@
     logger.error("stream build failed",e);
     fail("stream build failed");
   }
-  logger.info("stream build finished, htable name:");
+  logger.info("stream build finished");
 }

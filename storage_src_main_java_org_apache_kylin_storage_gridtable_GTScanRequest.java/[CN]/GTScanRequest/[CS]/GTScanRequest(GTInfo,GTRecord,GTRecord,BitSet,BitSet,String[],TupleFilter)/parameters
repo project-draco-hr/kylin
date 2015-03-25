@@ -1,0 +1,7 @@
+GTInfo info
+GTRecord pkStart
+GTRecord pkEnd
+BitSet aggrGroupBy
+BitSet aggrMetrics
+String[] aggrMetricsFuncs
+TupleFilter filterPushDown

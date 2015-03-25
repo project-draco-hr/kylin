@@ -1,7 +1,0 @@
-{
-  BitSet columns=new BitSet();
-  columns.or(dimensions);
-  columns.or(metrics);
-  IGTScanner rawScanner=scan(pkStart,pkEndExclusive,columns,filterPushDown);
-  return new GTAggregateScanner(rawScanner,dimensions,metrics,metricsAggrFuncs);
-}

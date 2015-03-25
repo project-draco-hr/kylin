@@ -1,6 +1,0 @@
-GTInfo info
-IGTStore store
-GTRecord pkStart
-GTRecord pkEndExclusive
-BitSet columns
-TupleFilter filterPushDown

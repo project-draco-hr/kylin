@@ -1,0 +1,12 @@
+{
+  if (columns == null)   columns=(BitSet)info.colAll.clone();
+  if (hasAggregation()) {
+    if (aggrGroupBy.intersects(aggrMetrics))     throw new IllegalStateException();
+    if (aggrMetrics.cardinality() != aggrMetricsFuncs.length)     throw new IllegalStateException();
+    columns.or(aggrGroupBy);
+    columns.or(aggrMetrics);
+  }
+  if (hasFilterPushDown()) {
+    validateFilterPushDown();
+  }
+}

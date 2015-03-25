@@ -1,0 +1,16 @@
+{
+  GridTable thisCuboid;
+  if (parentCuboidId < 0) {
+    thisCuboid=calculateBaseCuboid(this.table,cuboidId);
+  }
+ else {
+    thisCuboid=aggregateCuboid(parentCuboid,parentCuboidId,cuboidId);
+  }
+  ArrayList<Long> children=(ArrayList<Long>)cuboidScheduler.getSpanningCuboid(cuboidId);
+  Collections.sort(children);
+  for (  Long childId : children) {
+    calculateCuboid(thisCuboid,cuboidId,childId,result);
+  }
+  result.put(cuboidId,thisCuboid);
+  logger.info("Cuboid " + cuboidId + " is built.");
+}

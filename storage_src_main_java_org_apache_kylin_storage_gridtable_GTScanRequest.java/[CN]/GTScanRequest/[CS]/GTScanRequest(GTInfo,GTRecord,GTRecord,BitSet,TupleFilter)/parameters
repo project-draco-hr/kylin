@@ -1,0 +1,5 @@
+GTInfo info
+GTRecord pkStart
+GTRecord pkEnd
+BitSet columns
+TupleFilter filterPushDown
