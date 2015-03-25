@@ -1,0 +1,8 @@
+{
+  final JsonObject root=new JsonParser().parse(new String(stream.getRawData())).getAsJsonObject();
+  ArrayList<String> result=Lists.newArrayList();
+  for (  TblColRef column : allColumns) {
+    result.add(root.get(column.getName()).getAsString());
+  }
+  return result;
+}

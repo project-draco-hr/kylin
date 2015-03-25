@@ -1,8 +1,0 @@
-{
-  try {
-    AdminUtils.createTopic(zkClient,topic,partition,replica,new Properties());
-  }
- catch (  TopicExistsException e) {
-    logger.info(e.getMessage());
-  }
-}
