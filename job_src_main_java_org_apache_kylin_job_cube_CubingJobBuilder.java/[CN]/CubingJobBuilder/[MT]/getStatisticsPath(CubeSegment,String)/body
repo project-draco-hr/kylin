@@ -1,0 +1,3 @@
+{
+  return getJobWorkingDir(jobUuid) + "/" + seg.getCubeInstance().getName()+ "/statistics";
+}
