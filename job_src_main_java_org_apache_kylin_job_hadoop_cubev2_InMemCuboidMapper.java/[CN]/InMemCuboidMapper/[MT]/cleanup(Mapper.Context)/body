@@ -13,26 +13,37 @@
   List<Long> allCuboids=Lists.newArrayList();
   allCuboids.addAll(cuboidsMap.keySet());
   Collections.sort(allCuboids);
-  for (  Long cuboid : allCuboids) {
-    logger.info("Output cuboid " + cuboid + " to reducer...");
+  for (  Long cuboidId : allCuboids) {
+    int bytesLength=RowConstants.ROWKEY_CUBOIDID_LEN;
+    Cuboid cuboid=Cuboid.findById(cubeDesc,cuboidId);
+    RowKeyColumnIO colIO=new RowKeyColumnIO(this.cubeSegment);
+    for (    TblColRef column : cuboid.getColumns()) {
+      bytesLength+=colIO.getColumnLength(column);
+    }
+    logger.info("The keyBuf length is " + bytesLength);
+    byte[] keyBuf=new byte[bytesLength];
+    int dimensions=BitSet.valueOf(new long[]{cuboidId}).cardinality();
+    logger.info("Output cuboid " + cuboidId + " to reducer, dimension number is "+ dimensions);
     long cuboidRowCount=0;
-    int dimensions=BitSet.valueOf(new long[]{cuboid}).cardinality();
-    int offSet=0;
-    System.arraycopy(Bytes.toBytes(cuboid),0,keyBuf,0,Bytes.toBytes(cuboid).length);
-    offSet+=Bytes.toBytes(cuboid).length;
-    GridTable gt=cuboidsMap.get(cuboid);
+    System.arraycopy(Bytes.toBytes(cuboidId),0,keyBuf,0,Bytes.toBytes(cuboidId).length);
+    GridTable gt=cuboidsMap.get(cuboidId);
     GTScanRequest req=new GTScanRequest(gt.getInfo(),null,null,null,null);
     IGTScanner scanner=gt.scan(req);
+    int offSet=0;
     for (    GTRecord record : scanner) {
       cuboidRowCount++;
+      offSet=RowConstants.ROWKEY_CUBOIDID_LEN;
       for (int x=0; x < dimensions; x++) {
-        System.arraycopy(record.get(x).array(),0,keyBuf,offSet,record.get(x).array().length);
-        offSet+=record.get(x).array().length;
+        logger.info("Copy key with offSet: " + offSet + ", length "+ record.get(x).length());
+        System.arraycopy(record.get(x).array(),record.get(x).offset(),keyBuf,offSet,record.get(x).length());
+        offSet+=record.get(x).length();
+      }
+      Object[] values=record.getValues();
+      for (int i=0; i < measures.length; i++) {
+        measures[i]=values[dimensions + i];
       }
       valueBuf.clear();
-      for (int i=0; i < measures.length; i++) {
-        valueBuf.put(record.get(dimensions + i).array());
-      }
+      measureCodec.encode(measures,valueBuf);
       outputKey.set(keyBuf,0,offSet);
       outputValue.set(valueBuf.array(),0,valueBuf.position());
       context.write(outputKey,outputValue);

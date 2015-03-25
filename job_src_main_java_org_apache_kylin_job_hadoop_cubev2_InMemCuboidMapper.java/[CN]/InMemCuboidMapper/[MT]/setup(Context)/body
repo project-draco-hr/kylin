@@ -28,4 +28,5 @@
   baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
   mapperTaskId=context.getTaskAttemptID().getTaskID().getId();
   measures=new Object[cubeDesc.getMeasures().size()];
+  measureCodec=new MeasureCodec(cubeDesc.getMeasures());
 }

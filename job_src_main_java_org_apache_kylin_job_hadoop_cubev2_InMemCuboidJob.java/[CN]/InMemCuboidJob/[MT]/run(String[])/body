@@ -29,7 +29,6 @@
     job.setMapperClass(InMemCuboidMapper.class);
     job.setMapOutputKeyClass(Text.class);
     job.setMapOutputValueClass(Text.class);
-    job.setCombinerClass(CuboidReducer.class);
     job.setReducerClass(CuboidReducer.class);
     job.setOutputFormatClass(SequenceFileOutputFormat.class);
     job.setOutputKeyClass(Text.class);
