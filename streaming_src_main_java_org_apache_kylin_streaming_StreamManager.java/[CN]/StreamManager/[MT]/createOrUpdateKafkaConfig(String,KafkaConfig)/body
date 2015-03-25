@@ -1,6 +1,6 @@
 {
   try {
-    getStore().putResource(formatResPath(name),config,KAFKA_CONFIG_SERIALIZER);
+    getStore().putResource(formatResPath(name),config,KafkaConfig.SERIALIZER);
     return true;
   }
  catch (  IOException e) {

@@ -1,6 +1,6 @@
 {
   try {
-    return getStore().getResource(formatResPath(name),KafkaConfig.class,KAFKA_CONFIG_SERIALIZER);
+    return getStore().getResource(formatResPath(name),KafkaConfig.class,KafkaConfig.SERIALIZER);
   }
  catch (  IOException e) {
     logger.error("error get resource name:" + name,e);
