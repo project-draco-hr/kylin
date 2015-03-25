@@ -1,0 +1,6 @@
+{
+  final KafkaConfig kafkaConfig=new KafkaConfig();
+  final ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+  KAFKA_CONFIG_SERIALIZER.serialize(kafkaConfig,new DataOutputStream(byteArrayOutputStream));
+  System.out.println(new String(byteArrayOutputStream.toByteArray()));
+}
