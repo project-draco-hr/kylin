@@ -1,0 +1,30 @@
+{
+  if (collectStatistics) {
+    Configuration conf=context.getConfiguration();
+    FileSystem fs=FileSystem.get(conf);
+    String outputPath=conf.get(BatchConstants.CFG_STATISTICS_OUTPUT);
+    FSDataOutputStream out=fs.create(new Path(outputPath,BatchConstants.CFG_STATISTICS_CUBE_ESTIMATION));
+    try {
+      long totalSum=0;
+      String msg;
+      for (int i=0; i < rowKeyCountInMappers.size(); i++) {
+        msg="Cube segment in Mapper " + i + " has "+ rowKeyCountInMappers.get(i)+ " rows.";
+        totalSum+=rowKeyCountInMappers.get(i);
+        out.write(msg.getBytes());
+        out.write('\n');
+      }
+      msg="Sum of the cube segments is " + totalSum;
+      out.write(msg.getBytes());
+      out.write('\n');
+      msg="The merged cube segment has " + totalHll.getCountEstimate() + " rows.";
+      out.write(msg.getBytes());
+      out.write('\n');
+      msg="The compaction rate is " + (totalHll.getCountEstimate()) + "/"+ totalSum+ " = "+ (totalHll.getCountEstimate() * 100.0) / totalSum + "%.";
+      out.write(msg.getBytes());
+      out.write('\n');
+    }
+  finally {
+      out.close();
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  if (collectStatistics) {
+    outputKey.set((short)-1);
+    ByteBuffer hllBuf=ByteBuffer.allocate(64 * 1024);
+    hll.writeRegisters(hllBuf);
+    outputValue.set(hllBuf.array());
+    context.write(outputKey,outputValue);
+  }
+}

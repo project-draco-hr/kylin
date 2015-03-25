@@ -3,10 +3,12 @@
   Configuration conf=context.getConfiguration();
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata(conf);
   cubeName=conf.get(BatchConstants.CFG_CUBE_NAME);
+  collectStatistics=Boolean.parseBoolean(conf.get(BatchConstants.CFG_STATISTICS_ENABLED));
   cube=CubeManager.getInstance(config).getCube(cubeName);
   cubeDesc=cube.getDescriptor();
   intermediateTableDesc=new CubeJoinedFlatTableDesc(cubeDesc,null);
-  long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
+  cuboidScheduler=new CuboidScheduler(cubeDesc);
+  baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
   Cuboid baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
   List<TblColRef> columns=baseCuboid.getColumns();
   ArrayList<Integer> factDictCols=new ArrayList<Integer>();
@@ -23,4 +25,9 @@
   this.factDictCols=new int[factDictCols.size()];
   for (int i=0; i < factDictCols.size(); i++)   this.factDictCols[i]=factDictCols.get(i);
   schema=HCatInputFormat.getTableSchema(context.getConfiguration());
+  rowKeyValues=Lists.newArrayList();
+  nRowKey=cubeDesc.getRowkey().getRowKeyColumns().length;
+  if (collectStatistics) {
+    hll=new HyperLogLogPlusCounter(16);
+  }
 }

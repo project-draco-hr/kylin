@@ -15,4 +15,8 @@
  catch (  Exception ex) {
     handleErrorRecord(record,ex);
   }
+  if (collectStatistics) {
+    String[] row=HiveTableReader.getRowAsStringArray(record);
+    putRowKeyToHLL(row,baseCuboidId);
+  }
 }
