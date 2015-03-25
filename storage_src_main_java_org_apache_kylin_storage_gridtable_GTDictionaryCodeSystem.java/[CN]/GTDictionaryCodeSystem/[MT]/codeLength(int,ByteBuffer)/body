@@ -1,0 +1,4 @@
+{
+  if (useDictionary(col))   return dictionaryMaps.get(col).getSizeOfId();
+ else   return serializerMap.get(col).peekLength(buf);
+}

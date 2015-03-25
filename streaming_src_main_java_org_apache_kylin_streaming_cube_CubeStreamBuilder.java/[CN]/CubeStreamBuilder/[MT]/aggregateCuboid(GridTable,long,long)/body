@@ -16,17 +16,5 @@
     }
     mask=mask >> 1;
   }
-  IGTScanner scanner=parentCuboid.scanAndAggregate(null,null,childDimensions,measureColumns,metricsAggrFuncs,null);
-  GridTable cuboidGridTable=newGridTableByCuboidID(cuboidId);
-  GTBuilder builder=cuboidGridTable.rebuild();
-  GTRecord r=new GTRecord(cuboidGridTable.getInfo());
-  BitSet allNeededColumns=new BitSet();
-  allNeededColumns.or(childDimensions);
-  allNeededColumns.or(measureColumns);
-  for (  GTRecord record : scanner) {
-    updateMeasureRef(record,r,allNeededColumns);
-    builder.write(r);
-  }
-  builder.close();
-  return cuboidGridTable;
+  return scanAndAggregateGridTable(parentCuboid,cuboidId,childDimensions,measureColumns);
 }

@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < intermediateTableDesc.getRowKeyColumnIndexes().length; i++) {
+    columnDistinctValueMap.put(i,row[intermediateTableDesc.getRowKeyColumnIndexes()[i]]);
+  }
+  putRowKeyToHLL(row,baseCuboidId);
+}

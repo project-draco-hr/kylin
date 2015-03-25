@@ -1,0 +1,4 @@
+{
+  String[] row=HiveTableReader.getRowAsStringArray(record);
+  buildDictAndCount(row);
+}
