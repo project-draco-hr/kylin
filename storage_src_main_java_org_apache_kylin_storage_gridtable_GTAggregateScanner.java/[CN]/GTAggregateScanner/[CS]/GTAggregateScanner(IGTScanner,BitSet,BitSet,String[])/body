@@ -1,9 +1,0 @@
-{
-  if (dimensions.intersects(metrics))   throw new IllegalStateException();
-  if (metrics.cardinality() != metricsAggrFuncs.length)   throw new IllegalStateException();
-  this.info=rawScanner.getInfo();
-  this.dimensions=dimensions;
-  this.metrics=metrics;
-  this.metricsAggrFuncs=metricsAggrFuncs;
-  this.rawScanner=rawScanner;
-}

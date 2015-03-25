@@ -1,8 +1,2 @@
 {
-  int comp=0;
-  for (int i=maskForEqualHashComp.nextSetBit(0); i >= 0; i=maskForEqualHashComp.nextSetBit(i + 1)) {
-    comp=this.cols[i].compareTo(o.cols[i]);
-    if (comp != 0)     return comp;
-  }
-  return comp;
 }

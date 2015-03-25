@@ -1,0 +1,18 @@
+{
+  if (hasFilterPushDown() == false)   return;
+  Set<TblColRef> filterColumns=Sets.newHashSet();
+  TupleFilter.collectColumns(filterPushDown,filterColumns);
+  for (  TblColRef col : filterColumns) {
+    info.validateColRef(col);
+    columns.set(col.getColumn().getZeroBasedIndex());
+  }
+  if (TupleFilter.isEvaluableRecursively(filterPushDown) == false) {
+    Set<TblColRef> unevaluableColumns=Sets.newHashSet();
+    filterPushDown=GTUtil.convertFilterUnevaluatable(filterPushDown,unevaluableColumns);
+    if (hasAggregation()) {
+      for (      TblColRef col : unevaluableColumns) {
+        aggrGroupBy.set(col.getColumn().getZeroBasedIndex());
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  IGTScanner result=new GTFilterScanner(info,store,req);
+  if (req.hasAggregation()) {
+    result=new GTAggregateScanner(result,req);
+  }
+  return result;
+}

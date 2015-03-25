@@ -1,0 +1,9 @@
+{
+  this.info=rawScanner.getInfo();
+  this.dimensions=(BitSet)req.getColumns().clone();
+  this.dimensions.andNot(req.getAggrMetrics());
+  this.groupBy=req.getAggrGroupBy();
+  this.metrics=req.getAggrMetrics();
+  this.metricsAggrFuncs=req.getAggrMetricsFuncs();
+  this.rawScanner=rawScanner;
+}

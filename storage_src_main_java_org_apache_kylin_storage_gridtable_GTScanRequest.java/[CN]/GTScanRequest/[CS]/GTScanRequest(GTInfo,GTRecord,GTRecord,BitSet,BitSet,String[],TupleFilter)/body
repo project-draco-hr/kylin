@@ -1,0 +1,11 @@
+{
+  this.info=info;
+  this.pkStart=pkStart;
+  this.pkEnd=pkEnd;
+  this.columns=new BitSet();
+  this.filterPushDown=filterPushDown;
+  this.aggrGroupBy=aggrGroupBy;
+  this.aggrMetrics=aggrMetrics;
+  this.aggrMetricsFuncs=aggrMetricsFuncs;
+  validate();
+}

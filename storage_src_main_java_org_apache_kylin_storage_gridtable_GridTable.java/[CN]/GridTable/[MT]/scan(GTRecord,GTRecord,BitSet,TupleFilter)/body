@@ -1,3 +1,0 @@
-{
-  return new GTRawScanner(info,store,pkStart,pkEndExclusive,columns,filterPushDown);
-}

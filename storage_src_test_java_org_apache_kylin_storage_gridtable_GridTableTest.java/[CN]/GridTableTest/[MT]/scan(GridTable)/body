@@ -1,5 +1,6 @@
 {
-  IGTScanner scanner=table.scan(null,null,null,null);
+  GTScanRequest req=new GTScanRequest(table.getInfo());
+  IGTScanner scanner=table.scan(req);
   for (  GTRecord r : scanner) {
     Object[] v=r.getValues();
     assertTrue(((String)v[0]).startsWith("2015-"));
