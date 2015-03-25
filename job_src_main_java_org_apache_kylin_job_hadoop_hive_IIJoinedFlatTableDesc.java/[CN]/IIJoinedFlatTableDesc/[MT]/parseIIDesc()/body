@@ -5,5 +5,4 @@
     columnList.add(new IntermediateColumnDesc(String.valueOf(columnIndex),col));
     columnIndex++;
   }
-  buildTableAliasMap();
 }
