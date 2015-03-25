@@ -1,0 +1,8 @@
+{
+  checkNoBuildingSegment(cube);
+  CubeSegment newSegment=newSegment(cube,startDate,endDate);
+  cube.getSegments().add(newSegment);
+  Collections.sort(cube.getSegments());
+  updateCube(cube);
+  return newSegment;
+}
