@@ -1,2 +1,42 @@
 {
+  logger.info("Totally read " + counter + " rows in memory, trigger cube build now.");
+  queue.put(new Stream(-1,null));
+  try {
+    future.get();
+  }
+ catch (  Exception e) {
+    logger.error("cube build failed",e);
+    throw new IOException(e);
+  }
+  logger.info("Cube build success");
+  logger.info("Cube segment calculation in mapper " + mapperTaskId + " finished; cuboid number: "+ cuboidsMap.size());
+  List<Long> allCuboids=Lists.newArrayList();
+  allCuboids.addAll(cuboidsMap.keySet());
+  Collections.sort(allCuboids);
+  for (  Long cuboid : allCuboids) {
+    logger.info("Output cuboid " + cuboid + " to reducer...");
+    long cuboidRowCount=0;
+    int dimensions=BitSet.valueOf(new long[]{cuboid}).cardinality();
+    int offSet=0;
+    System.arraycopy(Bytes.toBytes(cuboid),0,keyBuf,0,Bytes.toBytes(cuboid).length);
+    offSet+=Bytes.toBytes(cuboid).length;
+    GridTable gt=cuboidsMap.get(cuboid);
+    GTScanRequest req=new GTScanRequest(gt.getInfo(),null,null,null,null);
+    IGTScanner scanner=gt.scan(req);
+    for (    GTRecord record : scanner) {
+      cuboidRowCount++;
+      for (int x=0; x < dimensions; x++) {
+        System.arraycopy(record.get(x).array(),0,keyBuf,offSet,record.get(x).array().length);
+        offSet+=record.get(x).array().length;
+      }
+      valueBuf.clear();
+      for (int i=0; i < measures.length; i++) {
+        valueBuf.put(record.get(dimensions + i).array());
+      }
+      outputKey.set(keyBuf,0,offSet);
+      outputValue.set(valueBuf.array(),0,valueBuf.position());
+      context.write(outputKey,outputValue);
+    }
+    logger.info("Cuboid " + cuboid + " has "+ cuboidRowCount+ " rows on mapper "+ this.mapperTaskId);
+  }
 }
