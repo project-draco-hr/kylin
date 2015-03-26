@@ -1,13 +1,12 @@
 {
   this.info=info;
-  encodedColumns=new BitSet();
-  for (  Integer index : dictionaryMaps.keySet()) {
-    encodedColumns.set(index);
-  }
-  serializerMap=Maps.newHashMap();
+  serializers=new DataTypeSerializer[info.nColumns];
   for (int i=0; i < info.nColumns; i++) {
-    if (!encodedColumns.get(i)) {
-      serializerMap.put(i,DataTypeSerializer.create(info.colTypes[i]));
+    if (dictionaryMaps.get(i) != null) {
+      serializers[i]=new DictionarySerializer(dictionaryMaps.get(i));
+    }
+ else {
+      serializers[i]=DataTypeSerializer.create(info.colTypes[i]);
     }
   }
   this.filterCS=new IFilterCodeSystem<ByteArray>(){
