@@ -1,1 +1,1 @@
-KylinMapper<KEYIN,HCatRecord,ShortWritable,Text>
+FactDistinctColumnsMapperBase<KEYIN,HCatRecord>
