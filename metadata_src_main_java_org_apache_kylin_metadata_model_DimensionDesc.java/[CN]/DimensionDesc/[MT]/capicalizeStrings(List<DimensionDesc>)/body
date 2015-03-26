@@ -1,6 +1,8 @@
 {
   for (  DimensionDesc dimensionDesc : dimensions) {
     dimensionDesc.setTable(dimensionDesc.getTable().toUpperCase());
-    StringUtil.toUpperCaseArray(dimensionDesc.getColumns(),dimensionDesc.getColumns());
+    if (dimensionDesc.getColumns() != null) {
+      StringUtil.toUpperCaseArray(dimensionDesc.getColumns(),dimensionDesc.getColumns());
+    }
   }
 }
