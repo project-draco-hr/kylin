@@ -7,8 +7,12 @@
     }
     mask=mask >> 1;
   }
-  String key=StringUtils.join(rowKeyValues,",");
-  hll.add(key);
+  HyperLogLogPlusCounter hll=cuboidHLLMap.get(cuboidId);
+  if (hll == null) {
+    hll=new HyperLogLogPlusCounter(16);
+    cuboidHLLMap.put(cuboidId,hll);
+  }
+  hll.add(StringUtils.join(rowKeyValues,","));
   Collection<Long> children=cuboidScheduler.getSpanningCuboid(cuboidId);
   for (  Long childId : children) {
     putRowKeyToHLL(row,childId);
