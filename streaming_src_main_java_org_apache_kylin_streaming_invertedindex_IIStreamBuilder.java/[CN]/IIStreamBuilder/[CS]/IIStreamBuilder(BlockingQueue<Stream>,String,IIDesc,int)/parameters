@@ -1,4 +1,4 @@
-LinkedBlockingDeque<Stream> queue
+BlockingQueue<Stream> queue
 String hTableName
 IIDesc desc
 int partitionId

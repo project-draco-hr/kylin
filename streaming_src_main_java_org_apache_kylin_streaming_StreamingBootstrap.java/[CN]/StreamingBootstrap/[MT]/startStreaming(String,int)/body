@@ -19,11 +19,7 @@
   }
 ;
   final IIDesc desc=ii.getDescriptor();
-  Executors.newSingleThreadExecutor().execute(consumer);
-  while (true) {
-    final Stream stream=consumer.getStreamQueue().poll();
-    if (stream != null) {
-      System.out.println("offset:" + stream.getOffset() + " content:"+ new String(stream.getRawData()));
-    }
-  }
+  Executors.newSingleThreadExecutor().submit(consumer);
+  final Future<?> future=Executors.newSingleThreadExecutor().submit(new IIStreamBuilder(consumer.getStreamQueue(),ii.getSegments().get(0).getStorageLocationIdentifier(),desc,partitionId));
+  future.get();
 }
