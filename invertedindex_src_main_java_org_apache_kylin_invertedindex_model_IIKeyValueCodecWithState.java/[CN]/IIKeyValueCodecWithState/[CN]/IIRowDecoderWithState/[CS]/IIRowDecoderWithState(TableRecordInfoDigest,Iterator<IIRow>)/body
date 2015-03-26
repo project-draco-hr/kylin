@@ -1,0 +1,4 @@
+{
+  super(digest,iiRowIterator);
+  this.feedingIterator=buffer.iterator();
+}

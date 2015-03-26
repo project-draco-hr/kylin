@@ -1,0 +1,17 @@
+{
+  super.setup(context);
+  Configuration conf=context.getConfiguration();
+  KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
+  iiName=conf.get(BatchConstants.CFG_II_NAME);
+  ii=IIManager.getInstance(config).getII(iiName);
+  iiDesc=ii.getDescriptor();
+  intermediateTableDesc=new IIJoinedFlatTableDesc(iiDesc);
+  TableRecordInfo info=new TableRecordInfo(iiDesc);
+  KeyValueCodec codec=new IIKeyValueCodecWithState(info.getDigest());
+  slices=codec.decodeKeyValue(buffer);
+  baseCuboidCol2FlattenTableCol=new int[factDictCols.size()];
+  for (int i=0; i < factDictCols.size(); ++i) {
+    int index=findTblCol(intermediateTableDesc.getColumnList(),columns.get(factDictCols.get(i)));
+    baseCuboidCol2FlattenTableCol[i]=index;
+  }
+}

@@ -1,7 +1,7 @@
 {
   return new Iterator<Slice>(){
     @Override public boolean hasNext(){
-      return iterator.hasNext();
+      return iiRowIterator.hasNext();
     }
     @Override public Slice next(){
       int columns=0;
@@ -12,8 +12,8 @@
       long curTimestamp=0;
       short lastShard=0;
       long lastTimestamp=0;
-      while (iterator.hasNext() && columns < incompleteDigest.getColumnCount()) {
-        final IIRow row=iterator.next();
+      while (feedingIterator.hasNext() && columns < incompleteDigest.getColumnCount()) {
+        final IIRow row=feedingIterator.next();
         final ImmutableBytesWritable key=row.getKey();
         int i=key.getOffset();
         curShard=(short)BytesUtil.readUnsigned(key.get(),i,SHARD_LEN);
