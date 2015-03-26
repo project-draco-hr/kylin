@@ -4,6 +4,6 @@
   job.setInputFormatClass(HCatInputFormat.class);
   job.setMapperClass(FactDistinctHiveColumnsMapper.class);
   job.setCombinerClass(FactDistinctColumnsCombiner.class);
-  job.setMapOutputKeyClass(ShortWritable.class);
+  job.setMapOutputKeyClass(LongWritable.class);
   job.setMapOutputValueClass(Text.class);
 }
