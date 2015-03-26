@@ -9,7 +9,7 @@
     BytesUtil.writeVInt(size,out);
     for (int i=0; i < m; i++) {
       if (registers[i] > 0) {
-        BytesUtil.writeUnsigned(i,indexLen,out);
+        writeUnsigned(i,indexLen,out);
         out.put(registers[i]);
       }
     }
