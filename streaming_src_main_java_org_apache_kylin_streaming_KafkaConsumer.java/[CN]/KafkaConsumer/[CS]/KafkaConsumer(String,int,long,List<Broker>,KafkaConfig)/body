@@ -5,5 +5,5 @@
   offset=startOffset;
   this.replicaBrokers=initialBrokers;
   logger=LoggerFactory.getLogger("KafkaConsumer_" + topic + "_"+ partitionId);
-  streamQueue=new ArrayBlockingQueue<Stream>(kafkaConfig.getMaxReadCount());
+  streamQueue=new LinkedBlockingQueue<Stream>(kafkaConfig.getMaxReadCount());
 }
