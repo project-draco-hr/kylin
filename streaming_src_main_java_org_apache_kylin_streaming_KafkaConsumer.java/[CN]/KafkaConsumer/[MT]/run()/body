@@ -1,13 +1,6 @@
 {
   try {
     Broker leadBroker=getLeadBroker();
-    if (leadBroker == null) {
-      logger.warn("cannot find lead broker");
-    }
- else {
-      final long lastOffset=KafkaRequester.getLastOffset(topic,partitionId,OffsetRequest.EarliestTime(),leadBroker,kafkaConfig);
-      offset.set(lastOffset);
-    }
     while (true) {
       if (leadBroker == null) {
         leadBroker=getLeadBroker();
@@ -16,9 +9,9 @@
         logger.warn("cannot find lead broker");
         continue;
       }
-      final FetchResponse fetchResponse=KafkaRequester.fetchResponse(topic,partitionId,offset.get(),leadBroker,kafkaConfig);
+      final FetchResponse fetchResponse=KafkaRequester.fetchResponse(topic,partitionId,offset,leadBroker,kafkaConfig);
       if (fetchResponse.errorCode(topic,partitionId) != 0) {
-        logger.warn("fetch response offset:" + offset.get() + " errorCode:"+ fetchResponse.errorCode(topic,partitionId));
+        logger.warn("fetch response offset:" + offset + " errorCode:"+ fetchResponse.errorCode(topic,partitionId));
         continue;
       }
       for (      MessageAndOffset messageAndOffset : fetchResponse.messageSet(topic,partitionId)) {
@@ -29,7 +22,7 @@
           logger.error("error put streamQueue",e);
           break;
         }
-        offset.incrementAndGet();
+        offset++;
       }
     }
   }
