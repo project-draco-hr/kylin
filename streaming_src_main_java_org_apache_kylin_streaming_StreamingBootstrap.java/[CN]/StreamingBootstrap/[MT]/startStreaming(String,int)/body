@@ -20,6 +20,8 @@
 ;
   final IIDesc desc=ii.getDescriptor();
   Executors.newSingleThreadExecutor().submit(consumer);
-  final Future<?> future=Executors.newSingleThreadExecutor().submit(new IIStreamBuilder(consumer.getStreamQueue(),ii.getSegments().get(0).getStorageLocationIdentifier(),desc,partitionId));
+  final IIStreamBuilder task=new IIStreamBuilder(consumer.getStreamQueue(),ii.getSegments().get(0).getStorageLocationIdentifier(),desc,partitionId);
+  task.setStreamParser(JsonStreamParser.instance);
+  final Future<?> future=Executors.newSingleThreadExecutor().submit(task);
   future.get();
 }
