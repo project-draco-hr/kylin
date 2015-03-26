@@ -1,0 +1,21 @@
+{
+  Configuration conf=context.getConfiguration();
+  publishConfiguration(conf);
+  KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
+  cubeName=conf.get(BatchConstants.CFG_CUBE_NAME);
+  cube=CubeManager.getInstance(config).getCube(cubeName);
+  cubeDesc=cube.getDescriptor();
+  baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
+  columns=Cuboid.findById(cubeDesc,baseCuboidId).getColumns();
+  factDictCols=new ArrayList<Integer>();
+  RowKeyDesc rowKey=cubeDesc.getRowkey();
+  DictionaryManager dictMgr=DictionaryManager.getInstance(config);
+  for (int i=0; i < columns.size(); i++) {
+    TblColRef col=columns.get(i);
+    if (!rowKey.isUseDictionary(col))     continue;
+    String scanTable=(String)dictMgr.decideSourceData(cubeDesc.getModel(),cubeDesc.getRowkey().getDictionary(col),col,null)[0];
+    if (cubeDesc.getModel().isFactTable(scanTable)) {
+      factDictCols.add(i);
+    }
+  }
+}

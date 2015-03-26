@@ -1,0 +1,29 @@
+{
+  final KafkaConfig kafkaConfig=streamManager.getKafkaConfig(streamingConf);
+  Preconditions.checkArgument(kafkaConfig != null,"cannot find kafka config:" + streamingConf);
+  final IIInstance ii=iiManager.getII(kafkaConfig.getIiName());
+  Preconditions.checkNotNull(ii);
+  final Broker leadBroker=getLeadBroker(kafkaConfig,partitionId);
+  Preconditions.checkState(leadBroker != null,"cannot find lead broker");
+  final long earliestOffset=KafkaRequester.getLastOffset(kafkaConfig.getTopic(),partitionId,OffsetRequest.EarliestTime(),leadBroker,kafkaConfig);
+  long streamOffset=ii.getStreamOffsets().get(partitionId);
+  if (streamOffset < earliestOffset) {
+    streamOffset=earliestOffset;
+  }
+  KafkaConsumer consumer=new KafkaConsumer(kafkaConfig.getTopic(),0,streamOffset,kafkaConfig.getBrokers(),kafkaConfig){
+    @Override protected void consume(    long offset,    ByteBuffer payload) throws Exception {
+      byte[] bytes=new byte[payload.limit()];
+      payload.get(bytes);
+      getStreamQueue().put(new Stream(offset,bytes));
+    }
+  }
+;
+  final IIDesc desc=ii.getDescriptor();
+  Executors.newSingleThreadExecutor().execute(consumer);
+  while (true) {
+    final Stream stream=consumer.getStreamQueue().poll();
+    if (stream != null) {
+      System.out.println("offset:" + stream.getOffset() + " content:"+ new String(stream.getRawData()));
+    }
+  }
+}

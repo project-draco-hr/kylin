@@ -1,0 +1,3 @@
+BlockingQueue<Stream> streamQueue
+int sliceSize
+List<TblColRef> allColumns

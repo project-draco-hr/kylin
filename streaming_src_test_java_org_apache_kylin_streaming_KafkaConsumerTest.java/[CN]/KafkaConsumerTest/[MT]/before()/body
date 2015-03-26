@@ -1,4 +1,5 @@
 {
   producer=new OneOffStreamProducer(TOTAL_SEND_COUNT);
   producer.start();
+  kafkaConfig=StreamManager.getInstance(KylinConfig.getInstanceFromEnv()).getKafkaConfig("kafka_test");
 }

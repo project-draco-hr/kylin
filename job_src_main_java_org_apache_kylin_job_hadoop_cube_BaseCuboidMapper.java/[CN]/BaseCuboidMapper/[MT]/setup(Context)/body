@@ -7,7 +7,7 @@
     throw new RuntimeException("Expected delimiter byte length is 1, but got " + Bytes.toBytes(intermediateTableRowDelimiter).length);
   }
   byteRowDelimiter=Bytes.toBytes(intermediateTableRowDelimiter)[0];
-  KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata(context.getConfiguration());
+  KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
   cube=CubeManager.getInstance(config).getCube(cubeName);
   cubeDesc=cube.getDescriptor();
   cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
