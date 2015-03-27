@@ -1,0 +1,28 @@
+{
+  super(queue,sliceSize);
+  this.cube=cube;
+  this.desc=cube.getDescriptor();
+  this.cuboidScheduler=new CuboidScheduler(desc);
+  this.dictionaryMap=dictionaryMap;
+  this.generatedCuboids=generatedCuboids;
+  this.needBuildDictionary=needBuildDictionary;
+  measureCodec=new MeasureCodec(desc.getMeasures());
+  measureNumber=desc.getMeasures().size();
+  dependentMeasures=Maps.newHashMap();
+  Map<String,Integer> measureIndexMap=new HashMap<String,Integer>();
+  List<String> metricsAggrFuncsList=Lists.newArrayList();
+  for (int i=0, n=desc.getMeasures().size(); i < n; i++) {
+    MeasureDesc measureDesc=desc.getMeasures().get(i);
+    metricsAggrFuncsList.add(measureDesc.getFunction().getExpression());
+    measureIndexMap.put(desc.getMeasures().get(i).getName(),i);
+  }
+  metricsAggrFuncs=metricsAggrFuncsList.toArray(new String[metricsAggrFuncsList.size()]);
+  for (int i=0; i < measureNumber; i++) {
+    String depMsrRef=desc.getMeasures().get(i).getDependentMeasureRef();
+    if (depMsrRef != null) {
+      int index=measureIndexMap.get(depMsrRef);
+      dependentMeasures.put(i,index);
+    }
+  }
+  if (!needBuildDictionary && (dictionaryMap == null || dictionaryMap.isEmpty()))   throw new IllegalArgumentException();
+}

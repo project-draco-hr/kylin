@@ -1,0 +1,20 @@
+{
+  rowKeyValues.clear();
+  long mask=Long.highestOneBit(baseCuboidId);
+  for (int i=0; i < nRowKey; i++) {
+    if ((mask & cuboidId) == 1) {
+      rowKeyValues.add(row[intermediateTableDesc.getRowKeyColumnIndexes()[i]]);
+    }
+    mask=mask >> 1;
+  }
+  HyperLogLogPlusCounter hll=cuboidHLLMap.get(cuboidId);
+  if (hll == null) {
+    hll=new HyperLogLogPlusCounter(16);
+    cuboidHLLMap.put(cuboidId,hll);
+  }
+  hll.add(StringUtils.join(rowKeyValues,","));
+  Collection<Long> children=cuboidScheduler.getSpanningCuboid(cuboidId);
+  for (  Long childId : children) {
+    putRowKeyToHLL(row,childId);
+  }
+}

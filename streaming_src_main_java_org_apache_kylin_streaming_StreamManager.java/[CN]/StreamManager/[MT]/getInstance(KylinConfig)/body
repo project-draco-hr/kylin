@@ -1,0 +1,18 @@
+{
+  StreamManager r=CACHE.get(config);
+  if (r != null) {
+    return r;
+  }
+synchronized (StreamManager.class) {
+    r=CACHE.get(config);
+    if (r != null) {
+      return r;
+    }
+    r=new StreamManager(config);
+    CACHE.put(config,r);
+    if (CACHE.size() > 1) {
+      logger.warn("More than one cubemanager singleton exist");
+    }
+    return r;
+  }
+}

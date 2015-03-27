@@ -1,0 +1,5 @@
+{
+  super(streamQueue,sliceSize);
+  setStreamParser(JsonStreamParser.instance);
+  this.allColumns=allColumns;
+}

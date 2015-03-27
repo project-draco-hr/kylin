@@ -1,0 +1,13 @@
+{
+  super.setup(context);
+  schema=HCatInputFormat.getTableSchema(context.getConfiguration());
+  intermediateTableDesc=new CubeJoinedFlatTableDesc(cubeDesc,null);
+  collectStatistics=Boolean.parseBoolean(context.getConfiguration().get(BatchConstants.CFG_STATISTICS_ENABLED));
+  if (collectStatistics) {
+    cuboidScheduler=new CuboidScheduler(cubeDesc);
+    cuboidHLLMap=Maps.newHashMap();
+    totalHll=new HyperLogLogPlusCounter(16);
+    rowKeyValues=Lists.newArrayList();
+    nRowKey=cubeDesc.getRowkey().getRowKeyColumns().length;
+  }
+}

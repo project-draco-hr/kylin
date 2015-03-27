@@ -1,2 +1,53 @@
 {
+  logger.info("Totally read " + counter + " rows in memory, trigger cube build now.");
+  queue.put(new Stream(-1,null));
+  try {
+    future.get();
+  }
+ catch (  Exception e) {
+    logger.error("cube build failed",e);
+    throw new IOException(e);
+  }
+  logger.info("Cube build success");
+  logger.info("Cube segment calculation in mapper " + mapperTaskId + " finished; cuboid number: "+ cuboidsMap.size());
+  List<Long> allCuboids=Lists.newArrayList();
+  allCuboids.addAll(cuboidsMap.keySet());
+  Collections.sort(allCuboids);
+  for (  Long cuboidId : allCuboids) {
+    int bytesLength=RowConstants.ROWKEY_CUBOIDID_LEN;
+    Cuboid cuboid=Cuboid.findById(cubeDesc,cuboidId);
+    RowKeyColumnIO colIO=new RowKeyColumnIO(this.cubeSegment);
+    for (    TblColRef column : cuboid.getColumns()) {
+      bytesLength+=colIO.getColumnLength(column);
+    }
+    logger.info("The keyBuf length is " + bytesLength);
+    byte[] keyBuf=new byte[bytesLength];
+    int dimensions=BitSet.valueOf(new long[]{cuboidId}).cardinality();
+    logger.info("Output cuboid " + cuboidId + " to reducer, dimension number is "+ dimensions);
+    long cuboidRowCount=0;
+    System.arraycopy(Bytes.toBytes(cuboidId),0,keyBuf,0,Bytes.toBytes(cuboidId).length);
+    GridTable gt=cuboidsMap.get(cuboidId);
+    GTScanRequest req=new GTScanRequest(gt.getInfo(),null,null,null,null);
+    IGTScanner scanner=gt.scan(req);
+    int offSet=0;
+    for (    GTRecord record : scanner) {
+      cuboidRowCount++;
+      offSet=RowConstants.ROWKEY_CUBOIDID_LEN;
+      for (int x=0; x < dimensions; x++) {
+        logger.info("Copy key with offSet: " + offSet + ", length "+ record.get(x).length());
+        System.arraycopy(record.get(x).array(),record.get(x).offset(),keyBuf,offSet,record.get(x).length());
+        offSet+=record.get(x).length();
+      }
+      Object[] values=record.getValues();
+      for (int i=0; i < measures.length; i++) {
+        measures[i]=values[dimensions + i];
+      }
+      valueBuf.clear();
+      measureCodec.encode(measures,valueBuf);
+      outputKey.set(keyBuf,0,offSet);
+      outputValue.set(valueBuf.array(),0,valueBuf.position());
+      context.write(outputKey,outputValue);
+    }
+    logger.info("Cuboid " + cuboid + " has "+ cuboidRowCount+ " rows on mapper "+ this.mapperTaskId);
+  }
 }

@@ -2,8 +2,8 @@
   String[] dbTableNames=HadoopUtil.parseHiveTableName(intermediateTable);
   HCatInputFormat.setInput(job,dbTableNames[0],dbTableNames[1]);
   job.setInputFormatClass(HCatInputFormat.class);
-  job.setMapperClass(FactDistinctColumnsMapper.class);
+  job.setMapperClass(FactDistinctHiveColumnsMapper.class);
   job.setCombinerClass(FactDistinctColumnsCombiner.class);
-  job.setMapOutputKeyClass(ShortWritable.class);
+  job.setMapOutputKeyClass(LongWritable.class);
   job.setMapOutputValueClass(Text.class);
 }

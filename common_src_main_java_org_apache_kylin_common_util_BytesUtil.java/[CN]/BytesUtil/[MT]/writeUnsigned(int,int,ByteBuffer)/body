@@ -1,6 +1,8 @@
 {
-  for (int i=0; i < size; i++) {
-    out.put((byte)num);
-    num>>>=8;
+  int mask=0xff << ((size - 1) * 8);
+  for (int i=size; i > 0; i--) {
+    int v=(num & mask) >> (i - 1) * 8;
+    out.put((byte)v);
+    mask=mask >> 8;
   }
 }

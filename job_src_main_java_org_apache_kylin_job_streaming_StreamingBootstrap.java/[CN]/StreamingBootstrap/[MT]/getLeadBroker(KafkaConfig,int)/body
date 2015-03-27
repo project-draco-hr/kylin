@@ -1,0 +1,9 @@
+{
+  final PartitionMetadata partitionMetadata=KafkaRequester.getPartitionMetadata(kafkaConfig.getTopic(),partitionId,kafkaConfig.getBrokers(),kafkaConfig);
+  if (partitionMetadata != null && partitionMetadata.errorCode() == 0) {
+    return partitionMetadata.leader();
+  }
+ else {
+    return null;
+  }
+}

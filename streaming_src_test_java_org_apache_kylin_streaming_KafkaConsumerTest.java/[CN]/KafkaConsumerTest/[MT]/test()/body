@@ -3,7 +3,7 @@
   final ExecutorService executorService=Executors.newFixedThreadPool(kafkaTopicMeta.getPartitionIds().size());
   List<BlockingQueue<Stream>> queues=Lists.newArrayList();
   for (  Integer partitionId : kafkaTopicMeta.getPartitionIds()) {
-    KafkaConsumer consumer=new KafkaConsumer(kafkaTopicMeta.getName(),partitionId,kafkaConfig.getBrokers(),kafkaConfig){
+    KafkaConsumer consumer=new KafkaConsumer(kafkaTopicMeta.getName(),partitionId,0,kafkaConfig.getBrokers(),kafkaConfig){
       @Override protected void consume(      long offset,      ByteBuffer payload) throws Exception {
         byte[] bytes=new byte[payload.limit()];
         payload.get(bytes);

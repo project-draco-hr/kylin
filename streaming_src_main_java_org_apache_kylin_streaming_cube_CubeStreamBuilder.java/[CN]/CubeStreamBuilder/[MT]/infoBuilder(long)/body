@@ -6,7 +6,7 @@
   for (  TblColRef col : cuboid.getColumns()) {
     dataTypes.add(col.getType());
     if (this.desc.getRowkey().isUseDictionary(col)) {
-      dictionaryOfThisCuboid.put(colIndex,dictionaryMap.get(col).getDictionaryObject());
+      dictionaryOfThisCuboid.put(colIndex,dictionaryMap.get(col));
     }
     colIndex++;
   }

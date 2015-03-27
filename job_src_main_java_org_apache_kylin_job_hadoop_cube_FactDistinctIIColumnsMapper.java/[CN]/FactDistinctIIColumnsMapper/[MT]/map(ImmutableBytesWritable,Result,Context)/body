@@ -1,0 +1,29 @@
+{
+  IIRow iiRow=new IIRow();
+  for (  Cell c : cells.rawCells()) {
+    iiRow.updateWith(c);
+  }
+  buffer.add(iiRow);
+  if (slices.iterator().hasNext()) {
+    byte[] vBytesBuffer=null;
+    Slice slice=slices.iterator().next();
+    for (    RawTableRecord record : slice) {
+      for (int i=0; i < factDictCols.size(); ++i) {
+        int baseCuboidIndex=factDictCols.get(i);
+        outputKey.set((short)baseCuboidIndex);
+        int indexInRecord=baseCuboidCol2FlattenTableCol[i];
+        Dictionary<?> dictionary=slice.getLocalDictionaries().get(indexInRecord);
+        if (vBytesBuffer == null || dictionary.getSizeOfValue() > vBytesBuffer.length) {
+          vBytesBuffer=new byte[dictionary.getSizeOfValue() * 2];
+        }
+        int vid=record.getValueID(baseCuboidIndex);
+        if (vid == dictionary.nullId()) {
+          continue;
+        }
+        int vBytesSize=dictionary.getValueBytesFromId(vid,vBytesBuffer,0);
+        outputValue.set(vBytesBuffer,0,vBytesSize);
+        context.write(outputKey,outputValue);
+      }
+    }
+  }
+}

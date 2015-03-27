@@ -1,3 +1,7 @@
 {
   queue.put(parse(record));
+  counter++;
+  if (counter % BatchConstants.COUNTER_MAX == 0) {
+    logger.info("Handled " + counter + " records!");
+  }
 }

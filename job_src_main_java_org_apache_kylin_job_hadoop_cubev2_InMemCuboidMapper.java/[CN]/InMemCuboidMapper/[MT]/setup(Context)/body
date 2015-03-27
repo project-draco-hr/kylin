@@ -1,18 +1,32 @@
 {
   super.publishConfiguration(context.getConfiguration());
   Configuration conf=context.getConfiguration();
-  KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata(conf);
+  KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
   cubeName=conf.get(BatchConstants.CFG_CUBE_NAME);
   cube=CubeManager.getInstance(config).getCube(cubeName);
   cubeDesc=cube.getDescriptor();
+  String segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME);
+  cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   dictionaryMap=Maps.newHashMap();
   cuboidsMap=Maps.newHashMap();
-  streamBuilder=new CubeStreamBuilder(queue,Integer.MAX_VALUE,cube,dictionaryMap,cuboidsMap);
+  for (  DimensionDesc dim : cubeDesc.getDimensions()) {
+    for (    TblColRef col : dim.getColumnRefs()) {
+      if (cubeDesc.getRowkey().isUseDictionary(col)) {
+        Dictionary dict=cubeSegment.getDictionary(col);
+        if (dict == null) {
+          throw new IllegalArgumentException("Dictionary for " + col + " was not found.");
+        }
+        dictionaryMap.put(col,cubeSegment.getDictionary(col));
+      }
+    }
+  }
+  streamBuilder=new CubeStreamBuilder(queue,Integer.MAX_VALUE,cube,false,dictionaryMap,cuboidsMap);
   ExecutorService executorService=Executors.newSingleThreadExecutor();
   future=executorService.submit(streamBuilder);
   schema=HCatInputFormat.getTableSchema(context.getConfiguration());
   long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
   baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
   mapperTaskId=context.getTaskAttemptID().getTaskID().getId();
-  nReducders=context.getNumReduceTasks();
+  measures=new Object[cubeDesc.getMeasures().size()];
+  measureCodec=new MeasureCodec(cubeDesc.getMeasures());
 }

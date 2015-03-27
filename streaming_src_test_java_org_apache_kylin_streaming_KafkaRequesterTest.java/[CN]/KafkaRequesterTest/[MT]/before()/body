@@ -1,0 +1,3 @@
+{
+  kafkaConfig=StreamManager.getInstance(KylinConfig.getInstanceFromEnv()).getKafkaConfig("kafka_test");
+}
