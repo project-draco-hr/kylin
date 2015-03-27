@@ -1,3 +1,6 @@
 {
-  return Bytes.compareTo(this.data,this.offset,this.length,o.data,o.offset,o.length);
+  if (this.data == null && o.data == null)   return 0;
+ else   if (this.data == null)   return -1;
+ else   if (o.data == null)   return 1;
+ else   return Bytes.compareTo(this.data,this.offset,this.length,o.data,o.offset,o.length);
 }

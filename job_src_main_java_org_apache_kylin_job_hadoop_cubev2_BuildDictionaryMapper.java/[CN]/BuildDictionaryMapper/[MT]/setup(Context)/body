@@ -1,0 +1,18 @@
+{
+  super.publishConfiguration(context.getConfiguration());
+  Configuration conf=context.getConfiguration();
+  KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
+  cubeName=conf.get(BatchConstants.CFG_CUBE_NAME);
+  cube=CubeManager.getInstance(config).getCube(cubeName);
+  String segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME).toUpperCase();
+  cubeDesc=cube.getDescriptor();
+  cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
+  dimColumns=cubeDesc.listDimensionColumnsExcludingDerived();
+  hll=new HyperLogLogPlusCounter(16);
+  columnDistinctValueMap=HashMultimap.create();
+  cuboidScheduler=new CuboidScheduler(cubeDesc);
+  intermediateTableDesc=new CubeJoinedFlatTableDesc(cube.getDescriptor(),cubeSegment);
+  baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
+  nRowKey=cubeDesc.getRowkey().getRowKeyColumns().length;
+  rowKeyValues=Lists.newArrayList();
+}

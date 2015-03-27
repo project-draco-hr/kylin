@@ -3,5 +3,7 @@
   if (obj == null)   return false;
   if (getClass() != obj.getClass())   return false;
   ByteArray o=(ByteArray)obj;
-  return Bytes.equals(this.data,this.offset,this.length,o.data,o.offset,o.length);
+  if (this.data == null && o.data == null)   return true;
+ else   if (this.data == null || o.data == null)   return false;
+ else   return Bytes.equals(this.data,this.offset,this.length,o.data,o.offset,o.length);
 }
