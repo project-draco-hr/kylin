@@ -1,0 +1,30 @@
+{
+  final KafkaConfig kafkaConfig=streamManager.getKafkaConfig(streaming);
+  Preconditions.checkArgument(kafkaConfig != null,"cannot find kafka config:" + streaming);
+  final IIInstance ii=iiManager.getII(kafkaConfig.getIiName());
+  Preconditions.checkNotNull(ii);
+  Preconditions.checkArgument(ii.getSegments().size() > 0);
+  final IISegment iiSegment=ii.getSegments().get(0);
+  final Broker leadBroker=getLeadBroker(kafkaConfig,partitionId);
+  Preconditions.checkState(leadBroker != null,"cannot find lead broker");
+  final long earliestOffset=KafkaRequester.getLastOffset(kafkaConfig.getTopic(),partitionId,OffsetRequest.EarliestTime(),leadBroker,kafkaConfig);
+  long streamOffset=ii.getStreamOffsets().get(partitionId);
+  if (streamOffset < earliestOffset) {
+    streamOffset=earliestOffset;
+  }
+  String[] args=new String[]{"-iiname",kafkaConfig.getIiName(),"-htablename",iiSegment.getStorageLocationIdentifier()};
+  ToolRunner.run(new IICreateHTableJob(),args);
+  KafkaConsumer consumer=new KafkaConsumer(kafkaConfig.getTopic(),0,streamOffset,kafkaConfig.getBrokers(),kafkaConfig){
+    @Override protected void consume(    long offset,    ByteBuffer payload) throws Exception {
+      byte[] bytes=new byte[payload.limit()];
+      payload.get(bytes);
+      getStreamQueue().put(new Stream(offset,bytes));
+    }
+  }
+;
+  kafkaConsumers.put(getKey(streaming,partitionId),consumer);
+  final IIStreamBuilder task=new IIStreamBuilder(consumer.getStreamQueue(),iiSegment.getStorageLocationIdentifier(),iiSegment.getIIInstance(),partitionId);
+  task.setStreamParser(new JsonStreamParser(ii.getDescriptor().listAllColumns()));
+  Executors.newSingleThreadExecutor().submit(consumer);
+  Executors.newSingleThreadExecutor().submit(task).get();
+}

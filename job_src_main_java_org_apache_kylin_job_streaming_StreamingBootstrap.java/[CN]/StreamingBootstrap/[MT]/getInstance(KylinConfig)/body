@@ -1,3 +1,10 @@
 {
-  return new StreamingBootstrap(kylinConfig);
+  final StreamingBootstrap bootstrap=new StreamingBootstrap(kylinConfig);
+  Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
+    @Override public void run(){
+      bootstrap.stop();
+    }
+  }
+));
+  return bootstrap;
 }

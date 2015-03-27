@@ -1,6 +1,6 @@
 {
   for (  Stream stream : streamsToBuild) {
-    final List<String> row=getStreamParser().parse(stream,allColumns);
+    final List<String> row=getStreamParser().parse(stream);
     System.out.println("offset:" + stream.getOffset() + " "+ StringUtils.join(row,","));
   }
 }

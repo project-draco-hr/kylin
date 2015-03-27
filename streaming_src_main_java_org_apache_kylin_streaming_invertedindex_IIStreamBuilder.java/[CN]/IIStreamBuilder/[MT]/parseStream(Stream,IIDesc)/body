@@ -1,3 +1,0 @@
-{
-  return getStreamParser().parse(stream,desc.listAllColumns());
-}

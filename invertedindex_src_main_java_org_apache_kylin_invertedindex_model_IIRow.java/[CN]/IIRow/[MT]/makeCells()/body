@@ -1,0 +1,5 @@
+{
+  Cell a=new KeyValue(this.getKey().copyBytes(),IIDesc.HBASE_FAMILY_BYTES,IIDesc.HBASE_QUALIFIER_BYTES,this.getValue().copyBytes());
+  Cell b=new KeyValue(this.getKey().copyBytes(),IIDesc.HBASE_FAMILY_BYTES,IIDesc.HBASE_DICTIONARY_BYTES,this.getDictionary().copyBytes());
+  return Lists.newArrayList(a,b);
+}

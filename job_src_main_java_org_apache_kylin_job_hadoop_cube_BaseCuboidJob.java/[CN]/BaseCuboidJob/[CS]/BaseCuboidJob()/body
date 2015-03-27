@@ -1,3 +1,3 @@
 {
-  this.setMapperClass(BaseCuboidMapper.class);
+  this.setMapperClass(HiveToBaseCuboidMapper.class);
 }
