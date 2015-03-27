@@ -1,5 +1,5 @@
 {
-  MapDriver<ImmutableBytesWritable,Result,ShortWritable,Text> mapDriver;
+  MapDriver<ImmutableBytesWritable,Result,LongWritable,Text> mapDriver;
   FactDistinctIIColumnsMapper mapper=new FactDistinctIIColumnsMapper();
   mapDriver=MapDriver.newMapDriver(mapper);
   mapDriver.getConfiguration().set(BatchConstants.CFG_II_NAME,iiName);
@@ -11,9 +11,9 @@
     }
   }
 )));
-  List<Pair<ShortWritable,Text>> result=mapDriver.run();
+  List<Pair<LongWritable,Text>> result=mapDriver.run();
   Set<String> lstgNames=Sets.newHashSet("FP-non GTC","ABIN");
-  for (  Pair<ShortWritable,Text> pair : result) {
+  for (  Pair<LongWritable,Text> pair : result) {
     Assert.assertEquals(pair.getFirst().get(),6);
     Assert.assertTrue(lstgNames.contains(pair.getSecond().toString()));
   }
