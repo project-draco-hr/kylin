@@ -1,0 +1,11 @@
+{
+  if (v.size() < 0) {
+    return null;
+  }
+  Iterator<T> iterator=v.iterator();
+  T min=iterator.next();
+  while (iterator.hasNext()) {
+    min=min(min,iterator.next());
+  }
+  return min;
+}

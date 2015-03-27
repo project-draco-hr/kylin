@@ -1,0 +1,10 @@
+{
+  return new ComparatorEx<ByteArray>(){
+    @Override public int compare(    ByteArray a,    ByteArray b){
+      if (a.array() == null)       return -1;
+ else       if (b.array() == null)       return 1;
+ else       return cs.compare(a,b);
+    }
+  }
+;
+}

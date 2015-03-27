@@ -1,0 +1,19 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  GTScanRange other=(GTScanRange)obj;
+  if (hbaseFuzzyKeys == null) {
+    if (other.hbaseFuzzyKeys != null)     return false;
+  }
+ else   if (!hbaseFuzzyKeys.equals(other.hbaseFuzzyKeys))   return false;
+  if (pkEnd == null) {
+    if (other.pkEnd != null)     return false;
+  }
+ else   if (!pkEnd.equals(other.pkEnd))   return false;
+  if (pkStart == null) {
+    if (other.pkStart != null)     return false;
+  }
+ else   if (!pkStart.equals(other.pkStart))   return false;
+  return true;
+}

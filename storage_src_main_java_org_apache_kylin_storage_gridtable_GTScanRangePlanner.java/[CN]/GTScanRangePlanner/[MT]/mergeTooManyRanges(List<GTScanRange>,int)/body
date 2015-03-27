@@ -1,0 +1,9 @@
+{
+  if (ranges.size() < maxRanges) {
+    return ranges;
+  }
+  List<GTScanRange> result=new ArrayList<GTScanRange>(1);
+  GTScanRange mergedRange=mergeKeyRange(ranges);
+  result.add(mergedRange);
+  return result;
+}

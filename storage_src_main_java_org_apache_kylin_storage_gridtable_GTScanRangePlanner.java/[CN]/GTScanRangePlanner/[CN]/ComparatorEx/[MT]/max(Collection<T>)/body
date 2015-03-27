@@ -1,0 +1,11 @@
+{
+  if (v.size() < 0) {
+    return null;
+  }
+  Iterator<T> iterator=v.iterator();
+  T max=iterator.next();
+  while (iterator.hasNext()) {
+    max=max(max,iterator.next());
+  }
+  return max;
+}

@@ -1,0 +1,17 @@
+{
+  GTScanRange first=ranges.get(0);
+  if (ranges.size() == 1)   return first;
+  GTRecord start=first.pkStart;
+  GTRecord end=first.pkEnd;
+  List<GTRecord> newFuzzyKeys=new ArrayList<GTRecord>();
+  boolean hasNonFuzzyRange=false;
+  for (  GTScanRange range : ranges) {
+    hasNonFuzzyRange=hasNonFuzzyRange || range.hbaseFuzzyKeys.isEmpty();
+    newFuzzyKeys.addAll(range.hbaseFuzzyKeys);
+    end=recordUnknownIsBigger.max(end,range.pkEnd);
+  }
+  if (hasNonFuzzyRange || newFuzzyKeys.size() > MAX_HBASE_FUZZY_KEYS) {
+    newFuzzyKeys.clear();
+  }
+  return new GTScanRange(start,end,newFuzzyKeys);
+}

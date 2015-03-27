@@ -1,5 +1,4 @@
 GTInfo info
-GTRecord pkStart
-GTRecord pkEnd
+GTScanRange range
 BitSet columns
 TupleFilter filterPushDown

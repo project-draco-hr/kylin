@@ -1,0 +1,26 @@
+{
+  boolean globalAlwaysTrue=false;
+  Iterator<Collection<ColumnRange>> iterator=orAndRanges.iterator();
+  while (iterator.hasNext()) {
+    Collection<ColumnRange> andRanges=iterator.next();
+    Iterator<ColumnRange> iterator2=andRanges.iterator();
+    boolean hasAlwaysFalse=false;
+    while (iterator2.hasNext()) {
+      ColumnRange range=iterator2.next();
+      if (range.satisfyAll())       iterator2.remove();
+ else       if (range.satisfyNone())       hasAlwaysFalse=true;
+    }
+    if (hasAlwaysFalse) {
+      iterator.remove();
+    }
+ else     if (andRanges.isEmpty()) {
+      globalAlwaysTrue=true;
+      break;
+    }
+  }
+  if (globalAlwaysTrue) {
+    orAndRanges.clear();
+    orAndRanges.add(Collections.<ColumnRange>emptyList());
+  }
+  return orAndRanges;
+}

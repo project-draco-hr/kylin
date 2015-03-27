@@ -1,0 +1,21 @@
+{
+  Map<TblColRef,ColumnRange> rangeMap=new HashMap<TblColRef,ColumnRange>();
+  for (  TupleFilter filter : andFilters) {
+    if ((filter instanceof CompareTupleFilter) == false) {
+      continue;
+    }
+    CompareTupleFilter comp=(CompareTupleFilter)filter;
+    if (comp.getColumn() == null) {
+      continue;
+    }
+    @SuppressWarnings("unchecked") ColumnRange newRange=new ColumnRange(comp.getColumn(),(Set<ByteArray>)comp.getValues(),comp.getOperator());
+    ColumnRange existing=rangeMap.get(newRange.column);
+    if (existing == null) {
+      rangeMap.put(newRange.column,newRange);
+    }
+ else {
+      existing.andMerge(newRange);
+    }
+  }
+  return rangeMap.values();
+}

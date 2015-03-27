@@ -1,0 +1,3 @@
+Set<ByteArray> equalValues
+ByteArray beginValue
+ByteArray endValue

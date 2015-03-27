@@ -1,0 +1,4 @@
+{
+  this.begin=byteUnknownIsSmaller.min(this.equals);
+  this.end=byteUnknownIsBigger.max(this.equals);
+}

@@ -1,0 +1,11 @@
+{
+  if (equals != null) {
+    return equals.isEmpty();
+  }
+ else   if (begin.array() != null && end.array() != null) {
+    return info.codeSystem.getFilterCodeSystem().compare(begin,end) > 0;
+  }
+ else {
+    return false;
+  }
+}
