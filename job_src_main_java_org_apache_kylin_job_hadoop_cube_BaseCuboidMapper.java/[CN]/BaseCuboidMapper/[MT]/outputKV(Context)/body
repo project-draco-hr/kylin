@@ -1,0 +1,8 @@
+{
+  intermediateTableDesc.sanityCheck(bytesSplitter);
+  byte[] rowKey=buildKey(bytesSplitter.getSplitBuffers());
+  outputKey.set(rowKey,0,rowKey.length);
+  buildValue(bytesSplitter.getSplitBuffers());
+  outputValue.set(valueBuf.array(),0,valueBuf.position());
+  context.write(outputKey,outputValue);
+}

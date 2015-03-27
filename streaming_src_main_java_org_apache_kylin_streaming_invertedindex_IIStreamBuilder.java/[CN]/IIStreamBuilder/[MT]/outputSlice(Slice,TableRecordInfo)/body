@@ -1,0 +1,3 @@
+{
+  loadToHBase(hTable,slice,new IIKeyValueCodec(tableRecordInfo.getDigest()));
+}

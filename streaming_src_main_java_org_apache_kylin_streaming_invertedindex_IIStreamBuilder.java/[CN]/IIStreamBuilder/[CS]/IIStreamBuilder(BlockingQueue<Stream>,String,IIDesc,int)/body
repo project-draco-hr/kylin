@@ -2,7 +2,12 @@
   super(queue,desc.getSliceSize());
   this.desc=desc;
   try {
-    this.hTable=HConnectionManager.createConnection(HBaseConfiguration.create()).getTable(hTableName);
+    if (hTableName != null) {
+      this.hTable=HConnectionManager.createConnection(HBaseConfiguration.create()).getTable(hTableName);
+    }
+ else {
+      this.hTable=null;
+    }
   }
  catch (  IOException e) {
     logger.error("cannot open htable name:" + hTableName,e);

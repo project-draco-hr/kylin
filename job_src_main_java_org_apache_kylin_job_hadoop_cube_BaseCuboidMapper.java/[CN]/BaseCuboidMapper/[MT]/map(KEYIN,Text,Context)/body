@@ -5,12 +5,7 @@
   }
   try {
     bytesSplitter.split(value.getBytes(),value.getLength(),byteRowDelimiter);
-    intermediateTableDesc.sanityCheck(bytesSplitter);
-    byte[] rowKey=buildKey(bytesSplitter.getSplitBuffers());
-    outputKey.set(rowKey,0,rowKey.length);
-    buildValue(bytesSplitter.getSplitBuffers());
-    outputValue.set(valueBuf.array(),0,valueBuf.position());
-    context.write(outputKey,outputValue);
+    outputKV(context);
   }
  catch (  Exception ex) {
     handleErrorRecord(bytesSplitter,ex);

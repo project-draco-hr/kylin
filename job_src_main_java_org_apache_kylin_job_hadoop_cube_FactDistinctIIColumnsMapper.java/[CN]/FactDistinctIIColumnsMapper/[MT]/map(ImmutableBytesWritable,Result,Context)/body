@@ -4,9 +4,9 @@
     iiRow.updateWith(c);
   }
   buffer.add(iiRow);
-  if (slices.iterator().hasNext()) {
+  if (slices.hasNext()) {
     byte[] vBytesBuffer=null;
-    Slice slice=slices.iterator().next();
+    Slice slice=slices.next();
     for (    RawTableRecord record : slice) {
       for (int i=0; i < factDictCols.size(); ++i) {
         int baseCuboidIndex=factDictCols.get(i);
