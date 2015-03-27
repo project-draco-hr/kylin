@@ -1,3 +1,2 @@
 {
-  StreamingBootstrap.getInstance(kylinConfig).startStreaming("eagle",0);
 }
