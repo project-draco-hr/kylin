@@ -1,6 +1,6 @@
 {
-  final KafkaConfig kafkaConfig=streamManager.getKafkaConfig(streamingConf);
-  Preconditions.checkArgument(kafkaConfig != null,"cannot find kafka config:" + streamingConf);
+  final KafkaConfig kafkaConfig=streamManager.getKafkaConfig(streaming);
+  Preconditions.checkArgument(kafkaConfig != null,"cannot find kafka config:" + streaming);
   final IIInstance ii=iiManager.getII(kafkaConfig.getIiName());
   Preconditions.checkNotNull(ii);
   Preconditions.checkArgument(ii.getSegments().size() > 0);
@@ -12,6 +12,8 @@
   if (streamOffset < earliestOffset) {
     streamOffset=earliestOffset;
   }
+  String[] args=new String[]{"-iiname",kafkaConfig.getIiName(),"-htablename",iiSegment.getStorageLocationIdentifier()};
+  ToolRunner.run(new IICreateHTableJob(),args);
   KafkaConsumer consumer=new KafkaConsumer(kafkaConfig.getTopic(),0,streamOffset,kafkaConfig.getBrokers(),kafkaConfig){
     @Override protected void consume(    long offset,    ByteBuffer payload) throws Exception {
       byte[] bytes=new byte[payload.limit()];
@@ -21,9 +23,9 @@
   }
 ;
   final IIDesc desc=ii.getDescriptor();
-  Executors.newSingleThreadExecutor().submit(consumer);
+  kafkaConsumers.put(getKey(streaming,partitionId),consumer);
   final IIStreamBuilder task=new IIStreamBuilder(consumer.getStreamQueue(),iiSegment.getStorageLocationIdentifier(),desc,partitionId);
   task.setStreamParser(JsonStreamParser.instance);
-  final Future<?> future=Executors.newSingleThreadExecutor().submit(task);
-  future.get();
+  Executors.newSingleThreadExecutor().submit(consumer);
+  Executors.newSingleThreadExecutor().submit(task);
 }

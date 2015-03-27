@@ -1,0 +1,7 @@
+{
+  final KafkaConsumer consumer=kafkaConsumers.remove(getKey(streaming,partitionId));
+  if (consumer != null) {
+    consumer.stop();
+    consumer.getStreamQueue().put(Stream.EOF);
+  }
+}
