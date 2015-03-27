@@ -1,6 +1,0 @@
-{
-  IIKeyValueCodec codec=new IIKeyValueCodec(tableRecordInfo.getDigest());
-  for (  IIRow iiRow : codec.encodeKeyValue(slice)) {
-    result.add(iiRow);
-  }
-}

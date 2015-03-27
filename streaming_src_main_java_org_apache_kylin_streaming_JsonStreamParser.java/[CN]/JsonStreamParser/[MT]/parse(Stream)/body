@@ -1,0 +1,12 @@
+{
+  final JsonObject root=JSON_PARSER.parse(new String(stream.getRawData())).getAsJsonObject();
+  ArrayList<String> result=Lists.newArrayList();
+  for (  TblColRef column : allColumns) {
+    for (    Map.Entry<String,JsonElement> entry : root.entrySet()) {
+      if (entry.getKey().equalsIgnoreCase(column.getName())) {
+        result.add(entry.getValue().getAsString());
+      }
+    }
+  }
+  return result;
+}

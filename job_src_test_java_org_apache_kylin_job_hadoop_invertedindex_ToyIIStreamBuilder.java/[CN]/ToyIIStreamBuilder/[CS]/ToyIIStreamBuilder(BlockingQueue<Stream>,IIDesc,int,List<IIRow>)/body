@@ -1,4 +1,0 @@
-{
-  super(queue,null,desc,partitionId);
-  this.result=result;
-}

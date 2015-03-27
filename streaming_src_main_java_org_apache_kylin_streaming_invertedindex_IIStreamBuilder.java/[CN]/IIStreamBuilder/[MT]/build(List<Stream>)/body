@@ -1,18 +1,10 @@
 {
   logger.info("stream build start, size:" + streamsToBuild.size());
   Stopwatch stopwatch=new Stopwatch().start();
-  List<List<String>> table=Lists.transform(streamsToBuild,new Function<Stream,List<String>>(){
-    @Nullable @Override public List<String> apply(    @Nullable Stream input){
-      return parseStream(input,desc);
-    }
-  }
-);
-  final Map<Integer,Dictionary<?>> dictionaryMap=buildDictionary(table,desc);
-  TableRecordInfo tableRecordInfo=new TableRecordInfo(desc,dictionaryMap);
-  final Slice slice=buildSlice(table,sliceBuilder,tableRecordInfo,dictionaryMap);
+  final Slice slice=sliceBuilder.buildSlice(streamsToBuild,getStreamParser());
   logger.info("slice info, shard:" + slice.getShard() + " timestamp:"+ slice.getTimestamp()+ " record count:"+ slice.getRecordCount());
-  outputSlice(slice,tableRecordInfo);
-  submitOffset();
+  loadToHBase(hTable,slice,new IIKeyValueCodec(slice.getInfo()));
+  submitOffset(0);
   stopwatch.stop();
-  logger.info("stream build finished, size:" + streamsToBuild.size() + " elapsed time:"+ stopwatch.elapsedTime(TimeUnit.MILLISECONDS)+ TimeUnit.MILLISECONDS);
+  logger.info("stream build finished, size:" + streamsToBuild.size() + " elapsed time:"+ stopwatch.elapsedTime(TimeUnit.MILLISECONDS)+ " "+ TimeUnit.MILLISECONDS);
 }

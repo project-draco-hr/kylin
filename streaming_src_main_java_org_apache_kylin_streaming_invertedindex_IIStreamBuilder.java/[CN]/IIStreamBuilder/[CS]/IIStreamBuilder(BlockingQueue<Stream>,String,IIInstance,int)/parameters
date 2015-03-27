@@ -1,0 +1,4 @@
+BlockingQueue<Stream> queue
+String hTableName
+IIInstance iiInstance
+int partitionId
