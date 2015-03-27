@@ -3,4 +3,5 @@
   verifyFirstRow(table);
   verifyScanWithUnevaluatableFilter(table);
   verifyScanWithEvaluatableFilter(table);
+  verifyConvertFilterConstants(table);
 }

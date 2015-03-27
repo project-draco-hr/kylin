@@ -4,6 +4,6 @@
   ExtractTupleFilter funevaluatable=unevaluatable(info.colRef(1));
   LogicalTupleFilter filter=and(fcomp,funevaluatable);
   GTScanRequest req=new GTScanRequest(info,null,setOf(0),setOf(3),new String[]{"sum"},filter);
-  assertEquals("GTScanRequest [range=null-null, columns={0, 1, 3}, filterPushDown=AND [NULL.GT_MOCKUP_TABLE.1 GT [\\x00\\x00\\x01J\\xE5\\xBD\\x5C\\x00], [null]], aggrGroupBy={0, 1}, aggrMetrics={3}, aggrMetricsFuncs=[sum]]",req.toString());
+  assertEquals("GTScanRequest [range=null-null, columns={0, 1, 3}, filterPushDown=AND [NULL.GT_MOCKUP_TABLE.0 GT [\\x00\\x00\\x01J\\xE5\\xBD\\x5C\\x00], [null]], aggrGroupBy={0, 1}, aggrMetrics={3}, aggrMetricsFuncs=[sum]]",req.toString());
   doScanAndVerify(table,req,"[1421280000000, 20, null, 20, null]");
 }

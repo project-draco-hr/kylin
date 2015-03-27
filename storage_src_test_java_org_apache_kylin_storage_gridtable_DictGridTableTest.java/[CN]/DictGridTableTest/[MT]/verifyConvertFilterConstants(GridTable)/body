@@ -1,0 +1,14 @@
+{
+  GTInfo info=table.getInfo();
+  TableDesc extTable=TableDesc.mockup("ext");
+  TblColRef extColA=new TblColRef(ColumnDesc.mockup(extTable,1,"A","timestamp"));
+  TblColRef extColB=new TblColRef(ColumnDesc.mockup(extTable,2,"B","integer"));
+  CompareTupleFilter fcomp1=compare(extColA,FilterOperatorEnum.GT,"2015-01-14");
+  CompareTupleFilter fcomp2=compare(extColB,FilterOperatorEnum.EQ,"10");
+  LogicalTupleFilter filter=and(fcomp1,fcomp2);
+  Map<TblColRef,Integer> colMapping=Maps.newHashMap();
+  colMapping.put(extColA,0);
+  colMapping.put(extColB,1);
+  TupleFilter newFilter=GTUtil.convertFilterColumnsAndConstants(filter,info,colMapping,null);
+  assertEquals("AND [NULL.GT_MOCKUP_TABLE.0 GT [\\x00\\x00\\x01J\\xE5\\xBD\\x5C\\x00], NULL.GT_MOCKUP_TABLE.1 EQ [\\x00]]",newFilter.toString());
+}
