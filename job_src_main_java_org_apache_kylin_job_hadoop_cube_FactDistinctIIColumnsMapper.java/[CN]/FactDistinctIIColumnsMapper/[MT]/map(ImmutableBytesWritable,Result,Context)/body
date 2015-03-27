@@ -4,9 +4,9 @@
     iiRow.updateWith(c);
   }
   buffer.add(iiRow);
-  if (slices.iterator().hasNext()) {
+  if (slices.hasNext()) {
     byte[] vBytesBuffer=null;
-    Slice slice=slices.iterator().next();
+    Slice slice=slices.next();
     for (    RawTableRecord record : slice) {
       for (int i=0; i < factDictCols.size(); ++i) {
         int baseCuboidIndex=factDictCols.get(i);
@@ -16,7 +16,7 @@
         if (vBytesBuffer == null || dictionary.getSizeOfValue() > vBytesBuffer.length) {
           vBytesBuffer=new byte[dictionary.getSizeOfValue() * 2];
         }
-        int vid=record.getValueID(baseCuboidIndex);
+        int vid=record.getValueID(indexInRecord);
         if (vid == dictionary.nullId()) {
           continue;
         }

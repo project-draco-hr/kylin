@@ -1,0 +1,19 @@
+{
+  this.createTestMetadata();
+  this.ii=IIManager.getInstance(getTestConfig()).getII(iiName);
+  this.iiDesc=ii.getDescriptor();
+  Collection<?> streams=Collections2.transform(Arrays.asList(inputs),new Function<String,Stream>(){
+    @Nullable @Override public Stream apply(    String input){
+      return new Stream(0,input.getBytes());
+    }
+  }
+);
+  LinkedBlockingQueue q=new LinkedBlockingQueue();
+  q.addAll(streams);
+  q.put(new Stream(-1,null));
+  iiRows=Lists.newArrayList();
+  ToyIIStreamBuilder builder=new ToyIIStreamBuilder(q,iiDesc,0,iiRows);
+  ExecutorService executorService=Executors.newSingleThreadExecutor();
+  Future<?> future=executorService.submit(builder);
+  future.get();
+}

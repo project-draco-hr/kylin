@@ -11,7 +11,7 @@
   TableRecordInfo tableRecordInfo=new TableRecordInfo(desc,dictionaryMap);
   final Slice slice=buildSlice(table,sliceBuilder,tableRecordInfo,dictionaryMap);
   logger.info("slice info, shard:" + slice.getShard() + " timestamp:"+ slice.getTimestamp()+ " record count:"+ slice.getRecordCount());
-  loadToHBase(hTable,slice,new IIKeyValueCodec(tableRecordInfo.getDigest()));
+  outputSlice(slice,tableRecordInfo);
   submitOffset();
   stopwatch.stop();
   logger.info("stream build finished, size:" + streamsToBuild.size() + " elapsed time:"+ stopwatch.elapsedTime(TimeUnit.MILLISECONDS)+ TimeUnit.MILLISECONDS);

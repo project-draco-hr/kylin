@@ -1,0 +1,4 @@
+BlockingQueue<Stream> queue
+IIDesc desc
+int partitionId
+List<IIRow> result
