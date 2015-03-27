@@ -1,3 +1,3 @@
-ShortWritable key
+LongWritable key
 Iterable<Text> values
 Context context

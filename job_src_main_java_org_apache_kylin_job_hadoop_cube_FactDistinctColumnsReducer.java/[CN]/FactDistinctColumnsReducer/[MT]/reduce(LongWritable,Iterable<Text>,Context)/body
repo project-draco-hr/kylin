@@ -1,6 +1,6 @@
 {
   if (key.get() >= 0) {
-    TblColRef col=columnList.get(key.get());
+    TblColRef col=columnList.get((int)key.get());
     HashSet<ByteArray> set=new HashSet<ByteArray>();
     for (    Text textValue : values) {
       ByteArray value=new ByteArray(Bytes.copy(textValue.getBytes(),0,textValue.getLength()));
@@ -21,12 +21,18 @@
     }
   }
  else {
+    long cuboidId=0 - key.get();
     for (    Text value : values) {
       HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(16);
       ByteArray byteArray=new ByteArray(value.getBytes());
       hll.readRegisters(byteArray.asBuffer());
-      rowKeyCountInMappers.add(hll.getCountEstimate());
-      totalHll.merge(hll);
+      if (cuboidId > baseCuboidId) {
+        rowKeyCountInMappers.add(hll.getCountEstimate());
+      }
+      if (cuboidHLLMap.get(cuboidId) != null) {
+        hll.merge(cuboidHLLMap.get(cuboidId));
+      }
+      cuboidHLLMap.put(cuboidId,hll);
     }
   }
 }

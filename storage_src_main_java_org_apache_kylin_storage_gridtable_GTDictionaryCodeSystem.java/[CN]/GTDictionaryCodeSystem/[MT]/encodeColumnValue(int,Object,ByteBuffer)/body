@@ -1,9 +1,3 @@
 {
-  if (useDictionary(col)) {
-    int id=dictionaryMaps.get(col).getIdFromValue(value);
-    BytesUtil.writeUnsigned(id,dictionaryMaps.get(col).getSizeOfId(),buf);
-  }
- else {
-    serializerMap.get(col).serialize(value,buf);
-  }
+  serializers[col].serialize(value,buf);
 }
