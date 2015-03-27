@@ -1,0 +1,38 @@
+{
+  try {
+    IIRow iiRow=new IIRow();
+    for (    Cell c : cells.rawCells()) {
+      iiRow.updateWith(c);
+    }
+    buffer.add(iiRow);
+    if (slices.hasNext()) {
+      Slice slice=slices.next();
+      TableRecordInfoDigest localDigest=slice.getInfo();
+      for (      RawTableRecord record : slice) {
+        counter++;
+        if (counter % BatchConstants.COUNTER_MAX == 0) {
+          logger.info("Handled " + counter + " records!");
+        }
+        for (int indexInRecord=0; indexInRecord < localDigest.getColumnCount(); ++indexInRecord) {
+          SplittedBytes columnBuffer=bytesSplitter.getSplitBuffer(indexInRecord);
+          if (!localDigest.isMetrics(indexInRecord)) {
+            String v=record.getValueMetric(indexInRecord);
+            byte[] metricBytes=v.getBytes();
+            System.arraycopy(metricBytes,0,columnBuffer.value,0,metricBytes.length);
+            columnBuffer.length=metricBytes.length;
+          }
+ else {
+            Dictionary<?> dictionary=slice.getLocalDictionaries().get(indexInRecord);
+            Preconditions.checkArgument(columnBuffer.value.length > dictionary.getSizeOfValue(),"Column length too big");
+            int vid=record.getValueID(indexInRecord);
+            columnBuffer.length=dictionary.getValueBytesFromId(vid,columnBuffer.value,0);
+          }
+        }
+        outputKV(context);
+      }
+    }
+  }
+ catch (  Exception ex) {
+    handleErrorRecord(bytesSplitter,ex);
+  }
+}

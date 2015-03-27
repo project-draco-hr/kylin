@@ -1,7 +1,0 @@
-{
-  createTestMetadata();
-  FileUtils.deleteDirectory(new File("../job/meta"));
-  FileUtils.copyDirectory(new File(getTestConfig().getMetadataUrl()),new File("../job/meta"));
-  BaseCuboidMapper<Text> mapper=new BaseCuboidMapper<Text>();
-  mapDriver=MapDriver.newMapDriver(mapper);
-}
