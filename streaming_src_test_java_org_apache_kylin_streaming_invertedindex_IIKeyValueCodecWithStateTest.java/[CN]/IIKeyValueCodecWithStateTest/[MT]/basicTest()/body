@@ -1,10 +1,10 @@
 {
-  ArrayList<IIRow> buffer=Lists.newArrayList();
+  Queue<IIRow> buffer=Lists.newLinkedList();
+  FIFOIterable bufferIterable=new FIFOIterable(buffer);
   TableRecordInfo info=new TableRecordInfo(iiDesc);
   TableRecordInfoDigest digest=info.getDigest();
-  int columnCount=digest.getColumnCount();
   KeyValueCodec codec=new IIKeyValueCodecWithState(digest);
-  Iterator<Slice> slices=codec.decodeKeyValue(buffer).iterator();
+  Iterator<Slice> slices=codec.decodeKeyValue(bufferIterable).iterator();
   Assert.assertTrue(!slices.hasNext());
   Assert.assertEquals(iiRowList.size(),digest.getColumnCount());
   for (int i=0; i < digest.getColumnCount(); ++i) {
@@ -17,4 +17,5 @@
     }
   }
   Slice newSlice=slices.next();
+  Assert.assertEquals(newSlice.getLocalDictionaries().get(0).getSize(),2);
 }
