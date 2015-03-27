@@ -1,3 +1,0 @@
-{
-  return convertFilter(rootFilter,null,null,false,unevaluatableColumnCollector);
-}

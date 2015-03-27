@@ -1,0 +1,6 @@
+{
+  CompareTupleFilter result=new CompareTupleFilter(op);
+  result.addChild(new ColumnTupleFilter(col));
+  result.addChild(new ConstantTupleFilter(value));
+  return result;
+}

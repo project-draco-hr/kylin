@@ -1,0 +1,5 @@
+{
+  BitSet set=new BitSet();
+  for (  int i : values)   set.set(i);
+  return set;
+}

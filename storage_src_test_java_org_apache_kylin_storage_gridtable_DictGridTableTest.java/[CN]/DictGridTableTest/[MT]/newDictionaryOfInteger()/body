@@ -1,0 +1,14 @@
+{
+  NumberDictionaryBuilder<String> builder=new NumberDictionaryBuilder<>(new StringBytesConverter());
+  builder.addValue("10");
+  builder.addValue("20");
+  builder.addValue("30");
+  builder.addValue("40");
+  builder.addValue("50");
+  builder.addValue("60");
+  builder.addValue("70");
+  builder.addValue("80");
+  builder.addValue("90");
+  builder.addValue("100");
+  return builder.build(0);
+}

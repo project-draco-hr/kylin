@@ -1,0 +1,11 @@
+{
+  Builder builder=GTInfo.builder();
+  builder.setCodeSystem(newDictCodeSystem());
+  builder.setColumns(DataType.getInstance("timestamp"),DataType.getInstance("integer"),DataType.getInstance("varchar"),DataType.getInstance("bigint"),DataType.getInstance("decimal"));
+  builder.setPrimaryKey(setOf(0));
+  builder.setColumnPreferIndex(setOf(0));
+  builder.enableColumnBlock(new BitSet[]{setOf(0,1,2),setOf(3,4)});
+  builder.enableRowBlock(4);
+  GTInfo info=builder.build();
+  return info;
+}

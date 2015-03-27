@@ -1,0 +1,3 @@
+{
+  return (pkStart == null ? "null" : pkStart.toString(pkStart.info.primaryKey)) + "-" + (pkEnd == null ? "null" : pkEnd.toString(pkEnd.info.primaryKey));
+}

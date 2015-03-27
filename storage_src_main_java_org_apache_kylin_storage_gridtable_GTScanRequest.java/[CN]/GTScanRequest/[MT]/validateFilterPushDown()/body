@@ -8,7 +8,7 @@
   }
   if (TupleFilter.isEvaluableRecursively(filterPushDown) == false) {
     Set<TblColRef> unevaluableColumns=Sets.newHashSet();
-    filterPushDown=GTUtil.convertFilterUnevaluatable(filterPushDown,unevaluableColumns);
+    filterPushDown=GTUtil.convertFilterUnevaluatable(filterPushDown,info,unevaluableColumns);
     if (hasAggregation()) {
       for (      TblColRef col : unevaluableColumns) {
         aggrGroupBy.set(col.getColumn().getZeroBasedIndex());

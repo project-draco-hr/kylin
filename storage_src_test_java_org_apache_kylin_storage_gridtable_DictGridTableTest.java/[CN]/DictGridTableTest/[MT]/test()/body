@@ -1,0 +1,6 @@
+{
+  GridTable table=newTestTable();
+  verifyFirstRow(table);
+  verifyScanWithUnevaluatableFilter(table);
+  verifyScanWithEvaluatableFilter(table);
+}

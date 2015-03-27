@@ -1,0 +1,13 @@
+{
+  System.out.println(req);
+  IGTScanner scanner=table.scan(req);
+  int i=0;
+  for (  GTRecord r : scanner) {
+    System.out.println(r);
+    if (verifyRows != null && i < verifyRows.length) {
+      assertEquals(verifyRows[i],r.toString());
+    }
+    i++;
+  }
+  scanner.close();
+}

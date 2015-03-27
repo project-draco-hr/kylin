@@ -1,0 +1,7 @@
+{
+  LogicalTupleFilter result=new LogicalTupleFilter(op);
+  for (  TupleFilter c : children) {
+    result.addChild(c);
+  }
+  return result;
+}

@@ -1,0 +1,3 @@
+{
+  doScanAndVerify(table,new GTScanRequest(table.getInfo()),"[1421193600000, 30, Yang, 10, 10.5]");
+}

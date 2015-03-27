@@ -1,0 +1,5 @@
+{
+  ExtractTupleFilter r=new ExtractTupleFilter(FilterOperatorEnum.EXTRACT);
+  r.addChild(new ColumnTupleFilter(col));
+  return r;
+}

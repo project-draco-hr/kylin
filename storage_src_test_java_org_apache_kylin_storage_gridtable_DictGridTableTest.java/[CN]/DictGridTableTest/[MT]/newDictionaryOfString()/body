@@ -1,0 +1,14 @@
+{
+  TrieDictionaryBuilder<String> builder=new TrieDictionaryBuilder<>(new StringBytesConverter());
+  builder.addValue("Dong");
+  builder.addValue("George");
+  builder.addValue("Jason");
+  builder.addValue("Kejia");
+  builder.addValue("Luke");
+  builder.addValue("Mahone");
+  builder.addValue("Qianhao");
+  builder.addValue("Shaofeng");
+  builder.addValue("Xu");
+  builder.addValue("Yang");
+  return builder.build(0);
+}

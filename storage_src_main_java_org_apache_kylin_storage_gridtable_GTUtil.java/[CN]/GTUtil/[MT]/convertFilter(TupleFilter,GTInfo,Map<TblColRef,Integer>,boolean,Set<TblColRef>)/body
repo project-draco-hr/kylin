@@ -6,19 +6,17 @@
         TupleFilter.collectColumns(filter,unevaluatableColumnCollector);
         return ConstantTupleFilter.TRUE;
       }
+      if (filter.isEvaluable() == false) {
+        TupleFilter.collectColumns(filter,unevaluatableColumnCollector);
+        return ConstantTupleFilter.TRUE;
+      }
       if (colMapping != null && filter instanceof ColumnTupleFilter) {
         ColumnTupleFilter colFilter=(ColumnTupleFilter)filter;
         int gtColIdx=colMapping.get(colFilter.getColumn());
         return new ColumnTupleFilter(info.colRef(gtColIdx));
       }
-      if (filter instanceof CompareTupleFilter) {
-        if (TupleFilter.isEvaluableRecursively(filter) == false) {
-          TupleFilter.collectColumns(filter,unevaluatableColumnCollector);
-          return ConstantTupleFilter.TRUE;
-        }
-        if (encodeConstants) {
-          return encodeConstants((CompareTupleFilter)filter);
-        }
+      if (encodeConstants && filter instanceof CompareTupleFilter) {
+        return encodeConstants((CompareTupleFilter)filter);
       }
       return filter;
     }

@@ -1,3 +1,3 @@
 {
-  return "ColumnFilter [column=" + columnRef + "]";
+  return "" + columnRef;
 }
