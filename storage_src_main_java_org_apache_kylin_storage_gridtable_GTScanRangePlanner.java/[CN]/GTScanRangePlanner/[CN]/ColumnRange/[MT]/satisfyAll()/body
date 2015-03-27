@@ -1,0 +1,3 @@
+{
+  return begin.array() == null && end.array() == null;
+}

@@ -1,4 +1,5 @@
 {
+  if (range == null)   range=new GTScanRange(null,null);
   if (columns == null)   columns=(BitSet)info.colAll.clone();
   if (hasAggregation()) {
     if (aggrGroupBy.intersects(aggrMetrics))     throw new IllegalStateException();

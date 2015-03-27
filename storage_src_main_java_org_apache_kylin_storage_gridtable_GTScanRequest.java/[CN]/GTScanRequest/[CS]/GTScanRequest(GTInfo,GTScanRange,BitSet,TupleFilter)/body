@@ -1,7 +1,6 @@
 {
   this.info=info;
-  this.pkStart=pkStart;
-  this.pkEnd=pkEnd;
+  this.range=range;
   this.columns=columns;
   this.filterPushDown=filterPushDown;
   validate();

@@ -1,0 +1,3 @@
+{
+  return compare(start,v) <= 0 && compare(v,end) <= 0;
+}

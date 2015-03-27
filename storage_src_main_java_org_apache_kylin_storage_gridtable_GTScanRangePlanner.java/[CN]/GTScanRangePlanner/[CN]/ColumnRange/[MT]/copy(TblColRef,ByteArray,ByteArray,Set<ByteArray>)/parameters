@@ -1,0 +1,4 @@
+TblColRef column
+ByteArray beginValue
+ByteArray endValue
+Set<ByteArray> equalValues

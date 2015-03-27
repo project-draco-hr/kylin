@@ -1,3 +1,9 @@
 {
-  throw new UnsupportedOperationException();
+  DataTypeSerializer serializer=serializers[col];
+  if (serializer instanceof DictionarySerializer) {
+    ((DictionarySerializer)serializer).serializeWithRounding(value,roundingFlag,buf);
+  }
+ else {
+    serializer.serialize(value,buf);
+  }
 }

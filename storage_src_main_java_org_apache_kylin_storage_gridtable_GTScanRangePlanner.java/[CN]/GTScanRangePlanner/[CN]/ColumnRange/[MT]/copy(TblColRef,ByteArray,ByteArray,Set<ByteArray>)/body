@@ -1,0 +1,6 @@
+{
+  this.column=column;
+  this.begin=beginValue;
+  this.end=endValue;
+  this.equals=equalValues;
+}

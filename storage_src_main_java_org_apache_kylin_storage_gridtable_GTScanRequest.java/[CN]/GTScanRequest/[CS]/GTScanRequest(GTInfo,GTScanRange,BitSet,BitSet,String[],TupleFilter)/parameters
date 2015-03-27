@@ -1,6 +1,5 @@
 GTInfo info
-GTRecord pkStart
-GTRecord pkEnd
+GTScanRange range
 BitSet aggrGroupBy
 BitSet aggrMetrics
 String[] aggrMetricsFuncs

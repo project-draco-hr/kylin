@@ -1,0 +1,3 @@
+TblColRef column
+Set<ByteArray> values
+FilterOperatorEnum op

@@ -1,0 +1,22 @@
+{
+  GTRecord pkStart=new GTRecord(info);
+  GTRecord pkEnd=new GTRecord(info);
+  List<GTRecord> hbaseFuzzyKeys=Lists.newArrayList();
+  for (  ColumnRange range : andDimRanges) {
+    int col=range.column.getColumn().getZeroBasedIndex();
+    if (info.primaryKey.get(col) == false)     continue;
+    pkStart.set(col,range.begin);
+    pkEnd.set(col,range.end);
+    BitSet fuzzyMask=new BitSet();
+    fuzzyMask.set(col);
+    for (    ByteArray v : range.equals) {
+      GTRecord fuzzy=new GTRecord(info);
+      fuzzy.set(col,v);
+      fuzzy.maskForEqualHashComp(fuzzyMask);
+      hbaseFuzzyKeys.add(fuzzy);
+    }
+  }
+  pkStart.maskForEqualHashComp(info.primaryKey);
+  pkEnd.maskForEqualHashComp(info.primaryKey);
+  return new GTScanRange(pkStart,pkEnd,hbaseFuzzyKeys);
+}

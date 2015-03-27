@@ -1,4 +1,4 @@
 {
   int id=dictionary.getIdFromValue(value);
-  BytesUtil.writeUnsigned(id,dictionary.getSizeOfId(),out);
+  BytesUtil.writeUnsigned(id,dictionary.getSizeOfId(),buf);
 }

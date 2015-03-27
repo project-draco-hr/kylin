@@ -1,0 +1,12 @@
+{
+  TupleFilter flatFilter=flattenToOrAndFilter(filter);
+  List<Collection<ColumnRange>> orAndDimRanges=translateToOrAndDimRanges(flatFilter);
+  List<GTScanRange> scanRanges=Lists.newArrayListWithCapacity(orAndDimRanges.size());
+  for (  Collection<ColumnRange> andDimRanges : orAndDimRanges) {
+    GTScanRange scanRange=newScanRange(andDimRanges);
+    scanRanges.add(scanRange);
+  }
+  List<GTScanRange> mergedRanges=mergeOverlapRanges(scanRanges);
+  mergedRanges=mergeTooManyRanges(mergedRanges,maxRanges);
+  return mergedRanges;
+}
