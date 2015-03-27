@@ -1,6 +1,6 @@
 {
   if (timestamp <= sliceTimestamp) {
-    return ++timestamp;
+    return sliceTimestamp + 1;
   }
  else {
     return timestamp;
