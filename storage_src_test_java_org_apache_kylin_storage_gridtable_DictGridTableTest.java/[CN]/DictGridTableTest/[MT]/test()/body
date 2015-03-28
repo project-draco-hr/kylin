@@ -3,5 +3,7 @@
   verifyFirstRow(table);
   verifyScanWithUnevaluatableFilter(table);
   verifyScanWithEvaluatableFilter(table);
-  verifyConvertFilterConstants(table);
+  verifyConvertFilterConstants1(table);
+  verifyConvertFilterConstants2(table);
+  verifyConvertFilterConstants3(table);
 }
