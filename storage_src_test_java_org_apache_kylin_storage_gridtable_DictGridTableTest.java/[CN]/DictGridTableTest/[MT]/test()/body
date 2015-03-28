@@ -6,4 +6,5 @@
   verifyConvertFilterConstants1(table);
   verifyConvertFilterConstants2(table);
   verifyConvertFilterConstants3(table);
+  verifyConvertFilterConstants4(table);
 }
