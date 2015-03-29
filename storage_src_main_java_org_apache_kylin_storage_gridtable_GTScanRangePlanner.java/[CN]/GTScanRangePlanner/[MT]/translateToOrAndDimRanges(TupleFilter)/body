@@ -9,5 +9,5 @@
     Collection<ColumnRange> andRanges=translateToAndDimRanges(andFilter.getChildren());
     result.add(andRanges);
   }
-  return preprocessConstantConditions(result);
+  return preEvaluateConstantConditions(result);
 }

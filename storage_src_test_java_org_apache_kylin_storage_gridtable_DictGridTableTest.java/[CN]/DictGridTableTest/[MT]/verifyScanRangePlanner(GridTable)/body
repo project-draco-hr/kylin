@@ -1,0 +1,9 @@
+{
+  GTInfo info=table.getInfo();
+{
+    CompareTupleFilter fComp=compare(info.colRef(0),FilterOperatorEnum.GT,enc(info,0,"2015-01-14"));
+    ExtractTupleFilter fUnevaluatable=unevaluatable(info.colRef(1));
+    LogicalTupleFilter fNotPlusUnevaluatable=not(unevaluatable(info.colRef(1)));
+    LogicalTupleFilter filter=and(fComp,fUnevaluatable,fNotPlusUnevaluatable);
+  }
+}
