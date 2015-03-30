@@ -12,6 +12,7 @@
       if (desc.getRowkey().isUseDictionary(col)) {
         Dictionary dict=DictionaryGenerator.buildDictionaryFromValueList(col.getType(),Collections2.transform(valueMap.get(col),new Function<String,byte[]>(){
           @Nullable @Override public byte[] apply(          String input){
+            if (input == null)             return null;
             return input.getBytes();
           }
         }

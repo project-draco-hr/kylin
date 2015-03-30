@@ -1,5 +1,4 @@
-LinkedBlockingDeque<Stream> queue
-int sliceSize
+List<List<String>> table
 CubeInstance cube
 boolean needBuildDictionary
 Map<TblColRef,Dictionary> dictionaryMap

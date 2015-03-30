@@ -1,5 +1,6 @@
 {
-  queue.put(parse(record));
+  List<String> row=HiveTableReader.getRowAsList(record);
+  table.add(row);
   counter++;
   if (counter % BatchConstants.COUNTER_MAX == 0) {
     logger.info("Handled " + counter + " records!");

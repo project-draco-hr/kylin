@@ -1,3 +1,0 @@
-{
-  return new Stream(System.currentTimeMillis(),StringUtils.join(row,",").getBytes());
-}

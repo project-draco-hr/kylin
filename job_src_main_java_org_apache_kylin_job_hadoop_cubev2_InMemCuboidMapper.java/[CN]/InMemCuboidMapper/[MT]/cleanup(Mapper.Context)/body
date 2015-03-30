@@ -1,13 +1,20 @@
 {
   logger.info("Totally read " + counter + " rows in memory, trigger cube build now.");
-  queue.put(new Stream(-1,null));
-  try {
-    future.get();
+  dictionaryMap=Maps.newHashMap();
+  cuboidsMap=Maps.newHashMap();
+  for (  DimensionDesc dim : cubeDesc.getDimensions()) {
+    for (    TblColRef col : dim.getColumnRefs()) {
+      if (cubeDesc.getRowkey().isUseDictionary(col)) {
+        Dictionary dict=cubeSegment.getDictionary(col);
+        if (dict == null) {
+          throw new IllegalArgumentException("Dictionary for " + col + " was not found.");
+        }
+        dictionaryMap.put(col,cubeSegment.getDictionary(col));
+      }
+    }
   }
- catch (  Exception e) {
-    logger.error("cube build failed",e);
-    throw new IOException(e);
-  }
+  streamBuilder=new CubeStreamBuilder(table,cube,false,dictionaryMap,cuboidsMap);
+  streamBuilder.build();
   logger.info("Cube build success");
   logger.info("Cube segment calculation in mapper " + mapperTaskId + " finished; cuboid number: "+ cuboidsMap.size());
   List<Long> allCuboids=Lists.newArrayList();
@@ -50,4 +57,5 @@
     }
     logger.info("Cuboid " + cuboid + " has "+ cuboidRowCount+ " rows on mapper "+ this.mapperTaskId);
   }
+  table.clear();
 }
