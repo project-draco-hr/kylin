@@ -30,9 +30,11 @@
         rowKeyCountInMappers.add(hll.getCountEstimate());
       }
       if (cuboidHLLMap.get(cuboidId) != null) {
-        hll.merge(cuboidHLLMap.get(cuboidId));
+        cuboidHLLMap.get(cuboidId).merge(hll);
       }
-      cuboidHLLMap.put(cuboidId,hll);
+ else {
+        cuboidHLLMap.put(cuboidId,hll);
+      }
     }
   }
 }
