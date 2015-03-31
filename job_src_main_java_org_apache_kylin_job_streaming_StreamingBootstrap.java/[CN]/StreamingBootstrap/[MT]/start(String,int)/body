@@ -15,8 +15,6 @@
   if (streamOffset < earliestOffset) {
     streamOffset=earliestOffset;
   }
-  String[] args=new String[]{"-iiname",kafkaConfig.getIiName(),"-htablename",iiSegment.getStorageLocationIdentifier()};
-  ToolRunner.run(new IICreateHTableJob(),args);
   KafkaConsumer consumer=new KafkaConsumer(kafkaConfig.getTopic(),0,streamOffset,kafkaConfig.getBrokers(),kafkaConfig){
     @Override protected void consume(    long offset,    ByteBuffer payload) throws Exception {
       byte[] bytes=new byte[payload.limit()];
