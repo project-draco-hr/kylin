@@ -1,5 +1,5 @@
 {
-  if (ranges.size() < maxRanges) {
+  if (ranges.size() <= maxRanges) {
     return ranges;
   }
   List<GTScanRange> result=new ArrayList<GTScanRange>(1);

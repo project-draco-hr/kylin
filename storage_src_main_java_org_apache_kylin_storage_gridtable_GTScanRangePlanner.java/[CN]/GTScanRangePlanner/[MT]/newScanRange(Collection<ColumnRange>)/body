@@ -7,16 +7,16 @@
     if (info.primaryKey.get(col) == false)     continue;
     pkStart.set(col,range.begin);
     pkEnd.set(col,range.end);
-    BitSet fuzzyMask=new BitSet();
-    fuzzyMask.set(col);
-    for (    ByteArray v : range.equals) {
-      GTRecord fuzzy=new GTRecord(info);
-      fuzzy.set(col,v);
-      fuzzy.maskForEqualHashComp(fuzzyMask);
-      hbaseFuzzyKeys.add(fuzzy);
+    if (range.equals != null) {
+      BitSet fuzzyMask=new BitSet();
+      fuzzyMask.set(col);
+      for (      ByteArray v : range.equals) {
+        GTRecord fuzzy=new GTRecord(info);
+        fuzzy.set(col,v);
+        fuzzy.maskForEqualHashComp(fuzzyMask);
+        hbaseFuzzyKeys.add(fuzzy);
+      }
     }
   }
-  pkStart.maskForEqualHashComp(info.primaryKey);
-  pkEnd.maskForEqualHashComp(info.primaryKey);
   return new GTScanRange(pkStart,pkEnd,hbaseFuzzyKeys);
 }

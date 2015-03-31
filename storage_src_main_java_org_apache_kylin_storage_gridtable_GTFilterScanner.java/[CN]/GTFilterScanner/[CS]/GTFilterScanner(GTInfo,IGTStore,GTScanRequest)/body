@@ -2,10 +2,10 @@
   this.info=info;
   this.filter=req.getFilterPushDown();
   if (TupleFilter.isEvaluableRecursively(filter) == false)   throw new IllegalArgumentException();
-  ByteArray start=req.getPkStart() == null ? null : req.getPkStart().exportColumns(info.primaryKey);
-  ByteArray endEx=req.getPkEnd() == null ? null : req.getPkEnd().exportColumns(info.primaryKey);
+  ByteArray start=makeScanKey(req.getPkStart());
+  ByteArray end=makeScanKey(req.getPkEnd());
   this.selectedColBlocks=info.selectColumnBlocks(req.getColumns());
-  this.storeScanner=store.scan(start,endEx,selectedColBlocks,filter);
+  this.storeScanner=store.scan(start,end,selectedColBlocks,filter);
   this.oneRecord=new GTRecord(info);
   this.oneTuple=new TupleAdapter(oneRecord);
 }

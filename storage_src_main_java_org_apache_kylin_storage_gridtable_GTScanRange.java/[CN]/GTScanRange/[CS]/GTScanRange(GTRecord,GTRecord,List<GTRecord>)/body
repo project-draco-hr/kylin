@@ -1,5 +1,2 @@
 {
-  this.pkStart=pkStart;
-  this.pkEnd=pkEnd;
-  this.hbaseFuzzyKeys=hbaseFuzzyKeys == null ? Collections.<GTRecord>emptyList() : hbaseFuzzyKeys;
 }
