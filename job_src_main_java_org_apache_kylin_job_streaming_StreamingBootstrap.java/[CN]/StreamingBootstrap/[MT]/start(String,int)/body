@@ -5,6 +5,9 @@
   Preconditions.checkNotNull(ii);
   Preconditions.checkArgument(ii.getSegments().size() > 0);
   final IISegment iiSegment=ii.getSegments().get(0);
+  final ByteArrayOutputStream out=new ByteArrayOutputStream();
+  KafkaConfig.SERIALIZER.serialize(kafkaConfig,new DataOutputStream(out));
+  logger.info("kafka config:" + new String(out.toByteArray()));
   final Broker leadBroker=getLeadBroker(kafkaConfig,partitionId);
   Preconditions.checkState(leadBroker != null,"cannot find lead broker");
   final long earliestOffset=KafkaRequester.getLastOffset(kafkaConfig.getTopic(),partitionId,OffsetRequest.EarliestTime(),leadBroker,kafkaConfig);

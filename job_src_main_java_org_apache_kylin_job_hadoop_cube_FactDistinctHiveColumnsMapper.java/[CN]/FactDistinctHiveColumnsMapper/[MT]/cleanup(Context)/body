@@ -1,18 +1,20 @@
 {
   if (collectStatistics) {
+    ByteBuffer hllBuf=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
+    totalHll=new HyperLogLogPlusCounter(16);
     for (    Long cuboidId : cuboidHLLMap.keySet()) {
       HyperLogLogPlusCounter hll=cuboidHLLMap.get(cuboidId);
       totalHll.merge(hll);
       outputKey.set(0 - cuboidId);
-      ByteBuffer hllBuf=ByteBuffer.allocate(64 * 1024);
+      hllBuf.clear();
       hll.writeRegisters(hllBuf);
-      outputValue.set(hllBuf.array());
+      outputValue.set(hllBuf.array(),0,hllBuf.position());
       context.write(outputKey,outputValue);
     }
     outputKey.set(0 - baseCuboidId - 1);
-    ByteBuffer hllBuf=ByteBuffer.allocate(64 * 1024);
+    hllBuf.clear();
     totalHll.writeRegisters(hllBuf);
-    outputValue.set(hllBuf.array());
+    outputValue.set(hllBuf.array(),0,hllBuf.position());
     context.write(outputKey,outputValue);
   }
 }

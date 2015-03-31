@@ -1,8 +1,8 @@
 {
-  for (  Long cuboidId : cuboidHLLMap.keySet()) {
-    rowKeyCountInCuboids.put(cuboidId,cuboidHLLMap.get(cuboidId).getCountEstimate());
-  }
   if (collectStatistics) {
+    for (    Long cuboidId : cuboidHLLMap.keySet()) {
+      rowKeyCountInCuboids.put(cuboidId,cuboidHLLMap.get(cuboidId).getCountEstimate());
+    }
     Configuration conf=context.getConfiguration();
     FileSystem fs=FileSystem.get(conf);
     FSDataOutputStream out=fs.create(new Path(statisticsOutput,BatchConstants.CFG_STATISTICS_CUBE_ESTIMATION));

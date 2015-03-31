@@ -1,32 +1,24 @@
 {
-  CubeInstance cube=cubeManager.getCube("test_kylin_cube_without_slr_empty");
+  CubeInstance cube=cubeManager.getCube("test_kylin_cube_without_slr_left_join_empty");
   final CubeDesc desc=cube.getDescriptor();
-  cube.getSegments().clear();
-  cubeManager.updateCube(cube);
+  CubeSegment cubeSegment=cube.getSegment("19700101000000_20150301000000",SegmentStatusEnum.NEW);
+  Map<TblColRef,Dictionary> dictionaryMap=Maps.newHashMap();
   String tableName="kylin_intermediate_test_kylin_cube_without_slr_desc_19700101000000_20130112000000_a24dec89_efbd_425f_9a5f_8b78dd1412af";
   tableName="kylin_intermediate_test_kylin_cube_without_slr_desc_19700101000000_20130112000000_a5e1eb5d_da6b_475d_9807_be0b61f03215";
+  tableName="kylin_intermediate_test_kylin_cube_without_slr_left_join_desc_19700101000000_20150302000000_0a183367_f245_43d1_8850_1c138c8514c3";
+  tableName="kylin_intermediate_test_kylin_cube_without_slr_left_join_desc_19700101000000_20150301000000_ce061464_7962_4642_bd7d_7c3d8fbe9389";
   logger.info("intermediate table name:" + tableName);
   final Configuration conf=new Configuration();
   HCatInputFormat.setInput(conf,"default",tableName);
   final HCatSchema tableSchema=HCatInputFormat.getTableSchema(conf);
   logger.info(StringUtils.join(tableSchema.getFieldNames(),"\n"));
   HiveTableReader reader=new HiveTableReader("default",tableName);
-  LinkedBlockingDeque<Stream> queue=new LinkedBlockingDeque<Stream>();
-  ExecutorService executorService=Executors.newSingleThreadExecutor();
-  Map<TblColRef,Dictionary> dictionaryMap=Maps.newHashMap();
-  Map<Long,GridTable> cuboidsMap=Maps.newHashMap();
-  final CubeStreamBuilder streamBuilder=new CubeStreamBuilder(queue,10000,cube,true,dictionaryMap,cuboidsMap);
+  List<List<String>> queue=Lists.newArrayList();
   while (reader.next()) {
-    queue.put(parse(reader.getRow()));
+    queue.add(reader.getRowAsList());
   }
-  queue.put(new Stream(-1,null));
-  final Future<?> future=executorService.submit(streamBuilder);
-  try {
-    future.get();
-  }
- catch (  Exception e) {
-    logger.error("stream build failed",e);
-    fail("stream build failed");
-  }
+  Map<Long,GridTable> cuboidsMap=Maps.newHashMap();
+  final CubeStreamBuilder streamBuilder=new CubeStreamBuilder(queue,cube,true,dictionaryMap,cuboidsMap);
+  streamBuilder.build();
   logger.info("stream build finished");
 }
