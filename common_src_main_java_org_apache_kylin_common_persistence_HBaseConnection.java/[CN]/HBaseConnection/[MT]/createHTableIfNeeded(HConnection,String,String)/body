@@ -1,14 +1,7 @@
 {
   HBaseAdmin hbase=new HBaseAdmin(conn);
   try {
-    boolean tableExist=false;
-    try {
-      hbase.getTableDescriptor(TableName.valueOf(tableName));
-      tableExist=true;
-    }
- catch (    TableNotFoundException e) {
-    }
-    if (tableExist) {
+    if (tableExists(conn,tableName)) {
       logger.debug("HTable '" + tableName + "' already exists");
       return;
     }
