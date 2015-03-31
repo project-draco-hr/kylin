@@ -1,5 +1,5 @@
 {
-  super.publishConfiguration(context.getConfiguration());
+  super.bindCurrentConfiguration(context.getConfiguration());
   cubeName=context.getConfiguration().get(BatchConstants.CFG_CUBE_NAME).toUpperCase();
   segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME);
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();

@@ -1,5 +1,5 @@
 {
-  super.publishConfiguration(context.getConfiguration());
+  super.bindCurrentConfiguration(context.getConfiguration());
   CubeCapacity cubeCapacity=CubeCapacity.valueOf(context.getConfiguration().get(BatchConstants.CUBE_CAPACITY));
 switch (cubeCapacity) {
 case SMALL:

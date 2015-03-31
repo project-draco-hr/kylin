@@ -6,7 +6,7 @@
   }
   Path coprocessorDir=getCoprocessorHDFSDir(fileSystem,KylinConfig.getInstanceFromEnv());
   for (  FileStatus fileStatus : fileSystem.listStatus(coprocessorDir)) {
-    if (fileStatus.getLen() == localCoprocessorJar.length() && fileStatus.getModificationTime() == localCoprocessorFile.lastModified()) {
+    if (isSame(localCoprocessorFile,fileStatus)) {
       uploadPath=fileStatus.getPath();
       break;
     }
