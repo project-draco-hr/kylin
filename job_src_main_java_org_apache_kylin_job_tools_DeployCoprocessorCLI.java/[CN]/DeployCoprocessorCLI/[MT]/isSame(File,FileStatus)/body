@@ -1,0 +1,3 @@
+{
+  return fileStatus.getLen() == localCoprocessorFile.length() && fileStatus.getModificationTime() == localCoprocessorFile.lastModified();
+}
