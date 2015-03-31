@@ -1,0 +1,11 @@
+{
+  ByteArray ba=new ByteArray(new byte[length]);
+  BytesUtil.writeUnsigned(testInt,length,ba.asBuffer());
+  byte[] newBytes=new byte[length];
+  System.arraycopy(ba.array(),0,newBytes,0,length);
+  int value=BytesUtil.readUnsigned(new ByteArray(newBytes).asBuffer(),length);
+  assertEquals(value,testInt);
+  byte[] anOtherNewBytes=new byte[length];
+  BytesUtil.writeUnsigned(testInt,anOtherNewBytes,0,length);
+  assertTrue(Arrays.equals(anOtherNewBytes,ba.array()));
+}

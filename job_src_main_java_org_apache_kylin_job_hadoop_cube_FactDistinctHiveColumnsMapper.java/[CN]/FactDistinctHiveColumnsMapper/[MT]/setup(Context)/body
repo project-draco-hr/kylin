@@ -6,7 +6,6 @@
   if (collectStatistics) {
     cuboidScheduler=new CuboidScheduler(cubeDesc);
     cuboidHLLMap=Maps.newHashMap();
-    totalHll=new HyperLogLogPlusCounter(16);
     rowKeyValues=Lists.newArrayList();
     nRowKey=cubeDesc.getRowkey().getRowKeyColumns().length;
   }
