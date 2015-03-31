@@ -1,16 +1,18 @@
 {
-  results.clear();
-  try {
-    hasMore=regionScanner.next(results);
-  }
- catch (  IOException e) {
-    throw new RuntimeException(e);
-  }
   if (results.size() < 1) {
-    throw new IllegalStateException("Hbase row contains less than 1 cell");
+    throw new NoSuchElementException();
   }
   for (  Cell c : results) {
     row.updateWith(c);
+  }
+  results.clear();
+  try {
+    if (hasMore) {
+      hasMore=regionScanner.next(results);
+    }
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
   }
   return row;
 }
