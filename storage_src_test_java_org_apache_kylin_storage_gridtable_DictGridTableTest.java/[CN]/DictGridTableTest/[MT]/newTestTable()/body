@@ -6,13 +6,13 @@
   GTBuilder builder=table.rebuild();
   builder.write(r.setValues("2015-01-14","30","Yang",new LongWritable(10),new BigDecimal("10.5")));
   builder.write(r.setValues("2015-01-14","30","Luke",new LongWritable(10),new BigDecimal("10.5")));
-  builder.write(r.setValues("2015-01-15","30","Xu",new LongWritable(10),new BigDecimal("10.5")));
   builder.write(r.setValues("2015-01-15","20","Dong",new LongWritable(10),new BigDecimal("10.5")));
   builder.write(r.setValues("2015-01-15","20","Jason",new LongWritable(10),new BigDecimal("10.5")));
+  builder.write(r.setValues("2015-01-15","30","Xu",new LongWritable(10),new BigDecimal("10.5")));
   builder.write(r.setValues("2015-01-16","20","Mahone",new LongWritable(10),new BigDecimal("10.5")));
-  builder.write(r.setValues("2015-01-16","30","Shaofeng",new LongWritable(10),new BigDecimal("10.5")));
   builder.write(r.setValues("2015-01-16","20","Qianhao",new LongWritable(10),new BigDecimal("10.5")));
   builder.write(r.setValues("2015-01-16","30","George",new LongWritable(10),new BigDecimal("10.5")));
+  builder.write(r.setValues("2015-01-16","30","Shaofeng",new LongWritable(10),new BigDecimal("10.5")));
   builder.write(r.setValues("2015-01-17","10","Kejia",new LongWritable(10),new BigDecimal("10.5")));
   builder.close();
   return table;
