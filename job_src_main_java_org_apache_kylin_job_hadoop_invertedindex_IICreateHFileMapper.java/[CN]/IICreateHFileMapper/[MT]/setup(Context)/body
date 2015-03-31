@@ -1,4 +1,4 @@
 {
-  super.publishConfiguration(context.getConfiguration());
+  super.bindCurrentConfiguration(context.getConfiguration());
   timestamp=System.currentTimeMillis();
 }
