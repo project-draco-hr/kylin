@@ -1,0 +1,3 @@
+{
+  if ("rebuild".equals(args[0]))   rebuild(args[1],args[2]);
+}
