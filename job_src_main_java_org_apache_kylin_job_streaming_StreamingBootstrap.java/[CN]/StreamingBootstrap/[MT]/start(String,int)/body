@@ -29,7 +29,16 @@
 ;
   kafkaConsumers.put(getKey(streaming,partitionId),consumer);
   final IIStreamBuilder task=new IIStreamBuilder(consumer.getStreamQueue(),iiSegment.getStorageLocationIdentifier(),iiSegment.getIIInstance(),partitionId);
-  task.setStreamParser(new JsonStreamParser(ii.getDescriptor().listAllColumns()));
+  StreamParser parser=null;
+  if (!StringUtils.isEmpty(kafkaConfig.getParserName())) {
+    Class clazz=Class.forName(kafkaConfig.getParserName());
+    Constructor constructor=clazz.getConstructor(List.class);
+    parser=(StreamParser)constructor.newInstance(ii.getDescriptor().listAllColumns());
+  }
+ else {
+    parser=new JsonStreamParser(ii.getDescriptor().listAllColumns());
+  }
+  task.setStreamParser(parser);
   Executors.newSingleThreadExecutor().submit(consumer);
   Executors.newSingleThreadExecutor().submit(task).get();
 }
