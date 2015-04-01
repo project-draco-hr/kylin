@@ -21,7 +21,8 @@
     }
   }
  else {
-    baseCuboidStep=createInMemCubingStep(seg,intermediateHiveTableLocation,intermediateHiveTableName,cuboidOutputTempPath);
+    result.addTask(createCreateHTableStep(seg));
+    baseCuboidStep=createInMemCubingStep(seg,intermediateHiveTableLocation,intermediateHiveTableName,cuboidOutputTempPath,result.getId());
     result.addTask(baseCuboidStep);
   }
   return new Pair<AbstractExecutable,AbstractExecutable>(intermediateHiveTableStep,baseCuboidStep);

@@ -1,0 +1,16 @@
+{
+  Configuration conf=context.getConfiguration();
+  Path seqFilePath=new Path(statisticsOutput,BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION);
+  SequenceFile.Writer writer=SequenceFile.createWriter(conf,SequenceFile.Writer.file(seqFilePath),SequenceFile.Writer.keyClass(LongWritable.class),SequenceFile.Writer.valueClass(LongWritable.class));
+  List<Long> allCuboids=new ArrayList<Long>();
+  allCuboids.addAll(rowKeyCountInCuboids.keySet());
+  Collections.sort(allCuboids);
+  try {
+    for (    long i : allCuboids) {
+      writer.append(new LongWritable(i),new LongWritable(rowKeyCountInCuboids.get(i)));
+    }
+  }
+  finally {
+    writer.close();
+  }
+}

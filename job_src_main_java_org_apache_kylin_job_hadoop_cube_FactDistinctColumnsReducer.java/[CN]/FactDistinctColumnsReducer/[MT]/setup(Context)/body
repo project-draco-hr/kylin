@@ -4,7 +4,7 @@
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
   String cubeName=conf.get(BatchConstants.CFG_CUBE_NAME);
   CubeInstance cube=CubeManager.getInstance(config).getCube(cubeName);
-  CubeDesc cubeDesc=cube.getDescriptor();
+  cubeDesc=cube.getDescriptor();
   baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
   Cuboid baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
   columnList=baseCuboid.getColumns();
@@ -14,5 +14,8 @@
     rowKeyCountInMappers=Lists.newArrayList();
     rowKeyCountInCuboids=Maps.newHashMap();
     cuboidHLLMap=Maps.newHashMap();
+    String segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME);
+    CubeSegment cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
+    colIO=new RowKeyColumnIO(cubeSegment);
   }
 }

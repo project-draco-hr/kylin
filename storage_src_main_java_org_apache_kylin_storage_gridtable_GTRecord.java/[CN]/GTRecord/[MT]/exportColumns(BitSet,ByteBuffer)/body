@@ -1,0 +1,5 @@
+{
+  for (int i=selectedCols.nextSetBit(0); i >= 0; i=selectedCols.nextSetBit(i + 1)) {
+    buf.put(cols[i].array(),cols[i].offset(),cols[i].length());
+  }
+}

@@ -3,41 +3,7 @@
     for (    Long cuboidId : cuboidHLLMap.keySet()) {
       rowKeyCountInCuboids.put(cuboidId,cuboidHLLMap.get(cuboidId).getCountEstimate());
     }
-    Configuration conf=context.getConfiguration();
-    FileSystem fs=FileSystem.get(conf);
-    FSDataOutputStream out=fs.create(new Path(statisticsOutput,BatchConstants.CFG_STATISTICS_CUBE_ESTIMATION));
-    try {
-      long totalSum=0;
-      String msg;
-      for (int i=0; i < rowKeyCountInMappers.size(); i++) {
-        msg="Cube segment in Mapper " + i + " has "+ rowKeyCountInMappers.get(i)+ " rows.";
-        totalSum+=rowKeyCountInMappers.get(i);
-        out.write(msg.getBytes());
-        out.write('\n');
-      }
-      msg="Sum of the cube segments is " + totalSum;
-      out.write(msg.getBytes());
-      out.write('\n');
-      long grantTotal=rowKeyCountInCuboids.get(baseCuboidId + 1);
-      msg="The merged cube has " + grantTotal + " rows.";
-      out.write(msg.getBytes());
-      out.write('\n');
-      msg="The compaction rate is " + (grantTotal) + "/"+ totalSum+ " = "+ (grantTotal * 100.0) / totalSum + "%.";
-      out.write(msg.getBytes());
-      out.write('\n');
-      out.write('\n');
-      List<Long> allCuboids=new ArrayList<Long>();
-      allCuboids.addAll(rowKeyCountInCuboids.keySet());
-      Collections.sort(allCuboids);
-      for (      long i : allCuboids) {
-        if (i > baseCuboidId)         continue;
-        msg="Cuboid " + i + " has "+ rowKeyCountInCuboids.get(i)+ " rows.";
-        out.write(msg.getBytes());
-        out.write('\n');
-      }
-    }
-  finally {
-      out.close();
-    }
+    writeMapperAndCuboidStatistics(context);
+    estimateReducers(context);
   }
 }
