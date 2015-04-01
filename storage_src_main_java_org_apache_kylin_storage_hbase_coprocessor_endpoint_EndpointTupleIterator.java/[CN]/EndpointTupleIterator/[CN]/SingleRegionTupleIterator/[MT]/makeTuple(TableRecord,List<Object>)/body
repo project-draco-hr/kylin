@@ -23,7 +23,7 @@
         String fieldName=measures.get(i).getRewriteFieldName();
         Object value=measureValues.get(i);
         String dataType=tuple.getDataType(fieldName);
-        if (dataType.toLowerCase().equalsIgnoreCase("hllc")) {
+        if (value instanceof String) {
           value=Tuple.convertOptiqCellValue((String)value,dataType);
         }
         tuple.setMeasureValue(fieldName,value);
