@@ -1,4 +1,3 @@
-List<List<String>> table
 CubeInstance cube
 boolean needBuildDictionary
 Map<TblColRef,Dictionary> dictionaryMap

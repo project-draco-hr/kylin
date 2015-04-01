@@ -1,5 +1,4 @@
 {
-  this.table=table;
   this.cube=cube;
   this.desc=cube.getDescriptor();
   this.cuboidScheduler=new CuboidScheduler(desc);
