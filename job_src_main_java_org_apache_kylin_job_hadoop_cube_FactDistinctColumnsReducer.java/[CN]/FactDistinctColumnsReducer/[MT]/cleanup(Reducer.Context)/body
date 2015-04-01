@@ -4,6 +4,6 @@
       rowKeyCountInCuboids.put(cuboidId,cuboidHLLMap.get(cuboidId).getCountEstimate());
     }
     writeMapperAndCuboidStatistics(context);
-    estimateReducers(context);
+    writeCuboidStatistics(context);
   }
 }

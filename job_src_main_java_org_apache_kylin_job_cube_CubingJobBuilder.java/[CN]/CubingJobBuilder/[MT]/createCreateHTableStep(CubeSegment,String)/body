@@ -3,8 +3,11 @@
   createHtableStep.setName(ExecutableConstants.STEP_NAME_CREATE_HBASE_TABLE);
   StringBuilder cmd=new StringBuilder();
   appendExecCmdParameters(cmd,"cubename",seg.getCubeInstance().getName());
+  appendExecCmdParameters(cmd,"segmentname",seg.getName());
   appendExecCmdParameters(cmd,"input",getRowkeyDistributionOutputPath(seg) + "/part-r-00000");
   appendExecCmdParameters(cmd,"htablename",seg.getStorageLocationIdentifier());
+  appendExecCmdParameters(cmd,"statisticsenabled",String.valueOf(useImMemCubing));
+  appendExecCmdParameters(cmd,"statisticsoutput",getStatisticsPath(seg,jobId));
   createHtableStep.setJobParams(cmd.toString());
   createHtableStep.setJobClass(CreateHTableJob.class);
   return createHtableStep;
