@@ -4,7 +4,7 @@
   this.desc=iiInstance.getDescriptor();
   this.partitionId=partitionId;
   try {
-    this.hTable=HConnectionManager.createConnection(HBaseConfiguration.create()).getTable(hTableName);
+    this.hTable=HBaseConnection.get(KylinConfig.getInstanceFromEnv().getStorageUrl()).getTable(hTableName);
   }
  catch (  IOException e) {
     logger.error("cannot open htable name:" + hTableName,e);
