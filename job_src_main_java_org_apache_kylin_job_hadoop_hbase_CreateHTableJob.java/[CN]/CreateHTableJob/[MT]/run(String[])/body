@@ -11,15 +11,15 @@
   boolean statistics_enabled=Boolean.parseBoolean(getOptionValue(OPTION_STATISTICS_ENABLED));
   Path statisticsFilePath=new Path(getOptionValue(OPTION_STATISTICS_OUTPUT),BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION);
   String cubeName=getOptionValue(OPTION_CUBE_NAME).toUpperCase();
-  KylinConfig config=KylinConfig.getInstanceFromEnv();
-  CubeManager cubeMgr=CubeManager.getInstance(config);
+  kylinConfig=KylinConfig.getInstanceFromEnv();
+  CubeManager cubeMgr=CubeManager.getInstance(kylinConfig);
   cube=cubeMgr.getCube(cubeName);
   cubeDesc=cube.getDescriptor();
   segmentName=getOptionValue(OPTION_SEGMENT_NAME);
   String tableName=getOptionValue(OPTION_HTABLE_NAME).toUpperCase();
   HTableDescriptor tableDesc=new HTableDescriptor(TableName.valueOf(tableName));
   tableDesc.setValue(HTableDescriptor.SPLIT_POLICY,ConstantSizeRegionSplitPolicy.class.getName());
-  tableDesc.setValue(IRealizationConstants.HTableTag,config.getMetadataUrlPrefix());
+  tableDesc.setValue(IRealizationConstants.HTableTag,kylinConfig.getMetadataUrlPrefix());
   Configuration conf=HBaseConfiguration.create(getConf());
   HBaseAdmin admin=new HBaseAdmin(conf);
   try {
