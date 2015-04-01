@@ -16,6 +16,5 @@
     cuboidHLLMap=Maps.newHashMap();
     String segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME);
     CubeSegment cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
-    colIO=new RowKeyColumnIO(cubeSegment);
   }
 }

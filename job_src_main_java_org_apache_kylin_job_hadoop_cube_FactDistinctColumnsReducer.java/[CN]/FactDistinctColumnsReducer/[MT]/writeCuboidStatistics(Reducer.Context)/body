@@ -7,7 +7,9 @@
   Collections.sort(allCuboids);
   try {
     for (    long i : allCuboids) {
-      writer.append(new LongWritable(i),new LongWritable(rowKeyCountInCuboids.get(i)));
+      if (i <= baseCuboidId) {
+        writer.append(new LongWritable(i),new LongWritable(rowKeyCountInCuboids.get(i)));
+      }
     }
   }
   finally {

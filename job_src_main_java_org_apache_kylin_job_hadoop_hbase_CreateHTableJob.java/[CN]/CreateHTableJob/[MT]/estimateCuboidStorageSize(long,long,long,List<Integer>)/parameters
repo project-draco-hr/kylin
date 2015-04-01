@@ -1,0 +1,4 @@
+long cuboidId
+long rowCount
+long baseCuboidId
+List<Integer> rowKeyColumnLength

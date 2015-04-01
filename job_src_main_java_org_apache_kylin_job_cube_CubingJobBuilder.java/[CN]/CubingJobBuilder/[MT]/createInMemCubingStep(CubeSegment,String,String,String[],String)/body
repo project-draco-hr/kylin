@@ -6,7 +6,7 @@
   appendExecCmdParameters(cmd,"cubename",seg.getCubeInstance().getName());
   appendExecCmdParameters(cmd,"segmentname",seg.getName());
   appendExecCmdParameters(cmd,"input",intermediateHiveTableLocation);
-  appendExecCmdParameters(cmd,"statisticsoutput",getRowkeyDistributionOutputPath(seg));
+  appendExecCmdParameters(cmd,"statisticsoutput",getStatisticsPath(seg,jobId));
   appendExecCmdParameters(cmd,"output",getHFilePath(seg,jobId));
   appendExecCmdParameters(cmd,"jobname","Kylin_Cube_Builder_" + seg.getCubeInstance().getName());
   appendExecCmdParameters(cmd,"level","0");
