@@ -1,1 +1,1 @@
-KylinReducer<Text,Text,Text,Text>
+KylinReducer<ImmutableBytesWritable,Text,ImmutableBytesWritable,KeyValue>

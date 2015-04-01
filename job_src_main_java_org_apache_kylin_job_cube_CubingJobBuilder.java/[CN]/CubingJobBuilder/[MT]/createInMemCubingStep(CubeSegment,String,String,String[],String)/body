@@ -6,10 +6,12 @@
   appendExecCmdParameters(cmd,"cubename",seg.getCubeInstance().getName());
   appendExecCmdParameters(cmd,"segmentname",seg.getName());
   appendExecCmdParameters(cmd,"input",intermediateHiveTableLocation);
-  appendExecCmdParameters(cmd,"output",cuboidOutputTempPath[0]);
-  appendExecCmdParameters(cmd,"jobname","Kylin_Base_Cuboid_Builder_" + seg.getCubeInstance().getName());
+  appendExecCmdParameters(cmd,"statisticsoutput",getRowkeyDistributionOutputPath(seg));
+  appendExecCmdParameters(cmd,"output",getHFilePath(seg,jobId));
+  appendExecCmdParameters(cmd,"jobname","Kylin_Cube_Builder_" + seg.getCubeInstance().getName());
   appendExecCmdParameters(cmd,"level","0");
   appendExecCmdParameters(cmd,"tablename",intermediateHiveTableName);
+  appendExecCmdParameters(cmd,"htablename",seg.getStorageLocationIdentifier());
   baseCuboidStep.setMapReduceParams(cmd.toString());
   baseCuboidStep.setMapReduceJobClass(InMemCuboidJob.class);
   return baseCuboidStep;

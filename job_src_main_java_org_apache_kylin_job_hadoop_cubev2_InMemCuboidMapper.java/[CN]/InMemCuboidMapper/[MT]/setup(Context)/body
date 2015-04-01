@@ -7,9 +7,6 @@
   cubeDesc=cube.getDescriptor();
   String segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME);
   cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
-  schema=HCatInputFormat.getTableSchema(context.getConfiguration());
-  long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
-  baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
   mapperTaskId=context.getTaskAttemptID().getTaskID().getId();
   measures=new Object[cubeDesc.getMeasures().size()];
   measureCodec=new MeasureCodec(cubeDesc.getMeasures());

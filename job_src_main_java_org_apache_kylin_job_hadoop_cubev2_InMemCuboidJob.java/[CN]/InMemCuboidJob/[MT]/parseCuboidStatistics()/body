@@ -1,0 +1,21 @@
+{
+  List<Long> regionSplit=Lists.newArrayList();
+  Configuration conf=job.getConfiguration();
+  FileSystem fs=FileSystem.get(conf);
+  Path seqFilePath=new Path(statisticsOutput,"part-r-00000");
+  SequenceFile.Reader reader=new SequenceFile.Reader(fs,seqFilePath,conf);
+  try {
+    LongWritable key=(LongWritable)reader.getKeyClass().newInstance();
+    LongWritable value=(LongWritable)reader.getValueClass().newInstance();
+    while (reader.next(key,value)) {
+      regionSplit.add(key.get());
+    }
+  }
+ catch (  Exception e) {
+    throw new IOException(e);
+  }
+ finally {
+    reader.close();
+  }
+  return regionSplit;
+}

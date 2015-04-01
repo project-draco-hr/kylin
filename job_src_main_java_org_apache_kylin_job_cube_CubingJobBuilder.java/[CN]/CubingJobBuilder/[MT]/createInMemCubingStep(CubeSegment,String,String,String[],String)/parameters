@@ -2,3 +2,4 @@ CubeSegment seg
 String intermediateHiveTableLocation
 String intermediateHiveTableName
 String[] cuboidOutputTempPath
+String jobId
