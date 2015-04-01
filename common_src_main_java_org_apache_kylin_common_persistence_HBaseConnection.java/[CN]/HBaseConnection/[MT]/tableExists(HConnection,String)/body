@@ -1,0 +1,9 @@
+{
+  HBaseAdmin hbase=new HBaseAdmin(conn);
+  try {
+    return hbase.tableExists(TableName.valueOf(tableName));
+  }
+  finally {
+    hbase.close();
+  }
+}

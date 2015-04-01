@@ -1,0 +1,3 @@
+{
+  return tableExists(HBaseConnection.get(hbaseUrl),tableName);
+}

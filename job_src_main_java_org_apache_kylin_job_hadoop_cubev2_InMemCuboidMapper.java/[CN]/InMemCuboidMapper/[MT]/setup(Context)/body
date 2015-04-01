@@ -1,5 +1,5 @@
 {
-  super.publishConfiguration(context.getConfiguration());
+  super.bindCurrentConfiguration(context.getConfiguration());
   Configuration conf=context.getConfiguration();
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
   cubeName=conf.get(BatchConstants.CFG_CUBE_NAME);

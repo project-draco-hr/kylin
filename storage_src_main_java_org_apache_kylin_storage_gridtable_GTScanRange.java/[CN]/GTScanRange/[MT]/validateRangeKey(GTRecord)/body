@@ -1,0 +1,12 @@
+{
+  pk.maskForEqualHashComp(pk.info.primaryKey);
+  boolean afterNull=false;
+  for (int i=pk.info.primaryKey.nextSetBit(0); i >= 0; i=pk.info.primaryKey.nextSetBit(i + 1)) {
+    if (afterNull) {
+      pk.cols[i].set(null,0,0);
+    }
+ else {
+      afterNull=pk.cols[i].array() == null;
+    }
+  }
+}

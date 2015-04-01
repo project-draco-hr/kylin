@@ -4,7 +4,7 @@
   instance.getStreamOffsets().set(partitionId,offset);
   try {
     iiManager.updateII(instance);
-    logger.info("submit offset");
+    logger.info("submit offset:" + offset);
   }
  catch (  IOException e) {
     logger.error("error submit offset: + " + offset,e);

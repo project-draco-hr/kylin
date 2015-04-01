@@ -1,0 +1,2 @@
+BitSet selectedCols
+ByteBuffer buf

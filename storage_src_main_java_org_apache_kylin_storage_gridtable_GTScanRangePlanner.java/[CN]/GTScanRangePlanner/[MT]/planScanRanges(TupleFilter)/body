@@ -1,0 +1,3 @@
+{
+  return planScanRanges(filter,Integer.MAX_VALUE);
+}

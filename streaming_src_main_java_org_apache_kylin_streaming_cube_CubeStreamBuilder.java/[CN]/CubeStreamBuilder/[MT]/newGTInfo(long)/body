@@ -1,8 +1,0 @@
-{
-  Pair<BitSet,BitSet> dimensionMetricsBitSet=getDimensionAndMetricColumBitSet(cuboidID);
-  GTInfo.Builder builder=infoBuilder(cuboidID);
-  builder.enableColumnBlock(new BitSet[]{dimensionMetricsBitSet.getFirst(),dimensionMetricsBitSet.getSecond()});
-  builder.setPrimaryKey(dimensionMetricsBitSet.getFirst());
-  GTInfo info=builder.build();
-  return info;
-}

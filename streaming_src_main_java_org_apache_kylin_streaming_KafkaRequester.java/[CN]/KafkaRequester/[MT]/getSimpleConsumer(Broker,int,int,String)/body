@@ -1,0 +1,10 @@
+{
+  String key=createKey(broker,timeout,bufferSize,clientId);
+  if (consumerCache.containsKey(key)) {
+    return consumerCache.get(key);
+  }
+ else {
+    consumerCache.putIfAbsent(key,new SimpleConsumer(broker.host(),broker.port(),timeout,bufferSize,clientId));
+    return consumerCache.get(key);
+  }
+}
