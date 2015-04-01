@@ -1,0 +1,29 @@
+{
+  Cuboid cuboid=Cuboid.findById(cubeDesc,cuboidId);
+  List<TblColRef> dimCols=cuboid.getColumns();
+  int nColumns=dimCols.size() + cubeDesc.getMeasures().size();
+  BitSet dimensions=new BitSet();
+  dimensions.set(0,dimCols.size());
+  BitSet metrics=new BitSet();
+  metrics.set(dimCols.size(),nColumns);
+  DataType[] dataTypes=new DataType[nColumns];
+  Map<Integer,Dictionary> dictionaryOfThisCuboid=Maps.newHashMap();
+  int colIndex=0;
+  for (  TblColRef col : dimCols) {
+    dataTypes[colIndex]=col.getType();
+    if (cubeDesc.getRowkey().isUseDictionary(col)) {
+      dictionaryOfThisCuboid.put(colIndex,dictionaryMap.get(col));
+    }
+    colIndex++;
+  }
+  for (  MeasureDesc measure : cubeDesc.getMeasures()) {
+    dataTypes[colIndex]=measure.getFunction().getReturnDataType();
+    colIndex++;
+  }
+  GTInfo.Builder builder=GTInfo.builder();
+  builder.setCodeSystem(new GTDictionaryCodeSystem(dictionaryOfThisCuboid));
+  builder.setColumns(dataTypes);
+  builder.enableColumnBlock(new BitSet[]{dimensions,metrics});
+  builder.setPrimaryKey(dimensions);
+  return builder.build();
+}
