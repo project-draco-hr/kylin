@@ -20,7 +20,6 @@
   boolean isExactAggregation=isExactAggregation(cuboid,groups,othersD,singleValuesD,derivedPostAggregation);
   context.setExactAggregation(isExactAggregation);
   Set<TblColRef> groupsCopD=Sets.newHashSet(groupsD);
-  groupsCopD.addAll(context.getOtherMandatoryColumns());
   collectNonEvaluable(filter,groupsCopD);
   TupleFilter filterD=translateDerived(filter,groupsCopD);
   TupleFilter flatFilter=flattenToOrAndFilter(filterD);

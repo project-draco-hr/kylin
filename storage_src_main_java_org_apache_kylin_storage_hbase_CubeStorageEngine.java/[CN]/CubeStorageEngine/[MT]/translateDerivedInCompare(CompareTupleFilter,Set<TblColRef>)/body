@@ -10,7 +10,7 @@
   TupleFilter translatedFilter=translated.getFirst();
   boolean loosened=translated.getSecond();
   if (loosened) {
-    collectColumnsRecursively(compf,collector);
+    collectColumnsRecursively(translatedFilter,collector);
   }
   return translatedFilter;
 }
