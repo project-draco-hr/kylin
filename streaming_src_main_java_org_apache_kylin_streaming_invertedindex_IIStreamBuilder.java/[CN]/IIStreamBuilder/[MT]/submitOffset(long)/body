@@ -1,18 +1,11 @@
 {
-  final IIManager iiManager=IIManager.getInstance(KylinConfig.getInstanceFromEnv());
+  StreamManager streamManager=StreamManager.getInstance(KylinConfig.getInstanceFromEnv());
   try {
-    iiManager.updateIIStreamingOffset(ii.getName(),partitionId,offset);
+    streamManager.updateOffset(streaming,partitionId,offset);
     logger.info("submit offset:" + offset);
   }
- catch (  IOException e) {
+ catch (  Exception e) {
     logger.warn("error submit offset: " + offset + " retrying",e);
-    try {
-      iiManager.updateIIStreamingOffset(ii.getName(),partitionId,offset);
-      logger.info("submit offset:" + offset);
-    }
- catch (    IOException ex) {
-      logger.error("error submit offset: " + offset,ex);
-      throw new RuntimeException(e);
-    }
+    throw new RuntimeException(e);
   }
 }
