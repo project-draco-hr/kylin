@@ -1,3 +1,0 @@
-List<List<String>> table
-CubeDesc desc
-Map<TblColRef,Dictionary> dictionaryMap

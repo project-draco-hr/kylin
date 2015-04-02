@@ -1,5 +1,4 @@
 {
-  String jetty_home=System.getProperty("jetty.home","..");
   server=new Server(7070);
   WebAppContext context=new WebAppContext();
   context.setDescriptor("./src/main/webapp/WEB-INF/web.xml");
