@@ -1,7 +1,5 @@
 {
   CubeInstance cube=cubeManager.getCube("test_kylin_cube_without_slr_left_join_empty");
-  final CubeDesc desc=cube.getDescriptor();
-  CubeSegment cubeSegment=cube.getSegment("19700101000000_20150301000000",SegmentStatusEnum.NEW);
   Map<TblColRef,Dictionary> dictionaryMap=Maps.newHashMap();
   String tableName="kylin_intermediate_test_kylin_cube_without_slr_desc_19700101000000_20130112000000_a24dec89_efbd_425f_9a5f_8b78dd1412af";
   tableName="kylin_intermediate_test_kylin_cube_without_slr_desc_19700101000000_20130112000000_a5e1eb5d_da6b_475d_9807_be0b61f03215";
@@ -17,6 +15,7 @@
   while (reader.next()) {
     queue.add(reader.getRowAsList());
   }
+  reader.close();
   Map<Long,GridTable> cuboidsMap=Maps.newHashMap();
   final CubeStreamBuilder streamBuilder=new CubeStreamBuilder(cube,true,dictionaryMap,cuboidsMap);
   streamBuilder.build(queue);

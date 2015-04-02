@@ -17,9 +17,7 @@
     String cubeName=getOptionValue(OPTION_CUBE_NAME).toUpperCase();
     String segmentName=getOptionValue(OPTION_SEGMENT_NAME);
     String intermediateTable=getOptionValue(OPTION_TABLE_NAME);
-    statisticsOutput=getOptionValue(OPTION_STATISTICS_OUTPUT);
     String htableName=getOptionValue(OPTION_HTABLE_NAME).toUpperCase();
-    System.out.println("statisticsOutput is " + statisticsOutput);
     KylinConfig config=KylinConfig.getInstanceFromEnv();
     CubeManager cubeMgr=CubeManager.getInstance(config);
     CubeInstance cube=cubeMgr.getCube(cubeName);
