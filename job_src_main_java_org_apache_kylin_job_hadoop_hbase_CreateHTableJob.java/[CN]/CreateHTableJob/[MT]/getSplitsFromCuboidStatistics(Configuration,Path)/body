@@ -1,0 +1,71 @@
+{
+  List<Integer> rowkeyColumnSize=Lists.newArrayList();
+  CubeSegment cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
+  long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
+  Cuboid baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
+  List<TblColRef> columnList=baseCuboid.getColumns();
+  for (int i=0; i < columnList.size(); i++) {
+    logger.info("Rowkey column " + i + " length "+ cubeSegment.getColumnLength(columnList.get(i)));
+    rowkeyColumnSize.add(cubeSegment.getColumnLength(columnList.get(i)));
+  }
+  DataModelDesc.RealizationCapacity cubeCapacity=cubeDesc.getModel().getCapacity();
+  int cut=kylinConfig.getHBaseRegionCut(cubeCapacity.name());
+  logger.info("Chosen cut for htable is " + cut + "GB");
+  Map<Long,Long> cuboidSizeMap=Maps.newHashMap();
+  long totalSizeInM=0;
+  SequenceFile.Reader reader=null;
+  FileSystem fs=statisticsFilePath.getFileSystem(conf);
+  if (fs.exists(statisticsFilePath) == false) {
+    System.err.println("Path " + statisticsFilePath + " not found, no region split, HTable will be one region");
+    return null;
+  }
+  try {
+    reader=new SequenceFile.Reader(fs,statisticsFilePath,conf);
+    LongWritable key=(LongWritable)ReflectionUtils.newInstance(reader.getKeyClass(),conf);
+    LongWritable value=(LongWritable)ReflectionUtils.newInstance(reader.getValueClass(),conf);
+    while (reader.next(key,value)) {
+      cuboidSizeMap.put(key.get(),value.get());
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    throw e;
+  }
+ finally {
+    IOUtils.closeStream(reader);
+  }
+  List<Long> allCuboids=Lists.newArrayList();
+  allCuboids.addAll(cuboidSizeMap.keySet());
+  Collections.sort(allCuboids);
+  for (  long i : allCuboids) {
+    long cuboidSize=estimateCuboidStorageSize(i,cuboidSizeMap.get(i),baseCuboidId,rowkeyColumnSize);
+    cuboidSizeMap.put(i,cuboidSize);
+    totalSizeInM+=cuboidSize;
+  }
+  int nRegion=Math.round((float)totalSizeInM / ((float)cut * 1024l));
+  nRegion=Math.max(1,nRegion);
+  nRegion=Math.min(MAX_REGION,nRegion);
+  int mbPerRegion=(int)(totalSizeInM / (nRegion));
+  mbPerRegion=Math.max(1,mbPerRegion);
+  logger.info("Total size " + totalSizeInM + "M");
+  logger.info(nRegion + " regions");
+  logger.info(mbPerRegion + " MB per region");
+  List<Long> regionSplit=Lists.newArrayList();
+  long size=0;
+  int regionIndex=0;
+  for (int i=0; i < allCuboids.size(); i++) {
+    long cuboidId=allCuboids.get(i);
+    size+=cuboidSizeMap.get(cuboidId);
+    if (size >= mbPerRegion && i != (allCuboids.size() - 1)) {
+      regionSplit.add(cuboidId);
+      logger.info("Region " + regionIndex + " will be "+ size+ " MB, contains cuboid to "+ cuboidId);
+      size=0;
+      regionIndex++;
+    }
+  }
+  byte[][] result=new byte[regionSplit.size()][];
+  for (int i=0; i < regionSplit.size(); i++) {
+    result[i]=Bytes.toBytes(regionSplit.get(i));
+  }
+  return result;
+}

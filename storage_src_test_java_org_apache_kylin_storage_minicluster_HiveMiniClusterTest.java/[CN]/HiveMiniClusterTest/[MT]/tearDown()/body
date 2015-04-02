@@ -1,5 +1,0 @@
-{
-  if (miniMR != null)   miniMR.shutdown();
-  if (miniDFS != null)   miniDFS.shutdown();
-  super.tearDown();
-}

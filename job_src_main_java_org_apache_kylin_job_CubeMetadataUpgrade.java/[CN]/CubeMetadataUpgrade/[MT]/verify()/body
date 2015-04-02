@@ -2,6 +2,6 @@
   MetadataManager.getInstance(config).reload();
   CubeDescManager.clearCache();
   CubeDescManager.getInstance(config);
-  CubeManager cubeManager=CubeManager.getInstance(config);
+  CubeManager.getInstance(config);
   ProjectManager.getInstance(config);
 }

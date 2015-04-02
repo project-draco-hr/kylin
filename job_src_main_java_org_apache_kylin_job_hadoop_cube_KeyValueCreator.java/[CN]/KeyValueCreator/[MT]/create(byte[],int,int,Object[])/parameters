@@ -1,0 +1,4 @@
+byte[] keyBytes
+int keyOffset
+int keyLength
+Object[] measureValues

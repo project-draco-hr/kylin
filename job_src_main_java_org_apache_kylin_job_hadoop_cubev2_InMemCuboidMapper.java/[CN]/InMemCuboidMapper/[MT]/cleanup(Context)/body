@@ -1,0 +1,57 @@
+{
+  logger.info("Totally read " + counter + " rows in memory, trigger cube build now.");
+  Map<TblColRef,Dictionary<?>> dictionaryMap=Maps.newHashMap();
+  Map<Long,GridTable> cuboidsMap=Maps.newHashMap();
+  for (  DimensionDesc dim : cubeDesc.getDimensions()) {
+    for (    TblColRef col : dim.getColumnRefs()) {
+      if (cubeDesc.getRowkey().isUseDictionary(col)) {
+        Dictionary<?> dict=cubeSegment.getDictionary(col);
+        if (dict == null) {
+          throw new IllegalArgumentException("Dictionary for " + col + " was not found.");
+        }
+        dictionaryMap.put(col,cubeSegment.getDictionary(col));
+      }
+    }
+  }
+  CubeStreamBuilder streamBuilder=new CubeStreamBuilder(cube,false,dictionaryMap,cuboidsMap);
+  streamBuilder.build(table);
+  logger.info("Cube build success");
+  logger.info("Cube segment calculation in mapper " + mapperTaskId + " finished; cuboid number: "+ cuboidsMap.size());
+  List<Long> allCuboids=Lists.newArrayList();
+  allCuboids.addAll(cuboidsMap.keySet());
+  Collections.sort(allCuboids);
+  ImmutableBytesWritable outputKey=new ImmutableBytesWritable();
+  Text outputValue=new Text();
+  int offSet;
+  for (  Long cuboidId : allCuboids) {
+    int bytesLength=RowConstants.ROWKEY_CUBOIDID_LEN;
+    Cuboid cuboid=Cuboid.findById(cubeDesc,cuboidId);
+    for (    TblColRef column : cuboid.getColumns()) {
+      bytesLength+=cubeSegment.getColumnLength(column);
+    }
+    int dimensions=BitSet.valueOf(new long[]{cuboidId}).cardinality();
+    BitSet measureColumns=new BitSet();
+    measureColumns.set(dimensions,dimensions + cubeDesc.getMeasures().size());
+    long cuboidRowCount=0;
+    byte[] keyBuf=new byte[bytesLength];
+    System.arraycopy(Bytes.toBytes(cuboidId),0,keyBuf,0,RowConstants.ROWKEY_CUBOIDID_LEN);
+    GridTable gt=cuboidsMap.get(cuboidId);
+    GTScanRequest req=new GTScanRequest(gt.getInfo());
+    IGTScanner scanner=gt.scan(req);
+    for (    GTRecord record : scanner) {
+      cuboidRowCount++;
+      offSet=RowConstants.ROWKEY_CUBOIDID_LEN;
+      for (int x=0; x < dimensions; x++) {
+        System.arraycopy(record.get(x).array(),record.get(x).offset(),keyBuf,offSet,record.get(x).length());
+        offSet+=record.get(x).length();
+      }
+      valueBuf.clear();
+      record.exportColumns(measureColumns,valueBuf);
+      outputKey.set(keyBuf,0,offSet);
+      outputValue.set(valueBuf.array(),0,valueBuf.position());
+      context.write(outputKey,outputValue);
+    }
+    logger.info("Cuboid " + cuboid + " has "+ cuboidRowCount+ " rows on mapper "+ this.mapperTaskId);
+  }
+  table.clear();
+}

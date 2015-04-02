@@ -1,0 +1,18 @@
+{
+  MapReduceExecutable baseCuboidStep=new MapReduceExecutable();
+  StringBuilder cmd=new StringBuilder();
+  appendMapReduceParameters(cmd,seg);
+  baseCuboidStep.setName(ExecutableConstants.STEP_NAME_BUILD_IN_MEM_CUBE);
+  appendExecCmdParameters(cmd,"cubename",seg.getCubeInstance().getName());
+  appendExecCmdParameters(cmd,"segmentname",seg.getName());
+  appendExecCmdParameters(cmd,"input",intermediateHiveTableLocation);
+  appendExecCmdParameters(cmd,"statisticsoutput",getStatisticsPath(seg,jobId));
+  appendExecCmdParameters(cmd,"output",getHFilePath(seg,jobId));
+  appendExecCmdParameters(cmd,"jobname","Kylin_Cube_Builder_" + seg.getCubeInstance().getName());
+  appendExecCmdParameters(cmd,"level","0");
+  appendExecCmdParameters(cmd,"tablename",intermediateHiveTableName);
+  appendExecCmdParameters(cmd,"htablename",seg.getStorageLocationIdentifier());
+  baseCuboidStep.setMapReduceParams(cmd.toString());
+  baseCuboidStep.setMapReduceJobClass(InMemCuboidJob.class);
+  return baseCuboidStep;
+}

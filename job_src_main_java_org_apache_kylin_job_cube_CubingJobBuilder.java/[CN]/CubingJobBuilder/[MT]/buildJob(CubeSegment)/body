@@ -6,7 +6,13 @@
   Pair<AbstractExecutable,AbstractExecutable> twoSteps=addCubingSteps(seg,cuboidRootPath,result);
   String intermediateHiveTableStepId=twoSteps.getFirst().getId();
   String baseCuboidStepId=twoSteps.getSecond().getId();
-  AbstractExecutable convertCuboidToHfileStep=addHTableSteps(seg,cuboidRootPath,result);
-  result.addTask(createUpdateCubeInfoAfterBuildStep(seg,intermediateHiveTableStepId,baseCuboidStepId,convertCuboidToHfileStep.getId(),jobId));
+  if (this.useImMemCubing) {
+    result.addTask(createBulkLoadStep(seg,result.getId()));
+    result.addTask(createUpdateCubeInfoAfterBuildStep(seg,intermediateHiveTableStepId,baseCuboidStepId,baseCuboidStepId,jobId));
+  }
+ else {
+    AbstractExecutable convertCuboidToHfileStep=addHTableSteps(seg,cuboidRootPath,result);
+    result.addTask(createUpdateCubeInfoAfterBuildStep(seg,intermediateHiveTableStepId,baseCuboidStepId,convertCuboidToHfileStep.getId(),jobId));
+  }
   return result;
 }

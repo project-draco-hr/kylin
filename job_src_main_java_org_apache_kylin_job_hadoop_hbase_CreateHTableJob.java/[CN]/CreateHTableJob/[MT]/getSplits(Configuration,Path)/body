@@ -24,7 +24,7 @@
   logger.info((rowkeyList.size() + 1) + " regions");
   logger.info(rowkeyList.size() + " splits");
   for (  byte[] split : rowkeyList) {
-    System.out.println(StringUtils.byteToHexString(split));
+    logger.info(StringUtils.byteToHexString(split));
   }
   byte[][] retValue=rowkeyList.toArray(new byte[rowkeyList.size()][]);
   return retValue.length == 0 ? null : retValue;

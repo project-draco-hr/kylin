@@ -1,0 +1,14 @@
+{
+  String cut;
+switch (capacity) {
+case "SMALL":
+    cut=getProperty(HBASE_REGION_CUT_SMALL,"5");
+case "MEDIUM":
+  cut=getProperty(HBASE_REGION_CUT_MEDIUM,"10");
+case "LARGE":
+cut=getProperty(HBASE_REGION_CUT_LARGE,"50");
+default :
+cut="5";
+}
+return Integer.valueOf(cut);
+}
