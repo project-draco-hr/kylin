@@ -1,0 +1,19 @@
+{
+  boolean exact=true;
+  if (cuboid.requirePostAggregation()) {
+    exact=false;
+    logger.info("exactAggregation is false because cuboid " + cuboid.getInputID() + "=> "+ cuboid.getId());
+  }
+  if (groups.containsAll(derivedPostAggregation) == false) {
+    exact=false;
+    logger.info("exactAggregation is false because derived column require post aggregation: " + derivedPostAggregation);
+  }
+  if (singleValuesD.containsAll(othersD) == false) {
+    exact=false;
+    logger.info("exactAggregation is false because some column not on group by: " + othersD + " (single value column: "+ singleValuesD+ ")");
+  }
+  if (exact) {
+    logger.info("exactAggregation is true");
+  }
+  return exact;
+}

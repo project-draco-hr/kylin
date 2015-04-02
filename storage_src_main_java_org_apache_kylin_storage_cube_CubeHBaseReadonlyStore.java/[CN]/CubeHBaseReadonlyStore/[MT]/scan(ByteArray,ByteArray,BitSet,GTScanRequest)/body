@@ -1,0 +1,7 @@
+{
+  HConnection hbaseConn=HBaseConnection.get(cubeSeg.getCubeInstance().getConfig().getStorageUrl());
+  HTableInterface hbaseTable=hbaseConn.getTable(cubeSeg.getStorageLocationIdentifier());
+  Scan hbaseScan=buildScan(pkStart,pkEnd,selectedColBlocks);
+  ResultScanner scanner=hbaseTable.getScanner(hbaseScan);
+  return null;
+}

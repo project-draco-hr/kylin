@@ -1,0 +1,18 @@
+{
+  if (filter == null)   return filter;
+  if (filter instanceof CompareTupleFilter) {
+    return translateDerivedInCompare((CompareTupleFilter)filter,collector);
+  }
+  List<TupleFilter> children=(List<TupleFilter>)filter.getChildren();
+  List<TupleFilter> newChildren=Lists.newArrayListWithCapacity(children.size());
+  boolean modified=false;
+  for (  TupleFilter child : children) {
+    TupleFilter translated=translateDerived(child,collector);
+    newChildren.add(translated);
+    if (child != translated)     modified=true;
+  }
+  if (modified) {
+    filter=replaceChildren(filter,newChildren);
+  }
+  return filter;
+}

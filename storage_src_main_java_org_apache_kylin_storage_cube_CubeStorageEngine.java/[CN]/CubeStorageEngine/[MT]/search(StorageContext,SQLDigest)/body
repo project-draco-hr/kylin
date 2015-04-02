@@ -1,0 +1,30 @@
+{
+  Collection<TblColRef> groups=sqlDigest.groupbyColumns;
+  TupleFilter filter=sqlDigest.filter;
+  Collection<TblColRef> dimensions=new HashSet<TblColRef>();
+  Collection<FunctionDesc> metrics=new HashSet<FunctionDesc>();
+  buildDimensionsAndMetrics(sqlDigest,dimensions,metrics);
+  Set<TblColRef> filterDims=Sets.newHashSet(dimensions);
+  filterDims.removeAll(groups);
+  Set<TblColRef> derivedPostAggregation=Sets.newHashSet();
+  Set<TblColRef> groupsD=expandDerived(groups,derivedPostAggregation);
+  Set<TblColRef> filterDimsD=expandDerived(filterDims,derivedPostAggregation);
+  filterDimsD.removeAll(groupsD);
+  derivedPostAggregation.removeAll(groups);
+  Set<TblColRef> dimensionsD=Sets.newHashSet();
+  dimensionsD.addAll(groupsD);
+  dimensionsD.addAll(filterDimsD);
+  Cuboid cuboid=identifyCuboid(dimensionsD);
+  context.setCuboid(cuboid);
+  Set<TblColRef> singleValuesD=findSingleValueColumns(filter);
+  boolean isExactAggregation=isExactAggregation(cuboid,groups,filterDimsD,singleValuesD,derivedPostAggregation);
+  context.setExactAggregation(isExactAggregation);
+  TupleFilter filterD=translateDerived(filter,groupsD);
+  setThreshold(dimensionsD,metrics,context);
+  setLimit(filter,context);
+  List<CubeScanner> scanners=Lists.newArrayList();
+  for (  CubeSegment cubeSeg : cubeInstance.getSegments(SegmentStatusEnum.READY)) {
+    scanners.add(new CubeScanner(cubeSeg,dimensionsD,groupsD,metrics,filterD,context));
+  }
+  return new SerializedCubeTupleIterator(scanners);
+}

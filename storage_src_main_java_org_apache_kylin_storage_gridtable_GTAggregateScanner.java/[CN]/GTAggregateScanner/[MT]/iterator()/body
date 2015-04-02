@@ -1,6 +1,6 @@
 {
   AggregationCache aggrCache=new AggregationCache();
-  for (  GTRecord r : rawScanner) {
+  for (  GTRecord r : inputScanner) {
     aggrCache.aggregate(r);
   }
   return aggrCache.iterator();

@@ -1,0 +1,17 @@
+{
+  boolean hasMemHungryCountDistinct=false;
+  for (  FunctionDesc func : metrics) {
+    if (func.isCountDistinct() && !func.isHolisticCountDistinct()) {
+      hasMemHungryCountDistinct=true;
+    }
+  }
+  if (hasMemHungryCountDistinct == false) {
+    return;
+  }
+  int rowSizeEst=dimensions.size() * 3;
+  for (  FunctionDesc func : metrics) {
+    rowSizeEst+=func.getReturnDataType().getSpaceEstimate();
+  }
+  long rowEst=MEM_BUDGET_PER_QUERY / rowSizeEst;
+  context.setThreshold((int)rowEst);
+}

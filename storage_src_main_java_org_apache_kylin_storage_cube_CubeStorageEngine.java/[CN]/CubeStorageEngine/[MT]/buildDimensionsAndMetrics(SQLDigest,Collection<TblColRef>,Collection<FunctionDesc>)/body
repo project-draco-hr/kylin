@@ -1,0 +1,13 @@
+{
+  for (  FunctionDesc func : sqlDigest.aggregations) {
+    if (!func.isDimensionAsMetric()) {
+      metrics.add(func);
+    }
+  }
+  for (  TblColRef column : sqlDigest.allColumns) {
+    if (sqlDigest.metricColumns.contains(column)) {
+      continue;
+    }
+    dimensions.add(column);
+  }
+}

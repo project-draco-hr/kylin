@@ -1,0 +1,21 @@
+{
+  Scan scan=new Scan();
+  scan.setCaching(SCAN_CACHE);
+  scan.setCacheBlocks(true);
+  scan.setAttribute(Scan.SCAN_ATTRIBUTES_METRICS_ENABLE,Bytes.toBytes(Boolean.TRUE));
+  int colBlockIdx=0;
+  HBaseMappingDesc hbaseMapping=cubeSeg.getCubeDesc().getHbaseMapping();
+  for (  HBaseColumnFamilyDesc familyDesc : hbaseMapping.getColumnFamily()) {
+    for (    HBaseColumnDesc hbaseColDesc : familyDesc.getColumns()) {
+      if (selectedColBlocks.get(colBlockIdx)) {
+        byte[] byteFamily=Bytes.toBytes(familyDesc.getName());
+        byte[] byteQualifier=Bytes.toBytes(hbaseColDesc.getQualifier());
+        scan.addColumn(byteFamily,byteQualifier);
+      }
+      colBlockIdx++;
+    }
+  }
+  scan.setStartRow(pkStart.copy().array());
+  scan.setStopRow(pkEnd.copy().array());
+  return scan;
+}

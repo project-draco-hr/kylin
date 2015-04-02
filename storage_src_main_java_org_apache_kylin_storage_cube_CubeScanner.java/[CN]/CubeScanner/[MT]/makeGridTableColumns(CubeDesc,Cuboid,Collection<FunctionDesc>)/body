@@ -1,0 +1,10 @@
+{
+  BitSet result=new BitSet();
+  int metricsIndexStart=cuboid.getColumns().size();
+  for (  FunctionDesc metric : metrics) {
+    int index=cubeDesc.getMeasures().indexOf(metric);
+    if (index < 0)     throw new IllegalStateException(metric + " not found in " + cubeDesc);
+    result.set(metricsIndexStart + index);
+  }
+  return result;
+}

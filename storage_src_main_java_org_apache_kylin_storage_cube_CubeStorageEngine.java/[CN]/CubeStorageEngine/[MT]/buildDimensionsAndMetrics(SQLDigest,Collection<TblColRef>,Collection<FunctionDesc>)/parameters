@@ -1,0 +1,3 @@
+SQLDigest sqlDigest
+Collection<TblColRef> dimensions
+Collection<FunctionDesc> metrics
