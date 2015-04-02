@@ -23,14 +23,15 @@
   ImmutableBytesWritable outputKey=new ImmutableBytesWritable();
   Text outputValue=new Text();
   int offSet;
-  RowKeyColumnIO colIO=new RowKeyColumnIO(this.cubeSegment);
   for (  Long cuboidId : allCuboids) {
     int bytesLength=RowConstants.ROWKEY_CUBOIDID_LEN;
     Cuboid cuboid=Cuboid.findById(cubeDesc,cuboidId);
     for (    TblColRef column : cuboid.getColumns()) {
-      bytesLength+=colIO.getColumnLength(column);
+      bytesLength+=cubeSegment.getColumnLength(column);
     }
     int dimensions=BitSet.valueOf(new long[]{cuboidId}).cardinality();
+    BitSet measureColumns=new BitSet();
+    measureColumns.set(dimensions,dimensions + cubeDesc.getMeasures().size());
     long cuboidRowCount=0;
     byte[] keyBuf=new byte[bytesLength];
     System.arraycopy(Bytes.toBytes(cuboidId),0,keyBuf,0,RowConstants.ROWKEY_CUBOIDID_LEN);
@@ -44,10 +45,8 @@
         System.arraycopy(record.get(x).array(),record.get(x).offset(),keyBuf,offSet,record.get(x).length());
         offSet+=record.get(x).length();
       }
-      Object[] values=record.getValues();
-      System.arraycopy(values,dimensions,measures,0,measures.length);
       valueBuf.clear();
-      measureCodec.encode(measures,valueBuf);
+      record.exportColumns(measureColumns,valueBuf);
       outputKey.set(keyBuf,0,offSet);
       outputValue.set(valueBuf.array(),0,valueBuf.position());
       context.write(outputKey,outputValue);

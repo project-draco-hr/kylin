@@ -53,9 +53,10 @@
   List<Long> regionSplit=Lists.newArrayList();
   long size=0;
   int regionIndex=0;
-  for (  long cuboidId : allCuboids) {
+  for (int i=0; i < allCuboids.size(); i++) {
+    long cuboidId=allCuboids.get(i);
     size+=cuboidSizeMap.get(cuboidId);
-    if (size >= mbPerRegion) {
+    if (size >= mbPerRegion && i != (allCuboids.size() - 1)) {
       regionSplit.add(cuboidId);
       logger.info("Region " + regionIndex + " will be "+ size+ " MB, contains cuboid to "+ cuboidId);
       size=0;

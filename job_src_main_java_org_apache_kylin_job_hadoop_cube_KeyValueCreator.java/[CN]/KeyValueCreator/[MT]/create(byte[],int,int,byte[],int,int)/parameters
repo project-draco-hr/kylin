@@ -1,0 +1,6 @@
+byte[] keyBytes
+int keyOffset
+int keyLength
+byte[] value
+int voffset
+int vlen
