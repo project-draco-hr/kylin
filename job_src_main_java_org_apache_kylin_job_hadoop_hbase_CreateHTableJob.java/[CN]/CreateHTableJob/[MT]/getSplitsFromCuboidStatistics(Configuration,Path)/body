@@ -5,12 +5,12 @@
   Cuboid baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
   List<TblColRef> columnList=baseCuboid.getColumns();
   for (int i=0; i < columnList.size(); i++) {
-    System.out.println("Rowkey column " + i + " length "+ cubeSegment.getColumnLength(columnList.get(i)));
+    logger.info("Rowkey column " + i + " length "+ cubeSegment.getColumnLength(columnList.get(i)));
     rowkeyColumnSize.add(cubeSegment.getColumnLength(columnList.get(i)));
   }
   DataModelDesc.RealizationCapacity cubeCapacity=cubeDesc.getModel().getCapacity();
   int cut=kylinConfig.getHBaseRegionCut(cubeCapacity.name());
-  System.out.println("Chosen cut for htable is " + cut);
+  logger.info("Chosen cut for htable is " + cut + "GB");
   Map<Long,Long> cuboidSizeMap=Maps.newHashMap();
   long totalSizeInM=0;
   SequenceFile.Reader reader=null;
@@ -42,22 +42,22 @@
     cuboidSizeMap.put(i,cuboidSize);
     totalSizeInM+=cuboidSize;
   }
-  int nRegion=Math.round((float)totalSizeInM / ((float)cut) * 1024l);
+  int nRegion=Math.round((float)totalSizeInM / ((float)cut * 1024l));
   nRegion=Math.max(1,nRegion);
   nRegion=Math.min(MAX_REGION,nRegion);
-  int gbPerRegion=(int)(totalSizeInM / (nRegion * 1024l));
-  gbPerRegion=Math.max(1,gbPerRegion);
-  System.out.println("Total size " + totalSizeInM + "M");
-  System.out.println(nRegion + " regions");
-  System.out.println(gbPerRegion + " GB per region");
+  int mbPerRegion=(int)(totalSizeInM / (nRegion));
+  mbPerRegion=Math.max(1,mbPerRegion);
+  logger.info("Total size " + totalSizeInM + "M");
+  logger.info(nRegion + " regions");
+  logger.info(mbPerRegion + " MB per region");
   List<Long> regionSplit=Lists.newArrayList();
   long size=0;
   int regionIndex=0;
   for (  long cuboidId : allCuboids) {
     size+=cuboidSizeMap.get(cuboidId);
-    if (size >= gbPerRegion * 1024l) {
+    if (size >= mbPerRegion) {
       regionSplit.add(cuboidId);
-      System.out.println("Region " + regionIndex + " will be "+ size+ " MB, contains cuboid to "+ cuboidId);
+      logger.info("Region " + regionIndex + " will be "+ size+ " MB, contains cuboid to "+ cuboidId);
       size=0;
       regionIndex++;
     }

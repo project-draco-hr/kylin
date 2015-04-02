@@ -19,7 +19,7 @@
     }
   }
   bytesLength+=space;
-  System.out.println("Cuboid " + cuboidId + " has "+ rowCount+ " rows, each row size is "+ bytesLength);
-  System.out.println("Cuboid " + cuboidId + " total size is "+ (bytesLength * rowCount / (1024L * 1024L))+ "M");
+  logger.info("Cuboid " + cuboidId + " has "+ rowCount+ " rows, each row size is "+ bytesLength+ " bytes.");
+  logger.info("Cuboid " + cuboidId + " total size is "+ (bytesLength * rowCount / (1024L * 1024L))+ "M.");
   return bytesLength * rowCount / (1024L * 1024L);
 }

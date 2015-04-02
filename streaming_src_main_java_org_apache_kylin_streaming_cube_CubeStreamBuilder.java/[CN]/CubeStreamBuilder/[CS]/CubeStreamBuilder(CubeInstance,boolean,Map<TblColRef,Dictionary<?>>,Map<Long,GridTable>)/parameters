@@ -1,4 +1,4 @@
 CubeInstance cube
 boolean needBuildDictionary
-Map<TblColRef,Dictionary> dictionaryMap
+Map<TblColRef,Dictionary<?>> dictionaryMap
 Map<Long,GridTable> generatedCuboids
