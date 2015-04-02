@@ -33,7 +33,7 @@
       }
       logger.info("Number of messages consumed: " + consumeMsgCount + " offset is "+ offset);
       if (consumeMsgCount == consumeMsgCountAtBeginning) {
-        Thread.sleep(5000);
+        Thread.sleep(30000);
       }
     }
     getStreamQueue().put(Stream.EOF);
