@@ -1,0 +1,3 @@
+{
+  return new KeyValue(keyBytes,keyOffset,keyLength,cfBytes,0,cfBytes.length,qBytes,0,qBytes.length,timestamp,KeyValue.Type.Put,value,voffset,vlen);
+}
