@@ -1,6 +1,6 @@
 {
   final String clientName="client_" + topic + "_"+ partitionId;
   SimpleConsumer consumer=getSimpleConsumer(broker,kafkaConfig.getTimeout(),kafkaConfig.getBufferSize(),clientName);
-  kafka.api.FetchRequest req=new FetchRequestBuilder().clientId(clientName).addFetch(topic,partitionId,offset,kafkaConfig.getMaxReadCount()).build();
+  kafka.api.FetchRequest req=new FetchRequestBuilder().clientId(clientName).addFetch(topic,partitionId,offset,1048576).build();
   return consumer.fetch(req);
 }
