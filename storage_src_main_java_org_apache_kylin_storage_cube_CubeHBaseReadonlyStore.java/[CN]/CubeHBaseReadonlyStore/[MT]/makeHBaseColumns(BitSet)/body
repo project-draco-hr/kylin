@@ -1,0 +1,16 @@
+{
+  List<Pair<byte[],byte[]>> result=Lists.newArrayList();
+  int colBlockIdx=0;
+  HBaseMappingDesc hbaseMapping=cubeSeg.getCubeDesc().getHbaseMapping();
+  for (  HBaseColumnFamilyDesc familyDesc : hbaseMapping.getColumnFamily()) {
+    byte[] byteFamily=Bytes.toBytes(familyDesc.getName());
+    for (    HBaseColumnDesc hbaseColDesc : familyDesc.getColumns()) {
+      if (selectedColBlocks.get(colBlockIdx)) {
+        byte[] byteQualifier=Bytes.toBytes(hbaseColDesc.getQualifier());
+        result.add(new Pair<byte[],byte[]>(byteFamily,byteQualifier));
+      }
+      colBlockIdx++;
+    }
+  }
+  return result;
+}

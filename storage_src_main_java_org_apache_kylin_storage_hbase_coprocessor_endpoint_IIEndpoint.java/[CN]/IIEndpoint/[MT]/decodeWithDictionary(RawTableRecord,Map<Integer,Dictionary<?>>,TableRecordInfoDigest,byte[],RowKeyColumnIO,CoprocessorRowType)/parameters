@@ -1,6 +1,0 @@
-RawTableRecord encodedRecord
-Map<Integer,Dictionary<?>> localDictionaries
-TableRecordInfoDigest digest
-byte[] buffer
-RowKeyColumnIO rowKeyColumnIO
-CoprocessorRowType coprocessorRowType

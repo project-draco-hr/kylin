@@ -1,0 +1,3 @@
+Collection<TblColRef> dimensions
+Collection<FunctionDesc> metrics
+StorageContext context

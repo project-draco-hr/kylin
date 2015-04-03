@@ -1,0 +1,4 @@
+{
+  Map<TblColRef,Dictionary<?>> dictionaryMap=getDimensionToDictionaryMap(cubeSeg,cuboidId);
+  return newGTInfo(cubeSeg.getCubeDesc(),cuboidId,dictionaryMap);
+}

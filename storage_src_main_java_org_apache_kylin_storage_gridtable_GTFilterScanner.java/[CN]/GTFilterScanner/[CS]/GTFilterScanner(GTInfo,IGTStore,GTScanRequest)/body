@@ -5,7 +5,7 @@
   ByteArray start=makeScanKey(req.getPkStart());
   ByteArray end=makeScanKey(req.getPkEnd());
   this.selectedColBlocks=info.selectColumnBlocks(req.getColumns());
-  this.storeScanner=store.scan(start,end,selectedColBlocks,filter);
+  this.storeScanner=store.scan(start,end,selectedColBlocks,req);
   this.oneRecord=new GTRecord(info);
   this.oneTuple=new TupleAdapter(oneRecord);
 }

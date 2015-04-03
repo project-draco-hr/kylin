@@ -1,0 +1,13 @@
+{
+  CubeDesc cubeDesc=cubeSeg.getCubeDesc();
+  CubeManager cubeMgr=CubeManager.getInstance(cubeSeg.getCubeInstance().getConfig());
+  Map<TblColRef,Dictionary<?>> dictionaryMap=Maps.newHashMap();
+  List<TblColRef> dimCols=Cuboid.findById(cubeDesc,cuboidId).getColumns();
+  for (  TblColRef col : dimCols) {
+    Dictionary<?> dictionary=cubeMgr.getDictionary(cubeSeg,col);
+    if (dictionary != null) {
+      dictionaryMap.put(col,dictionary);
+    }
+  }
+  return dictionaryMap;
+}

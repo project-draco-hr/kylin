@@ -1,4 +1,0 @@
-ByteArray pkStart
-ByteArray pkEnd
-BitSet selectedColBlocks
-TupleFilter filterPushDown

@@ -1,0 +1,4 @@
+TupleFilter rootFilter
+GTInfo info
+List<TblColRef> colMapping
+Set<TblColRef> unevaluatableColumnCollector

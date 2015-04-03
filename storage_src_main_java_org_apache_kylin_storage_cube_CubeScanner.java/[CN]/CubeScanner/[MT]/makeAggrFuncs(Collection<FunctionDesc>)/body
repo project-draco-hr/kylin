@@ -1,0 +1,8 @@
+{
+  String[] result=new String[metrics.size()];
+  int i=0;
+  for (  FunctionDesc metric : metrics) {
+    result[i++]=metric.getExpression();
+  }
+  return result;
+}
