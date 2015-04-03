@@ -1,4 +1,0 @@
-{
-  removeModelFromProjects(modelName);
-  return addModelToProject(modelName,newProjectName,owner);
-}
