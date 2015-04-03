@@ -1,0 +1,4 @@
+{
+  this.type=type;
+  this.maxLength=1 + 1 + (type.getPrecision() + 1) / 2;
+}

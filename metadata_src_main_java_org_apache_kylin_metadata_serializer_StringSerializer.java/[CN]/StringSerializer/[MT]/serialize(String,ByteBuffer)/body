@@ -1,3 +1,5 @@
 {
+  int start=out.position();
   BytesUtil.writeUTFString(value,out);
+  if (out.position() - start > maxLength)   throw new IllegalArgumentException("'" + value + "' exceeds the expected length for type "+ type);
 }

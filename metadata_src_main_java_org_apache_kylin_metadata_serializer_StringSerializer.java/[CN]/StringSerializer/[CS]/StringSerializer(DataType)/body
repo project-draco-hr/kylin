@@ -1,0 +1,4 @@
+{
+  this.type=type;
+  this.maxLength=2 + type.getPrecision();
+}
