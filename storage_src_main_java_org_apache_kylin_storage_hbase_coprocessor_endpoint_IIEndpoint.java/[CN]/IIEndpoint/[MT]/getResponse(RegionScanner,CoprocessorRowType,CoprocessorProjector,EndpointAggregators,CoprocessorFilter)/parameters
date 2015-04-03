@@ -1,0 +1,5 @@
+RegionScanner innerScanner
+CoprocessorRowType type
+CoprocessorProjector projector
+EndpointAggregators aggregators
+CoprocessorFilter filter

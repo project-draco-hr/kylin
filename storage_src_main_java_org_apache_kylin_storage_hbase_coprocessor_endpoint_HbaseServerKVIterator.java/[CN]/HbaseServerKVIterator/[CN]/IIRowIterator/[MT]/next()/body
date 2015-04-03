@@ -8,7 +8,7 @@
   results.clear();
   try {
     if (hasMore) {
-      hasMore=regionScanner.next(results);
+      hasMore=regionScanner.nextRaw(results);
     }
   }
  catch (  IOException e) {
