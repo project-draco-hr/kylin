@@ -6,7 +6,7 @@
     @Override public Slice next(){
       int columns=0;
       ColumnValueContainer[] valueContainers=new ColumnValueContainer[incompleteDigest.getColumnCount()];
-      Map<Integer,Dictionary<?>> localDictionaries=Maps.newHashMap();
+      Dictionary<?>[] localDictionaries=new Dictionary<?>[incompleteDigest.getColumnCount()];
       boolean firstTime=true;
       short curShard=0;
       long curTimestamp=0;
@@ -35,7 +35,7 @@
           CompressedValueContainer c=new CompressedValueContainer(dictionary.getSizeOfId(),dictionary.getMaxId() - dictionary.getMinId() + 1,0);
           c.fromBytes(row.getValue());
           valueContainers[curCol]=c;
-          localDictionaries.put(curCol,dictionary);
+          localDictionaries[curCol]=dictionary;
         }
         columns++;
         lastShard=curShard;

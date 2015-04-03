@@ -1,3 +1,3 @@
 {
-  return (Dictionary<String>)dictionaryMap.get(col);
+  return (Dictionary<String>)dictionaryMap[col];
 }

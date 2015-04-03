@@ -1,0 +1,47 @@
+{
+  final List<TblColRef> tblColRefs=desc.listAllColumns();
+  final int nColumns=tblColRefs.size();
+  boolean[] isMetric=new boolean[nColumns];
+  int[] lengths=new int[nColumns];
+  int[] dictMaxIds=new int[nColumns];
+  String[] dataTypes=new String[nColumns];
+  for (int i=0; i < nColumns; ++i) {
+    final TblColRef tblColRef=tblColRefs.get(i);
+    isMetric[i]=desc.isMetricsCol(i);
+    dataTypes[i]=tblColRef.getDatatype();
+    if (isMetric[i]) {
+      lengths[i]=FixedLenMeasureCodec.get(DataType.getInstance(tblColRef.getColumn().getDatatype())).getLength();
+    }
+ else {
+      if (Array.isEmpty(dictionaryMap)) {
+        final DataType dataType=DataType.getInstance(tblColRef.getColumn().getDatatype());
+        if (dataType.isNumberFamily()) {
+          lengths[i]=16;
+        }
+ else         if (dataType.isStringFamily()) {
+          lengths[i]=256;
+        }
+ else         if (dataType.isDateTimeFamily()) {
+          lengths[i]=10;
+        }
+ else {
+          throw new RuntimeException("invalid data type:" + dataType);
+        }
+        dictMaxIds[i]=Integer.MAX_VALUE;
+      }
+ else {
+        final Dictionary<?> dictionary=dictionaryMap[i];
+        lengths[i]=dictionary.getSizeOfId();
+        dictMaxIds[i]=dictionary.getMaxId();
+      }
+    }
+  }
+  int pos=0;
+  int[] offsets=new int[nColumns];
+  for (int i=0; i < nColumns; i++) {
+    offsets[i]=pos;
+    pos+=lengths[i];
+  }
+  int byteFormLen=pos;
+  return new TableRecordInfoDigest(nColumns,byteFormLen,offsets,dictMaxIds,lengths,isMetric,dataTypes);
+}

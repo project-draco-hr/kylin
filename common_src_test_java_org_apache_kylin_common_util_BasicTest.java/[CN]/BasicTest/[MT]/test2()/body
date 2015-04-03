@@ -1,3 +1,7 @@
 {
-  logger.info("{}{}{}{}",new String[]{"2","33","333","444"});
+  ArrayList<String> x=Lists.newArrayListWithCapacity(10);
+  x.set(2,"dd");
+  for (  String y : x) {
+    System.out.println(y);
+  }
 }

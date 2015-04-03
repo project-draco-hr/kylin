@@ -12,14 +12,14 @@
       valueMap.put(desc.listAllColumns().get(i),cell);
     }
   }
-  Map<Integer,Dictionary<?>> result=Maps.newHashMap();
+  Dictionary<?>[] result=new Dictionary<?>[desc.listAllColumns().size()];
   for (  TblColRef tblColRef : valueMap.keys()) {
-    result.put(desc.findColumn(tblColRef),DictionaryGenerator.buildDictionaryFromValueList(tblColRef.getType(),Collections2.transform(valueMap.get(tblColRef),new Function<String,byte[]>(){
+    result[desc.findColumn(tblColRef)]=DictionaryGenerator.buildDictionaryFromValueList(tblColRef.getType(),Collections2.transform(valueMap.get(tblColRef),new Function<String,byte[]>(){
       @Nullable @Override public byte[] apply(      String input){
         return input.getBytes();
       }
     }
-)));
+));
   }
   return result;
 }
