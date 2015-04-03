@@ -1,10 +1,10 @@
 {
   GTRowBlock b=new GTRowBlock(info);
-  byte[] array=new byte[info.maxRecordLength];
+  byte[] array=new byte[info.getMaxColumnLength(info.primaryKey)];
   b.primaryKey.set(array);
   int maxRows=info.isRowBlockEnabled() ? info.rowBlockSize : 1;
   for (int i=0; i < b.cellBlocks.length; i++) {
-    array=new byte[info.maxRecordLength * maxRows];
+    array=new byte[info.getMaxColumnLength(info.colBlocks[i]) * maxRows];
     b.cellBlocks[i].set(array);
   }
   return b;

@@ -1,8 +1,5 @@
 {
   if (hasNext() == false)   throw new IllegalArgumentException();
-  if (info.isRowBlockEnabled() == false) {
-    result.loadPrimaryKey(primaryKeyBuffer);
-  }
   for (int c=selectedColBlocks.nextSetBit(0); c >= 0; c=selectedColBlocks.nextSetBit(c + 1)) {
     result.loadCellBlock(c,cellBlockBuffers[c]);
   }

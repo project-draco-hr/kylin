@@ -1,4 +1,0 @@
-{
-  info.maxRecordLength=len;
-  return this;
-}

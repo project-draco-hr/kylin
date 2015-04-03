@@ -1,7 +1,7 @@
 {
   return new Iterator<GTRecord>(){
     Iterator<Entry<GTRecord,MeasureAggregator[]>> it=aggBufMap.entrySet().iterator();
-    ByteBuffer metricsBuf=ByteBuffer.allocate(info.maxRecordLength);
+    ByteBuffer metricsBuf=ByteBuffer.allocate(info.getMaxColumnLength(metrics));
     GTRecord oneRecord=new GTRecord(info);
     @Override public boolean hasNext(){
       return it.hasNext();
