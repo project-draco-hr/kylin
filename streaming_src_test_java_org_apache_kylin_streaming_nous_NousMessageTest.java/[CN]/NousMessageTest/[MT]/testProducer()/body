@@ -1,6 +1,0 @@
-{
-  NousEternalStreamProducer p=new NousEternalStreamProducer(10);
-  p.start();
-  Thread.sleep(5000);
-  p.stop();
-}
