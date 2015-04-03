@@ -4,7 +4,7 @@
     return modelRequest;
   }
   try {
-    modelDesc=modelService.updateModelAndDesc(modelDesc,modelRequest.getProject());
+    modelDesc=modelService.updateModelAndDesc(modelDesc);
   }
  catch (  AccessDeniedException accessDeniedException) {
     throw new ForbiddenException("You don't have right to update this cube.");
