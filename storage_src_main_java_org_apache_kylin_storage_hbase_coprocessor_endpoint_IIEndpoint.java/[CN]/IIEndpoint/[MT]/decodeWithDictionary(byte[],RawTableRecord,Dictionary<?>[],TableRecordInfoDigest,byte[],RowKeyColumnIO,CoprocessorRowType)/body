@@ -9,7 +9,7 @@
       rowKeyColumnIO.writeColumn(column,buffer,encodedRecord.length(i),Dictionary.NULL,recordBuffer,digest.offset(i));
     }
  else {
-      final int length=localDictionaries.get(i).getValueBytesFromId(encodedRecord.getValueID(i),buffer,0);
+      final int length=localDictionaries[i].getValueBytesFromId(encodedRecord.getValueID(i),buffer,0);
       rowKeyColumnIO.writeColumn(column,buffer,length,Dictionary.NULL,recordBuffer,digest.offset(i));
     }
   }

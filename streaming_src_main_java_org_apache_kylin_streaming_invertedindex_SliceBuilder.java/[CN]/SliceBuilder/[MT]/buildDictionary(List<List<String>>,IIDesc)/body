@@ -9,7 +9,7 @@
       }
     }
   }
-  Map<Integer,Dictionary<?>> result=Maps.newHashMap();
+  Dictionary<?>[] result=new Dictionary<?>[allColumns.size()];
   for (  TblColRef tblColRef : valueMap.keySet()) {
     final Collection<byte[]> bytes=Collections2.transform(valueMap.get(tblColRef),new Function<String,byte[]>(){
       @Nullable @Override public byte[] apply(      String input){
@@ -19,7 +19,7 @@
 );
     logger.info("build dictionary for column " + tblColRef);
     final Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueList(tblColRef.getType(),bytes);
-    result.put(desc.findColumn(tblColRef),dict);
+    result[desc.findColumn(tblColRef)]=dict;
   }
   return result;
 }

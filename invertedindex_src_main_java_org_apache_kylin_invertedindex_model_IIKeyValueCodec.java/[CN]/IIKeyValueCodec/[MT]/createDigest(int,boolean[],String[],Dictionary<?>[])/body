@@ -7,7 +7,7 @@
       lengths[i]=fixedLenMeasureCodec.getLength();
     }
  else {
-      final Dictionary<?> dictionary=dictionaryMap.get(i);
+      final Dictionary<?> dictionary=dictionaryMap[i];
       if (dictionary != null) {
         lengths[i]=dictionary.getSizeOfId();
         dictMaxIds[i]=dictionary.getMaxId();

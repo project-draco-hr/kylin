@@ -1,4 +1,4 @@
 List<List<String>> table
 BatchSliceBuilder sliceBuilder
 TableRecordInfo tableRecordInfo
-Map<Integer,Dictionary<?>> localDictionary
+Dictionary<?>[] localDictionary

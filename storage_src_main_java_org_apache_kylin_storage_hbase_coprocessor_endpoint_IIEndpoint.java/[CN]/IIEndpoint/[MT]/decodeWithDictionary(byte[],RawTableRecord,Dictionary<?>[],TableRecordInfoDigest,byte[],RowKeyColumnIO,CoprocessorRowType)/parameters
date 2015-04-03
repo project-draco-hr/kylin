@@ -1,6 +1,6 @@
 byte[] recordBuffer
 RawTableRecord encodedRecord
-Map<Integer,Dictionary<?>> localDictionaries
+Dictionary<?>[] localDictionaries
 TableRecordInfoDigest digest
 byte[] buffer
 RowKeyColumnIO rowKeyColumnIO

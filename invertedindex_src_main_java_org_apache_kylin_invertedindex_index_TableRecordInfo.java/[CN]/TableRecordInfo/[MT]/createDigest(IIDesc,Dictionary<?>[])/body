@@ -13,7 +13,7 @@
       lengths[i]=FixedLenMeasureCodec.get(DataType.getInstance(tblColRef.getColumn().getDatatype())).getLength();
     }
  else {
-      if (dictionaryMap.isEmpty()) {
+      if (Array.isEmpty(dictionaryMap)) {
         final DataType dataType=DataType.getInstance(tblColRef.getColumn().getDatatype());
         if (dataType.isNumberFamily()) {
           lengths[i]=16;
@@ -30,7 +30,7 @@
         dictMaxIds[i]=Integer.MAX_VALUE;
       }
  else {
-        final Dictionary<?> dictionary=dictionaryMap.get(i);
+        final Dictionary<?> dictionary=dictionaryMap[i];
         lengths[i]=dictionary.getSizeOfId();
         dictMaxIds[i]=dictionary.getMaxId();
       }
