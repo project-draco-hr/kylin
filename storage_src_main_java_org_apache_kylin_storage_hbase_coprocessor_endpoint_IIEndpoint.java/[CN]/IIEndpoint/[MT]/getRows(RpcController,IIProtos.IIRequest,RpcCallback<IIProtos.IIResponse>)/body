@@ -1,30 +1,20 @@
 {
-  CoprocessorRowType type;
-  CoprocessorProjector projector;
-  EndpointAggregators aggregators;
-  CoprocessorFilter filter;
-  type=CoprocessorRowType.deserialize(request.getType().toByteArray());
-  projector=CoprocessorProjector.deserialize(request.getProjector().toByteArray());
-  aggregators=EndpointAggregators.deserialize(request.getAggregator().toByteArray());
-  filter=CoprocessorFilter.deserialize(request.getFilter().toByteArray());
-  TableRecordInfoDigest tableRecordInfoDigest=aggregators.getTableRecordInfoDigest();
-  IIProtos.IIResponse response=null;
   RegionScanner innerScanner=null;
   HRegion region=null;
   try {
     region=env.getRegion();
-    innerScanner=region.getScanner(buildScan());
     region.startRegionOperation();
-synchronized (innerScanner) {
-      IIKeyValueCodec codec=new IIKeyValueCodec(tableRecordInfoDigest);
-      Iterable<Slice> slices=codec.decodeKeyValue(new HbaseServerKVIterator(innerScanner));
-      if (aggregators.isEmpty()) {
-        response=getNonAggregatedResponse(slices,tableRecordInfoDigest,filter,type);
-      }
- else {
-        response=getAggregatedResponse(slices,tableRecordInfoDigest,filter,type,projector,aggregators);
-      }
-    }
+    innerScanner=region.getScanner(buildScan());
+    CoprocessorRowType type;
+    CoprocessorProjector projector;
+    EndpointAggregators aggregators;
+    CoprocessorFilter filter;
+    type=CoprocessorRowType.deserialize(request.getType().toByteArray());
+    projector=CoprocessorProjector.deserialize(request.getProjector().toByteArray());
+    aggregators=EndpointAggregators.deserialize(request.getAggregator().toByteArray());
+    filter=CoprocessorFilter.deserialize(request.getFilter().toByteArray());
+    IIProtos.IIResponse response=getResponse(innerScanner,type,projector,aggregators,filter);
+    done.run(response);
   }
  catch (  IOException ioe) {
     System.out.println(ioe.toString());
@@ -42,5 +32,4 @@ synchronized (innerScanner) {
       }
     }
   }
-  done.run(response);
 }
