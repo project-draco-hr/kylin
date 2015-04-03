@@ -4,6 +4,7 @@
   final byte[] buffer=new byte[CoprocessorConstants.METRIC_SERIALIZE_BUFFER_SIZE];
   ClearTextDictionary clearTextDictionary=new ClearTextDictionary(recordInfo,type);
   RowKeyColumnIO rowKeyColumnIO=new RowKeyColumnIO(clearTextDictionary);
+  byte[] recordBuffer=new byte[recordInfo.getByteFormLen()];
   for (  Slice slice : slices) {
     final Map<Integer,Dictionary<?>> localDictionaries=slice.getLocalDictionaries();
     CoprocessorFilter newFilter=CoprocessorFilter.fromFilter(new LocalDictionary(localDictionaries,type,slice.getInfo()),filter.getFilter(),FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_LOCAL_DICT);
@@ -14,10 +15,10 @@
     Iterator<RawTableRecord> iterator=slice.iterateWithBitmap(result);
     while (iterator.hasNext()) {
       final RawTableRecord rawTableRecord=iterator.next();
-      byte[] data=decodeWithDictionary(rawTableRecord,localDictionaries,recordInfo,buffer,rowKeyColumnIO,type);
-      CoprocessorProjector.AggrKey aggKey=projector.getAggrKey(data);
+      decodeWithDictionary(recordBuffer,rawTableRecord,localDictionaries,recordInfo,buffer,rowKeyColumnIO,type);
+      CoprocessorProjector.AggrKey aggKey=projector.getAggrKey(recordBuffer);
       MeasureAggregator[] bufs=aggCache.getBuffer(aggKey);
-      aggregators.aggregate(bufs,data);
+      aggregators.aggregate(bufs,recordBuffer);
       aggCache.checkMemoryUsage();
     }
   }

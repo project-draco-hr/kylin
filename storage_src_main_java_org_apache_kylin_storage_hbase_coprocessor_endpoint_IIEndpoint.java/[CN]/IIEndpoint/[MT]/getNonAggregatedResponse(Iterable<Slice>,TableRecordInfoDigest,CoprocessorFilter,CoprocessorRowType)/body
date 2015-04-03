@@ -3,6 +3,7 @@
   final byte[] buffer=new byte[CoprocessorConstants.METRIC_SERIALIZE_BUFFER_SIZE];
   ClearTextDictionary clearTextDictionary=new ClearTextDictionary(recordInfo,type);
   RowKeyColumnIO rowKeyColumnIO=new RowKeyColumnIO(clearTextDictionary);
+  byte[] recordBuffer=new byte[recordInfo.getByteFormLen()];
   for (  Slice slice : slices) {
     CoprocessorFilter newFilter=CoprocessorFilter.fromFilter(new LocalDictionary(slice.getLocalDictionaries(),type,slice.getInfo()),filter.getFilter(),FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_LOCAL_DICT);
     ConciseSet result=null;
@@ -12,8 +13,8 @@
     Iterator<RawTableRecord> iterator=slice.iterateWithBitmap(result);
     while (iterator.hasNext()) {
       final RawTableRecord rawTableRecord=iterator.next();
-      byte[] data=decodeWithDictionary(rawTableRecord,slice.getLocalDictionaries(),recordInfo,buffer,rowKeyColumnIO,type);
-      IIProtos.IIResponse.IIRow.Builder rowBuilder=IIProtos.IIResponse.IIRow.newBuilder().setColumns(ByteString.copyFrom(data));
+      decodeWithDictionary(recordBuffer,rawTableRecord,slice.getLocalDictionaries(),recordInfo,buffer,rowKeyColumnIO,type);
+      IIProtos.IIResponse.IIRow.Builder rowBuilder=IIProtos.IIResponse.IIRow.newBuilder().setColumns(ByteString.copyFrom(recordBuffer));
       responseBuilder.addRows(rowBuilder.build());
     }
   }

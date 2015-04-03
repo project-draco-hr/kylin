@@ -39,7 +39,7 @@
     Configuration conf=HBaseConfiguration.create(getConf());
     attachKylinPropsAndMetadata(cube,job.getConfiguration());
     HTable htable=new HTable(conf,htableName);
-    HFileOutputFormat2.configureIncrementalLoad(job,htable);
+    HFileOutputFormat.configureIncrementalLoad(job,htable);
     job.setReducerClass(InMemCuboidReducer.class);
     job.setOutputKeyClass(ImmutableBytesWritable.class);
     job.setOutputValueClass(KeyValue.class);
