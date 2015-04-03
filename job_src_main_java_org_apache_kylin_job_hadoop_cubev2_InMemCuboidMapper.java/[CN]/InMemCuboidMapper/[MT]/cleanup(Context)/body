@@ -1,4 +1,8 @@
 {
+  if (table.size() == 0) {
+    logger.info("No data on mapper " + this.mapperTaskId);
+    return;
+  }
   logger.info("Totally read " + counter + " rows in memory, trigger cube build now.");
   Map<TblColRef,Dictionary<?>> dictionaryMap=Maps.newHashMap();
   Map<Long,GridTable> cuboidsMap=Maps.newHashMap();
