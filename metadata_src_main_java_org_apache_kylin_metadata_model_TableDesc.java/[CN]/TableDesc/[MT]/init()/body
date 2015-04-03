@@ -14,5 +14,4 @@
       col.init(this);
     }
   }
-  this.identity=String.format("%s.%s",this.getDatabase().toUpperCase(),this.getName()).toUpperCase();
 }
