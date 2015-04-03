@@ -1,0 +1,14 @@
+{
+  Scan scan=new Scan();
+  scan.setCaching(SCAN_CACHE);
+  scan.setCacheBlocks(true);
+  scan.setAttribute(Scan.SCAN_ATTRIBUTES_METRICS_ENABLE,Bytes.toBytes(Boolean.TRUE));
+  for (  Pair<byte[],byte[]> hbaseColumn : selectedColumns) {
+    byte[] byteFamily=hbaseColumn.getFirst();
+    byte[] byteQualifier=hbaseColumn.getSecond();
+    scan.addColumn(byteFamily,byteQualifier);
+  }
+  scan.setStartRow(pkStart.copy().array());
+  scan.setStopRow(pkEnd.copy().array());
+  return scan;
+}

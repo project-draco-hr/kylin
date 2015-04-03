@@ -1,7 +1,29 @@
 {
   HConnection hbaseConn=HBaseConnection.get(cubeSeg.getCubeInstance().getConfig().getStorageUrl());
-  HTableInterface hbaseTable=hbaseConn.getTable(cubeSeg.getStorageLocationIdentifier());
-  Scan hbaseScan=buildScan(pkStart,pkEnd,selectedColBlocks);
-  ResultScanner scanner=hbaseTable.getScanner(hbaseScan);
-  return null;
+  final HTableInterface hbaseTable=hbaseConn.getTable(cubeSeg.getStorageLocationIdentifier());
+  final List<Pair<byte[],byte[]>> hbaseColumns=makeHBaseColumns(selectedColBlocks);
+  Scan hbaseScan=buildScan(pkStart,pkEnd,hbaseColumns);
+  final ResultScanner scanner=hbaseTable.getScanner(hbaseScan);
+  final Iterator<Result> iterator=scanner.iterator();
+  return new IGTStoreScanner(){
+    @Override public boolean hasNext(){
+      return iterator.hasNext();
+    }
+    @Override public GTRowBlock next(){
+      Result result=iterator.next();
+      result.getRow();
+      for (      Pair<byte[],byte[]> hbaseColumn : hbaseColumns) {
+        result.getColumnLatestCell(hbaseColumn.getFirst(),hbaseColumn.getSecond());
+      }
+      return null;
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+    @Override public void close() throws IOException {
+      scanner.close();
+      hbaseTable.close();
+    }
+  }
+;
 }
