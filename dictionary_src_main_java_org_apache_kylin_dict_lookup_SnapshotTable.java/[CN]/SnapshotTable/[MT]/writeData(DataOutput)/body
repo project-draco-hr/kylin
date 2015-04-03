@@ -6,7 +6,7 @@
     for (int i=0; i < rows.size(); i++) {
       String[] row=rows.get(i);
       for (int j=0; j < n; j++) {
-        out.writeUTF(row[j]);
+        out.writeUTF(row[j] == null ? NULL_STR : row[j]);
       }
     }
   }
