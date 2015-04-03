@@ -23,7 +23,7 @@
     attachKylinPropsAndMetadata(cube,job.getConfiguration());
     String tableName=getOptionValue(OPTION_HTABLE_NAME).toUpperCase();
     HTable htable=new HTable(conf,tableName);
-    HFileOutputFormat2.configureIncrementalLoad(job,htable);
+    HFileOutputFormat.configureIncrementalLoad(job,htable);
     conf.set(DFSConfigKeys.DFS_REPLICATION_KEY,"3");
     this.deletePath(job.getConfiguration(),output);
     return waitForCompletion(job);
