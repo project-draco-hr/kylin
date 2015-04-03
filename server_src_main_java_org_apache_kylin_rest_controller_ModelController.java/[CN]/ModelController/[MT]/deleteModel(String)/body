@@ -1,2 +1,13 @@
 {
+  DataModelDesc desc=modelService.getMetadataManager().getDataModelDesc(modelName);
+  if (null == desc) {
+    throw new NotFoundException("Data Model with name " + modelName + " not found..");
+  }
+  try {
+    modelService.deleteModel(desc);
+  }
+ catch (  Exception e) {
+    logger.error(e.getLocalizedMessage(),e);
+    throw new InternalErrorException("Failed to delete model. " + " Caused by: " + e.getMessage(),e);
+  }
 }
