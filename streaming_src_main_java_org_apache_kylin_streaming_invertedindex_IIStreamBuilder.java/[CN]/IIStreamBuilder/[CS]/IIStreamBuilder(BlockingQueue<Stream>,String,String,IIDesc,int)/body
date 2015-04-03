@@ -1,7 +1,7 @@
 {
-  super(queue,iiInstance.getDescriptor().getSliceSize());
-  this.ii=iiInstance;
-  this.desc=iiInstance.getDescriptor();
+  super(queue,iiDesc.getSliceSize());
+  this.streaming=streaming;
+  this.desc=iiDesc;
   this.partitionId=partitionId;
   try {
     this.hTable=HBaseConnection.get(KylinConfig.getInstanceFromEnv().getStorageUrl()).getTable(hTableName);

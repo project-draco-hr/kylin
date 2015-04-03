@@ -1,4 +1,5 @@
 BlockingQueue<Stream> queue
+String streaming
 String hTableName
-IIInstance iiInstance
+IIDesc iiDesc
 int partitionId
