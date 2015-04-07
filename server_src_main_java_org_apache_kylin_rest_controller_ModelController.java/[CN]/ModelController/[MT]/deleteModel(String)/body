@@ -4,7 +4,7 @@
     throw new NotFoundException("Data Model with name " + modelName + " not found..");
   }
   try {
-    modelService.deleteModel(desc);
+    modelService.dropModel(desc);
   }
  catch (  Exception e) {
     logger.error(e.getLocalizedMessage(),e);
