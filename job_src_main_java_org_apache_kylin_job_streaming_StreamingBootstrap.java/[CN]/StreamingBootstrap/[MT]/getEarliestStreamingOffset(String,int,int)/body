@@ -1,0 +1,10 @@
+{
+  long result=Long.MAX_VALUE;
+  for (int i=startShard; i < endShard; ++i) {
+    final long offset=streamingManager.getOffset(streaming,i);
+    if (offset < result) {
+      result=offset;
+    }
+  }
+  return result;
+}

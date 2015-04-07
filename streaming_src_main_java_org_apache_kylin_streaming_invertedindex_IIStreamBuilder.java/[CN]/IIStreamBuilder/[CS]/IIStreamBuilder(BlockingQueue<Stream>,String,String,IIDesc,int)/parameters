@@ -2,4 +2,4 @@ BlockingQueue<Stream> queue
 String streaming
 String hTableName
 IIDesc iiDesc
-int partitionId
+int shard

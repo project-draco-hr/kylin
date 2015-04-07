@@ -1,5 +1,5 @@
 {
-  final String resPath=formatStreamingOutputPath(streaming,partition);
+  final String resPath=formatStreamingOutputPath(streaming,shard);
   try {
     final InputStream inputStream=getStore().getResource(resPath);
     if (inputStream == null) {
