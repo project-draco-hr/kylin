@@ -1,5 +1,5 @@
 {
   this.kylinConfig=kylinConfig;
-  this.streamManager=StreamManager.getInstance(kylinConfig);
+  this.streamingManager=StreamingManager.getInstance(kylinConfig);
   this.iiManager=IIManager.getInstance(kylinConfig);
 }

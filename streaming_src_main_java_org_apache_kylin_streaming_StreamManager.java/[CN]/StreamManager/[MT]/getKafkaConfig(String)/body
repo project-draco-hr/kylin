@@ -1,9 +1,0 @@
-{
-  try {
-    return getStore().getResource(formatResPath(name),KafkaConfig.class,KafkaConfig.SERIALIZER);
-  }
- catch (  IOException e) {
-    logger.error("error get resource name:" + name,e);
-    return null;
-  }
-}
