@@ -1,3 +1,0 @@
-{
-  assertNotNull(streamManager.getKafkaConfig("kafka_test"));
-}

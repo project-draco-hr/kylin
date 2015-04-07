@@ -1,0 +1,14 @@
+{
+  final String streaming="kafka_test";
+  final int partition=0;
+  assertEquals(0,streamingManager.getOffset(streaming,partition));
+  try {
+    updateOffsetAndCompare(streaming,partition,-1);
+    fail("offset cannot be smaller than 0");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  updateOffsetAndCompare(streaming,partition,1000);
+  updateOffsetAndCompare(streaming,partition,800);
+  updateOffsetAndCompare(streaming,partition,2000);
+}

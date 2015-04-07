@@ -1,7 +1,7 @@
 {
-  StreamManager streamManager=StreamManager.getInstance(KylinConfig.getInstanceFromEnv());
+  StreamingManager streamingManager=StreamingManager.getInstance(KylinConfig.getInstanceFromEnv());
   try {
-    streamManager.updateOffset(streaming,partitionId,offset);
+    streamingManager.updateOffset(streaming,partitionId,offset);
     logger.info("submit offset:" + offset);
   }
  catch (  Exception e) {
