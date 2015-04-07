@@ -36,7 +36,9 @@
         Thread.sleep(30000);
       }
     }
-    getStreamQueue().put(Stream.EOF);
+    for (int i=0; i < streamQueue.length; ++i) {
+      streamQueue[i].put(Stream.EOF);
+    }
   }
  catch (  Exception e) {
     logger.error("consumer has encountered an error",e);

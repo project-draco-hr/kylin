@@ -1,2 +1,2 @@
 String streaming
-int partition
+int shard
