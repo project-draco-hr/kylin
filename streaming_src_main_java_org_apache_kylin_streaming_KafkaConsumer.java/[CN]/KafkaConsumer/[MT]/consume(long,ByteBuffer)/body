@@ -1,0 +1,19 @@
+{
+  byte[] bytes=new byte[payload.limit()];
+  payload.get(bytes);
+  Stream newStream=new Stream(offset,bytes);
+  while (true) {
+    try {
+      if (getStreamQueue(hash(offset)).offer(newStream,60,TimeUnit.SECONDS)) {
+        break;
+      }
+ else {
+        logger.info("the queue is full, wait for builder to catch up");
+      }
+    }
+ catch (    InterruptedException e) {
+      logger.info("InterruptedException",e);
+      continue;
+    }
+  }
+}
