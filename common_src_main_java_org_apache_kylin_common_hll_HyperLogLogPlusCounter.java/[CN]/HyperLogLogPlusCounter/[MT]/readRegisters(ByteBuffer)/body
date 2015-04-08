@@ -10,7 +10,8 @@
       registers[key]=in.get();
     }
   }
- else {
+ else   if (scheme == 1) {
     in.get(registers);
   }
+ else   throw new IllegalStateException();
 }

@@ -2,7 +2,7 @@
   final int indexLen=getRegisterIndexSize();
   int size=size();
   byte scheme;
-  if ((indexLen + 1) * size < m)   scheme=0;
+  if (5 + (indexLen + 1) * size < m)   scheme=0;
  else   scheme=1;
   out.put(scheme);
   if (scheme == 0) {
@@ -14,7 +14,8 @@
       }
     }
   }
- else {
+ else   if (scheme == 1) {
     out.put(registers);
   }
+ else   throw new IllegalStateException();
 }

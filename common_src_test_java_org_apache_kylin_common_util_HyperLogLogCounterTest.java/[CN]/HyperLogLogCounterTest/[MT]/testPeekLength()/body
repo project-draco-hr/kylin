@@ -1,0 +1,18 @@
+{
+  HyperLogLogPlusCounter hllc=new HyperLogLogPlusCounter(10);
+  HyperLogLogPlusCounter copy=new HyperLogLogPlusCounter(10);
+  byte[] value=new byte[10];
+  for (int i=0; i < 200000; i++) {
+    rand1.nextBytes(value);
+    hllc.add(value);
+    buf.clear();
+    hllc.writeRegisters(buf);
+    int len=buf.position();
+    buf.position(0);
+    assertEquals(len,hllc.peekLength(buf));
+    copy.readRegisters(buf);
+    assertEquals(len,buf.position());
+    assertEquals(hllc,copy);
+  }
+  buf.clear();
+}
