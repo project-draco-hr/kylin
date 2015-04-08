@@ -1,4 +1,4 @@
 {
-  setValues(new ByteArray(info.getMaxRecordLength()),values);
+  setValues(info.colAll,new ByteArray(info.getMaxRecordLength()),values);
   return this;
 }

@@ -1,0 +1,11 @@
+{
+  ByteBuffer buf=space.asBuffer();
+  int pos=buf.position();
+  for (int i=0, c=selectedColumns.nextSetBit(0); c >= 0; i++, c=selectedColumns.nextSetBit(c + 1)) {
+    info.codeSystem.encodeColumnValue(c,values[i],buf);
+    int newPos=buf.position();
+    cols[c].set(buf.array(),buf.arrayOffset() + pos,newPos - pos);
+    pos=newPos;
+  }
+  return this;
+}
