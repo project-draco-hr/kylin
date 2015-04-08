@@ -1,0 +1,3 @@
+TableRecordInfo recordInfo
+List<TblColRef> columns
+TupleFilter rootFilter

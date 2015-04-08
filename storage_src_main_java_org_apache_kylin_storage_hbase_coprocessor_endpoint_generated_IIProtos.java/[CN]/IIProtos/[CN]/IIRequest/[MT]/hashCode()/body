@@ -20,6 +20,14 @@
     hash=(37 * hash) + AGGREGATOR_FIELD_NUMBER;
     hash=(53 * hash) + getAggregator().hashCode();
   }
+  if (hasTsStart()) {
+    hash=(37 * hash) + TSSTART_FIELD_NUMBER;
+    hash=(53 * hash) + hashLong(getTsStart());
+  }
+  if (hasTsEnd()) {
+    hash=(37 * hash) + TSEND_FIELD_NUMBER;
+    hash=(53 * hash) + hashLong(getTsEnd());
+  }
   hash=(29 * hash) + getUnknownFields().hashCode();
   memoizedHashCode=hash;
   return hash;

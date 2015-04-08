@@ -1,0 +1,8 @@
+{
+  CompareTupleFilter aFilter=new CompareTupleFilter(TupleFilter.FilterOperatorEnum.GT);
+  aFilter.addChild(new ColumnTupleFilter(caldt));
+  aFilter.addChild(new ConstantTupleFilter("2000-01-01"));
+  Pair<Long,Long> ret=TsConditionExtractor.extractTsCondition(tableRecordInfo,ii.getAllColumns(),aFilter);
+  Assert.assertEquals(946684800000L,ret.getLeft().longValue());
+  Assert.assertEquals(null,ret.getRight());
+}
