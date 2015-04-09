@@ -1,0 +1,5 @@
+{
+  this.mapContext=mapContext;
+  this.cubeDesc=cubeDesc;
+  this.cubeSegment=cubeSegment;
+}

@@ -1,0 +1,4 @@
+BlockingQueue<List<String>> queue
+CubeInstance cube
+Map<TblColRef,Dictionary<?>> dictionaryMap
+IGTRecordWriter gtRecordWriter

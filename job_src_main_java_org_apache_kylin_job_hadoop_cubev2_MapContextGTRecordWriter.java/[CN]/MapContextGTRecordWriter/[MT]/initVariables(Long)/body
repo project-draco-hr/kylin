@@ -1,0 +1,12 @@
+{
+  bytesLength=RowConstants.ROWKEY_CUBOIDID_LEN;
+  Cuboid cuboid=Cuboid.findById(cubeDesc,cuboidId);
+  for (  TblColRef column : cuboid.getColumns()) {
+    bytesLength+=cubeSegment.getColumnLength(column);
+  }
+  keyBuf=new byte[bytesLength];
+  dimensions=BitSet.valueOf(new long[]{cuboidId}).cardinality();
+  measureColumns=new BitSet();
+  measureColumns.set(dimensions,dimensions + cubeDesc.getMeasures().size());
+  System.arraycopy(Bytes.toBytes(cuboidId),0,keyBuf,0,RowConstants.ROWKEY_CUBOIDID_LEN);
+}

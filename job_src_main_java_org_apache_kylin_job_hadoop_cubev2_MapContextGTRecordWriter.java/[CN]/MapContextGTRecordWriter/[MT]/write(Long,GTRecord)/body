@@ -1,0 +1,25 @@
+{
+  if (lastCuboidId == null || !lastCuboidId.equals(cuboidId)) {
+    initVariables(cuboidId);
+    if (lastCuboidId != null) {
+      System.out.println("Cuboid " + lastCuboidId + " has "+ cuboidRowCount+ " rows");
+      cuboidRowCount=0;
+    }
+  }
+  cuboidRowCount++;
+  int offSet=RowConstants.ROWKEY_CUBOIDID_LEN;
+  for (int x=0; x < dimensions; x++) {
+    System.arraycopy(record.get(x).array(),record.get(x).offset(),keyBuf,offSet,record.get(x).length());
+    offSet+=record.get(x).length();
+  }
+  valueBuf.clear();
+  record.exportColumns(measureColumns,valueBuf);
+  outputKey.set(keyBuf,0,offSet);
+  outputValue.set(valueBuf.array(),0,valueBuf.position());
+  try {
+    mapContext.write(outputKey,outputValue);
+  }
+ catch (  InterruptedException e) {
+    throw new IOException(e);
+  }
+}

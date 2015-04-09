@@ -1,0 +1,37 @@
+{
+  Object[] values=new Object[desc.getMeasures().size()];
+  MeasureDesc measureDesc=null;
+  for (int i=0, n=desc.getMeasures().size(); i < n; i++) {
+    measureDesc=desc.getMeasures().get(i);
+    Object value=null;
+    int[] flatTableIdx=intermediateTableDesc.getMeasureColumnIndexes()[i];
+    FunctionDesc function=desc.getMeasures().get(i).getFunction();
+    if (function.isCount() || function.isHolisticCountDistinct()) {
+      value=ONE;
+    }
+ else     if (flatTableIdx == null) {
+      value=measureCodec.getSerializer(i).valueOf(measureDesc.getFunction().getParameter().getValue());
+    }
+ else     if (flatTableIdx.length == 1) {
+      value=measureCodec.getSerializer(i).valueOf(Bytes.toBytes(row.get(flatTableIdx[0])));
+    }
+ else {
+      byte[] result=null;
+      for (int x=0; x < flatTableIdx.length; x++) {
+        byte[] split=Bytes.toBytes(row.get(flatTableIdx[x]));
+        if (result == null) {
+          result=Arrays.copyOf(split,split.length);
+        }
+ else {
+          byte[] newResult=new byte[result.length + split.length];
+          System.arraycopy(result,0,newResult,0,result.length);
+          System.arraycopy(split,0,newResult,result.length,split.length);
+          result=newResult;
+        }
+      }
+      value=measureCodec.getSerializer(i).valueOf(result);
+    }
+    values[i]=value;
+  }
+  return values;
+}

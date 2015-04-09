@@ -7,6 +7,19 @@
   cubeDesc=cube.getDescriptor();
   String segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME);
   cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
-  mapperTaskId=context.getTaskAttemptID().getTaskID().getId();
-  table=Lists.newArrayList();
+  Map<TblColRef,Dictionary<?>> dictionaryMap=Maps.newHashMap();
+  for (  DimensionDesc dim : cubeDesc.getDimensions()) {
+    for (    TblColRef col : dim.getColumnRefs()) {
+      if (cubeDesc.getRowkey().isUseDictionary(col)) {
+        Dictionary<?> dict=cubeSegment.getDictionary(col);
+        if (dict == null) {
+          throw new IllegalArgumentException("Dictionary for " + col + " was not found.");
+        }
+        dictionaryMap.put(col,cubeSegment.getDictionary(col));
+      }
+    }
+  }
+  InMemCubeBuilder cubeBuilder=new InMemCubeBuilder(queue,cube,dictionaryMap,new MapContextGTRecordWriter(context,cubeDesc,cubeSegment));
+  ExecutorService executorService=Executors.newSingleThreadExecutor();
+  future=executorService.submit(cubeBuilder);
 }

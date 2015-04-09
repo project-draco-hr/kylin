@@ -1,23 +1,48 @@
 {
   CubeInstance cube=cubeManager.getCube("test_kylin_cube_without_slr_left_join_empty");
+  final CubeDesc desc=cube.getDescriptor();
+  CubeSegment cubeSegment=cube.getSegment("19700101000000_20150401000000",SegmentStatusEnum.NEW);
   Map<TblColRef,Dictionary<?>> dictionaryMap=Maps.newHashMap();
+  for (  DimensionDesc dim : desc.getDimensions()) {
+    for (    TblColRef col : dim.getColumnRefs()) {
+      if (desc.getRowkey().isUseDictionary(col)) {
+        Dictionary dict=cubeSegment.getDictionary(col);
+        if (dict == null) {
+          throw new IllegalArgumentException("Dictionary for " + col + " was not found.");
+        }
+        logger.info("Dictionary for " + col + " was put into dictionary map.");
+        dictionaryMap.put(col,cubeSegment.getDictionary(col));
+      }
+    }
+  }
   String tableName="kylin_intermediate_test_kylin_cube_without_slr_desc_19700101000000_20130112000000_a24dec89_efbd_425f_9a5f_8b78dd1412af";
-  tableName="kylin_intermediate_test_kylin_cube_without_slr_desc_19700101000000_20130112000000_a5e1eb5d_da6b_475d_9807_be0b61f03215";
-  tableName="kylin_intermediate_test_kylin_cube_without_slr_left_join_desc_19700101000000_20150302000000_0a183367_f245_43d1_8850_1c138c8514c3";
-  tableName="kylin_intermediate_test_kylin_cube_without_slr_left_join_desc_19700101000000_20150301000000_ce061464_7962_4642_bd7d_7c3d8fbe9389";
+  tableName="kylin_intermediate_test_kylin_cube_without_slr_left_join_desc_19700101000000_20150401000000_fb7ae579_d987_4900_a3b7_c60c731cd269";
   logger.info("intermediate table name:" + tableName);
+  ArrayBlockingQueue queue=new ArrayBlockingQueue<List<String>>(10000);
+  InMemCubeBuilder cubeBuilder=new InMemCubeBuilder(queue,cube,dictionaryMap,new ConsoleGTRecordWriter());
+  ExecutorService executorService=Executors.newSingleThreadExecutor();
+  Future<?> future=executorService.submit(cubeBuilder);
   final Configuration conf=new Configuration();
   HCatInputFormat.setInput(conf,"default",tableName);
   final HCatSchema tableSchema=HCatInputFormat.getTableSchema(conf);
   logger.info(StringUtils.join(tableSchema.getFieldNames(),"\n"));
   HiveTableReader reader=new HiveTableReader("default",tableName);
-  List<List<String>> queue=Lists.newArrayList();
+  List<String> row;
+  int counter=0;
   while (reader.next()) {
-    queue.add(reader.getRowAsList());
+    row=reader.getRowAsList();
+    queue.put(row);
+    counter++;
+    if (counter == 200000)     break;
   }
+  queue.put(new ArrayList<String>(0));
   reader.close();
-  Map<Long,GridTable> cuboidsMap=Maps.newHashMap();
-  final CubeStreamBuilder streamBuilder=new CubeStreamBuilder(cube,true,dictionaryMap,cuboidsMap);
-  streamBuilder.build(queue);
+  try {
+    future.get();
+  }
+ catch (  Exception e) {
+    logger.error("stream build failed",e);
+    throw new IOException("Failed to build cube ",e);
+  }
   logger.info("stream build finished");
 }

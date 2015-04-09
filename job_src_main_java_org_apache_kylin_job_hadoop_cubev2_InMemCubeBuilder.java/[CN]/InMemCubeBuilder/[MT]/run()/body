@@ -1,0 +1,46 @@
+{
+  while (true) {
+    List<String> row=null;
+    try {
+      row=queue.take();
+    }
+ catch (    InterruptedException e) {
+      logger.error("Error to take from queue",e);
+      throw new RuntimeException(e);
+    }
+    if (row.size() > 0) {
+      counter++;
+      try {
+        addRowToBaseCuboid(row);
+        if (counter % INTERVAL_TO_COMPRESS == 0) {
+          compressBaseCuboid();
+        }
+      }
+ catch (      IOException e) {
+        logger.error("Failed to calculate base cuboid",e);
+      }
+    }
+ else {
+      logger.info("The source data has " + counter + " rows");
+      if (counter == 0)       break;
+      if (counter % INTERVAL_TO_COMPRESS != 0) {
+        try {
+          compressBaseCuboid();
+        }
+ catch (        IOException e) {
+          logger.error("Failed to compress base cuboid",e);
+          throw new RuntimeException("Failed to compress base cuboid",e);
+        }
+      }
+      try {
+        currentBaseGTBuilder.close();
+        createNDCuboidGT(null,-1l,baseCuboidId);
+      }
+ catch (      IOException e) {
+        logger.error("Failed to calculate cuboids",e);
+        throw new RuntimeException("Failed to calculate cuboids",e);
+      }
+      break;
+    }
+  }
+}
