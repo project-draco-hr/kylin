@@ -5,7 +5,7 @@
   int shard=-1;
   if (request.hasTsStart() || request.hasTsEnd()) {
     byte[] regionStartKey=region.getStartKey();
-    if (regionStartKey != null) {
+    if (!ArrayUtils.isEmpty(regionStartKey)) {
       shard=BytesUtil.readUnsigned(regionStartKey,0,IIKeyValueCodec.SHARD_LEN);
     }
  else {
