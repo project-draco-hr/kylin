@@ -1,14 +1,14 @@
 {
   rawTableRecord.setBytes(row,0,row.length);
   for (int metricIndex=0; metricIndex < metricInfos.length; ++metricIndex) {
-    if (metricInfos[metricIndex].type == MetricType.Count) {
+    final MetricInfo metricInfo=metricInfos[metricIndex];
+    if (metricInfo.type == MetricType.Count) {
       measureAggrs[metricIndex].aggregate(ONE);
       continue;
     }
-    if (metricInfos[metricIndex].type == MetricType.DimensionAsMetric) {
+    if (metricInfo.type == MetricType.DimensionAsMetric) {
       continue;
     }
-    MetricInfo metricInfo=metricInfos[metricIndex];
     MeasureAggregator aggregator=measureAggrs[metricIndex];
     FixedLenMeasureCodec measureSerializer=measureSerializers[metricIndex];
     rawTableRecord.getValueBytes(metricInfo.refIndex,byteBuffer);

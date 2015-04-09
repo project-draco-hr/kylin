@@ -1,12 +1,20 @@
 {
-  for (int i=0; i < tableData.size(); ++i) {
-    byte[] data=tableData.get(i).getBytes();
+  final IIInstance ii=IIManager.getInstance(getTestConfig()).getII("test_kylin_ii_left_join");
+  final TableRecordInfo tableRecordInfo=new TableRecordInfo(ii.getFirstSegment());
+  final EndpointAggregators aggregators=EndpointAggregators.fromFunctions(tableRecordInfo,buildAggregations());
+  final EndpointAggregationCache aggCache=new EndpointAggregationCache(aggregators);
+  final Collection<TblColRef> dims=new HashSet<>();
+  final TblColRef groupByColumn=ii.getDescriptor().findColumnRef("DEFAULT.TEST_KYLIN_FACT","LSTG_FORMAT_NAME");
+  dims.add(groupByColumn);
+  CoprocessorProjector projector=CoprocessorProjector.makeForEndpoint(tableRecordInfo,dims);
+  List<byte[]> rawData=mockData(tableRecordInfo);
+  for (int i=0; i < rawData.size(); ++i) {
+    byte[] data=rawData.get(i);
     CoprocessorProjector.AggrKey aggKey=projector.getAggrKey(data);
     MeasureAggregator[] bufs=aggCache.getBuffer(aggKey);
     aggregators.aggregate(bufs,data);
     aggCache.checkMemoryUsage();
   }
-  assertEquals(aggCache.getAllEntries().size(),2);
   long sumTotal=0;
   long minTotal=0;
   for (  Map.Entry<CoprocessorProjector.AggrKey,MeasureAggregator[]> entry : aggCache.getAllEntries()) {

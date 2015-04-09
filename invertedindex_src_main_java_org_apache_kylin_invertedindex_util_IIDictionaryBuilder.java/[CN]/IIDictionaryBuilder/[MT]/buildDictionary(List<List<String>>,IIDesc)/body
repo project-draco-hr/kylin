@@ -17,7 +17,6 @@
       }
     }
 );
-    logger.info("build dictionary for column " + tblColRef);
     final Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueList(tblColRef.getType(),bytes);
     result[desc.findColumn(tblColRef)]=dict;
   }

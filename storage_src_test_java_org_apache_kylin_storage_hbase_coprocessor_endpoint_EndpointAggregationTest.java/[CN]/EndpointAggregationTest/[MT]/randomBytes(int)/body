@@ -1,0 +1,8 @@
+{
+  byte[] result=new byte[length];
+  Random random=new Random();
+  for (int i=0; i < length; i++) {
+    random.nextBytes(result);
+  }
+  return result;
+}
