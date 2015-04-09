@@ -1,0 +1,47 @@
+{
+  return new Iterator<GTRecord>(){
+    @Override public boolean hasNext(){
+      if (next != null)       return true;
+      if (fetchOneRecord()) {
+        next=oneRecord;
+        return true;
+      }
+ else {
+        return false;
+      }
+    }
+    private boolean fetchOneRecord(){
+      while (true) {
+        if (curBlockReader == null) {
+          if (storeScanner.hasNext()) {
+            curBlockReader=storeScanner.next().getReader(selectedColBlocks);
+            scannedRowBlockCount++;
+          }
+ else {
+            return false;
+          }
+        }
+        if (curBlockReader.hasNext() == false) {
+          curBlockReader=null;
+          continue;
+        }
+        curBlockReader.fetchNext(oneRecord);
+        scannedRowCount++;
+        return true;
+      }
+    }
+    @Override public GTRecord next(){
+      if (next == null) {
+        hasNext();
+        if (next == null)         throw new NoSuchElementException();
+      }
+      GTRecord result=next;
+      next=null;
+      return result;
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+  }
+;
+}

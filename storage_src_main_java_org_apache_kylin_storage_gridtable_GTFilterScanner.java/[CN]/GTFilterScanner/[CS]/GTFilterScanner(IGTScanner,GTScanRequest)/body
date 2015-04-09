@@ -1,0 +1,11 @@
+{
+  this.inputScanner=inputScanner;
+  this.filter=req.getFilterPushDown();
+  this.oneTuple=new IEvaluatableTuple(){
+    @Override public Object getValue(    TblColRef col){
+      return next.get(col.getColumn().getZeroBasedIndex());
+    }
+  }
+;
+  if (TupleFilter.isEvaluableRecursively(filter) == false)   throw new IllegalArgumentException();
+}

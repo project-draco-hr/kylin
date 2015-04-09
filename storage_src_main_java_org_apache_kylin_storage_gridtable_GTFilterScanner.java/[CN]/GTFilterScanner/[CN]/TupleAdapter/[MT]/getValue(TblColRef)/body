@@ -1,3 +1,0 @@
-{
-  return r.get(col.getColumn().getZeroBasedIndex());
-}
