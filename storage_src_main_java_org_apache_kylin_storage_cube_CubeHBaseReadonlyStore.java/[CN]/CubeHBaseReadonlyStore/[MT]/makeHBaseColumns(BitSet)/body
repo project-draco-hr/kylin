@@ -1,6 +1,6 @@
 {
   List<Pair<byte[],byte[]>> result=Lists.newArrayList();
-  int colBlockIdx=0;
+  int colBlockIdx=1;
   HBaseMappingDesc hbaseMapping=cubeSeg.getCubeDesc().getHbaseMapping();
   for (  HBaseColumnFamilyDesc familyDesc : hbaseMapping.getColumnFamily()) {
     byte[] byteFamily=Bytes.toBytes(familyDesc.getName());

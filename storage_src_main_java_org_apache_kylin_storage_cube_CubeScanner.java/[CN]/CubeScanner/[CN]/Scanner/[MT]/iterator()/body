@@ -1,3 +1,37 @@
 {
-  return null;
+  return new Iterator<GTRecord>(){
+    @Override public boolean hasNext(){
+      if (next != null)       return true;
+      if (curIterator == null) {
+        if (cur >= scanRequests.size())         return false;
+        try {
+          inputScanners[cur]=new GTRawScanner(info,store,scanRequests.get(cur));
+          curIterator=inputScanners[cur].iterator();
+        }
+ catch (        IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
+      if (curIterator.hasNext() == false) {
+        curIterator=null;
+        cur++;
+        return hasNext();
+      }
+      next=curIterator.next();
+      return true;
+    }
+    @Override public GTRecord next(){
+      if (next == null) {
+        hasNext();
+        if (next == null)         throw new NoSuchElementException();
+      }
+      GTRecord result=next;
+      next=null;
+      return result;
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+  }
+;
 }

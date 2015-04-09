@@ -1,11 +1,8 @@
 {
   this.info=info;
-  this.filter=req.getFilterPushDown();
-  if (TupleFilter.isEvaluableRecursively(filter) == false)   throw new IllegalArgumentException();
   ByteArray start=makeScanKey(req.getPkStart());
   ByteArray end=makeScanKey(req.getPkEnd());
   this.selectedColBlocks=info.selectColumnBlocks(req.getColumns());
   this.storeScanner=store.scan(start,end,selectedColBlocks,req);
   this.oneRecord=new GTRecord(info);
-  this.oneTuple=new TupleAdapter(oneRecord);
 }
