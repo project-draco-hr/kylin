@@ -1,5 +1,3 @@
 {
-  String[] args={"--delete","true"};
-  int exitCode=ToolRunner.run(new StorageCleanupJob(),args);
-  return exitCode;
+  return 0;
 }

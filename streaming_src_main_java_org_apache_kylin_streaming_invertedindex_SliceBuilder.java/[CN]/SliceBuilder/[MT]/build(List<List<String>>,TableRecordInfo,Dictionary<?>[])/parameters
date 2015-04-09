@@ -1,4 +1,3 @@
 List<List<String>> table
-BatchSliceBuilder sliceBuilder
 TableRecordInfo tableRecordInfo
 Dictionary<?>[] localDictionary

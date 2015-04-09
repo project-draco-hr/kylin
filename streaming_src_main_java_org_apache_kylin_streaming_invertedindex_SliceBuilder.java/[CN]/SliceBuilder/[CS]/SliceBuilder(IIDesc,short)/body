@@ -1,4 +1,4 @@
 {
   this.iiDesc=desc;
-  this.sliceBuilder=new BatchSliceBuilder(desc,shard);
+  this.sliceMaker=new BatchSliceMaker(desc,shard);
 }

@@ -1,5 +1,5 @@
 {
-  final Slice slice=sliceBuilder.build(tableRecordInfo.getDigest(),Lists.transform(table,new Function<List<String>,TableRecord>(){
+  final Slice slice=sliceMaker.makeSlice(tableRecordInfo.getDigest(),Lists.transform(table,new Function<List<String>,TableRecord>(){
     @Nullable @Override public TableRecord apply(    @Nullable List<String> input){
       TableRecord result=tableRecordInfo.createTableRecord();
       for (int i=0; i < input.size(); i++) {

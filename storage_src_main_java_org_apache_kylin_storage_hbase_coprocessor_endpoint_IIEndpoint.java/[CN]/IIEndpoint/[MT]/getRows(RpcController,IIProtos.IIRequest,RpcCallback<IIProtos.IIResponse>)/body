@@ -1,5 +1,4 @@
 {
-  System.out.println("Entry of IIEndpoint");
   RegionScanner innerScanner=null;
   HRegion region=null;
   try {
@@ -14,7 +13,7 @@
     done.run(response);
   }
  catch (  IOException ioe) {
-    System.out.println(ioe.toString());
+    logger.error(ioe.toString());
     ResponseConverter.setControllerException(controller,ioe);
   }
  finally {

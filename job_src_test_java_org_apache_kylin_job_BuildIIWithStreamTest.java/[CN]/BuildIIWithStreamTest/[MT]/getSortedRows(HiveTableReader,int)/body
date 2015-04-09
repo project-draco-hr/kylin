@@ -1,0 +1,15 @@
+{
+  List<String[]> unsorted=Lists.newArrayList();
+  while (reader.next()) {
+    unsorted.add(reader.getRow());
+  }
+  Collections.sort(unsorted,new Comparator<String[]>(){
+    @Override public int compare(    String[] o1,    String[] o2){
+      long t1=DateFormat.stringToMillis(o1[tsCol]);
+      long t2=DateFormat.stringToMillis(o2[tsCol]);
+      return Long.compare(t1,t2);
+    }
+  }
+);
+  return unsorted;
+}

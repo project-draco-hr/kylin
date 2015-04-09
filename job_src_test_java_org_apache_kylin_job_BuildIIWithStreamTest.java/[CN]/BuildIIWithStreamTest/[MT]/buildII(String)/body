@@ -22,10 +22,11 @@
   ToolRunner.run(new IICreateHTableJob(),args);
   ExecutorService executorService=Executors.newSingleThreadExecutor();
   final IIStreamBuilder streamBuilder=new IIStreamBuilder(queue,iiName,segment.getStorageLocationIdentifier(),segment.getIIDesc(),0);
-  int count=0;
-  while (reader.next()) {
-    queue.put(parse(reader.getRow()));
-    count++;
+  List<String[]> sorted=getSortedRows(reader,desc.getTimestampColumn());
+  int count=sorted.size();
+  for (  String[] row : sorted) {
+    logger.info("another row: " + StringUtils.join(row,","));
+    queue.put(parse(row));
   }
   reader.close();
   logger.info("total record count:" + count + " htable:"+ segment.getStorageLocationIdentifier());
