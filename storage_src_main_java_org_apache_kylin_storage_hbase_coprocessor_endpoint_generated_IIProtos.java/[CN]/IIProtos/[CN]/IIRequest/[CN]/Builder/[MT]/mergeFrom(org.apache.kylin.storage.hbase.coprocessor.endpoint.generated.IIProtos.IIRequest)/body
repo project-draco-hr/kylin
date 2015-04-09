@@ -12,6 +12,12 @@
   if (other.hasAggregator()) {
     setAggregator(other.getAggregator());
   }
+  if (other.hasTsStart()) {
+    setTsStart(other.getTsStart());
+  }
+  if (other.hasTsEnd()) {
+    setTsEnd(other.getTsEnd());
+  }
   this.mergeUnknownFields(other.getUnknownFields());
   return this;
 }

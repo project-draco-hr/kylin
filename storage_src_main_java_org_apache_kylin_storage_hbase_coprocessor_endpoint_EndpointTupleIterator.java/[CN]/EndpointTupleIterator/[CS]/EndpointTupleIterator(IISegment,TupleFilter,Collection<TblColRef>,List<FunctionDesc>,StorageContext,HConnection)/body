@@ -26,6 +26,7 @@
   }
   this.pushedDownProjector=CoprocessorProjector.makeForEndpoint(tableRecordInfo,groupBy);
   this.pushedDownAggregators=EndpointAggregators.fromFunctions(tableRecordInfo,measures);
+  this.tsInterval=TsConditionExtractor.extractTsCondition(tableRecordInfo,this.columns,rootFilter);
   IIProtos.IIRequest endpointRequest=prepareRequest();
   regionResponsesIterator=getResults(endpointRequest,table);
   if (this.regionResponsesIterator.hasNext()) {

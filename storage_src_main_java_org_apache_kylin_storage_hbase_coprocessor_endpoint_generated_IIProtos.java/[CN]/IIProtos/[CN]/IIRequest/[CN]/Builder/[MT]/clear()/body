@@ -8,5 +8,9 @@
   bitField0_=(bitField0_ & ~0x00000004);
   aggregator_=com.google.protobuf.ByteString.EMPTY;
   bitField0_=(bitField0_ & ~0x00000008);
+  tsStart_=0L;
+  bitField0_=(bitField0_ & ~0x00000010);
+  tsEnd_=0L;
+  bitField0_=(bitField0_ & ~0x00000020);
   return this;
 }

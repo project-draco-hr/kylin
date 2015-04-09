@@ -1,3 +1,4 @@
 {
+  if (array == null)   return null;
   return toHex(array);
 }
