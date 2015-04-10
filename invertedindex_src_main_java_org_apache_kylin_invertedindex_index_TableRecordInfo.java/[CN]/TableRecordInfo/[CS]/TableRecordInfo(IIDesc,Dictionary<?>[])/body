@@ -1,5 +1,5 @@
 {
   this.desc=desc;
-  this.dictionaryMap=dictionaryMap;
-  this.digest=createDigest(desc,dictionaryMap);
+  this.dictionaries=dictionaries;
+  this.digest=createDigest(desc,dictionaries);
 }
