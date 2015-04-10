@@ -1,24 +1,9 @@
 {
   int tsCol=recordInfo.getTimestampColumn();
   TblColRef tsColRef=columns.get(tsCol);
-  TupleFilter filter=rootFilter;
-  if (filter instanceof CompareTupleFilter) {
-    return extractTsConditionInternal((CompareTupleFilter)filter,tsColRef);
-  }
- else   if (filter instanceof LogicalTupleFilter) {
-    LogicalTupleFilter logicFilter=(LogicalTupleFilter)filter;
-    if (logicFilter.getOperator() != TupleFilter.FilterOperatorEnum.AND) {
-      return null;
-    }
-    List<Pair<Long,Long>> conditions=Lists.newArrayList();
-    for (    TupleFilter child : logicFilter.getChildren()) {
-      if (child instanceof CompareTupleFilter) {
-        Pair<Long,Long> piece=extractTsConditionInternal((CompareTupleFilter)child,tsColRef);
-        if (piece != null) {
-          conditions.add(piece);
-        }
-      }
-    }
+  List<Pair<Long,Long>> conditions=Lists.newArrayList();
+  extractTsConditionInternal(rootFilter,tsColRef,conditions);
+  if (conditions.size() > 0) {
     long min=Long.MIN_VALUE;
     long max=Long.MAX_VALUE;
     for (    Pair<Long,Long> pair : conditions) {

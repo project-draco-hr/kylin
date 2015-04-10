@@ -1,0 +1,3 @@
+TupleFilter filter
+TblColRef colRef
+List<Pair<Long,Long>> conditions

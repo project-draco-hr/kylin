@@ -1,0 +1,41 @@
+{
+  if (filter instanceof LogicalTupleFilter) {
+    if (filter.getOperator() == TupleFilter.FilterOperatorEnum.AND) {
+      for (      TupleFilter child : filter.getChildren()) {
+        extractTsConditionInternal(child,colRef,conditions);
+      }
+    }
+ else {
+      return;
+    }
+  }
+  if (filter instanceof CompareTupleFilter) {
+    CompareTupleFilter compareTupleFilter=(CompareTupleFilter)filter;
+    if (compareTupleFilter.getColumn() == null)     return;
+    if (compareTupleFilter.getColumn().equals(colRef)) {
+      Object firstValue=compareTupleFilter.getFirstValue();
+      long t;
+switch (compareTupleFilter.getOperator()) {
+case EQ:
+        t=DateFormat.stringToMillis((String)firstValue);
+      conditions.add(Pair.of(t,t));
+    break;
+case NEQ:
+  break;
+case LT:
+case LTE:
+t=DateFormat.stringToMillis((String)firstValue);
+conditions.add(Pair.<Long,Long>of(null,t));
+break;
+case GT:
+case GTE:
+t=DateFormat.stringToMillis((String)firstValue);
+conditions.add(Pair.<Long,Long>of(t,null));
+break;
+case IN:
+break;
+default :
+}
+}
+}
+}
