@@ -1,4 +1,3 @@
 {
   super(engineConfig);
-  useImMemCubing=engineConfig.getConfig().isCubingInMem();
 }

@@ -1,0 +1,18 @@
+{
+  if (functionDesc.isCount()) {
+    return new MetricInfo(MetricType.Count);
+  }
+ else   if (functionDesc.isDimensionAsMetric()) {
+    return new MetricInfo(MetricType.DimensionAsMetric);
+  }
+ else {
+    int index=tableInfo.findFactTableColumn(functionDesc.getParameter().getValue());
+    Preconditions.checkState(index >= 0,"Column " + functionDesc.getParameter().getValue() + " is not found in II");
+    if (functionDesc.isCountDistinct()) {
+      return new MetricInfo(MetricType.DistinctCount,index,functionDesc.getReturnDataType().getPrecision());
+    }
+ else {
+      return new MetricInfo(MetricType.Normal,index);
+    }
+  }
+}

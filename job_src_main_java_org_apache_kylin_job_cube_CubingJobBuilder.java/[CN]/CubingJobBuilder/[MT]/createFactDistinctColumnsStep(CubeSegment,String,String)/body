@@ -7,7 +7,7 @@
   appendExecCmdParameters(cmd,"cubename",seg.getCubeInstance().getName());
   appendExecCmdParameters(cmd,"output",getFactDistinctColumnsPath(seg,jobId));
   appendExecCmdParameters(cmd,"segmentname",seg.getName());
-  appendExecCmdParameters(cmd,"statisticsenabled",String.valueOf(useImMemCubing));
+  appendExecCmdParameters(cmd,"statisticsenabled",String.valueOf(inMemoryCubing()));
   appendExecCmdParameters(cmd,"statisticsoutput",getStatisticsPath(seg,jobId));
   appendExecCmdParameters(cmd,"jobname","Kylin_Fact_Distinct_Columns_" + seg.getCubeInstance().getName() + "_Step");
   appendExecCmdParameters(cmd,"tablename",intermediateHiveTableName);

@@ -6,7 +6,7 @@
   Pair<AbstractExecutable,AbstractExecutable> twoSteps=addCubingSteps(seg,cuboidRootPath,result);
   String intermediateHiveTableStepId=twoSteps.getFirst().getId();
   String baseCuboidStepId=twoSteps.getSecond().getId();
-  if (this.useImMemCubing) {
+  if (this.inMemoryCubing()) {
     result.addTask(createBulkLoadStep(seg,result.getId()));
     result.addTask(createUpdateCubeInfoAfterBuildStep(seg,intermediateHiveTableStepId,baseCuboidStepId,baseCuboidStepId,jobId));
   }

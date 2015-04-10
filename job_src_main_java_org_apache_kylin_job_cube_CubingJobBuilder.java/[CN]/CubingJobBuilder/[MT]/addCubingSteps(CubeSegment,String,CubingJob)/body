@@ -12,7 +12,7 @@
   result.addTask(createFactDistinctColumnsStep(seg,intermediateHiveTableName,jobId));
   result.addTask(createBuildDictionaryStep(seg,factDistinctColumnsPath));
   MapReduceExecutable baseCuboidStep=null;
-  if (!useImMemCubing) {
+  if (!inMemoryCubing()) {
     baseCuboidStep=createBaseCuboidStep(seg,intermediateHiveTableLocation,cuboidOutputTempPath);
     result.addTask(baseCuboidStep);
     for (int i=1; i <= groupRowkeyColumnsCount; i++) {
