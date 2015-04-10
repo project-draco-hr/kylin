@@ -5,7 +5,9 @@
   RowKeyColumnIO rowKeyColumnIO=new RowKeyColumnIO(clearTextDictionary);
   byte[] recordBuffer=new byte[recordInfo.getByteFormLen()];
   final byte[] buffer=new byte[CoprocessorConstants.METRIC_SERIALIZE_BUFFER_SIZE];
+  int iteratedSliceCount=0;
   for (  Slice slice : slices) {
+    iteratedSliceCount++;
     final Dictionary<?>[] localDictionaries=slice.getLocalDictionaries();
     CoprocessorFilter newFilter=CoprocessorFilter.fromFilter(new LocalDictionary(localDictionaries,type,slice.getInfo()),filter.getFilter(),FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_LOCAL_DICT);
     ConciseSet result=null;
@@ -22,6 +24,7 @@
       aggCache.checkMemoryUsage();
     }
   }
+  logger.info("Iterated Slices count: " + iteratedSliceCount);
   for (  Map.Entry<CoprocessorProjector.AggrKey,MeasureAggregator[]> entry : aggCache.getAllEntries()) {
     CoprocessorProjector.AggrKey aggrKey=entry.getKey();
     IIProtos.IIResponse.IIRow.Builder rowBuilder=IIProtos.IIResponse.IIRow.newBuilder().setColumns(ByteString.copyFrom(aggrKey.get(),aggrKey.offset(),aggrKey.length()));

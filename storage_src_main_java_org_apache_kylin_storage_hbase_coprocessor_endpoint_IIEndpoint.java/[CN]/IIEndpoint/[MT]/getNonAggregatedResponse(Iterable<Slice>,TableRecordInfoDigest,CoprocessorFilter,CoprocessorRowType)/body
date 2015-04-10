@@ -6,7 +6,9 @@
   final int byteFormLen=recordInfo.getByteFormLen();
   int totalSize=0;
   byte[] recordBuffer=new byte[byteFormLen];
+  int iteratedSliceCount=0;
   for (  Slice slice : slices) {
+    iteratedSliceCount++;
     CoprocessorFilter newFilter=CoprocessorFilter.fromFilter(new LocalDictionary(slice.getLocalDictionaries(),type,slice.getInfo()),filter.getFilter(),FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_LOCAL_DICT);
     ConciseSet result=null;
     if (filter != null) {
@@ -24,5 +26,6 @@
       totalSize+=byteFormLen;
     }
   }
+  logger.info("Iterated Slices count: " + iteratedSliceCount);
   return responseBuilder.build();
 }
