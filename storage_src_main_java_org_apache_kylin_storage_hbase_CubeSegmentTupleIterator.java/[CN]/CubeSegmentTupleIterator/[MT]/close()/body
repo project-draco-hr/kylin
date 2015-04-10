@@ -1,4 +1,5 @@
 {
+  logger.info("Closing CubeSegmentTupleIterator");
   closeScanner();
   closeTable();
 }

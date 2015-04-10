@@ -3,6 +3,6 @@
     return "executeLookupTableQuery";
   }
  else {
-    return "executeIndexQuery";
+    return "executeOLAPQuery";
   }
 }
