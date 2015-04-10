@@ -6,6 +6,4 @@
     serializers[i]=DataTypeSerializer.create(baseCuboid.getColumns().get(i).getType());
   }
   this.baseCuboidGT=newGridTableByCuboidID(baseCuboidId);
-  this.currentBaseGTBuilder=baseCuboidGT.rebuild();
-  this.currentBaseGTRecord=new GTRecord(baseCuboidGT.getInfo());
 }

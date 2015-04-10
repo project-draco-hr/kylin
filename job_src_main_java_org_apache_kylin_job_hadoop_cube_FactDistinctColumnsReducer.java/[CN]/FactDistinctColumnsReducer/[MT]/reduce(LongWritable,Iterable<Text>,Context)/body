@@ -27,7 +27,10 @@
       ByteArray byteArray=new ByteArray(value.getBytes());
       hll.readRegisters(byteArray.asBuffer());
       if (cuboidId > baseCuboidId) {
-        rowKeyCountInMappers.add(hll.getCountEstimate());
+        rowCountInMappers.add(hll.getCountEstimate());
+      }
+ else       if (cuboidId == baseCuboidId) {
+        baseCuboidRowCountInMappers.add(hll.getCountEstimate());
       }
       if (cuboidHLLMap.get(cuboidId) != null) {
         cuboidHLLMap.get(cuboidId).merge(hll);

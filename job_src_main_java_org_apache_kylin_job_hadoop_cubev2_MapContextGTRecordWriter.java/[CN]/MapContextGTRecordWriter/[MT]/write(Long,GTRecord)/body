@@ -2,7 +2,7 @@
   if (lastCuboidId == null || !lastCuboidId.equals(cuboidId)) {
     initVariables(cuboidId);
     if (lastCuboidId != null) {
-      System.out.println("Cuboid " + lastCuboidId + " has "+ cuboidRowCount+ " rows");
+      logger.info("Cuboid " + lastCuboidId + " has "+ cuboidRowCount+ " rows");
       cuboidRowCount=0;
     }
   }

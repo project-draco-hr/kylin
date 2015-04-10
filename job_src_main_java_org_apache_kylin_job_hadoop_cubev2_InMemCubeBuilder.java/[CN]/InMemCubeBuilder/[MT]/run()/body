@@ -1,46 +1,60 @@
 {
-  while (true) {
-    List<String> row=null;
-    try {
-      row=queue.take();
+  try {
+    createBaseCuboidGT();
+    GTBuilder baseGTBuilder=baseCuboidGT.rebuild();
+    final GTRecord baseGTRecord=new GTRecord(baseCuboidGT.getInfo());
+    IGTScanner queueScanner=new IGTScanner(){
+      @Override public Iterator<GTRecord> iterator(){
+        return new Iterator<GTRecord>(){
+          List<String> currentObject=null;
+          @Override public boolean hasNext(){
+            try {
+              currentObject=queue.take();
+            }
+ catch (            InterruptedException e) {
+              throw new RuntimeException(e);
+            }
+            return currentObject != null && currentObject.size() > 0;
+          }
+          @Override public GTRecord next(){
+            if (currentObject.size() == 0)             throw new IllegalStateException();
+            buildGTRecord(currentObject,baseGTRecord);
+            return baseGTRecord;
+          }
+          @Override public void remove(){
+            throw new UnsupportedOperationException();
+          }
+        }
+;
+      }
+      @Override public void close() throws IOException {
+      }
+      @Override public GTInfo getInfo(){
+        return baseCuboidGT.getInfo();
+      }
+      @Override public int getScannedRowCount(){
+        return 0;
+      }
+      @Override public int getScannedRowBlockCount(){
+        return 0;
+      }
     }
- catch (    InterruptedException e) {
-      logger.error("Error to take from queue",e);
-      throw new RuntimeException(e);
-    }
-    if (row.size() > 0) {
+;
+    Pair<BitSet,BitSet> dimensionMetricsBitSet=getDimensionAndMetricColumBitSet(baseCuboidId);
+    GTScanRequest req=new GTScanRequest(baseCuboidGT.getInfo(),null,dimensionMetricsBitSet.getFirst(),dimensionMetricsBitSet.getSecond(),metricsAggrFuncs,null);
+    IGTScanner aggregationScanner=new GTAggregateScanner(queueScanner,req);
+    int counter=0;
+    for (    GTRecord r : aggregationScanner) {
+      baseGTBuilder.write(r);
       counter++;
-      try {
-        addRowToBaseCuboid(row);
-        if (counter % INTERVAL_TO_COMPRESS == 0) {
-          compressBaseCuboid();
-        }
-      }
- catch (      IOException e) {
-        logger.error("Failed to calculate base cuboid",e);
-      }
     }
- else {
-      logger.info("The source data has " + counter + " rows");
-      if (counter == 0)       break;
-      if (counter % INTERVAL_TO_COMPRESS != 0) {
-        try {
-          compressBaseCuboid();
-        }
- catch (        IOException e) {
-          logger.error("Failed to compress base cuboid",e);
-          throw new RuntimeException("Failed to compress base cuboid",e);
-        }
-      }
-      try {
-        currentBaseGTBuilder.close();
-        createNDCuboidGT(null,-1l,baseCuboidId);
-      }
- catch (      IOException e) {
-        logger.error("Failed to calculate cuboids",e);
-        throw new RuntimeException("Failed to calculate cuboids",e);
-      }
-      break;
-    }
+    baseGTBuilder.close();
+    aggregationScanner.close();
+    logger.info("Base cuboid has " + counter + " rows;");
+    if (counter > 0)     createNDCuboidGT(null,-1l,baseCuboidId);
+  }
+ catch (  IOException e) {
+    logger.error("Fail to build cube",e);
+    throw new RuntimeException(e);
   }
 }

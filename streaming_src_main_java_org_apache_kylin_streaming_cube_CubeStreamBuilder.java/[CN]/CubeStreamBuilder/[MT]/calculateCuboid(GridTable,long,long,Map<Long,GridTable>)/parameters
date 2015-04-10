@@ -1,4 +1,0 @@
-GridTable parentCuboid
-long parentCuboidId
-long cuboidId
-Map<Long,GridTable> result
