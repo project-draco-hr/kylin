@@ -1,0 +1,16 @@
+{
+  if (value == null) {
+    Arrays.fill(buf,Dictionary.NULL);
+    out.put(buf);
+  }
+ else {
+    byte[] bytes=Bytes.toBytes(value.toString());
+    if (bytes.length > fixLen) {
+      throw new IllegalStateException("Expect at most " + fixLen + " bytes, but got "+ bytes.length+ ", value string: "+ value.toString());
+    }
+    out.put(bytes);
+    for (int i=bytes.length; i < fixLen; i++) {
+      out.put(RowConstants.ROWKEY_PLACE_HOLDER_BYTE);
+    }
+  }
+}

@@ -2,5 +2,5 @@
   Map<Integer,Dictionary> dictionaryMap=Maps.newHashMap();
   dictionaryMap.put(1,newDictionaryOfInteger());
   dictionaryMap.put(2,newDictionaryOfString());
-  return new GTDictionaryCodeSystem(dictionaryMap);
+  return new CubeCodeSystem(dictionaryMap);
 }

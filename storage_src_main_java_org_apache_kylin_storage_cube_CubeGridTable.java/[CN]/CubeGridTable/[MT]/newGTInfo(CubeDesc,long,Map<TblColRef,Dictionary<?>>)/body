@@ -7,14 +7,20 @@
   BitSet metrics=new BitSet();
   metrics.set(dimCols.size(),nColumns);
   DataType[] dataTypes=new DataType[nColumns];
-  Map<Integer,Dictionary> dictionaryByColIndex=Maps.newHashMap();
+  Map<Integer,Dictionary> dictionaryByColIdx=Maps.newHashMap();
+  Map<Integer,Integer> fixLenByColIdx=Maps.newHashMap();
   int colIndex=0;
   for (  TblColRef col : dimCols) {
     dataTypes[colIndex]=col.getType();
     if (cubeDesc.getRowkey().isUseDictionary(col)) {
       Dictionary dict=dictionaryMap.get(col);
       if (dict == null)       throw new IllegalStateException();
-      dictionaryByColIndex.put(colIndex,dict);
+      dictionaryByColIdx.put(colIndex,dict);
+    }
+ else {
+      int len=cubeDesc.getRowkey().getColumnLength(col);
+      if (len == 0)       throw new IllegalStateException();
+      fixLenByColIdx.put(colIndex,len);
     }
     colIndex++;
   }
@@ -23,7 +29,7 @@
     colIndex++;
   }
   GTInfo.Builder builder=GTInfo.builder();
-  builder.setCodeSystem(new GTDictionaryCodeSystem(dictionaryByColIndex));
+  builder.setCodeSystem(new CubeCodeSystem(dictionaryByColIdx,fixLenByColIdx));
   builder.setColumns(dataTypes);
   builder.setPrimaryKey(dimensions);
   builder.enableColumnBlock(new BitSet[]{dimensions,metrics});

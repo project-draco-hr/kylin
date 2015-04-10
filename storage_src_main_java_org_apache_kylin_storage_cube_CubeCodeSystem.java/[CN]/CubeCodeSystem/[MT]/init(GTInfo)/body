@@ -1,0 +1,35 @@
+{
+  this.info=info;
+  serializers=new DataTypeSerializer[info.getColumnCount()];
+  for (int i=0; i < info.getColumnCount(); i++) {
+    if (dictionaryMap.get(i) != null) {
+      serializers[i]=new DictionarySerializer(dictionaryMap.get(i));
+    }
+ else     if (fixLenMap.get(i) != null) {
+      serializers[i]=new FixLenSerializer(fixLenMap.get(i));
+    }
+ else {
+      serializers[i]=DataTypeSerializer.create(info.getColumnType(i));
+    }
+  }
+  this.filterCS=new IFilterCodeSystem<ByteArray>(){
+    @Override public boolean isNull(    ByteArray code){
+      byte[] array=code.array();
+      for (int i=0, j=code.offset(), n=code.length(); i < n; i++, j++) {
+        if (array[j] != Dictionary.NULL)         return false;
+      }
+      return true;
+    }
+    @Override public int compare(    ByteArray code1,    ByteArray code2){
+      return code1.compareTo(code2);
+    }
+    @Override public void serialize(    ByteArray code,    ByteBuffer buffer){
+      if (code == null)       BytesUtil.writeByteArray(null,0,0,buffer);
+ else       BytesUtil.writeByteArray(code.array(),code.offset(),code.length(),buffer);
+    }
+    @Override public ByteArray deserialize(    ByteBuffer buffer){
+      return new ByteArray(BytesUtil.readByteArray(buffer));
+    }
+  }
+;
+}

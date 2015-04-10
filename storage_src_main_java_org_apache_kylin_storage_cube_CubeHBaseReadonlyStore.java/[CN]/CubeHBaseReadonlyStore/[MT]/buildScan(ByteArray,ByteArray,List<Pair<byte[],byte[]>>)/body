@@ -8,7 +8,7 @@
     byte[] byteQualifier=hbaseColumn.getSecond();
     scan.addColumn(byteFamily,byteQualifier);
   }
-  scan.setStartRow(makeRowKeyToScan(pkStart));
-  scan.setStopRow(makeRowKeyToScan(pkEnd));
+  scan.setStartRow(makeRowKeyToScan(pkStart,(byte)0x00));
+  scan.setStopRow(makeRowKeyToScan(pkEnd,(byte)0xff));
   return scan;
 }

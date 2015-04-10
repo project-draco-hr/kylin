@@ -8,6 +8,7 @@
   final ResultScanner scanner=hbaseTable.getScanner(hbaseScan);
   final Iterator<Result> iterator=scanner.iterator();
   final GTRowBlock oneBlock=new GTRowBlock(info);
+  oneBlock.setNumberOfRows(1);
   return new IGTStoreScanner(){
     @Override public boolean hasNext(){
       return iterator.hasNext();

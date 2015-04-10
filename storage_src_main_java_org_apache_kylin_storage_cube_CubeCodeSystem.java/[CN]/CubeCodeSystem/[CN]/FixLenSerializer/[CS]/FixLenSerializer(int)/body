@@ -1,0 +1,4 @@
+{
+  this.fixLen=fixLen;
+  this.buf=new byte[fixLen];
+}

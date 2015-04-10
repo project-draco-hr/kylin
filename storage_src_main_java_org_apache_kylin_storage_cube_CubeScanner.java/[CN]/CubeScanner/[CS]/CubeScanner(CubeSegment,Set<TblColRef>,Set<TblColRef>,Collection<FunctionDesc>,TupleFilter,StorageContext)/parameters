@@ -1,6 +1,0 @@
-CubeSegment cubeSeg
-Set<TblColRef> dimensions
-Set<TblColRef> groups
-Collection<FunctionDesc> metrics
-TupleFilter filter
-StorageContext context

@@ -1,0 +1,4 @@
+{
+  this.dictionaryMap=dictionaryMap;
+  this.fixLenMap=fixLenMap;
+}

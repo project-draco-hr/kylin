@@ -1,0 +1,11 @@
+{
+  in.get(buf);
+  int tail=fixLen;
+  while (tail > 0 && (buf[tail - 1] == RowConstants.ROWKEY_PLACE_HOLDER_BYTE || buf[tail - 1] == Dictionary.NULL)) {
+    tail--;
+  }
+  if (tail == 0) {
+    return buf[0] == Dictionary.NULL ? null : "";
+  }
+  return Bytes.toString(buf,0,tail);
+}
