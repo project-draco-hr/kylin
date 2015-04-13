@@ -1,12 +1,12 @@
 {
   IIProtos.IIResponse.Builder responseBuilder=IIProtos.IIResponse.newBuilder();
-  final byte[] buffer=new byte[CoprocessorConstants.METRIC_SERIALIZE_BUFFER_SIZE];
   ClearTextDictionary clearTextDictionary=new ClearTextDictionary(recordInfo,type);
   RowKeyColumnIO rowKeyColumnIO=new RowKeyColumnIO(clearTextDictionary);
   final int byteFormLen=recordInfo.getByteFormLen();
   int totalSize=0;
   byte[] recordBuffer=new byte[byteFormLen];
   int iteratedSliceCount=0;
+  final byte[] buffer=new byte[CoprocessorConstants.METRIC_SERIALIZE_BUFFER_SIZE];
   for (  Slice slice : slices) {
     iteratedSliceCount++;
     CoprocessorFilter newFilter=CoprocessorFilter.fromFilter(new LocalDictionary(slice.getLocalDictionaries(),type,slice.getInfo()),filter.getFilter(),FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_LOCAL_DICT);
