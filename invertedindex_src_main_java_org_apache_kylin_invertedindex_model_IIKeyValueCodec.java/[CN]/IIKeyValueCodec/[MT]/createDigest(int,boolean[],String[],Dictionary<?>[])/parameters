@@ -1,4 +1,4 @@
 int nColumns
 boolean[] isMetric
 String[] dataTypes
-Dictionary<?>[] dictionaryMap
+Dictionary<?>[] dictionaries

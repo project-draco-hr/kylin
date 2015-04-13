@@ -1,0 +1,6 @@
+BlockingQueue<Stream> queue
+String streaming
+String hTableName
+IIDesc iiDesc
+int shard
+boolean useLocalDict

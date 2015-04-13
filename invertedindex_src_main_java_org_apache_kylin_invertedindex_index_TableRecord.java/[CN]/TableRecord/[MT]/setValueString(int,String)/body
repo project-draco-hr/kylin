@@ -5,7 +5,12 @@
   }
  else {
     final Dictionary<String> dict=info.dict(col);
-    int id=dict.getIdFromValue(value);
-    rawRecord.setValueID(col,id);
+    if (dict != null) {
+      int id=dict.getIdFromValue(value);
+      rawRecord.setValueID(col,id);
+    }
+ else {
+      setValueStringWithoutDictionary(col,value);
+    }
   }
 }

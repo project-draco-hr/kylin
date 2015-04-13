@@ -2,6 +2,7 @@
   final TblColRef[] columns=coprocessorRowType.columns;
   final int columnSize=columns.length;
   final boolean[] isMetric=digest.isMetrics();
+  final boolean emptyDictionary=Array.isEmpty(localDictionaries);
   for (int i=0; i < columnSize; i++) {
     final TblColRef column=columns[i];
     if (isMetric[i]) {
@@ -9,8 +10,14 @@
       rowKeyColumnIO.writeColumn(column,buffer,encodedRecord.length(i),Dictionary.NULL,recordBuffer,digest.offset(i));
     }
  else {
-      final int length=localDictionaries[i].getValueBytesFromId(encodedRecord.getValueID(i),buffer,0);
-      rowKeyColumnIO.writeColumn(column,buffer,length,Dictionary.NULL,recordBuffer,digest.offset(i));
+      if (emptyDictionary) {
+        System.arraycopy(encodedRecord.getBytes(),encodedRecord.offset(i),buffer,0,encodedRecord.length(i));
+        rowKeyColumnIO.writeColumn(column,buffer,encodedRecord.length(i),Dictionary.NULL,recordBuffer,digest.offset(i));
+      }
+ else {
+        final int length=localDictionaries[i].getValueBytesFromId(encodedRecord.getValueID(i),buffer,0);
+        rowKeyColumnIO.writeColumn(column,buffer,length,Dictionary.NULL,recordBuffer,digest.offset(i));
+      }
     }
   }
 }

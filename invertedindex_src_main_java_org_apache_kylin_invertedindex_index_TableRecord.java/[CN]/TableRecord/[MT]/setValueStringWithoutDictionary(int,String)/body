@@ -1,0 +1,14 @@
+{
+  int offset=info.digest.offset(col);
+  int length=info.digest.length(col);
+  byte[] src=value.getBytes();
+  if (length >= src.length) {
+    byte[] dst=rawRecord.getBytes();
+    System.arraycopy(src,0,dst,offset,src.length);
+    Arrays.fill(dst,offset + src.length,offset + length,ROWKEY_PLACE_HOLDER_BYTE);
+  }
+ else {
+    byte[] dst=rawRecord.getBytes();
+    System.arraycopy(src,0,dst,offset,length);
+  }
+}

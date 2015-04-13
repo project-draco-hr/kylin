@@ -1,2 +1,3 @@
 IIDesc desc
 short shard
+boolean useLocalDict

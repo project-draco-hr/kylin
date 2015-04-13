@@ -5,7 +5,7 @@
     }
   }
 );
-  final Dictionary<?>[] dictionaries=IIDictionaryBuilder.buildDictionary(table,iiDesc);
+  final Dictionary<?>[] dictionaries=useLocalDict ? IIDictionaryBuilder.buildDictionary(table,iiDesc) : new Dictionary[iiDesc.listAllColumns().size()];
   TableRecordInfo tableRecordInfo=new TableRecordInfo(iiDesc,dictionaries);
   return build(table,tableRecordInfo,dictionaries);
 }

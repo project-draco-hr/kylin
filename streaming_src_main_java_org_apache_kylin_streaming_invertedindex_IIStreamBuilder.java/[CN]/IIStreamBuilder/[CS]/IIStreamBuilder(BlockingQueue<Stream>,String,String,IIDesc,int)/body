@@ -1,15 +1,3 @@
 {
-  super(queue,iiDesc.getSliceSize());
-  this.streaming=streaming;
-  this.desc=iiDesc;
-  this.shardId=shard;
-  try {
-    this.hTable=HBaseConnection.get(KylinConfig.getInstanceFromEnv().getStorageUrl()).getTable(hTableName);
-  }
- catch (  IOException e) {
-    logger.error("cannot open htable name:" + hTableName,e);
-    throw new RuntimeException("cannot open htable name:" + hTableName,e);
-  }
-  sliceBuilder=new SliceBuilder(desc,(short)shard);
-  streamingManager=StreamingManager.getInstance(KylinConfig.getInstanceFromEnv());
+  this(queue,streaming,hTableName,iiDesc,shard,true);
 }

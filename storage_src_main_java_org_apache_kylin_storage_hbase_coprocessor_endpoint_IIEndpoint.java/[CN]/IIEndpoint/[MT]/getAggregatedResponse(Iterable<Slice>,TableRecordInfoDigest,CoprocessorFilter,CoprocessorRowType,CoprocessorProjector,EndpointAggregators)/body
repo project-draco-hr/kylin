@@ -9,7 +9,15 @@
   for (  Slice slice : slices) {
     iteratedSliceCount++;
     final Dictionary<?>[] localDictionaries=slice.getLocalDictionaries();
-    CoprocessorFilter newFilter=CoprocessorFilter.fromFilter(new LocalDictionary(localDictionaries,type,slice.getInfo()),filter.getFilter(),FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_LOCAL_DICT);
+    CoprocessorFilter newFilter;
+    final boolean emptyDictionary=Array.isEmpty(localDictionaries);
+    logger.info("empty dictionary:" + emptyDictionary);
+    if (emptyDictionary) {
+      newFilter=filter;
+    }
+ else {
+      newFilter=CoprocessorFilter.fromFilter(new LocalDictionary(localDictionaries,type,slice.getInfo()),filter.getFilter(),FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_LOCAL_DICT);
+    }
     ConciseSet result=null;
     if (filter != null) {
       result=new BitMapFilterEvaluator(new SliceBitMapProvider(slice,type)).evaluate(newFilter.getFilter());

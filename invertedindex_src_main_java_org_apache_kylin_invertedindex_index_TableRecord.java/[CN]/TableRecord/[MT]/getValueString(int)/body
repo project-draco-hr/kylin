@@ -8,7 +8,7 @@
       return dict.getValueFromId(rawRecord.getValueID(col));
     }
  else {
-      throw new UnsupportedOperationException("cannot get value when there is no dictionary");
+      return getValueStringWithoutDictionary(col);
     }
   }
 }

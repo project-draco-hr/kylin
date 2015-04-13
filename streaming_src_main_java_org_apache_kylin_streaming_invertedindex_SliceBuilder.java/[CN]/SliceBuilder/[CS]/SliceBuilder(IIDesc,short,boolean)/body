@@ -1,4 +1,5 @@
 {
   this.iiDesc=desc;
   this.sliceMaker=new BatchSliceMaker(desc,shard);
+  this.useLocalDict=useLocalDict;
 }
