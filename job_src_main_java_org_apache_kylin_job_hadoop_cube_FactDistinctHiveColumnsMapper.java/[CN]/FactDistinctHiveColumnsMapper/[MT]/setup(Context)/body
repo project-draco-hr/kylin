@@ -6,7 +6,7 @@
   if (collectStatistics) {
     cuboidScheduler=new CuboidScheduler(cubeDesc);
     cuboidHLLMap=Maps.newHashMap();
-    rowKeyValues=Lists.newArrayList();
     nRowKey=cubeDesc.getRowkey().getRowKeyColumns().length;
+    byteBuffer=ByteBuffer.allocate(1024 * 1024);
   }
 }
