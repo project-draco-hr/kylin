@@ -1,12 +1,12 @@
 {
   if (filter == null)   return null;
   if (filter.getOperator() == TupleFilter.FilterOperatorEnum.NOT && !TupleFilter.isEvaluableRecursively(filter)) {
-    TupleFilter.collectColumns(filter,unstrictlyFilteredColumns);
+    TupleFilter.collectColumns(filter,inevaluableColumns);
     return ConstantTupleFilter.TRUE;
   }
   if (!(filter instanceof CompareTupleFilter))   return filter;
   if (!TupleFilter.isEvaluableRecursively(filter)) {
-    TupleFilter.collectColumns(filter,unstrictlyFilteredColumns);
+    TupleFilter.collectColumns(filter,inevaluableColumns);
     return ConstantTupleFilter.TRUE;
   }
   if (filterConstantsTreatment == FilterConstantsTreatment.AS_IT_IS) {

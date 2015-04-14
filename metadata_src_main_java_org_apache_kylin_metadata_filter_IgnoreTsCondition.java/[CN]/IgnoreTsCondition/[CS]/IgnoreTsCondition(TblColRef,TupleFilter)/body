@@ -1,0 +1,5 @@
+{
+  this.tsColumn=tsColumn;
+  this.root=root;
+  this.isInTopLevelANDs=Maps.newIdentityHashMap();
+}

@@ -1,2 +1,2 @@
 TupleFilter filter
-Set<TblColRef> unstrictlyFilteredColumns
+Set<TblColRef> inevaluableColumns

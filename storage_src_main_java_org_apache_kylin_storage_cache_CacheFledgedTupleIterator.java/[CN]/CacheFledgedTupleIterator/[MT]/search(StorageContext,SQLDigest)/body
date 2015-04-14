@@ -1,0 +1,5 @@
+{
+  StreamSQLDigest streamSQLDigest=new StreamSQLDigest(sqlDigest,partitionColRef);
+  cacheManager.getCache(SUCCESS_QUERY_CACHE).get(streamSQLDigest).getObjectValue();
+  return null;
+}

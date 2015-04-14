@@ -1,0 +1,15 @@
+{
+  if (filter == null)   return null;
+  if (root == filter) {
+    isInTopLevelANDs.put(filter,true);
+  }
+  if (isInTopLevelANDs.containsKey(filter)) {
+    classifyChildrenByMarking(filter);
+    if (filter instanceof CompareTupleFilter) {
+      if (((CompareTupleFilter)filter).getColumn().equals(tsColumn)) {
+        return null;
+      }
+    }
+  }
+  return filter;
+}

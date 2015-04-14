@@ -1,0 +1,9 @@
+{
+  if (filter instanceof LogicalTupleFilter) {
+    if (filter.getOperator() == TupleFilter.FilterOperatorEnum.AND) {
+      for (      TupleFilter child : filter.getChildren()) {
+        isInTopLevelANDs.put(child,true);
+      }
+    }
+  }
+}

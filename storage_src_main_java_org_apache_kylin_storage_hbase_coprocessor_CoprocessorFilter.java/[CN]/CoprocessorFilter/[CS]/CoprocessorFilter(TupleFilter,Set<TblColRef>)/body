@@ -1,4 +1,4 @@
 {
   this.filter=filter;
-  this.unstrictlyFilteredColumns=unstrictlyFilteredColumns;
+  this.inevaluableColumns=inevaluableColumns;
 }

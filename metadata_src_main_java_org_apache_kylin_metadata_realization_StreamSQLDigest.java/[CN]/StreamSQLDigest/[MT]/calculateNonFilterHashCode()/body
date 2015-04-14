@@ -1,0 +1,10 @@
+{
+  int result=sqlDigest.factTable != null ? sqlDigest.factTable.hashCode() : 0;
+  result=31 * result + (sqlDigest.joinDescs != null ? sqlDigest.joinDescs.hashCode() : 0);
+  result=31 * result + (sqlDigest.allColumns != null ? sqlDigest.allColumns.hashCode() : 0);
+  result=31 * result + (sqlDigest.groupbyColumns != null ? sqlDigest.groupbyColumns.hashCode() : 0);
+  result=31 * result + (sqlDigest.filterColumns != null ? sqlDigest.filterColumns.hashCode() : 0);
+  result=31 * result + (sqlDigest.metricColumns != null ? sqlDigest.metricColumns.hashCode() : 0);
+  result=31 * result + (sqlDigest.aggregations != null ? sqlDigest.aggregations.hashCode() : 0);
+  return result;
+}

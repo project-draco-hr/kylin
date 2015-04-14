@@ -1,0 +1,7 @@
+{
+  this.sqlDigest=sqlDigest;
+  IgnoreTsCondition decorator=new IgnoreTsCondition(tsCol,sqlDigest.filter);
+  filterSerialized=TupleFilterSerializer.serialize(sqlDigest.filter,decorator,null);
+  int nonFilterHashCode=calculateNonFilterHashCode();
+  this.hashCode=31 * nonFilterHashCode + (filterSerialized != null ? Arrays.hashCode(filterSerialized) : 0);
+}

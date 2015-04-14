@@ -21,7 +21,7 @@
   this.tableRecordInfo=new TableRecordInfo(this.seg);
   this.pushedDownRowType=CoprocessorRowType.fromTableRecordInfo(tableRecordInfo,this.columns);
   this.pushedDownFilter=CoprocessorFilter.fromFilter(new ClearTextDictionary(this.tableRecordInfo),rootFilter,FilterDecorator.FilterConstantsTreatment.AS_IT_IS);
-  for (  TblColRef column : this.pushedDownFilter.getUnstrictlyFilteredColumns()) {
+  for (  TblColRef column : this.pushedDownFilter.getInevaluableColumns()) {
     groupBy.add(column);
   }
   this.pushedDownProjector=CoprocessorProjector.makeForEndpoint(tableRecordInfo,groupBy);
