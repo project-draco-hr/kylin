@@ -16,6 +16,11 @@
       newFilter=filter;
     }
  else {
+      for (      Dictionary<?> localDictionary : localDictionaries) {
+        if (localDictionary instanceof TrieDictionary) {
+          ((TrieDictionary)localDictionary).enableIdToValueBytesCache();
+        }
+      }
       newFilter=CoprocessorFilter.fromFilter(new LocalDictionary(localDictionaries,type,slice.getInfo()),filter.getFilter(),FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_LOCAL_DICT);
     }
     ConciseSet result=null;
@@ -25,7 +30,7 @@
     Iterator<RawTableRecord> iterator=slice.iterateWithBitmap(result);
     while (iterator.hasNext()) {
       final RawTableRecord rawTableRecord=iterator.next();
-      decodeWithDictionary(recordBuffer,rawTableRecord,localDictionaries,recordInfo,buffer,rowKeyColumnIO,type);
+      decodeWithDictionary(recordBuffer,rawTableRecord,localDictionaries,recordInfo,rowKeyColumnIO,type);
       CoprocessorProjector.AggrKey aggKey=projector.getAggrKey(recordBuffer);
       MeasureAggregator[] bufs=aggCache.getBuffer(aggKey);
       aggregators.aggregate(bufs,recordBuffer);

@@ -6,7 +6,6 @@
   int totalSize=0;
   byte[] recordBuffer=new byte[byteFormLen];
   int iteratedSliceCount=0;
-  final byte[] buffer=new byte[CoprocessorConstants.METRIC_SERIALIZE_BUFFER_SIZE];
   for (  Slice slice : slices) {
     iteratedSliceCount++;
     CoprocessorFilter newFilter=CoprocessorFilter.fromFilter(new LocalDictionary(slice.getLocalDictionaries(),type,slice.getInfo()),filter.getFilter(),FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_LOCAL_DICT);
@@ -20,7 +19,7 @@
         throw new RuntimeException("the query has exceeded the memory limit, please check the query");
       }
       final RawTableRecord rawTableRecord=iterator.next();
-      decodeWithDictionary(recordBuffer,rawTableRecord,slice.getLocalDictionaries(),recordInfo,buffer,rowKeyColumnIO,type);
+      decodeWithDictionary(recordBuffer,rawTableRecord,slice.getLocalDictionaries(),recordInfo,rowKeyColumnIO,type);
       IIProtos.IIResponse.IIRow.Builder rowBuilder=IIProtos.IIResponse.IIRow.newBuilder().setColumns(ByteString.copyFrom(recordBuffer));
       responseBuilder.addRows(rowBuilder.build());
       totalSize+=byteFormLen;

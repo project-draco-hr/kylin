@@ -13,8 +13,9 @@
         rowKeyColumnIO.writeColumnWithoutDictionary(encodedRecord.getBytes(),encodedRecord.offset(i),encodedRecord.length(i),recordBuffer,digest.offset(i),rowKeyColumnIO.getColumnLength(column));
       }
  else {
-        final int length=localDictionaries[i].getValueBytesFromId(encodedRecord.getValueID(i),buffer,0);
-        rowKeyColumnIO.writeColumnWithoutDictionary(buffer,0,length,recordBuffer,digest.offset(i),rowKeyColumnIO.getColumnLength(column));
+        final Dictionary<?> localDictionary=localDictionaries[i];
+        final byte[] valueBytesFromId=localDictionary.getValueBytesFromId(encodedRecord.getValueID(i));
+        rowKeyColumnIO.writeColumnWithoutDictionary(valueBytesFromId,0,valueBytesFromId.length,recordBuffer,digest.offset(i),rowKeyColumnIO.getColumnLength(column));
       }
     }
   }
