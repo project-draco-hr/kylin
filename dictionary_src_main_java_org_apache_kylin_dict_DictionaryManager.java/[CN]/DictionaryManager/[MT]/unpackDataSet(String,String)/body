@@ -1,5 +1,5 @@
 {
-  InputStream in=this.getClass().getResourceAsStream("/com/kylinolap/dict/" + dataSetName + ".txt");
+  InputStream in=this.getClass().getResourceAsStream("/org/apache/kylin/dict/" + dataSetName + ".txt");
   if (in == null)   return null;
   ByteArrayOutputStream buf=new ByteArrayOutputStream();
   IOUtils.copy(in,buf);
