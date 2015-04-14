@@ -1,20 +1,5 @@
 {
   int tsCol=recordInfo.getTimestampColumn();
   TblColRef tsColRef=columns.get(tsCol);
-  List<Pair<Long,Long>> conditions=Lists.newArrayList();
-  extractTsConditionInternal(rootFilter,tsColRef,conditions);
-  if (conditions.size() > 0) {
-    long min=Long.MIN_VALUE;
-    long max=Long.MAX_VALUE;
-    for (    Pair<Long,Long> pair : conditions) {
-      if (pair.getLeft() != null && pair.getLeft() > min) {
-        min=pair.getLeft();
-      }
-      if (pair.getRight() != null && pair.getRight() < max) {
-        max=pair.getRight();
-      }
-    }
-    return Pair.of(min == Long.MIN_VALUE ? null : min,max == Long.MAX_VALUE ? null : max);
-  }
-  return null;
+  return extractTsConditionInternal(rootFilter,tsColRef);
 }

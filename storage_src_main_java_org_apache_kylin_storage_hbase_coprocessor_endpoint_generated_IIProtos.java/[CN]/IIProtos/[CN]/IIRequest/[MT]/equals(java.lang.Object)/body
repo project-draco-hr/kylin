@@ -23,13 +23,9 @@
   if (hasAggregator()) {
     result=result && getAggregator().equals(other.getAggregator());
   }
-  result=result && (hasTsStart() == other.hasTsStart());
-  if (hasTsStart()) {
-    result=result && (getTsStart() == other.getTsStart());
-  }
-  result=result && (hasTsEnd() == other.hasTsEnd());
-  if (hasTsEnd()) {
-    result=result && (getTsEnd() == other.getTsEnd());
+  result=result && (hasTsRange() == other.hasTsRange());
+  if (hasTsRange()) {
+    result=result && getTsRange().equals(other.getTsRange());
   }
   result=result && getUnknownFields().equals(other.getUnknownFields());
   return result;

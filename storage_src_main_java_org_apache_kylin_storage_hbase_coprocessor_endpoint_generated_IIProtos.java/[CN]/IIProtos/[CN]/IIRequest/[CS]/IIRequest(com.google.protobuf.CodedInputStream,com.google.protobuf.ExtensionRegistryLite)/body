@@ -41,16 +41,10 @@ bitField0_|=0x00000008;
 aggregator_=input.readBytes();
 break;
 }
-case 40:
+case 42:
 {
 bitField0_|=0x00000010;
-tsStart_=input.readInt64();
-break;
-}
-case 48:
-{
-bitField0_|=0x00000020;
-tsEnd_=input.readInt64();
+tsRange_=input.readBytes();
 break;
 }
 }

@@ -1,6 +1,6 @@
 {
   bitField0_=(bitField0_ & ~0x00000010);
-  tsStart_=0L;
+  tsRange_=getDefaultInstance().getTsRange();
   onChanged();
   return this;
 }

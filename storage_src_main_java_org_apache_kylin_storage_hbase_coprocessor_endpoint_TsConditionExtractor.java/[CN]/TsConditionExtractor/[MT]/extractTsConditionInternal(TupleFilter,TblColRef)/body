@@ -1,41 +1,47 @@
 {
   if (filter instanceof LogicalTupleFilter) {
     if (filter.getOperator() == TupleFilter.FilterOperatorEnum.AND) {
+      Range ret=Ranges.all();
       for (      TupleFilter child : filter.getChildren()) {
-        extractTsConditionInternal(child,colRef,conditions);
+        Range childRange=extractTsConditionInternal(child,colRef);
+        if (childRange != null) {
+          ret=ret.intersection(childRange);
+        }
       }
+      return ret;
     }
  else {
-      return;
+      return null;
     }
   }
   if (filter instanceof CompareTupleFilter) {
     CompareTupleFilter compareTupleFilter=(CompareTupleFilter)filter;
-    if (compareTupleFilter.getColumn() == null)     return;
+    if (compareTupleFilter.getColumn() == null)     return null;
     if (compareTupleFilter.getColumn().equals(colRef)) {
       Object firstValue=compareTupleFilter.getFirstValue();
       long t;
 switch (compareTupleFilter.getOperator()) {
 case EQ:
         t=DateFormat.stringToMillis((String)firstValue);
-      conditions.add(Pair.of(t,t));
-    break;
-case NEQ:
-  break;
+      return Ranges.closed(t,t);
 case LT:
+    t=DateFormat.stringToMillis((String)firstValue);
+  return Ranges.lessThan(t);
 case LTE:
 t=DateFormat.stringToMillis((String)firstValue);
-conditions.add(Pair.<Long,Long>of(null,t));
-break;
+return Ranges.atMost(t);
 case GT:
+t=DateFormat.stringToMillis((String)firstValue);
+return Ranges.greaterThan(t);
 case GTE:
 t=DateFormat.stringToMillis((String)firstValue);
-conditions.add(Pair.<Long,Long>of(t,null));
-break;
+return Ranges.atLeast(t);
+case NEQ:
 case IN:
 break;
 default :
 }
 }
 }
+return null;
 }

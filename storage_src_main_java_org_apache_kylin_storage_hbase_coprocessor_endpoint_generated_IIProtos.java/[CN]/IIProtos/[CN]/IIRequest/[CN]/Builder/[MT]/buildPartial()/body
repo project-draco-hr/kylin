@@ -21,11 +21,7 @@
   if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
     to_bitField0_|=0x00000010;
   }
-  result.tsStart_=tsStart_;
-  if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
-    to_bitField0_|=0x00000020;
-  }
-  result.tsEnd_=tsEnd_;
+  result.tsRange_=tsRange_;
   result.bitField0_=to_bitField0_;
   onBuilt();
   return result;

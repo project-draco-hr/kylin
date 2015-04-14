@@ -3,6 +3,6 @@
   this.ii=IIManager.getInstance(getTestConfig()).getII("test_kylin_ii_left_join");
   this.tableRecordInfo=new TableRecordInfo(ii.getFirstSegment());
   this.factTableDesc=MetadataManager.getInstance(getTestConfig()).getTableDesc("DEFAULT.TEST_KYLIN_FACT");
-  this.caldt=this.ii.getDescriptor().findColumnRef("DEFAULT.TEST_KYLIN_FACT","CAL_DT");
+  this.calDt=this.ii.getDescriptor().findColumnRef("DEFAULT.TEST_KYLIN_FACT","CAL_DT");
   this.siteId=this.ii.getDescriptor().findColumnRef("DEFAULT.TEST_KYLIN_FACT","LSTG_SITE_ID");
 }
