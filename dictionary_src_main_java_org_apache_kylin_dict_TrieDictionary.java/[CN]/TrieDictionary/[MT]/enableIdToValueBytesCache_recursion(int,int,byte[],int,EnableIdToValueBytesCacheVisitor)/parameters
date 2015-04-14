@@ -1,0 +1,5 @@
+int n
+int seq
+byte[] buf
+int tail
+EnableIdToValueBytesCacheVisitor visitor

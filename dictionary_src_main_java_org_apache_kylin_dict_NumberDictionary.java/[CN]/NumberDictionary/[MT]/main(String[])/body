@@ -1,0 +1,12 @@
+{
+  NumberDictionaryBuilder<String> b=new NumberDictionaryBuilder<String>(new StringBytesConverter());
+  b.addValue("10");
+  b.addValue("100");
+  b.addValue("40");
+  b.addValue("7");
+  TrieDictionary<String> dict=b.build(0);
+  dict.enableIdToValueBytesCache();
+  for (int i=0; i <= dict.getMaxId(); i++) {
+    System.out.println(Bytes.toString(dict.getValueBytesFromId(i)));
+  }
+}

@@ -1,0 +1,5 @@
+{
+  enableIdToValueBytesCache=true;
+  idToValueBytesCache=new byte[nValues][];
+  enableIdToValueBytesCache_recursion(headSize,0,visitor.getBuffer(),0,visitor);
+}

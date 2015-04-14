@@ -1,10 +1,22 @@
 {
   TrieDictionaryBuilder<String> b=new TrieDictionaryBuilder<String>(new StringBytesConverter());
-  b.addValue("-000000.41");
-  b.addValue("0000101.81");
-  b.addValue("6779331");
-  String t="0000001.6131";
+  b.addValue("part");
+  b.print();
+  b.addValue("part");
+  b.print();
+  b.addValue("par");
+  b.print();
+  b.addValue("partition");
+  b.print();
+  b.addValue("party");
+  b.print();
+  b.addValue("parties");
+  b.print();
+  b.addValue("paint");
+  b.print();
   TrieDictionary<String> dict=b.build(0);
-  System.out.println(dict.getIdFromValue(t,-1));
-  System.out.println(dict.getIdFromValue(t,1));
+  dict.enableIdToValueBytesCache();
+  for (int i=0; i <= dict.getMaxId(); i++) {
+    System.out.println(Bytes.toString(dict.getValueBytesFromId(i)));
+  }
 }

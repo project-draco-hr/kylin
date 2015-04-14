@@ -1,0 +1,18 @@
+{
+  enableIdToValueBytesCache(new EnableIdToValueBytesCacheVisitor(){
+    NumberBytesCodec codec=getCodec();
+    byte[] tmp=new byte[getSizeOfValue()];
+    @Override public byte[] getBuffer(){
+      return codec.buf;
+    }
+    @Override public byte[] makeValueBytes(    byte[] buf,    int length){
+      codec.bufOffset=0;
+      codec.bufLen=length;
+      int numLen=codec.decodeNumber(tmp,0);
+      byte[] result=new byte[numLen];
+      System.arraycopy(tmp,0,result,0,numLen);
+      return result;
+    }
+  }
+);
+}

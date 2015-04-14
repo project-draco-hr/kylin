@@ -1,3 +1,7 @@
 {
-  return id - baseId;
+  int seq=id - baseId;
+  if (seq < 0 || seq >= nValues) {
+    throw new IllegalArgumentException("Not a valid ID: " + id);
+  }
+  return seq;
 }

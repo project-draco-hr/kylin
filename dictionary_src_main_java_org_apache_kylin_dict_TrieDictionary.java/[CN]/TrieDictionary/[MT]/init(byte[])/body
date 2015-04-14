@@ -20,7 +20,7 @@
     if (e instanceof RuntimeException)     throw (RuntimeException)e;
  else     throw new RuntimeException(e);
   }
-  if (enableCache) {
+  if (enableValueCache) {
     valueToIdCache=new SoftReference<HashMap>(new HashMap());
     idToValueCache=new SoftReference<Object[]>(new Object[nValues]);
   }

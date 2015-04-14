@@ -1,5 +1,5 @@
 {
-  if (enableCache && roundingFlag == 0) {
+  if (enableValueCache && roundingFlag == 0) {
     HashMap cache=valueToIdCache.get();
     if (cache != null) {
       Integer id=null;

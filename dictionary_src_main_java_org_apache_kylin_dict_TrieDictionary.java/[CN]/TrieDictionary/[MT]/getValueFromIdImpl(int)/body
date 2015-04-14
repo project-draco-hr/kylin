@@ -1,9 +1,8 @@
 {
-  if (enableCache) {
+  if (enableValueCache) {
     Object[] cache=idToValueCache.get();
     if (cache != null) {
       int seq=calcSeqNoFromId(id);
-      if (seq < 0 || seq >= nValues)       throw new IllegalArgumentException("Not a valid ID: " + id);
       if (cache[seq] != null)       return (T)cache[seq];
       byte[] value=new byte[getSizeOfValue()];
       int length=getValueBytesFromId(id,value,0);

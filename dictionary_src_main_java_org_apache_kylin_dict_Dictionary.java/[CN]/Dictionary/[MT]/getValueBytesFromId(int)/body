@@ -1,0 +1,4 @@
+{
+  if (isNullId(id))   return BytesUtil.EMPTY_BYTE_ARRAY;
+ else   return getValueBytesFromIdImpl(id);
+}

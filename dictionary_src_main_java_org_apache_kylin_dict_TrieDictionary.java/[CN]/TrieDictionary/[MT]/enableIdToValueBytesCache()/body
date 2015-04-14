@@ -1,0 +1,13 @@
+{
+  enableIdToValueBytesCache(new EnableIdToValueBytesCacheVisitor(){
+    @Override public byte[] getBuffer(){
+      return new byte[getSizeOfValue()];
+    }
+    @Override public byte[] makeValueBytes(    byte[] buf,    int length){
+      byte[] valueBytes=new byte[length];
+      System.arraycopy(buf,0,valueBytes,0,length);
+      return valueBytes;
+    }
+  }
+);
+}

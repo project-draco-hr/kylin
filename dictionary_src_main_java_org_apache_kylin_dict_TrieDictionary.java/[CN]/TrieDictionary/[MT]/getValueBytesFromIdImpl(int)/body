@@ -1,0 +1,16 @@
+{
+  if (enableIdToValueBytesCache) {
+    int seq=calcSeqNoFromId(id);
+    return idToValueBytesCache[seq];
+  }
+  byte[] buf=new byte[maxValueLength];
+  int len=getValueBytesFromIdImpl(id,buf,0);
+  if (len == buf.length) {
+    return buf;
+  }
+ else {
+    byte[] result=new byte[len];
+    System.arraycopy(buf,0,result,0,len);
+    return result;
+  }
+}
