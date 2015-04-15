@@ -1,0 +1,5 @@
+{
+  this.actionOnSeeingWholeData=actionOnSeeingWholeData;
+  this.underlying=underlying;
+  this.duplicatedData=Lists.newArrayList();
+}

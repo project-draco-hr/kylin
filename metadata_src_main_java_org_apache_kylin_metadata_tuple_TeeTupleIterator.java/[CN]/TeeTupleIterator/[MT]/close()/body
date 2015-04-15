@@ -1,0 +1,4 @@
+{
+  this.underlying.close();
+  actionOnSeeingWholeData.apply(duplicatedData);
+}

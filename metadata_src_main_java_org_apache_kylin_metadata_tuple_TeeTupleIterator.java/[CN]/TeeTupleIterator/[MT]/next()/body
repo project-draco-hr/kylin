@@ -1,0 +1,5 @@
+{
+  ITuple ret=this.underlying.next();
+  duplicatedData.add(ret);
+  return ret;
+}

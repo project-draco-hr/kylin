@@ -1,26 +1,43 @@
 {
-  StreamSQLDigest streamSQLDigest=new StreamSQLDigest(sqlDigest,partitionColRef);
-  StreamSQLResult cachedResult=(StreamSQLResult)cacheManager.getCache(SUCCESS_QUERY_CACHE).get(streamSQLDigest).getObjectValue();
-  ITupleIterator ret;
+  final StreamSQLDigest streamSQLDigest=new StreamSQLDigest(sqlDigest,partitionColRef);
+  StreamSQLResult cachedResult=(StreamSQLResult)cacheManager.getCache(STORAGE_LAYER_TUPLE_CACHE).get(streamSQLDigest).getObjectValue();
+  final Range<Long> tsRange=TsConditionExtractor.extractTsCondition(partitionColRef,sqlDigest.filter);
+  ITupleIterator ret=null;
   if (cachedResult != null) {
-    Range<Long> tsRange=TsConditionExtractor.extractTsCondition(partitionColRef,sqlDigest.filter);
+    logger.debug("current cache    : " + cachedResult);
     Range<Long> reusePeriod=cachedResult.getReusableResults(tsRange);
+    logger.info("ts Range in query: " + RangeUtil.formatTsRange(tsRange));
+    logger.info("reusable range   : " + RangeUtil.formatTsRange(reusePeriod));
     if (reusePeriod != null) {
       List<Range<Long>> remainings=RangeUtil.remove(tsRange,reusePeriod);
       if (remainings.size() == 1) {
         SimpleTupleIterator reusedTuples=new SimpleTupleIterator(cachedResult.reuse(reusePeriod));
         Range<Long> remaining=remainings.get(0);
         ITupleIterator freshTuples=SQLDigestUtil.appendTsFilterToExecute(sqlDigest,partitionColRef,remaining,new Function<Void,ITupleIterator>(){
-          @Nullable @Override public ITupleIterator apply(          Void input){
+          @Override public ITupleIterator apply(          Void input){
             return StorageEngineFactory.getStorageEngine(realization,false).search(context,sqlDigest);
           }
         }
 );
         ret=new CompoundTupleIterator(Lists.newArrayList(reusedTuples,freshTuples));
-        return ret;
       }
     }
   }
-  ret=StorageEngineFactory.getStorageEngine(realization,false).search(context,sqlDigest);
-  return ret;
+  if (ret == null) {
+    logger.info("no cache is being leveraged");
+    ret=StorageEngineFactory.getStorageEngine(realization,false).search(context,sqlDigest);
+  }
+ else {
+    logger.info("cache is being leveraged");
+  }
+  ITupleIterator tee=new TeeTupleIterator(ret,new Function<List<ITuple>,Void>(){
+    @Nullable @Override public Void apply(    List<ITuple> input){
+      StreamSQLResult newCache=new StreamSQLResult(input,tsRange);
+      cacheManager.getCache(STORAGE_LAYER_TUPLE_CACHE).put(new Element(streamSQLDigest,newCache));
+      logger.debug("current cache: " + newCache);
+      return null;
+    }
+  }
+);
+  return tee;
 }
