@@ -1,0 +1,13 @@
+{
+  String ret;
+  if (type == DataType.getInstance("date")) {
+    ret=DateFormat.formatToDateStr(ts);
+  }
+ else   if (type == DataType.getInstance("long")) {
+    ret=String.valueOf(ts);
+  }
+ else {
+    throw new IllegalArgumentException("Illegal type for partition column " + type);
+  }
+  return ret;
+}

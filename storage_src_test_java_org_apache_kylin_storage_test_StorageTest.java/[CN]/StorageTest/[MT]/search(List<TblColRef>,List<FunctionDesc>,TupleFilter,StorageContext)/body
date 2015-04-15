@@ -14,9 +14,7 @@
     e.printStackTrace();
   }
  finally {
-    if (iterator != null) {
-      iterator.close();
-    }
+    IOUtils.closeQuietly(iterator);
   }
   return count;
 }

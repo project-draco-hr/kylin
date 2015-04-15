@@ -1,5 +1,26 @@
 {
   StreamSQLDigest streamSQLDigest=new StreamSQLDigest(sqlDigest,partitionColRef);
-  cacheManager.getCache(SUCCESS_QUERY_CACHE).get(streamSQLDigest).getObjectValue();
-  return null;
+  StreamSQLResult cachedResult=(StreamSQLResult)cacheManager.getCache(SUCCESS_QUERY_CACHE).get(streamSQLDigest).getObjectValue();
+  ITupleIterator ret;
+  if (cachedResult != null) {
+    Range<Long> tsRange=TsConditionExtractor.extractTsCondition(partitionColRef,sqlDigest.filter);
+    Range<Long> reusePeriod=cachedResult.getReusableResults(tsRange);
+    if (reusePeriod != null) {
+      List<Range<Long>> remainings=RangeUtil.remove(tsRange,reusePeriod);
+      if (remainings.size() == 1) {
+        SimpleTupleIterator reusedTuples=new SimpleTupleIterator(cachedResult.reuse(reusePeriod));
+        Range<Long> remaining=remainings.get(0);
+        ITupleIterator freshTuples=SQLDigestUtil.appendTsFilterToExecute(sqlDigest,partitionColRef,remaining,new Function<Void,ITupleIterator>(){
+          @Nullable @Override public ITupleIterator apply(          Void input){
+            return StorageEngineFactory.getStorageEngine(realization,false).search(context,sqlDigest);
+          }
+        }
+);
+        ret=new CompoundTupleIterator(Lists.newArrayList(reusedTuples,freshTuples));
+        return ret;
+      }
+    }
+  }
+  ret=StorageEngineFactory.getStorageEngine(realization,false).search(context,sqlDigest);
+  return ret;
 }

@@ -5,21 +5,12 @@
   DataModelDesc modelDesc=metaMgr.getDataModelDesc(modelName);
   if (modelDesc.getPartitionDesc() == null || modelDesc.getPartitionDesc().getPartitionDateColumnRef() == null)   return iterator1;
   TblColRef partitionColRef=modelDesc.getPartitionDesc().getPartitionDateColumnRef();
-  DataType partitionColType=partitionColRef.getColumn().getType();
-  TupleFilter originalFilter=sqlDigest.filter;
-  sqlDigest.filter=createFilterForRealtime(originalFilter,partitionColRef,partitionColType,hybridInstance.getHistoryRealizationInstance().getDateRangeEnd());
-  boolean addFilterColumn=false, addAllColumn=false;
-  if (!sqlDigest.filterColumns.contains(partitionColRef)) {
-    sqlDigest.filterColumns.add(partitionColRef);
-    addFilterColumn=true;
+  ITupleIterator iterator2=SQLDigestUtil.appendTsFilterToExecute(sqlDigest,partitionColRef,Range.atLeast(hybridInstance.getHistoryRealizationInstance().getDateRangeEnd()),new Function<Void,ITupleIterator>(){
+    @Nullable @Override public ITupleIterator apply(    @Nullable Void input){
+      ITupleIterator iterator2=searchRealization(hybridInstance.getRealTimeRealizationInstance(),context,sqlDigest);
+      return iterator2;
+    }
   }
-  if (!sqlDigest.allColumns.contains(partitionColRef)) {
-    sqlDigest.allColumns.add(partitionColRef);
-    addAllColumn=true;
-  }
-  ITupleIterator iterator2=searchRealization(hybridInstance.getRealTimeRealizationInstance(),context,sqlDigest);
-  sqlDigest.filter=originalFilter;
-  if (addFilterColumn)   sqlDigest.filterColumns.remove(partitionColRef);
-  if (addAllColumn)   sqlDigest.allColumns.remove(partitionColRef);
-  return new HybridTupleIterator(new ITupleIterator[]{iterator1,iterator2});
+);
+  return new CompoundTupleIterator(Lists.newArrayList(iterator1,iterator2));
 }

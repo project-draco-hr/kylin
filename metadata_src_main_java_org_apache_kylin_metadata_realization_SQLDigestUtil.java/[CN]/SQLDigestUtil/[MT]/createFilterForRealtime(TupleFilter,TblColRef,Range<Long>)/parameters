@@ -1,0 +1,3 @@
+TupleFilter originFilter
+TblColRef partitionColRef
+Range<Long> tsRange

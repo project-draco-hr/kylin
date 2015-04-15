@@ -18,7 +18,7 @@
   outFilter.addChild(new ConstantTupleFilter("2000-01-02"));
   LogicalTupleFilter root=new LogicalTupleFilter(TupleFilter.FilterOperatorEnum.AND);
   root.addChildren(Lists.newArrayList(subRoot,outFilter));
-  Range<Long> range=TsConditionExtractor.extractTsCondition(tableRecordInfo,ii.getAllColumns(),root);
+  Range<Long> range=TsConditionExtractor.extractTsCondition(ii.getAllColumns().get(tableRecordInfo.getTimestampColumn()),root);
   Assert.assertEquals(946684800000L,range.lowerEndpoint().longValue());
   Assert.assertEquals(946771200000L,range.upperEndpoint().longValue());
   Assert.assertEquals(BoundType.OPEN,range.lowerBoundType());

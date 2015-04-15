@@ -1,0 +1,4 @@
+{
+  this.backends=backends;
+  this.compoundIterator=Iterators.concat(backends.iterator());
+}

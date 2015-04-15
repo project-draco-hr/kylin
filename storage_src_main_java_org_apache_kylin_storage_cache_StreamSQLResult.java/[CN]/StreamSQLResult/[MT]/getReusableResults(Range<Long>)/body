@@ -1,0 +1,8 @@
+{
+  if (tsRange.equals(timeCovered))   return timeCovered;
+  if (timeCovered.isConnected(tsRange)) {
+    return null;
+  }
+  Range<Long> ret=timeCovered.intersection(tsRange);
+  return ret.isEmpty() ? null : ret;
+}

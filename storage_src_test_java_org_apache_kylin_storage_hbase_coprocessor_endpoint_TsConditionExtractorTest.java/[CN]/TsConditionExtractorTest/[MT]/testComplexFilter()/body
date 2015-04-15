@@ -13,7 +13,7 @@
   dFilter.addChild(new ConstantTupleFilter("0"));
   LogicalTupleFilter rootFilter=new LogicalTupleFilter(TupleFilter.FilterOperatorEnum.AND);
   rootFilter.addChildren(Lists.newArrayList(aFilter,bFilter,cFilter,dFilter));
-  Range<Long> range=TsConditionExtractor.extractTsCondition(tableRecordInfo,ii.getAllColumns(),rootFilter);
+  Range<Long> range=TsConditionExtractor.extractTsCondition(ii.getAllColumns().get(tableRecordInfo.getTimestampColumn()),rootFilter);
   Assert.assertEquals(946684800000L,range.lowerEndpoint().longValue());
   Assert.assertEquals(946771200000L,range.upperEndpoint().longValue());
   Assert.assertEquals(BoundType.OPEN,range.lowerBoundType());

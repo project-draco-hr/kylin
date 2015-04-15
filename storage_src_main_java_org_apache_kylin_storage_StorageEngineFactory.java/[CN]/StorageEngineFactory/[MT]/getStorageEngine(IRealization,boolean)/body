@@ -1,0 +1,14 @@
+{
+  if (allowCache) {
+    return new CacheFledgedTupleIterator(realization);
+  }
+  if (realization.getType() == RealizationType.INVERTED_INDEX) {
+    return new InvertedIndexStorageEngine((IIInstance)realization);
+  }
+ else   if (realization.getType() == RealizationType.CUBE) {
+    return new CubeStorageEngine((CubeInstance)realization);
+  }
+ else {
+    return new HybridStorageEngine((HybridInstance)realization);
+  }
+}

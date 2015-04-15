@@ -1,5 +1,0 @@
-{
-  int tsCol=recordInfo.getTimestampColumn();
-  TblColRef tsColRef=columns.get(tsCol);
-  return extractTsConditionInternal(rootFilter,tsColRef);
-}

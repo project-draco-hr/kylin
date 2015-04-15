@@ -1,0 +1,6 @@
+{
+  RangeSet<C> rangeSet=TreeRangeSet.create();
+  rangeSet.add(self);
+  rangeSet.remove(other);
+  return Lists.newArrayList(rangeSet.asRanges());
+}

@@ -1,7 +1,0 @@
-{
-  if (iterators[currentIndex].hasNext())   return true;
-  while (!iterators[currentIndex].hasNext() && currentIndex + 1 < iterators.length) {
-    currentIndex++;
-  }
-  return iterators[currentIndex].hasNext();
-}

@@ -1,6 +1,0 @@
-{
-  logger.info("Closing HybridTupleIterator");
-  for (  ITupleIterator i : iterators) {
-    i.close();
-  }
-}
