@@ -1,6 +1,6 @@
 {
   if (allowCache) {
-    return new CacheFledgedTupleIterator(realization);
+    return new CacheFledgedStorageEngine(realization);
   }
   if (realization.getType() == RealizationType.INVERTED_INDEX) {
     return new InvertedIndexStorageEngine((IIInstance)realization);
