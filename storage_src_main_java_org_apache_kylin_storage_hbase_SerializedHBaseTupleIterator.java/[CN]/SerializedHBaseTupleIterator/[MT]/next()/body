@@ -7,12 +7,7 @@
       break;
     }
  else {
-      try {
-        segmentIterator.close();
-      }
- catch (      IOException e) {
-        e.printStackTrace();
-      }
+      segmentIterator.close();
       segmentIterator=segmentIteratorIterator.next();
     }
   }

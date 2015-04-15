@@ -1,4 +1,8 @@
 {
   context.setTotalScanCount(scanCount);
   segmentIterator.close();
+  while (segmentIteratorIterator.hasNext()) {
+    segmentIterator=segmentIteratorIterator.next();
+    segmentIterator.close();
+  }
 }
