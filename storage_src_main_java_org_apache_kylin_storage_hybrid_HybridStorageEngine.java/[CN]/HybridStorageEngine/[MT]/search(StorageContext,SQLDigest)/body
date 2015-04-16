@@ -5,7 +5,7 @@
   DataModelDesc modelDesc=metaMgr.getDataModelDesc(modelName);
   if (modelDesc.getPartitionDesc() == null || modelDesc.getPartitionDesc().getPartitionDateColumnRef() == null)   return iterator1;
   TblColRef partitionColRef=modelDesc.getPartitionDesc().getPartitionDateColumnRef();
-  ITupleIterator iterator2=SQLDigestUtil.appendTsFilterToExecute(sqlDigest,partitionColRef,Range.atLeast(hybridInstance.getHistoryRealizationInstance().getDateRangeEnd()),new Function<Void,ITupleIterator>(){
+  ITupleIterator iterator2=SQLDigestUtil.appendTsFilterToExecute(sqlDigest,partitionColRef,Ranges.atLeast(hybridInstance.getHistoryRealizationInstance().getDateRangeEnd()),new Function<Void,ITupleIterator>(){
     @Nullable @Override public ITupleIterator apply(    @Nullable Void input){
       ITupleIterator iterator2=searchRealization(hybridInstance.getRealTimeRealizationInstance(),context,sqlDigest);
       return iterator2;

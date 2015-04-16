@@ -12,6 +12,5 @@
     kvIterator.close();
   }
   List<TableRecord> records=iterateRecords(slices);
-  dump(records);
   System.out.println(records.size() + " records");
 }

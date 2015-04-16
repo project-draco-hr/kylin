@@ -1,5 +1,5 @@
 {
-  String queryFileName="src/test/resources/query/sql/query54.sql";
+  String queryFileName="src/test/resources/query/sql/query11.sql";
   File sqlFile=new File(queryFileName);
   runSQL(sqlFile,true,true);
   runSQL(sqlFile,true,false);
