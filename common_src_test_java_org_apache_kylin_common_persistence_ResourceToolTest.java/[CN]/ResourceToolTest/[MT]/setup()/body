@@ -1,3 +1,0 @@
-{
-  ClassUtil.addClasspath(new File("../examples/test_case_data/hadoop-site").getAbsolutePath());
-}

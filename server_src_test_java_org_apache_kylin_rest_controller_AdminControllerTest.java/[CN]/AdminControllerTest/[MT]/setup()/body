@@ -1,5 +1,5 @@
 {
-  super.setUp();
+  super.setup();
   adminController=new AdminController();
   adminController.setAdminService(adminService);
   adminController.setCubeMgmtService(cubeService);

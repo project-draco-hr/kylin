@@ -1,5 +1,5 @@
 {
-  super.setUp();
+  super.setup();
   projectController=new ProjectController();
   projectController.setProjectService(projectService);
   try {

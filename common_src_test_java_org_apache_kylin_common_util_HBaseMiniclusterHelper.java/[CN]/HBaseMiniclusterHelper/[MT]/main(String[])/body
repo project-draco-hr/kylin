@@ -2,6 +2,7 @@
   HBaseMiniclusterHelper t=new HBaseMiniclusterHelper();
   logger.info(t);
   try {
+    HBaseMetadataTestCase.staticCreateTestMetadata(HBaseMetadataTestCase.MINICLUSTER_TEST_DATA);
     HBaseMiniclusterHelper.startupMinicluster();
   }
  catch (  Exception e) {

@@ -1,5 +1,5 @@
 {
-  super.setUp();
+  super.setup();
   accessController=new AccessController();
   accessController.setAccessService(accessService);
 }

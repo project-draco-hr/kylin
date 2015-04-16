@@ -1,5 +1,5 @@
 {
-  super.setUp();
+  super.setup();
   cacheController=new CacheController();
   cacheController.setCacheService(cacheService);
 }
