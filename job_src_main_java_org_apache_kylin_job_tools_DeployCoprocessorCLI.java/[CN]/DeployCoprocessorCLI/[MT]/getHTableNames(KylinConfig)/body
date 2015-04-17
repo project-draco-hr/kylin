@@ -11,11 +11,13 @@
     }
   }
   for (  IIInstance ii : IIManager.getInstance(config).listAllIIs()) {
-    for (    IISegment seg : ii.getSegments(SegmentStatusEnum.READY)) {
-      String tableName=seg.getStorageLocationIdentifier();
-      if (StringUtils.isBlank(tableName) == false) {
-        result.add(tableName);
-        System.out.println("added new table: " + tableName);
+    if (ii.getStatus() == RealizationStatusEnum.READY) {
+      for (      IISegment seg : ii.getSegments()) {
+        String tableName=seg.getStorageLocationIdentifier();
+        if (StringUtils.isBlank(tableName) == false) {
+          result.add(tableName);
+          System.out.println("added new table: " + tableName);
+        }
       }
     }
   }
