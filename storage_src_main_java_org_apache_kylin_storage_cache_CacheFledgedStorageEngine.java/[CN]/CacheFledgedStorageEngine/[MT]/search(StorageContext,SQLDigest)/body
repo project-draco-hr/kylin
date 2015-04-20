@@ -7,7 +7,10 @@
     cachedResult=(StreamSQLResult)element.getObjectValue();
   }
   Range<Long> ts=TsConditionExtractor.extractTsCondition(partitionColRef,sqlDigest.filter);
-  if (ts == null)   ts=Ranges.all();
+  if (ts == null || ts.isEmpty()) {
+    logger.info("ts range in the query conflicts,return empty directly");
+    return ITupleIterator.EMPTY_TUPLE_ITERATOR;
+  }
   final Range<Long> tsRange=ts;
   ITupleIterator ret=null;
   if (cachedResult != null) {
@@ -44,7 +47,7 @@
   if (needUpdateCache) {
     ITupleIterator tee=new TeeTupleIterator(ret,new Function<List<ITuple>,Void>(){
       @Nullable @Override public Void apply(      List<ITuple> input){
-        StreamSQLResult newCacheEntry=new StreamSQLResult(input,tsRange);
+        StreamSQLResult newCacheEntry=new StreamSQLResult(input,tsRange,partitionColRef);
         cacheManager.getCache(STORAGE_LAYER_TUPLE_CACHE).put(new Element(streamSQLDigest,newCacheEntry));
         logger.debug("current cache: " + newCacheEntry);
         return null;

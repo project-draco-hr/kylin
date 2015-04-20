@@ -26,6 +26,12 @@ case 10:
     rows_.add(input.readMessage(org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow.PARSER,extensionRegistry));
     break;
   }
+case 16:
+{
+  bitField0_|=0x00000001;
+  lastFinalizedTime_=input.readInt64();
+  break;
+}
 }
 }
 }

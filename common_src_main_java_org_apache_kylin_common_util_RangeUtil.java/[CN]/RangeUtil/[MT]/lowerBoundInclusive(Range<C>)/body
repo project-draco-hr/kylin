@@ -1,0 +1,6 @@
+{
+  if (!range.hasLowerBound()) {
+    throw new IllegalArgumentException(("This range does not have lower bound" + range));
+  }
+  return range.lowerBoundType() == BoundType.CLOSED;
+}

@@ -1,0 +1,6 @@
+{
+  if (!range.hasUpperBound()) {
+    throw new IllegalArgumentException(("This range does not have upper bound" + range));
+  }
+  return range.upperBoundType() == BoundType.CLOSED;
+}

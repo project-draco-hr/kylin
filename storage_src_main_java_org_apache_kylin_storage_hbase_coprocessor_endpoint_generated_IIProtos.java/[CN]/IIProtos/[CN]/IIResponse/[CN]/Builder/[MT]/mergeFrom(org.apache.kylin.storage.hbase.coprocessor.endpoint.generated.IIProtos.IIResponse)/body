@@ -27,6 +27,9 @@
       }
     }
   }
+  if (other.hasLastFinalizedTime()) {
+    setLastFinalizedTime(other.getLastFinalizedTime());
+  }
   this.mergeUnknownFields(other.getUnknownFields());
   return this;
 }

@@ -1,0 +1,17 @@
+{
+  if (filterRange == null || filterRange.isEmpty()) {
+    return Maps.newTreeMap();
+  }
+ else   if (filterRange.equals(Ranges.all())) {
+    return values;
+  }
+  if (filterRange.hasUpperBound() && !filterRange.hasLowerBound()) {
+    return values.headMap(filterRange.upperEndpoint(),upperBoundInclusive(filterRange));
+  }
+ else   if (filterRange.hasLowerBound() && !filterRange.hasUpperBound()) {
+    return values.tailMap(filterRange.lowerEndpoint(),lowerBoundInclusive(filterRange));
+  }
+ else {
+    return values.subMap(filterRange.lowerEndpoint(),lowerBoundInclusive(filterRange),filterRange.upperEndpoint(),upperBoundInclusive(filterRange));
+  }
+}

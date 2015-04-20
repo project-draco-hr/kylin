@@ -4,8 +4,7 @@
   if ("date".equals(dataType)) {
     Date dateValue=DateFormat.stringToDate(strValue);
     long millis=dateValue.getTime();
-    long days=millis / (1000 * 3600 * 24);
-    return Integer.valueOf((int)days);
+    return millisToEpicDays(millis);
   }
  else   if ("tinyint".equals(dataType)) {
     return Byte.valueOf(strValue);

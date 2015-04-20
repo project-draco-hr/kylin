@@ -1,3 +1,9 @@
 {
-  return rows.iterator();
+  NavigableMap<Long,List<ITuple>> submap=RangeUtil.filter(sortedRows,reusablePeriod);
+  return Iterators.concat(Iterators.transform(submap.values().iterator(),new Function<List<ITuple>,Iterator<ITuple>>(){
+    @Nullable @Override public Iterator<ITuple> apply(    List<ITuple> input){
+      return input.iterator();
+    }
+  }
+));
 }

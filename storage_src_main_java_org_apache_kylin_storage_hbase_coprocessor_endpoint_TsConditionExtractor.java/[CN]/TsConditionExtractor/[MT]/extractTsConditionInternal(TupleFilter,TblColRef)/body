@@ -1,7 +1,7 @@
 {
   if (filter instanceof LogicalTupleFilter) {
     if (filter.getOperator() == TupleFilter.FilterOperatorEnum.AND) {
-      Range ret=Ranges.all();
+      Range<Long> ret=Ranges.all();
       for (      TupleFilter child : filter.getChildren()) {
         Range childRange=extractTsConditionInternal(child,colRef);
         if (childRange != null) {
@@ -12,16 +12,19 @@
             return null;
           }
         }
+ else {
+          return null;
+        }
       }
-      return ret;
+      return ret.isEmpty() ? null : ret;
     }
  else {
-      return null;
+      return Ranges.all();
     }
   }
   if (filter instanceof CompareTupleFilter) {
     CompareTupleFilter compareTupleFilter=(CompareTupleFilter)filter;
-    if (compareTupleFilter.getColumn() == null)     return null;
+    if (compareTupleFilter.getColumn() == null)     return Ranges.all();
     if (compareTupleFilter.getColumn().equals(colRef)) {
       Object firstValue=compareTupleFilter.getFirstValue();
       long t;
@@ -48,5 +51,5 @@ default :
 }
 }
 }
-return null;
+return Ranges.all();
 }
