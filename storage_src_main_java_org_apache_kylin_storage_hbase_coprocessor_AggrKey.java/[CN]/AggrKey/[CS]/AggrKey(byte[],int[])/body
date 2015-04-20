@@ -1,0 +1,4 @@
+{
+  this.groupByMask=groupByMask;
+  this.groupByMaskSet=groupByMaskSet;
+}

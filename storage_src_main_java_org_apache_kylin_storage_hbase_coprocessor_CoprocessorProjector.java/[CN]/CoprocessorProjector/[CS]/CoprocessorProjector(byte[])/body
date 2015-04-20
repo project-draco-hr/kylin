@@ -1,9 +1,4 @@
 {
   this.groupByMask=groupByMask;
-  this.groupByMaskSet=new BitSet();
-  for (int i=0; i < groupByMask.length; i++) {
-    if (groupByMask[i] != 0) {
-      groupByMaskSet.set(i);
-    }
-  }
+  this.aggrKey=new AggrKey(groupByMask);
 }

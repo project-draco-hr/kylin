@@ -1,5 +1,5 @@
 {
-  AggrKey copy=new AggrKey();
+  AggrKey copy=new AggrKey(this.groupByMask,this.groupByMaskSet);
   copy.set(new byte[length()],0);
   System.arraycopy(this.data,this.offset,copy.data,copy.offset,length());
   return copy;

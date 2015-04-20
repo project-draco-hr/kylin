@@ -10,14 +10,14 @@
   List<byte[]> rawData=mockData(tableRecordInfo);
   for (int i=0; i < rawData.size(); ++i) {
     byte[] data=rawData.get(i);
-    CoprocessorProjector.AggrKey aggKey=projector.getAggrKey(data);
+    AggrKey aggKey=projector.getAggrKey(data);
     MeasureAggregator[] bufs=aggCache.getBuffer(aggKey);
     aggregators.aggregate(bufs,data);
     aggCache.checkMemoryUsage();
   }
   long sumTotal=0;
   long minTotal=0;
-  for (  Map.Entry<CoprocessorProjector.AggrKey,MeasureAggregator[]> entry : aggCache.getAllEntries()) {
+  for (  Map.Entry<AggrKey,MeasureAggregator[]> entry : aggCache.getAllEntries()) {
     sumTotal+=((LongWritable)entry.getValue()[0].getState()).get();
     minTotal+=((LongWritable)entry.getValue()[1].getState()).get();
   }

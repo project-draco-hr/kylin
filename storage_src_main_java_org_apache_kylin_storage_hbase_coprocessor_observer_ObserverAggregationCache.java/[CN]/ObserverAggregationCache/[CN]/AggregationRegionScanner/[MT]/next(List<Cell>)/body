@@ -1,7 +1,7 @@
 {
   boolean hasMore=false;
   if (iterator.hasNext()) {
-    Entry<CoprocessorProjector.AggrKey,MeasureAggregator[]> entry=iterator.next();
+    Entry<AggrKey,MeasureAggregator[]> entry=iterator.next();
     makeCells(entry,results);
     hasMore=iterator.hasNext();
   }

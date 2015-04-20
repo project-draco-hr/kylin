@@ -1,7 +1,0 @@
-{
-  int hash=1;
-  for (int i=groupByMaskSet.nextSetBit(0); i >= 0; i=groupByMaskSet.nextSetBit(i + 1)) {
-    hash=(31 * hash) + data[offset + i];
-  }
-  return hash;
-}
