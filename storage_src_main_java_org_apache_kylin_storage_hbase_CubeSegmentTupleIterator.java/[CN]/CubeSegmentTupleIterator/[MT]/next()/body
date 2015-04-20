@@ -14,6 +14,7 @@
     return null;
   }
   try {
+    this.tuple=new Tuple(tupleInfo);
     translateResult(result,this.tuple);
   }
  catch (  IOException e) {

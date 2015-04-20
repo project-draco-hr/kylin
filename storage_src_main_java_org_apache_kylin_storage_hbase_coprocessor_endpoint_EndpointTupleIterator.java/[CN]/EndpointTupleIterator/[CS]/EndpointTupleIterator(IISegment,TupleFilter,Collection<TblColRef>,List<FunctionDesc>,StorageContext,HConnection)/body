@@ -28,6 +28,13 @@
   this.pushedDownAggregators=EndpointAggregators.fromFunctions(tableRecordInfo,measures);
   int tsCol=this.tableRecordInfo.getTimestampColumn();
   this.tsRange=TsConditionExtractor.extractTsCondition(this.columns.get(tsCol),rootFilter);
+  if (this.tsRange == null) {
+    logger.info("TsRange conflict for endpoint, return empty directly");
+    this.tupleIterator=ITupleIterator.EMPTY_TUPLE_ITERATOR;
+  }
+ else {
+    logger.info("The tsRange being pushed is " + RangeUtil.formatTsRange(tsRange));
+  }
   IIProtos.IIRequest endpointRequest=prepareRequest();
   regionResponsesIterator=getResults(endpointRequest,table);
   if (this.regionResponsesIterator.hasNext()) {

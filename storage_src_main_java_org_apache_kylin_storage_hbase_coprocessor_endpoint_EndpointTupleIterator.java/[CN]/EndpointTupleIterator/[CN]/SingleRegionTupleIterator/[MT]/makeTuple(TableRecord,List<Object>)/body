@@ -1,4 +1,5 @@
 {
+  this.tuple=new Tuple(tupleInfo);
   List<String> columnValues=Lists.newArrayList();
   for (int i=0; i < columns.size(); ++i) {
     final TblColRef tblColRef=columns.get(i);
