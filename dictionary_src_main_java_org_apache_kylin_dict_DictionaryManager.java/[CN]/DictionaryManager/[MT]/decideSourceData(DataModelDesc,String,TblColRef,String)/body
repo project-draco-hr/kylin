@@ -14,7 +14,7 @@
   }
   if ("true".equals(dict) || "string".equals(dict) || "number".equals(dict)|| "any".equals(dict)) {
     if (model.isFactTable(col.getTable())) {
-      TblColRef pkCol=model.findPKByFK(col);
+      TblColRef pkCol=model.findPKByFK(col,"inner");
       if (pkCol != null)       col=pkCol;
     }
     srcTable=col.getTable();
