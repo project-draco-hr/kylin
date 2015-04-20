@@ -1,0 +1,16 @@
+{
+  allCuboids.add(cuboidId);
+  BitSet bitSet=new BitSet(nRowKey);
+  long mask=Long.highestOneBit(baseCuboidId);
+  for (int i=0; i < nRowKey; i++) {
+    if ((mask & cuboidId) > 0) {
+      bitSet.set(i);
+    }
+    mask=mask >> 1;
+  }
+  allCuboidsBitSet.add(bitSet);
+  Collection<Long> children=cuboidScheduler.getSpanningCuboid(cuboidId);
+  for (  Long childId : children) {
+    addCuboidBitSet(childId,allCuboidsBitSet,allCuboids);
+  }
+}

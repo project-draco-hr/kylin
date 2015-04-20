@@ -9,8 +9,8 @@
     rowkeyColumnSize.add(cubeSegment.getColumnLength(columnList.get(i)));
   }
   DataModelDesc.RealizationCapacity cubeCapacity=cubeDesc.getModel().getCapacity();
-  int cut=kylinConfig.getHBaseRegionCut(cubeCapacity.name());
-  logger.info("Chosen cut for htable is " + cut + "GB");
+  int cut=kylinConfig.getHBaseRegionCut(cubeCapacity.toString());
+  logger.info("Cube capacity " + cubeCapacity.toString() + ", chosen cut for HTable is "+ cut+ "GB");
   Map<Long,Long> cuboidSizeMap=Maps.newHashMap();
   long totalSizeInM=0;
   SequenceFile.Reader reader=null;

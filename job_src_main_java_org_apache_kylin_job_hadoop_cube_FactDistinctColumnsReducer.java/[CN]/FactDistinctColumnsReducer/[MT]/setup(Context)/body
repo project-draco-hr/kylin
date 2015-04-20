@@ -11,9 +11,8 @@
   collectStatistics=Boolean.parseBoolean(conf.get(BatchConstants.CFG_STATISTICS_ENABLED));
   statisticsOutput=conf.get(BatchConstants.CFG_STATISTICS_OUTPUT);
   if (collectStatistics) {
-    rowCountInMappers=Lists.newArrayList();
     baseCuboidRowCountInMappers=Lists.newArrayList();
-    rowKeyCountInCuboids=Maps.newHashMap();
+    rowCountInCuboids=Maps.newHashMap();
     cuboidHLLMap=Maps.newHashMap();
   }
 }

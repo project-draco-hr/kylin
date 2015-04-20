@@ -1,0 +1,4 @@
+{
+  out.write(msg.getBytes());
+  out.write('\n');
+}

@@ -1,0 +1,4 @@
+{
+  currentPositon=bitSet.nextSetBit(currentPositon + 1);
+  return array[bitSetIndexMap[currentPositon]];
+}

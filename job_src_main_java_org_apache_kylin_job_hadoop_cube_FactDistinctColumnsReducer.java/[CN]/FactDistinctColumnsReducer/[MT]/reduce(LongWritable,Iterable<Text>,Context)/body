@@ -26,10 +26,8 @@
       HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(16);
       ByteArray byteArray=new ByteArray(value.getBytes());
       hll.readRegisters(byteArray.asBuffer());
-      if (cuboidId > baseCuboidId) {
-        rowCountInMappers.add(hll.getCountEstimate());
-      }
- else       if (cuboidId == baseCuboidId) {
+      totalRowsBeforeMerge+=hll.getCountEstimate();
+      if (cuboidId == baseCuboidId) {
         baseCuboidRowCountInMappers.add(hll.getCountEstimate());
       }
       if (cuboidHLLMap.get(cuboidId) != null) {
