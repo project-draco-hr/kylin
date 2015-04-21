@@ -1,2 +1,1 @@
-ITupleIterator underlying
 Function<List<ITuple>,Void> actionOnSeeingWholeData
