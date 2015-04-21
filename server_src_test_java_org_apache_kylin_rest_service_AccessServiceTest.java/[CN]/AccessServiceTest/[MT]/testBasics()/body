@@ -10,14 +10,14 @@
   Assert.assertNull(acl);
   acl=accessService.init(ae,AclPermission.ADMINISTRATION);
   Assert.assertTrue(((PrincipalSid)acl.getOwner()).getPrincipal().equals("ADMIN"));
-  Assert.assertTrue(accessService.generateAceResponses(acl).size() == 1);
+  Assert.assertEquals(accessService.generateAceResponses(acl).size(),1);
   AccessEntryResponse aer=accessService.generateAceResponses(acl).get(0);
   Assert.assertTrue(aer.getId() != null);
   Assert.assertTrue(aer.getPermission() == AclPermission.ADMINISTRATION);
   Assert.assertTrue(((PrincipalSid)aer.getSid()).getPrincipal().equals("ADMIN"));
   Sid modeler=accessService.getSid("MODELER",true);
   acl=accessService.grant(ae,AclPermission.ADMINISTRATION,modeler);
-  Assert.assertTrue(accessService.generateAceResponses(acl).size() == 2);
+  Assert.assertEquals(accessService.generateAceResponses(acl).size(),2);
   Long modelerEntryId=null;
   for (  AccessControlEntry ace : acl.getEntries()) {
     PrincipalSid sid=(PrincipalSid)ace.getSid();
@@ -27,7 +27,7 @@
     }
   }
   acl=accessService.update(ae,modelerEntryId,AclPermission.READ);
-  Assert.assertTrue(accessService.generateAceResponses(acl).size() == 2);
+  Assert.assertEquals(accessService.generateAceResponses(acl).size(),2);
   for (  AccessControlEntry ace : acl.getEntries()) {
     PrincipalSid sid=(PrincipalSid)ace.getSid();
     if (sid.getPrincipal().equals("MODELER")) {
@@ -45,7 +45,7 @@
   Assert.assertTrue(attachedEntityAcl.getParentAcl().getObjectIdentity().getIdentifier().equals("test-domain-object"));
   Assert.assertTrue(attachedEntityAcl.getEntries().size() == 1);
   acl=accessService.revoke(ae,modelerEntryId);
-  Assert.assertTrue(accessService.generateAceResponses(acl).size() == 1);
+  Assert.assertEquals(accessService.generateAceResponses(acl).size(),1);
   accessService.clean(ae,true);
   acl=accessService.getAcl(ae);
   Assert.assertNull(acl);
