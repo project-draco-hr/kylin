@@ -6,15 +6,14 @@
     cuboidScheduler=new CuboidScheduler(cubeDesc);
     nRowKey=cubeDesc.getRowkey().getRowKeyColumns().length;
     List<Long> cuboidIdList=Lists.newArrayList();
-    List<BitSet> allCuboidsBitSetList=Lists.newArrayList();
+    List<Integer[]> allCuboidsBitSetList=Lists.newArrayList();
     addCuboidBitSet(baseCuboidId,allCuboidsBitSetList,cuboidIdList);
-    allCuboidsBitSet=allCuboidsBitSetList.toArray(new BitSet[cuboidIdList.size()]);
+    allCuboidsBitSet=allCuboidsBitSetList.toArray(new Integer[cuboidIdList.size()][]);
     cuboidIds=cuboidIdList.toArray(new Long[cuboidIdList.size()]);
     allCuboidsHLL=new HyperLogLogPlusCounter[cuboidIds.length];
     for (int i=0; i < cuboidIds.length; i++) {
       allCuboidsHLL[i]=new HyperLogLogPlusCounter(16);
     }
     bitSetIterator=new BitSetIterator();
-    bitSetIterator.bitSetIndexMap=intermediateTableDesc.getRowKeyColumnIndexes();
   }
 }
