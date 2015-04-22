@@ -4,5 +4,4 @@
   this.current=new Object[olapContext.olapRowType.getFieldCount()];
   this.cursor=null;
   this.fieldIndexes=null;
-  this.tupleFieldsHash=-1;
 }
