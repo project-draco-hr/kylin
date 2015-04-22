@@ -5,6 +5,9 @@
   for (int i=0; i < rows_.size(); i++) {
     size+=com.google.protobuf.CodedOutputStream.computeMessageSize(1,rows_.get(i));
   }
+  if (((bitField0_ & 0x00000001) == 0x00000001)) {
+    size+=com.google.protobuf.CodedOutputStream.computeInt64Size(2,latestDataTime_);
+  }
   size+=getUnknownFields().getSerializedSize();
   memoizedSerializedSize=size;
   return size;

@@ -4,6 +4,5 @@
     throw new IllegalStateException("No more ITuple in EndpointTupleIterator");
   }
   ITuple tuple=this.tupleIterator.next();
-  this.currentShardLastDataTime=Tuple.getTs(tuple,this.partitionCol);
   return tuple;
 }

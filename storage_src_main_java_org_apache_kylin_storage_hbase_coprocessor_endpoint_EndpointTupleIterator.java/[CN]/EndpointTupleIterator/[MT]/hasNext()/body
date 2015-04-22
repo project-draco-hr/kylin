@@ -1,8 +1,6 @@
 {
   while (!this.tupleIterator.hasNext()) {
-    this.shardLastDataTimes.add(this.currentShardLastDataTime);
     if (this.regionResponsesIterator.hasNext()) {
-      this.currentShardLastDataTime=Long.MIN_VALUE;
       this.tupleIterator=new SingleRegionTupleIterator(this.regionResponsesIterator.next());
     }
  else {

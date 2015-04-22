@@ -1,5 +1,3 @@
 {
-  Preconditions.checkArgument(shardCount == this.shardLastDataTimes.size());
-  long min=Collections.min(this.shardLastDataTimes);
-  return Ranges.atLeast(min);
+  return Ranges.atLeast(lastDataTime + 1);
 }

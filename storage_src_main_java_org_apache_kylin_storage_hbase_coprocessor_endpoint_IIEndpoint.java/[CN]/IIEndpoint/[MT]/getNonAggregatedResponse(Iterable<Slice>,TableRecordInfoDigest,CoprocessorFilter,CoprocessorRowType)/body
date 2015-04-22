@@ -6,7 +6,9 @@
   int totalSize=0;
   byte[] recordBuffer=new byte[byteFormLen];
   int iteratedSliceCount=0;
+  long latestSliceTs=Long.MIN_VALUE;
   for (  Slice slice : slices) {
+    latestSliceTs=slice.getTimestamp();
     iteratedSliceCount++;
     CoprocessorFilter newFilter=CoprocessorFilter.fromFilter(new LocalDictionary(slice.getLocalDictionaries(),type,slice.getInfo()),filter.getFilter(),FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_LOCAL_DICT);
     ConciseSet result=null;
@@ -25,6 +27,7 @@
       totalSize+=byteFormLen;
     }
   }
+  responseBuilder.setLatestDataTime(latestSliceTs);
   logger.info("Iterated Slices count: " + iteratedSliceCount);
   return responseBuilder.build();
 }

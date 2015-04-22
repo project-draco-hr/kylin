@@ -1,6 +1,6 @@
 {
-  Map<byte[],List<IIProtos.IIResponse.IIRow>> results=table.coprocessorService(IIProtos.RowsService.class,null,null,new Batch.Call<IIProtos.RowsService,List<IIProtos.IIResponse.IIRow>>(){
-    public List<IIProtos.IIResponse.IIRow> call(    IIProtos.RowsService rowsService) throws IOException {
+  Map<byte[],IIProtos.IIResponse> results=table.coprocessorService(IIProtos.RowsService.class,null,null,new Batch.Call<IIProtos.RowsService,IIProtos.IIResponse>(){
+    public IIProtos.IIResponse call(    IIProtos.RowsService rowsService) throws IOException {
       ServerRpcController controller=new ServerRpcController();
       BlockingRpcCallback<IIProtos.IIResponse> rpcCallback=new BlockingRpcCallback<>();
       rowsService.getRows(controller,request,rpcCallback);
@@ -8,7 +8,7 @@
       if (controller.failedOnException()) {
         throw controller.getFailedOn();
       }
-      return response.getRowsList();
+      return response;
     }
   }
 );

@@ -37,11 +37,20 @@
     logger.info("The tsRange being pushed is " + RangeUtil.formatTsRange(tsRange));
   }
   IIProtos.IIRequest endpointRequest=prepareRequest();
-  Collection<List<IIProtos.IIResponse.IIRow>> shardResults=getResults(endpointRequest,table);
-  this.shardCount=shardResults.size();
-  this.regionResponsesIterator=shardResults.iterator();
+  Collection<IIProtos.IIResponse> shardResults=getResults(endpointRequest,table);
+  this.lastDataTime=Collections.min(Collections2.transform(shardResults,new Function<IIProtos.IIResponse,Long>(){
+    @Nullable @Override public Long apply(    IIProtos.IIResponse input){
+      return input.getLatestDataTime();
+    }
+  }
+));
+  this.regionResponsesIterator=Collections2.transform(shardResults,new Function<IIProtos.IIResponse,List<IIProtos.IIResponse.IIRow>>(){
+    @Nullable @Override public List<IIProtos.IIResponse.IIRow> apply(    @Nullable IIProtos.IIResponse input){
+      return input.getRowsList();
+    }
+  }
+).iterator();
   if (this.regionResponsesIterator.hasNext()) {
-    this.currentShardLastDataTime=Long.MIN_VALUE;
     this.tupleIterator=new SingleRegionTupleIterator(this.regionResponsesIterator.next());
   }
  else {
