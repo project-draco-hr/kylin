@@ -5,13 +5,17 @@
   String[] lookupRow=lookupTable.getRow(lookupKey);
   if (lookupRow != null) {
     for (int i=0; i < derivedLen; i++) {
-      String value=lookupRow[derivedIndex[i]];
-      tuple.setDimensionValue(derivedFieldNames[i],value);
+      if (derivedFieldNames[i] != null) {
+        String value=lookupRow[derivedIndex[i]];
+        tuple.setDimensionValue(derivedFieldNames[i],value);
+      }
     }
   }
  else {
     for (int i=0; i < derivedLen; i++) {
-      tuple.setDimensionValue(derivedFieldNames[i],null);
+      if (derivedFieldNames[i] != null) {
+        tuple.setDimensionValue(derivedFieldNames[i],null);
+      }
     }
   }
 }

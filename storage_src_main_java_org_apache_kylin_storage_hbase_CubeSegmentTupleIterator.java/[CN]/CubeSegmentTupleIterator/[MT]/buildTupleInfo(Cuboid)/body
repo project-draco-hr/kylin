@@ -17,7 +17,9 @@
     for (    DeriveInfo deriveInfo : entry.getValue()) {
       for (      TblColRef derivedCol : deriveInfo.columns) {
         String derivedField=getFieldName(derivedCol,context.getAliasMap());
-        info.setField(derivedField,derivedCol,derivedCol.getType().getName(),index++);
+        if (info.hasField(derivedField) == false) {
+          info.setField(derivedField,derivedCol,derivedCol.getType().getName(),index++);
+        }
       }
       info.addDerivedColumnFiller(Tuple.newDerivedColumnFiller(rowColumns,hostCols,deriveInfo,info,CubeManager.getInstance(this.cube.getConfig()),cubeSeg));
     }
