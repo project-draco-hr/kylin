@@ -1,0 +1,5 @@
+{
+  if (this.getModels() != null) {
+    this.getModels().remove(modelName);
+  }
+}

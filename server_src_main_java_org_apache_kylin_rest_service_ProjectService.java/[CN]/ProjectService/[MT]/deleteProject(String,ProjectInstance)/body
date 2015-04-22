@@ -1,0 +1,4 @@
+{
+  getProjectManager().dropProject(projectName);
+  accessService.clean(project,true);
+}

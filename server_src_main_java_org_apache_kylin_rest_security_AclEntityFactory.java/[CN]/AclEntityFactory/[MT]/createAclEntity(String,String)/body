@@ -4,6 +4,11 @@
     cubeInstance.setUuid(uuid);
     return cubeInstance;
   }
+  if ("DataModelDesc".equals(entityType)) {
+    DataModelDesc modelInstance=new DataModelDesc();
+    modelInstance.setUuid(uuid);
+    return modelInstance;
+  }
   if ("JobInstance".equals(entityType)) {
     JobInstance jobInstance=new JobInstance();
     jobInstance.setUuid(uuid);

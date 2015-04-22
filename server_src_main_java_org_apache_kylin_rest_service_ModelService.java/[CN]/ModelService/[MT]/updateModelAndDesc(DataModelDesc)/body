@@ -1,0 +1,4 @@
+{
+  getMetadataManager().updateDataModelDesc(desc);
+  return desc;
+}

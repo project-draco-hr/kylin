@@ -2,7 +2,7 @@
   logger.info("Creating project '" + projectName);
   ProjectInstance currentProject=getProject(projectName);
   if (currentProject == null) {
-    currentProject=ProjectInstance.create(projectName,owner,description,null);
+    currentProject=ProjectInstance.create(projectName,owner,description,null,null);
   }
  else {
     throw new IllegalStateException("The project named " + projectName + "already exists");

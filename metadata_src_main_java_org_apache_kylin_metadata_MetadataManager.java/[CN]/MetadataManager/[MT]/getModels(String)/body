@@ -1,0 +1,30 @@
+{
+  ProjectInstance projectInstance=ProjectManager.getInstance(config).getProject(projectName);
+  HashSet<DataModelDesc> ret=new HashSet<>();
+  if (projectInstance != null && projectInstance.getModels() != null) {
+    for (    String modelName : projectInstance.getModels()) {
+      DataModelDesc model=getDataModelDesc(modelName);
+      if (null != model) {
+        ret.add(model);
+      }
+ else {
+        logger.error("Failed to load model" + modelName);
+      }
+    }
+  }
+  RealizationRegistry registry=RealizationRegistry.getInstance(config);
+  for (  RealizationEntry realization : projectInstance.getRealizationEntries()) {
+    IRealization rel=registry.getRealization(realization.getType(),realization.getRealization());
+    if (rel != null) {
+      DataModelDesc modelDesc=rel.getDataModelDesc();
+      if (!ret.contains(modelDesc)) {
+        ProjectManager.getInstance(config).updateModelToProject(modelDesc.getName(),projectName);
+        ret.add(modelDesc);
+      }
+    }
+ else {
+      logger.warn("Realization '" + realization + "' defined under project '"+ projectInstance+ "' is not found");
+    }
+  }
+  return new ArrayList<>(ret);
+}

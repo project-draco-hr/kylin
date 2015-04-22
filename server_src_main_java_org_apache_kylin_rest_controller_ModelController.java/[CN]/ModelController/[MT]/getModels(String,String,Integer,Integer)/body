@@ -1,0 +1,9 @@
+{
+  try {
+    return modelService.getModels(modelName,projectName,limit,offset);
+  }
+ catch (  IOException e) {
+    logger.error("Failed to deal with the request:" + e.getLocalizedMessage(),e);
+    throw new InternalErrorException("Failed to deal with the request: " + e.getLocalizedMessage());
+  }
+}

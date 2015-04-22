@@ -1,0 +1,6 @@
+{
+  for (  ProjectInstance projectInstance : findProjects(modelName)) {
+    projectInstance.removeModel(modelName);
+    saveResource(projectInstance);
+  }
+}

@@ -2,6 +2,9 @@
   Connection conn=null;
   ResultSet columnMeta=null;
   List<TableMeta> tableMetas=null;
+  if (StringUtils.isNullOrEmpty(project)) {
+    return Collections.emptyList();
+  }
   try {
     DataSource dataSource=getOLAPDataSource(project);
     conn=dataSource.getConnection();

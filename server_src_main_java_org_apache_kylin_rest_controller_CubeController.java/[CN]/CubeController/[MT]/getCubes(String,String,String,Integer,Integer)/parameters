@@ -1,0 +1,5 @@
+String cubeName
+String modelName
+String projectName
+Integer limit
+Integer offset

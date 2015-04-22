@@ -1,0 +1,11 @@
+{
+  String formerProjectName=projectRequest.getFormerProjectName();
+  String newProjectName=projectRequest.getNewProjectName();
+  String newDescription=projectRequest.getNewDescription();
+  if (currentProject == null) {
+    throw new InternalErrorException("The project named " + formerProjectName + " does not exists");
+  }
+  ProjectInstance updatedProject=getProjectManager().updateProject(currentProject,newProjectName,newDescription);
+  logger.debug("Project updated.");
+  return updatedProject;
+}

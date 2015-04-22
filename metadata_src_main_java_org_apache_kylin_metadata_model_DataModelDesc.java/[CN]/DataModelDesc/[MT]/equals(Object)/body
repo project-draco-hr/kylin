@@ -1,0 +1,8 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  DataModelDesc modelDesc=(DataModelDesc)o;
+  if (!name.equals(modelDesc.name))   return false;
+  if (!getFactTable().equals(modelDesc.getFactTable()))   return false;
+  return true;
+}

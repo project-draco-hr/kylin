@@ -1,0 +1,10 @@
+{
+  String newProjectName=ProjectInstance.getNormalizedProjectName(project);
+  ProjectInstance newProject=getProject(newProjectName);
+  if (newProject == null) {
+    throw new IllegalArgumentException("Project " + newProjectName + " does not exist.");
+  }
+  newProject.addModel(modelName);
+  saveResource(newProject);
+  return newProject;
+}

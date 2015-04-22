@@ -1,0 +1,12 @@
+{
+  if (getMetadataManager().getDataModelDesc(desc.getName()) != null) {
+    throw new InternalErrorException("The model named " + desc.getName() + " already exists");
+  }
+  DataModelDesc createdDesc=null;
+  String owner=SecurityContextHolder.getContext().getAuthentication().getName();
+  createdDesc=getMetadataManager().createDataModelDesc(desc,projectName,owner);
+  accessService.init(createdDesc,AclPermission.ADMINISTRATION);
+  ProjectInstance project=getProjectManager().getProject(projectName);
+  accessService.inherit(createdDesc,project);
+  return createdDesc;
+}

@@ -1,0 +1,9 @@
+{
+  List<ProjectInstance> projects=new ArrayList<ProjectInstance>();
+  for (  ProjectInstance projectInstance : projectMap.values()) {
+    if (projectInstance.containsModel(modelName)) {
+      projects.add(projectInstance);
+    }
+  }
+  return projects;
+}

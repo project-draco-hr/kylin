@@ -1,0 +1,16 @@
+{
+  List<CubeInstance> cubes;
+  cubes=listAllCubes(cubeName,projectName,modelName);
+  if (limit == null || offset == null) {
+    return cubes;
+  }
+  int climit=(null == limit) ? 30 : limit;
+  int coffset=(null == offset) ? 0 : offset;
+  if (cubes.size() <= coffset) {
+    return Collections.emptyList();
+  }
+  if ((cubes.size() - coffset) < climit) {
+    return cubes.subList(coffset,cubes.size());
+  }
+  return cubes.subList(coffset,coffset + climit);
+}
