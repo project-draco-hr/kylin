@@ -1,3 +1,3 @@
 {
-  return Ranges.atLeast(lastDataTime + 1);
+  return Ranges.greaterThan(lastDataTime);
 }
