@@ -1,0 +1,11 @@
+{
+  List<List<String>> table=Lists.transform(streamMessages,new Function<StreamMessage,List<String>>(){
+    @Nullable @Override public List<String> apply(    @Nullable StreamMessage input){
+      return streamParser.parse(input);
+    }
+  }
+);
+  final Dictionary<?>[] dictionaries=useLocalDict ? IIDictionaryBuilder.buildDictionary(table,iiDesc) : new Dictionary[iiDesc.listAllColumns().size()];
+  TableRecordInfo tableRecordInfo=new TableRecordInfo(iiDesc,dictionaries);
+  return build(table,tableRecordInfo,dictionaries);
+}

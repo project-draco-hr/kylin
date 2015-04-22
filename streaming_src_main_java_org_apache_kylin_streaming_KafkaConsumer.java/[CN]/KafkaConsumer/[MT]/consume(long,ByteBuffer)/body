@@ -1,10 +1,10 @@
 {
   byte[] bytes=new byte[payload.limit()];
   payload.get(bytes);
-  Stream newStream=new Stream(offset,bytes);
+  StreamMessage newStreamMessage=new StreamMessage(offset,bytes);
   while (true) {
     try {
-      if (getStreamQueue(hash(offset)).offer(newStream,60,TimeUnit.SECONDS)) {
+      if (getStreamQueue(hash(offset)).offer(newStreamMessage,60,TimeUnit.SECONDS)) {
         break;
       }
  else {

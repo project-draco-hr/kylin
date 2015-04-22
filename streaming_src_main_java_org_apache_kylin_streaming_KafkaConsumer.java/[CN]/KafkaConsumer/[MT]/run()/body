@@ -37,7 +37,7 @@
       }
     }
     for (int i=0; i < streamQueue.length; ++i) {
-      streamQueue[i].put(Stream.EOF);
+      streamQueue[i].put(StreamMessage.EOF);
     }
   }
  catch (  Exception e) {

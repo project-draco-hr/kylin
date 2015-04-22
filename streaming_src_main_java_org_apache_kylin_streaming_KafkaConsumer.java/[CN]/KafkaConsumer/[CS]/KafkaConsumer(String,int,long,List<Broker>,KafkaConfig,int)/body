@@ -9,6 +9,6 @@
   this.parallelism=parallelism;
   this.streamQueue=new LinkedBlockingQueue[parallelism];
   for (int i=0; i < parallelism; ++i) {
-    streamQueue[i]=new LinkedBlockingQueue<Stream>(kafkaConfig.getMaxReadCount());
+    streamQueue[i]=new LinkedBlockingQueue<StreamMessage>(kafkaConfig.getMaxReadCount());
   }
 }

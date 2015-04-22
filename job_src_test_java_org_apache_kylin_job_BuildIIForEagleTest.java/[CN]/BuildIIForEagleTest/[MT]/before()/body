@@ -1,0 +1,15 @@
+{
+  HBaseMetadataTestCase.staticCreateTestMetadata(HBaseMetadataTestCase.SANDBOX_TEST_DATA);
+  DeployUtil.overrideJobJarLocations();
+  deployMetadata();
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  iiManager=IIManager.getInstance(kylinConfig);
+  iiManager=IIManager.getInstance(kylinConfig);
+  for (  String iiInstance : II_NAME) {
+    IIInstance ii=iiManager.getII(iiInstance);
+    if (ii.getStatus() != RealizationStatusEnum.DISABLED) {
+      ii.setStatus(RealizationStatusEnum.DISABLED);
+      iiManager.updateII(ii);
+    }
+  }
+}

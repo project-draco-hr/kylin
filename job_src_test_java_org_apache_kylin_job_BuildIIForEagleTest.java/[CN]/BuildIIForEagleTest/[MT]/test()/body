@@ -1,0 +1,10 @@
+{
+  for (  String iiName : II_NAME) {
+    buildII(iiName);
+    IIInstance ii=iiManager.getII(iiName);
+    if (ii.getStatus() != RealizationStatusEnum.READY) {
+      ii.setStatus(RealizationStatusEnum.READY);
+      iiManager.updateII(ii);
+    }
+  }
+}

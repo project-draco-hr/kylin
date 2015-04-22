@@ -1,0 +1,8 @@
+{
+  ResourceTool.reset(KylinConfig.getInstanceFromEnv());
+  ResourceTool.copy(KylinConfig.createInstanceFromUri("../ebayExtension/examples/test_case_data/localmeta"),KylinConfig.getInstanceFromEnv());
+  for (  CubeInstance cube : CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).listAllCubes()) {
+    cube.getDescriptor().setSignature(cube.getDescriptor().calculateSignature());
+    CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).updateCube(cube);
+  }
+}

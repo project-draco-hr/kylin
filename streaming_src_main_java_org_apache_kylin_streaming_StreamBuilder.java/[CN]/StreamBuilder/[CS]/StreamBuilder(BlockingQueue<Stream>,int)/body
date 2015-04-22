@@ -1,4 +1,0 @@
-{
-  this.streamQueue=streamQueue;
-  this.sliceSize=sliceSize;
-}

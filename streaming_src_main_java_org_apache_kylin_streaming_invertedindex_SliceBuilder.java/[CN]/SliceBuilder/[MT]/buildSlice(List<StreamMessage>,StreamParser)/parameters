@@ -1,0 +1,2 @@
+List<StreamMessage> streamMessages
+StreamParser streamParser

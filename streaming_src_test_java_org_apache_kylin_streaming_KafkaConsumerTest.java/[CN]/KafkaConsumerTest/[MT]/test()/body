@@ -1,7 +1,7 @@
 {
   final TopicMeta kafkaTopicMeta=KafkaRequester.getKafkaTopicMeta(kafkaConfig);
   final ExecutorService executorService=Executors.newFixedThreadPool(kafkaTopicMeta.getPartitionIds().size());
-  List<BlockingQueue<Stream>> queues=Lists.newArrayList();
+  List<BlockingQueue<StreamMessage>> queues=Lists.newArrayList();
   for (  Integer partitionId : kafkaTopicMeta.getPartitionIds()) {
     KafkaConsumer consumer=new KafkaConsumer(kafkaTopicMeta.getName(),partitionId,0,kafkaConfig.getBrokers(),kafkaConfig);
     queues.add(consumer.getStreamQueue(0));
@@ -10,7 +10,7 @@
   waitForProducerToStop(producer);
   Thread.sleep(5000);
   int count=0;
-  for (  BlockingQueue<Stream> queue : queues) {
+  for (  BlockingQueue<StreamMessage> queue : queues) {
     count+=queue.size();
   }
   logger.info("count of messages are " + count);

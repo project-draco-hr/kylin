@@ -1,13 +1,8 @@
 {
-  final IIDesc desc=iiManager.getII(iiName).getDescriptor();
-  final String tableName=createIntermediateTable(desc,kylinConfig);
-  logger.info("intermediate table name:" + tableName);
-  final Configuration conf=new Configuration();
-  HCatInputFormat.setInput(conf,"default",tableName);
-  final HCatSchema tableSchema=HCatInputFormat.getTableSchema(conf);
-  logger.info(StringUtils.join(tableSchema.getFieldNames(),"\n"));
-  HiveTableReader reader=new HiveTableReader("default",tableName);
+  final IIInstance ii=iiManager.getII(iiName);
+  final IIDesc desc=ii.getDescriptor();
   final List<TblColRef> tblColRefs=desc.listAllColumns();
+  final IISegment segment=ii.getFirstSegment();
   for (  TblColRef tblColRef : tblColRefs) {
     if (desc.isMetricsCol(tblColRef)) {
       logger.info("matrix:" + tblColRef.getName());
@@ -17,18 +12,19 @@
     }
   }
   LinkedBlockingDeque<StreamMessage> queue=new LinkedBlockingDeque<StreamMessage>();
-  final IISegment segment=createSegment(iiName);
   String[] args=new String[]{"-iiname",iiName,"-htablename",segment.getStorageLocationIdentifier()};
   ToolRunner.run(new IICreateHTableJob(),args);
   ExecutorService executorService=Executors.newSingleThreadExecutor();
-  final IIStreamBuilder streamBuilder=new IIStreamBuilder(queue,iiName,segment.getStorageLocationIdentifier(),segment.getIIDesc(),0);
-  List<String[]> sorted=getSortedRows(reader,desc.getTimestampColumn());
-  int count=sorted.size();
-  for (  String[] row : sorted) {
-    logger.info("another row: " + StringUtils.join(row,","));
-    queue.put(parse(row));
+  final IIStreamBuilder streamBuilder=new IIStreamBuilder(queue,iiName,segment.getStorageLocationIdentifier(),segment.getIIDesc(),0,desc.isUseLocalDictionary());
+  streamBuilder.setStreamParser(new JsonStreamParser(segment.getIIDesc().listAllColumns()));
+  BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream("/Users/qianzhou/Projects/Kylin/eagle_5m.data")));
+  String line;
+  int count=0;
+  while ((line=br.readLine()) != null) {
+    queue.put(new StreamMessage(System.currentTimeMillis(),line.getBytes()));
+    count++;
   }
-  reader.close();
+  br.close();
   logger.info("total record count:" + count + " htable:"+ segment.getStorageLocationIdentifier());
   queue.put(StreamMessage.EOF);
   final Future<?> future=executorService.submit(streamBuilder);

@@ -1,0 +1,18 @@
+{
+  try {
+    Map<String,String> json=new ObjectMapper().readValue(streamMessage.getRawData(),MapType.construct(HashMap.class,SimpleType.construct(String.class),SimpleType.construct(String.class)));
+    ArrayList<String> result=Lists.newArrayList();
+    for (    TblColRef column : allColumns) {
+      for (      Map.Entry<String,String> entry : json.entrySet()) {
+        if (entry.getKey().equalsIgnoreCase(column.getName())) {
+          result.add(entry.getValue());
+        }
+      }
+    }
+    return result;
+  }
+ catch (  IOException e) {
+    logger.error("error parsing stream",e);
+    throw new RuntimeException(e);
+  }
+}
