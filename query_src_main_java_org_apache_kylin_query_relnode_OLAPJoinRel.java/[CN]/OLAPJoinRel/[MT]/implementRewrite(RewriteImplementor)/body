@@ -17,7 +17,7 @@
     fieldInfo.addAll(this.rowType.getFieldList());
     fieldInfo.addAll(newFieldList);
     this.rowType=getCluster().getTypeFactory().createStructType(fieldInfo);
-    this.context.olapRowType=this.rowType;
     this.columnRowType=this.buildColumnRowType();
+    this.context.setReturnTupleInfo(rowType,columnRowType);
   }
 }

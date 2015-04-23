@@ -1,6 +1,0 @@
-List<TblColRef> rowColumns
-TblColRef[] hostCols
-DeriveInfo deriveInfo
-TupleInfo tupleInfo
-CubeManager cubeMgr
-CubeSegment cubeSegment

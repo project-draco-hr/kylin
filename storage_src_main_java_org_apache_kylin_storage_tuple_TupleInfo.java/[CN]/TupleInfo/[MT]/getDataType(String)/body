@@ -1,4 +1,3 @@
 {
-  int idx=getFieldIndex(fieldName);
-  return dataTypes.get(idx);
+  return getColumn(fieldName).getDatatype();
 }

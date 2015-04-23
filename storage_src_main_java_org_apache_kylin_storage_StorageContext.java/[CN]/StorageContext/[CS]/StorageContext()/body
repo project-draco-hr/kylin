@@ -3,7 +3,6 @@
   this.limit=DEFAULT_THRESHOLD;
   this.totalScanCount=0;
   this.cuboid=null;
-  this.aliasMap=HashBiMap.create();
   this.hasSort=false;
   this.sortOrders=new ArrayList<OrderEnum>();
   this.sortMeasures=new ArrayList<MeasureDesc>();

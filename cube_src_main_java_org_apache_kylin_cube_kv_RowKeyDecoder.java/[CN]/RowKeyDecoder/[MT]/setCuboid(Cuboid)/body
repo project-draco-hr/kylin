@@ -1,4 +1,3 @@
 {
   this.cuboid=cuboid;
-  this.names=null;
 }

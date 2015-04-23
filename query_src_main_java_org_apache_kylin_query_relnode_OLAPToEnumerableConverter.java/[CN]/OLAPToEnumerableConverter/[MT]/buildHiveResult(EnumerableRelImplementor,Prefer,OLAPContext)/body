@@ -1,6 +1,6 @@
 {
   RelDataType hiveRowType=getRowType();
-  context.olapRowType=hiveRowType;
+  context.setReturnTupleInfo(hiveRowType,null);
   PhysType physType=PhysTypeImpl.of(enumImplementor.getTypeFactory(),hiveRowType,pref.preferArray());
   RelOptTable factTable=context.firstTableScan.getTable();
   Result result=enumImplementor.result(physType,Blocks.toBlock(Expressions.call(factTable.getExpression(OLAPTable.class),"executeHiveQuery",enumImplementor.getRootExpression())));

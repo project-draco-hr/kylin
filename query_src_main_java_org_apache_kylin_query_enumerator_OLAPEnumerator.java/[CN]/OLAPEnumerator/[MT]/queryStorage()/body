@@ -3,7 +3,7 @@
   setConnectionProperties();
   bindVariable(olapContext.filter);
   IStorageEngine storageEngine=StorageEngineFactory.getStorageEngine(olapContext.realization,true);
-  ITupleIterator iterator=storageEngine.search(olapContext.storageContext,olapContext.getSQLDigest());
+  ITupleIterator iterator=storageEngine.search(olapContext.storageContext,olapContext.getSQLDigest(),olapContext.returnTupleInfo);
   if (logger.isDebugEnabled()) {
     logger.debug("return TupleIterator...");
   }

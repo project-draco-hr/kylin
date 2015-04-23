@@ -12,5 +12,5 @@
   if (context.firstTableScan == null) {
     context.firstTableScan=this;
   }
-  context.olapRowType=rowType;
+  context.setReturnTupleInfo(rowType,columnRowType);
 }

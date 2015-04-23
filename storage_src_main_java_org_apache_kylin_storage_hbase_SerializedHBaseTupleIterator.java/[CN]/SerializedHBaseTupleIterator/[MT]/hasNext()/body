@@ -1,4 +1,5 @@
 {
+  if (next != null)   return true;
   if (context.isLimitEnabled() && scanCount >= context.getLimit()) {
     return false;
   }
@@ -9,5 +10,15 @@
   if (scanCount >= context.getThreshold()) {
     throw new ScanOutOfLimitException("Scan row count exceeded threshold: " + context.getThreshold() + ", please add filter condition to narrow down backend scan range, like where clause.");
   }
-  return segmentIteratorIterator.hasNext() || segmentIterator.hasNext();
+  if (segmentIterator.hasNext()) {
+    next=segmentIterator.next();
+    scanCount++;
+    return true;
+  }
+ else   if (segmentIteratorIterator.hasNext()) {
+    segmentIterator.close();
+    segmentIterator=segmentIteratorIterator.next();
+    return hasNext();
+  }
+  return false;
 }

@@ -1,0 +1,4 @@
+{
+  Object objectValue=convertOptiqCellValue(fieldValue,getDataType(idx));
+  values[idx]=objectValue;
+}

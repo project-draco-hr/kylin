@@ -1,3 +1,17 @@
 {
-  return rangeIterator.hasNext() || resultIterator.hasNext();
+  if (next != null)   return true;
+  if (resultIterator == null) {
+    if (rangeIterator.hasNext() == false)     return false;
+    resultIterator=doScan(rangeIterator.next());
+  }
+  if (resultIterator.hasNext() == false) {
+    closeScanner();
+    resultIterator=null;
+    return hasNext();
+  }
+  Result result=resultIterator.next();
+  scanCount++;
+  tupleConverter.translateResult(result,oneTuple);
+  next=oneTuple;
+  return true;
 }

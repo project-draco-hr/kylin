@@ -1,24 +1,9 @@
 {
-  Result result=null;
-  while (hasNext()) {
-    if (resultIterator.hasNext()) {
-      result=this.resultIterator.next();
-      scanCount++;
-      break;
-    }
- else {
-      scanNextRange();
-    }
+  if (next == null) {
+    hasNext();
+    if (next == null)     throw new NoSuchElementException();
   }
-  if (result == null) {
-    return null;
-  }
-  try {
-    this.tuple=new Tuple(tupleInfo);
-    translateResult(result,this.tuple);
-  }
- catch (  IOException e) {
-    throw new IllegalStateException("Can't translate result " + result,e);
-  }
-  return this.tuple;
+  Tuple r=next;
+  next=null;
+  return r;
 }

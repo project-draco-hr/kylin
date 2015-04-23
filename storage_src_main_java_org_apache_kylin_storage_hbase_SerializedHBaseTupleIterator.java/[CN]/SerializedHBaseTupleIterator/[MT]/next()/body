@@ -1,15 +1,9 @@
 {
-  ITuple t=null;
-  while (hasNext()) {
-    if (segmentIterator.hasNext()) {
-      t=segmentIterator.next();
-      scanCount++;
-      break;
-    }
- else {
-      segmentIterator.close();
-      segmentIterator=segmentIteratorIterator.next();
-    }
+  if (next == null) {
+    hasNext();
+    if (next == null)     throw new NoSuchElementException();
   }
-  return t;
+  ITuple r=next;
+  next=null;
+  return r;
 }

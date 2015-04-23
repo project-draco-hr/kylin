@@ -1,13 +1,3 @@
 {
-  String dataType=info.getDataType(fieldName);
-  if ("double".equals(dataType) && fieldValue instanceof BigDecimal) {
-    fieldValue=((BigDecimal)fieldValue).doubleValue();
-  }
- else   if ("integer".equals(dataType) && !(fieldValue instanceof Integer)) {
-    fieldValue=((Number)fieldValue).intValue();
-  }
- else   if ("float".equals(dataType) && fieldValue instanceof BigDecimal) {
-    fieldValue=((BigDecimal)fieldValue).floatValue();
-  }
-  setFieldObjectValue(fieldName,fieldValue);
+  setMeasureValue(info.getFieldIndex(fieldName),fieldValue);
 }

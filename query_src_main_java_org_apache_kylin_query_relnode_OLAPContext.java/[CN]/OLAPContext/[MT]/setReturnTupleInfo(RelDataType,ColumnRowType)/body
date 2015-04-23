@@ -1,0 +1,10 @@
+{
+  TupleInfo info=new TupleInfo();
+  List<RelDataTypeField> fieldList=rowType.getFieldList();
+  for (int i=0; i < fieldList.size(); i++) {
+    RelDataTypeField field=fieldList.get(i);
+    TblColRef col=columnRowType == null ? null : columnRowType.getColumnByIndex(i);
+    info.setField(field.getName(),col,i);
+  }
+  this.returnTupleInfo=info;
+}

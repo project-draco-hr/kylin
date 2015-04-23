@@ -1,0 +1,29 @@
+{
+  try {
+    byte[] rowkey=hbaseRow.getRow();
+    rowKeyDecoder.decode(rowkey);
+  }
+ catch (  IOException ex) {
+    throw new RuntimeException("Cannot translate hbase result " + hbaseRow);
+  }
+  List<String> dimensionValues=rowKeyDecoder.getValues();
+  for (int i=0; i < dimensionValues.size(); i++) {
+    int tupleIdx=dimensionTupleIdx[i];
+    if (tupleIdx >= 0) {
+      tuple.setDimensionValue(tupleIdx,dimensionValues.get(i));
+    }
+  }
+  for (  IDerivedColumnFiller filler : derivedColFillers) {
+    filler.fillDerivedColumns(dimensionValues,tuple);
+  }
+  for (int i=0; i < rowValueDecoders.size(); i++) {
+    RowValueDecoder rowValueDecoder=rowValueDecoders.get(i);
+    rowValueDecoder.decode(hbaseRow);
+    Object[] measureValues=rowValueDecoder.getValues();
+    int[] measureIdx=metricsMeasureIdx[i];
+    int[] tupleIdx=metricsTupleIdx[i];
+    for (int j=0; j < measureIdx.length; j++) {
+      tuple.setMeasureValue(tupleIdx[j],measureValues[measureIdx[j]]);
+    }
+  }
+}

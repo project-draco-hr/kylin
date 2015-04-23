@@ -1,4 +1,3 @@
 {
-  codec.decode(ByteBuffer.wrap(bytes),values);
-  convertToJavaObjects(values,values);
+  decode(ByteBuffer.wrap(bytes));
 }

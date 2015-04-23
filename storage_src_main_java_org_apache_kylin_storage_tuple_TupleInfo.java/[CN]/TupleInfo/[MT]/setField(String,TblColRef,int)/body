@@ -1,0 +1,8 @@
+{
+  fieldMap.put(fieldName,index);
+  if (col != null)   columnMap.put(col,index);
+  if (fields.size() > index)   fields.set(index,fieldName);
+ else   fields.add(index,fieldName);
+  if (columns.size() > index)   columns.set(index,col);
+ else   columns.add(index,col);
+}
