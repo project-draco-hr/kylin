@@ -6,7 +6,9 @@
   }
   keyBuf=new byte[bytesLength];
   dimensions=BitSet.valueOf(new long[]{cuboidId}).cardinality();
-  measureColumns=new BitSet();
-  measureColumns.set(dimensions,dimensions + cubeDesc.getMeasures().size());
+  measureColumnsIndex=new int[cubeDesc.getMeasures().size()];
+  for (int i=0; i < cubeDesc.getMeasures().size(); i++) {
+    measureColumnsIndex[i]=dimensions + i;
+  }
   System.arraycopy(Bytes.toBytes(cuboidId),0,keyBuf,0,RowConstants.ROWKEY_CUBOIDID_LEN);
 }

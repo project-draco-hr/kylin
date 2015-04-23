@@ -1,6 +1,6 @@
 {
+  bitSetIterator.array=row;
   for (int i=0, n=allCuboidsBitSet.length; i < n; i++) {
-    bitSetIterator.array=row;
     bitSetIterator.bitSet=allCuboidsBitSet[i];
     bitSetIterator.currentPosition=0;
     allCuboidsHLL[i].add(StringUtils.join(bitSetIterator,","));

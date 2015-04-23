@@ -1,0 +1,2 @@
+int[] fieldIndex
+ByteBuffer buf

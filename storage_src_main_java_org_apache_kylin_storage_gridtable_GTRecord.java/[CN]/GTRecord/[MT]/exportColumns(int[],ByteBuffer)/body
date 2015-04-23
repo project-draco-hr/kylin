@@ -1,0 +1,5 @@
+{
+  for (  int i : fieldIndex) {
+    buf.put(cols[i].array(),cols[i].offset(),cols[i].length());
+  }
+}

@@ -6,15 +6,14 @@
   }
   aggs.collectStates(result);
   KeyValue outputValue;
-  int n=keyValueCreators.size();
-  if (n == 1 && keyValueCreators.get(0).isFullCopy) {
+  if (simpleFullCopy) {
     valueBuf.clear();
     codec.encode(result,valueBuf);
     outputValue=keyValueCreators.get(0).create(key.get(),0,key.getLength(),valueBuf.array(),0,valueBuf.position());
     context.write(key,outputValue);
   }
  else {
-    for (int i=0; i < n; i++) {
+    for (int i=0; i < nColumns; i++) {
       outputValue=keyValueCreators.get(i).create(key.get(),0,key.getLength(),result);
       context.write(key,outputValue);
     }

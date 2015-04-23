@@ -14,4 +14,6 @@
       keyValueCreators.add(new KeyValueCreator(cubeDesc,colDesc));
     }
   }
+  simpleFullCopy=(keyValueCreators.size() == 1 && keyValueCreators.get(0).isFullCopy);
+  nColumns=keyValueCreators.size();
 }

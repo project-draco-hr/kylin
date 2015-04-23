@@ -13,7 +13,7 @@
     offSet+=record.get(x).length();
   }
   valueBuf.clear();
-  record.exportColumns(measureColumns,valueBuf);
+  record.exportColumns(measureColumnsIndex,valueBuf);
   outputKey.set(keyBuf,0,offSet);
   outputValue.set(valueBuf.array(),0,valueBuf.position());
   try {

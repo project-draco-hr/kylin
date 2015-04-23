@@ -1,10 +1,10 @@
 {
-  String[] row=HiveTableReader.getRowAsStringArray(record);
+  rowArray.clear();
+  HiveTableReader.getRowAsList(record,rowArray);
   try {
-    int[] flatTableIndexes=intermediateTableDesc.getRowKeyColumnIndexes();
     for (    int i : factDictCols) {
       outputKey.set((long)i);
-      String fieldValue=row[flatTableIndexes[i]];
+      String fieldValue=rowArray.get(intermediateTableDesc.getRowKeyColumnIndexes()[i]);
       if (fieldValue == null)       continue;
       byte[] bytes=Bytes.toBytes(fieldValue);
       outputValue.set(bytes,0,bytes.length);
@@ -15,6 +15,6 @@
     handleErrorRecord(record,ex);
   }
   if (collectStatistics) {
-    putRowKeyToHLL(row);
+    putRowKeyToHLL(rowArray);
   }
 }
