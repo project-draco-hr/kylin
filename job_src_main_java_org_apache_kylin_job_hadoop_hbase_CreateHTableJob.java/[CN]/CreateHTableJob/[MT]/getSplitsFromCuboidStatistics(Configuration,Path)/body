@@ -34,7 +34,10 @@
  finally {
     IOUtils.closeStream(reader);
   }
-  for (  long cuboidId : cuboidSizeMap.keySet()) {
+  List<Long> allCuboids=Lists.newArrayList();
+  allCuboids.addAll(cuboidSizeMap.keySet());
+  Collections.sort(allCuboids);
+  for (  long cuboidId : allCuboids) {
     long cuboidSize=estimateCuboidStorageSize(cuboidId,cuboidSizeMap.get(cuboidId),baseCuboidId,rowkeyColumnSize);
     cuboidSizeMap.put(cuboidId,cuboidSize);
     totalSizeInM+=cuboidSize;
@@ -48,9 +51,6 @@
   logger.info(nRegion + " regions (estimated)");
   logger.info(mbPerRegion + " MB per region (estimated)");
   List<Long> regionSplit=Lists.newArrayList();
-  List<Long> allCuboids=Lists.newArrayList();
-  allCuboids.addAll(cuboidSizeMap.keySet());
-  Collections.sort(allCuboids);
   long size=0;
   int regionIndex=0;
   int cuboidCount=0;
