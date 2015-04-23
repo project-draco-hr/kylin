@@ -1,8 +1,0 @@
-{
-  clearSegment(iiName);
-  SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd");
-  f.setTimeZone(TimeZone.getTimeZone("GMT"));
-  long date1=0;
-  long date2=f.parse("2015-01-01").getTime();
-  return buildSegment(iiName,date1,date2);
-}
