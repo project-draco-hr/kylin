@@ -13,7 +13,7 @@
     output.writeBytes(4,aggregator_);
   }
   if (((bitField0_ & 0x00000010) == 0x00000010)) {
-    output.writeBytes(6,tsRange_);
+    output.writeBytes(5,tsRange_);
   }
   getUnknownFields().writeTo(output);
 }

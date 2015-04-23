@@ -26,10 +26,18 @@ case 10:
     rows_.add(input.readMessage(org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow.PARSER,extensionRegistry));
     break;
   }
-case 16:
+case 18:
 {
+  org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.Stats.Builder subBuilder=null;
+  if (((bitField0_ & 0x00000001) == 0x00000001)) {
+    subBuilder=stats_.toBuilder();
+  }
+  stats_=input.readMessage(org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.Stats.PARSER,extensionRegistry);
+  if (subBuilder != null) {
+    subBuilder.mergeFrom(stats_);
+    stats_=subBuilder.buildPartial();
+  }
   bitField0_|=0x00000001;
-  latestDataTime_=input.readInt64();
   break;
 }
 }

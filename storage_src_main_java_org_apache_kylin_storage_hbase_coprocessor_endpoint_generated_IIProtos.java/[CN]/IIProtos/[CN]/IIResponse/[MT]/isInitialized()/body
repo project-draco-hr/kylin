@@ -1,7 +1,7 @@
 {
   byte isInitialized=memoizedIsInitialized;
   if (isInitialized != -1)   return isInitialized == 1;
-  if (!hasLatestDataTime()) {
+  if (!hasStats()) {
     memoizedIsInitialized=0;
     return false;
   }

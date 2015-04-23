@@ -7,7 +7,12 @@
  else {
     rowsBuilder_.clear();
   }
-  latestDataTime_=0L;
+  if (statsBuilder_ == null) {
+    stats_=org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.Stats.getDefaultInstance();
+  }
+ else {
+    statsBuilder_.clear();
+  }
   bitField0_=(bitField0_ & ~0x00000002);
   return this;
 }

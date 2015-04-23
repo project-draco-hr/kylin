@@ -38,7 +38,9 @@
   Collection<IIProtos.IIResponse> shardResults=getResults(endpointRequest,table);
   this.lastDataTime=Collections.min(Collections2.transform(shardResults,new Function<IIProtos.IIResponse,Long>(){
     @Nullable @Override public Long apply(    IIProtos.IIResponse input){
-      return input.getLatestDataTime();
+      IIProtos.IIResponse.Stats status=input.getStats();
+      logger.info("Endpoints all returned, stats from shard {}: start moment:{}, finish moment: {}, elapsed ms: {}, scanned slices: {}, latest slice time is {}",new Object[]{String.valueOf(status.getMyShard()),DateFormat.formatToTimeStr(status.getServiceStartTime()),DateFormat.formatToTimeStr(status.getServiceEndTime()),String.valueOf(status.getServiceEndTime() - status.getServiceStartTime()),String.valueOf(status.getScannedSlices()),DateFormat.formatToTimeStr(status.getLatestDataTime())});
+      return status.getLatestDataTime();
     }
   }
 ));

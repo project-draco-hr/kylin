@@ -8,9 +8,9 @@
     hash=(37 * hash) + ROWS_FIELD_NUMBER;
     hash=(53 * hash) + getRowsList().hashCode();
   }
-  if (hasLatestDataTime()) {
-    hash=(37 * hash) + LATESTDATATIME_FIELD_NUMBER;
-    hash=(53 * hash) + hashLong(getLatestDataTime());
+  if (hasStats()) {
+    hash=(37 * hash) + STATS_FIELD_NUMBER;
+    hash=(53 * hash) + getStats().hashCode();
   }
   hash=(29 * hash) + getUnknownFields().hashCode();
   memoizedHashCode=hash;

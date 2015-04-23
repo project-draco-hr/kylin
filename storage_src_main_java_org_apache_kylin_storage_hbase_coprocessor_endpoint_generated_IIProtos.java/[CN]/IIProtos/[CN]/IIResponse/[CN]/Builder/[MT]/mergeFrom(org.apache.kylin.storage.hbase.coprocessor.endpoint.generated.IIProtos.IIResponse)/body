@@ -27,8 +27,8 @@
       }
     }
   }
-  if (other.hasLatestDataTime()) {
-    setLatestDataTime(other.getLatestDataTime());
+  if (other.hasStats()) {
+    mergeStats(other.getStats());
   }
   this.mergeUnknownFields(other.getUnknownFields());
   return this;

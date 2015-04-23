@@ -15,7 +15,12 @@
   if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
     to_bitField0_|=0x00000001;
   }
-  result.latestDataTime_=latestDataTime_;
+  if (statsBuilder_ == null) {
+    result.stats_=stats_;
+  }
+ else {
+    result.stats_=statsBuilder_.build();
+  }
   result.bitField0_=to_bitField0_;
   onBuilt();
   return result;

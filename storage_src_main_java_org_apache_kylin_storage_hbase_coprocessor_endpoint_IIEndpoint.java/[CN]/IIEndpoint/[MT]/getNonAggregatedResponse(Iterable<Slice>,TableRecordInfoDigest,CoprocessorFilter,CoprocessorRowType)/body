@@ -27,7 +27,7 @@
       totalSize+=byteFormLen;
     }
   }
-  responseBuilder.setLatestDataTime(latestSliceTs);
   logger.info("Iterated Slices count: " + iteratedSliceCount);
+  responseBuilder.setStats(IIProtos.IIResponse.Stats.newBuilder().setLatestDataTime(latestSliceTs).setServiceStartTime(this.serviceStartTime).setServiceEndTime(System.currentTimeMillis()).setScannedSlices(iteratedSliceCount));
   return responseBuilder.build();
 }

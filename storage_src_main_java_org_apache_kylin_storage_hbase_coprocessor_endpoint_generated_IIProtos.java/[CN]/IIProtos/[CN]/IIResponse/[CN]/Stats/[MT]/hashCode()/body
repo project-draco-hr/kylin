@@ -1,0 +1,30 @@
+{
+  if (memoizedHashCode != 0) {
+    return memoizedHashCode;
+  }
+  int hash=41;
+  hash=(19 * hash) + getDescriptorForType().hashCode();
+  if (hasMyShard()) {
+    hash=(37 * hash) + MYSHARD_FIELD_NUMBER;
+    hash=(53 * hash) + getMyShard();
+  }
+  if (hasLatestDataTime()) {
+    hash=(37 * hash) + LATESTDATATIME_FIELD_NUMBER;
+    hash=(53 * hash) + hashLong(getLatestDataTime());
+  }
+  if (hasServiceStartTime()) {
+    hash=(37 * hash) + SERVICESTARTTIME_FIELD_NUMBER;
+    hash=(53 * hash) + hashLong(getServiceStartTime());
+  }
+  if (hasServiceEndTime()) {
+    hash=(37 * hash) + SERVICEENDTIME_FIELD_NUMBER;
+    hash=(53 * hash) + hashLong(getServiceEndTime());
+  }
+  if (hasScannedSlices()) {
+    hash=(37 * hash) + SCANNEDSLICES_FIELD_NUMBER;
+    hash=(53 * hash) + getScannedSlices();
+  }
+  hash=(29 * hash) + getUnknownFields().hashCode();
+  memoizedHashCode=hash;
+  return hash;
+}

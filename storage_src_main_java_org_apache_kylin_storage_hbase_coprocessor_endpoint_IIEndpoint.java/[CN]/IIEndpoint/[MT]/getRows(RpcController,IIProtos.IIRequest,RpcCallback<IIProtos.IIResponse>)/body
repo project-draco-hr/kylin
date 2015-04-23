@@ -1,4 +1,5 @@
 {
+  this.serviceStartTime=System.currentTimeMillis();
   RegionScanner innerScanner=null;
   HRegion region=null;
   try {

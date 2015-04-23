@@ -47,6 +47,6 @@
     rowBuilder.setMeasures(ByteString.copyFrom(buffer,0,length));
     responseBuilder.addRows(rowBuilder.build());
   }
-  responseBuilder.setLatestDataTime(latestSliceTs);
+  responseBuilder.setStats(IIProtos.IIResponse.Stats.newBuilder().setLatestDataTime(latestSliceTs).setServiceStartTime(this.serviceStartTime).setServiceEndTime(System.currentTimeMillis()).setScannedSlices(iteratedSliceCount));
   return responseBuilder.build();
 }

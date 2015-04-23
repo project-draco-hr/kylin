@@ -1,0 +1,8 @@
+{
+  if (statsBuilder_ != null) {
+    return statsBuilder_.getMessageOrBuilder();
+  }
+ else {
+    return stats_;
+  }
+}

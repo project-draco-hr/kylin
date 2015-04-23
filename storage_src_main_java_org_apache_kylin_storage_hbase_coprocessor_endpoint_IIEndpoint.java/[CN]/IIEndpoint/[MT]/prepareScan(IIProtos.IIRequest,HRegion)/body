@@ -2,7 +2,6 @@
   Scan scan=new Scan();
   scan.addColumn(IIDesc.HBASE_FAMILY_BYTES,IIDesc.HBASE_QUALIFIER_BYTES);
   scan.addColumn(IIDesc.HBASE_FAMILY_BYTES,IIDesc.HBASE_DICTIONARY_BYTES);
-  int shard;
   if (request.hasTsRange()) {
     Range<Long> tsRange=(Range<Long>)SerializationUtils.deserialize(request.getTsRange().toByteArray());
     byte[] regionStartKey=region.getStartKey();
