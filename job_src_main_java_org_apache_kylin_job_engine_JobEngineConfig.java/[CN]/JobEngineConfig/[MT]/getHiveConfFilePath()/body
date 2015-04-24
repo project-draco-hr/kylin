@@ -1,0 +1,9 @@
+{
+  String hiveConfFile=(HIVE_CONF_FILENAME + ".xml");
+  File jobConfig=getJobConfig(hiveConfFile);
+  if (jobConfig == null || !jobConfig.exists()) {
+    logger.error("fail to locate " + HIVE_CONF_FILENAME + ".xml");
+    throw new RuntimeException("fail to locate " + HIVE_CONF_FILENAME + ".xml");
+  }
+  return OptionsHelper.convertToFileURL(jobConfig.getAbsolutePath());
+}

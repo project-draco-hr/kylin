@@ -1,6 +1,6 @@
 {
   StringBuilder sql=new StringBuilder();
-  File hadoopPropertiesFile=new File(engineConfig.getHadoopJobConfFilePath(intermediateTableDesc.getCapacity()));
+  File hadoopPropertiesFile=new File(engineConfig.getHiveConfFilePath());
   if (hadoopPropertiesFile.exists()) {
     DocumentBuilderFactory factory=DocumentBuilderFactory.newInstance();
     DocumentBuilder builder;
@@ -24,9 +24,6 @@ catch (    SAXException e) {
       throw new IOException(e);
     }
   }
-  sql.append("SET hive.exec.compress.output=true;").append("\n");
-  sql.append("SET hive.auto.convert.join.noconditionaltask = true;").append("\n");
-  sql.append("SET hive.auto.convert.join.noconditionaltask.size = 300000000;").append("\n");
   sql.append("INSERT OVERWRITE TABLE " + intermediateTableDesc.getTableName(jobUUID) + " "+ generateSelectDataStatement(intermediateTableDesc)+ ";").append("\n");
   return sql.toString();
 }
