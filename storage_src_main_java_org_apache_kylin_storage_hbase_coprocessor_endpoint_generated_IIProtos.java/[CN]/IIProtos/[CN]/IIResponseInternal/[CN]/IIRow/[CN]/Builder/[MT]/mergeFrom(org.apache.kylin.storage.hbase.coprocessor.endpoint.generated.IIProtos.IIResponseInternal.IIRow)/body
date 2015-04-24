@@ -1,0 +1,11 @@
+{
+  if (other == org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponseInternal.IIRow.getDefaultInstance())   return this;
+  if (other.hasColumns()) {
+    setColumns(other.getColumns());
+  }
+  if (other.hasMeasures()) {
+    setMeasures(other.getMeasures());
+  }
+  this.mergeUnknownFields(other.getUnknownFields());
+  return this;
+}

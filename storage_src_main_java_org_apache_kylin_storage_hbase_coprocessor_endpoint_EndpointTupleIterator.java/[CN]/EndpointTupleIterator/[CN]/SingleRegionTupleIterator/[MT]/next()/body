@@ -2,7 +2,7 @@
   if (!hasNext()) {
     throw new IllegalStateException("No more Tuple in the SingleRegionTupleIterator");
   }
-  IIProtos.IIResponse.IIRow currentRow=rows.get(index);
+  IIProtos.IIResponseInternal.IIRow currentRow=rows.get(index);
   byte[] columnsBytes=currentRow.getColumns().toByteArray();
   this.tableRecord.setBytes(columnsBytes,0,columnsBytes.length);
   if (currentRow.hasMeasures()) {

@@ -1,5 +1,5 @@
 {
-  IIProtos.IIResponse.Builder responseBuilder=IIProtos.IIResponse.newBuilder();
+  IIProtos.IIResponseInternal.Builder responseBuilder=IIProtos.IIResponseInternal.newBuilder();
   ClearTextDictionary clearTextDictionary=new ClearTextDictionary(recordInfo,type);
   RowKeyColumnIO rowKeyColumnIO=new RowKeyColumnIO(clearTextDictionary);
   final int byteFormLen=recordInfo.getByteFormLen();
@@ -22,12 +22,12 @@
       }
       final RawTableRecord rawTableRecord=iterator.next();
       decodeWithDictionary(recordBuffer,rawTableRecord,slice.getLocalDictionaries(),recordInfo,rowKeyColumnIO,type);
-      IIProtos.IIResponse.IIRow.Builder rowBuilder=IIProtos.IIResponse.IIRow.newBuilder().setColumns(ByteString.copyFrom(recordBuffer));
+      IIProtos.IIResponseInternal.IIRow.Builder rowBuilder=IIProtos.IIResponseInternal.IIRow.newBuilder().setColumns(ByteString.copyFrom(recordBuffer));
       responseBuilder.addRows(rowBuilder.build());
       totalSize+=byteFormLen;
     }
   }
   logger.info("Iterated Slices count: " + iteratedSliceCount);
-  responseBuilder.setStats(IIProtos.IIResponse.Stats.newBuilder().setLatestDataTime(latestSliceTs).setServiceStartTime(this.serviceStartTime).setServiceEndTime(System.currentTimeMillis()).setScannedSlices(iteratedSliceCount));
+  responseBuilder.setStats(IIProtos.IIResponseInternal.Stats.newBuilder().setLatestDataTime(latestSliceTs).setServiceStartTime(this.serviceStartTime).setServiceEndTime(System.currentTimeMillis()).setScannedSlices(iteratedSliceCount));
   return responseBuilder.build();
 }

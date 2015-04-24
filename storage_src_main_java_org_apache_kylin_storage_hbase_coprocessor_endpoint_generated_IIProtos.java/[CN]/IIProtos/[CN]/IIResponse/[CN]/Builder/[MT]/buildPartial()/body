@@ -2,25 +2,10 @@
   org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse result=new org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse(this);
   int from_bitField0_=bitField0_;
   int to_bitField0_=0;
-  if (rowsBuilder_ == null) {
-    if (((bitField0_ & 0x00000001) == 0x00000001)) {
-      rows_=java.util.Collections.unmodifiableList(rows_);
-      bitField0_=(bitField0_ & ~0x00000001);
-    }
-    result.rows_=rows_;
-  }
- else {
-    result.rows_=rowsBuilder_.build();
-  }
-  if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+  if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
     to_bitField0_|=0x00000001;
   }
-  if (statsBuilder_ == null) {
-    result.stats_=stats_;
-  }
- else {
-    result.stats_=statsBuilder_.build();
-  }
+  result.blob_=blob_;
   result.bitField0_=to_bitField0_;
   onBuilt();
   return result;

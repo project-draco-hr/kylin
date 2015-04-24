@@ -1,6 +1,6 @@
 {
   EndpointAggregationCache aggCache=new EndpointAggregationCache(aggregators);
-  IIProtos.IIResponse.Builder responseBuilder=IIProtos.IIResponse.newBuilder();
+  IIProtos.IIResponseInternal.Builder responseBuilder=IIProtos.IIResponseInternal.newBuilder();
   ClearTextDictionary clearTextDictionary=new ClearTextDictionary(recordInfo,type);
   RowKeyColumnIO rowKeyColumnIO=new RowKeyColumnIO(clearTextDictionary);
   byte[] recordBuffer=new byte[recordInfo.getByteFormLen()];
@@ -42,11 +42,11 @@
   logger.info("Iterated Slices count: " + iteratedSliceCount);
   for (  Map.Entry<AggrKey,MeasureAggregator[]> entry : aggCache.getAllEntries()) {
     AggrKey aggrKey=entry.getKey();
-    IIProtos.IIResponse.IIRow.Builder rowBuilder=IIProtos.IIResponse.IIRow.newBuilder().setColumns(ByteString.copyFrom(aggrKey.get(),aggrKey.offset(),aggrKey.length()));
+    IIProtos.IIResponseInternal.IIRow.Builder rowBuilder=IIProtos.IIResponseInternal.IIRow.newBuilder().setColumns(ByteString.copyFrom(aggrKey.get(),aggrKey.offset(),aggrKey.length()));
     int length=aggregators.serializeMetricValues(entry.getValue(),buffer);
     rowBuilder.setMeasures(ByteString.copyFrom(buffer,0,length));
     responseBuilder.addRows(rowBuilder.build());
   }
-  responseBuilder.setStats(IIProtos.IIResponse.Stats.newBuilder().setLatestDataTime(latestSliceTs).setServiceStartTime(this.serviceStartTime).setServiceEndTime(System.currentTimeMillis()).setScannedSlices(iteratedSliceCount));
+  responseBuilder.setStats(IIProtos.IIResponseInternal.Stats.newBuilder().setLatestDataTime(latestSliceTs).setServiceStartTime(this.serviceStartTime).setServiceEndTime(System.currentTimeMillis()).setScannedSlices(iteratedSliceCount));
   return responseBuilder.build();
 }

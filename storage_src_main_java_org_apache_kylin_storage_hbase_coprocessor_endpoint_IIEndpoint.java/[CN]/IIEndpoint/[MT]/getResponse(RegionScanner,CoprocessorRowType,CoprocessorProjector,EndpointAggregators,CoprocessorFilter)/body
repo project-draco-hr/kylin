@@ -1,6 +1,6 @@
 {
   TableRecordInfoDigest tableRecordInfoDigest=aggregators.getTableRecordInfoDigest();
-  IIProtos.IIResponse response;
+  IIProtos.IIResponseInternal response;
 synchronized (innerScanner) {
     IIKeyValueCodec codec=new IIKeyValueCodec(tableRecordInfoDigest);
     Iterable<Slice> slices=codec.decodeKeyValue(new HbaseServerKVIterator(innerScanner));

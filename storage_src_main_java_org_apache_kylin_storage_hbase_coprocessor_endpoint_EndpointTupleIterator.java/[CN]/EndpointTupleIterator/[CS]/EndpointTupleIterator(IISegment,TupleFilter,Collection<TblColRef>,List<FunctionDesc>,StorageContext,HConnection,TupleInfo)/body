@@ -35,17 +35,29 @@
     logger.info("The tsRange being pushed is " + RangeUtil.formatTsRange(tsRange));
   }
   IIProtos.IIRequest endpointRequest=prepareRequest();
-  Collection<IIProtos.IIResponse> shardResults=getResults(endpointRequest,table);
-  this.lastDataTime=Collections.min(Collections2.transform(shardResults,new Function<IIProtos.IIResponse,Long>(){
-    @Nullable @Override public Long apply(    IIProtos.IIResponse input){
-      IIProtos.IIResponse.Stats status=input.getStats();
+  Collection<IIProtos.IIResponse> compressedShardResults=getResults(endpointRequest,table);
+  Collection<IIProtos.IIResponseInternal> shardResults=Collections2.transform(compressedShardResults,new Function<IIProtos.IIResponse,IIProtos.IIResponseInternal>(){
+    @Nullable @Override public IIProtos.IIResponseInternal apply(    @Nullable IIProtos.IIResponse input){
+      byte[] compressed=input.getBlob().toByteArray();
+      try {
+        return IIProtos.IIResponseInternal.parseFrom(CompressionUtils.decompress(compressed));
+      }
+ catch (      Exception e) {
+        throw new RuntimeException("decompress endpoint response error");
+      }
+    }
+  }
+);
+  this.lastDataTime=Collections.min(Collections2.transform(shardResults,new Function<IIProtos.IIResponseInternal,Long>(){
+    @Nullable @Override public Long apply(    IIProtos.IIResponseInternal input){
+      IIProtos.IIResponseInternal.Stats status=input.getStats();
       logger.info("Endpoints all returned, stats from shard {}: start moment:{}, finish moment: {}, elapsed ms: {}, scanned slices: {}, latest slice time is {}",new Object[]{String.valueOf(status.getMyShard()),DateFormat.formatToTimeStr(status.getServiceStartTime()),DateFormat.formatToTimeStr(status.getServiceEndTime()),String.valueOf(status.getServiceEndTime() - status.getServiceStartTime()),String.valueOf(status.getScannedSlices()),DateFormat.formatToTimeStr(status.getLatestDataTime())});
       return status.getLatestDataTime();
     }
   }
 ));
-  this.regionResponsesIterator=Collections2.transform(shardResults,new Function<IIProtos.IIResponse,List<IIProtos.IIResponse.IIRow>>(){
-    @Nullable @Override public List<IIProtos.IIResponse.IIRow> apply(    @Nullable IIProtos.IIResponse input){
+  this.regionResponsesIterator=Collections2.transform(shardResults,new Function<IIProtos.IIResponseInternal,List<IIProtos.IIResponseInternal.IIRow>>(){
+    @Nullable @Override public List<IIProtos.IIResponseInternal.IIRow> apply(    @Nullable IIProtos.IIResponseInternal input){
       return input.getRowsList();
     }
   }

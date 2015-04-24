@@ -1,11 +1,6 @@
 {
-  if (!hasStats()) {
+  if (!hasBlob()) {
     return false;
-  }
-  for (int i=0; i < getRowsCount(); i++) {
-    if (!getRows(i).isInitialized()) {
-      return false;
-    }
   }
   return true;
 }

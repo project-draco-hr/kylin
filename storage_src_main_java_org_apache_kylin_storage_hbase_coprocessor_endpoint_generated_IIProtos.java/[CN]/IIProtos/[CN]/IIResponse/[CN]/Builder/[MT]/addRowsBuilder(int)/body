@@ -1,3 +1,0 @@
-{
-  return getRowsFieldBuilder().addBuilder(index,org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow.getDefaultInstance());
-}

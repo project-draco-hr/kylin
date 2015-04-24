@@ -1,0 +1,17 @@
+{
+  if (obj == this) {
+    return true;
+  }
+  if (!(obj instanceof org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponseInternal)) {
+    return super.equals(obj);
+  }
+  org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponseInternal other=(org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponseInternal)obj;
+  boolean result=true;
+  result=result && getRowsList().equals(other.getRowsList());
+  result=result && (hasStats() == other.hasStats());
+  if (hasStats()) {
+    result=result && getStats().equals(other.getStats());
+  }
+  result=result && getUnknownFields().equals(other.getUnknownFields());
+  return result;
+}

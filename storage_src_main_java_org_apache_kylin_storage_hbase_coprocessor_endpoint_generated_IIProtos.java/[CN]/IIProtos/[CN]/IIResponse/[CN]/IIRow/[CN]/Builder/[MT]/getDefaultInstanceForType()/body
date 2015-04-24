@@ -1,3 +1,0 @@
-{
-  return org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow.getDefaultInstance();
-}

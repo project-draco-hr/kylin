@@ -1,0 +1,9 @@
+{
+  if (other instanceof org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponseInternal) {
+    return mergeFrom((org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponseInternal)other);
+  }
+ else {
+    super.mergeFrom(other);
+    return this;
+  }
+}

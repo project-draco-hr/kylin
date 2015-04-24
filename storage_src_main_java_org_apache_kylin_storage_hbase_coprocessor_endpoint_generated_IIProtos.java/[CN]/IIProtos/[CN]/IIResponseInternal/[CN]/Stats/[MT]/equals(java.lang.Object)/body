@@ -1,0 +1,32 @@
+{
+  if (obj == this) {
+    return true;
+  }
+  if (!(obj instanceof org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponseInternal.Stats)) {
+    return super.equals(obj);
+  }
+  org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponseInternal.Stats other=(org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponseInternal.Stats)obj;
+  boolean result=true;
+  result=result && (hasMyShard() == other.hasMyShard());
+  if (hasMyShard()) {
+    result=result && (getMyShard() == other.getMyShard());
+  }
+  result=result && (hasLatestDataTime() == other.hasLatestDataTime());
+  if (hasLatestDataTime()) {
+    result=result && (getLatestDataTime() == other.getLatestDataTime());
+  }
+  result=result && (hasServiceStartTime() == other.hasServiceStartTime());
+  if (hasServiceStartTime()) {
+    result=result && (getServiceStartTime() == other.getServiceStartTime());
+  }
+  result=result && (hasServiceEndTime() == other.hasServiceEndTime());
+  if (hasServiceEndTime()) {
+    result=result && (getServiceEndTime() == other.getServiceEndTime());
+  }
+  result=result && (hasScannedSlices() == other.hasScannedSlices());
+  if (hasScannedSlices()) {
+    result=result && (getScannedSlices() == other.getScannedSlices());
+  }
+  result=result && getUnknownFields().equals(other.getUnknownFields());
+  return result;
+}

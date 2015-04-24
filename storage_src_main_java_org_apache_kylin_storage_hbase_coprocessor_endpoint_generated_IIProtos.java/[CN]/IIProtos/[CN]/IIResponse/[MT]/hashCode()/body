@@ -4,13 +4,9 @@
   }
   int hash=41;
   hash=(19 * hash) + getDescriptorForType().hashCode();
-  if (getRowsCount() > 0) {
-    hash=(37 * hash) + ROWS_FIELD_NUMBER;
-    hash=(53 * hash) + getRowsList().hashCode();
-  }
-  if (hasStats()) {
-    hash=(37 * hash) + STATS_FIELD_NUMBER;
-    hash=(53 * hash) + getStats().hashCode();
+  if (hasBlob()) {
+    hash=(37 * hash) + BLOB_FIELD_NUMBER;
+    hash=(53 * hash) + getBlob().hashCode();
   }
   hash=(29 * hash) + getUnknownFields().hashCode();
   memoizedHashCode=hash;

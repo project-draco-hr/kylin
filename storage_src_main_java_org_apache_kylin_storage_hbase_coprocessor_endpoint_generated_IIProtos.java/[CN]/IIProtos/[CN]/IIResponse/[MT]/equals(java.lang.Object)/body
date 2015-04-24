@@ -7,10 +7,9 @@
   }
   org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse other=(org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse)obj;
   boolean result=true;
-  result=result && getRowsList().equals(other.getRowsList());
-  result=result && (hasStats() == other.hasStats());
-  if (hasStats()) {
-    result=result && getStats().equals(other.getStats());
+  result=result && (hasBlob() == other.hasBlob());
+  if (hasBlob()) {
+    result=result && getBlob().equals(other.getBlob());
   }
   result=result && getUnknownFields().equals(other.getUnknownFields());
   return result;

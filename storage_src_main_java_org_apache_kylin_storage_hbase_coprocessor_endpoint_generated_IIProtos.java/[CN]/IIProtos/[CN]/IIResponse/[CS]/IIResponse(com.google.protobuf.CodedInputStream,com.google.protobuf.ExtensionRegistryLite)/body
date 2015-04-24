@@ -19,27 +19,10 @@ default :
     }
 case 10:
 {
-    if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-      rows_=new java.util.ArrayList<org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow>();
-      mutable_bitField0_|=0x00000001;
-    }
-    rows_.add(input.readMessage(org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.IIRow.PARSER,extensionRegistry));
+    bitField0_|=0x00000001;
+    blob_=input.readBytes();
     break;
   }
-case 18:
-{
-  org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.Stats.Builder subBuilder=null;
-  if (((bitField0_ & 0x00000001) == 0x00000001)) {
-    subBuilder=stats_.toBuilder();
-  }
-  stats_=input.readMessage(org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.Stats.PARSER,extensionRegistry);
-  if (subBuilder != null) {
-    subBuilder.mergeFrom(stats_);
-    stats_=subBuilder.buildPartial();
-  }
-  bitField0_|=0x00000001;
-  break;
-}
 }
 }
 }
@@ -50,9 +33,6 @@ catch (java.io.IOException e) {
 throw new com.google.protobuf.InvalidProtocolBufferException(e.getMessage()).setUnfinishedMessage(this);
 }
  finally {
-if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-rows_=java.util.Collections.unmodifiableList(rows_);
-}
 this.unknownFields=unknownFields.build();
 makeExtensionsImmutable();
 }
