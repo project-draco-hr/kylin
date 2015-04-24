@@ -9,7 +9,9 @@
     Collections.sort(allCuboids);
     msg="Total cuboid number: \t" + allCuboids.size();
     writeLine(out,msg);
-    long baseCuboidRow_max, baseCuboidRow_min, baseCuboidRow_avg;
+    msg="Avg samping ratio: \t" + averageSamplingRatio;
+    writeLine(out,msg);
+    writeLine(out,"The following statistics are collected based sampling data, not all data (only if samping ratio = 1).");
     for (int i=0; i < baseCuboidRowCountInMappers.size(); i++) {
       if (baseCuboidRowCountInMappers.get(i) > 0) {
         msg="Base Cuboid in Mapper " + i + " row count: \t "+ baseCuboidRowCountInMappers.get(i);

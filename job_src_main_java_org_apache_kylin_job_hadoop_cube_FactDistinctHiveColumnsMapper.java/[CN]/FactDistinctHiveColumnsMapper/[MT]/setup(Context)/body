@@ -5,6 +5,7 @@
   rowArray=new ArrayList<String>(schema.getFields().size());
   collectStatistics=Boolean.parseBoolean(context.getConfiguration().get(BatchConstants.CFG_STATISTICS_ENABLED));
   if (collectStatistics) {
+    MAX_SAMPING_COUNT=Integer.parseInt(context.getConfiguration().get(BatchConstants.CFG_STATISTICS_SAMPLING_MAX,"100000"));
     cuboidScheduler=new CuboidScheduler(cubeDesc);
     nRowKey=cubeDesc.getRowkey().getRowKeyColumns().length;
     List<Long> cuboidIdList=Lists.newArrayList();
@@ -16,6 +17,6 @@
     for (int i=0; i < cuboidIds.length; i++) {
       allCuboidsHLL[i]=new HyperLogLogPlusCounter(16);
     }
-    bitSetIterator=new BitSetIterator();
+    hf=Hashing.md5();
   }
 }

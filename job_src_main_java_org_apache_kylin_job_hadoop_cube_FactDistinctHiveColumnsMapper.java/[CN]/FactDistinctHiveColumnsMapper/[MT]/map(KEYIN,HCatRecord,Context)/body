@@ -14,7 +14,8 @@
  catch (  Exception ex) {
     handleErrorRecord(record,ex);
   }
-  if (collectStatistics) {
+  if (collectStatistics && rowCount < MAX_SAMPING_COUNT) {
     putRowKeyToHLL(rowArray);
   }
+  rowCount++;
 }

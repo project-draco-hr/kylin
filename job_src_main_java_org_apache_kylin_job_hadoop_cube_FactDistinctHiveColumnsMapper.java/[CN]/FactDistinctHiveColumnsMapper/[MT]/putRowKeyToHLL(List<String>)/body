@@ -1,8 +1,10 @@
 {
-  bitSetIterator.array=row;
   for (int i=0, n=allCuboidsBitSet.length; i < n; i++) {
-    bitSetIterator.bitSet=allCuboidsBitSet[i];
-    bitSetIterator.currentPosition=0;
-    allCuboidsHLL[i].add(StringUtils.join(bitSetIterator,","));
+    Hasher hc=hf.newHasher();
+    for (int position=0; position < allCuboidsBitSet[i].length; position++) {
+      hc.putString(row.get(allCuboidsBitSet[i][position]));
+      hc.putString(",");
+    }
+    allCuboidsHLL[i].add(hc.hash().asBytes());
   }
 }

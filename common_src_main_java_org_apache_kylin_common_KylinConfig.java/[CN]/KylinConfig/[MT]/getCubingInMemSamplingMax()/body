@@ -1,0 +1,3 @@
+{
+  return Integer.parseInt(this.getOptional(KYLIN_JOB_CUBING_IN_MEM_SAMPLING_MAX,"100000"));
+}
