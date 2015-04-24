@@ -5,6 +5,6 @@
     return SERIALIZER.deserialize(new DataInputStream(new ByteArrayInputStream(baos.toByteArray())));
   }
  catch (  IOException e) {
-    return null;
+    throw new RuntimeException(e);
   }
 }
