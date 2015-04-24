@@ -1,0 +1,7 @@
+IISegment segment
+TupleFilter rootFilter
+Collection<TblColRef> groupBy
+List<FunctionDesc> measures
+StorageContext context
+HConnection conn
+TupleInfo returnTupleInfo

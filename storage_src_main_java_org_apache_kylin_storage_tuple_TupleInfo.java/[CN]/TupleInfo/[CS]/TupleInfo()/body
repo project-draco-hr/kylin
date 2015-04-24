@@ -3,4 +3,5 @@
   columnMap=new HashMap<TblColRef,Integer>();
   fields=new ArrayList<String>();
   columns=new ArrayList<TblColRef>();
+  dataTypeNames=new ArrayList<String>();
 }

@@ -2,5 +2,5 @@
   this.rows=rows;
   this.index=0;
   this.tableRecord=tableRecordInfo.createTableRecord();
-  rowKeyColumnIO=new RowKeyColumnIO(new ClearTextDictionary(tableRecordInfo));
+  this.tuple=new Tuple(tupleInfo);
 }

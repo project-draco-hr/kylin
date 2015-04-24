@@ -1,0 +1,11 @@
+{
+  String tableName=seg.getStorageLocationIdentifier();
+  @SuppressWarnings("deprecation") HConnection conn=HBaseConnection.get(context.getConnUrl());
+  try {
+    return new EndpointTupleIterator(seg,sqlDigest.filter,sqlDigest.groupbyColumns,new ArrayList<>(sqlDigest.aggregations),context,conn,returnTupleInfo);
+  }
+ catch (  Throwable e) {
+    logger.error("Error when connecting to II htable " + tableName,e);
+    throw new IllegalStateException("Error when connecting to II htable " + tableName,e);
+  }
+}

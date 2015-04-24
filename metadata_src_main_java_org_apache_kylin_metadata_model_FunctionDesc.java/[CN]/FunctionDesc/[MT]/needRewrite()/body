@@ -1,3 +1,3 @@
 {
-  return !isSum() && !isHolisticCountDistinct() && !isDimensionAsMetric();
+  return !isSum() && !isDimensionAsMetric();
 }

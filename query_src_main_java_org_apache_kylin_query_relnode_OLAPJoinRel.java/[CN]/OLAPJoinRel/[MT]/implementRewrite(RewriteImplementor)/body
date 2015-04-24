@@ -18,6 +18,5 @@
     fieldInfo.addAll(newFieldList);
     this.rowType=getCluster().getTypeFactory().createStructType(fieldInfo);
     this.columnRowType=this.buildColumnRowType();
-    this.context.setReturnTupleInfo(rowType,columnRowType);
   }
 }

@@ -17,8 +17,6 @@
   assertEquals(30,encodedKey.length);
   RowKeyDecoder rowKeyDecoder=new RowKeyDecoder(cube.getFirstSegment());
   rowKeyDecoder.decode(encodedKey);
-  List<String> names=rowKeyDecoder.getNames(null);
   List<String> values=rowKeyDecoder.getValues();
-  assertEquals("[CAL_DT, LEAF_CATEG_ID, META_CATEG_NAME, CATEG_LVL2_NAME, CATEG_LVL3_NAME, LSTG_FORMAT_NAME, LSTG_SITE_ID, SLR_SEGMENT_CD]",names.toString());
   assertEquals("[2012-12-15, 11848, Health & Beauty, Fragrances, Women, ????????????, 0, 15]",values.toString());
 }

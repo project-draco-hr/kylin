@@ -1,0 +1,23 @@
+{
+  for (int i=0; i < columnTupleIdx.length; i++) {
+    int tupleIdx=columnTupleIdx[i];
+    if (tupleIdx >= 0) {
+      String value=tableRecord.getValueString(i);
+      tuple.setDimensionValue(tupleIdx,value);
+    }
+  }
+  if (measureValues != null) {
+    for (int i=0; i < aggrTupleIdx.length; ++i) {
+      int tupleIdx=aggrTupleIdx[i];
+      if (tupleIdx >= 0) {
+        Object value=measureValues.get(i);
+        if (value instanceof String) {
+          String dataType=tuple.getDataTypeName(tupleIdx);
+          value=Tuple.convertOptiqCellValue((String)value,dataType);
+        }
+        tuple.setMeasureValue(tupleIdx,value);
+      }
+    }
+  }
+  return tuple;
+}

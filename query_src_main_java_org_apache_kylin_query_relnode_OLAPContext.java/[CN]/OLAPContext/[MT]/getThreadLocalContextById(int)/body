@@ -1,3 +1,4 @@
 {
-  return _localContexts.get().get(id);
+  Map<Integer,OLAPContext> map=_localContexts.get();
+  return map.get(id);
 }

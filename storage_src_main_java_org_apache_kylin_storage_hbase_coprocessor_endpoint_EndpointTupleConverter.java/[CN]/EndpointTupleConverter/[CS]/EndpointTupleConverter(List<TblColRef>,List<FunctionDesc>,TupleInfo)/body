@@ -1,0 +1,23 @@
+{
+  this.tupleInfo=returnTupleInfo;
+  this.columns=columns;
+  this.columnTupleIdx=new int[columns.size()];
+  this.aggrTupleIdx=new int[aggrMeasures.size()];
+  for (int i=0; i < columns.size(); i++) {
+    TblColRef col=columns.get(i);
+    columnTupleIdx[i]=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
+  }
+  for (int i=0; i < aggrMeasures.size(); i++) {
+    FunctionDesc measure=aggrMeasures.get(i);
+    int tupleIdx;
+    if (measure.needRewrite()) {
+      String rewriteFieldName=measure.getRewriteFieldName();
+      tupleIdx=tupleInfo.hasField(rewriteFieldName) ? tupleInfo.getFieldIndex(rewriteFieldName) : -1;
+    }
+ else {
+      TblColRef col=measure.getParameter().getColRefs().get(0);
+      tupleIdx=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
+    }
+    aggrTupleIdx[i]=tupleIdx;
+  }
+}

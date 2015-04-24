@@ -10,5 +10,5 @@
     this.measureValues=pushedDownAggregators.deserializeMetricValues(measuresBytes,0);
   }
   index++;
-  return makeTuple(this.tableRecord,this.measureValues);
+  return tupleConverter.makeTuple(this.tableRecord,this.measureValues,this.tuple);
 }

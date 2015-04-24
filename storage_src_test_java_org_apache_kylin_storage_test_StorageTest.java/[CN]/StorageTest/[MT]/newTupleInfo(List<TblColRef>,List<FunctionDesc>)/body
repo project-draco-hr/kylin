@@ -1,0 +1,13 @@
+{
+  TupleInfo info=new TupleInfo();
+  int idx=0;
+  for (  TblColRef col : groups) {
+    info.setField(col.getName(),col,idx++);
+  }
+  TableDesc sourceTable=groups.get(0).getColumn().getTable();
+  for (  FunctionDesc func : aggregations) {
+    TblColRef col=new TblColRef(func.newFakeRewriteColumn(sourceTable));
+    info.setField(col.getName(),col,idx++);
+  }
+  return info;
+}

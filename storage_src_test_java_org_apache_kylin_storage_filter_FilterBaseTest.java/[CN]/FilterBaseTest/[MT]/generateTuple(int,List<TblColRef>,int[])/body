@@ -3,7 +3,7 @@
   TupleInfo info=new TupleInfo();
   for (int i=0; i < columns.size(); i++) {
     TblColRef column=columns.get(i);
-    info.setField(column.getName(),column,column.getDatatype(),i);
+    info.setField(column.getName(),column,i);
   }
   int allMatches=0;
   Random rand=new Random();

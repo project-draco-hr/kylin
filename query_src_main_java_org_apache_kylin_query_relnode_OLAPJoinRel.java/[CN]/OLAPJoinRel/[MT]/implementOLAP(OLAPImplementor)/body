@@ -21,7 +21,6 @@
   }
   if (!this.hasSubQuery) {
     this.context.allColumns.clear();
-    this.context.setReturnTupleInfo(getRowType(),getColumnRowType());
     RexCall condition=(RexCall)this.getCondition();
     JoinDesc join=buildJoin(condition);
     JoinRelType joinRelType=this.getJoinType();
