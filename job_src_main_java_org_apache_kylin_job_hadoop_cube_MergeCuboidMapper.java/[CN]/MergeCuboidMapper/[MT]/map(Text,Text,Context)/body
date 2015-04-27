@@ -17,8 +17,14 @@
         System.arraycopy(oldBuf,0,newKeyBuf,0,oldBuf.length);
       }
       int idInSourceDict=BytesUtil.readUnsigned(splittedByteses[i + 1].value,0,splittedByteses[i + 1].length);
+      int idInMergedDict;
       int size=sourceDict.getValueBytesFromId(idInSourceDict,newKeyBuf,bufOffset);
-      int idInMergedDict=mergedDict.getIdFromValueBytes(newKeyBuf,bufOffset,size);
+      if (size < 0) {
+        idInMergedDict=mergedDict.nullId();
+      }
+ else {
+        idInMergedDict=mergedDict.getIdFromValueBytes(newKeyBuf,bufOffset,size);
+      }
       BytesUtil.writeUnsigned(idInMergedDict,newKeyBuf,bufOffset,mergedDict.getSizeOfId());
       bufOffset+=mergedDict.getSizeOfId();
     }
