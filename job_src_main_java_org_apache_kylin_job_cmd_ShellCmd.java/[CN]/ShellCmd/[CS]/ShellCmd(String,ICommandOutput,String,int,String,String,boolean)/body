@@ -1,0 +1,7 @@
+{
+  this.executeCommand=executeCmd;
+  this.output=out;
+  this.cliCommandExecutor=new CliCommandExecutor();
+  this.cliCommandExecutor.setRunAtRemote(host,port,user,password);
+  this.isAsync=async;
+}

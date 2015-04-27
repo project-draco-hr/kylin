@@ -1,7 +1,7 @@
 {
   CliCommandExecutor exec=new CliCommandExecutor();
   if (getRunAsRemoteCommand()) {
-    exec.setRunAtRemote(getRemoteHadoopCliHostname(),getRemoteHadoopCliUsername(),getRemoteHadoopCliPassword());
+    exec.setRunAtRemote(getRemoteHadoopCliHostname(),getRemoteHadoopCliPort(),getRemoteHadoopCliUsername(),getRemoteHadoopCliPassword());
   }
   return exec;
 }

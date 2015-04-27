@@ -1,0 +1,3 @@
+{
+  this(executeCmd,new ShellCmdOutput(),host,port,user,password,async);
+}
