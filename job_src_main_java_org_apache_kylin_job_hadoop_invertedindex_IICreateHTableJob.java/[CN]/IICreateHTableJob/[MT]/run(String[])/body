@@ -16,6 +16,7 @@
     cf.setDataBlockEncoding(DataBlockEncoding.FAST_DIFF);
     tableDesc.addFamily(cf);
     tableDesc.setValue(IRealizationConstants.HTableTag,config.getMetadataUrlPrefix());
+    tableDesc.setValue(HTableDescriptor.SPLIT_POLICY,DisabledRegionSplitPolicy.class.getName());
     Configuration conf=HBaseConfiguration.create(getConf());
     if (User.isHBaseSecurityEnabled(conf)) {
       tableDesc.addCoprocessor("org.apache.hadoop.hbase.security.access.SecureBulkLoadEndpoint");

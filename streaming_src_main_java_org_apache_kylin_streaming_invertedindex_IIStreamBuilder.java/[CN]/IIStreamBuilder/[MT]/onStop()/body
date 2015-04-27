@@ -1,0 +1,8 @@
+{
+  try {
+    this.hTable.close();
+  }
+ catch (  IOException e) {
+    logger.error("onStop throw exception",e);
+  }
+}

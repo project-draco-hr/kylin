@@ -5,7 +5,7 @@
     while (true) {
       StreamMessage streamMessage;
       try {
-        streamMessage=streamMessageQueue.poll(10,TimeUnit.SECONDS);
+        streamMessage=streamMessageQueue.poll(30,TimeUnit.SECONDS);
       }
  catch (      InterruptedException e) {
         logger.warn("stream queue interrupted",e);
@@ -22,6 +22,7 @@
       }
  else {
         if (streamMessage.getOffset() < 0) {
+          onStop();
           logger.warn("streaming encountered EOF, stop building");
           break;
         }
