@@ -1,4 +1,4 @@
 {
-  if (isNullId(id))   return 0;
+  if (isNullId(id))   return -1;
  else   return getValueBytesFromIdImpl(id,returnValue,offset);
 }
