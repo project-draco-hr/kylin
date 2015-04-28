@@ -11,5 +11,5 @@
   }
 ;
   byte[] mask=rowKeyMaskEncoder.encode(new byte[cuboid.getColumns().size()][]);
-  return new CoprocessorProjector(mask);
+  return new CoprocessorProjector(mask,dimensionColumns.size() != 0);
 }

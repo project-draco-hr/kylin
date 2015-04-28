@@ -1,6 +1,6 @@
 {
   CoprocessorRowType rowType=newRowType();
-  CoprocessorProjector projector=new CoprocessorProjector(mask);
+  CoprocessorProjector projector=new CoprocessorProjector(mask,true);
   ObserverAggregators aggregators=new ObserverAggregators(new HCol[]{});
   CoprocessorFilter filter=CoprocessorFilter.deserialize(null);
   HashSet<String> expectedResult=new HashSet<String>();

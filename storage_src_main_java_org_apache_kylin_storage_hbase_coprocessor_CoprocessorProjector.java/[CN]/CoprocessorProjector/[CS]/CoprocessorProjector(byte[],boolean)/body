@@ -1,4 +1,5 @@
 {
   this.groupByMask=groupByMask;
   this.aggrKey=new AggrKey(groupByMask);
+  this.hasGroupby=hasGroupby;
 }

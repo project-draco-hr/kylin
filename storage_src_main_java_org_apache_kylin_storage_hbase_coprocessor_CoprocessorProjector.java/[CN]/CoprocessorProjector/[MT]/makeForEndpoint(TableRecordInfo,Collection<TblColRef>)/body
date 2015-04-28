@@ -9,5 +9,5 @@
       mask[maskIdx++]=bits;
     }
   }
-  return new CoprocessorProjector(mask);
+  return new CoprocessorProjector(mask,groupby.size() != 0);
 }

@@ -1,4 +1,5 @@
 {
   byte[] mask=BytesUtil.readByteArray(in);
-  return new CoprocessorProjector(mask);
+  boolean hasGroupBy=BytesUtil.readVInt(in) == 1;
+  return new CoprocessorProjector(mask,hasGroupBy);
 }
