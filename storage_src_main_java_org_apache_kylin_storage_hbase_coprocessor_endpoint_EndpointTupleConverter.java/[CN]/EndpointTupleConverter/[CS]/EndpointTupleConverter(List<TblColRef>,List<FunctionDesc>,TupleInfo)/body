@@ -10,7 +10,10 @@
   for (int i=0; i < aggrMeasures.size(); i++) {
     FunctionDesc measure=aggrMeasures.get(i);
     int tupleIdx;
-    if (measure.needRewrite()) {
+    if (measure.isDimensionAsMetric()) {
+      tupleIdx=-1;
+    }
+ else     if (measure.needRewrite()) {
       String rewriteFieldName=measure.getRewriteFieldName();
       tupleIdx=tupleInfo.hasField(rewriteFieldName) ? tupleInfo.getFieldIndex(rewriteFieldName) : -1;
     }
