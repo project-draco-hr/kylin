@@ -1,5 +1,5 @@
 {
-  boolean hasGroupby=projector.hasGroupby();
+  boolean needAgg=projector.hasGroupby() || !aggregators.isEmpty();
   EndpointAggregationCache aggCache=new EndpointAggregationCache(aggregators);
   final int byteFormLen=recordInfo.getByteFormLen();
   int totalByteFormLen=0;
@@ -36,7 +36,7 @@
     while (iterator.hasNext()) {
       final RawTableRecord rawTableRecord=iterator.next();
       decodeWithDictionary(recordBuffer,rawTableRecord,localDictionaries,recordInfo,rowKeyColumnIO,type);
-      if (hasGroupby) {
+      if (needAgg) {
         AggrKey aggKey=projector.getAggrKey(recordBuffer);
         MeasureAggregator[] bufs=aggCache.getBuffer(aggKey);
         aggregators.aggregate(bufs,recordBuffer);
@@ -53,7 +53,7 @@
     }
   }
   logger.info("Iterated Slices count: " + iteratedSliceCount);
-  if (hasGroupby) {
+  if (needAgg) {
     for (    Map.Entry<AggrKey,MeasureAggregator[]> entry : aggCache.getAllEntries()) {
       AggrKey aggrKey=entry.getKey();
       IIProtos.IIResponseInternal.IIRow.Builder rowBuilder=IIProtos.IIResponseInternal.IIRow.newBuilder().setColumns(ByteString.copyFrom(aggrKey.get(),aggrKey.offset(),aggrKey.length()));
