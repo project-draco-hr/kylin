@@ -8,7 +8,6 @@
   this.sortOrders=new ArrayList<OrderEnum>();
   this.sortMeasures=new ArrayList<MeasureDesc>();
   this.exactAggregation=false;
-  this.otherMandatoryColumns=new HashSet<TblColRef>();
   this.enableLimit=false;
   this.enableCoprocessor=false;
   this.acceptPartialResult=false;
