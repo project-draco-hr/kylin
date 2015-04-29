@@ -2,7 +2,11 @@
   MeasureAggregator[] aggBuf=aggBufMap.get(aggkey);
   if (aggBuf == null) {
     aggBuf=createBuffer();
-    aggBufMap.put(aggkey.copy(),aggBuf);
+    AggrKey key=aggkey.copy();
+    aggBufMap.put(key,aggBuf);
+    if (firstKey == null) {
+      firstKey=key;
+    }
   }
   return aggBuf;
 }

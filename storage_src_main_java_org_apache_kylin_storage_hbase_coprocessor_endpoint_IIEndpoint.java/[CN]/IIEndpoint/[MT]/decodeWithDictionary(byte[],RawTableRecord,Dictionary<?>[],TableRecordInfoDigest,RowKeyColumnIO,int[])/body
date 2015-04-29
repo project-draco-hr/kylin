@@ -1,0 +1,19 @@
+{
+  final boolean[] isMetric=digest.isMetrics();
+  final boolean emptyDictionary=Array.isEmpty(localDictionaries);
+  for (int i=0; i < finalColumnLengths.length; i++) {
+    if (isMetric[i]) {
+      rowKeyColumnIO.writeColumnWithoutDictionary(encodedRecord.getBytes(),encodedRecord.offset(i),encodedRecord.length(i),recordBuffer,digest.offset(i),finalColumnLengths[i]);
+    }
+ else {
+      if (emptyDictionary) {
+        rowKeyColumnIO.writeColumnWithoutDictionary(encodedRecord.getBytes(),encodedRecord.offset(i),encodedRecord.length(i),recordBuffer,digest.offset(i),finalColumnLengths[i]);
+      }
+ else {
+        final Dictionary<?> localDictionary=localDictionaries[i];
+        final byte[] valueBytesFromId=localDictionary.getValueBytesFromId(encodedRecord.getValueID(i));
+        rowKeyColumnIO.writeColumnWithoutDictionary(valueBytesFromId,0,valueBytesFromId.length,recordBuffer,digest.offset(i),finalColumnLengths[i]);
+      }
+    }
+  }
+}

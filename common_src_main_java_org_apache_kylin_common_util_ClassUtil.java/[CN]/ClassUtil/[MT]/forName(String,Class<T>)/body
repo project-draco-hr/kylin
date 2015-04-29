@@ -2,5 +2,10 @@
   if (name.startsWith("com.kylinolap")) {
     name="org.apache.kylin" + name.substring("com.kylinolap".length());
   }
-  return (Class<? extends T>)Class.forName(name);
+  if (forNameCache.containsKey(name)) {
+    return (Class<? extends T>)forNameCache.get(name);
+  }
+  Class<?> ret=Class.forName(name);
+  forNameCache.put(name,ret);
+  return (Class<? extends T>)ret;
 }

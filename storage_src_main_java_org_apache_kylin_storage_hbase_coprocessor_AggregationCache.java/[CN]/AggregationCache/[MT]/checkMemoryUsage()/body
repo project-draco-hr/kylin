@@ -1,8 +1,9 @@
 {
+  if (firstKey == null)   return;
   if (rowMemBytes <= 0) {
     if (aggBufMap.size() > 0) {
       rowMemBytes=0;
-      MeasureAggregator[] measureAggregators=aggBufMap.get(aggBufMap.firstKey());
+      MeasureAggregator[] measureAggregators=aggBufMap.get(firstKey);
       for (      MeasureAggregator agg : measureAggregators) {
         rowMemBytes+=agg.getMemBytes();
       }

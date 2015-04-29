@@ -3,4 +3,4 @@ RawTableRecord encodedRecord
 Dictionary<?>[] localDictionaries
 TableRecordInfoDigest digest
 RowKeyColumnIO rowKeyColumnIO
-CoprocessorRowType coprocessorRowType
+int[] finalColumnLengths

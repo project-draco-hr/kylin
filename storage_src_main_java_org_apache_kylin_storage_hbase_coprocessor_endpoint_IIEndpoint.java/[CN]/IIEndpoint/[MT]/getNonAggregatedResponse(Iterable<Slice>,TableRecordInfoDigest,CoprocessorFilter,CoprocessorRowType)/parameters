@@ -1,4 +1,0 @@
-Iterable<Slice> slices
-TableRecordInfoDigest recordInfo
-CoprocessorFilter filter
-CoprocessorRowType type

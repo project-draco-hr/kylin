@@ -1,5 +1,4 @@
 {
-  AggrKey copy=new AggrKey(this.groupByMask,this.groupByMaskSet);
-  copy.set(copyBytes(),0);
+  AggrKey copy=new AggrKey(this.groupByMask,this.groupByMaskSet,copyBytes(),0,this.hashcode);
   return copy;
 }

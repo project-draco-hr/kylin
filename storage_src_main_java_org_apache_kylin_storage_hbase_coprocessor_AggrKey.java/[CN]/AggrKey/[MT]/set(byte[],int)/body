@@ -1,4 +1,5 @@
 {
   this.data=data;
   this.offset=offset;
+  this.hashcode=calculateHash();
 }

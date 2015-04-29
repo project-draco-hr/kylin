@@ -16,7 +16,6 @@
     final Dictionary<?>[] localDictionaries=slice.getLocalDictionaries();
     CoprocessorFilter newFilter;
     final boolean emptyDictionary=Array.isEmpty(localDictionaries);
-    logger.info("empty dictionary:" + emptyDictionary);
     if (emptyDictionary) {
       newFilter=filter;
     }
@@ -33,9 +32,14 @@
       result=new BitMapFilterEvaluator(new SliceBitMapProvider(slice,type)).evaluate(newFilter.getFilter());
     }
     Iterator<RawTableRecord> iterator=slice.iterateWithBitmap(result);
+    TblColRef[] columns=type.columns;
+    int[] finalColumnLength=new int[columns.length];
+    for (int i=0; i < columns.length; ++i) {
+      finalColumnLength[i]=rowKeyColumnIO.getColumnLength(columns[i]);
+    }
     while (iterator.hasNext()) {
       final RawTableRecord rawTableRecord=iterator.next();
-      decodeWithDictionary(recordBuffer,rawTableRecord,localDictionaries,recordInfo,rowKeyColumnIO,type);
+      decodeWithDictionary(recordBuffer,rawTableRecord,localDictionaries,recordInfo,rowKeyColumnIO,finalColumnLength);
       if (needAgg) {
         AggrKey aggKey=projector.getAggrKey(recordBuffer);
         MeasureAggregator[] bufs=aggCache.getBuffer(aggKey);
