@@ -1,7 +1,4 @@
 {
-  String hiveDataType=sqlToHiveDataTypeMapping.get(javaDataType.toLowerCase());
-  if (hiveDataType == null) {
-    hiveDataType=javaDataType;
-  }
+  String hiveDataType=javaDataType.toLowerCase().startsWith("varchar") ? "string" : javaDataType;
   return hiveDataType.toLowerCase();
 }
