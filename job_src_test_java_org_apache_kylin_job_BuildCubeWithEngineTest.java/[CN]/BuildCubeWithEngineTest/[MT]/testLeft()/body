@@ -1,4 +1,4 @@
 {
-  String[] testCase=new String[]{"testLeftJoinCube"};
+  String[] testCase=new String[]{"testLeftJoinCube","testLeftJoinCube2"};
   runTestAndAssertSucceed(testCase);
 }

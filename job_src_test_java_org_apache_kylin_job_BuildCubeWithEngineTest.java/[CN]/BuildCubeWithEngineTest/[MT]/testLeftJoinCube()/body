@@ -4,7 +4,7 @@
   SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd");
   f.setTimeZone(TimeZone.getTimeZone("GMT"));
   long dateStart=cubeManager.getCube(cubeName).getDescriptor().getModel().getPartitionDesc().getPartitionDateStart();
-  long dateEnd=f.parse("2012-12-31").getTime();
+  long dateEnd=f.parse("2050-11-12").getTime();
   List<String> result=Lists.newArrayList();
   result.add(buildSegment(cubeName,dateStart,dateEnd));
   return result;
