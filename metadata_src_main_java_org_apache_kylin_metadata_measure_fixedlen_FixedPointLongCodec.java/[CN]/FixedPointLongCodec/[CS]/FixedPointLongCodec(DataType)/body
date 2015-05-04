@@ -1,5 +1,4 @@
 {
   this.type=type;
   this.scale=Math.max(0,type.getScale());
-  this.scalePower=new BigDecimal((long)Math.pow(10,scale));
 }

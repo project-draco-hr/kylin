@@ -26,8 +26,8 @@
     precision=256;
   }
   if ((name.equals("decimal") || name.equals("numeric")) && precision == -1) {
-    precision=39;
-    scale=16;
+    precision=19;
+    scale=4;
   }
   if (isHLLC() && HLLC_PRECISIONS.contains(precision) == false)   throw new IllegalArgumentException("HLLC precision must be one of " + HLLC_PRECISIONS);
 }

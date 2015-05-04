@@ -1,5 +1,5 @@
 {
   if (value == null)   current.set(0L);
- else   current.set((new BigDecimal(value).multiply(scalePower).longValue()));
+ else   current.set(getValueIgnoringDecimalPoint(value));
   return current;
 }
