@@ -1,4 +1,5 @@
 {
   String hiveDataType=javaDataType.toLowerCase().startsWith("varchar") ? "string" : javaDataType;
+  hiveDataType=javaDataType.toLowerCase().startsWith("integer") ? "int" : hiveDataType;
   return hiveDataType.toLowerCase();
 }
