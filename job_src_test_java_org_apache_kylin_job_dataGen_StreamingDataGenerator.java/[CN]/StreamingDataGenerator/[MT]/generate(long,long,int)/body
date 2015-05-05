@@ -2,14 +2,14 @@
   final KylinConfig config=KylinConfig.getInstanceFromEnv();
   final IIInstance ii=IIManager.getInstance(config).getII("test_streaming_table");
   final IIDesc iiDesc=ii.getDescriptor();
-  final MetadataManager metadataManager=MetadataManager.getInstance(config);
-  final ColumnDesc[] columnDescs=metadataManager.getTableDesc(iiDesc.getFactTableName()).getColumns();
-  return new Iterator<List<String>>(){
-    private Map<String,String> values=Maps.newHashMap();
+  final List<TblColRef> columns=iiDesc.listAllColumns();
+  return new Iterator<String>(){
+    private Map<String,String> values=Maps.newTreeMap(String.CASE_INSENSITIVE_ORDER);
+    private int index=0;
     @Override public boolean hasNext(){
-      return false;
+      return this.index < count;
     }
-    @Override public List<String> next(){
+    @Override public String next(){
       values.clear();
       long ts=this.createTs(start,end);
       values.put("ts",Long.toString(ts));
@@ -19,15 +19,19 @@
       values.put("site",Integer.toString(random.nextInt(5)));
       values.put("gmv",String.format(decimalFormat[random.nextInt(3)],random.nextFloat() * 100));
       values.put("item_count",Integer.toString(random.nextInt(5)));
-      if (values.size() != columnDescs.length) {
+      if (values.size() != columns.size()) {
         throw new RuntimeException("the structure of streaming table has changed, need to modify generator too");
       }
-      List<String> ret=Lists.newArrayList();
-      for (      ColumnDesc columnDesc : columnDescs) {
-        String name=columnDesc.getName();
-        ret.add(values.get(name));
+      ByteArrayOutputStream os=new ByteArrayOutputStream();
+      try {
+        JsonUtil.writeValue(os,values);
       }
-      return ret;
+ catch (      IOException e) {
+        e.printStackTrace();
+        throw new RuntimeException(e);
+      }
+      index++;
+      return new String(os.toByteArray());
     }
     @Override public void remove(){
     }

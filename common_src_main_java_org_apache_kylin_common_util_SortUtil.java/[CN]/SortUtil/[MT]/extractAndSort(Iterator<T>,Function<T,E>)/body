@@ -1,0 +1,9 @@
+{
+  TreeMultimap<E,T> reorgnized=TreeMultimap.create();
+  while (input.hasNext()) {
+    T t=input.next();
+    E e=extractor.apply(t);
+    reorgnized.put(e,t);
+  }
+  return reorgnized.values().iterator();
+}
