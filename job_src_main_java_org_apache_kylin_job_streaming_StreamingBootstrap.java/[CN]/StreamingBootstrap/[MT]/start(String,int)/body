@@ -21,7 +21,7 @@
   logger.info("offset from KafkaRequester is " + earliestOffset);
   streamingOffset=Math.max(streamingOffset,earliestOffset);
   logger.info("starting offset is " + streamingOffset);
-  IICreateHTableJob.main(new String[]{"-iiname","nous_ii","-htablename","KYLIN_2SKJ8JNOUS"});
+  IICreateHTableJob.main(new String[]{"-iiname",kafkaConfig.getIiName(),"-htablename",iiSegment.getStorageLocationIdentifier()});
   KafkaConsumer consumer=new KafkaConsumer(kafkaConfig.getTopic(),partitionId,streamingOffset,kafkaConfig.getBrokers(),kafkaConfig,parallelism);
   kafkaConsumers.put(getKey(streaming,partitionId),consumer);
   StreamParser parser;
