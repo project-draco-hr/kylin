@@ -1,0 +1,3 @@
+{
+  return ts / ONE_MINUTE_TS * ONE_MINUTE_TS;
+}
