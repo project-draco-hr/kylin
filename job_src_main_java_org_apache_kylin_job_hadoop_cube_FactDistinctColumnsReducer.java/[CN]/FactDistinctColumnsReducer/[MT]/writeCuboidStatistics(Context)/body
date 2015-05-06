@@ -7,7 +7,7 @@
   Collections.sort(allCuboids);
   try {
     for (    long i : allCuboids) {
-      writer.append(new LongWritable(i),new LongWritable((long)(rowCountInCuboids.get(i) / averageSamplingRatio)));
+      writer.append(new LongWritable(i),new LongWritable((long)(rowCountInCuboids.get(i) * 100 / SAMPING_PERCENTAGE)));
     }
   }
   finally {

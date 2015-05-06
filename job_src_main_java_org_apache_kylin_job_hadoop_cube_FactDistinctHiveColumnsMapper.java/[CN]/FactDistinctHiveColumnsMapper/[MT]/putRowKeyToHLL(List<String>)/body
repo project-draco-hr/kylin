@@ -2,7 +2,7 @@
   for (int i=0, n=allCuboidsBitSet.length; i < n; i++) {
     Hasher hc=hf.newHasher();
     for (int position=0; position < allCuboidsBitSet[i].length; position++) {
-      hc.putString(row.get(allCuboidsBitSet[i][position]));
+      if (row.get(allCuboidsBitSet[i][position]) != null)       hc.putString(row.get(allCuboidsBitSet[i][position]));
       hc.putString(",");
     }
     allCuboidsHLL[i].add(hc.hash().asBytes());

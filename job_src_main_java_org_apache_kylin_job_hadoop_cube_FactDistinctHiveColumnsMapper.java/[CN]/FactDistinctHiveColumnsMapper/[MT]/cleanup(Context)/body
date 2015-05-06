@@ -10,9 +10,5 @@
       outputValue.set(hllBuf.array(),0,hllBuf.position());
       context.write(outputKey,outputValue);
     }
-    double samplingRatio=rowCount < MAX_SAMPING_COUNT ? 1.0 : ((double)MAX_SAMPING_COUNT) / rowCount;
-    outputKey.set(0 - baseCuboidId - 1);
-    outputValue.set(Bytes.toBytes(samplingRatio));
-    context.write(outputKey,outputValue);
   }
 }
