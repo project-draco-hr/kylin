@@ -22,31 +22,20 @@
   }
  else {
     long cuboidId=0 - key.get();
-    if (cuboidId <= baseCuboidId) {
-      for (      Text value : values) {
-        HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(16);
-        ByteArray byteArray=new ByteArray(value.getBytes());
-        hll.readRegisters(byteArray.asBuffer());
-        totalRowsBeforeMerge+=hll.getCountEstimate();
-        if (cuboidId == baseCuboidId) {
-          baseCuboidRowCountInMappers.add(hll.getCountEstimate());
-        }
-        if (cuboidHLLMap.get(cuboidId) != null) {
-          cuboidHLLMap.get(cuboidId).merge(hll);
-        }
- else {
-          cuboidHLLMap.put(cuboidId,hll);
-        }
+    for (    Text value : values) {
+      HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(16);
+      ByteArray byteArray=new ByteArray(value.getBytes());
+      hll.readRegisters(byteArray.asBuffer());
+      totalRowsBeforeMerge+=hll.getCountEstimate();
+      if (cuboidId == baseCuboidId) {
+        baseCuboidRowCountInMappers.add(hll.getCountEstimate());
       }
-    }
- else {
-      int mapperCount=0;
-      averageSamplingRatio=0;
-      for (      Text value : values) {
-        averageSamplingRatio+=Bytes.toDouble(value.getBytes());
-        mapperCount++;
+      if (cuboidHLLMap.get(cuboidId) != null) {
+        cuboidHLLMap.get(cuboidId).merge(hll);
       }
-      averageSamplingRatio=averageSamplingRatio / mapperCount;
+ else {
+        cuboidHLLMap.put(cuboidId,hll);
+      }
     }
   }
 }

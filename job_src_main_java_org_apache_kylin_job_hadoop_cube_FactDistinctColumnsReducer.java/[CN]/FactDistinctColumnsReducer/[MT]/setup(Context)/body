@@ -14,5 +14,6 @@
     baseCuboidRowCountInMappers=Lists.newArrayList();
     rowCountInCuboids=Maps.newHashMap();
     cuboidHLLMap=Maps.newHashMap();
+    SAMPING_PERCENTAGE=Integer.parseInt(context.getConfiguration().get(BatchConstants.CFG_STATISTICS_SAMPLING_PERCENT,"5"));
   }
 }
