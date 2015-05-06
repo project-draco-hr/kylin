@@ -24,6 +24,9 @@
     return String.format("%.4f",r.nextDouble() * (high - low) + low);
   }
  else   if (type.isDateTimeFamily()) {
+    if (!type.isDate()) {
+      throw new RuntimeException("Does not support " + type);
+    }
     SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
     Date start=format.parse(range.get(0));
     Date end=format.parse(range.get(1));

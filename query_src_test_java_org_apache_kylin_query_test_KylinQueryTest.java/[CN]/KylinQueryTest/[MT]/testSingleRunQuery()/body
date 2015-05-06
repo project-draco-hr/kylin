@@ -1,6 +1,8 @@
 {
-  String queryFileName="src/test/resources/query/sql_subquery/query04.sql";
+  String queryFileName="src/test/resources/query/sample.sql";
   File sqlFile=new File(queryFileName);
-  runSQL(sqlFile,true,true);
-  runSQL(sqlFile,true,false);
+  if (sqlFile.exists()) {
+    runSQL(sqlFile,true,true);
+    runSQL(sqlFile,true,false);
+  }
 }

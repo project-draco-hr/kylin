@@ -21,7 +21,9 @@
         }
       }
     }
-    if (matchPattern != null)     return new DateStrDictionary(matchPattern,baseId);
+    if (matchPattern != null) {
+      return new DateStrDictionary(matchPattern,baseId);
+    }
   }
-  throw new IllegalStateException("Unrecognized datetime value");
+  return buildStringDict(values,baseId,nSamples,samples);
 }
