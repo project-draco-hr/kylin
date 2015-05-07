@@ -1,0 +1,7 @@
+{
+  byte[] b=new byte[size];
+  in.readFully(b);
+  int n=b.length;
+  while (n > 0 && b[n - 1] == 0)   --n;
+  return toString(b,0,n);
+}

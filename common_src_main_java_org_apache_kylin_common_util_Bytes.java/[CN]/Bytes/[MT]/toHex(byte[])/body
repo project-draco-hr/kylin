@@ -1,0 +1,4 @@
+{
+  checkArgument(b.length > 0,"length must be greater than 0");
+  return String.format("%x",new BigInteger(1,b));
+}

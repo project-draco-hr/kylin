@@ -1,0 +1,10 @@
+{
+  byte[][] ret=new byte[num + 2][];
+  int i=0;
+  Iterable<byte[]> iter=iterateOnSplits(a,b,inclusive,num);
+  if (iter == null)   return null;
+  for (  byte[] elem : iter) {
+    ret[i++]=elem;
+  }
+  return ret;
+}

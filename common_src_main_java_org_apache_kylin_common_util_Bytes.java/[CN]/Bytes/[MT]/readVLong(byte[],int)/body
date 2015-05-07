@@ -1,0 +1,14 @@
+{
+  byte firstByte=buffer[offset];
+  int len=WritableUtils.decodeVIntSize(firstByte);
+  if (len == 1) {
+    return firstByte;
+  }
+  long i=0;
+  for (int idx=0; idx < len - 1; idx++) {
+    byte b=buffer[offset + 1 + idx];
+    i=i << 8;
+    i=i | (b & 0xFF);
+  }
+  return (WritableUtils.isNegativeVInt(firstByte) ? ~i : i);
+}

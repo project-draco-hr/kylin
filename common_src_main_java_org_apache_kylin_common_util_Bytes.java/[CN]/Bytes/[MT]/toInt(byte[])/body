@@ -1,0 +1,3 @@
+{
+  return toInt(bytes,0,SIZEOF_INT);
+}

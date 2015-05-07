@@ -1,0 +1,4 @@
+byte[] a
+byte[] b
+boolean inclusive
+int num

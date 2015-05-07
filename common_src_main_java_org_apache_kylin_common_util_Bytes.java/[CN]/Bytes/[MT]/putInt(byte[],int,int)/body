@@ -1,0 +1,16 @@
+{
+  if (bytes.length - offset < SIZEOF_INT) {
+    throw new IllegalArgumentException("Not enough room to put an int at" + " offset " + offset + " in a "+ bytes.length+ " byte array");
+  }
+  if (org.apache.kylin.common.util.Bytes.LexicographicalComparerHolder.UnsafeComparer.isAvailable()) {
+    return putIntUnsafe(bytes,offset,val);
+  }
+ else {
+    for (int i=offset + 3; i > offset; i--) {
+      bytes[i]=(byte)val;
+      val>>>=8;
+    }
+    bytes[offset]=(byte)val;
+    return offset + SIZEOF_INT;
+  }
+}

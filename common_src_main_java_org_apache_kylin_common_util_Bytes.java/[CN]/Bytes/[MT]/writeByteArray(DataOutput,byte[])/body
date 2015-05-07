@@ -1,0 +1,8 @@
+{
+  if (b == null) {
+    WritableUtils.writeVInt(out,0);
+  }
+ else {
+    writeByteArray(out,b,0,b.length);
+  }
+}

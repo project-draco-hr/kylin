@@ -1,0 +1,7 @@
+{
+  if (org.apache.kylin.common.util.Bytes.LexicographicalComparerHolder.UnsafeComparer.littleEndian) {
+    val=Long.reverseBytes(val);
+  }
+  org.apache.kylin.common.util.Bytes.LexicographicalComparerHolder.UnsafeComparer.theUnsafe.putLong(bytes,(long)offset + org.apache.kylin.common.util.Bytes.LexicographicalComparerHolder.UnsafeComparer.BYTE_ARRAY_BASE_OFFSET,val);
+  return offset + SIZEOF_LONG;
+}

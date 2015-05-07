@@ -1,0 +1,5 @@
+{
+  byte[][] result=new byte[1][];
+  result[0]=column;
+  return result;
+}

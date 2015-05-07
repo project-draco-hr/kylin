@@ -1,0 +1,6 @@
+{
+  if (b == null) {
+    return null;
+  }
+  return toString(b,0,b.length);
+}

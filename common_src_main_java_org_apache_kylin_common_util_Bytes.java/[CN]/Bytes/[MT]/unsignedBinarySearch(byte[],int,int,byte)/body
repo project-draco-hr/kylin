@@ -1,0 +1,19 @@
+{
+  int unsignedKey=key & 0xff;
+  int low=fromIndex;
+  int high=toIndex - 1;
+  while (low <= high) {
+    int mid=(low + high) >>> 1;
+    int midVal=a[mid] & 0xff;
+    if (midVal < unsignedKey) {
+      low=mid + 1;
+    }
+ else     if (midVal > unsignedKey) {
+      high=mid - 1;
+    }
+ else {
+      return mid;
+    }
+  }
+  return -(low + 1);
+}

@@ -1,0 +1,10 @@
+{
+  String reason;
+  if (length != expectedLength) {
+    reason="Wrong length: " + length + ", expected "+ expectedLength;
+  }
+ else {
+    reason="offset (" + offset + ") + length ("+ length+ ") exceed the"+ " capacity of the array: "+ bytes.length;
+  }
+  return new IllegalArgumentException(reason);
+}

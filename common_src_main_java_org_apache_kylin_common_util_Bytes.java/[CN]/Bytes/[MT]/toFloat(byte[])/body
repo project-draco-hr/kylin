@@ -1,0 +1,3 @@
+{
+  return toFloat(bytes,0);
+}

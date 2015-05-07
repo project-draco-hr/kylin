@@ -1,0 +1,7 @@
+{
+  if (buf == null)   return "null";
+  if (buf.hasArray()) {
+    return toStringBinary(buf.array(),buf.arrayOffset(),buf.limit());
+  }
+  return toStringBinary(toBytes(buf));
+}

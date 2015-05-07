@@ -1,0 +1,3 @@
+{
+  return LexicographicalComparerHolder.BEST_COMPARER.compareTo(buffer1,offset1,length1,buffer2,offset2,length2);
+}

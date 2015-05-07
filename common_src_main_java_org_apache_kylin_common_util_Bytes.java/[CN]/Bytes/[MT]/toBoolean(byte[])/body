@@ -1,0 +1,6 @@
+{
+  if (b.length != 1) {
+    throw new IllegalArgumentException("Array has wrong size: " + b.length);
+  }
+  return b[0] != (byte)0;
+}

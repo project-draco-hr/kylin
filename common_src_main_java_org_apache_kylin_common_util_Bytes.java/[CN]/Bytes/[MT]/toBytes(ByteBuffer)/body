@@ -1,0 +1,5 @@
+{
+  ByteBuffer dup=buf.duplicate();
+  dup.position(0);
+  return readBytes(dup);
+}

@@ -1,0 +1,15 @@
+{
+  if (length != SIZEOF_SHORT || offset + length > bytes.length) {
+    throw explainWrongLengthOrOffset(bytes,offset,length,SIZEOF_SHORT);
+  }
+  if (org.apache.kylin.common.util.Bytes.LexicographicalComparerHolder.UnsafeComparer.isAvailable()) {
+    return toShortUnsafe(bytes,offset);
+  }
+ else {
+    short n=0;
+    n^=bytes[offset] & 0xFF;
+    n<<=8;
+    n^=bytes[offset + 1] & 0xFF;
+    return n;
+  }
+}

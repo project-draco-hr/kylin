@@ -1,0 +1,4 @@
+{
+  WritableUtils.writeVInt(out,length);
+  out.write(b,offset,length);
+}

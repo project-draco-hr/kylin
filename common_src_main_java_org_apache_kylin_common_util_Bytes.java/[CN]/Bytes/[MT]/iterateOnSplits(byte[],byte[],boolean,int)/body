@@ -1,0 +1,67 @@
+{
+  byte[] aPadded;
+  byte[] bPadded;
+  if (a.length < b.length) {
+    aPadded=padTail(a,b.length - a.length);
+    bPadded=b;
+  }
+ else   if (b.length < a.length) {
+    aPadded=a;
+    bPadded=padTail(b,a.length - b.length);
+  }
+ else {
+    aPadded=a;
+    bPadded=b;
+  }
+  if (compareTo(aPadded,bPadded) >= 0) {
+    throw new IllegalArgumentException("b <= a");
+  }
+  if (num <= 0) {
+    throw new IllegalArgumentException("num cannot be <= 0");
+  }
+  byte[] prependHeader={1,0};
+  final BigInteger startBI=new BigInteger(add(prependHeader,aPadded));
+  final BigInteger stopBI=new BigInteger(add(prependHeader,bPadded));
+  BigInteger diffBI=stopBI.subtract(startBI);
+  if (inclusive) {
+    diffBI=diffBI.add(BigInteger.ONE);
+  }
+  final BigInteger splitsBI=BigInteger.valueOf(num + 1);
+  if (diffBI.compareTo(splitsBI) < 0) {
+    return null;
+  }
+  final BigInteger intervalBI;
+  try {
+    intervalBI=diffBI.divide(splitsBI);
+  }
+ catch (  Exception e) {
+    LOG.error("Exception caught during division",e);
+    return null;
+  }
+  final Iterator<byte[]> iterator=new Iterator<byte[]>(){
+    private int i=-1;
+    @Override public boolean hasNext(){
+      return i < num + 1;
+    }
+    @Override public byte[] next(){
+      i++;
+      if (i == 0)       return a;
+      if (i == num + 1)       return b;
+      BigInteger curBI=startBI.add(intervalBI.multiply(BigInteger.valueOf(i)));
+      byte[] padded=curBI.toByteArray();
+      if (padded[1] == 0)       padded=tail(padded,padded.length - 2);
+ else       padded=tail(padded,padded.length - 1);
+      return padded;
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+  }
+;
+  return new Iterable<byte[]>(){
+    @Override public Iterator<byte[]> iterator(){
+      return iterator;
+    }
+  }
+;
+}

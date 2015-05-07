@@ -1,0 +1,5 @@
+{
+  int hash=1;
+  for (int i=offset; i < offset + length; i++)   hash=(31 * hash) + (int)bytes[i];
+  return hash;
+}

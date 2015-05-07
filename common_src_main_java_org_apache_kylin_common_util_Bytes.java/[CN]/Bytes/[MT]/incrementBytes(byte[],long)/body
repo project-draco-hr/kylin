@@ -1,0 +1,22 @@
+{
+  byte[] val=value;
+  if (val.length < SIZEOF_LONG) {
+    byte[] newvalue;
+    if (val[0] < 0) {
+      newvalue=new byte[]{-1,-1,-1,-1,-1,-1,-1,-1};
+    }
+ else {
+      newvalue=new byte[SIZEOF_LONG];
+    }
+    System.arraycopy(val,0,newvalue,newvalue.length - val.length,val.length);
+    val=newvalue;
+  }
+ else   if (val.length > SIZEOF_LONG) {
+    throw new IllegalArgumentException("Increment Bytes - value too big: " + val.length);
+  }
+  if (amount == 0)   return val;
+  if (val[0] < 0) {
+    return binaryIncrementNeg(val,amount);
+  }
+  return binaryIncrementPos(val,amount);
+}
