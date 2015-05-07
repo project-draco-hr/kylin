@@ -1,0 +1,48 @@
+{
+  Options options=new Options();
+  try {
+    options.addOption(OPTION_JOB_NAME);
+    options.addOption(OPTION_CUBE_NAME);
+    options.addOption(OPTION_SEGMENT_NAME);
+    options.addOption(OPTION_INPUT_PATH);
+    options.addOption(OPTION_OUTPUT_PATH);
+    parseOptions(options,args);
+    String cubeName=getOptionValue(OPTION_CUBE_NAME).toUpperCase();
+    String segmentName=getOptionValue(OPTION_SEGMENT_NAME).toUpperCase();
+    KylinConfig config=KylinConfig.getInstanceFromEnv();
+    CubeManager cubeMgr=CubeManager.getInstance(config);
+    CubeInstance cube=cubeMgr.getCube(cubeName);
+    Configuration conf=this.getConf();
+    HBaseConfiguration.merge(conf,HBaseConfiguration.create(conf));
+    String jobName=getOptionValue(OPTION_JOB_NAME);
+    System.out.println("Starting: " + jobName);
+    job=Job.getInstance(conf,jobName);
+    setJobClasspath(job);
+    Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
+    FileOutputFormat.setOutputPath(job,output);
+    List<Scan> scans=new ArrayList<Scan>();
+    for (    String htable : StringSplitter.split(getOptionValue(OPTION_INPUT_PATH),",")) {
+      Scan scan=new Scan();
+      scan.setCaching(500);
+      scan.setCacheBlocks(false);
+      scan.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME,Bytes.toBytes(htable));
+      scans.add(scan);
+    }
+    TableMapReduceUtil.initTableMapperJob(scans,MergeCuboidFromHBaseMapper.class,Text.class,Text.class,job);
+    job.setReducerClass(CuboidReducer.class);
+    job.setOutputFormatClass(SequenceFileOutputFormat.class);
+    job.setOutputKeyClass(Text.class);
+    job.setOutputValueClass(Text.class);
+    job.getConfiguration().set(BatchConstants.CFG_CUBE_NAME,cubeName);
+    job.getConfiguration().set(BatchConstants.CFG_CUBE_SEGMENT_NAME,segmentName);
+    attachKylinPropsAndMetadata(cube,job.getConfiguration());
+    setReduceTaskNum(job,config,cubeName,0);
+    this.deletePath(job.getConfiguration(),output);
+    return waitForCompletion(job);
+  }
+ catch (  Exception e) {
+    logger.error("error in MergeCuboidFromHBaseJob",e);
+    printUsage(options);
+    throw e;
+  }
+}

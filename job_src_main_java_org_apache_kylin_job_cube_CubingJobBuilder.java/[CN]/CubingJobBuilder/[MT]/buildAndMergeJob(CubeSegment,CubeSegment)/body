@@ -12,12 +12,19 @@
   Preconditions.checkState(mergingSegments.size() > 1,"there should be more than 2 segments to merge");
   List<String> mergingSegmentIds=Lists.newArrayList();
   List<String> mergingCuboidPaths=Lists.newArrayList();
+  List<String> mergingHTables=Lists.newArrayList();
   for (  CubeSegment merging : mergingSegments) {
     mergingSegmentIds.add(merging.getUuid());
+    mergingHTables.add(merging.getStorageLocationIdentifier());
     if (merging.equals(appendSegment))     mergingCuboidPaths.add(appendRootPath + "*");
  else     mergingCuboidPaths.add(getPathToMerge(merging));
   }
-  addMergeSteps(mergeSegment,mergingSegmentIds,mergingCuboidPaths,mergedRootPath,result);
+  if (this.inMemoryCubing()) {
+    addMergeFromHBaseSteps(mergeSegment,mergingSegmentIds,mergingHTables,mergedRootPath,result);
+  }
+ else {
+    addMergeSteps(mergeSegment,mergingSegmentIds,mergingCuboidPaths,mergedRootPath,result);
+  }
   AbstractExecutable convertCuboidToHfileStep=addHTableSteps(mergeSegment,mergedRootPath,result);
   result.addTask(createUpdateCubeInfoAfterMergeStep(mergeSegment,mergingSegmentIds,convertCuboidToHfileStep.getId(),jobId));
   return result;

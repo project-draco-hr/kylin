@@ -1,4 +1,0 @@
-{
-  codec.decode(buffer,values);
-  convertToJavaObjects(values,values);
-}

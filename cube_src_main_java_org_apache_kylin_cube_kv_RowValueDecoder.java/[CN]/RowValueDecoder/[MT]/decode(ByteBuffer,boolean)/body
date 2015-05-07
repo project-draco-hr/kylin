@@ -1,0 +1,6 @@
+{
+  codec.decode(buffer,values);
+  if (convertToJavaObject) {
+    convertToJavaObjects(values,values,convertToJavaObject);
+  }
+}

@@ -24,6 +24,7 @@
     result.addTask(createCreateHTableStep(seg,jobId));
     baseCuboidStep=createInMemCubingStep(seg,intermediateHiveTableLocation,intermediateHiveTableName,cuboidOutputTempPath,result.getId());
     result.addTask(baseCuboidStep);
+    result.addTask(createBulkLoadStep(seg,result.getId()));
   }
   return new Pair<AbstractExecutable,AbstractExecutable>(intermediateHiveTableStep,baseCuboidStep);
 }

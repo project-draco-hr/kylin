@@ -2,6 +2,6 @@
   if (this == o)   return true;
   if (o == null || getClass() != o.getClass())   return false;
   MeasureDesc that=(MeasureDesc)o;
-  if (id != that.id)   return false;
+  if (!name.equalsIgnoreCase(that.getName()))   return false;
   return true;
 }

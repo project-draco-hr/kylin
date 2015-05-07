@@ -1,0 +1,44 @@
+{
+  HadoopUtil.setCurrentConfiguration(context.getConfiguration());
+  cubeName=context.getConfiguration().get(BatchConstants.CFG_CUBE_NAME).toUpperCase();
+  segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME).toUpperCase();
+  config=AbstractHadoopJob.loadKylinPropsAndMetadata();
+  cubeManager=CubeManager.getInstance(config);
+  cube=cubeManager.getCube(cubeName);
+  cubeDesc=cube.getDescriptor();
+  mergedCubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
+  newKeyBuf=new byte[256];
+  TableSplit currentSplit=(TableSplit)context.getInputSplit();
+  byte[] tableName=currentSplit.getTableName();
+  String htableName=Bytes.toString(tableName);
+  System.out.println("htable:" + htableName);
+  sourceCubeSegment=findSegmentWithHTable(htableName,cube);
+  System.out.println(sourceCubeSegment);
+  this.rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
+  List<RowValueDecoder> valueDecoderList=Lists.newArrayList();
+  List<KeyValueCreator> keyValueCreators=Lists.newArrayList();
+  for (  HBaseColumnFamilyDesc cfDesc : cubeDesc.getHBaseMapping().getColumnFamily()) {
+    for (    HBaseColumnDesc colDesc : cfDesc.getColumns()) {
+      valueDecoderList.add(new RowValueDecoder(colDesc));
+      keyValueCreators.add(new KeyValueCreator(cubeDesc,colDesc));
+    }
+  }
+  rowValueDecoders=valueDecoderList.toArray(new RowValueDecoder[valueDecoderList.size()]);
+  simpleFullCopy=(keyValueCreators.size() == 1 && keyValueCreators.get(0).isFullCopy);
+  result=new Object[cubeDesc.getMeasures().size()];
+  codec=new MeasureCodec(cubeDesc.getMeasures());
+  hbaseColumnToMeasureMapping=new int[rowValueDecoders.length][];
+  for (int i=0; i < rowValueDecoders.length; i++) {
+    hbaseColumnToMeasureMapping[i]=new int[rowValueDecoders[i].getMeasures().length];
+    for (int j=0; j < rowValueDecoders[i].getMeasures().length; j++) {
+      int positionInCubeMeasures=0;
+      for (      MeasureDesc m : cubeDesc.getMeasures()) {
+        if (m.equals(rowValueDecoders[i].getMeasures()[j])) {
+          hbaseColumnToMeasureMapping[i][j]=positionInCubeMeasures;
+          break;
+        }
+        positionInCubeMeasures++;
+      }
+    }
+  }
+}

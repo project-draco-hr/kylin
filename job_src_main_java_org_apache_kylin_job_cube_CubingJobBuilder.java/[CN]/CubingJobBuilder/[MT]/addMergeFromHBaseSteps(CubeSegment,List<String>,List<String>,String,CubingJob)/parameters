@@ -1,0 +1,5 @@
+CubeSegment seg
+List<String> mergingSegmentIds
+List<String> mergingHTables
+String mergedCuboidPath
+CubingJob result

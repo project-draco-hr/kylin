@@ -1,0 +1,5 @@
+{
+  result.addTask(createMergeDictionaryStep(seg,mergingSegmentIds));
+  String formattedTables=StringUtils.join(mergingHTables,",");
+  result.addTask(createMergeCuboidDataFromHBaseStep(seg,formattedTables,mergedCuboidPath));
+}
