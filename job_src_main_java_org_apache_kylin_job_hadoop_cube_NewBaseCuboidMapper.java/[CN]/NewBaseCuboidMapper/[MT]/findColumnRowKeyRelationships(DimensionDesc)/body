@@ -1,7 +1,7 @@
 {
   LinkedList<Pair<Integer,Integer>> dimTblColAsRowKey=new LinkedList<Pair<Integer,Integer>>();
   for (  TblColRef colRef : dim.getColumnRefs()) {
-    int dimTableIndex=colRef.getColumn().getZeroBasedIndex();
+    int dimTableIndex=colRef.getColumnDesc().getZeroBasedIndex();
     int rowKeyIndex=cubeDesc.getRowkey().getRowKeyIndexByColumnName(colRef.getName());
     dimTblColAsRowKey.add(new Pair<Integer,Integer>(dimTableIndex,rowKeyIndex));
   }

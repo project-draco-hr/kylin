@@ -14,7 +14,7 @@
       }
       LinkedList<Integer> fkIndice=new LinkedList<Integer>();
       for (      TblColRef colRef : join.getForeignKeyColumns()) {
-        fkIndice.add(colRef.getColumn().getZeroBasedIndex());
+        fkIndice.add(colRef.getColumnDesc().getZeroBasedIndex());
       }
       this.tableJoins.add(new TableJoin(joinType,fkIndice,lookupTableName,this.findColumnRowKeyRelationships(dim)));
     }

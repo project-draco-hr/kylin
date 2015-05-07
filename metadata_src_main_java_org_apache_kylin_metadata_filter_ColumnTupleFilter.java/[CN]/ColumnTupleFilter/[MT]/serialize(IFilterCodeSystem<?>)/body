@@ -2,7 +2,7 @@
   ByteBuffer buffer=ByteBuffer.allocate(BUFFER_SIZE);
   String table=columnRef.getTable();
   BytesUtil.writeUTFString(table,buffer);
-  String columnId=columnRef.getColumn().getId();
+  String columnId=columnRef.getColumnDesc().getId();
   BytesUtil.writeUTFString(columnId,buffer);
   String columnName=columnRef.getName();
   BytesUtil.writeUTFString(columnName,buffer);

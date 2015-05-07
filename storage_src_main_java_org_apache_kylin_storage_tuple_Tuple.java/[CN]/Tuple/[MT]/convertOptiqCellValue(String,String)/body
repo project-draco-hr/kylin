@@ -6,6 +6,9 @@
     long millis=dateValue.getTime();
     return millisToEpicDays(millis);
   }
+ else   if ("timestamp".equals(dataTypeName) || "datetime".equals(dataTypeName)) {
+    return Long.parseLong(strValue);
+  }
  else   if ("tinyint".equals(dataTypeName)) {
     return Byte.valueOf(strValue);
   }

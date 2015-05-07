@@ -4,14 +4,14 @@
   TupleFilter.collectColumns(filterPushDown,filterColumns);
   for (  TblColRef col : filterColumns) {
     info.validateColRef(col);
-    columns.set(col.getColumn().getZeroBasedIndex());
+    columns.set(col.getColumnDesc().getZeroBasedIndex());
   }
   if (TupleFilter.isEvaluableRecursively(filterPushDown) == false) {
     Set<TblColRef> unevaluableColumns=Sets.newHashSet();
     filterPushDown=GTUtil.convertFilterUnevaluatable(filterPushDown,info,unevaluableColumns);
     if (hasAggregation()) {
       for (      TblColRef col : unevaluableColumns) {
-        aggrGroupBy.set(col.getColumn().getZeroBasedIndex());
+        aggrGroupBy.set(col.getColumnDesc().getZeroBasedIndex());
       }
     }
   }

@@ -1,0 +1,11 @@
+{
+  long millis=DateFormat.stringToMillis(value);
+  long seconds=millis / 1000;
+  if (seconds > maxid) {
+    return nullId();
+  }
+ else   if (seconds < 0) {
+    throw new IllegalArgumentException("Illegal value: " + value + ", parsed seconds: "+ seconds);
+  }
+  return (int)seconds;
+}

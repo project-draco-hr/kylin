@@ -6,6 +6,6 @@
     TableCache tableCache=prjCache.tables.get(col.getTable());
     prjCache.exposedTables.add(tableCache.tableDesc);
     tableCache.exposed=true;
-    tableCache.exposedColumns.add(col.getColumn());
+    tableCache.exposedColumns.add(col.getColumnDesc());
   }
 }

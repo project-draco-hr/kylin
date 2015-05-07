@@ -25,5 +25,5 @@
       return new DateStrDictionary(matchPattern,baseId);
     }
   }
-  return buildStringDict(values,baseId,nSamples,samples);
+  return new TimeStrDictionary();
 }

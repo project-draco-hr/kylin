@@ -1,5 +1,5 @@
 {
-  DataType type=partitionColRef.getColumn().getType();
+  DataType type=partitionColRef.getColumnDesc().getType();
   String startTimeStr, endTimeStr;
   CompareTupleFilter startFilter=null, endFilter=null;
   if (tsRange.hasLowerBound()) {
