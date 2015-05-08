@@ -1,5 +1,6 @@
 {
   PropertiesConfiguration config=new PropertiesConfiguration();
+  config.setListDelimiter((char)0);
   try {
     config.load(is);
   }
