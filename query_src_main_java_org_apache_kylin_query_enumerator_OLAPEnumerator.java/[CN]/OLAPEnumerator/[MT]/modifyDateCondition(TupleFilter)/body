@@ -1,0 +1,5 @@
+{
+  DateConditionModifier filterDecorator=new DateConditionModifier(filter);
+  byte[] bytes=TupleFilterSerializer.serialize(filter,filterDecorator,DictCodeSystem.INSTANCE);
+  return TupleFilterSerializer.deserialize(bytes,DictCodeSystem.INSTANCE);
+}

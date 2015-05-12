@@ -1,7 +1,0 @@
-{
-  if (clear) {
-    this.conditionValues.clear();
-  }
-  this.conditionValues.addAll(values);
-  this.firstCondValue=this.conditionValues.iterator().next();
-}

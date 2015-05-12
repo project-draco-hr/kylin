@@ -8,6 +8,8 @@
     this.column=columnFilter.getColumn();
     if (!this.conditionValues.isEmpty() && needSwapOperator()) {
       this.operator=SWAP_OP_MAP.get(this.operator);
+      TupleFilter last=this.children.remove(this.children.size() - 1);
+      this.children.add(0,last);
     }
   }
  else   if (child instanceof ConstantTupleFilter) {

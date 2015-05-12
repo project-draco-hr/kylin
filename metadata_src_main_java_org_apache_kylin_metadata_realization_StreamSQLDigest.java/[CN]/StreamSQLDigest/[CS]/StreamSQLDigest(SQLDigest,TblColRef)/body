@@ -1,6 +1,6 @@
 {
   this.sqlDigest=sqlDigest;
-  IgnoreTsCondition decorator=new IgnoreTsCondition(tsCol,sqlDigest.filter);
+  TsConditionEraser decorator=new TsConditionEraser(tsCol,sqlDigest.filter);
   filterSerialized=TupleFilterSerializer.serialize(sqlDigest.filter,decorator,StringCodeSystem.INSTANCE);
   int nonFilterHashCode=calculateNonFilterHashCode();
   this.hashCode=31 * nonFilterHashCode + (filterSerialized != null ? Arrays.hashCode(filterSerialized) : 0);

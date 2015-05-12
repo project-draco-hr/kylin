@@ -1,9 +1,0 @@
-{
-  TupleFilter a=mockFilter1(2000);
-  TupleFilter b=mockFilter1(2001);
-  IgnoreTsCondition decoratorA=new IgnoreTsCondition(caldt,a);
-  byte[] aBytes=TupleFilterSerializer.serialize(a,decoratorA,StringCodeSystem.INSTANCE);
-  IgnoreTsCondition decoratorB=new IgnoreTsCondition(caldt,b);
-  byte[] bBytes=TupleFilterSerializer.serialize(b,decoratorB,StringCodeSystem.INSTANCE);
-  Assert.assertArrayEquals(aBytes,bBytes);
-}

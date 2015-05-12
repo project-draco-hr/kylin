@@ -9,8 +9,15 @@
   p1.setValue("PRICE");
   f1.setParameter(p1);
   f1.setReturnType("decimal(19,4)");
+  TblColRef column=ii.getDescriptor().findColumnRef("default.test_kylin_fact","cal_dt");
+  CompareTupleFilter compareFilter=new CompareTupleFilter(TupleFilter.FilterOperatorEnum.GTE);
+  ColumnTupleFilter columnFilter=new ColumnTupleFilter(column);
+  compareFilter.addChild(columnFilter);
+  ConstantTupleFilter constantFilter=null;
+  constantFilter=new ConstantTupleFilter(("2012-08-16"));
+  compareFilter.addChild(constantFilter);
   EndpointAggregators aggregators=EndpointAggregators.fromFunctions(info,Collections.singletonList(f1));
-  CoprocessorFilter filter=CoprocessorFilter.fromFilter(new ClearTextDictionary(info),ConstantTupleFilter.TRUE,FilterDecorator.FilterConstantsTreatment.AS_IT_IS);
+  CoprocessorFilter filter=CoprocessorFilter.fromFilter(new ClearTextDictionary(info),compareFilter,FilterDecorator.FilterConstantsTreatment.AS_IT_IS);
   final Iterator<IIRow> iiRowIterator=iiRows.iterator();
   IIEndpoint endpoint=new IIEndpoint();
   IIProtos.IIResponseInternal response=endpoint.getResponse(new RegionScanner(){
@@ -53,6 +60,7 @@
     }
   }
 ,type,projector,aggregators,filter);
+  Assert.assertEquals(2,response.getRowsList().size());
   System.out.println(response.getRowsList().size());
   Set<String> answers=Sets.newHashSet("120.4747","26.8551");
   for (  org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponseInternal.IIRow responseRow : response.getRowsList()) {

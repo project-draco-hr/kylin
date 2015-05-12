@@ -1,0 +1,9 @@
+{
+  TupleFilter a=mockFilter1(2000);
+  TupleFilter b=mockFilter1(2001);
+  TsConditionEraser decoratorA=new TsConditionEraser(caldt,a);
+  byte[] aBytes=TupleFilterSerializer.serialize(a,decoratorA,StringCodeSystem.INSTANCE);
+  TsConditionEraser decoratorB=new TsConditionEraser(caldt,b);
+  byte[] bBytes=TupleFilterSerializer.serialize(b,decoratorB,StringCodeSystem.INSTANCE);
+  Assert.assertArrayEquals(aBytes,bBytes);
+}
