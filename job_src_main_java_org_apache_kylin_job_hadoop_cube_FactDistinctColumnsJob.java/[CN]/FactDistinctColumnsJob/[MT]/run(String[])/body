@@ -21,6 +21,7 @@
     String statistics_sampling_percent=getOptionValue(OPTION_STATISTICS_SAMPLING_PERCENT);
     CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
     CubeInstance cubeInstance=cubeMgr.getCube(cubeName);
+    CubeSegment newSegment=cubeInstance.getSegment(segmentName,SegmentStatusEnum.NEW);
     job.getConfiguration().set(BatchConstants.CFG_CUBE_NAME,cubeName);
     job.getConfiguration().set(BatchConstants.CFG_CUBE_SEGMENT_NAME,segmentName);
     job.getConfiguration().set(BatchConstants.CFG_STATISTICS_ENABLED,statistics_enabled);
@@ -31,7 +32,11 @@
     setupMapper(intermediateTable);
     setupReducer(output);
     attachKylinPropsAndMetadata(cubeInstance,job.getConfiguration());
-    return waitForCompletion(job);
+    int result=waitForCompletion(job);
+    if (Boolean.parseBoolean(statistics_enabled)) {
+      putStatisticsToResourceStore(statistics_output,newSegment);
+    }
+    return result;
   }
  catch (  Exception e) {
     logger.error("error in FactDistinctColumnsJob",e);

@@ -5,7 +5,7 @@
   try {
     String msg;
     List<Long> allCuboids=new ArrayList<Long>();
-    allCuboids.addAll(rowCountInCuboids.keySet());
+    allCuboids.addAll(cuboidHLLMap.keySet());
     Collections.sort(allCuboids);
     msg="Total cuboid number: \t" + allCuboids.size();
     writeLine(out,msg);
@@ -20,8 +20,8 @@
     }
     long grantTotal=0;
     for (    long i : allCuboids) {
-      grantTotal+=rowCountInCuboids.get(i);
-      msg="Cuboid " + i + " row count is: \t "+ rowCountInCuboids.get(i);
+      grantTotal+=cuboidHLLMap.get(i).getCountEstimate();
+      msg="Cuboid " + i + " row count is: \t "+ cuboidHLLMap.get(i).getCountEstimate();
       writeLine(out,msg);
     }
     msg="Sum of all the cube segments (before merge) is: \t " + totalRowsBeforeMerge;

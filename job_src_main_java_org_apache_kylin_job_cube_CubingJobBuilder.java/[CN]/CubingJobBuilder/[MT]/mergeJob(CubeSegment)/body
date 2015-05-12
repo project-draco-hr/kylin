@@ -13,13 +13,15 @@
     mergingCuboidPaths.add(getPathToMerge(merging));
     mergingHTables.add(merging.getStorageLocationIdentifier());
   }
+  AbstractExecutable convertCuboidToHfileStep;
   if (this.inMemoryCubing()) {
-    addMergeFromHBaseSteps(seg,mergingSegmentIds,mergingHTables,mergedCuboidPath,result);
+    convertCuboidToHfileStep=addMergeFromHBaseSteps(seg,mergingSegmentIds,mergingHTables,mergedCuboidPath,result);
+    result.addTask(createBulkLoadStep(seg,result.getId()));
   }
  else {
     addMergeSteps(seg,mergingSegmentIds,mergingCuboidPaths,mergedCuboidPath,result);
+    convertCuboidToHfileStep=addHTableSteps(seg,mergedCuboidPath,result);
   }
-  AbstractExecutable convertCuboidToHfileStep=addHTableSteps(seg,mergedCuboidPath,result);
   result.addTask(createUpdateCubeInfoAfterMergeStep(seg,mergingSegmentIds,convertCuboidToHfileStep.getId(),jobId));
   return result;
 }

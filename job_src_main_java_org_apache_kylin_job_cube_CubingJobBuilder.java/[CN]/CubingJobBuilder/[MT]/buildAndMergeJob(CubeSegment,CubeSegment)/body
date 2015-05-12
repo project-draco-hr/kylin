@@ -19,13 +19,15 @@
     if (merging.equals(appendSegment))     mergingCuboidPaths.add(appendRootPath + "*");
  else     mergingCuboidPaths.add(getPathToMerge(merging));
   }
+  AbstractExecutable convertCuboidToHfileStep;
   if (this.inMemoryCubing()) {
-    addMergeFromHBaseSteps(mergeSegment,mergingSegmentIds,mergingHTables,mergedRootPath,result);
+    convertCuboidToHfileStep=addMergeFromHBaseSteps(mergeSegment,mergingSegmentIds,mergingHTables,mergedRootPath,result);
+    result.addTask(createBulkLoadStep(mergeSegment,result.getId()));
   }
  else {
     addMergeSteps(mergeSegment,mergingSegmentIds,mergingCuboidPaths,mergedRootPath,result);
+    convertCuboidToHfileStep=addHTableSteps(mergeSegment,mergedRootPath,result);
   }
-  AbstractExecutable convertCuboidToHfileStep=addHTableSteps(mergeSegment,mergedRootPath,result);
   result.addTask(createUpdateCubeInfoAfterMergeStep(mergeSegment,mergingSegmentIds,convertCuboidToHfileStep.getId(),jobId));
   return result;
 }

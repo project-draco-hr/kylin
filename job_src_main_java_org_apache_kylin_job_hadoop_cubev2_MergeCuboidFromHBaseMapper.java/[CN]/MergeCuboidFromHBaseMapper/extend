@@ -1,1 +1,1 @@
-TableMapper<Text,Text>
+TableMapper<ImmutableBytesWritable,Text>

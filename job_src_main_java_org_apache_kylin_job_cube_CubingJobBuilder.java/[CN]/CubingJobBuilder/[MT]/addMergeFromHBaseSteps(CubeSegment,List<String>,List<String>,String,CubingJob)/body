@@ -1,5 +1,11 @@
 {
   result.addTask(createMergeDictionaryStep(seg,mergingSegmentIds));
+  String mergedStatisticsFolder=getStatisticsPath(seg,result.getId());
+  result.addTask(createMergeStatisticsStep(seg,mergingSegmentIds,mergedStatisticsFolder));
+  result.addTask(createCreateHTableStep(seg));
   String formattedTables=StringUtils.join(mergingHTables,",");
-  result.addTask(createMergeCuboidDataFromHBaseStep(seg,formattedTables,mergedCuboidPath));
+  String hFilePath=getHFilePath(seg,result.getId());
+  MapReduceExecutable writeHFileStep=createMergeCuboidDataFromHBaseStep(seg,formattedTables,hFilePath);
+  result.addTask(writeHFileStep);
+  return writeHFileStep;
 }

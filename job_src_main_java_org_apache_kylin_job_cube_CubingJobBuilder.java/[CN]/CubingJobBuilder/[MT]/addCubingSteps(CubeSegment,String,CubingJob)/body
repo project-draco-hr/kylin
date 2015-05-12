@@ -21,7 +21,7 @@
     }
   }
  else {
-    result.addTask(createCreateHTableStep(seg,jobId));
+    result.addTask(createCreateHTableStep(seg));
     baseCuboidStep=createInMemCubingStep(seg,intermediateHiveTableLocation,intermediateHiveTableName,cuboidOutputTempPath,result.getId());
     result.addTask(baseCuboidStep);
     result.addTask(createBulkLoadStep(seg,result.getId()));

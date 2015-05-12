@@ -13,18 +13,31 @@
   logger.info("Cube capacity " + cubeCapacity.toString() + ", chosen cut for HTable is "+ cut+ "GB");
   Map<Long,Long> cuboidSizeMap=Maps.newHashMap();
   long totalSizeInM=0;
-  SequenceFile.Reader reader=null;
-  FileSystem fs=statisticsFilePath.getFileSystem(conf);
-  if (fs.exists(statisticsFilePath) == false) {
-    System.err.println("Path " + statisticsFilePath + " not found, no region split, HTable will be one region");
-    return null;
-  }
+  ResourceStore rs=ResourceStore.getStore(kylinConfig);
+  String fileKey=ResourceStore.CUBE_STATISTICS_ROOT + "/" + cube.getName()+ "/"+ cubeSegment.getUuid()+ ".seq";
+  InputStream is=rs.getResource(fileKey);
+  File tempFile=null;
+  FileOutputStream tempFileStream=null;
   try {
-    reader=new SequenceFile.Reader(fs,statisticsFilePath,conf);
+    tempFile=File.createTempFile(cubeSegment.getUuid(),".seq");
+    tempFileStream=new FileOutputStream(tempFile);
+    org.apache.commons.io.IOUtils.copy(is,tempFileStream);
+  }
+  finally {
+    IOUtils.closeStream(is);
+    IOUtils.closeStream(tempFileStream);
+  }
+  FileSystem fs=HadoopUtil.getFileSystem("file:///" + tempFile.getAbsolutePath());
+  SequenceFile.Reader reader=null;
+  try {
+    reader=new SequenceFile.Reader(fs,new Path(tempFile.getAbsolutePath()),conf);
     LongWritable key=(LongWritable)ReflectionUtils.newInstance(reader.getKeyClass(),conf);
-    LongWritable value=(LongWritable)ReflectionUtils.newInstance(reader.getValueClass(),conf);
+    BytesWritable value=(BytesWritable)ReflectionUtils.newInstance(reader.getValueClass(),conf);
     while (reader.next(key,value)) {
-      cuboidSizeMap.put(key.get(),value.get());
+      HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(16);
+      ByteArray byteArray=new ByteArray(value.getBytes());
+      hll.readRegisters(byteArray.asBuffer());
+      cuboidSizeMap.put(key.get(),hll.getCountEstimate() * 100 / SAMPING_PERCENTAGE);
     }
   }
  catch (  Exception e) {

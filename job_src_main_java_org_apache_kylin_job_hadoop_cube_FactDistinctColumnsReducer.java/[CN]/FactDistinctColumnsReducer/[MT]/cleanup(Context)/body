@@ -1,9 +1,6 @@
 {
   if (collectStatistics) {
-    for (    Long cuboidId : cuboidHLLMap.keySet()) {
-      rowCountInCuboids.put(cuboidId,cuboidHLLMap.get(cuboidId).getCountEstimate());
-    }
     writeMapperAndCuboidStatistics(context);
-    writeCuboidStatistics(context);
+    writeCuboidStatistics(context.getConfiguration(),statisticsOutput,cuboidHLLMap);
   }
 }

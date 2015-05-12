@@ -1,0 +1,66 @@
+{
+  KylinConfig kylinConf=context.getConfig();
+  final CubeManager mgr=CubeManager.getInstance(kylinConf);
+  final CubeInstance cube=mgr.getCube(getCubeName());
+  final CubeSegment newSegment=cube.getSegmentById(getSegmentId());
+  Configuration conf=new Configuration();
+  ResourceStore rs=ResourceStore.getStore(kylinConf);
+  try {
+    for (    String segmentId : this.getMergingSegmentIds()) {
+      String fileKey=ResourceStore.CUBE_STATISTICS_ROOT + "/" + getCubeName()+ "/"+ segmentId+ ".seq";
+      InputStream is=rs.getResource(fileKey);
+      File tempFile=null;
+      FileOutputStream tempFileStream=null;
+      try {
+        tempFile=File.createTempFile(segmentId,".seq");
+        tempFileStream=new FileOutputStream(tempFile);
+        org.apache.commons.io.IOUtils.copy(is,tempFileStream);
+      }
+  finally {
+        IOUtils.closeStream(is);
+        IOUtils.closeStream(tempFileStream);
+      }
+      FileSystem fs=HadoopUtil.getFileSystem("file:///" + tempFile.getAbsolutePath());
+      SequenceFile.Reader reader=null;
+      try {
+        reader=new SequenceFile.Reader(fs,new Path(tempFile.getAbsolutePath()),conf);
+        LongWritable key=(LongWritable)ReflectionUtils.newInstance(reader.getKeyClass(),conf);
+        BytesWritable value=(BytesWritable)ReflectionUtils.newInstance(reader.getValueClass(),conf);
+        while (reader.next(key,value)) {
+          HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(16);
+          ByteArray byteArray=new ByteArray(value.getBytes());
+          hll.readRegisters(byteArray.asBuffer());
+          if (cuboidHLLMap.get(key.get()) != null) {
+            cuboidHLLMap.get(key.get()).merge(hll);
+          }
+ else {
+            cuboidHLLMap.put(key.get(),hll);
+          }
+        }
+      }
+ catch (      Exception e) {
+        e.printStackTrace();
+        throw e;
+      }
+ finally {
+        IOUtils.closeStream(reader);
+      }
+    }
+    FactDistinctColumnsReducer.writeCuboidStatistics(conf,getMergedStatisticsPath(),cuboidHLLMap);
+    Path statisticsFilePath=new Path(getMergedStatisticsPath(),BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION);
+    FileSystem fs=statisticsFilePath.getFileSystem(conf);
+    FSDataInputStream is=fs.open(statisticsFilePath);
+    try {
+      String statisticsFileName=ResourceStore.CUBE_STATISTICS_ROOT + "/" + getCubeName()+ "/"+ newSegment.getUuid()+ ".seq";
+      rs.putResource(statisticsFileName,is,System.currentTimeMillis());
+    }
+  finally {
+      IOUtils.closeStream(is);
+    }
+    return new ExecuteResult(ExecuteResult.State.SUCCEED,"succeed");
+  }
+ catch (  IOException e) {
+    logger.error("fail to merge cuboid statistics",e);
+    return new ExecuteResult(ExecuteResult.State.ERROR,e.getLocalizedMessage());
+  }
+}
