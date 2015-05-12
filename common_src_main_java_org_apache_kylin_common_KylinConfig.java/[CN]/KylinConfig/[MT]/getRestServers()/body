@@ -1,5 +1,3 @@
 {
-  String nodes=getOptional(KYLIN_REST_SERVERS);
-  if (StringUtils.isBlank(nodes))   return null;
-  return nodes.split("\\s*,\\s*");
+  return getOptionalStringArray(KYLIN_REST_SERVERS);
 }
