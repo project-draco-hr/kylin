@@ -6,6 +6,7 @@
         logger.warn("There is no available rest server; check the 'kylin.rest.servers' config");
         return;
       }
+      logger.debug(nodes.length + " nodes in the cluster: " + Arrays.toString(nodes));
       final List<RestClient> restClients=Lists.newArrayList();
       for (      String node : nodes) {
         restClients.add(new RestClient(node));
