@@ -1,5 +1,5 @@
 {
-  @SuppressWarnings("unchecked") Set<ByteArray>[] distinctValues=new Set[info.nColumns];
+  @SuppressWarnings("unchecked") Set<ByteArray>[] distinctValues=new Set[info.getColumnCount()];
   for (int i=colPreferIndex.nextSetBit(0); i >= 0; i=colPreferIndex.nextSetBit(i + 1)) {
     distinctValues[i]=new HashSet<ByteArray>();
   }

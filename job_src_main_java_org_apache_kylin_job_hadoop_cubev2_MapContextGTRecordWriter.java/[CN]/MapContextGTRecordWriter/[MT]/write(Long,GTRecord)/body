@@ -20,6 +20,6 @@
     mapContext.write(outputKey,outputValue);
   }
  catch (  InterruptedException e) {
-    throw new IOException(e);
+    throw new RuntimeException(e);
   }
 }

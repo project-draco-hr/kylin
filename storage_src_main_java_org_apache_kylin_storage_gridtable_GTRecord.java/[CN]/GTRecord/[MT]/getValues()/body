@@ -1,3 +1,3 @@
 {
-  return getValues(info.colAll,new Object[info.nColumns]);
+  return getValues(info.colAll,new Object[info.getColumnCount()]);
 }

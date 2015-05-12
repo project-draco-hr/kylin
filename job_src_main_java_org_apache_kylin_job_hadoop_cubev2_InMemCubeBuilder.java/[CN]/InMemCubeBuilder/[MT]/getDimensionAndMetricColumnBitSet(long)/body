@@ -1,0 +1,8 @@
+{
+  BitSet bitSet=BitSet.valueOf(new long[]{cuboidId});
+  BitSet dimension=new BitSet();
+  dimension.set(0,bitSet.cardinality());
+  BitSet metrics=new BitSet();
+  metrics.set(bitSet.cardinality(),bitSet.cardinality() + this.desc.getMeasures().size());
+  return new Pair<BitSet,BitSet>(dimension,metrics);
+}

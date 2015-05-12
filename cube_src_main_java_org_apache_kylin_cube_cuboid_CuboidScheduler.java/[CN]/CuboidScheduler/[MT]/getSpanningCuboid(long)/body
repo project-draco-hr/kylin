@@ -2,7 +2,7 @@
   if (cuboid > max || cuboid < 0) {
     throw new IllegalArgumentException("Cuboid " + cuboid + " is out of scope 0-"+ max);
   }
-  Collection<Long> result=cache.get(cuboid);
+  List<Long> result=cache.get(cuboid);
   if (result != null) {
     return result;
   }

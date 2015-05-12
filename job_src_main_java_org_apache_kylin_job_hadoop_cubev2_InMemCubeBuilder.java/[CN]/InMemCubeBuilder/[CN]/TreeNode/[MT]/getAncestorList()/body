@@ -1,0 +1,9 @@
+{
+  ArrayList<TreeNode<T>> result=Lists.newArrayList();
+  TreeNode<T> parent=this.parent;
+  while (parent != null) {
+    result.add(parent);
+    parent=parent.parent;
+  }
+  return Lists.reverse(result);
+}

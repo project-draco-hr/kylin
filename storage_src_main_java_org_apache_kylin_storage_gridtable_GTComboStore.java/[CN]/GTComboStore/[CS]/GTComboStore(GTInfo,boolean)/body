@@ -1,0 +1,9 @@
+{
+  this.gtInfo=gtInfo;
+  if (useMemStore) {
+    this.gtSimpleMemStore=new GTSimpleMemStore(gtInfo);
+  }
+ else {
+    this.gtDiskStore=new GTDiskStore(gtInfo);
+  }
+}

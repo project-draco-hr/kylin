@@ -1,0 +1,8 @@
+{
+  dataOutputStream.writeInt(seqId);
+  dataOutputStream.writeInt(nRows);
+  export(dataOutputStream,primaryKey);
+  for (  ByteArray cb : cellBlocks) {
+    export(dataOutputStream,cb);
+  }
+}

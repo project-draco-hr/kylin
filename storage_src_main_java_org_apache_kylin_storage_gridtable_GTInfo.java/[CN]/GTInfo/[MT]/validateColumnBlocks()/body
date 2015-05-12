@@ -1,6 +1,6 @@
 {
   colAll=new BitSet();
-  colAll.flip(0,nColumns);
+  colAll.flip(0,colTypes.length);
   if (colBlocks == null) {
     colBlocks=new BitSet[2];
     colBlocks[0]=primaryKey;

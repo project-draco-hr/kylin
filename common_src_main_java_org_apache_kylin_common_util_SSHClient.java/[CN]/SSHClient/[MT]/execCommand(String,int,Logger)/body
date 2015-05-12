@@ -46,7 +46,7 @@
  catch (      Exception ee) {
         throw ee;
       }
-      if (timeout < 0)       throw new Exception("Remote commmand not finished within " + timeoutSeconds + " seconds.");
+      if (timeout < 0)       throw new Exception("Remote command not finished within " + timeoutSeconds + " seconds.");
     }
     channel.disconnect();
     session.disconnect();

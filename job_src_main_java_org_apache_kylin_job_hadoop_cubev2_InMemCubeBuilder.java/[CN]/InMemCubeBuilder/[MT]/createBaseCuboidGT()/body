@@ -1,9 +1,0 @@
-{
-  logger.info("Create base cuboid " + baseCuboidId);
-  Cuboid baseCuboid=Cuboid.findById(this.desc,baseCuboidId);
-  serializers=new DataTypeSerializer[baseCuboid.getColumns().size()];
-  for (int i=0; i < baseCuboid.getColumns().size(); i++) {
-    serializers[i]=DataTypeSerializer.create(baseCuboid.getColumns().get(i).getType());
-  }
-  this.baseCuboidGT=newGridTableByCuboidID(baseCuboidId);
-}

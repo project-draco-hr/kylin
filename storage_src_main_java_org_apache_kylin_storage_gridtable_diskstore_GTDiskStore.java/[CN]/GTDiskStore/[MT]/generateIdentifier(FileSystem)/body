@@ -1,0 +1,9 @@
+{
+  while (true) {
+    String identifier=UUID.randomUUID().toString();
+    final String path=getRootDirectory(identifier);
+    if (fs.createDirectory(path)) {
+      return identifier;
+    }
+  }
+}

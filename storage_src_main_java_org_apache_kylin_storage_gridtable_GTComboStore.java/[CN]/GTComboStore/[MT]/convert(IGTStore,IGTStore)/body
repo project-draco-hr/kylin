@@ -1,0 +1,7 @@
+{
+  final IGTStoreScanner scanner=input.scan(ScanKey.makeScanKey(gtInfo,new GTRecord(gtInfo)),ScanKey.makeScanKey(gtInfo,new GTRecord(gtInfo)),null,null);
+  final IGTStoreWriter writer=output.rebuild(-1);
+  while (scanner.hasNext()) {
+    writer.write(scanner.next());
+  }
+}

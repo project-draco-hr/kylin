@@ -1,0 +1,3 @@
+{
+  return DEFAULT_SIZE_OF.deepSizeOf(Integer.MAX_VALUE,true,obj).getCalculated();
+}

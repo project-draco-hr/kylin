@@ -3,5 +3,5 @@
     GTRowBlock last=rowBlockList.get(rowBlockList.size() - 1);
     fillLast.copyFrom(last);
   }
-  return new Writer();
+  return new Writer(rowBlockList);
 }
