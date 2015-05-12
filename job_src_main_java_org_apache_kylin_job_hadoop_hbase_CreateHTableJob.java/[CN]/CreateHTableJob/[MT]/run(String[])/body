@@ -5,12 +5,9 @@
   options.addOption(OPTION_PARTITION_FILE_PATH);
   options.addOption(OPTION_HTABLE_NAME);
   options.addOption(OPTION_STATISTICS_ENABLED);
-  options.addOption(OPTION_STATISTICS_SAMPLING_PERCENT);
   parseOptions(options,args);
   Path partitionFilePath=new Path(getOptionValue(OPTION_PARTITION_FILE_PATH));
   boolean statistics_enabled=Boolean.parseBoolean(getOptionValue(OPTION_STATISTICS_ENABLED));
-  String statistics_sampling_percent=getOptionValue(OPTION_STATISTICS_SAMPLING_PERCENT);
-  SAMPING_PERCENTAGE=Integer.parseInt(statistics_sampling_percent);
   String cubeName=getOptionValue(OPTION_CUBE_NAME).toUpperCase();
   kylinConfig=KylinConfig.getInstanceFromEnv();
   CubeManager cubeMgr=CubeManager.getInstance(kylinConfig);

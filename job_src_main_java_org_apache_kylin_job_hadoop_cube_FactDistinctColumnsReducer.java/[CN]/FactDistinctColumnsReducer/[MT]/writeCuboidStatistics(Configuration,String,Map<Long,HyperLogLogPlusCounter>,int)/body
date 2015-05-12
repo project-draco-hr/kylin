@@ -4,6 +4,7 @@
   List<Long> allCuboids=new ArrayList<Long>();
   allCuboids.addAll(cuboidHLLMap.keySet());
   Collections.sort(allCuboids);
+  writer.append(new LongWritable(0l),new BytesWritable(Bytes.toBytes(samplingPercentage)));
   ByteBuffer valueBuf=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
   try {
     for (    long i : allCuboids) {

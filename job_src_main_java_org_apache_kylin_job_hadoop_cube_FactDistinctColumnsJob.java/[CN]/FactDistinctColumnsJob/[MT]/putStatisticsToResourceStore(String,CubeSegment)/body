@@ -1,10 +1,10 @@
 {
   Path statisticsFilePath=new Path(statisticsFolder,BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION);
-  FileSystem fs=HadoopUtil.getFileSystem("hdfs:///" + statisticsFilePath);
+  FileSystem fs=FileSystem.get(HadoopUtil.getCurrentConfiguration());
   if (!fs.exists(statisticsFilePath))   throw new IOException("File " + statisticsFilePath + " does not exists;");
   FSDataInputStream is=fs.open(statisticsFilePath);
   try {
-    String statisticsFileName=ResourceStore.CUBE_STATISTICS_ROOT + "/" + cubeSegment.getCubeInstance().getName()+ "/"+ cubeSegment.getUuid()+ ".seq";
+    String statisticsFileName=cubeSegment.getStatisticsResourcePath();
     ResourceStore rs=ResourceStore.getStore(KylinConfig.getInstanceFromEnv());
     rs.putResource(statisticsFileName,is,System.currentTimeMillis());
   }

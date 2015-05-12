@@ -33,7 +33,7 @@
     setupReducer(output);
     attachKylinPropsAndMetadata(cubeInstance,job.getConfiguration());
     int result=waitForCompletion(job);
-    if (Boolean.parseBoolean(statistics_enabled)) {
+    if (result == 0 && Boolean.parseBoolean(statistics_enabled)) {
       putStatisticsToResourceStore(statistics_output,newSegment);
     }
     return result;

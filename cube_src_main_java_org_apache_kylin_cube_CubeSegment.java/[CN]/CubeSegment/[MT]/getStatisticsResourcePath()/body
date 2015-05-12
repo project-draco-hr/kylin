@@ -1,0 +1,3 @@
+{
+  return getStatisticsResourcePath(this.getCubeInstance().getName(),this.getUuid());
+}

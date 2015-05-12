@@ -6,8 +6,9 @@
   Configuration conf=new Configuration();
   ResourceStore rs=ResourceStore.getStore(kylinConf);
   try {
+    int averageSamplingPercentage=0;
     for (    String segmentId : this.getMergingSegmentIds()) {
-      String fileKey=ResourceStore.CUBE_STATISTICS_ROOT + "/" + getCubeName()+ "/"+ segmentId+ ".seq";
+      String fileKey=CubeSegment.getStatisticsResourcePath(getCubeName(),segmentId);
       InputStream is=rs.getResource(fileKey);
       File tempFile=null;
       FileOutputStream tempFileStream=null;
@@ -27,14 +28,19 @@
         LongWritable key=(LongWritable)ReflectionUtils.newInstance(reader.getKeyClass(),conf);
         BytesWritable value=(BytesWritable)ReflectionUtils.newInstance(reader.getValueClass(),conf);
         while (reader.next(key,value)) {
-          HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(16);
-          ByteArray byteArray=new ByteArray(value.getBytes());
-          hll.readRegisters(byteArray.asBuffer());
-          if (cuboidHLLMap.get(key.get()) != null) {
-            cuboidHLLMap.get(key.get()).merge(hll);
+          if (key.get() == 0l) {
+            averageSamplingPercentage+=Bytes.toInt(value.getBytes());
           }
  else {
-            cuboidHLLMap.put(key.get(),hll);
+            HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(14);
+            ByteArray byteArray=new ByteArray(value.getBytes());
+            hll.readRegisters(byteArray.asBuffer());
+            if (cuboidHLLMap.get(key.get()) != null) {
+              cuboidHLLMap.get(key.get()).merge(hll);
+            }
+ else {
+              cuboidHLLMap.put(key.get(),hll);
+            }
           }
         }
       }
@@ -46,12 +52,13 @@
         IOUtils.closeStream(reader);
       }
     }
-    FactDistinctColumnsReducer.writeCuboidStatistics(conf,getMergedStatisticsPath(),cuboidHLLMap);
+    averageSamplingPercentage=averageSamplingPercentage / this.getMergingSegmentIds().size();
+    FactDistinctColumnsReducer.writeCuboidStatistics(conf,getMergedStatisticsPath(),cuboidHLLMap,averageSamplingPercentage);
     Path statisticsFilePath=new Path(getMergedStatisticsPath(),BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION);
     FileSystem fs=statisticsFilePath.getFileSystem(conf);
     FSDataInputStream is=fs.open(statisticsFilePath);
     try {
-      String statisticsFileName=ResourceStore.CUBE_STATISTICS_ROOT + "/" + getCubeName()+ "/"+ newSegment.getUuid()+ ".seq";
+      String statisticsFileName=newSegment.getStatisticsResourcePath();
       rs.putResource(statisticsFileName,is,System.currentTimeMillis());
     }
   finally {

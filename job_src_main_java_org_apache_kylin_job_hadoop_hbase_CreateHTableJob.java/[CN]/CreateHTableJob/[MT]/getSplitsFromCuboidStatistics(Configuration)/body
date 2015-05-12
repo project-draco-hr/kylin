@@ -14,7 +14,7 @@
   Map<Long,Long> cuboidSizeMap=Maps.newHashMap();
   long totalSizeInM=0;
   ResourceStore rs=ResourceStore.getStore(kylinConfig);
-  String fileKey=ResourceStore.CUBE_STATISTICS_ROOT + "/" + cube.getName()+ "/"+ cubeSegment.getUuid()+ ".seq";
+  String fileKey=cubeSegment.getStatisticsResourcePath();
   InputStream is=rs.getResource(fileKey);
   File tempFile=null;
   FileOutputStream tempFileStream=null;
@@ -33,11 +33,17 @@
     reader=new SequenceFile.Reader(fs,new Path(tempFile.getAbsolutePath()),conf);
     LongWritable key=(LongWritable)ReflectionUtils.newInstance(reader.getKeyClass(),conf);
     BytesWritable value=(BytesWritable)ReflectionUtils.newInstance(reader.getValueClass(),conf);
+    int samplingPercentage=25;
     while (reader.next(key,value)) {
-      HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(16);
-      ByteArray byteArray=new ByteArray(value.getBytes());
-      hll.readRegisters(byteArray.asBuffer());
-      cuboidSizeMap.put(key.get(),hll.getCountEstimate() * 100 / SAMPING_PERCENTAGE);
+      if (key.get() == 0l) {
+        samplingPercentage=Bytes.toInt(value.getBytes());
+      }
+ else {
+        HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(14);
+        ByteArray byteArray=new ByteArray(value.getBytes());
+        hll.readRegisters(byteArray.asBuffer());
+        cuboidSizeMap.put(key.get(),hll.getCountEstimate() * 100 / samplingPercentage);
+      }
     }
   }
  catch (  Exception e) {

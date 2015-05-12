@@ -14,15 +14,19 @@
   for (  CubeInstance cube : cubeMgr.listAllCubes()) {
     for (    CubeSegment seg : cube.getSegments()) {
       String tablename=seg.getStorageLocationIdentifier();
-      allTablesNeedToBeDropped.remove(tablename);
-      log.info("Remove table " + tablename + " from drop list, as the table belongs to cube "+ cube.getName()+ " with status "+ cube.getStatus());
+      if (allTablesNeedToBeDropped.contains(tablename)) {
+        allTablesNeedToBeDropped.remove(tablename);
+        log.info("Exclude table " + tablename + " from drop list, as the table belongs to cube "+ cube.getName()+ " with status "+ cube.getStatus());
+      }
     }
   }
   for (  IIInstance ii : iiManager.listAllIIs()) {
     for (    IISegment seg : ii.getSegments()) {
       String tablename=seg.getStorageLocationIdentifier();
-      allTablesNeedToBeDropped.remove(tablename);
-      log.info("Remove table " + tablename + " from drop list, as the table belongs to ii "+ ii.getName()+ " with status "+ ii.getStatus());
+      if (allTablesNeedToBeDropped.contains(tablename)) {
+        allTablesNeedToBeDropped.remove(tablename);
+        log.info("Exclude table " + tablename + " from drop list, as the table belongs to ii "+ ii.getName()+ " with status "+ ii.getStatus());
+      }
     }
   }
   if (delete == true) {

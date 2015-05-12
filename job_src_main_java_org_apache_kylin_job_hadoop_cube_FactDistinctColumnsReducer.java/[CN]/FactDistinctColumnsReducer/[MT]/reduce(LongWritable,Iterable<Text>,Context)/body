@@ -23,7 +23,7 @@
  else {
     long cuboidId=0 - key.get();
     for (    Text value : values) {
-      HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(16);
+      HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(14);
       ByteArray byteArray=new ByteArray(value.getBytes());
       hll.readRegisters(byteArray.asBuffer());
       totalRowsBeforeMerge+=hll.getCountEstimate();
