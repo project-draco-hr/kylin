@@ -11,5 +11,4 @@
     logger.error("fail to switch to mem store",e);
     throw new RuntimeException(e);
   }
-  logger.info("switch to mem store");
 }

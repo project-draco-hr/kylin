@@ -3,7 +3,7 @@
     return new FileOutputStream(path);
   }
  catch (  FileNotFoundException e) {
-    logger.error("path:" + path + " nout found");
+    logger.error("path:" + path + " out found");
     throw new RuntimeException(e);
   }
 }

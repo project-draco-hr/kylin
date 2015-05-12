@@ -1,0 +1,4 @@
+{
+  fileSystem.deleteOnExit(getRowBlockFile(identifier));
+  fileSystem.deleteOnExit(getRootDirectory(identifier));
+}
