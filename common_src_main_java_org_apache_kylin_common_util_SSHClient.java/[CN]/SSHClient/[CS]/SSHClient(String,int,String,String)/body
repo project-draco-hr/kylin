@@ -1,6 +1,7 @@
 {
   this.hostname=hostname;
   this.username=username;
+  this.port=port;
   if (password != null && new File(password).exists()) {
     this.identityPath=new File(password).getAbsolutePath();
     this.password=null;

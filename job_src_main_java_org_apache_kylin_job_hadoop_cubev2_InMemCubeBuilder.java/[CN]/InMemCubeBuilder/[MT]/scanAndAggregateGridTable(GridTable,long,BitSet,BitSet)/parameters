@@ -1,4 +1,0 @@
-GridTable gridTable
-long cuboidId
-BitSet aggregationColumns
-BitSet measureColumns

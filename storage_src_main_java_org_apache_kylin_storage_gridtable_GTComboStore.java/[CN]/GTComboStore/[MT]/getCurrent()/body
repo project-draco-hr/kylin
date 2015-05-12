@@ -1,0 +1,8 @@
+{
+  if (gtSimpleMemStore != null) {
+    return gtSimpleMemStore;
+  }
+ else {
+    return gtDiskStore;
+  }
+}

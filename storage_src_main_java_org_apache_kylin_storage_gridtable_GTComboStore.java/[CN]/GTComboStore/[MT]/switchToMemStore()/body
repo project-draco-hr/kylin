@@ -1,0 +1,15 @@
+{
+  try {
+    if (gtSimpleMemStore == null) {
+      gtSimpleMemStore=new GTSimpleMemStore(gtInfo);
+      convert(gtDiskStore,gtSimpleMemStore);
+      gtDiskStore.drop();
+      gtDiskStore=null;
+    }
+  }
+ catch (  IOException e) {
+    logger.error("fail to switch to mem store",e);
+    throw new RuntimeException(e);
+  }
+  logger.info("switch to mem store");
+}

@@ -3,7 +3,7 @@
   if (identityPath != null) {
     jsch.addIdentity(identityPath);
   }
-  Session session=jsch.getSession(username,hostname,22);
+  Session session=jsch.getSession(username,hostname,port);
   if (password != null) {
     session.setPassword(password);
   }

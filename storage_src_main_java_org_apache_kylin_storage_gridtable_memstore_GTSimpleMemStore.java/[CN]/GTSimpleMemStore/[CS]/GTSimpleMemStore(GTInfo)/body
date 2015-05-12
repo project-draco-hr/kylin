@@ -1,5 +1,4 @@
 {
-  this.info=info;
-  this.rowBlockList=new ArrayList<GTRowBlock>();
+  this.rowBlockList=Lists.newLinkedList();
   if (info.isShardingEnabled())   throw new UnsupportedOperationException();
 }

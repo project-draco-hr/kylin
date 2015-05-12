@@ -1,0 +1,8 @@
+{
+  if (rowBlockList.size() == 0) {
+    return 0;
+  }
+ else {
+    return rowBlockList.get(0).exportLength() * Long.valueOf(rowBlockList.size());
+  }
+}

@@ -1,0 +1,15 @@
+{
+  try {
+    if (gtDiskStore == null) {
+      gtDiskStore=new GTDiskStore(gtInfo);
+      convert(gtSimpleMemStore,gtDiskStore);
+      gtSimpleMemStore.drop();
+      gtSimpleMemStore=null;
+    }
+  }
+ catch (  IOException e) {
+    logger.error("fail to switch to disk store",e);
+    throw new RuntimeException(e);
+  }
+  logger.info("switch to disk store");
+}

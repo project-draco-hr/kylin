@@ -1,0 +1,10 @@
+{
+  try {
+    writer.close();
+  }
+ catch (  Exception e) {
+    logger.error("error to close writer",e);
+  }
+  fileSystem.delete(getRowBlockFile(identifier));
+  fileSystem.delete(getRootDirectory(identifier));
+}

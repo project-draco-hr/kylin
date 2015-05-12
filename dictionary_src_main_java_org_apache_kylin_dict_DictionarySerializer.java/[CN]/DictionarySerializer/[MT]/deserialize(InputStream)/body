@@ -1,0 +1,12 @@
+{
+  try {
+    final DataInputStream dataInputStream=new DataInputStream(inputStream);
+    final String type=dataInputStream.readUTF();
+    final Dictionary dictionary=ClassUtil.forName(type,Dictionary.class).newInstance();
+    dictionary.readFields(dataInputStream);
+    return dictionary;
+  }
+ catch (  Exception e) {
+    throw new RuntimeException(e);
+  }
+}

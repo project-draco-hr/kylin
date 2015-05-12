@@ -1,5 +1,5 @@
 {
   int max=0;
-  for (int i=0; i < nColumns; i++)   max=Math.max(max,codeSystem.maxCodeLength(i));
+  for (int i=0; i < colTypes.length; i++)   max=Math.max(max,codeSystem.maxCodeLength(i));
   return max;
 }

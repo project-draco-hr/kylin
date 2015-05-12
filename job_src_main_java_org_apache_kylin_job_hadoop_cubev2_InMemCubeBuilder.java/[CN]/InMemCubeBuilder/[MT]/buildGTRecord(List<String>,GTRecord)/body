@@ -1,5 +1,5 @@
 {
-  Object[] dimensions=buildKey(row,serializers);
+  Object[] dimensions=buildKey(row);
   Object[] metricsValues=buildValue(row);
   Object[] recordValues=new Object[dimensions.length + metricsValues.length];
   System.arraycopy(dimensions,0,recordValues,0,dimensions.length);

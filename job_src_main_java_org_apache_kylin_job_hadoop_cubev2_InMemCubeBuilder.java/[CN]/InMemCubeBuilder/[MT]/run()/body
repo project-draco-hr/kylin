@@ -1,6 +1,7 @@
 {
   try {
-    createBaseCuboidGT();
+    logger.info("Create base cuboid " + baseCuboidId);
+    final GridTable baseCuboidGT=newGridTableByCuboidID(baseCuboidId,true);
     GTBuilder baseGTBuilder=baseCuboidGT.rebuild();
     final GTRecord baseGTRecord=new GTRecord(baseCuboidGT.getInfo());
     IGTScanner queueScanner=new IGTScanner(){
@@ -40,7 +41,7 @@
       }
     }
 ;
-    Pair<BitSet,BitSet> dimensionMetricsBitSet=getDimensionAndMetricColumBitSet(baseCuboidId);
+    Pair<BitSet,BitSet> dimensionMetricsBitSet=getDimensionAndMetricColumnBitSet(baseCuboidId);
     GTScanRequest req=new GTScanRequest(baseCuboidGT.getInfo(),null,dimensionMetricsBitSet.getFirst(),dimensionMetricsBitSet.getSecond(),metricsAggrFuncs,null);
     IGTScanner aggregationScanner=new GTAggregateScanner(queueScanner,req);
     int counter=0;
@@ -51,7 +52,18 @@
     baseGTBuilder.close();
     aggregationScanner.close();
     logger.info("Base cuboid has " + counter + " rows;");
-    if (counter > 0)     createNDCuboidGT(null,-1l,baseCuboidId);
+    SimpleGridTableTree tree=new SimpleGridTableTree();
+    tree.data=baseCuboidGT;
+    tree.id=baseCuboidId;
+    tree.parent=null;
+    if (counter > 0) {
+      List<Long> children=cuboidScheduler.getSpanningCuboid(baseCuboidId);
+      Collections.sort(children);
+      for (      Long childId : children) {
+        createNDCuboidGT(tree,baseCuboidId,childId);
+      }
+    }
+    baseCuboidGT.getStore().drop();
   }
  catch (  IOException e) {
     logger.error("Fail to build cube",e);
