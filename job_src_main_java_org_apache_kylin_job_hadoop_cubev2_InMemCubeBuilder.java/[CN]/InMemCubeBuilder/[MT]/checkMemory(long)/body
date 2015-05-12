@@ -1,11 +1,5 @@
 {
   final long freeMemory=Runtime.getRuntime().freeMemory();
-  logger.info("available memory:" + (freeMemory >> 10) + " KB");
-  if (freeMemory >= threshold) {
-    logger.info("no need to flush to disk");
-    return true;
-  }
- else {
-    return false;
-  }
+  logger.info("available memory:" + (freeMemory >> 10) + " KB, memory needed:"+ (threshold >> 10)+ " KB");
+  return freeMemory - threshold;
 }

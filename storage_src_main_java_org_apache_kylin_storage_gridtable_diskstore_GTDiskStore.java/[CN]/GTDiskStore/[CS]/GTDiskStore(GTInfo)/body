@@ -4,4 +4,5 @@
   this.identifier=generateIdentifier(fileSystem);
   logger.info("disk store created, identifier:" + identifier);
   this.writer=new DiskStoreWriter(fileSystem.getWriter(getRowBlockFile(identifier)));
+  deleteTmpFilesOnExit();
 }
