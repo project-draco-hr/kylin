@@ -1,0 +1,5 @@
+{
+  StreamSQLResult newCacheEntry=new StreamSQLResult(duplicated,Ranges.<Long>all(),null);
+  cacheManager.getCache(this.underlyingStorage.getClass().getName()).put(new Element(streamSQLDigest,newCacheEntry));
+  logger.info("cache after the query: " + newCacheEntry);
+}

@@ -1,4 +1,7 @@
 {
+  if (filter == null) {
+    return Ranges.all();
+  }
   if (filter instanceof LogicalTupleFilter) {
     if (filter.getOperator() == TupleFilter.FilterOperatorEnum.AND) {
       Range<Long> ret=Ranges.all();

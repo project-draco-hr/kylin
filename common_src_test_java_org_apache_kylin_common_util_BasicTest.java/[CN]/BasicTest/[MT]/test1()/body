@@ -1,4 +1,6 @@
 {
+  Number xx=new Long(0L);
+  System.out.println(xx.getClass().getName());
   System.out.println(time(1367798400000L));
   System.out.println(org.apache.kylin.common.util.DateFormat.formatToTimeStr(1000L * Integer.MAX_VALUE));
   System.out.println(Ranges.open(3,5).isConnected(Ranges.open(3,10)));

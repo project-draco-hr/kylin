@@ -1,4 +1,6 @@
 {
   this.underlying.close();
-  actionOnSeeingWholeData.apply(duplicatedData);
+  for (  TeeTupleItrListener listener : this.listeners) {
+    listener.notify(this.duplicatedData);
+  }
 }

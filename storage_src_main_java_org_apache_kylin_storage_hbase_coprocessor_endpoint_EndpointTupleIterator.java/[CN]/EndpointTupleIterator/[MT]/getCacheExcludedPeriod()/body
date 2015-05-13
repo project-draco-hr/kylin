@@ -1,3 +1,4 @@
 {
+  Preconditions.checkArgument(lastDataTime != -1,"lastDataTime is not set yet");
   return Ranges.greaterThan(lastDataTime);
 }

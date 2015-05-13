@@ -1,0 +1,2 @@
+IStorageEngine underlyingStorage
+TblColRef partitionColRef

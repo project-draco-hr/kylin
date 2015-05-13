@@ -1,0 +1,9 @@
+{
+  String modelName=realization.getModelName();
+  DataModelDesc dataModelDesc=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv()).getDataModelDesc(modelName);
+  PartitionDesc partitionDesc=dataModelDesc.getPartitionDesc();
+  Preconditions.checkArgument(partitionDesc != null,"PartitionDesc for " + realization + " is null!");
+  TblColRef partitionColRef=partitionDesc.getPartitionDateColumnRef();
+  Preconditions.checkArgument(partitionColRef != null,"getPartitionDateColumnRef for " + realization + " is null");
+  return partitionColRef;
+}

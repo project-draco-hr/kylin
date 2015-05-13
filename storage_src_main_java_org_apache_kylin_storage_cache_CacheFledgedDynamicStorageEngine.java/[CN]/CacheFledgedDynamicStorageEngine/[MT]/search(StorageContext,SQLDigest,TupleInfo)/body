@@ -1,0 +1,66 @@
+{
+  boolean needUpdateCache=sqlDigest.groupbyColumns.contains(partitionColRef);
+  streamSQLDigest=new StreamSQLDigest(sqlDigest,partitionColRef);
+  StreamSQLResult cachedResult=null;
+  Cache cache=cacheManager.getCache(this.underlyingStorage.getClass().getName());
+  Element element=cache.get(streamSQLDigest);
+  if (element != null) {
+    this.queryCacheExists=true;
+    cachedResult=(StreamSQLResult)element.getObjectValue();
+  }
+  ts=TsConditionExtractor.extractTsCondition(partitionColRef,sqlDigest.filter);
+  if (ts == null || ts.isEmpty()) {
+    logger.info("ts range in the query conflicts,return empty directly");
+    return ITupleIterator.EMPTY_TUPLE_ITERATOR;
+  }
+  ITupleIterator ret=null;
+  if (cachedResult != null) {
+    Range<Long> reusePeriod=cachedResult.getReusableResults(ts);
+    logger.info("existing cache    : " + cachedResult);
+    logger.info("ts Range in query: " + RangeUtil.formatTsRange(ts));
+    logger.info("potential reusable range   : " + RangeUtil.formatTsRange(reusePeriod));
+    if (reusePeriod != null) {
+      List<Range<Long>> remainings=RangeUtil.remove(ts,reusePeriod);
+      if (remainings.size() == 1) {
+        SimpleTupleIterator reusedTuples=new SimpleTupleIterator(cachedResult.reuse(reusePeriod));
+        List<ITupleIterator> iTupleIteratorList=Lists.newArrayList();
+        iTupleIteratorList.add(reusedTuples);
+        for (        Range<Long> remaining : remainings) {
+          logger.info("Appending ts " + RangeUtil.formatTsRange(remaining) + " as additional filter");
+          ITupleIterator freshTuples=SQLDigestUtil.appendTsFilterToExecute(sqlDigest,partitionColRef,remaining,new Function<Void,ITupleIterator>(){
+            @Override public ITupleIterator apply(            Void input){
+              return underlyingStorage.search(context,sqlDigest,returnTupleInfo);
+            }
+          }
+);
+          iTupleIteratorList.add(freshTuples);
+        }
+        ret=new CompoundTupleIterator(iTupleIteratorList);
+      }
+ else       if (remainings.size() == 0) {
+        needUpdateCache=false;
+        ret=new SimpleTupleIterator(cachedResult.reuse(reusePeriod));
+      }
+ else {
+      }
+    }
+  }
+ else {
+    logger.info("no cache entry for this query");
+  }
+  if (ret == null) {
+    logger.info("decision: not using cache");
+    ret=underlyingStorage.search(context,sqlDigest,returnTupleInfo);
+  }
+ else {
+    logger.info("decision: use cache");
+  }
+  if (needUpdateCache || !queryCacheExists) {
+    final TeeTupleIterator tee=new TeeTupleIterator(ret);
+    tee.addCloseListener(this);
+    return tee;
+  }
+ else {
+    return ret;
+  }
+}

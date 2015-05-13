@@ -1,0 +1,8 @@
+{
+  if (underlyingStorageEngine.isDynamic()) {
+    return new CacheFledgedDynamicStorageEngine(underlyingStorageEngine,getPartitionCol(realization));
+  }
+ else {
+    return new CacheFledgedStaticStorageEngine(underlyingStorageEngine);
+  }
+}

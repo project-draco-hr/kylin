@@ -1,15 +1,19 @@
 {
-  Preconditions.checkArgument(timeCovered.hasUpperBound(),"StreamSQLResult requires timeCovered having a upperBound");
   sortedRows=Maps.newTreeMap();
   for (  ITuple row : rows) {
-    long t=Tuple.getTs(row,partitionCol);
-    if (timeCovered.contains(t)) {
-      if (!this.sortedRows.containsKey(t)) {
-        this.sortedRows.put(t,Lists.newArrayList(row));
-      }
+    if (partitionCol != null) {
+      long t=Tuple.getTs(row,partitionCol);
+      if (timeCovered.contains(t)) {
+        if (!this.sortedRows.containsKey(t)) {
+          this.sortedRows.put(t,Lists.newArrayList(row));
+        }
  else {
-        this.sortedRows.get(t).add(row);
+          this.sortedRows.get(t).add(row);
+        }
       }
+    }
+ else {
+      this.sortedRows.get(0L).add(row);
     }
   }
   this.timeCovered=timeCovered;

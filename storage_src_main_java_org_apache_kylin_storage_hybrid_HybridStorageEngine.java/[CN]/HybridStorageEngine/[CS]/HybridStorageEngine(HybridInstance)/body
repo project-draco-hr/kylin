@@ -1,3 +1,5 @@
 {
   this.hybridInstance=hybridInstance;
+  this.historicalStorageEngine=StorageEngineFactory.getStorageEngine(this.hybridInstance.getHistoryRealizationInstance());
+  this.realtimeStorageEngine=StorageEngineFactory.getStorageEngine(this.hybridInstance.getRealTimeRealizationInstance());
 }

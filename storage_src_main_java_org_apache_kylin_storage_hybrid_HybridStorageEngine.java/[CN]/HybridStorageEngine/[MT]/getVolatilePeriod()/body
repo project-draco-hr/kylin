@@ -1,0 +1,3 @@
+{
+  return RangeUtil.merge(historicalStorageEngine.getVolatilePeriod(),realtimeStorageEngine.getVolatilePeriod());
+}

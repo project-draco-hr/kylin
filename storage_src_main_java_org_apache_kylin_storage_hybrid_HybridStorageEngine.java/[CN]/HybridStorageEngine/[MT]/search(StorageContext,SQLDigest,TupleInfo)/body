@@ -1,16 +1,15 @@
 {
-  ITupleIterator iterator1=searchRealization(hybridInstance.getHistoryRealizationInstance(),context,sqlDigest,returnTupleInfo);
+  ITupleIterator historicalDataIterator=this.historicalStorageEngine.search(context,sqlDigest,returnTupleInfo);
   String modelName=hybridInstance.getModelName();
   MetadataManager metaMgr=getMetadataManager();
   DataModelDesc modelDesc=metaMgr.getDataModelDesc(modelName);
-  if (modelDesc.getPartitionDesc() == null || modelDesc.getPartitionDesc().getPartitionDateColumnRef() == null)   return iterator1;
+  if (modelDesc.getPartitionDesc() == null || modelDesc.getPartitionDesc().getPartitionDateColumnRef() == null)   return historicalDataIterator;
   TblColRef partitionColRef=modelDesc.getPartitionDesc().getPartitionDateColumnRef();
-  ITupleIterator iterator2=SQLDigestUtil.appendTsFilterToExecute(sqlDigest,partitionColRef,Ranges.atLeast(hybridInstance.getHistoryRealizationInstance().getDateRangeEnd()),new Function<Void,ITupleIterator>(){
+  ITupleIterator realtimeDataIterator=SQLDigestUtil.appendTsFilterToExecute(sqlDigest,partitionColRef,Ranges.atLeast(hybridInstance.getHistoryRealizationInstance().getDateRangeEnd()),new Function<Void,ITupleIterator>(){
     @Nullable @Override public ITupleIterator apply(    @Nullable Void input){
-      ITupleIterator iterator2=searchRealization(hybridInstance.getRealTimeRealizationInstance(),context,sqlDigest,returnTupleInfo);
-      return iterator2;
+      return realtimeStorageEngine.search(context,sqlDigest,returnTupleInfo);
     }
   }
 );
-  return new CompoundTupleIterator(Lists.newArrayList(iterator1,iterator2));
+  return new CompoundTupleIterator(Lists.newArrayList(historicalDataIterator,realtimeDataIterator));
 }

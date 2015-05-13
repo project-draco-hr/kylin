@@ -1,0 +1,32 @@
+{
+  streamSQLDigest=new StreamSQLDigest(sqlDigest,null);
+  StreamSQLResult cachedResult=null;
+  Cache cache=cacheManager.getCache(this.underlyingStorage.getClass().getName());
+  Element element=cache.get(streamSQLDigest);
+  if (element != null) {
+    this.queryCacheExists=true;
+    cachedResult=(StreamSQLResult)element.getObjectValue();
+  }
+  ITupleIterator ret=null;
+  if (cachedResult != null) {
+    ret=new SimpleTupleIterator(cachedResult.reuse(Ranges.<Long>all()));
+  }
+ else {
+    logger.info("no cache entry for this query");
+  }
+  if (ret == null) {
+    logger.info("decision: not using cache");
+    ret=underlyingStorage.search(context,sqlDigest,returnTupleInfo);
+  }
+ else {
+    logger.info("decision: use cache");
+  }
+  if (queryCacheExists) {
+    final TeeTupleIterator tee=new TeeTupleIterator(ret);
+    tee.addCloseListener(this);
+    return tee;
+  }
+ else {
+    return ret;
+  }
+}

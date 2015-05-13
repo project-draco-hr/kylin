@@ -1,0 +1,5 @@
+{
+  this.underlyingStorage=underlyingStorage;
+  this.queryCacheExists=false;
+  this.makeCacheIfNecessary(underlyingStorage.getClass().getName());
+}

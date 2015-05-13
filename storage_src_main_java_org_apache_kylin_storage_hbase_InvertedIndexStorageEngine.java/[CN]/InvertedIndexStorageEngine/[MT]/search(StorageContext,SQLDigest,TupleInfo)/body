@@ -2,7 +2,8 @@
   String tableName=seg.getStorageLocationIdentifier();
   @SuppressWarnings("deprecation") HConnection conn=HBaseConnection.get(context.getConnUrl());
   try {
-    return new EndpointTupleIterator(seg,sqlDigest.filter,sqlDigest.groupbyColumns,new ArrayList<>(sqlDigest.aggregations),context,conn,returnTupleInfo);
+    dataIterator=new EndpointTupleIterator(seg,sqlDigest.filter,sqlDigest.groupbyColumns,new ArrayList<>(sqlDigest.aggregations),context,conn,returnTupleInfo);
+    return dataIterator;
   }
  catch (  Throwable e) {
     logger.error("Error when connecting to II htable " + tableName,e);

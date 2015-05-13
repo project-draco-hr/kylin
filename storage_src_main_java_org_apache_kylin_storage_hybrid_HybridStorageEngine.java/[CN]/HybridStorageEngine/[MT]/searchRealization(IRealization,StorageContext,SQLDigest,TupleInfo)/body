@@ -1,4 +1,0 @@
-{
-  IStorageEngine storageEngine=StorageEngineFactory.getStorageEngine(realization,false);
-  return storageEngine.search(context,sqlDigest,returnTupleInfo);
-}

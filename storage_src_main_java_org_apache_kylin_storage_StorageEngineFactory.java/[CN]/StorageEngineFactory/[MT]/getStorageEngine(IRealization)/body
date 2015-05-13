@@ -1,0 +1,23 @@
+{
+  if (realization.getType() == RealizationType.INVERTED_INDEX) {
+    IStorageEngine ret=new InvertedIndexStorageEngine((IIInstance)realization);
+    if (allowStorageLayerCache) {
+      return wrapWithCache(ret,realization);
+    }
+ else {
+      return ret;
+    }
+  }
+ else   if (realization.getType() == RealizationType.CUBE) {
+    IStorageEngine ret=new CubeStorageEngine((CubeInstance)realization);
+    if (allowStorageLayerCache) {
+      return wrapWithCache(ret,realization);
+    }
+ else {
+      return ret;
+    }
+  }
+ else {
+    return new HybridStorageEngine((HybridInstance)realization);
+  }
+}
