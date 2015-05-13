@@ -1,0 +1,10 @@
+{
+  long start=System.currentTimeMillis();
+  List<String> row;
+  for (int i=0; i < 10000; i++) {
+    row=getRandomRow();
+    putRowKeyToHLL(row);
+  }
+  long duration=System.currentTimeMillis() - start;
+  System.out.println("The test takes " + duration / 1000 + "seconds.");
+}

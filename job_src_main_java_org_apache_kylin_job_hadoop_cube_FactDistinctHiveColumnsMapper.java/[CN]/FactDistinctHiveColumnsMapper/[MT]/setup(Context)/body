@@ -17,6 +17,10 @@
     for (int i=0; i < cuboidIds.length; i++) {
       allCuboidsHLL[i]=new HyperLogLogPlusCounter(14);
     }
-    hf=Hashing.md5();
+    hf=Hashing.murmur3_32();
+    row_hashcodes=new ByteArray[nRowKey];
+    for (int i=0; i < nRowKey; i++) {
+      row_hashcodes[i]=new ByteArray();
+    }
   }
 }

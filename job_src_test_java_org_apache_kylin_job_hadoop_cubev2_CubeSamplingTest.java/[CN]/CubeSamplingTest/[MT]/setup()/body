@@ -1,0 +1,19 @@
+{
+  baseCuboidId=(1l << ROW_LENGTH) - 1;
+  List<Long> allCuboids=Lists.newArrayList();
+  List<Integer[]> allCuboidsBitSetList=Lists.newArrayList();
+  for (long i=1; i < baseCuboidId; i++) {
+    allCuboids.add(i);
+    addCuboidBitSet(i,allCuboidsBitSetList);
+  }
+  allCuboidsBitSet=allCuboidsBitSetList.toArray(new Integer[allCuboidsBitSetList.size()][]);
+  System.out.println("Totally have " + allCuboidsBitSet.length + " cuboids.");
+  allCuboidsHLL=new HyperLogLogPlusCounter[allCuboids.size()];
+  for (int i=0; i < allCuboids.size(); i++) {
+    allCuboidsHLL[i]=new HyperLogLogPlusCounter(14);
+  }
+  hf=Hashing.murmur3_32();
+  for (int i=0; i < ROW_LENGTH; i++) {
+    row_index[i]=new ByteArray();
+  }
+}

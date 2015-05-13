@@ -1,0 +1,7 @@
+{
+  row.clear();
+  for (int i=0; i < ROW_LENGTH; i++) {
+    row.add(RandomStringUtils.random(10));
+  }
+  return row;
+}

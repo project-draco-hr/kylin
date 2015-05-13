@@ -1,9 +1,17 @@
 {
+  for (int i=0; i < nRowKey; i++) {
+    Hasher hc=hf.newHasher();
+    if (row.get(intermediateTableDesc.getRowKeyColumnIndexes()[i]) != null) {
+      row_hashcodes[i].set(hc.putString(row.get(intermediateTableDesc.getRowKeyColumnIndexes()[i])).hash().asBytes());
+    }
+ else {
+      row_hashcodes[i].set(hc.putInt(0).hash().asBytes());
+    }
+  }
   for (int i=0, n=allCuboidsBitSet.length; i < n; i++) {
     Hasher hc=hf.newHasher();
     for (int position=0; position < allCuboidsBitSet[i].length; position++) {
-      if (row.get(allCuboidsBitSet[i][position]) != null)       hc.putString(row.get(allCuboidsBitSet[i][position]));
-      hc.putString(",");
+      hc.putBytes(row_hashcodes[allCuboidsBitSet[i][position]].array());
     }
     allCuboidsHLL[i].add(hc.hash().asBytes());
   }
