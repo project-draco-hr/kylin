@@ -1,0 +1,8 @@
+{
+  SaveStatisticsStep result=new SaveStatisticsStep();
+  result.setName(ExecutableConstants.STEP_NAME_SAVE_STATISTICS);
+  result.setCubeName(seg.getCubeInstance().getName());
+  result.setSegmentId(seg.getUuid());
+  result.setStatisticsPath(statisticsPath);
+  return result;
+}

@@ -10,9 +10,9 @@
   final AbstractExecutable intermediateHiveTableStep=createIntermediateHiveTableStep(intermediateTableDesc,jobId);
   result.addTask(intermediateHiveTableStep);
   result.addTask(createFactDistinctColumnsStep(seg,intermediateHiveTableName,jobId));
-  result.addTask(createBuildDictionaryStep(seg,factDistinctColumnsPath));
   MapReduceExecutable baseCuboidStep=null;
   if (!inMemoryCubing()) {
+    result.addTask(createBuildDictionaryStep(seg,factDistinctColumnsPath));
     baseCuboidStep=createBaseCuboidStep(seg,intermediateHiveTableLocation,cuboidOutputTempPath);
     result.addTask(baseCuboidStep);
     for (int i=1; i <= groupRowkeyColumnsCount; i++) {
@@ -21,6 +21,8 @@
     }
   }
  else {
+    result.addTask(createSaveStatisticsStep(seg,getStatisticsPath(seg,jobId)));
+    result.addTask(createBuildDictionaryStep(seg,factDistinctColumnsPath));
     result.addTask(createCreateHTableStep(seg));
     baseCuboidStep=createInMemCubingStep(seg,intermediateHiveTableLocation,intermediateHiveTableName,cuboidOutputTempPath,result.getId());
     result.addTask(baseCuboidStep);

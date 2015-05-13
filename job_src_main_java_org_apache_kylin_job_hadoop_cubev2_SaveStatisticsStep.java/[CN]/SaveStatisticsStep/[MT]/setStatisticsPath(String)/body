@@ -1,0 +1,3 @@
+{
+  this.setParam(STATISTICS_PATH,path);
+}

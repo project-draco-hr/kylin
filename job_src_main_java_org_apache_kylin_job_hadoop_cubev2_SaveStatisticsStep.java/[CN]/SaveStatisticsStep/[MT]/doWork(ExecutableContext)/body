@@ -1,0 +1,25 @@
+{
+  KylinConfig kylinConf=context.getConfig();
+  final CubeManager mgr=CubeManager.getInstance(kylinConf);
+  final CubeInstance cube=mgr.getCube(getCubeName());
+  final CubeSegment newSegment=cube.getSegmentById(getSegmentId());
+  ResourceStore rs=ResourceStore.getStore(kylinConf);
+  try {
+    Path statisticsFilePath=new Path(getStatisticsPath(),BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION);
+    FileSystem fs=FileSystem.get(HadoopUtil.getCurrentConfiguration());
+    if (!fs.exists(statisticsFilePath))     throw new IOException("File " + statisticsFilePath + " does not exists;");
+    FSDataInputStream is=fs.open(statisticsFilePath);
+    try {
+      String statisticsFileName=newSegment.getStatisticsResourcePath();
+      rs.putResource(statisticsFileName,is,System.currentTimeMillis());
+    }
+  finally {
+      IOUtils.closeStream(is);
+    }
+    return new ExecuteResult(ExecuteResult.State.SUCCEED,"succeed");
+  }
+ catch (  IOException e) {
+    logger.error("fail to save cuboid statistics",e);
+    return new ExecuteResult(ExecuteResult.State.ERROR,e.getLocalizedMessage());
+  }
+}

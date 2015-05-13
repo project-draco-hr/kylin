@@ -32,11 +32,7 @@
     setupMapper(intermediateTable);
     setupReducer(output);
     attachKylinPropsAndMetadata(cubeInstance,job.getConfiguration());
-    int result=waitForCompletion(job);
-    if (result == 0 && Boolean.parseBoolean(statistics_enabled)) {
-      putStatisticsToResourceStore(statistics_output,newSegment);
-    }
-    return result;
+    return waitForCompletion(job);
   }
  catch (  Exception e) {
     logger.error("error in FactDistinctColumnsJob",e);
