@@ -2,7 +2,7 @@
   boolean needUpdateCache=sqlDigest.groupbyColumns.contains(partitionColRef);
   streamSQLDigest=new StreamSQLDigest(sqlDigest,partitionColRef);
   StreamSQLResult cachedResult=null;
-  Cache cache=cacheManager.getCache(this.underlyingStorage.getClass().getName());
+  Cache cache=cacheManager.getCache(this.underlyingStorage.getStorageUUID());
   Element element=cache.get(streamSQLDigest);
   if (element != null) {
     this.queryCacheExists=true;

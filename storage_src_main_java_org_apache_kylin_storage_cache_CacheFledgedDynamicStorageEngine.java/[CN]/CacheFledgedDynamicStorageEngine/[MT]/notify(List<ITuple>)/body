@@ -12,6 +12,6 @@
     }
   }
   StreamSQLResult newCacheEntry=new StreamSQLResult(duplicated,ts,partitionColRef);
-  cacheManager.getCache(this.underlyingStorage.getClass().getName()).put(new Element(streamSQLDigest,newCacheEntry));
+  cacheManager.getCache(this.underlyingStorage.getStorageUUID()).put(new Element(streamSQLDigest,newCacheEntry));
   logger.info("cache after the query: " + newCacheEntry);
 }

@@ -1,5 +1,5 @@
 {
   super(underlyingStorage);
   this.partitionColRef=partitionColRef;
-  Preconditions.checkArgument(this.partitionColRef != null,"For dynamic columns like " + this.underlyingStorage.getClass().getName() + ", partition column must be provided");
+  Preconditions.checkArgument(this.partitionColRef != null,"For dynamic columns like " + this.underlyingStorage.getStorageUUID() + ", partition column must be provided");
 }

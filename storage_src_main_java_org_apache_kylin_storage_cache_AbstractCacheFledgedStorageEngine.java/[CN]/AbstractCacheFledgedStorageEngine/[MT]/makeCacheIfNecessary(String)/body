@@ -1,7 +1,7 @@
 {
-  if (cacheManager.getCache(storageClassName) == null) {
-    logger.info("Cache for {} initting:",storageClassName);
-    Cache storageCache=new Cache(new CacheConfiguration(storageClassName,0).memoryStoreEvictionPolicy(MemoryStoreEvictionPolicy.LRU).eternal(false).timeToIdleSeconds(86400).diskExpiryThreadIntervalSeconds(0).maxBytesLocalHeap(256,MemoryUnit.MEGABYTES).persistence(new PersistenceConfiguration().strategy(PersistenceConfiguration.Strategy.NONE)));
+  if (cacheManager.getCache(realizationUUID) == null) {
+    logger.info("Cache for {} initting...",realizationUUID);
+    Cache storageCache=new Cache(new CacheConfiguration(realizationUUID,0).memoryStoreEvictionPolicy(MemoryStoreEvictionPolicy.LRU).eternal(false).timeToIdleSeconds(86400).diskExpiryThreadIntervalSeconds(0).persistence(new PersistenceConfiguration().strategy(PersistenceConfiguration.Strategy.NONE)));
     cacheManager.addCache(storageCache);
   }
 }
