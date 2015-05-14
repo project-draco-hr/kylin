@@ -1,0 +1,9 @@
+{
+  BigDecimal input=new BigDecimal("1234.1234");
+  ByteBuffer buffer=ByteBuffer.allocate(256);
+  buffer.mark();
+  bigDecimalSerializer.serialize(input,buffer);
+  buffer.reset();
+  BigDecimal output=bigDecimalSerializer.deserialize(buffer);
+  assertEquals(input,output);
+}

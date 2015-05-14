@@ -1,0 +1,5 @@
+{
+  BigDecimal input=new BigDecimal("66855344214907231736.4924");
+  ByteBuffer buffer=ByteBuffer.allocate(256);
+  bigDecimalSerializer.serialize(input,buffer);
+}
