@@ -1,0 +1,8 @@
+{
+  if (col.equals(partitionCol)) {
+    return Tuple.dateToEpicDays(this.tsStr);
+  }
+ else {
+    throw new NotImplementedException();
+  }
+}

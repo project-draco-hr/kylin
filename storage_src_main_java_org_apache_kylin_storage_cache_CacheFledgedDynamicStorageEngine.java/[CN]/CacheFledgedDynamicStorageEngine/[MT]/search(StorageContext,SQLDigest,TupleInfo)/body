@@ -55,7 +55,7 @@
  else {
     logger.info("decision: use cache");
   }
-  if (needUpdateCache || !queryCacheExists) {
+  if (needUpdateCache) {
     final TeeTupleIterator tee=new TeeTupleIterator(ret);
     tee.addCloseListener(this);
     return tee;

@@ -1,9 +1,4 @@
 {
-  Number xx=new Long(0L);
-  System.out.println(xx.getClass().getName());
-  System.out.println(time(1367798400000L));
-  System.out.println(org.apache.kylin.common.util.DateFormat.formatToTimeStr(1000L * Integer.MAX_VALUE));
-  System.out.println(Ranges.open(3,5).isConnected(Ranges.open(3,10)));
   String bb="\\x00\\x00\\x00\\x00\\x01\\x3F\\xD0\\x2D\\58\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00";
   String cc="\\x00\\x00\\x00\\x00\\x01\\x41\\xBE\\x8F\\xD8\\x00\\x00\\x00\\x00\\x00\\x00\\x00";
   String dd="\\x00\\x00\\x00\\x00\\x01\\x41\\xBE\\x8F\\xD8\\x07\\x00\\x18\\x00\\x00\\x00";

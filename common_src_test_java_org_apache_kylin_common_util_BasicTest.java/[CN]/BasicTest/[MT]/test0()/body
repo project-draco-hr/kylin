@@ -1,0 +1,10 @@
+{
+  IdentityHashMap<String,Void> a=new IdentityHashMap<>();
+  IdentityHashMap<String,Void> b=new IdentityHashMap<>();
+  String s1=new String("s1");
+  String s2=new String("s1");
+  Assert.assertEquals(s1,s2);
+  Assert.assertTrue(s1 != s2);
+  a.put(s1,null);
+  b.put(s2,null);
+}

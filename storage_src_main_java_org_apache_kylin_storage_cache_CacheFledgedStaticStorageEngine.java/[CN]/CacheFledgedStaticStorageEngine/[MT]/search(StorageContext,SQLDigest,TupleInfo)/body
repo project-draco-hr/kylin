@@ -21,7 +21,7 @@
  else {
     logger.info("decision: use cache");
   }
-  if (queryCacheExists) {
+  if (!queryCacheExists) {
     final TeeTupleIterator tee=new TeeTupleIterator(ret);
     tee.addCloseListener(this);
     return tee;
