@@ -1,0 +1,2 @@
+ICachableStorageEngine underlyingStorage
+TblColRef partitionColRef

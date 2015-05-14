@@ -10,7 +10,7 @@
   ret.add(new Tuple(tupleInfo));
   ret.add(new Tuple(tupleInfo));
   final AtomicInteger underlyingSEHitCount=new AtomicInteger(0);
-  CacheFledgedStaticStorageEngine cacheFledgedStaticStorageEngine=new CacheFledgedStaticStorageEngine(new IStorageEngine(){
+  CacheFledgedStaticStorageEngine cacheFledgedStaticStorageEngine=new CacheFledgedStaticStorageEngine(new ICachableStorageEngine(){
     @Override public ITupleIterator search(    StorageContext context,    SQLDigest sqlDigest,    TupleInfo returnTupleInfo){
       underlyingSEHitCount.incrementAndGet();
       return new SimpleTupleIterator(ret.iterator());
@@ -20,6 +20,9 @@
     }
     @Override public Range<Long> getVolatilePeriod(){
       return null;
+    }
+    @Override public String getStorageUUID(){
+      return "111ca32a-a33e-4b69-12aa-0bb8b1f8c092";
     }
   }
 );

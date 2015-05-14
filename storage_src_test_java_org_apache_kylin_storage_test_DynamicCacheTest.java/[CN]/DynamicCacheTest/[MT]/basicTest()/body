@@ -10,7 +10,7 @@
   final List<ITuple> allTuples=Lists.newArrayList(aTuple,bTuple);
   final AtomicInteger underlyingSEHitCount=new AtomicInteger(0);
   final List<Integer> returnedRowPerSearch=Lists.newArrayList();
-  CacheFledgedDynamicStorageEngine dynamicCache=new CacheFledgedDynamicStorageEngine(new IStorageEngine(){
+  CacheFledgedDynamicStorageEngine dynamicCache=new CacheFledgedDynamicStorageEngine(new ICachableStorageEngine(){
     @Override public ITupleIterator search(    StorageContext context,    SQLDigest sqlDigest,    TupleInfo returnTupleInfo){
       Range<Long> tsRagneInQuery=TsConditionExtractor.extractTsCondition(partitionCol,sqlDigest.filter);
       List<ITuple> ret=Lists.newArrayList();
@@ -28,6 +28,9 @@
     }
     @Override public Range<Long> getVolatilePeriod(){
       return Ranges.greaterThan(DateFormat.stringToMillis("2011-02-01"));
+    }
+    @Override public String getStorageUUID(){
+      return "111ca32a-a33e-4b69-12aa-0bb8b1f8c191";
     }
   }
 ,partitionCol);

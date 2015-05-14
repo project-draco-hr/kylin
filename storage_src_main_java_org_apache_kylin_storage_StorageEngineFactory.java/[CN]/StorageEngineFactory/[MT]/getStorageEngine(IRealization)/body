@@ -1,6 +1,6 @@
 {
   if (realization.getType() == RealizationType.INVERTED_INDEX) {
-    IStorageEngine ret=new InvertedIndexStorageEngine((IIInstance)realization);
+    ICachableStorageEngine ret=new InvertedIndexStorageEngine((IIInstance)realization);
     if (allowStorageLayerCache) {
       return wrapWithCache(ret,realization);
     }
@@ -9,7 +9,7 @@
     }
   }
  else   if (realization.getType() == RealizationType.CUBE) {
-    IStorageEngine ret=new CubeStorageEngine((CubeInstance)realization);
+    ICachableStorageEngine ret=new CubeStorageEngine((CubeInstance)realization);
     if (allowStorageLayerCache) {
       return wrapWithCache(ret,realization);
     }
