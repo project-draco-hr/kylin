@@ -12,7 +12,14 @@
   byte[] resultKey={0,0,0,0,0,0,1,127,49,48,48,48,48,48,48,48,9,9,9,9,9,9,9,9,9,9,55,13,71,114,65,66,73,78,9,9,9,9,9,9,9,9,0,10,0};
   byte[] resultValue={14,7,23,-16,56,92,114,-80,118,14,7,23,-16,56,92,114,-80,118,14,7,23,-16,56,92,114,-80,118,1};
   Pair<Text,Text> output1=new Pair<Text,Text>(new Text(resultKey),new Text(resultValue));
-  assertTrue(result.contains(output1));
+  Collection<Text> keys=Collections2.transform(result,new Function<Pair<Text,Text>,Text>(){
+    @Nullable @Override public Text apply(    Pair<Text,Text> input){
+      return input.getFirst();
+    }
+  }
+);
+  assertTrue(keys.contains(output1.getFirst()));
+  assertTrue(!result.contains(output1));
   long[] keySet=new long[result.size()];
   System.out.println(Bytes.toLong(new byte[]{0,0,0,0,0,0,1,-1}));
   for (int i=0; i < result.size(); i++) {
