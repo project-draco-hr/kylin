@@ -19,5 +19,5 @@
   }
   rowValueDecoder.decode(valueBytes);
   Object[] measureValues=rowValueDecoder.getValues();
-  assertEquals("[333.1234567, 333.1111111, 333.1999999, 2]",Arrays.toString(measureValues));
+  assertEquals("[333.1235, 333.1111, 333.2000, 2]",Arrays.toString(measureValues));
 }

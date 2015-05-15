@@ -3,7 +3,7 @@
   MeasureCodec codec=new MeasureCodec(descs);
   DoubleWritable d=new DoubleWritable(1.0);
   LongWritable l=new LongWritable(2);
-  BigDecimal b=new BigDecimal("333.1234567");
+  BigDecimal b=new BigDecimal("333.1234");
   HyperLogLogPlusCounter hllc=new HyperLogLogPlusCounter(16);
   hllc.add("1234567");
   hllc.add("abcdefg");
