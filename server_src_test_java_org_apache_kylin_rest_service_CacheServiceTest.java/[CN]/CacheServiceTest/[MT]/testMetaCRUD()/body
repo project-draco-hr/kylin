@@ -19,8 +19,8 @@
   assertTrue(metadataManagerB.getDataModelDesc(dataModelName) == null);
   dataModelDesc.setName(dataModelName);
   metadataManager.createDataModelDesc(dataModelDesc,"default","ADMIN");
-  assertEquals(1,broadcaster.getCounterAndClear());
-  waitForCounterAndClear(1);
+  assertEquals(2,broadcaster.getCounterAndClear());
+  waitForCounterAndClear(2);
   assertEquals(dataModelDesc.getName(),metadataManagerB.getDataModelDesc(dataModelName).getName());
   final LookupDesc[] lookups=dataModelDesc.getLookups();
   assertTrue(lookups.length > 0);
