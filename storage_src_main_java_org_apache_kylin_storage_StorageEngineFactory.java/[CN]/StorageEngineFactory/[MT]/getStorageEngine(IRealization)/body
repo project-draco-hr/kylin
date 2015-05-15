@@ -9,7 +9,7 @@
     }
   }
  else   if (realization.getType() == RealizationType.CUBE) {
-    ICachableStorageEngine ret=new CubeStorageEngine((CubeInstance)realization);
+    ICachableStorageEngine ret=new org.apache.kylin.storage.cube.CubeStorageEngine((CubeInstance)realization);
     if (allowStorageLayerCache) {
       return wrapWithCache(ret,realization);
     }

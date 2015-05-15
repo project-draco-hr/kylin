@@ -1,4 +1,5 @@
 {
+  fieldValue=convertWritableToJava(fieldValue);
   String dataType=getDataTypeName(idx);
   if ("double".equals(dataType) && fieldValue instanceof BigDecimal) {
     fieldValue=((BigDecimal)fieldValue).doubleValue();
