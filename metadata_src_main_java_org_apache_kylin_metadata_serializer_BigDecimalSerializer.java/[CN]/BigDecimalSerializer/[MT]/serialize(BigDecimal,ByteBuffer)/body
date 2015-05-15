@@ -1,6 +1,8 @@
 {
   if (value.scale() > type.getScale()) {
-    logger.warn("value's scale has exceeded the " + type.getScale() + ", cut it off, to ensure encoded value do not exceed maxLength "+ maxLength);
+    if (counter % 10000 == 0) {
+      logger.warn("value's scale has exceeded the " + type.getScale() + ", cut it off, to ensure encoded value do not exceed maxLength "+ maxLength+ " times:"+ (counter++));
+    }
     value=value.setScale(type.getScale(),BigDecimal.ROUND_HALF_EVEN);
   }
   byte[] bytes=value.unscaledValue().toByteArray();
