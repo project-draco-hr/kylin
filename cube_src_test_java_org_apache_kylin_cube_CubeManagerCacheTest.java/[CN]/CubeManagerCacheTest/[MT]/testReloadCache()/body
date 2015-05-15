@@ -8,6 +8,6 @@
   assertEquals(0,createdCube.getSegments().size());
   assertEquals(RealizationStatusEnum.DISABLED,createdCube.getStatus());
   createdCube.setStatus(RealizationStatusEnum.DESCBROKEN);
-  cubeManager.updateCube(createdCube);
+  cubeManager.updateCube(createdCube,true);
   assertEquals(RealizationStatusEnum.DESCBROKEN,cubeManager.getCube("a_whole_new_cube").getStatus());
 }

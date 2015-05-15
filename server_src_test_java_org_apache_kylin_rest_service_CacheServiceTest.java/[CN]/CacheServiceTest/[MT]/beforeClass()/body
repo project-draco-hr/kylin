@@ -9,7 +9,13 @@
   server.setHandler(context);
   context.addServlet(new ServletHolder(new BroadcasterReceiveServlet(new BroadcasterReceiveServlet.BroadcasterHandler(){
     @Override public void handle(    String type,    String name,    String event){
-      final CacheService cacheService=new CacheService(){
+      final CacheService serviceA=new CacheService(){
+        @Override public KylinConfig getConfig(){
+          return configA;
+        }
+      }
+;
+      final CacheService serviceB=new CacheService(){
         @Override public KylinConfig getConfig(){
           return configB;
         }
@@ -19,17 +25,23 @@
       Broadcaster.EVENT wipeEvent=Broadcaster.EVENT.getEvent(event);
       final String log="wipe cache type: " + wipeType + " event:"+ wipeEvent+ " name:"+ name;
       logger.info(log);
-      counter.incrementAndGet();
+      try {
 switch (wipeEvent) {
 case CREATE:
 case UPDATE:
-        cacheService.rebuildCache(wipeType,name);
+          serviceA.rebuildCache(wipeType,name);
+        serviceB.rebuildCache(wipeType,name);
       break;
 case DROP:
-    cacheService.removeCache(wipeType,name);
-  break;
+    serviceA.removeCache(wipeType,name);
+  serviceB.removeCache(wipeType,name);
+break;
 default :
 throw new RuntimeException("invalid type:" + wipeEvent);
+}
+}
+  finally {
+counter.incrementAndGet();
 }
 }
 }

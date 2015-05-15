@@ -5,6 +5,6 @@
     newProject=this.createProject(newProjectName,user,"This is a project automatically added when adding realization " + realizationName + "("+ type+ ")");
   }
   newProject.addRealizationEntry(type,realizationName);
-  saveResource(newProject);
+  updateProject(newProject);
   return newProject;
 }

@@ -5,6 +5,6 @@
     throw new IllegalArgumentException("Project " + newProjectName + " does not exist.");
   }
   newProject.addModel(modelName);
-  saveResource(newProject);
+  updateProject(newProject);
   return newProject;
 }

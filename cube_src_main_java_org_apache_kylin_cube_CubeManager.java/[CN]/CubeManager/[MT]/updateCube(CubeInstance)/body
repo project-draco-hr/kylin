@@ -1,5 +1,0 @@
-{
-  logger.info("Updating cube instance '" + cube.getName());
-  saveResource(cube);
-  return cube;
-}

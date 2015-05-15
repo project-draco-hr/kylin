@@ -1,7 +1,0 @@
-{
-  List<ProjectInstance> projectInstances=getProjectManager().findProjects(type,realizationName);
-  for (  ProjectInstance pi : projectInstances) {
-    getProjectManager().reloadProject(pi.getName());
-    removeOLAPDataSource(pi.getName());
-  }
-}

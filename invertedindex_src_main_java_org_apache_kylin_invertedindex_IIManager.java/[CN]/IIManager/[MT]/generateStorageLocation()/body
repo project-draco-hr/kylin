@@ -5,7 +5,7 @@
       int idx=(int)(Math.random() * ALPHA_NUM.length());
       sb.append(ALPHA_NUM.charAt(idx));
     }
-    if (usedStorageLocation.contains(sb.toString())) {
+    if (usedStorageLocation.containsValue(sb.toString())) {
       continue;
     }
  else {

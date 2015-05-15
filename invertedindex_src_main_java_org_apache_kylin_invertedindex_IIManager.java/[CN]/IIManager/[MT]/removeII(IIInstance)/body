@@ -1,0 +1,4 @@
+{
+  getStore().deleteResource(ii.getResourcePath());
+  iiMap.remove(ii.getName());
+}

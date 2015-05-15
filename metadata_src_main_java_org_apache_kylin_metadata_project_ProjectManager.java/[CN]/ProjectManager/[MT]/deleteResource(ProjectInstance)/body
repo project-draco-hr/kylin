@@ -1,6 +1,0 @@
-{
-  ResourceStore store=getStore();
-  store.deleteResource(proj.getResourcePath());
-  projectMap.remove(norm(proj.getName()));
-  clearL2Cache();
-}

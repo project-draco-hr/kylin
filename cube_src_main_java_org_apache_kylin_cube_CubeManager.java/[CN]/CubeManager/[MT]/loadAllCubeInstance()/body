@@ -3,7 +3,7 @@
   List<String> paths=store.collectResourceRecursively(ResourceStore.CUBE_RESOURCE_ROOT,".json");
   logger.debug("Loading Cube from folder " + store.getReadableResourcePath(ResourceStore.CUBE_RESOURCE_ROOT));
   for (  String path : paths) {
-    loadCubeInstance(path);
+    reloadCubeLocalAt(path);
   }
   logger.debug("Loaded " + paths.size() + " Cube(s)");
 }

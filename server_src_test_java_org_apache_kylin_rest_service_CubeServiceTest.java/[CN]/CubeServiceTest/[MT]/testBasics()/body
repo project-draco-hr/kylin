@@ -9,7 +9,6 @@
   Assert.assertNotNull(cubes);
   CubeInstance cube=cubes.get(0);
   cubeService.isCubeDescEditable(cube.getDescriptor());
-  cubeService.isCubeEditable(cube);
   cubes=cubeService.getCubes(null,null,null,1,0);
   Assert.assertTrue(cubes.size() == 1);
 }

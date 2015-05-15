@@ -6,6 +6,6 @@
   validateNewSegments(cube,newSegment);
   cube.getSegments().add(newSegment);
   Collections.sort(cube.getSegments());
-  updateCube(cube);
+  updateCube(cube,false);
   return newSegment;
 }

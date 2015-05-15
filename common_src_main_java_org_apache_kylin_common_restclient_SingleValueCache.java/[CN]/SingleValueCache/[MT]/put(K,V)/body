@@ -1,6 +1,5 @@
 {
-  final V result=innerCache.put(key,value);
-  if (result == null) {
+  if (!innerCache.containsKey(key)) {
     syncRemote(key,Broadcaster.EVENT.CREATE);
   }
  else {

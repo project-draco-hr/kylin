@@ -1,0 +1,5 @@
+{
+  for (  ProjectInstance proj : findProjects(type,realizationName)) {
+    updateProject(proj);
+  }
+}

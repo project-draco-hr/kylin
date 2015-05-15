@@ -1,0 +1,8 @@
+{
+  try {
+    reloadCubeLocalAt(CubeInstance.concatResourcePath(cubeName));
+  }
+ catch (  IOException e) {
+    logger.error(e.getLocalizedMessage(),e);
+  }
+}

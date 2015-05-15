@@ -12,5 +12,5 @@
   cube.setSegments(tobe);
   cube.setStatus(RealizationStatusEnum.READY);
   logger.info("Promoting cube " + cube + ", new segments "+ newSegments);
-  saveResource(cube);
+  updateCube(cube,true);
 }

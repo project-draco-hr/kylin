@@ -4,9 +4,13 @@
     return cubeRequest;
   }
   if (!cubeService.isCubeDescEditable(desc)) {
-    String error="Cube desc " + desc.getName().toUpperCase() + " is not editable.";
+    String error="Purge the related cube before editing its desc. Desc name: " + desc.getName();
     updateRequest(cubeRequest,false,error);
     return cubeRequest;
+  }
+  if (!cubeRequest.getCubeName().equalsIgnoreCase(CubeService.getCubeNameFromDesc(desc.getName()))) {
+    deleteCube(cubeRequest.getCubeName());
+    saveCubeDesc(cubeRequest);
   }
   try {
     CubeInstance cube=cubeService.getCubeManager().getCube(cubeRequest.getCubeName());

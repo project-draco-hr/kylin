@@ -32,7 +32,7 @@
     segment.putDictResPath(lfn,newDictInfo.getResourcePath());
     segment.putDictResPath(lsi,sharedDict.getResourcePath());
     segment.putDictResPath(ssc,sharedDict.getResourcePath());
-    cubeManager.updateCube(cube);
+    cubeManager.updateCube(cube,true);
     isFirstSegment=false;
   }
 }

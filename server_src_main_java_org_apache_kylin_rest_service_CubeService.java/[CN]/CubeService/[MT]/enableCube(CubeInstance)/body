@@ -16,7 +16,7 @@
   }
   cube.setStatus(RealizationStatusEnum.READY);
   try {
-    return getCubeManager().updateCube(cube);
+    return getCubeManager().updateCube(cube,true);
   }
  catch (  IOException e) {
     cube.setStatus(ostatus);

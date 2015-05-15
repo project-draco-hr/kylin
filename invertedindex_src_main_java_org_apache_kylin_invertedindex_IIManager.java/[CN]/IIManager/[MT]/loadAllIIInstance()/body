@@ -3,7 +3,7 @@
   List<String> paths=store.collectResourceRecursively(ResourceStore.II_RESOURCE_ROOT,".json");
   logger.debug("Loading II from folder " + store.getReadableResourcePath(ResourceStore.II_RESOURCE_ROOT));
   for (  String path : paths) {
-    loadIIInstance(path);
+    reloadIILocalAt(path);
   }
   logger.debug("Loaded " + paths.size() + " II(s)");
 }

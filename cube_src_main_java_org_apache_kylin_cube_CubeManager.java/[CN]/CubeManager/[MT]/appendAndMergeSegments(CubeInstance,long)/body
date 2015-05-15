@@ -10,6 +10,6 @@
   cube.getSegments().add(appendSegment);
   cube.getSegments().add(mergeSegment);
   Collections.sort(cube.getSegments());
-  updateCube(cube);
+  updateCube(cube,false);
   return new Pair<CubeSegment,CubeSegment>(appendSegment,mergeSegment);
 }

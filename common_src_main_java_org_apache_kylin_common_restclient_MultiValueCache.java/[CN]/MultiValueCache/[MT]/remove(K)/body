@@ -1,6 +1,0 @@
-{
-  if (innerCache.containsKey(key)) {
-    innerCache.removeAll(key);
-    syncRemote(key,Broadcaster.EVENT.DROP);
-  }
-}

@@ -1,7 +1,0 @@
-{
-  ResourceStore store=getStore();
-  store.putResource(prj.getResourcePath(),prj,PROJECT_SERIALIZER);
-  prj=reloadProjectAt(prj.getResourcePath());
-  projectMap.put(norm(prj.getName()),prj);
-  clearL2Cache();
-}

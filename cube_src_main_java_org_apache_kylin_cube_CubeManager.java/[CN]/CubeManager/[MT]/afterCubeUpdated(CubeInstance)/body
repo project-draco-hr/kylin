@@ -1,3 +1,0 @@
-{
-  cubeMap.put(updatedCube.getName(),updatedCube);
-}

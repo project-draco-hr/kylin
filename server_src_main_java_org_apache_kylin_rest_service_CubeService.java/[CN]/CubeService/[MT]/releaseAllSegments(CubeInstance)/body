@@ -7,5 +7,5 @@
     }
   }
   cube.getSegments().clear();
-  CubeManager.getInstance(getConfig()).updateCube(cube);
+  CubeManager.getInstance(getConfig()).updateCube(cube,true);
 }

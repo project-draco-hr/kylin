@@ -3,7 +3,7 @@
   try {
 switch (cacheType) {
 case CUBE:
-      getCubeManager().removeCubeCacheLocal(cacheKey);
+      getCubeManager().removeCubeLocal(cacheKey);
     break;
 case CUBE_DESC:
   getCubeDescManager().removeLocalCubeDesc(cacheKey);
@@ -12,7 +12,7 @@ case PROJECT:
 ProjectManager.clearCache();
 break;
 case INVERTED_INDEX:
-getIIManager().removeIILocalCache(cacheKey);
+getIIManager().removeIILocal(cacheKey);
 break;
 case INVERTED_INDEX_DESC:
 getIIDescManager().removeIIDescLocal(cacheKey);

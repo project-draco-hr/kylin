@@ -3,22 +3,21 @@
   try {
 switch (cacheType) {
 case CUBE:
-      getCubeManager().loadCubeCache(cacheKey);
-    cleanProjectCacheByRealization(RealizationType.CUBE,cacheKey);
-  mergeCubeOnNewSegmentReady(cacheKey);
-break;
+      getCubeManager().reloadCubeLocal(cacheKey);
+    mergeCubeOnNewSegmentReady(cacheKey);
+  break;
 case CUBE_DESC:
-getCubeDescManager().reloadCubeDesc(cacheKey);
+getCubeDescManager().reloadCubeDescLocal(cacheKey);
 break;
 case PROJECT:
-getProjectManager().reloadProject(cacheKey);
+ProjectInstance projectInstance=getProjectManager().reloadProjectLocal(cacheKey);
+removeOLAPDataSource(projectInstance.getName());
 break;
 case INVERTED_INDEX:
-getIIManager().loadIICache(cacheKey);
-cleanProjectCacheByRealization(RealizationType.INVERTED_INDEX,cacheKey);
+getIIManager().reloadIILocal(cacheKey);
 break;
 case INVERTED_INDEX_DESC:
-getIIDescManager().reloadIIDesc(cacheKey);
+getIIDescManager().reloadIIDescLocal(cacheKey);
 break;
 case TABLE:
 getMetadataManager().reloadTableCache(cacheKey);
@@ -37,7 +36,7 @@ CubeManager.clearCache();
 IIDescManager.clearCache();
 IIManager.clearCache();
 ProjectManager.clearCache();
-BasicService.resetOLAPDataSources();
+removeAllOLAPDataSources();
 break;
 default :
 throw new RuntimeException("invalid cacheType:" + cacheType);

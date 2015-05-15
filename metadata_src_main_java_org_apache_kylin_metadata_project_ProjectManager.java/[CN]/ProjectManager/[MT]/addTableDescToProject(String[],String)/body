@@ -8,6 +8,6 @@
     }
     projectInstance.addTable(table.getIdentity());
   }
-  saveResource(projectInstance);
+  updateProject(projectInstance);
   return projectInstance;
 }

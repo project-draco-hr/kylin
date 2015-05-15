@@ -1,5 +1,5 @@
 {
   CubeManager.clearCache();
   ProjectManager.clearCache();
-  BasicService.resetOLAPDataSources();
+  removeAllOLAPDataSources();
 }

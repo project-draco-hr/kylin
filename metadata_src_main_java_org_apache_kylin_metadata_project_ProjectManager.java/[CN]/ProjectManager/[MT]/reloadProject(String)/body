@@ -1,3 +1,0 @@
-{
-  return reloadProjectAt(ProjectInstance.concatResourcePath(project));
-}

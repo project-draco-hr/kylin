@@ -1,4 +1,7 @@
 {
   if (this.getII(ii.getName()) != null)   throw new IllegalArgumentException("The II name '" + ii.getName() + "' already exists.");
-  return updateII(ii);
+  this.updateII(ii,false);
+  String projectName=(null == ii.getProjectName()) ? ProjectInstance.DEFAULT_PROJECT_NAME : ii.getProjectName();
+  ProjectManager.getInstance(config).moveRealizationToProject(RealizationType.INVERTED_INDEX,ii.getName(),projectName,ii.getOwner());
+  return ii;
 }

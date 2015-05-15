@@ -4,15 +4,16 @@
     newProject.setCreateTimeUTC(project.getCreateTimeUTC());
     newProject.recordUpdateTime(System.currentTimeMillis());
     newProject.setRealizationEntries(project.getRealizationEntries());
-    deleteResource(project);
-    saveResource(newProject);
+    newProject.setTables(project.getTables());
+    removeProject(project);
+    updateProject(newProject);
     return newProject;
   }
  else {
     project.setName(newName);
     project.setDescription(newDesc);
     if (project.getUuid() == null)     project.updateRandomUuid();
-    saveResource(project);
+    updateProject(project);
     return project;
   }
 }

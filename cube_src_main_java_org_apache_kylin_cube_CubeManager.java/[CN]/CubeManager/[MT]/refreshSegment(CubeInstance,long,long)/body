@@ -3,6 +3,6 @@
   CubeSegment newSegment=newSegment(cube,startDate,endDate);
   cube.getSegments().add(newSegment);
   Collections.sort(cube.getSegments());
-  updateCube(cube);
+  updateCube(cube,false);
   return newSegment;
 }

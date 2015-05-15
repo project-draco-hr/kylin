@@ -3,7 +3,7 @@
     IIInstance ii=iiManager.getII(iiInstance);
     if (ii.getStatus() != RealizationStatusEnum.READY) {
       ii.setStatus(RealizationStatusEnum.READY);
-      iiManager.updateII(ii);
+      iiManager.updateII(ii,true);
     }
   }
   backup();

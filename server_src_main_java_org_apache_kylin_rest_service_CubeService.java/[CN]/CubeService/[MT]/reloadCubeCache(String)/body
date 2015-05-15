@@ -1,3 +1,0 @@
-{
-  CubeManager.getInstance(this.getConfig()).loadCubeCache(cubeName);
-}

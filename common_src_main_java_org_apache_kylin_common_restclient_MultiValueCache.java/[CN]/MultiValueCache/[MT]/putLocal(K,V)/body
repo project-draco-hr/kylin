@@ -1,5 +1,0 @@
-{
-synchronized (this) {
-    innerCache.put(key,value);
-  }
-}

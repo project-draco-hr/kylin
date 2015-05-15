@@ -5,7 +5,7 @@
   Iterator<CubeInstance> it=list.iterator();
   while (it.hasNext()) {
     CubeInstance ci=it.next();
-    if (descName.equals(ci.getDescName())) {
+    if (descName.equalsIgnoreCase(ci.getDescName())) {
       result.add(ci);
     }
   }

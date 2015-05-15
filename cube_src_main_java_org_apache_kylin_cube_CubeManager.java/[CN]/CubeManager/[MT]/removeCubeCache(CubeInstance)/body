@@ -1,5 +1,0 @@
-{
-  final String cubeName=cube.getName().toUpperCase();
-  cubeMap.remove(cubeName);
-  usedStorageLocation.removeAll(cubeName);
-}

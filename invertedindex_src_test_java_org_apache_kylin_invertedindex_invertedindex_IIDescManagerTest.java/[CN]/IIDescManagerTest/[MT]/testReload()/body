@@ -4,7 +4,7 @@
   desc.setUuid(UUID.randomUUID().toString());
   IIDesc newDesc=mgr.getIIDesc(TEST_II_DESC_NAME);
   Assert.assertEquals(desc,newDesc);
-  mgr.reloadIIDesc(TEST_II_DESC_NAME);
+  mgr.reloadIIDescLocal(TEST_II_DESC_NAME);
   newDesc=mgr.getIIDesc(TEST_II_DESC_NAME);
   Assert.assertNotEquals(desc,newDesc);
 }

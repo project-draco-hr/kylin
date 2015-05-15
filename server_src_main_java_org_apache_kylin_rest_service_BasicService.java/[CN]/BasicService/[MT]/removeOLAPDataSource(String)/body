@@ -1,4 +1,5 @@
 {
+  logger.info("removeOLAPDataSource is called for project " + project);
   if (StringUtils.isEmpty(project))   throw new IllegalArgumentException("removeOLAPDataSource: project name not given");
   project=ProjectInstance.getNormalizedProjectName(project);
   olapDataSources.remove(project);

@@ -1,0 +1,4 @@
+{
+  logger.info("removeAllOLAPDataSources is called.");
+  olapDataSources.clear();
+}

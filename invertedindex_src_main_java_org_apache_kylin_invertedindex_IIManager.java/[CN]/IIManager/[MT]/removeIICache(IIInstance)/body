@@ -1,6 +1,0 @@
-{
-  iiMap.remove(ii.getName());
-  for (  IISegment segment : ii.getSegments()) {
-    usedStorageLocation.remove(segment.getName());
-  }
-}
