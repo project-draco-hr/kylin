@@ -1,0 +1,25 @@
+{
+  if (next != null)   return true;
+  if (curScanner == null) {
+    if (scannerIterator.hasNext()) {
+      curScanner=scannerIterator.next();
+      curRecordIterator=curScanner.iterator();
+      curTupleConverter=new CubeTupleConverter(curScanner.cubeSeg,cuboid,selectedDimensions,selectedMetrics,tupleInfo);
+    }
+ else {
+      return false;
+    }
+  }
+  if (curRecordIterator.hasNext()) {
+    curTupleConverter.translateResult(curRecordIterator.next(),tuple);
+    next=tuple;
+    return true;
+  }
+ else {
+    close(curScanner);
+    curScanner=null;
+    curRecordIterator=null;
+    curTupleConverter=null;
+    return hasNext();
+  }
+}

@@ -1,4 +1,10 @@
 {
-  this.begin=byteUnknownIsSmaller.min(this.equals);
-  this.end=byteUnknownIsBigger.max(this.equals);
+  if (equals.isEmpty()) {
+    begin=ByteArray.EMPTY;
+    end=ByteArray.EMPTY;
+  }
+ else {
+    begin=byteUnknownIsSmaller.min(equals);
+    end=byteUnknownIsBigger.max(equals);
+  }
 }

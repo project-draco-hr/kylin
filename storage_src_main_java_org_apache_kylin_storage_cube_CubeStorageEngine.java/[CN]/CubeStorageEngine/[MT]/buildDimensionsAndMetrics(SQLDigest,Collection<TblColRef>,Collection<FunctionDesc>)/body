@@ -1,7 +1,7 @@
 {
   for (  FunctionDesc func : sqlDigest.aggregations) {
     if (!func.isDimensionAsMetric()) {
-      metrics.add(func);
+      metrics.add(findAggrFuncFromCubeDesc(func));
     }
   }
   for (  TblColRef column : sqlDigest.allColumns) {

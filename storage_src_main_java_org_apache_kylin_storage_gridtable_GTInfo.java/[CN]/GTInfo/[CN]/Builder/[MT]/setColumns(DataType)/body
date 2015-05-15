@@ -1,4 +1,5 @@
 {
+  info.nColumns=colTypes.length;
   info.colTypes=colTypes;
   return this;
 }

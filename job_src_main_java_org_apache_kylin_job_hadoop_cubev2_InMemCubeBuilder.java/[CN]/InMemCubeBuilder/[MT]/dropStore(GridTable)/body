@@ -1,0 +1,3 @@
+{
+  ((GTComboStore)gt.getStore()).drop();
+}

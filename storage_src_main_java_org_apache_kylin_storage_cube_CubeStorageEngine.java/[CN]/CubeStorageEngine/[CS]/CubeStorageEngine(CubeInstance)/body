@@ -1,5 +1,4 @@
 {
   this.cubeInstance=cube;
   this.cubeDesc=cube.getDescriptor();
-  this.uuid=cube.getUuid();
 }

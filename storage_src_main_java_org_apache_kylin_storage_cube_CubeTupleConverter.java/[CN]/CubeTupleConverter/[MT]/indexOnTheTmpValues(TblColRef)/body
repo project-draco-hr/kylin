@@ -1,0 +1,8 @@
+{
+  List<TblColRef> cuboidDims=cuboid.getColumns();
+  int cuboidIdx=cuboidDims.indexOf(col);
+  for (int i=0; i < gtColIdx.length; i++) {
+    if (gtColIdx[i] == cuboidIdx)     return i;
+  }
+  return -1;
+}

@@ -1,0 +1,8 @@
+{
+  this.cuboid=cuboid;
+  this.selectedDimensions=selectedDimensions;
+  this.selectedMetrics=selectedMetrics;
+  this.tupleInfo=returnTupleInfo;
+  this.tuple=new Tuple(returnTupleInfo);
+  this.scannerIterator=scanners.iterator();
+}

@@ -1,0 +1,9 @@
+{
+  if (aggrFunc.isCountDistinct()) {
+    for (    FunctionDesc selected : selectedMetrics) {
+      if (selected.equals(aggrFunc) && selected.isHolisticCountDistinct() == aggrFunc.isHolisticCountDistinct())       return true;
+    }
+    return false;
+  }
+ else   return selectedMetrics.contains(aggrFunc);
+}

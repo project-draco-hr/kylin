@@ -1,0 +1,63 @@
+{
+  boolean allHostsPresent=true;
+  final int[] hostTmpIdx=new int[hostCols.length];
+  for (int i=0; i < hostCols.length; i++) {
+    hostTmpIdx[i]=indexOnTheTmpValues(hostCols[i]);
+    allHostsPresent=allHostsPresent && hostTmpIdx[i] >= 0;
+  }
+  boolean needCopyDerived=false;
+  final int[] derivedTupleIdx=new int[deriveInfo.columns.length];
+  for (int i=0; i < deriveInfo.columns.length; i++) {
+    TblColRef col=deriveInfo.columns[i];
+    derivedTupleIdx[i]=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
+    needCopyDerived=needCopyDerived || derivedTupleIdx[i] >= 0;
+  }
+  if ((allHostsPresent && needCopyDerived) == false)   return null;
+switch (deriveInfo.type) {
+case LOOKUP:
+    return new IDerivedColumnFiller(){
+      CubeManager cubeMgr=CubeManager.getInstance(cubeSeg.getCubeInstance().getConfig());
+      LookupStringTable lookupTable=cubeMgr.getLookupTable(cubeSeg,deriveInfo.dimension);
+      int[] derivedColIdx=initDerivedColIdx();
+      Array<String> lookupKey=new Array<String>(new String[hostTmpIdx.length]);
+      private int[] initDerivedColIdx(){
+        int[] idx=new int[deriveInfo.columns.length];
+        for (int i=0; i < idx.length; i++) {
+          idx[i]=deriveInfo.columns[i].getColumnDesc().getZeroBasedIndex();
+        }
+        return idx;
+      }
+      @Override public void fillDerivedColumns(      Object[] tmpValues,      Tuple tuple){
+        for (int i=0; i < hostTmpIdx.length; i++) {
+          lookupKey.data[i]=CubeTupleConverter.toString(tmpValues[hostTmpIdx[i]]);
+        }
+        String[] lookupRow=lookupTable.getRow(lookupKey);
+        if (lookupRow != null) {
+          for (int i=0; i < derivedTupleIdx.length; i++) {
+            if (derivedTupleIdx[i] >= 0) {
+              String value=lookupRow[derivedColIdx[i]];
+              tuple.setDimensionValue(derivedTupleIdx[i],value);
+            }
+          }
+        }
+ else {
+          for (int i=0; i < derivedTupleIdx.length; i++) {
+            if (derivedTupleIdx[i] >= 0) {
+              tuple.setDimensionValue(derivedTupleIdx[i],null);
+            }
+          }
+        }
+      }
+    }
+;
+case PK_FK:
+  return new IDerivedColumnFiller(){
+    @Override public void fillDerivedColumns(    Object[] tmpValues,    Tuple tuple){
+      tuple.setDimensionValue(derivedTupleIdx[0],CubeTupleConverter.toString(tmpValues[hostTmpIdx[0]]));
+    }
+  }
+;
+default :
+throw new IllegalArgumentException();
+}
+}

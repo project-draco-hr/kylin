@@ -63,7 +63,7 @@
         createNDCuboidGT(tree,baseCuboidId,childId);
       }
     }
-    baseCuboidGT.getStore().drop();
+    dropStore(baseCuboidGT);
   }
  catch (  IOException e) {
     logger.error("Fail to build cube",e);

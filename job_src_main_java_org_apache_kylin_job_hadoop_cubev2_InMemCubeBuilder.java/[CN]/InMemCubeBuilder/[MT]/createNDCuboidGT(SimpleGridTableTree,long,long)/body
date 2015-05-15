@@ -1,2 +1,29 @@
 {
+  long startTime=System.currentTimeMillis();
+  GTComboStore parentStore=(GTComboStore)parentNode.data.getStore();
+  if (parentStore.memoryUsage() <= 0) {
+    long t=System.currentTimeMillis();
+    parentStore.switchToMemStore();
+    logger.info("node " + parentNode.id + " switch to mem store cost:"+ (System.currentTimeMillis() - t)+ "ms");
+  }
+  boolean inMem=gc(parentNode);
+  GridTable currentCuboid=aggregateCuboid(parentNode.data,parentCuboidId,cuboidId,inMem);
+  SimpleGridTableTree node=new SimpleGridTableTree();
+  node.parent=parentNode;
+  node.data=currentCuboid;
+  node.id=cuboidId;
+  parentNode.children.add(node);
+  logger.info("Cuboid " + cuboidId + " build takes "+ (System.currentTimeMillis() - startTime)+ "ms");
+  List<Long> children=cuboidScheduler.getSpanningCuboid(cuboidId);
+  if (!children.isEmpty()) {
+    Collections.sort(children);
+    for (    Long childId : children) {
+      createNDCuboidGT(node,cuboidId,childId);
+    }
+  }
+  startTime=System.currentTimeMillis();
+  outputGT(cuboidId,currentCuboid);
+  dropStore(currentCuboid);
+  parentNode.children.remove(node);
+  logger.info("Cuboid" + cuboidId + " output takes "+ (System.currentTimeMillis() - startTime)+ "ms");
 }

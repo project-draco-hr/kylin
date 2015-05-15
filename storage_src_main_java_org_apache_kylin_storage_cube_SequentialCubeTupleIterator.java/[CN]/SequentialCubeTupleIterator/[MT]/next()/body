@@ -1,0 +1,9 @@
+{
+  if (next == null) {
+    hasNext();
+    if (next == null)     throw new NoSuchElementException();
+  }
+  ITuple result=next;
+  next=null;
+  return result;
+}

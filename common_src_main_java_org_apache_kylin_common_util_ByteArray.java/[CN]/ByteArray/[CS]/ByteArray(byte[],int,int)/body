@@ -1,3 +1,5 @@
 {
-  set(data,offset,length);
+  this.data=data;
+  this.offset=offset;
+  this.length=length;
 }
