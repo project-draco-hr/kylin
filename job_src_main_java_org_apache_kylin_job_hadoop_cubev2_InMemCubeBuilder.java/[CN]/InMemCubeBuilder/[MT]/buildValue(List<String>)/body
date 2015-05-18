@@ -1,8 +1,9 @@
 {
-  Object[] values=new Object[desc.getMeasures().size()];
+  Object[] values=new Object[measureCount];
   MeasureDesc measureDesc=null;
-  for (int i=0, n=desc.getMeasures().size(); i < n; i++) {
-    measureDesc=desc.getMeasures().get(i);
+  for (int position=0; position < hbaseMeasureRefIndex.length; position++) {
+    int i=hbaseMeasureRefIndex[position];
+    measureDesc=measureDescs[i];
     Object value=null;
     int[] flatTableIdx=intermediateTableDesc.getMeasureColumnIndexes()[i];
     FunctionDesc function=desc.getMeasures().get(i).getFunction();
@@ -31,7 +32,7 @@
       }
       value=measureCodec.getSerializer(i).valueOf(result);
     }
-    values[i]=value;
+    values[position]=value;
   }
   return values;
 }
