@@ -1,7 +1,7 @@
 {
   try {
     logger.info("Create base cuboid " + baseCuboidId);
-    final GridTable baseCuboidGT=newGridTableByCuboidID(baseCuboidId,true);
+    final GridTable baseCuboidGT=newGridTableByCuboidID(baseCuboidId,false);
     GTBuilder baseGTBuilder=baseCuboidGT.rebuild();
     final GTRecord baseGTRecord=new GTRecord(baseCuboidGT.getInfo());
     IGTScanner queueScanner=new IGTScanner(){
@@ -63,6 +63,7 @@
         createNDCuboidGT(tree,baseCuboidId,childId);
       }
     }
+    outputGT(baseCuboidId,baseCuboidGT);
     dropStore(baseCuboidGT);
   }
  catch (  IOException e) {

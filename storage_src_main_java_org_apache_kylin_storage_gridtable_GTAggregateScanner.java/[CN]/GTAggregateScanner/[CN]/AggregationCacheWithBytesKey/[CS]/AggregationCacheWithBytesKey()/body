@@ -1,0 +1,20 @@
+{
+  aggBufMap=Maps.newTreeMap(new Comparator<byte[]>(){
+    @Override public int compare(    byte[] o1,    byte[] o2){
+      int result=0;
+      Preconditions.checkArgument(o1.length == o2.length);
+      final int length=o1.length;
+      for (int i=0; i < length; ++i) {
+        result=o1[i] - o2[i];
+        if (result == 0) {
+          continue;
+        }
+ else {
+          return result;
+        }
+      }
+      return result;
+    }
+  }
+);
+}

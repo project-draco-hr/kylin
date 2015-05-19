@@ -1,5 +1,0 @@
-{
-  final long freeMemory=Runtime.getRuntime().freeMemory();
-  logger.info("available memory:" + (freeMemory >> 10) + " KB, memory needed:"+ (threshold >> 10)+ " KB");
-  return freeMemory - threshold;
-}

@@ -1,0 +1,17 @@
+{
+  final Map<TblColRef,Dictionary<?>> dictionaryMap=Maps.newHashMap();
+  final CubeDesc desc=cubeSegment.getCubeDesc();
+  for (  DimensionDesc dim : desc.getDimensions()) {
+    for (    TblColRef col : dim.getColumnRefs()) {
+      if (desc.getRowkey().isUseDictionary(col)) {
+        Dictionary dict=cubeSegment.getDictionary(col);
+        if (dict == null) {
+          throw new IllegalArgumentException("Dictionary for " + col + " was not found.");
+        }
+        logger.info("Dictionary for " + col + " was put into dictionary map.");
+        dictionaryMap.put(col,cubeSegment.getDictionary(col));
+      }
+    }
+  }
+  return dictionaryMap;
+}

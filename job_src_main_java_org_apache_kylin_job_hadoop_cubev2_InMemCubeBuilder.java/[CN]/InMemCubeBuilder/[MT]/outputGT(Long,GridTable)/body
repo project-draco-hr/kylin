@@ -1,7 +1,9 @@
 {
+  long startTime=System.currentTimeMillis();
   GTScanRequest req=new GTScanRequest(gridTable.getInfo(),null,null,null);
   IGTScanner scanner=gridTable.scan(req);
   for (  GTRecord record : scanner) {
     this.gtRecordWriter.write(cuboidId,record);
   }
+  logger.info("Cuboid" + cuboidId + " output takes "+ (System.currentTimeMillis() - startTime)+ "ms");
 }

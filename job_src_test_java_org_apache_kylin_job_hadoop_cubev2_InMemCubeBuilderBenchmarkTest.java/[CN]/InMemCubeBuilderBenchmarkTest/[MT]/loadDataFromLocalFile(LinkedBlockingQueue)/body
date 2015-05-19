@@ -1,0 +1,13 @@
+{
+  BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream("../table.txt")));
+  String line;
+  int counter=0;
+  while ((line=br.readLine()) != null) {
+    queue.put(Arrays.asList(line.split("\t")));
+    counter++;
+    if (counter == BENCHMARK_RECORD_LIMIT) {
+      break;
+    }
+  }
+  queue.put(Collections.emptyList());
+}

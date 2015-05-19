@@ -44,6 +44,5 @@
       dependentMeasures.put(i,index);
     }
   }
-  this.hasDependentMeasure=dependentMeasures.size() > 0;
   this.measureDescs=desc.getMeasures().toArray(new MeasureDesc[measureCount]);
 }
