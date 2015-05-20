@@ -1,0 +1,9 @@
+{
+  BitSet result=new BitSet();
+  for (  FunctionDesc metric : metrics) {
+    int idx=mapping.getIndexOf(metric);
+    if (idx < 0)     throw new IllegalStateException(metric + " not found in " + mapping);
+    result.set(idx);
+  }
+  return result;
+}

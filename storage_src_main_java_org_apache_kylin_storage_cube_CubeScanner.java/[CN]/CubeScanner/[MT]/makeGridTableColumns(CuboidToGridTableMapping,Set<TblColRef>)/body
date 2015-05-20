@@ -1,0 +1,9 @@
+{
+  BitSet result=new BitSet();
+  for (  TblColRef dim : dimensions) {
+    int idx=mapping.getIndexOf(dim);
+    if (idx < 0)     throw new IllegalStateException(dim + " not found in " + mapping);
+    result.set(idx);
+  }
+  return result;
+}

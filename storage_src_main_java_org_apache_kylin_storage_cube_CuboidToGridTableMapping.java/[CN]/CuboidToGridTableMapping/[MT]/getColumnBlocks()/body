@@ -1,0 +1,3 @@
+{
+  return (BitSet[])gtColBlocks.toArray(new BitSet[gtColBlocks.size()]);
+}

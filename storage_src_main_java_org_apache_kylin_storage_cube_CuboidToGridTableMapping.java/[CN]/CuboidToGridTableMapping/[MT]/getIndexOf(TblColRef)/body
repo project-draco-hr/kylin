@@ -1,0 +1,4 @@
+{
+  Integer i=dim2gt.get(dimension);
+  return i == null ? -1 : i.intValue();
+}

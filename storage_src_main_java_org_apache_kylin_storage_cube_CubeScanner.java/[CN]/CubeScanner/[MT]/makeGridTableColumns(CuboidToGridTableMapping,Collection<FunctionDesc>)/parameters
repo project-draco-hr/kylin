@@ -1,3 +1,2 @@
-CubeDesc cubeDesc
-Cuboid cuboid
+CuboidToGridTableMapping mapping
 Collection<FunctionDesc> metrics

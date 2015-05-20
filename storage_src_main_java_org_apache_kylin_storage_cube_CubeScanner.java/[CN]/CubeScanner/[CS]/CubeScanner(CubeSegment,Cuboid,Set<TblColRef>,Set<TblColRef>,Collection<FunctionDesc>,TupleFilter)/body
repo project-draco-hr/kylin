@@ -2,10 +2,11 @@
   this.cubeSeg=cubeSeg;
   this.info=CubeGridTable.newGTInfo(cubeSeg,cuboid.getId());
   this.store=new CubeHBaseReadonlyStore(info,cubeSeg,cuboid);
-  TupleFilter gtFilter=GTUtil.convertFilterColumnsAndConstants(filter,info,cuboid.getColumns(),groups);
-  BitSet gtDimensions=makeGridTableColumns(cuboid,dimensions);
-  BitSet gtAggrGroups=makeGridTableColumns(cuboid,groups);
-  BitSet gtAggrMetrics=makeGridTableColumns(cubeSeg.getCubeDesc(),cuboid,metrics);
+  CuboidToGridTableMapping mapping=new CuboidToGridTableMapping(cuboid);
+  TupleFilter gtFilter=GTUtil.convertFilterColumnsAndConstants(filter,info,mapping.getCuboidDimensionsInGTOrder(),groups);
+  BitSet gtDimensions=makeGridTableColumns(mapping,dimensions);
+  BitSet gtAggrGroups=makeGridTableColumns(mapping,groups);
+  BitSet gtAggrMetrics=makeGridTableColumns(mapping,metrics);
   String[] gtAggrFuncs=makeAggrFuncs(metrics);
   GTScanRangePlanner scanRangePlanner=new GTScanRangePlanner(info);
   List<GTScanRange> scanRanges=scanRangePlanner.planScanRanges(gtFilter,MAX_SCAN_RANGES);

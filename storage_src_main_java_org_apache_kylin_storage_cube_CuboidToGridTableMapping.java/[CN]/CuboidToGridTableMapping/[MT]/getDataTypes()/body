@@ -1,0 +1,3 @@
+{
+  return (DataType[])gtDataTypes.toArray(new DataType[gtDataTypes.size()]);
+}
