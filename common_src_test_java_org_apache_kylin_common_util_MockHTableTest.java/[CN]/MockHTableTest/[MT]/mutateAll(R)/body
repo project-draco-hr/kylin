@@ -1,0 +1,4 @@
+{
+  real.batch(Lists.newArrayList(rows));
+  mock.batch(Lists.newArrayList(rows));
+}

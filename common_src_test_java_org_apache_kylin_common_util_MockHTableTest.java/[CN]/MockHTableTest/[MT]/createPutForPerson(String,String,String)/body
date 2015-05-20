@@ -1,0 +1,6 @@
+{
+  Put person=new Put(name.getBytes());
+  person.add(emailCF.getBytes(),emailCQ.getBytes(),email.getBytes());
+  person.add(addressCF.getBytes(),addressCQ.getBytes(),address.getBytes());
+  return person;
+}

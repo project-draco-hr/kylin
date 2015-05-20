@@ -1,0 +1,7 @@
+{
+  Get get=new Get("John Doe".getBytes());
+  boolean realResult=real.exists(get);
+  boolean mockResult=mock.exists(get);
+  assertThat(realResult,is(true));
+  assertThat(realResult,is(mockResult));
+}

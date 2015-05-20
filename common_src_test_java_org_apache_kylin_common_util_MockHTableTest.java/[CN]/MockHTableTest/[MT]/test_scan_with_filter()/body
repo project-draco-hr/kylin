@@ -1,0 +1,9 @@
+{
+  Scan scan=new Scan();
+  scan.setFilter(new SingleColumnValueFilter(addressCF.getBytes(),addressCQ.getBytes(),CompareFilter.CompareOp.EQUAL,"US".getBytes()));
+  ResultScanner realResult=real.getScanner(scan);
+  ResultScanner mockResult=mock.getScanner(scan);
+  logger.debug("mock : {}",mockResult);
+  assertThat(Iterables.size(realResult),is(2));
+  assertThat(Iterables.size(mockResult),is(2));
+}

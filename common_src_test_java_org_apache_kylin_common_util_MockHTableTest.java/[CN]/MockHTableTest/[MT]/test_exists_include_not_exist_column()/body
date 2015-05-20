@@ -1,0 +1,9 @@
+{
+  Get get=new Get("John Doe".getBytes());
+  get.addColumn(emailCF.getBytes(),emailCQ.getBytes());
+  get.addColumn(emailCF.getBytes(),"NOT_EXIST_COLUMN".getBytes());
+  boolean realResult=real.exists(get);
+  boolean mockResult=mock.exists(get);
+  assertThat(realResult,is(true));
+  assertThat(realResult,is(mockResult));
+}
