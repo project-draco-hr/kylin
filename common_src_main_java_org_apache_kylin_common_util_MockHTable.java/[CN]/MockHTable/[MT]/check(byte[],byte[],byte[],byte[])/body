@@ -1,0 +1,4 @@
+{
+  if (value == null || value.length == 0)   return !data.containsKey(row) || !data.get(row).containsKey(family) || !data.get(row).get(family).containsKey(qualifier);
+ else   return data.containsKey(row) && data.get(row).containsKey(family) && data.get(row).get(family).containsKey(qualifier)&& !data.get(row).get(family).get(qualifier).isEmpty()&& Arrays.equals(data.get(row).get(family).get(qualifier).lastEntry().getValue(),value);
+}

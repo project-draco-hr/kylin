@@ -1,7 +1,7 @@
 {
   HTableInterface htable=null;
   try {
-    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    htable=aclHBaseStorage.getTable(userTableName);
     Delete delete=new Delete(Bytes.toBytes(username));
     htable.delete(delete);
     htable.flushCommits();

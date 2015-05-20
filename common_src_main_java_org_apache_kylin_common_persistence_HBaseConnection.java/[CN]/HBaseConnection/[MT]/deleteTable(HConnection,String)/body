@@ -1,0 +1,18 @@
+{
+  HBaseAdmin hbase=new HBaseAdmin(conn);
+  try {
+    if (!tableExists(conn,tableName)) {
+      logger.debug("HTable '" + tableName + "' does not exists");
+      return;
+    }
+    logger.debug("delete HTable '" + tableName + "'");
+    if (hbase.isTableEnabled(tableName)) {
+      hbase.disableTable(tableName);
+    }
+    hbase.deleteTable(tableName);
+    logger.debug("HTable '" + tableName + "' deleted");
+  }
+  finally {
+    hbase.close();
+  }
+}

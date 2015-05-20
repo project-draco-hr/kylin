@@ -1,0 +1,5 @@
+{
+  for (  Delete delete : deletes) {
+    delete(delete);
+  }
+}

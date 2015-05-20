@@ -1,0 +1,7 @@
+{
+  HTableDescriptor table=new HTableDescriptor(tableName);
+  for (  String columnFamily : columnFamilies) {
+    table.addFamily(new HColumnDescriptor(columnFamily));
+  }
+  return table;
+}

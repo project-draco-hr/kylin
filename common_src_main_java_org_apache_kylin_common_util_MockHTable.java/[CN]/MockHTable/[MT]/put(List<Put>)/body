@@ -1,0 +1,5 @@
+{
+  for (  Put put : puts) {
+    put(put);
+  }
+}

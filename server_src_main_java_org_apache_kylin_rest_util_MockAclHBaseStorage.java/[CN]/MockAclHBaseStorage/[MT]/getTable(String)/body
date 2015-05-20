@@ -1,0 +1,11 @@
+{
+  if (StringUtils.equals(tableName,aclTableName)) {
+    return mockedAclTable;
+  }
+ else   if (StringUtils.equals(tableName,userTableName)) {
+    return mockedUserTable;
+  }
+ else {
+    throw new IllegalStateException("getTable failed" + tableName);
+  }
+}

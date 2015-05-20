@@ -1,0 +1,31 @@
+{
+  filter.reset();
+  List<KeyValue> tmp=new ArrayList<KeyValue>(kvs.size());
+  tmp.addAll(kvs);
+  boolean filteredOnRowKey=false;
+  List<KeyValue> nkvs=new ArrayList<KeyValue>(tmp.size());
+  for (  KeyValue kv : tmp) {
+    if (filter.filterRowKey(kv.getBuffer(),kv.getRowOffset(),kv.getRowLength())) {
+      filteredOnRowKey=true;
+      break;
+    }
+    Filter.ReturnCode filterResult=filter.filterKeyValue(kv);
+    if (filterResult == Filter.ReturnCode.INCLUDE) {
+      nkvs.add(kv);
+    }
+ else     if (filterResult == Filter.ReturnCode.NEXT_ROW) {
+      break;
+    }
+ else     if (filterResult == Filter.ReturnCode.NEXT_COL || filterResult == Filter.ReturnCode.SKIP) {
+      continue;
+    }
+  }
+  if (filter.hasFilterRow() && !filteredOnRowKey) {
+    filter.filterRow(nkvs);
+  }
+  if (filter.filterRow() || filteredOnRowKey) {
+    nkvs.clear();
+  }
+  tmp=nkvs;
+  return tmp;
+}

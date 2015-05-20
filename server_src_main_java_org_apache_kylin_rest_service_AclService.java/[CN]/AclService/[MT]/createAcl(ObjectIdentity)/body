@@ -12,11 +12,11 @@
   PrincipalSid sid=new PrincipalSid(auth);
   HTableInterface htable=null;
   try {
-    htable=HBaseConnection.get(hbaseUrl).getTable(aclTableName);
+    htable=aclHBaseStorage.getTable(aclTableName);
     Put put=new Put(Bytes.toBytes(String.valueOf(objectIdentity.getIdentifier())));
-    put.add(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_TYPE_COLUMN),Bytes.toBytes(objectIdentity.getType()));
-    put.add(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_OWNER_COLUMN),sidSerializer.serialize(new SidInfo(sid)));
-    put.add(Bytes.toBytes(ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_ENTRY_INHERIT_COLUMN),Bytes.toBytes(true));
+    put.add(Bytes.toBytes(AclHBaseStorage.ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_TYPE_COLUMN),Bytes.toBytes(objectIdentity.getType()));
+    put.add(Bytes.toBytes(AclHBaseStorage.ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_OWNER_COLUMN),sidSerializer.serialize(new SidInfo(sid)));
+    put.add(Bytes.toBytes(AclHBaseStorage.ACL_INFO_FAMILY),Bytes.toBytes(ACL_INFO_FAMILY_ENTRY_INHERIT_COLUMN),Bytes.toBytes(true));
     htable.put(put);
     htable.flushCommits();
     logger.debug("ACL of " + objectIdentity + " created successfully.");

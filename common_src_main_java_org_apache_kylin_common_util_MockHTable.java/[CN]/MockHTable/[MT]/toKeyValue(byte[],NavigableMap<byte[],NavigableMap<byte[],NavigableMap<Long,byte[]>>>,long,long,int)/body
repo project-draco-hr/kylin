@@ -1,0 +1,15 @@
+{
+  List<KeyValue> ret=new ArrayList<KeyValue>();
+  for (  byte[] family : rowdata.keySet())   for (  byte[] qualifier : rowdata.get(family).keySet()) {
+    int versionsAdded=0;
+    for (    Map.Entry<Long,byte[]> tsToVal : rowdata.get(family).get(qualifier).descendingMap().entrySet()) {
+      if (versionsAdded++ == maxVersions)       break;
+      Long timestamp=tsToVal.getKey();
+      if (timestamp < timestampStart)       continue;
+      if (timestamp > timestampEnd)       continue;
+      byte[] value=tsToVal.getValue();
+      ret.add(new KeyValue(row,family,qualifier,timestamp,value));
+    }
+  }
+  return ret;
+}

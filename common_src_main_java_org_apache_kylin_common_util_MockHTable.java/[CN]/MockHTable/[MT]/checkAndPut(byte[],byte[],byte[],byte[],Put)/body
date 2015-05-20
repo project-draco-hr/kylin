@@ -1,0 +1,7 @@
+{
+  if (check(row,family,qualifier,value)) {
+    put(put);
+    return true;
+  }
+  return false;
+}

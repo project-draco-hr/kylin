@@ -1,0 +1,3 @@
+NavigableMap<K,V> map
+K key
+V newObject

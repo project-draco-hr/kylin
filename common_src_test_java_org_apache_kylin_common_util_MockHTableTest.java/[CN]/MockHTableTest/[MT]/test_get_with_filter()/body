@@ -1,0 +1,8 @@
+{
+  Get get=new Get("John Doe".getBytes());
+  get.setFilter(new SingleColumnValueFilter(emailCF.getBytes(),emailCQ.getBytes(),CompareFilter.CompareOp.EQUAL,"WRONG EMAIL".getBytes()));
+  Result realResult=real.get(get);
+  Result mockResult=mock.get(get);
+  assertThat(realResult.isEmpty(),is(true));
+  assertThat(mockResult.isEmpty(),is(realResult.isEmpty()));
+}

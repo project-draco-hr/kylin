@@ -2,9 +2,9 @@
   HTableInterface htable=null;
   try {
     byte[] userAuthorities=serialize(user.getAuthorities());
-    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    htable=aclHBaseStorage.getTable(userTableName);
     Put put=new Put(Bytes.toBytes(user.getUsername()));
-    put.add(Bytes.toBytes(USER_AUTHORITY_FAMILY),Bytes.toBytes(USER_AUTHORITY_COLUMN),userAuthorities);
+    put.add(Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_FAMILY),Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_COLUMN),userAuthorities);
     htable.put(put);
     htable.flushCommits();
   }

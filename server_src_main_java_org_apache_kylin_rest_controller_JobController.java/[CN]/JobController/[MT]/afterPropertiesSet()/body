@@ -11,9 +11,9 @@
         try {
           DefaultScheduler scheduler=DefaultScheduler.getInstance();
           scheduler.init(new JobEngineConfig(kylinConfig));
-          if (!scheduler.hasStarted()) {
+          while (!scheduler.hasStarted()) {
             logger.error("scheduler has not been started");
-            System.exit(1);
+            Thread.sleep(1000);
           }
         }
  catch (        Exception e) {

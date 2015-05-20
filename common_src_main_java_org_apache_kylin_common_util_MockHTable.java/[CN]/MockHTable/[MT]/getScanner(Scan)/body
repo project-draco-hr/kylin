@@ -1,0 +1,75 @@
+{
+  final List<Result> ret=new ArrayList<Result>();
+  byte[] st=scan.getStartRow();
+  byte[] sp=scan.getStopRow();
+  Filter filter=scan.getFilter();
+  for (  byte[] row : data.keySet()) {
+    if (st != null && st.length > 0 && Bytes.BYTES_COMPARATOR.compare(st,row) != 0) {
+      if (st != null && st.length > 0 && Bytes.BYTES_COMPARATOR.compare(st,row) > 0)       continue;
+      if (sp != null && sp.length > 0 && Bytes.BYTES_COMPARATOR.compare(sp,row) <= 0)       break;
+    }
+    List<KeyValue> kvs=null;
+    if (!scan.hasFamilies()) {
+      kvs=toKeyValue(row,data.get(row),scan.getTimeRange().getMin(),scan.getTimeRange().getMax(),scan.getMaxVersions());
+    }
+ else {
+      kvs=new ArrayList<KeyValue>();
+      for (      byte[] family : scan.getFamilyMap().keySet()) {
+        if (data.get(row).get(family) == null)         continue;
+        NavigableSet<byte[]> qualifiers=scan.getFamilyMap().get(family);
+        if (qualifiers == null || qualifiers.isEmpty())         qualifiers=data.get(row).get(family).navigableKeySet();
+        for (        byte[] qualifier : qualifiers) {
+          if (data.get(row).get(family).get(qualifier) == null)           continue;
+          for (          Long timestamp : data.get(row).get(family).get(qualifier).descendingKeySet()) {
+            if (timestamp < scan.getTimeRange().getMin())             continue;
+            if (timestamp > scan.getTimeRange().getMax())             continue;
+            byte[] value=data.get(row).get(family).get(qualifier).get(timestamp);
+            kvs.add(new KeyValue(row,family,qualifier,timestamp,value));
+            if (kvs.size() == scan.getMaxVersions()) {
+              break;
+            }
+          }
+        }
+      }
+    }
+    if (filter != null) {
+      kvs=filter(filter,kvs);
+      if (filter.filterAllRemaining()) {
+        break;
+      }
+    }
+    if (!kvs.isEmpty()) {
+      ret.add(new Result(kvs));
+    }
+  }
+  return new ResultScanner(){
+    private final Iterator<Result> iterator=ret.iterator();
+    public Iterator<Result> iterator(){
+      return iterator;
+    }
+    public Result[] next(    int nbRows) throws IOException {
+      ArrayList<Result> resultSets=new ArrayList<Result>(nbRows);
+      for (int i=0; i < nbRows; i++) {
+        Result next=next();
+        if (next != null) {
+          resultSets.add(next);
+        }
+ else {
+          break;
+        }
+      }
+      return resultSets.toArray(new Result[resultSets.size()]);
+    }
+    public Result next() throws IOException {
+      try {
+        return iterator().next();
+      }
+ catch (      NoSuchElementException e) {
+        return null;
+      }
+    }
+    public void close(){
+    }
+  }
+;
+}

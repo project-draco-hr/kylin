@@ -1,0 +1,13 @@
+{
+  if (clazz == AclService.class) {
+    mockedAclTable=new MockHTable(aclTableName,ACL_INFO_FAMILY,ACL_ACES_FAMILY);
+    return aclTableName;
+  }
+ else   if (clazz == UserService.class) {
+    mockedUserTable=new MockHTable(userTableName,USER_AUTHORITY_FAMILY);
+    return userTableName;
+  }
+ else {
+    throw new IllegalStateException("prepareHBaseTable for unknown class: " + clazz);
+  }
+}

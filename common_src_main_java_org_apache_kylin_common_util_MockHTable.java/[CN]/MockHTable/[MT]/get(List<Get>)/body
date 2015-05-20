@@ -1,0 +1,7 @@
+{
+  List<Result> results=new ArrayList<Result>();
+  for (  Get g : gets) {
+    results.add(get(g));
+  }
+  return results.toArray(new Result[results.size()]);
+}

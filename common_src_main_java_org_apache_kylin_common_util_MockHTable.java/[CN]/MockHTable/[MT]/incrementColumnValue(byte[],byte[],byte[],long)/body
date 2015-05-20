@@ -1,0 +1,3 @@
+{
+  return incrementColumnValue(row,family,qualifier,amount,true);
+}

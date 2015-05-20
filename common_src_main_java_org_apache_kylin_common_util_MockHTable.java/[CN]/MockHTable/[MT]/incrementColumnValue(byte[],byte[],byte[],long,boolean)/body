@@ -1,0 +1,11 @@
+{
+  if (check(row,family,qualifier,null)) {
+    Put put=new Put(row);
+    put.add(family,qualifier,Bytes.toBytes(amount));
+    put(put);
+    return amount;
+  }
+  long newValue=Bytes.toLong(data.get(row).get(family).get(qualifier).lastEntry().getValue()) + amount;
+  data.get(row).get(family).get(qualifier).put(System.currentTimeMillis(),Bytes.toBytes(newValue));
+  return newValue;
+}

@@ -1,0 +1,26 @@
+{
+  if (!data.containsKey(get.getRow()))   return new Result();
+  byte[] row=get.getRow();
+  List<KeyValue> kvs=new ArrayList<KeyValue>();
+  if (!get.hasFamilies()) {
+    kvs=toKeyValue(row,data.get(row),get.getMaxVersions());
+  }
+ else {
+    for (    byte[] family : get.getFamilyMap().keySet()) {
+      if (data.get(row).get(family) == null)       continue;
+      NavigableSet<byte[]> qualifiers=get.getFamilyMap().get(family);
+      if (qualifiers == null || qualifiers.isEmpty())       qualifiers=data.get(row).get(family).navigableKeySet();
+      for (      byte[] qualifier : qualifiers) {
+        if (qualifier == null)         qualifier="".getBytes();
+        if (!data.get(row).containsKey(family) || !data.get(row).get(family).containsKey(qualifier) || data.get(row).get(family).get(qualifier).isEmpty())         continue;
+        Map.Entry<Long,byte[]> timestampAndValue=data.get(row).get(family).get(qualifier).lastEntry();
+        kvs.add(new KeyValue(row,family,qualifier,timestampAndValue.getKey(),timestampAndValue.getValue()));
+      }
+    }
+  }
+  Filter filter=get.getFilter();
+  if (filter != null) {
+    kvs=filter(filter,kvs);
+  }
+  return new Result(kvs);
+}

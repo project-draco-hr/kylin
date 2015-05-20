@@ -1,10 +1,4 @@
 {
-  String metadataUrl=KylinConfig.getInstanceFromEnv().getMetadataUrl();
-  int cut=metadataUrl.indexOf('@');
-  tableNameBase=cut < 0 ? DEFAULT_TABLE_PREFIX : metadataUrl.substring(0,cut);
-  hbaseUrl=cut < 0 ? metadataUrl : metadataUrl.substring(cut + 1);
-  aclTableName=tableNameBase + ACL_TABLE_NAME;
   fieldAces.setAccessible(true);
   fieldAcl.setAccessible(true);
-  HBaseConnection.createHTableIfNeeded(hbaseUrl,aclTableName,ACL_INFO_FAMILY,ACL_ACES_FAMILY);
 }

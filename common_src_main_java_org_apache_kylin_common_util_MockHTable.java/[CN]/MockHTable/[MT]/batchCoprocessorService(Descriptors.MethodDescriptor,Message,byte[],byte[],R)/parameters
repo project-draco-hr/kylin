@@ -1,0 +1,5 @@
+Descriptors.MethodDescriptor methodDescriptor
+Message request
+byte[] startKey
+byte[] endKey
+R responsePrototype

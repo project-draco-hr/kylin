@@ -1,7 +1,7 @@
 {
   HTableInterface htable=null;
   try {
-    htable=HBaseConnection.get(hbaseUrl).getTable(aclTableName);
+    htable=aclHBaseStorage.getTable(aclTableName);
     Delete delete=new Delete(Bytes.toBytes(String.valueOf(objectIdentity.getIdentifier())));
     List<ObjectIdentity> children=findChildren(objectIdentity);
     if (!deleteChildren && children.size() > 0) {

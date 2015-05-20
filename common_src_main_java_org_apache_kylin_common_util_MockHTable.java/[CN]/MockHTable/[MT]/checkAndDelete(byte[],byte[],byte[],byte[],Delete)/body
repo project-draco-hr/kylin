@@ -1,0 +1,7 @@
+{
+  if (check(row,family,qualifier,value)) {
+    delete(delete);
+    return true;
+  }
+  return false;
+}

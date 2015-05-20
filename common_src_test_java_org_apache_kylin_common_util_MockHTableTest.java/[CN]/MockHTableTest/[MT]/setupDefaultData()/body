@@ -1,0 +1,6 @@
+{
+  Put john=createPutForPerson("John Doe","john.doe@email.com","US");
+  Put jane=createPutForPerson("Jane Doe","jane.doe@other.email.com","US");
+  Put me=createPutForPerson("Yunsang Choi","oddpoet@gmail","jeju");
+  mutateAll(john,jane,me);
+}

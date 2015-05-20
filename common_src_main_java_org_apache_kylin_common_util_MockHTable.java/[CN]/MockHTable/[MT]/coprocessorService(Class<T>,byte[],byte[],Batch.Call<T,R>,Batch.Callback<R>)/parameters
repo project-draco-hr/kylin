@@ -1,0 +1,5 @@
+Class<T> service
+byte[] startKey
+byte[] endKey
+Batch.Call<T,R> callable
+Batch.Callback<R> callback

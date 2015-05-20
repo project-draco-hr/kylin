@@ -9,14 +9,14 @@
  else       if (sid instanceof GrantedAuthoritySid) {
         sidName=((GrantedAuthoritySid)sid).getGrantedAuthority();
       }
-      AceInfo aceInfo=aceSerializer.deserialize(result.getValue(Bytes.toBytes(ACL_ACES_FAMILY),Bytes.toBytes(sidName)));
+      AceInfo aceInfo=aceSerializer.deserialize(result.getValue(Bytes.toBytes(AclHBaseStorage.ACL_ACES_FAMILY),Bytes.toBytes(sidName)));
       if (null != aceInfo) {
         aceInfos.add(aceInfo);
       }
     }
   }
  else {
-    NavigableMap<byte[],byte[]> familyMap=result.getFamilyMap(Bytes.toBytes(ACL_ACES_FAMILY));
+    NavigableMap<byte[],byte[]> familyMap=result.getFamilyMap(Bytes.toBytes(AclHBaseStorage.ACL_ACES_FAMILY));
     for (    byte[] qualifier : familyMap.keySet()) {
       AceInfo aceInfo=aceSerializer.deserialize(familyMap.get(qualifier));
       if (null != aceInfo) {

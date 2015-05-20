@@ -1,0 +1,6 @@
+Descriptors.MethodDescriptor methodDescriptor
+Message request
+byte[] startKey
+byte[] endKey
+R responsePrototype
+Batch.Callback<R> callback

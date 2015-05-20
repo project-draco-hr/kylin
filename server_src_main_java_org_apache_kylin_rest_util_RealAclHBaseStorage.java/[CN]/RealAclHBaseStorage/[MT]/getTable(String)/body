@@ -1,0 +1,11 @@
+{
+  if (StringUtils.equals(tableName,aclTableName)) {
+    return HBaseConnection.get(hbaseUrl).getTable(aclTableName);
+  }
+ else   if (StringUtils.equals(tableName,userTableName)) {
+    return HBaseConnection.get(hbaseUrl).getTable(userTableName);
+  }
+ else {
+    throw new IllegalStateException("getTable failed" + tableName);
+  }
+}

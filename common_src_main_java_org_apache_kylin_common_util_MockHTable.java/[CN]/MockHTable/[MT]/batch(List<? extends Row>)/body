@@ -1,0 +1,27 @@
+{
+  Object[] results=new Object[actions.size()];
+  for (int i=0; i < actions.size(); i++) {
+    Row r=actions.get(i);
+    if (r instanceof Delete) {
+      delete((Delete)r);
+      results[i]=new Result();
+    }
+    if (r instanceof Put) {
+      put((Put)r);
+      results[i]=new Result();
+    }
+    if (r instanceof Get) {
+      Result result=get((Get)r);
+      results[i]=result;
+    }
+    if (r instanceof Increment) {
+      Result result=increment((Increment)r);
+      results[i]=result;
+    }
+    if (r instanceof Append) {
+      Result result=append((Append)r);
+      results[i]=result;
+    }
+  }
+  return results;
+}

@@ -1,14 +1,14 @@
 {
   Scan s=new Scan();
-  s.addColumn(Bytes.toBytes(USER_AUTHORITY_FAMILY),Bytes.toBytes(USER_AUTHORITY_COLUMN));
+  s.addColumn(Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_FAMILY),Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_COLUMN));
   List<String> authorities=new ArrayList<String>();
   HTableInterface htable=null;
   ResultScanner scanner=null;
   try {
-    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    htable=aclHBaseStorage.getTable(userTableName);
     scanner=htable.getScanner(s);
     for (Result result=scanner.next(); result != null; result=scanner.next()) {
-      byte[] uaBytes=result.getValue(Bytes.toBytes(USER_AUTHORITY_FAMILY),Bytes.toBytes(USER_AUTHORITY_COLUMN));
+      byte[] uaBytes=result.getValue(Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_FAMILY),Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_COLUMN));
       Collection<? extends GrantedAuthority> authCollection=Arrays.asList(ugaSerializer.deserialize(uaBytes));
       for (      GrantedAuthority auth : authCollection) {
         if (!authorities.contains(auth.getAuthority())) {

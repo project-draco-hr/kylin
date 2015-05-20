@@ -1,0 +1,3 @@
+{
+  deleteTable(HBaseConnection.get(hbaseUrl),tableName);
+}

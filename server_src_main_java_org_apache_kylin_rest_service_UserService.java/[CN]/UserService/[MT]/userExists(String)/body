@@ -1,7 +1,7 @@
 {
   HTableInterface htable=null;
   try {
-    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    htable=aclHBaseStorage.getTable(userTableName);
     Result result=htable.get(new Get(Bytes.toBytes(username)));
     return null != result && !result.isEmpty();
   }

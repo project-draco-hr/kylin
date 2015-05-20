@@ -1,0 +1,8 @@
+{
+  V data=map.get(key);
+  if (data == null) {
+    data=newObject;
+    map.put(key,data);
+  }
+  return data;
+}

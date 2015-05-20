@@ -1,0 +1,10 @@
+{
+  for (  Mutation mutation : rm.getMutations()) {
+    if (mutation instanceof Put) {
+      put((Put)mutation);
+    }
+ else     if (mutation instanceof Delete) {
+      delete((Delete)mutation);
+    }
+  }
+}

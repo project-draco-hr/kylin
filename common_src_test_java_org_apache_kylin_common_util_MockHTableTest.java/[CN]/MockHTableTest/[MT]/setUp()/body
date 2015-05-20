@@ -1,0 +1,8 @@
+{
+  staticCreateTestMetadata();
+  HBaseConnection.deleteTable(KylinConfig.getInstanceFromEnv().getStorageUrl(),tableName);
+  HBaseConnection.createHTableIfNeeded(KylinConfig.getInstanceFromEnv().getStorageUrl(),tableName,emailCF,addressCF);
+  real=HBaseConnection.get(KylinConfig.getInstanceFromEnv().getStorageUrl()).getTable(tableName);
+  mock=new MockHTable(tableName,emailCF,addressCF);
+  setupDefaultData();
+}

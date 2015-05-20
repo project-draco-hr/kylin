@@ -1,0 +1,3 @@
+byte[] row
+NavigableMap<byte[],NavigableMap<byte[],NavigableMap<Long,byte[]>>> rowdata
+int maxVersions

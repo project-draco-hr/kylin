@@ -1,0 +1,24 @@
+{
+  byte[] row=delete.getRow();
+  if (data.get(row) == null)   return;
+  if (delete.getFamilyMap().size() == 0) {
+    data.remove(row);
+    return;
+  }
+  for (  byte[] family : delete.getFamilyMap().keySet()) {
+    if (data.get(row).get(family) == null)     continue;
+    if (delete.getFamilyMap().get(family).isEmpty()) {
+      data.get(row).remove(family);
+      continue;
+    }
+    for (    KeyValue kv : delete.getFamilyMap().get(family)) {
+      data.get(row).get(kv.getFamily()).remove(kv.getQualifier());
+    }
+    if (data.get(row).get(family).isEmpty()) {
+      data.get(row).remove(family);
+    }
+  }
+  if (data.get(row).isEmpty()) {
+    data.remove(row);
+  }
+}

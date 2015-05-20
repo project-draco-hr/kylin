@@ -1,0 +1,4 @@
+{
+  Result result=get(get);
+  return result != null && result.isEmpty() == false;
+}

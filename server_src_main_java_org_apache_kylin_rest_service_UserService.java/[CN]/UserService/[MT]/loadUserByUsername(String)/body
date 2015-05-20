@@ -1,13 +1,13 @@
 {
   HTableInterface htable=null;
   try {
-    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    htable=aclHBaseStorage.getTable(userTableName);
     Get get=new Get(Bytes.toBytes(username));
-    get.addFamily(Bytes.toBytes(USER_AUTHORITY_FAMILY));
+    get.addFamily(Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_FAMILY));
     Result result=htable.get(get);
     Collection<? extends GrantedAuthority> authorities=null;
     if (null != result && !result.isEmpty()) {
-      byte[] gaBytes=result.getValue(Bytes.toBytes(USER_AUTHORITY_FAMILY),Bytes.toBytes(USER_AUTHORITY_COLUMN));
+      byte[] gaBytes=result.getValue(Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_FAMILY),Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_COLUMN));
       authorities=Arrays.asList(ugaSerializer.deserialize(gaBytes));
     }
  else {

@@ -1,0 +1,3 @@
+List<? extends Row> actions
+Object[] results
+Batch.Callback<R> callback
