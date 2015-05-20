@@ -1,0 +1,3 @@
+{
+  return create(key.getBytes(),0,key.getLength(),value,voffset,vlen);
+}

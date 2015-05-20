@@ -1,0 +1,12 @@
+{
+  cfBytes=Bytes.toBytes(colDesc.getColumnFamilyName());
+  qBytes=Bytes.toBytes(colDesc.getQualifier());
+  timestamp=System.currentTimeMillis();
+  List<MeasureDesc> measures=Lists.newArrayList();
+  for (  MeasureDesc measure : colDesc.getMeasures()) {
+    measures.add(measure);
+  }
+  codec=new MeasureCodec(measures);
+  colValues=new Object[measures.size()];
+  this.startPosition=startPosition;
+}

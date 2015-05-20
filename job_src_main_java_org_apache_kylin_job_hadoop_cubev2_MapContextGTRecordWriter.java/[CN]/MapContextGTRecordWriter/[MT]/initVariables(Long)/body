@@ -8,7 +8,7 @@
   dimensions=BitSet.valueOf(new long[]{cuboidId}).cardinality();
   measureColumnsIndex=new int[measureCount];
   for (int i=0; i < measureCount; i++) {
-    measureColumnsIndex[i]=dimensions + hbaseMeasureRefIndex[i];
+    measureColumnsIndex[i]=dimensions + i;
   }
   System.arraycopy(Bytes.toBytes(cuboidId),0,keyBuf,0,RowConstants.ROWKEY_CUBOIDID_LEN);
 }

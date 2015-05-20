@@ -3,17 +3,25 @@
   String cubeName=context.getConfiguration().get(BatchConstants.CFG_CUBE_NAME).toUpperCase();
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
   CubeDesc cubeDesc=CubeManager.getInstance(config).getCube(cubeName).getDescriptor();
-  List<MeasureDesc> measuresDescs=cubeDesc.getMeasures();
+  List<MeasureDesc> measuresDescs=Lists.newArrayList();
+  for (  HBaseColumnFamilyDesc familyDesc : cubeDesc.getHbaseMapping().getColumnFamily()) {
+    for (    HBaseColumnDesc hbaseColDesc : familyDesc.getColumns()) {
+      for (      MeasureDesc measure : hbaseColDesc.getMeasures()) {
+        measuresDescs.add(measure);
+      }
+    }
+  }
   codec=new MeasureCodec(measuresDescs);
   aggs=new MeasureAggregators(measuresDescs);
   input=new Object[measuresDescs.size()];
   result=new Object[measuresDescs.size()];
   keyValueCreators=Lists.newArrayList();
+  int startPosition=0;
   for (  HBaseColumnFamilyDesc cfDesc : cubeDesc.getHBaseMapping().getColumnFamily()) {
     for (    HBaseColumnDesc colDesc : cfDesc.getColumns()) {
-      keyValueCreators.add(new KeyValueCreator(cubeDesc,colDesc));
+      keyValueCreators.add(new InMemKeyValueCreator(colDesc,startPosition));
+      startPosition+=colDesc.getMeasures().length;
     }
   }
-  simpleFullCopy=(keyValueCreators.size() == 1 && keyValueCreators.get(0).isFullCopy);
   nColumns=keyValueCreators.size();
 }
