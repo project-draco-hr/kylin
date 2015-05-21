@@ -1,0 +1,20 @@
+{
+  Collection<String> newValues=comp.getValues();
+switch (comp.getOperator()) {
+case EQ:
+case IN:
+    newValues=removeNonDictionaryValues(cubeSegment,column,comp.getValues());
+  break;
+case LT:
+case LTE:
+newValues=roundDictionaryValues(cubeSegment,column,comp.getValues(),-1);
+break;
+case GT:
+case GTE:
+newValues=roundDictionaryValues(cubeSegment,column,comp.getValues(),1);
+break;
+default :
+break;
+}
+return newValues;
+}

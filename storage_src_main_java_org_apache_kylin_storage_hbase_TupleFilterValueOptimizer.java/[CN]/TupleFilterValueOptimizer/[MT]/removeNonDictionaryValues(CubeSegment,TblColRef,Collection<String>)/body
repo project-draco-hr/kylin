@@ -1,0 +1,10 @@
+{
+  RowKeyColumnIO rowKeyColumnIO=new RowKeyColumnIO(cubeSegment);
+  Dictionary<String> dict=rowKeyColumnIO.getDictionary(column);
+  if (dict == null)   return values;
+  Collection<String> newValues=new LinkedList<String>();
+  for (  String value : values) {
+    if (isInDictionary(dict,value))     newValues.add(value);
+  }
+  return newValues;
+}

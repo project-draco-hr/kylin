@@ -1,0 +1,10 @@
+{
+  boolean inFlag=true;
+  try {
+    int id=dict.getIdFromValue(value,0);
+  }
+ catch (  IllegalArgumentException ex) {
+    inFlag=false;
+  }
+  return inFlag;
+}

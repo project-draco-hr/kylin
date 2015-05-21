@@ -1,0 +1,3 @@
+CubeSegment cubeSegment
+TblColRef column
+CompareTupleFilter comp
