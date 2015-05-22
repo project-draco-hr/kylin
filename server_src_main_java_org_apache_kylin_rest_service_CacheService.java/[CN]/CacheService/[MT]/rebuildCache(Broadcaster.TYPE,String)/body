@@ -5,7 +5,8 @@ switch (cacheType) {
 case CUBE:
       getCubeManager().loadCubeCache(cacheKey);
     cleanProjectCacheByRealization(RealizationType.CUBE,cacheKey);
-  break;
+  mergeCubeOnNewSegmentReady(cacheKey);
+break;
 case CUBE_DESC:
 getCubeDescManager().reloadCubeDesc(cacheKey);
 break;
