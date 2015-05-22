@@ -1,0 +1,10 @@
+{
+  HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.SANDBOX_TEST_DATA);
+  kylinConfig=KylinConfig.getInstanceFromEnv();
+  DeployUtil.initCliWorkDir();
+  DeployUtil.deployMetadata();
+  DeployUtil.overrideJobJarLocations();
+  final CubeInstance cube=CubeManager.getInstance(kylinConfig).getCube(CUBE_NAME);
+  cube.getSegments().clear();
+  CubeManager.getInstance(kylinConfig).updateCube(cube,true);
+}

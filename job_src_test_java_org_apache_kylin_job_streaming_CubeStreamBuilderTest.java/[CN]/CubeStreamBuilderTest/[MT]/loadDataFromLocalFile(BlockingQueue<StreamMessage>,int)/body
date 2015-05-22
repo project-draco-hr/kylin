@@ -1,0 +1,10 @@
+{
+  BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream("../table.txt")));
+  String line;
+  int count=0;
+  while ((line=br.readLine()) != null && count++ < maxCount) {
+    final List<String> strings=Arrays.asList(line.split("\t"));
+    queue.put(new StreamMessage(System.currentTimeMillis(),StringUtils.join(",",strings).getBytes()));
+  }
+  queue.put(StreamMessage.EOF);
+}

@@ -1,3 +1,0 @@
-BlockingQueue<StreamMessage> streamMessageQueue
-int sliceSize
-List<TblColRef> allColumns

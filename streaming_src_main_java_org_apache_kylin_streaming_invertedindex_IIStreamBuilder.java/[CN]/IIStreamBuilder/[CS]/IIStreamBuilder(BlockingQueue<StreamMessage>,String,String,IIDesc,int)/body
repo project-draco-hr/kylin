@@ -1,5 +1,6 @@
 {
-  super(queue,iiDesc.getSliceSize());
+  super(queue);
+  this.batchSize=iiDesc.getSliceSize();
   this.streaming=streaming;
   this.desc=iiDesc;
   this.shardId=shard;

@@ -1,0 +1,25 @@
+{
+  final String cubeName=kafkaConfig.getCubeName();
+  final CubeInstance cubeInstance=CubeManager.getInstance(kylinConfig).getCube(cubeName);
+  final List<BlockingQueue<StreamMessage>> queues=consume(kafkaConfig,partitionCount);
+  final LinkedBlockingDeque<StreamMessage> streamQueue=new LinkedBlockingDeque<>();
+  Executors.newSingleThreadExecutor().execute(new Runnable(){
+    @Override public void run(){
+      while (true) {
+        for (        BlockingQueue<StreamMessage> queue : queues) {
+          try {
+            streamQueue.put(queue.take());
+          }
+ catch (          InterruptedException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      }
+    }
+  }
+);
+  CubeStreamBuilder cubeStreamBuilder=new CubeStreamBuilder(streamQueue,cubeName);
+  cubeStreamBuilder.setStreamParser(getStreamParser(kafkaConfig,cubeInstance.getAllColumns()));
+  final Future<?> future=Executors.newSingleThreadExecutor().submit(cubeStreamBuilder);
+  future.get();
+}

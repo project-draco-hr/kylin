@@ -1,0 +1,12 @@
+{
+  final List<TblColRef> columns=cubeInstance.getAllColumns();
+  final List<TblColRef> allDimensions=cubeInstance.getAllDimensions();
+  final HashMap<Integer,TblColRef> result=Maps.newHashMap();
+  for (int i=0; i < columns.size(); i++) {
+    final TblColRef tblColRef=columns.get(i);
+    if (allDimensions.contains(tblColRef)) {
+      result.put(i,tblColRef);
+    }
+  }
+  return result;
+}

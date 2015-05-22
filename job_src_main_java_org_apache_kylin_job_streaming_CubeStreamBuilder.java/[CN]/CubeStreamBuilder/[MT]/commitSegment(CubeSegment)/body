@@ -1,0 +1,4 @@
+{
+  cubeSegment.setStatus(SegmentStatusEnum.READY);
+  CubeManager.getInstance(kylinConfig).updateCube(cubeSegment.getCubeInstance(),true);
+}

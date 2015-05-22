@@ -1,0 +1,27 @@
+{
+  if (CollectionUtils.isEmpty(streamMessages)) {
+    logger.info("nothing to build, skip to next iteration");
+    return;
+  }
+  final List<List<String>> parsedStreamMessages=parseStream(streamMessages);
+  long startOffset=streamMessages.get(0).getOffset();
+  long endOffset=streamMessages.get(streamMessages.size() - 1).getOffset();
+  LinkedBlockingQueue<List<String>> blockingQueue=new LinkedBlockingQueue<List<String>>(parsedStreamMessages);
+  blockingQueue.put(Collections.<String>emptyList());
+  final CubeInstance cubeInstance=cubeManager.getCube(cubeName);
+  final CubeDesc cubeDesc=cubeInstance.getDescriptor();
+  final CubeSegment cubeSegment=cubeManager.appendSegments(cubeManager.getCube(cubeName),System.currentTimeMillis());
+  final Map<Long,HyperLogLogPlusCounter> samplingResult=sampling(cubeInstance.getDescriptor(),parsedStreamMessages);
+  final Configuration conf=HadoopUtil.getCurrentConfiguration();
+  final String outputPath="/tmp/kylin/cuboidstatistics/" + UUID.randomUUID().toString();
+  FactDistinctColumnsReducer.writeCuboidStatistics(conf,outputPath,samplingResult,100);
+  ResourceStore.getStore(kylinConfig).putResource(cubeSegment.getStatisticsResourcePath(),FileSystem.get(conf).open(new Path(outputPath,BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION)),0);
+  final Map<TblColRef,Dictionary<?>> dictionaryMap=buildDictionary(getTblColRefMap(cubeInstance),parsedStreamMessages);
+  writeDictionary(cubeSegment,dictionaryMap,startOffset,endOffset);
+  final HTableInterface hTable=createHTable(cubeSegment);
+  final CubeStreamRecordWriter gtRecordWriter=new CubeStreamRecordWriter(cubeDesc,hTable);
+  InMemCubeBuilder inMemCubeBuilder=new InMemCubeBuilder(blockingQueue,cubeInstance,dictionaryMap,gtRecordWriter);
+  executorService.submit(inMemCubeBuilder).get();
+  gtRecordWriter.flush();
+  commitSegment(cubeSegment);
+}

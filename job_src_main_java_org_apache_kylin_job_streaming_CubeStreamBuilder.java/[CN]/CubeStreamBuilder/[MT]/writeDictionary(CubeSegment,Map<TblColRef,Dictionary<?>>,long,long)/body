@@ -1,0 +1,20 @@
+{
+  for (  Map.Entry<TblColRef,Dictionary<?>> entry : dictionaryMap.entrySet()) {
+    final TblColRef tblColRef=entry.getKey();
+    final Dictionary<?> dictionary=entry.getValue();
+    TableSignature signature=new TableSignature();
+    signature.setLastModifiedTime(System.currentTimeMillis());
+    signature.setPath(String.format("streaming_%s_%s",startOffset,endOffset));
+    signature.setSize(endOffset - startOffset);
+    DictionaryInfo dictInfo=new DictionaryInfo(tblColRef.getTable(),tblColRef.getName(),tblColRef.getColumnDesc().getZeroBasedIndex(),tblColRef.getDatatype(),signature,ReadableTable.DELIM_AUTO);
+    logger.info("writing dictionary for TblColRef:" + tblColRef.toString());
+    DictionaryManager dictionaryManager=DictionaryManager.getInstance(kylinConfig);
+    try {
+      cubeSegment.putDictResPath(tblColRef,dictionaryManager.trySaveNewDict(dictionary,dictInfo).getResourcePath());
+    }
+ catch (    IOException e) {
+      logger.error("error save dictionary for column:" + tblColRef,e);
+      throw new RuntimeException("error save dictionary for column:" + tblColRef,e);
+    }
+  }
+}

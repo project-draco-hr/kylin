@@ -1,0 +1,7 @@
+{
+  final long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
+  List<Long> result=Lists.newArrayList();
+  CuboidScheduler cuboidScheduler=new CuboidScheduler(cubeDesc);
+  getSubCuboidIds(cuboidScheduler,baseCuboidId,result);
+  return result;
+}

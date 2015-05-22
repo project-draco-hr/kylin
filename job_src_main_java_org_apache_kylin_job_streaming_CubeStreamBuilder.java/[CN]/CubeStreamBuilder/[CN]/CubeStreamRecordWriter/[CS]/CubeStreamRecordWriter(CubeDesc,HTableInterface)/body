@@ -1,0 +1,14 @@
+{
+  this.keyValueCreators=Lists.newArrayList();
+  this.cubeDesc=cubeDesc;
+  int startPosition=0;
+  for (  HBaseColumnFamilyDesc cfDesc : cubeDesc.getHBaseMapping().getColumnFamily()) {
+    for (    HBaseColumnDesc colDesc : cfDesc.getColumns()) {
+      keyValueCreators.add(new InMemKeyValueCreator(colDesc,startPosition));
+      startPosition+=colDesc.getMeasures().length;
+    }
+  }
+  this.nColumns=keyValueCreators.size();
+  this.hTable=hTable;
+  this.byteBuffer=ByteBuffer.allocate(1 << 20);
+}

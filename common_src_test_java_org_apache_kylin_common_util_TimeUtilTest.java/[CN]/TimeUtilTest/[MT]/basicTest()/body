@@ -1,9 +1,9 @@
 {
   java.text.DateFormat dateFormat=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
   long t1=dateFormat.parse("2012/01/01 00:00:01").getTime();
-  Assert.assertEquals(normalizeTime(t1,NormalizeUnit.HOUR),TimeUtil.getHourStart(t1));
-  Assert.assertEquals(normalizeTime(t1,NormalizeUnit.MINUTE),TimeUtil.getMinuteStart(t1));
+  Assert.assertEquals(normalizeTime(t1,NormalizedTimeUnit.HOUR),TimeUtil.getHourStart(t1));
+  Assert.assertEquals(normalizeTime(t1,NormalizedTimeUnit.MINUTE),TimeUtil.getMinuteStart(t1));
   long t2=dateFormat.parse("2012/12/31 11:02:01").getTime();
-  Assert.assertEquals(normalizeTime(t2,NormalizeUnit.HOUR),TimeUtil.getHourStart(t2));
-  Assert.assertEquals(normalizeTime(t2,NormalizeUnit.MINUTE),TimeUtil.getMinuteStart(t2));
+  Assert.assertEquals(normalizeTime(t2,NormalizedTimeUnit.HOUR),TimeUtil.getHourStart(t2));
+  Assert.assertEquals(normalizeTime(t2,NormalizedTimeUnit.MINUTE),TimeUtil.getMinuteStart(t2));
 }

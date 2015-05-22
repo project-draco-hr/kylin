@@ -1,0 +1,3 @@
+{
+  return ts / ONE_DAY_TS * ONE_DAY_TS;
+}

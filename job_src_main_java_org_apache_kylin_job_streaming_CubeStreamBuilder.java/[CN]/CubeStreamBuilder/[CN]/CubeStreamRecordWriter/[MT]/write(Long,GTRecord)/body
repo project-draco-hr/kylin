@@ -1,0 +1,18 @@
+{
+  final ByteBuffer key=createKey(cuboidId,record);
+  final CuboidToGridTableMapping mapping=new CuboidToGridTableMapping(Cuboid.findById(cubeDesc,cuboidId));
+  final BitSet bitSet=new BitSet();
+  bitSet.set(mapping.getDimensionCount(),mapping.getColumnCount());
+  for (int i=0; i < nColumns; i++) {
+    final KeyValue keyValue=keyValueCreators.get(i).create(key.array(),0,key.position(),record.getValues(bitSet,new Object[bitSet.cardinality()]));
+    final Put put=new Put(copy(key.array(),0,key.position()));
+    byte[] family=copy(keyValue.getFamilyArray(),keyValue.getFamilyOffset(),keyValue.getFamilyLength());
+    byte[] qualifier=copy(keyValue.getQualifierArray(),keyValue.getQualifierOffset(),keyValue.getQualifierLength());
+    byte[] value=copy(keyValue.getValueArray(),keyValue.getValueOffset(),keyValue.getValueLength());
+    put.add(family,qualifier,value);
+    puts.add(put);
+  }
+  if (puts.size() >= batchSize()) {
+    flush();
+  }
+}

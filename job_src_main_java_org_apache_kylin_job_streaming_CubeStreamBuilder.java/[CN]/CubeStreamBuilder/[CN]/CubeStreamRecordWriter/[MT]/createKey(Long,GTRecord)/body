@@ -1,0 +1,10 @@
+{
+  byteBuffer.clear();
+  byteBuffer.put(Bytes.toBytes(cuboidId));
+  final int cardinality=BitSet.valueOf(new long[]{cuboidId}).cardinality();
+  for (int i=0; i < cardinality; i++) {
+    final ByteArray byteArray=record.get(i);
+    byteBuffer.put(byteArray.array(),byteArray.offset(),byteArray.length());
+  }
+  return byteBuffer;
+}
