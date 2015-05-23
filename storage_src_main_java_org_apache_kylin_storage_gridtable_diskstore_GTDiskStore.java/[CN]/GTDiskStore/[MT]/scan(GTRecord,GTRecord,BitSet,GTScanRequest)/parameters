@@ -1,4 +1,4 @@
-ByteArray pkStart
-ByteArray pkEnd
+GTRecord pkStart
+GTRecord pkEnd
 BitSet selectedColBlocks
 GTScanRequest additionalPushDown

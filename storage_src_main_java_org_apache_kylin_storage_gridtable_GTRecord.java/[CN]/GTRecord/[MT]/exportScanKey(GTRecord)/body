@@ -1,6 +1,6 @@
 {
-  int firstPKCol=info.primaryKey.nextSetBit(0);
-  if (rec == null || rec.cols[firstPKCol].array() == null)   return null;
+  if (rec == null)   return null;
+  GTInfo info=rec.getInfo();
   BitSet selectedColumns=new BitSet();
   int len=0;
   for (int i=info.primaryKey.nextSetBit(0); i >= 0; i=info.primaryKey.nextSetBit(i + 1)) {
@@ -10,6 +10,7 @@
     selectedColumns.set(i);
     len+=rec.cols[i].length();
   }
+  if (selectedColumns.cardinality() == 0)   return null;
   ByteArray buf=ByteArray.allocate(len);
   rec.exportColumns(selectedColumns,buf);
   return buf;

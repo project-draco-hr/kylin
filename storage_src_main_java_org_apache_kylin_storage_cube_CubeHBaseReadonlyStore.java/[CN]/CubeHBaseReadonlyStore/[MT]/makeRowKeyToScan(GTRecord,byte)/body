@@ -1,4 +1,5 @@
 {
+  ByteArray pk=GTRecord.exportScanKey(pkRec);
   int pkMaxLen=info.getMaxColumnLength(info.getPrimaryKey());
   byte[] buf=new byte[pkMaxLen + RowConstants.ROWKEY_CUBOIDID_LEN];
   Arrays.fill(buf,fill);
