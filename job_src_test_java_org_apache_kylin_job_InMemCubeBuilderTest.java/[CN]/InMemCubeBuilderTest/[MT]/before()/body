@@ -1,0 +1,5 @@
+{
+  createTestMetadata();
+  kylinConfig=KylinConfig.getInstanceFromEnv();
+  cubeManager=CubeManager.getInstance(kylinConfig);
+}

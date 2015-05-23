@@ -1,0 +1,3 @@
+{
+  this(filePath,ReadableTable.DELIM_AUTO,expectedColumnNumber);
+}

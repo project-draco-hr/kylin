@@ -1,0 +1,17 @@
+{
+  Map<TblColRef,Dictionary<?>> result=Maps.newHashMap();
+  CubeDesc desc=cube.getDescriptor();
+  CubeJoinedFlatTableDesc flatTableDesc=new CubeJoinedFlatTableDesc(desc,null);
+  int nColumns=flatTableDesc.getColumnList().size();
+  List<TblColRef> columns=Cuboid.getBaseCuboid(desc).getColumns();
+  for (int c=0; c < columns.size(); c++) {
+    TblColRef col=columns.get(c);
+    if (desc.getRowkey().isUseDictionary(col)) {
+      logger.info("Building dictionary for " + col);
+      List<byte[]> valueList=readValueList(flatTable,nColumns,flatTableDesc.getRowKeyColumnIndexes()[c]);
+      Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueList(col.getType(),valueList);
+      result.put(col,dict);
+    }
+  }
+  return result;
+}

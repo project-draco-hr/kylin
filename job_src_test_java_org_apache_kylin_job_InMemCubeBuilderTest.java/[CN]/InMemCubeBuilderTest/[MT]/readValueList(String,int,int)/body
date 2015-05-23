@@ -1,0 +1,12 @@
+{
+  List<byte[]> result=Lists.newArrayList();
+  FileTableReader reader=new FileTableReader(flatTable,nColumns);
+  while (reader.next()) {
+    String[] row=reader.getRow();
+    if (row[c] != null) {
+      result.add(Bytes.toBytes(row[c]));
+    }
+  }
+  reader.close();
+  return result;
+}

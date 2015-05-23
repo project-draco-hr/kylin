@@ -1,0 +1,26 @@
+{
+  final CubeInstance cube=cubeManager.getCube("test_kylin_cube_without_slr_left_join_empty");
+  final String flatTable="../examples/test_case_data/localmeta/data/flatten_data_for_without_slr_left_join.csv";
+  Map<TblColRef,Dictionary<?>> dictionaryMap=getDictionaryMap(cube,flatTable);
+  ArrayBlockingQueue<List<String>> queue=new ArrayBlockingQueue<List<String>>(10000);
+  InMemCubeBuilder cubeBuilder=new InMemCubeBuilder(queue,cube,dictionaryMap,new ConsoleGTRecordWriter());
+  ExecutorService executorService=Executors.newSingleThreadExecutor();
+  Future<?> future=executorService.submit(cubeBuilder);
+  CubeJoinedFlatTableDesc flatTableDesc=new CubeJoinedFlatTableDesc(cube.getDescriptor(),null);
+  int nColumns=flatTableDesc.getColumnList().size();
+  FileTableReader reader=new FileTableReader(flatTable,nColumns);
+  while (reader.next()) {
+    String[] row=reader.getRow();
+    queue.put(Arrays.asList(row));
+  }
+  queue.put(new ArrayList<String>(0));
+  reader.close();
+  try {
+    future.get();
+  }
+ catch (  Exception e) {
+    logger.error("stream build failed",e);
+    throw new IOException("Failed to build cube ",e);
+  }
+  logger.info("stream build finished");
+}
