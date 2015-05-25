@@ -1,13 +1,5 @@
 {
-  List<Integer> rowkeyColumnSize=Lists.newArrayList();
-  CubeSegment cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
-  long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
-  Cuboid baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
-  List<TblColRef> columnList=baseCuboid.getColumns();
-  for (int i=0; i < columnList.size(); i++) {
-    logger.info("Rowkey column " + i + " length "+ cubeSegment.getColumnLength(columnList.get(i)));
-    rowkeyColumnSize.add(cubeSegment.getColumnLength(columnList.get(i)));
-  }
+  CubeDesc cubeDesc=cubeSegment.getCubeDesc();
   DataModelDesc.RealizationCapacity cubeCapacity=cubeDesc.getModel().getCapacity();
   int cut=kylinConfig.getHBaseRegionCut(cubeCapacity.toString());
   logger.info("Cube capacity " + cubeCapacity.toString() + ", chosen cut for HTable is "+ cut+ "GB");
@@ -56,8 +48,9 @@
   List<Long> allCuboids=Lists.newArrayList();
   allCuboids.addAll(cuboidSizeMap.keySet());
   Collections.sort(allCuboids);
+  long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
   for (  long cuboidId : allCuboids) {
-    long cuboidSize=estimateCuboidStorageSize(cuboidId,cuboidSizeMap.get(cuboidId),baseCuboidId,rowkeyColumnSize);
+    long cuboidSize=estimateCuboidStorageSize(cubeDesc,cuboidId,cuboidSizeMap.get(cuboidId),baseCuboidId,rowkeyColumnSize);
     cuboidSizeMap.put(cuboidId,cuboidSize);
     totalSizeInM+=cuboidSize;
   }

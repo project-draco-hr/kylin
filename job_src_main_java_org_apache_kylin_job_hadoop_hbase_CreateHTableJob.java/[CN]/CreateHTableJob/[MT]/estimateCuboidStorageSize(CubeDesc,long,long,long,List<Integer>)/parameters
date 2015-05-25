@@ -1,3 +1,4 @@
+CubeDesc cubeDesc
 long cuboidId
 long rowCount
 long baseCuboidId

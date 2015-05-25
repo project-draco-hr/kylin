@@ -1,0 +1,4 @@
+Configuration conf
+KylinConfig kylinConfig
+List<Integer> rowkeyColumnSize
+CubeSegment cubeSegment

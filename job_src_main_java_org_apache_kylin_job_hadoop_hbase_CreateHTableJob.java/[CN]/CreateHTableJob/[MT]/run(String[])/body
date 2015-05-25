@@ -14,6 +14,7 @@
   cube=cubeMgr.getCube(cubeName);
   cubeDesc=cube.getDescriptor();
   segmentName=getOptionValue(OPTION_SEGMENT_NAME);
+  CubeSegment cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   String tableName=getOptionValue(OPTION_HTABLE_NAME).toUpperCase();
   HTableDescriptor tableDesc=new HTableDescriptor(TableName.valueOf(tableName));
   tableDesc.setValue(HTableDescriptor.SPLIT_POLICY,ConstantSizeRegionSplitPolicy.class.getName());
@@ -41,7 +42,15 @@
     }
     byte[][] splitKeys;
     if (statistics_enabled) {
-      splitKeys=getSplitsFromCuboidStatistics(conf);
+      List<Integer> rowkeyColumnSize=Lists.newArrayList();
+      long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
+      Cuboid baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
+      List<TblColRef> columnList=baseCuboid.getColumns();
+      for (int i=0; i < columnList.size(); i++) {
+        logger.info("Rowkey column " + i + " length "+ cubeSegment.getColumnLength(columnList.get(i)));
+        rowkeyColumnSize.add(cubeSegment.getColumnLength(columnList.get(i)));
+      }
+      splitKeys=getSplitsFromCuboidStatistics(conf,kylinConfig,rowkeyColumnSize,cubeSegment);
     }
  else {
       splitKeys=getSplits(conf,partitionFilePath);
