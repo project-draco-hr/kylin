@@ -1,0 +1,13 @@
+{
+  ITKylinQueryTest.clean();
+  ITKylinQueryTest.joinType=joinType;
+  ITKylinQueryTest.setupAll();
+  if (coprocessorToggle.equals("on")) {
+    ObserverEnabler.forceCoprocessorOn();
+  }
+ else   if (coprocessorToggle.equals("off")) {
+    ObserverEnabler.forceCoprocessorOff();
+  }
+ else   if (coprocessorToggle.equals("unset")) {
+  }
+}
