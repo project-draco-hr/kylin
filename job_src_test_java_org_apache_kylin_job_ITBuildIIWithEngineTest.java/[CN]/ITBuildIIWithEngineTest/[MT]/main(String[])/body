@@ -1,7 +1,0 @@
-{
-  ITBuildIIWithEngineTest instance=new ITBuildIIWithEngineTest();
-  ITBuildIIWithEngineTest.beforeClass();
-  instance.before();
-  instance.testBuildII();
-  instance.after();
-}
