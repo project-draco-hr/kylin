@@ -1,5 +1,7 @@
 {
-  if (!innerCache.containsKey(key)) {
+  boolean exists=innerCache.containsKey(key);
+  innerCache.put(key,value);
+  if (!exists) {
     syncRemote(key,Broadcaster.EVENT.CREATE);
   }
  else {
