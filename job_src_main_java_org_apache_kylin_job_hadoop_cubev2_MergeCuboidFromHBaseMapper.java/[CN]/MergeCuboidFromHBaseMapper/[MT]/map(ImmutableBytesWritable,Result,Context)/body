@@ -41,11 +41,12 @@
     }
   }
  else {
+    int position=0;
     for (int i=0; i < rowValueDecoders.length; i++) {
       rowValueDecoders[i].decode(value,false);
       Object[] measureValues=rowValueDecoders[i].getValues();
       for (int j=0; j < measureValues.length; j++) {
-        result[hbaseColumnToMeasureMapping[i][j]]=measureValues[j];
+        result[position++]=measureValues[j];
       }
     }
     codec.encode(result,valueBuf);
