@@ -1,4 +1,0 @@
-{
-  HBaseConnection.deleteTable(KylinConfig.getInstanceFromEnv().getStorageUrl(),tableName);
-  staticCleanupTestMetadata();
-}

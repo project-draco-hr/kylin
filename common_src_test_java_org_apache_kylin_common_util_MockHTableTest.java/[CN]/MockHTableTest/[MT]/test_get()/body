@@ -1,7 +1,0 @@
-{
-  Get get=new Get("John Doe".getBytes());
-  Result realResult=real.get(get);
-  Result mockResult=mock.get(get);
-  assertThat(realResult.isEmpty(),is(false));
-  assertThat(mockResult.isEmpty(),is(realResult.isEmpty()));
-}
