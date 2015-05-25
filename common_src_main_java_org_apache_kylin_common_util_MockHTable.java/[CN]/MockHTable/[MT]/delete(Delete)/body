@@ -12,7 +12,12 @@
       continue;
     }
     for (    KeyValue kv : delete.getFamilyMap().get(family)) {
-      data.get(row).get(kv.getFamily()).remove(kv.getQualifier());
+      if (kv.isDeleteFamily()) {
+        data.get(row).get(kv.getFamily()).clear();
+      }
+ else {
+        data.get(row).get(kv.getFamily()).remove(kv.getQualifier());
+      }
     }
     if (data.get(row).get(family).isEmpty()) {
       data.get(row).remove(family);
