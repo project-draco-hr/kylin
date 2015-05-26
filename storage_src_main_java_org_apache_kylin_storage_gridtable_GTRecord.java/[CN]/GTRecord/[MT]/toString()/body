@@ -1,3 +1,3 @@
 {
-  return toString(maskForEqualHashComp);
+  return toString(info.colAll);
 }

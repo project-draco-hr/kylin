@@ -4,7 +4,8 @@
     len+=cols[i].length();
   }
   byte[] space=new byte[len];
-  GTRecord copy=new GTRecord(info,this.maskForEqualHashComp);
+  GTRecord copy=new GTRecord(info);
+  copy.maskForEqualHashComp=this.maskForEqualHashComp;
   int pos=0;
   for (int i=selectedCols.nextSetBit(0); i >= 0; i=selectedCols.nextSetBit(i + 1)) {
     System.arraycopy(cols[i].array(),cols[i].offset(),space,pos,cols[i].length());

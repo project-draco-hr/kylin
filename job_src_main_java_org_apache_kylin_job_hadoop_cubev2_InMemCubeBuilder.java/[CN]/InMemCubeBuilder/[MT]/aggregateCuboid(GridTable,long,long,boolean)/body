@@ -1,4 +1,5 @@
 {
+  logger.info("Calculating cuboid " + cuboidId + " from parent "+ parentCuboidId);
   Pair<BitSet,BitSet> columnBitSets=getDimensionAndMetricColumnBitSet(parentCuboidId);
   BitSet parentDimensions=columnBitSets.getFirst();
   BitSet measureColumns=columnBitSets.getSecond();
@@ -16,5 +17,5 @@
     }
     mask=mask >> 1;
   }
-  return scanAndAggregateGridTable(parentCuboid,cuboidId,childDimensions,measureColumns);
+  return scanAndAggregateGridTable(parentCuboid,cuboidId,childDimensions,measureColumns,inMem);
 }
