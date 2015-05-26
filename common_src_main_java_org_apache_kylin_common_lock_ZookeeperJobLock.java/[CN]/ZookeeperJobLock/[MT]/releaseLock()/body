@@ -1,13 +1,13 @@
 {
   try {
     if (zkClient.getState().equals(CuratorFrameworkState.STARTED)) {
-      if (zkClient.checkExists().forPath(schedulerId()) != null) {
-        zkClient.delete().guaranteed().deletingChildrenIfNeeded().forPath(schedulerId());
+      if (zkClient.checkExists().forPath(scheduleID) != null) {
+        zkClient.delete().guaranteed().deletingChildrenIfNeeded().forPath(scheduleID);
       }
     }
   }
  catch (  Exception e) {
-    logger.error("error release lock:" + schedulerId());
+    logger.error("error release lock:" + scheduleID);
     throw new RuntimeException(e);
   }
 }
