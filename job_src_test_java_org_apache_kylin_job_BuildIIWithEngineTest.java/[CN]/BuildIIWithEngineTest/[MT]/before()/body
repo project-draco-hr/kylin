@@ -4,7 +4,7 @@
   final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   jobService=ExecutableManager.getInstance(kylinConfig);
   scheduler=DefaultScheduler.getInstance();
-  scheduler.init(new JobEngineConfig(kylinConfig));
+  scheduler.init(new JobEngineConfig(kylinConfig),new ZookeeperJobLock());
   if (!scheduler.hasStarted()) {
     throw new RuntimeException("scheduler has not been started");
   }

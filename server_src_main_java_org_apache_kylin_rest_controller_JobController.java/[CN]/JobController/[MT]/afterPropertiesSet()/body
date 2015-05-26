@@ -10,7 +10,7 @@
       @Override public void run(){
         try {
           DefaultScheduler scheduler=DefaultScheduler.getInstance();
-          scheduler.init(new JobEngineConfig(kylinConfig));
+          scheduler.init(new JobEngineConfig(kylinConfig),jobLock);
           while (!scheduler.hasStarted()) {
             logger.error("scheduler has not been started");
             Thread.sleep(1000);

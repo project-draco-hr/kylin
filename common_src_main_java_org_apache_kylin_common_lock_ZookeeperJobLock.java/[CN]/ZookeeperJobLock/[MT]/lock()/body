@@ -1,0 +1,23 @@
+{
+  String ZKConnectString=getZKConnectString();
+  if (StringUtils.isEmpty(ZKConnectString)) {
+    throw new IllegalArgumentException("ZOOKEEPER_QUORUM is empty!");
+  }
+  RetryPolicy retryPolicy=new ExponentialBackoffRetry(1000,3);
+  this.zkClient=CuratorFrameworkFactory.newClient(ZKConnectString,retryPolicy);
+  this.zkClient.start();
+  this.sharedLock=new InterProcessMutex(zkClient,schedulerId());
+  boolean hasLock=false;
+  try {
+    hasLock=sharedLock.acquire(3,TimeUnit.SECONDS);
+  }
+ catch (  Exception e) {
+    logger.warn("error acquire lock",e);
+  }
+  if (!hasLock) {
+    logger.warn("fail to acquire lock, scheduler has not been started");
+    zkClient.close();
+    return false;
+  }
+  return true;
+}

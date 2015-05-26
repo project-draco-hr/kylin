@@ -5,27 +5,8 @@
  else {
     return;
   }
-  String ZKConnectString=getZKConnectString(jobEngineConfig);
-  if (StringUtils.isEmpty(ZKConnectString)) {
-    throw new IllegalArgumentException("ZOOKEEPER_QUORUM is empty!");
-  }
   this.jobEngineConfig=jobEngineConfig;
-  RetryPolicy retryPolicy=new ExponentialBackoffRetry(1000,3);
-  this.zkClient=CuratorFrameworkFactory.newClient(ZKConnectString,retryPolicy);
-  this.zkClient.start();
-  this.sharedLock=new InterProcessMutex(zkClient,schedulerId());
-  boolean hasLock=false;
-  try {
-    hasLock=sharedLock.acquire(3,TimeUnit.SECONDS);
-  }
- catch (  Exception e) {
-    logger.warn("error acquire lock",e);
-  }
-  if (!hasLock) {
-    logger.warn("fail to acquire lock, scheduler has not been started");
-    zkClient.close();
-    return;
-  }
+  jobLock.lock();
   executableManager=ExecutableManager.getInstance(jobEngineConfig.getConfig());
   fetcherPool=Executors.newScheduledThreadPool(1);
   int corePoolSize=jobEngineConfig.getMaxConcurrentJobLimit();
@@ -42,6 +23,7 @@
       logger.debug("Closing zk connection");
       try {
         shutdown();
+        jobLock.unlock();
       }
  catch (      SchedulerException e) {
         logger.error("error shutdown scheduler",e);
