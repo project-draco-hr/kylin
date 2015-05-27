@@ -1,0 +1,4 @@
+{
+  diskFile.delete();
+  tailOffset=0;
+}

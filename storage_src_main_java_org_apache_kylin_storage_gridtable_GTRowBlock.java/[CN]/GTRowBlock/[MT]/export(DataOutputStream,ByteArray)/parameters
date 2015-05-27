@@ -1,2 +1,2 @@
-DataOutputStream dataOutputStream
+DataOutputStream out
 ByteArray array

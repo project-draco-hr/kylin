@@ -1,0 +1,4 @@
+{
+  readChannel=FileChannel.open(diskFile.toPath(),StandardOpenOption.READ);
+  tailOffset=diskFile.length();
+}

@@ -1,0 +1,4 @@
+{
+  writeActivated=false;
+  logger.debug(GTMemDiskStore.this + " mem write de-activated");
+}

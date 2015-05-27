@@ -1,0 +1,14 @@
+{
+  GTInfo info=table.getInfo();
+  GTBuilder builder=table.rebuild();
+  for (  GTRecord r : data) {
+    builder.write(r);
+  }
+  builder.close();
+  IGTScanner scanner=table.scan(new GTScanRequest(info));
+  int i=0;
+  for (  GTRecord r : scanner) {
+    assertEquals(data.get(i++),r);
+  }
+  scanner.close();
+}

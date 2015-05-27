@@ -1,0 +1,17 @@
+{
+  int mbReleased=0;
+  while (chunkCount > 0 && mbReleased < mb) {
+    if (firstChunk == asyncFlushChunk)     break;
+    mbReleased+=MEM_CHUNK_SIZE_MB;
+    chunkCount--;
+    if (chunkCount == 0) {
+      firstChunk=lastChunk=null;
+    }
+ else {
+      MemChunk next=firstChunk.next;
+      firstChunk.next=null;
+      firstChunk=next;
+    }
+  }
+  return mbReleased;
+}

@@ -1,6 +1,6 @@
 {
   buf.putInt(seqId);
-  buf.putInt(nRows);
+  if (info.isRowBlockEnabled())   buf.putInt(nRows);
   export(primaryKey,buf);
   for (  ByteArray cb : cellBlocks) {
     export(cb,buf);

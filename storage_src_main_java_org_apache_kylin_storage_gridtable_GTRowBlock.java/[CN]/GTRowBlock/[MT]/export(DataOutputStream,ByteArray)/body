@@ -1,4 +1,4 @@
 {
-  dataOutputStream.writeInt(array.length());
-  dataOutputStream.write(array.array(),array.offset(),array.length());
+  out.writeInt(array.length());
+  out.write(array.array(),array.offset(),array.length());
 }

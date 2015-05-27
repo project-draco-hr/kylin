@@ -1,0 +1,17 @@
+{
+  deactivateMemWrite();
+  if (asyncFlusher != null) {
+    try {
+      asyncFlusher.join();
+    }
+ catch (    InterruptedException e) {
+      logger.warn("",e);
+    }
+    asyncFlusher=null;
+    asyncFlushChunk=null;
+    if (asyncFlushException != null) {
+      if (asyncFlushException instanceof IOException)       throw (IOException)asyncFlushException;
+ else       throw new IOException(asyncFlushException);
+    }
+  }
+}

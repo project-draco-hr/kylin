@@ -1,8 +1,8 @@
 {
-  dataOutputStream.writeInt(seqId);
-  dataOutputStream.writeInt(nRows);
-  export(dataOutputStream,primaryKey);
+  out.writeInt(seqId);
+  if (info.isRowBlockEnabled())   out.writeInt(nRows);
+  export(out,primaryKey);
   for (  ByteArray cb : cellBlocks) {
-    export(dataOutputStream,cb);
+    export(out,cb);
   }
 }

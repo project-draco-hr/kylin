@@ -1,0 +1,37 @@
+{
+  int needMoreMem=0;
+synchronized (this) {
+    if (writeActivated == false)     return 0;
+    if (diskOffset != tailOffset())     return 0;
+    if (chunkCount == 0 || lastChunk.isFull())     needMoreMem=(chunkCount + 1) * MEM_CHUNK_SIZE_MB;
+  }
+  if (needMoreMem > 0) {
+    try {
+      budgetCtrl.reserve(this,needMoreMem);
+    }
+ catch (    NotEnoughBudgetException ex) {
+      deactivateMemWrite();
+      return 0;
+    }
+  }
+synchronized (this) {
+    if (needMoreMem > 0) {
+      MemChunk chunk=new MemChunk();
+      chunk.diskOffset=diskOffset;
+      chunk.data=new byte[ONE_MB * MEM_CHUNK_SIZE_MB - 48];
+      if (chunkCount == 0) {
+        firstChunk=lastChunk=chunk;
+      }
+ else {
+        lastChunk.next=chunk;
+        lastChunk=chunk;
+      }
+      chunkCount++;
+    }
+    int n=Math.min(lastChunk.freeSpace(),length);
+    System.arraycopy(bytes,offset,lastChunk.data,lastChunk.length,n);
+    lastChunk.length+=n;
+    if (n > 0)     asyncFlush(lastChunk,diskOffset,n);
+    return n;
+  }
+}

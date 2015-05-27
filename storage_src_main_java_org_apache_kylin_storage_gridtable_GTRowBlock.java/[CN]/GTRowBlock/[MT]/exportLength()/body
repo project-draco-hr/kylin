@@ -1,5 +1,7 @@
 {
-  int len=4 + 4 + (4 + primaryKey.length());
+  int len=4;
+  if (info.isRowBlockEnabled())   len+=4;
+  len+=4 + primaryKey.length();
   for (  ByteArray array : cellBlocks) {
     len+=4 + array.length();
   }

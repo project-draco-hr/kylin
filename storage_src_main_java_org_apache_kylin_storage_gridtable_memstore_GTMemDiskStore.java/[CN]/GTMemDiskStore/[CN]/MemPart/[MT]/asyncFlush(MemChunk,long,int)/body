@@ -1,0 +1,27 @@
+{
+  if (asyncFlushChunk == null) {
+    asyncFlushChunk=lastChunk;
+    asyncFlushDiskOffset=diskOffset;
+  }
+  if (asyncFlusher == null) {
+    asyncFlusher=new Thread(){
+      public void run(){
+        asyncFlushException=null;
+        logger.debug(GTMemDiskStore.this + " async flush started @ " + asyncFlushDiskOffset);
+        try {
+          while (writeActivated) {
+            flushToDisk();
+            Thread.sleep(10);
+          }
+          flushToDisk();
+        }
+ catch (        Throwable ex) {
+          asyncFlushException=ex;
+        }
+        logger.debug(GTMemDiskStore.this + " async flush ended @ " + asyncFlushDiskOffset);
+      }
+    }
+;
+    asyncFlusher.start();
+  }
+}

@@ -1,0 +1,6 @@
+{
+  this.info=info;
+  this.memPart=new MemPart(budgetCtrl);
+  this.diskPart=new DiskPart(diskFile);
+  if (delOnExit)   diskFile.deleteOnExit();
+}

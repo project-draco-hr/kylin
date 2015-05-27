@@ -1,0 +1,3 @@
+{
+  return GTMemDiskStore.this.toString();
+}

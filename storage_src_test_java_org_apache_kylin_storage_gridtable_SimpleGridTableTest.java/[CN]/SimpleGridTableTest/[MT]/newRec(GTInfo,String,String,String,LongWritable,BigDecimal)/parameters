@@ -1,0 +1,6 @@
+GTInfo info
+String date
+String name
+String category
+LongWritable amount
+BigDecimal price

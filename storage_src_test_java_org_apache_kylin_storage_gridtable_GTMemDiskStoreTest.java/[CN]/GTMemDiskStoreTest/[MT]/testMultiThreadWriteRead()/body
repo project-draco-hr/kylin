@@ -1,0 +1,24 @@
+{
+  long start=System.currentTimeMillis();
+  int nThreads=5;
+  Thread[] t=new Thread[nThreads];
+  for (int i=0; i < nThreads; i++) {
+    t[i]=new Thread(){
+      public void run(){
+        try {
+          verifyOneTableWriteAndRead();
+        }
+ catch (        Exception ex) {
+          ex.printStackTrace();
+        }
+      }
+    }
+;
+    t[i].start();
+  }
+  for (int i=0; i < nThreads; i++) {
+    t[i].join();
+  }
+  long end=System.currentTimeMillis();
+  System.out.println("Cost " + (end - start) + " millis");
+}

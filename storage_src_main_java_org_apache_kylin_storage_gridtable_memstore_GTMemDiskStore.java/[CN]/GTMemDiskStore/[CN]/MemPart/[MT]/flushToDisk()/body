@@ -1,0 +1,22 @@
+{
+  byte[] data;
+  int offset=0;
+  int length=0;
+  int flushedLen=0;
+  while (true) {
+    data=null;
+synchronized (memPart) {
+      asyncFlushDiskOffset+=flushedLen;
+      if (asyncFlushChunk != null && asyncFlushChunk.tailOffset() == asyncFlushDiskOffset) {
+        asyncFlushChunk=asyncFlushChunk.next;
+      }
+      if (asyncFlushChunk != null) {
+        data=asyncFlushChunk.data;
+        offset=(int)(asyncFlushDiskOffset - asyncFlushChunk.headOffset());
+        length=asyncFlushChunk.length - offset;
+      }
+    }
+    if (data == null)     break;
+    flushedLen=diskPart.write(asyncFlushDiskOffset,data,offset,length);
+  }
+}

@@ -1,0 +1,5 @@
+{
+  long millis=DateFormat.stringToMillis(date);
+  millis+=(1000L * 3600L * 24L) * plusDays;
+  return DateFormat.formatToDateStr(millis);
+}

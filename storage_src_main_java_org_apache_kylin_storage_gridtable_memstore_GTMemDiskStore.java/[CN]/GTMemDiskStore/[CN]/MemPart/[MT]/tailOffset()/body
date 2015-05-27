@@ -1,0 +1,3 @@
+{
+  return lastChunk == null ? 0 : lastChunk.tailOffset();
+}

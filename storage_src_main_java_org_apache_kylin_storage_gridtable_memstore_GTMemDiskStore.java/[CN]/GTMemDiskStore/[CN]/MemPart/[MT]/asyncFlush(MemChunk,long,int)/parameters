@@ -1,0 +1,3 @@
+MemChunk lastChunk
+long diskOffset
+int n

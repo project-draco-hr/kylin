@@ -1,6 +1,6 @@
 {
   seqId=buf.getInt();
-  nRows=buf.getInt();
+  nRows=info.isRowBlockEnabled() ? buf.getInt() : 1;
   load(primaryKey,buf);
   for (int i=0; i < info.colBlocks.length; i++) {
     ByteArray cb=cellBlocks[i];

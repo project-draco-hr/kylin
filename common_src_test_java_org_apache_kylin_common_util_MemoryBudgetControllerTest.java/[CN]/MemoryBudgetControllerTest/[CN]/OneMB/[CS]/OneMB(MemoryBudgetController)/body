@@ -1,0 +1,4 @@
+{
+  mbc.reserve(this,1);
+  data=new byte[MemoryBudgetController.ONE_MB - 24];
+}

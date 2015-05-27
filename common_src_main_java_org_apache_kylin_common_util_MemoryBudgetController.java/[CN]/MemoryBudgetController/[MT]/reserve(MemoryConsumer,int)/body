@@ -1,0 +1,15 @@
+{
+  if (totalBudgetMB == 0 && requestMB > 0)   throw new NotEnoughBudgetException();
+  ConsumerEntry entry=booking.get(consumer);
+  if (entry == null) {
+    booking.putIfAbsent(consumer,new ConsumerEntry(consumer));
+    entry=booking.get(consumer);
+  }
+  int delta=requestMB - entry.reservedMB;
+  if (delta > 0) {
+    checkFreeMemoryAndUpdateBooking(entry,delta);
+  }
+ else {
+    updateBooking(entry,delta);
+  }
+}

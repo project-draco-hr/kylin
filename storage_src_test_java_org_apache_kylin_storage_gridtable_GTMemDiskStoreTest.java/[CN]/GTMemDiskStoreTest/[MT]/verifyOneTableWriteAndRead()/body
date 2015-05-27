@@ -1,0 +1,5 @@
+{
+  GTMemDiskStore store=new GTMemDiskStore(info,budgetCtrl);
+  GridTable table=new GridTable(info,store);
+  verifyWriteAndRead(table);
+}

@@ -1,0 +1,9 @@
+{
+  seqId=in.readInt();
+  nRows=info.isRowBlockEnabled() ? in.readInt() : 1;
+  importFrom(in,primaryKey);
+  for (int i=0; i < info.colBlocks.length; i++) {
+    ByteArray cb=cellBlocks[i];
+    importFrom(in,cb);
+  }
+}

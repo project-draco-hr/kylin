@@ -1,0 +1,8 @@
+{
+  MemChunk c=firstChunk;
+  while (c != null && c.headOffset() <= diskOffset) {
+    if (diskOffset < c.tailOffset())     break;
+    c=c.next;
+  }
+  return c;
+}

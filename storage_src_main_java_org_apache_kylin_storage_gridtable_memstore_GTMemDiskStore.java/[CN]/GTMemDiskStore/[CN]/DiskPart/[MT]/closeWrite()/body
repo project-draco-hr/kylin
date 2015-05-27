@@ -1,0 +1,6 @@
+{
+  if (writeChannel != null) {
+    writeChannel.close();
+    writeChannel=null;
+  }
+}

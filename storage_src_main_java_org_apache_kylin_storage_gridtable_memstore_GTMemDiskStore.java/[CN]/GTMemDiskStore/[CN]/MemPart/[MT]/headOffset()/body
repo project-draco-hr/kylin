@@ -1,0 +1,3 @@
+{
+  return firstChunk == null ? 0 : firstChunk.headOffset();
+}

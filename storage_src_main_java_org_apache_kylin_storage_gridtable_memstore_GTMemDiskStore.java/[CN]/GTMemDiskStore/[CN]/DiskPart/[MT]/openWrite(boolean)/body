@@ -1,0 +1,11 @@
+{
+  if (append) {
+    writeChannel=FileChannel.open(diskFile.toPath(),StandardOpenOption.CREATE,StandardOpenOption.APPEND,StandardOpenOption.WRITE);
+    tailOffset=diskFile.length();
+  }
+ else {
+    diskFile.delete();
+    writeChannel=FileChannel.open(diskFile.toPath(),StandardOpenOption.CREATE_NEW,StandardOpenOption.WRITE);
+    tailOffset=0;
+  }
+}

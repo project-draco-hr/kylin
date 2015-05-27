@@ -1,0 +1,6 @@
+{
+  byte[] data=result.array();
+  int len=in.readInt();
+  in.read(data,0,len);
+  result.set(data,0,len);
+}
