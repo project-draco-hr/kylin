@@ -1,9 +1,13 @@
 {
+  int tryCount=0;
   while (true) {
     String identifier=UUID.randomUUID().toString();
     final String path=getRootDirectory(identifier);
     if (fs.createDirectory(path)) {
       return identifier;
+    }
+    if (++tryCount > 5) {
+      throw new RuntimeException("failed to generateIdentifier");
     }
   }
 }
