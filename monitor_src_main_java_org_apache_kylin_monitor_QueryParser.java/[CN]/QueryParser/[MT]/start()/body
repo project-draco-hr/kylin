@@ -1,0 +1,12 @@
+{
+  QueryParser.QUERY_PARSE_RESULT_PATH=ConfigUtils.getInstance().getQueryLogParseResultDir() + QUERY_LOG_PARSE_RESULT_FILENAME;
+  this.parseQueryInit();
+  String[] hasReadFiles=MonitorMetaManager.getReadQueryLogFileList();
+  List<File> files=this.getQueryLogFiles();
+  for (  File file : files) {
+    if (!Arrays.asList(hasReadFiles).contains(file.getName())) {
+      this.parseQueryLog(file.getPath(),QueryParser.QUERY_PARSE_RESULT_PATH);
+      MonitorMetaManager.markQueryFileAsRead(file.getName());
+    }
+  }
+}

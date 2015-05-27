@@ -1,0 +1,15 @@
+{
+  if (logger.isDebugEnabled()) {
+    long requestId=this.id.incrementAndGet();
+    request=new RequestWrapper(Long.valueOf(requestId),(HttpServletRequest)request);
+    response=new ResponseWrapper(Long.valueOf(requestId),(HttpServletResponse)response);
+  }
+  try {
+    filterChain.doFilter((ServletRequest)request,(ServletResponse)response);
+  }
+  finally {
+    if (logger.isDebugEnabled()) {
+      this.logRequest((HttpServletRequest)request,(ResponseWrapper)response);
+    }
+  }
+}

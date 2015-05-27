@@ -1,0 +1,14 @@
+{
+  File propFile=getKylinMonitorProperties();
+  if (propFile == null || !propFile.exists()) {
+    logger.error("fail to locate kylin.properties");
+    throw new RuntimeException("fail to locate kylin.properties");
+  }
+  try {
+    return new FileInputStream(propFile);
+  }
+ catch (  FileNotFoundException e) {
+    logger.error("this should not happen");
+    throw new RuntimeException(e);
+  }
+}

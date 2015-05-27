@@ -1,0 +1,69 @@
+{
+  String CON_URL=monitorConfig.getHiveJdbcConUrl();
+  Connection con=DriverManager.getConnection(CON_URL,"","");
+  Statement stmt=con.createStatement();
+  ResultSet res=null;
+  SQL_GENERATE_QUERY_LOG_TABLE=generateQueryLogSql();
+  logger.info("Running Sql (Create Table):" + SQL_GENERATE_QUERY_LOG_TABLE);
+  stmt.execute(SQL_GENERATE_QUERY_LOG_TABLE);
+  SQL_TOTAL_QUERY_USER=generateUserCountSql();
+  logger.info("Running Sql (Total User):" + SQL_TOTAL_QUERY_USER);
+  res=stmt.executeQuery(SQL_TOTAL_QUERY_USER);
+  String total_query_user_path=monitorConfig.getLogParseResultMetaDir() + "total_query_user.csv";
+  FileUtils.pathCheck(total_query_user_path);
+  FileUtils.clearHdfsFile(total_query_user_path);
+  while (res.next()) {
+    FileUtils.appendResultToHdfs(total_query_user_path,new String[]{res.getString(1)});
+    logger.info("Total User:" + res.getString(1));
+  }
+  SQL_AVG_DAY_QUERY=generateAvgDayQuery();
+  logger.info("Running Sql (Avg Day Query):" + SQL_AVG_DAY_QUERY);
+  res=stmt.executeQuery(SQL_AVG_DAY_QUERY);
+  String avg_day_query_path=monitorConfig.getLogParseResultMetaDir() + "avg_day_query.csv";
+  FileUtils.pathCheck(avg_day_query_path);
+  FileUtils.clearHdfsFile(avg_day_query_path);
+  while (res.next()) {
+    FileUtils.appendResultToHdfs(avg_day_query_path,new String[]{res.getString(1)});
+    logger.info("avg day query:" + res.getString(1));
+  }
+  SQL_LAST_30_DAYILY_QUERY_COUNT=generateLast30DayilyQueryCount();
+  logger.info("Running Sql (Daily Query Count):" + SQL_LAST_30_DAYILY_QUERY_COUNT);
+  res=stmt.executeQuery(SQL_LAST_30_DAYILY_QUERY_COUNT);
+  String last_30_daily_query_count_path=monitorConfig.getLogParseResultMetaDir() + "last_30_daily_query_count.csv";
+  FileUtils.pathCheck(last_30_daily_query_count_path);
+  FileUtils.clearHdfsFile(last_30_daily_query_count_path);
+  while (res.next()) {
+    FileUtils.appendResultToHdfs(last_30_daily_query_count_path,new String[]{res.getString(1),res.getString(2)});
+    logger.info("last 30 daily query count:" + res.getString(1) + ","+ res.getString(2));
+  }
+  SQL_90_PERCENTTILE_LAST_30_DAY=generateNintyPercentileSql();
+  logger.info("Running Sql (last 30 days ,90 percentile query latency):" + SQL_90_PERCENTTILE_LAST_30_DAY);
+  res=stmt.executeQuery(SQL_90_PERCENTTILE_LAST_30_DAY);
+  String last_30_day_90_percentile_latency=monitorConfig.getLogParseResultMetaDir() + "last_30_day_90_percentile_latency.csv";
+  FileUtils.pathCheck(last_30_day_90_percentile_latency);
+  FileUtils.clearHdfsFile(last_30_day_90_percentile_latency);
+  while (res.next()) {
+    FileUtils.appendResultToHdfs(last_30_day_90_percentile_latency,new String[]{res.getString(1)});
+    logger.info("last 30 day 90 percentile latency:" + res.getString(1));
+  }
+  SQL_DAY_PERCENTILE_BY_PROJECT=generateProjectPercentileSql();
+  logger.info("Running Sql (last 30 days ,90,95 percentile query latency by project):" + SQL_DAY_PERCENTILE_BY_PROJECT);
+  res=stmt.executeQuery(SQL_DAY_PERCENTILE_BY_PROJECT);
+  String last_30_day_project_percentile_latency_path=monitorConfig.getLogParseResultMetaDir() + "project_90_95_percentile_latency.csv";
+  FileUtils.pathCheck(last_30_day_project_percentile_latency_path);
+  FileUtils.clearHdfsFile(last_30_day_project_percentile_latency_path);
+  while (res.next() && res.getMetaData().getColumnCount() == 2) {
+    FileUtils.appendResultToHdfs(last_30_day_project_percentile_latency_path,new String[]{res.getString(1),res.getString(2)});
+    logger.info(res.getString(1) + "," + res.getString(2));
+  }
+  SQL_EACH_DAY_PERCENTILE=generateEachDayPercentileSql();
+  logger.info("Running sql (0.9,0.95 latency):" + SQL_EACH_DAY_PERCENTILE);
+  String each_day_percentile_file=monitorConfig.getLogParseResultMetaDir() + "each_day_90_95_percentile_latency.csv";
+  FileUtils.pathCheck(each_day_percentile_file);
+  FileUtils.clearHdfsFile(each_day_percentile_file);
+  res=stmt.executeQuery(SQL_EACH_DAY_PERCENTILE);
+  while (res.next() && res.getMetaData().getColumnCount() == 3) {
+    FileUtils.appendResultToHdfs(each_day_percentile_file,new String[]{res.getString(1),res.getString(2),res.getString(3)});
+    logger.info(res.getString(1) + "," + res.getString(2)+ ","+ res.getString(3));
+  }
+}

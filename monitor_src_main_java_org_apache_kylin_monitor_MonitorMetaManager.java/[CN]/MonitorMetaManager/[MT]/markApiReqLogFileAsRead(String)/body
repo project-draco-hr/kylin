@@ -1,0 +1,10 @@
+{
+  String read_api_req_log_files=MonitorMetaManager.getReadApiReqLogFiles();
+  if (StringUtils.isEmpty(read_api_req_log_files)) {
+    read_api_req_log_files=filename;
+  }
+ else {
+    read_api_req_log_files=read_api_req_log_files.concat(",").concat(filename);
+  }
+  MonitorMetaManager.updateData(TABLE_NAME,ROW_KEY_API_REQ_LOG_READ_FILES,COLUMN_FAMILY,COLUMN,read_api_req_log_files);
+}

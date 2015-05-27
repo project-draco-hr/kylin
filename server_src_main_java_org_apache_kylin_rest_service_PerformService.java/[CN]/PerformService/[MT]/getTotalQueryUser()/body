@@ -1,0 +1,6 @@
+{
+  String filePath=KylinConfig.getInstanceFromEnv().getHdfsWorkingDirectory() + "/performance/metadata/total_query_user.csv";
+  List<String[]> res=readHdfsFile(filePath);
+  logger.info("Total Query User:" + res.get(0)[0]);
+  return res;
+}

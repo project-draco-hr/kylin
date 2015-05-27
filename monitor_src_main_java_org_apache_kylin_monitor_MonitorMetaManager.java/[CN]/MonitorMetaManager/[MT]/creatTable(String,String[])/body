@@ -1,0 +1,14 @@
+{
+  HBaseAdmin admin=new HBaseAdmin(conf);
+  HTableDescriptor desc=new HTableDescriptor(tableName);
+  for (int i=0; i < family.length; i++) {
+    desc.addFamily(new HColumnDescriptor(family[i]));
+  }
+  if (admin.tableExists(tableName)) {
+    logger.info("table Exists!");
+  }
+ else {
+    admin.createTable(desc);
+    logger.info("create table Success!");
+  }
+}

@@ -1,0 +1,12 @@
+{
+  Configuration conf=new Configuration();
+  FileSystem fs=null;
+  try {
+    fs=FileSystem.newInstance(conf);
+  }
+ catch (  IOException e) {
+    fs.close();
+    logger.info("Failed to get hdfs FileSystem",e);
+  }
+  return fs;
+}

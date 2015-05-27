@@ -1,0 +1,5 @@
+{
+  String filePath=KylinConfig.getInstanceFromEnv().getHdfsWorkingDirectory() + "/performance/metadata/last_30_daily_query_count.csv";
+  List<String[]> res=readHdfsFile(filePath);
+  return res;
+}

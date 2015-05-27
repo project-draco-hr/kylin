@@ -1,0 +1,3 @@
+{
+  return this.monitorConfig.getProperty(KYLIN_EXT_LOG_BASE_DIR);
+}

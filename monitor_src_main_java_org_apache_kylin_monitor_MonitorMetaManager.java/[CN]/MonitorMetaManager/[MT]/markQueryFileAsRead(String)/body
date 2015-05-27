@@ -1,0 +1,10 @@
+{
+  String read_query_log_file=MonitorMetaManager.getReadQueryLogFiles();
+  if (StringUtils.isEmpty(read_query_log_file)) {
+    read_query_log_file=filename;
+  }
+ else {
+    read_query_log_file=read_query_log_file.concat(",").concat(filename);
+  }
+  MonitorMetaManager.updateData(TABLE_NAME,ROW_KEY_QUERY_READ_FILES,COLUMN_FAMILY,COLUMN,read_query_log_file);
+}

@@ -1,0 +1,3 @@
+{
+  return this.getKylinHdfsWorkingDir() + "/performance/query/";
+}

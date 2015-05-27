@@ -1,0 +1,12 @@
+{
+  HTable table=new HTable(conf,Bytes.toBytes(tableName));
+  Put put=new Put(rowKey.getBytes());
+  put.add(family.getBytes(),column.getBytes(),value.getBytes());
+  try {
+    table.put(put);
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  logger.info("end insert data ......");
+}

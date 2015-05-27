@@ -1,0 +1,3 @@
+{
+  return SQL_AVG_DAY_QUERY.replace("[QUERY_LOG_TABLE_NAME]",QUERY_LOG_TABLE_NAME);
+}

@@ -1,0 +1,4 @@
+{
+  String fileList=MonitorMetaManager.getReadQueryLogFiles();
+  return fileList.split(",");
+}

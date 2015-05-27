@@ -1,0 +1,3 @@
+{
+  MonitorMetaManager.updateData(TABLE_NAME,ROW_KEY_QUERY_READING_FILE_LINE,COLUMN_FAMILY,COLUMN,line_num);
+}

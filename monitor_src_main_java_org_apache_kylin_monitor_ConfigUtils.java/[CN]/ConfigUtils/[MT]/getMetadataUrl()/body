@@ -1,0 +1,3 @@
+{
+  return this.monitorConfig.getProperty(KYLIN_METADATA_URL);
+}

@@ -1,0 +1,5 @@
+{
+  String query_log_parse_result_dir=monitorConfig.getQueryLogParseResultDir();
+  String query_log_table_name=monitorConfig.getQueryLogResultTable();
+  return SQL_GENERATE_QUERY_LOG_TABLE.replace("[QUERY_LOG_PARSE_RESULT_DIR]",query_log_parse_result_dir).replace("[QUERY_LOG_TABLE_NAME]",query_log_table_name);
+}

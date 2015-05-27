@@ -1,0 +1,27 @@
+{
+  List<String> logDirList=new ArrayList<String>();
+  String kylinLogConfHome=System.getProperty(KYLIN_LOG_CONF_HOME);
+  if (!StringUtils.isEmpty(kylinLogConfHome)) {
+    logger.info("Use KYLIN_LOG_CONF_HOME=" + KYLIN_LOG_CONF_HOME);
+    logDirList.add(kylinLogConfHome);
+  }
+  String kylinExtLogBaseDir=getExtLogBaseDir();
+  if (!StringUtils.isEmpty(kylinExtLogBaseDir)) {
+    String[] extPaths=kylinExtLogBaseDir.split(",");
+    for (    String path : extPaths) {
+      if (!StringUtils.isEmpty(path)) {
+        logger.info("Use ext log dir=" + path);
+        logDirList.add(path.trim());
+      }
+    }
+  }
+  String kylinHome=getKylinHome();
+  if (!StringUtils.isEmpty(kylinHome))   if (logDirList.isEmpty()) {
+    throw new RuntimeException("Didn't find KYLIN_CONF or KYLIN_HOME or KYLIN_EXT_LOG_BASE_DIR, please set one of them");
+  }
+ else {
+    String path=kylinHome + File.separator + "tomcat"+ File.separator+ "logs";
+    logDirList.add(path);
+  }
+  return logDirList;
+}

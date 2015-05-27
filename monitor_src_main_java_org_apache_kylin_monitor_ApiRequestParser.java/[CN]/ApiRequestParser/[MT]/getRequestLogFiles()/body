@@ -1,0 +1,16 @@
+{
+  List<File> logFiles=new ArrayList<File>();
+  List<String> request_log_dir_list=monitorConfig.getLogBaseDir();
+  FileFilter filter=new RegexFileFilter(REQUEST_LOG_FILE_PATTERN);
+  for (  String path : request_log_dir_list) {
+    logger.info("fetch api request log file from path:" + path);
+    File request_log_dir=new File(path);
+    File[] request_log_files=request_log_dir.listFiles(filter);
+    if (request_log_files == null) {
+      logger.warn("no api request log file found under path" + path);
+      break;
+    }
+    Collections.addAll(logFiles,request_log_files);
+  }
+  return logFiles;
+}

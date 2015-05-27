@@ -1,0 +1,60 @@
+{
+  logger.info("Start parsing kylin api request file " + filePath + " !");
+  FileSystem fs=this.getHdfsFileSystem();
+  org.apache.hadoop.fs.Path resultStorePath=new org.apache.hadoop.fs.Path(dPath);
+  OutputStreamWriter writer=new OutputStreamWriter(fs.append(resultStorePath));
+  CSVWriter cwriter=new CSVWriter(writer,'|',CSVWriter.NO_QUOTE_CHARACTER);
+  Pattern p_available=Pattern.compile("/kylin/api/(cubes|user)+.*");
+  Pattern p_request=Pattern.compile("^.*\\[.*KylinApiFilter.logRequest.*\\].*REQUEST:.*REQUESTER=(.*);REQ_TIME=(\\w+ (\\d{4}-\\d{2}-\\d{2}).*);URI=(.*);METHOD=(.*);QUERY_STRING=(.*);PAYLOAD=(.*);RESP_STATUS=(.*);$");
+  Pattern p_uri=Pattern.compile("/kylin/api/(\\w+)(/.*/)*(.*)$");
+  Matcher m_available=p_available.matcher("");
+  Matcher m_request=p_request.matcher("");
+  Matcher m_uri=p_uri.matcher("");
+  Path path=Paths.get(filePath);
+  try {
+    BufferedReader reader=Files.newBufferedReader(path,ENCODING);
+    String line=null;
+    while ((line=reader.readLine()) != null) {
+      m_available.reset(line);
+      m_request.reset(line);
+      if (m_available.find()) {
+        if (m_request.find() && !m_request.group(5).equals("GET")) {
+          List<String> groups=new ArrayList<String>();
+          for (int i=1; i <= m_request.groupCount(); i++) {
+            groups.add(m_request.group(i));
+          }
+          String uri=m_request.group(4);
+          m_uri.reset(uri);
+          if (m_uri.find()) {
+            groups.add(m_uri.group(1));
+            if (m_uri.group(1).equals("cubes")) {
+switch (m_request.group(5)) {
+case "DELETE":
+                groups.add("drop");
+              break;
+case "POST":
+            groups.add("save");
+          break;
+default :
+        groups.add(m_uri.group(3));
+      break;
+  }
+}
+}
+groups.add(DEPLOY_ENV);
+String[] recordArray=groups.toArray(new String[groups.size()]);
+cwriter.writeNext(recordArray);
+}
+}
+}
+}
+ catch (IOException ex) {
+logger.info("Failed to write to hdfs:",ex);
+}
+ finally {
+writer.close();
+cwriter.close();
+fs.close();
+}
+logger.info("Finish parsing file " + filePath + " !");
+}

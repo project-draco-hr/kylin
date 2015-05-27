@@ -1,0 +1,3 @@
+{
+  return request.getContentType() != null && request.getContentType().startsWith("multipart/form-data");
+}

@@ -1,0 +1,12 @@
+{
+  StringBuilder msg=new StringBuilder();
+  msg.append("RESPONSE: ");
+  msg.append("REQUEST_ID=").append(response.getId());
+  try {
+    msg.append("; payload=").append(new String(response.toByteArray(),response.getCharacterEncoding()));
+  }
+ catch (  UnsupportedEncodingException var4) {
+    logger.warn("Failed to parse response payload",var4);
+  }
+  logger.debug(msg.toString());
+}

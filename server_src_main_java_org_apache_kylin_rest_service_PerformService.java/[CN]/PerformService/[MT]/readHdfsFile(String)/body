@@ -1,0 +1,19 @@
+{
+  List<String[]> allRows=null;
+  CSVReader reader=null;
+  FileSystem fs=null;
+  Configuration conf=new Configuration();
+  try {
+    fs=FileSystem.newInstance(conf);
+    FSDataInputStream inputStream=fs.open(new Path(filePath));
+    reader=new CSVReader(new InputStreamReader(inputStream),'|');
+    allRows=reader.readAll();
+  }
+ catch (  IOException e) {
+    logger.info("failed to read hdfs file:",e);
+  }
+ finally {
+    fs.close();
+  }
+  return allRows;
+}

@@ -1,0 +1,10 @@
+{
+  monitorConfig=ConfigUtils.getInstance();
+  try {
+    monitorConfig.loadMonitorParam();
+    DEPLOY_ENV=monitorConfig.getDeployEnv();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+}

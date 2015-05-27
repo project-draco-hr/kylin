@@ -1,0 +1,63 @@
+{
+  logger.info("Start parsing file " + filePath + " !");
+  FileSystem fs=this.getHdfsFileSystem();
+  org.apache.hadoop.fs.Path resultStorePath=new org.apache.hadoop.fs.Path(dPath);
+  OutputStreamWriter writer=new OutputStreamWriter(fs.append(resultStorePath));
+  CSVWriter cwriter=new CSVWriter(writer,'|',CSVWriter.NO_QUOTE_CHARACTER);
+  SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
+  Pattern p_query_start=Pattern.compile("^\\[.*\\]:\\[(.*),.*\\]\\[.*\\]\\[.*QueryService.logQuery.*\\].*");
+  Pattern p_query_end=Pattern.compile("^Message:(.*)$");
+  Pattern p_query_body=Pattern.compile("^\\[.*\\]:\\[((\\d{4}-\\d{2}-\\d{2}).*)\\]\\[.*\\]\\[.*\\].*\n^=+\\[QUERY\\]=+\n^SQL:(.*)\n^User:(.*)\n^Success:(.*)\n^Duration:(.*)\n^Project:(.*)\n^(Realization Names|Cube Names): \\[(.*)\\]\n^Cuboid Ids: \\[(.*)\\]\n^Total scan count:(.*)\n^Result row count:(.*)\n^Accept Partial:(.*)\n(^Is Partial Result:(.*)\n)?^Hit Cache:(.*)\n^Message:(.*)",Pattern.MULTILINE);
+  Matcher m_query_start=p_query_start.matcher("");
+  Matcher m_query_end=p_query_end.matcher("");
+  Matcher m_query_body=p_query_body.matcher("");
+  boolean query_start=false;
+  StringBuffer query_body=new StringBuffer("");
+  Path path=Paths.get(filePath);
+  try {
+    BufferedReader reader=Files.newBufferedReader(path,ENCODING);
+    String line=null;
+    while ((line=reader.readLine()) != null) {
+      m_query_start.reset(line);
+      m_query_end.reset(line);
+      if (m_query_start.find()) {
+        query_start=true;
+        query_body=new StringBuffer("");
+      }
+      if (query_start) {
+        query_body.append(line + "\n");
+      }
+      if (m_query_end.find()) {
+        query_start=false;
+        m_query_body.reset(query_body);
+        logger.info("parsing query...");
+        logger.info(query_body);
+        if (m_query_body.find()) {
+          ArrayList<String> groups=new ArrayList<String>();
+          int grp_count=m_query_body.groupCount();
+          for (int i=1; i <= grp_count; i++) {
+            if (i != 8 && i != 14) {
+              String grp_item=m_query_body.group(i);
+              grp_item=grp_item == null ? "" : grp_item.trim();
+              groups.add(grp_item);
+            }
+          }
+          long start_time=format.parse(groups.get(0)).getTime() - (int)(Double.parseDouble(groups.get(5)) * 1000);
+          groups.set(0,format.format(new Date(start_time)));
+          groups.add(DEPLOY_ENV);
+          String[] recordArray=groups.toArray(new String[groups.size()]);
+          cwriter.writeNext(recordArray);
+        }
+      }
+    }
+  }
+ catch (  IOException ex) {
+    logger.info("Failed to write to hdfs:",ex);
+  }
+ finally {
+    writer.close();
+    cwriter.close();
+    fs.close();
+  }
+  logger.info("Finish parsing file " + filePath + " !");
+}

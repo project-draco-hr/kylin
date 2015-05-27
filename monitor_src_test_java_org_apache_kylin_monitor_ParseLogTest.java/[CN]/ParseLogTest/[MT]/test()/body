@@ -1,0 +1,4 @@
+{
+  testQueryParseing();
+  testApiReqParsing();
+}

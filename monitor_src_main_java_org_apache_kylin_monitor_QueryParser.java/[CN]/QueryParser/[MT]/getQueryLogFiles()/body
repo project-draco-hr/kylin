@@ -1,0 +1,16 @@
+{
+  List<File> logFiles=new ArrayList<File>();
+  List<String> query_log_dir_list=monitorConfig.getLogBaseDir();
+  FileFilter filter=new RegexFileFilter(QUERY_LOG_FILE_PATTERN);
+  for (  String path : query_log_dir_list) {
+    logger.info("fetching query log file from path:" + path);
+    File query_log_dir=new File(path);
+    File[] query_log_files=query_log_dir.listFiles(filter);
+    if (query_log_files == null) {
+      logger.warn("no query log file found under path" + path);
+      continue;
+    }
+    Collections.addAll(logFiles,query_log_files);
+  }
+  return logFiles;
+}

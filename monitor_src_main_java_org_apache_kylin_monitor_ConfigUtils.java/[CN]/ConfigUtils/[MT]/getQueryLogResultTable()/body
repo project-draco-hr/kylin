@@ -1,0 +1,9 @@
+{
+  String query_log_parse_result_table=this.monitorConfig.getProperty(QUERY_LOG_PARSE_RESULT_TABLE);
+  if (!StringUtils.isEmpty(query_log_parse_result_table)) {
+    return query_log_parse_result_table;
+  }
+ else {
+    return DEFAULT_QUERY_LOG_PARSE_RESULT_TABLE;
+  }
+}

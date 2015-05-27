@@ -1,0 +1,19 @@
+{
+  logger.info("checking file:" + filePath);
+  FileSystem fs=null;
+  try {
+    Configuration conf=new Configuration();
+    fs=FileSystem.get(conf);
+    org.apache.hadoop.fs.Path path=new org.apache.hadoop.fs.Path(filePath);
+    if (!fs.exists(path)) {
+      fs.create(path);
+      fs.close();
+      return false;
+    }
+  }
+ catch (  Exception e) {
+    fs.close();
+    logger.info("Failed to init:",e);
+  }
+  return true;
+}

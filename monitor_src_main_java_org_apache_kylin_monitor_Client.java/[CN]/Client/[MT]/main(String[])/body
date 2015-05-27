@@ -1,0 +1,12 @@
+{
+  logger.info("monitor client start parsing...");
+  QueryParser queryParser=new QueryParser();
+  HiveJdbcClient jdbcClient=new HiveJdbcClient();
+  try {
+    queryParser.start();
+    jdbcClient.start();
+  }
+ catch (  Exception e) {
+    logger.info("Exception",e);
+  }
+}

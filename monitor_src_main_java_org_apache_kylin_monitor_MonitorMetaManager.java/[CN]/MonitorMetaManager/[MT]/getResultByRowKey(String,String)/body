@@ -1,0 +1,6 @@
+{
+  HTable table=new HTable(conf,Bytes.toBytes(tableName));
+  Get get=new Get(Bytes.toBytes(rowKey));
+  Result result=table.get(get);
+  return result;
+}

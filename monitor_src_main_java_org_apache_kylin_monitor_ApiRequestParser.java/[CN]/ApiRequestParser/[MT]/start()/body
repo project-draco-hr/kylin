@@ -1,0 +1,12 @@
+{
+  ApiRequestParser.REQUEST_PARSE_RESULT_PATH=ConfigUtils.getInstance().getRequestLogParseResultDir() + REQUEST_LOG_PARSE_RESULT_FILENAME;
+  this.parseRequestInit();
+  String[] hasReadFiles=MonitorMetaManager.getReadApiReqLogFileList();
+  List<File> files=this.getRequestLogFiles();
+  for (  File file : files) {
+    if (!Arrays.asList(hasReadFiles).contains(file.getName())) {
+      this.parseRequestLog(file.getPath(),ApiRequestParser.REQUEST_PARSE_RESULT_PATH);
+      MonitorMetaManager.markApiReqLogFileAsRead(file.getName());
+    }
+  }
+}

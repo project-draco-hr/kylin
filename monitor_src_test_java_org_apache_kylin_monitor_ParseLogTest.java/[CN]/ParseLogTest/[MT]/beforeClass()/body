@@ -1,0 +1,6 @@
+{
+  System.setProperty(ConfigUtils.CATALINA_HOME,"../server/");
+  ConfigUtils.addClasspath(new File("../examples/test_case_data/sandbox").getAbsolutePath());
+  System.setProperty(ConfigUtils.KYLIN_LOG_CONF_HOME,"../examples/test_case_data/performance_data");
+  System.setProperty(ConfigUtils.KYLIN_CONF,"../examples/test_case_data/sandbox");
+}

@@ -1,0 +1,6 @@
+{
+  Properties props=new Properties();
+  InputStream resourceStream=this.getKylinPropertiesAsInputSteam();
+  props.load(resourceStream);
+  this.monitorConfig=props;
+}

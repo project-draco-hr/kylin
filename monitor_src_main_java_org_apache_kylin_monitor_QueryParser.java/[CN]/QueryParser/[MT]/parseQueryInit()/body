@@ -1,0 +1,18 @@
+{
+  logger.info("parse query initializing...");
+  FileSystem fs=null;
+  try {
+    Configuration conf=new Configuration();
+    fs=FileSystem.get(conf);
+    org.apache.hadoop.fs.Path path=new org.apache.hadoop.fs.Path(QueryParser.QUERY_PARSE_RESULT_PATH);
+    if (!fs.exists(path)) {
+      fs.create(path);
+      fs.close();
+      this.writeResultToHdfs(QueryParser.QUERY_PARSE_RESULT_PATH,QueryParser.KYLIN_QUERY_CSV_HEADER);
+    }
+  }
+ catch (  IOException e) {
+    fs.close();
+    logger.info("Failed to init:",e);
+  }
+}

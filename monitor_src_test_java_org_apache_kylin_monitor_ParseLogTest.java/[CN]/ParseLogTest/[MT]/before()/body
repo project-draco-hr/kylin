@@ -1,0 +1,4 @@
+{
+  queryParser=new QueryParser();
+  apiReqParser=new ApiRequestParser();
+}

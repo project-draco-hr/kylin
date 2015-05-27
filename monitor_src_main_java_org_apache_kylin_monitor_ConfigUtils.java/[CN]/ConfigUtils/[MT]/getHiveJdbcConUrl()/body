@@ -1,0 +1,3 @@
+{
+  return this.monitorConfig.getProperty(HIVE_JDBC_CON_URL);
+}

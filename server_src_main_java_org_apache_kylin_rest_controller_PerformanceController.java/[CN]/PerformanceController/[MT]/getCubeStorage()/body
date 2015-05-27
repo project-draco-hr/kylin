@@ -1,0 +1,3 @@
+{
+  return cubeService.listAllCubes(null,null);
+}

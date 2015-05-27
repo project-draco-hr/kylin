@@ -1,0 +1,5 @@
+String tableName
+String rowKey
+String family
+String column
+String value

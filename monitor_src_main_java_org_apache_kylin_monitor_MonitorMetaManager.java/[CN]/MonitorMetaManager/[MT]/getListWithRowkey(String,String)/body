@@ -1,0 +1,11 @@
+{
+  Result result=getResultByRowKey(table,rowkey);
+  String fileList=null;
+  if (result.list() != null) {
+    for (    KeyValue kv : result.list()) {
+      fileList=Bytes.toString(kv.getValue());
+    }
+  }
+  fileList=fileList == null ? "" : fileList;
+  return fileList;
+}

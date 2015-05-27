@@ -1,0 +1,14 @@
+{
+  ConfigUtils.addClasspath(new File("../examples/test_case_data/sandbox").getAbsolutePath());
+  System.setProperty(ConfigUtils.KYLIN_LOG_CONF_HOME,"../server/logs");
+  System.setProperty(ConfigUtils.KYLIN_CONF,"../examples/test_case_data/sandbox");
+  QueryParser queryParser=new QueryParser();
+  HiveJdbcClient jdbcClient=new HiveJdbcClient();
+  try {
+    queryParser.start();
+    jdbcClient.start();
+  }
+ catch (  Exception e) {
+    logger.info("Exception ",e);
+  }
+}

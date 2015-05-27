@@ -1,0 +1,3 @@
+{
+  return this.monitorConfig.getProperty(DEPLOY_ENV);
+}

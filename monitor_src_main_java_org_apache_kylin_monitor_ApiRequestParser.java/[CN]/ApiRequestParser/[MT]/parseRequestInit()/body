@@ -1,0 +1,18 @@
+{
+  logger.info("parse api request initializing...");
+  FileSystem fs=null;
+  try {
+    Configuration conf=new Configuration();
+    fs=FileSystem.get(conf);
+    org.apache.hadoop.fs.Path path=new org.apache.hadoop.fs.Path(ApiRequestParser.REQUEST_PARSE_RESULT_PATH);
+    if (!fs.exists(path)) {
+      fs.create(path);
+      fs.close();
+      this.writeResultToHdfs(ApiRequestParser.REQUEST_PARSE_RESULT_PATH,ApiRequestParser.KYLIN_REQUEST_CSV_HEADER);
+    }
+  }
+ catch (  Exception e) {
+    fs.close();
+    logger.info("Failed to init:",e);
+  }
+}

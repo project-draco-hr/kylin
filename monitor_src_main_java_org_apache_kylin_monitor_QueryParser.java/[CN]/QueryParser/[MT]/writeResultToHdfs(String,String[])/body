@@ -1,0 +1,20 @@
+{
+  OutputStreamWriter writer=null;
+  CSVWriter cwriter=null;
+  FileSystem fs=null;
+  try {
+    fs=this.getHdfsFileSystem();
+    org.apache.hadoop.fs.Path resultStorePath=new org.apache.hadoop.fs.Path(dPath);
+    writer=new OutputStreamWriter(fs.append(resultStorePath));
+    cwriter=new CSVWriter(writer,'|',CSVWriter.NO_QUOTE_CHARACTER);
+    cwriter.writeNext(record);
+  }
+ catch (  IOException e) {
+    logger.info("Exception",e);
+  }
+ finally {
+    writer.close();
+    cwriter.close();
+    fs.close();
+  }
+}
