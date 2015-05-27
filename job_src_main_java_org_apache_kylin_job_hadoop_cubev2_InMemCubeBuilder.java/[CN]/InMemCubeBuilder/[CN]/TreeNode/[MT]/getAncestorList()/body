@@ -1,6 +1,6 @@
 {
   ArrayList<TreeNode<T>> result=Lists.newArrayList();
-  TreeNode<T> parent=this.parent;
+  TreeNode<T> parent=this;
   while (parent != null) {
     result.add(parent);
     parent=parent.parent;

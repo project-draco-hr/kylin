@@ -1,4 +1,3 @@
 GridTable parentCuboid
 long parentCuboidId
 long cuboidId
-boolean inMem

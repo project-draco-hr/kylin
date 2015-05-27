@@ -1,6 +1,3 @@
 {
-  this.info=info;
-  this.cols=new ByteArray[info.getColumnCount()];
-  for (int i=0; i < cols.length; i++)   this.cols[i]=new ByteArray();
-  this.maskForEqualHashComp=info.colAll;
+  this(info,info.colAll);
 }

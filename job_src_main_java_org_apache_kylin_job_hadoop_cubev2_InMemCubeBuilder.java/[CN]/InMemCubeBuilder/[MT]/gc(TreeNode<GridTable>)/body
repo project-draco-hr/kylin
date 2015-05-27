@@ -1,30 +1,17 @@
 {
-  final long parentCuboidMem=SizeOfUtil.deepSizeOf(parentNode.data.getStore());
-  long threshold=(long)(parentCuboidMem * (AGGREGATION_CACHE_FACTOR + 1));
   final List<TreeNode<GridTable>> gridTables=parentNode.getAncestorList();
-  long memoryLeft=checkMemory(threshold);
+  logger.info("trying to select node to flush to disk, from:" + StringUtils.join(",",gridTables));
   for (  TreeNode<GridTable> gridTable : gridTables) {
-    if (memoryLeft >= 0) {
+    final GTComboStore store=(GTComboStore)gridTable.data.getStore();
+    if (store.memoryUsage() > 0) {
+      logger.info("cuboid id:" + gridTable.id + " flush to disk");
+      long t=System.currentTimeMillis();
+      store.switchToDiskStore();
+      logger.info("switch to disk store cost:" + (System.currentTimeMillis() - t) + "ms");
+      waitForGc();
       return true;
     }
- else {
-      logger.info("memory is low, try to select one node to flush to disk from:" + StringUtils.join(",",gridTables));
-      final GTComboStore store=(GTComboStore)gridTable.data.getStore();
-      if (store.memoryUsage() > 0) {
-        final long storeSize=SizeOfUtil.deepSizeOf(store);
-        memoryLeft+=storeSize;
-        logger.info("cuboid id:" + gridTable.id + " selected, memory used:"+ (storeSize >> 10)+ " KB");
-        long t=System.currentTimeMillis();
-        ((GTComboStore)store).switchToDiskStore();
-        logger.info("switch to disk store cost:" + (System.currentTimeMillis() - t) + "ms");
-      }
-    }
   }
-  if (memoryLeft >= 0) {
-    return true;
-  }
- else {
-    logger.warn("all ancestor nodes of " + parentNode.id + " has been flushed to disk, memory is still insufficient, usually due to jvm gc not finished, forced to use memory store");
-    return true;
-  }
+  logger.warn("all ancestor nodes of " + parentNode.id + " has been flushed to disk");
+  return false;
 }

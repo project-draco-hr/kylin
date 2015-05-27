@@ -1,13 +1,13 @@
 {
-  r.maskForEqualHashComp(groupBy);
-  MeasureAggregator[] aggrs=aggBufMap.get(r);
+  final byte[] key=createKey(r);
+  MeasureAggregator[] aggrs=aggBufMap.get(key);
   if (aggrs == null) {
     aggrs=new MeasureAggregator[metricsAggrFuncs.length];
     for (int i=0, col=-1; i < aggrs.length; i++) {
       col=metrics.nextSetBit(col + 1);
       aggrs[i]=info.codeSystem.newMetricsAggregator(metricsAggrFuncs[i],col);
     }
-    aggBufMap.put(r.copy(dimensions),aggrs);
+    aggBufMap.put(key,aggrs);
   }
   for (int i=0, col=-1; i < aggrs.length; i++) {
     col=metrics.nextSetBit(col + 1);
