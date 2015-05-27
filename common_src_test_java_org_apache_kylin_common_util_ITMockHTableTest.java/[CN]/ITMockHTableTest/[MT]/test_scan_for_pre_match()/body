@@ -1,7 +1,0 @@
-{
-  Scan scan=new Scan("J".getBytes(),"K".getBytes());
-  ResultScanner realResult=real.getScanner(scan);
-  ResultScanner mockResult=mock.getScanner(scan);
-  assertThat(Iterables.size(realResult),is(2));
-  assertThat(Iterables.size(mockResult),is(2));
-}
