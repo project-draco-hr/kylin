@@ -1,0 +1,7 @@
+{
+  if (path.startsWith("file://") && !path.startsWith("file:///") && path.contains(":\\")) {
+    path=path.replace("file://","file:///");
+    path=path.replace('\\','/');
+  }
+  return path;
+}

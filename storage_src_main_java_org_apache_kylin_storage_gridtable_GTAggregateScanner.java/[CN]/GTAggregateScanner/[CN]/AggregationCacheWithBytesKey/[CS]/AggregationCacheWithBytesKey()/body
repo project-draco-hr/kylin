@@ -1,16 +1,19 @@
 {
+  compareMask=createCompareMask();
+  keyLength=compareMask.length;
   aggBufMap=Maps.newTreeMap(new Comparator<byte[]>(){
     @Override public int compare(    byte[] o1,    byte[] o2){
       int result=0;
-      Preconditions.checkArgument(o1.length == o2.length);
-      final int length=o1.length;
-      for (int i=0; i < length; ++i) {
-        result=o1[i] - o2[i];
-        if (result == 0) {
-          continue;
-        }
+      Preconditions.checkArgument(keyLength == o1.length && keyLength == o2.length);
+      for (int i=0; i < keyLength; ++i) {
+        if (compareMask[i]) {
+          result=o1[i] - o2[i];
+          if (result == 0) {
+            continue;
+          }
  else {
-          return result;
+            return result;
+          }
         }
       }
       return result;

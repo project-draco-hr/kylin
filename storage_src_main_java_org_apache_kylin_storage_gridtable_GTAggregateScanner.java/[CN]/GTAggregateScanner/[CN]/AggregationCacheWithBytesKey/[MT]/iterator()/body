@@ -2,12 +2,7 @@
   return new Iterator<GTRecord>(){
     final Iterator<Entry<byte[],MeasureAggregator[]>> it=aggBufMap.entrySet().iterator();
     final ByteBuffer metricsBuf=ByteBuffer.allocate(info.getMaxColumnLength(metrics));
-    final GTRecord secondRecord;
-{
-      BitSet dimensionsAndMetrics=(BitSet)groupBy.clone();
-      dimensionsAndMetrics.or(metrics);
-      secondRecord=new GTRecord(info,dimensionsAndMetrics);
-    }
+    final GTRecord secondRecord=new GTRecord(info);
     @Override public boolean hasNext(){
       return it.hasNext();
     }
@@ -18,7 +13,7 @@
     }
     private void create(    byte[] key,    MeasureAggregator[] value){
       int offset=0;
-      for (int i=groupBy.nextSetBit(0); i >= 0; i=groupBy.nextSetBit(i + 1)) {
+      for (int i=dimensions.nextSetBit(0); i >= 0; i=dimensions.nextSetBit(i + 1)) {
         final int columnLength=info.codeSystem.maxCodeLength(i);
         secondRecord.set(i,new ByteArray(key,offset,columnLength));
         offset+=columnLength;

@@ -1,4 +1,5 @@
 {
+  filePath=HadoopUtil.fixWindowsPath(filePath);
   this.filePath=filePath;
   this.delim=delim;
   this.expectedColumnNumber=expectedColumnNumber;
