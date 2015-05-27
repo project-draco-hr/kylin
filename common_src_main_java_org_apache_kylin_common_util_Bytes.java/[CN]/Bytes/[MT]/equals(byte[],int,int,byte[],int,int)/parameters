@@ -1,0 +1,6 @@
+byte[] left
+int leftOffset
+int leftLen
+byte[] right
+int rightOffset
+int rightLen

@@ -1,0 +1,19 @@
+{
+  byte[] copy=copy(input);
+  if (copy == null) {
+    throw new IllegalArgumentException("cannot increment null array");
+  }
+  for (int i=copy.length - 1; i >= 0; --i) {
+    if (copy[i] == -1) {
+      copy[i]=0;
+    }
+ else {
+      ++copy[i];
+      return copy;
+    }
+  }
+  byte[] out=new byte[copy.length + 1];
+  out[0]=1;
+  System.arraycopy(copy,0,out,1,copy.length);
+  return out;
+}

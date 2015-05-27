@@ -1,0 +1,16 @@
+{
+  if (length != SIZEOF_LONG || offset + length > bytes.length) {
+    throw explainWrongLengthOrOffset(bytes,offset,length,SIZEOF_LONG);
+  }
+  if (org.apache.kylin.common.util.Bytes.LexicographicalComparerHolder.UnsafeComparer.isAvailable()) {
+    return toLongUnsafe(bytes,offset);
+  }
+ else {
+    long l=0;
+    for (int i=offset; i < offset + length; i++) {
+      l<<=8;
+      l^=bytes[i] & 0xFF;
+    }
+    return l;
+  }
+}

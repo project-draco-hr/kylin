@@ -1,0 +1,10 @@
+{
+  if (multiNum <= 0) {
+    return new byte[0];
+  }
+  byte[] result=new byte[srcBytes.length * multiNum];
+  for (int i=0; i < multiNum; i++) {
+    System.arraycopy(srcBytes,0,result,i * srcBytes.length,srcBytes.length);
+  }
+  return result;
+}

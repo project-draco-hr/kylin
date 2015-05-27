@@ -1,0 +1,7 @@
+{
+  byte[] maxByteArray=new byte[maxByteCount];
+  for (int i=0; i < maxByteArray.length; i++) {
+    maxByteArray[i]=(byte)0xff;
+  }
+  return maxByteArray;
+}

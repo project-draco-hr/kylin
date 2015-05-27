@@ -1,0 +1,6 @@
+{
+  checkPositionIndex(offset,b.length,"offset");
+  checkArgument(length > 0,"length must be greater than 0");
+  checkPositionIndex(offset + length,b.length,"offset + length");
+  Arrays.fill(b,offset,offset + length,(byte)0);
+}

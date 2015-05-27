@@ -1,0 +1,4 @@
+{
+  bytes[offset]=b;
+  return offset + 1;
+}

@@ -1,0 +1,13 @@
+{
+  if (left == right && leftOffset == rightOffset && leftLen == rightLen) {
+    return true;
+  }
+  if (leftLen != rightLen) {
+    return false;
+  }
+  if (leftLen == 0) {
+    return true;
+  }
+  if (left[leftOffset + leftLen - 1] != right[rightOffset + rightLen - 1])   return false;
+  return LexicographicalComparerHolder.BEST_COMPARER.compareTo(left,leftOffset,leftLen,right,rightOffset,rightLen) == 0;
+}

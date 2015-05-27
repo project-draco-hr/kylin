@@ -1,0 +1,3 @@
+{
+  return b == null ? 0 : b.length;
+}

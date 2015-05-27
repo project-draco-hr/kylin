@@ -1,0 +1,15 @@
+{
+  StringBuilder result=new StringBuilder();
+  if (off >= b.length)   return result.toString();
+  if (off + len > b.length)   len=b.length - off;
+  for (int i=off; i < off + len; ++i) {
+    int ch=b[i] & 0xFF;
+    if ((ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')|| " `~!@#$%^&*()-_=+[]{}|;:'\",.<>/?".indexOf(ch) >= 0) {
+      result.append((char)ch);
+    }
+ else {
+      result.append(String.format("\\x%02X",ch));
+    }
+  }
+  return result.toString();
+}

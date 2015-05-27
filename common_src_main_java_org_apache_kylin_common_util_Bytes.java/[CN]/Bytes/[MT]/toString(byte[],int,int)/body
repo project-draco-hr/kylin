@@ -1,0 +1,9 @@
+{
+  if (b == null) {
+    return null;
+  }
+  if (len == 0) {
+    return "";
+  }
+  return new String(b,off,len,UTF8_CHARSET);
+}

@@ -1,0 +1,5 @@
+{
+  int len=buf.remaining();
+  buf.get(bytes,offset,len);
+  return offset + len;
+}

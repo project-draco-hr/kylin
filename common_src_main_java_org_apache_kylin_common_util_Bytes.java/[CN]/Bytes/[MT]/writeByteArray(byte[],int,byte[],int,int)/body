@@ -1,0 +1,7 @@
+{
+  byte[] vint=vintToBytes(srcLength);
+  System.arraycopy(vint,0,tgt,tgtOffset,vint.length);
+  int offset=tgtOffset + vint.length;
+  System.arraycopy(src,srcOffset,tgt,offset,srcLength);
+  return offset + srcLength;
+}

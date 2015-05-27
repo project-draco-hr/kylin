@@ -1,0 +1,11 @@
+{
+  if (offset + length > bytes.length) {
+    throw new IllegalArgumentException("offset (" + offset + ") + length ("+ length+ ") exceed the"+ " capacity of the array: "+ bytes.length);
+  }
+  int n=0;
+  for (int i=offset; i < (offset + length); i++) {
+    n<<=8;
+    n^=bytes[i] & 0xFF;
+  }
+  return n;
+}

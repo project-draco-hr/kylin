@@ -1,0 +1,7 @@
+{
+  byte[] b=new byte[SIZEOF_SHORT];
+  b[1]=(byte)val;
+  val>>=8;
+  b[0]=(byte)val;
+  return b;
+}

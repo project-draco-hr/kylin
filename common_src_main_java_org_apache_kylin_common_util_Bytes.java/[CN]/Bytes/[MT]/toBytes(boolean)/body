@@ -1,0 +1,3 @@
+{
+  return new byte[]{b ? (byte)-1 : (byte)0};
+}

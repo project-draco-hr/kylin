@@ -1,0 +1,3 @@
+{
+  return toShort(bytes,offset,SIZEOF_SHORT);
+}

@@ -1,7 +1,7 @@
 {
   List<Pair<byte[],byte[]>> fuzzyKeys=keyRange.getFuzzyKeys();
   if (fuzzyKeys != null && fuzzyKeys.size() > 0) {
-    FuzzyRowFilter rowFilter=new FuzzyRowFilter(fuzzyKeys);
+    FuzzyRowFilter rowFilter=new FuzzyRowFilter(convertToHBasePair(fuzzyKeys));
     Filter filter=scan.getFilter();
     if (filter != null) {
       FilterList filterList=new FilterList();

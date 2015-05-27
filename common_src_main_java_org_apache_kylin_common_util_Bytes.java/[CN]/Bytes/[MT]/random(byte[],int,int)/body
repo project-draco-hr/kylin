@@ -1,0 +1,8 @@
+{
+  checkPositionIndex(offset,b.length,"offset");
+  checkArgument(length > 0,"length must be greater than 0");
+  checkPositionIndex(offset + length,b.length,"offset + length");
+  byte[] buf=new byte[length];
+  RNG.nextBytes(buf);
+  System.arraycopy(buf,0,b,offset,length);
+}
