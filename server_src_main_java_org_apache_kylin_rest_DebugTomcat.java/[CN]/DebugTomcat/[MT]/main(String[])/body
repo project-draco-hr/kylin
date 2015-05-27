@@ -5,7 +5,7 @@
   }
   ClasspathUtil.addClasspath(new File("../examples/test_case_data/sandbox").getAbsolutePath());
   System.setProperty(KylinConfig.KYLIN_CONF,"../examples/test_case_data/sandbox");
-  System.setProperty("hdp.version","2.2.0.0-2041");
+  System.setProperty("hdp.version","2.2.4.2-2");
   if (Shell.WINDOWS) {
 {
       Field field=Shell.class.getDeclaredField("WINDOWS");
