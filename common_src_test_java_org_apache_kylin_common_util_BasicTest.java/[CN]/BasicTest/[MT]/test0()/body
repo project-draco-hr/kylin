@@ -1,4 +1,5 @@
 {
+  System.out.println(Long.MAX_VALUE);
   IdentityHashMap<String,Void> a=new IdentityHashMap<>();
   IdentityHashMap<String,Void> b=new IdentityHashMap<>();
   String s1=new String("s1");

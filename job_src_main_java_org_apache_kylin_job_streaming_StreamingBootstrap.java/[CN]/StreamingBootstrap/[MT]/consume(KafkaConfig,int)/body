@@ -1,10 +1,10 @@
 {
   List<BlockingQueue<StreamMessage>> result=Lists.newArrayList();
-  for (int partitionId=0; partitionId < partitionCount && partitionId < 10; ++partitionId) {
+  for (int partitionId=0; partitionId < partitionCount && partitionId < 3; ++partitionId) {
     final Broker leadBroker=getLeadBroker(kafkaConfig,partitionId);
-    long streamingOffset=getEarliestStreamingOffset(kafkaConfig.getName(),0,0);
     final long latestOffset=KafkaRequester.getLastOffset(kafkaConfig.getTopic(),partitionId,OffsetRequest.LatestTime(),leadBroker,kafkaConfig);
-    streamingOffset=Math.max(streamingOffset,latestOffset);
+    long streamingOffset=latestOffset;
+    logger.info("submitting offset:" + streamingOffset);
     KafkaConsumer consumer=new KafkaConsumer(kafkaConfig.getTopic(),partitionId,streamingOffset,kafkaConfig.getBrokers(),kafkaConfig,1);
     Executors.newSingleThreadExecutor().submit(consumer);
     result.add(consumer.getStreamQueue(0));
