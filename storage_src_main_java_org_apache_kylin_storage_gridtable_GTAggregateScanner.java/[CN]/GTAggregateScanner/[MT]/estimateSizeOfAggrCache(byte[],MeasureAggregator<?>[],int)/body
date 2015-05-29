@@ -1,0 +1,3 @@
+{
+  return (estimateSizeOf(keySample) + estimateSizeOf(aggrSample) + 64) * size;
+}

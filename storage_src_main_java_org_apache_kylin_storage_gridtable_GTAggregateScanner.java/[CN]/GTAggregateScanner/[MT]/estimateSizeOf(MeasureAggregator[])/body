@@ -1,0 +1,7 @@
+{
+  long est=(aggrs.length + 1) / 2 * 8 + 4 + (4);
+  for (  MeasureAggregator aggr : aggrs) {
+    if (aggr != null)     est+=aggr.getMemBytesEstimate();
+  }
+  return est;
+}

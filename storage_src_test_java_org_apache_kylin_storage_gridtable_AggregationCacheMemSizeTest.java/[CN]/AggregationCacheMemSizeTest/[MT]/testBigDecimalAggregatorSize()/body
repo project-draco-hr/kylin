@@ -1,0 +1,9 @@
+{
+  int est=estimateObjectSize(new CreateAnObject(){
+    @Override public Object create(){
+      return newBigDecimalAggr();
+    }
+  }
+);
+  System.out.println("BigDecimal: " + est);
+}

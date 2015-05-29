@@ -1,0 +1,5 @@
+{
+  BigDecimalSumAggregator aggr=new BigDecimalSumAggregator();
+  aggr.aggregate(new BigDecimal("12345678901234567890.123456789"));
+  return aggr;
+}

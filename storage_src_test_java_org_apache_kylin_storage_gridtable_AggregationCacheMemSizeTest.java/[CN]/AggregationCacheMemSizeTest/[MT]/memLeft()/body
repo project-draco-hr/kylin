@@ -1,0 +1,5 @@
+{
+  Runtime.getRuntime().gc();
+  Thread.sleep(500);
+  return MemoryBudgetController.getSystemAvailBytes();
+}

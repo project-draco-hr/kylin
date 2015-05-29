@@ -1,4 +1,0 @@
-{
-  if (sum == null)   return Integer.MIN_VALUE;
- else   return 4 + sum.getMemBytes();
-}

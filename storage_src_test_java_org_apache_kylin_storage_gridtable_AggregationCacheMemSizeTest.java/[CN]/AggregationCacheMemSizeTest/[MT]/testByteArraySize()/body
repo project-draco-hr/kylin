@@ -1,0 +1,9 @@
+{
+  int est=estimateObjectSize(new CreateAnObject(){
+    @Override public Object create(){
+      return new byte[10];
+    }
+  }
+);
+  System.out.println("byte[10]: " + est);
+}

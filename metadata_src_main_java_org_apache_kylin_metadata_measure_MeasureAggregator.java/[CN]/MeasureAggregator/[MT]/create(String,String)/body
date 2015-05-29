@@ -5,7 +5,8 @@
  else     if (isDouble(returnType))     return new DoubleSumAggregator();
   }
  else   if (FunctionDesc.FUNC_COUNT_DISTINCT.equalsIgnoreCase(funcName)) {
-    if (DataType.getInstance(returnType).isHLLC())     return new HLLCAggregator();
+    DataType hllcType=DataType.getInstance(returnType);
+    if (hllcType.isHLLC())     return new HLLCAggregator(hllcType.getPrecision());
  else     return new LDCAggregator();
   }
  else   if (FunctionDesc.FUNC_MAX.equalsIgnoreCase(funcName)) {
