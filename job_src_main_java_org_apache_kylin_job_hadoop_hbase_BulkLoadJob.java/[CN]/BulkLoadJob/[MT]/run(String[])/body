@@ -17,7 +17,10 @@
     FsPermission permission=new FsPermission((short)0777);
     for (    HBaseColumnFamilyDesc cf : cubeDesc.getHBaseMapping().getColumnFamily()) {
       String cfName=cf.getName();
-      fs.setPermission(new Path(input + cfName),permission);
+      Path columnFamilyPath=new Path(input + cfName);
+      if (fs.exists(columnFamilyPath)) {
+        fs.setPermission(columnFamilyPath,permission);
+      }
     }
     String[] newArgs=new String[2];
     newArgs[0]=input;
