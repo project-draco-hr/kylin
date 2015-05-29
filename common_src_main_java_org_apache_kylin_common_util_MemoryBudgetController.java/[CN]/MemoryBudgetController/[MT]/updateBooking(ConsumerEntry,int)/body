@@ -7,5 +7,7 @@
   if (delta < 0) {
     this.notify();
   }
-  logger.debug(entry.consumer + " reserved " + entry.reservedMB+ " MB, total reserved "+ totalReservedMB+ " MB, remaining budget "+ getRemainingBudgetMB()+ " MB");
+  if (delta != 0) {
+    logger.debug(entry.consumer + " reserved " + entry.reservedMB+ " MB, total reserved "+ totalReservedMB+ " MB, remaining budget "+ getRemainingBudgetMB()+ " MB");
+  }
 }

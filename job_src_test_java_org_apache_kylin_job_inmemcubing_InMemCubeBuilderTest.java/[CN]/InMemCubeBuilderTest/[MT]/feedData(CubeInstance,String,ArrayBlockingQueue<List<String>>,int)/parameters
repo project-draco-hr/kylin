@@ -1,0 +1,4 @@
+CubeInstance cube
+String flatTable
+ArrayBlockingQueue<List<String>> queue
+int count

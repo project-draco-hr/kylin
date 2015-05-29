@@ -1,6 +1,6 @@
 {
   if (totalBudgetMB < 0)   throw new IllegalArgumentException();
-  if (checkSystemAvailMB(totalBudgetMB) == false)   throw new IllegalStateException();
+  if (totalBudgetMB > 0 && checkSystemAvailMB(totalBudgetMB) == false)   throw new IllegalStateException();
   this.totalBudgetMB=totalBudgetMB;
   this.totalReservedMB=new AtomicInteger();
 }

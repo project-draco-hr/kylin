@@ -12,8 +12,10 @@
     }
     if (checkSystemAvailMB(delta))     break;
     try {
-      logger.debug("Remaining budget is " + getRemainingBudgetMB() + " MB free, but system only has "+ getSystemAvailMB()+ " MB free. If this persists, some memory calculation must be wrong.");
-      this.wait(200);
+synchronized (this) {
+        logger.debug("Remaining budget is " + getRemainingBudgetMB() + " MB free, but system only has "+ getSystemAvailMB()+ " MB free. If this persists, some memory calculation must be wrong.");
+        this.wait(200);
+      }
     }
  catch (    InterruptedException e) {
       logger.error("Interrupted while wait free memory",e);

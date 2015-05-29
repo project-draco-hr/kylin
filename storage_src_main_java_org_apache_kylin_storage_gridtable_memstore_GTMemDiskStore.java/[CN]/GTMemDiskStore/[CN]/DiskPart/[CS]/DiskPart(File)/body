@@ -1,5 +1,5 @@
 {
   this.diskFile=diskFile;
   this.tailOffset=diskFile.length();
-  logger.debug(GTMemDiskStore.this + " disk file " + diskFile.getAbsolutePath());
+  if (debug)   logger.debug(GTMemDiskStore.this + " disk file " + diskFile.getAbsolutePath());
 }

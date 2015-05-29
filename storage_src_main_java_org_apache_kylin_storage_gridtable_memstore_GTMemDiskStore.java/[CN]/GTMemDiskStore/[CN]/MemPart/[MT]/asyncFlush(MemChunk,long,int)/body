@@ -7,7 +7,7 @@
     asyncFlusher=new Thread(){
       public void run(){
         asyncFlushException=null;
-        logger.debug(GTMemDiskStore.this + " async flush started @ " + asyncFlushDiskOffset);
+        if (debug)         logger.debug(GTMemDiskStore.this + " async flush started @ " + asyncFlushDiskOffset);
         try {
           while (writeActivated) {
             flushToDisk();
@@ -18,7 +18,7 @@
  catch (        Throwable ex) {
           asyncFlushException=ex;
         }
-        logger.debug(GTMemDiskStore.this + " async flush ended @ " + asyncFlushDiskOffset);
+        if (debug)         logger.debug(GTMemDiskStore.this + " async flush ended @ " + asyncFlushDiskOffset);
       }
     }
 ;

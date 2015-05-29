@@ -1,6 +1,6 @@
 {
   diskPart.openRead();
-  logger.debug(GTMemDiskStore.this + " read start @ " + diskOffset);
+  if (debug)   logger.debug(GTMemDiskStore.this + " read start @ " + diskOffset);
   InputStream in=new InputStream(){
     byte[] tmp=new byte[1];
     MemChunk memChunk;

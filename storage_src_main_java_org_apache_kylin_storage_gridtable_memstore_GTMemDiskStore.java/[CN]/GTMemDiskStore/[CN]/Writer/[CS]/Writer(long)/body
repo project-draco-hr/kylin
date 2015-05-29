@@ -3,7 +3,7 @@
   memPart.clear();
   diskPart.clear();
   diskPart.openWrite(false);
-  logger.debug(GTMemDiskStore.this + " write start @ " + diskOffset);
+  if (debug)   logger.debug(GTMemDiskStore.this + " write start @ " + diskOffset);
   memPart.activateMemWrite();
   OutputStream out=new OutputStream(){
     byte[] tmp=new byte[1];
