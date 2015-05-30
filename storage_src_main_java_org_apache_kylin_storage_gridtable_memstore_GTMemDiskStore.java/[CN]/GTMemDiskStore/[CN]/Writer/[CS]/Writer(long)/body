@@ -1,9 +1,9 @@
 {
-  diskOffset=0;
+  writeOffset=0;
   memPart.clear();
   diskPart.clear();
   diskPart.openWrite(false);
-  if (debug)   logger.debug(GTMemDiskStore.this + " write start @ " + diskOffset);
+  if (debug)   logger.debug(GTMemDiskStore.this + " write start @ " + writeOffset);
   memPart.activateMemWrite();
   OutputStream out=new OutputStream(){
     byte[] tmp=new byte[1];
@@ -17,19 +17,19 @@
       while (length > 0) {
         int n;
         if (memPartActivated) {
-          n=memPart.write(bytes,offset,length,diskOffset);
+          n=memPart.write(bytes,offset,length,writeOffset);
           memWrite+=n;
           if (n == 0) {
             memPartActivated=false;
           }
         }
  else {
-          n=diskPart.write(diskOffset,bytes,offset,length);
+          n=diskPart.write(writeOffset,bytes,offset,length);
           diskWrite+=n;
         }
         offset+=n;
         length-=n;
-        diskOffset+=n;
+        writeOffset+=n;
       }
     }
   }

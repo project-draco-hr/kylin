@@ -1,5 +1,7 @@
 {
-  int n=writeChannel.write(ByteBuffer.wrap(bytes,offset,length),diskOffset);
-  tailOffset=Math.max(diskOffset + n,tailOffset);
-  return n;
+synchronized (lock) {
+    int n=writeChannel.write(ByteBuffer.wrap(bytes,offset,length),diskOffset);
+    tailOffset=Math.max(diskOffset + n,tailOffset);
+    return n;
+  }
 }

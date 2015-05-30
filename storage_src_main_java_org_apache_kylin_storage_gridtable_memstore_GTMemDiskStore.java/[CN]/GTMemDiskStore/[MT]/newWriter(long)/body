@@ -1,0 +1,7 @@
+{
+synchronized (lock) {
+    if (ongoingWriter != null)     throw new IllegalStateException();
+    ongoingWriter=new Writer(startOffset);
+    return ongoingWriter;
+  }
+}

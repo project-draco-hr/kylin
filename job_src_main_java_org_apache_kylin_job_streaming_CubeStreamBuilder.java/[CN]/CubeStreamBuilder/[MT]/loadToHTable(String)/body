@@ -1,3 +1,0 @@
-{
-  final HTableInterface table=HBaseConnection.get(KylinConfig.getInstanceFromEnv().getStorageUrl()).getTable(hTableName);
-}

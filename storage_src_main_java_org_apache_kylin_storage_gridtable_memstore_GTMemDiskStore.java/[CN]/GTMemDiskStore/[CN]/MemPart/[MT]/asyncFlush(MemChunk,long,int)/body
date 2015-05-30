@@ -14,11 +14,18 @@
             Thread.sleep(10);
           }
           flushToDisk();
+          if (debug)           logger.debug(GTMemDiskStore.this + " async flush ended @ " + asyncFlushDiskOffset);
+synchronized (lock) {
+            asyncFlusher=null;
+            asyncFlushChunk=null;
+            if (ongoingWriter.closed) {
+              ongoingWriter.close();
+            }
+          }
         }
  catch (        Throwable ex) {
           asyncFlushException=ex;
         }
-        if (debug)         logger.debug(GTMemDiskStore.this + " async flush ended @ " + asyncFlushDiskOffset);
       }
     }
 ;

@@ -1,4 +1,6 @@
 {
-  readChannel=FileChannel.open(diskFile.toPath(),StandardOpenOption.READ);
-  tailOffset=diskFile.length();
+  if (readChannel == null) {
+    readChannel=FileChannel.open(diskFile.toPath(),StandardOpenOption.READ);
+  }
+  readerCount++;
 }

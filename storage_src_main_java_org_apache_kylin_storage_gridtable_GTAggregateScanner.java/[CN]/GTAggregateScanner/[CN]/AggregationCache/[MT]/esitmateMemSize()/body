@@ -1,0 +1,6 @@
+{
+  if (aggBufMap.isEmpty())   return 0;
+  byte[] sampleKey=aggBufMap.firstKey();
+  MeasureAggregator<?>[] sampleValue=aggBufMap.get(sampleKey);
+  return estimateSizeOfAggrCache(sampleKey,sampleValue,aggBufMap.size());
+}

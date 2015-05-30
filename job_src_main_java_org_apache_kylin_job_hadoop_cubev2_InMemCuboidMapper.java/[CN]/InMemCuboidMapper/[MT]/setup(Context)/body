@@ -19,7 +19,7 @@
       }
     }
   }
-  InMemCubeBuilder cubeBuilder=new InMemCubeBuilder(queue,cube,dictionaryMap,new MapContextGTRecordWriter(context,cubeDesc,cubeSegment));
+  InMemCubeBuilder cubeBuilder=new InMemCubeBuilder(queue,cube.getDescriptor(),dictionaryMap,new MapContextGTRecordWriter(context,cubeDesc,cubeSegment));
   ExecutorService executorService=Executors.newSingleThreadExecutor();
   future=executorService.submit(cubeBuilder);
 }

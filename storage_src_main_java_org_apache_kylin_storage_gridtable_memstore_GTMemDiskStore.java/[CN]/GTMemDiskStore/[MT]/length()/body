@@ -1,0 +1,5 @@
+{
+synchronized (lock) {
+    return Math.max(memPart.tailOffset(),diskPart.tailOffset);
+  }
+}

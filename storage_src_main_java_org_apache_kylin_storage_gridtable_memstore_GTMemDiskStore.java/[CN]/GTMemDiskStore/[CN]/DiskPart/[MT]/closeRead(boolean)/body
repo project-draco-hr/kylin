@@ -1,0 +1,9 @@
+{
+  readerCount--;
+  if (readerCount == 0 || force) {
+    if (readChannel != null) {
+      readChannel.close();
+      readChannel=null;
+    }
+  }
+}

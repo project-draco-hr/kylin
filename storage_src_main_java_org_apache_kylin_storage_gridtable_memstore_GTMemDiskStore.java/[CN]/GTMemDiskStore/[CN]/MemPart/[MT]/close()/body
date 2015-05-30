@@ -1,4 +1,17 @@
 {
-  finishAsyncFlush();
-  clear();
+synchronized (lock) {
+    if (asyncFlushException != null)     throwAsyncException(asyncFlushException);
+  }
+  try {
+    asyncFlusher.join();
+  }
+ catch (  NullPointerException npe) {
+  }
+catch (  InterruptedException e) {
+    logger.warn("async join interrupted",e);
+  }
+synchronized (lock) {
+    if (asyncFlushException != null)     throwAsyncException(asyncFlushException);
+    clear();
+  }
 }

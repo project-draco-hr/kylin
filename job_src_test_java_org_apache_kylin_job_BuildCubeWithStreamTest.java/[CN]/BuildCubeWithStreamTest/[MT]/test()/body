@@ -19,7 +19,7 @@
   tableName="kylin_intermediate_test_kylin_cube_without_slr_left_join_desc_19700101000000_20150401000000_fb7ae579_d987_4900_a3b7_c60c731cd269";
   logger.info("intermediate table name:" + tableName);
   ArrayBlockingQueue queue=new ArrayBlockingQueue<List<String>>(10000);
-  InMemCubeBuilder cubeBuilder=new InMemCubeBuilder(queue,cube,dictionaryMap,new ConsoleGTRecordWriter());
+  InMemCubeBuilder cubeBuilder=new InMemCubeBuilder(queue,cube.getDescriptor(),dictionaryMap,new ConsoleGTRecordWriter());
   ExecutorService executorService=Executors.newSingleThreadExecutor();
   Future<?> future=executorService.submit(cubeBuilder);
   final Configuration conf=new Configuration();

@@ -1,5 +1,5 @@
 {
-  budgetCtrl.reserve(this,0);
   chunkCount=0;
   firstChunk=lastChunk=null;
+  budgetCtrl.reserve(this,0);
 }

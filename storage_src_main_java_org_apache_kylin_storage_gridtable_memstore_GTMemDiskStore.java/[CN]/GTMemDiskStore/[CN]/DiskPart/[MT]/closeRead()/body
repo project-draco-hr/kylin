@@ -1,6 +1,3 @@
 {
-  if (readChannel != null) {
-    readChannel.close();
-    readChannel=null;
-  }
+  closeRead(false);
 }

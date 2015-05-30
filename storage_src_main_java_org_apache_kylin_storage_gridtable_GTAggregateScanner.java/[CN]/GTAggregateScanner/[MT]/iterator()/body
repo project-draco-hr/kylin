@@ -1,7 +1,8 @@
 {
-  AggregationCache aggregationCacheWithBytesKey=new AggregationCache();
+  AggregationCache aggrCache=new AggregationCache();
   for (  GTRecord r : inputScanner) {
-    aggregationCacheWithBytesKey.aggregate(r);
+    aggrCache.aggregate(r);
   }
-  return aggregationCacheWithBytesKey.iterator();
+  estimateSizeOfAggrCache=aggrCache.esitmateMemSize();
+  return aggrCache.iterator();
 }

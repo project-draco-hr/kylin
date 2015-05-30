@@ -5,7 +5,7 @@
   int flushedLen=0;
   while (true) {
     data=null;
-synchronized (memPart) {
+synchronized (lock) {
       asyncFlushDiskOffset+=flushedLen;
       if (debug)       logger.debug(GTMemDiskStore.this + " async flush @ " + asyncFlushDiskOffset);
       if (asyncFlushChunk != null && asyncFlushChunk.tailOffset() == asyncFlushDiskOffset) {

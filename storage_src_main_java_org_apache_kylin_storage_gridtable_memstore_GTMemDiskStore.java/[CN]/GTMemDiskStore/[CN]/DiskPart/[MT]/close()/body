@@ -1,7 +1,9 @@
 {
-  closeWrite();
-  closeRead();
-  if (delOnClose) {
-    diskFile.delete();
+synchronized (lock) {
+    closeWrite();
+    closeRead(true);
+    if (delOnClose) {
+      diskFile.delete();
+    }
   }
 }

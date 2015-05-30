@@ -1,3 +1,5 @@
 {
-  return new Reader();
+synchronized (lock) {
+    return new Reader();
+  }
 }

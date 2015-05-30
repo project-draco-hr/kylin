@@ -1,6 +1,0 @@
-{
-  GTInfo info=CubeGridTable.newGTInfo(desc,cuboidID,dictionaryMap);
-  GTComboStore store=new GTComboStore(info,memStore);
-  GridTable gridTable=new GridTable(info,store);
-  return gridTable;
-}

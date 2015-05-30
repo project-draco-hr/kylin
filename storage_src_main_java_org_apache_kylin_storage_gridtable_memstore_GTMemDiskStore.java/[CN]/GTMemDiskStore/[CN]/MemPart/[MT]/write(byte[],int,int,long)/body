@@ -1,6 +1,6 @@
 {
   int needMoreMem=0;
-synchronized (this) {
+synchronized (lock) {
     if (writeActivated == false)     return 0;
     if (diskOffset != tailOffset())     return 0;
     if (chunkCount == 0 || lastChunk.isFull())     needMoreMem=(chunkCount + 1) * MEM_CHUNK_SIZE_MB;
@@ -14,8 +14,8 @@ synchronized (this) {
       return 0;
     }
   }
-synchronized (this) {
-    if (needMoreMem > 0) {
+synchronized (lock) {
+    if (needMoreMem > 0 && (chunkCount == 0 || lastChunk.isFull())) {
       MemChunk chunk=new MemChunk();
       chunk.diskOffset=diskOffset;
       chunk.data=new byte[ONE_MB * MEM_CHUNK_SIZE_MB - 48];

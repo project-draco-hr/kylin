@@ -1,8 +1,0 @@
-{
-  Object[] dimensions=buildKey(row);
-  Object[] metricsValues=buildValue(row);
-  Object[] recordValues=new Object[dimensions.length + metricsValues.length];
-  System.arraycopy(dimensions,0,recordValues,0,dimensions.length);
-  System.arraycopy(metricsValues,0,recordValues,dimensions.length,metricsValues.length);
-  record.setValues(recordValues);
-}
