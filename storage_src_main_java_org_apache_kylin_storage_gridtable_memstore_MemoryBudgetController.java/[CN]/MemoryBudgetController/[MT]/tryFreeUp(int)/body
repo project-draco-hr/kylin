@@ -1,0 +1,22 @@
+{
+  for (  ConsumerEntry entry : booking.values()) {
+    int mb=entry.consumer.freeUp(gap);
+    if (mb > 0) {
+      lock.lock();
+      try {
+        updateBookingWithDelta(entry.consumer,-mb);
+      }
+  finally {
+        lock.unlock();
+      }
+      gap-=mb;
+      if (gap <= 0)       break;
+    }
+  }
+  if (gap > 0)   throw new NotEnoughBudgetException();
+  if (debug) {
+    if (getSystemAvailMB() < getRemainingBudgetMB()) {
+      logger.debug("Remaining budget is " + getRemainingBudgetMB() + " MB free, but system only has "+ getSystemAvailMB()+ " MB free. If this persists, some memory calculation must be wrong.");
+    }
+  }
+}

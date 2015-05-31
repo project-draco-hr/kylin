@@ -1,0 +1,4 @@
+{
+  info.tableName=name;
+  return this;
+}

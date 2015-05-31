@@ -1,3 +1,3 @@
 {
-  return "MemDiskStore@" + this.hashCode();
+  return "MemDiskStore@" + (info.getTableName() == null ? this.hashCode() : info.getTableName());
 }
