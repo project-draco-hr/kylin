@@ -1,0 +1,6 @@
+{
+  if (budgetCtrl.getTotalBudgetMB() > 0) {
+    writeActivated=true;
+    if (debug)     logger.debug(MemDiskStore.this + " mem write activated");
+  }
+}

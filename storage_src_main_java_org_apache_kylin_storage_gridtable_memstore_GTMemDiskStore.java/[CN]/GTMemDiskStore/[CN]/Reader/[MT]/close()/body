@@ -1,7 +1,0 @@
-{
-synchronized (lock) {
-    din.close();
-    diskPart.closeRead();
-    if (debug)     logger.debug(GTMemDiskStore.this + " read end @ " + readOffset+ ", "+ (memRead)+ " from mem, "+ (diskRead)+ " from disk, "+ nReadCalls+ " read() calls");
-  }
-}

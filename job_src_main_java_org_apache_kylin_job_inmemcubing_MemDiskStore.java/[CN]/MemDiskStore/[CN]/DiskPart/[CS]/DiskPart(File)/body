@@ -1,0 +1,5 @@
+{
+  this.diskFile=diskFile;
+  this.tailOffset=diskFile.length();
+  if (debug)   logger.debug(MemDiskStore.this + " disk file " + diskFile.getAbsolutePath());
+}

@@ -1,0 +1,4 @@
+{
+  writeActivated=false;
+  if (debug)   logger.debug(MemDiskStore.this + " mem write de-activated");
+}

@@ -1,6 +1,0 @@
-{
-  if (budgetCtrl.getTotalBudgetMB() > 0) {
-    writeActivated=true;
-    if (debug)     logger.debug(GTMemDiskStore.this + " mem write activated");
-  }
-}

@@ -1,0 +1,57 @@
+{
+  diskPart.openRead();
+  if (debug)   logger.debug(MemDiskStore.this + " read start @ " + readOffset);
+  InputStream in=new InputStream(){
+    byte[] tmp=new byte[1];
+    MemChunk memChunk;
+    @Override public int read() throws IOException {
+      int n=read(tmp,0,1);
+      if (n <= 0)       return -1;
+ else       return (int)tmp[0];
+    }
+    @Override public int read(    byte[] b,    int off,    int len) throws IOException {
+synchronized (lock) {
+        nReadCalls++;
+        if (available() <= 0)         return -1;
+        if (memChunk == null && memPart.headOffset() <= readOffset && readOffset < memPart.tailOffset()) {
+          memChunk=memPart.seekMemChunk(readOffset);
+        }
+        int lenToGo=Math.min(available(),len);
+        int nRead=0;
+        while (lenToGo > 0) {
+          int n;
+          if (memChunk != null) {
+            if (memChunk.headOffset() > readOffset) {
+              memChunk=null;
+              continue;
+            }
+            if (readOffset >= memChunk.tailOffset()) {
+              memChunk=memChunk.next;
+              continue;
+            }
+            int chunkOffset=(int)(readOffset - memChunk.headOffset());
+            n=Math.min((int)(memChunk.tailOffset() - readOffset),lenToGo);
+            System.arraycopy(memChunk.data,chunkOffset,b,off,n);
+            memRead+=n;
+          }
+ else {
+            n=diskPart.read(readOffset,b,off,lenToGo);
+            diskRead+=n;
+          }
+          lenToGo-=n;
+          nRead+=n;
+          off+=n;
+          readOffset+=n;
+        }
+        return nRead;
+      }
+    }
+    @Override public int available() throws IOException {
+synchronized (lock) {
+        return (int)(length() - readOffset);
+      }
+    }
+  }
+;
+  din=new DataInputStream(new BufferedInputStream(in,STREAM_BUFFER_SIZE));
+}

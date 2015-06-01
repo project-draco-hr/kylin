@@ -1,0 +1,5 @@
+{
+  MemDiskStore store=new MemDiskStore(info,budgetCtrl);
+  GridTable table=new GridTable(info,store);
+  verifyWriteAndRead(table);
+}
