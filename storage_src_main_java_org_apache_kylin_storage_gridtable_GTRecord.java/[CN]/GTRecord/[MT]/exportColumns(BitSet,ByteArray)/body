@@ -1,8 +1,0 @@
-{
-  int pos=0;
-  for (int i=selectedCols.nextSetBit(0); i >= 0; i=selectedCols.nextSetBit(i + 1)) {
-    System.arraycopy(cols[i].array(),cols[i].offset(),buf.array(),buf.offset() + pos,cols[i].length());
-    pos+=cols[i].length();
-  }
-  buf.setLength(pos);
-}

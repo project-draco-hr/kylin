@@ -4,5 +4,5 @@
     int idx=mapping.getIndexOf(dim);
     if (idx >= 0)     result.set(idx);
   }
-  return result;
+  return new ImmutableBitSet(result);
 }

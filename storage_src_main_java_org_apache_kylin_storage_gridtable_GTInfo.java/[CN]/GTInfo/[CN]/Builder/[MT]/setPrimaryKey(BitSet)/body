@@ -1,4 +1,0 @@
-{
-  info.primaryKey=(BitSet)primaryKey.clone();
-  return this;
-}

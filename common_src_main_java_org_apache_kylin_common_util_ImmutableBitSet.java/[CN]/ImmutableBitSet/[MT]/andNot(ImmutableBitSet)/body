@@ -1,0 +1,5 @@
+{
+  BitSet mutable=mutable();
+  mutable.andNot(another.set);
+  return new ImmutableBitSet(mutable);
+}

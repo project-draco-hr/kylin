@@ -1,0 +1,5 @@
+{
+  BitSet set=new BitSet(indexTo);
+  set.set(indexFrom,indexTo);
+  return set;
+}

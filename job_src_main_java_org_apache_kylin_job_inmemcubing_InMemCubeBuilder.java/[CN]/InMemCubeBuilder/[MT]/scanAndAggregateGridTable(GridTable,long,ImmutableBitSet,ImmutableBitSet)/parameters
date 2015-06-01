@@ -1,0 +1,4 @@
+GridTable gridTable
+long cuboidId
+ImmutableBitSet aggregationColumns
+ImmutableBitSet measureColumns

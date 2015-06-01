@@ -1,0 +1,5 @@
+{
+  BitSet set=new BitSet(index);
+  set.set(index);
+  return set;
+}

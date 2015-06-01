@@ -1,0 +1,8 @@
+{
+  this.set=(BitSet)set.clone();
+  this.arr=new int[set.cardinality()];
+  int j=0;
+  for (int i=set.nextSetBit(0); i >= 0; i=set.nextSetBit(i + 1)) {
+    arr[j++]=i;
+  }
+}

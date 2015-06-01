@@ -5,8 +5,9 @@
   GTRecord o=(GTRecord)obj;
   if (this.info != o.info)   return false;
   if (this.maskForEqualHashComp != o.maskForEqualHashComp)   return false;
-  for (int i=maskForEqualHashComp.nextSetBit(0); i >= 0; i=maskForEqualHashComp.nextSetBit(i + 1)) {
-    if (this.cols[i].equals(o.cols[i]) == false) {
+  for (int i=0; i < maskForEqualHashComp.trueBitCount(); i++) {
+    int c=maskForEqualHashComp.trueBitAt(i);
+    if (this.cols[c].equals(o.cols[c]) == false) {
       return false;
     }
   }

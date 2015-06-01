@@ -1,0 +1,10 @@
+{
+  if (set.get(bitIndex) == value) {
+    return this;
+  }
+ else {
+    BitSet mutable=mutable();
+    mutable.set(bitIndex,value);
+    return new ImmutableBitSet(mutable);
+  }
+}

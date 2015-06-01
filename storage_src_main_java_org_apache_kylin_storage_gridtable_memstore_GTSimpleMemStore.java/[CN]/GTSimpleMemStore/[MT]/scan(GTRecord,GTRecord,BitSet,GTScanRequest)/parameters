@@ -1,4 +1,0 @@
-GTRecord pkStart
-GTRecord pkEnd
-BitSet selectedColBlocks
-GTScanRequest additionalPushDown

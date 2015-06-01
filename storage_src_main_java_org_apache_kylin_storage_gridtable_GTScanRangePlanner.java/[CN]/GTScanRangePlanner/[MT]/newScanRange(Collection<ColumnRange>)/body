@@ -8,8 +8,7 @@
     pkStart.set(col,range.begin);
     pkEnd.set(col,range.end);
     if (range.equals != null) {
-      BitSet fuzzyMask=new BitSet();
-      fuzzyMask.set(col);
+      ImmutableBitSet fuzzyMask=new ImmutableBitSet(col);
       for (      ByteArray v : range.equals) {
         GTRecord fuzzy=new GTRecord(info);
         fuzzy.set(col,v);

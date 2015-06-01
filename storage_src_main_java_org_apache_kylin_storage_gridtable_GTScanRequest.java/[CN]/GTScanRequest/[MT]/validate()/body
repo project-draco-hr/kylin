@@ -3,13 +3,11 @@
   if (hasAggregation()) {
     if (aggrGroupBy.intersects(aggrMetrics))     throw new IllegalStateException();
     if (aggrMetrics.cardinality() != aggrMetricsFuncs.length)     throw new IllegalStateException();
-    if (columns == null) {
-      columns=new BitSet();
-    }
-    columns.or(aggrGroupBy);
-    columns.or(aggrMetrics);
+    if (columns == null)     columns=ImmutableBitSet.EMPTY;
+    columns=columns.or(aggrGroupBy);
+    columns=columns.or(aggrMetrics);
   }
-  if (columns == null)   columns=(BitSet)info.colAll.clone();
+  if (columns == null)   columns=info.colAll;
   if (hasFilterPushDown()) {
     validateFilterPushDown();
   }

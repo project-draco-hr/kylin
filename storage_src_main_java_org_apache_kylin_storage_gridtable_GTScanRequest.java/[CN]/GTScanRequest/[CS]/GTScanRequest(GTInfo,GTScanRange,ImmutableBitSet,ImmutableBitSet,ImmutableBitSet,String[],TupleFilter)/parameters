@@ -1,0 +1,7 @@
+GTInfo info
+GTScanRange range
+ImmutableBitSet dimensions
+ImmutableBitSet aggrGroupBy
+ImmutableBitSet aggrMetrics
+String[] aggrMetricsFuncs
+TupleFilter filterPushDown

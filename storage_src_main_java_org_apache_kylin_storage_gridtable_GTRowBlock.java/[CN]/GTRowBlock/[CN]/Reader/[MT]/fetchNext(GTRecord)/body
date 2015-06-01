@@ -1,6 +1,7 @@
 {
   if (hasNext() == false)   throw new IllegalArgumentException();
-  for (int c=selectedColBlocks.nextSetBit(0); c >= 0; c=selectedColBlocks.nextSetBit(c + 1)) {
+  for (int i=0; i < selectedColBlocks.trueBitCount(); i++) {
+    int c=selectedColBlocks.trueBitAt(i);
     result.loadCellBlock(c,cellBlockBuffers[c]);
   }
   cur++;

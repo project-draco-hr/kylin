@@ -1,18 +1,21 @@
 {
   @SuppressWarnings("unchecked") Set<ByteArray>[] distinctValues=new Set[info.getColumnCount()];
-  for (int i=colPreferIndex.nextSetBit(0); i >= 0; i=colPreferIndex.nextSetBit(i + 1)) {
-    distinctValues[i]=new HashSet<ByteArray>();
+  for (int i=0; i < colPreferIndex.trueBitCount(); i++) {
+    int c=colPreferIndex.trueBitAt(i);
+    distinctValues[c]=new HashSet<ByteArray>();
   }
   GTRowBlock.Reader reader=block.getReader(colBlocks);
   GTRecord record=new GTRecord(info);
   while (reader.hasNext()) {
     reader.fetchNext(record);
-    for (int i=colPreferIndex.nextSetBit(0); i >= 0; i=colPreferIndex.nextSetBit(i + 1)) {
-      distinctValues[i].add(record.get(i));
+    for (int i=0; i < colPreferIndex.trueBitCount(); i++) {
+      int c=colPreferIndex.trueBitAt(i);
+      distinctValues[c].add(record.get(c));
     }
   }
-  for (int i=colPreferIndex.nextSetBit(0); i >= 0; i=colPreferIndex.nextSetBit(i + 1)) {
-    index[i].add(distinctValues[i],block.getSequenceId());
+  for (int i=0; i < colPreferIndex.trueBitCount(); i++) {
+    int c=colPreferIndex.trueBitAt(i);
+    index[c].add(distinctValues[c],block.getSequenceId());
   }
   nIndexedBlocks=Math.max(nIndexedBlocks,block.seqId + 1);
 }

@@ -1,0 +1,2 @@
+ImmutableBitSet selectedCols
+ByteBuffer buf

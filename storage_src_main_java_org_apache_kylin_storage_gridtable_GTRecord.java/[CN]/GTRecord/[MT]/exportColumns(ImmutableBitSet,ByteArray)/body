@@ -1,0 +1,9 @@
+{
+  int pos=0;
+  for (int i=0; i < selectedCols.trueBitCount(); i++) {
+    int c=selectedCols.trueBitAt(i);
+    System.arraycopy(cols[c].array(),cols[c].offset(),buf.array(),buf.offset() + pos,cols[c].length());
+    pos+=cols[c].length();
+  }
+  buf.setLength(pos);
+}

@@ -1,9 +1,0 @@
-{
-  int pos=buf.position();
-  for (int i=selectedCols.nextSetBit(0); i >= 0; i=selectedCols.nextSetBit(i + 1)) {
-    int len=info.codeSystem.codeLength(i,buf);
-    cols[i].set(buf.array(),buf.arrayOffset() + pos,len);
-    pos+=len;
-    buf.position(pos);
-  }
-}

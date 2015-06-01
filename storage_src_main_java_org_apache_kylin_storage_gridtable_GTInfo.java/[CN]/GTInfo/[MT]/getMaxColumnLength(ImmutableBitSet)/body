@@ -1,0 +1,8 @@
+{
+  int result=0;
+  for (int i=0; i < selectedCols.trueBitCount(); i++) {
+    int c=selectedCols.trueBitAt(i);
+    result+=codeSystem.maxCodeLength(c);
+  }
+  return result;
+}

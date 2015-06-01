@@ -4,7 +4,7 @@
   builder.setColumns(DataType.getInstance("timestamp"),DataType.getInstance("integer"),DataType.getInstance("varchar(10)"),DataType.getInstance("bigint"),DataType.getInstance("decimal"));
   builder.setPrimaryKey(setOf(0,1));
   builder.setColumnPreferIndex(setOf(0));
-  builder.enableColumnBlock(new BitSet[]{setOf(0,1),setOf(2),setOf(3,4)});
+  builder.enableColumnBlock(new ImmutableBitSet[]{setOf(0,1),setOf(2),setOf(3,4)});
   builder.enableRowBlock(4);
   GTInfo info=builder.build();
   return info;

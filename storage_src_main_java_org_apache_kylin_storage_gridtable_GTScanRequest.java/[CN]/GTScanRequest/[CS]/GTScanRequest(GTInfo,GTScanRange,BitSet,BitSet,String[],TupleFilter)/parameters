@@ -1,6 +1,0 @@
-GTInfo info
-GTScanRange range
-BitSet aggrGroupBy
-BitSet aggrMetrics
-String[] aggrMetricsFuncs
-TupleFilter filterPushDown

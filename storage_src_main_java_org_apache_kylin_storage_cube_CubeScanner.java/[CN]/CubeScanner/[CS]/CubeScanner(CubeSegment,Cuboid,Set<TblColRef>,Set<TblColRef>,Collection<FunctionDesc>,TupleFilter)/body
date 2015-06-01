@@ -4,9 +4,9 @@
   this.store=new CubeHBaseReadonlyStore(info,cubeSeg,cuboid);
   CuboidToGridTableMapping mapping=new CuboidToGridTableMapping(cuboid);
   TupleFilter gtFilter=GTUtil.convertFilterColumnsAndConstants(filter,info,mapping.getCuboidDimensionsInGTOrder(),groups);
-  BitSet gtDimensions=makeGridTableColumns(mapping,dimensions);
-  BitSet gtAggrGroups=makeGridTableColumns(mapping,groups);
-  BitSet gtAggrMetrics=makeGridTableColumns(mapping,metrics);
+  ImmutableBitSet gtDimensions=makeGridTableColumns(mapping,dimensions);
+  ImmutableBitSet gtAggrGroups=makeGridTableColumns(mapping,groups);
+  ImmutableBitSet gtAggrMetrics=makeGridTableColumns(mapping,metrics);
   String[] gtAggrFuncs=makeAggrFuncs(metrics);
   GTScanRangePlanner scanRangePlanner=new GTScanRangePlanner(info);
   List<GTScanRange> scanRanges=scanRangePlanner.planScanRanges(gtFilter,MAX_SCAN_RANGES);

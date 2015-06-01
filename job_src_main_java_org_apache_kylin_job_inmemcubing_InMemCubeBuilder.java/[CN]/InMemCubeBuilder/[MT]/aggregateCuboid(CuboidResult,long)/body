@@ -1,8 +1,8 @@
 {
-  Pair<BitSet,BitSet> columnBitSets=getDimensionAndMetricColumnBitSet(parent.cuboidId);
-  BitSet parentDimensions=columnBitSets.getFirst();
-  BitSet measureColumns=columnBitSets.getSecond();
-  BitSet childDimensions=(BitSet)parentDimensions.clone();
+  Pair<ImmutableBitSet,ImmutableBitSet> columnBitSets=getDimensionAndMetricColumnBitSet(parent.cuboidId);
+  ImmutableBitSet parentDimensions=columnBitSets.getFirst();
+  ImmutableBitSet measureColumns=columnBitSets.getSecond();
+  ImmutableBitSet childDimensions=parentDimensions;
   long mask=Long.highestOneBit(parent.cuboidId);
   long childCuboidId=cuboidId;
   long parentCuboidIdActualLength=Long.SIZE - Long.numberOfLeadingZeros(parent.cuboidId);
@@ -10,7 +10,7 @@
   for (int i=0; i < parentCuboidIdActualLength; i++) {
     if ((mask & parent.cuboidId) > 0) {
       if ((mask & childCuboidId) == 0) {
-        childDimensions.set(index,false);
+        childDimensions=childDimensions.set(index,false);
       }
       index++;
     }

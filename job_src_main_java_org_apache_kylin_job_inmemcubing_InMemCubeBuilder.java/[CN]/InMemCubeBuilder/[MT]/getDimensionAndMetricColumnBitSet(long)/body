@@ -4,5 +4,5 @@
   dimension.set(0,bitSet.cardinality());
   BitSet metrics=new BitSet();
   metrics.set(bitSet.cardinality(),bitSet.cardinality() + this.measureCount);
-  return new Pair<BitSet,BitSet>(dimension,metrics);
+  return new Pair<ImmutableBitSet,ImmutableBitSet>(new ImmutableBitSet(dimension),new ImmutableBitSet(metrics));
 }

@@ -13,14 +13,15 @@
     }
     private void create(    byte[] key,    MeasureAggregator[] value){
       int offset=0;
-      for (int i=dimensions.nextSetBit(0); i >= 0; i=dimensions.nextSetBit(i + 1)) {
-        final int columnLength=info.codeSystem.maxCodeLength(i);
-        secondRecord.set(i,new ByteArray(key,offset,columnLength));
+      for (int i=0; i < dimensions.trueBitCount(); i++) {
+        int c=dimensions.trueBitAt(i);
+        final int columnLength=info.codeSystem.maxCodeLength(c);
+        secondRecord.set(c,new ByteArray(key,offset,columnLength));
         offset+=columnLength;
       }
       metricsBuf.clear();
-      for (int i=0, col=-1; i < value.length; i++) {
-        col=metrics.nextSetBit(col + 1);
+      for (int i=0; i < value.length; i++) {
+        int col=metrics.trueBitAt(i);
         int pos=metricsBuf.position();
         info.codeSystem.encodeColumnValue(col,value[i].getState(),metricsBuf);
         secondRecord.cols[col].set(metricsBuf.array(),pos,metricsBuf.position() - pos);

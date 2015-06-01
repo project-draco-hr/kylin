@@ -1,14 +1,16 @@
 {
   int keyLength=0;
-  for (int i=dimensions.nextSetBit(0); i >= 0; i=dimensions.nextSetBit(i + 1)) {
-    int l=info.codeSystem.maxCodeLength(i);
+  for (int i=0; i < dimensions.trueBitCount(); i++) {
+    int c=dimensions.trueBitAt(i);
+    int l=info.codeSystem.maxCodeLength(c);
     keyLength+=l;
   }
   boolean[] mask=new boolean[keyLength];
   int p=0;
-  for (int i=dimensions.nextSetBit(0); i >= 0; i=dimensions.nextSetBit(i + 1)) {
-    int l=info.codeSystem.maxCodeLength(i);
-    boolean m=groupBy.get(i) ? true : false;
+  for (int i=0; i < dimensions.trueBitCount(); i++) {
+    int c=dimensions.trueBitAt(i);
+    int l=info.codeSystem.maxCodeLength(c);
+    boolean m=groupBy.get(c) ? true : false;
     for (int j=0; j < l; j++) {
       mask[p++]=m;
     }

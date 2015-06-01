@@ -1,7 +1,0 @@
-{
-  info.colBlocks=new BitSet[columnBlocks.length];
-  for (int i=0; i < columnBlocks.length; i++) {
-    info.colBlocks[i]=(BitSet)columnBlocks[i].clone();
-  }
-  return this;
-}

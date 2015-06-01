@@ -1,0 +1,38 @@
+{
+  final ImmutableBitSet selectedColBlocks=selectedColumnBlocks.set(0);
+  HConnection hbaseConn=HBaseConnection.get(cubeSeg.getCubeInstance().getConfig().getStorageUrl());
+  final HTableInterface hbaseTable=hbaseConn.getTable(cubeSeg.getStorageLocationIdentifier());
+  final List<Pair<byte[],byte[]>> hbaseColumns=makeHBaseColumns(selectedColBlocks);
+  Scan hbaseScan=buildScan(pkStart,pkEnd,hbaseColumns);
+  final ResultScanner scanner=hbaseTable.getScanner(hbaseScan);
+  final Iterator<Result> iterator=scanner.iterator();
+  final GTRowBlock oneBlock=new GTRowBlock(info);
+  oneBlock.setNumberOfRows(1);
+  return new IGTStoreScanner(){
+    @Override public boolean hasNext(){
+      return iterator.hasNext();
+    }
+    @Override public GTRowBlock next(){
+      Result result=iterator.next();
+      byte[] rowkey=result.getRow();
+      oneBlock.getPrimaryKey().set(rowkey,RowConstants.ROWKEY_CUBOIDID_LEN,rowkey.length - RowConstants.ROWKEY_CUBOIDID_LEN);
+      oneBlock.getCellBlock(0).set(rowkey,RowConstants.ROWKEY_CUBOIDID_LEN,rowkey.length - RowConstants.ROWKEY_CUBOIDID_LEN);
+      int hbaseColIdx=0;
+      for (int i=0; i < selectedColBlocks.trueBitCount(); i++) {
+        int colBlockIdx=selectedColBlocks.trueBitAt(i);
+        Pair<byte[],byte[]> hbaseColumn=hbaseColumns.get(hbaseColIdx++);
+        Cell cell=result.getColumnLatestCell(hbaseColumn.getFirst(),hbaseColumn.getSecond());
+        oneBlock.getCellBlock(colBlockIdx).set(cell.getValueArray(),cell.getValueOffset(),cell.getValueLength());
+      }
+      return oneBlock;
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+    @Override public void close() throws IOException {
+      scanner.close();
+      hbaseTable.close();
+    }
+  }
+;
+}

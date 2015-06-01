@@ -1,0 +1,7 @@
+{
+  info.colBlocks=new ImmutableBitSet[columnBlocks.length];
+  for (int i=0; i < columnBlocks.length; i++) {
+    info.colBlocks[i]=columnBlocks[i];
+  }
+  return this;
+}

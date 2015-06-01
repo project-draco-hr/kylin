@@ -1,7 +1,0 @@
-{
-  int result=0;
-  for (int i=selectedCols.nextSetBit(0); i >= 0; i=selectedCols.nextSetBit(i + 1)) {
-    result+=codeSystem.maxCodeLength(i);
-  }
-  return result;
-}
