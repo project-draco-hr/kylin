@@ -3,7 +3,6 @@
     return reloadCubeLocalAt(CubeInstance.concatResourcePath(cubeName));
   }
  catch (  IOException e) {
-    logger.error(e.getLocalizedMessage(),e);
+    throw new RuntimeException(e);
   }
-  return null;
 }

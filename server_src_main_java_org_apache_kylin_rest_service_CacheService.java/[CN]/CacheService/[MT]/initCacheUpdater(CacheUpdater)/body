@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(cacheUpdater,"cacheManager is not injected yet");
+  AbstractRestCache.setCacheUpdater(cacheUpdater);
+}

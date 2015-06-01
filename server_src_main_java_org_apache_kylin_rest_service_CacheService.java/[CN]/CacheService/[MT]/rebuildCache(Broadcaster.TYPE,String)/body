@@ -3,9 +3,10 @@
   try {
 switch (cacheType) {
 case CUBE:
-      getCubeManager().reloadCubeLocal(cacheKey);
-    mergeCubeOnNewSegmentReady(cacheKey);
-  break;
+      CubeInstance newCube=getCubeManager().reloadCubeLocal(cacheKey);
+    super.cleanDataCache(newCube.getUuid());
+  mergeCubeOnNewSegmentReady(cacheKey);
+break;
 case CUBE_DESC:
 getCubeDescManager().reloadCubeDescLocal(cacheKey);
 break;
@@ -28,15 +29,6 @@ case DATA_MODEL:
 getMetadataManager().reloadDataModelDesc(cacheKey);
 IIDescManager.clearCache();
 CubeDescManager.clearCache();
-break;
-case ALL:
-getMetadataManager().reload();
-CubeDescManager.clearCache();
-CubeManager.clearCache();
-IIDescManager.clearCache();
-IIManager.clearCache();
-ProjectManager.clearCache();
-removeAllOLAPDataSources();
 break;
 default :
 throw new RuntimeException("invalid cacheType:" + cacheType);

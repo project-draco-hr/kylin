@@ -1,0 +1,3 @@
+{
+  Broadcaster.getInstance().queue(type.getType(),syncAction.getType(),key.toString());
+}

@@ -1,7 +1,14 @@
 {
-  if (cacheManager.getCache(realizationUUID) == null) {
-    logger.info("Cache for {} initting...",realizationUUID);
-    Cache storageCache=new Cache(new CacheConfiguration(realizationUUID,0).memoryStoreEvictionPolicy(MemoryStoreEvictionPolicy.LRU).eternal(false).timeToIdleSeconds(86400).diskExpiryThreadIntervalSeconds(0).persistence(new PersistenceConfiguration().strategy(PersistenceConfiguration.Strategy.NONE)));
-    cacheManager.addCache(storageCache);
+  if (CACHE_MANAGER == null) {
+    logger.warn("CACHE_MANAGER is not provided");
+    initCacheManger();
+  }
+  if (CACHE_MANAGER.getCache(storageUUID) == null) {
+    logger.info("Cache for {} initting...",storageUUID);
+    CacheConfiguration templateConf=CACHE_MANAGER.getCache(storageCacheTemplate).getCacheConfiguration();
+    PersistenceConfiguration pconf=templateConf.getPersistenceConfiguration();
+    logger.info("PersistenceConfiguration strategy: " + pconf.getStrategy());
+    Cache storageCache=new Cache(new CacheConfiguration(storageUUID,(int)templateConf.getMaxEntriesLocalHeap()).memoryStoreEvictionPolicy(templateConf.getMemoryStoreEvictionPolicy()).eternal(templateConf.isEternal()).timeToIdleSeconds(templateConf.getTimeToIdleSeconds()).maxBytesLocalHeap(templateConf.getMaxBytesLocalHeap(),MemoryUnit.BYTES).persistence(pconf));
+    CACHE_MANAGER.addCache(storageCache);
   }
 }

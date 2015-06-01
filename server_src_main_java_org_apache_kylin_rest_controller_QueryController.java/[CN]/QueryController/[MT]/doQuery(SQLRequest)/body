@@ -14,14 +14,7 @@
   SQLResponse sqlResponse=searchQueryInCache(sqlRequest);
   try {
     if (null == sqlResponse) {
-      long startTimestamp=System.currentTimeMillis();
       sqlResponse=queryService.query(sqlRequest);
-      long queryRealExecutionTime=System.currentTimeMillis() - startTimestamp;
-      long durationThreshold=KylinConfig.getInstanceFromEnv().getQueryDurationCacheThreshold();
-      long scancountThreshold=KylinConfig.getInstanceFromEnv().getQueryScanCountCacheThreshold();
-      if (!sqlResponse.getIsException() && (queryRealExecutionTime > durationThreshold || sqlResponse.getTotalScanCount() > scancountThreshold)) {
-        cacheManager.getCache(SUCCESS_QUERY_CACHE).put(new Element(sqlRequest,sqlResponse));
-      }
     }
     checkQueryAuth(sqlResponse);
     return sqlResponse;
@@ -30,10 +23,14 @@
     logger.error("Exception when execute sql",ade);
     throw new ForbiddenException(ade.getLocalizedMessage());
   }
-catch (  Throwable e) {
+catch (  ScanOutOfLimitException e) {
     SQLResponse exceptionRes=new SQLResponse(null,null,0,true,e.getMessage());
     Cache exceptionCache=cacheManager.getCache(EXCEPTION_QUERY_CACHE);
     exceptionCache.put(new Element(sqlRequest,exceptionRes));
+    logger.error("Exception when execute sql",e);
+    throw new InternalErrorException(QueryUtil.makeErrorMsgUserFriendly(e.getLocalizedMessage()));
+  }
+catch (  Throwable e) {
     logger.error("Exception when execute sql",e);
     throw new InternalErrorException(QueryUtil.makeErrorMsgUserFriendly(e.getLocalizedMessage()));
   }

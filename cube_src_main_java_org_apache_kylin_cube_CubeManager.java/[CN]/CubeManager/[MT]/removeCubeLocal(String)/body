@@ -1,4 +1,4 @@
 {
-  cubeMap.removeLocal(cubeName);
   usedStorageLocation.removeAll(cubeName.toUpperCase());
+  cubeMap.removeLocal(cubeName);
 }

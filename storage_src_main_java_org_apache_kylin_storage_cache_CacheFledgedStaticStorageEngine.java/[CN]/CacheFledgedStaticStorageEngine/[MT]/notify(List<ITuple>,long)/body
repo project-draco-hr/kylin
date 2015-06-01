@@ -1,0 +1,8 @@
+{
+  boolean cacheIt=true;
+  if (cacheIt) {
+    StreamSQLResult newCacheEntry=new StreamSQLResult(duplicated,Ranges.<Long>all(),null);
+    CACHE_MANAGER.getCache(this.underlyingStorage.getStorageUUID()).put(new Element(streamSQLDigest,newCacheEntry));
+    logger.info("cache after the query: " + newCacheEntry);
+  }
+}

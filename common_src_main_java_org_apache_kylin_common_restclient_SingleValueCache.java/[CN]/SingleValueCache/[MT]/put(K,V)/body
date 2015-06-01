@@ -1,10 +1,9 @@
 {
   boolean exists=innerCache.containsKey(key);
-  innerCache.put(key,value);
   if (!exists) {
-    syncRemote(key,Broadcaster.EVENT.CREATE);
+    cacheUpdater.updateCache(key,value,Broadcaster.EVENT.CREATE,syncType,this);
   }
  else {
-    syncRemote(key,Broadcaster.EVENT.UPDATE);
+    cacheUpdater.updateCache(key,value,Broadcaster.EVENT.UPDATE,syncType,this);
   }
 }

@@ -1,4 +1,5 @@
 {
   this.underlying=underlying;
   this.duplicatedData=Lists.newArrayList();
+  this.createTime=System.currentTimeMillis();
 }

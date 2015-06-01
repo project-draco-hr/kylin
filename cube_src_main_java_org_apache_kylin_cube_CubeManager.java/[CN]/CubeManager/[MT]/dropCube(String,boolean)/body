@@ -4,7 +4,8 @@
   if (deleteDesc && cube.getDescriptor() != null) {
     CubeDescManager.getInstance(config).removeCubeDesc(cube.getDescriptor());
   }
-  removeCube(cube);
+  getStore().deleteResource(cube.getResourcePath());
+  cubeMap.remove(cube.getName());
   ProjectManager.getInstance(config).removeRealizationsFromProjects(RealizationType.CUBE,cubeName);
   return cube;
 }

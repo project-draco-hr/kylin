@@ -1,0 +1,8 @@
+{
+  if (syncAction == Broadcaster.EVENT.CREATE || syncAction == Broadcaster.EVENT.UPDATE) {
+    cache.putLocal(key,value);
+  }
+ else   if (syncAction == Broadcaster.EVENT.DROP) {
+    cache.removeLocal(key);
+  }
+}

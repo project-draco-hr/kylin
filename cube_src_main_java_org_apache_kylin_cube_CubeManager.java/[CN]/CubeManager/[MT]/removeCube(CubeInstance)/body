@@ -1,4 +1,0 @@
-{
-  getStore().deleteResource(cube.getResourcePath());
-  cubeMap.remove(cube.getName());
-}

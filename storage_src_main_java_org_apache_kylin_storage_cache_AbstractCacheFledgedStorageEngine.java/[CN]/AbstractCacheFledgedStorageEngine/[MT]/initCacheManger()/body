@@ -1,0 +1,7 @@
+{
+  Configuration conf=new Configuration();
+  conf.setMaxBytesLocalHeap("128M");
+  CACHE_MANAGER=CacheManager.create(conf);
+  Cache storageCache=new Cache(new CacheConfiguration(storageCacheTemplate,0).memoryStoreEvictionPolicy(MemoryStoreEvictionPolicy.LRU).eternal(false).timeToIdleSeconds(86400).diskExpiryThreadIntervalSeconds(0).maxBytesLocalHeap(10,MemoryUnit.MEGABYTES).persistence(new PersistenceConfiguration().strategy(PersistenceConfiguration.Strategy.NONE)));
+  CACHE_MANAGER.addCache(storageCache);
+}

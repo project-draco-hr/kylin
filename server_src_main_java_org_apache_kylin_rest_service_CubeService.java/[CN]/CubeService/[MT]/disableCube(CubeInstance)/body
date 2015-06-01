@@ -1,4 +1,5 @@
 {
+  super.cleanDataCache(cube.getUuid());
   String cubeName=cube.getName();
   RealizationStatusEnum ostatus=cube.getStatus();
   if (null != ostatus && !RealizationStatusEnum.READY.equals(ostatus)) {
