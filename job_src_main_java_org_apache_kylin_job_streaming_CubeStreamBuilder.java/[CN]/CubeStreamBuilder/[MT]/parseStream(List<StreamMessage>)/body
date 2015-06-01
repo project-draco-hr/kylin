@@ -1,8 +1,0 @@
-{
-  return Lists.transform(streamMessages,new Function<StreamMessage,List<String>>(){
-    @Nullable @Override public List<String> apply(    StreamMessage input){
-      return getStreamParser().parse(input);
-    }
-  }
-);
-}

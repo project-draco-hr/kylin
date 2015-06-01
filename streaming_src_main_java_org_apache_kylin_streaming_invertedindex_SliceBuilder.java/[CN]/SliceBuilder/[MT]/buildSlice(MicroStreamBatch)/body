@@ -1,0 +1,5 @@
+{
+  final Dictionary<?>[] dictionaries=useLocalDict ? IIDictionaryBuilder.buildDictionary(microStreamBatch.getStreams(),iiDesc) : new Dictionary[iiDesc.listAllColumns().size()];
+  TableRecordInfo tableRecordInfo=new TableRecordInfo(iiDesc,dictionaries);
+  return build(microStreamBatch.getStreams(),tableRecordInfo,dictionaries);
+}

@@ -1,0 +1,5 @@
+{
+  this.streamMessage=streamMessage;
+  this.offset=offset;
+  this.timestamp=timestamp;
+}

@@ -1,3 +1,7 @@
 {
   lastBuildTime=System.currentTimeMillis();
+  startOffset=Long.MAX_VALUE;
+  endOffset=Long.MIN_VALUE;
+  startTimestamp=Long.MAX_VALUE;
+  endTimestamp=Long.MIN_VALUE;
 }

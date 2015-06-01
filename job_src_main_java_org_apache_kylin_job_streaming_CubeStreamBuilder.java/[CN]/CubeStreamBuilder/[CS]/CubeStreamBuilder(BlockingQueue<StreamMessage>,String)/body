@@ -3,5 +3,4 @@
   this.kylinConfig=KylinConfig.getInstanceFromEnv();
   this.cubeManager=CubeManager.getInstance(kylinConfig);
   this.cubeName=cubeName;
-  setStreamParser(new SEOJsonStreamParser(cubeManager.getCube(cubeName).getAllColumns()));
 }

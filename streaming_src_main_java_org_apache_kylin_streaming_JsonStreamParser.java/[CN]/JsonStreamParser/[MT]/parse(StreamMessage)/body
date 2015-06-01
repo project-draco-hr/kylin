@@ -9,7 +9,7 @@
         }
       }
     }
-    return result;
+    return new ParsedStreamMessage(result,streamMessage.getOffset(),streamMessage.getOffset());
   }
  catch (  IOException e) {
     logger.error("error parsing stream",e);

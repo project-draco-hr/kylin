@@ -1,0 +1,3 @@
+List<String> streamMessage
+long offset
+long timestamp

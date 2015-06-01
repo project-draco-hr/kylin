@@ -1,0 +1,5 @@
+{
+  this.streams=streams;
+  this.timestamp=timestamp;
+  this.offset=offset;
+}
