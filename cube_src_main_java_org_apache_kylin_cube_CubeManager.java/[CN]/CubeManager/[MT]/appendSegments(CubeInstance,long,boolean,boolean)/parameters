@@ -1,3 +1,4 @@
 CubeInstance cube
 long endDate
 boolean checkNoBuilding
+boolean saveChange

@@ -1,0 +1,4 @@
+{
+  this.cubeName=cubeName;
+  this.cubeSegmentData=cubeDescData;
+}

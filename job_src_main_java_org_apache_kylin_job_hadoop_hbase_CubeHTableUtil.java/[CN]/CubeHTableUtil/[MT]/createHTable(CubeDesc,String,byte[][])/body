@@ -1,0 +1,41 @@
+{
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  HTableDescriptor tableDesc=new HTableDescriptor(TableName.valueOf(tableName));
+  tableDesc.setValue(HTableDescriptor.SPLIT_POLICY,ConstantSizeRegionSplitPolicy.class.getName());
+  tableDesc.setValue(IRealizationConstants.HTableTag,kylinConfig.getMetadataUrlPrefix());
+  Configuration conf=HBaseConfiguration.create();
+  HBaseAdmin admin=new HBaseAdmin(conf);
+  try {
+    if (User.isHBaseSecurityEnabled(conf)) {
+      tableDesc.addCoprocessor("org.apache.hadoop.hbase.security.access.SecureBulkLoadEndpoint");
+    }
+    for (    HBaseColumnFamilyDesc cfDesc : cubeDesc.getHBaseMapping().getColumnFamily()) {
+      HColumnDescriptor cf=new HColumnDescriptor(cfDesc.getName());
+      cf.setMaxVersions(1);
+      if (LZOSupportnessChecker.getSupportness()) {
+        logger.info("hbase will use lzo to compress cube data");
+        cf.setCompressionType(Compression.Algorithm.LZO);
+      }
+ else {
+        logger.info("hbase will not use lzo to compress cube data");
+      }
+      cf.setDataBlockEncoding(DataBlockEncoding.FAST_DIFF);
+      cf.setInMemory(false);
+      cf.setBlocksize(4 * 1024 * 1024);
+      tableDesc.addFamily(cf);
+    }
+    if (admin.tableExists(tableName)) {
+      throw new RuntimeException("HBase table " + tableName + " exists!");
+    }
+    DeployCoprocessorCLI.deployCoprocessor(tableDesc);
+    admin.createTable(tableDesc,splitKeys);
+    logger.info("create hbase table " + tableName + " done.");
+  }
+ catch (  Exception e) {
+    logger.error("Failed to create HTable",e);
+    throw e;
+  }
+ finally {
+    admin.close();
+  }
+}
