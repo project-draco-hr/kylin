@@ -11,7 +11,7 @@
   }
  catch (  IOException e) {
     logger.error("Failed to drop old htables;",e);
-    return new ExecuteResult(ExecuteResult.State.ERROR,e.getLocalizedMessage());
+    return new ExecuteResult(ExecuteResult.State.SUCCEED,e.getLocalizedMessage());
   }
   return new ExecuteResult(ExecuteResult.State.SUCCEED);
 }
