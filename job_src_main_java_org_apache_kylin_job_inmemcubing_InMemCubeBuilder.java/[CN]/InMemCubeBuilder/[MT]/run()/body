@@ -1,0 +1,9 @@
+{
+  try {
+    build();
+  }
+ catch (  IOException e) {
+    logger.error("Fail to build cube",e);
+    throw new RuntimeException(e);
+  }
+}

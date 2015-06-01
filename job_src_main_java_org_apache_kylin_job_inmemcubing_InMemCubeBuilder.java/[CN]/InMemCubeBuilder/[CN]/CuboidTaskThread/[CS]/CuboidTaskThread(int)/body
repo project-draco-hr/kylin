@@ -1,0 +1,4 @@
+{
+  super("CuboidTask-" + id);
+  this.id=id;
+}

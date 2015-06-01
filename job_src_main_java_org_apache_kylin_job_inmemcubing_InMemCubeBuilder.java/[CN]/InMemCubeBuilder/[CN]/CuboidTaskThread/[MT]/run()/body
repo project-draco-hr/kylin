@@ -1,0 +1,24 @@
+{
+  try {
+    while (taskCuboidCompleted.get() < outputCuboidExpected) {
+      CuboidTask task=null;
+synchronized (taskPending) {
+        while (task == null) {
+          task=taskPending.pollFirst();
+          if (task == null)           taskPending.wait();
+        }
+      }
+      CuboidResult newCuboid=buildCuboid(task.parent,task.childCuboidId);
+      addChildTasks(newCuboid);
+      taskCuboidCompleted.incrementAndGet();
+      if (taskCuboidCompleted.get() == outputCuboidExpected) {
+        for (        Thread t : taskThreads) {
+          if (t != Thread.currentThread())           t.interrupt();
+        }
+      }
+    }
+  }
+ catch (  Throwable ex) {
+    if (taskCuboidCompleted.get() < outputCuboidExpected)     taskThreadExceptions[id]=ex;
+  }
+}

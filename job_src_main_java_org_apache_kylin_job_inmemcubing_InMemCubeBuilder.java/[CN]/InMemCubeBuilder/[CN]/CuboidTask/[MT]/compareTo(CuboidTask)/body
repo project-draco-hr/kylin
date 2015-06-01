@@ -1,0 +1,4 @@
+{
+  long comp=this.childCuboidId - o.childCuboidId;
+  return comp < 0 ? -1 : (comp > 0 ? 1 : 0);
+}

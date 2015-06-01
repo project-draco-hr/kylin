@@ -1,0 +1,6 @@
+{
+  result.put(cuboidId,new CuboidResult(cuboidId,null,0,0,0));
+  for (  Long child : cuboidScheduler.getSpanningCuboid(cuboidId)) {
+    prepareOutputPendingRecursive(child,result);
+  }
+}

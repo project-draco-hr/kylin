@@ -1,0 +1,8 @@
+{
+  try {
+    for (    Thread t : threads)     t.join();
+  }
+ catch (  InterruptedException e) {
+    throw new IOException("interrupted while waiting task and output complete",e);
+  }
+}

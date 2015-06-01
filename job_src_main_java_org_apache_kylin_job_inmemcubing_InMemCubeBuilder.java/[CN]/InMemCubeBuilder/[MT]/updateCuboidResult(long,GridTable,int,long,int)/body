@@ -1,0 +1,14 @@
+{
+  CuboidResult result=outputPending.get(cuboidId);
+  result.table=table;
+  result.nRows=nRows;
+  result.timeSpent=timeSpent;
+  result.aggrCacheMB=mbBaseAggrCache;
+  if (result.aggrCacheMB <= 0) {
+    result.aggrCacheMB=(int)Math.ceil(1.0 * nRows / baseResult.nRows * baseResult.aggrCacheMB);
+  }
+synchronized (result) {
+    result.notify();
+  }
+  return result;
+}

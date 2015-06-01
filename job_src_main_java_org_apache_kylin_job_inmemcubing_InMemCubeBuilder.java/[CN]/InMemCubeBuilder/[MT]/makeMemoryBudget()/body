@@ -1,0 +1,15 @@
+{
+  int systemAvailMB=getSystemAvailMB();
+  logger.info("System avail " + systemAvailMB + " MB");
+  int reserve=Math.min(100,baseResult.aggrCacheMB / 3);
+  logger.info("Reserve " + reserve + " MB for system basics");
+  int budget=systemAvailMB - reserve;
+  if (budget < baseResult.aggrCacheMB) {
+    budget=baseResult.aggrCacheMB;
+    logger.warn("!!! System avail memory (" + systemAvailMB + " MB) is less than base aggr cache ("+ baseResult.aggrCacheMB+ " MB) + minimal reservation ("+ reserve+ " MB), consider increase JVM heap -Xmx");
+  }
+  logger.info("Memory Budget is " + budget + " MB");
+  if (budget > 0) {
+    memBudget=new MemoryBudgetController(budget);
+  }
+}

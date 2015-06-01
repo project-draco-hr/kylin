@@ -1,0 +1,22 @@
+{
+  ArrayList<Throwable> errors=new ArrayList<Throwable>();
+  for (int i=0; i < taskThreadCount; i++) {
+    Throwable t=taskThreadExceptions[i];
+    if (t != null)     errors.add(t);
+  }
+  if (outputThreadException != null) {
+    errors.add(outputThreadException);
+  }
+  if (errors.isEmpty()) {
+    return;
+  }
+ else   if (errors.size() == 1) {
+    Throwable t=errors.get(0);
+    if (t instanceof IOException)     throw (IOException)t;
+ else     throw new IOException(t);
+  }
+ else {
+    for (    Throwable t : errors)     logger.error("Exception during in-mem cube build",t);
+    throw new IOException(errors.size() + " exceptions during in-mem cube build, cause set to the first, check log for more",errors.get(0));
+  }
+}

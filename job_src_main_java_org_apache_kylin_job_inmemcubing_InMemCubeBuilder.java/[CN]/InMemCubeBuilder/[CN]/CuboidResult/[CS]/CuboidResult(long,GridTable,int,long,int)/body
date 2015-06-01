@@ -1,0 +1,7 @@
+{
+  this.cuboidId=cuboidId;
+  this.table=table;
+  this.nRows=nRows;
+  this.timeSpent=timeSpent;
+  this.aggrCacheMB=aggrCacheMB;
+}

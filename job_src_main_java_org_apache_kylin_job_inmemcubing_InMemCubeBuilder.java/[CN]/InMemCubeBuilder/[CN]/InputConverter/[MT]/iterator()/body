@@ -1,0 +1,23 @@
+{
+  return new Iterator<GTRecord>(){
+    List<String> currentObject=null;
+    @Override public boolean hasNext(){
+      try {
+        currentObject=inputQueue.take();
+      }
+ catch (      InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+      return currentObject != null && currentObject.size() > 0;
+    }
+    @Override public GTRecord next(){
+      if (currentObject.size() == 0)       throw new IllegalStateException();
+      buildGTRecord(currentObject,record);
+      return record;
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+  }
+;
+}

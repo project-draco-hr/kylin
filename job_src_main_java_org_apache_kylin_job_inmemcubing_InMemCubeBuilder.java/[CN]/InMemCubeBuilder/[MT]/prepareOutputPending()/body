@@ -1,0 +1,5 @@
+{
+  TreeMap<Long,CuboidResult> result=new TreeMap<Long,CuboidResult>();
+  prepareOutputPendingRecursive(Cuboid.getBaseCuboidId(cubeDesc),result);
+  return result;
+}

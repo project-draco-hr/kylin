@@ -1,0 +1,3 @@
+{
+  ((GTMemDiskStore)gt.getStore()).close();
+}

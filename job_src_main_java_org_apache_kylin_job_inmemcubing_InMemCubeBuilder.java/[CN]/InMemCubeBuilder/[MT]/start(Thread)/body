@@ -1,0 +1,3 @@
+{
+  for (  Thread t : threads)   t.start();
+}

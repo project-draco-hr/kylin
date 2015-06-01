@@ -1,0 +1,7 @@
+{
+  Thread[] result=new Thread[taskThreadCount];
+  for (int i=0; i < taskThreadCount; i++) {
+    result[i]=new CuboidTaskThread(i);
+  }
+  return result;
+}

@@ -1,0 +1,19 @@
+{
+  final String consumerName="AggrCache@Cuboid " + cuboidId;
+  MemoryBudgetController.MemoryConsumer consumer=new MemoryBudgetController.MemoryConsumer(){
+    @Override public int freeUp(    int mb){
+      return 0;
+    }
+    @Override public String toString(){
+      return consumerName;
+    }
+  }
+;
+  memBudget.reserveInsist(consumer,parent.aggrCacheMB);
+  try {
+    return aggregateCuboid(parent,cuboidId);
+  }
+  finally {
+    memBudget.reserve(consumer,0);
+  }
+}

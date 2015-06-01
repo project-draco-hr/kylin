@@ -1,0 +1,10 @@
+{
+  Runtime.getRuntime().gc();
+  try {
+    Thread.sleep(500);
+  }
+ catch (  InterruptedException e) {
+    logger.error("",e);
+  }
+  return MemoryBudgetController.getSystemAvailMB();
+}
