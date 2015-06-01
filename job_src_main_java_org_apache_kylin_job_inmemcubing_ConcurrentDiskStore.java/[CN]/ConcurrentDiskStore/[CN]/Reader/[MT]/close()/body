@@ -1,0 +1,5 @@
+{
+  din.close();
+  closeReader(this);
+  if (debug)   logger.debug(ConcurrentDiskStore.this + " read end @ " + readOffset);
+}

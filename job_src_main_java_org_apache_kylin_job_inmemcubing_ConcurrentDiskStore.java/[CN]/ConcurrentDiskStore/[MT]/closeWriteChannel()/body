@@ -1,0 +1,4 @@
+{
+  IOUtils.closeQuietly(writeChannel);
+  writeChannel=null;
+}

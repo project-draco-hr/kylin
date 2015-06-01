@@ -1,5 +1,5 @@
 {
-  List<GTRecord> data=mockupData(table.getInfo(),10);
+  List<GTRecord> data=UnitTestSupport.mockupData(table.getInfo(),10);
   GTBuilder builder;
   int i=0;
   builder=table.append();

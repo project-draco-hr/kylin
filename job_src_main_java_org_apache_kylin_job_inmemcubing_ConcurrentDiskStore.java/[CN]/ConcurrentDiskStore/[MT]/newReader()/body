@@ -1,0 +1,9 @@
+{
+synchronized (lock) {
+    if (activeWriter != null)     throw new IllegalStateException();
+    openReadChannel();
+    Reader r=new Reader(0);
+    activeReaders.add(r);
+    return r;
+  }
+}

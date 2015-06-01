@@ -1,0 +1,8 @@
+{
+synchronized (lock) {
+    if (activeWriter != null || !activeReaders.isEmpty())     throw new IllegalStateException();
+    openWriteChannel(startOffset);
+    activeWriter=new Writer(startOffset);
+    return activeWriter;
+  }
+}

@@ -1,0 +1,5 @@
+{
+  ConcurrentDiskStore store=new ConcurrentDiskStore(info);
+  GridTable table=new GridTable(info,store);
+  verifyWriteAndRead(table,readThreads);
+}

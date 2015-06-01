@@ -1,5 +1,5 @@
 {
-  GTInfo info=basicInfo();
+  GTInfo info=UnitTestSupport.basicInfo();
   GTSimpleMemStore store=new GTSimpleMemStore(info);
   GridTable table=new GridTable(info,store);
   GTBuilder builder=rebuild(table);

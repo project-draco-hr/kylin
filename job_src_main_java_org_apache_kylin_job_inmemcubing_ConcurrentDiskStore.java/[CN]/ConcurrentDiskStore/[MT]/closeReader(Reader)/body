@@ -1,0 +1,7 @@
+{
+synchronized (lock) {
+    if (activeReaders.contains(r) == false)     throw new IllegalStateException();
+    activeReaders.remove(r);
+    if (activeReaders.isEmpty())     closeReadChannel();
+  }
+}

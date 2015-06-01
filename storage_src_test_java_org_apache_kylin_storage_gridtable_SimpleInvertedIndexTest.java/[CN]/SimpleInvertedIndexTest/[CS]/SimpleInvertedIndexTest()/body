@@ -1,5 +1,5 @@
 {
-  info=SimpleGridTableTest.advancedInfo();
+  info=UnitTestSupport.advancedInfo();
   TblColRef colA=info.colRef(0);
   index=new GTInvertedIndex(info);
   GTRowBlock mockBlock=GTRowBlock.allocate(info);

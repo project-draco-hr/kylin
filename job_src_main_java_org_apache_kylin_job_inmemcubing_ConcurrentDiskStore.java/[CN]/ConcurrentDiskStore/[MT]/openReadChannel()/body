@@ -1,0 +1,5 @@
+{
+  if (readChannel == null) {
+    readChannel=FileChannel.open(diskFile.toPath(),StandardOpenOption.READ);
+  }
+}

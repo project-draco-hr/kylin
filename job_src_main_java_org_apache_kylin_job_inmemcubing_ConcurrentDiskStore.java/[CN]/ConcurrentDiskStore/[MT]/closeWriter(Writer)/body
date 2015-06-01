@@ -1,0 +1,7 @@
+{
+synchronized (lock) {
+    if (activeWriter != w)     throw new IllegalStateException();
+    activeWriter=null;
+    closeWriteChannel();
+  }
+}

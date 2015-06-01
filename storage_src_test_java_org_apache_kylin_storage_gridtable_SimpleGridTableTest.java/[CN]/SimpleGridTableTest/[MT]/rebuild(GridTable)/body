@@ -1,6 +1,6 @@
 {
   GTBuilder builder=table.rebuild();
-  for (  GTRecord rec : mockupData(table.getInfo(),10)) {
+  for (  GTRecord rec : UnitTestSupport.mockupData(table.getInfo(),10)) {
     builder.write(rec);
   }
   builder.close();

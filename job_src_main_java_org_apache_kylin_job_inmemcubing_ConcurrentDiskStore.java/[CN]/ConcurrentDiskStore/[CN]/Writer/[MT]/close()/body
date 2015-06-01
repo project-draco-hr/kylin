@@ -1,0 +1,5 @@
+{
+  dout.close();
+  closeWriter(this);
+  if (debug)   logger.debug(ConcurrentDiskStore.this + " write end @ " + writeOffset);
+}

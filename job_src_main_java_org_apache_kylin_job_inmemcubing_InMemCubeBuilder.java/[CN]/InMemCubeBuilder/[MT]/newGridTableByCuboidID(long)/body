@@ -1,6 +1,6 @@
 {
   GTInfo info=CubeGridTable.newGTInfo(cubeDesc,cuboidID,dictionaryMap);
-  MemDiskStore store=new MemDiskStore(info,MemoryBudgetController.ZERO_BUDGET);
+  ConcurrentDiskStore store=new ConcurrentDiskStore(info);
   GridTable gridTable=new GridTable(info,store);
   return gridTable;
 }

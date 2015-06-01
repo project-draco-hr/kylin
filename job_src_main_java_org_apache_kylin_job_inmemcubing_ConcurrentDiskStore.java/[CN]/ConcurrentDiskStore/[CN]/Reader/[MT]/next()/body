@@ -1,0 +1,9 @@
+{
+  if (next == null) {
+    hasNext();
+    if (next == null)     throw new NoSuchElementException();
+  }
+  GTRowBlock r=next;
+  next=null;
+  return r;
+}

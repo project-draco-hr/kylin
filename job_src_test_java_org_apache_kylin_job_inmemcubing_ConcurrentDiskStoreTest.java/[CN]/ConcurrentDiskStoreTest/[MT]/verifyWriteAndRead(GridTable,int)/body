@@ -1,0 +1,32 @@
+{
+  GTBuilder builder=table.rebuild();
+  for (  GTRecord r : data) {
+    builder.write(r);
+  }
+  builder.close();
+  int nThreads=readThreads;
+  Thread[] t=new Thread[nThreads];
+  for (int i=0; i < nThreads; i++) {
+    t[i]=new Thread(){
+      public void run(){
+        try {
+          IGTScanner scanner=table.scan(new GTScanRequest(table.getInfo()));
+          int i=0;
+          for (          GTRecord r : scanner) {
+            assertEquals(data.get(i++),r);
+          }
+          scanner.close();
+        }
+ catch (        Exception ex) {
+          ex.printStackTrace();
+        }
+      }
+    }
+;
+    t[i].start();
+  }
+  for (int i=0; i < nThreads; i++) {
+    t[i].join();
+  }
+  ((ConcurrentDiskStore)table.getStore()).close();
+}

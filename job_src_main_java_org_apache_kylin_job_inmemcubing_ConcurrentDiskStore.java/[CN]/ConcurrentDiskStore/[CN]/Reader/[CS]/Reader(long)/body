@@ -1,0 +1,31 @@
+{
+  this.fileLen=diskFile.length();
+  this.readOffset=startOffset;
+  if (debug)   logger.debug(ConcurrentDiskStore.this + " read start @ " + readOffset);
+  InputStream in=new InputStream(){
+    byte[] tmp=new byte[1];
+    @Override public int read() throws IOException {
+      int n=read(tmp,0,1);
+      if (n <= 0)       return -1;
+ else       return (int)tmp[0];
+    }
+    @Override public int read(    byte[] b,    int off,    int len) throws IOException {
+      if (available() <= 0)       return -1;
+      int lenToGo=Math.min(available(),len);
+      int nRead=0;
+      while (lenToGo > 0) {
+        int n=readChannel.read(ByteBuffer.wrap(b,off,lenToGo),readOffset);
+        lenToGo-=n;
+        nRead+=n;
+        off+=n;
+        readOffset+=n;
+      }
+      return nRead;
+    }
+    @Override public int available() throws IOException {
+      return (int)(fileLen - readOffset);
+    }
+  }
+;
+  din=new DataInputStream(new BufferedInputStream(in,STREAM_BUFFER_SIZE));
+}

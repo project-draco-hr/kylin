@@ -1,0 +1,8 @@
+{
+  this.info=info;
+  this.lock=this;
+  this.diskFile=diskFile;
+  this.delOnClose=delOnClose;
+  if (delOnClose)   diskFile.deleteOnExit();
+  if (debug)   logger.debug(this + " disk file " + diskFile.getAbsolutePath());
+}

@@ -1,0 +1,4 @@
+{
+  IOUtils.closeQuietly(readChannel);
+  readChannel=null;
+}

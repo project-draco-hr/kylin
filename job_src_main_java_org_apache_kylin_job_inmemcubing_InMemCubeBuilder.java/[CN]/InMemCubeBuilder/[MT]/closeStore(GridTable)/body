@@ -1,3 +1,6 @@
 {
-  ((MemDiskStore)gt.getStore()).close();
+  IGTStore store=gt.getStore();
+  if (store instanceof Closeable) {
+    ((Closeable)store).close();
+  }
 }

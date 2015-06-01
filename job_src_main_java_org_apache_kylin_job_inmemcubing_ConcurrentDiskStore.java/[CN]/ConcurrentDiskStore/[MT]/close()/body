@@ -1,0 +1,9 @@
+{
+synchronized (lock) {
+    if (activeWriter != null || !activeReaders.isEmpty())     throw new IllegalStateException();
+    if (delOnClose) {
+      diskFile.delete();
+    }
+    if (debug)     logger.debug(this + " closed");
+  }
+}
