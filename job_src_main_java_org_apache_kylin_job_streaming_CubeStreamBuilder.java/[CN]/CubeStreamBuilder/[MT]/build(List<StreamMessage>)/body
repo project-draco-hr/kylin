@@ -10,7 +10,7 @@
   blockingQueue.put(Collections.<String>emptyList());
   final CubeInstance cubeInstance=cubeManager.getCube(cubeName);
   final CubeDesc cubeDesc=cubeInstance.getDescriptor();
-  final CubeSegment cubeSegment=cubeManager.appendSegments(cubeManager.getCube(cubeName),System.currentTimeMillis());
+  final CubeSegment cubeSegment=cubeManager.appendSegments(cubeManager.getCube(cubeName),System.currentTimeMillis(),false);
   final Map<Long,HyperLogLogPlusCounter> samplingResult=sampling(cubeInstance.getDescriptor(),parsedStreamMessages);
   final Configuration conf=HadoopUtil.getCurrentConfiguration();
   final String outputPath="/tmp/kylin/cuboidstatistics/" + UUID.randomUUID().toString();

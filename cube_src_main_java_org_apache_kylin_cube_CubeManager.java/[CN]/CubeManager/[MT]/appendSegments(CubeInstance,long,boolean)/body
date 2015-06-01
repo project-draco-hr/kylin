@@ -1,0 +1,14 @@
+{
+  if (checkNoBuilding)   checkNoBuildingSegment(cube);
+  CubeSegment newSegment;
+  if (cube.getDescriptor().getModel().getPartitionDesc().isPartitioned()) {
+    long startDate=calculateStartDateForAppendSegment(cube);
+    newSegment=newSegment(cube,startDate,endDate);
+  }
+ else {
+    newSegment=newSegment(cube,0,Long.MAX_VALUE);
+  }
+  validateNewSegments(cube,newSegment);
+  saveCubeSegmentChange(cube,Lists.newArrayList(newSegment),null);
+  return newSegment;
+}

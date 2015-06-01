@@ -1,0 +1,17 @@
+{
+  Configuration conf=HBaseConfiguration.create();
+  try {
+    HBaseAdmin admin=new HBaseAdmin(conf);
+    List<String> oldTables=getOldHTables();
+    for (    String table : oldTables) {
+      admin.disableTable(table);
+      admin.deleteTable(table);
+      logger.debug("Dropped htable: " + table);
+    }
+  }
+ catch (  IOException e) {
+    logger.error("Failed to drop old htables;",e);
+    return new ExecuteResult(ExecuteResult.State.ERROR,e.getLocalizedMessage());
+  }
+  return new ExecuteResult(ExecuteResult.State.SUCCEED);
+}

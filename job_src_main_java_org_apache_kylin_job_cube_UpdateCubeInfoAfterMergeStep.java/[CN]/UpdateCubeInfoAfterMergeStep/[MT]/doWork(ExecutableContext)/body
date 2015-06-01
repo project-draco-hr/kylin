@@ -23,6 +23,7 @@
   mergedSegment.setInputRecordsSize(sourceSize);
   mergedSegment.setLastBuildJobID(getCubingJobId());
   mergedSegment.setLastBuildTime(System.currentTimeMillis());
+  mergedSegment.setStatus(SegmentStatusEnum.READY);
   try {
     cubeManager.promoteNewlyBuiltSegments(cube,mergedSegment);
     return new ExecuteResult(ExecuteResult.State.SUCCEED);

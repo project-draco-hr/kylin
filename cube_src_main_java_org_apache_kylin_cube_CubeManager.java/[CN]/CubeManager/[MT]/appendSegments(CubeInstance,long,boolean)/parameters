@@ -1,0 +1,3 @@
+CubeInstance cube
+long endDate
+boolean checkNoBuilding

@@ -7,9 +7,6 @@
   long startDate=cube.getDescriptor().getModel().getPartitionDesc().getPartitionDateStart();
   CubeSegment mergeSegment=newSegment(cube,startDate,endDate);
   validateNewSegments(cube,mergeSegment);
-  cube.getSegments().add(appendSegment);
-  cube.getSegments().add(mergeSegment);
-  Collections.sort(cube.getSegments());
-  updateCube(cube,false);
+  saveCubeSegmentChange(cube,Lists.newArrayList(appendSegment,mergeSegment),null);
   return new Pair<CubeSegment,CubeSegment>(appendSegment,mergeSegment);
 }
