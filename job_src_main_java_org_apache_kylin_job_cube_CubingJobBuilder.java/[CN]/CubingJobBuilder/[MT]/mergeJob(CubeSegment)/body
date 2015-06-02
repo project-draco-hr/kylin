@@ -23,6 +23,6 @@
     convertCuboidToHfileStep=addHTableSteps(seg,mergedCuboidPath,result);
   }
   result.addTask(createUpdateCubeInfoAfterMergeStep(seg,mergingSegmentIds,convertCuboidToHfileStep.getId(),jobId));
-  result.addTask(createDropUnusedHTableStep(seg,mergingHTables));
+  result.addTask(createGarbageCollectionStep(seg,mergingHTables,null));
   return result;
 }

@@ -13,5 +13,8 @@
     AbstractExecutable convertCuboidToHfileStep=addHTableSteps(seg,cuboidRootPath,result);
     result.addTask(createUpdateCubeInfoAfterBuildStep(seg,intermediateHiveTableStepId,baseCuboidStepId,convertCuboidToHfileStep.getId(),jobId));
   }
+  final CubeJoinedFlatTableDesc intermediateTableDesc=new CubeJoinedFlatTableDesc(seg.getCubeDesc(),seg);
+  final String hiveIntermediateTable=this.getIntermediateHiveTableName(intermediateTableDesc,jobId);
+  result.addTask(createGarbageCollectionStep(seg,null,hiveIntermediateTable));
   return result;
 }

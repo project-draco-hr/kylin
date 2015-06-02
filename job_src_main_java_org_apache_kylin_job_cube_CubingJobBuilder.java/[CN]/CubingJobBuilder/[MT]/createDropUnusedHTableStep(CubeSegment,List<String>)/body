@@ -1,6 +1,0 @@
-{
-  DropOldHTableStep result=new DropOldHTableStep();
-  result.setName(ExecutableConstants.STEP_NAME_DROP_OLD_HBASE_TABLE);
-  result.setOldHTables(oldHtables);
-  return result;
-}

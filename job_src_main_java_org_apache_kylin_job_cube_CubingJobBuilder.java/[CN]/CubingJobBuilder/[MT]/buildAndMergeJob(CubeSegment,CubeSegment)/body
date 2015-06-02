@@ -29,6 +29,6 @@
     convertCuboidToHfileStep=addHTableSteps(mergeSegment,mergedRootPath,result);
   }
   result.addTask(createUpdateCubeInfoAfterMergeStep(mergeSegment,mergingSegmentIds,convertCuboidToHfileStep.getId(),jobId));
-  result.addTask(createDropUnusedHTableStep(mergeSegment,mergingHTables));
+  result.addTask(createGarbageCollectionStep(mergeSegment,mergingHTables,null));
   return result;
 }
