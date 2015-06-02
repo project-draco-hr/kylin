@@ -1,9 +1,0 @@
-{
-  logger.info("Updating II instance : " + ii.getName());
-  getStore().putResource(ii.getResourcePath(),ii,II_SERIALIZER);
-  iiMap.put(ii.getName(),ii);
-  if (updateProject) {
-    logger.info("Updating project instance for ii: " + ii.getName());
-    ProjectManager.getInstance(config).updateProject(RealizationType.INVERTED_INDEX,ii.getName());
-  }
-}

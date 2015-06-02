@@ -1,4 +1,4 @@
 {
   CubeInstance cube=cubeManager.getCube(cubeName);
-  cubeManager.updateCube(cube,null,cube.getSegments(),null,null,true);
+  cubeManager.updateCube(cube,null,cube.getSegments(),null,null);
 }

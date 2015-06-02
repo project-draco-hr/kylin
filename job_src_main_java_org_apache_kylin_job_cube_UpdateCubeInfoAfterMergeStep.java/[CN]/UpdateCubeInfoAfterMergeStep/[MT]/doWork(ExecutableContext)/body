@@ -24,7 +24,7 @@
   mergedSegment.setLastBuildJobID(getCubingJobId());
   mergedSegment.setLastBuildTime(System.currentTimeMillis());
   try {
-    cubeManager.promoteNewlyBuiltSegments(cube,false,mergedSegment);
+    cubeManager.promoteNewlyBuiltSegments(cube,mergedSegment);
     return new ExecuteResult(ExecuteResult.State.SUCCEED);
   }
  catch (  IOException e) {

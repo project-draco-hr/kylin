@@ -4,8 +4,9 @@
 switch (cacheType) {
 case CUBE:
       CubeInstance newCube=getCubeManager().reloadCubeLocal(cacheKey);
-    super.cleanDataCache(newCube.getUuid());
-  mergeCubeOnNewSegmentReady(cacheKey);
+    getProjectManager().clearL2Cache();
+  super.cleanDataCache(newCube.getUuid());
+mergeCubeOnNewSegmentReady(cacheKey);
 break;
 case CUBE_DESC:
 getCubeDescManager().reloadCubeDescLocal(cacheKey);
@@ -16,6 +17,7 @@ removeOLAPDataSource(projectInstance.getName());
 break;
 case INVERTED_INDEX:
 getIIManager().reloadIILocal(cacheKey);
+getProjectManager().clearL2Cache();
 break;
 case INVERTED_INDEX_DESC:
 getIIDescManager().reloadIIDescLocal(cacheKey);

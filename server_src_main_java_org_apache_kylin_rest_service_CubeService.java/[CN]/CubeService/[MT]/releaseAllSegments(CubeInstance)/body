@@ -6,5 +6,5 @@
       getExecutableManager().discardJob(cubingJob.getId());
     }
   }
-  return CubeManager.getInstance(getConfig()).updateCube(cube,null,null,cube.getSegments(),null,true);
+  return CubeManager.getInstance(getConfig()).updateCube(cube,null,null,cube.getSegments(),null);
 }

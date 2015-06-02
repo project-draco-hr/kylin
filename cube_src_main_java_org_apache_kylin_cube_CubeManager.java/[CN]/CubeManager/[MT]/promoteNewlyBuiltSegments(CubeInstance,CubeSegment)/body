@@ -14,5 +14,5 @@
     if (!tobe.contains(segment))     toRemoveSegs.add(segment);
   }
   logger.info("Promoting cube " + cube + ", new segments "+ newSegments);
-  updateCube(cube,Lists.newArrayList(newSegments),toRemoveSegs,null,RealizationStatusEnum.READY,updateProj);
+  updateCube(cube,Lists.newArrayList(newSegments),toRemoveSegs,null,RealizationStatusEnum.READY);
 }

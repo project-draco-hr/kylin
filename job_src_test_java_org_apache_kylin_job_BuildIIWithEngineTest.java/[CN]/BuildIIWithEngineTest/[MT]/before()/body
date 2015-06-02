@@ -19,7 +19,7 @@
     IIInstance ii=iiManager.getII(iiInstance);
     if (ii.getStatus() != RealizationStatusEnum.DISABLED) {
       ii.setStatus(RealizationStatusEnum.DISABLED);
-      iiManager.updateII(ii,true);
+      iiManager.updateII(ii);
     }
   }
 }

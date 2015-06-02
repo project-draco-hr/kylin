@@ -10,5 +10,5 @@
     DictionaryInfo dict=dictMgr.buildDictionary(iiDesc.getModel(),"true",column,factColumnsPath);
     iiSeg.putDictResPath(column,dict.getResourcePath());
   }
-  updateII(iiSeg.getIIInstance(),false);
+  updateII(iiSeg.getIIInstance());
 }

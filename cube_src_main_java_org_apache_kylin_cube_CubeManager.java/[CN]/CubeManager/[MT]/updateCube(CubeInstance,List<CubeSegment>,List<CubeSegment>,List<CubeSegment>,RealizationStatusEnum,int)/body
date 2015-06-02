@@ -26,12 +26,9 @@
       throw ise;
     }
     retry++;
-    cube=updateCube(reloadCubeLocal(cube.getName()),toAddSegs,toRemoveSegs,toUpdateSegs,newStatus,updateProject,retry);
+    cube=updateCube(reloadCubeLocal(cube.getName()),toAddSegs,toRemoveSegs,toUpdateSegs,newStatus,retry);
   }
   cubeMap.put(cube.getName(),cube);
-  if (updateProject) {
-    logger.info("Updating project instance for cube:'" + cube.getName());
-    ProjectManager.getInstance(config).updateProject(RealizationType.CUBE,cube.getName());
-  }
+  ProjectManager.getInstance(KylinConfig.getInstanceFromEnv()).clearL2Cache();
   return cube;
 }

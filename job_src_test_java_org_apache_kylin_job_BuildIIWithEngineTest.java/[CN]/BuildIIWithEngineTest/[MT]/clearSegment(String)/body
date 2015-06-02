@@ -1,5 +1,5 @@
 {
   IIInstance ii=iiManager.getII(iiName);
   ii.getSegments().clear();
-  iiManager.updateII(ii,true);
+  iiManager.updateII(ii);
 }

@@ -26,9 +26,9 @@
   assertEquals(0,cubeManagerB.getCube(cubeName).getSegments().size());
   CubeSegment segment=new CubeSegment();
   segment.setName("test_segment");
-  cube=cubeManager.updateCube(cube,Lists.newArrayList(segment),null,null,null,true);
-  assertEquals(2,broadcaster.getCounterAndClear());
-  waitForCounterAndClear(2);
+  cube=cubeManager.updateCube(cube,Lists.newArrayList(segment),null,null,null);
+  assertEquals(1,broadcaster.getCounterAndClear());
+  waitForCounterAndClear(1);
   assertEquals(1,cubeManagerB.getCube(cubeName).getSegments().size());
   assertEquals(segment.getName(),cubeManagerB.getCube(cubeName).getSegments().get(0).getName());
   cubeManager.dropCube(cubeName,false);

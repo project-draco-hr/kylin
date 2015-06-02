@@ -2,6 +2,6 @@
   IIInstance iiInstance=iiManager.getII(iiName);
   IISegment segment=iiManager.buildSegment(iiInstance,startDate,endDate);
   iiInstance.getSegments().add(segment);
-  iiManager.updateII(iiInstance,true);
+  iiManager.updateII(iiInstance);
   return segment;
 }

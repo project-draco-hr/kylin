@@ -4,7 +4,7 @@
     IIInstance ii=iiManager.getII(iiName);
     if (ii.getStatus() != RealizationStatusEnum.READY) {
       ii.setStatus(RealizationStatusEnum.READY);
-      iiManager.updateII(ii,true);
+      iiManager.updateII(ii);
     }
   }
 }
