@@ -1,0 +1,9 @@
+{
+  final Configuration conf=HadoopUtil.getCurrentConfiguration();
+  final Path outputPath=new Path("file:///tmp/kylin/cuboidstatistics/" + UUID.randomUUID().toString());
+  if (!FileSystem.getLocal(conf).exists(outputPath)) {
+  }
+  System.out.println(outputPath);
+  Map<Long,HyperLogLogPlusCounter> cuboidHLLMap=Maps.newHashMap();
+  FactDistinctColumnsReducer.writeCuboidStatistics(conf,outputPath,cuboidHLLMap,100);
+}

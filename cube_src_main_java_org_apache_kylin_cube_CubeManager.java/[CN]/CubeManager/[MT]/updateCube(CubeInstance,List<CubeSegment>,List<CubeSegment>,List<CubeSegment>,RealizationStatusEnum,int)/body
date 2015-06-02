@@ -1,6 +1,6 @@
 {
   if (cube == null)   throw new IllegalStateException();
-  logger.info("Updating cube instance '" + cube.getName());
+  logger.info("Updating cube instance '" + cube.getName() + "'");
   if (toAddSegs != null && toAddSegs.size() > 0)   cube.getSegments().addAll(toAddSegs);
   if (toRemoveSegs != null && toRemoveSegs.size() > 0)   cube.getSegments().removeAll(toRemoveSegs);
   if (toUpdateSegs != null && toUpdateSegs.size() > 0) {
