@@ -5,6 +5,6 @@
   TableDesc tableDesc=metaMgr.getTableDesc(lookupTable);
   SnapshotTable snapshot=snapshotMgr.buildSnapshot(hiveTable,tableDesc);
   cubeSeg.putSnapshotResPath(lookupTable,snapshot.getResourcePath());
-  updateCube(cubeSeg.getCubeInstance(),false);
+  updateCube(cubeSeg.getCubeInstance(),null,null,Lists.newArrayList(cubeSeg),null,false);
   return snapshot;
 }

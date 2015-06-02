@@ -9,5 +9,5 @@
   cube.setCost(cost);
   String owner=SecurityContextHolder.getContext().getAuthentication().getName();
   cube.setOwner(owner);
-  return getCubeManager().updateCube(cube,true);
+  return getCubeManager().updateCube(cube,null,null,null,null,true);
 }

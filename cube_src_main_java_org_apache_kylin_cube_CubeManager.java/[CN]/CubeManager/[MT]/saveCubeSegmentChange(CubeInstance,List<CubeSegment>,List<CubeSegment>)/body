@@ -1,6 +1,0 @@
-{
-  if (toAdd != null && toAdd.size() > 0)   cube.getSegments().addAll(toAdd);
-  if (toRemove != null && toRemove.size() > 0)   cube.getSegments().removeAll(toRemove);
-  Collections.sort(cube.getSegments());
-  updateCube(cube,false);
-}

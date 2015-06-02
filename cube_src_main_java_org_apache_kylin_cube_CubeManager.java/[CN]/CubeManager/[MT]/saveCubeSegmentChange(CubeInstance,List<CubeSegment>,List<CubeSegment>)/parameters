@@ -1,3 +1,0 @@
-CubeInstance cube
-List<CubeSegment> toAdd
-List<CubeSegment> toRemove

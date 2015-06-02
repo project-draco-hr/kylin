@@ -1,6 +1,6 @@
 {
   checkNoBuildingSegment(cube);
   CubeSegment newSegment=newSegment(cube,startDate,endDate);
-  saveCubeSegmentChange(cube,Lists.newArrayList(newSegment),null);
+  updateCube(cube,Lists.newArrayList(newSegment),null,null,null,false);
   return newSegment;
 }

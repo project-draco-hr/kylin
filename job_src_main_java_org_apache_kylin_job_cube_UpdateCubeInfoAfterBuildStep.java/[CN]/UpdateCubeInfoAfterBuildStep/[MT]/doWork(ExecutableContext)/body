@@ -29,7 +29,7 @@
       cubeManager.promoteNewlyBuiltSegments(cube,cube.getSegments().size() == 1,segment);
     }
  else {
-      cubeManager.updateCube(cube,false);
+      cubeManager.updateCube(cube,null,null,Lists.newArrayList(segment),null,false);
     }
     return new ExecuteResult(ExecuteResult.State.SUCCEED,"succeed");
   }

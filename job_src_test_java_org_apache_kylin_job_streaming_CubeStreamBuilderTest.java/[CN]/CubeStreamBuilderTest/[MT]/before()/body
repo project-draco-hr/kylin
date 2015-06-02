@@ -5,6 +5,5 @@
   DeployUtil.deployMetadata();
   DeployUtil.overrideJobJarLocations();
   final CubeInstance cube=CubeManager.getInstance(kylinConfig).getCube(CUBE_NAME);
-  cube.getSegments().clear();
-  CubeManager.getInstance(kylinConfig).updateCube(cube,true);
+  CubeManager.getInstance(kylinConfig).updateCube(cube,null,cube.getSegments(),null,null,true);
 }

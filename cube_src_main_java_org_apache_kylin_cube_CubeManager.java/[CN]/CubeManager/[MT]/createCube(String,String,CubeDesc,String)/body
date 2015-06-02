@@ -2,7 +2,7 @@
   logger.info("Creating cube '" + projectName + "-->"+ cubeName+ "' from desc '"+ desc.getName()+ "'");
   CubeInstance cube=CubeInstance.create(cubeName,projectName,desc);
   cube.setOwner(owner);
-  updateCube(cube,false);
+  updateCube(cube,null,null,null,null,false);
   ProjectManager.getInstance(config).moveRealizationToProject(RealizationType.CUBE,cubeName,projectName,owner);
   return cube;
 }

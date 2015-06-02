@@ -9,6 +9,6 @@
     newSegment=newSegment(cube,0,Long.MAX_VALUE);
   }
   validateNewSegments(cube,newSegment);
-  if (saveChange)   saveCubeSegmentChange(cube,Lists.newArrayList(newSegment),null);
+  if (saveChange)   updateCube(cube,Lists.newArrayList(newSegment),null,null,null,false);
   return newSegment;
 }

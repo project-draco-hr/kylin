@@ -9,8 +9,10 @@
   for (  CubeSegment seg : tobe) {
     if (isReady(seg) == false)     throw new IllegalStateException("For cube " + cube + ", segment "+ seg+ " should be READY but is not");
   }
-  cube.setSegments(tobe);
-  cube.setStatus(RealizationStatusEnum.READY);
+  List<CubeSegment> toRemoveSegs=Lists.newArrayList();
+  for (  CubeSegment segment : cube.getSegments()) {
+    if (!tobe.contains(segment))     toRemoveSegs.add(segment);
+  }
   logger.info("Promoting cube " + cube + ", new segments "+ newSegments);
-  updateCube(cube,updateProj);
+  updateCube(cube,Lists.newArrayList(newSegments),toRemoveSegs,null,RealizationStatusEnum.READY,updateProj);
 }

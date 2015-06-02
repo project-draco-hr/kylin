@@ -4,6 +4,6 @@
   Pair<Long,Long> range=alignMergeRange(cube,startDate,endDate);
   CubeSegment newSegment=newSegment(cube,range.getFirst(),range.getSecond());
   validateNewSegments(cube,newSegment);
-  saveCubeSegmentChange(cube,Lists.newArrayList(newSegment),null);
+  updateCube(cube,Lists.newArrayList(newSegment),null,null,null,false);
   return newSegment;
 }
