@@ -4,6 +4,7 @@
       printArgsError(args);
       return;
     }
+    AbstractRestCache.setCacheUpdater(new RemoteCacheUpdater());
     if (args[0].equals("start")) {
       String kafkaConfName=args[1];
       int partition=Integer.parseInt(args[2]);
