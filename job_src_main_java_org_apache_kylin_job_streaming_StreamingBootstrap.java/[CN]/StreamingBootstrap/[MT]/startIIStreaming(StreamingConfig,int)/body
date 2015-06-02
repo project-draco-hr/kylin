@@ -30,10 +30,11 @@
   }
   KafkaConsumer consumer=new KafkaConsumer(kafkaClusterConfig.getTopic(),partitionId,streamingOffset,kafkaClusterConfig.getBrokers(),kafkaClusterConfig,parallelism);
   kafkaConsumers.put(getKey(streamingConfig.getName(),partitionId),consumer);
+  final IIDesc iiDesc=iiSegment.getIIDesc();
   Executors.newSingleThreadExecutor().submit(consumer);
   final ExecutorService streamingBuilderPool=Executors.newFixedThreadPool(parallelism);
   for (int i=startShard; i < endShard; ++i) {
-    final IIStreamBuilder task=new IIStreamBuilder(consumer.getStreamQueue(i % parallelism),streamingConfig.getName(),iiSegment.getStorageLocationIdentifier(),iiSegment.getIIDesc(),i);
+    final StreamBuilder task=new StreamBuilder(consumer.getStreamQueue(i % parallelism),new MicroBatchCondition(iiDesc.getSliceSize(),Integer.MAX_VALUE),new IIStreamConsumer(streamingConfig.getName(),iiSegment.getStorageLocationIdentifier(),iiDesc,i));
     task.setStreamParser(getStreamParser(streamingConfig,ii.getDescriptor().listAllColumns()));
     if (i == endShard - 1) {
       streamingBuilderPool.submit(task).get();

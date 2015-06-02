@@ -1,0 +1,4 @@
+{
+  this.streamMessageQueue=streamMessageQueue;
+  this.countDownLatch=countDownLatch;
+}

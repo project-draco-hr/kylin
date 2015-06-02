@@ -1,3 +1,0 @@
-List<List<String>> streams
-Pair<Long,Long> timestamp
-Pair<Long,Long> offset

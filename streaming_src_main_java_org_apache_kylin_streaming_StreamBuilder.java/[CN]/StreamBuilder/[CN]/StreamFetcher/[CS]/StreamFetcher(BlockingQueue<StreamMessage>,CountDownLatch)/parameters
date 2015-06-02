@@ -1,0 +1,2 @@
+BlockingQueue<StreamMessage> streamMessageQueue
+CountDownLatch countDownLatch

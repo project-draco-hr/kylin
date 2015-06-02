@@ -1,2 +1,0 @@
-Map<Integer,TblColRef> tblColRefMap
-List<List<String>> recordList

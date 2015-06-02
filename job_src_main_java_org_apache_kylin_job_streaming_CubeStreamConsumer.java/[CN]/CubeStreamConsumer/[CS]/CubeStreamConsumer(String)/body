@@ -1,0 +1,5 @@
+{
+  this.kylinConfig=KylinConfig.getInstanceFromEnv();
+  this.cubeManager=CubeManager.getInstance(kylinConfig);
+  this.cubeName=cubeName;
+}

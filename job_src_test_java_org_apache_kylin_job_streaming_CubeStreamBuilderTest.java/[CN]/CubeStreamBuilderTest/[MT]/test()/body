@@ -1,7 +1,0 @@
-{
-  LinkedBlockingDeque<StreamMessage> queue=new LinkedBlockingDeque<>();
-  CubeStreamBuilder cubeStreamBuilder=new CubeStreamBuilder(queue,CUBE_NAME);
-  final Future<?> future=Executors.newSingleThreadExecutor().submit(cubeStreamBuilder);
-  loadDataFromLocalFile(queue,100000);
-  future.get();
-}

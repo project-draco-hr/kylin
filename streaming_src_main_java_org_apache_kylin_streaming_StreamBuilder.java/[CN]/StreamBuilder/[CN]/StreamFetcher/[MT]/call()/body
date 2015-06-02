@@ -1,0 +1,50 @@
+{
+  try {
+    MicroStreamBatch microStreamBatch=null;
+    while (true) {
+      if (microStreamBatch == null) {
+        microStreamBatch=new MicroStreamBatch();
+        clearCounter();
+      }
+      StreamMessage streamMessage=peek(streamMessageQueue,30000);
+      if (streamMessage == null) {
+        logger.info("The stream queue is drained, current available stream count: " + microStreamBatch.size());
+        if (!microStreamBatch.isEmpty()) {
+          return microStreamBatch;
+        }
+ else {
+          continue;
+        }
+      }
+      if (streamMessage.getOffset() < 0) {
+        consumer.stop();
+        logger.warn("streaming encountered EOF, stop building");
+        return null;
+      }
+      final ParsedStreamMessage parsedStreamMessage=getStreamParser().parse(streamMessage);
+      if (parsedStreamMessage.getTimestamp() - microStreamBatch.getTimestamp().getFirst() > condition.getBatchInterval()) {
+        streamMessageQueue.take();
+        if (getStreamFilter().filter(parsedStreamMessage)) {
+          if (microStreamBatch.size() >= condition.getBatchSize()) {
+            return microStreamBatch;
+          }
+ else {
+            microStreamBatch.add(parsedStreamMessage);
+          }
+        }
+ else {
+        }
+      }
+ else {
+        return microStreamBatch;
+      }
+    }
+  }
+ catch (  Exception e) {
+    logger.error("build stream error, stop building",e);
+    throw new RuntimeException("build stream error, stop building",e);
+  }
+ finally {
+    countDownLatch.countDown();
+  }
+}

@@ -1,0 +1,22 @@
+{
+  long t=System.currentTimeMillis();
+  while (true) {
+    final StreamMessage peek=queue.peek();
+    if (peek != null) {
+      return peek;
+    }
+ else {
+      try {
+        Thread.sleep(1000);
+      }
+ catch (      InterruptedException e) {
+        logger.warn("stream queue should not be interrupted",e);
+        return null;
+      }
+      if (System.currentTimeMillis() - t <= timeout) {
+        break;
+      }
+    }
+  }
+  return queue.peek();
+}

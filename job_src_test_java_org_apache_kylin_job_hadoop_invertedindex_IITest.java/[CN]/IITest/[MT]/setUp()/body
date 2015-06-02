@@ -11,29 +11,13 @@
   List<List<String>> parsedStreamMessages=Lists.newArrayList();
   StreamParser parser=StringStreamParser.instance;
   StreamFilter filter=DefaultStreamFilter.instance;
-  long startOffset=Long.MAX_VALUE;
-  long endOffset=Long.MIN_VALUE;
-  long startTimestamp=Long.MAX_VALUE;
-  long endTimestamp=Long.MIN_VALUE;
+  MicroStreamBatch batch=new MicroStreamBatch();
   for (  StreamMessage message : streamMessages) {
     ParsedStreamMessage parsedStreamMessage=parser.parse(message);
     if (filter.filter(parsedStreamMessage)) {
-      if (startOffset > parsedStreamMessage.getOffset()) {
-        startOffset=parsedStreamMessage.getOffset();
-      }
-      if (endOffset < parsedStreamMessage.getOffset()) {
-        endOffset=parsedStreamMessage.getOffset();
-      }
-      if (startTimestamp > parsedStreamMessage.getTimestamp()) {
-        startTimestamp=parsedStreamMessage.getTimestamp();
-      }
-      if (endTimestamp < parsedStreamMessage.getTimestamp()) {
-        endTimestamp=parsedStreamMessage.getTimestamp();
-      }
-      parsedStreamMessages.add(parsedStreamMessage.getStreamMessage());
+      batch.add(parsedStreamMessage);
     }
   }
-  MicroStreamBatch batch=new MicroStreamBatch(parsedStreamMessages,org.apache.kylin.common.util.Pair.newPair(startTimestamp,endTimestamp),org.apache.kylin.common.util.Pair.newPair(startOffset,endOffset));
   iiRows=Lists.newArrayList();
   final Slice slice=new SliceBuilder(iiDesc,(short)0,true).buildSlice((batch));
   IIKeyValueCodec codec=new IIKeyValueCodec(slice.getInfo());

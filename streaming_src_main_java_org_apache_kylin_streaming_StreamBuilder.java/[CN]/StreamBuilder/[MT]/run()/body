@@ -1,64 +1,42 @@
 {
   try {
-    List<List<String>> parsedStreamMessages=null;
-    int filteredMsgCount=0;
+    final int inputCount=streamMessageQueues.size();
+    final ExecutorService executorService=Executors.newFixedThreadPool(inputCount);
     while (true) {
-      if (parsedStreamMessages == null) {
-        parsedStreamMessages=Lists.newLinkedList();
-        clearCounter();
+      CountDownLatch countDownLatch=new CountDownLatch(inputCount);
+      ArrayList<Future<MicroStreamBatch>> futures=Lists.newArrayListWithExpectedSize(inputCount);
+      for (      BlockingQueue<StreamMessage> streamMessageQueue : streamMessageQueues) {
+        futures.add(executorService.submit(new StreamFetcher(streamMessageQueue,countDownLatch)));
       }
-      StreamMessage streamMessage;
-      try {
-        streamMessage=streamMessageQueue.poll(30,TimeUnit.SECONDS);
-      }
- catch (      InterruptedException e) {
-        logger.warn("stream queue should not be interrupted",e);
-        continue;
-      }
-      if (streamMessage == null) {
-        logger.info("The stream queue is drained, current available stream count: " + parsedStreamMessages.size());
-        if ((System.currentTimeMillis() - lastBuildTime) > batchInterval() && !parsedStreamMessages.isEmpty()) {
-          logger.info("Building batch due to time threshold, batch size: " + parsedStreamMessages.size());
-          build(new MicroStreamBatch(parsedStreamMessages,Pair.newPair(startTimestamp,endTimestamp),Pair.newPair(startOffset,endOffset)));
-          parsedStreamMessages=null;
+      countDownLatch.await();
+      ArrayList<MicroStreamBatch> batches=Lists.newArrayListWithExpectedSize(inputCount);
+      for (      Future<MicroStreamBatch> future : futures) {
+        if (future.get() != null) {
+          batches.add(future.get());
         }
-        continue;
-      }
-      if (streamMessage.getOffset() < 0) {
-        onStop();
-        logger.warn("streaming encountered EOF, stop building. The remaining {} filtered messages will be discarded",filteredMsgCount);
-        break;
-      }
-      final ParsedStreamMessage parsedStreamMessage=getStreamParser().parse(streamMessage);
-      if (getStreamFilter().filter(parsedStreamMessage)) {
-        if (filteredMsgCount++ % 10000 == 0) {
-          logger.info("Total filtered stream message count: " + filteredMsgCount);
-        }
-        if (startOffset > parsedStreamMessage.getOffset()) {
-          startOffset=parsedStreamMessage.getOffset();
-        }
-        if (endOffset < parsedStreamMessage.getOffset()) {
-          endOffset=parsedStreamMessage.getOffset();
-        }
-        if (startTimestamp > parsedStreamMessage.getTimestamp()) {
-          startTimestamp=parsedStreamMessage.getTimestamp();
-        }
-        if (endTimestamp < parsedStreamMessage.getTimestamp()) {
-          endTimestamp=parsedStreamMessage.getTimestamp();
-        }
-        parsedStreamMessages.add(parsedStreamMessage.getStreamMessage());
-        if (parsedStreamMessages.size() >= batchSize()) {
-          logger.info("Building batch due to size threshold, batch size: " + parsedStreamMessages.size());
-          build(new MicroStreamBatch(parsedStreamMessages,Pair.newPair(startTimestamp,endTimestamp),Pair.newPair(startOffset,endOffset)));
-          parsedStreamMessages=null;
-        }
-      }
  else {
+          consumer.stop();
+          return;
+        }
       }
+      MicroStreamBatch batch=batches.get(0);
+      if (batches.size() > 1) {
+        for (int i=1; i < inputCount; i++) {
+          batch=MicroStreamBatch.union(batch,batches.get(i));
+        }
+      }
+      consumer.consume(batches.get(0));
     }
   }
- catch (  Exception e) {
-    logger.error("build stream error, stop building",e);
-    throw new RuntimeException("build stream error, stop building",e);
+ catch (  InterruptedException e) {
+    throw new RuntimeException("stream fetcher thread should not be interrupted",e);
+  }
+catch (  ExecutionException e) {
+    logger.error("stream fetch thread encountered exception",e);
+    throw new RuntimeException("stream fetch thread encountered exception",e);
+  }
+catch (  Exception e) {
+    logger.error("consumer encountered exception",e);
+    throw new RuntimeException("consumer encountered exception",e);
   }
 }
