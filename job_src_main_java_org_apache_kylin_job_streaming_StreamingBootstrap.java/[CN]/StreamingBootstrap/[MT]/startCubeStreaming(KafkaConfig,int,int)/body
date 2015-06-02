@@ -5,10 +5,14 @@
   final LinkedBlockingDeque<StreamMessage> streamQueue=new LinkedBlockingDeque<>();
   Executors.newSingleThreadExecutor().execute(new Runnable(){
     @Override public void run(){
+      int totalMessage=0;
       while (true) {
         for (        BlockingQueue<StreamMessage> queue : queues) {
           try {
             streamQueue.put(queue.take());
+            if (totalMessage++ % 10000 == 1) {
+              logger.info("Total stream message count: " + totalMessage);
+            }
           }
  catch (          InterruptedException e) {
             throw new RuntimeException(e);

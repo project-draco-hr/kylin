@@ -1,6 +1,6 @@
 {
   List<BlockingQueue<StreamMessage>> result=Lists.newArrayList();
-  for (int partitionId=0; partitionId < partitionCount && partitionId < 3; ++partitionId) {
+  for (int partitionId=0; partitionId < partitionCount; ++partitionId) {
     final Broker leadBroker=getLeadBroker(kafkaConfig,partitionId);
     final long latestOffset=KafkaRequester.getLastOffset(kafkaConfig.getTopic(),partitionId,OffsetRequest.LatestTime(),leadBroker,kafkaConfig);
     long streamingOffset=latestOffset;

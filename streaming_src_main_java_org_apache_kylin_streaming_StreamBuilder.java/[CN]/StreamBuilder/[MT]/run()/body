@@ -1,6 +1,7 @@
 {
   try {
     List<List<String>> parsedStreamMessages=null;
+    int filteredMsgCount=0;
     while (true) {
       if (parsedStreamMessages == null) {
         parsedStreamMessages=Lists.newLinkedList();
@@ -29,6 +30,9 @@
       }
       final ParsedStreamMessage parsedStreamMessage=getStreamParser().parse(streamMessage);
       if (getStreamFilter().filter(parsedStreamMessage)) {
+        if (filteredMsgCount++ % 10000 == 1) {
+          logger.info("Total stream message count: " + filteredMsgCount);
+        }
         if (startOffset > parsedStreamMessage.getOffset()) {
           startOffset=parsedStreamMessage.getOffset();
         }
