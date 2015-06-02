@@ -2,7 +2,7 @@
   ExecuteResult.State state=null;
   StringBuffer output=new StringBuffer();
   final String hiveTable=this.getOldHiveTable();
-  if (StringUtil.isNotEmpty(hiveTable)) {
+  if (StringUtils.isNotEmpty(hiveTable)) {
     final String dropHiveCMD="hive -e \"DROP TABLE IF EXISTS  " + hiveTable + ";\"";
     ShellCmdOutput shellCmdOutput=new ShellCmdOutput();
     try {
