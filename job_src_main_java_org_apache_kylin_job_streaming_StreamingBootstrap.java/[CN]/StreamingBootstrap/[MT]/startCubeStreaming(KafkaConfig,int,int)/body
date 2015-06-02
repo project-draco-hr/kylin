@@ -20,6 +20,7 @@
 );
   CubeStreamBuilder cubeStreamBuilder=new CubeStreamBuilder(streamQueue,cubeName);
   cubeStreamBuilder.setStreamParser(getStreamParser(kafkaConfig,cubeInstance.getAllColumns()));
+  cubeStreamBuilder.setStreamFilter(getStreamFilter(kafkaConfig));
   final Future<?> future=Executors.newSingleThreadExecutor().submit(cubeStreamBuilder);
   future.get();
 }

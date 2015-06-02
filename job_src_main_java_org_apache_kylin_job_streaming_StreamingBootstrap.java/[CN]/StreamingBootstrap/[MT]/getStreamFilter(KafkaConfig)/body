@@ -1,0 +1,9 @@
+{
+  if (!StringUtils.isEmpty(kafkaConfig.getFilterName())) {
+    Class clazz=Class.forName(kafkaConfig.getFilterName());
+    return (StreamFilter)clazz.newInstance();
+  }
+ else {
+    return DefaultStreamFilter.instance;
+  }
+}
