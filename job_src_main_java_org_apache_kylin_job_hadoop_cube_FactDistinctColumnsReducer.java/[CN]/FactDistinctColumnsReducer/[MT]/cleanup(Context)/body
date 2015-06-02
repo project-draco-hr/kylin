@@ -1,6 +1,6 @@
 {
   if (collectStatistics) {
     writeMapperAndCuboidStatistics(context);
-    writeCuboidStatistics(context.getConfiguration(),statisticsOutput,cuboidHLLMap,SAMPING_PERCENTAGE);
+    writeCuboidStatistics(context.getConfiguration(),new Path(statisticsOutput),cuboidHLLMap,SAMPING_PERCENTAGE);
   }
 }

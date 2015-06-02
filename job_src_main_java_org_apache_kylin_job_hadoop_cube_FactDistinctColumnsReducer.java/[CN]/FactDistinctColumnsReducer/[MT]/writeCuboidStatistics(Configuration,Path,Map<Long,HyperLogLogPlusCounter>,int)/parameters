@@ -1,4 +1,4 @@
 Configuration conf
-String outputPath
+Path outputPath
 Map<Long,HyperLogLogPlusCounter> cuboidHLLMap
 int samplingPercentage
