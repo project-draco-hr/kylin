@@ -6,4 +6,5 @@
   this.metrics=req.getAggrMetrics();
   this.metricsAggrFuncs=req.getAggrMetricsFuncs();
   this.inputScanner=inputScanner;
+  this.aggrCache=new AggregationCache();
 }

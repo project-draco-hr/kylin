@@ -1,0 +1,8 @@
+{
+  DoubleWritable d=current.get();
+  if (d == null) {
+    d=new DoubleWritable();
+    current.set(d);
+  }
+  return d;
+}

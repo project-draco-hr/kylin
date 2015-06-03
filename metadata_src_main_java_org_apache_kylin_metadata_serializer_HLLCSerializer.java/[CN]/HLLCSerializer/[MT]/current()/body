@@ -1,0 +1,8 @@
+{
+  HyperLogLogPlusCounter hllc=current.get();
+  if (hllc == null) {
+    hllc=new HyperLogLogPlusCounter(precision);
+    current.set(hllc);
+  }
+  return hllc;
+}

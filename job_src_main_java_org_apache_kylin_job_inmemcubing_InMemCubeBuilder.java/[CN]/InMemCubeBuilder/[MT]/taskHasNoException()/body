@@ -1,0 +1,4 @@
+{
+  for (int i=0; i < taskThreadExceptions.length; i++)   if (taskThreadExceptions[i] != null)   return false;
+  return true;
+}

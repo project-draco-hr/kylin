@@ -1,6 +1,7 @@
 {
-  current.clear();
-  if (value == null)   current.add("__nUlL__");
- else   current.add(value);
-  return current;
+  HyperLogLogPlusCounter hllc=current();
+  hllc.clear();
+  if (value == null)   hllc.add("__nUlL__");
+ else   hllc.add(value);
+  return hllc;
 }

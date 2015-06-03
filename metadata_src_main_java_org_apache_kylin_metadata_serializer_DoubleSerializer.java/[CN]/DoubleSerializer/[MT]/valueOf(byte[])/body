@@ -1,5 +1,6 @@
 {
-  if (value == null)   current.set(0d);
- else   current.set(Double.parseDouble(Bytes.toString(value)));
-  return current;
+  DoubleWritable d=current();
+  if (value == null)   d.set(0d);
+ else   d.set(Double.parseDouble(Bytes.toString(value)));
+  return d;
 }

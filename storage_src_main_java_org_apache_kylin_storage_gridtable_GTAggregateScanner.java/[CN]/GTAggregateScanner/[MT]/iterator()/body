@@ -1,8 +1,6 @@
 {
-  AggregationCache aggrCache=new AggregationCache();
   for (  GTRecord r : inputScanner) {
     aggrCache.aggregate(r);
   }
-  estimateSizeOfAggrCache=aggrCache.esitmateMemSize();
   return aggrCache.iterator();
 }

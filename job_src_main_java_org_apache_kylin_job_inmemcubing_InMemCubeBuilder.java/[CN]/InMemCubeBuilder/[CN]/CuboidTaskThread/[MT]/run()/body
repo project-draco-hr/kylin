@@ -3,11 +3,12 @@
     while (taskCuboidCompleted.get() < outputCuboidExpected) {
       CuboidTask task=null;
 synchronized (taskPending) {
-        while (task == null) {
+        while (task == null && taskHasNoException()) {
           task=taskPending.pollFirst();
-          if (task == null)           taskPending.wait();
+          if (task == null)           taskPending.wait(60000);
         }
       }
+      if (task == null)       break;
       CuboidResult newCuboid=buildCuboid(task.parent,task.childCuboidId);
       addChildTasks(newCuboid);
       taskCuboidCompleted.incrementAndGet();
@@ -19,6 +20,9 @@ synchronized (taskPending) {
     }
   }
  catch (  Throwable ex) {
-    if (taskCuboidCompleted.get() < outputCuboidExpected)     taskThreadExceptions[id]=ex;
+    if (taskCuboidCompleted.get() < outputCuboidExpected) {
+      logger.error("task thread exception",ex);
+      taskThreadExceptions[id]=ex;
+    }
   }
 }

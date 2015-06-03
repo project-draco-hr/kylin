@@ -1,9 +1,10 @@
 {
+  HyperLogLogPlusCounter hllc=current();
   try {
-    current.readRegisters(in);
+    hllc.readRegisters(in);
   }
  catch (  IOException e) {
     throw new RuntimeException(e);
   }
-  return current;
+  return hllc;
 }

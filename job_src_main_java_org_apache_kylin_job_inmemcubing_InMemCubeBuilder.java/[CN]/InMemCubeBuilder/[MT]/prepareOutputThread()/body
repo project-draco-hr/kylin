@@ -3,22 +3,24 @@
     public void run(){
       try {
         while (!outputPending.isEmpty()) {
-          CuboidResult result=outputPending.firstEntry().getValue();
+          CuboidResult result=outputPending.get(outputPending.firstKey());
 synchronized (result) {
-            while (result.table == null) {
+            while (result.table == null && taskHasNoException()) {
               try {
-                result.wait();
+                result.wait(60000);
               }
  catch (              InterruptedException e) {
                 logger.error("interrupted",e);
               }
             }
           }
+          if (result.table == null)           break;
           outputCuboid(result.cuboidId,result.table);
           outputPending.remove(result.cuboidId);
         }
       }
  catch (      Throwable ex) {
+        logger.error("output thread exception",ex);
         outputThreadException=ex;
       }
     }

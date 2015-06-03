@@ -1,0 +1,15 @@
+{
+  for (int i=0; i < totalSum.length; i++) {
+    if (totalSum[i] instanceof DoubleWritable) {
+      totalSum[i]=Math.round(((DoubleWritable)totalSum[i]).get());
+    }
+  }
+  logger.info(Arrays.toString(totalSum));
+  if (totalSumForSanityCheck == null) {
+    totalSumForSanityCheck=totalSum;
+    return;
+  }
+  if (Arrays.equals(totalSumForSanityCheck,totalSum) == false) {
+    throw new IllegalStateException();
+  }
+}

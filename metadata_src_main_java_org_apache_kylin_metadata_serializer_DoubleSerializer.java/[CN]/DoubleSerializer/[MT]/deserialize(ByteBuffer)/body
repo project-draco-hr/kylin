@@ -1,4 +1,5 @@
 {
-  current.set(in.getDouble());
-  return current;
+  DoubleWritable d=current();
+  d.set(in.getDouble());
+  return d;
 }

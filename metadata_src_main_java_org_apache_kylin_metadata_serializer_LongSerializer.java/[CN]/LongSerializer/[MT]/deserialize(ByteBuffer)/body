@@ -1,4 +1,5 @@
 {
-  current.set(BytesUtil.readVLong(in));
-  return current;
+  LongWritable l=current();
+  l.set(BytesUtil.readVLong(in));
+  return l;
 }

@@ -1,4 +1,5 @@
 {
+  byte[] buf=currentBuf();
   if (value == null) {
     Arrays.fill(buf,Dictionary.NULL);
     out.put(buf);

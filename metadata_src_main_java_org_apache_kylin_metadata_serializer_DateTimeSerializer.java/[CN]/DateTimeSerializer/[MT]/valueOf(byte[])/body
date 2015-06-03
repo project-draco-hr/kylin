@@ -1,5 +1,6 @@
 {
-  if (value == null)   current.set(0L);
- else   current.set(DateFormat.stringToMillis(Bytes.toString(value)));
-  return current;
+  LongWritable l=current();
+  if (value == null)   l.set(0L);
+ else   l.set(DateFormat.stringToMillis(Bytes.toString(value)));
+  return l;
 }
