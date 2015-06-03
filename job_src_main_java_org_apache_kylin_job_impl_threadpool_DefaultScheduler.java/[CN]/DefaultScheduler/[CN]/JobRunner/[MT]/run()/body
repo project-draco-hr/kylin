@@ -1,6 +1,7 @@
 {
   try {
     executable.execute(context);
+    fetcherPool.schedule(fetcher,0,TimeUnit.SECONDS);
   }
  catch (  ExecuteException e) {
     logger.error("ExecuteException job:" + executable.getId(),e);
