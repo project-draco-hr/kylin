@@ -1,0 +1,9 @@
+{
+  if (!StringUtils.isEmpty(streamingConfig.getFilterName())) {
+    Class clazz=Class.forName(streamingConfig.getFilterName());
+    return (StreamFilter)clazz.newInstance();
+  }
+ else {
+    return DefaultStreamFilter.instance;
+  }
+}

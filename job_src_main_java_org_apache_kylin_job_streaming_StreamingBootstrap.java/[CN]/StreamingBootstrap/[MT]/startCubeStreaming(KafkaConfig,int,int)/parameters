@@ -1,3 +1,0 @@
-KafkaConfig kafkaConfig
-int partitionId
-int partitionCount

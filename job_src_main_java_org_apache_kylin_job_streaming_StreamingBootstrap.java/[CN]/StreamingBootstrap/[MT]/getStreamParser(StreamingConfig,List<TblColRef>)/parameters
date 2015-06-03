@@ -1,0 +1,2 @@
+StreamingConfig streamingConfig
+List<TblColRef> columns

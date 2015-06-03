@@ -1,0 +1,10 @@
+{
+  if (!StringUtils.isEmpty(streamingConfig.getParserName())) {
+    Class clazz=Class.forName(streamingConfig.getParserName());
+    Constructor constructor=clazz.getConstructor(List.class);
+    return (StreamParser)constructor.newInstance(columns);
+  }
+ else {
+    return new JsonStreamParser(columns);
+  }
+}

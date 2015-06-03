@@ -1,13 +1,11 @@
 {
-  final KafkaConfig kafkaConfig=streamingManager.getKafkaConfig(streaming);
-  Preconditions.checkArgument(kafkaConfig != null,"cannot find kafka config:" + streaming);
-  final int partitionCount=KafkaRequester.getKafkaTopicMeta(kafkaConfig).getPartitionIds().size();
-  Preconditions.checkArgument(partitionId >= 0 && partitionId < partitionCount,"invalid partition id:" + partitionId);
-  if (!StringUtils.isEmpty(kafkaConfig.getIiName())) {
-    startIIStreaming(kafkaConfig,partitionId,partitionCount);
+  final StreamingConfig streamingConfig=streamingManager.getKafkaConfig(streaming);
+  Preconditions.checkArgument(streamingConfig != null,"cannot find kafka config:" + streaming);
+  if (!StringUtils.isEmpty(streamingConfig.getIiName())) {
+    startIIStreaming(streamingConfig,partitionId);
   }
- else   if (!StringUtils.isEmpty(kafkaConfig.getCubeName())) {
-    startCubeStreaming(kafkaConfig,partitionId,partitionCount);
+ else   if (!StringUtils.isEmpty(streamingConfig.getCubeName())) {
+    startCubeStreaming(streamingConfig,partitionId);
   }
  else {
     throw new IllegalArgumentException("no cube or ii in kafka config");

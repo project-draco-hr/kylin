@@ -1,0 +1,2 @@
+StreamingConfig streamingConfig
+int partitionId

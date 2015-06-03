@@ -1,5 +1,0 @@
-String topic
-int partitionId
-long startOffset
-List<Broker> initialBrokers
-KafkaConfig kafkaConfig
