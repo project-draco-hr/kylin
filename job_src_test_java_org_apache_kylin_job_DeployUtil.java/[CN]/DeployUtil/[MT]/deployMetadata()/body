@@ -3,6 +3,7 @@
   ResourceTool.copy(KylinConfig.createInstanceFromUri(AbstractKylinTestCase.LOCALMETA_TEST_DATA),config());
   for (  CubeInstance cube : CubeManager.getInstance(config()).listAllCubes()) {
     cube.getDescriptor().setSignature(cube.getDescriptor().calculateSignature());
-    CubeManager.getInstance(config()).updateCube(cube,null,null,null,null);
+    CubeBuilder cubeBuilder=new CubeBuilder(cube);
+    CubeManager.getInstance(config()).updateCube(cubeBuilder);
   }
 }

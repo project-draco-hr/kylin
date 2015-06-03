@@ -1,0 +1,4 @@
+{
+  this.toAddSegs=toAddSegs;
+  return this;
+}

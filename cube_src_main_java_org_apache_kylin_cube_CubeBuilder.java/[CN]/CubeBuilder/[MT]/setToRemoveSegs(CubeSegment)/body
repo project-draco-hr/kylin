@@ -1,0 +1,4 @@
+{
+  this.toRemoveSegs=toRemoveSegs;
+  return this;
+}

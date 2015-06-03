@@ -34,5 +34,7 @@
     segment.putDictResPath(ssc,sharedDict.getResourcePath());
     isFirstSegment=false;
   }
-  cube=cubeManager.updateCube(cube,null,null,cube.getSegments(),null);
+  CubeBuilder cubeBuilder=new CubeBuilder(cube);
+  cubeBuilder.setToUpdateSegs(cube.getSegments().toArray(new CubeSegment[cube.getSegments().size()]));
+  cube=cubeManager.updateCube(cubeBuilder);
 }

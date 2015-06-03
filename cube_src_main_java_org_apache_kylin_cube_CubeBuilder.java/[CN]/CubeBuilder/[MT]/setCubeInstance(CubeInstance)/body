@@ -1,0 +1,4 @@
+{
+  this.cubeInstance=cubeInstance;
+  return this;
+}

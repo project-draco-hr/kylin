@@ -29,7 +29,9 @@
       cubeManager.promoteNewlyBuiltSegments(cube,segment);
     }
  else {
-      cubeManager.updateCube(cube,null,null,Lists.newArrayList(segment),null);
+      CubeBuilder cubeBuilder=new CubeBuilder(cube);
+      cubeBuilder.setToUpdateSegs(segment);
+      cubeManager.updateCube(cubeBuilder);
     }
     return new ExecuteResult(ExecuteResult.State.SUCCEED,"succeed");
   }

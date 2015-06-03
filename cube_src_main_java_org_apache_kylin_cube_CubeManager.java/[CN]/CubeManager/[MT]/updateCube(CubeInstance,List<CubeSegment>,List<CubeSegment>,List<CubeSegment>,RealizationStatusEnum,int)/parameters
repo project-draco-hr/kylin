@@ -1,6 +1,0 @@
-CubeInstance cube
-List<CubeSegment> toAddSegs
-List<CubeSegment> toRemoveSegs
-List<CubeSegment> toUpdateSegs
-RealizationStatusEnum newStatus
-int retry

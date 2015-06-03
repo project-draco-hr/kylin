@@ -7,7 +7,9 @@
   }
   cube.setStatus(RealizationStatusEnum.DISABLED);
   try {
-    return getCubeManager().updateCube(cube,null,null,null,RealizationStatusEnum.DISABLED);
+    CubeBuilder cubeBuilder=new CubeBuilder(cube);
+    cubeBuilder.setStatus(RealizationStatusEnum.DISABLED);
+    return getCubeManager().updateCube(cubeBuilder);
   }
  catch (  IOException e) {
     cube.setStatus(ostatus);

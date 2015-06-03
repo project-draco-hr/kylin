@@ -15,7 +15,9 @@
     cube=this.releaseAllSegments(cube);
   }
   try {
-    return getCubeManager().updateCube(cube,null,null,null,RealizationStatusEnum.READY);
+    CubeBuilder cubeBuilder=new CubeBuilder(cube);
+    cubeBuilder.setStatus(RealizationStatusEnum.READY);
+    return getCubeManager().updateCube(cubeBuilder);
   }
  catch (  IOException e) {
     cube.setStatus(ostatus);

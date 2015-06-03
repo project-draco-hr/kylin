@@ -4,6 +4,8 @@
   DictionaryManager dictMgr=getDictionaryManager();
   DictionaryInfo dictInfo=dictMgr.buildDictionary(cubeDesc.getModel(),cubeDesc.getRowkey().getDictionary(col),col,factColumnsPath);
   cubeSeg.putDictResPath(col,dictInfo.getResourcePath());
-  updateCube(cubeSeg.getCubeInstance(),null,null,Lists.newArrayList(cubeSeg),null);
+  CubeBuilder cubeBuilder=new CubeBuilder(cubeSeg.getCubeInstance());
+  cubeBuilder.setToUpdateSegs(cubeSeg);
+  updateCube(cubeBuilder);
   return dictInfo;
 }

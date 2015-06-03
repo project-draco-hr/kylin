@@ -1,0 +1,43 @@
+{
+  if (cubeBuilder == null || cubeBuilder.getCubeInstance() == null)   throw new IllegalStateException();
+  CubeInstance cube=cubeBuilder.getCubeInstance();
+  logger.info("Updating cube instance '" + cube.getName() + "'");
+  if (cubeBuilder.getToAddSegs() != null)   cube.getSegments().addAll(Arrays.asList(cubeBuilder.getToAddSegs()));
+  if (cubeBuilder.getToRemoveSegs() != null)   cube.getSegments().removeAll(Arrays.asList(cubeBuilder.getToRemoveSegs()));
+  if (cubeBuilder.getToUpdateSegs() != null) {
+    for (    CubeSegment segment : cubeBuilder.getToUpdateSegs()) {
+      for (int i=0; i < cube.getSegments().size(); i++) {
+        if (cube.getSegments().get(i).getName().equals(segment.getName())) {
+          cube.getSegments().set(i,segment);
+        }
+      }
+    }
+  }
+  Collections.sort(cube.getSegments());
+  if (cubeBuilder.getStatus() != null) {
+    cube.setStatus(cubeBuilder.getStatus());
+  }
+  if (cubeBuilder.getOwner() != null) {
+    cube.setOwner(cubeBuilder.getOwner());
+  }
+  if (cubeBuilder.getCost() > 0) {
+    cube.setCost(cubeBuilder.getCost());
+  }
+  try {
+    getStore().putResource(cube.getResourcePath(),cube,CUBE_SERIALIZER);
+  }
+ catch (  IllegalStateException ise) {
+    logger.error("Get error when update cube " + cube.getName(),ise);
+    if (retry >= 3) {
+      logger.error("Retried 3 times till got error, abandoning...");
+      throw ise;
+    }
+    cube=reloadCubeLocal(cube.getName());
+    cubeBuilder.setCubeInstance(cube);
+    retry++;
+    cube=updateCube(cubeBuilder,retry);
+  }
+  cubeMap.put(cube.getName(),cube);
+  ProjectManager.getInstance(KylinConfig.getInstanceFromEnv()).clearL2Cache();
+  return cube;
+}
