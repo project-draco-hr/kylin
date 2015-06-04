@@ -5,7 +5,7 @@
   final CubeSegment segment=cubeInstance.getSegmentById(segmentId);
   if (segment != null && segment.getStatus() == SegmentStatusEnum.NEW) {
     CubeBuilder cubeBuilder=new CubeBuilder(cubeInstance);
-    cubeBuilder.setToRemoveSegs(cubeInstance.getSegments().toArray(new CubeSegment[cubeInstance.getSegments().size()]));
+    cubeBuilder.setToRemoveSegs(segment);
     getCubeManager().updateCube(cubeBuilder);
   }
   getExecutableManager().discardJob(jobId);
