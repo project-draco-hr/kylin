@@ -25,5 +25,6 @@
       return new DateStrDictionary(matchPattern,baseId);
     }
   }
+  logger.info("Using TimeStrDictionary");
   return new TimeStrDictionary();
 }
