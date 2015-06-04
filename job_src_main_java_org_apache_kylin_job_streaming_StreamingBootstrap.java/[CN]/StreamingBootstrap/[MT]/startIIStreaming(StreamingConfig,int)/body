@@ -1,5 +1,6 @@
 {
   List<KafkaClusterConfig> allClustersConfigs=streamingConfig.getKafkaClusterConfigs();
+  int clusterID=0;
   if (allClustersConfigs.size() != 1) {
     throw new RuntimeException("II streaming only support one kafka cluster");
   }
@@ -28,7 +29,7 @@
     logger.error("no htable:" + iiSegment.getStorageLocationIdentifier() + " found");
     throw new IllegalStateException("please create htable:" + iiSegment.getStorageLocationIdentifier() + " first");
   }
-  KafkaConsumer consumer=new KafkaConsumer(kafkaClusterConfig.getTopic(),partitionId,streamingOffset,kafkaClusterConfig.getBrokers(),kafkaClusterConfig,parallelism);
+  KafkaConsumer consumer=new KafkaConsumer(clusterID,kafkaClusterConfig.getTopic(),partitionId,streamingOffset,kafkaClusterConfig.getBrokers(),kafkaClusterConfig,parallelism);
   kafkaConsumers.put(getKey(streamingConfig.getName(),partitionId),consumer);
   final IIDesc iiDesc=iiSegment.getIIDesc();
   Executors.newSingleThreadExecutor().submit(consumer);

@@ -1,12 +1,14 @@
 {
   List<KafkaClusterConfig> kafkaClusterConfigs=streamingConfig.getKafkaClusterConfigs();
   final List<BlockingQueue<StreamMessage>> allClustersData=Lists.newArrayList();
+  int clusterID=0;
   for (  KafkaClusterConfig kafkaClusterConfig : kafkaClusterConfigs) {
     final int partitionCount=KafkaRequester.getKafkaTopicMeta(kafkaClusterConfig).getPartitionIds().size();
     Preconditions.checkArgument(partitionId >= 0 && partitionId < partitionCount,"invalid partition id:" + partitionId);
-    final List<BlockingQueue<StreamMessage>> oneClusterData=consume(kafkaClusterConfig,partitionCount);
+    final List<BlockingQueue<StreamMessage>> oneClusterData=consume(clusterID,kafkaClusterConfig,partitionCount);
     logger.info("Cluster {} with {} partitions",allClustersData.size(),oneClusterData.size());
     allClustersData.addAll(oneClusterData);
+    clusterID++;
   }
   final String cubeName=streamingConfig.getCubeName();
   final CubeInstance cubeInstance=CubeManager.getInstance(kylinConfig).getCube(cubeName);

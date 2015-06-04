@@ -1,0 +1,3 @@
+{
+  this(clusterID,topic,partitionId,startOffset,initialBrokers,kafkaClusterConfig,1);
+}

@@ -5,7 +5,7 @@
     final long latestOffset=KafkaRequester.getLastOffset(kafkaClusterConfig.getTopic(),partitionId,OffsetRequest.LatestTime(),leadBroker,kafkaClusterConfig);
     long streamingOffset=latestOffset;
     logger.info("submitting offset:" + streamingOffset);
-    KafkaConsumer consumer=new KafkaConsumer(kafkaClusterConfig.getTopic(),partitionId,streamingOffset,kafkaClusterConfig.getBrokers(),kafkaClusterConfig,1);
+    KafkaConsumer consumer=new KafkaConsumer(clusterID,kafkaClusterConfig.getTopic(),partitionId,streamingOffset,kafkaClusterConfig.getBrokers(),kafkaClusterConfig,1);
     Executors.newSingleThreadExecutor().submit(consumer);
     result.add(consumer.getStreamQueue(0));
   }

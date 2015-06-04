@@ -1,2 +1,3 @@
+int clusterID
 KafkaClusterConfig kafkaClusterConfig
 int partitionCount
