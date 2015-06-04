@@ -1,5 +1,5 @@
 {
-  final int BAD_THRESHOLD=2;
+  final int BAD_THRESHOLD=0;
   String matchPattern=null;
   for (  String ptn : DATE_PATTERNS) {
     matchPattern=ptn;
