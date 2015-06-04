@@ -1,0 +1,8 @@
+{
+  final String streaming="kafka_multi_test";
+  List<Integer> partitions=Lists.newArrayList(Lists.asList(0,1,new Integer[]{2,3}));
+  assertEquals(0,streamingManager.getOffset("kafka_multi_test",partitions).size());
+  for (int i=0; i < 10; i++) {
+    updateOffsetAndCompare(streaming,generateRandomOffset(partitions));
+  }
+}
