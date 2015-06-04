@@ -14,7 +14,12 @@
   MicroBatchCondition condition=new MicroBatchCondition(Integer.MAX_VALUE,batchInterval);
   long startTimestamp=cubeInstance.getDateRangeEnd() == 0 ? TimeUtil.getNextPeriodStart(System.currentTimeMillis(),(long)batchInterval) : cubeInstance.getDateRangeEnd();
   StreamBuilder cubeStreamBuilder=new StreamBuilder(allClustersData,condition,new CubeStreamConsumer(cubeName),startTimestamp);
-  cubeStreamBuilder.setStreamParser(getStreamParser(streamingConfig,cubeInstance.getAllColumns()));
+  cubeStreamBuilder.setStreamParser(getStreamParser(streamingConfig,Lists.transform(new CubeJoinedFlatTableDesc(cubeInstance.getDescriptor(),null).getColumnList(),new Function<IntermediateColumnDesc,TblColRef>(){
+    @Nullable @Override public TblColRef apply(    IntermediateColumnDesc input){
+      return input.getColRef();
+    }
+  }
+)));
   cubeStreamBuilder.setStreamFilter(getStreamFilter(streamingConfig));
   final Future<?> future=Executors.newSingleThreadExecutor().submit(cubeStreamBuilder);
   future.get();
