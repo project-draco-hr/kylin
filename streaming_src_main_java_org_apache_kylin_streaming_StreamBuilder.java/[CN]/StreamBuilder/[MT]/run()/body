@@ -25,7 +25,7 @@
           batch=MicroStreamBatch.union(batch,batches.get(i));
         }
       }
-      consumer.consume(batches.get(0));
+      consumer.consume(batch);
     }
   }
  catch (  InterruptedException e) {

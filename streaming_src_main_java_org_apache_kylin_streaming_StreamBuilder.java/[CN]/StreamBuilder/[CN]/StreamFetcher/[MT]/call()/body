@@ -24,6 +24,7 @@
       final ParsedStreamMessage parsedStreamMessage=getStreamParser().parse(streamMessage);
       if (parsedStreamMessage.getTimestamp() - microStreamBatch.getTimestamp().getFirst() > condition.getBatchInterval()) {
         streamMessageQueue.take();
+        microStreamBatch.incRawMessageCount();
         if (getStreamFilter().filter(parsedStreamMessage)) {
           if (microStreamBatch.size() >= condition.getBatchSize()) {
             return microStreamBatch;

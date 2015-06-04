@@ -3,6 +3,8 @@
     logger.info("nothing to build, skip to next iteration");
     return;
   }
+  totalConsumedMessageCount+=microStreamBatch.size();
+  totalRawMessageCount+=microStreamBatch.getRawMessageCount();
   final List<List<String>> parsedStreamMessages=microStreamBatch.getStreams();
   long startOffset=microStreamBatch.getOffset().getFirst();
   long endOffset=microStreamBatch.getOffset().getSecond();
@@ -24,4 +26,5 @@
   executorService.submit(inMemCubeBuilder).get();
   gtRecordWriter.flush();
   commitSegment(cubeSegment);
+  logger.info("Consumed {} messages out of {} raw messages",totalConsumedMessageCount,totalRawMessageCount);
 }
