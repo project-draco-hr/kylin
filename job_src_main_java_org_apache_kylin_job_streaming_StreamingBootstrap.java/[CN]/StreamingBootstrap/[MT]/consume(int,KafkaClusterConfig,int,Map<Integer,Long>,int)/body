@@ -1,0 +1,20 @@
+{
+  List<BlockingQueue<StreamMessage>> result=Lists.newArrayList();
+  for (int partitionId=0; partitionId < partitionCount; ++partitionId) {
+    final Broker leadBroker=getLeadBroker(kafkaClusterConfig,partitionId);
+    final int transferredPartitionId=partitionId + partitionOffset;
+    final long latestOffset=KafkaRequester.getLastOffset(kafkaClusterConfig.getTopic(),partitionId,OffsetRequest.LatestTime(),leadBroker,kafkaClusterConfig);
+    long streamingOffset=latestOffset;
+    if (partitionIdOffsetMap.containsKey(transferredPartitionId)) {
+      final long earliestOffset=KafkaRequester.getLastOffset(kafkaClusterConfig.getTopic(),partitionId,OffsetRequest.EarliestTime(),leadBroker,kafkaClusterConfig);
+      long committedOffset=partitionIdOffsetMap.get(transferredPartitionId);
+      Preconditions.checkArgument(committedOffset >= earliestOffset && committedOffset <= latestOffset,String.format("invalid offset:%d, earliestOffset:%d, latestOffset:%d",committedOffset,earliestOffset,latestOffset));
+      streamingOffset=committedOffset;
+    }
+    logger.info("starting offset:" + streamingOffset + " cluster id:"+ clusterID+ " partitionId:"+ partitionId+ " transferredPartitionId:"+ transferredPartitionId);
+    KafkaConsumer consumer=new KafkaConsumer(clusterID,kafkaClusterConfig.getTopic(),partitionId,streamingOffset,kafkaClusterConfig.getBrokers(),kafkaClusterConfig);
+    Executors.newSingleThreadExecutor().submit(consumer);
+    result.add(consumer.getStreamQueue(0));
+  }
+  return result;
+}

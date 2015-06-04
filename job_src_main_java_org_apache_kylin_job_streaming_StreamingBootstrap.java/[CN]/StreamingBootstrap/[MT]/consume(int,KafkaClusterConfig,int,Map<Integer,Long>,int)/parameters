@@ -1,3 +1,5 @@
 int clusterID
 KafkaClusterConfig kafkaClusterConfig
 int partitionCount
+Map<Integer,Long> partitionIdOffsetMap
+int partitionOffset

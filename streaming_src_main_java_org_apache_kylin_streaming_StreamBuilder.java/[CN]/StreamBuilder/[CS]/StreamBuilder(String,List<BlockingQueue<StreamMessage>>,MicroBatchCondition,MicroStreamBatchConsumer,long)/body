@@ -1,7 +1,9 @@
 {
+  Preconditions.checkArgument(inputs.size() > 0);
+  this.streaming=streaming;
   this.streamMessageQueues=Lists.newArrayList();
   this.consumer=Preconditions.checkNotNull(consumer);
   this.condition=condition;
   this.startTimestamp=startTimestamp;
-  init(Preconditions.checkNotNull(input));
+  init(inputs);
 }

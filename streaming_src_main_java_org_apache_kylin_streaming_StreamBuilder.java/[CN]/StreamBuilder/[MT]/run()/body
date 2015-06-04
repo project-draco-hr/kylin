@@ -3,11 +3,16 @@
     final int inputCount=streamMessageQueues.size();
     final ExecutorService executorService=Executors.newFixedThreadPool(inputCount);
     long start=startTimestamp;
+    List<Integer> partitions=Lists.newArrayList();
+    for (int i=0, partitionCount=streamMessageQueues.size(); i < partitionCount; i++) {
+      partitions.add(i);
+    }
     while (true) {
       CountDownLatch countDownLatch=new CountDownLatch(inputCount);
       ArrayList<Future<MicroStreamBatch>> futures=Lists.newArrayListWithExpectedSize(inputCount);
+      int partitionId=0;
       for (      BlockingQueue<StreamMessage> streamMessageQueue : streamMessageQueues) {
-        futures.add(executorService.submit(new StreamFetcher(streamMessageQueue,countDownLatch,start,start + condition.getBatchInterval())));
+        futures.add(executorService.submit(new StreamFetcher(partitionId++,streamMessageQueue,countDownLatch,start,start + condition.getBatchInterval())));
       }
       countDownLatch.await();
       ArrayList<MicroStreamBatch> batches=Lists.newArrayListWithExpectedSize(inputCount);
@@ -39,6 +44,13 @@
         long startTime=System.currentTimeMillis();
         consumer.consume(batch);
         logger.info("Batch build costs {} milliseconds",System.currentTimeMillis() - startTime);
+        if (batches.size() > 1) {
+          final HashMap<Integer,Long> offset=Maps.newHashMap();
+          for (          MicroStreamBatch microStreamBatch : batches) {
+            offset.put(microStreamBatch.getPartitionId(),microStreamBatch.getOffset().getSecond());
+          }
+          StreamingManager.getInstance(KylinConfig.getInstanceFromEnv()).updateOffset(streaming,offset);
+        }
       }
     }
   }

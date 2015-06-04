@@ -3,7 +3,7 @@
     MicroStreamBatch microStreamBatch=null;
     while (true) {
       if (microStreamBatch == null) {
-        microStreamBatch=new MicroStreamBatch();
+        microStreamBatch=new MicroStreamBatch(partitionId);
         clearCounter();
       }
       StreamMessage streamMessage=peek(streamMessageQueue,30000);

@@ -1,4 +1,5 @@
 {
+  this.partitionId=batch.partitionId;
   this.streams=Lists.newLinkedList(batch.streams);
   this.timestamp=Pair.newPair(batch.timestamp.getFirst(),batch.timestamp.getSecond());
   this.offset=Pair.newPair(batch.offset.getFirst(),batch.offset.getSecond());

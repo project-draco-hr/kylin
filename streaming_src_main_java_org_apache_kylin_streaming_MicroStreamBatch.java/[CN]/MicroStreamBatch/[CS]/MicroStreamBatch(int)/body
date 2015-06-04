@@ -1,4 +1,5 @@
 {
+  this.partitionId=partitionId;
   this.streams=Lists.newLinkedList();
   this.timestamp=Pair.newPair(Long.MAX_VALUE,Long.MIN_VALUE);
   this.offset=Pair.newPair(Long.MAX_VALUE,Long.MIN_VALUE);
