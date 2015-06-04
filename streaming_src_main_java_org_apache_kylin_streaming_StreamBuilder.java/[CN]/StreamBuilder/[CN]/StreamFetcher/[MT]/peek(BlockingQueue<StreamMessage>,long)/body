@@ -13,7 +13,7 @@
         logger.warn("stream queue should not be interrupted",e);
         return null;
       }
-      if (System.currentTimeMillis() - t <= timeout) {
+      if (System.currentTimeMillis() - t > timeout) {
         break;
       }
     }

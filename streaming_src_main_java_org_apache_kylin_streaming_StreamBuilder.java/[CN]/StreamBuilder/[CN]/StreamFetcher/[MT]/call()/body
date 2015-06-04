@@ -21,15 +21,15 @@
         logger.warn("streaming encountered EOF, stop building");
         return null;
       }
+      microStreamBatch.incRawMessageCount();
       final ParsedStreamMessage parsedStreamMessage=getStreamParser().parse(streamMessage);
-      final long timestamp=parsedStreamMessage.getTimestamp();
-      if (timestamp < startTimestamp) {
-        streamMessageQueue.take();
-      }
- else       if (timestamp < endTimestamp) {
-        streamMessageQueue.take();
-        microStreamBatch.incRawMessageCount();
-        if (getStreamFilter().filter(parsedStreamMessage)) {
+      if (getStreamFilter().filter(parsedStreamMessage)) {
+        final long timestamp=parsedStreamMessage.getTimestamp();
+        if (timestamp < startTimestamp) {
+          streamMessageQueue.take();
+        }
+ else         if (timestamp < endTimestamp) {
+          streamMessageQueue.take();
           if (microStreamBatch.size() >= condition.getBatchSize()) {
             return microStreamBatch;
           }
@@ -38,10 +38,11 @@
           }
         }
  else {
+          return microStreamBatch;
         }
       }
  else {
-        return microStreamBatch;
+        streamMessageQueue.take();
       }
     }
   }

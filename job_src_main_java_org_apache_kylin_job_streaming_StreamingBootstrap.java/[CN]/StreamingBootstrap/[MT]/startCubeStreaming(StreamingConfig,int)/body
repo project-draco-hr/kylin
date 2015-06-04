@@ -10,7 +10,10 @@
   }
   final String cubeName=streamingConfig.getCubeName();
   final CubeInstance cubeInstance=CubeManager.getInstance(kylinConfig).getCube(cubeName);
-  StreamBuilder cubeStreamBuilder=new StreamBuilder(allClustersData,new MicroBatchCondition(Integer.MAX_VALUE,5 * 60 * 1000),new CubeStreamConsumer(cubeName),cubeInstance.getDateRangeEnd());
+  int batchInterval=5 * 60 * 1000;
+  MicroBatchCondition condition=new MicroBatchCondition(Integer.MAX_VALUE,batchInterval);
+  long startTimestamp=cubeInstance.getDateRangeEnd() == 0 ? TimeUtil.getNextPeriodStart(System.currentTimeMillis(),(long)batchInterval) : cubeInstance.getDateRangeEnd();
+  StreamBuilder cubeStreamBuilder=new StreamBuilder(allClustersData,condition,new CubeStreamConsumer(cubeName),startTimestamp);
   cubeStreamBuilder.setStreamParser(getStreamParser(streamingConfig,cubeInstance.getAllColumns()));
   cubeStreamBuilder.setStreamFilter(getStreamFilter(streamingConfig));
   final Future<?> future=Executors.newSingleThreadExecutor().submit(cubeStreamBuilder);
