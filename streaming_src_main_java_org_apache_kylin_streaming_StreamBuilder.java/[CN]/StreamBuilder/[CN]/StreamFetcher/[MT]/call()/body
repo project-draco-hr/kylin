@@ -23,26 +23,26 @@
       }
       microStreamBatch.incRawMessageCount();
       final ParsedStreamMessage parsedStreamMessage=getStreamParser().parse(streamMessage);
-      if (getStreamFilter().filter(parsedStreamMessage)) {
-        final long timestamp=parsedStreamMessage.getTimestamp();
-        if (timestamp < startTimestamp) {
-          streamMessageQueue.take();
-        }
- else         if (timestamp < endTimestamp) {
-          streamMessageQueue.take();
+      if (parsedStreamMessage == null) {
+        throw new RuntimeException("parsedStreamMessage of " + new String(streamMessage.getRawData()) + " is null");
+      }
+      final long timestamp=parsedStreamMessage.getTimestamp();
+      if (timestamp < startTimestamp) {
+        streamMessageQueue.take();
+      }
+ else       if (timestamp < endTimestamp) {
+        streamMessageQueue.take();
+        if (parsedStreamMessage.isAccepted()) {
+          microStreamBatch.add(parsedStreamMessage);
           if (microStreamBatch.size() >= condition.getBatchSize()) {
             return microStreamBatch;
           }
- else {
-            microStreamBatch.add(parsedStreamMessage);
-          }
         }
  else {
-          return microStreamBatch;
         }
       }
  else {
-        streamMessageQueue.take();
+        return microStreamBatch;
       }
     }
   }
@@ -51,6 +51,7 @@
     throw new RuntimeException("build stream error, stop building",e);
   }
  finally {
+    logger.info("one partition sign off");
     countDownLatch.countDown();
   }
 }
