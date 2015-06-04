@@ -3,5 +3,6 @@
   this.streamMessageQueues=Lists.newArrayList();
   this.consumer=Preconditions.checkNotNull(consumer);
   this.condition=condition;
+  this.startTimestamp=startTimestamp;
   init(inputs);
 }

@@ -1,3 +1,4 @@
 BlockingQueue<StreamMessage> input
 MicroBatchCondition condition
 MicroStreamBatchConsumer consumer
+long startTimestamp

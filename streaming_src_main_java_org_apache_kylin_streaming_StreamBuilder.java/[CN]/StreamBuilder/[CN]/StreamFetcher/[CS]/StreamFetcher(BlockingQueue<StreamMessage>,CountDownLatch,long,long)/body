@@ -1,4 +1,6 @@
 {
   this.streamMessageQueue=streamMessageQueue;
   this.countDownLatch=countDownLatch;
+  this.startTimestamp=startTimestamp;
+  this.endTimestamp=endTimestamp;
 }

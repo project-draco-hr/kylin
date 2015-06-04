@@ -2,11 +2,12 @@
   try {
     final int inputCount=streamMessageQueues.size();
     final ExecutorService executorService=Executors.newFixedThreadPool(inputCount);
+    long start=startTimestamp;
     while (true) {
       CountDownLatch countDownLatch=new CountDownLatch(inputCount);
       ArrayList<Future<MicroStreamBatch>> futures=Lists.newArrayListWithExpectedSize(inputCount);
       for (      BlockingQueue<StreamMessage> streamMessageQueue : streamMessageQueues) {
-        futures.add(executorService.submit(new StreamFetcher(streamMessageQueue,countDownLatch)));
+        futures.add(executorService.submit(new StreamFetcher(streamMessageQueue,countDownLatch,start,start + condition.getBatchInterval())));
       }
       countDownLatch.await();
       ArrayList<MicroStreamBatch> batches=Lists.newArrayListWithExpectedSize(inputCount);
@@ -25,6 +26,9 @@
           batch=MicroStreamBatch.union(batch,batches.get(i));
         }
       }
+      batch.getTimestamp().setFirst(start);
+      batch.getTimestamp().setSecond(start + condition.getBatchInterval());
+      start+=condition.getBatchInterval();
       consumer.consume(batch);
     }
   }

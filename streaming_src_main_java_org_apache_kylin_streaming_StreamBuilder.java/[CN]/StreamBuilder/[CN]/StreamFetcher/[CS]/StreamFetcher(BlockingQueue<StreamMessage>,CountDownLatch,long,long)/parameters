@@ -1,2 +1,4 @@
 BlockingQueue<StreamMessage> streamMessageQueue
 CountDownLatch countDownLatch
+long startTimestamp
+long endTimestamp

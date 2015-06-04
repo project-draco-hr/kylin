@@ -22,7 +22,11 @@
         return null;
       }
       final ParsedStreamMessage parsedStreamMessage=getStreamParser().parse(streamMessage);
-      if (parsedStreamMessage.getTimestamp() - microStreamBatch.getTimestamp().getFirst() > condition.getBatchInterval()) {
+      final long timestamp=parsedStreamMessage.getTimestamp();
+      if (timestamp < startTimestamp) {
+        streamMessageQueue.take();
+      }
+ else       if (timestamp < endTimestamp) {
         streamMessageQueue.take();
         microStreamBatch.incRawMessageCount();
         if (getStreamFilter().filter(parsedStreamMessage)) {
