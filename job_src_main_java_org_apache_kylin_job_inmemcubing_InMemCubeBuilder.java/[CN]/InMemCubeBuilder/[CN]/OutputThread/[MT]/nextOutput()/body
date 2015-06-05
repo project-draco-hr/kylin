@@ -1,0 +1,18 @@
+{
+  CuboidResult result=null;
+  if (outputSequence == null) {
+    while (result == null && taskHasNoException()) {
+      result=outputPending.pollFirst(60,TimeUnit.SECONDS);
+    }
+  }
+ else {
+    Long nextCuboidId=outputSequence.get(outputSequence.firstKey());
+synchronized (nextCuboidId) {
+      while ((result=findPendingOutput(nextCuboidId)) == null && taskHasNoException()) {
+        nextCuboidId.wait(60000);
+      }
+    }
+    outputSequence.remove(result.cuboidId);
+  }
+  return result;
+}

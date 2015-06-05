@@ -4,8 +4,8 @@
     Throwable t=taskThreadExceptions[i];
     if (t != null)     errors.add(t);
   }
-  if (outputThreadException != null) {
-    errors.add(outputThreadException);
+  if (outputThread.getException() != null) {
+    errors.add(outputThread.getException());
   }
   if (errors.isEmpty()) {
     return;

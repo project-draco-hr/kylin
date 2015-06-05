@@ -5,10 +5,8 @@
   taskCuboidCompleted=new AtomicInteger(0);
   taskThreads=prepareTaskThreads();
   taskThreadExceptions=new Throwable[taskThreadCount];
-  outputPending=prepareOutputPending();
-  outputCuboidExpected=outputPending.size();
-  outputThread=prepareOutputThread();
-  outputThreadException=null;
+  outputThread=new OutputThread();
+  outputCuboidExpected=outputThread.getOutputCuboidExpected();
   baseResult=createBaseCuboid();
   taskCuboidCompleted.incrementAndGet();
   if (baseResult.nRows == 0)   return;

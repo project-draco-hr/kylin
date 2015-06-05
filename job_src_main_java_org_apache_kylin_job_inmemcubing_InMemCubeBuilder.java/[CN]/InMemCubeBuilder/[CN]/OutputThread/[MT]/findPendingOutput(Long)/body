@@ -1,0 +1,6 @@
+{
+  for (  CuboidResult r : outputPending) {
+    if (r.cuboidId == cuboidId)     return r;
+  }
+  return null;
+}

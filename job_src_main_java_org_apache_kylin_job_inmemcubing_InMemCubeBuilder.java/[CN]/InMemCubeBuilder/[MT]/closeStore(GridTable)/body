@@ -1,6 +1,11 @@
 {
   IGTStore store=gt.getStore();
   if (store instanceof Closeable) {
-    ((Closeable)store).close();
+    try {
+      ((Closeable)store).close();
+    }
+ catch (    IOException e) {
+      logger.warn("Close " + store + " exception",e);
+    }
   }
 }

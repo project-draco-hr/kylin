@@ -1,0 +1,8 @@
+{
+  super("CuboidOutput");
+  this.outputSequence=prepareOutputSequence();
+  this.outputPending=new LinkedBlockingDeque<CuboidResult>();
+  this.outputCount=0;
+  this.outputCuboidExpected=outputSequence.size();
+  if (outputOrderRequired == false)   outputSequence=null;
+}

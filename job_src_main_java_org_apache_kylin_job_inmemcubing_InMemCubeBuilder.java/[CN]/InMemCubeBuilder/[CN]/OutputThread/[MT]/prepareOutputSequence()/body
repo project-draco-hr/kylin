@@ -1,5 +1,5 @@
 {
-  TreeMap<Long,CuboidResult> result=new TreeMap<Long,CuboidResult>();
+  TreeMap<Long,Long> result=new TreeMap<Long,Long>();
   prepareOutputPendingRecursive(Cuboid.getBaseCuboidId(cubeDesc),result);
   return Collections.synchronizedSortedMap(result);
 }

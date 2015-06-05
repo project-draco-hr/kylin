@@ -2,4 +2,4 @@ long cuboidId
 GridTable table
 int nRows
 long timeSpent
-int mbBaseAggrCache
+int aggrCacheMB

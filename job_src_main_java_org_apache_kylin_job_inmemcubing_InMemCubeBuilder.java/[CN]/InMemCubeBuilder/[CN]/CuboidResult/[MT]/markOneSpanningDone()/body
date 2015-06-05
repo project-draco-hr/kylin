@@ -1,0 +1,4 @@
+{
+  spanningDone++;
+  closeIfAllDone();
+}

@@ -1,0 +1,4 @@
+{
+  outputDone=true;
+  closeIfAllDone();
+}
