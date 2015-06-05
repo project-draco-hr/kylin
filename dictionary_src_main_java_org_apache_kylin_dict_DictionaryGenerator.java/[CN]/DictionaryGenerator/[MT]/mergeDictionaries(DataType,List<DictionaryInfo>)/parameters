@@ -1,2 +1,2 @@
-DictionaryInfo targetInfo
+DataType dataType
 List<DictionaryInfo> sourceDicts

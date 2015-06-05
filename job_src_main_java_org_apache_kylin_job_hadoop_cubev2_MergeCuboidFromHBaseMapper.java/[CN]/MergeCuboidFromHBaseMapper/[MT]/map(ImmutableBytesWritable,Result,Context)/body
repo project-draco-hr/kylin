@@ -18,7 +18,13 @@
       }
       int idInSourceDict=BytesUtil.readUnsigned(splittedByteses[i + 1].value,0,splittedByteses[i + 1].length);
       int size=sourceDict.getValueBytesFromId(idInSourceDict,newKeyBuf,bufOffset);
-      int idInMergedDict=mergedDict.getIdFromValueBytes(newKeyBuf,bufOffset,size);
+      int idInMergedDict;
+      if (size < 0) {
+        idInMergedDict=mergedDict.nullId();
+      }
+ else {
+        idInMergedDict=mergedDict.getIdFromValueBytes(newKeyBuf,bufOffset,size);
+      }
       BytesUtil.writeUnsigned(idInMergedDict,newKeyBuf,bufOffset,mergedDict.getSizeOfId());
       bufOffset+=mergedDict.getSizeOfId();
     }

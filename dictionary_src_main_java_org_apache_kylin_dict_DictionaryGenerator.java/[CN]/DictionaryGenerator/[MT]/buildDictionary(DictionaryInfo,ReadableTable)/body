@@ -1,5 +1,6 @@
 {
-  logger.debug("Building dictionary " + JsonUtil.writeValueAsString(info));
+  logger.debug("Building dictionary object " + JsonUtil.writeValueAsString(info));
   ArrayList<byte[]> values=loadColumnValues(inpTable,info.getSourceColumnIndex());
-  return buildDictionaryFromValueList(info,values);
+  Dictionary<?> dict=buildDictionaryFromValueList(DataType.getInstance(info.getDataType()),values);
+  return dict;
 }

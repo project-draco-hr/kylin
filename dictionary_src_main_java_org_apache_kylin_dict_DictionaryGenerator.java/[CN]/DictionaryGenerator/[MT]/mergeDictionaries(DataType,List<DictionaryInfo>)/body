@@ -12,5 +12,6 @@
   }
   List<byte[]> valueList=new ArrayList<byte[]>();
   valueList.addAll(dedup);
-  return buildDictionaryFromValueList(targetInfo,valueList);
+  Dictionary<?> dict=buildDictionaryFromValueList(dataType,valueList);
+  return dict;
 }

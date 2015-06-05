@@ -1,4 +1,5 @@
 {
+  Preconditions.checkArgument(dicts.size() >= 2,"dicts size not valid");
   DictionaryInfo firstDictInfo=null;
   int totalSize=0;
   for (  DictionaryInfo info : dicts) {
@@ -25,6 +26,20 @@
     logger.info("Identical dictionary input " + newDictInfo.getInput() + ", reuse existing dictionary at "+ dupDict);
     return getDictionaryInfo(dupDict);
   }
-  Dictionary<?> newDict=DictionaryGenerator.mergeDictionaries(newDictInfo,dicts);
-  return trySaveNewDict(newDict,newDictInfo);
+  boolean identicalSourceDicts=true;
+  for (int i=1; i < dicts.size(); ++i) {
+    if (!dicts.get(0).getDictionaryObject().equals(dicts.get(i).getDictionaryObject())) {
+      identicalSourceDicts=false;
+      break;
+    }
+  }
+  if (identicalSourceDicts) {
+    logger.info("Use one of the merging dictionaries directly");
+    return dicts.get(0);
+  }
+ else {
+    Dictionary<?> newDict=DictionaryGenerator.mergeDictionaries(DataType.getInstance(newDictInfo.getDataType()),dicts);
+    newDictInfo.setCardinality(newDict.getSize());
+    return trySaveNewDict(newDict,newDictInfo);
+  }
 }
