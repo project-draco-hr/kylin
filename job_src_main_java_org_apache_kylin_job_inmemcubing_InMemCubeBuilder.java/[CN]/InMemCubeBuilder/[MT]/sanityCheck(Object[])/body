@@ -4,7 +4,6 @@
       totalSum[i]=Math.round(((DoubleWritable)totalSum[i]).get());
     }
   }
-  logger.info(Arrays.toString(totalSum));
   if (totalSumForSanityCheck == null) {
     totalSumForSanityCheck=totalSum;
     return;
