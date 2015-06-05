@@ -1,6 +1,8 @@
 {
   LinkedBlockingDeque<StreamMessage> queue=new LinkedBlockingDeque<>();
-  StreamBuilder cubeStreamBuilder=new StreamBuilder(CUBE_NAME,queue,new MicroBatchCondition(Integer.MAX_VALUE,30 * 1000),new CubeStreamConsumer(CUBE_NAME),System.currentTimeMillis());
+  List<BlockingQueue<StreamMessage>> queues=Lists.newArrayList();
+  queues.add(queue);
+  StreamBuilder cubeStreamBuilder=StreamBuilder.newPeriodicalStreamBuilder(CUBE_NAME,queues,new CubeStreamConsumer(CUBE_NAME),System.currentTimeMillis(),30L * 1000);
   final Future<?> future=Executors.newSingleThreadExecutor().submit(cubeStreamBuilder);
   loadDataFromLocalFile(queue,100000);
   future.get();

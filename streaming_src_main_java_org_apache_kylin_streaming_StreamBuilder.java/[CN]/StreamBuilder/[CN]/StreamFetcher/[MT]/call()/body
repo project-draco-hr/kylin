@@ -26,23 +26,21 @@
       if (parsedStreamMessage == null) {
         throw new RuntimeException("parsedStreamMessage of " + new String(streamMessage.getRawData()) + " is null");
       }
-      final long timestamp=parsedStreamMessage.getTimestamp();
-      if (timestamp < startTimestamp) {
-        streamMessageQueue.take();
-      }
- else       if (timestamp < endTimestamp) {
-        streamMessageQueue.take();
-        if (parsedStreamMessage.isAccepted()) {
+      final BatchCondition.Result result=condition.apply(parsedStreamMessage);
+      if (parsedStreamMessage.isAccepted()) {
+        if (result == BatchCondition.Result.ACCEPT) {
+          streamMessageQueue.take();
           microStreamBatch.add(parsedStreamMessage);
-          if (microStreamBatch.size() >= condition.getBatchSize()) {
-            return microStreamBatch;
-          }
         }
- else {
+ else         if (result == BatchCondition.Result.DISCARD) {
+          streamMessageQueue.take();
+        }
+ else         if (result == BatchCondition.Result.REJECT) {
+          return microStreamBatch;
         }
       }
  else {
-        return microStreamBatch;
+        streamMessageQueue.take();
       }
     }
   }

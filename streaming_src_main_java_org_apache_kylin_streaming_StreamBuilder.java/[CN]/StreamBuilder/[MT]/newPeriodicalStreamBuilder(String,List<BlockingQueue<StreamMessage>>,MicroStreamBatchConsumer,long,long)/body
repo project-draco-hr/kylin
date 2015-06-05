@@ -1,0 +1,3 @@
+{
+  return new StreamBuilder(streaming,inputs,consumer,startTimestamp,batchInterval);
+}

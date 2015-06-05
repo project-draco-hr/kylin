@@ -12,7 +12,7 @@
       ArrayList<Future<MicroStreamBatch>> futures=Lists.newArrayListWithExpectedSize(inputCount);
       int partitionId=0;
       for (      BlockingQueue<StreamMessage> streamMessageQueue : streamMessageQueues) {
-        futures.add(executorService.submit(new StreamFetcher(partitionId++,streamMessageQueue,countDownLatch,start,start + condition.getBatchInterval())));
+        futures.add(executorService.submit(new StreamFetcher(partitionId++,streamMessageQueue,countDownLatch,generateBatchCondition(start))));
       }
       countDownLatch.await();
       ArrayList<MicroStreamBatch> batches=Lists.newArrayListWithExpectedSize(inputCount);
@@ -31,9 +31,9 @@
           batch=MicroStreamBatch.union(batch,batches.get(i));
         }
       }
-      batch.getTimestamp().setFirst(start);
-      batch.getTimestamp().setSecond(start + condition.getBatchInterval());
-      start+=condition.getBatchInterval();
+      if (batchInterval > 0) {
+        start+=batchInterval;
+      }
       if (batch.size() == 0) {
         logger.info("nothing to build, skip to next iteration after sleeping 10s");
         Thread.sleep(10000);

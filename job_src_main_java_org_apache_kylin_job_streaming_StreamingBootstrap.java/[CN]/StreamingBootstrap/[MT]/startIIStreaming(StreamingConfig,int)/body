@@ -35,7 +35,7 @@
   Executors.newSingleThreadExecutor().submit(consumer);
   final ExecutorService streamingBuilderPool=Executors.newFixedThreadPool(parallelism);
   for (int i=startShard; i < endShard; ++i) {
-    final StreamBuilder task=new StreamBuilder(streamingConfig.getName(),consumer.getStreamQueue(i % parallelism),new MicroBatchCondition(iiDesc.getSliceSize(),Integer.MAX_VALUE),new IIStreamConsumer(streamingConfig.getName(),iiSegment.getStorageLocationIdentifier(),iiDesc,i),0L);
+    final StreamBuilder task=StreamBuilder.newLimitedSizeStreamBuilder(streamingConfig.getName(),consumer.getStreamQueue(i % parallelism),new IIStreamConsumer(streamingConfig.getName(),iiSegment.getStorageLocationIdentifier(),iiDesc,i),0L,iiDesc.getSliceSize());
     task.setStreamParser(getStreamParser(streamingConfig,ii.getDescriptor().listAllColumns()));
     if (i == endShard - 1) {
       streamingBuilderPool.submit(task).get();

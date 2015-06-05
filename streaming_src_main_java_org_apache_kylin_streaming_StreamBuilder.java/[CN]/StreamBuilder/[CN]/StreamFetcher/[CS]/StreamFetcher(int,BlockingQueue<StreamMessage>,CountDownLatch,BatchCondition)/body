@@ -1,0 +1,6 @@
+{
+  this.partitionId=partitionId;
+  this.streamMessageQueue=streamMessageQueue;
+  this.countDownLatch=countDownLatch;
+  this.condition=condition;
+}

@@ -1,0 +1,5 @@
+String streaming
+BlockingQueue<StreamMessage> input
+MicroStreamBatchConsumer consumer
+long startTimestamp
+int batchSize

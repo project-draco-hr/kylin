@@ -1,0 +1,11 @@
+{
+  if (message.getTimestamp() < startTime) {
+    return Result.DISCARD;
+  }
+ else   if (message.getTimestamp() < endTime) {
+    return Result.ACCEPT;
+  }
+ else {
+    return Result.REJECT;
+  }
+}

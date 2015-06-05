@@ -1,0 +1,10 @@
+{
+  Preconditions.checkArgument(inputs.size() > 0);
+  this.streaming=streaming;
+  this.streamMessageQueues=Lists.newArrayList();
+  this.consumer=Preconditions.checkNotNull(consumer);
+  this.startTimestamp=startTimestamp;
+  this.batchInterval=batchInterval;
+  this.batchSize=-1;
+  init(inputs);
+}

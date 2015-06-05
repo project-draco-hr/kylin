@@ -1,0 +1,9 @@
+{
+  if (count < limit) {
+    count++;
+    return Result.ACCEPT;
+  }
+ else {
+    return Result.REJECT;
+  }
+}

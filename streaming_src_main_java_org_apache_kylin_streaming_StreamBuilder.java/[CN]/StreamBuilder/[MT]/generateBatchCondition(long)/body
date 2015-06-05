@@ -1,0 +1,8 @@
+{
+  if (batchInterval > 0) {
+    return new TimePeriodCondition(startTimestamp,startTimestamp + batchInterval);
+  }
+ else {
+    return new LimitedSizeCondition(batchSize);
+  }
+}
