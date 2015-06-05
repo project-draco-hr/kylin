@@ -1,4 +1,6 @@
 {
-  String[] sampleCubeDescs=new String[]{"test_kylin_cube_with_slr_desc","test_kylin_cube_with_slr_left_join_desc","test_kylin_cube_without_slr_desc","test_kylin_cube_without_slr_left_join_desc"};
-  for (  String name : sampleCubeDescs)   checkCubeDesc(name);
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  MetadataManager.getInstance(config).reload();
+  CubeDescManager.clearCache();
+  CubeDescManager.getInstance(config);
 }

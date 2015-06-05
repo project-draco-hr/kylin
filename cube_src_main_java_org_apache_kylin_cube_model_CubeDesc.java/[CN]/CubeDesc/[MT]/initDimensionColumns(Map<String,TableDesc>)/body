@@ -41,11 +41,31 @@
           initDerivedMap(hostCols[find],DeriveType.PK_FK,dim,derivedCol);
         }
       }
-      for (int i=0; i < pk.length; i++) {
-        int find=ArrayUtils.indexOf(hostCols,pk[i]);
-        if (find >= 0) {
-          TblColRef derivedCol=initDimensionColRef(fk[i]);
-          initDerivedMap(hostCols[find],DeriveType.PK_FK,dim,derivedCol);
+    }
+  }
+{
+    List<TblColRef> derivedCols=Lists.newArrayList();
+    for (    TblColRef col : dimensionColumns) {
+      if (isDerived(col) == true)       derivedCols.add(col);
+    }
+    if (derivedCols.size() > 0) {
+      dimensionColumns.removeAll(derivedCols);
+    }
+  }
+{
+    for (    DimensionDesc dim : dimensions) {
+      if (dim.isHierarchy()) {
+        for (int i=0; i < dim.getColumnRefs().length; i++) {
+          TblColRef colRef=dim.getColumnRefs()[i];
+          if (isDerived(colRef)) {
+            TblColRef[] hostCols=derivedToHostMap.get(colRef).columns;
+            if (hostCols.length == 1) {
+              dim.getHierarchy()[i].setColumnRef(hostCols[0]);
+            }
+ else {
+              throw new IllegalStateException();
+            }
+          }
         }
       }
     }
