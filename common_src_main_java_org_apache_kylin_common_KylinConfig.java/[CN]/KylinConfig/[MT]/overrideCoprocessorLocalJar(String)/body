@@ -1,3 +1,4 @@
 {
+  logger.info("override " + COPROCESSOR_LOCAL_JAR + " to "+ path);
   System.setProperty(COPROCESSOR_LOCAL_JAR,path);
 }
