@@ -7,7 +7,8 @@
   List<byte[]> values=new ArrayList<byte[]>();
   values.add(new byte[]{101,101,101});
   values.add(new byte[]{102,102,102});
-  Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueList(newDictInfo,values);
+  Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueList(DataType.getInstance(newDictInfo.getDataType()),values);
+  newDictInfo.setCardinality(dict.getSize());
   dictionaryManager.trySaveNewDict(dict,newDictInfo);
   ((TrieDictionary)dict).dump(System.out);
   return newDictInfo;

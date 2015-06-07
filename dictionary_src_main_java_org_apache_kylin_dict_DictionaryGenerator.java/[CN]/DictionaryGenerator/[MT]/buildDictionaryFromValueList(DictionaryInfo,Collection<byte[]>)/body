@@ -1,5 +1,0 @@
-{
-  Dictionary<?> dict=buildDictionaryFromValueList(DataType.getInstance(info.getDataType()),values);
-  info.setCardinality(dict.getSize());
-  return dict;
-}
