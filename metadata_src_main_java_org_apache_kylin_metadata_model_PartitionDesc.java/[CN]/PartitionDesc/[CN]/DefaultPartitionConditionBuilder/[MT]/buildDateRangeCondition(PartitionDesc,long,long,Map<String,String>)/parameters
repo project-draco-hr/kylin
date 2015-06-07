@@ -1,0 +1,4 @@
+PartitionDesc partDesc
+long startInclusive
+long endExclusive
+Map<String,String> tableAlias
