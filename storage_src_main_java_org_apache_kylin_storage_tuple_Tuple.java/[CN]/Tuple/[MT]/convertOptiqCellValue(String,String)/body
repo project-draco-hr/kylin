@@ -2,7 +2,7 @@
   if (strValue == null)   return null;
   if ((strValue.equals("") || strValue.equals("\\N")) && !dataType.equals("string"))   return null;
   if ("date".equals(dataType)) {
-    Date dateValue=DateStrDictionary.stringToDate(strValue);
+    Date dateValue=DateFormat.stringToDate(strValue);
     long millis=dateValue.getTime();
     long days=millis / (1000 * 3600 * 24);
     return Integer.valueOf((int)days);
@@ -26,7 +26,7 @@
     return new BigDecimal(strValue);
   }
  else   if ("timestamp".equals(dataType)) {
-    return Long.valueOf(DateStrDictionary.stringToMillis(strValue));
+    return Long.valueOf(DateFormat.stringToMillis(strValue));
   }
  else   if ("float".equals(dataType)) {
     return Float.valueOf(strValue);
