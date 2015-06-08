@@ -1,0 +1,8 @@
+{
+  Preconditions.checkArgument(queues.size() > 0);
+  this.batchCondition=new TimePeriodCondition(startTime,endTime);
+  this.streaming=streaming;
+  this.queues=queues;
+  this.consumer=Preconditions.checkNotNull(consumer);
+  this.streamParser=streamParser;
+}

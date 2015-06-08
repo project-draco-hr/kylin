@@ -1,0 +1,28 @@
+{
+  final String cubeName=streamingConfig.getCubeName();
+  final CubeInstance cubeInstance=CubeManager.getInstance(kylinConfig).getCube(cubeName);
+  final StreamParser streamParser=getStreamParser(streamingConfig,Lists.transform(new CubeJoinedFlatTableDesc(cubeInstance.getDescriptor(),null).getColumnList(),new Function<IntermediateColumnDesc,TblColRef>(){
+    @Nullable @Override public TblColRef apply(    IntermediateColumnDesc input){
+      return input.getColRef();
+    }
+  }
+));
+  final int batchInterval=5 * 60 * 1000;
+  startTimestamp=TimeUtil.getNextPeriodStart(startTimestamp,batchInterval);
+  endTimestamp=TimeUtil.getNextPeriodStart(endTimestamp,batchInterval);
+  final List<BlockingQueue<StreamMessage>> queues=Lists.newLinkedList();
+  int clusterId=0;
+  for (  KafkaClusterConfig kafkaClusterConfig : streamingConfig.getKafkaClusterConfigs()) {
+    HashMap<Integer,Long> partitionIdOffsetMap=Maps.newHashMap();
+    final int partitionCount=KafkaRequester.getKafkaTopicMeta(kafkaClusterConfig).getPartitionIds().size();
+    for (int i=0; i < partitionCount; ++i) {
+      partitionIdOffsetMap.put(i,StreamingUtil.findClosestOffsetWithDataTimestamp(kafkaClusterConfig,i,startTimestamp,streamParser));
+    }
+    final List<BlockingQueue<StreamMessage>> oneClusterQueue=consume(clusterId,kafkaClusterConfig,partitionCount,partitionIdOffsetMap,0);
+    queues.addAll(oneClusterQueue);
+    logger.info("Cluster {} with {} partitions",clusterId,oneClusterQueue.size());
+  }
+  logger.info(String.format("starting one off streaming build with timestamp{%d, %d}",startTimestamp,endTimestamp));
+  OneOffStreamBuilder oneOffStreamBuilder=new OneOffStreamBuilder(streamingConfig.getName(),queues,streamParser,new CubeStreamConsumer(cubeName),startTimestamp,endTimestamp);
+  Executors.newSingleThreadExecutor().submit(oneOffStreamBuilder).get();
+}

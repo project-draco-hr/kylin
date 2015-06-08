@@ -1,8 +1,8 @@
 {
   List<BlockingQueue<StreamMessage>> result=Lists.newArrayList();
   for (int partitionId=0; partitionId < partitionCount; ++partitionId) {
-    final Broker leadBroker=getLeadBroker(kafkaClusterConfig,partitionId);
-    final int transferredPartitionId=partitionId + partitionOffset;
+    final Broker leadBroker=StreamingUtil.getLeadBroker(kafkaClusterConfig,partitionId);
+    final int transferredPartitionId=partitionId + partitionIdOffset;
     final long latestOffset=KafkaRequester.getLastOffset(kafkaClusterConfig.getTopic(),partitionId,OffsetRequest.LatestTime(),leadBroker,kafkaClusterConfig);
     long streamingOffset=latestOffset;
     if (partitionIdOffsetMap.containsKey(transferredPartitionId)) {

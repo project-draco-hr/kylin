@@ -1,0 +1,20 @@
+{
+  final StreamingConfig streamingConfig=streamingManager.getStreamingConfig(streaming);
+  Preconditions.checkArgument(streamingConfig != null,"cannot find kafka config:" + streaming);
+  if (!StringUtils.isEmpty(streamingConfig.getIiName())) {
+    startIIStreaming(streamingConfig,partitionId);
+  }
+ else   if (!StringUtils.isEmpty(streamingConfig.getCubeName())) {
+    if (bootstrapConfig.isOneOff()) {
+      Preconditions.checkArgument(bootstrapConfig.getStart() != 0);
+      Preconditions.checkArgument(bootstrapConfig.getEnd() != 0);
+      startOneOffCubeStreaming(streamingConfig,bootstrapConfig.getStart(),bootstrapConfig.getEnd());
+    }
+ else {
+      startCubeStreaming(streamingConfig,partitionId);
+    }
+  }
+ else {
+    throw new IllegalArgumentException("no cube or ii in kafka config");
+  }
+}

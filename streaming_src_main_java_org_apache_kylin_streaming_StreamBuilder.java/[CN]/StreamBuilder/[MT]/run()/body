@@ -12,7 +12,7 @@
       ArrayList<Future<MicroStreamBatch>> futures=Lists.newArrayListWithExpectedSize(inputCount);
       int partitionId=0;
       for (      BlockingQueue<StreamMessage> streamMessageQueue : streamMessageQueues) {
-        futures.add(executorService.submit(new StreamFetcher(partitionId++,streamMessageQueue,countDownLatch,generateBatchCondition(start))));
+        futures.add(executorService.submit(new StreamFetcher(partitionId++,streamMessageQueue,countDownLatch,generateBatchCondition(start),getStreamParser())));
       }
       countDownLatch.await();
       ArrayList<MicroStreamBatch> batches=Lists.newArrayListWithExpectedSize(inputCount);
@@ -28,8 +28,14 @@
       MicroStreamBatch batch=batches.get(0);
       if (batches.size() > 1) {
         for (int i=1; i < inputCount; i++) {
-          if (batches.get(i).size() > 0)           batch=MicroStreamBatch.union(batch,batches.get(i));
+          if (batches.get(i).size() > 0) {
+            batch=MicroStreamBatch.union(batch,batches.get(i));
+          }
         }
+      }
+      if (batches.size() > 1) {
+        batch.getTimestamp().setFirst(start);
+        batch.getTimestamp().setSecond(start + batchInterval);
       }
       if (batchInterval > 0) {
         start+=batchInterval;

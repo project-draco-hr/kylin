@@ -1,0 +1,3 @@
+StreamingConfig streamingConfig
+long startTimestamp
+long endTimestamp

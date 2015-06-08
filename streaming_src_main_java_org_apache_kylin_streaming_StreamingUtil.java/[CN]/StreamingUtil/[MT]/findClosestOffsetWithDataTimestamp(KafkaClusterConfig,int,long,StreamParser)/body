@@ -1,0 +1,8 @@
+{
+  final String topic=kafkaClusterConfig.getTopic();
+  final Broker leadBroker=Preconditions.checkNotNull(getLeadBroker(kafkaClusterConfig,partitionId),"unable to find leadBroker with config:" + kafkaClusterConfig + " partitionId:"+ partitionId);
+  final long earliestOffset=KafkaRequester.getLastOffset(topic,partitionId,OffsetRequest.EarliestTime(),leadBroker,kafkaClusterConfig);
+  final long latestOffset=KafkaRequester.getLastOffset(topic,partitionId,OffsetRequest.LatestTime(),leadBroker,kafkaClusterConfig);
+  logger.info(String.format("topic: %s, partitionId: %d, try to find closest offset with timestamp: %d between offset {%d, %d}",topic,partitionId,timestamp,earliestOffset,latestOffset));
+  return binarySearch(kafkaClusterConfig,partitionId,earliestOffset,latestOffset,timestamp,streamParser);
+}

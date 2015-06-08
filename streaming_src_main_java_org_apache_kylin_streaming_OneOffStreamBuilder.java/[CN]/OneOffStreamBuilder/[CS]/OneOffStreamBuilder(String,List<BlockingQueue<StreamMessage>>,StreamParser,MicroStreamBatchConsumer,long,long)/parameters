@@ -1,0 +1,6 @@
+String streaming
+List<BlockingQueue<StreamMessage>> queues
+StreamParser streamParser
+MicroStreamBatchConsumer consumer
+long startTime
+long endTime

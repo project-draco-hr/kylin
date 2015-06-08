@@ -2,25 +2,25 @@
   List<KafkaClusterConfig> kafkaClusterConfigs=streamingConfig.getKafkaClusterConfigs();
   final List<BlockingQueue<StreamMessage>> allClustersData=Lists.newArrayList();
   ArrayList<Integer> allPartitions=Lists.newArrayList();
-  int partitionOffset=0;
+  int partitionIdOffset=0;
   for (  KafkaClusterConfig kafkaClusterConfig : kafkaClusterConfigs) {
     final int partitionCount=KafkaRequester.getKafkaTopicMeta(kafkaClusterConfig).getPartitionIds().size();
     for (int i=0; i < partitionCount; i++) {
-      allPartitions.add(i + partitionOffset);
+      allPartitions.add(i + partitionIdOffset);
     }
-    partitionOffset+=partitionCount;
+    partitionIdOffset+=partitionCount;
   }
   final Map<Integer,Long> partitionIdOffsetMap=streamingManager.getOffset(streamingConfig.getName(),allPartitions);
   int clusterID=0;
-  partitionOffset=0;
+  partitionIdOffset=0;
   for (  KafkaClusterConfig kafkaClusterConfig : kafkaClusterConfigs) {
     final int partitionCount=KafkaRequester.getKafkaTopicMeta(kafkaClusterConfig).getPartitionIds().size();
     Preconditions.checkArgument(partitionId >= 0 && partitionId < partitionCount,"invalid partition id:" + partitionId);
-    final List<BlockingQueue<StreamMessage>> oneClusterData=consume(clusterID,kafkaClusterConfig,partitionCount,partitionIdOffsetMap,partitionOffset);
+    final List<BlockingQueue<StreamMessage>> oneClusterData=consume(clusterID,kafkaClusterConfig,partitionCount,partitionIdOffsetMap,partitionIdOffset);
     logger.info("Cluster {} with {} partitions",allClustersData.size(),oneClusterData.size());
     allClustersData.addAll(oneClusterData);
     clusterID++;
-    partitionOffset+=partitionCount;
+    partitionIdOffset+=partitionCount;
   }
   final String cubeName=streamingConfig.getCubeName();
   final CubeInstance cubeInstance=CubeManager.getInstance(kylinConfig).getCube(cubeName);

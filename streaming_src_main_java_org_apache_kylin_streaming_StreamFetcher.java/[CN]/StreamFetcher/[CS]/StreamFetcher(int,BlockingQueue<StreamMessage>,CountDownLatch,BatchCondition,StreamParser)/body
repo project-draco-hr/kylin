@@ -3,4 +3,5 @@
   this.streamMessageQueue=streamMessageQueue;
   this.countDownLatch=countDownLatch;
   this.condition=condition;
+  this.streamParser=streamParser;
 }

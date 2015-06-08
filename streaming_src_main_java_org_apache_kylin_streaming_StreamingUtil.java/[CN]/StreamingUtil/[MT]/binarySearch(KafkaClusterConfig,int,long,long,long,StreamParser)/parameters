@@ -1,0 +1,6 @@
+KafkaClusterConfig kafkaClusterConfig
+int partitionId
+long startOffset
+long endOffset
+long targetTimestamp
+StreamParser streamParser

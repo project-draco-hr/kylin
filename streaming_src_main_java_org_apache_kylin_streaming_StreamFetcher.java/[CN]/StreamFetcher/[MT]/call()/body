@@ -17,12 +17,11 @@
         }
       }
       if (streamMessage.getOffset() < 0) {
-        consumer.stop();
         logger.warn("streaming encountered EOF, stop building");
         return null;
       }
       microStreamBatch.incRawMessageCount();
-      final ParsedStreamMessage parsedStreamMessage=getStreamParser().parse(streamMessage);
+      final ParsedStreamMessage parsedStreamMessage=streamParser.parse(streamMessage);
       if (parsedStreamMessage == null) {
         throw new RuntimeException("parsedStreamMessage of " + new String(streamMessage.getRawData()) + " is null");
       }
