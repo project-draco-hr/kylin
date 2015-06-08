@@ -8,7 +8,7 @@
  else   if (str.length() == 19) {
     return stringToDate(str,DEFAULT_DATETIME_PATTERN_WITHOUT_MILLISECONDS).getTime();
   }
- else   if (str.length() == 23) {
+ else   if (str.length() > 19) {
     return stringToDate(str,DEFAULT_DATETIME_PATTERN_WITH_MILLISECONDS).getTime();
   }
  else {

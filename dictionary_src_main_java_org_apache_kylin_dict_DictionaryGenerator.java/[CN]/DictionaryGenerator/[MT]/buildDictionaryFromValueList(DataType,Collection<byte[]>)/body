@@ -5,7 +5,8 @@
   int nSamples=5;
   ArrayList samples=new ArrayList();
   if (dataType.isDateTimeFamily()) {
-    dict=buildDateTimeDict(values,baseId,nSamples,samples);
+    if (dataType.isDate())     dict=buildDateDict(values,baseId,nSamples,samples);
+ else     dict=new TimeStrDictionary();
   }
  else   if (dataType.isNumberFamily()) {
     dict=buildNumberDict(values,baseId,nSamples,samples);

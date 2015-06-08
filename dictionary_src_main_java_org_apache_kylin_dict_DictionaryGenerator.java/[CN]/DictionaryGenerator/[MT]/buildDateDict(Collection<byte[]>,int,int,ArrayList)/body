@@ -13,7 +13,7 @@
         if (samples.size() < nSamples && samples.contains(str) == false)         samples.add(str);
       }
  catch (      ParseException e) {
-        logger.info("Unrecognized datetime value: " + str);
+        logger.info("Unrecognized date value: " + str);
         badCount++;
         if (badCount > BAD_THRESHOLD) {
           matchPattern=null;
@@ -25,6 +25,5 @@
       return new DateStrDictionary(matchPattern,baseId);
     }
   }
-  logger.info("Using TimeStrDictionary");
-  return new TimeStrDictionary();
+  throw new IllegalStateException("Unrecognized datetime value");
 }

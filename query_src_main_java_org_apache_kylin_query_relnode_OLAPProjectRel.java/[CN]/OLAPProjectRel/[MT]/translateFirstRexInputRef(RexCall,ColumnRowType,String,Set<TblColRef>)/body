@@ -1,0 +1,12 @@
+{
+  for (  RexNode operand : call.getOperands()) {
+    if (operand instanceof RexInputRef) {
+      return translateRexInputRef((RexInputRef)operand,inputColumnRowType,fieldName,sourceCollector);
+    }
+    if (operand instanceof RexCall) {
+      TblColRef r=translateFirstRexInputRef((RexCall)operand,inputColumnRowType,fieldName,sourceCollector);
+      if (r != null)       return r;
+    }
+  }
+  return null;
+}

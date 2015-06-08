@@ -5,7 +5,7 @@
     return dateToEpicDays(strValue);
   }
  else   if ("timestamp".equals(dataTypeName) || "datetime".equals(dataTypeName)) {
-    return Long.parseLong(strValue);
+    return Long.valueOf(DateFormat.stringToMillis(strValue));
   }
  else   if ("tinyint".equals(dataTypeName)) {
     return Byte.valueOf(strValue);
@@ -24,9 +24,6 @@
   }
  else   if ("decimal".equals(dataTypeName)) {
     return new BigDecimal(strValue);
-  }
- else   if ("timestamp".equals(dataTypeName)) {
-    return Long.valueOf(DateFormat.stringToMillis(strValue));
   }
  else   if ("float".equals(dataTypeName)) {
     return Float.valueOf(strValue);
