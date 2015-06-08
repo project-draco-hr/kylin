@@ -1,6 +1,0 @@
-{
-  CubeManager cubeManager=CubeManager.getInstance(getTestConfig());
-  CubeInstance cube=cubeManager.getCube("test_kylin_cube_with_slr_ready_2_segments");
-  CubeSegment newSeg=cubeManager.autoMergeCubeSegments(cube);
-  assertNotNull(newSeg);
-}

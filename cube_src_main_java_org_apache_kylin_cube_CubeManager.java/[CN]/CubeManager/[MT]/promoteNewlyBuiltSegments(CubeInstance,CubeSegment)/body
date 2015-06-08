@@ -1,5 +1,5 @@
 {
-  List<CubeSegment> tobe=calculateToBeSegments(cube);
+  List<CubeSegment> tobe=calculateToBeSegments(cube,false);
   for (  CubeSegment seg : newSegments) {
     if (tobe.contains(seg) == false)     throw new IllegalStateException("For cube " + cube + ", segment "+ seg+ " is expected but not in the tobe "+ tobe);
     if (StringUtils.isBlank(seg.getStorageLocationIdentifier()))     throw new IllegalStateException("For cube " + cube + ", segment "+ seg+ " missing StorageLocationIdentifier");

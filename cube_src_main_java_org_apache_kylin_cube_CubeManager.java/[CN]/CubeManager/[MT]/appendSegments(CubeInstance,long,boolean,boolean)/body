@@ -1,18 +1,10 @@
 {
-  if (checkNoBuilding)   checkNoBuildingSegment(cube);
-  CubeSegment newSegment;
+  long startDate=0;
   if (cube.getDescriptor().getModel().getPartitionDesc().isPartitioned()) {
-    long startDate=calculateStartDateForAppendSegment(cube);
-    newSegment=newSegment(cube,startDate,endDate);
+    startDate=calculateStartDateForAppendSegment(cube);
   }
  else {
-    newSegment=newSegment(cube,0,Long.MAX_VALUE);
+    endDate=Long.MAX_VALUE;
   }
-  validateNewSegments(cube,newSegment);
-  if (saveChange) {
-    CubeBuilder cubeBuilder=new CubeBuilder(cube);
-    cubeBuilder.setToAddSegs(newSegment);
-    updateCube(cubeBuilder);
-  }
-  return newSegment;
+  return appendSegments(cube,startDate,endDate,strictChecking,saveChange);
 }

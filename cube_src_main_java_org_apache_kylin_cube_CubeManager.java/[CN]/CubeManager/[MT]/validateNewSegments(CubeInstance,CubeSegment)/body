@@ -1,7 +1,3 @@
 {
-  List<CubeSegment> tobe=calculateToBeSegments(cube,newSegments);
-  List<CubeSegment> newList=Arrays.asList(newSegments);
-  if (tobe.containsAll(newList) == false) {
-    throw new IllegalStateException("For cube " + cube + ", the new segments "+ newList+ " do not fit in its current "+ cube.getSegments()+ "; the resulted tobe is "+ tobe);
-  }
+  validateNewSegments(cube,true,newSegments);
 }

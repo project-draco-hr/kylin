@@ -1,0 +1,11 @@
+{
+  if (strictChecking)   checkNoBuildingSegment(cube);
+  CubeSegment newSegment=newSegment(cube,startDate,endDate);
+  validateNewSegments(cube,strictChecking,newSegment);
+  if (saveChange) {
+    CubeBuilder cubeBuilder=new CubeBuilder(cube);
+    cubeBuilder.setToAddSegs(newSegment);
+    updateCube(cubeBuilder);
+  }
+  return newSegment;
+}

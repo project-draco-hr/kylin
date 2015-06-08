@@ -18,17 +18,24 @@
   for (int i=timeRanges.length - 1; i >= 0; i--) {
     long toMergeRange=timeRanges[i];
     long currentRange=0;
+    long lastEndTime=0;
     List<CubeSegment> toMergeSegments=Lists.newArrayList();
     for (    CubeSegment segment : readySegments) {
       long thisSegmentRange=segment.getDateRangeEnd() - segment.getDateRangeStart();
       if (thisSegmentRange >= toMergeRange) {
         toMergeSegments.clear();
         currentRange=0;
+        lastEndTime=segment.getDateRangeEnd();
         continue;
+      }
+      if (segment.getDateRangeStart() != lastEndTime && toMergeSegments.isEmpty() == false) {
+        toMergeSegments.clear();
+        currentRange=0;
       }
       currentRange+=thisSegmentRange;
       if (currentRange < toMergeRange) {
         toMergeSegments.add(segment);
+        lastEndTime=segment.getDateRangeEnd();
       }
  else {
         toMergeSegments.add(segment);

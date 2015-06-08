@@ -6,7 +6,7 @@
   if (tobe.size() == 0)   return tobe;
   Collections.sort(tobe);
   CubeSegment firstSeg=tobe.get(0);
-  if (firstSeg.getDateRangeStart() != partDesc.getPartitionDateStart()) {
+  if (strictChecking && firstSeg.getDateRangeStart() != partDesc.getPartitionDateStart()) {
     throw new IllegalStateException("For " + cube + ", the first segment, "+ firstSeg+ ", must start at "+ partDesc.getPartitionDateStart());
   }
   firstSeg.validate();
@@ -39,7 +39,7 @@
       }
       continue;
     }
-    if (is.getDateRangeEnd() == js.getDateRangeStart()) {
+    if ((!strictChecking && is.getDateRangeEnd() <= js.getDateRangeStart() || strictChecking && is.getDateRangeEnd() == js.getDateRangeStart())) {
       i++;
       j++;
       continue;
