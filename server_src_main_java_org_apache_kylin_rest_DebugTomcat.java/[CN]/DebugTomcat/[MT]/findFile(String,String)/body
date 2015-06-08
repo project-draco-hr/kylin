@@ -1,0 +1,9 @@
+{
+  File[] files=new File(dir).listFiles();
+  if (files != null) {
+    for (    File f : files) {
+      if (f.getName().matches(ptn))       return f;
+    }
+  }
+  return null;
+}

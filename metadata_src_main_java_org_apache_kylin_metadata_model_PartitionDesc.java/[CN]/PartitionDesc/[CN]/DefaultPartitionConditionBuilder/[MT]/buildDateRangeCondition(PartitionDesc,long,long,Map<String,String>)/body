@@ -1,0 +1,15 @@
+{
+  String partitionColumnName=partDesc.getPartitionDateColumn();
+  int indexOfDot=partitionColumnName.lastIndexOf(".");
+  if (indexOfDot > 0) {
+    String partitionTableName=partitionColumnName.substring(0,indexOfDot);
+    if (tableAlias != null && tableAlias.containsKey(partitionTableName))     partitionColumnName=tableAlias.get(partitionTableName) + partitionColumnName.substring(indexOfDot);
+  }
+  StringBuilder builder=new StringBuilder();
+  if (startInclusive > 0) {
+    builder.append(partitionColumnName + " >= '" + DateFormat.formatToDateStr(startInclusive)+ "' ");
+    builder.append("AND ");
+  }
+  builder.append(partitionColumnName + " < '" + DateFormat.formatToDateStr(endExclusive)+ "'");
+  return builder.toString();
+}

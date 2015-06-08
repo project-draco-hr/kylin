@@ -7,29 +7,19 @@
   StringBuilder whereBuilder=new StringBuilder();
   whereBuilder.append("WHERE");
   CubeDesc cubeDesc=desc.getCubeDesc();
-  if (cubeDesc.getModel().getFilterCondition() != null && cubeDesc.getModel().getFilterCondition().equals("") == false) {
-    whereBuilder.append(" (").append(cubeDesc.getModel().getFilterCondition()).append(") ");
+  DataModelDesc model=cubeDesc.getModel();
+  if (model.getFilterCondition() != null && model.getFilterCondition().equals("") == false) {
+    whereBuilder.append(" (").append(model.getFilterCondition()).append(") ");
     hasCondition=true;
   }
   CubeSegment cubeSegment=desc.getCubeSegment();
   if (null != cubeSegment) {
+    PartitionDesc partDesc=model.getPartitionDesc();
     long dateStart=cubeSegment.getDateRangeStart();
     long dateEnd=cubeSegment.getDateRangeEnd();
     if (!(dateStart == 0 && dateEnd == Long.MAX_VALUE)) {
-      String partitionColumnName=cubeDesc.getModel().getPartitionDesc().getPartitionDateColumn();
-      int indexOfDot=partitionColumnName.lastIndexOf(".");
-      if (indexOfDot > 0) {
-        String partitionTableName=partitionColumnName.substring(0,indexOfDot);
-        String columeOnly=partitionColumnName.substring(indexOfDot);
-        String partitionTableAlias=tableAliasMap.get(partitionTableName);
-        partitionColumnName=partitionTableAlias + columeOnly;
-      }
       whereBuilder.append(hasCondition ? " AND (" : " (");
-      if (dateStart > 0) {
-        whereBuilder.append(partitionColumnName + " >= '" + formatDateTimeInWhereClause(dateStart)+ "' ");
-        whereBuilder.append("AND ");
-      }
-      whereBuilder.append(partitionColumnName + " < '" + formatDateTimeInWhereClause(dateEnd)+ "'");
+      whereBuilder.append(partDesc.getPartitionConditionBuilder().buildDateRangeCondition(partDesc,dateStart,dateEnd,tableAliasMap));
       whereBuilder.append(")\n");
       hasCondition=true;
     }

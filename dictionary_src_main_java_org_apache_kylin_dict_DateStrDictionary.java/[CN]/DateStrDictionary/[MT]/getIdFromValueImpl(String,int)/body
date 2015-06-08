@@ -1,5 +1,5 @@
 {
-  Date date=stringToDate(value,pattern);
+  Date date=DateFormat.stringToDate(value,pattern);
   int id=calcIdFromSeqNo(getNumOfDaysSince0000(date));
   if (id < baseId || id > maxId)   throw new IllegalArgumentException("'" + value + "' encodes to '"+ id+ "' which is out of range ["+ baseId+ ","+ maxId+ "]");
   return id;

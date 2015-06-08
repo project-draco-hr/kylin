@@ -1,0 +1,30 @@
+{
+  try {
+    ClasspathUtil.addClasspath(new File("../examples/test_case_data/sandbox").getAbsolutePath());
+    System.setProperty(KylinConfig.KYLIN_CONF,"../examples/test_case_data/sandbox");
+    overrideDevJobJarLocations();
+    System.setProperty("spring.profiles.active","testing");
+    if (System.getProperty("hdp.version") == null)     System.setProperty("hdp.version","2.2.4.2-2");
+    if (Shell.WINDOWS) {
+{
+        Field field=Shell.class.getDeclaredField("WINDOWS");
+        field.setAccessible(true);
+        Field modifiersField=Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(field,field.getModifiers() & ~Modifier.FINAL);
+        field.set(null,false);
+      }
+{
+        Field field=java.io.File.class.getDeclaredField("pathSeparator");
+        field.setAccessible(true);
+        Field modifiersField=Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(field,field.getModifiers() & ~Modifier.FINAL);
+        field.set(null,":");
+      }
+    }
+  }
+ catch (  Exception ex) {
+    ex.printStackTrace();
+  }
+}

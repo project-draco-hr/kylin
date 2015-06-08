@@ -10,6 +10,7 @@
       url+="anonymous=true";
     }
     HttpMethod get=new GetMethod(url);
+    get.addRequestHeader("accept","application/json");
     try {
       client.executeMethod(get);
       String redirect=null;
