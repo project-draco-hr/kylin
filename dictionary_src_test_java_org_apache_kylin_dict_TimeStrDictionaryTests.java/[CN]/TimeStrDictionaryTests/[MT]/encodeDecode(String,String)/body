@@ -1,7 +1,0 @@
-{
-  int a=dict.getIdFromValue(origin);
-  String v=dict.getValueFromId(a);
-  long ts=Long.parseLong(v);
-  String back=DateFormat.dateToString(new Date(ts),pattern);
-  Assert.assertEquals(origin,back);
-}

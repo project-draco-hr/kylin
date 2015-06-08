@@ -1,0 +1,6 @@
+{
+  int a=dict.getIdFromValue(origin);
+  String back=dict.getValueFromId(a);
+  String originChoppingMilis=DateFormat.formatToTimeWithoutMilliStr(DateFormat.stringToMillis(origin));
+  Assert.assertEquals(originChoppingMilis,back);
+}
