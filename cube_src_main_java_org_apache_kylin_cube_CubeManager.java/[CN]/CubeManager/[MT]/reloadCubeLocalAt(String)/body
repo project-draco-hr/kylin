@@ -11,6 +11,12 @@
     for (    CubeSegment segment : cubeInstance.getSegments()) {
       usedStorageLocation.put(cubeName.toUpperCase(),segment.getStorageLocationIdentifier());
     }
+    logger.info("Reloaded new cube: " + cubeName + " with reference being"+ cubeInstance+ " having "+ cubeInstance.getSegments().size()+ " segments:"+ StringUtils.join(Collections2.transform(cubeInstance.getSegments(),new Function<CubeSegment,String>(){
+      @Nullable @Override public String apply(      CubeSegment input){
+        return input.getStorageLocationIdentifier();
+      }
+    }
+),","));
     return cubeInstance;
   }
  catch (  Exception e) {

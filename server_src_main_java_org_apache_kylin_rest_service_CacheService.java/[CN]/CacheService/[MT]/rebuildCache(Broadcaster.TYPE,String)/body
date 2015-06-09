@@ -1,5 +1,6 @@
 {
   final String log="rebuild cache type: " + cacheType + " name:"+ cacheKey;
+  logger.info(log);
   try {
 switch (cacheType) {
 case CUBE:

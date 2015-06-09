@@ -5,6 +5,7 @@
   }
   try {
     if (!cube.getDescriptor().calculateSignature().equals(cube.getDescriptor().getSignature())) {
+      logger.info("Releasing all segments due to cube desc conflict");
       this.releaseAllSegments(cube);
     }
     CubeDesc updatedCubeDesc=getCubeDescManager().updateCubeDesc(desc);

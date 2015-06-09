@@ -1,5 +1,6 @@
 {
   ProjectManager prjMgr=ProjectManager.getInstance(olapContext.olapSchema.getConfig());
+  logger.info("The project manager's reference is " + prjMgr);
   String factTableName=olapContext.firstTableScan.getTableName();
   String projectName=olapContext.olapSchema.getProjectName();
   List<IRealization> realizations=Lists.newArrayList(prjMgr.getRealizationsByTable(projectName,factTableName));

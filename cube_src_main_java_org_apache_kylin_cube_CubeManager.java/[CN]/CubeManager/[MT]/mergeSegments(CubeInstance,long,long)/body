@@ -3,7 +3,7 @@
   checkCubeIsPartitioned(cube);
   Pair<Long,Long> range=alignMergeRange(cube,startDate,endDate);
   CubeSegment newSegment=newSegment(cube,range.getFirst(),range.getSecond());
-  validateNewSegments(cube,newSegment);
+  validateNewSegments(cube,false,newSegment);
   CubeBuilder cubeBuilder=new CubeBuilder(cube);
   cubeBuilder.setToAddSegs(newSegment);
   updateCube(cubeBuilder);

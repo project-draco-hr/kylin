@@ -1,6 +1,9 @@
 {
   List<HBaseKeyRange> result=Lists.newArrayList();
-  for (  CubeSegment cubeSeg : cubeInstance.getSegments(SegmentStatusEnum.READY)) {
+  logger.info("Current cubeInstance is " + cubeInstance + " with "+ cubeInstance.getSegments().size()+ " segs in all");
+  List<CubeSegment> segs=cubeInstance.getSegments(SegmentStatusEnum.READY);
+  logger.info("READY segs count: " + segs.size());
+  for (  CubeSegment cubeSeg : segs) {
     List<Collection<ColumnValueRange>> orAndDimRanges=translateToOrAndDimRanges(flatFilter,cubeSeg);
     if (orAndDimRanges == null) {
       continue;
@@ -14,6 +17,8 @@
     mergedRanges=mergeTooManyRanges(mergedRanges);
     result.addAll(mergedRanges);
   }
+  logger.info("hbasekeyrange count: " + result.size());
   dropUnhitSegments(result);
+  logger.info("hbasekeyrange count after dropping unhit :" + result.size());
   return result;
 }
