@@ -6,18 +6,19 @@
       throw new IllegalArgumentException("Illegal compare filter: " + cfilter);
     }
     TblColRef col=cfilter.getColumn();
-    if (col == null || (!"date".equals(col.getDatatype()))) {
+    if (col == null || !col.getType().isDateTimeFamily()) {
       return cfilter;
     }
     for (    TupleFilter child : filter.getChildren()) {
-      dateCompareTupleChildren.put(child,true);
+      dateCompareTupleChildren.put(child,col.getType());
     }
   }
   if (filter instanceof ConstantTupleFilter && dateCompareTupleChildren.containsKey(filter)) {
     ConstantTupleFilter constantTupleFilter=(ConstantTupleFilter)filter;
     Set<String> newValues=Sets.newHashSet();
+    DataType columnType=dateCompareTupleChildren.get(filter);
     for (    String value : (Collection<String>)constantTupleFilter.getValues()) {
-      newValues.add(DateFormat.formatToDateStr(Long.valueOf(value)));
+      newValues.add(formatTime(Long.valueOf(value),columnType));
     }
     return new ConstantTupleFilter(newValues);
   }

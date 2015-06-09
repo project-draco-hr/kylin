@@ -1,0 +1,14 @@
+{
+  if (dataType.isDatetime() || dataType.isTime()) {
+    throw new RuntimeException("Datetime and time type are not supported yet");
+  }
+  if (dataType.isTimestamp()) {
+    return DateFormat.formatToTimeStr(millis);
+  }
+ else   if (dataType.isDate()) {
+    return DateFormat.formatToDateStr(millis);
+  }
+ else {
+    throw new RuntimeException("Unknown type " + dataType + " to formatTime");
+  }
+}
