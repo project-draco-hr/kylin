@@ -1,4 +1,4 @@
 PartitionDesc partDesc
-long l
-long l1
-Map<String,String> map
+long startInclusive
+long endExclusive
+Map<String,String> tableAlias
