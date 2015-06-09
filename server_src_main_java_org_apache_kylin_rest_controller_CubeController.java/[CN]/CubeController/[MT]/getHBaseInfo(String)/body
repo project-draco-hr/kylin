@@ -19,6 +19,8 @@
       hr=new HBaseResponse();
     }
     hr.setTableName(tableName);
+    hr.setDateRangeStart(segment.getDateRangeStart());
+    hr.setDateRangeEnd(segment.getDateRangeEnd());
     hbase.add(hr);
   }
   return hbase;
