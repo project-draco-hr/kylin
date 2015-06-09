@@ -1,5 +1,5 @@
 {
   final String property=System.getProperty(prop);
-  if (!StringUtil.isBlank(property))   return property.split("\\s*,\\s*");
+  if (!StringUtils.isBlank(property))   return property.split("\\s*,\\s*");
   return kylinConfig.getStringArray(prop);
 }

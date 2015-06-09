@@ -1,0 +1,16 @@
+{
+  String partitionColumnName=partDesc.getPartitionDateColumn();
+  String partitionTableName;
+  int indexOfDot=partitionColumnName.lastIndexOf(".");
+  if (indexOfDot > 0) {
+    partitionTableName=partitionColumnName.substring(0,indexOfDot);
+  }
+ else {
+    throw new IllegalStateException("The partitionColumnName is invalid: " + partitionColumnName);
+  }
+  if (map.containsKey(partitionTableName)) {
+    partitionTableName=map.get(partitionTableName);
+  }
+  String sql=String.format("CONCAT(%s.YEAR,'-',%s.MONTH,'-',%s.DAY)",partitionTableName,partitionTableName,partitionTableName);
+  return sql;
+}

@@ -1,8 +1,13 @@
 {
   JobInstance job=getStore().getResource(path,JobInstance.class,new JsonSerializer<JobInstance>(JobInstance.class));
+  long lastModified=job.getLastModified();
+  if (System.currentTimeMillis() - lastModified > 2592000000l) {
+    return;
+  }
   CubingJob cubingJob=new CubingJob();
   cubingJob.setId(job.getId());
   cubingJob.setName(job.getName());
+  cubingJob.setCubeName(job.getRelatedCube());
   cubingJob.setSubmitter(job.getSubmitter());
   for (  JobInstance.JobStep step : job.getSteps()) {
     final AbstractExecutable executable=parseToExecutable(step);

@@ -1,0 +1,61 @@
+{
+  MetadataManager.getInstance(config).reload();
+  CubeDescManager.getInstance(config);
+  CubeManager cubeManager=CubeManager.getInstance(config);
+  List<String> activeResourceList=Lists.newArrayList();
+  for (  org.apache.kylin.cube.CubeInstance cube : cubeManager.listAllCubes()) {
+    for (    org.apache.kylin.cube.CubeSegment segment : cube.getSegments()) {
+      activeResourceList.addAll(segment.getSnapshotPaths());
+      activeResourceList.addAll(segment.getDictionaryPaths());
+    }
+  }
+  List<String> toDeleteResource=Lists.newArrayList();
+  List<String> activeResource=Lists.newArrayList();
+  try {
+    ArrayList<String> snapshotTables=getStore().listResources(ResourceStore.SNAPSHOT_RESOURCE_ROOT);
+    for (    String snapshotTable : snapshotTables) {
+      ArrayList<String> snapshotNames=getStore().listResources(snapshotTable);
+      if (snapshotNames != null)       for (      String snapshot : snapshotNames) {
+        if (!activeResourceList.contains(snapshot)) {
+          toDeleteResource.add(snapshot);
+        }
+ else {
+          activeResource.add(snapshot);
+        }
+      }
+    }
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  try {
+    ArrayList<String> dictTables=getStore().listResources(ResourceStore.DICT_RESOURCE_ROOT);
+    for (    String table : dictTables) {
+      ArrayList<String> tableColNames=getStore().listResources(table);
+      if (tableColNames != null)       for (      String tableCol : tableColNames) {
+        ArrayList<String> dictionaries=getStore().listResources(tableCol);
+        if (dictionaries != null)         for (        String dict : dictionaries)         if (!activeResourceList.contains(dict)) {
+          toDeleteResource.add(dict);
+        }
+ else {
+          activeResource.add(dict);
+        }
+      }
+    }
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  if (toDeleteResource.size() > 0) {
+    logger.info("The following resources is never needed, will be dropped, number :" + toDeleteResource.size());
+    for (    String s : toDeleteResource) {
+      logger.info(s);
+      try {
+        getStore().deleteResource(s);
+      }
+ catch (      IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+}
