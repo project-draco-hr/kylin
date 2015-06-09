@@ -12,17 +12,37 @@
   endTimestamp=TimeUtil.getNextPeriodStart(endTimestamp,batchInterval);
   final List<BlockingQueue<StreamMessage>> queues=Lists.newLinkedList();
   int clusterId=0;
-  for (  KafkaClusterConfig kafkaClusterConfig : streamingConfig.getKafkaClusterConfigs()) {
-    HashMap<Integer,Long> partitionIdOffsetMap=Maps.newHashMap();
+  final ExecutorService executorService=Executors.newFixedThreadPool(10);
+  for (  final KafkaClusterConfig kafkaClusterConfig : streamingConfig.getKafkaClusterConfigs()) {
+    final ConcurrentMap<Integer,Long> partitionIdOffsetMap=Maps.newConcurrentMap();
     final int partitionCount=KafkaRequester.getKafkaTopicMeta(kafkaClusterConfig).getPartitionIds().size();
+    final CountDownLatch countDownLatch=new CountDownLatch(partitionCount);
     for (int i=0; i < partitionCount; ++i) {
-      partitionIdOffsetMap.put(i,StreamingUtil.findClosestOffsetWithDataTimestamp(kafkaClusterConfig,i,startTimestamp,streamParser));
+      final int idx=i;
+      final long start=startTimestamp;
+      executorService.submit(new Runnable(){
+        @Override public void run(){
+          try {
+            partitionIdOffsetMap.put(idx,StreamingUtil.findClosestOffsetWithDataTimestamp(kafkaClusterConfig,idx,start,streamParser));
+          }
+  finally {
+            countDownLatch.countDown();
+          }
+        }
+      }
+);
     }
+    countDownLatch.await();
+    logger.info("partitionId to start offset map:" + partitionIdOffsetMap);
+    Preconditions.checkArgument(partitionIdOffsetMap.size() == partitionCount,"fail to get all start offset");
     final List<BlockingQueue<StreamMessage>> oneClusterQueue=consume(clusterId,kafkaClusterConfig,partitionCount,partitionIdOffsetMap,0);
     queues.addAll(oneClusterQueue);
     logger.info("Cluster {} with {} partitions",clusterId,oneClusterQueue.size());
+    clusterId++;
   }
   logger.info(String.format("starting one off streaming build with timestamp{%d, %d}",startTimestamp,endTimestamp));
   OneOffStreamBuilder oneOffStreamBuilder=new OneOffStreamBuilder(streamingConfig.getName(),queues,streamParser,new CubeStreamConsumer(cubeName),startTimestamp,endTimestamp);
   Executors.newSingleThreadExecutor().submit(oneOffStreamBuilder).get();
+  logger.info("one off build finished");
+  System.exit(0);
 }

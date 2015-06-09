@@ -1,12 +1,11 @@
 {
   final String topic=kafkaClusterConfig.getTopic();
-  final Broker leadBroker=Preconditions.checkNotNull(getLeadBroker(kafkaClusterConfig,partitionId),"unable to find leadBroker with config:" + kafkaClusterConfig + " partitionId:"+ partitionId);
-  final FetchResponse response=KafkaRequester.fetchResponse(topic,partitionId,offset,leadBroker,kafkaClusterConfig);
-  Preconditions.checkArgument(response.errorCode(topic,partitionId) == 0,"errorCode of FetchResponse is:" + response.errorCode(topic,partitionId));
-  final MessageAndOffset messageAndOffset=response.messageSet(topic,partitionId).iterator().next();
+  logger.debug(String.format("try to get timestamp of topic: %s, partitionId: %d, offset: %d",topic,partitionId,offset));
+  final MessageAndOffset messageAndOffset=getKafkaMessage(kafkaClusterConfig,partitionId,offset);
   final ByteBuffer payload=messageAndOffset.message().payload();
   byte[] bytes=new byte[payload.limit()];
   payload.get(bytes);
   final ParsedStreamMessage parsedStreamMessage=streamParser.parse(new StreamMessage(messageAndOffset.offset(),bytes));
+  logger.debug(String.format("get timestamp:%d",parsedStreamMessage.getTimestamp()));
   return parsedStreamMessage.getTimestamp();
 }
