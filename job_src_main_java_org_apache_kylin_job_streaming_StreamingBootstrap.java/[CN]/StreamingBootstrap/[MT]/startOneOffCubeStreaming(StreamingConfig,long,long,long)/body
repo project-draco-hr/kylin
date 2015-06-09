@@ -7,9 +7,6 @@
     }
   }
 ));
-  final int batchInterval=5 * 60 * 1000;
-  startTimestamp=TimeUtil.getNextPeriodStart(startTimestamp,batchInterval);
-  endTimestamp=TimeUtil.getNextPeriodStart(endTimestamp,batchInterval);
   final List<BlockingQueue<StreamMessage>> queues=Lists.newLinkedList();
   int clusterId=0;
   final ExecutorService executorService=Executors.newFixedThreadPool(10);
@@ -19,7 +16,7 @@
     final CountDownLatch countDownLatch=new CountDownLatch(partitionCount);
     for (int i=0; i < partitionCount; ++i) {
       final int idx=i;
-      final long start=startTimestamp;
+      final long start=startTimestamp - margin;
       executorService.submit(new Runnable(){
         @Override public void run(){
           try {
@@ -41,7 +38,7 @@
     clusterId++;
   }
   logger.info(String.format("starting one off streaming build with timestamp{%d, %d}",startTimestamp,endTimestamp));
-  OneOffStreamBuilder oneOffStreamBuilder=new OneOffStreamBuilder(streamingConfig.getName(),queues,streamParser,new CubeStreamConsumer(cubeName),startTimestamp,endTimestamp);
+  OneOffStreamBuilder oneOffStreamBuilder=new OneOffStreamBuilder(streamingConfig.getName(),queues,streamParser,new CubeStreamConsumer(cubeName),startTimestamp,endTimestamp,margin);
   Executors.newSingleThreadExecutor().submit(oneOffStreamBuilder).get();
   logger.info("one off build finished");
   System.exit(0);

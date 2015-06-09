@@ -1,4 +1,3 @@
 {
-  this.startTime=startTime;
-  this.endTime=endTime;
+  this(startTime,endTime,0L);
 }

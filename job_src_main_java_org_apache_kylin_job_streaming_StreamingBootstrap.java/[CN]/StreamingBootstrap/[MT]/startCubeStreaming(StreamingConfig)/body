@@ -15,7 +15,6 @@
   partitionIdOffset=0;
   for (  KafkaClusterConfig kafkaClusterConfig : kafkaClusterConfigs) {
     final int partitionCount=KafkaRequester.getKafkaTopicMeta(kafkaClusterConfig).getPartitionIds().size();
-    Preconditions.checkArgument(partitionId >= 0 && partitionId < partitionCount,"invalid partition id:" + partitionId);
     final List<BlockingQueue<StreamMessage>> oneClusterData=consume(clusterID,kafkaClusterConfig,partitionCount,partitionIdOffsetMap,partitionIdOffset);
     logger.info("Cluster {} with {} partitions",allClustersData.size(),oneClusterData.size());
     allClustersData.addAll(oneClusterData);

@@ -1,17 +1,21 @@
 {
+  final String streaming=bootstrapConfig.getStreaming();
+  Preconditions.checkNotNull(streaming,"streaming name cannot be empty");
   final StreamingConfig streamingConfig=streamingManager.getStreamingConfig(streaming);
   Preconditions.checkArgument(streamingConfig != null,"cannot find kafka config:" + streaming);
   if (!StringUtils.isEmpty(streamingConfig.getIiName())) {
+    int partitionId=bootstrapConfig.getPartitionId();
+    Preconditions.checkArgument(partitionId >= 0,"partitionId cannot be empty for inverted index streaming");
     startIIStreaming(streamingConfig,partitionId);
   }
  else   if (!StringUtils.isEmpty(streamingConfig.getCubeName())) {
     if (bootstrapConfig.isOneOff()) {
       Preconditions.checkArgument(bootstrapConfig.getStart() != 0);
       Preconditions.checkArgument(bootstrapConfig.getEnd() != 0);
-      startOneOffCubeStreaming(streamingConfig,bootstrapConfig.getStart(),bootstrapConfig.getEnd());
+      startOneOffCubeStreaming(streamingConfig,bootstrapConfig.getStart(),bootstrapConfig.getEnd(),bootstrapConfig.getMargin());
     }
  else {
-      startCubeStreaming(streamingConfig,partitionId);
+      startCubeStreaming(streamingConfig);
     }
   }
  else {

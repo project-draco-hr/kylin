@@ -4,3 +4,4 @@ StreamParser streamParser
 MicroStreamBatchConsumer consumer
 long startTime
 long endTime
+long margin

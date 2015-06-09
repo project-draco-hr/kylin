@@ -1,3 +1,6 @@
 {
-  start(streaming,partitionId,new BootstrapConfig());
+  final BootstrapConfig bootstrapConfig=new BootstrapConfig();
+  bootstrapConfig.setPartitionId(partitionId);
+  bootstrapConfig.setStreaming(streaming);
+  start(bootstrapConfig);
 }
