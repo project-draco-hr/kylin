@@ -1,5 +1,6 @@
 {
-  HBaseAdmin hadmin=new HBaseAdmin(getConnection());
+  HConnection conn=getConnection();
+  HBaseAdmin hadmin=new HBaseAdmin(conn);
   try {
     boolean tableExist=hadmin.tableExists(tableName);
     if (tableExist) {
@@ -17,6 +18,7 @@
     logger.info("HTable '" + tableName + "' created");
   }
   finally {
+    conn.close();
     hadmin.close();
   }
 }

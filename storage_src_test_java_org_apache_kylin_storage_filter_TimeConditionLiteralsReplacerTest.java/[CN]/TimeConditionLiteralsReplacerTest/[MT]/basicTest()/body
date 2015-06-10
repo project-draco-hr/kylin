@@ -8,7 +8,7 @@
   ConstantTupleFilter constantFilter=null;
   constantFilter=new ConstantTupleFilter("946684800000");
   compareFilter.addChild(constantFilter);
-  DateConditionModifier filterDecorator=new DateConditionModifier(compareFilter);
+  TimeConditionLiteralsReplacer filterDecorator=new TimeConditionLiteralsReplacer(compareFilter);
   byte[] bytes=TupleFilterSerializer.serialize(compareFilter,filterDecorator,DictCodeSystem.INSTANCE);
   CompareTupleFilter compareTupleFilter=(CompareTupleFilter)TupleFilterSerializer.deserialize(bytes,DictCodeSystem.INSTANCE);
   Assert.assertEquals("2000-01-01",compareTupleFilter.getFirstValue());

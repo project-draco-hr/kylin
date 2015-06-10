@@ -6,9 +6,18 @@
   }
   HConnection connection=ConnPool.get(url);
   try {
-    if (connection == null) {
-      connection=HConnectionManager.createConnection(conf);
-      ConnPool.put(url,connection);
+    while (true) {
+      if (connection == null || connection.isClosed()) {
+        logger.info("connection is null or closed, creating a new one");
+        connection=HConnectionManager.createConnection(conf);
+        ConnPool.put(url,connection);
+      }
+      if (connection == null || connection.isClosed()) {
+        Thread.sleep(10000);
+      }
+ else {
+        break;
+      }
     }
   }
  catch (  Throwable t) {
