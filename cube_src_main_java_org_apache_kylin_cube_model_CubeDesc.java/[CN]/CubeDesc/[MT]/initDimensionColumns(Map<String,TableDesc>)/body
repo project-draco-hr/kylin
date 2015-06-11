@@ -41,13 +41,6 @@
           initDerivedMap(hostCols[find],DeriveType.PK_FK,dim,derivedCol);
         }
       }
-      for (int i=0; i < pk.length; i++) {
-        int find=ArrayUtils.indexOf(hostCols,pk[i]);
-        if (find >= 0) {
-          TblColRef derivedCol=initDimensionColRef(fk[i]);
-          initDerivedMap(hostCols[find],DeriveType.PK_FK,dim,derivedCol);
-        }
-      }
     }
   }
 }
