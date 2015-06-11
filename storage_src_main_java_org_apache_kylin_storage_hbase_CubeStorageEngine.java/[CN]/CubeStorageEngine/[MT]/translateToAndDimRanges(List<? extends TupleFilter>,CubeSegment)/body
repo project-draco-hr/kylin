@@ -8,8 +8,15 @@
     if (comp.getColumn() == null) {
       continue;
     }
-    @SuppressWarnings("unchecked") ColumnValueRange range=new ColumnValueRange(comp.getColumn(),(Collection<String>)comp.getValues(),comp.getOperator());
+    ColumnValueRange range=new ColumnValueRange(comp.getColumn(),(Collection<String>)comp.getValues(),comp.getOperator());
     andMerge(range,rangeMap);
+  }
+  Iterator<ColumnValueRange> it=rangeMap.values().iterator();
+  while (it.hasNext()) {
+    ColumnValueRange range=it.next();
+    range.preEvaluateWithDict((Dictionary<String>)cubeSegment.getDictionary(range.getColumn()));
+    if (range.satisfyAll())     it.remove();
+ else     if (range.satisfyNone())     return null;
   }
   return rangeMap.values();
 }
