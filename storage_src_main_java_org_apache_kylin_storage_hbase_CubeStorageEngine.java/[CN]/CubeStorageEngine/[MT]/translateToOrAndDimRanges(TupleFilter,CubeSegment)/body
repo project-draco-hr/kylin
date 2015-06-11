@@ -9,7 +9,7 @@
       throw new IllegalStateException("Filter should be AND instead of " + andFilter);
     }
     Collection<ColumnValueRange> andRanges=translateToAndDimRanges(andFilter.getChildren(),cubeSegment);
-    if (andRanges != null && !andRanges.isEmpty()) {
+    if (andRanges != null) {
       result.add(andRanges);
     }
   }

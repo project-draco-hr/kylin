@@ -1,6 +1,5 @@
 {
   Map<TblColRef,ColumnValueRange> rangeMap=new HashMap<TblColRef,ColumnValueRange>();
-  boolean isEmptyAnd=false;
   for (  TupleFilter filter : andFilters) {
     if ((filter instanceof CompareTupleFilter) == false) {
       continue;
@@ -9,13 +8,15 @@
     if (comp.getColumn() == null) {
       continue;
     }
-    Collection<String> newValues=TupleFilterValueOptimizer.doOptimization(cubeSegment,comp.getColumn(),comp);
-    if (TupleFilterValueOptimizer.isEmptyAnd(comp,newValues)) {
-      isEmptyAnd=true;
-      break;
-    }
-    ColumnValueRange range=new ColumnValueRange(comp.getColumn(),newValues,comp.getOperator());
+    ColumnValueRange range=new ColumnValueRange(comp.getColumn(),comp.getValues(),comp.getOperator());
     andMerge(range,rangeMap);
   }
-  return isEmptyAnd ? Collections.<ColumnValueRange>emptyList() : rangeMap.values();
+  Iterator<ColumnValueRange> it=rangeMap.values().iterator();
+  while (it.hasNext()) {
+    ColumnValueRange range=it.next();
+    range.preEvaluateWithDict((Dictionary<String>)cubeSegment.getDictionary(range.getColumn()));
+    if (range.satisfyAll())     it.remove();
+ else     if (range.satisfyNone())     return null;
+  }
+  return rangeMap.values();
 }

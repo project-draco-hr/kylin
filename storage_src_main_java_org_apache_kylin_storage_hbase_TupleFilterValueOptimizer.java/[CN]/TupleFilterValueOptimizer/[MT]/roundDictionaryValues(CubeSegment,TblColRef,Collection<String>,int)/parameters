@@ -1,4 +1,0 @@
-CubeSegment cubeSegment
-TblColRef column
-Collection<String> values
-int roundingFlag

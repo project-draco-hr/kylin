@@ -1,6 +1,0 @@
-{
-  if (filter instanceof CompareTupleFilter) {
-    return optimizeCompareTupleFilter(cubeSegment,column,(CompareTupleFilter)filter);
-  }
-  return filter.getValues();
-}

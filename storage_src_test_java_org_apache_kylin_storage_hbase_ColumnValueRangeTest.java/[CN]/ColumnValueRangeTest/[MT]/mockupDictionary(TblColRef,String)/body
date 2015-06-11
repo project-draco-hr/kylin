@@ -1,0 +1,7 @@
+{
+  TrieDictionaryBuilder<String> builder=new TrieDictionaryBuilder<String>(new StringBytesConverter());
+  for (  String v : values) {
+    builder.addValue(v);
+  }
+  return builder.build(0);
+}
