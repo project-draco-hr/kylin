@@ -9,7 +9,7 @@
     newAgg=createHyperLogLogAggFunction(fieldType);
   }
  else   if (func.isCount()) {
-    newAgg=new SqlSumEmptyIsZeroAggFunction(fieldType);
+    newAgg=SqlStdOperatorTable.SUM0;
   }
   AggregateCall newAggCall=new AggregateCall(newAgg,false,newArgList,fieldType,newAgg.getName());
   SqlAggFunction aggFunction=(SqlAggFunction)newAggCall.getAggregation();
