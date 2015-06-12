@@ -3,4 +3,7 @@
   DeployUtil.overrideJobJarLocations();
   kylinConfig=KylinConfig.getInstanceFromEnv();
   cubeManager=CubeManager.getInstance(kylinConfig);
+  StreamingConfig streamingConfig=StreamingManager.getInstance(kylinConfig).getStreamingConfig("test_streaming_table_table");
+  streamingConfig.setTopic(UUID.randomUUID().toString());
+  StreamingManager.getInstance(kylinConfig).saveStreamingConfig(streamingConfig);
 }

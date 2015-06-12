@@ -1,0 +1,7 @@
+{
+  if (streamingConfig == null || StringUtils.isEmpty(streamingConfig.getName())) {
+    throw new IllegalArgumentException();
+  }
+  String path=formatStreamingConfigPath(streamingConfig.getName());
+  getStore().putResource(path,streamingConfig,StreamingConfig.SERIALIZER);
+}
