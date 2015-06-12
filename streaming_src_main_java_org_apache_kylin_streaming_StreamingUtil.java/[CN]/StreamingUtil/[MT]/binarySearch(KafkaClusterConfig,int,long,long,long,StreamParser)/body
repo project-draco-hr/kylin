@@ -1,24 +1,24 @@
 {
-  while (startOffset <= endOffset + 2) {
+  while (startOffset < endOffset) {
     long midOffset=startOffset + ((endOffset - startOffset) >> 1);
     long startTimestamp=getDataTimestamp(kafkaClusterConfig,partitionId,startOffset,streamParser);
     long endTimestamp=getDataTimestamp(kafkaClusterConfig,partitionId,endOffset,streamParser);
     long midTimestamp=getDataTimestamp(kafkaClusterConfig,partitionId,midOffset,streamParser);
-    if (startTimestamp > targetTimestamp) {
+    if (startTimestamp >= targetTimestamp) {
       return startOffset;
     }
-    if (endTimestamp < targetTimestamp) {
+    if (endTimestamp <= targetTimestamp) {
       return endOffset;
     }
     if (targetTimestamp == midTimestamp) {
       return midOffset;
     }
  else     if (targetTimestamp < midTimestamp) {
-      endOffset=midOffset;
+      endOffset=midOffset - 1;
       continue;
     }
  else {
-      startOffset=midOffset;
+      startOffset=midOffset + 1;
       continue;
     }
   }
