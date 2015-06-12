@@ -1,3 +1,0 @@
-{
-  if (verbose)   System.out.println(record.toString());
-}
