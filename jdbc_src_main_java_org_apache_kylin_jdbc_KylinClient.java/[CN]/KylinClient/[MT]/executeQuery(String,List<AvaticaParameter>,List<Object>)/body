@@ -1,0 +1,7 @@
+{
+  SQLResponseStub queryResp=executeKylinQuery(sql,convertParameters(params,paramValues));
+  if (queryResp.getIsException())   throw new IOException(queryResp.getExceptionMessage());
+  List<ColumnMetaData> metas=convertColumnMeta(queryResp);
+  List<Object> data=convertResultData(queryResp,metas);
+  return new QueryResult(metas,data);
+}

@@ -1,0 +1,13 @@
+{
+  if (this.hasSubQuery) {
+    try {
+      return new EnumerableJoin(getCluster(),getCluster().traitSetOf(EnumerableConvention.INSTANCE),inputs.get(0),inputs.get(1),condition,leftKeys,rightKeys,joinType,variablesStopped);
+    }
+ catch (    InvalidRelException e) {
+      throw new IllegalStateException("Can't create EnumerableJoin!",e);
+    }
+  }
+ else {
+    return this;
+  }
+}

@@ -1,10 +1,10 @@
 {
   List<Integer> newArgList=new ArrayList<Integer>(1);
   String fieldName=func.getRewriteFieldName();
-  RelDataTypeField field=getChild().getRowType().getField(fieldName,true);
+  RelDataTypeField field=getInput().getRowType().getField(fieldName,true,false);
   newArgList.add(field.getIndex());
   RelDataType fieldType=aggCall.getType();
-  Aggregation newAgg=aggCall.getAggregation();
+  SqlAggFunction newAgg=aggCall.getAggregation();
   if (func.isCountDistinct()) {
     newAgg=createHyperLogLogAggFunction(fieldType);
   }
@@ -12,8 +12,5 @@
     newAgg=SqlStdOperatorTable.SUM0;
   }
   AggregateCall newAggCall=new AggregateCall(newAgg,false,newArgList,fieldType,newAgg.getName());
-  SqlAggFunction aggFunction=(SqlAggFunction)newAggCall.getAggregation();
-  AggCallBinding callBinding=newAggCall.createBinding(this);
-  RelDataType inferReturnType=aggFunction.inferReturnType(callBinding);
-  return new AggregateCall(newAgg,false,newArgList,inferReturnType,newAgg.getName());
+  return newAggCall;
 }

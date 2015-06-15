@@ -1,8 +1,0 @@
-{
-  OLAPRel childRel=(OLAPRel)getChild();
-  childRel.replaceTraitSet(EnumerableConvention.INSTANCE);
-  EnumerableLimitRel enumLimit=new EnumerableLimitRel(getCluster(),getCluster().traitSetOf(EnumerableConvention.INSTANCE),getChild(),localOffset,localFetch);
-  Result res=enumLimit.implement(implementor,pref);
-  childRel.replaceTraitSet(CONVENTION);
-  return res;
-}

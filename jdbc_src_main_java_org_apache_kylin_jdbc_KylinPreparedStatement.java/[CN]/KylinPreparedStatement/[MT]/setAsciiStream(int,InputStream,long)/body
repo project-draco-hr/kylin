@@ -1,0 +1,3 @@
+{
+  getParameter(parameterIndex).setAsciiStream(slots,parameterIndex,x,length);
+}

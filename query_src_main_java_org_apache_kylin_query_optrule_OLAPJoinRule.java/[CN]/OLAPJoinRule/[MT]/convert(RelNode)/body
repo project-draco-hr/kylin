@@ -1,5 +1,5 @@
 {
-  JoinRel join=(JoinRel)rel;
+  LogicalJoin join=(LogicalJoin)rel;
   RelNode left=join.getInput(0);
   RelNode right=join.getInput(1);
   RelTraitSet traitSet=join.getTraitSet().replace(OLAPRel.CONVENTION);

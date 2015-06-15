@@ -1,0 +1,18 @@
+{
+  this.bb=bb;
+  this.aggregatingSelectScope=(AggregatingSelectScope)bb.getValidator().getSelectScope(select);
+  final SqlNodeList selectList=select.getSelectList();
+  for (int i=0; i < selectList.size(); i++) {
+    SqlNode selectItem=selectList.get(i);
+    String name=null;
+    if (SqlUtil.isCallTo(selectItem,SqlStdOperatorTable.AS)) {
+      final SqlCall call=(SqlCall)selectItem;
+      selectItem=call.operand(0);
+      name=call.operand(1).toString();
+    }
+    if (name == null) {
+      name=validator.deriveAlias(selectItem,i);
+    }
+    nameMap.put(selectItem.toString(),name);
+  }
+}

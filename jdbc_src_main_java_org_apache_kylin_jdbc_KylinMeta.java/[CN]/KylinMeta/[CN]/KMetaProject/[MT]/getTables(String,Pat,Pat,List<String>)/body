@@ -1,0 +1,3 @@
+{
+  return (List<KMetaTable>)searchByPatterns(this,Pat.of(catalog),schemaPattern,tableNamePattern);
+}

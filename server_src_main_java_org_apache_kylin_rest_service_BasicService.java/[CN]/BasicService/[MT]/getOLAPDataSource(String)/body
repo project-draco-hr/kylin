@@ -17,7 +17,7 @@
     Properties props=new Properties();
     props.setProperty(OLAPQuery.PROP_SCAN_THRESHOLD,String.valueOf(KylinConfig.getInstanceFromEnv().getScanThreshold()));
     ds.setConnectionProperties(props);
-    ds.setDriverClassName("net.hydromatic.optiq.jdbc.Driver");
+    ds.setDriverClassName(Driver.class.getName());
     ds.setUrl("jdbc:calcite:model=" + modelJson.getAbsolutePath());
     ret=olapDataSources.putIfAbsent(project,ds);
     if (ret == null) {

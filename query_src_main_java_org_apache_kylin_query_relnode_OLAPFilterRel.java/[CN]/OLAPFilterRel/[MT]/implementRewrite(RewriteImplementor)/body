@@ -1,5 +1,5 @@
 {
-  implementor.visitChild(this,getChild());
+  implementor.visitChild(this,getInput());
   this.rowType=this.deriveRowType();
   this.columnRowType=buildColumnRowType();
 }

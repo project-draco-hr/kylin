@@ -1,0 +1,17 @@
+{
+  Map<String,List<KMetaSchema>> catalogMap=new LinkedHashMap<String,List<KMetaSchema>>();
+  for (  KMetaSchema schema : schemas) {
+    List<KMetaSchema> list=catalogMap.get(schema.tableCatalog);
+    if (list == null) {
+      list=new ArrayList<KMetaSchema>();
+      catalogMap.put(schema.tableCatalog,list);
+    }
+    list.add(schema);
+  }
+  List<KMetaCatalog> result=new ArrayList<KMetaCatalog>();
+  for (  List<KMetaSchema> catSchemas : catalogMap.values()) {
+    String catalog=catSchemas.get(0).tableCatalog;
+    result.add(new KMetaCatalog(catalog,catSchemas));
+  }
+  return result;
+}

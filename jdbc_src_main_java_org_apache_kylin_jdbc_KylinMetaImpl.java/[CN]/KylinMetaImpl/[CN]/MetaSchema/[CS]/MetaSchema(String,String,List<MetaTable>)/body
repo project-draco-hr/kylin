@@ -1,5 +1,0 @@
-{
-  this.tableCatalog=tableCatalog;
-  this.tableSchem=tableSchem;
-  this.tables=tables;
-}

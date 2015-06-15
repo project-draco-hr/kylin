@@ -1,7 +1,7 @@
 {
   buildGroups();
   buildAggregations();
-  ColumnRowType inputColumnRowType=((OLAPRel)getChild()).getColumnRowType();
+  ColumnRowType inputColumnRowType=((OLAPRel)getInput()).getColumnRowType();
   List<TblColRef> columns=new ArrayList<TblColRef>(this.rowType.getFieldCount());
   columns.addAll(this.groups);
   for (int i=0; i < this.aggregations.size(); i++) {

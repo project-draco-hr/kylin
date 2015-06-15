@@ -1,0 +1,12 @@
+{
+  String msg=e.getMessage();
+  Throwable cause=e;
+  while (cause != null) {
+    if (cause.getClass().getName().contains("ParseException")) {
+      msg=cause.getMessage();
+      break;
+    }
+    cause=cause.getCause();
+  }
+  return makeErrorMsgUserFriendly(msg);
+}

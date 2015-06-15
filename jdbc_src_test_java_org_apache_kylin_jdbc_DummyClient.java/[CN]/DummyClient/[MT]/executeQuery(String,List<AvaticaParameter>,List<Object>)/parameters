@@ -1,0 +1,3 @@
+String sql
+List<AvaticaParameter> params
+List<Object> paramValues

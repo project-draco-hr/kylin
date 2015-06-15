@@ -8,7 +8,7 @@
     models=getMetadataManager().getModels(projectName);
     project.getModels();
   }
-  List<DataModelDesc> filterModels=new ArrayList();
+  List<DataModelDesc> filterModels=new ArrayList<DataModelDesc>();
   for (  DataModelDesc modelDesc : models) {
     boolean isModelMatch=(null == modelName) || modelDesc.getName().toLowerCase().contains(modelName.toLowerCase());
     if (isModelMatch) {

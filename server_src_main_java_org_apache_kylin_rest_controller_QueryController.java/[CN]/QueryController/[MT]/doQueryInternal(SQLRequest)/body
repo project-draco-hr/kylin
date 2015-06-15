@@ -17,21 +17,16 @@
       sqlResponse=queryService.query(sqlRequest);
     }
     checkQueryAuth(sqlResponse);
-    return sqlResponse;
   }
- catch (  AccessDeniedException ade) {
-    logger.error("Exception when execute sql",ade);
-    throw new ForbiddenException(ade.getLocalizedMessage());
-  }
-catch (  ScanOutOfLimitException e) {
-    SQLResponse exceptionRes=new SQLResponse(null,null,0,true,e.getMessage());
-    Cache exceptionCache=cacheManager.getCache(EXCEPTION_QUERY_CACHE);
-    exceptionCache.put(new Element(sqlRequest,exceptionRes));
+ catch (  Throwable e) {
     logger.error("Exception when execute sql",e);
-    throw new InternalErrorException(QueryUtil.makeErrorMsgUserFriendly(e.getLocalizedMessage()));
+    String errMsg=QueryUtil.makeErrorMsgUserFriendly(e);
+    sqlResponse=new SQLResponse(null,null,0,true,errMsg);
+    if (e instanceof ScanOutOfLimitException) {
+      Cache exceptionCache=cacheManager.getCache(EXCEPTION_QUERY_CACHE);
+      exceptionCache.put(new Element(sqlRequest,sqlResponse));
+    }
   }
-catch (  Throwable e) {
-    logger.error("Exception when execute sql",e);
-    throw new InternalErrorException(QueryUtil.makeErrorMsgUserFriendly(e.getLocalizedMessage()));
-  }
+  if (sqlResponse.getIsException())   throw new InternalErrorException(sqlResponse.getExceptionMessage());
+ else   return sqlResponse;
 }

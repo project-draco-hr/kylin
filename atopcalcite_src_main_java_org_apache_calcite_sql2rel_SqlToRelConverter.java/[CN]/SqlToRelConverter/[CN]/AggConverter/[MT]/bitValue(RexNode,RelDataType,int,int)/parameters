@@ -1,0 +1,4 @@
+RexNode previous
+RelDataType type
+int x
+int shift

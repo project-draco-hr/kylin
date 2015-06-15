@@ -1,0 +1,4 @@
+{
+  this.projectName=projectName;
+  this.catalogs=catalogs;
+}

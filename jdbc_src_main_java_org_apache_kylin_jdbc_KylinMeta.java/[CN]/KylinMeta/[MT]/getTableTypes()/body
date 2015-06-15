@@ -1,0 +1,3 @@
+{
+  return createResultSet(metaTableTypes,MetaTableType.class,"TABLE_TYPE");
+}

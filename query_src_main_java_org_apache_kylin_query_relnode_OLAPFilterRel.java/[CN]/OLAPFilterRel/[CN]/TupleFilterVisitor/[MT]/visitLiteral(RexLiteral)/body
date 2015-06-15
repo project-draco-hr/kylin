@@ -8,8 +8,8 @@
     GregorianCalendar g=(GregorianCalendar)literalValue;
     strValue=Long.toString(g.getTimeInMillis());
   }
- else   if (literalValue instanceof SqlFunctions.TimeUnitRange) {
-    strValue=((SqlFunctions.TimeUnitRange)literalValue).name();
+ else   if (literalValue instanceof TimeUnitRange) {
+    strValue=((TimeUnitRange)literalValue).name();
   }
  else   if (literalValue == null) {
     strValue=null;

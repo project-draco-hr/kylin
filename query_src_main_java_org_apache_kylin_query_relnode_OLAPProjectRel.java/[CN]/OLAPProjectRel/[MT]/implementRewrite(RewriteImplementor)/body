@@ -1,5 +1,5 @@
 {
-  implementor.visitChild(this,getChild());
+  implementor.visitChild(this,getInput());
   this.rewriting=true;
   if (!RewriteImplementor.needRewrite(this.context) || (this.hasJoin && !this.afterJoin) || this.afterAggregate) {
     this.columnRowType=this.buildColumnRowType();
@@ -8,7 +8,7 @@
   int paramIndex=this.rowType.getFieldList().size();
   List<RelDataTypeField> newFieldList=new LinkedList<RelDataTypeField>();
   List<RexNode> newExpList=new LinkedList<RexNode>();
-  ColumnRowType inputColumnRowType=((OLAPRel)getChild()).getColumnRowType();
+  ColumnRowType inputColumnRowType=((OLAPRel)getInput()).getColumnRowType();
   for (  Map.Entry<String,RelDataType> rewriteField : this.context.rewriteFields.entrySet()) {
     String rewriteFieldName=rewriteField.getKey();
     int rowIndex=this.columnRowType.getIndexByName(rewriteFieldName);
@@ -18,7 +18,7 @@
         RelDataType fieldType=rewriteField.getValue();
         RelDataTypeField newField=new RelDataTypeFieldImpl(rewriteFieldName,paramIndex++,fieldType);
         newFieldList.add(newField);
-        RelDataTypeField inputField=getChild().getRowType().getFieldList().get(inputIndex);
+        RelDataTypeField inputField=getInput().getRowType().getFieldList().get(inputIndex);
         RexInputRef newFieldRef=new RexInputRef(inputField.getIndex(),inputField.getType());
         newExpList.add(newFieldRef);
       }

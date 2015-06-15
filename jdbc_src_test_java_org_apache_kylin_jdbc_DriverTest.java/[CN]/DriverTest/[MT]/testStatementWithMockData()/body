@@ -3,8 +3,11 @@
   Connection conn=driver.connect("jdbc:kylin://test_url/test_db",null);
   ResultSet tables=conn.getMetaData().getTables(null,null,null,null);
   while (tables.next()) {
-    for (int i=0; i < 10; i++) {
+    for (int i=0; i < 4; i++) {
       assertEquals("dummy",tables.getString(i + 1));
+    }
+    for (int i=4; i < 10; i++) {
+      assertEquals(null,tables.getString(i + 1));
     }
   }
   Statement state=conn.createStatement();

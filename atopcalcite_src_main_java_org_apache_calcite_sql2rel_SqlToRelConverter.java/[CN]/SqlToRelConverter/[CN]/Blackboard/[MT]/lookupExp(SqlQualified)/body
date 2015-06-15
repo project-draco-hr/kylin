@@ -1,0 +1,30 @@
+{
+  if (nameToNodeMap != null && qualified.prefixLength == 1) {
+    RexNode node=nameToNodeMap.get(qualified.identifier.names.get(0));
+    if (node == null) {
+      throw Util.newInternal("Unknown identifier '" + qualified.identifier + "' encountered while expanding expression");
+    }
+    return node;
+  }
+  int[] offsets={-1};
+  final SqlValidatorScope[] ancestorScopes={null};
+  SqlValidatorNamespace foundNs=scope.resolve(qualified.prefix(),ancestorScopes,offsets);
+  if (foundNs == null) {
+    return null;
+  }
+  SqlValidatorScope ancestorScope=ancestorScopes[0];
+  boolean isParent=ancestorScope != scope;
+  if ((inputs != null) && !isParent) {
+    int offset=offsets[0];
+    final LookupContext rels=new LookupContext(this,inputs,systemFieldList.size());
+    return lookup(offset,rels);
+  }
+ else {
+    assert isParent;
+    DeferredLookup lookup=new DeferredLookup(this,qualified.identifier.names.get(0));
+    String correlName=createCorrel();
+    mapCorrelToDeferred.put(correlName,lookup);
+    final RelDataType rowType=foundNs.getRowType();
+    return rexBuilder.makeCorrel(rowType,correlName);
+  }
+}

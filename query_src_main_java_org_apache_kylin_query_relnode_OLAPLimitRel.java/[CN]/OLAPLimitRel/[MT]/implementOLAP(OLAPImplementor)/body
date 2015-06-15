@@ -1,5 +1,5 @@
 {
-  implementor.visitChild(getChild(),this);
+  implementor.visitChild(getInput(),this);
   this.columnRowType=buildColumnRowType();
   this.context=implementor.getContext();
   Number limitValue=(Number)(((RexLiteral)localFetch).getValue());

@@ -1,5 +1,5 @@
 {
-  implementor.visitChild(getChild(),this);
+  implementor.visitChild(getInput(),this);
   this.context=implementor.getContext();
   this.columnRowType=buildColumnRowType();
 }

@@ -7,7 +7,7 @@
     List<RelDataTypeField> newFieldList=new LinkedList<RelDataTypeField>();
     for (    Map.Entry<String,RelDataType> rewriteField : this.context.rewriteFields.entrySet()) {
       String fieldName=rewriteField.getKey();
-      if (this.rowType.getField(fieldName,true) == null) {
+      if (this.rowType.getField(fieldName,true,false) == null) {
         RelDataType fieldType=rewriteField.getValue();
         RelDataTypeField newField=new RelDataTypeFieldImpl(fieldName,paramIndex++,fieldType);
         newFieldList.add(newField);

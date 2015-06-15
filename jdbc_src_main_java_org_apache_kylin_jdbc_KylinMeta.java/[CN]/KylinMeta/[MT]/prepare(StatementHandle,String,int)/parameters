@@ -1,0 +1,3 @@
+StatementHandle h
+String sql
+int maxRowCount

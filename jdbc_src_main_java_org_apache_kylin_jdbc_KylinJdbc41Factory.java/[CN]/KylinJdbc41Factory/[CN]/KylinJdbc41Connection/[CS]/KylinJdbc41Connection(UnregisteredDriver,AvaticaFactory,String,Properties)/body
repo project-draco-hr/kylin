@@ -1,3 +1,0 @@
-{
-  super(driver,(KylinJdbc41Factory)factory,url,info);
-}

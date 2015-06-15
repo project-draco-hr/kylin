@@ -1,7 +1,7 @@
 {
   List<TblColRef> columns=new ArrayList<TblColRef>();
   List<Set<TblColRef>> sourceColumns=new ArrayList<Set<TblColRef>>();
-  OLAPRel olapChild=(OLAPRel)getChild();
+  OLAPRel olapChild=(OLAPRel)getInput();
   ColumnRowType inputColumnRowType=olapChild.getColumnRowType();
   for (int i=0; i < this.rewriteProjects.size(); i++) {
     RexNode rex=this.rewriteProjects.get(i);

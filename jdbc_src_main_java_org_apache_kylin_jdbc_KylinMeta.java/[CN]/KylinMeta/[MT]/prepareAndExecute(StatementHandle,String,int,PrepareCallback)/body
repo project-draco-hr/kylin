@@ -1,0 +1,15 @@
+{
+  final Signature signature;
+  try {
+synchronized (callback.getMonitor()) {
+      callback.clear();
+      signature=prepare(h,sql,maxRowCount);
+      callback.assign(signature,null);
+    }
+    callback.execute();
+    return new MetaResultSet(h.id,false,signature,null);
+  }
+ catch (  SQLException e) {
+    throw new RuntimeException(e);
+  }
+}

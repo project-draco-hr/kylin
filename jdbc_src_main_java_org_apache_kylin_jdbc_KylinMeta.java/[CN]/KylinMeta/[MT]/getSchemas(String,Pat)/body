@@ -1,0 +1,4 @@
+{
+  List<KMetaSchema> schemas=getMetaProject().getSchemas(catalog,schemaPattern);
+  return createResultSet(schemas,MetaSchema.class,"TABLE_SCHEM","TABLE_CATALOG");
+}

@@ -1,9 +1,9 @@
 {
-  final SortRel sort=(SortRel)rel;
+  final Sort sort=(Sort)rel;
   if (sort.offset != null || sort.fetch != null) {
     return null;
   }
   final RelTraitSet traitSet=sort.getTraitSet().replace(OLAPRel.CONVENTION);
-  final RelNode input=sort.getChild();
+  final RelNode input=sort.getInput();
   return new OLAPSortRel(rel.getCluster(),traitSet,convert(input,input.getTraitSet().replace(OLAPRel.CONVENTION)),sort.getCollation(),sort.offset,sort.fetch);
 }

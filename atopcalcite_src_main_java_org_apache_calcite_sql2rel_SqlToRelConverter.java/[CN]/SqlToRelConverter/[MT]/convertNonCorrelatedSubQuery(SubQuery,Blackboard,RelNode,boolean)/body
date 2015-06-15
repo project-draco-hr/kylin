@@ -1,0 +1,15 @@
+{
+  SqlCall call=(SqlBasicCall)subQuery.node;
+  if (subqueryConverter.canConvertSubquery() && isSubQueryNonCorrelated(converted,bb)) {
+    RexNode constExpr=mapConvertedNonCorrSubqs.get(call);
+    if (constExpr == null) {
+      constExpr=subqueryConverter.convertSubquery(call,this,isExists,isExplain);
+    }
+    if (constExpr != null) {
+      subQuery.expr=constExpr;
+      mapConvertedNonCorrSubqs.put(call,constExpr);
+      return true;
+    }
+  }
+  return false;
+}

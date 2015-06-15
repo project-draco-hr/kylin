@@ -1,6 +1,0 @@
-{
-  for (int k=digitCount(v); k < n; k++) {
-    buf.append('0');
-  }
-  return buf.append(v);
-}

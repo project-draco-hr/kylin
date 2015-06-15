@@ -1,0 +1,4 @@
+{
+  super(tableCatalog,tableSchem);
+  this.tables=tables;
+}

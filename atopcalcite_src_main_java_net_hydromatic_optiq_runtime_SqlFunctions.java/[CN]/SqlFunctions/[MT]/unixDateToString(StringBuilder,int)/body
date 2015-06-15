@@ -1,3 +1,0 @@
-{
-  julianToString(buf,date + EPOCH_JULIAN);
-}

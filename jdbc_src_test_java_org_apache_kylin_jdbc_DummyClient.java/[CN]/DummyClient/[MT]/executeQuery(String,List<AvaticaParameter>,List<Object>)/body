@@ -1,0 +1,10 @@
+{
+  List<Object> data=new ArrayList<Object>();
+  Object[] row=new Object[]{"foo","bar","tool"};
+  data.add(row);
+  List<ColumnMetaData> meta=new ArrayList<ColumnMetaData>();
+  meta.add(ColumnMetaData.dummy(ColumnMetaData.scalar(Types.VARCHAR,"varchar",Rep.STRING),true));
+  meta.add(ColumnMetaData.dummy(ColumnMetaData.scalar(Types.VARCHAR,"varchar",Rep.STRING),true));
+  meta.add(ColumnMetaData.dummy(ColumnMetaData.scalar(Types.VARCHAR,"varchar",Rep.STRING),true));
+  return new QueryResult(meta,data);
+}
