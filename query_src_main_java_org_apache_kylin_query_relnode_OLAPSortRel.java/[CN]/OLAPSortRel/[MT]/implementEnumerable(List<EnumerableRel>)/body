@@ -1,0 +1,3 @@
+{
+  return new EnumerableSort(getCluster(),getCluster().traitSetOf(EnumerableConvention.INSTANCE,collation),sole(inputs),collation,offset,fetch);
+}

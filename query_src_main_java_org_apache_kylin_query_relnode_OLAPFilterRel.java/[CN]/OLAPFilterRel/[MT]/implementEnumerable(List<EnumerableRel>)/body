@@ -1,0 +1,9 @@
+{
+  RexBuilder rexBuilder=getCluster().getRexBuilder();
+  RelDataType inputRowType=getInput().getRowType();
+  RexProgramBuilder programBuilder=new RexProgramBuilder(inputRowType,rexBuilder);
+  programBuilder.addIdentity();
+  programBuilder.addCondition(this.condition);
+  RexProgram program=programBuilder.getProgram();
+  return new EnumerableCalc(getCluster(),getCluster().traitSetOf(EnumerableConvention.INSTANCE),sole(inputs),program,ImmutableList.<RelCollation>of());
+}

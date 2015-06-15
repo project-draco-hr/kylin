@@ -1,7 +1,7 @@
 {
   if (this.rowType == null) {
     this.exposedColumns=listSourceColumns();
-    this.rowType=deduceRowType(typeFactory);
+    this.rowType=deriveRowType(typeFactory);
   }
   return this.rowType;
 }

@@ -1,0 +1,12 @@
+{
+  RexNode convExpr=bb.convertExpression(expr);
+  int ref=lookupGroupExpr(expr);
+  if (ref >= 0) {
+    return ref;
+  }
+  final int index=groupExprs.size();
+  groupExprs.add(expr);
+  String name=nameMap.get(expr.toString());
+  addExpr(convExpr,name);
+  return index;
+}

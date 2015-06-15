@@ -5,7 +5,7 @@
   }
   for (  Map.Entry<String,RelDataType> rewriteField : rewriteFields.entrySet()) {
     String fieldName=rewriteField.getKey();
-    RelDataTypeField field=rowType.getField(fieldName,true);
+    RelDataTypeField field=rowType.getField(fieldName,true,false);
     if (field != null) {
       RelDataType fieldType=field.getType();
       rewriteField.setValue(fieldType);

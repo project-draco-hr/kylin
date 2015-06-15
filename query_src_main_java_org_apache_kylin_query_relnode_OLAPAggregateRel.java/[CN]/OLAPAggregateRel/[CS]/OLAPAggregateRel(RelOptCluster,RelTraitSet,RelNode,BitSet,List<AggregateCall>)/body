@@ -1,7 +1,0 @@
-{
-  super(cluster,traits,child,groupSet,aggCalls);
-  Preconditions.checkArgument(getConvention() == OLAPRel.CONVENTION);
-  this.afterAggregate=false;
-  this.rewriteAggCalls=aggCalls;
-  this.rowType=getRowType();
-}

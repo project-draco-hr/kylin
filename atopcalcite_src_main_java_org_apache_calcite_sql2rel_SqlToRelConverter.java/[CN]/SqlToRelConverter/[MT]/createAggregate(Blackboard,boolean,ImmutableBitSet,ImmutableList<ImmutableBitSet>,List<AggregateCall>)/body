@@ -1,0 +1,3 @@
+{
+  return new LogicalAggregate(cluster,bb.root,indicator,groupSet,groupSets,aggCalls);
+}

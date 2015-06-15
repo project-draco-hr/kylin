@@ -10,8 +10,8 @@
       metFields.add(fieldName);
       ColumnDesc fakeCountCol=new ColumnDesc();
       fakeCountCol.setName(fieldName);
-      fakeCountCol.setDatatype(func.getSQLType());
-      fakeCountCol.setNullable(false);
+      fakeCountCol.setDatatype(func.getSQLType().toString());
+      if (func.isCount())       fakeCountCol.setNullable(false);
       fakeCountCol.init(sourceTable);
       exposedColumns.add(fakeCountCol);
     }

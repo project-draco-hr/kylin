@@ -1,10 +1,10 @@
 {
-  RelDataType inputAggRow=getChild().getRowType();
+  RelDataType inputAggRow=getInput().getRowType();
   RelDataType outputAggRow=getRowType();
   if (inputAggRow.getFieldCount() != outputAggRow.getFieldCount()) {
     for (    RelDataTypeField inputField : inputAggRow.getFieldList()) {
       String inputFieldName=inputField.getName();
-      if (outputAggRow.getField(inputFieldName,true) == null) {
+      if (outputAggRow.getField(inputFieldName,true,false) == null) {
         TblColRef column=this.columnRowType.getColumnByIndex(inputField.getIndex());
         this.context.metricsColumns.add(column);
       }

@@ -1,5 +1,5 @@
 {
-  implementor.visitChild(this,getChild());
+  implementor.visitChild(this,getInput());
   if (!this.afterAggregate && RewriteImplementor.needRewrite(this.context)) {
     this.rewriteAggCalls=new ArrayList<AggregateCall>(aggCalls.size());
     for (int i=0; i < this.aggCalls.size(); i++) {

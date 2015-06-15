@@ -1,7 +1,7 @@
 {
   List<TblColRef> columns=new ArrayList<TblColRef>();
   List<Set<TblColRef>> sourceColumns=new ArrayList<Set<TblColRef>>();
-  OLAPRel olapChild=(OLAPRel)getChild();
+  OLAPRel olapChild=(OLAPRel)getInput();
   ColumnRowType inputColumnRowType=olapChild.getColumnRowType();
   for (int i=0; i < this.rewriteProjects.size(); i++) {
     RexNode rex=this.rewriteProjects.get(i);
@@ -9,6 +9,7 @@
     String fieldName=columnField.getName();
     Set<TblColRef> sourceCollector=new HashSet<TblColRef>();
     TblColRef column=translateRexNode(rex,inputColumnRowType,fieldName,sourceCollector);
+    if (column == null)     throw new IllegalStateException("No TblColRef found in " + rex);
     columns.add(column);
     sourceColumns.add(sourceCollector);
   }

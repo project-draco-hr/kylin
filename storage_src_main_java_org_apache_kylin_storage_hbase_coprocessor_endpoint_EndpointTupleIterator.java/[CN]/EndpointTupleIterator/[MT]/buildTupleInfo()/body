@@ -6,7 +6,7 @@
     info.setField(columnNames.get(i),columns.get(i),columns.get(i).getType().getName(),index++);
   }
   for (  FunctionDesc measure : measures) {
-    info.setField(measure.getRewriteFieldName(),null,measure.getSQLType(),index++);
+    info.setField(measure.getRewriteFieldName(),null,measure.getSQLType().getName(),index++);
   }
   return info;
 }

@@ -1,5 +1,5 @@
 {
-  OptiqConnection conn=(OptiqConnection)optiqContext.getQueryProvider();
+  CalciteConnection conn=(CalciteConnection)optiqContext.getQueryProvider();
   Properties connProps=conn.getProperties();
   String propThreshold=connProps.getProperty(OLAPQuery.PROP_SCAN_THRESHOLD);
   int threshold=Integer.valueOf(propThreshold);

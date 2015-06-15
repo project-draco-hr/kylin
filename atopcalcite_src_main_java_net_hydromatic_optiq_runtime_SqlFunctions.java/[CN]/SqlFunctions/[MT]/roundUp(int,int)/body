@@ -1,8 +1,0 @@
-{
-  int remainder=dividend % divisor;
-  dividend-=remainder;
-  if (remainder * 2 > divisor) {
-    dividend+=divisor;
-  }
-  return dividend;
-}

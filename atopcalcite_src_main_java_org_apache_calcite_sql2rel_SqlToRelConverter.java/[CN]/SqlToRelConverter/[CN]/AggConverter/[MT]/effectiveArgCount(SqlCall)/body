@@ -1,0 +1,12 @@
+{
+switch (call.getKind()) {
+case GROUPING:
+    return 1;
+case GROUPING_ID:
+  return call.operandCount();
+case GROUP_ID:
+return groupExprs.size();
+default :
+throw new AssertionError(call.getKind());
+}
+}

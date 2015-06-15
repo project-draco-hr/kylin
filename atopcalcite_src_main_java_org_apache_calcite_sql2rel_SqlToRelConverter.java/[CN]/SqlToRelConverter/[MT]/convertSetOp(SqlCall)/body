@@ -1,0 +1,28 @@
+{
+  final RelNode left=convertQueryRecursive(call.operand(0),false,null);
+  final RelNode right=convertQueryRecursive(call.operand(1),false,null);
+  boolean all=false;
+  if (call.getOperator() instanceof SqlSetOperator) {
+    all=((SqlSetOperator)(call.getOperator())).isAll();
+  }
+switch (call.getKind()) {
+case UNION:
+    return new LogicalUnion(cluster,ImmutableList.of(left,right),all);
+case INTERSECT:
+  if (!all) {
+    return new LogicalIntersect(cluster,ImmutableList.of(left,right),all);
+  }
+ else {
+    throw Util.newInternal("set operator INTERSECT ALL not suported");
+  }
+case EXCEPT:
+if (!all) {
+  return new LogicalMinus(cluster,ImmutableList.of(left,right),all);
+}
+ else {
+  throw Util.newInternal("set operator EXCEPT ALL not suported");
+}
+default :
+throw Util.unexpected(call.getKind());
+}
+}

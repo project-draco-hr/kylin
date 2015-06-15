@@ -1,6 +1,6 @@
 {
   OLAPRel.OLAPImplementor olapImplementor=new OLAPRel.OLAPImplementor();
-  olapImplementor.visitChild(getChild(),this);
+  olapImplementor.visitChild(getInput(),this);
   try {
     for (    OLAPContext context : OLAPContext.getThreadLocalContexts()) {
       IRealization realization=QueryRouter.selectRealization(context);
@@ -17,8 +17,14 @@
     }
   }
   OLAPRel.RewriteImplementor rewriteImplementor=new OLAPRel.RewriteImplementor();
-  rewriteImplementor.visitChild(this,getChild());
-  EnumerableRel child=(EnumerableRel)getChild();
-  OLAPRel.JavaImplementor javaImplementor=new OLAPRel.JavaImplementor(enumImplementor);
-  return javaImplementor.visitChild(this,0,child,pref);
+  rewriteImplementor.visitChild(this,getInput());
+  OLAPRel.JavaImplementor impl=new OLAPRel.JavaImplementor(enumImplementor);
+  EnumerableRel inputAsEnum=impl.createEnumerable((OLAPRel)getInput());
+  this.replaceInput(0,inputAsEnum);
+  if (System.getProperty("calcite.debug") != null) {
+    String dumpPlan=RelOptUtil.dumpPlan("",this,false,SqlExplainLevel.DIGEST_ATTRIBUTES);
+    System.out.println("EXECUTION PLAN AFTER REWRITE");
+    System.out.println(dumpPlan);
+  }
+  return impl.visitChild(this,0,inputAsEnum,pref);
 }
