@@ -1,0 +1,25 @@
+{
+  final List<CubeSegment> readySegments=cube.getSegment(SegmentStatusEnum.READY);
+  if (readySegments.size() == 0) {
+    return true;
+  }
+  for (  CubeSegment readySegment : readySegments) {
+    if (readySegment.getDateRangeEnd() <= readySegment.getDateRangeStart()) {
+      logger.warn(String.format("segment:%s has invalid date range:[%d, %d], validation failed",readySegment.getName(),readySegment.getDateRangeStart(),readySegment.getDateRangeEnd()));
+      return false;
+    }
+  }
+  Collections.sort(readySegments);
+  for (int i=0, size=readySegments.size(); i < size - 1; i++) {
+    CubeSegment lastSegment=readySegments.get(i);
+    CubeSegment segment=readySegments.get(i + 1);
+    if (lastSegment.getDateRangeEnd() <= segment.getDateRangeStart()) {
+      continue;
+    }
+ else {
+      logger.warn(String.format("segment:%s and %s data range has overlap, validation failed",lastSegment.getName(),segment.getName()));
+      return false;
+    }
+  }
+  return true;
+}

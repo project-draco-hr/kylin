@@ -20,6 +20,9 @@
     }
   }
   Collections.sort(cube.getSegments());
+  if (!validateReadySegments(cube)) {
+    return cube;
+  }
   if (cubeBuilder.getStatus() != null) {
     cube.setStatus(cubeBuilder.getStatus());
   }
