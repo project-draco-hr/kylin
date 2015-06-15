@@ -41,10 +41,7 @@
     instance=new CubeMetadataUpgrade(newMetadataUrl);
     instance.upgrade();
     logger.info("=================================================================");
-    logger.info("Run CubeMetadataUpgrade completed; The following resources have been successfully updated : ");
-    for (    String s : instance.updatedResources) {
-      logger.info(s);
-    }
+    logger.info("Run CubeMetadataUpgrade completed;");
   }
   logger.info("=================================================================");
   if (instance.errorMsgs.size() > 0) {
