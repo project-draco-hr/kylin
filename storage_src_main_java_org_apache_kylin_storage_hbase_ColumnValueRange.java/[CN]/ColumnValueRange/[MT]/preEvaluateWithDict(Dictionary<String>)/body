@@ -1,0 +1,32 @@
+{
+  if (dict == null)   return;
+  if (equalValues != null) {
+    Iterator<String> it=equalValues.iterator();
+    while (it.hasNext()) {
+      String v=it.next();
+      try {
+        dict.getIdFromValue(v);
+      }
+ catch (      IllegalArgumentException e) {
+        it.remove();
+      }
+    }
+    refreshBeginEndFromEquals();
+  }
+  if (beginValue != null) {
+    try {
+      beginValue=dict.getValueFromId(dict.getIdFromValue(beginValue,-1));
+    }
+ catch (    IllegalArgumentException e) {
+      beginValue=null;
+    }
+  }
+  if (endValue != null) {
+    try {
+      endValue=dict.getValueFromId(dict.getIdFromValue(endValue,1));
+    }
+ catch (    IllegalArgumentException e) {
+      endValue=null;
+    }
+  }
+}
