@@ -1,4 +1,0 @@
-{
-  List<String> alldata=FileUtils.readLines(new File(args[0]));
-  loadIntoKafka(args[1],alldata);
-}

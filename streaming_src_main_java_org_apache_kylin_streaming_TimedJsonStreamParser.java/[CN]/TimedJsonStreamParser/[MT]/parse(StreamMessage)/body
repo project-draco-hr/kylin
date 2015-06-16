@@ -1,0 +1,33 @@
+{
+  try {
+    Map<String,String> root=mapper.readValue(stream.getRawData(),mapType);
+    String tsStr=root.get("timestamp");
+    Preconditions.checkArgument(!StringUtils.isEmpty(tsStr),"Timestamp field cannot be null");
+    long t=Long.valueOf(root.get("timestamp"));
+    ArrayList<String> result=Lists.newArrayList();
+    for (    TblColRef column : allColumns) {
+      String columnName=column.getName();
+      if (columnName.equalsIgnoreCase("minute_start")) {
+        long minuteStart=TimeUtil.getMinuteStart(t);
+        result.add(formatTs ? DateFormat.formatToTimeStr(minuteStart) : String.valueOf(minuteStart));
+      }
+ else       if (columnName.equalsIgnoreCase("hour_start")) {
+        long hourStart=TimeUtil.getHourStart(t);
+        result.add(formatTs ? DateFormat.formatToTimeStr(hourStart) : String.valueOf(hourStart));
+      }
+ else       if (columnName.equalsIgnoreCase("day_start")) {
+        long ts=TimeUtil.getDayStart(t);
+        result.add(DateFormat.formatToDateStr(ts));
+      }
+ else {
+        String x=root.get(columnName.toLowerCase());
+        result.add(x);
+      }
+    }
+    return new ParsedStreamMessage(result,stream.getOffset(),t,true);
+  }
+ catch (  IOException e) {
+    logger.error("error",e);
+    throw new RuntimeException(e);
+  }
+}

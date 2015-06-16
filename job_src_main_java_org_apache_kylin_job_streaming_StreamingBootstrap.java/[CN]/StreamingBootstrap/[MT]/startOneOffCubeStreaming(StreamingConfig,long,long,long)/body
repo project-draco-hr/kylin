@@ -44,5 +44,4 @@
   OneOffStreamBuilder oneOffStreamBuilder=new OneOffStreamBuilder(streamingConfig.getName(),queues,streamParser,new CubeStreamConsumer(cubeName),startTimestamp,endTimestamp,margin);
   Executors.newSingleThreadExecutor().submit(oneOffStreamBuilder).get();
   logger.info("one off build finished");
-  System.exit(0);
 }

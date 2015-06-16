@@ -2,7 +2,7 @@
   for (long start=startTime; start < endTime; start+=batchInterval) {
     BootstrapConfig bootstrapConfig=new BootstrapConfig();
     bootstrapConfig.setStart(start);
-    bootstrapConfig.setEnd(start + endTime);
+    bootstrapConfig.setEnd(start + batchInterval);
     bootstrapConfig.setMargin(0);
     bootstrapConfig.setOneOff(true);
     bootstrapConfig.setPartitionId(0);

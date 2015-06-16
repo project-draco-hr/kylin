@@ -1,4 +1,0 @@
-{
-  List<String> data=StreamingTableDataGenerator.generate(10000,startTime,endTime);
-  KafkaDataLoader.loadIntoKafka(streamingName,data);
-}

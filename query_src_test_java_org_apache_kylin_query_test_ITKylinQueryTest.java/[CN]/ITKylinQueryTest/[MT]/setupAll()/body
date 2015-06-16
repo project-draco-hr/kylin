@@ -7,5 +7,5 @@
   cubeConnection=DriverManager.getConnection("jdbc:calcite:model=" + olapTmp.getAbsolutePath(),props);
   h2Connection=DriverManager.getConnection("jdbc:h2:mem:db" + (h2InstanceCount++),"sa","");
   H2Database h2DB=new H2Database(h2Connection,config);
-  h2DB.loadAllTables(joinType);
+  h2DB.loadAllTables();
 }

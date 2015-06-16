@@ -5,5 +5,5 @@
   StreamingConfig streamingConfig=StreamingManager.getInstance(kylinConfig).getStreamingConfig(streamingName);
   streamingConfig.setTopic(UUID.randomUUID().toString());
   StreamingManager.getInstance(kylinConfig).saveStreamingConfig(streamingConfig);
-  loadDataIntoKafka();
+  DeployUtil.prepareTestDataForStreamingCube(startTime,endTime,streamingConfig);
 }
