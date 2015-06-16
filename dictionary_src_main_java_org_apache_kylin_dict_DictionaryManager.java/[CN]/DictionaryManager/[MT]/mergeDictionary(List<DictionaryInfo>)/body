@@ -25,6 +25,17 @@
     logger.info("Identical dictionary input " + newDictInfo.getInput() + ", reuse existing dictionary at "+ dupDict);
     return getDictionaryInfo(dupDict);
   }
+  boolean identicalSourceDicts=true;
+  for (int i=1; i < dicts.size(); ++i) {
+    if (!dicts.get(0).getDictionaryObject().equals(dicts.get(i).getDictionaryObject())) {
+      identicalSourceDicts=false;
+      break;
+    }
+  }
+  if (identicalSourceDicts) {
+    logger.info("Use one of the merging dictionaries directly");
+    return dicts.get(0);
+  }
   Dictionary<?> newDict=DictionaryGenerator.mergeDictionaries(newDictInfo,dicts);
   return trySaveNewDict(newDict,newDictInfo);
 }
