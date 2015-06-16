@@ -8,7 +8,7 @@
     }
  else {
       if (!firstDictInfo.isDictOnSameColumn(info)) {
-        throw new IllegalArgumentException("Merging dictionaries are not structurally equal(regardless of signature).");
+        logger.warn("Merging dictionaries are not structurally equal : " + firstDictInfo.getResourcePath() + " and "+ info.getResourcePath());
       }
     }
     totalSize+=info.getInput().getSize();
