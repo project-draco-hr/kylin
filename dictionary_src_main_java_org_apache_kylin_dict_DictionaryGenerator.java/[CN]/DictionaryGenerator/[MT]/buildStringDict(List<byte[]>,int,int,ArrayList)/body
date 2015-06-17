@@ -1,8 +1,8 @@
 {
   TrieDictionaryBuilder builder=new TrieDictionaryBuilder(new StringBytesConverter());
   for (  byte[] value : values) {
+    if (value == null)     continue;
     String v=Bytes.toString(value);
-    if (StringUtils.isBlank(v))     continue;
     builder.addValue(v);
     if (samples.size() < nSamples && samples.contains(v) == false)     samples.add(v);
   }
