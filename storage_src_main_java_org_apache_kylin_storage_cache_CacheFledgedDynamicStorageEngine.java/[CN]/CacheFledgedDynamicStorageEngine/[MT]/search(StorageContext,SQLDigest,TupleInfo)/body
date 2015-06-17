@@ -1,17 +1,17 @@
 {
-  boolean needUpdateCache=sqlDigest.groupbyColumns.contains(partitionColRef);
-  streamSQLDigest=new StreamSQLDigest(sqlDigest,partitionColRef);
-  StreamSQLResult cachedResult=null;
-  Cache cache=CACHE_MANAGER.getCache(this.underlyingStorage.getStorageUUID());
-  Element element=cache.get(streamSQLDigest);
-  if (element != null) {
-    this.queryCacheExists=true;
-    cachedResult=(StreamSQLResult)element.getObjectValue();
-  }
   ts=TsConditionExtractor.extractTsCondition(partitionColRef,sqlDigest.filter);
   if (ts == null || ts.isEmpty()) {
     logger.info("ts range in the query conflicts,return empty directly");
     return ITupleIterator.EMPTY_TUPLE_ITERATOR;
+  }
+  boolean needUpdateCache=sqlDigest.groupbyColumns.contains(partitionColRef);
+  streamSQLDigest=new StreamSQLDigest(sqlDigest,partitionColRef);
+  StreamSQLResult cachedResult=null;
+  Cache cache=CACHE_MANAGER.getCache(this.underlyingStorage.getStorageUUID());
+  Element element=cache.get(streamSQLDigest.hashCode());
+  if (element != null) {
+    this.queryCacheExists=true;
+    cachedResult=(StreamSQLResult)element.getObjectValue();
   }
   ITupleIterator ret=null;
   if (cachedResult != null) {
@@ -38,10 +38,12 @@
         ret=new CompoundTupleIterator(iTupleIteratorList);
       }
  else       if (remainings.size() == 0) {
+        logger.info("The ts range in new query was fully cached");
         needUpdateCache=false;
         ret=new SimpleTupleIterator(cachedResult.reuse(reusePeriod));
       }
  else {
+        logger.info("Give up using cache to avoid complexity");
       }
     }
   }
@@ -49,11 +51,11 @@
     logger.info("no cache entry for this query");
   }
   if (ret == null) {
-    logger.info("decision: not using cache");
     ret=underlyingStorage.search(context,sqlDigest,returnTupleInfo);
+    logger.info("No Cache being used");
   }
  else {
-    logger.info("decision: use cache");
+    logger.info("Cache being used");
   }
   if (needUpdateCache) {
     final TeeTupleIterator tee=new TeeTupleIterator(ret);

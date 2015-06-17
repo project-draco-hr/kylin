@@ -4,14 +4,15 @@
     List<Range<Long>> cachablePeriods=RangeUtil.remove(ts,cacheExclude);
     if (cachablePeriods.size() == 1) {
       if (!ts.equals(cachablePeriods.get(0))) {
-        logger.info("With respect to each shard's build status, the cacheable tsRange shrinks from " + RangeUtil.formatTsRange(ts) + " to "+ RangeUtil.formatTsRange(cachablePeriods.get(0)));
+        logger.info("With respect to growing storage, the cacheable tsRange shrinks from " + RangeUtil.formatTsRange(ts) + " to "+ RangeUtil.formatTsRange(cachablePeriods.get(0)));
       }
       ts=cachablePeriods.get(0);
     }
  else {
+      logger.info("Skip updating cache to avoid complexity");
     }
   }
   StreamSQLResult newCacheEntry=new StreamSQLResult(duplicated,ts,partitionColRef);
-  CACHE_MANAGER.getCache(this.underlyingStorage.getStorageUUID()).put(new Element(streamSQLDigest,newCacheEntry));
+  CACHE_MANAGER.getCache(this.underlyingStorage.getStorageUUID()).put(new Element(streamSQLDigest.hashCode(),newCacheEntry));
   logger.info("cache after the query: " + newCacheEntry);
 }
