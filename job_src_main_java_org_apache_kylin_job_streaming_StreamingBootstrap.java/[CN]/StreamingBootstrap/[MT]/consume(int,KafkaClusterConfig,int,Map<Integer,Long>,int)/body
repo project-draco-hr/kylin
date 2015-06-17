@@ -17,7 +17,7 @@
     }
     logger.info("starting offset:" + streamingOffset + " cluster id:"+ clusterID+ " partitionId:"+ partitionId+ " transferredPartitionId:"+ transferredPartitionId);
     KafkaConsumer consumer=new KafkaConsumer(clusterID,kafkaClusterConfig.getTopic(),partitionId,streamingOffset,kafkaClusterConfig.getBrokers(),kafkaClusterConfig);
-    Executors.newSingleThreadExecutor().submit(consumer);
+    Executors.newSingleThreadExecutor(new DaemonThreadFactory()).submit(consumer);
     result.add(consumer.getStreamQueue(0));
   }
   return result;

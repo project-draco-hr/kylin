@@ -1,6 +1,6 @@
 {
   final TopicMeta kafkaTopicMeta=KafkaRequester.getKafkaTopicMeta(kafkaClusterConfig);
-  final ExecutorService executorService=Executors.newFixedThreadPool(kafkaTopicMeta.getPartitionIds().size());
+  final ExecutorService executorService=Executors.newFixedThreadPool(kafkaTopicMeta.getPartitionIds().size(),new DaemonThreadFactory());
   List<BlockingQueue<StreamMessage>> queues=Lists.newArrayList();
   for (  Integer partitionId : kafkaTopicMeta.getPartitionIds()) {
     KafkaConsumer consumer=new KafkaConsumer(0,kafkaTopicMeta.getName(),partitionId,0,kafkaClusterConfig.getBrokers(),kafkaClusterConfig);

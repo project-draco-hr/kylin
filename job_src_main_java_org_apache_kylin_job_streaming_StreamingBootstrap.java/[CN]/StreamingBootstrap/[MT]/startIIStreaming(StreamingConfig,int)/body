@@ -32,7 +32,7 @@
   KafkaConsumer consumer=new KafkaConsumer(clusterID,kafkaClusterConfig.getTopic(),partitionId,streamingOffset,kafkaClusterConfig.getBrokers(),kafkaClusterConfig,parallelism);
   kafkaConsumers.put(getKey(streamingConfig.getName(),partitionId),consumer);
   final IIDesc iiDesc=iiSegment.getIIDesc();
-  Executors.newSingleThreadExecutor().submit(consumer);
+  Executors.newSingleThreadExecutor(new DaemonThreadFactory()).submit(consumer);
   final ExecutorService streamingBuilderPool=Executors.newFixedThreadPool(parallelism);
   for (int i=startShard; i < endShard; ++i) {
     final StreamBuilder task=StreamBuilder.newLimitedSizeStreamBuilder(streamingConfig.getName(),consumer.getStreamQueue(i % parallelism),new IIStreamConsumer(streamingConfig.getName(),iiSegment.getStorageLocationIdentifier(),iiDesc,i),0L,iiDesc.getSliceSize());

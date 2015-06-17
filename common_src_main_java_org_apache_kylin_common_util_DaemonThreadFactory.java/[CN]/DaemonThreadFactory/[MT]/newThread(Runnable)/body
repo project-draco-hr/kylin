@@ -1,0 +1,5 @@
+{
+  Thread t=Executors.defaultThreadFactory().newThread(r);
+  t.setDaemon(true);
+  return t;
+}
