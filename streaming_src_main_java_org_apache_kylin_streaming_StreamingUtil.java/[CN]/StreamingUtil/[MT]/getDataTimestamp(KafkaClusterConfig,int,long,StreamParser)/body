@@ -1,11 +1,10 @@
 {
   final String topic=kafkaClusterConfig.getTopic();
-  logger.debug(String.format("try to get timestamp of topic: %s, partitionId: %d, offset: %d",topic,partitionId,offset));
   final MessageAndOffset messageAndOffset=getKafkaMessage(kafkaClusterConfig,partitionId,offset);
   final ByteBuffer payload=messageAndOffset.message().payload();
   byte[] bytes=new byte[payload.limit()];
   payload.get(bytes);
   final ParsedStreamMessage parsedStreamMessage=streamParser.parse(new StreamMessage(messageAndOffset.offset(),bytes));
-  logger.debug(String.format("get timestamp:%d",parsedStreamMessage.getTimestamp()));
+  logger.debug(String.format("The timestamp of topic: %s, partitionId: %d, offset: %d is: %d",topic,partitionId,offset,parsedStreamMessage.getTimestamp()));
   return parsedStreamMessage.getTimestamp();
 }
