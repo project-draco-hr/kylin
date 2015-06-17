@@ -1,0 +1,13 @@
+{
+  try {
+    Field field=clz.getDeclaredField(fieldName);
+    field.setAccessible(true);
+    Field modifiersField=Field.class.getDeclaredField("modifiers");
+    modifiersField.setAccessible(true);
+    modifiersField.setInt(field,field.getModifiers() & ~Modifier.FINAL);
+    field.set(obj,newValue);
+  }
+ catch (  Exception e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -28,6 +28,7 @@
     List<RexNode> newProjects=new ArrayList<RexNode>(this.rewriteProjects);
     newProjects.addAll(newExpList);
     this.rewriteProjects=newProjects;
+    ClassUtil.updateFinalField(ProjectRelBase.class,"exps",this,ImmutableList.copyOf(this.rewriteProjects));
     FieldInfoBuilder fieldInfo=getCluster().getTypeFactory().builder();
     fieldInfo.addAll(this.rowType.getFieldList());
     fieldInfo.addAll(newFieldList);

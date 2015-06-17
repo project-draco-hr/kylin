@@ -10,6 +10,7 @@
       }
       this.rewriteAggCalls.add(aggCall);
     }
+    ClassUtil.updateFinalField(AggregateRelBase.class,"aggCalls",this,this.rewriteAggCalls);
   }
   this.rowType=this.deriveRowType();
   this.columnRowType=this.buildColumnRowType();

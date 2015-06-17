@@ -1,0 +1,4 @@
+Class<?> clz
+String fieldName
+Object obj
+Object newValue
