@@ -1,0 +1,14 @@
+{
+  try {
+    final List<ExecutableOutputPO> jobOutputs=executableDao.getJobOutputs();
+    HashMap<String,Output> result=Maps.newHashMap();
+    for (    ExecutableOutputPO jobOutput : jobOutputs) {
+      result.put(jobOutput.getId(),parseOutput(jobOutput));
+    }
+    return result;
+  }
+ catch (  PersistentException e) {
+    logger.error("fail to get all job output:",e);
+    throw new RuntimeException(e);
+  }
+}

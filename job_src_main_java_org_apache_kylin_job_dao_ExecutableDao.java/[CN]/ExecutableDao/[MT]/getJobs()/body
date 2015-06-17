@@ -1,14 +1,13 @@
 {
   try {
-    ArrayList<String> resources=store.listResources(JOB_PATH_ROOT);
-    if (resources == null) {
+    final List<String> jobIds=store.listResources(JOB_PATH_ROOT);
+    if (jobIds.isEmpty()) {
       return Collections.emptyList();
     }
-    ArrayList<ExecutablePO> result=new ArrayList<ExecutablePO>(resources.size());
-    for (    String path : resources) {
-      result.add(readJobResource(path));
-    }
-    return result;
+    Collections.sort(jobIds);
+    String rangeStart=jobIds.get(0);
+    String rangeEnd=jobIds.get(jobIds.size() - 1);
+    return store.getAllResources(rangeStart,rangeEnd,ExecutablePO.class,JOB_SERIALIZER);
   }
  catch (  IOException e) {
     logger.error("error get all Jobs:",e);

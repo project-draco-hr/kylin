@@ -1,0 +1,11 @@
+{
+  if (startTime == 0) {
+    return 0;
+  }
+  if (endTime == 0) {
+    return System.currentTimeMillis() - startTime;
+  }
+ else {
+    return endTime - startTime;
+  }
+}
