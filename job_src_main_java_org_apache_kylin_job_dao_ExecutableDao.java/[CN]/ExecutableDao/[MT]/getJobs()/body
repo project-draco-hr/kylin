@@ -1,7 +1,7 @@
 {
   try {
     final List<String> jobIds=store.listResources(JOB_PATH_ROOT);
-    if (jobIds.isEmpty()) {
+    if (jobIds == null || jobIds.isEmpty()) {
       return Collections.emptyList();
     }
     Collections.sort(jobIds);
