@@ -1,3 +1,3 @@
 {
-  return listAllCubingJobs(cubeName,projectName,EnumSet.allOf(ExecutableState.class));
+  return listAllCubingJobs(cubeName,projectName,EnumSet.allOf(ExecutableState.class),getExecutableManager().getAllOutputs());
 }

@@ -1,0 +1,2 @@
+AbstractExecutable job
+Map<String,Output> outputs

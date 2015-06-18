@@ -30,5 +30,5 @@
     throw new JobException("invalid build type:" + buildType);
   }
   getExecutableManager().addJob(job);
-  return parseToJobInstance(job);
+  return getSingleJobInstance(job);
 }
