@@ -3,3 +3,4 @@ CoprocessorFilter filter
 CoprocessorProjector groupBy
 ObserverAggregators aggrs
 RegionScanner innerScanner
+ObserverBehavior behavior

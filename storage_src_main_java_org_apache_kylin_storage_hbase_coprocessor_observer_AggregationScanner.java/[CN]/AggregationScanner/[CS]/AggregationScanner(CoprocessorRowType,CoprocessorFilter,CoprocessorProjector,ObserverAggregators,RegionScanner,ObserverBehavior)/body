@@ -1,5 +1,6 @@
 {
   AggregateRegionObserver.LOG.info("Kylin Coprocessor start");
+  this.behavior=behavior;
   ObserverAggregationCache aggCache;
   Stats stats=new Stats();
   aggCache=buildAggrCache(innerScanner,type,groupBy,aggrs,filter,stats);
