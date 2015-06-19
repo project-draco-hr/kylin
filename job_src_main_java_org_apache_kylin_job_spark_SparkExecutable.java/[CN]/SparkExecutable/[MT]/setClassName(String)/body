@@ -1,0 +1,3 @@
+{
+  this.setParam(CLASS_NAME,className);
+}

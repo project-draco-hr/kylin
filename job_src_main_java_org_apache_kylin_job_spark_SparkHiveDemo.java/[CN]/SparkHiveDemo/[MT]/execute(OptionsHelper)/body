@@ -1,0 +1,7 @@
+{
+  SparkConf conf=new SparkConf().setAppName("Simple Application");
+  JavaSparkContext sc=new JavaSparkContext(conf);
+  HiveContext sqlContext=new HiveContext(sc.sc());
+  final DataFrame dataFrame=sqlContext.sql("select * from test_kylin_fact");
+  System.out.println("count * of the table:" + dataFrame.count());
+}

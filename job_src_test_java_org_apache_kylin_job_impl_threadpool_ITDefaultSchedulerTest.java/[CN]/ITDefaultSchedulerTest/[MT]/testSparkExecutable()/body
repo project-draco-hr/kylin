@@ -1,0 +1,11 @@
+{
+  DefaultChainedExecutable job=new DefaultChainedExecutable();
+  SparkExecutable task=new SparkExecutable();
+  task.setClassName(SparkHelloWorld.class.getName());
+  job.addTask(task);
+  jobService.addJob(job);
+  waitForJobFinish(job.getId());
+  assertEquals(ExecutableState.SUCCEED,job.getStatus());
+  final Output output=jobService.getOutput(task.getId());
+  assertTrue(output.getVerboseMsg().contains("hello kylin-spark"));
+}
