@@ -1,9 +1,10 @@
 {
   try {
     File temp=File.createTempFile("test",".tmp");
-    CompressionTest.main(new String[]{"file://" + temp.toString(),"lzo"});
+    CompressionTest.main(new String[]{"file://" + temp.getAbsolutePath(),"lzo"});
   }
  catch (  Exception e) {
+    log.error("Fail to compress file with lzo",e);
     return false;
   }
   return true;
