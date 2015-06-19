@@ -20,13 +20,15 @@
   getExecutableManager().resetJobOutput(cubingJob.getId(),parseState(job.getStatus()),job.getStatus().toString());
   for (int i=0, size=job.getSteps().size(); i < size; ++i) {
     final JobInstance.JobStep jobStep=job.getSteps().get(i);
-    final InputStream inputStream=getStore().getResource(ResourceStore.JOB_OUTPUT_PATH_ROOT + "/" + job.getId()+ "."+ i);
+    final String outputPath=ResourceStore.JOB_OUTPUT_PATH_ROOT + "/" + job.getId()+ "."+ i;
+    final InputStream inputStream=getStore().getResource(outputPath);
     String output=null;
     if (inputStream != null) {
       HashMap<String,String> job_output=JsonUtil.readValue(inputStream,HashMap.class);
       if (job_output != null) {
         output=job_output.get("output");
       }
+      org.apache.commons.io.IOUtils.closeQuietly(inputStream);
     }
     updateJobStepOutput(jobStep,output,cubingJob.getTasks().get(i));
   }

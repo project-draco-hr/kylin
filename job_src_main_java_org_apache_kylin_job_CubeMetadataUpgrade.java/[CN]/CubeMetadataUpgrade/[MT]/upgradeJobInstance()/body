@@ -4,6 +4,12 @@
     for (    String path : paths) {
       upgradeJobInstance(path);
     }
+    for (    String folder : new String[]{ResourceStore.JOB_PATH_ROOT,ResourceStore.JOB_OUTPUT_PATH_ROOT}) {
+      for (      String res : getStore().listResources(folder)) {
+        getStore().deleteResource(res);
+      }
+      getStore().deleteResource(folder);
+    }
   }
  catch (  IOException ex) {
     errorMsgs.add("upgrade job failed" + ex.getLocalizedMessage());
