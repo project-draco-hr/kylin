@@ -1,0 +1,3 @@
+BlockingQueue<List<String>> input
+SplitThread split
+int n

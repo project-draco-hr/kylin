@@ -3,7 +3,7 @@
     List<String> currentObject=null;
     @Override public boolean hasNext(){
       try {
-        currentObject=inputQueue.take();
+        currentObject=input.take();
       }
  catch (      InterruptedException e) {
         throw new RuntimeException(e);

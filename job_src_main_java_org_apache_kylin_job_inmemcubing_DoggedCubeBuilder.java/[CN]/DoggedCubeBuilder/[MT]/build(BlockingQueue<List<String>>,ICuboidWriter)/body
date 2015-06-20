@@ -1,0 +1,3 @@
+{
+  new BuildOnce().build(input,output);
+}

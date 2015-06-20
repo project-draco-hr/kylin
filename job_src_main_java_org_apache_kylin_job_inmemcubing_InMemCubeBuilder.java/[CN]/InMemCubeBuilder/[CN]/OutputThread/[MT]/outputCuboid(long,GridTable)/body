@@ -3,7 +3,7 @@
   GTScanRequest req=new GTScanRequest(gridTable.getInfo(),null,null,null);
   IGTScanner scanner=gridTable.scan(req);
   for (  GTRecord record : scanner) {
-    outputWriter.write(cuboidId,record);
+    output.write(cuboidId,record);
   }
   scanner.close();
   logger.info("Cuboid " + cuboidId + " output takes "+ (System.currentTimeMillis() - startTime)+ "ms");

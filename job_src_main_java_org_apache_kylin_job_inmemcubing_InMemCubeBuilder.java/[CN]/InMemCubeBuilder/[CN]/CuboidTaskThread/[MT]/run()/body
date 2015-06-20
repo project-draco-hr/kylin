@@ -1,6 +1,6 @@
 {
   try {
-    while (taskCuboidCompleted.get() < outputCuboidExpected) {
+    while (!isAllCuboidDone()) {
       CuboidTask task=null;
 synchronized (taskPending) {
         while (task == null && taskHasNoException()) {
@@ -13,7 +13,7 @@ synchronized (taskPending) {
       addChildTasks(newCuboid);
       task.parent.markOneSpanningDone();
       taskCuboidCompleted.incrementAndGet();
-      if (taskCuboidCompleted.get() == outputCuboidExpected) {
+      if (isAllCuboidDone()) {
         for (        Thread t : taskThreads) {
           if (t != Thread.currentThread())           t.interrupt();
         }
@@ -21,7 +21,7 @@ synchronized (taskPending) {
     }
   }
  catch (  Throwable ex) {
-    if (taskCuboidCompleted.get() < outputCuboidExpected) {
+    if (!isAllCuboidDone()) {
       logger.error("task thread exception",ex);
       taskThreadExceptions[id]=ex;
     }

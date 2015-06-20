@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < splits.size(); i++) {
+    SplitThread split=splits.get(i);
+    if (split.exception != null)     abort(splits);
+  }
+}

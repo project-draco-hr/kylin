@@ -20,8 +20,8 @@
   writeDictionary(cubeSegment,dictionaryMap,startOffset,endOffset);
   final HTableInterface hTable=createHTable(cubeSegment);
   final CubeStreamRecordWriter gtRecordWriter=new CubeStreamRecordWriter(cubeDesc,hTable);
-  InMemCubeBuilder inMemCubeBuilder=new InMemCubeBuilder(blockingQueue,cubeInstance.getDescriptor(),dictionaryMap,gtRecordWriter);
-  executorService.submit(inMemCubeBuilder).get();
+  InMemCubeBuilder inMemCubeBuilder=new InMemCubeBuilder(cubeInstance.getDescriptor(),dictionaryMap);
+  executorService.submit(inMemCubeBuilder.buildAsRunnable(blockingQueue,gtRecordWriter)).get();
   gtRecordWriter.flush();
   commitSegment(cubeSegment);
   logger.info("Consumed {} messages out of {} raw messages",totalConsumedMessageCount,totalRawMessageCount);

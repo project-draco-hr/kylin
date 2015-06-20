@@ -1,4 +1,0 @@
-BlockingQueue<List<String>> queue
-CubeDesc cubeDesc
-Map<TblColRef,Dictionary<?>> dictionaryMap
-ICuboidWriter gtRecordWriter

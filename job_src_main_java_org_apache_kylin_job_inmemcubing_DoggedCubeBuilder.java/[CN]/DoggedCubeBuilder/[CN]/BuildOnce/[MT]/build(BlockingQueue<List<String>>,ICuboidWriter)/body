@@ -1,0 +1,21 @@
+{
+  List<SplitThread> splits=new ArrayList<SplitThread>();
+  Merger merger=new Merger();
+  SplitThread last=null;
+  boolean eof=false;
+  while (!eof) {
+    if (last != null && shouldCutSplit()) {
+      cutSplit(last);
+      last=null;
+    }
+    checkException(splits);
+    if (last == null) {
+      last=new SplitThread(merger.newMergeSlot());
+      splits.add(last);
+      last.start();
+    }
+    eof=feedSomeInput(input,last,1000);
+  }
+  merger.mergeAndOutput(splits,output);
+  checkException(splits);
+}

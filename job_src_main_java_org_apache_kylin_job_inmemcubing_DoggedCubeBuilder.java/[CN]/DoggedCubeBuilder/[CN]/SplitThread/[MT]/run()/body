@@ -1,0 +1,9 @@
+{
+  try {
+    builder.build(inputQueue,output);
+  }
+ catch (  Exception e) {
+    if (e instanceof RuntimeException)     this.exception=(RuntimeException)e;
+ else     this.exception=new RuntimeException(e);
+  }
+}

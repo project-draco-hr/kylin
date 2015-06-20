@@ -1,0 +1,3 @@
+{
+  super(cubeDesc,dictionaryMap);
+}

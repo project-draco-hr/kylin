@@ -1,0 +1,11 @@
+{
+  this.cuboidId=cuboidId;
+  this.record=record;
+  try {
+    queue.put(this);
+    queue.put(this);
+  }
+ catch (  InterruptedException e) {
+    throw new RuntimeException(e);
+  }
+}

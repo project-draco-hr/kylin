@@ -1,0 +1,27 @@
+{
+  for (  SplitThread split : splits) {
+    split.builder.abort();
+  }
+  ArrayList<Throwable> errors=new ArrayList<Throwable>();
+  for (  SplitThread split : splits) {
+    try {
+      split.join();
+    }
+ catch (    InterruptedException e) {
+      errors.add(e);
+    }
+    if (split.exception != null)     errors.add(split.exception);
+  }
+  if (errors.isEmpty()) {
+    return;
+  }
+ else   if (errors.size() == 1) {
+    Throwable t=errors.get(0);
+    if (t instanceof IOException)     throw (IOException)t;
+ else     throw new IOException(t);
+  }
+ else {
+    for (    Throwable t : errors)     logger.error("Exception during in-mem cube build",t);
+    throw new IOException(errors.size() + " exceptions during in-mem cube build, cause set to the first, check log for more",errors.get(0));
+  }
+}

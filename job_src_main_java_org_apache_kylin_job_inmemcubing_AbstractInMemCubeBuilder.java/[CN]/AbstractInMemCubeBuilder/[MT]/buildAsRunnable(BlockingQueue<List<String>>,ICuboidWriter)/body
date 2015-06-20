@@ -1,0 +1,13 @@
+{
+  return new Runnable(){
+    @Override public void run(){
+      try {
+        build(input,output);
+      }
+ catch (      IOException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+;
+}

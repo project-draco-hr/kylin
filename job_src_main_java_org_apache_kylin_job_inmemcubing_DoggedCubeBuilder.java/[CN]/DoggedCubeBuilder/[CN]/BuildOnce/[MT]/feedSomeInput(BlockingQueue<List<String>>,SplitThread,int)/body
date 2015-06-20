@@ -1,0 +1,19 @@
+{
+  try {
+    int i=0;
+    while (i < n) {
+      List<String> record=input.take();
+      i++;
+      while (split.inputQueue.offer(record,1,TimeUnit.SECONDS) == false) {
+        if (split.exception != null)         return true;
+      }
+      if (record == null || record.isEmpty()) {
+        return true;
+      }
+    }
+    return false;
+  }
+ catch (  InterruptedException e) {
+    throw new RuntimeException(e);
+  }
+}

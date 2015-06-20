@@ -1,0 +1,19 @@
+{
+  try {
+    while (last.isAlive()) {
+      if (last.inputQueue.offer(Collections.<String>emptyList())) {
+        break;
+      }
+      Thread.sleep(1000);
+    }
+    while (last.isAlive()) {
+      if (last.builder.isAllCuboidDone()) {
+        break;
+      }
+      Thread.sleep(1000);
+    }
+  }
+ catch (  InterruptedException e) {
+    throw new RuntimeException(e);
+  }
+}

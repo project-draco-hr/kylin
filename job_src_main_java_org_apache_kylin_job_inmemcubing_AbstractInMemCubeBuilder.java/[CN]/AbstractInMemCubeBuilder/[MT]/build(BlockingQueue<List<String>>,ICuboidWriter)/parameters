@@ -1,0 +1,2 @@
+BlockingQueue<List<String>> input
+ICuboidWriter gtRecordWriter
