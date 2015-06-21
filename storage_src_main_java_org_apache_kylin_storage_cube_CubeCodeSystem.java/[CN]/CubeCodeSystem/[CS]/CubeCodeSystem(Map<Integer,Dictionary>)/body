@@ -1,3 +1,3 @@
 {
-  this(dictionaryMap,Collections.<Integer,Integer>emptyMap());
+  this(dictionaryMap,Collections.<Integer,Integer>emptyMap(),Collections.<Integer,Integer>emptyMap());
 }

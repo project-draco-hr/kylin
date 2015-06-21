@@ -1,2 +1,29 @@
 {
+  long startTime=System.currentTimeMillis();
+  logger.info("Calculating cuboid " + cuboidId);
+  GTScanRequest req=new GTScanRequest(gridTable.getInfo(),null,aggregationColumns,measureColumns,metricsAggrFuncs,null);
+  GTAggregateScanner scanner=(GTAggregateScanner)gridTable.scan(req);
+  GridTable newGridTable=newGridTableByCuboidID(cuboidId);
+  GTBuilder builder=newGridTable.rebuild();
+  ImmutableBitSet allNeededColumns=aggregationColumns.or(measureColumns);
+  GTRecord newRecord=new GTRecord(newGridTable.getInfo());
+  int count=0;
+  try {
+    for (    GTRecord record : scanner) {
+      count++;
+      for (int i=0; i < allNeededColumns.trueBitCount(); i++) {
+        int c=allNeededColumns.trueBitAt(i);
+        newRecord.set(i,record.get(c));
+      }
+      builder.write(newRecord);
+    }
+    sanityCheck(scanner.getTotalSumForSanityCheck());
+  }
+  finally {
+    scanner.close();
+    builder.close();
+  }
+  long timeSpent=System.currentTimeMillis() - startTime;
+  logger.info("Cuboid " + cuboidId + " has "+ count+ " rows, build takes "+ timeSpent+ "ms");
+  return updateCuboidResult(cuboidId,newGridTable,count,timeSpent,0);
 }

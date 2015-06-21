@@ -30,13 +30,5 @@
     measureIndexMap.put(measureDesc.getName(),i);
   }
   this.metricsAggrFuncs=metricsAggrFuncsList.toArray(new String[metricsAggrFuncsList.size()]);
-  this.dependentMeasures=Maps.newHashMap();
-  for (int i=0; i < measureCount; i++) {
-    String depMsrRef=measureDescsList.get(i).getDependentMeasureRef();
-    if (depMsrRef != null) {
-      int index=measureIndexMap.get(depMsrRef);
-      dependentMeasures.put(i,index);
-    }
-  }
   this.measureDescs=cubeDesc.getMeasures().toArray(new MeasureDesc[measureCount]);
 }

@@ -1,0 +1,20 @@
+{
+  Map<Integer,Integer> result=Maps.newHashMap();
+  List<MeasureDesc> measures=cuboid.getCube().getMeasures();
+  for (  MeasureDesc child : measures) {
+    if (child.getDependentMeasureRef() != null) {
+      boolean ok=false;
+      for (      MeasureDesc parent : measures) {
+        if (parent.getName().equals(child.getDependentMeasureRef())) {
+          int childIndex=getIndexOf(child.getFunction());
+          int parentIndex=getIndexOf(parent.getFunction());
+          result.put(childIndex,parentIndex);
+          ok=true;
+          break;
+        }
+      }
+      if (!ok)       throw new IllegalStateException("Cannot find dependent measure: " + child.getDependentMeasureRef());
+    }
+  }
+  return result.isEmpty() ? Collections.<Integer,Integer>emptyMap() : result;
+}
