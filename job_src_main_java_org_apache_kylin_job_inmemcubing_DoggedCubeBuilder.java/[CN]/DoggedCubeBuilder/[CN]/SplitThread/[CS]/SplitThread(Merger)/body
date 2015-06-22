@@ -3,5 +3,5 @@
   this.builder.setConcurrentThreads(taskThreadCount);
   this.builder.setOutputOrder(true);
   this.builder.setReserveMemoryMB(reserveMemoryMB);
-  this.output=output;
+  this.output=merger.newMergeSlot(this);
 }

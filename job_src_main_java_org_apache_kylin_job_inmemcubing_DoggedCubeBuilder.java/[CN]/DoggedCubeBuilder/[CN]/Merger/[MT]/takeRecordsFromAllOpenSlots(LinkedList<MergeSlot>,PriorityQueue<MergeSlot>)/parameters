@@ -1,0 +1,2 @@
+LinkedList<MergeSlot> open
+PriorityQueue<MergeSlot> heap

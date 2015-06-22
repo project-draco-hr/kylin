@@ -1,0 +1,6 @@
+{
+  writer.print(cuboidId);
+  writer.print(", ");
+  writer.print(record.toString());
+  writer.println();
+}

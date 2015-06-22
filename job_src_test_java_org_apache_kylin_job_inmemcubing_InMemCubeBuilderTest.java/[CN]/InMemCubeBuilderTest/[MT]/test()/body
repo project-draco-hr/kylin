@@ -1,17 +1,13 @@
 {
-  final int inputRows=70000;
-  final int threads=4;
-  final CubeInstance cube=cubeManager.getCube("test_kylin_cube_without_slr_left_join_empty");
-  final String flatTable="../examples/test_case_data/localmeta/data/flatten_data_for_without_slr_left_join.csv";
-  Map<TblColRef,Dictionary<?>> dictionaryMap=getDictionaryMap(cube,flatTable);
-  ArrayBlockingQueue<List<String>> queue=new ArrayBlockingQueue<List<String>>(1000);
   InMemCubeBuilder cubeBuilder=new InMemCubeBuilder(cube.getDescriptor(),dictionaryMap);
-  cubeBuilder.setConcurrentThreads(threads);
+  cubeBuilder.setOutputOrder(true);
+  cubeBuilder.setConcurrentThreads(THREADS);
+  ArrayBlockingQueue<List<String>> queue=new ArrayBlockingQueue<List<String>>(1000);
   ExecutorService executorService=Executors.newSingleThreadExecutor();
   try {
 {
       Future<?> future=executorService.submit(cubeBuilder.buildAsRunnable(queue,new ConsoleGTRecordWriter()));
-      feedData(cube,flatTable,queue,inputRows);
+      feedData(cube,flatTable,queue,INPUT_ROWS);
       future.get();
     }
 {
@@ -21,7 +17,7 @@
     }
 {
       Future<?> future=executorService.submit(cubeBuilder.buildAsRunnable(queue,new ConsoleGTRecordWriter()));
-      feedData(cube,flatTable,queue,inputRows);
+      feedData(cube,flatTable,queue,INPUT_ROWS);
       future.get();
     }
   }

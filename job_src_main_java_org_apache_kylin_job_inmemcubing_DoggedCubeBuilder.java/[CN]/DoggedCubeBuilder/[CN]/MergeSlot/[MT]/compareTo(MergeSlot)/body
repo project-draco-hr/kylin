@@ -1,0 +1,5 @@
+{
+  long cuboidComp=this.cuboidId - o.cuboidId;
+  if (cuboidComp != 0)   return cuboidComp < 0 ? -1 : 1;
+ else   return this.record.compareTo(o.record);
+}

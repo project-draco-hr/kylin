@@ -1,0 +1,24 @@
+{
+  MergeSlot smallest=heap.poll();
+  if (smallest == null)   return false;
+  open.add(smallest);
+  if (smallest.isSameKey(heap.peek())) {
+    Object[] metrics=getMetricsValues(smallest.record);
+    reuseAggrs.reset();
+    reuseAggrs.aggregate(metrics);
+    do {
+      MergeSlot slot=heap.poll();
+      open.add(slot);
+      metrics=getMetricsValues(slot.record);
+      reuseAggrs.aggregate(metrics);
+    }
+ while (smallest.isSameKey(heap.peek()));
+    reuseAggrs.collectStates(metrics);
+    setMetricsValues(smallest.record,metrics);
+  }
+  output.write(smallest.cuboidId,smallest.record);
+  for (  MergeSlot slot : open) {
+    slot.consumedSignal.put(this);
+  }
+  return true;
+}

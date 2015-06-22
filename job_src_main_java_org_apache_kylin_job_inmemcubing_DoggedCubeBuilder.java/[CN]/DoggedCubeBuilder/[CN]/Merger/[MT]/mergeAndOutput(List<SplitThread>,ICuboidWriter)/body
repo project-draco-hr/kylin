@@ -1,2 +1,18 @@
 {
+  LinkedList<MergeSlot> open=Lists.newLinkedList();
+  for (  SplitThread split : splits)   open.add(split.output);
+  if (splits.size() == 1) {
+    splits.get(0).output.directOutput=output;
+  }
+  try {
+    PriorityQueue<MergeSlot> heap=new PriorityQueue<MergeSlot>();
+    boolean hasMore=true;
+    while (hasMore) {
+      takeRecordsFromAllOpenSlots(open,heap);
+      hasMore=mergeAndOutputOneRecord(heap,open,output);
+    }
+  }
+ catch (  InterruptedException e) {
+    throw new RuntimeException(e);
+  }
 }

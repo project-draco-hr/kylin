@@ -1,0 +1,13 @@
+{
+  while (!open.isEmpty()) {
+    MergeSlot slot=open.getFirst();
+    if (slot.readySignal.poll(1,TimeUnit.SECONDS) != null) {
+      open.removeFirst();
+      heap.add(slot);
+    }
+ else     if (slot.isClosed()) {
+      open.removeFirst();
+    }
+  }
+  return;
+}

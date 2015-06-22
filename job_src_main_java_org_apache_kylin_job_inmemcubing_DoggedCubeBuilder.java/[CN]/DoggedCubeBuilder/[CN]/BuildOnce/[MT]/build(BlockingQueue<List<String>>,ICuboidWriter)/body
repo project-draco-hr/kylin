@@ -1,6 +1,4 @@
 {
-  List<SplitThread> splits=new ArrayList<SplitThread>();
-  Merger merger=new Merger();
   SplitThread last=null;
   boolean eof=false;
   while (!eof) {
@@ -10,11 +8,11 @@
     }
     checkException(splits);
     if (last == null) {
-      last=new SplitThread(merger.newMergeSlot());
+      last=new SplitThread(merger);
       splits.add(last);
       last.start();
     }
-    eof=feedSomeInput(input,last,1000);
+    eof=feedSomeInput(input,last,unitRows);
   }
   merger.mergeAndOutput(splits,output);
   checkException(splits);

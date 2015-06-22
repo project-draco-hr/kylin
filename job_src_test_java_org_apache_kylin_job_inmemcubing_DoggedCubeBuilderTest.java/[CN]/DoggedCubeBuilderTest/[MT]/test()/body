@@ -1,0 +1,29 @@
+{
+  ArrayBlockingQueue<List<String>> queue=new ArrayBlockingQueue<List<String>>(1000);
+  ExecutorService executorService=Executors.newSingleThreadExecutor();
+  long randSeed=101;
+  DoggedCubeBuilder doggedBuilder=new DoggedCubeBuilder(cube.getDescriptor(),dictionaryMap);
+  doggedBuilder.setOutputOrder(true);
+  doggedBuilder.setConcurrentThreads(THREADS);
+  doggedBuilder.setSplitRowThreshold(SPLIT_ROWS);
+  FileRecordWriter doggedResult=new FileRecordWriter();
+{
+    Future<?> future=executorService.submit(doggedBuilder.buildAsRunnable(queue,doggedResult));
+    InMemCubeBuilderTest.feedData(cube,flatTable,queue,INPUT_ROWS,randSeed);
+    future.get();
+    doggedResult.close();
+  }
+  InMemCubeBuilder inmemBuilder=new InMemCubeBuilder(cube.getDescriptor(),dictionaryMap);
+  inmemBuilder.setOutputOrder(true);
+  inmemBuilder.setConcurrentThreads(THREADS);
+  FileRecordWriter inmemResult=new FileRecordWriter();
+{
+    Future<?> future=executorService.submit(inmemBuilder.buildAsRunnable(queue,inmemResult));
+    InMemCubeBuilderTest.feedData(cube,flatTable,queue,INPUT_ROWS,randSeed);
+    future.get();
+    inmemResult.close();
+  }
+  fileCompare(doggedResult.file,inmemResult.file);
+  doggedResult.file.delete();
+  inmemResult.file.delete();
+}

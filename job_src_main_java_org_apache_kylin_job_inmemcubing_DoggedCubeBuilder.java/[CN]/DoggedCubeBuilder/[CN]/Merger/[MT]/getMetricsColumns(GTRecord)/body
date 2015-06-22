@@ -1,0 +1,8 @@
+{
+  if (lastCuboidColumnCount == record.getInfo().getColumnCount())   return lastMetricsColumns;
+  int to=record.getInfo().getColumnCount();
+  int from=to - reuseMetricsArray.length;
+  lastCuboidColumnCount=record.getInfo().getColumnCount();
+  lastMetricsColumns=new ImmutableBitSet(from,to);
+  return lastMetricsColumns;
+}

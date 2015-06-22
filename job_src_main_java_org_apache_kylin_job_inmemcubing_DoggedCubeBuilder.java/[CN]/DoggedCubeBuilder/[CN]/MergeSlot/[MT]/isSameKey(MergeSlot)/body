@@ -1,0 +1,10 @@
+{
+  if (o == null)   return false;
+  if (this.cuboidId != o.cuboidId)   return false;
+  ImmutableBitSet pk=this.record.getInfo().getPrimaryKey();
+  for (int i=0; i < pk.trueBitCount(); i++) {
+    int c=pk.trueBitAt(i);
+    if (this.record.get(c).equals(o.record.get(c)) == false)     return false;
+  }
+  return true;
+}

@@ -1,0 +1,4 @@
+{
+  ImmutableBitSet metrics=getMetricsColumns(record);
+  return record.getValues(metrics,reuseMetricsArray);
+}

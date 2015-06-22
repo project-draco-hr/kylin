@@ -1,0 +1,13 @@
+{
+  BufferedReader r1=new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+  BufferedReader r2=new BufferedReader(new InputStreamReader(new FileInputStream(file2),"UTF-8"));
+  String line1, line2;
+  do {
+    line1=r1.readLine();
+    line2=r2.readLine();
+    assertEquals(line1,line2);
+  }
+ while (line1 != null || line2 != null);
+  r1.close();
+  r2.close();
+}

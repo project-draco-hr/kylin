@@ -1,0 +1,4 @@
+{
+  this.splitRowThreshold=rowThreshold;
+  this.unitRows=Math.min(unitRows,rowThreshold);
+}

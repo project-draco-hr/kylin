@@ -1,0 +1,12 @@
+{
+  MeasureDesc[] result=new MeasureDesc[cube.getMeasures().size()];
+  int i=0;
+  for (  HBaseColumnFamilyDesc familyDesc : cube.getHbaseMapping().getColumnFamily()) {
+    for (    HBaseColumnDesc hbaseColDesc : familyDesc.getColumns()) {
+      for (      MeasureDesc m : hbaseColDesc.getMeasures()) {
+        result[i++]=m;
+      }
+    }
+  }
+  return result;
+}

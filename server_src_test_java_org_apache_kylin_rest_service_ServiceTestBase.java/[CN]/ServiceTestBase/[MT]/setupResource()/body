@@ -1,5 +1,5 @@
 {
-  staticCreateTestMetadata(LOCALMETA_TEST_DATA);
+  staticCreateTestMetadata();
   Authentication authentication=new TestingAuthenticationToken("ADMIN","ADMIN","ROLE_ADMIN");
   SecurityContextHolder.getContext().setAuthentication(authentication);
 }

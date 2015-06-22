@@ -1,9 +1,13 @@
 {
+  if (directOutput != null) {
+    directOutput.write(cuboidId,record);
+    return;
+  }
   this.cuboidId=cuboidId;
   this.record=record;
   try {
-    queue.put(this);
-    queue.put(this);
+    readySignal.put(this);
+    consumedSignal.take();
   }
  catch (  InterruptedException e) {
     throw new RuntimeException(e);

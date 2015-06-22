@@ -1,0 +1,7 @@
+{
+  ImmutableBitSet metrics=getMetricsColumns(record);
+  if (reuseMetricsSpace == null) {
+    reuseMetricsSpace=new ByteArray(record.getInfo().getMaxColumnLength(metrics));
+  }
+  record.setValues(metrics,reuseMetricsSpace,metricsValues);
+}
