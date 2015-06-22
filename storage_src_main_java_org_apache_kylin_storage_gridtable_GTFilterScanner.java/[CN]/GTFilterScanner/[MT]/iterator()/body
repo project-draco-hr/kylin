@@ -3,7 +3,7 @@
     private Iterator<GTRecord> inputIterator=inputScanner.iterator();
     @Override public boolean hasNext(){
       if (next != null)       return true;
-      IFilterCodeSystem<ByteArray> filterCodeSystem=getInfo().codeSystem.getFilterCodeSystem();
+      IFilterCodeSystem<ByteArray> filterCodeSystem=GTUtil.wrap(getInfo().codeSystem.getComparator());
       while (inputIterator.hasNext()) {
         next=inputIterator.next();
         if (filter != null && filter.evaluate(oneTuple,filterCodeSystem) == false) {

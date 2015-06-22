@@ -1,4 +1,5 @@
 {
+  IFilterCodeSystem<ByteArray> filterCodeSystem=wrap(info.codeSystem.getComparator());
   byte[] bytes=TupleFilterSerializer.serialize(rootFilter,new TupleFilterSerializer.Decorator(){
     @Override public TupleFilter onSerialize(    TupleFilter filter){
       if (filter == null)       return null;
@@ -118,6 +119,6 @@ return null;
 }
 }
 }
-,info.codeSystem.getFilterCodeSystem());
-return TupleFilterSerializer.deserialize(bytes,info.codeSystem.getFilterCodeSystem());
+,filterCodeSystem);
+return TupleFilterSerializer.deserialize(bytes,filterCodeSystem);
 }

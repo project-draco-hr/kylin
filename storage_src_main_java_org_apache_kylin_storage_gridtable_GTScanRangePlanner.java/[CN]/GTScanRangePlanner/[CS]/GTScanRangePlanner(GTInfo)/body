@@ -1,8 +1,8 @@
 {
   this.info=info;
-  IFilterCodeSystem<ByteArray> cs=info.codeSystem.getFilterCodeSystem();
-  this.byteUnknownIsSmaller=byteComparatorTreatsUnknownSmaller(cs);
-  this.byteUnknownIsBigger=byteComparatorTreatsUnknownBigger(cs);
-  this.recordUnknownIsSmaller=recordComparatorTreatsUnknownSmaller(cs);
-  this.recordUnknownIsBigger=recordComparatorTreatsUnknownBigger(cs);
+  IGTComparator comp=info.codeSystem.getComparator();
+  this.byteUnknownIsSmaller=byteComparatorTreatsUnknownSmaller(comp);
+  this.byteUnknownIsBigger=byteComparatorTreatsUnknownBigger(comp);
+  this.recordUnknownIsSmaller=recordComparatorTreatsUnknownSmaller(comp);
+  this.recordUnknownIsBigger=recordComparatorTreatsUnknownBigger(comp);
 }

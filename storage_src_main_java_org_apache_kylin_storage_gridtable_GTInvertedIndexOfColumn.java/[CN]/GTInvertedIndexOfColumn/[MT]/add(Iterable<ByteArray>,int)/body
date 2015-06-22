@@ -2,7 +2,7 @@
   rwLock.writeLock().lock();
   try {
     for (    ByteArray code : codes) {
-      if (codeSystem.isNull(code)) {
+      if (comparator.isNull(code)) {
         nullIndex.add(blockId);
         continue;
       }
