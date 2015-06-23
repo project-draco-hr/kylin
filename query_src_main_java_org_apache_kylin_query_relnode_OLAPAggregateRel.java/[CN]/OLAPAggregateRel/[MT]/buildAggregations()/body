@@ -10,6 +10,7 @@
         parameter=new ParameterDesc();
         parameter.setValue(column.getName());
         parameter.setType("column");
+        parameter.setColRefs(Arrays.asList(column));
       }
     }
     FunctionDesc aggFunc=new FunctionDesc();
