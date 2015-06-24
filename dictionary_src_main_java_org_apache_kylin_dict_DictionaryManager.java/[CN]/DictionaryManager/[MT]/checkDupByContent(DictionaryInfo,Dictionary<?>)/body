@@ -1,12 +1,15 @@
 {
   ResourceStore store=MetadataManager.getInstance(config).getStore();
-  ArrayList<String> existings=store.listResources(dictInfo.getResourceDir());
-  if (existings == null)   return null;
-  for (  String existing : existings) {
-    logger.info("Checking dup dict :" + existing);
-    DictionaryInfo existingInfo=load(existing,true);
-    if (existingInfo == null)     logger.info("existingInfo is null");
-    if (existingInfo != null && dict.equals(existingInfo.getDictionaryObject()))     return existing;
+  ArrayList<String> dictInfos=store.listResources(dictInfo.getResourceDir());
+  if (dictInfos == null || dictInfos.isEmpty()) {
+    return null;
+  }
+  Collections.sort(dictInfos);
+  final List<DictionaryInfo> allResources=MetadataManager.getInstance(config).getStore().getAllResources(dictInfos.get(0),dictInfos.get(dictInfos.size() - 1),DictionaryInfo.class,DictionaryInfoSerializer.FULL_SERIALIZER);
+  for (  DictionaryInfo dictionaryInfo : allResources) {
+    if (dict.equals(dictionaryInfo.getDictionaryObject())) {
+      return dictionaryInfo.getResourcePath();
+    }
   }
   return null;
 }
