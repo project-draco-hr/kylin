@@ -1,0 +1,12 @@
+{
+  ArrayBlockingQueue<List<String>> queue=new ArrayBlockingQueue<List<String>>(1000);
+  ExecutorService executorService=Executors.newSingleThreadExecutor();
+  long randSeed=System.currentTimeMillis();
+  DoggedCubeBuilder doggedBuilder=new DoggedCubeBuilder(cube.getDescriptor(),dictionaryMap);
+  doggedBuilder.setConcurrentThreads(THREADS);
+{
+    Future<?> future=executorService.submit(doggedBuilder.buildAsRunnable(queue,new NoopWriter()));
+    InMemCubeBuilderTest.feedData(cube,flatTable,queue,INPUT_ROWS,randSeed);
+    future.get();
+  }
+}

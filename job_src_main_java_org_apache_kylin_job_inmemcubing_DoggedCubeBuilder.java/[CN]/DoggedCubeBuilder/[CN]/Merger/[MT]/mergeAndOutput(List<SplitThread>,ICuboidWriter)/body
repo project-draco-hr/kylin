@@ -1,18 +1,40 @@
 {
-  LinkedList<MergeSlot> open=Lists.newLinkedList();
-  for (  SplitThread split : splits)   open.add(split.output);
   if (splits.size() == 1) {
-    splits.get(0).output.directOutput=output;
-  }
-  try {
-    PriorityQueue<MergeSlot> heap=new PriorityQueue<MergeSlot>();
-    boolean hasMore=true;
-    while (hasMore) {
-      takeRecordsFromAllOpenSlots(open,heap);
-      hasMore=mergeAndOutputOneRecord(heap,open,output);
+    for (    CuboidResult cuboidResult : splits.get(0).buildResult.values()) {
+      outputCuboid(cuboidResult.cuboidId,cuboidResult.table,output);
+      cuboidResult.table.close();
     }
+    return;
   }
- catch (  InterruptedException e) {
-    throw new RuntimeException(e);
+  LinkedList<MergeSlot> open=Lists.newLinkedList();
+  for (  SplitThread split : splits) {
+    open.add(new MergeSlot(split));
+  }
+  PriorityQueue<MergeSlot> heap=new PriorityQueue<MergeSlot>();
+  while (true) {
+    while (!open.isEmpty()) {
+      MergeSlot slot=open.removeFirst();
+      if (slot.fetchNext()) {
+        heap.add(slot);
+      }
+    }
+    MergeSlot smallest=heap.poll();
+    if (smallest == null)     break;
+    open.add(smallest);
+    if (smallest.isSameKey(heap.peek())) {
+      Object[] metrics=getMetricsValues(smallest.currentRecord);
+      reuseAggrs.reset();
+      reuseAggrs.aggregate(metrics);
+      do {
+        MergeSlot slot=heap.poll();
+        open.add(slot);
+        metrics=getMetricsValues(slot.currentRecord);
+        reuseAggrs.aggregate(metrics);
+      }
+ while (smallest.isSameKey(heap.peek()));
+      reuseAggrs.collectStates(metrics);
+      setMetricsValues(smallest.currentRecord,metrics);
+    }
+    output.write(smallest.currentCuboidId,smallest.currentRecord);
   }
 }

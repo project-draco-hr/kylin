@@ -1,0 +1,19 @@
+{
+  long startTime=System.currentTimeMillis();
+  logger.info("In Mem Cube Build start, " + cubeDesc.getName());
+  taskPending=new TreeSet<CuboidTask>();
+  taskCuboidCompleted.set(0);
+  taskThreads=prepareTaskThreads();
+  taskThreadExceptions=new Throwable[taskThreadCount];
+  resultCollector=collector;
+  totalSumForSanityCheck=null;
+  baseResult=createBaseCuboid(input);
+  if (baseResult.nRows == 0)   return;
+  makeMemoryBudget();
+  addChildTasks(baseResult);
+  start(taskThreads);
+  join(taskThreads);
+  long endTime=System.currentTimeMillis();
+  logger.info("In Mem Cube Build end, " + cubeDesc.getName() + ", takes "+ (endTime - startTime)+ " ms");
+  throwExceptionIfAny();
+}

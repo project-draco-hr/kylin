@@ -1,0 +1,11 @@
+{
+  final TreeMap<Long,CuboidResult> result=new TreeMap<Long,CuboidResult>();
+  ICuboidCollector collector=new ICuboidCollector(){
+    @Override public void collect(    CuboidResult cuboidResult){
+      result.put(cuboidResult.cuboidId,cuboidResult);
+    }
+  }
+;
+  build(input,collector);
+  return result;
+}

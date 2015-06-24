@@ -11,8 +11,6 @@ synchronized (taskPending) {
       if (task == null)       break;
       CuboidResult newCuboid=buildCuboid(task.parent,task.childCuboidId);
       addChildTasks(newCuboid);
-      task.parent.markOneSpanningDone();
-      taskCuboidCompleted.incrementAndGet();
       if (isAllCuboidDone()) {
         for (        Thread t : taskThreads) {
           if (t != Thread.currentThread())           t.interrupt();

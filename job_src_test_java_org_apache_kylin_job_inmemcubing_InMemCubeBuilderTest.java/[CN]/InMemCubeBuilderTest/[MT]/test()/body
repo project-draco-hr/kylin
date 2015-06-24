@@ -1,6 +1,5 @@
 {
   InMemCubeBuilder cubeBuilder=new InMemCubeBuilder(cube.getDescriptor(),dictionaryMap);
-  cubeBuilder.setOutputOrder(true);
   cubeBuilder.setConcurrentThreads(THREADS);
   ArrayBlockingQueue<List<String>> queue=new ArrayBlockingQueue<List<String>>(1000);
   ExecutorService executorService=Executors.newSingleThreadExecutor();

@@ -1,2 +1,1 @@
 BlockingQueue<List<String>> input
-ICuboidWriter output

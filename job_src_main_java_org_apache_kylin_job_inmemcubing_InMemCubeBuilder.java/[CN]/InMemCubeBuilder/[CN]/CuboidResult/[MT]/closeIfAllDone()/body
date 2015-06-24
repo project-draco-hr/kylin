@@ -1,5 +1,0 @@
-{
-  if (outputDone && spanningDone == cuboidScheduler.getSpanningCuboid(cuboidId).size()) {
-    closeStore(table);
-  }
-}

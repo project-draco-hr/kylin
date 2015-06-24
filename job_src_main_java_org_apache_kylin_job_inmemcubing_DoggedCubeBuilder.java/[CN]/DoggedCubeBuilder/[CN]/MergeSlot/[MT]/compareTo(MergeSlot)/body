@@ -1,10 +1,10 @@
 {
-  long cuboidComp=this.cuboidId - o.cuboidId;
+  long cuboidComp=this.currentCuboidId - o.currentCuboidId;
   if (cuboidComp != 0)   return cuboidComp < 0 ? -1 : 1;
-  ImmutableBitSet pk=this.record.getInfo().getPrimaryKey();
+  ImmutableBitSet pk=this.currentRecord.getInfo().getPrimaryKey();
   for (int i=0; i < pk.trueBitCount(); i++) {
     int c=pk.trueBitAt(i);
-    int comp=this.record.get(c).compareTo(o.record.get(c));
+    int comp=this.currentRecord.get(c).compareTo(o.currentRecord.get(c));
     if (comp != 0)     return comp;
   }
   return 0;

@@ -1,0 +1,22 @@
+{
+  if (recordIterator == null) {
+    if (cuboidIterator.hasNext()) {
+      CuboidResult cuboid=cuboidIterator.next();
+      currentCuboidId=cuboid.cuboidId;
+      scanner=cuboid.table.scan(new GTScanRequest(cuboid.table.getInfo(),null,null,null));
+      recordIterator=scanner.iterator();
+    }
+ else {
+      return false;
+    }
+  }
+  if (recordIterator.hasNext()) {
+    currentRecord=recordIterator.next();
+    return true;
+  }
+ else {
+    scanner.close();
+    recordIterator=null;
+    return fetchNext();
+  }
+}

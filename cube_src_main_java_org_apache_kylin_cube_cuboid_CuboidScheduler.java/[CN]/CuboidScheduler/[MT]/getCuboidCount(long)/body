@@ -1,0 +1,7 @@
+{
+  int r=1;
+  for (  Long child : getSpanningCuboid(cuboidId)) {
+    r+=getCuboidCount(child);
+  }
+  return r;
+}

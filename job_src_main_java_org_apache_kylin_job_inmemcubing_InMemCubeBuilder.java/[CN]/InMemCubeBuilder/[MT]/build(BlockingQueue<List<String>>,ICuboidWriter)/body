@@ -1,23 +1,7 @@
 {
-  long startTime=System.currentTimeMillis();
-  logger.info("In Mem Cube Build start, " + cubeDesc.getName());
-  taskPending=new TreeSet<CuboidTask>();
-  taskCuboidCompleted.set(0);
-  taskThreads=prepareTaskThreads();
-  taskThreadExceptions=new Throwable[taskThreadCount];
-  outputThread=new OutputThread(output);
-  outputCuboidExpected=outputThread.getOutputCuboidExpected();
-  totalSumForSanityCheck=null;
-  baseResult=createBaseCuboid(input);
-  taskCuboidCompleted.incrementAndGet();
-  if (baseResult.nRows == 0)   return;
-  makeMemoryBudget();
-  addChildTasks(baseResult);
-  start(taskThreads);
-  start(outputThread);
-  join(taskThreads);
-  join(outputThread);
-  long endTime=System.currentTimeMillis();
-  logger.info("In Mem Cube Build end, " + cubeDesc.getName() + ", takes "+ (endTime - startTime)+ " ms");
-  throwExceptionIfAny();
+  TreeMap<Long,CuboidResult> result=build(input);
+  for (  CuboidResult cuboidResult : result.values()) {
+    outputCuboid(cuboidResult.cuboidId,cuboidResult.table,output);
+    cuboidResult.table.close();
+  }
 }

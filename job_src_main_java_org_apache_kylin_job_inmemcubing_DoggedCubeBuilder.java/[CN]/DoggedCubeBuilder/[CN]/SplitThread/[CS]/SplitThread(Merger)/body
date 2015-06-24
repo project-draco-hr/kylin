@@ -1,7 +1,0 @@
-{
-  this.builder=new InMemCubeBuilder(cubeDesc,dictionaryMap);
-  this.builder.setConcurrentThreads(taskThreadCount);
-  this.builder.setOutputOrder(true);
-  this.builder.setReserveMemoryMB(reserveMemoryMB);
-  this.output=merger.newMergeSlot(this);
-}

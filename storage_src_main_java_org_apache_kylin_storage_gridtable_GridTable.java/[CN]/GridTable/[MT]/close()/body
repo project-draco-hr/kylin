@@ -1,0 +1,5 @@
+{
+  if (store instanceof Closeable) {
+    ((Closeable)store).close();
+  }
+}

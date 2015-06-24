@@ -1,6 +1,6 @@
 {
   try {
-    builder.build(inputQueue,output);
+    buildResult=builder.build(inputQueue);
   }
  catch (  Exception e) {
     if (e instanceof RuntimeException)     this.exception=(RuntimeException)e;

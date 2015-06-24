@@ -1,0 +1,3 @@
+long cuboidId
+GridTable gridTable
+ICuboidWriter output

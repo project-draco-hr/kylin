@@ -3,6 +3,7 @@
     aggrCacheMB=(int)Math.ceil(1.0 * nRows / baseResult.nRows * baseResult.aggrCacheMB);
   }
   CuboidResult result=new CuboidResult(cuboidId,table,nRows,timeSpent,aggrCacheMB);
-  outputThread.addOutput(result);
+  taskCuboidCompleted.incrementAndGet();
+  resultCollector.collect(result);
   return result;
 }

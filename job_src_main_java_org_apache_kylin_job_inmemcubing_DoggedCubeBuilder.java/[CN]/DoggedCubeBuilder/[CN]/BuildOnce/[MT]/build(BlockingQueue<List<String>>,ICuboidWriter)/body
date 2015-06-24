@@ -1,19 +1,36 @@
 {
-  SplitThread last=null;
-  boolean eof=false;
-  while (!eof) {
-    if (last != null && shouldCutSplit()) {
-      cutSplit(last);
-      last=null;
+  final List<SplitThread> splits=new ArrayList<SplitThread>();
+  final Merger merger=new Merger();
+  long start=System.currentTimeMillis();
+  logger.info("Dogged Cube Build start");
+  try {
+    SplitThread last=null;
+    boolean eof=false;
+    while (!eof) {
+      if (last != null && shouldCutSplit(splits)) {
+        cutSplit(last);
+        last=null;
+      }
+      checkException(splits);
+      if (last == null) {
+        last=new SplitThread();
+        splits.add(last);
+        last.start();
+      }
+      eof=feedSomeInput(input,last,unitRows);
+    }
+    for (    SplitThread split : splits) {
+      split.join();
     }
     checkException(splits);
-    if (last == null) {
-      last=new SplitThread(merger);
-      splits.add(last);
-      last.start();
-    }
-    eof=feedSomeInput(input,last,unitRows);
+    logger.info("Dogged Cube Build splits complete, took " + (System.currentTimeMillis() - start) + " ms");
+    merger.mergeAndOutput(splits,output);
   }
-  merger.mergeAndOutput(splits,output);
-  checkException(splits);
+ catch (  InterruptedException e) {
+    throw new IOException(e);
+  }
+ finally {
+    closeGirdTables(splits);
+    logger.info("Dogged Cube Build end, totally took " + (System.currentTimeMillis() - start) + " ms");
+  }
 }

@@ -1,0 +1,14 @@
+{
+  for (  SplitThread split : splits) {
+    if (split.buildResult != null) {
+      for (      CuboidResult r : split.buildResult.values()) {
+        try {
+          r.table.close();
+        }
+ catch (        Throwable e) {
+          logger.error("Error closing grid table " + r.table,e);
+        }
+      }
+    }
+  }
+}
