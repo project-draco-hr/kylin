@@ -30,5 +30,8 @@
     throw new JobException("invalid build type:" + buildType);
   }
   getExecutableManager().addJob(job);
-  return getSingleJobInstance(job);
+  JobInstance jobInstance=getSingleJobInstance(job);
+  accessService.init(jobInstance,null);
+  accessService.inherit(jobInstance,cube);
+  return jobInstance;
 }

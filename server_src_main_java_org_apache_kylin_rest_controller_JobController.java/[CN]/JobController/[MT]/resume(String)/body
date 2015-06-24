@@ -1,6 +1,7 @@
 {
   try {
-    jobService.resumeJob(jobId);
+    final JobInstance jobInstance=jobService.getJobInstance(jobId);
+    jobService.resumeJob(jobInstance);
     return jobService.getJobInstance(jobId);
   }
  catch (  Exception e) {
