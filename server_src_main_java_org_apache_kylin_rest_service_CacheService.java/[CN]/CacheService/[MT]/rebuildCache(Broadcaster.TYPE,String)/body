@@ -37,6 +37,7 @@ IIDescManager.clearCache();
 IIManager.clearCache();
 ProjectManager.clearCache();
 BasicService.resetOLAPDataSources();
+cleanDataCache();
 break;
 default :
 throw new RuntimeException("invalid cacheType:" + cacheType);
