@@ -1,0 +1,7 @@
+{
+  List<TupleFilter> ors=Lists.newArrayList();
+  for (  String v : values) {
+    ors.add(buildCompareFilter(column,v));
+  }
+  return buildOrFilter(ors);
+}

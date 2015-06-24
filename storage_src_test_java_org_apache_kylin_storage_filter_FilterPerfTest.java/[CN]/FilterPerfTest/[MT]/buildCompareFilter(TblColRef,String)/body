@@ -1,0 +1,8 @@
+{
+  CompareTupleFilter compareFilter=new CompareTupleFilter(TupleFilter.FilterOperatorEnum.EQ);
+  ColumnTupleFilter columnFilter=new ColumnTupleFilter(column);
+  compareFilter.addChild(columnFilter);
+  ConstantTupleFilter constantFilter=new ConstantTupleFilter(v);
+  compareFilter.addChild(constantFilter);
+  return compareFilter;
+}

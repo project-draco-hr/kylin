@@ -1,0 +1,7 @@
+{
+  LogicalTupleFilter andFilter=new LogicalTupleFilter(TupleFilter.FilterOperatorEnum.AND);
+  for (  TupleFilter x : ands) {
+    andFilter.addChild(x);
+  }
+  return andFilter;
+}

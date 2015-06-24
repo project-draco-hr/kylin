@@ -1,0 +1,7 @@
+{
+  LogicalTupleFilter orFilter=new LogicalTupleFilter(TupleFilter.FilterOperatorEnum.OR);
+  for (  TupleFilter x : ors) {
+    orFilter.addChild(x);
+  }
+  return orFilter;
+}

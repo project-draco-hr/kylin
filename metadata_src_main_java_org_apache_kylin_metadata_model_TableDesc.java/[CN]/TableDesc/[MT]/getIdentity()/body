@@ -1,3 +1,6 @@
 {
-  return String.format("%s.%s",this.getDatabase().toUpperCase(),this.getName()).toUpperCase();
+  if (identity == null) {
+    identity=String.format("%s.%s",this.getDatabase().toUpperCase(),this.getName()).toUpperCase();
+  }
+  return identity;
 }
