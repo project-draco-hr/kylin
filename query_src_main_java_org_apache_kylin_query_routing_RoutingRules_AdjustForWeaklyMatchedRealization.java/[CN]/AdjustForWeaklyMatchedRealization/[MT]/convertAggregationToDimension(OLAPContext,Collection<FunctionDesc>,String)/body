@@ -3,7 +3,7 @@
   while (it.hasNext()) {
     FunctionDesc functionDesc=it.next();
     if (!availableAggregations.contains(functionDesc)) {
-      TblColRef col=functionDesc.selectTblColRef(olapContext.metricsColumns,factTableName);
+      TblColRef col=functionDesc.getParameter().getColRefs().get(0);
       functionDesc.setDimensionAsMetric(true);
       olapContext.rewriteFields.remove(functionDesc.getRewriteFieldName());
       if (col != null) {
