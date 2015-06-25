@@ -1,0 +1,13 @@
+{
+  this.groupByMask=groupByMask;
+  LinkedList<Integer> list=Lists.newLinkedList();
+  for (int i=0; i < groupByMask.length; i++) {
+    if (groupByMask[i] != 0) {
+      list.add(i);
+    }
+  }
+  groupByMaskSet=new int[list.size()];
+  for (int i=0; i < list.size(); i++) {
+    groupByMaskSet[i]=list.get(i);
+  }
+}

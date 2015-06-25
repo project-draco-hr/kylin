@@ -2,7 +2,7 @@
   byte[][] families=aggregators.getHColFamilies();
   byte[][] qualifiers=aggregators.getHColQualifiers();
   int nHCols=aggregators.getHColsNum();
-  CoprocessorProjector.AggrKey rowKey=entry.getKey();
+  AggrKey rowKey=entry.getKey();
   MeasureAggregator[] aggBuf=entry.getValue();
   ByteBuffer[] rowValues=aggregators.getHColValues(aggBuf);
   if (nHCols == 0) {

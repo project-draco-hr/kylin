@@ -1,0 +1,10 @@
+{
+  int hash=1;
+  for (int i=0; i < groupByMaskSet.length; i++) {
+    byte t=data[offset + groupByMaskSet[i]];
+    if (t != RowConstants.ROWKEY_PLACE_HOLDER_BYTE) {
+      hash=(31 * hash) + t;
+    }
+  }
+  return hash;
+}

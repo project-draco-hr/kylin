@@ -1,0 +1,7 @@
+{
+  this.groupByMask=groupByMask;
+  this.groupByMaskSet=groupByMaskSet;
+  this.data=data;
+  this.offset=offset;
+  this.hashcode=hashcode;
+}

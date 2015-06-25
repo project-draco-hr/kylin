@@ -1,0 +1,5 @@
+byte[] groupByMask
+int[] groupByMaskSet
+byte[] data
+int offset
+int hashcode

@@ -1,7 +1,0 @@
-{
-  int hash=1;
-  for (int i=0, j=offset, n=length(); i < n; i++, j++) {
-    if (groupByMask[i] != 0)     hash=(31 * hash) + (int)data[j];
-  }
-  return hash;
-}
