@@ -1,0 +1,42 @@
+{
+  CubeManager cubeManager=CubeManager.getInstance(config);
+  List<org.apache.kylin.cube.CubeInstance> cubeInstances=cubeManager.listAllCubes();
+  Set<String> changedCubes=Sets.newHashSet();
+  for (  org.apache.kylin.cube.CubeInstance newInstance : cubeInstances) {
+    boolean updated=false;
+    DataModelDesc dataModelDesc=null;
+    try {
+      String modelName=this.getCubeDescManager().getCubeDesc(newInstance.getDescName()).getModelName();
+      dataModelDesc=this.getMetadataManager().getDataModelDesc(modelName);
+      Map<String,String> pkToFK=Maps.newHashMap();
+      for (      LookupDesc lookupDesc : dataModelDesc.getLookups()) {
+        if (lookupDesc.getJoin() != null) {
+          JoinDesc join=lookupDesc.getJoin();
+          for (int i=0; i < join.getForeignKey().length; i++) {
+            pkToFK.put(lookupDesc.getTable() + "/" + join.getPrimaryKey()[i],dataModelDesc.getFactTable() + "/" + join.getForeignKey()[i]);
+          }
+        }
+      }
+      List<Pair<String,String>> newDictionaries=Lists.newArrayList();
+      for (      org.apache.kylin.cube.CubeSegment newSeg : newInstance.getSegments()) {
+        for (        Map.Entry<String,String> e : newSeg.getDictionaries().entrySet()) {
+          String key=e.getKey();
+          if (pkToFK.containsKey(key) && !newSeg.getDictionaries().containsKey(pkToFK.get(key))) {
+            logger.debug("Duplicate dictionary for FK " + pkToFK.get(key) + " in cube "+ newInstance.getName());
+            changedCubes.add(newInstance.getName());
+            newDictionaries.add(new Pair(pkToFK.get(key),e.getValue()));
+          }
+        }
+        for (        Pair<String,String> dict : newDictionaries) {
+          newSeg.getDictionaries().put(dict.getFirst(),dict.getSecond());
+          updated=true;
+        }
+      }
+      if (updated)       store.putResource(newInstance.getResourcePath(),newInstance,CubeManager.CUBE_SERIALIZER);
+    }
+ catch (    Exception e) {
+      logger.error("Error during upgrade cube instance " + newInstance.getName(),e);
+    }
+  }
+  if (changedCubes.size() > 0)   logger.info("Updated these cubeInstances: " + changedCubes);
+}
