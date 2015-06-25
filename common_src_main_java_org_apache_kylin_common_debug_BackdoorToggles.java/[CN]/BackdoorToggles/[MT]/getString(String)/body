@@ -1,0 +1,9 @@
+{
+  Map<String,String> toggles=_backdoorToggles.get();
+  if (toggles == null) {
+    return null;
+  }
+ else {
+    return toggles.get(key);
+  }
+}

@@ -6,7 +6,8 @@
   CoprocessorFilter filter=CoprocessorFilter.fromFilter(segment,tupleFiler,FilterDecorator.FilterConstantsTreatment.REPLACE_WITH_GLOBAL_DICT);
   CoprocessorProjector projector=CoprocessorProjector.makeForObserver(segment,cuboid,groupBy);
   ObserverAggregators aggrs=ObserverAggregators.fromValueDecoders(rowValueDecoders);
-  if (DEBUG_LOCAL_COPROCESSOR) {
+  boolean localCoprocessor=KylinConfig.getInstanceFromEnv().getQueryRunLocalCoprocessor() || BackdoorToggles.getRunLocalCoprocessor();
+  if (localCoprocessor) {
     RegionScanner innerScanner=new RegionScannerAdapter(table.getScanner(scan));
     AggregationScanner aggrScanner=new AggregationScanner(type,filter,projector,aggrs,innerScanner);
     return new ResultScannerAdapter(aggrScanner);
