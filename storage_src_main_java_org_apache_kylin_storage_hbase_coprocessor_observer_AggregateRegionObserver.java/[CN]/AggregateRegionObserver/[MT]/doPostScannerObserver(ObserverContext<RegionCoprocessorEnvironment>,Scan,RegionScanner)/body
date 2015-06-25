@@ -11,11 +11,13 @@
   ObserverAggregators aggregators=ObserverAggregators.deserialize(aggregatorBytes);
   byte[] filterBytes=scan.getAttribute(FILTER);
   CoprocessorFilter filter=CoprocessorFilter.deserialize(filterBytes);
+  byte[] behavior=scan.getAttribute(BEHAVIOR);
+  ObserverBehavior observerBehavior=ObserverBehavior.valueOf(new String(behavior));
   HRegion region=ctxt.getEnvironment().getRegion();
   region.startRegionOperation();
   try {
 synchronized (innerScanner) {
-      return new AggregationScanner(type,filter,projector,aggregators,innerScanner);
+      return new AggregationScanner(type,filter,projector,aggregators,innerScanner,observerBehavior);
     }
   }
   finally {
