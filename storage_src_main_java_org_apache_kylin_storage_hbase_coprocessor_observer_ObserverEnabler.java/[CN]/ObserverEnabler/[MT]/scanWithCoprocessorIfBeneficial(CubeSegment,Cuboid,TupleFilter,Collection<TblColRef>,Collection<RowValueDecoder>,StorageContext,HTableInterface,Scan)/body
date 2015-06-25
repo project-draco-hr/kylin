@@ -13,8 +13,8 @@
     return new ResultScannerAdapter(aggrScanner);
   }
  else {
-    String toggle;
-    if ((toggle=BackdoorToggles.getToggle(BackdoorToggles.DEBUG_TOGGLE_OBSERVER_BEHAVIOR)) == null) {
+    String toggle=BackdoorToggles.getObserverBehavior();
+    if (toggle == null) {
       toggle=ObserverBehavior.SCAN_FILTER_AGGR.toString();
     }
  else {
