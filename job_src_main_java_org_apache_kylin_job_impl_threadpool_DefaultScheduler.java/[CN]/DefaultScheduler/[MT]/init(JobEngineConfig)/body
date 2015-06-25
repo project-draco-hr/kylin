@@ -49,6 +49,7 @@
     }
   }
 );
-  fetcherPool.scheduleAtFixedRate(new FetcherRunner(),10,ExecutableConstants.DEFAULT_SCHEDULER_INTERVAL_SECONDS,TimeUnit.SECONDS);
+  fetcher=new FetcherRunner();
+  fetcherPool.scheduleAtFixedRate(fetcher,10,ExecutableConstants.DEFAULT_SCHEDULER_INTERVAL_SECONDS,TimeUnit.SECONDS);
   hasStarted=true;
 }
