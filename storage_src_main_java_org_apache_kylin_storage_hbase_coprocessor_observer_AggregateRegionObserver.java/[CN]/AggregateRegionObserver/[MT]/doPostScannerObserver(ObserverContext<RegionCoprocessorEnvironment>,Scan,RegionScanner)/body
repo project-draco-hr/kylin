@@ -11,8 +11,11 @@
   ObserverAggregators aggregators=ObserverAggregators.deserialize(aggregatorBytes);
   byte[] filterBytes=scan.getAttribute(FILTER);
   CoprocessorFilter filter=CoprocessorFilter.deserialize(filterBytes);
+  ObserverBehavior observerBehavior=ObserverBehavior.SCAN_FILTER_AGGR;
   byte[] behavior=scan.getAttribute(BEHAVIOR);
-  ObserverBehavior observerBehavior=ObserverBehavior.valueOf(new String(behavior));
+  if (behavior != null && behavior.length != 0) {
+    observerBehavior=ObserverBehavior.valueOf(new String(behavior));
+  }
   HRegion region=ctxt.getEnvironment().getRegion();
   region.startRegionOperation();
   try {
