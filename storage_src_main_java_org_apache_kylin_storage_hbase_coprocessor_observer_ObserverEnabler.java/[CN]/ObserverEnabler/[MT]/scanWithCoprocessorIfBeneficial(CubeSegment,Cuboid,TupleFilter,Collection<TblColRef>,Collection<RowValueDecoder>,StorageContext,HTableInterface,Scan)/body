@@ -6,14 +6,15 @@
   CoprocessorFilter filter=CoprocessorFilter.fromFilter(segment,tupleFiler);
   CoprocessorProjector projector=CoprocessorProjector.makeForObserver(segment,cuboid,groupBy);
   ObserverAggregators aggrs=ObserverAggregators.fromValueDecoders(rowValueDecoders);
-  if (DEBUG_LOCAL_COPROCESSOR) {
+  boolean localCoprocessor=KylinConfig.getInstanceFromEnv().getQueryRunLocalCoprocessor() || BackdoorToggles.getRunLocalCoprocessor();
+  if (localCoprocessor) {
     RegionScanner innerScanner=new RegionScannerAdapter(table.getScanner(scan));
     AggregationScanner aggrScanner=new AggregationScanner(type,filter,projector,aggrs,innerScanner,ObserverBehavior.SCAN_FILTER_AGGR);
     return new ResultScannerAdapter(aggrScanner);
   }
  else {
-    String toggle;
-    if ((toggle=BackdoorToggles.getToggle(BackdoorToggles.DEBUG_TOGGLE_OBSERVER_BEHAVIOR)) == null) {
+    String toggle=BackdoorToggles.getObserverBehavior();
+    if (toggle == null) {
       toggle=ObserverBehavior.SCAN_FILTER_AGGR.toString();
     }
  else {

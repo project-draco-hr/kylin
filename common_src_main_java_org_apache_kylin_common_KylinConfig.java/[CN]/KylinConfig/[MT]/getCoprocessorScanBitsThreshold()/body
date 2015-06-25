@@ -1,3 +1,0 @@
-{
-  return Integer.parseInt(getOptional(COPROCESSOR_SCAN_BITS_THRESHOLD,"32"));
-}
