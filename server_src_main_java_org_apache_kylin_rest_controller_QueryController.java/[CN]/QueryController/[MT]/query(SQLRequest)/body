@@ -1,7 +1,9 @@
 {
+  initDebugToggles(sqlRequest);
   long startTimestamp=System.currentTimeMillis();
   SQLResponse response=doQuery(sqlRequest);
   response.setDuration(System.currentTimeMillis() - startTimestamp);
   queryService.logQuery(sqlRequest,response,new Date(startTimestamp),new Date(System.currentTimeMillis()));
+  cleanupDebugToggles();
   return response;
 }

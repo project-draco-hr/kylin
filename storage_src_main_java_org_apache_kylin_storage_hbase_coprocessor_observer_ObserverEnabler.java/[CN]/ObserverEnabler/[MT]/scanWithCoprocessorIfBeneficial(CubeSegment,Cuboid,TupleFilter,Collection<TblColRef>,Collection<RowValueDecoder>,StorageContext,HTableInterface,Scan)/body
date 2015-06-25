@@ -13,8 +13,15 @@
     return new ResultScannerAdapter(aggrScanner);
   }
  else {
+    String toggle;
+    if ((toggle=BackdoorToggles.getToggle(BackdoorToggles.DEBUG_TOGGLE_OBSERVER_BEHAVIOR)) == null) {
+      toggle=ObserverBehavior.SCAN_FILTER_AGGR.toString();
+    }
+ else {
+      logger.info("The execution of this query will use " + toggle + " as observer's behavior");
+    }
     scan.setAttribute(AggregateRegionObserver.COPROCESSOR_ENABLE,new byte[]{0x01});
-    scan.setAttribute(AggregateRegionObserver.BEHAVIOR,ObserverBehavior.SCAN_FILTER_AGGR.toString().getBytes());
+    scan.setAttribute(AggregateRegionObserver.BEHAVIOR,toggle.getBytes());
     scan.setAttribute(AggregateRegionObserver.TYPE,CoprocessorRowType.serialize(type));
     scan.setAttribute(AggregateRegionObserver.PROJECTOR,CoprocessorProjector.serialize(projector));
     scan.setAttribute(AggregateRegionObserver.AGGREGATORS,ObserverAggregators.serialize(aggrs));
