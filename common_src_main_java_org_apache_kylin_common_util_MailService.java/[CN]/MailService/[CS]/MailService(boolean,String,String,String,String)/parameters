@@ -1,0 +1,5 @@
+boolean enabled
+String host
+String username
+String password
+String sender

@@ -1,0 +1,4 @@
+List<String> receivers
+String host
+String authorization
+String tableName

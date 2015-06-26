@@ -1,0 +1,33 @@
+{
+  if (!enabled) {
+    logger.info("Email service is disabled; this mail will not be delivered: " + subject);
+    logger.info("To enable mail service, set 'mail.enabled=true' in kylin.properties");
+    return false;
+  }
+  Email email=new HtmlEmail();
+  email.setHostName(host);
+  if (username != null && username.trim().length() > 0) {
+    email.setAuthentication(username,password);
+  }
+  try {
+    for (    String receiver : receivers) {
+      email.addTo(receiver);
+    }
+    email.setFrom(sender);
+    email.setSubject(subject);
+    email.setCharset("UTF-8");
+    if (isHtmlMsg) {
+      ((HtmlEmail)email).setHtmlMsg(content);
+    }
+ else {
+      ((HtmlEmail)email).setTextMsg(content);
+    }
+    email.send();
+    email.getMailSession();
+  }
+ catch (  EmailException e) {
+    logger.error(e.getLocalizedMessage(),e);
+    return false;
+  }
+  return true;
+}

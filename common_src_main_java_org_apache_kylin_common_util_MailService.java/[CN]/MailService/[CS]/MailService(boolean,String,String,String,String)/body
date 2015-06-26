@@ -1,0 +1,12 @@
+{
+  this.enabled=enabled;
+  this.host=host;
+  this.username=username;
+  this.password=password;
+  this.sender=sender;
+  if (enabled) {
+    if (host.isEmpty()) {
+      throw new RuntimeException("mail service host is empty");
+    }
+  }
+}

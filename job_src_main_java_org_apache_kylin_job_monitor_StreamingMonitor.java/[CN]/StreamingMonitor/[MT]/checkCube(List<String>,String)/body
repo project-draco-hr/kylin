@@ -1,0 +1,44 @@
+{
+  final CubeInstance cube=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).reloadCubeLocal(cubeName);
+  if (cube == null) {
+    logger.info("cube:" + cubeName + " does not exist");
+    return;
+  }
+  final List<CubeSegment> segments=cube.getSegment(SegmentStatusEnum.READY);
+  logger.info("totally " + segments.size() + " cubeSegments");
+  Collections.sort(segments);
+  List<Pair<Long,Long>> gaps=Lists.newArrayList();
+  List<Pair<String,String>> overlaps=Lists.newArrayList();
+  for (int i=0; i < segments.size() - 1; ++i) {
+    CubeSegment first=segments.get(i);
+    CubeSegment second=segments.get(i + 1);
+    if (first.getDateRangeEnd() == second.getDateRangeStart()) {
+      continue;
+    }
+ else     if (first.getDateRangeEnd() < second.getDateRangeStart()) {
+      gaps.add(Pair.newPair(first.getDateRangeEnd(),second.getDateRangeStart()));
+    }
+ else {
+      overlaps.add(Pair.newPair(first.getName(),second.getName()));
+    }
+  }
+  StringBuilder content=new StringBuilder();
+  if (!gaps.isEmpty()) {
+    content.append("all gaps:").append("\n").append(StringUtils.join(Lists.transform(gaps,new Function<Pair<Long,Long>,String>(){
+      @Nullable @Override public String apply(      Pair<Long,Long> input){
+        return parseInterval(input);
+      }
+    }
+),"\n")).append("\n");
+  }
+  if (!overlaps.isEmpty()) {
+    content.append("all overlaps:").append("\n").append(StringUtils.join(overlaps,"\n")).append("\n");
+  }
+  if (content.length() > 0) {
+    logger.info(content.toString());
+    sendMail(receivers,String.format("%s has gaps or overlaps",cubeName),content.toString());
+  }
+ else {
+    logger.info("no gaps or overlaps");
+  }
+}

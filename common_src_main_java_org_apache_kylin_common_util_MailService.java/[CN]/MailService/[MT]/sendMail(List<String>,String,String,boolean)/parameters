@@ -1,0 +1,4 @@
+List<String> receivers
+String subject
+String content
+boolean isHtmlMsg

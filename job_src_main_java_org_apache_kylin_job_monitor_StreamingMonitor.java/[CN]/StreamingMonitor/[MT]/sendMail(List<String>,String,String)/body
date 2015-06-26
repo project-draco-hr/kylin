@@ -1,0 +1,4 @@
+{
+  final MailService mailService=new MailService(KylinConfig.getInstanceFromEnv());
+  mailService.sendMail(receivers,title,content,false);
+}
