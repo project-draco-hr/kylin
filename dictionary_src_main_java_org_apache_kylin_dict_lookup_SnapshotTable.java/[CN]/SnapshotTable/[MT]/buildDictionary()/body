@@ -1,0 +1,10 @@
+{
+  TrieDictionaryBuilder<String> b=new TrieDictionaryBuilder<String>(new StringBytesConverter());
+  for (  String[] row : rows) {
+    for (    String cell : row) {
+      b.addValue(cell);
+    }
+  }
+  TrieDictionary<String> dict=b.build(0);
+  return dict;
+}
