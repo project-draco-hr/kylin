@@ -1,5 +1,5 @@
 {
   this.signature=table.getSignature();
   this.columnDelimeter=table.getColumnDelimeter();
-  this.useDictionary=Boolean.TRUE;
+  this.useDictionary=true;
 }

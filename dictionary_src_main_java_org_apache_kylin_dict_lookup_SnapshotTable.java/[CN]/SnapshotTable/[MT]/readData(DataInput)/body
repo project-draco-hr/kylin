@@ -3,7 +3,7 @@
   rows=new ArrayList<String[]>(rowNum);
   if (rowNum > 0) {
     int n=in.readInt();
-    if (this.useDictionary == Boolean.TRUE) {
+    if (this.useDictionary == true) {
       Dictionary<String> dict=new TrieDictionary<String>();
       dict.readFields(in);
       for (int i=0; i < rowNum; i++) {
