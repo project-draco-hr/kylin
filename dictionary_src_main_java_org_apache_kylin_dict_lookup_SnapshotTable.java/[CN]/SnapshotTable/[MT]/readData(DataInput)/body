@@ -1,27 +1,39 @@
 {
   int rowNum=in.readInt();
-  rows=new ArrayList<String[]>(rowNum);
   if (rowNum > 0) {
     int n=in.readInt();
     if (this.useDictionary == true) {
-      Dictionary<String> dict=new TrieDictionary<String>();
+      this.dict=new TrieDictionary<String>();
       dict.readFields(in);
       for (int i=0; i < rowNum; i++) {
-        String[] row=new String[n];
-        rows.add(row);
+        int[] row=new int[n];
+        this.rowIndices.add(row);
         for (int j=0; j < n; j++) {
-          row[j]=dict.getValueFromId(in.readInt());
+          row[j]=in.readInt();
         }
       }
     }
  else {
+      List<String[]> rows=new ArrayList<String[]>(rowNum);
+      ArrayList<int[]> allRowIndices=new ArrayList<int[]>();
+      TrieDictionaryBuilder<String> b=new TrieDictionaryBuilder<String>(new StringBytesConverter());
       for (int i=0; i < rowNum; i++) {
         String[] row=new String[n];
         rows.add(row);
         for (int j=0; j < n; j++) {
           row[j]=in.readUTF();
+          b.addValue(row[j]);
         }
       }
+      this.dict=b.build(0);
+      for (      String[] row : rows) {
+        int[] rowIndex=new int[n];
+        for (int i=0; i < n; i++) {
+          rowIndex[i]=dict.getIdFromValue(row[i]);
+        }
+        allRowIndices.add(rowIndex);
+      }
+      this.rowIndices=allRowIndices;
     }
   }
 }
