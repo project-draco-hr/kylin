@@ -1,8 +1,12 @@
 {
   List<String> row=HiveTableReader.getRowAsList(record);
-  queue.put(row);
-  counter++;
-  if (counter % BatchConstants.COUNTER_MAX == 0) {
-    logger.info("Handled " + counter + " records!");
+  while (!future.isDone()) {
+    if (queue.offer(row,1,TimeUnit.SECONDS)) {
+      counter++;
+      if (counter % BatchConstants.COUNTER_MAX == 0) {
+        logger.info("Handled " + counter + " records!");
+      }
+      break;
+    }
   }
 }

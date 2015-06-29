@@ -1,11 +1,14 @@
 {
   logger.info("Totally handled " + counter + " records!");
-  queue.put(new ArrayList<String>(0));
+  while (!future.isDone()) {
+    if (queue.offer(new ArrayList<String>(0),1,TimeUnit.SECONDS)) {
+      break;
+    }
+  }
   try {
     future.get();
   }
  catch (  Exception e) {
-    logger.error("stream build failed",e);
     throw new IOException("Failed to build cube in mapper " + context.getTaskAttemptID().getTaskID().getId(),e);
   }
   queue.clear();
