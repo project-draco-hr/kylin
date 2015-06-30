@@ -3,10 +3,15 @@
     int i=-1;
     @Override public boolean next() throws IOException {
       i++;
-      return i < rows.size();
+      return i < rowIndices.size();
     }
     @Override public String[] getRow(){
-      return rows.get(i);
+      int[] rowIndex=rowIndices.get(i);
+      String[] row=new String[rowIndex.length];
+      for (int x=0; x < row.length; x++) {
+        row[x]=dict.getValueFromId(rowIndex[x]);
+      }
+      return row;
     }
     @Override public void close() throws IOException {
     }

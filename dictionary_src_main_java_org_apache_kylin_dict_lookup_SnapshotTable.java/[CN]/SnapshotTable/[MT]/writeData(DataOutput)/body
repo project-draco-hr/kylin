@@ -1,12 +1,23 @@
 {
-  out.writeInt(rows.size());
-  if (rows.size() > 0) {
-    int n=rows.get(0).length;
+  out.writeInt(rowIndices.size());
+  if (rowIndices.size() > 0) {
+    int n=rowIndices.get(0).length;
     out.writeInt(n);
-    for (int i=0; i < rows.size(); i++) {
-      String[] row=rows.get(i);
-      for (int j=0; j < n; j++) {
-        out.writeUTF(row[j] == null ? NULL_STR : row[j]);
+    if (this.useDictionary == true) {
+      dict.write(out);
+      for (int i=0; i < rowIndices.size(); i++) {
+        int[] row=rowIndices.get(i);
+        for (int j=0; j < n; j++) {
+          out.writeInt(row[j]);
+        }
+      }
+    }
+ else {
+      for (int i=0; i < rowIndices.size(); i++) {
+        int[] row=rowIndices.get(i);
+        for (int j=0; j < n; j++) {
+          out.writeUTF(dict.getValueFromId(row[j]) == null ? NULL_STR : dict.getValueFromId(row[j]));
+        }
       }
     }
   }
