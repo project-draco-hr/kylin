@@ -6,9 +6,11 @@ switch (wipeEvent) {
 case CREATE:
 case UPDATE:
     cacheService.rebuildCache(wipeType,name);
-  break;
+  cacheService.cleanDataCache();
+break;
 case DROP:
 cacheService.removeCache(wipeType,name);
+cacheService.cleanDataCache();
 break;
 default :
 throw new RuntimeException("invalid type:" + wipeEvent);

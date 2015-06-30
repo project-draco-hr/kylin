@@ -1,5 +1,3 @@
 {
-  CubeManager.clearCache();
-  ProjectManager.clearCache();
-  BasicService.resetOLAPDataSources();
+  logger.debug("clean query cache...");
 }

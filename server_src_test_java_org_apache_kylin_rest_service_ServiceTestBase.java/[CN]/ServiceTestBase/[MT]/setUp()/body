@@ -6,5 +6,6 @@
   CubeManager.clearCache();
   IIDescManager.clearCache();
   IIManager.clearCache();
+  RealizationRegistry.clearCache();
   ProjectManager.clearCache();
 }
