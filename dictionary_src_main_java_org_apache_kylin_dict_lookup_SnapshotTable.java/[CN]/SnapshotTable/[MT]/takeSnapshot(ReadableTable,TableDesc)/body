@@ -10,7 +10,7 @@
       throw new IllegalStateException("Bad hive table row, " + tableDesc + " expect "+ (maxIndex + 1)+ " columns, but got "+ Arrays.toString(row));
     }
     for (    String cell : row) {
-      b.addValue(cell);
+      if (cell != null)       b.addValue(cell);
     }
   }
   this.dict=b.build(0);

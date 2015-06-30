@@ -22,7 +22,7 @@
         rows.add(row);
         for (int j=0; j < n; j++) {
           row[j]=in.readUTF();
-          b.addValue(row[j]);
+          if (row[j] != null)           b.addValue(row[j]);
         }
       }
       this.dict=b.build(0);
