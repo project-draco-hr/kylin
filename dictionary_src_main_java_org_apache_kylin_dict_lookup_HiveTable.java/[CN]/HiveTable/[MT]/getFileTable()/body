@@ -1,6 +1,13 @@
 {
-  if (fileTable == null) {
-    fileTable=new FileTable(getHDFSLocation(true),nColumns);
+  try {
+    if (fileTable == null) {
+      nativeTable=getHiveClient().isNativeTable(database,hiveTable);
+      fileTable=new FileTable(getHDFSLocation(),nColumns,nativeTable);
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    throw new IOException(e);
   }
   return fileTable;
 }

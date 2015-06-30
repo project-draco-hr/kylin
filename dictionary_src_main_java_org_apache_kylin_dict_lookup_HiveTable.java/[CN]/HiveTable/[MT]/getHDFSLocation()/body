@@ -1,6 +1,6 @@
 {
   if (hdfsLocation == null) {
-    hdfsLocation=computeHDFSLocation(needFilePath);
+    hdfsLocation=computeHDFSLocation();
   }
   return hdfsLocation;
 }

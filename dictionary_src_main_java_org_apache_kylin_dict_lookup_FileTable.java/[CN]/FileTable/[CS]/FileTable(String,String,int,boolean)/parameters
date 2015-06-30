@@ -1,0 +1,4 @@
+String path
+String delim
+int nColumns
+boolean nativeTable

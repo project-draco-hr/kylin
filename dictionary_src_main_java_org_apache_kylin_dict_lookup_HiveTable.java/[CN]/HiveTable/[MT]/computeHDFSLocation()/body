@@ -6,14 +6,13 @@
   }
   String hdfsDir=null;
   try {
-    HiveClient hiveClient=new HiveClient();
-    hdfsDir=hiveClient.getHiveTableLocation(database,hiveTable);
+    hdfsDir=getHiveClient().getHiveTableLocation(database,hiveTable);
   }
  catch (  Exception e) {
     e.printStackTrace();
     throw new IOException(e);
   }
-  if (needFilePath) {
+  if (nativeTable) {
     FileSystem fs=HadoopUtil.getFileSystem(hdfsDir);
     FileStatus file=findOnlyFile(hdfsDir,fs);
     return file.getPath().toString();

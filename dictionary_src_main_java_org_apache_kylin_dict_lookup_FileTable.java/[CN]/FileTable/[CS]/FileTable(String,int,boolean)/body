@@ -1,0 +1,6 @@
+{
+  this.path=path;
+  this.delim=DELIM_AUTO;
+  this.nColumns=nColumns;
+  this.nativeTable=nativeTable;
+}
