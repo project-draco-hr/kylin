@@ -1,5 +1,5 @@
 {
-  CubeSegment newSeg=cubeManager.mergeSegments(cube,0L,1386835200000L);
+  CubeSegment newSeg=cubeManager.mergeSegments(cube,0L,1386835200000L,false);
   final Dictionary<?> dictionary=cubeManager.getDictionary(newSeg,lfn);
   assertTrue(dictionary == null);
 }

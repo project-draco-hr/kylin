@@ -8,5 +8,5 @@
   assertEquals(0,seg2.getDateRangeStart());
   assertEquals(Long.MAX_VALUE,seg2.getDateRangeEnd());
   assertEquals(2,cube.getSegments().size());
-  mgr.mergeSegments(cube,0,Long.MAX_VALUE);
+  mgr.mergeSegments(cube,0,Long.MAX_VALUE,false);
 }
