@@ -1,4 +1,0 @@
-{
-  boolean isSsl=Boolean.parseBoolean((this.info.getProperty("ssl","false")));
-  return (isSsl ? "https://" : "http://") + this.baseUrl + "/kylin/api/query";
-}

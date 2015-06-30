@@ -1,0 +1,13 @@
+{
+  List<KMetaColumn> columns=new ArrayList<KMetaColumn>();
+  KMetaTable table=new KMetaTable("dummy","dummy","dummy","dummy",columns);
+  List<KMetaTable> tables=new ArrayList<KMetaTable>();
+  tables.add(table);
+  KMetaSchema schema=new KMetaSchema("dummy","dummy",tables);
+  List<KMetaSchema> schemas=new ArrayList<KMetaSchema>();
+  schemas.add(schema);
+  KMetaCatalog catalog=new KMetaCatalog("dummay",schemas);
+  List<KMetaCatalog> catalogs=new ArrayList<KMetaCatalog>();
+  catalogs.add(catalog);
+  return new KMetaProject(project,catalogs);
+}

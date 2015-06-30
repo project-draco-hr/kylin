@@ -1,0 +1,3 @@
+{
+  return new KylinConnection(driver,(KylinJdbcFactory)factory,url,info);
+}

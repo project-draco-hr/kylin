@@ -1,0 +1,3 @@
+{
+  return new KMetaColumn(columnStub.getTABLE_CAT(),columnStub.getTABLE_SCHEM(),columnStub.getTABLE_NAME(),columnStub.getCOLUMN_NAME(),columnStub.getDATA_TYPE(),columnStub.getTYPE_NAME(),columnStub.getCOLUMN_SIZE(),columnStub.getDECIMAL_DIGITS(),columnStub.getNUM_PREC_RADIX(),columnStub.getNULLABLE(),columnStub.getCHAR_OCTET_LENGTH(),columnStub.getORDINAL_POSITION(),columnStub.getIS_NULLABLE());
+}

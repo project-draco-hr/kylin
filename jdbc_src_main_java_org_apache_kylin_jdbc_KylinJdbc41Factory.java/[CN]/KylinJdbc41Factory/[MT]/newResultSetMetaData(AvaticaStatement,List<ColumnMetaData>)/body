@@ -1,3 +1,0 @@
-{
-  return new AvaticaResultSetMetaData(statement,null,columnMetaDataList);
-}

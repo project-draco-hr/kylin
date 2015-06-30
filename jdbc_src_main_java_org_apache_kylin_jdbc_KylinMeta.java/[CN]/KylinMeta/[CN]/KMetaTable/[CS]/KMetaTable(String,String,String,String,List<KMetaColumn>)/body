@@ -1,0 +1,4 @@
+{
+  super(tableCat,tableSchem,tableName,tableType);
+  this.columns=columns;
+}

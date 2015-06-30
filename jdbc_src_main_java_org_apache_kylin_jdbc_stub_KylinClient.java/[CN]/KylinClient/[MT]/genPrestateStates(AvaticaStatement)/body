@@ -1,9 +1,0 @@
-{
-  List<StateParam> params=new ArrayList<StateParam>();
-  List<Object> values=((KylinJdbc41PreparedStatement)statement).getParameterValues();
-  for (int i=0; i < values.size(); i++) {
-    Object value=values.get(i);
-    params.add(new StateParam(value.getClass().getCanonicalName(),String.valueOf(value)));
-  }
-  return params;
-}

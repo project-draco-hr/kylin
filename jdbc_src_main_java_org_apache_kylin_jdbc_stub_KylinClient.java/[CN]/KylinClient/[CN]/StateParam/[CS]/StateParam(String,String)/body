@@ -1,5 +1,0 @@
-{
-  super();
-  this.className=className;
-  this.value=value;
-}

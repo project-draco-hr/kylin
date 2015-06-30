@@ -1,0 +1,3 @@
+{
+  super(connection,h,signature,resultSetType,resultSetConcurrency,resultSetHoldability);
+}

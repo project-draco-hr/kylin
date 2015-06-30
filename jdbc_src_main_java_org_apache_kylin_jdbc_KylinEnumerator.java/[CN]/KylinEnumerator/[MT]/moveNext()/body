@@ -1,8 +1,0 @@
-{
-  if (!cursor.hasNext()) {
-    this.reset();
-    return false;
-  }
-  current=cursor.next();
-  return true;
-}

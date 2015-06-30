@@ -1,0 +1,5 @@
+String tableCat
+String tableSchem
+String tableName
+String tableType
+List<KMetaColumn> columns

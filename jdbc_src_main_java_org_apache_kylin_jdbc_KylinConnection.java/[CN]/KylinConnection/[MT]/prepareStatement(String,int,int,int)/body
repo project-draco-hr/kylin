@@ -1,0 +1,4 @@
+{
+  Meta.Signature sig=mockPreparedSignature(sql);
+  return factory().newPreparedStatement(this,null,sig,resultSetType,resultSetConcurrency,resultSetHoldability);
+}

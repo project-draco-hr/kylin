@@ -1,0 +1,3 @@
+{
+  getParameter(parameterIndex).setSQLXML(slots,parameterIndex,xmlObject);
+}

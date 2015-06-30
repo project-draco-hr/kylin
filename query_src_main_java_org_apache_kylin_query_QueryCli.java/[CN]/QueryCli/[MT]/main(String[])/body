@@ -6,7 +6,7 @@
   CommandLine commandLine=parser.parse(options,args);
   KylinConfig config=KylinConfig.createInstanceFromUri(commandLine.getOptionValue(OPTION_METADATA.getOpt()));
   String sql=commandLine.getOptionValue(OPTION_SQL.getOpt());
-  Class.forName("net.hydromatic.optiq.jdbc.Driver");
+  Class.forName(Driver.class.getName());
   File olapTmp=OLAPSchemaFactory.createTempOLAPJson(null,config);
   Connection conn=null;
   Statement stmt=null;

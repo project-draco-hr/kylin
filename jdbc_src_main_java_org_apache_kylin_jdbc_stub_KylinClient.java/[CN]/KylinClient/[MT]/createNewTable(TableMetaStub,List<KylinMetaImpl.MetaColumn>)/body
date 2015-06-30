@@ -1,4 +1,0 @@
-{
-  KylinMetaImpl.MetaTable table=new KylinMetaImpl.MetaTable(tableMetaStub.getTABLE_CAT(),tableMetaStub.getTABLE_SCHEM(),tableMetaStub.getTABLE_NAME(),tableMetaStub.getTABLE_TYPE(),tableMetaStub.getREMARKS(),tableMetaStub.getTYPE_CAT(),tableMetaStub.getTYPE_SCHEM(),tableMetaStub.getTYPE_NAME(),tableMetaStub.getSELF_REFERENCING_COL_NAME(),tableMetaStub.getREF_GENERATION(),columns);
-  return table;
-}

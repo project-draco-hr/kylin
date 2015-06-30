@@ -1,0 +1,9 @@
+{
+  super.close();
+  try {
+    remoteClient.close();
+  }
+ catch (  IOException e) {
+    throw new SQLException(e);
+  }
+}
