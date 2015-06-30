@@ -1,10 +1,12 @@
 {
   this.createTestMetadata();
   MetadataManager.clearCache();
-  DictionaryManager.clearCache();
   CubeDescManager.clearCache();
   CubeManager.clearCache();
   IIDescManager.clearCache();
   IIManager.clearCache();
+  RealizationRegistry.clearCache();
   ProjectManager.clearCache();
+  BasicService.cleanAllDataCache();
+  BasicService.removeAllOLAPDataSources();
 }

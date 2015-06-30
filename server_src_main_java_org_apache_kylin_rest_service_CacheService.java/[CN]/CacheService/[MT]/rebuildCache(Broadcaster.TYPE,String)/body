@@ -35,14 +35,14 @@ CubeDescManager.clearCache();
 break;
 case ALL:
 MetadataManager.clearCache();
-DictionaryManager.clearCache();
 CubeDescManager.clearCache();
 CubeManager.clearCache();
 IIDescManager.clearCache();
 IIManager.clearCache();
+RealizationRegistry.clearCache();
 ProjectManager.clearCache();
-cleanAllDataCache();
-removeAllOLAPDataSources();
+BasicService.cleanAllDataCache();
+BasicService.removeAllOLAPDataSources();
 break;
 default :
 throw new RuntimeException("invalid cacheType:" + cacheType);
