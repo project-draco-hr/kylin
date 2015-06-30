@@ -1,0 +1,23 @@
+{
+  checkNoBuildingSegment(cube);
+  checkCubeIsPartitioned(cube);
+  Pair<Long,Long> range=alignMergeRange(cube,startDate,endDate);
+  CubeSegment newSegment=newSegment(cube,range.getFirst(),range.getSecond());
+  List<CubeSegment> mergingSegments=cube.getMergingSegments(newSegment);
+  if (forceMergeEmptySeg == false) {
+    List<String> emptySegment=Lists.newArrayList();
+    for (    CubeSegment seg : mergingSegments) {
+      if (seg.getSizeKB() == 0) {
+        emptySegment.add(seg.getName());
+      }
+    }
+    if (emptySegment.size() > 0) {
+      throw new IllegalArgumentException("Empty cube segment found, couldn't merge unless 'forceMergeEmptySegment' set to true: " + emptySegment);
+    }
+  }
+  validateNewSegments(cube,false,newSegment);
+  CubeBuilder cubeBuilder=new CubeBuilder(cube);
+  cubeBuilder.setToAddSegs(newSegment);
+  updateCube(cubeBuilder);
+  return newSegment;
+}
