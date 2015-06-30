@@ -1,11 +1,3 @@
 {
-  long startTimestamp=System.currentTimeMillis();
-  SQLResponse response=doQuery(sqlRequest);
-  response.setDuration(System.currentTimeMillis() - startTimestamp);
-  queryService.logQuery(sqlRequest,response,new Date(startTimestamp),new Date(System.currentTimeMillis()));
-  if (response.getIsException()) {
-    String errorMsg=response.getExceptionMessage();
-    throw new InternalErrorException(QueryUtil.makeErrorMsgUserFriendly(errorMsg));
-  }
-  return response;
+  return doQuery(sqlRequest);
 }
