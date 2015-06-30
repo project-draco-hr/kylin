@@ -1,0 +1,12 @@
+{
+  final long offset=message.getOffset();
+  if (offset < startOffset) {
+    return Result.DISCARD;
+  }
+ else   if (offset < endOffset) {
+    return Result.ACCEPT;
+  }
+ else {
+    return Result.REJECT;
+  }
+}

@@ -1,4 +1,0 @@
-{
-  this.allColumns=allColumns;
-  this.formatTs=false;
-}

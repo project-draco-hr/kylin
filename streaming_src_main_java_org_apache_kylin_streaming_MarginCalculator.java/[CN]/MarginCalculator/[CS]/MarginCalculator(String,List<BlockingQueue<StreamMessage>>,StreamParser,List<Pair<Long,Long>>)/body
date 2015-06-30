@@ -1,0 +1,7 @@
+{
+  Preconditions.checkArgument(queues.size() > 0);
+  this.streaming=streaming;
+  this.queues=queues;
+  this.streamParser=streamParser;
+  this.firstAndLastOffsets=firstAndLastOffsets;
+}

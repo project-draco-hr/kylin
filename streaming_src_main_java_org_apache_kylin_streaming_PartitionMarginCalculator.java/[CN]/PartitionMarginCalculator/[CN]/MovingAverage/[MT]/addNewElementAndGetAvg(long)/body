@@ -1,0 +1,10 @@
+{
+  if (q.size() < WINDOW_SIZE) {
+    q.add(e);
+    totalSum+=e;
+    return totalSum / q.size();
+  }
+  long head=q.remove();
+  q.add(e);
+  return (totalSum - head + e) / WINDOW_SIZE;
+}

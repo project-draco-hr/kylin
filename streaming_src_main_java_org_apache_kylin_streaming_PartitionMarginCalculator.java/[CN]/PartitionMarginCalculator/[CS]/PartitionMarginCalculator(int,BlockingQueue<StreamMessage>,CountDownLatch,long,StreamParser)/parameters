@@ -1,0 +1,5 @@
+int partitionId
+BlockingQueue<StreamMessage> streamMessageQueue
+CountDownLatch countDownLatch
+long lastOffset
+StreamParser streamParser
