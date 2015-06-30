@@ -1,4 +1,5 @@
 {
+  if (!exists())   throw new IllegalStateException("Table not exists");
   FileSystem fs=HadoopUtil.getFileSystem(path);
   FileStatus status=fs.getFileStatus(new Path(path));
   return new TableSignature(path,status.getLen(),status.getModificationTime());
