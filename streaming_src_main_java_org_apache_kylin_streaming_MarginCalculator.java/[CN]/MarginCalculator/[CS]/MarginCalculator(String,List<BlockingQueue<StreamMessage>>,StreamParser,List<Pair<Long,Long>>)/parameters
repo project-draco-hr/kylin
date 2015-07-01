@@ -1,4 +1,0 @@
-String streaming
-List<BlockingQueue<StreamMessage>> queues
-StreamParser streamParser
-List<Pair<Long,Long>> firstAndLastOffsets
