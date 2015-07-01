@@ -55,8 +55,8 @@
     totalSizeInM+=cuboidSize;
   }
   int nRegion=Math.round((float)totalSizeInM / ((float)cut * 1024l));
-  nRegion=Math.max(1,nRegion);
-  nRegion=Math.min(MAX_REGION,nRegion);
+  nRegion=Math.max(kylinConfig.getHBaseRegionCutMin(),nRegion);
+  nRegion=Math.min(kylinConfig.getHBaseRegionCutMax(),nRegion);
   int mbPerRegion=(int)(totalSizeInM / (nRegion));
   mbPerRegion=Math.max(1,mbPerRegion);
   logger.info("Total size " + totalSizeInM + "M (estimated)");
