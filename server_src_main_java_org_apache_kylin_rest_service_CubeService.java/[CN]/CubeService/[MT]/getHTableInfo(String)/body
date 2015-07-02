@@ -1,4 +1,7 @@
 {
+  if (htableInfoCache.containsKey(tableName)) {
+    return htableInfoCache.get(tableName);
+  }
   String hbaseUrl=KylinConfig.getInstanceFromEnv().getStorageUrl();
   Configuration hconf=HadoopUtil.newHBaseConfiguration(hbaseUrl);
   HTable table=null;
@@ -22,5 +25,6 @@
       table.close();
     }
   }
+  htableInfoCache.put(tableName,hr);
   return hr;
 }
