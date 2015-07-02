@@ -1,0 +1,37 @@
+{
+  if (!initialized) {
+    initialized=true;
+  }
+ else {
+    return;
+  }
+  this.jobEngineConfig=jobEngineConfig;
+  jobLock.lock();
+  executableManager=ExecutableManager.getInstance(jobEngineConfig.getConfig());
+  fetcherPool=Executors.newScheduledThreadPool(1);
+  int corePoolSize=jobEngineConfig.getMaxConcurrentJobLimit();
+  jobPool=new ThreadPoolExecutor(corePoolSize,corePoolSize,Long.MAX_VALUE,TimeUnit.DAYS,new SynchronousQueue<Runnable>());
+  context=new DefaultContext(Maps.<String,Executable>newConcurrentMap(),jobEngineConfig.getConfig());
+  for (  AbstractExecutable executable : executableManager.getAllExecutables()) {
+    if (executable.getStatus() == ExecutableState.READY) {
+      executableManager.updateJobOutput(executable.getId(),ExecutableState.ERROR,null,"scheduler initializing work to reset job to ERROR status");
+    }
+  }
+  executableManager.updateAllRunningJobsToError();
+  Runtime.getRuntime().addShutdownHook(new Thread(){
+    public void run(){
+      logger.debug("Closing zk connection");
+      try {
+        shutdown();
+        jobLock.unlock();
+      }
+ catch (      SchedulerException e) {
+        logger.error("error shutdown scheduler",e);
+      }
+    }
+  }
+);
+  fetcher=new FetcherRunner();
+  fetcherPool.scheduleAtFixedRate(fetcher,10,ExecutableConstants.DEFAULT_SCHEDULER_INTERVAL_SECONDS,TimeUnit.SECONDS);
+  hasStarted=true;
+}

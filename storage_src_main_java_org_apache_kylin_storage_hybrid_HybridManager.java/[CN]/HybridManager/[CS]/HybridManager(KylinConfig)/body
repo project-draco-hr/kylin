@@ -1,0 +1,5 @@
+{
+  logger.info("Initializing HybridManager with config " + config);
+  this.config=config;
+  loadAllHybridInstance();
+}

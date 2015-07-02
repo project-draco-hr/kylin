@@ -1,0 +1,3 @@
+{
+  return Math.max(getHistoryRealizationInstance().getDateRangeEnd(),getRealTimeRealizationInstance().getDateRangeEnd()) + 1;
+}

@@ -1,0 +1,6 @@
+{
+  if (realTimeRealizationInstance == null) {
+    this.init();
+  }
+  return realTimeRealizationInstance;
+}

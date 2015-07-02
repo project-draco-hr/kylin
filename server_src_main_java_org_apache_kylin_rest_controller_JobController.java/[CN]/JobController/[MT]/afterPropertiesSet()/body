@@ -10,7 +10,7 @@
       @Override public void run(){
         try {
           DefaultScheduler scheduler=DefaultScheduler.getInstance();
-          scheduler.init(new JobEngineConfig(kylinConfig));
+          scheduler.init(new JobEngineConfig(kylinConfig),new ZookeeperJobLock());
           if (!scheduler.hasStarted()) {
             logger.error("scheduler has not been started");
             System.exit(1);

@@ -4,5 +4,4 @@
     ii.setStatus(RealizationStatusEnum.READY);
     iiManager.updateII(ii);
   }
-  backup();
 }

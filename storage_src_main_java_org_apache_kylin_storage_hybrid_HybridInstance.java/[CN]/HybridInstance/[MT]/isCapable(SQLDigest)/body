@@ -1,0 +1,3 @@
+{
+  return getHistoryRealizationInstance().isCapable(digest) && getRealTimeRealizationInstance().isCapable(digest);
+}

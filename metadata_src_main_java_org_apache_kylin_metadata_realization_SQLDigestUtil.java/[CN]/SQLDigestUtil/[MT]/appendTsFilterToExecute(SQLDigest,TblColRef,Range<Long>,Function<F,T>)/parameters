@@ -1,0 +1,4 @@
+SQLDigest sqlDigest
+TblColRef partitionColRef
+Range<Long> tsRange
+Function<F,T> action

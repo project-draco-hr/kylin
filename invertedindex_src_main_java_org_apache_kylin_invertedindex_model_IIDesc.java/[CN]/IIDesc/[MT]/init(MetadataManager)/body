@@ -8,17 +8,18 @@
     throw new RuntimeException("No data model found with name '" + modelName + "'.");
   }
   timestampDimension=timestampDimension.toUpperCase();
-  IIDimension.capicalizeStrings(bitmapDimensions);
   IIDimension.capicalizeStrings(valueDimensions);
   StringUtil.toUpperCaseArray(metricNames,metricNames);
   HashSet<String> allTableNames=Sets.newHashSet();
   measureDescs=Lists.newArrayList();
   measureDescs.add(makeCountMeasure());
-  for (  IIDimension iiDimension : Iterables.concat(bitmapDimensions,valueDimensions)) {
+  for (  IIDimension iiDimension : valueDimensions) {
     TableDesc tableDesc=this.getTableDesc(iiDimension.getTable());
     for (    String column : iiDimension.getColumns()) {
       ColumnDesc columnDesc=tableDesc.findColumnByName(column);
-      allColumns.add(new TblColRef(columnDesc));
+      TblColRef tcr=new TblColRef(columnDesc);
+      allColumns.add(tcr);
+      allDimensions.add(tcr);
       measureDescs.add(makeHLLMeasure(columnDesc,null));
     }
     if (!allTableNames.contains(tableDesc.getIdentity())) {
@@ -38,14 +39,10 @@
       allTables.add(tableDesc);
     }
   }
-  bitmapCols=new int[IIDimension.getColumnCount(bitmapDimensions)];
   valueCols=new int[IIDimension.getColumnCount(valueDimensions)];
   metricsCols=new int[metricNames.length];
   metricsColSet=new BitSet(this.getTableDesc(this.getFactTableName()).getColumnCount());
   int totalIndex=0;
-  for (int i=0; i < bitmapCols.length; ++i, ++totalIndex) {
-    bitmapCols[i]=totalIndex;
-  }
   for (int i=0; i < valueCols.length; ++i, ++totalIndex) {
     valueCols[i]=totalIndex;
   }
@@ -61,5 +58,5 @@
       break;
     }
   }
-  if (tsCol < 0)   throw new RuntimeException("timestamp_dimension is not in bitmapDimensions or valueDimensions");
+  if (tsCol < 0)   throw new RuntimeException("timestamp_dimension is not in valueDimensions");
 }

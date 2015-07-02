@@ -1,3 +1,0 @@
-{
-  return ZOOKEEPER_LOCK_PATH + "/" + jobEngineConfig.getConfig().getMetadataUrlPrefix();
-}

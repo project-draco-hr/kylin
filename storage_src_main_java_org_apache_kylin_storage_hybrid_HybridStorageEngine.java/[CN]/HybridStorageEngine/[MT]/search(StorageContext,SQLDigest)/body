@@ -1,0 +1,15 @@
+{
+  ITupleIterator historicalDataIterator=this.historicalStorageEngine.search(context,sqlDigest);
+  String modelName=hybridInstance.getModelName();
+  MetadataManager metaMgr=getMetadataManager();
+  DataModelDesc modelDesc=metaMgr.getDataModelDesc(modelName);
+  if (modelDesc.getPartitionDesc() == null || modelDesc.getPartitionDesc().getPartitionDateColumnRef() == null)   return historicalDataIterator;
+  TblColRef partitionColRef=modelDesc.getPartitionDesc().getPartitionDateColumnRef();
+  ITupleIterator realtimeDataIterator=SQLDigestUtil.appendTsFilterToExecute(sqlDigest,partitionColRef,Ranges.atLeast(hybridInstance.getHistoryRealizationInstance().getDateRangeEnd()),new Function<Void,ITupleIterator>(){
+    @Nullable @Override public ITupleIterator apply(    @Nullable Void input){
+      return realtimeStorageEngine.search(context,sqlDigest);
+    }
+  }
+);
+  return new CompoundTupleIterator(Lists.newArrayList(historicalDataIterator,realtimeDataIterator));
+}

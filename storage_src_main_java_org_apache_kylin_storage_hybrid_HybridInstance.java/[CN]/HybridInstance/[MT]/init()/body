@@ -1,0 +1,11 @@
+{
+  RealizationRegistry registry=RealizationRegistry.getInstance(config);
+  historyRealizationInstance=registry.getRealization(historyRealization.getType(),historyRealization.getRealization());
+  realTimeRealizationInstance=registry.getRealization(realTimeRealization.getType(),realTimeRealization.getRealization());
+  if (historyRealizationInstance == null) {
+    throw new IllegalArgumentException("Didn't find realization '" + historyRealization.getType() + "'"+ " with name '"+ historyRealization.getRealization()+ "' in '"+ name+ "'");
+  }
+  if (realTimeRealizationInstance == null) {
+    throw new IllegalArgumentException("Didn't find realization '" + realTimeRealization.getType() + "'"+ " with name '"+ realTimeRealization.getRealization()+ "' in '"+ name+ "'");
+  }
+}
