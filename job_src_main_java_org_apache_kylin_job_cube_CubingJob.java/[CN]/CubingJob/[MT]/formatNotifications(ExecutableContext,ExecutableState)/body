@@ -1,15 +1,21 @@
 {
+  CubeInstance cubeInstance=CubeManager.getInstance(context.getConfig()).getCube(getCubeName());
   final Output output=jobService.getOutput(getId());
   String logMsg;
-switch (output.getState()) {
+  state=output.getState();
+  if (state != ExecutableState.ERROR && !cubeInstance.getDescriptor().getStatusNeedNotify().contains(state.toString().toLowerCase())) {
+    logger.info("state:" + state + " no need to notify users");
+    return null;
+  }
+switch (state) {
 case ERROR:
     logMsg=output.getVerboseMsg();
   break;
 case DISCARDED:
-logMsg="";
+logMsg="job has been discarded";
 break;
 case SUCCEED:
-logMsg="";
+logMsg="job has succeeded";
 break;
 default :
 return null;

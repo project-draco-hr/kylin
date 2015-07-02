@@ -11,7 +11,7 @@
     if (users.isEmpty()) {
       return;
     }
-    final Pair<String,String> email=formatNotifications(state);
+    final Pair<String,String> email=formatNotifications(context,state);
     if (email == null) {
       return;
     }
