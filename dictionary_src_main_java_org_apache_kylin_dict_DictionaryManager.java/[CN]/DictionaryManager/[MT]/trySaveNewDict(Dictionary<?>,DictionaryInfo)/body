@@ -1,12 +1,23 @@
 {
-  String dupDict=checkDupByContent(newDictInfo,newDict);
-  if (dupDict != null) {
-    logger.info("Identical dictionary content " + newDict + ", reuse existing dictionary at "+ dupDict);
-    return getDictionaryInfo(dupDict);
-  }
   newDictInfo.setDictionaryObject(newDict);
   newDictInfo.setDictionaryClass(newDict.getClass().getName());
-  save(newDictInfo);
-  dictCache.put(newDictInfo.getResourcePath(),newDictInfo);
-  return newDictInfo;
+  DictionaryInfo largestDict=findLargestDict(newDictInfo);
+  if (largestDict != null) {
+    if (newDict.containedBy(largestDict.getDictionaryObject())) {
+      logger.info("dictionary content " + newDict + ", is contained by  dictionary at "+ largestDict.getResourcePath());
+      return largestDict;
+    }
+ else     if (largestDict.getDictionaryObject().containedBy(newDict)) {
+      logger.info("dictionary content " + newDict + " is by far the largest, save it");
+      return saveNewDict(newDict,newDictInfo);
+    }
+ else {
+      logger.info("merge dict and save...");
+      return mergeDictionary(Lists.newArrayList(newDictInfo,largestDict));
+    }
+  }
+ else {
+    logger.info("first dict of this column, save it directly");
+    return saveNewDict(newDict,newDictInfo);
+  }
 }

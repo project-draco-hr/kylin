@@ -4,12 +4,16 @@
   if (dictInfos == null || dictInfos.isEmpty()) {
     return null;
   }
-  Collections.sort(dictInfos);
   final List<DictionaryInfo> allResources=MetadataManager.getInstance(config).getStore().getAllResources(dictInfos.get(0),dictInfos.get(dictInfos.size() - 1),DictionaryInfo.class,DictionaryInfoSerializer.FULL_SERIALIZER);
+  DictionaryInfo largestDict=null;
   for (  DictionaryInfo dictionaryInfo : allResources) {
-    if (dict.equals(dictionaryInfo.getDictionaryObject())) {
-      return dictionaryInfo.getResourcePath();
+    if (largestDict == null) {
+      largestDict=dictionaryInfo;
+      continue;
+    }
+    if (largestDict.getDictionaryObject().getSize() < dictionaryInfo.getDictionaryObject().getSize()) {
+      largestDict=dictionaryInfo;
     }
   }
-  return null;
+  return largestDict;
 }

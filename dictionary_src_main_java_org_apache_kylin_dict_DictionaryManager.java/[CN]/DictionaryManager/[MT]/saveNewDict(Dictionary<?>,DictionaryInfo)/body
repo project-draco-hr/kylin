@@ -1,0 +1,5 @@
+{
+  save(newDictInfo);
+  dictCache.put(newDictInfo.getResourcePath(),newDictInfo);
+  return newDictInfo;
+}

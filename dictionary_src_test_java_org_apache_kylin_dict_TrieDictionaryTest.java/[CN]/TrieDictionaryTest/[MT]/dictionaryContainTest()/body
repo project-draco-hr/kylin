@@ -1,0 +1,19 @@
+{
+  ArrayList<String> str=new ArrayList<String>();
+  str.add("part");
+  str.add("part");
+  str.add("par");
+  str.add("partition");
+  str.add("party");
+  str.add("parties");
+  str.add("paint");
+  TrieDictionaryBuilder<String> b=newDictBuilder(str);
+  int baseId=new Random().nextInt(100);
+  TrieDictionary<String> dict=b.build(baseId);
+  str.add("py");
+  b=newDictBuilder(str);
+  baseId=new Random().nextInt(100);
+  TrieDictionary<String> dict2=b.build(baseId);
+  assertEquals(true,dict.containedBy(dict2));
+  assertEquals(false,dict2.containedBy(dict));
+}

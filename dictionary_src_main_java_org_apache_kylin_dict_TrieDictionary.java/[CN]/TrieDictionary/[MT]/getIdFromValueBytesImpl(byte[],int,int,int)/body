@@ -1,6 +1,6 @@
 {
   int seq=lookupSeqNoFromValue(headSize,value,offset,offset + len,roundingFlag);
   int id=calcIdFromSeqNo(seq);
-  if (id < 0)   throw new IllegalArgumentException("Not a valid value: " + bytesConvert.convertFromBytes(value,offset,len));
+  if (id < 0)   logger.error("Not a valid value: " + bytesConvert.convertFromBytes(value,offset,len));
   return id;
 }

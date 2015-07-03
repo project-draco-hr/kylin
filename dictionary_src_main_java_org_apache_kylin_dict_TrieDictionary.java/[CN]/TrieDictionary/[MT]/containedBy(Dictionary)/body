@@ -1,0 +1,12 @@
+{
+  if (this.getSize() > other.getSize()) {
+    return false;
+  }
+  for (int i=getMinId(); i <= getMaxId(); ++i) {
+    T v=this.getValueFromId(i);
+    if (!other.containsValue(v)) {
+      return false;
+    }
+  }
+  return true;
+}

@@ -1,0 +1,14 @@
+{
+  if (isNullObjectForm(value)) {
+    return true;
+  }
+ else {
+    try {
+      getIdFromValueImpl(value,0);
+    }
+ catch (    IllegalArgumentException e) {
+      return false;
+    }
+    return true;
+  }
+}
