@@ -41,7 +41,7 @@ IIDescManager.clearCache();
 IIManager.clearCache();
 RealizationRegistry.clearCache();
 ProjectManager.clearCache();
-BasicService.cleanAllDataCache();
+super.cleanAllDataCache();
 BasicService.removeAllOLAPDataSources();
 break;
 default :

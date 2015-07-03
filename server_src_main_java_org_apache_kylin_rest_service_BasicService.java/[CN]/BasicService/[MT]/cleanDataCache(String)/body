@@ -1,5 +1,9 @@
 {
   if (cacheManager != null && cacheManager.getCache(storageUUID) != null) {
+    logger.info("cleaning cache for " + storageUUID);
     cacheManager.getCache(storageUUID).removeAll();
+  }
+ else {
+    logger.warn("skip cleaning cache for " + storageUUID);
   }
 }

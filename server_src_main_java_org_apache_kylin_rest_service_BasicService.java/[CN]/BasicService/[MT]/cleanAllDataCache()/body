@@ -1,3 +1,9 @@
 {
-  if (cacheManager != null)   cacheManager.clearAll();
+  if (cacheManager != null) {
+    logger.warn("cleaning all storage cache");
+    cacheManager.clearAll();
+  }
+ else {
+    logger.warn("skip cleaning all storage cache");
+  }
 }
