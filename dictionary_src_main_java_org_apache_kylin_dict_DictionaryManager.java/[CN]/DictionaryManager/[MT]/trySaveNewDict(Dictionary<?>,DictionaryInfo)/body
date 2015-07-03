@@ -9,7 +9,7 @@
     }
  else     if (largestDict.getDictionaryObject().containedBy(newDict)) {
       logger.info("dictionary content " + newDict + " is by far the largest, save it");
-      return saveNewDict(newDict,newDictInfo);
+      return saveNewDict(newDictInfo);
     }
  else {
       logger.info("merge dict and save...");
@@ -18,6 +18,6 @@
   }
  else {
     logger.info("first dict of this column, save it directly");
-    return saveNewDict(newDict,newDictInfo);
+    return saveNewDict(newDictInfo);
   }
 }

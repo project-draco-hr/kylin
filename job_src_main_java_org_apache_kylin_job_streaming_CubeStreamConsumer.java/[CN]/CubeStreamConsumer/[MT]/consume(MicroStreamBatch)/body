@@ -17,8 +17,8 @@
   FactDistinctColumnsReducer.writeCuboidStatistics(conf,outputPath,samplingResult,100);
   ResourceStore.getStore(kylinConfig).putResource(cubeSegment.getStatisticsResourcePath(),FileSystem.getLocal(conf).open(new Path(outputPath,BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION)),0);
   final Map<TblColRef,Dictionary<?>> dictionaryMap=buildDictionary(cubeInstance,parsedStreamMessages);
-  writeDictionary(cubeSegment,dictionaryMap,startOffset,endOffset);
-  InMemCubeBuilder inMemCubeBuilder=new InMemCubeBuilder(cubeInstance.getDescriptor(),dictionaryMap);
+  Map<TblColRef,Dictionary<?>> realDictMap=writeDictionary(cubeSegment,dictionaryMap,startOffset,endOffset);
+  InMemCubeBuilder inMemCubeBuilder=new InMemCubeBuilder(cubeInstance.getDescriptor(),realDictMap);
   final HTableInterface hTable=createHTable(cubeSegment);
   final CubeStreamRecordWriter gtRecordWriter=new CubeStreamRecordWriter(cubeDesc,hTable);
   executorService.submit(inMemCubeBuilder.buildAsRunnable(blockingQueue,gtRecordWriter)).get();

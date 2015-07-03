@@ -11,9 +11,9 @@
   TableSplit currentSplit=(TableSplit)context.getInputSplit();
   byte[] tableName=currentSplit.getTableName();
   String htableName=Bytes.toString(tableName);
-  System.out.println("htable:" + htableName);
+  logger.info("htable:" + htableName);
   sourceCubeSegment=findSegmentWithHTable(htableName,cube);
-  System.out.println(sourceCubeSegment);
+  logger.info(sourceCubeSegment.toString());
   this.rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
   List<RowValueDecoder> valueDecoderList=Lists.newArrayList();
   List<InMemKeyValueCreator> keyValueCreators=Lists.newArrayList();

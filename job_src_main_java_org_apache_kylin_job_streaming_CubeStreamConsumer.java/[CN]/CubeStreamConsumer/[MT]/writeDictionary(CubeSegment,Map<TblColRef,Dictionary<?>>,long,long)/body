@@ -1,4 +1,5 @@
 {
+  Map<TblColRef,Dictionary<?>> realDictMap=Maps.newHashMap();
   for (  Map.Entry<TblColRef,Dictionary<?>> entry : dictionaryMap.entrySet()) {
     final TblColRef tblColRef=entry.getKey();
     final Dictionary<?> dictionary=entry.getValue();
@@ -10,11 +11,14 @@
     logger.info("writing dictionary for TblColRef:" + tblColRef.toString());
     DictionaryManager dictionaryManager=DictionaryManager.getInstance(kylinConfig);
     try {
-      cubeSegment.putDictResPath(tblColRef,dictionaryManager.trySaveNewDict(dictionary,dictInfo).getResourcePath());
+      DictionaryInfo realDict=dictionaryManager.trySaveNewDict(dictionary,dictInfo);
+      cubeSegment.putDictResPath(tblColRef,realDict.getResourcePath());
+      realDictMap.put(tblColRef,realDict.getDictionaryObject());
     }
  catch (    IOException e) {
       logger.error("error save dictionary for column:" + tblColRef,e);
       throw new RuntimeException("error save dictionary for column:" + tblColRef,e);
     }
   }
+  return realDictMap;
 }
