@@ -1,0 +1,3 @@
+{
+  return ResourceStore.HYBRID_RESOURCE_ROOT + "/" + hybridName+ ".json";
+}

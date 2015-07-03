@@ -4,8 +4,9 @@
 switch (cacheType) {
 case CUBE:
       getCubeManager().loadCubeCache(cacheKey);
-    cleanProjectCacheByRealization(RealizationType.CUBE,cacheKey);
-  break;
+    getHybridManager().reloadHybridInstanceByChild(RealizationType.CUBE,cacheKey);
+  cleanProjectCacheByRealization(RealizationType.CUBE,cacheKey);
+break;
 case CUBE_DESC:
 getCubeDescManager().reloadCubeDesc(cacheKey);
 break;
@@ -14,6 +15,7 @@ getProjectManager().reloadProject(cacheKey);
 break;
 case INVERTED_INDEX:
 getIIManager().loadIICache(cacheKey);
+getHybridManager().reloadHybridInstanceByChild(RealizationType.INVERTED_INDEX,cacheKey);
 cleanProjectCacheByRealization(RealizationType.INVERTED_INDEX,cacheKey);
 break;
 case INVERTED_INDEX_DESC:
@@ -35,6 +37,7 @@ CubeDescManager.clearCache();
 CubeManager.clearCache();
 IIDescManager.clearCache();
 IIManager.clearCache();
+HybridManager.clearCache();
 RealizationRegistry.clearCache();
 ProjectManager.clearCache();
 BasicService.resetOLAPDataSources();

@@ -1,8 +1,8 @@
 {
   KylinQueryTest.setUp();
   Map<RealizationType,Integer> priorities=Maps.newHashMap();
-  priorities.put(RealizationType.INVERTED_INDEX,0);
-  priorities.put(RealizationType.CUBE,1);
-  priorities.put(RealizationType.HYBRID,1);
+  priorities.put(RealizationType.INVERTED_INDEX,1);
+  priorities.put(RealizationType.CUBE,2);
+  priorities.put(RealizationType.HYBRID,2);
   RealizationPriorityRule.setPriorities(priorities);
 }

@@ -1,3 +1,4 @@
 {
-  return getHistoryRealizationInstance().getAllColumns();
+  init();
+  return allColumns;
 }

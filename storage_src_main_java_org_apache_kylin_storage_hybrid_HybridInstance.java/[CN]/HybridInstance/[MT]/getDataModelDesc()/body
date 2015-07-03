@@ -1,6 +1,0 @@
-{
-  if (getHistoryRealizationInstance() instanceof CubeInstance) {
-    return ((CubeInstance)historyRealizationInstance).getDescriptor().getModel();
-  }
-  return ((IIInstance)historyRealizationInstance).getDescriptor().getModel();
-}

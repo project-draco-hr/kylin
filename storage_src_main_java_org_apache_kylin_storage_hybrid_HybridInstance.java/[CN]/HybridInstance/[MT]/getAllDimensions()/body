@@ -1,3 +1,4 @@
 {
-  return this.getHistoryRealizationInstance().getAllDimensions();
+  init();
+  return allDimensions;
 }
