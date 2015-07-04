@@ -1,10 +1,5 @@
 {
   stopJetty();
   staticCleanupTestMetadata();
-  if (previousSpringProfile == null) {
-    System.clearProperty(SPRING_PROFILE_PROPERTY);
-  }
- else {
-    System.setProperty(SPRING_PROFILE_PROPERTY,previousSpringProfile);
-  }
+  sysPropsOverride.restore();
 }

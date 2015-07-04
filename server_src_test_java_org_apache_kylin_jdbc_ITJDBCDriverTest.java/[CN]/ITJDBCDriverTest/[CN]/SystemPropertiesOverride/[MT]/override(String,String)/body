@@ -1,0 +1,4 @@
+{
+  backup.put(key,System.getProperty(key));
+  System.setProperty(key,value);
+}
