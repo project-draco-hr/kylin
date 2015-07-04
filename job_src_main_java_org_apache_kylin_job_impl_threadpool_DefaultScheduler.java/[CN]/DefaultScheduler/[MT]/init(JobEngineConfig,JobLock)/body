@@ -6,7 +6,9 @@
     return;
   }
   this.jobEngineConfig=jobEngineConfig;
-  jobLock.lock();
+  if (jobLock.lock() == false) {
+    throw new IllegalStateException("Cannot start job scheduler due to lack of job lock");
+  }
   executableManager=ExecutableManager.getInstance(jobEngineConfig.getConfig());
   fetcherPool=Executors.newScheduledThreadPool(1);
   int corePoolSize=jobEngineConfig.getMaxConcurrentJobLimit();
