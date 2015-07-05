@@ -4,19 +4,25 @@ synchronized (this) {
     if (initiated == true)     return;
     if (realizationEntries == null || realizationEntries.size() == 0)     throw new IllegalArgumentException();
     RealizationRegistry registry=RealizationRegistry.getInstance(config);
-    realizations=new IRealization[realizationEntries.size()];
+    List<IRealization> realizationList=Lists.newArrayList();
     for (int i=0; i < realizationEntries.size(); i++) {
       IRealization realization=registry.getRealization(realizationEntries.get(i).getType(),realizationEntries.get(i).getRealization());
-      if (realization == null)       throw new IllegalArgumentException("Realization '" + realizationEntries.get(i) + "' not loaded.");
-      realizations[i]=realization;
+      if (realization == null) {
+        logger.error("Realization '" + realization.getName() + " is not found, remove from Hybrid '"+ this.getName()+ "'");
+        continue;
+      }
+      if (realization.isReady() == false) {
+        logger.error("Realization '" + realization.getName() + " is disabled, remove from Hybrid '"+ this.getName()+ "'");
+        continue;
+      }
+      realizationList.add(realization);
     }
     LinkedHashSet<TblColRef> columns=new LinkedHashSet<TblColRef>();
     LinkedHashSet<TblColRef> dimensions=new LinkedHashSet<TblColRef>();
     LinkedHashSet<MeasureDesc> measures=new LinkedHashSet<MeasureDesc>();
     dateRangeStart=0;
     dateRangeEnd=Long.MAX_VALUE;
-    for (    IRealization realization : realizations) {
-      if (realization.isReady() == false)       continue;
+    for (    IRealization realization : realizationList) {
       columns.addAll(realization.getAllColumns());
       dimensions.addAll(realization.getAllDimensions());
       measures.addAll(realization.getMeasures());
@@ -27,6 +33,25 @@ synchronized (this) {
     allDimensions=Lists.newArrayList(dimensions);
     allColumns=Lists.newArrayList(columns);
     allMeasures=Lists.newArrayList(measures);
+    Collections.sort(realizationList,new Comparator<IRealization>(){
+      @Override public int compare(      IRealization o1,      IRealization o2){
+        long i1=o1.getDateRangeStart();
+        long i2=o2.getDateRangeStart();
+        long comp=i1 - i2;
+        if (comp != 0) {
+          return comp > 0 ? 1 : -1;
+        }
+        i1=o1.getDateRangeEnd();
+        i2=o2.getDateRangeEnd();
+        comp=i1 - i2;
+        if (comp != 0) {
+          return comp > 0 ? 1 : -1;
+        }
+        return 0;
+      }
+    }
+);
+    this.realizations=realizationList.toArray(new IRealization[realizationList.size()]);
     initiated=true;
   }
 }
