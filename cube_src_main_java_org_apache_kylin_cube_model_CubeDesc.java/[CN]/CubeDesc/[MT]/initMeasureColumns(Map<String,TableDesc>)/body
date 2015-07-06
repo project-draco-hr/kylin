@@ -10,7 +10,7 @@
     }
     FunctionDesc f=m.getFunction();
     f.setExpression(f.getExpression().toUpperCase());
-    f.setReturnDataType(DataType.getInstance(f.getReturnType()));
+    f.initReturnDataType();
     ParameterDesc p=f.getParameter();
     p.normalizeColumnValue();
     if (p.isColumnType()) {

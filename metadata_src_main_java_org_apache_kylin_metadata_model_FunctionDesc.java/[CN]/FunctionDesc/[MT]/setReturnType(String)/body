@@ -1,3 +1,4 @@
 {
   this.returnType=returnType;
+  this.initReturnDataType();
 }
