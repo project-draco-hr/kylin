@@ -1,6 +1,9 @@
 {
-  HybridInstance hybridInstance=getHybridManager().getHybridInstance("test_kylin_hybrid_left_join");
+  HybridInstance hybridInstance=getHybridManager().getHybridInstance("test_kylin_hybrid_ready");
   System.out.println(JsonUtil.writeValueAsIndentString(hybridInstance));
-  IRealization history=hybridInstance.getRealizations()[0];
-  Assert.assertTrue(history instanceof CubeInstance);
+  IRealization[] realizations=hybridInstance.getRealizations();
+  Assert.assertEquals(realizations.length,2);
+  IRealization lastReal=hybridInstance.getLatestRealization();
+  Assert.assertTrue(lastReal instanceof CubeInstance);
+  Assert.assertEquals(lastReal.getName(),"test_kylin_cube_with_slr_ready_2_segments");
 }
