@@ -9,13 +9,22 @@
     startIIStreaming(streamingConfig,partitionId);
   }
  else   if (!StringUtils.isEmpty(streamingConfig.getCubeName())) {
-    if (bootstrapConfig.isOneOff()) {
-      Preconditions.checkArgument(bootstrapConfig.getStart() != 0);
-      Preconditions.checkArgument(bootstrapConfig.getEnd() != 0);
-      startOneOffCubeStreaming(streamingConfig,bootstrapConfig.getStart(),bootstrapConfig.getEnd(),bootstrapConfig.getMargin());
+    if (bootstrapConfig.isFillGap()) {
+      final List<Pair<Long,Long>> gaps=StreamingMonitor.findGaps(streamingConfig.getCubeName());
+      logger.info("all gaps:" + StringUtils.join(gaps,","));
+      for (      Pair<Long,Long> gap : gaps) {
+        startOneOffCubeStreaming(streamingConfig,gap.getFirst(),gap.getSecond(),bootstrapConfig.getMargin());
+      }
     }
  else {
-      startCubeStreaming(streamingConfig);
+      if (bootstrapConfig.isOneOff()) {
+        Preconditions.checkArgument(bootstrapConfig.getStart() != 0);
+        Preconditions.checkArgument(bootstrapConfig.getEnd() != 0);
+        startOneOffCubeStreaming(streamingConfig,bootstrapConfig.getStart(),bootstrapConfig.getEnd(),bootstrapConfig.getMargin());
+      }
+ else {
+        startCubeStreaming(streamingConfig);
+      }
     }
   }
  else {
