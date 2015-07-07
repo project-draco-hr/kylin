@@ -10,11 +10,9 @@
   final AbstractExecutable intermediateHiveTableStep=createIntermediateHiveTableStep(intermediateTableDesc,jobId);
   result.addTask(intermediateHiveTableStep);
   result.addTask(createFactDistinctColumnsStep(seg,intermediateHiveTableName,jobId));
-  MapReduceExecutable baseCuboidStep=null;
   if (!inMemoryCubing()) {
     result.addTask(createBuildDictionaryStep(seg,factDistinctColumnsPath));
-    baseCuboidStep=createBaseCuboidStep(seg,intermediateHiveTableLocation,cuboidOutputTempPath);
-    result.addTask(baseCuboidStep);
+    result.addTask(createBaseCuboidStep(seg,intermediateHiveTableLocation,cuboidOutputTempPath));
     for (int i=1; i <= groupRowkeyColumnsCount; i++) {
       int dimNum=totalRowkeyColumnsCount - i;
       result.addTask(createNDimensionCuboidStep(seg,cuboidOutputTempPath,dimNum,totalRowkeyColumnsCount));
@@ -24,9 +22,7 @@
     result.addTask(createSaveStatisticsStep(seg,getStatisticsPath(seg,jobId)));
     result.addTask(createBuildDictionaryStep(seg,factDistinctColumnsPath));
     result.addTask(createCreateHTableStep(seg));
-    baseCuboidStep=createInMemCubingStep(seg,intermediateHiveTableLocation,intermediateHiveTableName,cuboidOutputTempPath,result.getId());
-    result.addTask(baseCuboidStep);
+    result.addTask(createInMemCubingStep(seg,intermediateHiveTableLocation,intermediateHiveTableName,cuboidOutputTempPath,result.getId()));
     result.addTask(createBulkLoadStep(seg,result.getId()));
   }
-  return new Pair<AbstractExecutable,AbstractExecutable>(intermediateHiveTableStep,baseCuboidStep);
 }

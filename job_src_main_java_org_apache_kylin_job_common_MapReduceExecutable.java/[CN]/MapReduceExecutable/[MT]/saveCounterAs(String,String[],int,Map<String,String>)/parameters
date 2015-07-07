@@ -1,0 +1,4 @@
+String counter
+String[] saveAsNames
+int i
+Map<String,String> info

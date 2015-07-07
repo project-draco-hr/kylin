@@ -3,8 +3,6 @@
   final String cuboidPath=cuboidRootPath + "*";
   result.addTask(createRangeRowkeyDistributionStep(seg,cuboidPath));
   result.addTask(createCreateHTableStep(seg));
-  final MapReduceExecutable convertCuboidToHfileStep=createConvertCuboidToHfileStep(seg,cuboidPath,jobId);
-  result.addTask(convertCuboidToHfileStep);
+  result.addTask(createConvertCuboidToHfileStep(seg,cuboidPath,jobId));
   result.addTask(createBulkLoadStep(seg,jobId));
-  return convertCuboidToHfileStep;
 }

@@ -1,0 +1,3 @@
+{
+  return Long.parseLong(findExtraInfo(SOURCE_SIZE_BYTES,"0"));
+}

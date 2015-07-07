@@ -4,10 +4,8 @@
   final String jobId=result.getId();
   final String appendRootPath=getJobWorkingDir(jobId) + "/" + appendSegment.getCubeInstance().getName()+ "/append_cuboid/";
   final String mergedRootPath=getJobWorkingDir(jobId) + "/" + appendSegment.getCubeInstance().getName()+ "/cuboid/";
-  Pair<AbstractExecutable,AbstractExecutable> twoSteps=addCubingSteps(appendSegment,appendRootPath,result);
-  final String intermediateHiveTableStepId=twoSteps.getFirst().getId();
-  final String baseCuboidStepId=twoSteps.getSecond().getId();
-  result.addTask(createUpdateCubeInfoAfterBuildStep(appendSegment,intermediateHiveTableStepId,baseCuboidStepId,null,jobId));
+  addCubingSteps(appendSegment,appendRootPath,result);
+  result.addTask(createUpdateCubeInfoAfterBuildStep(appendSegment,jobId));
   List<CubeSegment> mergingSegments=mergeSegment.getCubeInstance().getMergingSegments(mergeSegment);
   Preconditions.checkState(mergingSegments.size() > 1,"there should be more than 2 segments to merge");
   List<String> mergingSegmentIds=Lists.newArrayList();
@@ -19,16 +17,15 @@
     if (merging.equals(appendSegment))     mergingCuboidPaths.add(appendRootPath + "*");
  else     mergingCuboidPaths.add(getPathToMerge(merging));
   }
-  AbstractExecutable convertCuboidToHfileStep;
   if (this.inMemoryCubing()) {
-    convertCuboidToHfileStep=addMergeFromHBaseSteps(mergeSegment,mergingSegmentIds,mergingHTables,mergedRootPath,result);
+    addMergeFromHBaseSteps(mergeSegment,mergingSegmentIds,mergingHTables,mergedRootPath,result);
     result.addTask(createBulkLoadStep(mergeSegment,result.getId()));
   }
  else {
     addMergeSteps(mergeSegment,mergingSegmentIds,mergingCuboidPaths,mergedRootPath,result);
-    convertCuboidToHfileStep=addHTableSteps(mergeSegment,mergedRootPath,result);
+    addHTableSteps(mergeSegment,mergedRootPath,result);
   }
-  result.addTask(createUpdateCubeInfoAfterMergeStep(mergeSegment,mergingSegmentIds,convertCuboidToHfileStep.getId(),jobId));
+  result.addTask(createUpdateCubeInfoAfterMergeStep(mergeSegment,mergingSegmentIds,jobId));
   result.addTask(createGarbageCollectionStep(mergeSegment,mergingHTables,null));
   return result;
 }

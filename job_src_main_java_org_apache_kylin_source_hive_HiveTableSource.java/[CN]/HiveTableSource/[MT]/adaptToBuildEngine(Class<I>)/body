@@ -1,0 +1,8 @@
+{
+  if (engineInterface == IMRInput.class) {
+    return (I)new HiveMRInput();
+  }
+ else {
+    throw new RuntimeException("Cannot adapt to " + engineInterface);
+  }
+}

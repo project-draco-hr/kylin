@@ -14,5 +14,6 @@
   appendExecCmdParameters(cmd,"htablename",seg.getStorageLocationIdentifier());
   baseCuboidStep.setMapReduceParams(cmd.toString());
   baseCuboidStep.setMapReduceJobClass(InMemCuboidJob.class);
+  baseCuboidStep.setCounterSaveAs(CubingJob.SOURCE_RECORD_COUNT + "," + CubingJob.SOURCE_SIZE_BYTES+ ","+ CubingJob.CUBE_SIZE_BYTES);
   return baseCuboidStep;
 }

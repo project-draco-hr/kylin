@@ -1,0 +1,8 @@
+{
+  for (  AbstractExecutable child : getTasks()) {
+    Output output=executableManager.getOutput(child.getId());
+    String value=output.getExtra().get(key);
+    if (value != null)     return value;
+  }
+  return dft;
+}

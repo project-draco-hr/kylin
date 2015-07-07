@@ -1,0 +1,8 @@
+{
+  if (engineInterface == IMROutput.class) {
+    return (I)new HBaseMROutput();
+  }
+ else {
+    throw new RuntimeException("Cannot adapt to " + engineInterface);
+  }
+}

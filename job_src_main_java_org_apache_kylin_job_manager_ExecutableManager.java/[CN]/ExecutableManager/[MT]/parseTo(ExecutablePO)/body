@@ -12,9 +12,9 @@
     result.setParams(executablePO.getParams());
     List<ExecutablePO> tasks=executablePO.getTasks();
     if (tasks != null && !tasks.isEmpty()) {
-      Preconditions.checkArgument(result instanceof DefaultChainedExecutable);
+      Preconditions.checkArgument(result instanceof ChainedExecutable);
       for (      ExecutablePO subTask : tasks) {
-        ((DefaultChainedExecutable)result).addTask(parseTo(subTask));
+        ((ChainedExecutable)result).addTask(parseTo(subTask));
       }
     }
     return result;

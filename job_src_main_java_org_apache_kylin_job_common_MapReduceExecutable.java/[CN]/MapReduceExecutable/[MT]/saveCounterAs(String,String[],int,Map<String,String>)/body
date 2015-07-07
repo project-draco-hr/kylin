@@ -1,0 +1,5 @@
+{
+  if (saveAsNames.length > i && StringUtils.isBlank(saveAsNames[i]) == false) {
+    info.put(saveAsNames[i].trim(),counter);
+  }
+}

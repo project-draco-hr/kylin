@@ -10,5 +10,6 @@
   appendExecCmdParameters(cmd,"jobname","Kylin_HFile_Generator_" + seg.getCubeInstance().getName() + "_Step");
   createHFilesStep.setMapReduceParams(cmd.toString());
   createHFilesStep.setMapReduceJobClass(CubeHFileJob.class);
+  createHFilesStep.setCounterSaveAs(",," + CubingJob.CUBE_SIZE_BYTES);
   return createHFilesStep;
 }

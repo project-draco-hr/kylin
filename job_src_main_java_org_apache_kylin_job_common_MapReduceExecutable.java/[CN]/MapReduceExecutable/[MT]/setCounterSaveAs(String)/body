@@ -1,0 +1,3 @@
+{
+  setParam(KEY_COUNTER_SAVEAS,value);
+}

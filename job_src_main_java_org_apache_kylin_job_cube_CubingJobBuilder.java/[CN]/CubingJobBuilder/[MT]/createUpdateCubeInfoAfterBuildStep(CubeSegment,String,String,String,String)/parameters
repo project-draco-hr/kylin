@@ -1,5 +1,0 @@
-CubeSegment seg
-String createFlatTableStepId
-String baseCuboidStepId
-String convertToHFileStepId
-String jobId

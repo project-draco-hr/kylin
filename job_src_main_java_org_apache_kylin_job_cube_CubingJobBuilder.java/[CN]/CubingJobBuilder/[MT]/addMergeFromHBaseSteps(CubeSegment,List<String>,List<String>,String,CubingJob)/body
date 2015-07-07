@@ -5,7 +5,5 @@
   result.addTask(createCreateHTableStep(seg));
   String formattedTables=StringUtils.join(mergingHTables,",");
   String hFilePath=getHFilePath(seg,result.getId());
-  MapReduceExecutable writeHFileStep=createMergeCuboidDataFromHBaseStep(seg,formattedTables,hFilePath);
-  result.addTask(writeHFileStep);
-  return writeHFileStep;
+  result.addTask(createMergeCuboidDataFromHBaseStep(seg,formattedTables,hFilePath));
 }

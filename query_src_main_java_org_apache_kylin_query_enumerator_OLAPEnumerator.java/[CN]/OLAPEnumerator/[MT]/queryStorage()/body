@@ -4,7 +4,7 @@
   bindVariable(olapContext.filter);
   olapContext.filter=modifyTimeLiterals(olapContext.filter);
   olapContext.resetSQLDigest();
-  IStorageEngine storageEngine=StorageEngineFactory.getStorageEngine(olapContext.realization);
+  IStorageQuery storageEngine=StorageEngineFactory.getStorageEngine(olapContext.realization);
   ITupleIterator iterator=storageEngine.search(olapContext.storageContext,olapContext.getSQLDigest(),olapContext.returnTupleInfo);
   if (logger.isDebugEnabled()) {
     logger.debug("return TupleIterator...");
