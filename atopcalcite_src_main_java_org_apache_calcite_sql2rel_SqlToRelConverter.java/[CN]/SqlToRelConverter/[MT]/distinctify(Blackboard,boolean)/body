@@ -3,7 +3,7 @@
   if (checkForDupExprs && (rel instanceof LogicalProject)) {
     LogicalProject project=(LogicalProject)rel;
     final List<RexNode> projectExprs=project.getProjects();
-    List<Integer> origins=new ArrayList<Integer>();
+    final List<Integer> origins=new ArrayList<>();
     int dupCount=0;
     for (int i=0; i < projectExprs.size(); i++) {
       int x=findExpr(projectExprs.get(i),projectExprs,i);
@@ -28,7 +28,7 @@
         newProjects.add(RexInputRef.of2(i,fields));
       }
     }
-    rel=new LogicalProject(cluster,rel,Pair.left(newProjects),Pair.right(newProjects),LogicalProject.Flags.BOXED);
+    rel=LogicalProject.create(rel,Pair.left(newProjects),Pair.right(newProjects));
     bb.root=rel;
     distinctify(bb,false);
     rel=bb.root;
@@ -38,7 +38,7 @@
       RelDataTypeField field=fields.get(i);
       undoProjects.add(Pair.of((RexNode)new RexInputRef(squished.get(origin),field.getType()),field.getName()));
     }
-    rel=new LogicalProject(cluster,rel,Pair.left(undoProjects),Pair.right(undoProjects),LogicalProject.Flags.BOXED);
+    rel=LogicalProject.create(rel,Pair.left(undoProjects),Pair.right(undoProjects));
     bb.setRoot(rel,false);
     return;
   }

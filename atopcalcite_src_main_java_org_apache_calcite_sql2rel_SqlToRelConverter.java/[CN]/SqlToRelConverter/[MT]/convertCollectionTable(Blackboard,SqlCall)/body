@@ -31,7 +31,7 @@
   RexNode rexCall=bb.convertExpression(call);
   final List<RelNode> inputs=bb.retrieveCursors();
   Set<RelColumnMapping> columnMappings=getColumnMappings(operator);
-  LogicalTableFunctionScan callRel=new LogicalTableFunctionScan(cluster,inputs,rexCall,elementType,validator.getValidatedNodeType(call),columnMappings);
+  LogicalTableFunctionScan callRel=LogicalTableFunctionScan.create(cluster,inputs,rexCall,elementType,validator.getValidatedNodeType(call),columnMappings);
   bb.setRoot(callRel,true);
   afterTableFunction(bb,call,callRel);
 }

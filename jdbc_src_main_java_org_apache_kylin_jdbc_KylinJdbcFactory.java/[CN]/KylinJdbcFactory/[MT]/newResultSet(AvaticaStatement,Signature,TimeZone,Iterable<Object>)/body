@@ -1,4 +1,0 @@
-{
-  AvaticaResultSetMetaData resultSetMetaData=new AvaticaResultSetMetaData(statement,null,signature);
-  return new KylinResultSet(statement,signature,resultSetMetaData,timeZone,iterable);
-}

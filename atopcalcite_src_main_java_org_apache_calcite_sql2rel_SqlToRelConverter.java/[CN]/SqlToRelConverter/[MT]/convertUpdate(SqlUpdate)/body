@@ -1,11 +1,11 @@
 {
   RelOptTable targetTable=getTargetTable(call);
-  List<String> targetColumnNameList=new ArrayList<String>();
+  final List<String> targetColumnNameList=new ArrayList<>();
   for (  SqlNode node : call.getTargetColumnList()) {
     SqlIdentifier id=(SqlIdentifier)node;
     String name=id.getSimple();
     targetColumnNameList.add(name);
   }
   RelNode sourceRel=convertSelect(call.getSourceSelect());
-  return new LogicalTableModify(cluster,targetTable,catalogReader,sourceRel,LogicalTableModify.Operation.UPDATE,targetColumnNameList,false);
+  return LogicalTableModify.create(targetTable,catalogReader,sourceRel,LogicalTableModify.Operation.UPDATE,targetColumnNameList,false);
 }

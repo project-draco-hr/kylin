@@ -1,0 +1,5 @@
+{
+  StatementHandle result=super.createStatement(ch);
+  result.signature=connection().mockPreparedSignature(sql);
+  return result;
+}

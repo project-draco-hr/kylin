@@ -1,0 +1,8 @@
+{
+  final BigDecimal[] bigDecimals=b0.divideAndRemainder(b1);
+  BigDecimal r=bigDecimals[1];
+  if (r.signum() < 0) {
+    r=r.add(b1);
+  }
+  return b0.subtract(r);
+}

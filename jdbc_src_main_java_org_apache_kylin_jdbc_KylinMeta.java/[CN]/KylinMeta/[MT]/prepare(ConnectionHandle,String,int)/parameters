@@ -1,0 +1,3 @@
+ConnectionHandle ch
+String sql
+int maxRowCount

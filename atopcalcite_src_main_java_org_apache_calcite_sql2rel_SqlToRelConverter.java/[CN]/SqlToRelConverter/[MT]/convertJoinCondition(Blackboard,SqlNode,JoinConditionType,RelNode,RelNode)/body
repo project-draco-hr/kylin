@@ -9,8 +9,8 @@ case ON:
     bb.setRoot(ImmutableList.of(leftRel,rightRel));
   return bb.convertExpression(condition);
 case USING:
-SqlNodeList list=(SqlNodeList)condition;
-List<String> nameList=new ArrayList<String>();
+final SqlNodeList list=(SqlNodeList)condition;
+final List<String> nameList=new ArrayList<>();
 for (SqlNode columnName : list) {
 final SqlIdentifier id=(SqlIdentifier)columnName;
 String name=id.getSimple();

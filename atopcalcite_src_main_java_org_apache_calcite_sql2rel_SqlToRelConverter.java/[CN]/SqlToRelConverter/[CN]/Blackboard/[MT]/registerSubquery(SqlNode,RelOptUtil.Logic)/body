@@ -1,3 +1,8 @@
 {
+  for (  SubQuery subQuery : subqueryList) {
+    if (node.equalsDeep(subQuery.node,false)) {
+      return;
+    }
+  }
   subqueryList.add(new SubQuery(node,logic));
 }

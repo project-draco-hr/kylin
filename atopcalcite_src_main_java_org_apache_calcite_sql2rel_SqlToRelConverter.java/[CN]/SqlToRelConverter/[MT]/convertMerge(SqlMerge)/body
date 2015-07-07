@@ -1,6 +1,6 @@
 {
   RelOptTable targetTable=getTargetTable(call);
-  List<String> targetColumnNameList=new ArrayList<String>();
+  final List<String> targetColumnNameList=new ArrayList<>();
   SqlUpdate updateCall=call.getUpdateCall();
   if (updateCall != null) {
     for (    SqlNode targetColumn : updateCall.getTargetColumnList()) {
@@ -24,7 +24,7 @@
   }
   LogicalJoin join=(LogicalJoin)mergeSourceRel.getInput(0);
   int nSourceFields=join.getLeft().getRowType().getFieldCount();
-  List<RexNode> projects=new ArrayList<RexNode>();
+  final List<RexNode> projects=new ArrayList<>();
   for (int level1Idx=0; level1Idx < nLevel1Exprs; level1Idx++) {
     if ((level2InsertExprs != null) && (level1InsertExprs.get(level1Idx) instanceof RexInputRef)) {
       int level2Idx=((RexInputRef)level1InsertExprs.get(level1Idx)).getIndex();
@@ -39,5 +39,5 @@
     projects.addAll(Util.skip(project.getProjects(),nSourceFields));
   }
   RelNode massagedRel=RelOptUtil.createProject(join,projects,null,true);
-  return new LogicalTableModify(cluster,targetTable,catalogReader,massagedRel,LogicalTableModify.Operation.MERGE,targetColumnNameList,false);
+  return LogicalTableModify.create(targetTable,catalogReader,massagedRel,LogicalTableModify.Operation.MERGE,targetColumnNameList,false);
 }

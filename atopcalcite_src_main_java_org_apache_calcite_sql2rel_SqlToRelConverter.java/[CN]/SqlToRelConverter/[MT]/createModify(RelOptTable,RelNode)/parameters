@@ -1,0 +1,2 @@
+RelOptTable targetTable
+RelNode source

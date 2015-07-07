@@ -7,7 +7,7 @@
  else {
     rowType=SqlTypeUtil.promoteToRowType(typeFactory,validator.getValidatedNodeType(rowList),null);
   }
-  List<RelNode> unionInputs=new ArrayList<RelNode>();
+  final List<RelNode> unionInputs=new ArrayList<>();
   for (  SqlNode node : rows) {
     SqlBasicCall call;
     if (isRowConstructor(node)) {
@@ -44,7 +44,7 @@
     }
     unionInputs.add(convertRowConstructor(bb,call));
   }
-  LogicalValues values=new LogicalValues(cluster,rowType,tupleList.build());
+  LogicalValues values=LogicalValues.create(cluster,rowType,tupleList.build());
   RelNode resultRel;
   if (unionInputs.isEmpty()) {
     resultRel=values;
@@ -53,8 +53,7 @@
     if (!values.getTuples().isEmpty()) {
       unionInputs.add(values);
     }
-    LogicalUnion union=new LogicalUnion(cluster,unionInputs,true);
-    resultRel=union;
+    resultRel=LogicalUnion.create(unionInputs,true);
   }
   leaves.add(resultRel);
   return resultRel;

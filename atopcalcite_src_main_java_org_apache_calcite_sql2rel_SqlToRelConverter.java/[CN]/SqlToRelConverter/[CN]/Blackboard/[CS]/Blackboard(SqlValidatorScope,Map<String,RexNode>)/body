@@ -1,6 +1,6 @@
 {
   this.scope=scope;
   this.nameToNodeMap=nameToNodeMap;
-  this.cursors=new ArrayList<RelNode>();
+  this.cursors=new ArrayList<>();
   subqueryNeedsOuterJoin=false;
 }

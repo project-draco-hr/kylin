@@ -1,10 +1,10 @@
 {
   convertFrom(bb,select.getFrom());
   convertWhere(bb,select.getWhere());
-  List<SqlNode> orderExprList=new ArrayList<SqlNode>();
-  List<RelFieldCollation> collationList=new ArrayList<RelFieldCollation>();
+  final List<SqlNode> orderExprList=new ArrayList<>();
+  final List<RelFieldCollation> collationList=new ArrayList<>();
   gatherOrderExprs(bb,select,select.getOrderList(),orderExprList,collationList);
-  final RelCollation collation=cluster.traitSetOf().canonize(RelCollationImpl.of(collationList));
+  final RelCollation collation=cluster.traitSet().canonize(RelCollations.of(collationList));
   if (validator.isAggregate(select)) {
     convertAgg(bb,select,orderExprList);
   }
