@@ -1,0 +1,18 @@
+{
+  this.viewExpander=viewExpander;
+  this.opTab=(validator == null) ? SqlStdOperatorTable.instance() : validator.getOperatorTable();
+  this.validator=validator;
+  this.catalogReader=catalogReader;
+  this.defaultValueFactory=new NullDefaultValueFactory();
+  this.subqueryConverter=new NoOpSubqueryConverter();
+  this.rexBuilder=cluster.getRexBuilder();
+  this.typeFactory=rexBuilder.getTypeFactory();
+  this.cluster=Preconditions.checkNotNull(cluster);
+  this.shouldConvertTableAccess=true;
+  this.exprConverter=new SqlNodeToRexConverterImpl(convertletTable);
+  decorrelationEnabled=true;
+  trimUnusedFields=false;
+  shouldCreateValuesRel=true;
+  isExplain=false;
+  nDynamicParamsInExplain=0;
+}

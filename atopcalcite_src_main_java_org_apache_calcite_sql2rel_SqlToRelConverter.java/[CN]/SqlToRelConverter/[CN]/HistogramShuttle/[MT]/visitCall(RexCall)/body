@@ -11,7 +11,7 @@
     final RelDataType histogramType=computeHistogramType(type);
     boolean reinterpretCast=type.getSqlTypeName() == SqlTypeName.DECIMAL;
     if (histogramType != type) {
-      exprs=new ArrayList<RexNode>(exprs);
+      exprs=new ArrayList<>(exprs);
       exprs.set(0,reinterpretCast ? rexBuilder.makeReinterpretCast(histogramType,exprs.get(0),rexBuilder.makeLiteral(false)) : rexBuilder.makeCast(histogramType,exprs.get(0)));
     }
     RexCallBinding bind=new RexCallBinding(rexBuilder.getTypeFactory(),SqlStdOperatorTable.HISTOGRAM_AGG,exprs);

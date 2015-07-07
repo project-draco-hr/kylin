@@ -1,0 +1,10 @@
+{
+  if (call.getOperator().isAggregator()) {
+    list.add(call);
+    return null;
+  }
+  if (call instanceof SqlSelect) {
+    return null;
+  }
+  return call.getOperator().acceptCall(this,call);
+}

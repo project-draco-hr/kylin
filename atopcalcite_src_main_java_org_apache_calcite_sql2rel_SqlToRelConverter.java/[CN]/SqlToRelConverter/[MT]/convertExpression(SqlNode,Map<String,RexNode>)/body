@@ -1,5 +1,5 @@
 {
-  final Map<String,RelDataType> nameToTypeMap=new HashMap<String,RelDataType>();
+  final Map<String,RelDataType> nameToTypeMap=new HashMap<>();
   for (  Map.Entry<String,RexNode> entry : nameToNodeMap.entrySet()) {
     nameToTypeMap.put(entry.getKey(),entry.getValue().getType());
   }

@@ -5,5 +5,5 @@
   programBuilder.addIdentity();
   programBuilder.addCondition(this.condition);
   RexProgram program=programBuilder.getProgram();
-  return new EnumerableCalc(getCluster(),getCluster().traitSetOf(EnumerableConvention.INSTANCE),sole(inputs),program,ImmutableList.<RelCollation>of());
+  return new EnumerableCalc(getCluster(),getCluster().traitSetOf(EnumerableConvention.INSTANCE),sole(inputs),program);
 }

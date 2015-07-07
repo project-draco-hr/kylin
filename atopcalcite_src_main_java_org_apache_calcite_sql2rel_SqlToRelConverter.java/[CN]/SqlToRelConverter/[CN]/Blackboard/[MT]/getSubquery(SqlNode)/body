@@ -1,0 +1,8 @@
+{
+  for (  SubQuery subQuery : subqueryList) {
+    if (expr.equalsDeep(subQuery.node,false)) {
+      return subQuery;
+    }
+  }
+  return null;
+}

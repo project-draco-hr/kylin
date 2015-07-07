@@ -1,4 +1,0 @@
-StatementHandle h
-String sql
-int maxRowCount
-PrepareCallback callback

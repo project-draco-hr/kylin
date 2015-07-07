@@ -1,0 +1,3 @@
+{
+  return (short)floor((int)b0,(int)b1);
+}

@@ -7,10 +7,22 @@
       SqlNode selectExpr=selectList.get(0);
       if (selectExpr instanceof SqlCall) {
         SqlCall selectExprCall=(SqlCall)selectExpr;
-        if (selectExprCall.getOperator() instanceof SqlAggFunction) {
+        if (Util.isSingleValue(selectExprCall)) {
           return plan;
         }
       }
+      if (select.getFetch() != null && select.getFetch() instanceof SqlNumericLiteral) {
+        SqlNumericLiteral limitNum=(SqlNumericLiteral)select.getFetch();
+        if (((BigDecimal)limitNum.getValue()).intValue() < 2) {
+          return plan;
+        }
+      }
+    }
+  }
+ else   if (query instanceof SqlCall) {
+    SqlCall exprCall=(SqlCall)query;
+    if (exprCall.getOperator() instanceof SqlValuesOperator && Util.isSingleValue(exprCall)) {
+      return plan;
     }
   }
   return RelOptUtil.createSingleValueAggRel(cluster,plan);

@@ -1,3 +1,3 @@
 {
-  getParameter(parameterIndex).setClob(slots,parameterIndex,reader);
+  getSite(parameterIndex).setClob(reader);
 }

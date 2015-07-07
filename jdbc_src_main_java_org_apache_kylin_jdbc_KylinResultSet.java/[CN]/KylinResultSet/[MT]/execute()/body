@@ -1,12 +1,12 @@
 {
-  if (this.iterable != null) {
+  if (this.firstFrame != null) {
     return super.execute();
   }
   String sql=signature.sql;
   List<AvaticaParameter> params=signature.parameters;
   List<Object> paramValues=null;
   if (params != null && params.size() > 0) {
-    paramValues=((KylinPreparedStatement)statement).getParameterValues();
+    paramValues=((KylinPreparedStatement)statement).getParameterValues2();
   }
   IRemoteClient client=((KylinConnection)statement.connection).getRemoteClient();
   QueryResult result;
