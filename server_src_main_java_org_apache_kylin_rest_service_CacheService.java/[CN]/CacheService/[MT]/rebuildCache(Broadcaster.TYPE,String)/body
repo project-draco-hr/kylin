@@ -7,7 +7,7 @@ case CUBE:
       CubeInstance newCube=getCubeManager().reloadCubeLocal(cacheKey);
     getProjectManager().clearL2Cache();
   super.cleanDataCache(newCube.getUuid());
-mergeCubeOnNewSegmentReady(cacheKey);
+cubeService.mergeCubeOnNewSegmentReady(cacheKey);
 break;
 case CUBE_DESC:
 getCubeDescManager().reloadCubeDescLocal(cacheKey);
