@@ -8,5 +8,6 @@
   f1.setParameter(p1);
   f1.setReturnType("bigint");
   measureDesc.setFunction(f1);
+  measureDesc.setName("COUNT_1");
   return measureDesc;
 }

@@ -2,6 +2,8 @@
   if (this == o)   return true;
   if (o == null || getClass() != o.getClass())   return false;
   MeasureDesc that=(MeasureDesc)o;
-  if (!name.equalsIgnoreCase(that.getName()))   return false;
-  return true;
+  if (!function.equals(that.getFunction()))   return false;
+  if (dependentMeasureRef != null && that.getDependentMeasureRef() == null || dependentMeasureRef == null && that.getDependentMeasureRef() != null)   return false;
+  if (dependentMeasureRef == null && that.getDependentMeasureRef() == null)   return true;
+  return dependentMeasureRef.equalsIgnoreCase(that.getDependentMeasureRef());
 }

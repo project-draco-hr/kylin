@@ -11,5 +11,6 @@
   f1.setParameter(p1);
   f1.setReturnType(returnType);
   measureDesc.setFunction(f1);
+  measureDesc.setName(func + "_" + columnName);
   return measureDesc;
 }
