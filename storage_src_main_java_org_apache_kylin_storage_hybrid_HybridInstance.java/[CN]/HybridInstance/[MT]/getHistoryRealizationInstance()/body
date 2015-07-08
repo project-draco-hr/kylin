@@ -1,6 +1,0 @@
-{
-  if (historyRealizationInstance == null) {
-    this.init();
-  }
-  return historyRealizationInstance;
-}

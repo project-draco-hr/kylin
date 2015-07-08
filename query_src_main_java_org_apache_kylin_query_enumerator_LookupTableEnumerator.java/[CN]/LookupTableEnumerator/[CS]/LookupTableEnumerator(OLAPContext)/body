@@ -1,10 +1,15 @@
 {
   CubeInstance cube=null;
-  if (olapContext.realization instanceof CubeInstance) {
-    cube=(CubeInstance)olapContext.realization;
-  }
+  if (olapContext.realization instanceof CubeInstance)   cube=(CubeInstance)olapContext.realization;
  else   if (olapContext.realization instanceof HybridInstance) {
-    cube=(CubeInstance)((HybridInstance)olapContext.realization).getHistoryRealizationInstance();
+    final HybridInstance hybridInstance=(HybridInstance)olapContext.realization;
+    final IRealization latestRealization=hybridInstance.getLatestRealization();
+    if (latestRealization instanceof CubeInstance) {
+      cube=(CubeInstance)latestRealization;
+    }
+ else {
+      throw new IllegalStateException();
+    }
   }
   String lookupTableName=olapContext.firstTableScan.getTableName();
   DimensionDesc dim=cube.getDescriptor().findDimensionByTable(lookupTableName);

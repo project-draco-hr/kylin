@@ -4,10 +4,10 @@
   try {
     hybridInstance=store.getResource(path,HybridInstance.class,HYBRID_SERIALIZER);
     hybridInstance.setConfig(config);
-    if (StringUtils.isBlank(hybridInstance.getName()))     throw new IllegalStateException("HybridInstance name must not be blank, at " + path);
-    if (hybridInstance.getHistoryRealization() == null || hybridInstance.getRealTimeRealization() == null) {
-      throw new IllegalStateException("HybridInstance must have both historyRealization and realTimeRealization set, at " + path);
+    if (hybridInstance.getRealizationEntries() == null || hybridInstance.getRealizationEntries().size() == 0) {
+      throw new IllegalStateException("HybridInstance must have realization entries, " + path);
     }
+    if (StringUtils.isBlank(hybridInstance.getName()))     throw new IllegalStateException("HybridInstance name must not be blank, at " + path);
     final String name=hybridInstance.getName();
     hybridMap.putLocal(name,hybridInstance);
     return hybridInstance;

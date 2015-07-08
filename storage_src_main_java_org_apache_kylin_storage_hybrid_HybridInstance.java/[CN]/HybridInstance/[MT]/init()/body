@@ -1,11 +1,57 @@
 {
-  RealizationRegistry registry=RealizationRegistry.getInstance(config);
-  historyRealizationInstance=registry.getRealization(historyRealization.getType(),historyRealization.getRealization());
-  realTimeRealizationInstance=registry.getRealization(realTimeRealization.getType(),realTimeRealization.getRealization());
-  if (historyRealizationInstance == null) {
-    throw new IllegalArgumentException("Didn't find realization '" + historyRealization.getType() + "'"+ " with name '"+ historyRealization.getRealization()+ "' in '"+ name+ "'");
-  }
-  if (realTimeRealizationInstance == null) {
-    throw new IllegalArgumentException("Didn't find realization '" + realTimeRealization.getType() + "'"+ " with name '"+ realTimeRealization.getRealization()+ "' in '"+ name+ "'");
+  if (initiated == true)   return;
+synchronized (this) {
+    if (initiated == true)     return;
+    if (realizationEntries == null || realizationEntries.size() == 0)     throw new IllegalArgumentException();
+    RealizationRegistry registry=RealizationRegistry.getInstance(config);
+    List<IRealization> realizationList=Lists.newArrayList();
+    for (int i=0; i < realizationEntries.size(); i++) {
+      IRealization realization=registry.getRealization(realizationEntries.get(i).getType(),realizationEntries.get(i).getRealization());
+      if (realization == null) {
+        logger.error("Realization '" + realization.getName() + " is not found, remove from Hybrid '"+ this.getName()+ "'");
+        continue;
+      }
+      if (realization.isReady() == false) {
+        logger.error("Realization '" + realization.getName() + " is disabled, remove from Hybrid '"+ this.getName()+ "'");
+        continue;
+      }
+      realizationList.add(realization);
+    }
+    LinkedHashSet<TblColRef> columns=new LinkedHashSet<TblColRef>();
+    LinkedHashSet<TblColRef> dimensions=new LinkedHashSet<TblColRef>();
+    LinkedHashSet<MeasureDesc> measures=new LinkedHashSet<MeasureDesc>();
+    dateRangeStart=0;
+    dateRangeEnd=Long.MAX_VALUE;
+    for (    IRealization realization : realizationList) {
+      columns.addAll(realization.getAllColumns());
+      dimensions.addAll(realization.getAllDimensions());
+      measures.addAll(realization.getMeasures());
+      if (realization.isReady())       isReady=true;
+      if (dateRangeStart == 0 || realization.getDateRangeStart() < dateRangeStart)       dateRangeStart=realization.getDateRangeStart();
+      if (dateRangeStart == Long.MAX_VALUE || realization.getDateRangeEnd() > dateRangeEnd)       dateRangeEnd=realization.getDateRangeEnd();
+    }
+    allDimensions=Lists.newArrayList(dimensions);
+    allColumns=Lists.newArrayList(columns);
+    allMeasures=Lists.newArrayList(measures);
+    Collections.sort(realizationList,new Comparator<IRealization>(){
+      @Override public int compare(      IRealization o1,      IRealization o2){
+        long i1=o1.getDateRangeStart();
+        long i2=o2.getDateRangeStart();
+        long comp=i1 - i2;
+        if (comp != 0) {
+          return comp > 0 ? 1 : -1;
+        }
+        i1=o1.getDateRangeEnd();
+        i2=o2.getDateRangeEnd();
+        comp=i1 - i2;
+        if (comp != 0) {
+          return comp > 0 ? 1 : -1;
+        }
+        return 0;
+      }
+    }
+);
+    this.realizations=realizationList.toArray(new IRealization[realizationList.size()]);
+    initiated=true;
   }
 }

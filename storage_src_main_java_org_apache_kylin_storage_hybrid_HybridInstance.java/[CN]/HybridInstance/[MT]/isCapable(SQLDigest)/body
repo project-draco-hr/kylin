@@ -1,3 +1,6 @@
 {
-  return getHistoryRealizationInstance().isCapable(digest) && getRealTimeRealizationInstance().isCapable(digest);
+  for (  IRealization realization : getRealizations()) {
+    if (realization.isCapable(digest))     return true;
+  }
+  return false;
 }

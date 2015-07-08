@@ -5,8 +5,9 @@
 switch (cacheType) {
 case CUBE:
       CubeInstance newCube=getCubeManager().reloadCubeLocal(cacheKey);
-    getProjectManager().clearL2Cache();
-  super.cleanDataCache(newCube.getUuid());
+    getHybridManager().reloadHybridInstanceByChild(RealizationType.CUBE,cacheKey);
+  getProjectManager().clearL2Cache();
+super.cleanDataCache(newCube.getUuid());
 cubeService.mergeCubeOnNewSegmentReady(cacheKey);
 break;
 case CUBE_DESC:
@@ -18,6 +19,7 @@ removeOLAPDataSource(projectInstance.getName());
 break;
 case INVERTED_INDEX:
 getIIManager().reloadIILocal(cacheKey);
+getHybridManager().reloadHybridInstanceByChild(RealizationType.INVERTED_INDEX,cacheKey);
 getProjectManager().clearL2Cache();
 break;
 case INVERTED_INDEX_DESC:
@@ -39,6 +41,7 @@ CubeDescManager.clearCache();
 CubeManager.clearCache();
 IIDescManager.clearCache();
 IIManager.clearCache();
+HybridManager.clearCache();
 RealizationRegistry.clearCache();
 ProjectManager.clearCache();
 super.cleanAllDataCache();

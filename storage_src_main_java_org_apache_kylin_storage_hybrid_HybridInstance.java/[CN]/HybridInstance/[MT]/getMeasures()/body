@@ -1,3 +1,4 @@
 {
-  return getHistoryRealizationInstance().getMeasures();
+  init();
+  return allMeasures;
 }
