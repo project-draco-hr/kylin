@@ -8,7 +8,7 @@
     CubeSegment newSeg;
     CubeInstance cube=getCubeManager().getCube(cubeName);
     if (cube.needAutoMerge()) {
-synchronized (CacheService.class) {
+synchronized (CubeService.class) {
         try {
           newSeg=getCubeManager().autoMergeCubeSegments(cube);
           if (newSeg != null) {
