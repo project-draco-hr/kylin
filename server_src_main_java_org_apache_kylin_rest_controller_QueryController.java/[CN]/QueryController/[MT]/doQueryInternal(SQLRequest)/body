@@ -14,10 +14,12 @@
   SQLResponse sqlResponse=searchQueryInCache(sqlRequest);
   try {
     if (null == sqlResponse) {
+      long start=System.currentTimeMillis();
       sqlResponse=queryService.query(sqlRequest);
+      long duration=System.currentTimeMillis() - start;
       long durationThreshold=KylinConfig.getInstanceFromEnv().getQueryDurationCacheThreshold();
       long scancountThreshold=KylinConfig.getInstanceFromEnv().getQueryScanCountCacheThreshold();
-      if (!sqlResponse.getIsException() && (sqlResponse.getDuration() > durationThreshold || sqlResponse.getTotalScanCount() > scancountThreshold)) {
+      if (!sqlResponse.getIsException() && (duration > durationThreshold || sqlResponse.getTotalScanCount() > scancountThreshold)) {
         cacheManager.getCache(SUCCESS_QUERY_CACHE).put(new Element(sqlRequest,sqlResponse));
       }
     }
