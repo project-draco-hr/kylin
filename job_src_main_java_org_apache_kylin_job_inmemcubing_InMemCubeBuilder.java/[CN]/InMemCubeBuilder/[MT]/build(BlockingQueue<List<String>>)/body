@@ -1,13 +1,10 @@
 {
-  final TreeMap<Long,CuboidResult> result=new TreeMap<Long,CuboidResult>();
-  ICuboidCollector collector=new ICuboidCollector(){
+  final ConcurrentNavigableMap<Long,CuboidResult> result=new ConcurrentSkipListMap<Long,CuboidResult>();
+  build(input,new ICuboidCollector(){
     @Override public void collect(    CuboidResult cuboidResult){
-synchronized (result) {
-        result.put(cuboidResult.cuboidId,cuboidResult);
-      }
+      result.put(cuboidResult.cuboidId,cuboidResult);
     }
   }
-;
-  build(input,collector);
+);
   return result;
 }

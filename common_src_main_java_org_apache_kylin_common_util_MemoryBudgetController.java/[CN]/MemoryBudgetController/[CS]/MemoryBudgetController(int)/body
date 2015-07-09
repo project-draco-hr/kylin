@@ -1,6 +1,6 @@
 {
-  if (totalBudgetMB < 0)   throw new IllegalArgumentException();
-  if (totalBudgetMB > getSystemAvailMB())   throw new IllegalStateException();
+  Preconditions.checkArgument(totalBudgetMB >= 0);
+  Preconditions.checkState(totalBudgetMB <= getSystemAvailMB());
   this.totalBudgetMB=totalBudgetMB;
   this.totalReservedMB=0;
 }

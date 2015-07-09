@@ -1,7 +1,7 @@
 {
   long startTime=System.currentTimeMillis();
   logger.info("In Mem Cube Build start, " + cubeDesc.getName());
-  taskPending=new TreeSet<CuboidTask>();
+  taskPending=new LinkedBlockingQueue<>();
   taskCuboidCompleted.set(0);
   taskThreads=prepareTaskThreads();
   taskThreadExceptions=new Throwable[taskThreadCount];
