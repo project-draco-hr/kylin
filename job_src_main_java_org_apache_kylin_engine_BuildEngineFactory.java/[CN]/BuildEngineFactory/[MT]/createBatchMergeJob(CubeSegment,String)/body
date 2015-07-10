@@ -1,3 +1,3 @@
 {
-  return getDefaultEngine().createBatchMergeJob(mergeSegment,submitter);
+  return defaultBatch.createBatchMergeJob(mergeSegment,submitter);
 }

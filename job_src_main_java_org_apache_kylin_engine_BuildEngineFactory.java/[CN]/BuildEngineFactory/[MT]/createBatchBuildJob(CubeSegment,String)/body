@@ -1,3 +1,0 @@
-{
-  return getDefaultEngine().createBatchBuildJob(newSegment,submitter);
-}
