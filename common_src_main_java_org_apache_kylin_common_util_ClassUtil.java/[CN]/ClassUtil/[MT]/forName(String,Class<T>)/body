@@ -1,11 +1,10 @@
 {
-  if (name.startsWith("com.kylinolap")) {
-    name="org.apache.kylin" + name.substring("com.kylinolap".length());
+  String origName=name;
+  Class<? extends T> result=(Class<? extends T>)forNameCache.get(origName);
+  if (result == null) {
+    name=forRenamedClass(name);
+    result=(Class<? extends T>)Class.forName(name);
+    forNameCache.put(origName,result);
   }
-  if (forNameCache.containsKey(name)) {
-    return (Class<? extends T>)forNameCache.get(name);
-  }
-  Class<?> ret=Class.forName(name);
-  forNameCache.put(name,ret);
-  return (Class<? extends T>)ret;
+  return result;
 }

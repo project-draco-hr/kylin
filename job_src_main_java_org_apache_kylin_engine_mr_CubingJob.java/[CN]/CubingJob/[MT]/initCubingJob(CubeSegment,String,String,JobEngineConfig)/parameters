@@ -1,0 +1,4 @@
+CubeSegment seg
+String jobType
+String submitter
+JobEngineConfig config

@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(seg,"segment cannot be null");
+  this.config=new JobEngineConfig(KylinConfig.getInstanceFromEnv());
+  this.seg=seg;
+  this.submitter=submitter;
+}

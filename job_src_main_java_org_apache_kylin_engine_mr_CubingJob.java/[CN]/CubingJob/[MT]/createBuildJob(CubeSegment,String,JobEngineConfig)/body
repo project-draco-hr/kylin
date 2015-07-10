@@ -1,0 +1,3 @@
+{
+  return initCubingJob(seg,"BUILD",submitter,config);
+}

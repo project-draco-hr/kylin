@@ -1,0 +1,11 @@
+{
+  CubingJob result=new CubingJob();
+  SimpleDateFormat format=new SimpleDateFormat("z yyyy-MM-dd HH:mm:ss");
+  format.setTimeZone(TimeZone.getTimeZone(config.getTimeZone()));
+  result.setCubeName(seg.getCubeInstance().getName());
+  result.setSegmentId(seg.getUuid());
+  result.setName(seg.getCubeInstance().getName() + " - " + seg.getName()+ " - "+ jobType+ " - "+ format.format(new Date(System.currentTimeMillis())));
+  result.setSubmitter(submitter);
+  result.setNotifyList(seg.getCubeInstance().getDescriptor().getNotifyList());
+  return result;
+}

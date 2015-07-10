@@ -1,0 +1,57 @@
+{
+  StringBuffer output=new StringBuffer();
+  final String hiveTable=this.getOldHiveTable();
+  if (StringUtils.isNotEmpty(hiveTable)) {
+    final String dropHiveCMD="hive -e \"DROP TABLE IF EXISTS  " + hiveTable + ";\"";
+    ShellCmdOutput shellCmdOutput=new ShellCmdOutput();
+    try {
+      context.getConfig().getCliCommandExecutor().execute(dropHiveCMD,shellCmdOutput);
+      output.append("Hive table " + hiveTable + " is dropped. \n");
+    }
+ catch (    IOException e) {
+      logger.error("job:" + getId() + " execute finished with exception",e);
+      output.append(shellCmdOutput.getOutput()).append("\n").append(e.getLocalizedMessage());
+      return new ExecuteResult(ExecuteResult.State.ERROR,output.toString());
+    }
+  }
+  List<String> oldTables=getOldHTables();
+  if (oldTables != null && oldTables.size() > 0) {
+    String metadataUrlPrefix=KylinConfig.getInstanceFromEnv().getMetadataUrlPrefix();
+    Configuration conf=HBaseConfiguration.create();
+    HBaseAdmin admin=null;
+    try {
+      admin=new HBaseAdmin(conf);
+      for (      String table : oldTables) {
+        if (admin.tableExists(table)) {
+          HTableDescriptor tableDescriptor=admin.getTableDescriptor(Bytes.toBytes(table));
+          String host=tableDescriptor.getValue(IRealizationConstants.HTableTag);
+          if (metadataUrlPrefix.equalsIgnoreCase(host)) {
+            if (admin.isTableEnabled(table)) {
+              admin.disableTable(table);
+            }
+            admin.deleteTable(table);
+            logger.debug("Dropped htable: " + table);
+            output.append("HBase table " + table + " is dropped. \n");
+          }
+ else {
+            logger.debug("Skip htable: " + table);
+            output.append("Skip htable: " + table + ". \n");
+          }
+        }
+      }
+    }
+ catch (    IOException e) {
+      output.append("Got error when drop HBase table, exiting... \n");
+      return new ExecuteResult(ExecuteResult.State.ERROR,output.append(e.getLocalizedMessage()).toString());
+    }
+ finally {
+      if (admin != null)       try {
+        admin.close();
+      }
+ catch (      IOException e) {
+        logger.error(e.getLocalizedMessage());
+      }
+    }
+  }
+  return new ExecuteResult(ExecuteResult.State.SUCCEED,output.toString());
+}

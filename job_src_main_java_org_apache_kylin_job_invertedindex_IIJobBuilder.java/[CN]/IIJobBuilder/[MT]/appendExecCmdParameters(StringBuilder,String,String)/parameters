@@ -1,0 +1,3 @@
+StringBuilder buf
+String paraName
+String paraValue

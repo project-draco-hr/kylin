@@ -1,0 +1,3 @@
+JobEngineConfig conf
+IJoinedFlatTableDesc flatTableDesc
+String jobId

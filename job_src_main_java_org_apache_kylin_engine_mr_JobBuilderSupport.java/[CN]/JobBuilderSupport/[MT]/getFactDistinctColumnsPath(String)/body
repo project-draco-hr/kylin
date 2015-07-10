@@ -1,0 +1,3 @@
+{
+  return getJobWorkingDir(jobId) + "/" + seg.getCubeInstance().getName()+ "/fact_distinct_columns";
+}

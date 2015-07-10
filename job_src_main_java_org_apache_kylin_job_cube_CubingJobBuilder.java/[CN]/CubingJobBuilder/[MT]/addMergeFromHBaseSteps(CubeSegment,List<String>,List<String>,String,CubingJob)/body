@@ -1,9 +1,0 @@
-{
-  result.addTask(createMergeDictionaryStep(seg,mergingSegmentIds));
-  String mergedStatisticsFolder=getStatisticsPath(seg,result.getId());
-  result.addTask(createMergeStatisticsStep(seg,mergingSegmentIds,mergedStatisticsFolder));
-  result.addTask(createCreateHTableStep(seg));
-  String formattedTables=StringUtils.join(mergingHTables,",");
-  String hFilePath=getHFilePath(seg,result.getId());
-  result.addTask(createMergeCuboidDataFromHBaseStep(seg,formattedTables,hFilePath));
-}

@@ -1,0 +1,3 @@
+CubeJoinedFlatTableDesc flatHiveTableDesc
+String[] cuboidOutputTempPath
+String jobId

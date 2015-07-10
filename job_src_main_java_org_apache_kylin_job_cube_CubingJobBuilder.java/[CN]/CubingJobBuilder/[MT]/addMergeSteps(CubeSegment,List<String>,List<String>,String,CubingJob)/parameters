@@ -1,5 +1,0 @@
-CubeSegment seg
-List<String> mergingSegmentIds
-List<String> mergingCuboidPaths
-String mergedCuboidPath
-CubingJob result
