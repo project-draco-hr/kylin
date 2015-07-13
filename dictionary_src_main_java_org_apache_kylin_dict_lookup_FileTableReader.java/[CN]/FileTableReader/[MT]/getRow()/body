@@ -1,6 +1,6 @@
 {
   if (curColumns == null) {
-    if (ReadableTable.DELIM_AUTO.equals(delim))     delim=autoDetectDelim(curLine);
+    if (FileTable.DELIM_AUTO.equals(delim))     delim=autoDetectDelim(curLine);
     if (delim == null)     curColumns=new String[]{curLine};
  else     curColumns=split(curLine,delim);
   }

@@ -3,4 +3,3 @@ String sourceColumn
 int sourceColumnIndex
 String dataType
 TableSignature input
-String inputDelimeter
