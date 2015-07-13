@@ -1,8 +1,4 @@
 {
-  FileSystem fs=HadoopUtil.getFileSystem(path);
-  FileStatus status=fs.getFileStatus(new Path(path));
-  if (nativeTable) {
-    return new TableSignature(path,status.getLen(),status.getModificationTime());
-  }
-  return new TableSignature(path,status.getLen(),System.currentTimeMillis());
+  Pair<Long,Long> sizeAndLastModified=getSizeAndLastModified(path);
+  return new TableSignature(path,sizeAndLastModified.getFirst(),sizeAndLastModified.getSecond());
 }
