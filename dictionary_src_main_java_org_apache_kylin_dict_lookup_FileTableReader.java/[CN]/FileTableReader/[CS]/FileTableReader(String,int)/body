@@ -1,3 +1,3 @@
 {
-  this(filePath,ReadableTable.DELIM_AUTO,expectedColumnNumber);
+  this(filePath,FileTable.DELIM_AUTO,expectedColumnNumber);
 }

@@ -21,7 +21,6 @@
     String statistics_sampling_percent=getOptionValue(OPTION_STATISTICS_SAMPLING_PERCENT);
     CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
     CubeInstance cubeInstance=cubeMgr.getCube(cubeName);
-    CubeSegment newSegment=cubeInstance.getSegment(segmentName,SegmentStatusEnum.NEW);
     job.getConfiguration().set(BatchConstants.CFG_CUBE_NAME,cubeName);
     job.getConfiguration().set(BatchConstants.CFG_CUBE_SEGMENT_NAME,segmentName);
     job.getConfiguration().set(BatchConstants.CFG_STATISTICS_ENABLED,statistics_enabled);

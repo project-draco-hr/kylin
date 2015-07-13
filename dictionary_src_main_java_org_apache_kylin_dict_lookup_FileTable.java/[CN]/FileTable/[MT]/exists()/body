@@ -1,4 +1,0 @@
-{
-  FileSystem fs=HadoopUtil.getFileSystem(path);
-  return fs.exists(new Path(path));
-}

@@ -1,6 +1,6 @@
 {
   String str[]=StringSplitter.split(line,delim);
-  if (ReadableTable.DELIM_COMMA.equals(delim)) {
+  if (FileTable.DELIM_COMMA.equals(delim)) {
     for (int i=0; i < str.length; i++) {
       str[i]=unescapeCsv(str[i]);
     }

@@ -5,5 +5,4 @@
   this.sourceColumnIndex=other.sourceColumnIndex;
   this.dataType=other.dataType;
   this.input=other.input;
-  this.inputDelimeter=other.inputDelimeter;
 }
