@@ -1,0 +1,6 @@
+{
+  if (hiveClient == null) {
+    hiveClient=new HiveClient();
+  }
+  return hiveClient;
+}

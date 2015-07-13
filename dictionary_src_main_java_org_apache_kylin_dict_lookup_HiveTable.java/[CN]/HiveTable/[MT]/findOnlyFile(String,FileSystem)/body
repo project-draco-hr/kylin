@@ -1,9 +1,0 @@
-{
-  FileStatus[] files=fs.listStatus(new Path(hdfsDir));
-  ArrayList<FileStatus> nonZeroFiles=Lists.newArrayList();
-  for (  FileStatus f : files) {
-    if (f.getLen() > 0)     nonZeroFiles.add(f);
-  }
-  if (nonZeroFiles.size() != 1)   throw new IllegalStateException("Expect 1 and only 1 non-zero file under " + hdfsDir + ", but find "+ nonZeroFiles.size());
-  return nonZeroFiles.get(0);
-}
