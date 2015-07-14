@@ -1,4 +1,9 @@
 {
-  Pair<Long,Long> sizeAndLastModified=getSizeAndLastModified(path);
-  return new TableSignature(path,sizeAndLastModified.getFirst(),sizeAndLastModified.getSecond());
+  try {
+    Pair<Long,Long> sizeAndLastModified=getSizeAndLastModified(path);
+    return new TableSignature(path,sizeAndLastModified.getFirst(),sizeAndLastModified.getSecond());
+  }
+ catch (  FileNotFoundException ex) {
+    return null;
+  }
 }
