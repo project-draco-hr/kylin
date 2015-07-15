@@ -1,3 +1,7 @@
 {
-  return cost;
+  cost=100;
+  for (  IRealization realization : this.getRealizations()) {
+    if (realization.isCapable(digest))     cost=Math.min(cost,realization.getCost(digest));
+  }
+  return cost - 1;
 }

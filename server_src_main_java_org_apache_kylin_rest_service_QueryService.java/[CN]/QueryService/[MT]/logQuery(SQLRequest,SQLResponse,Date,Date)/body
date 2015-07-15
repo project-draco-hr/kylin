@@ -21,9 +21,6 @@
   if (!response.getIsException() && response.getResults() != null) {
     resultRowCount=response.getResults().size();
   }
-  QueryMetrics.getInstance().increase("duration",duration);
-  QueryMetrics.getInstance().increase("totalScanCount",(float)totalScanCount);
-  QueryMetrics.getInstance().increase("count",(float)1);
   String newLine=System.getProperty("line.separator");
   StringBuilder stringBuilder=new StringBuilder();
   stringBuilder.append(newLine);
