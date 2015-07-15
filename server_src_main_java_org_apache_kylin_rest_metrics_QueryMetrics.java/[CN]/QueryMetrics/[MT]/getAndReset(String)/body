@@ -1,5 +1,0 @@
-{
-  float value=metrics.get(key);
-  metrics.put(key,(float)0);
-  return value;
-}
