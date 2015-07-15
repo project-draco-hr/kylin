@@ -1,5 +1,0 @@
-{
-  this.increase("duration",(float)0);
-  this.increase("totalScanCount",(float)0);
-  this.increase("count",(float)0);
-}
