@@ -1,0 +1,4 @@
+{
+  TableDesc tableDesc=getTableDesc(seg.getCubeDesc().getFactTable());
+  return getMRInput(tableDesc).getBatchCubingInputSide(seg);
+}

@@ -24,7 +24,7 @@
       table=new FileTable(factColumnsPath + "/" + col.getName(),-1);
     }
  else {
-      table=new HiveTable(metaMgr,col.getTable());
+      table=TableSourceFactory.createReadableTable(metaMgr.getTableDesc(col.getTable()));
     }
   }
  else {

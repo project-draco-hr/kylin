@@ -9,13 +9,13 @@
     Configuration conf=getConf();
     job=Job.getInstance(conf,jobName);
     setJobClasspath(job);
+    String table=getOptionValue(OPTION_TABLE);
+    job.getConfiguration().set(BatchConstants.TABLE_NAME,table);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
     FileOutputFormat.setOutputPath(job,output);
     job.getConfiguration().set("dfs.block.size","67108864");
-    String table=getOptionValue(OPTION_TABLE);
-    String[] dbTableNames=HadoopUtil.parseHiveTableName(table);
-    HCatInputFormat.setInput(job,dbTableNames[0],dbTableNames[1]);
-    job.setInputFormatClass(HCatInputFormat.class);
+    IMRTableInputFormat tableInputFormat=MRBatchCubingEngine.getTableInputFormat(table);
+    tableInputFormat.configureJob(job);
     job.setMapperClass(ColumnCardinalityMapper.class);
     job.setMapOutputKeyClass(IntWritable.class);
     job.setMapOutputValueClass(BytesWritable.class);

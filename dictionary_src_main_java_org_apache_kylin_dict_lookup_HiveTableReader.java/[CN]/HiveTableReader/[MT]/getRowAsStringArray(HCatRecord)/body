@@ -1,4 +1,0 @@
-{
-  List<String> row=getRowAsList(record);
-  return row.toArray(new String[row.size()]);
-}

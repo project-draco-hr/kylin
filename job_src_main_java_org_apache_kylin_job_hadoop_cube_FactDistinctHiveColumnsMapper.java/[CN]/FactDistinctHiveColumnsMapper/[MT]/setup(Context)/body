@@ -1,8 +1,6 @@
 {
   super.setup(context);
-  schema=HCatInputFormat.getTableSchema(context.getConfiguration());
   intermediateTableDesc=new CubeJoinedFlatTableDesc(cubeDesc,null);
-  rowArray=new ArrayList<String>(schema.getFields().size());
   collectStatistics=Boolean.parseBoolean(context.getConfiguration().get(BatchConstants.CFG_STATISTICS_ENABLED));
   if (collectStatistics) {
     SAMPING_PERCENTAGE=Integer.parseInt(context.getConfiguration().get(BatchConstants.CFG_STATISTICS_SAMPLING_PERCENT,"5"));

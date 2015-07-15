@@ -1,5 +1,5 @@
 {
-  String ddl=JoinedFlatTable.generateDropTableStatement(intermediateTableDesc,fakeJobUUID);
+  String ddl=JoinedFlatTable.generateDropTableStatement(intermediateTableDesc);
   System.out.println(ddl);
   assertEquals(107,ddl.length());
 }

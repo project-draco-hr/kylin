@@ -1,0 +1,3 @@
+{
+  jobFlow.addTask(createFlatHiveTableStep(conf,flatHiveTableDesc,jobFlow.getId()));
+}

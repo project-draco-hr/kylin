@@ -1,0 +1,4 @@
+{
+  this.database=tableDesc.getDatabase();
+  this.hiveTable=tableDesc.getName();
+}

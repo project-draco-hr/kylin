@@ -1,1 +1,1 @@
-KylinMapper<T,HCatRecord,IntWritable,BytesWritable>
+KylinMapper<T,Object,IntWritable,BytesWritable>

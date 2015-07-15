@@ -7,6 +7,7 @@
   cubeDesc=cube.getDescriptor();
   String segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME);
   cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
+  flatTableInputFormat=MRBatchCubingEngine.getBatchCubingInputSide(cubeSegment).getFlatTableInputFormat();
   Map<TblColRef,Dictionary<?>> dictionaryMap=Maps.newHashMap();
   for (  DimensionDesc dim : cubeDesc.getDimensions()) {
     for (    TblColRef col : dim.getColumnRefs()) {

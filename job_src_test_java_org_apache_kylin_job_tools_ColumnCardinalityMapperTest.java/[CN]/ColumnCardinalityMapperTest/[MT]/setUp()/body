@@ -1,4 +1,0 @@
-{
-  ColumnCardinalityMapper mapper=new ColumnCardinalityMapper();
-  mapDriver=MapDriver.newMapDriver(mapper);
-}

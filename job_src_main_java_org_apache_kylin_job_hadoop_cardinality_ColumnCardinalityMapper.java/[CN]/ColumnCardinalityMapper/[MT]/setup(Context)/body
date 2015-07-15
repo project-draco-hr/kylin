@@ -1,5 +1,8 @@
 {
-  super.bindCurrentConfiguration(context.getConfiguration());
-  schema=HCatInputFormat.getTableSchema(context.getConfiguration());
-  columnSize=schema.getFields().size();
+  Configuration conf=context.getConfiguration();
+  bindCurrentConfiguration(conf);
+  KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
+  String tableName=conf.get(BatchConstants.TABLE_NAME);
+  tableDesc=MetadataManager.getInstance(config).getTableDesc(tableName);
+  tableInputFormat=MRBatchCubingEngine.getTableInputFormat(tableDesc);
 }

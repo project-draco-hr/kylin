@@ -4,7 +4,6 @@
     options.addOption(OPTION_JOB_NAME);
     options.addOption(OPTION_CUBE_NAME);
     options.addOption(OPTION_OUTPUT_PATH);
-    options.addOption(OPTION_TABLE_NAME);
     options.addOption(OPTION_SEGMENT_NAME);
     options.addOption(OPTION_STATISTICS_ENABLED);
     options.addOption(OPTION_STATISTICS_OUTPUT);
@@ -13,14 +12,12 @@
     job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
     String cubeName=getOptionValue(OPTION_CUBE_NAME);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
-    String intermediateTable=getOptionValue(OPTION_TABLE_NAME);
-    ;
     String segmentName=getOptionValue(OPTION_SEGMENT_NAME);
     String statistics_enabled=getOptionValue(OPTION_STATISTICS_ENABLED);
     String statistics_output=getOptionValue(OPTION_STATISTICS_OUTPUT);
     String statistics_sampling_percent=getOptionValue(OPTION_STATISTICS_SAMPLING_PERCENT);
     CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
-    CubeInstance cubeInstance=cubeMgr.getCube(cubeName);
+    CubeInstance cube=cubeMgr.getCube(cubeName);
     job.getConfiguration().set(BatchConstants.CFG_CUBE_NAME,cubeName);
     job.getConfiguration().set(BatchConstants.CFG_CUBE_SEGMENT_NAME,segmentName);
     job.getConfiguration().set(BatchConstants.CFG_STATISTICS_ENABLED,statistics_enabled);
@@ -28,9 +25,9 @@
     job.getConfiguration().set(BatchConstants.CFG_STATISTICS_SAMPLING_PERCENT,statistics_sampling_percent);
     log.info("Starting: " + job.getJobName());
     setJobClasspath(job);
-    setupMapper(intermediateTable);
+    setupMapper(cube.getSegment(segmentName,SegmentStatusEnum.NEW));
     setupReducer(output);
-    attachKylinPropsAndMetadata(cubeInstance,job.getConfiguration());
+    attachKylinPropsAndMetadata(cube,job.getConfiguration());
     return waitForCompletion(job);
   }
  catch (  Exception e) {

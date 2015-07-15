@@ -1,3 +1,0 @@
-{
-  return cmd.append(" -").append(paraName).append(" ").append(paraValue);
-}

@@ -1,0 +1,5 @@
+{
+  this.conf=new JobEngineConfig(KylinConfig.getInstanceFromEnv());
+  this.seg=seg;
+  this.flatHiveTableDesc=new CubeJoinedFlatTableDesc(seg.getCubeDesc(),seg);
+}

@@ -1,5 +1,0 @@
-{
-  TableDesc tableDesc=metaMgr.getTableDesc(table);
-  this.database=tableDesc.getDatabase();
-  this.hiveTable=tableDesc.getName();
-}

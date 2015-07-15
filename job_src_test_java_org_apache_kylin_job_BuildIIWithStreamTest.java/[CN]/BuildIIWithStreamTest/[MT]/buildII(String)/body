@@ -2,10 +2,6 @@
   final IIDesc desc=iiManager.getII(iiName).getDescriptor();
   final String tableName=createIntermediateTable(desc,kylinConfig);
   logger.info("intermediate table name:" + tableName);
-  final Configuration conf=new Configuration();
-  HCatInputFormat.setInput(conf,"default",tableName);
-  final HCatSchema tableSchema=HCatInputFormat.getTableSchema(conf);
-  logger.info(StringUtils.join(tableSchema.getFieldNames(),"\n"));
   HiveTableReader reader=new HiveTableReader("default",tableName);
   final List<TblColRef> tblColRefs=desc.listAllColumns();
   for (  TblColRef tblColRef : tblColRefs) {

@@ -2,11 +2,11 @@
   IIJoinedFlatTableDesc intermediateTableDesc=new IIJoinedFlatTableDesc(desc);
   JobEngineConfig jobEngineConfig=new JobEngineConfig(kylinConfig);
   final String uuid=UUID.randomUUID().toString();
-  final String dropTableHql=JoinedFlatTable.generateDropTableStatement(intermediateTableDesc,uuid);
-  final String createTableHql=JoinedFlatTable.generateCreateTableStatement(intermediateTableDesc,jobEngineConfig.getHdfsWorkingDirectory() + "/kylin-" + uuid,uuid);
+  final String dropTableHql=JoinedFlatTable.generateDropTableStatement(intermediateTableDesc);
+  final String createTableHql=JoinedFlatTable.generateCreateTableStatement(intermediateTableDesc,jobEngineConfig.getHdfsWorkingDirectory() + "/kylin-" + uuid);
   String insertDataHqls;
   try {
-    insertDataHqls=JoinedFlatTable.generateInsertDataStatement(intermediateTableDesc,uuid,jobEngineConfig);
+    insertDataHqls=JoinedFlatTable.generateInsertDataStatement(intermediateTableDesc,jobEngineConfig);
   }
  catch (  IOException e1) {
     e1.printStackTrace();
@@ -23,5 +23,5 @@
   logger.info(step.getCmd());
   step.setName(ExecutableConstants.STEP_NAME_CREATE_FLAT_HIVE_TABLE);
   kylinConfig.getCliCommandExecutor().execute(step.getCmd(),null);
-  return intermediateTableDesc.getTableName(uuid);
+  return intermediateTableDesc.getTableName();
 }

@@ -1,0 +1,5 @@
+{
+  StringBuilder ddl=new StringBuilder();
+  ddl.append("DROP TABLE IF EXISTS " + intermediateTableDesc.getTableName() + ";").append("\n");
+  return ddl.toString();
+}

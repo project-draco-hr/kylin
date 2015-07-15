@@ -3,7 +3,7 @@
   IIJob result=initialJob(seg,"BUILD",submitter);
   final String jobId=result.getId();
   final IIJoinedFlatTableDesc intermediateTableDesc=new IIJoinedFlatTableDesc(seg.getIIDesc());
-  final String intermediateHiveTableName=intermediateTableDesc.getTableName(jobId);
+  final String intermediateHiveTableName=intermediateTableDesc.getTableName();
   final String factDistinctColumnsPath=getIIDistinctColumnsPath(seg,jobId);
   final String iiRootPath=getJobWorkingDir(jobId) + "/" + seg.getIIInstance().getName()+ "/";
   final String iiPath=iiRootPath + "*";

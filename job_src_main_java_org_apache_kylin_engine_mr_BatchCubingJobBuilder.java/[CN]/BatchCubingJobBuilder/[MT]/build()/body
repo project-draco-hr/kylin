@@ -3,7 +3,7 @@
   final String jobId=result.getId();
   final String cuboidRootPath=getCuboidRootPath(jobId);
   final CubeJoinedFlatTableDesc flatHiveTableDesc=new CubeJoinedFlatTableDesc(seg.getCubeDesc(),seg);
-  result.addTask(createFlatHiveTableStep(flatHiveTableDesc,jobId));
+  inputSide.addStepPhase1_CreateFlatTable(result);
   result.addTask(createFactDistinctColumnsStep(flatHiveTableDesc,jobId));
   result.addTask(createBuildDictionaryStep(jobId));
   if (config.isInMemCubing()) {
@@ -27,6 +27,6 @@
     result.addTask(createBulkLoadStep(jobId));
   }
   result.addTask(createUpdateCubeInfoAfterBuildStep(jobId));
-  result.addTask(createGarbageCollectionStep(null,flatHiveTableDesc.getTableName(jobId)));
+  inputSide.addStepPhase4_UpdateMetadataAndCleanup(result);
   return result;
 }

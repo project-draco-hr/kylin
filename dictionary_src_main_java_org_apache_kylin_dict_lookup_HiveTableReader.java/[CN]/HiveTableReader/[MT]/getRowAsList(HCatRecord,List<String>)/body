@@ -1,7 +1,0 @@
-{
-  List<Object> allFields=record.getAll();
-  for (  Object o : allFields) {
-    rowValues.add(o != null ? o.toString() : null);
-  }
-  return rowValues;
-}

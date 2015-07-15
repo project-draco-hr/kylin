@@ -1,3 +1,3 @@
 {
-  return getJobWorkingDir(jobId) + "/" + flatTableDesc.getTableName(jobId);
+  return getJobWorkingDir(jobId) + "/" + flatTableDesc.getTableName();
 }

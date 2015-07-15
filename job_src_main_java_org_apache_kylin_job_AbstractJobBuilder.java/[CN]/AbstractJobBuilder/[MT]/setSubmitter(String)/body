@@ -1,4 +1,0 @@
-{
-  this.submitter=submitter;
-  return this;
-}

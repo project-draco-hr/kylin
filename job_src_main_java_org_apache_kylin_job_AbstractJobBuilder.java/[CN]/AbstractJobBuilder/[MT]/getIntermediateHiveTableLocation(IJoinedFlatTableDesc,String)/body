@@ -1,3 +1,0 @@
-{
-  return getJobWorkingDir(jobUUID) + "/" + intermediateTableDesc.getTableName(jobUUID);
-}

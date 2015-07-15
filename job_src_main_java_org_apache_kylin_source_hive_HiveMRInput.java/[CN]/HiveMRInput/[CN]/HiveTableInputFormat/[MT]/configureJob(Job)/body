@@ -1,0 +1,9 @@
+{
+  try {
+    HCatInputFormat.setInput(job,dbName,tableName);
+    job.setInputFormatClass(HCatInputFormat.class);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

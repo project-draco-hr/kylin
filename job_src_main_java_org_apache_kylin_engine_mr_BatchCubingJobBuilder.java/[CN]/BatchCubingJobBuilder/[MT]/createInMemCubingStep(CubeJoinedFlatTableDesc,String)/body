@@ -10,7 +10,6 @@
   appendExecCmdParameters(cmd,"output",getHFilePath(jobId));
   appendExecCmdParameters(cmd,"jobname","Kylin_Cube_Builder_" + seg.getCubeInstance().getName());
   appendExecCmdParameters(cmd,"level","0");
-  appendExecCmdParameters(cmd,"tablename",flatHiveTableDesc.getTableName(jobId));
   appendExecCmdParameters(cmd,"htablename",seg.getStorageLocationIdentifier());
   baseCuboidStep.setMapReduceParams(cmd.toString());
   baseCuboidStep.setMapReduceJobClass(InMemCuboidJob.class);

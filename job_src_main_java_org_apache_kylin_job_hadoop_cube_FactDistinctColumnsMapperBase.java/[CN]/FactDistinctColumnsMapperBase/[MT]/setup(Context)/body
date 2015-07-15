@@ -4,6 +4,7 @@
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
   cubeName=conf.get(BatchConstants.CFG_CUBE_NAME);
   cube=CubeManager.getInstance(config).getCube(cubeName);
+  cubeSeg=cube.getSegment(conf.get(BatchConstants.CFG_CUBE_SEGMENT_NAME),SegmentStatusEnum.NEW);
   cubeDesc=cube.getDescriptor();
   baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
   columns=Cuboid.findById(cubeDesc,baseCuboidId).getColumns();
@@ -18,4 +19,5 @@
       factDictCols.add(i);
     }
   }
+  flatTableInputFormat=MRBatchCubingEngine.getBatchCubingInputSide(cubeSeg).getFlatTableInputFormat();
 }

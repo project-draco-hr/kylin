@@ -1,3 +1,0 @@
-{
-  return engineConfig.getHdfsWorkingDirectory() + "/" + JOB_WORKING_DIR_PREFIX+ uuid;
-}

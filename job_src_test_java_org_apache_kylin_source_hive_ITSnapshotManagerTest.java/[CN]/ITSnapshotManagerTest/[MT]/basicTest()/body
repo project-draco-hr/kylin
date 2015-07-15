@@ -1,0 +1,19 @@
+{
+  String tableName="EDW.TEST_SITES";
+  TableDesc tableDesc=MetadataManager.getInstance(getTestConfig()).getTableDesc(tableName);
+  ReadableTable hiveTable=TableSourceFactory.createReadableTable(tableDesc);
+  String snapshotPath=snapshotMgr.buildSnapshot(hiveTable,tableDesc).getResourcePath();
+  snapshotMgr.wipeoutCache();
+  SnapshotTable snapshot=snapshotMgr.getSnapshotTable(snapshotPath);
+  TableReader hiveReader=hiveTable.getReader();
+  TableReader snapshotReader=snapshot.getReader();
+  while (true) {
+    boolean hiveNext=hiveReader.next();
+    boolean snapshotNext=snapshotReader.next();
+    assertEquals(hiveNext,snapshotNext);
+    if (hiveNext == false)     break;
+    String[] hiveRow=hiveReader.getRow();
+    String[] snapshotRow=snapshotReader.getRow();
+    assertArrayEquals(hiveRow,snapshotRow);
+  }
+}

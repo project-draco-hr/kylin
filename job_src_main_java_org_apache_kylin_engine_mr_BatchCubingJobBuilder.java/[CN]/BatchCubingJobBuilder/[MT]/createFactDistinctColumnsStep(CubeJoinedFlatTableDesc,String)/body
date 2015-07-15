@@ -11,7 +11,6 @@
   appendExecCmdParameters(cmd,"statisticsoutput",getStatisticsPath(jobId));
   appendExecCmdParameters(cmd,"statisticssamplingpercent",String.valueOf(config.getConfig().getCubingInMemSamplingPercent()));
   appendExecCmdParameters(cmd,"jobname","Kylin_Fact_Distinct_Columns_" + seg.getCubeInstance().getName() + "_Step");
-  appendExecCmdParameters(cmd,"tablename",flatHiveTableDesc.getTableName(jobId));
   result.setMapReduceParams(cmd.toString());
   return result;
 }

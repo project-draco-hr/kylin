@@ -1,23 +1,15 @@
 {
-  File tmp=File.createTempFile("kylin_job_meta","");
-  tmp.delete();
-  File metaDir=new File(tmp,"meta");
-  metaDir.mkdirs();
-  metaDir.getParentFile().deleteOnExit();
-  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
-  File kylinPropsFile=new File(metaDir,"kylin.properties");
-  kylinConfig.writeProperties(kylinPropsFile);
+  MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
   ArrayList<String> dumpList=new ArrayList<String>();
   dumpList.add(cube.getResourcePath());
   dumpList.add(cube.getDescriptor().getModel().getResourcePath());
   dumpList.add(cube.getDescriptor().getResourcePath());
   for (  String tableName : cube.getDescriptor().getModel().getAllTables()) {
-    TableDesc table=MetadataManager.getInstance(kylinConfig).getTableDesc(tableName);
+    TableDesc table=metaMgr.getTableDesc(tableName);
     dumpList.add(table.getResourcePath());
   }
   for (  CubeSegment segment : cube.getSegments()) {
     dumpList.addAll(segment.getDictionaryPaths());
   }
-  dumpResources(kylinConfig,metaDir,dumpList);
-  conf.set("tmpfiles","file:///" + OptionsHelper.convertToFileURL(metaDir.getAbsolutePath()));
+  attachKylinPropsAndMetadata(dumpList,conf);
 }

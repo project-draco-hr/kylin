@@ -8,8 +8,9 @@
       String joinType=join.getType().toUpperCase();
       String lookupTableName=dim.getTable();
       if (!lookupTables.containsKey(lookupTableName)) {
-        HiveTable htable=new HiveTable(metadataManager,lookupTableName);
-        LookupBytesTable btable=new LookupBytesTable(metadataManager.getTableDesc(lookupTableName),join.getPrimaryKey(),htable);
+        TableDesc tableDesc=metadataManager.getTableDesc(lookupTableName);
+        ReadableTable htable=TableSourceFactory.createReadableTable(tableDesc);
+        LookupBytesTable btable=new LookupBytesTable(tableDesc,join.getPrimaryKey(),htable);
         lookupTables.put(lookupTableName,btable);
       }
       LinkedList<Integer> fkIndice=new LinkedList<Integer>();
