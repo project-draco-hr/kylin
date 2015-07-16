@@ -8,7 +8,7 @@ case CUBE:
     getHybridManager().reloadHybridInstanceByChild(RealizationType.CUBE,cacheKey);
   getProjectManager().clearL2Cache();
 super.cleanDataCache(newCube.getUuid());
-cubeService.mergeCubeOnNewSegmentReady(cacheKey);
+cubeService.updateOnNewSegmentReady(cacheKey);
 break;
 case CUBE_DESC:
 getCubeDescManager().reloadCubeDescLocal(cacheKey);
