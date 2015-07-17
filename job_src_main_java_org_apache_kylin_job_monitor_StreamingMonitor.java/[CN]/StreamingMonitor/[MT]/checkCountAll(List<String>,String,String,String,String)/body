@@ -6,7 +6,7 @@
   try {
     request.addRequestHeader("Authorization","Basic " + authorization);
     request.addRequestHeader("Content-Type","application/json");
-    String query=String.format("{\"sql\":\"select count(*) from %s\",\"offset\":0,\"limit\":50000,\"acceptPartial\":true,\"project\":\"default\"}",tableName);
+    String query=String.format("{\"sql\":\"select count(*) from %s\",\"offset\":0,\"limit\":50000,\"acceptPartial\":true,\"project\":\"%s\"}",tableName,projectName);
     request.setRequestEntity(new ByteArrayRequestEntity(query.getBytes()));
     int statusCode=new HttpClient().executeMethod(request);
     String msg=Bytes.toString(request.getResponseBody());
