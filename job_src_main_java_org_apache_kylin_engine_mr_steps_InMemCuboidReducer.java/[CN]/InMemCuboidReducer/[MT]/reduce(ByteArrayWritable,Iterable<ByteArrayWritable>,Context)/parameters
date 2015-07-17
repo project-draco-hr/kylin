@@ -1,0 +1,3 @@
+ByteArrayWritable key
+Iterable<ByteArrayWritable> values
+Context context

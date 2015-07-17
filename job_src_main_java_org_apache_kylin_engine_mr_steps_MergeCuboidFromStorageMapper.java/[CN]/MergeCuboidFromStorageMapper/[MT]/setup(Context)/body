@@ -1,0 +1,24 @@
+{
+  super.bindCurrentConfiguration(context.getConfiguration());
+  config=AbstractHadoopJob.loadKylinPropsAndMetadata();
+  cubeName=context.getConfiguration().get(BatchConstants.CFG_CUBE_NAME).toUpperCase();
+  segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME).toUpperCase();
+  cubeManager=CubeManager.getInstance(config);
+  cube=cubeManager.getCube(cubeName);
+  cubeDesc=cube.getDescriptor();
+  mergedCubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
+  storageInputFormat=MRUtil.getBatchMergeInputSide2(mergedCubeSegment).getStorageInputFormat();
+  newKeyBuf=new byte[256];
+  sourceCubeSegment=storageInputFormat.findSourceSegment(context,cube);
+  logger.info(sourceCubeSegment.toString());
+  this.rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
+  List<MeasureDesc> measuresDescs=Lists.newArrayList();
+  for (  HBaseColumnFamilyDesc cfDesc : cubeDesc.getHBaseMapping().getColumnFamily()) {
+    for (    HBaseColumnDesc colDesc : cfDesc.getColumns()) {
+      for (      MeasureDesc measure : colDesc.getMeasures()) {
+        measuresDescs.add(measure);
+      }
+    }
+  }
+  codec=new MeasureCodec(measuresDescs);
+}

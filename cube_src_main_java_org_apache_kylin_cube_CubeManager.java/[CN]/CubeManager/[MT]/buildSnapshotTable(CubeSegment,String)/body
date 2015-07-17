@@ -5,7 +5,7 @@
   ReadableTable hiveTable=TableSourceFactory.createReadableTable(tableDesc);
   SnapshotTable snapshot=snapshotMgr.buildSnapshot(hiveTable,tableDesc);
   cubeSeg.putSnapshotResPath(lookupTable,snapshot.getResourcePath());
-  CubeBuilder cubeBuilder=new CubeBuilder(cubeSeg.getCubeInstance());
+  CubeUpdate cubeBuilder=new CubeUpdate(cubeSeg.getCubeInstance());
   cubeBuilder.setToUpdateSegs(cubeSeg);
   updateCube(cubeBuilder);
   return snapshot;

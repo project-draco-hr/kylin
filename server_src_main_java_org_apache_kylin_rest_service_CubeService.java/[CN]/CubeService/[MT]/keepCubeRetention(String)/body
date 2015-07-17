@@ -18,7 +18,7 @@ synchronized (CubeService.class) {
         toRemoveSegs.add(readySegs.get(i));
       }
       if (toRemoveSegs.size() > 0) {
-        CubeBuilder cubeBuilder=new CubeBuilder(cube);
+        CubeUpdate cubeBuilder=new CubeUpdate(cube);
         cubeBuilder.setToRemoveSegs(toRemoveSegs.toArray(new CubeSegment[toRemoveSegs.size()]));
         try {
           this.getCubeManager().updateCube(cubeBuilder);

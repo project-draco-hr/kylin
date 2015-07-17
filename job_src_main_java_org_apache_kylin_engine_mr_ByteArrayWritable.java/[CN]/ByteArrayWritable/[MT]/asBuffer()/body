@@ -1,0 +1,5 @@
+{
+  if (data == null)   return null;
+ else   if (offset == 0 && length == data.length)   return ByteBuffer.wrap(data);
+ else   return ByteBuffer.wrap(data,offset,length).slice();
+}

@@ -1,6 +1,3 @@
 {
-  FileSystem fs=FileSystem.get(conf);
-  if (fs.exists(path)) {
-    fs.delete(path,true);
-  }
+  HadoopUtil.deletePath(conf,path);
 }

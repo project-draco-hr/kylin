@@ -14,7 +14,7 @@
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
     FileOutputFormat.setOutputPath(job,output);
     job.getConfiguration().set("dfs.block.size","67108864");
-    IMRTableInputFormat tableInputFormat=MRBatchCubingEngine.getTableInputFormat(table);
+    IMRTableInputFormat tableInputFormat=MRUtil.getTableInputFormat(table);
     tableInputFormat.configureJob(job);
     job.setMapperClass(ColumnCardinalityMapper.class);
     job.setMapOutputKeyClass(IntWritable.class);

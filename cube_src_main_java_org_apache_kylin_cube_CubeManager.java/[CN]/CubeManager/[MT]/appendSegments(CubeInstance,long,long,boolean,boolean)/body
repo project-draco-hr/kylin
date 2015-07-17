@@ -3,7 +3,7 @@
   CubeSegment newSegment=newSegment(cube,startDate,endDate);
   validateNewSegments(cube,strictChecking,newSegment);
   if (saveChange) {
-    CubeBuilder cubeBuilder=new CubeBuilder(cube);
+    CubeUpdate cubeBuilder=new CubeUpdate(cube);
     cubeBuilder.setToAddSegs(newSegment);
     updateCube(cubeBuilder);
   }

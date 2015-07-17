@@ -1,4 +1,5 @@
 {
   super(newSegment,submitter);
-  this.inputSide=MRBatchCubingEngine.getBatchCubingInputSide(seg);
+  this.inputSide=MRUtil.getBatchCubingInputSide(seg);
+  this.outputSide=MRUtil.getBatchCubingOutputSide(seg);
 }

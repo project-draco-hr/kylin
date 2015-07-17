@@ -1,0 +1,13 @@
+{
+  aggs.reset();
+  for (  ByteArrayWritable value : values) {
+    codec.decode(value.asBuffer(),input);
+    aggs.aggregate(input);
+  }
+  aggs.collectStates(result);
+  storageOutputFormat.doReducerOutput(key,result,context);
+  counter++;
+  if (counter % BatchConstants.COUNTER_MAX == 0) {
+    logger.info("Handled " + counter + " records!");
+  }
+}

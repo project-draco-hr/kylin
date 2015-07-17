@@ -6,29 +6,15 @@
   Preconditions.checkState(mergingSegments.size() > 1,"there should be more than 2 segments to merge");
   final List<String> mergingSegmentIds=Lists.newArrayList();
   final List<String> mergingCuboidPaths=Lists.newArrayList();
-  final List<String> mergingHTables=Lists.newArrayList();
   for (  CubeSegment merging : mergingSegments) {
     mergingSegmentIds.add(merging.getUuid());
     mergingCuboidPaths.add(getCuboidRootPath(merging) + "*");
-    mergingHTables.add(merging.getStorageLocationIdentifier());
   }
   result.addTask(createMergeDictionaryStep(mergingSegmentIds));
-  if (config.isInMemCubing()) {
-    String mergedStatisticsFolder=getStatisticsPath(jobId);
-    result.addTask(createMergeStatisticsStep(seg,mergingSegmentIds,mergedStatisticsFolder));
-    result.addTask(createCreateHTableStep(jobId));
-    String formattedTables=StringUtil.join(mergingHTables,",");
-    result.addTask(createMergeCuboidDataFromHBaseStep(formattedTables,jobId));
-  }
- else {
-    String formattedPath=StringUtil.join(mergingCuboidPaths,",");
-    result.addTask(createMergeCuboidDataStep(seg,formattedPath,cuboidRootPath));
-    result.addTask(createRangeRowkeyDistributionStep(cuboidRootPath + "*",jobId));
-    result.addTask(createCreateHTableStep(jobId));
-    result.addTask(createConvertCuboidToHfileStep(cuboidRootPath + "*",jobId));
-  }
-  result.addTask(createBulkLoadStep(jobId));
+  String formattedPath=StringUtil.join(mergingCuboidPaths,",");
+  result.addTask(createMergeCuboidDataStep(seg,formattedPath,cuboidRootPath));
+  outputSide.addStepPhase2_BuildCube(result,cuboidRootPath);
   result.addTask(createUpdateCubeInfoAfterMergeStep(mergingSegmentIds,jobId));
-  result.addTask(createGarbageCollectionStep(mergingHTables,null));
+  outputSide.addStepPhase3_Cleanup(result);
   return result;
 }

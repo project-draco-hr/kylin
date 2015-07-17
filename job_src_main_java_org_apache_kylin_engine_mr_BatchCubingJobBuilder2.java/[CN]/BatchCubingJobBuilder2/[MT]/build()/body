@@ -1,0 +1,15 @@
+{
+  final CubingJob result=CubingJob.createBuildJob(seg,submitter,config);
+  final String jobId=result.getId();
+  inputSide.addStepPhase1_CreateFlatTable(result);
+  result.addTask(createFactDistinctColumnsStepWithStats(jobId));
+  result.addTask(createBuildDictionaryStep(jobId));
+  result.addTask(createSaveStatisticsStep(jobId));
+  outputSide.addStepPhase2_BuildDictionary(result);
+  result.addTask(createInMemCubingStep(jobId));
+  outputSide.addStepPhase3_BuildCube(result);
+  result.addTask(createUpdateCubeInfoAfterBuildStep(jobId));
+  inputSide.addStepPhase4_Cleanup(result);
+  outputSide.addStepPhase4_Cleanup(result);
+  return result;
+}

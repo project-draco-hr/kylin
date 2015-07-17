@@ -1,3 +1,0 @@
-MapContext<?,?,ImmutableBytesWritable,Text> mapContext
-CubeDesc cubeDesc
-CubeSegment cubeSegment

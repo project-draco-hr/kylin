@@ -16,7 +16,7 @@
     }
   }
   validateNewSegments(cube,false,newSegment);
-  CubeBuilder cubeBuilder=new CubeBuilder(cube);
+  CubeUpdate cubeBuilder=new CubeUpdate(cube);
   cubeBuilder.setToAddSegs(newSegment);
   updateCube(cubeBuilder);
   return newSegment;

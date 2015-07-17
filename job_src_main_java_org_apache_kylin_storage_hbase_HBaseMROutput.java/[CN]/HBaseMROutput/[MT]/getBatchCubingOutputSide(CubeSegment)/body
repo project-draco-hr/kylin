@@ -1,0 +1,11 @@
+{
+  return new IMRBatchCubingOutputSide(){
+    HBaseMRSteps steps=new HBaseMRSteps(seg);
+    @Override public void addStepPhase3_BuildCube(    DefaultChainedExecutable jobFlow,    String cuboidRootPath){
+      steps.addSaveCuboidToHTableSteps(jobFlow,cuboidRootPath);
+    }
+    @Override public void addStepPhase4_Cleanup(    DefaultChainedExecutable jobFlow){
+    }
+  }
+;
+}

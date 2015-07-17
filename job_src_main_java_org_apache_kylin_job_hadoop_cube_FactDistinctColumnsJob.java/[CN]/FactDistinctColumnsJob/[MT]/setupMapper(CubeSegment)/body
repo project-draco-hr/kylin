@@ -1,5 +1,5 @@
 {
-  IMRTableInputFormat flatTableInputFormat=MRBatchCubingEngine.getBatchCubingInputSide(cubeSeg).getFlatTableInputFormat();
+  IMRTableInputFormat flatTableInputFormat=MRUtil.getBatchCubingInputSide(cubeSeg).getFlatTableInputFormat();
   flatTableInputFormat.configureJob(job);
   job.setMapperClass(FactDistinctHiveColumnsMapper.class);
   job.setCombinerClass(FactDistinctColumnsCombiner.class);

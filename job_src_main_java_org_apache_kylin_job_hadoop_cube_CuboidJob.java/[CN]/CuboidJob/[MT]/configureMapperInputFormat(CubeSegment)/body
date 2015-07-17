@@ -1,0 +1,16 @@
+{
+  String input=getOptionValue(OPTION_INPUT_PATH);
+  if (StringUtils.isBlank(input)) {
+    IMRTableInputFormat flatTableInputFormat=MRUtil.getBatchCubingInputSide(cubeSeg).getFlatTableInputFormat();
+    flatTableInputFormat.configureJob(job);
+  }
+ else {
+    FileInputFormat.setInputPaths(job,new Path(input));
+    if (hasOption(OPTION_INPUT_FORMAT) && ("textinputformat".equalsIgnoreCase(getOptionValue(OPTION_INPUT_FORMAT)))) {
+      job.setInputFormatClass(TextInputFormat.class);
+    }
+ else {
+      job.setInputFormatClass(SequenceFileInputFormat.class);
+    }
+  }
+}

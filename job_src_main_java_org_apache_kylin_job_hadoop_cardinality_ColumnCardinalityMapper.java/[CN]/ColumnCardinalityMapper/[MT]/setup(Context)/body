@@ -4,5 +4,5 @@
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
   String tableName=conf.get(BatchConstants.TABLE_NAME);
   tableDesc=MetadataManager.getInstance(config).getTableDesc(tableName);
-  tableInputFormat=MRBatchCubingEngine.getTableInputFormat(tableDesc);
+  tableInputFormat=MRUtil.getTableInputFormat(tableDesc);
 }

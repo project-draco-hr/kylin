@@ -10,7 +10,7 @@
   ret.add(new Tuple(tupleInfo));
   ret.add(new Tuple(tupleInfo));
   final AtomicInteger underlyingSEHitCount=new AtomicInteger(0);
-  CacheFledgedStaticStorageEngine cacheFledgedStaticStorageEngine=new CacheFledgedStaticStorageEngine(new ICachableStorageEngine(){
+  CacheFledgedStaticStorageEngine cacheFledgedStaticStorageEngine=new CacheFledgedStaticStorageEngine(new ICachableStorageQuery(){
     @Override public ITupleIterator search(    StorageContext context,    SQLDigest sqlDigest,    TupleInfo returnTupleInfo){
       underlyingSEHitCount.incrementAndGet();
       return new SimpleTupleIterator(ret.iterator());

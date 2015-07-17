@@ -16,7 +16,7 @@
     cube=this.releaseAllSegments(cube);
   }
   try {
-    CubeBuilder cubeBuilder=new CubeBuilder(cube);
+    CubeUpdate cubeBuilder=new CubeUpdate(cube);
     cubeBuilder.setStatus(RealizationStatusEnum.READY);
     return getCubeManager().updateCube(cubeBuilder);
   }

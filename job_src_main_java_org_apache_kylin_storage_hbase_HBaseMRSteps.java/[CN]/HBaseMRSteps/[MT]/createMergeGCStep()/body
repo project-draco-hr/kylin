@@ -1,0 +1,6 @@
+{
+  MergeGCStep result=new MergeGCStep();
+  result.setName(ExecutableConstants.STEP_NAME_GARBAGE_COLLECTION);
+  result.setOldHTables(getMergingHTables());
+  return result;
+}

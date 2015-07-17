@@ -6,7 +6,7 @@
   CubeSegment segment=deserializeCubeSegment(cubeSegmentRequest);
   cubeService.getCubeManager().validateNewSegments(cube,segment);
   try {
-    CubeBuilder cubeBuilder=new CubeBuilder(cube);
+    CubeUpdate cubeBuilder=new CubeUpdate(cube);
     cubeBuilder.setToAddSegs(segment);
     cubeService.getCubeManager().updateCube(cubeBuilder);
   }

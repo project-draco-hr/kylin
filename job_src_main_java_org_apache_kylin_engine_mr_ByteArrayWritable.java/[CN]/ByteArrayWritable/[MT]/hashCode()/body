@@ -1,0 +1,4 @@
+{
+  if (data == null)   return 0;
+ else   return Bytes.hashCode(data,offset,length);
+}

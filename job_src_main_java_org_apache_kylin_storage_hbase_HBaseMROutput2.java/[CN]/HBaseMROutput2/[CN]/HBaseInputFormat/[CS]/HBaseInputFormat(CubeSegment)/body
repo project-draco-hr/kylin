@@ -1,0 +1,17 @@
+{
+  this.htables=new HBaseMRSteps(seg).getMergingHTables();
+  List<RowValueDecoder> valueDecoderList=Lists.newArrayList();
+  List<MeasureDesc> measuresDescs=Lists.newArrayList();
+  for (  HBaseColumnFamilyDesc cfDesc : seg.getCubeDesc().getHBaseMapping().getColumnFamily()) {
+    for (    HBaseColumnDesc colDesc : cfDesc.getColumns()) {
+      valueDecoderList.add(new RowValueDecoder(colDesc));
+      for (      MeasureDesc measure : colDesc.getMeasures()) {
+        measuresDescs.add(measure);
+      }
+    }
+  }
+  this.rowValueDecoders=valueDecoderList.toArray(new RowValueDecoder[valueDecoderList.size()]);
+  this.parsedKey=new ByteArrayWritable();
+  this.parsedValue=new Object[measuresDescs.size()];
+  this.parsedPair=new Pair<ByteArrayWritable,Object[]>(parsedKey,parsedValue);
+}

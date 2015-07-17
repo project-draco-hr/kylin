@@ -1,0 +1,17 @@
+{
+  return new IMRBatchCubingOutputSide2(){
+    HBaseMRSteps steps=new HBaseMRSteps(seg);
+    @Override public IMRStorageOutputFormat getStorageOutputFormat(){
+      return new HBaseOutputFormat(seg);
+    }
+    @Override public void addStepPhase2_BuildDictionary(    DefaultChainedExecutable jobFlow){
+      jobFlow.addTask(steps.createCreateHTableStepWithStats(jobFlow.getId()));
+    }
+    @Override public void addStepPhase3_BuildCube(    DefaultChainedExecutable jobFlow){
+      jobFlow.addTask(steps.createBulkLoadStep(jobFlow.getId()));
+    }
+    @Override public void addStepPhase4_Cleanup(    DefaultChainedExecutable jobFlow){
+    }
+  }
+;
+}

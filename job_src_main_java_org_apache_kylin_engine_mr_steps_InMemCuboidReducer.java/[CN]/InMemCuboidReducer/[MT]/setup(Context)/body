@@ -1,0 +1,24 @@
+{
+  super.bindCurrentConfiguration(context.getConfiguration());
+  KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
+  String cubeName=context.getConfiguration().get(BatchConstants.CFG_CUBE_NAME).toUpperCase();
+  String segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME);
+  boolean isMerge=Boolean.parseBoolean(context.getConfiguration().get(BatchConstants.CFG_IS_MERGE));
+  CubeInstance cube=CubeManager.getInstance(config).getCube(cubeName);
+  CubeDesc cubeDesc=cube.getDescriptor();
+  CubeSegment cubeSeg=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
+  if (isMerge)   storageOutputFormat=MRUtil.getBatchMergeOutputSide2(cubeSeg).getStorageOutputFormat();
+ else   storageOutputFormat=MRUtil.getBatchCubingOutputSide2(cubeSeg).getStorageOutputFormat();
+  List<MeasureDesc> measuresDescs=Lists.newArrayList();
+  for (  HBaseColumnFamilyDesc cfDesc : cubeDesc.getHBaseMapping().getColumnFamily()) {
+    for (    HBaseColumnDesc colDesc : cfDesc.getColumns()) {
+      for (      MeasureDesc measure : colDesc.getMeasures()) {
+        measuresDescs.add(measure);
+      }
+    }
+  }
+  codec=new MeasureCodec(measuresDescs);
+  aggs=new MeasureAggregators(measuresDescs);
+  input=new Object[measuresDescs.size()];
+  result=new Object[measuresDescs.size()];
+}

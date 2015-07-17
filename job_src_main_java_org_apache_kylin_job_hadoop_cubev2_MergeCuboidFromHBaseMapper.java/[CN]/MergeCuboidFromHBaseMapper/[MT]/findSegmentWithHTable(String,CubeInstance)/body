@@ -1,9 +1,0 @@
-{
-  for (  CubeSegment segment : cubeInstance.getSegments()) {
-    String segmentHtable=segment.getStorageLocationIdentifier();
-    if (segmentHtable != null && segmentHtable.equalsIgnoreCase(htable)) {
-      return segment;
-    }
-  }
-  throw new IllegalStateException("No merging segment's storage location identifier equals " + htable);
-}

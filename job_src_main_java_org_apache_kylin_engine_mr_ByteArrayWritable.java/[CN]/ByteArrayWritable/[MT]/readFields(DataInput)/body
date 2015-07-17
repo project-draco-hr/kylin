@@ -1,0 +1,6 @@
+{
+  this.length=in.readInt();
+  this.data=new byte[this.length];
+  in.readFully(this.data,0,this.length);
+  this.offset=0;
+}

@@ -19,5 +19,5 @@
       factDictCols.add(i);
     }
   }
-  flatTableInputFormat=MRBatchCubingEngine.getBatchCubingInputSide(cubeSeg).getFlatTableInputFormat();
+  flatTableInputFormat=MRUtil.getBatchCubingInputSide(cubeSeg).getFlatTableInputFormat();
 }

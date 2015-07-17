@@ -1,0 +1,3 @@
+{
+  return new BatchMergeJobBuilder2(mergeSegment,submitter).build();
+}

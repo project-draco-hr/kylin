@@ -1,4 +1,5 @@
 {
+  if (this.mapperClass == null)   throw new Exception("Mapper class is not set!");
   Options options=new Options();
   try {
     options.addOption(OPTION_JOB_NAME);
@@ -9,7 +10,6 @@
     options.addOption(OPTION_NCUBOID_LEVEL);
     options.addOption(OPTION_INPUT_FORMAT);
     parseOptions(options,args);
-    Path input=new Path(getOptionValue(OPTION_INPUT_PATH));
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
     String cubeName=getOptionValue(OPTION_CUBE_NAME).toUpperCase();
     int nCuboidLevel=Integer.parseInt(getOptionValue(OPTION_NCUBOID_LEVEL));
@@ -19,21 +19,8 @@
     CubeInstance cube=cubeMgr.getCube(cubeName);
     job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
     logger.info("Starting: " + job.getJobName());
-    FileInputFormat.setInputPaths(job,input);
     setJobClasspath(job);
-    if (this.mapperClass == null) {
-      throw new Exception("Mapper class is not set!");
-    }
-    boolean isInputTextFormat=false;
-    if (hasOption(OPTION_INPUT_FORMAT) && ("textinputformat".equalsIgnoreCase(getOptionValue(OPTION_INPUT_FORMAT)))) {
-      isInputTextFormat=true;
-    }
-    if (isInputTextFormat) {
-      job.setInputFormatClass(TextInputFormat.class);
-    }
- else {
-      job.setInputFormatClass(SequenceFileInputFormat.class);
-    }
+    configureMapperInputFormat(cube.getSegment(segmentName,SegmentStatusEnum.NEW));
     job.setMapperClass(this.mapperClass);
     job.setMapOutputKeyClass(Text.class);
     job.setMapOutputValueClass(Text.class);

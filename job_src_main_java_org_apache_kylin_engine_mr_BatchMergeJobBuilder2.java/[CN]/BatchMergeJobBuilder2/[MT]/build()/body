@@ -1,0 +1,21 @@
+{
+  final CubingJob result=CubingJob.createMergeJob(seg,submitter,config);
+  final String jobId=result.getId();
+  final List<CubeSegment> mergingSegments=seg.getCubeInstance().getMergingSegments(seg);
+  Preconditions.checkState(mergingSegments.size() > 1,"there should be more than 2 segments to merge");
+  final List<String> mergingSegmentIds=Lists.newArrayList();
+  final List<String> mergingHTables=Lists.newArrayList();
+  for (  CubeSegment merging : mergingSegments) {
+    mergingSegmentIds.add(merging.getUuid());
+    mergingHTables.add(merging.getStorageLocationIdentifier());
+  }
+  result.addTask(createMergeDictionaryStep(mergingSegmentIds));
+  result.addTask(createMergeStatisticsStep(seg,mergingSegmentIds,getStatisticsPath(jobId)));
+  outputSide.addStepPhase2_BuildDictionary(result);
+  String formattedTables=StringUtil.join(mergingHTables,",");
+  result.addTask(createMergeCuboidDataFromStorageStep(formattedTables,jobId));
+  outputSide.addStepPhase3_BuildCube(result);
+  result.addTask(createUpdateCubeInfoAfterMergeStep(mergingSegmentIds,jobId));
+  outputSide.addStepPhase4_Cleanup(result);
+  return result;
+}

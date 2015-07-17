@@ -1,6 +1,6 @@
 {
   cubeSegment.setStatus(SegmentStatusEnum.READY);
-  CubeBuilder cubeBuilder=new CubeBuilder(cubeSegment.getCubeInstance());
+  CubeUpdate cubeBuilder=new CubeUpdate(cubeSegment.getCubeInstance());
   cubeBuilder.setToAddSegs(cubeSegment);
   CubeManager.getInstance(kylinConfig).updateCube(cubeBuilder);
 }

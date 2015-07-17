@@ -1,0 +1,7 @@
+{
+  for (int i=0; i < buffers.length; i++) {
+    splitBuffers[i].value=buffers[i];
+    splitBuffers[i].length=buffers[i].length;
+  }
+  this.bufferSize=buffers.length;
+}

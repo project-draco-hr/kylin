@@ -5,7 +5,7 @@
   DictionaryInfo dictInfo=dictMgr.buildDictionary(cubeDesc.getModel(),cubeDesc.getRowkey().getDictionary(col),col,factColumnsPath);
   if (dictInfo != null) {
     cubeSeg.putDictResPath(col,dictInfo.getResourcePath());
-    CubeBuilder cubeBuilder=new CubeBuilder(cubeSeg.getCubeInstance());
+    CubeUpdate cubeBuilder=new CubeUpdate(cubeSeg.getCubeInstance());
     cubeBuilder.setToUpdateSegs(cubeSeg);
     updateCube(cubeBuilder);
   }

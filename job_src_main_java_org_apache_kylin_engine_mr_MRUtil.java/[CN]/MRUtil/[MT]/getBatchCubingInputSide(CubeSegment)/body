@@ -1,0 +1,3 @@
+{
+  return TableSourceFactory.createEngineAdapter(seg,IMRInput.class).getBatchCubingInputSide(seg);
+}

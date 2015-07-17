@@ -2,14 +2,14 @@
   CubeManager mgr=CubeManager.getInstance(getTestConfig());
   CubeInstance cube=mgr.getCube("test_kylin_cube_with_slr_empty");
   cube.setAutoMergeTimeRanges(new long[]{2000,6000});
-  mgr.updateCube(new CubeBuilder(cube));
+  mgr.updateCube(new CubeUpdate(cube));
   assertTrue(cube.needAutoMerge());
   assertEquals(0,cube.getSegments().size());
   CubeSegment seg1=mgr.appendSegments(cube,1000);
   seg1.setStatus(SegmentStatusEnum.READY);
   CubeSegment seg3=mgr.appendSegments(cube,2000,4000,false,false);
   seg3.setStatus(SegmentStatusEnum.READY);
-  CubeBuilder cubeBuilder=new CubeBuilder(cube);
+  CubeUpdate cubeBuilder=new CubeUpdate(cube);
   cubeBuilder.setToAddSegs(seg3);
   cubeBuilder.setToUpdateSegs(seg1);
   mgr.updateCube(cubeBuilder);
@@ -18,7 +18,7 @@
   assertTrue(mergedSeg == null);
   CubeSegment seg4=mgr.appendSegments(cube,4000,8000,false,false);
   seg4.setStatus(SegmentStatusEnum.READY);
-  cubeBuilder=new CubeBuilder(cube);
+  cubeBuilder=new CubeUpdate(cube);
   cubeBuilder.setToAddSegs(seg4);
   mgr.updateCube(cubeBuilder);
   assertEquals(3,cube.getSegments().size());

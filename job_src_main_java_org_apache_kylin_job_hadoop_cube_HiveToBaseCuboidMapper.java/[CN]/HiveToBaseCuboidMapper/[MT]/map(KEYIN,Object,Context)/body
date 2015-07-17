@@ -1,0 +1,14 @@
+{
+  counter++;
+  if (counter % BatchConstants.COUNTER_MAX == 0) {
+    logger.info("Handled " + counter + " records!");
+  }
+  try {
+    String[] row=flatTableInputFormat.parseMapperInput(value);
+    bytesSplitter.setBuffers(convertUTF8Bytes(row));
+    outputKV(context);
+  }
+ catch (  Exception ex) {
+    handleErrorRecord(bytesSplitter,ex);
+  }
+}

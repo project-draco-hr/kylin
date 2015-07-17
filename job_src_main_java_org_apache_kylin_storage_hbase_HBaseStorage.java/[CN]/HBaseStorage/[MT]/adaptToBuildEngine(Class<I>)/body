@@ -2,6 +2,9 @@
   if (engineInterface == IMROutput.class) {
     return (I)new HBaseMROutput();
   }
+ else   if (engineInterface == IMROutput2.class) {
+    return (I)new HBaseMROutput2();
+  }
  else {
     throw new RuntimeException("Cannot adapt to " + engineInterface);
   }

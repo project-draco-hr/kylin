@@ -1,0 +1,3 @@
+MapContext<?,?,ByteArrayWritable,ByteArrayWritable> mapContext
+CubeDesc cubeDesc
+CubeSegment cubeSegment

@@ -1,0 +1,3 @@
+{
+  return WritableComparator.compareBytes(this.data,this.offset,this.length,that,0,that.length);
+}

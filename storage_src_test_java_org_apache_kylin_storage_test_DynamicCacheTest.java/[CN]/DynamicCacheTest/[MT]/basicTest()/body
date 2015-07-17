@@ -10,7 +10,7 @@
   final List<ITuple> allTuples=Lists.newArrayList(aTuple,bTuple);
   final AtomicInteger underlyingSEHitCount=new AtomicInteger(0);
   final List<Integer> returnedRowPerSearch=Lists.newArrayList();
-  CacheFledgedDynamicStorageEngine dynamicCache=new CacheFledgedDynamicStorageEngine(new ICachableStorageEngine(){
+  CacheFledgedDynamicStorageEngine dynamicCache=new CacheFledgedDynamicStorageEngine(new ICachableStorageQuery(){
     @Override public ITupleIterator search(    StorageContext context,    SQLDigest sqlDigest,    TupleInfo returnTupleInfo){
       Range<Long> tsRagneInQuery=TsConditionExtractor.extractTsCondition(partitionCol,sqlDigest.filter);
       List<ITuple> ret=Lists.newArrayList();

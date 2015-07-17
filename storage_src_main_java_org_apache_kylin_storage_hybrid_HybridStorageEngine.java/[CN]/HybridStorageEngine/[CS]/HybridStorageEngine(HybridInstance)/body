@@ -2,6 +2,6 @@
   this.realizations=hybridInstance.getRealizations();
   storageEngines=new IStorageQuery[realizations.length];
   for (int i=0; i < realizations.length; i++) {
-    storageEngines[i]=StorageEngineFactory.getStorageEngine(realizations[i]);
+    storageEngines[i]=StorageFactory.createQuery(realizations[i]);
   }
 }

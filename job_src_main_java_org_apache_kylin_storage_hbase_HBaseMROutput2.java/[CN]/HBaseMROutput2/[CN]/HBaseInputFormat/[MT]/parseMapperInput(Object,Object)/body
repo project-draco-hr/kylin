@@ -1,0 +1,14 @@
+{
+  ImmutableBytesWritable key=(ImmutableBytesWritable)inKey;
+  parsedKey.set(key.get(),key.getOffset(),key.getLength());
+  Result value=(Result)inValue;
+  int position=0;
+  for (int i=0; i < rowValueDecoders.length; i++) {
+    rowValueDecoders[i].decode(value,false);
+    Object[] measureValues=rowValueDecoders[i].getValues();
+    for (int j=0; j < measureValues.length; j++) {
+      parsedValue[position++]=measureValues[j];
+    }
+  }
+  return parsedPair;
+}
