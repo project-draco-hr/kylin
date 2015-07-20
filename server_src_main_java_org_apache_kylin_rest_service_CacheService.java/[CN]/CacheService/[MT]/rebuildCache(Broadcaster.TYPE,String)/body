@@ -12,6 +12,7 @@ cubeService.updateOnNewSegmentReady(cacheKey);
 break;
 case CUBE_DESC:
 getCubeDescManager().reloadCubeDescLocal(cacheKey);
+Cuboid.reloadCache(cacheKey);
 break;
 case PROJECT:
 ProjectInstance projectInstance=getProjectManager().reloadProjectLocal(cacheKey);
@@ -39,6 +40,7 @@ case ALL:
 MetadataManager.clearCache();
 CubeDescManager.clearCache();
 CubeManager.clearCache();
+Cuboid.clearCache();
 IIDescManager.clearCache();
 IIManager.clearCache();
 HybridManager.clearCache();
