@@ -1,4 +1,6 @@
 {
+  if (dicts.size() == 0)   return null;
+  if (dicts.size() == 1)   return dicts.get(0);
   DictionaryInfo firstDictInfo=null;
   int totalSize=0;
   for (  DictionaryInfo info : dicts) {

@@ -1,5 +1,5 @@
 {
   DictionaryInfo dictInfo=dictMgr.mergeDictionary(dicts);
-  cubeSeg.putDictResPath(col,dictInfo.getResourcePath());
+  if (dictInfo != null)   cubeSeg.putDictResPath(col,dictInfo.getResourcePath());
   return dictInfo;
 }
