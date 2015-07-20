@@ -1,4 +1,5 @@
 {
+  if (!exists())   throw new IllegalStateException("Table not exists :" + path);
   try {
     Pair<Long,Long> sizeAndLastModified=getSizeAndLastModified(path);
     return new TableSignature(path,sizeAndLastModified.getFirst(),sizeAndLastModified.getSecond());

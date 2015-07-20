@@ -19,7 +19,7 @@
     }
   }
  else   if (buildType == CubeBuildTypeEnum.MERGE) {
-    CubeSegment newSeg=getCubeManager().mergeSegments(cube,startDate,endDate);
+    CubeSegment newSeg=getCubeManager().mergeSegments(cube,startDate,endDate,forceMergeEmptySeg);
     job=builder.mergeJob(newSeg);
   }
  else   if (buildType == CubeBuildTypeEnum.REFRESH) {
