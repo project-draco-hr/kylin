@@ -20,7 +20,7 @@
   copyFilesInMetaStore(cube,overwriteIfExists);
   renameFoldersInHdfs(cube);
   changeHtableHost(cube);
-  addCubeIntoProject(cubeName,projectName);
+  addCubeIntoProject(cubeName,projectName,cube.getModelName());
   if (realExecute.equalsIgnoreCase("true")) {
     doOpts();
   }

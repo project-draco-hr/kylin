@@ -97,11 +97,13 @@ case ADD_INTO_PROJECT:
 {
 String cubeName=(String)opt.params[0];
 String projectName=(String)opt.params[1];
+String modelName=(String)opt.params[2];
 String projectResPath=ProjectInstance.concatResourcePath(projectName);
 Serializer<ProjectInstance> projectSerializer=new JsonSerializer<ProjectInstance>(ProjectInstance.class);
 ProjectInstance project=dstStore.getResource(projectResPath,ProjectInstance.class,projectSerializer);
 project.removeRealization(RealizationType.CUBE,cubeName);
 project.addRealizationEntry(RealizationType.CUBE,cubeName);
+if (project.getModels().contains(modelName) == false) project.getModels().add(modelName);
 dstStore.putResource(projectResPath,project,projectSerializer);
 logger.info("Project instance for " + projectName + " is corrected");
 break;

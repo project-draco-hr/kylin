@@ -9,5 +9,6 @@
   for (  CubeSegment segment : cube.getSegments()) {
     dictAndSnapshot.addAll(segment.getSnapshotPaths());
     dictAndSnapshot.addAll(segment.getDictionaryPaths());
+    metaResource.add(segment.getStatisticsResourcePath());
   }
 }
