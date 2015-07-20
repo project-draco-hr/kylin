@@ -101,7 +101,7 @@ String projectResPath=ProjectInstance.concatResourcePath(projectName);
 Serializer<ProjectInstance> projectSerializer=new JsonSerializer<ProjectInstance>(ProjectInstance.class);
 ProjectInstance project=dstStore.getResource(projectResPath,ProjectInstance.class,projectSerializer);
 project.removeRealization(RealizationType.CUBE,cubeName);
-project.removeRealization(RealizationType.CUBE,cubeName);
+project.addRealizationEntry(RealizationType.CUBE,cubeName);
 dstStore.putResource(projectResPath,project,projectSerializer);
 logger.info("Project instance for " + projectName + " is corrected");
 break;
