@@ -5,8 +5,7 @@
   Configuration conf=HBaseConfiguration.create(job.getConfiguration());
   HTable htable=new HTable(conf,htableName);
   HFileOutputFormat.configureIncrementalLoad(job,htable);
-  job.setReducerClass(cls);
-  job.setOutputKeyClass(ImmutableBytesWritable.class);
-  job.setOutputValueClass(KeyValue.class);
+  job.setReducerClass(reducer);
+  rewriteTotalOrderPartitionerFile(job);
   HadoopUtil.deletePath(job.getConfiguration(),hfilePath);
 }
