@@ -1,0 +1,3 @@
+{
+  return deserialize(new ByteArrayInputStream(dictBytes.array(),dictBytes.offset(),dictBytes.length()));
+}

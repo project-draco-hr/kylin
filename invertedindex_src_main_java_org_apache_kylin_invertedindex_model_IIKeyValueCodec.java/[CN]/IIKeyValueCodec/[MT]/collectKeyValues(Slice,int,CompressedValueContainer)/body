@@ -6,6 +6,7 @@
     return new IIRow(key,value,new ImmutableBytesWritable(BytesUtil.EMPTY_BYTE_ARRAY));
   }
  else {
-    return new IIRow(key,value,DictionarySerializer.serialize(dictionary));
+    ByteArray bytes=DictionarySerializer.serialize(dictionary);
+    return new IIRow(key,value,new ImmutableBytesWritable(bytes.array(),bytes.offset(),bytes.length()));
   }
 }
