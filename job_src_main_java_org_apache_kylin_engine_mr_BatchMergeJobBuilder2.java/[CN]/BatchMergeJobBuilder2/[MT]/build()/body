@@ -11,11 +11,11 @@
   }
   result.addTask(createMergeDictionaryStep(mergingSegmentIds));
   result.addTask(createMergeStatisticsStep(seg,mergingSegmentIds,getStatisticsPath(jobId)));
-  outputSide.addStepPhase2_BuildDictionary(result);
+  outputSide.addStepPhase1_MergeDictionary(result);
   String formattedTables=StringUtil.join(mergingHTables,",");
   result.addTask(createMergeCuboidDataFromStorageStep(formattedTables,jobId));
-  outputSide.addStepPhase3_BuildCube(result);
+  outputSide.addStepPhase2_BuildCube(result);
   result.addTask(createUpdateCubeInfoAfterMergeStep(mergingSegmentIds,jobId));
-  outputSide.addStepPhase4_Cleanup(result);
+  outputSide.addStepPhase3_Cleanup(result);
   return result;
 }
