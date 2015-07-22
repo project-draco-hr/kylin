@@ -12,6 +12,7 @@
     try {
       String statisticsFileName=newSegment.getStatisticsResourcePath();
       rs.putResource(statisticsFileName,is,System.currentTimeMillis());
+      fs.delete(statisticsFilePath,false);
     }
   finally {
       IOUtils.closeStream(is);
