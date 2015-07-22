@@ -1,0 +1,8 @@
+{
+  DoubleMutable d=current.get();
+  if (d == null) {
+    d=new DoubleMutable();
+    current.set(d);
+  }
+  return d;
+}

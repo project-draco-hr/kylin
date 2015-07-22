@@ -1,1 +1,1 @@
-FixedLenMeasureCodec<LongWritable>
+FixedLenMeasureCodec<LongMutable>

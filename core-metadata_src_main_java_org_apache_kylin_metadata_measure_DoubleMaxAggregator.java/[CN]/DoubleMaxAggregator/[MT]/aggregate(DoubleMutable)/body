@@ -1,0 +1,4 @@
+{
+  if (max == null)   max=new DoubleMutable(value.get());
+ else   if (max.get() < value.get())   max.set(value.get());
+}

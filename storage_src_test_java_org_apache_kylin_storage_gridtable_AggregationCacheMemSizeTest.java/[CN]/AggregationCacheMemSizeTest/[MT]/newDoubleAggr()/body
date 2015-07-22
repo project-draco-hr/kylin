@@ -1,5 +1,5 @@
 {
   DoubleSumAggregator aggr=new DoubleSumAggregator();
-  aggr.aggregate(new DoubleWritable(10));
+  aggr.aggregate(new DoubleMutable(10));
   return aggr;
 }

@@ -1,8 +1,0 @@
-{
-  LongWritable l=current.get();
-  if (l == null) {
-    l=new LongWritable();
-    current.set(l);
-  }
-  return l;
-}

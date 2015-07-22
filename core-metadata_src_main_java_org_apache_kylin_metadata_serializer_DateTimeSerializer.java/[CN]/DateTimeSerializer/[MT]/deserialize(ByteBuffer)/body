@@ -1,5 +1,0 @@
-{
-  LongWritable l=current();
-  l.set(in.getLong());
-  return l;
-}

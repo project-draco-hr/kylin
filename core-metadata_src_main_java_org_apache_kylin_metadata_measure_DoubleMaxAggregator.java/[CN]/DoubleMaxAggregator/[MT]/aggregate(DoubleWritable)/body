@@ -1,4 +1,0 @@
-{
-  if (max == null)   max=new DoubleWritable(value.get());
- else   if (max.get() < value.get())   max.set(value.get());
-}

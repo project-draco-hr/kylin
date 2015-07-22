@@ -1,0 +1,5 @@
+{
+  DoubleMutable d=current();
+  d.set(in.getDouble());
+  return d;
+}

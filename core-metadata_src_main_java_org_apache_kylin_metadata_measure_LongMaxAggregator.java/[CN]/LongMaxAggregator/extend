@@ -1,1 +1,1 @@
-MeasureAggregator<LongWritable>
+MeasureAggregator<LongMutable>

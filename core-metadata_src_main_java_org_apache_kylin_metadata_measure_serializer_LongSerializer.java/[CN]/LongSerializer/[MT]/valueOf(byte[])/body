@@ -1,0 +1,6 @@
+{
+  LongMutable l=current();
+  if (value == null)   l.set(0L);
+ else   l.set(Long.parseLong(Bytes.toString(value)));
+  return l;
+}
