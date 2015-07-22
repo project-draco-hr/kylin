@@ -5,7 +5,7 @@
     Object[] v=r.getValues();
     assertTrue(((String)v[0]).startsWith("2015-"));
     assertTrue(((String)v[2]).equals("Food"));
-    assertTrue(((LongWritable)v[3]).get() == 10);
+    assertTrue(((LongMutable)v[3]).get() == 10);
     assertTrue(((BigDecimal)v[4]).doubleValue() == 10.5);
     System.out.println(r);
   }

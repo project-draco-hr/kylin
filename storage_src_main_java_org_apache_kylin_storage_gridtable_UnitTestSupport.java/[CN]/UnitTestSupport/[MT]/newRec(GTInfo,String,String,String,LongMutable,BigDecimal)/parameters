@@ -2,5 +2,5 @@ GTInfo info
 String date
 String name
 String category
-LongWritable amount
+LongMutable amount
 BigDecimal price

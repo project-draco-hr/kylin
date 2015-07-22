@@ -6,19 +6,19 @@
     Object[] v=r.getValues();
 switch (i) {
 case 0:
-      assertTrue(((LongWritable)v[3]).get() == 20);
+      assertTrue(((LongMutable)v[3]).get() == 20);
     assertTrue(((BigDecimal)v[4]).doubleValue() == 21.0);
   break;
 case 1:
-assertTrue(((LongWritable)v[3]).get() == 30);
+assertTrue(((LongMutable)v[3]).get() == 30);
 assertTrue(((BigDecimal)v[4]).doubleValue() == 31.5);
 break;
 case 2:
-assertTrue(((LongWritable)v[3]).get() == 40);
+assertTrue(((LongMutable)v[3]).get() == 40);
 assertTrue(((BigDecimal)v[4]).doubleValue() == 42.0);
 break;
 case 3:
-assertTrue(((LongWritable)v[3]).get() == 10);
+assertTrue(((LongMutable)v[3]).get() == 10);
 assertTrue(((BigDecimal)v[4]).doubleValue() == 10.5);
 break;
 default :

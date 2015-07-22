@@ -1,0 +1,8 @@
+{
+  for (int i=0; i < mapredObjs.length; i++) {
+    Object o=mapredObjs[i];
+    if (o instanceof LongMutable)     o=((LongMutable)o).get();
+ else     if (o instanceof DoubleMutable)     o=((DoubleMutable)o).get();
+    results[i]=o;
+  }
+}

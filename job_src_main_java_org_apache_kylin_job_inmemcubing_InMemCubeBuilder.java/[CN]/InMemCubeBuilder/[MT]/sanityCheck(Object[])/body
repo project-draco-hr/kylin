@@ -1,7 +1,7 @@
 {
   for (int i=0; i < totalSum.length; i++) {
-    if (totalSum[i] instanceof DoubleWritable) {
-      totalSum[i]=Math.round(((DoubleWritable)totalSum[i]).get());
+    if (totalSum[i] instanceof DoubleMutable) {
+      totalSum[i]=Math.round(((DoubleMutable)totalSum[i]).get());
     }
   }
   if (totalSumForSanityCheck == null) {

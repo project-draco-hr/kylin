@@ -1,7 +1,5 @@
 {
-  if (o instanceof LongWritable)   o=((LongWritable)o).get();
- else   if (o instanceof IntWritable)   o=((IntWritable)o).get();
- else   if (o instanceof DoubleWritable)   o=((DoubleWritable)o).get();
- else   if (o instanceof FloatWritable)   o=((FloatWritable)o).get();
+  if (o instanceof LongMutable)   o=((LongMutable)o).get();
+ else   if (o instanceof DoubleMutable)   o=((DoubleMutable)o).get();
   return o;
 }

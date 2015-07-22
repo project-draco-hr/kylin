@@ -18,8 +18,8 @@
   long sumTotal=0;
   long minTotal=0;
   for (  Map.Entry<AggrKey,MeasureAggregator[]> entry : aggCache.getAllEntries()) {
-    sumTotal+=((LongWritable)entry.getValue()[0].getState()).get();
-    minTotal+=((LongWritable)entry.getValue()[1].getState()).get();
+    sumTotal+=((LongMutable)entry.getValue()[0].getState()).get();
+    minTotal+=((LongMutable)entry.getValue()[1].getState()).get();
   }
   assertEquals(3020800,sumTotal);
   assertEquals(1020900,minTotal);
