@@ -5,11 +5,16 @@
     options.addOption(OPTION_SEGMENT_NAME);
     options.addOption(OPTION_INPUT_PATH);
     parseOptions(options,args);
-    String cubeName=getOptionValue(OPTION_CUBE_NAME);
-    String segmentName=getOptionValue(OPTION_SEGMENT_NAME);
-    String factColumnsInputPath=getOptionValue(OPTION_INPUT_PATH);
+    final String cubeName=getOptionValue(OPTION_CUBE_NAME);
+    final String segmentName=getOptionValue(OPTION_SEGMENT_NAME);
+    final String factColumnsInputPath=getOptionValue(OPTION_INPUT_PATH);
     KylinConfig config=KylinConfig.getInstanceFromEnv();
-    DictionaryGeneratorCLI.processSegment(config,cubeName,segmentName,factColumnsInputPath);
+    DictionaryGeneratorCLI.processSegment(config,cubeName,segmentName,new DistinctColumnValuesProvider(){
+      @Override public ReadableTable getDistinctValuesFor(      TblColRef col){
+        return new DFSFileTable(factColumnsInputPath + "/" + col.getName(),-1);
+      }
+    }
+);
   }
  catch (  Exception e) {
     printUsage(options);

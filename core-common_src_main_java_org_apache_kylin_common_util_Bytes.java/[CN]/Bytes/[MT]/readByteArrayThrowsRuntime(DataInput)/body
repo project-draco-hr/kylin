@@ -1,8 +1,0 @@
-{
-  try {
-    return readByteArray(in);
-  }
- catch (  Exception e) {
-    throw new RuntimeException(e);
-  }
-}

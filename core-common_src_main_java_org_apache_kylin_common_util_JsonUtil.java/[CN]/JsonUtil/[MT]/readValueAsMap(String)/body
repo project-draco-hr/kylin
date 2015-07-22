@@ -1,0 +1,6 @@
+{
+  TypeReference<HashMap<String,String>> typeRef=new TypeReference<HashMap<String,String>>(){
+  }
+;
+  return mapper.readValue(content,typeRef);
+}

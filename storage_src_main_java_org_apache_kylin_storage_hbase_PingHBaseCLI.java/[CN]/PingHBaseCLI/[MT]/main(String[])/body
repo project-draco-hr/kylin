@@ -2,7 +2,7 @@
   String metadataUrl=args[0];
   String hbaseTable=args[1];
   System.out.println("Hello friend.");
-  Configuration hconf=HadoopUtil.newHBaseConfiguration(metadataUrl);
+  Configuration hconf=HBaseConnection.newHBaseConfiguration(metadataUrl);
   if (User.isHBaseSecurityEnabled(hconf)) {
     try {
       System.out.println("--------------Getting kerberos credential for user " + UserGroupInformation.getCurrentUser().getUserName());

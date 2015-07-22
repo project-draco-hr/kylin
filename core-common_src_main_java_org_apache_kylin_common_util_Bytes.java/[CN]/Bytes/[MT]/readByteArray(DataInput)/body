@@ -1,9 +1,0 @@
-{
-  int len=WritableUtils.readVInt(in);
-  if (len < 0) {
-    throw new NegativeArraySizeException(Integer.toString(len));
-  }
-  byte[] result=new byte[len];
-  in.readFully(result,0,len);
-  return result;
-}

@@ -1,5 +1,5 @@
 {
   IICreateHTableJob job=new IICreateHTableJob();
-  job.setConf(HadoopUtil.newHBaseConfiguration(KylinConfig.getInstanceFromEnv().getStorageUrl()));
+  job.setConf(HBaseConnection.newHBaseConfiguration(KylinConfig.getInstanceFromEnv().getStorageUrl()));
   ToolRunner.run(job,args);
 }

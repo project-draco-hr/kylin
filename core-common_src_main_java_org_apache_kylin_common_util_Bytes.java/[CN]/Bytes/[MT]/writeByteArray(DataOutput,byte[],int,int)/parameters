@@ -1,4 +1,0 @@
-DataOutput out
-byte[] b
-int offset
-int length

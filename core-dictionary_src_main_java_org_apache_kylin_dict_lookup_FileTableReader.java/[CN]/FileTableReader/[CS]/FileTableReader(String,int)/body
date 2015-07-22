@@ -1,3 +1,0 @@
-{
-  this(filePath,FileTable.DELIM_AUTO,expectedColumnNumber);
-}

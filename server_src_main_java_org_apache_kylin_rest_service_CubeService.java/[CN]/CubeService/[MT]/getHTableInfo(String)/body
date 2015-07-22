@@ -3,7 +3,7 @@
     return htableInfoCache.get(tableName);
   }
   String hbaseUrl=KylinConfig.getInstanceFromEnv().getStorageUrl();
-  Configuration hconf=HadoopUtil.newHBaseConfiguration(hbaseUrl);
+  Configuration hconf=HBaseConnection.newHBaseConfiguration(hbaseUrl);
   HTable table=null;
   HBaseResponse hr=null;
   long tableSize=0;

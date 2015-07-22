@@ -1,0 +1,19 @@
+{
+  logger.info("building dictionary for " + col);
+  Object[] tmp=decideSourceData(model,dict,col,factTableValueProvider);
+  String srcTable=(String)tmp[0];
+  String srcCol=(String)tmp[1];
+  int srcColIdx=(Integer)tmp[2];
+  ReadableTable inpTable=(ReadableTable)tmp[3];
+  TableSignature inputSig=inpTable.getSignature();
+  if (inputSig == null)   return null;
+  DictionaryInfo dictInfo=new DictionaryInfo(srcTable,srcCol,srcColIdx,col.getDatatype(),inputSig);
+  String dupDict=checkDupByInfo(dictInfo);
+  if (dupDict != null) {
+    logger.info("Identical dictionary input " + dictInfo.getInput() + ", reuse existing dictionary at "+ dupDict);
+    return getDictionaryInfo(dupDict);
+  }
+  Dictionary<?> dictionary=DictionaryGenerator.buildDictionary(dictInfo,inpTable);
+  dictInfo.setCardinality(dictionary.getSize());
+  return trySaveNewDict(dictionary,dictInfo);
+}

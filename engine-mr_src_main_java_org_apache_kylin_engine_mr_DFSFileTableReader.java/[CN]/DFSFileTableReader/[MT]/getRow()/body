@@ -1,0 +1,8 @@
+{
+  if (curColumns == null) {
+    if (DFSFileTable.DELIM_AUTO.equals(delim))     delim=autoDetectDelim(curLine);
+    if (delim == null)     curColumns=new String[]{curLine};
+ else     curColumns=split(curLine,delim);
+  }
+  return curColumns;
+}

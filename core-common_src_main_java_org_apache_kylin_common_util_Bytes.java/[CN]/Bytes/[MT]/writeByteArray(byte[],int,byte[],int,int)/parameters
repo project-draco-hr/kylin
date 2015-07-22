@@ -1,5 +1,0 @@
-byte[] tgt
-int tgtOffset
-byte[] src
-int srcOffset
-int srcLength

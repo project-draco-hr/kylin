@@ -1,0 +1,28 @@
+{
+  Configuration conf=ConfigCache.get(url);
+  if (conf == null) {
+    conf=newHBaseConfiguration(url);
+    ConfigCache.put(url,conf);
+  }
+  HConnection connection=ConnPool.get(url);
+  try {
+    while (true) {
+      if (connection == null || connection.isClosed()) {
+        logger.info("connection is null or closed, creating a new one");
+        connection=HConnectionManager.createConnection(conf);
+        ConnPool.put(url,connection);
+      }
+      if (connection == null || connection.isClosed()) {
+        Thread.sleep(10000);
+      }
+ else {
+        break;
+      }
+    }
+  }
+ catch (  Throwable t) {
+    logger.error("Error when open connection " + url,t);
+    throw new StorageException("Error when open connection " + url,t);
+  }
+  return connection;
+}

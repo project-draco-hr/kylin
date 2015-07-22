@@ -1,6 +1,6 @@
 {
   List<byte[]> result=Lists.newArrayList();
-  FileTableReader reader=new FileTableReader(flatTable,nColumns);
+  DFSFileTableReader reader=new DFSFileTableReader(flatTable,nColumns);
   while (reader.next()) {
     String[] row=reader.getRow();
     if (row[c] != null) {

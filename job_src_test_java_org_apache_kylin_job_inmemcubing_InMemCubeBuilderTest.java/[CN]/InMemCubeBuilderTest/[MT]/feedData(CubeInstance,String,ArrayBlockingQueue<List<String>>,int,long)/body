@@ -3,7 +3,7 @@
   int nColumns=flatTableDesc.getColumnList().size();
   @SuppressWarnings("unchecked") Set<String>[] distinctSets=new Set[nColumns];
   for (int i=0; i < nColumns; i++)   distinctSets[i]=new TreeSet<String>();
-  FileTableReader reader=new FileTableReader(flatTable,nColumns);
+  DFSFileTableReader reader=new DFSFileTableReader(flatTable,nColumns);
   while (count > 0 && reader.next()) {
     String[] row=reader.getRow();
     for (int i=0; i < nColumns; i++)     distinctSets[i].add(row[i]);

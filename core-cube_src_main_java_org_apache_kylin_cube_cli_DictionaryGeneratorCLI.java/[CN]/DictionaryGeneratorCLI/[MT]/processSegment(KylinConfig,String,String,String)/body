@@ -1,5 +1,0 @@
-{
-  CubeInstance cube=CubeManager.getInstance(config).getCube(cubeName);
-  CubeSegment segment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
-  processSegment(config,segment,factColumnsPath);
-}
