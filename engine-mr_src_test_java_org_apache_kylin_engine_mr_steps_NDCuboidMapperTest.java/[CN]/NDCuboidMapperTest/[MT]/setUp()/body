@@ -1,7 +1,7 @@
 {
   createTestMetadata();
-  FileUtils.deleteDirectory(new File("../job/meta"));
-  FileUtils.copyDirectory(new File(getTestConfig().getMetadataUrl()),new File("../job/meta"));
+  FileUtils.deleteDirectory(new File("./meta"));
+  FileUtils.copyDirectory(new File(getTestConfig().getMetadataUrl()),new File("./meta"));
   NDCuboidMapper mapper=new NDCuboidMapper();
   CuboidReducer reducer=new CuboidReducer();
   mapReduceDriver=MapReduceDriver.newMapReduceDriver(mapper,reducer);

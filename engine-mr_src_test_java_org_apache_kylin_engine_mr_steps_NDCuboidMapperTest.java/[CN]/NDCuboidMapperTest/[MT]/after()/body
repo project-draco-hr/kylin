@@ -1,4 +1,4 @@
 {
   cleanupTestMetadata();
-  FileUtils.deleteDirectory(new File("../job/meta"));
+  FileUtils.deleteDirectory(new File("./meta"));
 }
