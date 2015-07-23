@@ -1,6 +1,11 @@
 {
   List<Long> children=cuboidScheduler.getSpanningCuboid(parent.cuboidId);
-  for (  Long child : children) {
-    taskPending.add(new CuboidTask(parent,child));
+  if (!children.isEmpty()) {
+synchronized (taskPending) {
+      for (      Long child : children) {
+        taskPending.add(new CuboidTask(parent,child));
+      }
+      taskPending.notifyAll();
+    }
   }
 }

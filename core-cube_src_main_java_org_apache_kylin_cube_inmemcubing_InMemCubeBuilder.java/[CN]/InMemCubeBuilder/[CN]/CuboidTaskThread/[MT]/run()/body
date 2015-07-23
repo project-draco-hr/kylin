@@ -2,8 +2,11 @@
   try {
     while (!isAllCuboidDone()) {
       CuboidTask task=null;
-      while (task == null && taskHasNoException()) {
-        task=taskPending.poll(15,TimeUnit.SECONDS);
+synchronized (taskPending) {
+        while (task == null && taskHasNoException()) {
+          task=taskPending.pollFirst();
+          if (task == null)           taskPending.wait(60000);
+        }
       }
       if (task == null)       break;
       CuboidResult newCuboid=buildCuboid(task.parent,task.childCuboidId);
