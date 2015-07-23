@@ -1,6 +1,6 @@
 {
   if (rawRecord.isMetric(col)) {
-    LongWritable v=rawRecord.codec(col).valueOf(value);
+    LongMutable v=rawRecord.codec(col).valueOf(value);
     setValueMetrics(col,v);
   }
  else {
