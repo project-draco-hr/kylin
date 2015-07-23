@@ -3,7 +3,7 @@
   List<Throwable> es=new ArrayList<Throwable>();
   if (r == null) {
     logger.info("Using metadata url " + kylinConfig.getMetadataUrl() + " for resource store");
-    for (    Class<? extends ResourceStore> cls : knownImpl) {
+    for (    Class<? extends ResourceStore> cls : getKnownImpl()) {
       try {
         r=cls.getConstructor(KylinConfig.class).newInstance(kylinConfig);
       }
