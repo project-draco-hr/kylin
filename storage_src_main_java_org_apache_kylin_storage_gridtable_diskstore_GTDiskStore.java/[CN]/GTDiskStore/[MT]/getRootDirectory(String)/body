@@ -1,3 +1,0 @@
-{
-  return "/tmp/kylin_gtdiskstore_" + identifier;
-}

@@ -1,9 +1,0 @@
-{
-  try {
-    return fileSystem.open(new Path(path));
-  }
- catch (  IOException e) {
-    logger.error("error getReader, path:" + path,e);
-    throw new RuntimeException(e);
-  }
-}

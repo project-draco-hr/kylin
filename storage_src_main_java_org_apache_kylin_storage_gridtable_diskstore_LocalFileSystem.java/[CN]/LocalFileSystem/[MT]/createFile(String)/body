@@ -1,9 +1,0 @@
-{
-  try {
-    return new File(path).createNewFile();
-  }
- catch (  IOException e) {
-    logger.warn("create file failed:" + path,e);
-    return false;
-  }
-}

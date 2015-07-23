@@ -1,7 +1,0 @@
-{
-  final IGTStoreScanner scanner=input.scan(null,null,null,null);
-  final IGTStoreWriter writer=output.rebuild(-1);
-  while (scanner.hasNext()) {
-    writer.write(scanner.next());
-  }
-}

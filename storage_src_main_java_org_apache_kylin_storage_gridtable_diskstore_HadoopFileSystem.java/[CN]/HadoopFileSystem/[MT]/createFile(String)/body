@@ -1,9 +1,0 @@
-{
-  try {
-    return fileSystem.createNewFile(new Path(path));
-  }
- catch (  IOException e) {
-    logger.error("error createFile, path:" + path,e);
-    throw new RuntimeException(e);
-  }
-}

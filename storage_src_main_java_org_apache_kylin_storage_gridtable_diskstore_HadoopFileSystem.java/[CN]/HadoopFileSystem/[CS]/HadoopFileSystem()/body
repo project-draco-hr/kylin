@@ -1,9 +1,0 @@
-{
-  try {
-    fileSystem=org.apache.hadoop.fs.FileSystem.get(HadoopUtil.getCurrentConfiguration());
-  }
- catch (  IOException e) {
-    logger.error("error construct HadoopFileSystem",e);
-    throw new RuntimeException(e);
-  }
-}

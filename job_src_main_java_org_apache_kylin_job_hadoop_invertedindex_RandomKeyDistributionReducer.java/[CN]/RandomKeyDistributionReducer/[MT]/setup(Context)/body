@@ -1,6 +1,0 @@
-{
-  super.bindCurrentConfiguration(context.getConfiguration());
-  conf=context.getConfiguration();
-  allSplits=new ArrayList<KEY>();
-  regionNumber=Integer.parseInt(context.getConfiguration().get(BatchConstants.REGION_NUMBER));
-}

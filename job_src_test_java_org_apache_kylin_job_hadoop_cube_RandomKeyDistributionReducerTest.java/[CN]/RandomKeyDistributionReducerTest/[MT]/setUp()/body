@@ -1,4 +1,0 @@
-{
-  RandomKeyDistributionReducer reducer=new RandomKeyDistributionReducer();
-  reduceDriver=ReduceDriver.newReduceDriver(reducer);
-}

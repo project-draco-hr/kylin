@@ -1,9 +1,0 @@
-{
-  try {
-    fileSystem.deleteOnExit(new Path(path));
-  }
- catch (  IOException e) {
-    logger.error("error deleteOnExit, path:" + path,e);
-    throw new RuntimeException(e);
-  }
-}

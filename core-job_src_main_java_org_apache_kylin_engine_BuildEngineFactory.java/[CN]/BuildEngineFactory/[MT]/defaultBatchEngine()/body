@@ -1,0 +1,12 @@
+{
+  if (defaultBatchEngine == null) {
+    KylinConfig conf=KylinConfig.getInstanceFromEnv();
+    if (conf.isCubingInMem()) {
+      defaultBatchEngine=(IBatchCubingEngine)ClassUtil.newInstance("org.apache.kylin.engine.mr.MRBatchCubingEngine2");
+    }
+ else {
+      defaultBatchEngine=(IBatchCubingEngine)ClassUtil.newInstance("org.apache.kylin.engine.mr.MRBatchCubingEngine");
+    }
+  }
+  return defaultBatchEngine;
+}

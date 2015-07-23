@@ -1,4 +1,0 @@
-{
-  RandomKeyDistributionMapper mapper=new RandomKeyDistributionMapper();
-  mapDriver=MapDriver.newMapDriver(mapper);
-}

@@ -8,7 +8,7 @@
     if (i > 0) {
       ddl.append(",");
     }
-    ddl.append(col.getName() + " " + SqlHiveDataTypeMapping.getHiveDataType((col.getDatatype()))+ "\n");
+    ddl.append(col.getName() + " " + getHiveDataType((col.getDatatype()))+ "\n");
   }
   ddl.append(")" + "\n");
   ddl.append("ROW FORMAT DELIMITED FIELDS TERMINATED BY ','" + "\n");

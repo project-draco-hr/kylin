@@ -1,3 +1,0 @@
-{
-  return getCurrent().scan(pkStart,pkEnd,selectedColBlocks,additionalPushDown);
-}

@@ -1,3 +1,0 @@
-{
-  this.inputStream=new DataInputStream(inputStream);
-}

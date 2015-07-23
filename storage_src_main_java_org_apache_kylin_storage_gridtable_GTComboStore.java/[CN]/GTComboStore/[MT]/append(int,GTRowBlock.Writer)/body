@@ -1,3 +1,0 @@
-{
-  return getCurrent().append(shard,fillLast);
-}

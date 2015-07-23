@@ -1,6 +1,0 @@
-{
-  final int blockSize=block.exportLength();
-  outputStream.writeInt(blockSize);
-  block.export(outputStream);
-  outputStream.flush();
-}

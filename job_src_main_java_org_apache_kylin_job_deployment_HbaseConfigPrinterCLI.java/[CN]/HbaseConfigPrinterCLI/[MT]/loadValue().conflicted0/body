@@ -1,4 +1,3 @@
 {
-  Configuration conf=HBaseConfiguration.create();
-  return conf.get(HConstants.ZOOKEEPER_CLIENT_PORT);
+  return System.getenv("LD_LIBRARY_PATH");
 }

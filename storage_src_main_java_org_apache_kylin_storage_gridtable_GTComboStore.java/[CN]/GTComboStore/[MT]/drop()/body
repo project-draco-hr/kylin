@@ -1,8 +1,0 @@
-{
-  if (gtSimpleMemStore != null) {
-    gtSimpleMemStore.drop();
-  }
-  if (gtDiskStore != null) {
-    gtDiskStore.drop();
-  }
-}

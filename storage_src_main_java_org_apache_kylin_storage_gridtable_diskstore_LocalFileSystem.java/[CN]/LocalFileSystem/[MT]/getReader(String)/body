@@ -1,9 +1,0 @@
-{
-  try {
-    return new FileInputStream(path);
-  }
- catch (  FileNotFoundException e) {
-    logger.error("path:" + path + " out found");
-    throw new RuntimeException(e);
-  }
-}

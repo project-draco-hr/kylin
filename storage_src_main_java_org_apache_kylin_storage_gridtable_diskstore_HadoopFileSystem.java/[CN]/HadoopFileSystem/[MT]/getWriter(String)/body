@@ -1,9 +1,0 @@
-{
-  try {
-    return fileSystem.create(new Path(path));
-  }
- catch (  IOException e) {
-    logger.error("error getWriter, path:" + path,e);
-    throw new RuntimeException(e);
-  }
-}

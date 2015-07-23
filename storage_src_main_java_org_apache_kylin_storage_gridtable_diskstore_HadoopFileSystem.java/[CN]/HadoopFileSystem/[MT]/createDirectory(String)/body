@@ -1,9 +1,0 @@
-{
-  try {
-    return fileSystem.mkdirs(new Path(path));
-  }
- catch (  IOException e) {
-    logger.error("error createDirectory, path:" + path,e);
-    throw new RuntimeException(e);
-  }
-}

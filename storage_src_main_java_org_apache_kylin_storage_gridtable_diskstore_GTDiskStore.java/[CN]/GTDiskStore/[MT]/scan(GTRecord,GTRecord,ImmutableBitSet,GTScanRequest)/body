@@ -1,3 +1,0 @@
-{
-  return new DiskStoreScanner(fileSystem.getReader(getRowBlockFile(identifier)));
-}

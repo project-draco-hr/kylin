@@ -1,9 +1,0 @@
-{
-  try {
-    return fileSystem.exists(new Path(path));
-  }
- catch (  IOException e) {
-    logger.error("error checkExistence, path:" + path,e);
-    throw new RuntimeException(e);
-  }
-}

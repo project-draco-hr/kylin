@@ -1,5 +1,0 @@
-{
-  KEY keyCopy=(KEY)ReflectionUtils.newInstance(key.getClass(),conf);
-  ReflectionUtils.copy(conf,key,keyCopy);
-  allSplits.add(keyCopy);
-}
