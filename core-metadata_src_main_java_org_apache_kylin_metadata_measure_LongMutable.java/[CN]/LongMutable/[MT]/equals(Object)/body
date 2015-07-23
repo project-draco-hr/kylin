@@ -1,0 +1,7 @@
+{
+  if (!(o instanceof LongMutable)) {
+    return false;
+  }
+  LongMutable other=(LongMutable)o;
+  return this.v == other.v;
+}
