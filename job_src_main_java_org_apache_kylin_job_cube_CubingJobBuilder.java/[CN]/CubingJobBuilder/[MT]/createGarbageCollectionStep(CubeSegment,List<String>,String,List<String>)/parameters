@@ -1,0 +1,4 @@
+CubeSegment seg
+List<String> oldHtables
+String hiveIntermediateTable
+List<String> oldHdsfPaths

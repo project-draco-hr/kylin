@@ -1,0 +1,4 @@
+{
+  super();
+  output=new StringBuffer();
+}
