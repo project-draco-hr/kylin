@@ -14,7 +14,7 @@
   for (int i=0; i < columns.size(); i++) {
     TblColRef col=columns.get(i);
     if (!rowKey.isUseDictionary(col))     continue;
-    String scanTable=(String)dictMgr.decideSourceData(cubeDesc.getModel(),cubeDesc.getRowkey().getDictionary(col),col,null)[0];
+    String scanTable=dictMgr.decideSourceData(cubeDesc.getModel(),cubeDesc.getRowkey().getDictionary(col),col).getTable();
     if (cubeDesc.getModel().isFactTable(scanTable)) {
       factDictCols.add(i);
     }
