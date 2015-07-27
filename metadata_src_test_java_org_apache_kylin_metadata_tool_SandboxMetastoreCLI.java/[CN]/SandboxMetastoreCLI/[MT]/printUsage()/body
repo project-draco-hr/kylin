@@ -1,0 +1,4 @@
+{
+  logger.info("Usage: SandboxMetastoreCLI download toFolder");
+  logger.info("Usage: SandboxMetastoreCLI upload   fromFolder");
+}
