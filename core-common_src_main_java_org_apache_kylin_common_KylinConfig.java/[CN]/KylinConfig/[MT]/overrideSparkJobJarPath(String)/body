@@ -1,0 +1,4 @@
+{
+  logger.info("override " + KYLIN_JOB_JAR_SPARK + " to "+ path);
+  System.setProperty(KYLIN_JOB_JAR_SPARK,path);
+}

@@ -1,0 +1,10 @@
+{
+  final CubingJob result=CubingJob.createBuildJob(seg,submitter,config);
+  final String jobId=result.getId();
+  final String tableName="kylin_intermediate_test_kylin_cube_with_slr_left_join_desc_19700101000000_20501112000000";
+  final SparkExecutable sparkExecutable=new SparkExecutable();
+  sparkExecutable.setClassName(SparkCubing.class.getName());
+  sparkExecutable.setParam("hiveTable",tableName);
+  result.addTask(sparkExecutable);
+  return result;
+}

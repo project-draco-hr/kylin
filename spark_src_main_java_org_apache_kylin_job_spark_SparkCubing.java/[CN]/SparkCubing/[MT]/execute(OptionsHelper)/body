@@ -1,0 +1,8 @@
+{
+  final String hiveTable=optionsHelper.getOptionValue(OPTION_INPUT_PATH);
+  SparkConf conf=new SparkConf().setAppName("Simple Application");
+  JavaSparkContext sc=new JavaSparkContext(conf);
+  HiveContext sqlContext=new HiveContext(sc.sc());
+  final DataFrame dataFrame=sqlContext.sql("select * from " + hiveTable);
+  System.out.println("total record count:" + dataFrame.count());
+}

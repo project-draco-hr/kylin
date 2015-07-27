@@ -1,0 +1,10 @@
+{
+  try {
+    MavenXpp3Reader pomReader=new MavenXpp3Reader();
+    Model model=pomReader.read(new FileReader("../pom.xml"));
+    return model.getVersion();
+  }
+ catch (  Exception e) {
+    throw new RuntimeException(e.getMessage(),e);
+  }
+}

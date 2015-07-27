@@ -1,7 +1,6 @@
 {
-  Pair<File,File> files=getJobJarFiles();
-  File originalJobJar=files.getFirst();
-  File originalCoprocessorJar=files.getSecond();
+  File originalJobJar=getJobJarFile();
+  File originalCoprocessorJar=getCoprocessorJarFile();
   String jobJarPath=config().getKylinJobJarPath();
   if (StringUtils.isEmpty(jobJarPath)) {
     throw new RuntimeException("deployJobJars cannot find job jar");

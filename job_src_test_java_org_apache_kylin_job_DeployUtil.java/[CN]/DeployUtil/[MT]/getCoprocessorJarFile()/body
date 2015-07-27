@@ -1,0 +1,3 @@
+{
+  return new File("../storage/target","kylin-storage-" + getPomVersion() + "-coprocessor.jar");
+}

@@ -1,0 +1,8 @@
+{
+  final CubeSegment segment=createSegment();
+  System.out.println(segment.getName());
+  final DefaultChainedExecutable cubingJob=new SparkBatchCubingEngine().createBatchCubingJob(segment,"BuildCubeWithSpark");
+  jobService.addJob(cubingJob);
+  waitForJob(cubingJob.getId());
+  assertEquals(ExecutableState.SUCCEED,jobService.getOutput(cubingJob.getId()).getState());
+}

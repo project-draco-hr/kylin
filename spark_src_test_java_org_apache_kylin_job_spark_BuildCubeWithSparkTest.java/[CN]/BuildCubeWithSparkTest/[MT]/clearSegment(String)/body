@@ -1,0 +1,6 @@
+{
+  CubeInstance cube=cubeManager.getCube(cubeName);
+  CubeUpdate cubeBuilder=new CubeUpdate(cube);
+  cubeBuilder.setToRemoveSegs(cube.getSegments().toArray(new CubeSegment[cube.getSegments().size()]));
+  cubeManager.updateCube(cubeBuilder);
+}
