@@ -13,6 +13,7 @@
   List<String> mergingSegmentIds=Lists.newArrayList();
   List<String> mergingCuboidPaths=Lists.newArrayList();
   List<String> mergingHTables=Lists.newArrayList();
+  List<String> toDeletePaths=Lists.newArrayList();
   for (  CubeSegment merging : mergingSegments) {
     mergingSegmentIds.add(merging.getUuid());
     mergingHTables.add(merging.getStorageLocationIdentifier());
@@ -22,10 +23,11 @@
  else {
       mergingCuboidPaths.add(getPathToMerge(merging));
     }
+    toDeletePaths.add(getJobWorkingDir(merging.getLastBuildJobID()));
   }
   addMergeSteps(mergeSegment,mergingSegmentIds,mergingCuboidPaths,mergedRootPath,result);
   AbstractExecutable convertCuboidToHfileStep=addHTableSteps(mergeSegment,mergedRootPath,result);
   result.addTask(createUpdateCubeInfoAfterMergeStep(mergeSegment,mergingSegmentIds,convertCuboidToHfileStep.getId(),jobId));
-  result.addTask(createGarbageCollectionStep(mergeSegment,mergingHTables,null,mergingCuboidPaths));
+  result.addTask(createGarbageCollectionStep(mergeSegment,mergingHTables,null,toDeletePaths));
   return result;
 }

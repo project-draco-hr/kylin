@@ -5,6 +5,6 @@
     final String dropHiveCMD="hive -e \"" + dropSQL + "\"";
     ShellCmdOutput shellCmdOutput=new ShellCmdOutput();
     context.getConfig().getCliCommandExecutor().execute(dropHiveCMD,shellCmdOutput);
-    output.append("Hive table " + hiveTable + " is dropped. \n");
+    output.append("Dropped Hive table " + hiveTable + " \n");
   }
 }

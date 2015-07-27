@@ -15,12 +15,12 @@
               admin.disableTable(table);
             }
             admin.deleteTable(table);
-            logger.debug("Dropped htable: " + table);
-            output.append("HBase table " + table + " is dropped. \n");
+            logger.debug("Dropped HBase table " + table);
+            output.append("Dropped HBase table " + table + " \n");
           }
  else {
-            logger.debug("Skip htable: " + table);
-            output.append("Skip htable: " + table + ". \n");
+            logger.debug("Skipped HBase table " + table);
+            output.append("Skipped HBase table " + table + " \n");
           }
         }
       }

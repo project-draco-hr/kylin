@@ -8,12 +8,12 @@
       Path oldPath=new Path(path);
       if (fileSystem.exists(oldPath)) {
         fileSystem.delete(oldPath,true);
-        logger.debug("Deleted path: " + path);
-        output.append("Deleted path:  " + path + " \n");
+        logger.debug("Dropped HDFS path: " + path);
+        output.append("Dropped HDFS path  \"" + path + "\" \n");
       }
  else {
-        logger.debug("Path not exists: " + path);
-        output.append("Path not exists: " + path + " \n");
+        logger.debug("HDFS path not exists: " + path);
+        output.append("HDFS path not exists: \"" + path + "\" \n");
       }
     }
   }
