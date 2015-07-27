@@ -2,7 +2,8 @@
   StringBuffer output=new StringBuffer();
   final String hiveTable=this.getOldHiveTable();
   if (StringUtils.isNotEmpty(hiveTable)) {
-    final String dropHiveCMD="hive -e \"DROP TABLE IF EXISTS  " + hiveTable + ";\"";
+    final String dropSQL="USE " + context.getConfig().getHiveDatabaseForIntermediateTable() + ";"+ " DROP TABLE IF EXISTS  "+ hiveTable+ ";";
+    final String dropHiveCMD="hive -e \"" + dropSQL + "\"";
     ShellCmdOutput shellCmdOutput=new ShellCmdOutput();
     try {
       context.getConfig().getCliCommandExecutor().execute(dropHiveCMD,shellCmdOutput);

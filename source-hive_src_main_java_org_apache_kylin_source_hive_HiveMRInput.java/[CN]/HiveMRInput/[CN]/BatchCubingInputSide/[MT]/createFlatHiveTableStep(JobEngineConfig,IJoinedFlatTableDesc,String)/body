@@ -1,4 +1,5 @@
 {
+  final String useDatabaseHql="USE " + conf.getConfig().getHiveDatabaseForIntermediateTable() + ";";
   final String dropTableHql=JoinedFlatTable.generateDropTableStatement(flatTableDesc);
   final String createTableHql=JoinedFlatTable.generateCreateTableStatement(flatTableDesc,JobBuilderSupport.getJobWorkingDir(conf,jobId));
   String insertDataHqls;

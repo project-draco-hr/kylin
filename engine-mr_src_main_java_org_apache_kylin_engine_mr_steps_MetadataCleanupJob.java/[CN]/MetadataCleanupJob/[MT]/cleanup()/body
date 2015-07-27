@@ -1,6 +1,6 @@
 {
   CubeManager cubeManager=CubeManager.getInstance(config);
-  List<String> activeResourceList=Lists.newArrayList();
+  Set<String> activeResourceList=Sets.newHashSet();
   for (  org.apache.kylin.cube.CubeInstance cube : cubeManager.listAllCubes()) {
     for (    org.apache.kylin.cube.CubeSegment segment : cube.getSegments()) {
       activeResourceList.addAll(segment.getSnapshotPaths());
