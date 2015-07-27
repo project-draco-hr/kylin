@@ -1,0 +1,10 @@
+{
+  logger.debug("on updateOnNewSegmentReady: " + cubeName);
+  final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  String serverMode=kylinConfig.getServerMode();
+  logger.debug("server mode: " + serverMode);
+  if (Constant.SERVER_MODE_JOB.equals(serverMode.toLowerCase()) || Constant.SERVER_MODE_ALL.equals(serverMode.toLowerCase())) {
+    keepCubeRetention(cubeName);
+    mergeCubeSegment(cubeName);
+  }
+}

@@ -1,0 +1,5 @@
+{
+  if (!this.getDescriptor().getModel().getPartitionDesc().isPartitioned())   return false;
+  if (this.getDescriptor().hasHolisticCountDistinctMeasures())   return false;
+  return autoMergeTimeRanges != null && autoMergeTimeRanges.length > 0;
+}

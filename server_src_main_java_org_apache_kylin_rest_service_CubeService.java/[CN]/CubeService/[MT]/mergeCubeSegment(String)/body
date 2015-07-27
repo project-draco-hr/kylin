@@ -1,0 +1,25 @@
+{
+  CubeInstance cube=getCubeManager().getCube(cubeName);
+  if (cube.needAutoMerge()) {
+synchronized (CubeService.class) {
+      try {
+        cube=getCubeManager().getCube(cubeName);
+        CubeSegment newSeg=getCubeManager().autoMergeCubeSegments(cube);
+        if (newSeg != null) {
+          newSeg=getCubeManager().mergeSegments(cube,newSeg.getDateRangeStart(),newSeg.getDateRangeEnd(),true);
+          logger.debug("Will submit merge job on " + newSeg);
+          CubingJobBuilder builder=new CubingJobBuilder(new JobEngineConfig(getConfig()));
+          builder.setSubmitter("SYSTEM");
+          CubingJob job=builder.mergeJob(newSeg);
+          getExecutableManager().addJob(job);
+        }
+ else {
+          logger.debug("Not ready for merge on cube " + cubeName);
+        }
+      }
+ catch (      IOException e) {
+        logger.error("Failed to auto merge cube " + cubeName,e);
+      }
+    }
+  }
+}

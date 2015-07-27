@@ -4,8 +4,9 @@
 switch (cacheType) {
 case CUBE:
       getCubeManager().loadCubeCache(cacheKey);
-    getHybridManager().reloadHybridInstanceByChild(RealizationType.CUBE,cacheKey);
-  cleanProjectCacheByRealization(RealizationType.CUBE,cacheKey);
+    cubeService.updateOnNewSegmentReady(cacheKey);
+  getHybridManager().reloadHybridInstanceByChild(RealizationType.CUBE,cacheKey);
+cleanProjectCacheByRealization(RealizationType.CUBE,cacheKey);
 break;
 case CUBE_DESC:
 getCubeDescManager().reloadCubeDesc(cacheKey);
