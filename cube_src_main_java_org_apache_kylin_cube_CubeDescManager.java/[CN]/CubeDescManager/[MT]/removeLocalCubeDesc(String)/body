@@ -1,3 +1,4 @@
 {
   cubeDescMap.removeLocal(name);
+  Cuboid.reloadCache(name);
 }
