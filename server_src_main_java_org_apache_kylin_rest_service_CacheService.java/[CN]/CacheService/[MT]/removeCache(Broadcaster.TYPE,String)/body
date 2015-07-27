@@ -9,7 +9,6 @@ case CUBE:
 break;
 case CUBE_DESC:
 getCubeDescManager().removeLocalCubeDesc(cacheKey);
-Cuboid.reloadCache(cacheKey);
 break;
 case PROJECT:
 ProjectManager.clearCache();
