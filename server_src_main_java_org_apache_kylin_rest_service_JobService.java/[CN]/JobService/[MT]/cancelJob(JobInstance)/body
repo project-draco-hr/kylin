@@ -1,11 +1,13 @@
 {
-  final String segmentId=job.getRelatedSegment();
   CubeInstance cubeInstance=getCubeManager().getCube(job.getRelatedCube());
-  final CubeSegment segment=cubeInstance.getSegmentById(segmentId);
-  if (segment != null && segment.getStatus() == SegmentStatusEnum.NEW) {
-    CubeUpdate cubeBuilder=new CubeUpdate(cubeInstance);
-    cubeBuilder.setToRemoveSegs(segment);
-    getCubeManager().updateCube(cubeBuilder);
+  final String segmentIds=job.getRelatedSegment();
+  for (  String segmentId : StringUtils.split(segmentIds)) {
+    final CubeSegment segment=cubeInstance.getSegmentById(segmentId);
+    if (segment != null && segment.getStatus() == SegmentStatusEnum.NEW) {
+      CubeUpdate cubeBuilder=new CubeUpdate(cubeInstance);
+      cubeBuilder.setToRemoveSegs(segment);
+      getCubeManager().updateCube(cubeBuilder);
+    }
   }
   getExecutableManager().discardJob(job.getId());
   return job;

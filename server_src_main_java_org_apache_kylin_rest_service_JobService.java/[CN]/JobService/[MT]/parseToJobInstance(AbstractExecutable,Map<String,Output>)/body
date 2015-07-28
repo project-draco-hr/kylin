@@ -8,7 +8,7 @@
   final JobInstance result=new JobInstance();
   result.setName(job.getName());
   result.setRelatedCube(cubeJob.getCubeName());
-  result.setRelatedSegment(cubeJob.getSegmentId());
+  result.setRelatedSegment(cubeJob.getSegmentIds());
   result.setLastModified(output.getLastModified());
   result.setSubmitter(cubeJob.getSubmitter());
   result.setUuid(cubeJob.getId());
