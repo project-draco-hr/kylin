@@ -5,7 +5,8 @@
       if (curIterator == null) {
         if (cur >= scanRequests.size())         return false;
         try {
-          inputScanners[cur]=new GTRawScanner(info,store,scanRequests.get(cur));
+          CubeHBaseRPC rpc=new CubeHBaseEndpointRPC(cubeSeg,cuboid,info);
+          inputScanners[cur]=rpc.getGTScanner(scanRequests.get(cur));
           curIterator=inputScanners[cur].iterator();
         }
  catch (        IOException e) {

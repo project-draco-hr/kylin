@@ -1,6 +1,6 @@
 {
   this.info=info;
-  this.selectedColBlocks=info.selectColumnBlocks(req.getColumns());
-  this.storeScanner=store.scan(req.getPkStart(),req.getPkEnd(),selectedColBlocks,req);
+  this.selectedColBlocks=req.getSelectedColBlocks();
+  this.storeScanner=store.scan(req);
   this.oneRecord=new GTRecord(info);
 }

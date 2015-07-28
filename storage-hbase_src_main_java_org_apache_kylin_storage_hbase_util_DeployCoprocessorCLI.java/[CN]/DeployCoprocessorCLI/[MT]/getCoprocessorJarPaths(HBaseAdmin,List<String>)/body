@@ -22,9 +22,7 @@
       }
       String jarPath=valueMatcher.group(1).trim();
       String clsName=valueMatcher.group(2).trim();
-      if (OBSERVER_CLS_NAME.equals(clsName)) {
-        result.add(jarPath);
-      }
+      result.add(jarPath);
     }
   }
   return result;

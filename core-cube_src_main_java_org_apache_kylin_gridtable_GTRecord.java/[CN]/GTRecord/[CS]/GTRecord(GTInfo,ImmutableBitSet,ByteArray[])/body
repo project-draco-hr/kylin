@@ -1,0 +1,5 @@
+{
+  this.info=info;
+  this.cols=cols;
+  this.maskForEqualHashComp=maskForEqualHashComp;
+}

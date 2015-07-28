@@ -1,0 +1,19 @@
+{
+  Scan scan=new Scan();
+  scan.setCaching(SCAN_CACHE);
+  scan.setCacheBlocks(true);
+  scan.setAttribute(Scan.SCAN_ATTRIBUTES_METRICS_ENABLE,Bytes.toBytes(Boolean.TRUE));
+  if (rawScan.startKey != null) {
+    scan.setStartRow(rawScan.startKey);
+  }
+  if (rawScan.endKey != null) {
+    scan.setStopRow(rawScan.endKey);
+  }
+  if (rawScan.fuzzyKey != null) {
+    applyFuzzyFilter(scan,rawScan.fuzzyKey);
+  }
+  if (rawScan.hbaseColumns != null) {
+    applyHBaseColums(scan,rawScan.hbaseColumns);
+  }
+  return scan;
+}

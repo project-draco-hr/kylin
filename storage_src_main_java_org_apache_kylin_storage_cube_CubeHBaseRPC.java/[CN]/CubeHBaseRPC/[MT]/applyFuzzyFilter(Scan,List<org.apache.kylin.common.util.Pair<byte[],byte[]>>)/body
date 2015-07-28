@@ -1,0 +1,15 @@
+{
+  if (fuzzyKeys != null && fuzzyKeys.size() > 0) {
+    FuzzyRowFilter rowFilter=new FuzzyRowFilter(convertToHBasePair(fuzzyKeys));
+    Filter filter=scan.getFilter();
+    if (filter != null) {
+      FilterList filterList=new FilterList();
+      filterList.addFilter(filter);
+      filterList.addFilter(rowFilter);
+      scan.setFilter(filterList);
+    }
+ else {
+      scan.setFilter(rowFilter);
+    }
+  }
+}

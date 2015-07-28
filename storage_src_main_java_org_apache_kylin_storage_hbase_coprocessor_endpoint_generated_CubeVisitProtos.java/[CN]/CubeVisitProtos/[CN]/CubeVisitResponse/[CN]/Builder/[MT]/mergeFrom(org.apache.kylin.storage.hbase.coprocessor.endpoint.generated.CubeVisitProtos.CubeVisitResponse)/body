@@ -1,0 +1,11 @@
+{
+  if (other == org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitResponse.getDefaultInstance())   return this;
+  if (other.hasCompressedRows()) {
+    setCompressedRows(other.getCompressedRows());
+  }
+  if (other.hasStats()) {
+    mergeStats(other.getStats());
+  }
+  this.mergeUnknownFields(other.getUnknownFields());
+  return this;
+}

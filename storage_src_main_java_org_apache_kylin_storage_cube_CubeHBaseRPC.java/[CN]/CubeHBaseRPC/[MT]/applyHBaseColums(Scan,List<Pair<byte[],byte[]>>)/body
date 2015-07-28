@@ -1,0 +1,7 @@
+{
+  for (  Pair<byte[],byte[]> hbaseColumn : hbaseColumns) {
+    byte[] byteFamily=hbaseColumn.getFirst();
+    byte[] byteQualifier=hbaseColumn.getSecond();
+    scan.addColumn(byteFamily,byteQualifier);
+  }
+}

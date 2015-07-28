@@ -1,0 +1,18 @@
+{
+  if (memoizedHashCode != 0) {
+    return memoizedHashCode;
+  }
+  int hash=41;
+  hash=(19 * hash) + getDescriptorForType().hashCode();
+  if (hasCompressedRows()) {
+    hash=(37 * hash) + COMPRESSEDROWS_FIELD_NUMBER;
+    hash=(53 * hash) + getCompressedRows().hashCode();
+  }
+  if (hasStats()) {
+    hash=(37 * hash) + STATS_FIELD_NUMBER;
+    hash=(53 * hash) + getStats().hashCode();
+  }
+  hash=(29 * hash) + getUnknownFields().hashCode();
+  memoizedHashCode=hash;
+  return hash;
+}

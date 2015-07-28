@@ -1,0 +1,2 @@
+Scan scan
+List<org.apache.kylin.common.util.Pair<byte[],byte[]>> fuzzyKeys

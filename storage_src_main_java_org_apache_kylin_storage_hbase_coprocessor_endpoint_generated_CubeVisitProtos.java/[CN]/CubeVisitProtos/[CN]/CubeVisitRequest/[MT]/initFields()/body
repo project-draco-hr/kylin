@@ -1,0 +1,4 @@
+{
+  gtScanRequest_=com.google.protobuf.ByteString.EMPTY;
+  hbaseRawScan_=com.google.protobuf.ByteString.EMPTY;
+}

@@ -1,0 +1,26 @@
+{
+  if (memoizedHashCode != 0) {
+    return memoizedHashCode;
+  }
+  int hash=41;
+  hash=(19 * hash) + getDescriptorForType().hashCode();
+  if (hasServiceStartTime()) {
+    hash=(37 * hash) + SERVICESTARTTIME_FIELD_NUMBER;
+    hash=(53 * hash) + hashLong(getServiceStartTime());
+  }
+  if (hasServiceEndTime()) {
+    hash=(37 * hash) + SERVICEENDTIME_FIELD_NUMBER;
+    hash=(53 * hash) + hashLong(getServiceEndTime());
+  }
+  if (hasScannedRowCount()) {
+    hash=(37 * hash) + SCANNEDROWCOUNT_FIELD_NUMBER;
+    hash=(53 * hash) + getScannedRowCount();
+  }
+  if (hasAggregatedRowCount()) {
+    hash=(37 * hash) + AGGREGATEDROWCOUNT_FIELD_NUMBER;
+    hash=(53 * hash) + getAggregatedRowCount();
+  }
+  hash=(29 * hash) + getUnknownFields().hashCode();
+  memoizedHashCode=hash;
+  return hash;
+}

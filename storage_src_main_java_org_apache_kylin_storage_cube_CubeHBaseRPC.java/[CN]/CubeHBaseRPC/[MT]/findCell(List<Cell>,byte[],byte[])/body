@@ -1,0 +1,8 @@
+{
+  for (  Cell c : cells) {
+    if (BytesUtil.compareBytes(familyName,0,c.getFamilyArray(),c.getFamilyOffset(),familyName.length) == 0 && BytesUtil.compareBytes(columnName,0,c.getQualifierArray(),c.getQualifierOffset(),columnName.length) == 0) {
+      return c;
+    }
+  }
+  return null;
+}

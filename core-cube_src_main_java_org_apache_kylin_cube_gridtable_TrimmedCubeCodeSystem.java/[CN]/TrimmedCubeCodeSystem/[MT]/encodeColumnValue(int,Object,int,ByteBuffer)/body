@@ -1,0 +1,12 @@
+{
+  DataTypeSerializer serializer=serializers[col];
+  if (serializer instanceof CubeCodeSystem.TrimmedDictionarySerializer || serializer instanceof CubeCodeSystem.DictionarySerializer) {
+    throw new IllegalStateException("Encode dictionary value in coprocessor");
+  }
+ else {
+    if ((!(serializer instanceof StringSerializer || serializer instanceof CubeCodeSystem.FixLenSerializer)) && (value instanceof String)) {
+      value=serializer.valueOf((String)value);
+    }
+    serializer.serialize(value,buf);
+  }
+}

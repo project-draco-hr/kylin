@@ -1,0 +1,17 @@
+{
+  if (nextOne.size() < 1) {
+    throw new IllegalStateException();
+  }
+  ret.clear();
+  ret.addAll(nextOne);
+  nextOne.clear();
+  try {
+    if (hasMore) {
+      hasMore=regionScanner.nextRaw(nextOne);
+    }
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+  return ret;
+}

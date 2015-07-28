@@ -27,7 +27,7 @@
   setLimit(filter,context);
   List<CubeScanner> scanners=Lists.newArrayList();
   for (  CubeSegment cubeSeg : cubeInstance.getSegments(SegmentStatusEnum.READY)) {
-    scanners.add(new CubeScanner(cubeSeg,cuboid,dimensionsD,groupsD,metrics,filterD));
+    scanners.add(new CubeScanner(cubeSeg,cuboid,dimensionsD,groupsD,metrics,filterD,!isExactAggregation));
   }
   if (scanners.isEmpty())   return ITupleIterator.EMPTY_TUPLE_ITERATOR;
   return new SequentialCubeTupleIterator(scanners,cuboid,dimensionsD,metrics,returnTupleInfo);

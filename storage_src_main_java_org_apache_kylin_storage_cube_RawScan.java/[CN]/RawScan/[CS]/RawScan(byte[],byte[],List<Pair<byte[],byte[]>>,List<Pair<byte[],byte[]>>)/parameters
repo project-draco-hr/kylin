@@ -1,0 +1,4 @@
+byte[] startKey
+byte[] endKey
+List<Pair<byte[],byte[]>> hbaseColumns
+List<Pair<byte[],byte[]>> fuzzyKey

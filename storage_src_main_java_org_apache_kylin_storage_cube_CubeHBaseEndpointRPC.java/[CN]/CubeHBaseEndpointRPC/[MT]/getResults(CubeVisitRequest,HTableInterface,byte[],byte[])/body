@@ -1,0 +1,17 @@
+{
+  Map<byte[],CubeVisitResponse> results=table.coprocessorService(CubeVisitService.class,startKey,endKey,new Batch.Call<CubeVisitService,CubeVisitResponse>(){
+    public CubeVisitResponse call(    CubeVisitService rowsService) throws IOException {
+      ServerRpcController controller=new ServerRpcController();
+      BlockingRpcCallback<CubeVisitResponse> rpcCallback=new BlockingRpcCallback<>();
+      rowsService.visitCube(controller,request,rpcCallback);
+      CubeVisitResponse response=rpcCallback.get();
+      if (controller.failedOnException()) {
+        throw controller.getFailedOn();
+      }
+      return response;
+    }
+  }
+);
+  logger.info("{} regions returned results ",results.values().size());
+  return results.values();
+}

@@ -1,0 +1,3 @@
+{
+  return org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.CubeVisitProtos.internal_static_CubeVisitResponse_Stats_descriptor;
+}

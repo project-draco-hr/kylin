@@ -1,0 +1,8 @@
+{
+  final BitSet result=new BitSet();
+  final int length=original.length();
+  for (int i=0; i < length; i++) {
+    result.set(i,original.get(i));
+  }
+  return result;
+}

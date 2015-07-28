@@ -1,0 +1,9 @@
+{
+  this.regionScanner=regionScanner;
+  try {
+    hasMore=regionScanner.nextRaw(nextOne);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

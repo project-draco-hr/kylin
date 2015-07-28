@@ -1,0 +1,12 @@
+{
+  DataTypeSerializer[] newSerializers=new DataTypeSerializer[serializers.length];
+  for (int i=0; i < serializers.length; i++) {
+    if (serializers[i] instanceof DictionarySerializer) {
+      newSerializers[i]=new TrimmedDictionarySerializer(serializers[i].maxLength());
+    }
+ else {
+      newSerializers[i]=serializers[i];
+    }
+  }
+  return new TrimmedCubeCodeSystem(info,dependentMetricsMap,newSerializers,comparator);
+}

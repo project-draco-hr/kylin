@@ -1,0 +1,6 @@
+{
+  if (cuboidToGridTableMapping == null) {
+    cuboidToGridTableMapping=new CuboidToGridTableMapping(this);
+  }
+  return cuboidToGridTableMapping;
+}

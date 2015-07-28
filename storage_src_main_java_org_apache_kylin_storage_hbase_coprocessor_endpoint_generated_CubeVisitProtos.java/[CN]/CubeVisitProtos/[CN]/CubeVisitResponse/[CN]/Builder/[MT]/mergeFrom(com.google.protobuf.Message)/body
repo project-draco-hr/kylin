@@ -1,0 +1,9 @@
+{
+  if (other instanceof org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitResponse) {
+    return mergeFrom((org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitResponse)other);
+  }
+ else {
+    super.mergeFrom(other);
+    return this;
+  }
+}

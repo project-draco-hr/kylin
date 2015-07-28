@@ -1,0 +1,11 @@
+{
+  byte[] temp=new byte[]{1,2,3};
+  ByteBuffer buffer=ByteBuffer.allocateDirect(3);
+  buffer.put((byte)1);
+  buffer.put((byte)1);
+  buffer.put((byte)1);
+  buffer.put((byte)1);
+  System.out.println(buffer.position());
+  System.out.println(buffer.limit());
+  System.out.println(buffer.capacity());
+}

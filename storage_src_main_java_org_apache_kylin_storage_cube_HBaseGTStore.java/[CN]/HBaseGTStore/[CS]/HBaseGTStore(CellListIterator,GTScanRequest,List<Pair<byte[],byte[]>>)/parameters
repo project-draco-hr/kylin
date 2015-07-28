@@ -1,0 +1,3 @@
+CellListIterator cellListIterator
+GTScanRequest gtScanRequest
+List<Pair<byte[],byte[]>> hbaseColumns

@@ -1,26 +1,12 @@
 {
   DataTypeSerializer serializer=serializers[col];
-  try {
-    if (serializer instanceof DictionarySerializer) {
-      ((DictionarySerializer)serializer).serializeWithRounding(value,roundingFlag,buf);
-    }
- else {
-      serializer.serialize(value,buf);
-    }
+  if (serializer instanceof DictionarySerializer) {
+    ((DictionarySerializer)serializer).serializeWithRounding(value,roundingFlag,buf);
   }
- catch (  ClassCastException ex) {
-    try {
-      if (value instanceof String) {
-        Object converted=serializer.valueOf((String)value);
-        if ((converted instanceof String) == false) {
-          encodeColumnValue(col,converted,roundingFlag,buf);
-          return;
-        }
-      }
+ else {
+    if ((!(serializer instanceof StringSerializer || serializer instanceof FixLenSerializer)) && (value instanceof String)) {
+      value=serializer.valueOf((String)value);
     }
- catch (    Throwable e) {
-      logger.error("Fail to encode value '" + value + "'",e);
-    }
-    throw ex;
+    serializer.serialize(value,buf);
   }
 }

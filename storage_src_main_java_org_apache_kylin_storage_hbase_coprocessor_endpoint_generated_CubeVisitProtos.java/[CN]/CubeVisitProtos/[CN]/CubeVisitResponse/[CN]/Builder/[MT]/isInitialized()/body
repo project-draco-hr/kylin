@@ -1,0 +1,9 @@
+{
+  if (!hasCompressedRows()) {
+    return false;
+  }
+  if (!hasStats()) {
+    return false;
+  }
+  return true;
+}

@@ -1,0 +1,21 @@
+{
+  org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitResponse result=new org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitResponse(this);
+  int from_bitField0_=bitField0_;
+  int to_bitField0_=0;
+  if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+    to_bitField0_|=0x00000001;
+  }
+  result.compressedRows_=compressedRows_;
+  if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+    to_bitField0_|=0x00000002;
+  }
+  if (statsBuilder_ == null) {
+    result.stats_=stats_;
+  }
+ else {
+    result.stats_=statsBuilder_.build();
+  }
+  result.bitField0_=to_bitField0_;
+  onBuilt();
+  return result;
+}

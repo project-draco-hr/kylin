@@ -1,0 +1,6 @@
+{
+  serviceStartTime_=0L;
+  serviceEndTime_=0L;
+  scannedRowCount_=0;
+  aggregatedRowCount_=0;
+}

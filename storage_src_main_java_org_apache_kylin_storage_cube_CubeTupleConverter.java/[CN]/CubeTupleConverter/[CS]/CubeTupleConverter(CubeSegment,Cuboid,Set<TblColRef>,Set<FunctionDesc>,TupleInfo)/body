@@ -4,34 +4,30 @@
   this.tupleInfo=returnTupleInfo;
   this.derivedColFillers=Lists.newArrayList();
   List<TblColRef> cuboidDims=cuboid.getColumns();
-  List<MeasureDesc> cuboidMeasures=cuboid.getCube().getMeasures();
+  CuboidToGridTableMapping mapping=cuboid.getCuboidToGridTableMapping();
   nSelectedDims=selectedDimensions.size();
   gtColIdx=new int[selectedDimensions.size() + selectedMetrics.size()];
   tupleIdx=new int[selectedDimensions.size() + selectedMetrics.size()];
   tmpValues=new Object[selectedDimensions.size() + selectedMetrics.size()];
   int iii=0;
-  for (int i=0; i < cuboidDims.size(); i++) {
-    TblColRef col=cuboidDims.get(i);
-    if (selectedDimensions.contains(col)) {
-      gtColIdx[iii]=i;
-      tupleIdx[iii]=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
-      iii++;
-    }
+  for (  TblColRef dim : selectedDimensions) {
+    int i=mapping.getIndexOf(dim);
+    gtColIdx[iii]=i;
+    tupleIdx[iii]=tupleInfo.hasColumn(dim) ? tupleInfo.getColumnIndex(dim) : -1;
+    iii++;
   }
-  for (int i=0; i < cuboidMeasures.size(); i++) {
-    FunctionDesc aggrFunc=cuboidMeasures.get(i).getFunction();
-    if (contains(selectedMetrics,aggrFunc)) {
-      gtColIdx[iii]=cuboidDims.size() + i;
-      if (aggrFunc.needRewrite()) {
-        String rewriteFieldName=aggrFunc.getRewriteFieldName();
-        tupleIdx[iii]=tupleInfo.hasField(rewriteFieldName) ? tupleInfo.getFieldIndex(rewriteFieldName) : -1;
-      }
- else {
-        TblColRef col=aggrFunc.getParameter().getColRefs().get(0);
-        tupleIdx[iii]=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
-      }
-      iii++;
+  for (  FunctionDesc metric : selectedMetrics) {
+    int i=mapping.getIndexOf(metric);
+    gtColIdx[iii]=i;
+    if (metric.needRewrite()) {
+      String rewriteFieldName=metric.getRewriteFieldName();
+      tupleIdx[iii]=tupleInfo.hasField(rewriteFieldName) ? tupleInfo.getFieldIndex(rewriteFieldName) : -1;
     }
+ else {
+      TblColRef col=metric.getParameter().getColRefs().get(0);
+      tupleIdx[iii]=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
+    }
+    iii++;
   }
   Map<Array<TblColRef>,List<DeriveInfo>> hostToDerivedInfo=cuboid.getCube().getHostToDerivedInfo(cuboidDims,null);
   for (  Entry<Array<TblColRef>,List<DeriveInfo>> entry : hostToDerivedInfo.entrySet()) {

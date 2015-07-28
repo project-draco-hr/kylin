@@ -1,0 +1,5 @@
+{
+  Kryo kryo=getKryo();
+  Input input=new Input(bytes);
+  return kryo.readObject(input,clazz);
+}

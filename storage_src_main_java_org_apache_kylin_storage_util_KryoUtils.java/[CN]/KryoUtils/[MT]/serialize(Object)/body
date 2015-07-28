@@ -1,0 +1,6 @@
+{
+  Kryo kryo=getKryo();
+  Output output=new Output(1024,2014 * 1024);
+  kryo.writeObject(output,obj);
+  return output.toBytes();
+}

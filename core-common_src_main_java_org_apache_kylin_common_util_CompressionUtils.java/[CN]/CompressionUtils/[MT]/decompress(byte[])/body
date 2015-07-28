@@ -9,7 +9,7 @@
   }
   outputStream.close();
   byte[] output=outputStream.toByteArray();
-  logger.info("Original: " + data.length);
-  logger.info("Decompressed: " + output.length);
+  logger.info("Original: " + data.length + " bytes");
+  logger.info("Decompressed: " + output.length + " bytes");
   return output;
 }

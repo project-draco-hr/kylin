@@ -1,0 +1,3 @@
+{
+  encodeColumnValue(col,value,0,buf);
+}

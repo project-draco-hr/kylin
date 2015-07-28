@@ -1,0 +1,6 @@
+{
+  this.startKey=startKey;
+  this.endKey=endKey;
+  this.hbaseColumns=hbaseColumns;
+  this.fuzzyKey=fuzzyKey;
+}

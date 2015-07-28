@@ -1,0 +1,9 @@
+{
+  if (!hasGtScanRequest()) {
+    return false;
+  }
+  if (!hasHbaseRawScan()) {
+    return false;
+  }
+  return true;
+}

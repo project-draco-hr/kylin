@@ -1,0 +1,3 @@
+List<Cell> cells
+byte[] familyName
+byte[] columnName

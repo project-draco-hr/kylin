@@ -1,0 +1,10 @@
+{
+  IGTScanner result=scanner;
+  if (this.hasFilterPushDown()) {
+    result=new GTFilterScanner(result,this);
+  }
+  if (this.allowPreAggregation && this.hasAggregation()) {
+    result=new GTAggregateScanner(result,this);
+  }
+  return result;
+}

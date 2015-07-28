@@ -1,0 +1,5 @@
+{
+  this.cubeSeg=cubeSeg;
+  this.cuboid=cuboid;
+  this.fullGTInfo=fullGTInfo;
+}

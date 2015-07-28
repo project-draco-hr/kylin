@@ -12,17 +12,5 @@
       serializers[i]=DataTypeSerializer.create(info.getColumnType(i));
     }
   }
-  this.comparator=new IGTComparator(){
-    @Override public boolean isNull(    ByteArray code){
-      byte[] array=code.array();
-      for (int i=0, j=code.offset(), n=code.length(); i < n; i++, j++) {
-        if (array[j] != Dictionary.NULL)         return false;
-      }
-      return true;
-    }
-    @Override public int compare(    ByteArray code1,    ByteArray code2){
-      return code1.compareTo(code2);
-    }
-  }
-;
+  this.comparator=new DefaultGTComparator();
 }

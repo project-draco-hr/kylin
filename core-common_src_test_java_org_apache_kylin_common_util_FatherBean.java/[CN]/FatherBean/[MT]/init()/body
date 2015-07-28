@@ -1,0 +1,6 @@
+{
+  child=new ChildBean("bin",23,this);
+  childShadow=child;
+  bitset=new BitSet(10);
+  bitset.set(4);
+}

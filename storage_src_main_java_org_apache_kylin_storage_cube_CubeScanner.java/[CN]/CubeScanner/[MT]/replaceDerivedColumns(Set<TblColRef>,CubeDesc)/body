@@ -1,0 +1,14 @@
+{
+  Set<TblColRef> ret=Sets.newHashSet();
+  for (  TblColRef col : input) {
+    if (cubeDesc.isDerived(col)) {
+      for (      TblColRef host : cubeDesc.getHostInfo(col).columns) {
+        ret.add(host);
+      }
+    }
+ else {
+      ret.add(col);
+    }
+  }
+  return ret;
+}

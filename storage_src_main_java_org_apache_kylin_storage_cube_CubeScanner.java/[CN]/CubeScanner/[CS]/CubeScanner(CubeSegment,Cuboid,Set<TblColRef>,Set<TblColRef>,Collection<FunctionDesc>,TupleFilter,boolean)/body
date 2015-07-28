@@ -1,0 +1,22 @@
+{
+  this.cuboid=cuboid;
+  this.cubeSeg=cubeSeg;
+  this.info=CubeGridTable.newGTInfo(cubeSeg,cuboid.getId());
+  CuboidToGridTableMapping mapping=cuboid.getCuboidToGridTableMapping();
+  TupleFilter gtFilter=GTUtil.convertFilterColumnsAndConstants(filter,info,mapping.getCuboidDimensionsInGTOrder(),groups);
+  ImmutableBitSet gtDimensions=makeGridTableColumns(mapping,dimensions);
+  ImmutableBitSet gtAggrGroups=makeGridTableColumns(mapping,replaceDerivedColumns(groups,cubeSeg.getCubeDesc()));
+  ImmutableBitSet gtAggrMetrics=makeGridTableColumns(mapping,metrics);
+  String[] gtAggrFuncs=makeAggrFuncs(mapping,metrics);
+  GTScanRangePlanner scanRangePlanner=new GTScanRangePlanner(info);
+  List<GTScanRange> scanRanges=scanRangePlanner.planScanRanges(gtFilter,MAX_SCAN_RANGES);
+  scanRequests=Lists.newArrayListWithCapacity(scanRanges.size());
+  IGTCodeSystem origin=info.trimCodeSystemForCoprocessor();
+  trimmedInfoBytes=KryoUtils.serialize(info);
+  info.setIGTCodeSystem(origin);
+  GTInfo trimmedInfo=KryoUtils.deserialize(this.trimmedInfoBytes,GTInfo.class);
+  for (  GTScanRange range : scanRanges) {
+    scanRequests.add(new GTScanRequest(trimmedInfo,range,gtDimensions,gtAggrGroups,gtAggrMetrics,gtAggrFuncs,gtFilter,allowPreAggregate));
+  }
+  scanner=new Scanner();
+}

@@ -1,0 +1,7 @@
+{
+  org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest result=buildPartial();
+  if (!result.isInitialized()) {
+    throw newUninitializedMessageException(result);
+  }
+  return result;
+}
