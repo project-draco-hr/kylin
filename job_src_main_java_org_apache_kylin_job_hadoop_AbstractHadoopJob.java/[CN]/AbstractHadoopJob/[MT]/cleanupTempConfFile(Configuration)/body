@@ -1,0 +1,9 @@
+{
+  String tempMetaFileString=conf.get("tmpfiles");
+  if (tempMetaFileString != null) {
+    File tempMetaFile=new File(tempMetaFileString);
+    if (tempMetaFile.exists()) {
+      tempMetaFile.getParentFile().delete();
+    }
+  }
+}

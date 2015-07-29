@@ -3,7 +3,6 @@
   tmp.delete();
   File metaDir=new File(tmp,"meta");
   metaDir.mkdirs();
-  metaDir.getParentFile().deleteOnExit();
   KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   File kylinPropsFile=new File(metaDir,"kylin.properties");
   kylinConfig.writeProperties(kylinPropsFile);
