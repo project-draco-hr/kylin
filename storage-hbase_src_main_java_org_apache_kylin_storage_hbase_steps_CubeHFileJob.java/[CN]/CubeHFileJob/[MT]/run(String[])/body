@@ -33,4 +33,7 @@
     printUsage(options);
     throw e;
   }
+ finally {
+    if (job != null)     cleanupTempConfFile(job.getConfiguration());
+  }
 }
