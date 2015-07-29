@@ -11,10 +11,10 @@
   }
   if (count == 1)   return result;
   if (count > 1) {
-    errorMsgs.add("There are more than 1 table named with '" + table + "' in different database; The program couldn't determine, randomly pick '"+ result+ "'");
+    errorMsgs.add("There are more than 1 table named with '" + table + "' in different database; ");
   }
   if (count == 0) {
-    errorMsgs.add("There is no table named with '" + table + "'");
+    errorMsgs.add("No table definition for '" + table + "'; any project, cube refers it should remove the reference;");
   }
-  return result;
+  return null;
 }
