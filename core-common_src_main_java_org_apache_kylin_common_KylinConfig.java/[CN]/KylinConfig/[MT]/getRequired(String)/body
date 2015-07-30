@@ -3,7 +3,7 @@
   if (property != null) {
     return property;
   }
-  String r=kylinConfig.getString(prop);
+  String r=properties.getProperty(prop);
   if (StringUtils.isEmpty(r)) {
     throw new IllegalArgumentException("missing '" + prop + "' in conf/kylin_instance.properties");
   }

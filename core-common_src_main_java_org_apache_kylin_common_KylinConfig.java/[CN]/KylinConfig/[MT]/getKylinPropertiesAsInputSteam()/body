@@ -6,25 +6,37 @@
   }
   File overrideFile=new File(propFile.getParentFile(),propFile.getName() + ".override");
   if (overrideFile.exists()) {
+    FileInputStream fis=null;
+    FileInputStream fis2=null;
     try {
-      PropertiesConfiguration conf=new PropertiesConfiguration();
-      conf.load(propFile);
-      PropertiesConfiguration override=new PropertiesConfiguration();
-      override.load(overrideFile);
-      conf.copy(override);
+      fis=new FileInputStream(propFile);
+      fis2=new FileInputStream(overrideFile);
+      Properties conf=new Properties();
+      conf.load(fis);
+      Properties override=new Properties();
+      override.load(fis2);
+      for (      Map.Entry<Object,Object> entries : override.entrySet()) {
+        conf.setProperty(entries.getKey().toString(),entries.getValue().toString());
+      }
       ByteArrayOutputStream bout=new ByteArrayOutputStream();
-      conf.save(bout);
+      conf.store(bout,"output");
       return new ByteArrayInputStream(bout.toByteArray());
     }
- catch (    ConfigurationException e) {
+ catch (    IOException e) {
       throw new RuntimeException(e);
     }
+ finally {
+      IOUtils.closeQuietly(fis);
+      IOUtils.closeQuietly(fis2);
+    }
   }
-  try {
-    return new FileInputStream(propFile);
-  }
- catch (  FileNotFoundException e) {
-    logger.error("this should not happen");
-    throw new RuntimeException(e);
+ else {
+    try {
+      return new FileInputStream(propFile);
+    }
+ catch (    FileNotFoundException e) {
+      logger.error("this should not happen");
+      throw new RuntimeException(e);
+    }
   }
 }

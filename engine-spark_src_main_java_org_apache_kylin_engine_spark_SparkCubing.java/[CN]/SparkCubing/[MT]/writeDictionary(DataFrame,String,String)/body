@@ -1,0 +1,62 @@
+{
+  final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  final CubeManager cubeManager=CubeManager.getInstance(kylinConfig);
+  final CubeInstance cubeInstance=cubeManager.reloadCubeLocal(cubeName);
+  final String[] columns=intermediateTable.columns();
+  long start=System.currentTimeMillis();
+  final CubeDesc cubeDesc=cubeInstance.getDescriptor();
+  final HashMap<Integer,TblColRef> tblColRefMap=Maps.newHashMap();
+  final CubeJoinedFlatTableDesc flatTableDesc=new CubeJoinedFlatTableDesc(cubeDesc,null);
+  final List<TblColRef> baseCuboidColumn=Cuboid.findById(cubeDesc,Cuboid.getBaseCuboidId(cubeDesc)).getColumns();
+  RowKeyDesc rowKey=cubeDesc.getRowkey();
+  for (int i=0; i < baseCuboidColumn.size(); i++) {
+    TblColRef col=baseCuboidColumn.get(i);
+    if (!rowKey.isUseDictionary(col)) {
+      continue;
+    }
+    final int rowKeyColumnIndex=flatTableDesc.getRowKeyColumnIndexes()[i];
+    tblColRefMap.put(rowKeyColumnIndex,col);
+  }
+  Map<TblColRef,Dictionary<?>> dictionaryMap=Maps.newHashMap();
+  for (  Map.Entry<Integer,TblColRef> entry : tblColRefMap.entrySet()) {
+    final String column=columns[entry.getKey()];
+    final TblColRef tblColRef=entry.getValue();
+    final DataFrame frame=intermediateTable.select(column).distinct();
+    final Row[] rows=frame.collect();
+    dictionaryMap.put(tblColRef,DictionaryGenerator.buildDictionaryFromValueList(tblColRef.getType(),new Iterable<byte[]>(){
+      @Override public Iterator<byte[]> iterator(){
+        return new Iterator<byte[]>(){
+          int i=0;
+          @Override public boolean hasNext(){
+            return i < rows.length;
+          }
+          @Override public byte[] next(){
+            if (hasNext()) {
+              final Row row=rows[i++];
+              final Object o=row.get(0);
+              return o != null ? o.toString().getBytes() : null;
+            }
+ else {
+              throw new NoSuchElementException();
+            }
+          }
+          @Override public void remove(){
+            throw new UnsupportedOperationException();
+          }
+        }
+;
+      }
+    }
+));
+  }
+  final long end=System.currentTimeMillis();
+  CubingUtils.writeDictionary(cubeInstance.getSegmentById(segmentId),dictionaryMap,start,end);
+  try {
+    CubeUpdate cubeBuilder=new CubeUpdate(cubeInstance);
+    cubeBuilder.setToUpdateSegs(cubeInstance.getSegmentById(segmentId));
+    cubeManager.updateCube(cubeBuilder);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("Failed to deal with the request: " + e.getLocalizedMessage());
+  }
+}

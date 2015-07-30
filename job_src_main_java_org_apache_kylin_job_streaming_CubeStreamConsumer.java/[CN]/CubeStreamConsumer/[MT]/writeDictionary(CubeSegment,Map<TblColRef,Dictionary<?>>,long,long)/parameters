@@ -1,4 +1,0 @@
-CubeSegment cubeSegment
-Map<TblColRef,Dictionary<?>> dictionaryMap
-long startOffset
-long endOffset

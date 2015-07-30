@@ -1,8 +1,10 @@
 {
+  FileOutputStream fos=null;
   try {
-    kylinConfig.save(file);
+    fos=new FileOutputStream(file);
+    properties.store(fos,file.getAbsolutePath());
   }
- catch (  ConfigurationException ex) {
-    throw new IOException("Error writing KylinConfig to " + file,ex);
+  finally {
+    IOUtils.closeQuietly(fos);
   }
 }

@@ -1,0 +1,4 @@
+Iterable<byte[]> values
+int baseId
+int nSamples
+ArrayList samples

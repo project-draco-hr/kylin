@@ -1,11 +1,5 @@
 {
-  try {
-    ByteArrayOutputStream baos=new ByteArrayOutputStream();
-    kylinConfig.save(baos);
-    String content=baos.toString();
-    return content;
-  }
- catch (  ConfigurationException ex) {
-    throw new IOException("Error writing KylinConfig to String",ex);
-  }
+  final StringWriter stringWriter=new StringWriter();
+  properties.list(new PrintWriter(stringWriter));
+  return stringWriter.toString();
 }

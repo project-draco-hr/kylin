@@ -1,5 +1,0 @@
-{
-  super(seg,submitter);
-  this.inputSide=MRUtil.getBatchCubingInputSide(seg);
-  this.outputSide=MRUtil.getBatchCubingOutputSide2(seg);
-}

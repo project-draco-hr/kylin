@@ -1,0 +1,10 @@
+{
+  final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  final CubeInstance cubeInstance=CubeManager.getInstance(kylinConfig).getCube(cubeName);
+  final CubeDesc cubeDesc=cubeInstance.getDescriptor();
+  final CubeSegment cubeSegment=cubeInstance.getSegmentById(segmentId);
+  final Map<Long,Long> cubeSizeMap=CreateHTableJob.getCubeRowCountMapFromCuboidStatistics(samplingResult,100);
+  final byte[][] splitKeys=CreateHTableJob.getSplitsFromCuboidStatistics(cubeSizeMap,kylinConfig,cubeSegment);
+  CubeHTableUtil.createHTable(cubeDesc,cubeSegment.getStorageLocationIdentifier(),splitKeys);
+  System.out.println(cubeSegment.getStorageLocationIdentifier() + " table created");
+}

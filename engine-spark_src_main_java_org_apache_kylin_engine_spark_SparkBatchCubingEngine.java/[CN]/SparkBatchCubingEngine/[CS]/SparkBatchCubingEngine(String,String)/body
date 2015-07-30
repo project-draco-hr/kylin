@@ -1,0 +1,4 @@
+{
+  this.confPath=confPath;
+  this.coprocessor=coprocessor;
+}

@@ -1,0 +1,3 @@
+JavaRDD<List<List<String>>> javaRDD
+String cubeName
+String segmentId

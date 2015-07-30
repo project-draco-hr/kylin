@@ -1,0 +1,36 @@
+{
+  final String hiveTable=optionsHelper.getOptionValue(OPTION_INPUT_PATH);
+  SparkConf conf=new SparkConf().setAppName("Simple Application");
+  JavaSparkContext sc=new JavaSparkContext(conf);
+  HiveContext sqlContext=new HiveContext(sc.sc());
+  final DataFrame intermediateTable=sqlContext.sql("select * from " + hiveTable);
+  final String cubeName=optionsHelper.getOptionValue(OPTION_CUBE_NAME);
+  final String segmentId=optionsHelper.getOptionValue(OPTION_SEGMENT_ID);
+  final String confPath=optionsHelper.getOptionValue(OPTION_CONF_PATH);
+  final String coprocessor=optionsHelper.getOptionValue(OPTION_COPROCESSOR);
+  final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  kylinConfig.overrideCoprocessorLocalJar(coprocessor);
+  setupClasspath(sc,confPath);
+  intermediateTable.cache();
+  writeDictionary(intermediateTable,cubeName,segmentId);
+  final JavaRDD<List<String>> rowJavaRDD=intermediateTable.javaRDD().map(new org.apache.spark.api.java.function.Function<Row,List<String>>(){
+    @Override public List<String> call(    Row v1) throws Exception {
+      ArrayList<String> result=Lists.newArrayListWithExpectedSize(v1.size());
+      for (int i=0; i < v1.size(); i++) {
+        final Object o=v1.get(i);
+        if (o != null) {
+          result.add(o.toString());
+        }
+ else {
+          result.add(null);
+        }
+      }
+      return result;
+    }
+  }
+);
+  final Map<Long,HyperLogLogPlusCounter> samplingResult=sampling(rowJavaRDD,cubeName);
+  createHTable(cubeName,segmentId,samplingResult);
+  final String hfile=build(rowJavaRDD.glom(),cubeName,segmentId);
+  bulkLoadHFile(cubeName,segmentId,hfile);
+}

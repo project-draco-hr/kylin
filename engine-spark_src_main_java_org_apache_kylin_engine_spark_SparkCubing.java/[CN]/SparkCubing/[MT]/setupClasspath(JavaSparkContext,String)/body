@@ -1,0 +1,18 @@
+{
+  ClassUtil.addClasspath(confPath);
+  final File[] files=new File(confPath).listFiles(new FileFilter(){
+    @Override public boolean accept(    File pathname){
+      if (pathname.getAbsolutePath().endsWith(".xml")) {
+        return true;
+      }
+      if (pathname.getAbsolutePath().endsWith(".properties")) {
+        return true;
+      }
+      return false;
+    }
+  }
+);
+  for (  File file : files) {
+    sc.addFile(file.getAbsolutePath());
+  }
+}

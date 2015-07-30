@@ -1,0 +1,30 @@
+{
+  final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  final CubeInstance cubeInstance=CubeManager.getInstance(kylinConfig).getCube(cubeName);
+  final CubeDesc cubeDesc=cubeInstance.getDescriptor();
+  final CubeSegment cubeSegment=cubeInstance.getSegmentById(segmentId);
+  final Configuration hbaseConf=HBaseConnection.newHBaseConfiguration(kylinConfig.getStorageUrl());
+  FileSystem fs=FileSystem.get(hbaseConf);
+  FsPermission permission=new FsPermission((short)0777);
+  for (  HBaseColumnFamilyDesc cf : cubeDesc.getHBaseMapping().getColumnFamily()) {
+    String cfName=cf.getName();
+    Path columnFamilyPath=new Path(hfileLocation,cfName);
+    if (fs.exists(columnFamilyPath)) {
+      fs.setPermission(columnFamilyPath,permission);
+    }
+  }
+  String[] newArgs=new String[2];
+  newArgs[0]=hfileLocation;
+  newArgs[1]=cubeSegment.getStorageLocationIdentifier();
+  int ret=ToolRunner.run(new LoadIncrementalHFiles(hbaseConf),newArgs);
+  System.out.println("incremental load result:" + ret);
+  cubeSegment.setStatus(SegmentStatusEnum.READY);
+  try {
+    CubeUpdate cubeBuilder=new CubeUpdate(cubeInstance);
+    cubeBuilder.setToUpdateSegs(cubeInstance.getSegmentById(segmentId));
+    CubeManager.getInstance(kylinConfig).updateCube(cubeBuilder);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("Failed to deal with the request: " + e.getLocalizedMessage());
+  }
+}

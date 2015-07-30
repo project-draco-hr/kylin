@@ -1,4 +1,3 @@
 {
-  kylinConfig.setProperty(KYLIN_STORAGE_URL,storageUrl);
-  this.storageUrl=storageUrl;
+  properties.setProperty(KYLIN_STORAGE_URL,storageUrl);
 }

@@ -20,7 +20,7 @@
   ResourceStore.getStore(kylinConfig).putResource(cubeSegment.getStatisticsResourcePath(),localStream,System.currentTimeMillis());
   localStream.close();
   final Map<TblColRef,Dictionary<?>> dictionaryMap=CubingUtils.buildDictionary(cubeInstance,parsedStreamMessages);
-  Map<TblColRef,Dictionary<?>> realDictMap=writeDictionary(cubeSegment,dictionaryMap,startOffset,endOffset);
+  Map<TblColRef,Dictionary<?>> realDictMap=CubingUtils.writeDictionary(cubeSegment,dictionaryMap,startOffset,endOffset);
   InMemCubeBuilder inMemCubeBuilder=new InMemCubeBuilder(cubeInstance.getDescriptor(),realDictMap);
   final HTableInterface hTable=createHTable(cubeSegment);
   final HBaseCuboidWriter gtRecordWriter=new HBaseCuboidWriter(cubeDesc,hTable);

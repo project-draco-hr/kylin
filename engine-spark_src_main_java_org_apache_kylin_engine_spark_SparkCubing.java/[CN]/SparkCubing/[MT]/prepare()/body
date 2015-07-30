@@ -1,0 +1,7 @@
+{
+  final File file=new File(SparkFiles.get("kylin.properties"));
+  final String confPath=file.getParentFile().getAbsolutePath();
+  System.out.println("conf directory:" + confPath);
+  System.setProperty(KylinConfig.KYLIN_CONF,confPath);
+  ClassUtil.addClasspath(confPath);
+}

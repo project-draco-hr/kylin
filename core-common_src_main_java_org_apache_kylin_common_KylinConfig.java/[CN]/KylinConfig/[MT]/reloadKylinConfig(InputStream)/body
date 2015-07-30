@@ -1,20 +1,13 @@
 {
-  PropertiesConfiguration config=new PropertiesConfiguration();
+  Properties newProperties=new Properties();
   try {
-    config.load(is);
+    newProperties.load(is);
   }
- catch (  ConfigurationException e) {
+ catch (  IOException e) {
     throw new RuntimeException("Cannot load kylin config.",e);
   }
  finally {
-    try {
-      is.close();
-    }
- catch (    IOException e) {
-      logger.error("Failed to close inputstream.",e);
-    }
+    IOUtils.closeQuietly(is);
   }
-  this.kylinConfig=config;
-  this.metadataUrl=getOptional(KYLIN_METADATA_URL);
-  this.storageUrl=getOptional(KYLIN_STORAGE_URL);
+  this.properties=newProperties;
 }

@@ -1,3 +1,3 @@
 {
-  return kylinConfig.getString(SPARK_HOME);
+  return properties.getProperty(SPARK_HOME);
 }

@@ -1,0 +1,12 @@
+{
+  final CubeSegment segment=createSegment();
+  String confPath=new File(AbstractKylinTestCase.SANDBOX_TEST_DATA).getAbsolutePath();
+  KylinConfig.getInstanceFromEnv().getCoprocessorLocalJar();
+  String coprocessor=KylinConfig.getInstanceFromEnv().getCoprocessorLocalJar();
+  logger.info("confPath location:" + confPath);
+  logger.info("coprocessor location:" + coprocessor);
+  final DefaultChainedExecutable cubingJob=new SparkBatchCubingEngine(confPath,coprocessor).createBatchCubingJob(segment,"BuildCubeWithSpark");
+  jobService.addJob(cubingJob);
+  waitForJob(cubingJob.getId());
+  assertEquals(ExecutableState.SUCCEED,jobService.getOutput(cubingJob.getId()).getState());
+}

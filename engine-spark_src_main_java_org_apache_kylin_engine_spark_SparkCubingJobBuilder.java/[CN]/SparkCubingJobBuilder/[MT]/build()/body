@@ -1,0 +1,17 @@
+{
+  final CubingJob result=CubingJob.createBuildJob(seg,submitter,config);
+  final String jobId=result.getId();
+  inputSide.addStepPhase1_CreateFlatTable(result);
+  final CubeJoinedFlatTableDesc joinedFlatTableDesc=new CubeJoinedFlatTableDesc(seg.getCubeDesc(),seg);
+  final String tableName=joinedFlatTableDesc.getTableName();
+  logger.info("intermediate table:" + tableName);
+  final SparkExecutable sparkExecutable=new SparkExecutable();
+  sparkExecutable.setClassName(SparkCubing.class.getName());
+  sparkExecutable.setParam("hiveTable",tableName);
+  sparkExecutable.setParam("cubeName",seg.getCubeInstance().getName());
+  sparkExecutable.setParam("segmentId",seg.getUuid());
+  sparkExecutable.setParam("confPath",confPath);
+  sparkExecutable.setParam("coprocessor",coprocessor);
+  result.addTask(sparkExecutable);
+  return result;
+}

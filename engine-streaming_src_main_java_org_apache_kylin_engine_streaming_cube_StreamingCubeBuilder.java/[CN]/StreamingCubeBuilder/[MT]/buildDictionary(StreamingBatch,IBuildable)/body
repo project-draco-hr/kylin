@@ -9,7 +9,7 @@
       }
     }
 ));
-    Map<TblColRef,Dictionary<?>> realDictMap=writeDictionary((CubeSegment)buildable,dictionaryMap,streamingBatch.getTimeRange().getFirst(),streamingBatch.getTimeRange().getSecond());
+    Map<TblColRef,Dictionary<?>> realDictMap=CubingUtils.writeDictionary((CubeSegment)buildable,dictionaryMap,streamingBatch.getTimeRange().getFirst(),streamingBatch.getTimeRange().getSecond());
     return realDictMap;
   }
  catch (  IOException e) {

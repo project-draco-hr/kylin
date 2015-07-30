@@ -1,0 +1,92 @@
+{
+  final CubeInstance cubeInstance=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).reloadCubeLocal(cubeName);
+  HashMap<Long,HyperLogLogPlusCounter> zeroValue=Maps.newHashMap();
+  for (  Long id : new CuboidScheduler(cubeInstance.getDescriptor()).getAllCuboidIds()) {
+    zeroValue.put(id,new HyperLogLogPlusCounter(14));
+  }
+  final HashMap<Long,HyperLogLogPlusCounter> samplingResult=rowJavaRDD.aggregate(zeroValue,new Function2<HashMap<Long,HyperLogLogPlusCounter>,List<String>,HashMap<Long,HyperLogLogPlusCounter>>(){
+    @Override public HashMap<Long,HyperLogLogPlusCounter> call(    HashMap<Long,HyperLogLogPlusCounter> v1,    List<String> v2) throws Exception {
+      prepare();
+      final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+      final CubeManager cubeManager=CubeManager.getInstance(kylinConfig);
+      final CubeInstance cubeInstance=cubeManager.reloadCubeLocal(cubeName);
+      final CubeDesc cubeDesc=cubeInstance.getDescriptor();
+      final CubeJoinedFlatTableDesc flatTableDesc=new CubeJoinedFlatTableDesc(cubeDesc,null);
+      final int nRowKey=cubeDesc.getRowkey().getRowKeyColumns().length;
+      ByteArray[] row_hashcodes=new ByteArray[nRowKey];
+      for (int i=0; i < nRowKey; ++i) {
+        row_hashcodes[i]=new ByteArray();
+      }
+      for (int i=0; i < nRowKey; i++) {
+        Hasher hc=Hashing.murmur3_32().newHasher();
+        String colValue=v2.get(flatTableDesc.getRowKeyColumnIndexes()[i]);
+        if (colValue != null) {
+          row_hashcodes[i].set(hc.putString(colValue).hash().asBytes());
+        }
+ else {
+          row_hashcodes[i].set(hc.putInt(0).hash().asBytes());
+        }
+      }
+      final CuboidScheduler cuboidScheduler=new CuboidScheduler(cubeDesc);
+      final long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
+      final List<Long> allCuboidIds=cuboidScheduler.getAllCuboidIds();
+      final Map<Long,Integer[]> allCuboidsBitSet=Maps.newHashMapWithExpectedSize(allCuboidIds.size());
+      for (      Long cuboidId : allCuboidIds) {
+        BitSet bitSet=BitSet.valueOf(new long[]{cuboidId});
+        Integer[] cuboidBitSet=new Integer[bitSet.cardinality()];
+        long mask=Long.highestOneBit(baseCuboidId);
+        int position=0;
+        for (int i=0; i < nRowKey; i++) {
+          if ((mask & cuboidId) > 0) {
+            cuboidBitSet[position]=i;
+            position++;
+          }
+          mask=mask >> 1;
+        }
+        allCuboidsBitSet.put(cuboidId,cuboidBitSet);
+      }
+      HashMap<Long,HyperLogLogPlusCounter> result=Maps.newHashMapWithExpectedSize(allCuboidIds.size());
+      for (      Long cuboidId : allCuboidIds) {
+        Hasher hc=Hashing.murmur3_32().newHasher();
+        HyperLogLogPlusCounter counter=v1.get(cuboidId);
+        final Integer[] cuboidBitSet=allCuboidsBitSet.get(cuboidId);
+        for (int position=0; position < cuboidBitSet.length; position++) {
+          hc.putBytes(row_hashcodes[cuboidBitSet[position]].array());
+        }
+        counter.add(hc.hash().asBytes());
+        result.put(cuboidId,counter);
+      }
+      return result;
+    }
+  }
+,new Function2<HashMap<Long,HyperLogLogPlusCounter>,HashMap<Long,HyperLogLogPlusCounter>,HashMap<Long,HyperLogLogPlusCounter>>(){
+    @Override public HashMap<Long,HyperLogLogPlusCounter> call(    HashMap<Long,HyperLogLogPlusCounter> v1,    HashMap<Long,HyperLogLogPlusCounter> v2) throws Exception {
+      Preconditions.checkArgument(v1.size() == v2.size());
+      Preconditions.checkArgument(v1.size() > 0);
+      final HashMap<Long,HyperLogLogPlusCounter> result=Maps.newHashMapWithExpectedSize(v1.size());
+      for (      Map.Entry<Long,HyperLogLogPlusCounter> entry : v1.entrySet()) {
+        final HyperLogLogPlusCounter counter1=entry.getValue();
+        final HyperLogLogPlusCounter counter2=v2.get(entry.getKey());
+        if (counter2 != null) {
+          counter1.merge(counter2);
+        }
+        result.put(entry.getKey(),counter1);
+      }
+      return result;
+    }
+    private HashMap<Long,HyperLogLogPlusCounter> copy(    HashMap<Long,HyperLogLogPlusCounter> v1,    HashMap<Long,HyperLogLogPlusCounter> v2){
+      final HashMap<Long,HyperLogLogPlusCounter> result=Maps.newHashMapWithExpectedSize(v1.size());
+      for (      Map.Entry<Long,HyperLogLogPlusCounter> entry : v1.entrySet()) {
+        final HyperLogLogPlusCounter counter1=entry.getValue();
+        final HyperLogLogPlusCounter counter2=v2.get(entry.getKey());
+        if (counter2 != null) {
+          counter1.merge(counter2);
+        }
+        result.put(entry.getKey(),counter1);
+      }
+      return result;
+    }
+  }
+);
+  return samplingResult;
+}

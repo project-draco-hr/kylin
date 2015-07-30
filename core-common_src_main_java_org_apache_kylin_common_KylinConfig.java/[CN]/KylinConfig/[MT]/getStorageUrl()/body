@@ -1,3 +1,3 @@
 {
-  return storageUrl;
+  return getOptional(KYLIN_STORAGE_URL);
 }

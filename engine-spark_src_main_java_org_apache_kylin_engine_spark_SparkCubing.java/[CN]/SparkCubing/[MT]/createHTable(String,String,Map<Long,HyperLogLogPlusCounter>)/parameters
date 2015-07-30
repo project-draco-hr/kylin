@@ -1,0 +1,3 @@
+String cubeName
+String segmentId
+Map<Long,HyperLogLogPlusCounter> samplingResult

@@ -1,0 +1,2 @@
+Map<Long,HyperLogLogPlusCounter> counterMap
+int samplingPercentage
