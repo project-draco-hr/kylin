@@ -1,0 +1,5 @@
+{
+  for (  SimpleConsumer simpleConsumer : consumerCache.values()) {
+    simpleConsumer.close();
+  }
+}

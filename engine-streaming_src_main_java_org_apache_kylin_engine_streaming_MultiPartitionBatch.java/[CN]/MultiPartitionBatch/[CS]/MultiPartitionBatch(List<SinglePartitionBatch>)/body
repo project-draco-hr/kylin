@@ -1,0 +1,4 @@
+{
+  this.partitionBatchList=Preconditions.checkNotNull(partitionBatchList);
+  this.size=calculateSize();
+}

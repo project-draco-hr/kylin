@@ -1,0 +1,4 @@
+KafkaClusterConfig kafkaClusterConfig
+int partitionId
+long offset
+Parser parser

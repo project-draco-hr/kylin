@@ -1,0 +1,6 @@
+{
+  final long baseCuboidId=Cuboid.getBaseCuboidId(cubeDef);
+  List<Long> result=Lists.newArrayList();
+  getSubCuboidIds(baseCuboidId,result);
+  return result;
+}

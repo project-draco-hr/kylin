@@ -1,0 +1,6 @@
+{
+  result.add(parentCuboidId);
+  for (  Long cuboidId : getSpanningCuboid(parentCuboidId)) {
+    getSubCuboidIds(cuboidId,result);
+  }
+}

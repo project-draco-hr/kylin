@@ -1,0 +1,9 @@
+{
+  return new Runnable(){
+    @Override public void run(){
+      StreamingBatch streamingBatch=streamingInput.getBatchWithTimeWindow(streamingConfig,-1,startTime,endTime);
+      streamingBatchBuilder.build(streamingBatch);
+    }
+  }
+;
+}

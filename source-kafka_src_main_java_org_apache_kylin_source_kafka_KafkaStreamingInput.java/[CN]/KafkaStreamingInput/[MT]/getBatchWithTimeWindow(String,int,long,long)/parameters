@@ -1,0 +1,4 @@
+String streamingConfig
+int id
+long startTime
+long endTime

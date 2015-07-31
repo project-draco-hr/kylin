@@ -1,0 +1,4 @@
+{
+  this.offset=offset;
+  this.rawData=rawData;
+}

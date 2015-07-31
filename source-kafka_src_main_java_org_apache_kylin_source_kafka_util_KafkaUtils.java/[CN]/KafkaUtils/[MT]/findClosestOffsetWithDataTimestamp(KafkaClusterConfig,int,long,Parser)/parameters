@@ -1,0 +1,4 @@
+KafkaClusterConfig kafkaClusterConfig
+int partitionId
+long timestamp
+Parser parser

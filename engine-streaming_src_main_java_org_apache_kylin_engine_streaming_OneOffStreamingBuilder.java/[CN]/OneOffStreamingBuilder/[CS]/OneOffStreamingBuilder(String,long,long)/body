@@ -1,0 +1,9 @@
+{
+  Preconditions.checkArgument(startTime < endTime);
+  this.startTime=startTime;
+  this.endTime=endTime;
+  this.streamingConfig=Preconditions.checkNotNull(streamingConfig);
+  this.streamingInput=Preconditions.checkNotNull(StreamingUtils.getStreamingInput(streamingConfig));
+  this.streamingOutput=Preconditions.checkNotNull(StreamingUtils.getStreamingOutput(streamingConfig));
+  this.streamingBatchBuilder=Preconditions.checkNotNull(StreamingUtils.getMicroBatchBuilder(streamingConfig));
+}

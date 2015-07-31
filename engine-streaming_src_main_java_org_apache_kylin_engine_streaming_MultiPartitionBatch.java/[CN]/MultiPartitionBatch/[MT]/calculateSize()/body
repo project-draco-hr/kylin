@@ -1,0 +1,7 @@
+{
+  int result=0;
+  for (  SinglePartitionBatch singlePartitionBatch : partitionBatchList) {
+    result+=singlePartitionBatch.size();
+  }
+  return result;
+}

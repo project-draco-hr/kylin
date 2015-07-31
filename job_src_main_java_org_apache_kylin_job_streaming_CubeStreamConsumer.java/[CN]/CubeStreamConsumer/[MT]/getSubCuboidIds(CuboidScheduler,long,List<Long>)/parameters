@@ -1,3 +1,0 @@
-CuboidScheduler cuboidScheduler
-long parentCuboidId
-List<Long> result
