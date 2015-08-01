@@ -1,3 +1,3 @@
 {
-  return streamingConfig.getTopic();
+  return kafkaConfig.getTopic();
 }

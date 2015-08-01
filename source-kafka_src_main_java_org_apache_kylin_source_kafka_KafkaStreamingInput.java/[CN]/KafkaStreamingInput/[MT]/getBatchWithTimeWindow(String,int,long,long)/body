@@ -1,3 +1,37 @@
 {
-  return null;
+  try {
+    final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+    final KafkaConfigManager kafkaConfigManager=KafkaConfigManager.getInstance(kylinConfig);
+    final KafkaConfig kafkaConfig=kafkaConfigManager.getStreamingConfig(streaming);
+    final StreamingParser streamingParser=getStreamingParser(kafkaConfig);
+    final ExecutorService executorService=Executors.newCachedThreadPool();
+    final List<Future<List<StreamingMessage>>> futures=Lists.newArrayList();
+    for (    final KafkaClusterConfig kafkaClusterConfig : kafkaConfig.getKafkaClusterConfigs()) {
+      final int partitionCount=KafkaRequester.getKafkaTopicMeta(kafkaClusterConfig).getPartitionIds().size();
+      for (int i=0; i < partitionCount; ++i) {
+        final StreamingMessageProducer producer=new StreamingMessageProducer(kafkaClusterConfig,i,Pair.newPair(startTime,endTime),kafkaConfig.getMargin(),streamingParser);
+        final Future<List<StreamingMessage>> future=executorService.submit(producer);
+        futures.add(future);
+      }
+    }
+    List<StreamingMessage> messages=Lists.newLinkedList();
+    for (    Future<List<StreamingMessage>> future : futures) {
+      try {
+        messages.addAll(future.get());
+      }
+ catch (      InterruptedException e) {
+        logger.warn("this thread should not be interrupted, just ignore",e);
+        continue;
+      }
+catch (      ExecutionException e) {
+        logger.error("error when get StreamingMessages",e.getCause());
+        continue;
+      }
+    }
+    final Pair<Long,Long> timeRange=Pair.newPair(startTime,endTime);
+    return new StreamingBatch(messages,timeRange);
+  }
+ catch (  ReflectiveOperationException e) {
+    throw new RuntimeException("failed to create instance of StreamingParser",e);
+  }
 }

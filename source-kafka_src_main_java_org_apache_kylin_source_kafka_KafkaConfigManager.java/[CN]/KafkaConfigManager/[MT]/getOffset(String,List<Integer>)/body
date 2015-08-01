@@ -1,0 +1,16 @@
+{
+  Collections.sort(partitions);
+  final String resPath=formatStreamingOutputPath(streaming,partitions);
+  try {
+    final InputStream inputStream=getStore().getResource(resPath);
+    if (inputStream == null) {
+      return Collections.emptyMap();
+    }
+    final HashMap<Integer,Long> result=mapper.readValue(inputStream,mapType);
+    return result;
+  }
+ catch (  IOException e) {
+    logger.error("error get offset, path:" + resPath,e);
+    throw new RuntimeException("error get offset, path:" + resPath,e);
+  }
+}

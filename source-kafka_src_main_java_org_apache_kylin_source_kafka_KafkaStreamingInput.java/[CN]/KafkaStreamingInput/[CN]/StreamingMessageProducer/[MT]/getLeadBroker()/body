@@ -1,0 +1,10 @@
+{
+  final PartitionMetadata partitionMetadata=KafkaRequester.getPartitionMetadata(kafkaClusterConfig.getTopic(),partitionId,replicaBrokers,kafkaClusterConfig);
+  if (partitionMetadata != null && partitionMetadata.errorCode() == 0) {
+    replicaBrokers=partitionMetadata.replicas();
+    return partitionMetadata.leader();
+  }
+ else {
+    return null;
+  }
+}

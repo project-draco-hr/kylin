@@ -1,0 +1,3 @@
+{
+  logger.warn("invalid args:" + StringUtils.join(args," "));
+}

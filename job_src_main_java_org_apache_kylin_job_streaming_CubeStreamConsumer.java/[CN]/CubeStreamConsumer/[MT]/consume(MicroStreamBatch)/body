@@ -23,7 +23,7 @@
   Map<TblColRef,Dictionary<?>> realDictMap=writeDictionary(cubeSegment,dictionaryMap,startOffset,endOffset);
   InMemCubeBuilder inMemCubeBuilder=new InMemCubeBuilder(cubeInstance.getDescriptor(),realDictMap);
   final HTableInterface hTable=createHTable(cubeSegment);
-  final CubeStreamRecordWriter gtRecordWriter=new CubeStreamRecordWriter(cubeDesc,hTable);
+  final HBaseCuboidWriter gtRecordWriter=new HBaseCuboidWriter(cubeDesc,hTable);
   executorService.submit(inMemCubeBuilder.buildAsRunnable(blockingQueue,gtRecordWriter)).get();
   gtRecordWriter.flush();
   hTable.close();

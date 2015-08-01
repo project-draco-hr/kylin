@@ -1,0 +1,11 @@
+{
+  try {
+    CubeSegment cubeSegment=(CubeSegment)buildable;
+    final HTableInterface hTable;
+    hTable=createHTable(cubeSegment);
+    return new HBaseCuboidWriter(cubeSegment.getCubeDesc(),hTable);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("failed to get ICuboidWriter",e);
+  }
+}

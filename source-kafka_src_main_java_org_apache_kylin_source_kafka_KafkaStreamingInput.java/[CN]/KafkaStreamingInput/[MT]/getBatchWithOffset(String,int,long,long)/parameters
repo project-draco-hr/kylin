@@ -1,4 +1,0 @@
-String streamingConfig
-int id
-long offset
-long length

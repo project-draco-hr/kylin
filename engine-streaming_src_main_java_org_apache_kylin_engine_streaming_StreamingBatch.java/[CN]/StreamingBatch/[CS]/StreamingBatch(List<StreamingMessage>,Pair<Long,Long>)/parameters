@@ -1,0 +1,2 @@
+List<StreamingMessage> messages
+Pair<Long,Long> timeRange

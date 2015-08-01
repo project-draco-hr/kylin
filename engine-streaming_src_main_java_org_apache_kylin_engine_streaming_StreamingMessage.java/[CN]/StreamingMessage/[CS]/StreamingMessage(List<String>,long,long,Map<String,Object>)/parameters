@@ -1,0 +1,4 @@
+List<String> data
+long offset
+long timestamp
+Map<String,Object> params

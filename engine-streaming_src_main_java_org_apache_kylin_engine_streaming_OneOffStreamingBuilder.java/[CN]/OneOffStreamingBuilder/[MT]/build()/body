@@ -2,7 +2,12 @@
   return new Runnable(){
     @Override public void run(){
       StreamingBatch streamingBatch=streamingInput.getBatchWithTimeWindow(streamingConfig,-1,startTime,endTime);
-      streamingBatchBuilder.build(streamingBatch);
+      final IBuildable buildable=streamingBatchBuilder.createBuildable(streamingBatch);
+      final Map<Long,HyperLogLogPlusCounter> samplingResult=streamingBatchBuilder.sampling(streamingBatch);
+      final Map<TblColRef,Dictionary<?>> dictionaryMap=streamingBatchBuilder.buildDictionary(streamingBatch,buildable);
+      streamingBatchBuilder.build(streamingBatch,dictionaryMap,streamingOutput.getCuboidWriter(buildable));
+      streamingOutput.output(buildable,samplingResult);
+      streamingBatchBuilder.commit(buildable);
     }
   }
 ;

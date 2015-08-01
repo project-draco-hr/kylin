@@ -1,0 +1,17 @@
+{
+  final String resPath=formatStreamingOutputPath(streaming,shard);
+  try {
+    final InputStream inputStream=getStore().getResource(resPath);
+    if (inputStream == null) {
+      return 0;
+    }
+ else {
+      final BufferedReader br=new BufferedReader(new InputStreamReader(inputStream));
+      return Long.parseLong(br.readLine());
+    }
+  }
+ catch (  Exception e) {
+    logger.error("error get offset, path:" + resPath,e);
+    throw new RuntimeException("error get offset, path:" + resPath,e);
+  }
+}

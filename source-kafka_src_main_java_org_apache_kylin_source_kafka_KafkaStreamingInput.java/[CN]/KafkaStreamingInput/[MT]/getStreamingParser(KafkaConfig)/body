@@ -1,0 +1,18 @@
+{
+  final String cubeName=StreamingManager.getInstance(KylinConfig.getInstanceFromEnv()).getStreamingConfig(kafkaConfig.getName()).getCubeName();
+  final CubeInstance cubeInstance=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).getCube(cubeName);
+  List<TblColRef> columns=Lists.transform(new CubeJoinedFlatTableDesc(cubeInstance.getDescriptor(),null).getColumnList(),new Function<IntermediateColumnDesc,TblColRef>(){
+    @Nullable @Override public TblColRef apply(    IntermediateColumnDesc input){
+      return input.getColRef();
+    }
+  }
+);
+  if (!StringUtils.isEmpty(kafkaConfig.getParserName())) {
+    Class clazz=Class.forName(kafkaConfig.getParserName());
+    Constructor constructor=clazz.getConstructor(List.class);
+    return (StreamingParser)constructor.newInstance(columns);
+  }
+ else {
+    throw new IllegalStateException("invalid StreamingConfig:" + kafkaConfig.getName() + " missing property StreamingParser");
+  }
+}

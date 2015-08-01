@@ -1,0 +1,3 @@
+StreamingBatch streamingBatch
+Map<TblColRef,Dictionary<?>> dictionaryMap
+ICuboidWriter cuboidWriter
