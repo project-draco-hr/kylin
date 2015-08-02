@@ -7,17 +7,36 @@
     options.addOption(OPTION_TABLE_NAME);
     parseOptions(options,args);
     job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
+    Configuration jobConf=job.getConfiguration();
     String cubeName=getOptionValue(OPTION_CUBE_NAME);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
     String intermediateTable=getOptionValue(OPTION_TABLE_NAME);
     CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
     CubeInstance cubeInstance=cubeMgr.getCube(cubeName);
-    job.getConfiguration().set(BatchConstants.CFG_CUBE_NAME,cubeName);
+    CubeDesc cubeDesc=cubeInstance.getDescriptor();
+    jobConf.set(BatchConstants.CFG_CUBE_NAME,cubeName);
     System.out.println("Starting: " + job.getJobName());
     setJobClasspath(job);
     setupMapper(intermediateTable);
     setupReducer(output);
-    attachKylinPropsAndMetadata(cubeInstance,job.getConfiguration());
+    attachKylinPropsAndMetadata(cubeInstance,jobConf);
+    List<String> factDictColNames=Lists.newArrayList();
+    List<Integer> factDictColRowKeyIndexes=Lists.newArrayList();
+    Cuboid baseCuboid=Cuboid.findById(cubeDesc,Cuboid.getBaseCuboidId(cubeDesc));
+    List<TblColRef> columns=baseCuboid.getColumns();
+    RowKeyDesc rowkey=cubeDesc.getRowkey();
+    DictionaryManager dictMgr=DictionaryManager.getInstance(KylinConfig.getInstanceFromEnv());
+    for (int i=0; i < columns.size(); i++) {
+      TblColRef col=columns.get(i);
+      if (!rowkey.isUseDictionary(col))       continue;
+      String scanTable=(String)dictMgr.decideSourceData(cubeDesc.getModel(),rowkey.getDictionary(col),col,null)[0];
+      if (cubeDesc.getModel().isFactTable(scanTable)) {
+        factDictColNames.add(col.getName());
+        factDictColRowKeyIndexes.add(i);
+      }
+    }
+    jobConf.set(BatchConstants.CFG_FACT_DICT_COLUMN_NAMES,joiner.join(factDictColNames));
+    jobConf.set(BatchConstants.CFG_FACT_DICT_COLUMN_ROWKEY_INDEXES,joiner.join(factDictColRowKeyIndexes));
     return waitForCompletion(job);
   }
  catch (  Exception e) {

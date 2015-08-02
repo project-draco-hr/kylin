@@ -2,7 +2,7 @@
   try {
     int[] flatTableIndexes=intermediateTableDesc.getRowKeyColumnIndexes();
     HCatFieldSchema fieldSchema=null;
-    for (    int i : factDictCols) {
+    for (    int i : factDictColRowKeyIndexes) {
       outputKey.set((short)i);
       fieldSchema=schema.get(flatTableIndexes[i]);
       Object fieldValue=record.get(fieldSchema.getName(),schema);
