@@ -4,8 +4,13 @@
     if (matchExclude(path) == false) {
       InputStream content=src.getResource(path);
       long ts=src.getResourceTimestamp(path);
-      if (content != null)       dst.putResource(path,content,ts);
- else       System.out.println("Null inputstream for " + path);
+      if (content != null) {
+        dst.putResource(path,content,ts);
+        content.close();
+      }
+ else {
+        System.out.println("Null inputstream for " + path);
+      }
     }
   }
  else {

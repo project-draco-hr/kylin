@@ -18,7 +18,13 @@
     final InputStream inputStream=getStore().getResource(ResourceStore.JOB_OUTPUT_PATH_ROOT + "/" + job.getId()+ "."+ i);
     String output=null;
     if (inputStream != null) {
-      HashMap<String,String> job_output=JsonUtil.readValue(inputStream,HashMap.class);
+      HashMap<String,String> job_output=null;
+      try {
+        job_output=JsonUtil.readValue(inputStream,HashMap.class);
+      }
+  finally {
+        if (inputStream != null)         inputStream.close();
+      }
       if (job_output != null) {
         output=job_output.get("output");
       }

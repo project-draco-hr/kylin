@@ -14,8 +14,11 @@
   logger.info(String.format("sampling of %d messages cost %d ms",parsedStreamMessages.size(),(System.currentTimeMillis() - start)));
   final Configuration conf=HadoopUtil.getCurrentConfiguration();
   final Path outputPath=new Path("file:///tmp/cuboidstatistics/" + UUID.randomUUID().toString());
+  FileSystem.getLocal(conf).deleteOnExit(outputPath);
   FactDistinctColumnsReducer.writeCuboidStatistics(conf,outputPath,samplingResult,100);
-  ResourceStore.getStore(kylinConfig).putResource(cubeSegment.getStatisticsResourcePath(),FileSystem.getLocal(conf).open(new Path(outputPath,BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION)),0);
+  FSDataInputStream localStream=FileSystem.getLocal(conf).open(new Path(outputPath,BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION));
+  ResourceStore.getStore(kylinConfig).putResource(cubeSegment.getStatisticsResourcePath(),localStream,0);
+  localStream.close();
   final Map<TblColRef,Dictionary<?>> dictionaryMap=CubingUtils.buildDictionary(cubeInstance,parsedStreamMessages);
   Map<TblColRef,Dictionary<?>> realDictMap=writeDictionary(cubeSegment,dictionaryMap,startOffset,endOffset);
   InMemCubeBuilder inMemCubeBuilder=new InMemCubeBuilder(cubeInstance.getDescriptor(),realDictMap);
@@ -23,6 +26,7 @@
   final CubeStreamRecordWriter gtRecordWriter=new CubeStreamRecordWriter(cubeDesc,hTable);
   executorService.submit(inMemCubeBuilder.buildAsRunnable(blockingQueue,gtRecordWriter)).get();
   gtRecordWriter.flush();
+  hTable.close();
   commitSegment(cubeSegment);
   logger.info("Consumed {} messages out of {} raw messages",totalConsumedMessageCount,totalRawMessageCount);
 }

@@ -7,7 +7,9 @@
     }
  else {
       final BufferedReader br=new BufferedReader(new InputStreamReader(inputStream));
-      return Long.parseLong(br.readLine());
+      long ret=Long.parseLong(br.readLine());
+      br.close();
+      return ret;
     }
   }
  catch (  Exception e) {

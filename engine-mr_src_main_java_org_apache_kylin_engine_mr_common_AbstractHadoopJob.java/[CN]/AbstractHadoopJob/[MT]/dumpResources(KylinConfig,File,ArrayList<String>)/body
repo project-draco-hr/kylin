@@ -7,5 +7,6 @@
     if (in == null)     throw new IllegalStateException("No resource found at -- " + path);
     long ts=from.getResourceTimestamp(path);
     to.putResource(path,in,ts);
+    in.close();
   }
 }

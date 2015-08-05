@@ -2,7 +2,9 @@
   Preconditions.checkArgument(offset >= 0,"offset cannot be smaller than 0");
   final String resPath=formatStreamingOutputPath(streaming,shard);
   try {
-    getStore().putResource(resPath,new ByteArrayInputStream(Long.valueOf(offset).toString().getBytes()),getStore().getResourceTimestamp(resPath));
+    ByteArrayInputStream input=new ByteArrayInputStream(Long.valueOf(offset).toString().getBytes());
+    getStore().putResource(resPath,input,getStore().getResourceTimestamp(resPath));
+    input.close();
   }
  catch (  IOException e) {
     logger.error("error update offset, path:" + resPath,e);

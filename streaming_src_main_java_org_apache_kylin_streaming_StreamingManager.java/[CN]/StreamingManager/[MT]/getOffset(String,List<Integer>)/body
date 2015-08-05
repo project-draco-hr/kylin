@@ -6,7 +6,13 @@
     if (inputStream == null) {
       return Collections.emptyMap();
     }
-    final HashMap<Integer,Long> result=mapper.readValue(inputStream,mapType);
+    HashMap<Integer,Long> result=null;
+    try {
+      result=mapper.readValue(inputStream,mapType);
+    }
+  finally {
+      inputStream.close();
+    }
     return result;
   }
  catch (  IOException e) {
