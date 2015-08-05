@@ -24,8 +24,8 @@
     while (rows.size() < distinctRowCount) {
       rows.add(r.nextInt(rowCount));
     }
-    tableStream.close();
     tableReader.close();
+    tableStream.close();
     tableStream=null;
     tableReader=null;
     tableStream=store.getResource(path);
