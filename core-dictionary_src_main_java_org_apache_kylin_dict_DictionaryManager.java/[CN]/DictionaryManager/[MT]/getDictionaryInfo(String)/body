@@ -1,9 +1,14 @@
 {
-  DictionaryInfo dictInfo=dictCache.get(resourcePath);
-  if (dictInfo == null) {
-    dictInfo=load(resourcePath,true);
-    if (dictInfo == null)     dictInfo=NONE_INDICATOR;
-    dictCache.put(resourcePath,dictInfo);
+  try {
+    DictionaryInfo result=dictCache.get(resourcePath);
+    if (result == NONE_INDICATOR) {
+      return null;
+    }
+ else {
+      return result;
+    }
   }
-  return dictInfo == NONE_INDICATOR ? null : dictInfo;
+ catch (  ExecutionException e) {
+    throw new RuntimeException(e.getCause());
+  }
 }

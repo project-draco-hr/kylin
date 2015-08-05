@@ -21,6 +21,5 @@
     return getDictionaryInfo(dupDict);
   }
   Dictionary<?> dictionary=DictionaryGenerator.buildDictionary(dictInfo,inpTable);
-  dictInfo.setCardinality(dictionary.getSize());
   return trySaveNewDict(dictionary,dictInfo);
 }

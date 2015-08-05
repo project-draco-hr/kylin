@@ -40,7 +40,6 @@
   }
  else {
     Dictionary<?> newDict=DictionaryGenerator.mergeDictionaries(DataType.getInstance(newDictInfo.getDataType()),dicts);
-    newDictInfo.setCardinality(newDict.getSize());
     return trySaveNewDict(newDict,newDictInfo);
   }
 }

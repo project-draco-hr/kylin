@@ -1,19 +1,22 @@
 {
+  newDictInfo.setCardinality(newDict.getSize());
   newDictInfo.setDictionaryObject(newDict);
   newDictInfo.setDictionaryClass(newDict.getClass().getName());
-  DictionaryInfo largestDict=findLargestDict(newDictInfo);
-  if (largestDict != null) {
-    if (newDict.containedBy(largestDict.getDictionaryObject())) {
-      logger.info("dictionary content " + newDict + ", is contained by  dictionary at "+ largestDict.getResourcePath());
-      return largestDict;
-    }
- else     if (largestDict.getDictionaryObject().containedBy(newDict)) {
+  DictionaryInfo largestDictInfo=findLargestDictInfo(newDictInfo);
+  if (largestDictInfo != null) {
+    largestDictInfo=getDictionaryInfo(largestDictInfo.getResourcePath());
+    Dictionary<?> largestDictObject=largestDictInfo.getDictionaryObject();
+    if (newDict.contains(largestDictObject)) {
       logger.info("dictionary content " + newDict + " is by far the largest, save it");
       return saveNewDict(newDictInfo);
     }
+ else     if (largestDictObject.contains(newDict)) {
+      logger.info("dictionary content " + newDict + ", is contained by  dictionary at "+ largestDictInfo.getResourcePath());
+      return largestDictInfo;
+    }
  else {
       logger.info("merge dict and save...");
-      return mergeDictionary(Lists.newArrayList(newDictInfo,largestDict));
+      return mergeDictionary(Lists.newArrayList(newDictInfo,largestDictInfo));
     }
   }
  else {
