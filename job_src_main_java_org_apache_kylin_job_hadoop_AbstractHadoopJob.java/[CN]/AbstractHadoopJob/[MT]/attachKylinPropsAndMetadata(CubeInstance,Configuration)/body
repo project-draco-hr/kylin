@@ -18,5 +18,7 @@
     dumpList.addAll(segment.getDictionaryPaths());
   }
   dumpResources(kylinConfig,metaDir,dumpList);
-  conf.set("tmpfiles","file:///" + OptionsHelper.convertToFileURL(metaDir.getAbsolutePath()));
+  String hdfsMetaDir="file:///" + OptionsHelper.convertToFileURL(metaDir.getAbsolutePath());
+  logger.info("HDFS meta dir is: " + hdfsMetaDir);
+  conf.set("tmpfiles",hdfsMetaDir);
 }
