@@ -6,8 +6,9 @@
   BigDecimal min=new BigDecimal("333.1111111");
   BigDecimal max=new BigDecimal("333.1999999");
   LongMutable count=new LongMutable(2);
+  LongMutable item_count=new LongMutable(100);
   ByteBuffer buf=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
-  codec.encode(new Object[]{sum,min,max,count},buf);
+  codec.encode(new Object[]{sum,min,max,count,item_count},buf);
   buf.flip();
   byte[] valueBytes=new byte[buf.limit()];
   System.arraycopy(buf.array(),0,valueBytes,0,buf.limit());
@@ -19,5 +20,5 @@
   }
   rowValueDecoder.decode(valueBytes);
   Object[] measureValues=rowValueDecoder.getValues();
-  assertEquals("[333.1235, 333.1111, 333.2000, 2]",Arrays.toString(measureValues));
+  assertEquals("[333.1235, 333.1111, 333.2000, 2, 100]",Arrays.toString(measureValues));
 }
