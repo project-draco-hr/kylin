@@ -1,9 +1,0 @@
-{
-  for (  String colName : toBeExtractedColumns) {
-    logger.info("create empty file for column " + colName);
-    boolean success=fs.createNewFile(new Path(outputPath,colName));
-    if (!success) {
-      throw new IOException("failed to create empty file for column " + colName);
-    }
-  }
-}

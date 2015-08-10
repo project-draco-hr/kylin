@@ -8,8 +8,4 @@
   long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
   Cuboid baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
   columnList=baseCuboid.getColumns();
-  outputPath=conf.get(BatchConstants.OUTPUT_PATH);
-  fs=FileSystem.get(conf);
-  String[] factDictColNames=conf.get(BatchConstants.CFG_FACT_DICT_COLUMN_NAMES).split(",");
-  toBeExtractedColumns.addAll(Arrays.asList(factDictColNames));
 }
