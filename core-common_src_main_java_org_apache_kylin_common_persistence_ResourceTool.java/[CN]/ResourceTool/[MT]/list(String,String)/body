@@ -1,4 +1,0 @@
-{
-  KylinConfig config=KylinConfig.createInstanceFromUri(metadataUri);
-  list(config,path);
-}
