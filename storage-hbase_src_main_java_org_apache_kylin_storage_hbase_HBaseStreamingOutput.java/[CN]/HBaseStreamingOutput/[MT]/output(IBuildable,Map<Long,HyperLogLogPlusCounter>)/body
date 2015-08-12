@@ -9,7 +9,7 @@
     FSDataInputStream inputStream=null;
     try {
       inputStream=FileSystem.getLocal(conf).open(new Path(outputPath,BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION));
-      ResourceStore.getStore(kylinConfig).putResource(cubeSegment.getStatisticsResourcePath(),inputStream,0);
+      ResourceStore.getStore(kylinConfig).putResource(cubeSegment.getStatisticsResourcePath(),inputStream,System.currentTimeMillis());
     }
   finally {
       IOUtils.closeQuietly(inputStream);
