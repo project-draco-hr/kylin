@@ -10,7 +10,11 @@
     logger.info("Exception",e);
   }
  finally {
-    writer.close();
-    fs.close();
+    if (writer != null) {
+      writer.close();
+    }
+    if (fs != null) {
+      fs.close();
+    }
   }
 }

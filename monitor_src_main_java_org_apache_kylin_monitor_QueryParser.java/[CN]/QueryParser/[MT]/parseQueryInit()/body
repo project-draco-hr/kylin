@@ -12,7 +12,9 @@
     }
   }
  catch (  IOException e) {
-    fs.close();
+    if (fs != null) {
+      fs.close();
+    }
     logger.info("Failed to init:",e);
   }
 }

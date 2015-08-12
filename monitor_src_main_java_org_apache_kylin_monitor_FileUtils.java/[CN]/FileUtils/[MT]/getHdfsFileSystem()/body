@@ -5,7 +5,9 @@
     fs=FileSystem.newInstance(conf);
   }
  catch (  IOException e) {
-    fs.close();
+    if (fs != null) {
+      fs.close();
+    }
     logger.info("Failed to get hdfs FileSystem",e);
   }
   return fs;
