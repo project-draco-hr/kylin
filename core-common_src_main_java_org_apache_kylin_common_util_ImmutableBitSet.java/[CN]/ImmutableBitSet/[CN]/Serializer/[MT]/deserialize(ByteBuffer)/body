@@ -1,4 +1,0 @@
-{
-  byte[] bytes=BytesUtil.readByteArray(in);
-  return new ImmutableBitSet(BitSet.valueOf(bytes));
-}

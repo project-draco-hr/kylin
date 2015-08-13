@@ -1,3 +1,0 @@
-{
-  BytesUtil.writeByteArray(value.set.toByteArray(),out);
-}
