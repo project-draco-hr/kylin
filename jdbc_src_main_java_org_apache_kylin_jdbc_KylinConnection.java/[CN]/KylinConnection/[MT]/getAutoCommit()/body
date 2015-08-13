@@ -1,0 +1,4 @@
+{
+  if (meta.connectionSync(handle,new ConnectionPropertiesImpl()).isAutoCommit() == null)   setAutoCommit(true);
+  return super.getAutoCommit();
+}
