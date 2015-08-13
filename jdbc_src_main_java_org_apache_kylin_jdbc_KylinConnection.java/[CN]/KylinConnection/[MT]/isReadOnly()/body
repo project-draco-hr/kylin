@@ -1,0 +1,4 @@
+{
+  if (meta.connectionSync(handle,new ConnectionPropertiesImpl()).isReadOnly() == null)   setReadOnly(true);
+  return super.isReadOnly();
+}
