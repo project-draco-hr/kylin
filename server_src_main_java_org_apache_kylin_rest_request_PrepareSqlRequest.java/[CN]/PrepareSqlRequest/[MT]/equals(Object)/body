@@ -1,0 +1,9 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  if (!super.equals(obj))   return false;
+  PrepareSqlRequest other=(PrepareSqlRequest)obj;
+  if (!Arrays.equals(params,other.params))   return false;
+  return true;
+}
