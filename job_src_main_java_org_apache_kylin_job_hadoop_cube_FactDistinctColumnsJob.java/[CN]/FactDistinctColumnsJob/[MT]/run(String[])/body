@@ -27,6 +27,8 @@
     throw e;
   }
  finally {
-    if (job != null)     cleanupTempConfFile(job.getConfiguration());
+    if (job != null) {
+      cleanupTempConfFile(job.getConfiguration());
+    }
   }
 }
