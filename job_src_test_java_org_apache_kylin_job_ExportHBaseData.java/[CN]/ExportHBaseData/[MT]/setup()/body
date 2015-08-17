@@ -1,11 +1,13 @@
 {
-  long currentTIME=System.currentTimeMillis();
-  exportFolder="/tmp/hbase-export/" + currentTIME + "/";
-  backupArchive="/tmp/kylin_" + currentTIME + ".tar.gz";
   KylinConfig.destoryInstance();
   System.setProperty(KylinConfig.KYLIN_CONF,AbstractKylinTestCase.SANDBOX_TEST_DATA);
   kylinConfig=KylinConfig.getInstanceFromEnv();
   cli=kylinConfig.getCliCommandExecutor();
+  long currentTIME=System.currentTimeMillis();
+  exportHdfsFolder=kylinConfig.getHdfsWorkingDirectory() + "hbase-export/" + currentTIME+ "/";
+  exportLocalFolderParent=BatchConstants.CFG_KYLIN_LOCAL_TEMP_DIR + "hbase-export/";
+  exportLocalFolder=exportLocalFolderParent + currentTIME + "/";
+  backupArchive=exportLocalFolderParent + "hbase-export-at-" + currentTIME+ ".tar.gz";
   String metadataUrl=kylinConfig.getMetadataUrl();
   int cut=metadataUrl.indexOf('@');
   tableNameBase=metadataUrl.substring(0,cut);

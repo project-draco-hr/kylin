@@ -39,6 +39,7 @@
   }
  finally {
     IOUtils.closeStream(reader);
+    tempFile.delete();
   }
   return cuboidSizeMap;
 }

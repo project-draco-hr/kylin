@@ -1,15 +1,15 @@
 {
   try {
-    if (cli != null && exportFolder != null) {
-      cli.execute("hadoop fs -rm -r " + exportFolder);
+    if (cli != null && exportHdfsFolder != null) {
+      cli.execute("hadoop fs -rm -r " + exportHdfsFolder);
     }
   }
  catch (  IOException e) {
     e.printStackTrace();
   }
   try {
-    if (cli != null && exportFolder != null) {
-      cli.execute("rm -r " + exportFolder);
+    if (cli != null && exportLocalFolder != null) {
+      cli.execute("rm -r " + exportLocalFolder);
     }
   }
  catch (  IOException e) {
@@ -23,5 +23,4 @@
  catch (  IOException e) {
     e.printStackTrace();
   }
-  KylinConfig.destoryInstance();
 }

@@ -1,11 +1,11 @@
 {
-  cli.execute("mkdir -p " + exportFolder);
+  cli.execute("mkdir -p " + exportLocalFolderParent);
   for (  HTableDescriptor table : allTables) {
     String tName=table.getNameAsString();
     if (!tName.equals(tableNameBase) && !tName.startsWith(HBaseMiniclusterHelper.SHARED_STORAGE_PREFIX))     continue;
-    cli.execute("hbase org.apache.hadoop.hbase.mapreduce.Export " + tName + " "+ exportFolder+ tName);
+    cli.execute("hbase org.apache.hadoop.hbase.mapreduce.Export " + tName + " "+ exportHdfsFolder+ tName);
   }
-  cli.execute("hadoop fs -copyToLocal " + exportFolder + " "+ exportFolder);
-  cli.execute("tar -zcvf " + backupArchive + " --directory="+ exportFolder+ " .");
+  cli.execute("hadoop fs -copyToLocal " + exportHdfsFolder + " "+ exportLocalFolderParent);
+  cli.execute("tar -zcvf " + backupArchive + " "+ exportLocalFolder);
   downloadToLocal();
 }

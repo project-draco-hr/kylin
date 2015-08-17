@@ -1,14 +1,13 @@
 {
   File tmp=File.createTempFile("kylin_job_meta","");
-  tmp.delete();
+  FileUtils.forceDelete(tmp);
   File metaDir=new File(tmp,"meta");
   metaDir.mkdirs();
-  metaDir.getParentFile().deleteOnExit();
   KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   File kylinPropsFile=new File(metaDir,"kylin.properties");
   kylinConfig.writeProperties(kylinPropsFile);
   dumpResources(kylinConfig,metaDir,dumpList);
-  String hdfsMetaDir="file:///" + OptionsHelper.convertToFileURL(metaDir.getAbsolutePath());
+  String hdfsMetaDir="file://" + OptionsHelper.convertToFileURL(metaDir.getAbsolutePath());
   logger.info("HDFS meta dir is: " + hdfsMetaDir);
   conf.set("tmpfiles",hdfsMetaDir);
 }

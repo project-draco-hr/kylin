@@ -1,6 +1,0 @@
-{
-  int exitCode=cleanupOldStorage();
-  if (exitCode == 0) {
-    exportHBaseData();
-  }
-}
