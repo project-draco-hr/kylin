@@ -21,7 +21,9 @@
   cubeSegment.setStatus(SegmentStatusEnum.READY);
   try {
     CubeUpdate cubeBuilder=new CubeUpdate(cubeInstance);
-    cubeBuilder.setToUpdateSegs(cubeInstance.getSegmentById(segmentId));
+    cubeInstance.setStatus(RealizationStatusEnum.READY);
+    cubeSegment.setStatus(SegmentStatusEnum.READY);
+    cubeBuilder.setToUpdateSegs(cubeSegment);
     CubeManager.getInstance(kylinConfig).updateCube(cubeBuilder);
   }
  catch (  IOException e) {

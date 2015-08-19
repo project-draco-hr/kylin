@@ -4,4 +4,5 @@
   options.addOption(OPTION_CUBE_NAME);
   options.addOption(OPTION_SEGMENT_ID);
   options.addOption(OPTION_CONF_PATH);
+  options.addOption(OPTION_COPROCESSOR);
 }
