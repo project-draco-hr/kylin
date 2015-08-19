@@ -1,5 +1,5 @@
 {
-  final String property=System.getProperty(prop);
+  final String property=getOptional(prop);
   if (!StringUtils.isBlank(property)) {
     return property.split("\\s*,\\s*");
   }
