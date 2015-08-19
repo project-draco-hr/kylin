@@ -4,6 +4,5 @@
   GridTable table=new GridTable(info,store);
   rebuildViaAppend(table);
   IGTScanner scanner=scan(table);
-  assertEquals(3,scanner.getScannedRowBlockCount());
   assertEquals(10,scanner.getScannedRowCount());
 }

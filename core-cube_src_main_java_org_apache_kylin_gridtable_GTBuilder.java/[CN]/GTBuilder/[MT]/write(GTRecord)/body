@@ -1,7 +1,4 @@
 {
-  blockWriter.append(r);
+  storeWriter.write(r);
   writtenRowCount++;
-  if (block.isFull()) {
-    flush();
-  }
 }

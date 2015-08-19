@@ -1,0 +1,39 @@
+{
+  count=0;
+  return new Iterator<GTRecord>(){
+    GTRecord record=new GTRecord(info);
+    GTRecord next;
+    ByteBuffer buf=ByteBuffer.allocate(info.getMaxRecordLength());
+    @Override public boolean hasNext(){
+      if (next != null)       return true;
+      try {
+        if (din.available() > 0) {
+          int len=din.readInt();
+          din.read(buf.array(),buf.arrayOffset(),len);
+          buf.clear();
+          buf.limit(len);
+          record.loadColumns(info.getAllColumns(),buf);
+          next=record;
+        }
+      }
+ catch (      IOException e) {
+        throw new RuntimeException(e);
+      }
+      return next != null;
+    }
+    @Override public GTRecord next(){
+      if (next == null) {
+        hasNext();
+        if (next == null)         throw new NoSuchElementException();
+      }
+      GTRecord r=next;
+      next=null;
+      count++;
+      return r;
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+  }
+;
+}

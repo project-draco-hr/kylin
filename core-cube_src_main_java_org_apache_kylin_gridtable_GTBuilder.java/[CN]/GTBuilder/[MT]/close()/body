@@ -1,6 +1,3 @@
 {
-  if (block.isEmpty() == false) {
-    flush();
-  }
   storeWriter.close();
 }

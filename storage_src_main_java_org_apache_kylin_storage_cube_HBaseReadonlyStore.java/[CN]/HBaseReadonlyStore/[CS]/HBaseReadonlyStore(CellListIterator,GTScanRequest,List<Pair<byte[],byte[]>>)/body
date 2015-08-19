@@ -1,0 +1,6 @@
+{
+  this.cellListIterator=cellListIterator;
+  this.info=gtScanRequest.getInfo();
+  this.hbaseColumns=hbaseColumns;
+  this.selectedColBlocks=gtScanRequest.getSelectedColBlocks().set(0);
+}

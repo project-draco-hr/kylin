@@ -1,4 +1,5 @@
 {
+  buf=ByteBuffer.allocate(info.getMaxRecordLength());
   writeOffset=0;
   memPart.clear();
   diskPart.clear();

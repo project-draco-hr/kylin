@@ -1,3 +1,5 @@
 {
-  return new GTStoreBridgeScanner(info,scanRequest,oldScan(scanRequest));
+synchronized (lock) {
+    return new Reader();
+  }
 }

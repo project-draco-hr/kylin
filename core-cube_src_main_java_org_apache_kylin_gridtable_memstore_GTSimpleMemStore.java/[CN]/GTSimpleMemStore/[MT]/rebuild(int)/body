@@ -1,4 +1,4 @@
 {
-  rowBlockList.clear();
-  return new Writer(rowBlockList);
+  rowList.clear();
+  return new Writer();
 }

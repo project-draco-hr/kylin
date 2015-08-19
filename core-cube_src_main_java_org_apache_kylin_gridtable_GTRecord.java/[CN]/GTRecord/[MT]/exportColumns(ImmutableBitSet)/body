@@ -5,6 +5,6 @@
     len+=cols[c].length();
   }
   ByteArray buf=ByteArray.allocate(len);
-  exportColumns(info.primaryKey,buf);
+  exportColumns(selectedCols,buf);
   return buf;
 }

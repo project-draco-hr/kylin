@@ -1,5 +1,0 @@
-{
-  IGTCodeSystem originalCodeSystem=this.codeSystem;
-  codeSystem=this.codeSystem.trim();
-  return originalCodeSystem;
-}

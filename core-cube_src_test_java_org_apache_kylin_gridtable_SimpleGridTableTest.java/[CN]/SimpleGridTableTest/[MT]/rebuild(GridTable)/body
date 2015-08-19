@@ -4,7 +4,6 @@
     builder.write(rec);
   }
   builder.close();
-  System.out.println("Written Row Block Count: " + builder.getWrittenRowBlockCount());
   System.out.println("Written Row Count: " + builder.getWrittenRowCount());
   return builder;
 }

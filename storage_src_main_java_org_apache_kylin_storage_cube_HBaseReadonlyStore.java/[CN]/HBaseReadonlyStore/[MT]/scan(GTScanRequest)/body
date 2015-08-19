@@ -1,0 +1,49 @@
+{
+  return new IGTScanner(){
+    int count;
+    @Override public void close() throws IOException {
+      cellListIterator.close();
+    }
+    @Override public Iterator<GTRecord> iterator(){
+      return new Iterator<GTRecord>(){
+        GTRecord oneRecord=new GTRecord(info);
+        @Override public boolean hasNext(){
+          return cellListIterator.hasNext();
+        }
+        @Override public GTRecord next(){
+          List<Cell> oneRow=cellListIterator.next();
+          if (oneRow.size() < 1) {
+            throw new IllegalStateException("cell list's size less than 1");
+          }
+          ByteBuffer buf;
+          Cell firstCell=oneRow.get(0);
+          buf=byteBuffer(firstCell.getRowArray(),RowConstants.ROWKEY_CUBOIDID_LEN + firstCell.getRowOffset(),firstCell.getRowLength() - RowConstants.ROWKEY_CUBOIDID_LEN);
+          oneRecord.loadCellBlock(0,buf);
+          int hbaseColIdx=0;
+          for (int i=1; i < selectedColBlocks.trueBitCount(); i++) {
+            int colBlockIdx=selectedColBlocks.trueBitAt(i);
+            Pair<byte[],byte[]> hbaseColumn=hbaseColumns.get(hbaseColIdx++);
+            Cell cell=CubeHBaseRPC.findCell(oneRow,hbaseColumn.getFirst(),hbaseColumn.getSecond());
+            buf=byteBuffer(cell.getValueArray(),cell.getValueOffset(),cell.getValueLength());
+            oneRecord.loadCellBlock(colBlockIdx,buf);
+          }
+          return oneRecord;
+        }
+        @Override public void remove(){
+          throw new UnsupportedOperationException();
+        }
+        private ByteBuffer byteBuffer(        byte[] array,        int offset,        int length){
+          return ByteBuffer.wrap(array,offset,length);
+        }
+      }
+;
+    }
+    @Override public GTInfo getInfo(){
+      return info;
+    }
+    @Override public int getScannedRowCount(){
+      return count;
+    }
+  }
+;
+}

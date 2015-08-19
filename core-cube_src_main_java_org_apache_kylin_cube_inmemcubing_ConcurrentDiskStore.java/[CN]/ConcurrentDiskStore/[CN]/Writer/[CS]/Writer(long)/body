@@ -1,5 +1,6 @@
 {
   this.writeOffset=startOffset;
+  this.buf=ByteBuffer.allocate(info.getMaxRecordLength());
   if (debug)   logger.debug(ConcurrentDiskStore.this + " write start @ " + writeOffset);
   OutputStream out=new OutputStream(){
     byte[] tmp=new byte[1];

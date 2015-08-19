@@ -1,8 +1,7 @@
 {
-  if (rowBlockList.size() == 0) {
-    return 0;
+  long sum=0;
+  for (  byte[] bytes : rowList) {
+    sum+=bytes.length;
   }
- else {
-    return rowBlockList.get(0).exportLength() * Long.valueOf(rowBlockList.size());
-  }
+  return sum;
 }

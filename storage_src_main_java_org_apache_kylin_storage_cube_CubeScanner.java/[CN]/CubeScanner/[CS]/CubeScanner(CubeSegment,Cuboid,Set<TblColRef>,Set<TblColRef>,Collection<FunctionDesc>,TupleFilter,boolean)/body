@@ -11,10 +11,8 @@
   GTScanRangePlanner scanRangePlanner=new GTScanRangePlanner(info);
   List<GTScanRange> scanRanges=scanRangePlanner.planScanRanges(gtFilter,MAX_SCAN_RANGES);
   scanRequests=Lists.newArrayListWithCapacity(scanRanges.size());
-  IGTCodeSystem origin=info.trimCodeSystemForCoprocessor();
-  trimmedInfoBytes=KryoUtils.serialize(info);
-  info.setIGTCodeSystem(origin);
-  GTInfo trimmedInfo=KryoUtils.deserialize(this.trimmedInfoBytes,GTInfo.class);
+  trimmedInfoBytes=GTInfo.serialize(info);
+  GTInfo trimmedInfo=GTInfo.deserialize(trimmedInfoBytes);
   for (  GTScanRange range : scanRanges) {
     scanRequests.add(new GTScanRequest(trimmedInfo,range,gtDimensions,gtAggrGroups,gtAggrMetrics,gtAggrFuncs,gtFilter,allowPreAggregate));
   }

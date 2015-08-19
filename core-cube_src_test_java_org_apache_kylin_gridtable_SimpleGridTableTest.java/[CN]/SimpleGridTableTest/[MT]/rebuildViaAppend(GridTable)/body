@@ -8,24 +8,20 @@
   builder.write(data.get(i++));
   builder.write(data.get(i++));
   builder.close();
-  System.out.println("Written Row Block Count: " + builder.getWrittenRowBlockCount());
   System.out.println("Written Row Count: " + builder.getWrittenRowCount());
   builder=table.append();
   builder.write(data.get(i++));
   builder.write(data.get(i++));
   builder.write(data.get(i++));
   builder.close();
-  System.out.println("Written Row Block Count: " + builder.getWrittenRowBlockCount());
   System.out.println("Written Row Count: " + builder.getWrittenRowCount());
   builder=table.append();
   builder.write(data.get(i++));
   builder.write(data.get(i++));
   builder.close();
-  System.out.println("Written Row Block Count: " + builder.getWrittenRowBlockCount());
   System.out.println("Written Row Count: " + builder.getWrittenRowCount());
   builder=table.append();
   builder.write(data.get(i++));
   builder.close();
-  System.out.println("Written Row Block Count: " + builder.getWrittenRowBlockCount());
   System.out.println("Written Row Count: " + builder.getWrittenRowCount());
 }

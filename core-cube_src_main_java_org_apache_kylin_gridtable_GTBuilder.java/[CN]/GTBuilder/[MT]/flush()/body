@@ -1,8 +1,0 @@
-{
-  blockWriter.readyForFlush();
-  storeWriter.write(block);
-  writtenRowBlockCount++;
-  if (block.isFull()) {
-    blockWriter.clearForNext();
-  }
-}

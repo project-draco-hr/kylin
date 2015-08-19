@@ -28,7 +28,6 @@ i++;
 System.out.println(r);
 }
 scanner.close();
-System.out.println("Scanned Row Block Count: " + scanner.getScannedRowBlockCount());
 System.out.println("Scanned Row Count: " + scanner.getScannedRowCount());
 return scanner;
 }

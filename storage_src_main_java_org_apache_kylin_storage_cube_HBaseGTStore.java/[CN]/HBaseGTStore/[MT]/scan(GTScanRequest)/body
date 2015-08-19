@@ -1,3 +1,0 @@
-{
-  return new GTStoreBridgeScanner(info,scanRequest,oldScan(scanRequest));
-}
