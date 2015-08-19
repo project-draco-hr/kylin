@@ -24,6 +24,6 @@
   }
 ;
   IGTStore store=new HBaseGTStore(cellListIterator,scanRequest,hbaseColumns);
-  GTRawScanner rawScanner=new GTRawScanner(scanRequest.getInfo(),store,scanRequest);
+  IGTScanner rawScanner=store.scan(scanRequest);
   return scanRequest.decorateScanner(rawScanner);
 }

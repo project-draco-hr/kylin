@@ -1,4 +1,4 @@
 {
-  IGTScanner result=new GTRawScanner(info,store,req);
+  IGTScanner result=store.scan(req);
   return req.decorateScanner(result);
 }

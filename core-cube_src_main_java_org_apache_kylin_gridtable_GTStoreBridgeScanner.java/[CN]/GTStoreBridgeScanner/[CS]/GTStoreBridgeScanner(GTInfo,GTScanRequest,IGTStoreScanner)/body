@@ -1,6 +1,6 @@
 {
   this.info=info;
   this.selectedColBlocks=req.getSelectedColBlocks();
-  this.storeScanner=store.scan(req);
+  this.storeScanner=storeScanner;
   this.oneRecord=new GTRecord(info);
 }

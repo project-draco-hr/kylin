@@ -11,7 +11,7 @@
     innerScanner=region.getScanner(scan);
     InnerScannerAsIterator cellListIterator=new InnerScannerAsIterator(innerScanner);
     IGTStore store=new HBaseGTStore(cellListIterator,scanReq,hbaseRawScan.hbaseColumns);
-    GTRawScanner rawScanner=new GTRawScanner(scanReq.getInfo(),store,scanReq);
+    IGTScanner rawScanner=store.scan(scanReq);
     IGTScanner finalScanner=scanReq.decorateScanner(rawScanner);
     ByteBuffer buffer=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
     ByteArrayOutputStream outputStream=new ByteArrayOutputStream(RowConstants.ROWVALUE_BUFFER_SIZE);
