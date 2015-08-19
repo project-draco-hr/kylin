@@ -6,6 +6,6 @@
     cli.execute("hbase org.apache.hadoop.hbase.mapreduce.Export " + tName + " "+ exportHdfsFolder+ tName);
   }
   cli.execute("hadoop fs -copyToLocal " + exportHdfsFolder + " "+ exportLocalFolderParent);
-  cli.execute("tar -zcvf " + backupArchive + " --directory="+ exportLocalFolderParent+ " .");
+  cli.execute("tar -zcvf " + backupArchive + " --directory="+ exportLocalFolderParent+ " "+ currentTIME);
   downloadToLocal();
 }
