@@ -21,8 +21,7 @@
   double errorRate=mergeHllc.getErrorRate();
   long estimate=mergeHllc.getCountEstimate();
   double actualError=(double)(testSet.size() - estimate) / testSet.size();
-  System.out.println(testSet.size() + "-" + estimate);
-  System.out.println("=" + actualError);
+  System.out.println(testSet.size() + "-" + estimate+ " ~ "+ actualError);
   if (Math.abs(actualError) > errorRate) {
     errorCount1++;
   }
