@@ -3,5 +3,5 @@
   if (!root.endsWith("/")) {
     root+="/";
   }
-  return root + getMetadataUrlPrefix();
+  return root + getMetadataUrlPrefix() + "/";
 }

@@ -1,9 +1,24 @@
 {
   String tempMetaFileString=conf.get("tmpfiles");
+  logger.info("tempMetaFileString is : " + tempMetaFileString);
   if (tempMetaFileString != null) {
-    File tempMetaFile=new File(tempMetaFileString);
-    if (tempMetaFile.exists()) {
-      tempMetaFile.getParentFile().delete();
+    if (tempMetaFileString.startsWith("file://")) {
+      tempMetaFileString=tempMetaFileString.substring("file://".length());
+      File tempMetaFile=new File(tempMetaFileString);
+      if (tempMetaFile.exists()) {
+        try {
+          FileUtils.forceDelete(tempMetaFile.getParentFile());
+        }
+ catch (        IOException e) {
+          logger.warn("error when deleting " + tempMetaFile,e);
+        }
+      }
+ else {
+        logger.info("" + tempMetaFileString + " does not exist");
+      }
+    }
+ else {
+      logger.info("tempMetaFileString is not starting with file:// :" + tempMetaFileString);
     }
   }
 }
