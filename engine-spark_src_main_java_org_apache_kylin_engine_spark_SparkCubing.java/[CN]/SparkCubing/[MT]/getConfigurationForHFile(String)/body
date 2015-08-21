@@ -1,0 +1,9 @@
+{
+  final Configuration conf=HBaseConnection.newHBaseConfiguration(KylinConfig.getInstanceFromEnv().getStorageUrl());
+  Job job=Job.getInstance(conf);
+  job.setMapOutputKeyClass(ImmutableBytesWritable.class);
+  job.setMapOutputValueClass(KeyValue.class);
+  HTable table=new HTable(conf,hTableName);
+  HFileOutputFormat.configureIncrementalLoad(job,table);
+  return conf;
+}

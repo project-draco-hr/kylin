@@ -82,12 +82,46 @@
   }
 );
   final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
-  final Configuration conf=HBaseConnection.newHBaseConfiguration(KylinConfig.getInstanceFromEnv().getStorageUrl());
+  final CubeInstance cubeInstance=CubeManager.getInstance(kylinConfig).getCube(cubeName);
+  final CubeSegment cubeSegment=cubeInstance.getSegmentById(segmentId);
+  Configuration conf=getConfigurationForHFile(cubeSegment.getStorageLocationIdentifier());
   Path path=new Path(kylinConfig.getHdfsWorkingDirectory(),"hfile_" + UUID.randomUUID().toString());
   Preconditions.checkArgument(!FileSystem.get(conf).exists(path));
   String url=conf.get("fs.defaultFS") + path.toString();
   System.out.println("use " + url + " as hfile");
-  javaPairRDD.mapToPair(new PairFunction<Tuple2<byte[],byte[]>,ImmutableBytesWritable,KeyValue>(){
+  javaPairRDD.reduceByKey(new Function2<byte[],byte[],byte[]>(){
+    @Override public byte[] call(    byte[] v1,    byte[] v2) throws Exception {
+      prepare();
+      final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+      final CubeManager cubeManager=CubeManager.getInstance(kylinConfig);
+      final CubeInstance cubeInstance=cubeManager.reloadCubeLocal(cubeName);
+      final CubeDesc cubeDesc=cubeInstance.getDescriptor();
+      List<MeasureDesc> measuresDescs=Lists.newArrayList();
+      for (      HBaseColumnFamilyDesc cfDesc : cubeDesc.getHBaseMapping().getColumnFamily()) {
+        for (        HBaseColumnDesc colDesc : cfDesc.getColumns()) {
+          for (          MeasureDesc measure : colDesc.getMeasures()) {
+            measuresDescs.add(measure);
+          }
+        }
+      }
+      MeasureCodec codec=new MeasureCodec(measuresDescs);
+      MeasureAggregators aggs=new MeasureAggregators(measuresDescs);
+      Object[] input=new Object[measuresDescs.size()];
+      Object[] result=new Object[measuresDescs.size()];
+      codec.decode(ByteBuffer.wrap(v1),input);
+      aggs.aggregate(input);
+      codec.decode(ByteBuffer.wrap(v2),input);
+      aggs.aggregate(input);
+      aggs.collectStates(result);
+      final ByteBuffer buffer=ByteBuffer.allocate(Math.max(v1.length,v2.length));
+      buffer.clear();
+      codec.encode(result,buffer);
+      byte[] bytes=new byte[buffer.position()];
+      System.arraycopy(buffer.array(),buffer.arrayOffset(),bytes,0,buffer.position());
+      return bytes;
+    }
+  }
+).sortByKey(UnsignedBytes.lexicographicalComparator()).mapToPair(new PairFunction<Tuple2<byte[],byte[]>,ImmutableBytesWritable,KeyValue>(){
     @Override public Tuple2<ImmutableBytesWritable,KeyValue> call(    Tuple2<byte[],byte[]> tuple2) throws Exception {
       ImmutableBytesWritable key=new ImmutableBytesWritable(tuple2._1());
       KeyValue value=new KeyValue(tuple2._1(),"F1".getBytes(),"M".getBytes(),tuple2._2());
