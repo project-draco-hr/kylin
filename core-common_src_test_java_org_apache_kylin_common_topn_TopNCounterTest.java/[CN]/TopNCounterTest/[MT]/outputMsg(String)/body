@@ -1,0 +1,3 @@
+{
+  if (verbose)   System.out.println(msg);
+}

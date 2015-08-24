@@ -1,0 +1,19 @@
+{
+  List<Pair<String,Double>> topResult1=firstConsumer.getTopN(TOP_K);
+  outputMsg("Get topN, Space saving takes " + firstConsumer.getSpentTime() / 1000 + " seconds");
+  List<Pair<String,Double>> realSequence=secondConsumer.getTopN(TOP_K);
+  outputMsg("Get topN, Merge sort takes " + secondConsumer.getSpentTime() / 1000 + " seconds");
+  int error=0;
+  for (int i=0; i < topResult1.size(); i++) {
+    outputMsg("Compare " + i);
+    if (isClose(topResult1.get(i).getSecond().doubleValue(),realSequence.get(i).getSecond().doubleValue())) {
+      outputMsg("Passed; key:" + topResult1.get(i).getFirst() + ", value:"+ topResult1.get(i).getSecond());
+    }
+ else {
+      outputMsg("Failed; space saving key:" + topResult1.get(i).getFirst() + ", value:"+ topResult1.get(i).getSecond());
+      outputMsg("Failed; correct key:" + realSequence.get(i).getFirst() + ", value:"+ realSequence.get(i).getSecond());
+      error++;
+    }
+  }
+  org.junit.Assert.assertEquals(0,error);
+}

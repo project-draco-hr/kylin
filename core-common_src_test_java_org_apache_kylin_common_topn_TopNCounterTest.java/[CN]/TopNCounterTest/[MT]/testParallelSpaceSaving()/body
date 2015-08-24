@@ -1,0 +1,18 @@
+{
+  String dataFile=prepareTestDate();
+  TopNCounterTest.SpaceSavingConsumer[] parallelCounters=new TopNCounterTest.SpaceSavingConsumer[PARALLEL];
+  for (int i=0; i < PARALLEL; i++) {
+    parallelCounters[i]=new TopNCounterTest.SpaceSavingConsumer(TOP_K * SPACE_SAVING_ROOM);
+  }
+  int slice=TOTAL_RECORDS / PARALLEL;
+  int startPosition=0;
+  for (int i=0; i < PARALLEL; i++) {
+    feedDataToConsumer(dataFile,parallelCounters[i],startPosition,startPosition + slice);
+    startPosition+=slice;
+  }
+  TopNCounterTest.SpaceSavingConsumer[] mergedCounters=singleMerge(parallelCounters);
+  TopNCounterTest.HashMapConsumer accurateCounter=new TopNCounterTest.HashMapConsumer();
+  feedDataToConsumer(dataFile,accurateCounter,0,TOTAL_RECORDS);
+  compareResult(mergedCounters[0],accurateCounter);
+  FileUtils.forceDelete(new File(dataFile));
+}

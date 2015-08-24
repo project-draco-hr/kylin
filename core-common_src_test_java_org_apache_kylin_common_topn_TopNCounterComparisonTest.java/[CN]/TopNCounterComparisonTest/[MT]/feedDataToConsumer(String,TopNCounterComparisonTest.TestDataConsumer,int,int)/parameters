@@ -1,4 +1,0 @@
-String dataFile
-TopNCounterComparisonTest.TestDataConsumer consumer
-int startLine
-int endLine

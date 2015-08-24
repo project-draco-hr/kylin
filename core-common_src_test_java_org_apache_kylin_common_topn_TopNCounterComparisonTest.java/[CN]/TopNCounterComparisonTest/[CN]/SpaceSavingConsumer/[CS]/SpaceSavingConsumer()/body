@@ -1,3 +1,0 @@
-{
-  vs=new TopNCounter<String>(TOP_K * SPACE_SAVING_ROOM);
-}

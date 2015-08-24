@@ -1,0 +1,11 @@
+{
+  List<TopNCounterTest.SpaceSavingConsumer> list=Lists.newArrayList();
+  if (consumers.length == 1)   return consumers;
+  for (int i=0, n=consumers.length; i < n; i=i + 2) {
+    if (i + 1 < n) {
+      consumers[i].vs.merge(consumers[i + 1].vs);
+    }
+    list.add(consumers[i]);
+  }
+  return binaryMerge(list.toArray(new TopNCounterTest.SpaceSavingConsumer[list.size()]));
+}
