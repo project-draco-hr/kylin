@@ -1,0 +1,7 @@
+{
+  String alias;
+  int cut=table.lastIndexOf('.');
+  if (cut < 0)   alias=table;
+ else   alias=table.substring(cut + 1);
+  tableAliasMap.put(table,alias);
+}
