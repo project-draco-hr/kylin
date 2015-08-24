@@ -1,0 +1,35 @@
+{
+  if (other == org.apache.kylin.storage.hbase.ii.coprocessor.endpoint.generated.IIProtos.IIResponseInternal.getDefaultInstance())   return this;
+  if (rowsBuilder_ == null) {
+    if (!other.rows_.isEmpty()) {
+      if (rows_.isEmpty()) {
+        rows_=other.rows_;
+        bitField0_=(bitField0_ & ~0x00000001);
+      }
+ else {
+        ensureRowsIsMutable();
+        rows_.addAll(other.rows_);
+      }
+      onChanged();
+    }
+  }
+ else {
+    if (!other.rows_.isEmpty()) {
+      if (rowsBuilder_.isEmpty()) {
+        rowsBuilder_.dispose();
+        rowsBuilder_=null;
+        rows_=other.rows_;
+        bitField0_=(bitField0_ & ~0x00000001);
+        rowsBuilder_=com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ? getRowsFieldBuilder() : null;
+      }
+ else {
+        rowsBuilder_.addAllMessages(other.rows_);
+      }
+    }
+  }
+  if (other.hasStats()) {
+    mergeStats(other.getStats());
+  }
+  this.mergeUnknownFields(other.getUnknownFields());
+  return this;
+}

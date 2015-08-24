@@ -1,0 +1,16 @@
+{
+  org.apache.kylin.storage.hbase.ii.coprocessor.endpoint.generated.IIProtos.IIResponse parsedMessage=null;
+  try {
+    parsedMessage=PARSER.parsePartialFrom(input,extensionRegistry);
+  }
+ catch (  com.google.protobuf.InvalidProtocolBufferException e) {
+    parsedMessage=(org.apache.kylin.storage.hbase.ii.coprocessor.endpoint.generated.IIProtos.IIResponse)e.getUnfinishedMessage();
+    throw e;
+  }
+ finally {
+    if (parsedMessage != null) {
+      mergeFrom(parsedMessage);
+    }
+  }
+  return this;
+}

@@ -1,0 +1,44 @@
+{
+  RegionScanner innerScanner=null;
+  HRegion region=null;
+  try {
+    this.serviceStartTime=System.currentTimeMillis();
+    GTScanRequest scanReq=KryoUtils.deserialize(request.getGtScanRequest().toByteArray(),GTScanRequest.class);
+    RawScan hbaseRawScan=KryoUtils.deserialize(request.getHbaseRawScan().toByteArray(),RawScan.class);
+    Scan scan=CubeHBaseRPC.buildScan(hbaseRawScan);
+    region=env.getRegion();
+    region.startRegionOperation();
+    innerScanner=region.getScanner(scan);
+    InnerScannerAsIterator cellListIterator=new InnerScannerAsIterator(innerScanner);
+    IGTStore store=new HBaseReadonlyStore(cellListIterator,scanReq,hbaseRawScan.hbaseColumns);
+    IGTScanner rawScanner=store.scan(scanReq);
+    IGTScanner finalScanner=scanReq.decorateScanner(rawScanner);
+    ByteBuffer buffer=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
+    ByteArrayOutputStream outputStream=new ByteArrayOutputStream(RowConstants.ROWVALUE_BUFFER_SIZE);
+    for (    GTRecord oneRecord : finalScanner) {
+      buffer.clear();
+      oneRecord.exportAllColumns(buffer);
+      buffer.flip();
+      outputStream.write(buffer.array(),buffer.arrayOffset() - buffer.position(),buffer.remaining());
+    }
+    byte[] allRows=outputStream.toByteArray();
+    CubeVisitProtos.CubeVisitResponse.Builder responseBuilder=CubeVisitProtos.CubeVisitResponse.newBuilder();
+    done.run(responseBuilder.setCompressedRows(ByteString.copyFrom(CompressionUtils.compress(allRows))).setStats(CubeVisitProtos.CubeVisitResponse.Stats.newBuilder().setAggregatedRowCount(0).setScannedRowCount(0).setServiceStartTime(serviceStartTime).setServiceEndTime(System.currentTimeMillis()).build()).build());
+  }
+ catch (  IOException ioe) {
+    logger.error(ioe.toString());
+    ResponseConverter.setControllerException(controller,ioe);
+  }
+ finally {
+    IOUtils.closeQuietly(innerScanner);
+    if (region != null) {
+      try {
+        region.closeRegionOperation();
+      }
+ catch (      IOException e) {
+        e.printStackTrace();
+        throw new RuntimeException(e);
+      }
+    }
+  }
+}

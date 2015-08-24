@@ -1,3 +1,3 @@
 {
-  return StorageFactory2.createEngineAdapter(seg,IMROutput2.class).getBatchMergeInputSide(seg);
+  return StorageFactory.createEngineAdapter(seg,IMROutput2.class).getBatchMergeInputSide(seg);
 }

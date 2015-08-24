@@ -1,3 +1,0 @@
-{
-  return org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.internal_static_IIResponseInternal_Stats_fieldAccessorTable.ensureFieldAccessorsInitialized(org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponseInternal.Stats.class,org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponseInternal.Stats.Builder.class);
-}

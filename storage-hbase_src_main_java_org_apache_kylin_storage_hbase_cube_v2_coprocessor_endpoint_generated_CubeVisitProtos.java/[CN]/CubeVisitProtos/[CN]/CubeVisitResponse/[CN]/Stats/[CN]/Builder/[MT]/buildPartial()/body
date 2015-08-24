@@ -1,0 +1,24 @@
+{
+  org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitResponse.Stats result=new org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitResponse.Stats(this);
+  int from_bitField0_=bitField0_;
+  int to_bitField0_=0;
+  if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+    to_bitField0_|=0x00000001;
+  }
+  result.serviceStartTime_=serviceStartTime_;
+  if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+    to_bitField0_|=0x00000002;
+  }
+  result.serviceEndTime_=serviceEndTime_;
+  if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+    to_bitField0_|=0x00000004;
+  }
+  result.scannedRowCount_=scannedRowCount_;
+  if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+    to_bitField0_|=0x00000008;
+  }
+  result.aggregatedRowCount_=aggregatedRowCount_;
+  result.bitField0_=to_bitField0_;
+  onBuilt();
+  return result;
+}

@@ -1,0 +1,20 @@
+{
+  if (other == org.apache.kylin.storage.hbase.ii.coprocessor.endpoint.generated.IIProtos.IIResponseInternal.Stats.getDefaultInstance())   return this;
+  if (other.hasMyShard()) {
+    setMyShard(other.getMyShard());
+  }
+  if (other.hasLatestDataTime()) {
+    setLatestDataTime(other.getLatestDataTime());
+  }
+  if (other.hasServiceStartTime()) {
+    setServiceStartTime(other.getServiceStartTime());
+  }
+  if (other.hasServiceEndTime()) {
+    setServiceEndTime(other.getServiceEndTime());
+  }
+  if (other.hasScannedSlices()) {
+    setScannedSlices(other.getScannedSlices());
+  }
+  this.mergeUnknownFields(other.getUnknownFields());
+  return this;
+}

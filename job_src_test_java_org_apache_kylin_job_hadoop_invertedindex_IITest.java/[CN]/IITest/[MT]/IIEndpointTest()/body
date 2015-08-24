@@ -63,7 +63,7 @@
   Assert.assertEquals(2,response.getRowsList().size());
   System.out.println(response.getRowsList().size());
   Set<String> answers=Sets.newHashSet("120.4747","26.8551");
-  for (  org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponseInternal.IIRow responseRow : response.getRowsList()) {
+  for (  IIProtos.IIResponseInternal.IIRow responseRow : response.getRowsList()) {
     byte[] measuresBytes=responseRow.getMeasures().toByteArray();
     List<Object> metrics=aggregators.deserializeMetricValues(measuresBytes,0);
     Assert.assertTrue(answers.contains(metrics.get(0)));

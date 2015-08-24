@@ -1,4 +1,0 @@
-{
-  compressedRows_=com.google.protobuf.ByteString.EMPTY;
-  stats_=org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitResponse.Stats.getDefaultInstance();
-}

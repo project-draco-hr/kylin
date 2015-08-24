@@ -1,0 +1,29 @@
+{
+  final ImmutableBitSet selectedColBlocks=scanRequest.getSelectedColBlocks().set(0);
+  HConnection hbaseConn=HBaseConnection.get(cubeSeg.getCubeInstance().getConfig().getStorageUrl());
+  final HTableInterface hbaseTable=hbaseConn.getTable(cubeSeg.getStorageLocationIdentifier());
+  final List<Pair<byte[],byte[]>> hbaseColumns=makeHBaseColumns(selectedColBlocks);
+  RawScan rawScan=prepareRawScan(scanRequest.getPkStart(),scanRequest.getPkEnd(),hbaseColumns);
+  Scan hbaseScan=buildScan(rawScan);
+  final ResultScanner scanner=hbaseTable.getScanner(hbaseScan);
+  final Iterator<Result> iterator=scanner.iterator();
+  CellListIterator cellListIterator=new CellListIterator(){
+    @Override public void close() throws IOException {
+      scanner.close();
+      hbaseTable.close();
+    }
+    @Override public boolean hasNext(){
+      return iterator.hasNext();
+    }
+    @Override public List<Cell> next(){
+      return iterator.next().listCells();
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+  }
+;
+  IGTStore store=new HBaseReadonlyStore(cellListIterator,scanRequest,hbaseColumns);
+  IGTScanner rawScanner=store.scan(scanRequest);
+  return scanRequest.decorateScanner(rawScanner);
+}

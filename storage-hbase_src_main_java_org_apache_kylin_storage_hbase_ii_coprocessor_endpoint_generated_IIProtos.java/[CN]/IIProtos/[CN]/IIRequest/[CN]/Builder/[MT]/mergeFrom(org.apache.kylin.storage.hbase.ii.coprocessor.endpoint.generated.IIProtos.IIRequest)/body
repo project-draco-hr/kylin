@@ -1,0 +1,20 @@
+{
+  if (other == org.apache.kylin.storage.hbase.ii.coprocessor.endpoint.generated.IIProtos.IIRequest.getDefaultInstance())   return this;
+  if (other.hasType()) {
+    setType(other.getType());
+  }
+  if (other.hasFilter()) {
+    setFilter(other.getFilter());
+  }
+  if (other.hasProjector()) {
+    setProjector(other.getProjector());
+  }
+  if (other.hasAggregator()) {
+    setAggregator(other.getAggregator());
+  }
+  if (other.hasTsRange()) {
+    setTsRange(other.getTsRange());
+  }
+  this.mergeUnknownFields(other.getUnknownFields());
+  return this;
+}

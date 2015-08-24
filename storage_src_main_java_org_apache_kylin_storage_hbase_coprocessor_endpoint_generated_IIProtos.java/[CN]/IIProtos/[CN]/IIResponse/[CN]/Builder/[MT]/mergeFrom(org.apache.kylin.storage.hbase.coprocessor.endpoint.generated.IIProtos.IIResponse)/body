@@ -1,8 +1,0 @@
-{
-  if (other == org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.IIProtos.IIResponse.getDefaultInstance())   return this;
-  if (other.hasBlob()) {
-    setBlob(other.getBlob());
-  }
-  this.mergeUnknownFields(other.getUnknownFields());
-  return this;
-}

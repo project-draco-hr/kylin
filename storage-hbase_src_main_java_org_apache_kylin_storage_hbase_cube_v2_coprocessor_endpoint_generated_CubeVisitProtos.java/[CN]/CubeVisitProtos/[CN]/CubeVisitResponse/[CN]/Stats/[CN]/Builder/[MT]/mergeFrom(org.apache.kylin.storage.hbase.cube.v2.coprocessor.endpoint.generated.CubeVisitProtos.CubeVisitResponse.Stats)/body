@@ -1,0 +1,17 @@
+{
+  if (other == org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitResponse.Stats.getDefaultInstance())   return this;
+  if (other.hasServiceStartTime()) {
+    setServiceStartTime(other.getServiceStartTime());
+  }
+  if (other.hasServiceEndTime()) {
+    setServiceEndTime(other.getServiceEndTime());
+  }
+  if (other.hasScannedRowCount()) {
+    setScannedRowCount(other.getScannedRowCount());
+  }
+  if (other.hasAggregatedRowCount()) {
+    setAggregatedRowCount(other.getAggregatedRowCount());
+  }
+  this.mergeUnknownFields(other.getUnknownFields());
+  return this;
+}

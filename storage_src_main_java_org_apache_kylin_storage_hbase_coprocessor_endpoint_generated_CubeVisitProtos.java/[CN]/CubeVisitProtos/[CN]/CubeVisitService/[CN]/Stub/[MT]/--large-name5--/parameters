@@ -1,3 +1,0 @@
-com.google.protobuf.RpcController controller
-org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest request
-com.google.protobuf.RpcCallback<org.apache.kylin.storage.hbase.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitResponse> done
