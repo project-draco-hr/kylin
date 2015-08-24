@@ -1,0 +1,7 @@
+{
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  ObjectOutputStream out=new ObjectOutputStream(baos);
+  this.writeExternal(out);
+  out.flush();
+  return baos.toByteArray();
+}

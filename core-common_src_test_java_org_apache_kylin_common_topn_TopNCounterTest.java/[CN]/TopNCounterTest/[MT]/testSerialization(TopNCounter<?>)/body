@@ -1,0 +1,5 @@
+{
+  byte[] bytes=vs.toBytes();
+  TopNCounter<String> clone=new TopNCounter<String>(bytes);
+  assertEquals(vs.toString(),clone.toString());
+}

@@ -1,0 +1,19 @@
+{
+  TopNCounter<String> vs=new TopNCounter<String>(3);
+  String[] stream={"X","X","Y","Z","A","B","C","X","X","A","C","A","A"};
+  for (  String i : stream) {
+    vs.offer(i);
+  }
+  List<Counter<String>> topK=vs.topK(3);
+  for (  Counter<String> c : topK) {
+    ByteArrayOutputStream baos=new ByteArrayOutputStream();
+    ObjectOutput oo=new ObjectOutputStream(baos);
+    oo.writeObject(c);
+    oo.close();
+    ObjectInput oi=new ObjectInputStream(new ByteArrayInputStream(baos.toByteArray()));
+    Counter<String> clone=(Counter<String>)oi.readObject();
+    assertEquals(c.getCount(),clone.getCount(),0.0001);
+    assertEquals(c.getError(),clone.getError(),0.0001);
+    assertEquals(c.getItem(),clone.getItem());
+  }
+}

@@ -1,0 +1,15 @@
+{
+  long startTime=System.currentTimeMillis();
+  List<Pair<String,Double>> allRecords=Lists.newArrayList();
+  for (  Map.Entry<String,Double> entry : hashMap.entrySet()) {
+    allRecords.add(new Pair(entry.getKey(),entry.getValue()));
+  }
+  Collections.sort(allRecords,new Comparator<Pair<String,Double>>(){
+    @Override public int compare(    Pair<String,Double> o1,    Pair<String,Double> o2){
+      return o1.getSecond() < o2.getSecond() ? 1 : (o1.getSecond() > o2.getSecond() ? -1 : 0);
+    }
+  }
+);
+  timeSpent+=(System.currentTimeMillis() - startTime);
+  return allRecords.subList(0,k);
+}

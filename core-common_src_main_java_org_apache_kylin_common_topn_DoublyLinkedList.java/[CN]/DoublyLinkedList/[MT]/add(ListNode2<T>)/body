@@ -1,0 +1,11 @@
+{
+  node.prev=head;
+  node.next=null;
+  if (size++ == 0) {
+    tail=node;
+  }
+ else {
+    head.next=node;
+  }
+  head=node;
+}

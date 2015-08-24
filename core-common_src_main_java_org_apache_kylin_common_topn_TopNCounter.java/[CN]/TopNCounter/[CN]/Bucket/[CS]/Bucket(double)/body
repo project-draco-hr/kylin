@@ -1,0 +1,4 @@
+{
+  this.count=count;
+  this.counterList=new DoublyLinkedList<Counter<T>>();
+}

@@ -1,0 +1,12 @@
+{
+  newNode.next=node.next;
+  newNode.prev=node;
+  node.next=newNode;
+  if (newNode.next == null) {
+    head=newNode;
+  }
+ else {
+    newNode.next.prev=newNode;
+  }
+  size++;
+}

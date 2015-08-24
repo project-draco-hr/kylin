@@ -1,0 +1,10 @@
+{
+  String dataFile=prepareTestDate();
+  TopNCounterComparisonTest.SpaceSavingConsumer spaceSavingCounter=new TopNCounterComparisonTest.SpaceSavingConsumer();
+  TopNCounterComparisonTest.HashMapConsumer accurateCounter=new TopNCounterComparisonTest.HashMapConsumer();
+  for (  TopNCounterComparisonTest.TestDataConsumer consumer : new TopNCounterComparisonTest.TestDataConsumer[]{spaceSavingCounter,accurateCounter}) {
+    feedDataToConsumer(dataFile,consumer,0,TOTAL_RECORDS);
+  }
+  FileUtils.forceDelete(new File(dataFile));
+  compareResult(spaceSavingCounter,accurateCounter);
+}

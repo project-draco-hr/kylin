@@ -1,0 +1,32 @@
+{
+  Counter<T> counter=counterNode.getValue();
+  ListNode2<Bucket> oldNode=counter.bucketNode;
+  Bucket bucket=oldNode.getValue();
+  bucket.counterList.remove(counterNode);
+  counter.count=counter.count + incrementCount;
+  ListNode2<Bucket> bucketNodePrev=oldNode;
+  ListNode2<Bucket> bucketNodeNext=bucketNodePrev.getNext();
+  while (bucketNodeNext != null) {
+    Bucket bucketNext=bucketNodeNext.getValue();
+    if (counter.count == bucketNext.count) {
+      bucketNext.counterList.add(counterNode);
+      break;
+    }
+ else     if (counter.count > bucketNext.count) {
+      bucketNodePrev=bucketNodeNext;
+      bucketNodeNext=bucketNodePrev.getNext();
+    }
+ else {
+      bucketNodeNext=null;
+    }
+  }
+  if (bucketNodeNext == null) {
+    Bucket bucketNext=new Bucket(counter.count);
+    bucketNext.counterList.add(counterNode);
+    bucketNodeNext=bucketList.addAfter(bucketNodePrev,bucketNext);
+  }
+  counter.bucketNode=bucketNodeNext;
+  if (bucket.counterList.isEmpty()) {
+    bucketList.remove(oldNode);
+  }
+}

@@ -1,0 +1,5 @@
+{
+  out.writeObject(item);
+  out.writeDouble(count);
+  out.writeDouble(error);
+}

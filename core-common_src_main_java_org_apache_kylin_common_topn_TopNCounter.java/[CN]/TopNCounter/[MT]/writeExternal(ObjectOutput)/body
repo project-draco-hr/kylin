@@ -1,0 +1,10 @@
+{
+  out.writeInt(this.capacity);
+  out.writeInt(this.size());
+  for (ListNode2<Bucket> bNode=bucketList.tail(); bNode != null; bNode=bNode.getNext()) {
+    Bucket b=bNode.getValue();
+    for (    Counter<T> c : b.counterList) {
+      out.writeObject(c);
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  TopNCounter<String> vs=new TopNCounter<String>(3);
+  String[] stream={"X","X","Y","Z","A","B","C","X","X","A","C","A","A"};
+  for (  String i : stream) {
+    vs.offer(i);
+  }
+  testSerialization(vs);
+  vs=new TopNCounter<String>(0);
+  testSerialization(vs);
+}

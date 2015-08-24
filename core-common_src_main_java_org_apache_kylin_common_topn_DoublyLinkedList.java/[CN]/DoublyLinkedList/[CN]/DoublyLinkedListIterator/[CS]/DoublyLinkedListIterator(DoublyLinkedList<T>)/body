@@ -1,0 +1,5 @@
+{
+  this.length=list.size;
+  this.list=list;
+  this.itr=list.tail;
+}

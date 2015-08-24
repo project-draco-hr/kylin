@@ -1,0 +1,3 @@
+{
+  readExternal(new ObjectInputStream(new ByteArrayInputStream(bytes)));
+}

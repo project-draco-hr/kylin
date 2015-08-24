@@ -1,0 +1,2 @@
+ListNode2<TopNCounter<T>.Bucket> bucket
+T item

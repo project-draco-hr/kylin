@@ -1,0 +1,5 @@
+{
+  long startTime=System.currentTimeMillis();
+  vs.offer(key,value);
+  timeSpent+=(System.currentTimeMillis() - startTime);
+}

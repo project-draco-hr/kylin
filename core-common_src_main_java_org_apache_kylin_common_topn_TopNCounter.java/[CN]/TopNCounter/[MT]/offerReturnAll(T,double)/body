@@ -1,0 +1,22 @@
+{
+  ListNode2<Counter<T>> counterNode=counterMap.get(item);
+  boolean isNewItem=(counterNode == null);
+  T droppedItem=null;
+  if (isNewItem) {
+    if (size() < capacity) {
+      counterNode=bucketList.enqueue(new Bucket(0)).getValue().counterList.add(new Counter<T>(bucketList.tail(),item));
+    }
+ else {
+      Bucket min=bucketList.first();
+      counterNode=min.counterList.tail();
+      Counter<T> counter=counterNode.getValue();
+      droppedItem=counter.item;
+      counterMap.remove(droppedItem);
+      counter.item=item;
+      counter.error=min.count;
+    }
+    counterMap.put(item,counterNode);
+  }
+  incrementCounter(counterNode,incrementCount);
+  return new Pair<Boolean,T>(isNewItem,droppedItem);
+}
