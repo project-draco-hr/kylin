@@ -7,7 +7,9 @@
   File kylinPropsFile=new File(metaDir,"kylin.properties");
   kylinConfig.writeProperties(kylinPropsFile);
   dumpResources(kylinConfig,metaDir,dumpList);
-  String hdfsMetaDir="file://" + OptionsHelper.convertToFileURL(metaDir.getAbsolutePath());
+  String hdfsMetaDir=OptionsHelper.convertToFileURL(metaDir.getAbsolutePath());
+  if (hdfsMetaDir.startsWith("/"))   hdfsMetaDir="file://" + hdfsMetaDir;
+ else   hdfsMetaDir="file:///" + hdfsMetaDir;
   logger.info("HDFS meta dir is: " + hdfsMetaDir);
   conf.set("tmpfiles",hdfsMetaDir);
 }
