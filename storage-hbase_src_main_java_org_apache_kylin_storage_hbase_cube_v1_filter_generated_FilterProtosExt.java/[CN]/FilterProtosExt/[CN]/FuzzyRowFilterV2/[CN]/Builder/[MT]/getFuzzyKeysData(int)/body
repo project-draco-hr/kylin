@@ -1,0 +1,8 @@
+{
+  if (fuzzyKeysDataBuilder_ == null) {
+    return fuzzyKeysData_.get(index);
+  }
+ else {
+    return fuzzyKeysDataBuilder_.getMessage(index);
+  }
+}

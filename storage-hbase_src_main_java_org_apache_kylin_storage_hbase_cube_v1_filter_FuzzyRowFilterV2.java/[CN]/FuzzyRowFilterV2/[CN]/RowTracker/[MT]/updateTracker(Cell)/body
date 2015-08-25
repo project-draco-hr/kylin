@@ -1,0 +1,16 @@
+{
+  if (!initialized) {
+    for (    Pair<byte[],byte[]> fuzzyData : fuzzyKeysData) {
+      updateWith(currentCell,fuzzyData);
+    }
+    initialized=true;
+  }
+ else {
+    while (!nextRows.isEmpty() && !lessThan(currentCell,nextRows.peek().getFirst())) {
+      Pair<byte[],Pair<byte[],byte[]>> head=nextRows.poll();
+      Pair<byte[],byte[]> fuzzyData=head.getSecond();
+      updateWith(currentCell,fuzzyData);
+    }
+  }
+  return !nextRows.isEmpty();
+}

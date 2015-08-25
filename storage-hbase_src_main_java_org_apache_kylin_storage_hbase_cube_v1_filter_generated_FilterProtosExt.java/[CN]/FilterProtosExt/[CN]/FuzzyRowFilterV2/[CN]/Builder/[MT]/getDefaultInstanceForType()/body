@@ -1,0 +1,3 @@
+{
+  return org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.FuzzyRowFilterV2.getDefaultInstance();
+}

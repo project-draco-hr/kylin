@@ -1,0 +1,7 @@
+{
+  if (fuzzyKeysDataBuilder_ == null) {
+    fuzzyKeysDataBuilder_=new com.google.protobuf.RepeatedFieldBuilder<org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.BytesBytesPair,org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.BytesBytesPair.Builder,org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.BytesBytesPairOrBuilder>(fuzzyKeysData_,((bitField0_ & 0x00000001) == 0x00000001),getParentForChildren(),isClean());
+    fuzzyKeysData_=null;
+  }
+  return fuzzyKeysDataBuilder_;
+}

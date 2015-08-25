@@ -1,0 +1,8 @@
+{
+  if (littleEndian) {
+    return Short.reverseBytes(theUnsafe.getShort(bytes,offset + BYTE_ARRAY_BASE_OFFSET));
+  }
+ else {
+    return theUnsafe.getShort(bytes,offset + BYTE_ARRAY_BASE_OFFSET);
+  }
+}

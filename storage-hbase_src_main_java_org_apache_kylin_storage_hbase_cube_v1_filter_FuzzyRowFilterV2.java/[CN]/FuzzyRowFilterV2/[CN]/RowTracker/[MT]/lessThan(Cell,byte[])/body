@@ -1,0 +1,4 @@
+{
+  int compareResult=Bytes.compareTo(currentCell.getRowArray(),currentCell.getRowOffset(),currentCell.getRowLength(),nextRowKey,0,nextRowKey.length);
+  return (!isReversed() && compareResult < 0) || (isReversed() && compareResult > 0);
+}

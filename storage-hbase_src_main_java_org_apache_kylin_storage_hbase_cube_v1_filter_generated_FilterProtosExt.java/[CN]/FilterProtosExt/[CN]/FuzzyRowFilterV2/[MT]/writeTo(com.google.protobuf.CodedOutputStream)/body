@@ -1,0 +1,7 @@
+{
+  getSerializedSize();
+  for (int i=0; i < fuzzyKeysData_.size(); i++) {
+    output.writeMessage(1,fuzzyKeysData_.get(i));
+  }
+  getUnknownFields().writeTo(output);
+}

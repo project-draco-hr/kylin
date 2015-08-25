@@ -1,0 +1,26 @@
+{
+  String cf="f";
+  String table="TestFuzzyRowFiltersInFilterList";
+  HTable ht=TEST_UTIL.createTable(TableName.valueOf(table),Bytes.toBytes(cf),Integer.MAX_VALUE);
+  for (int i1=0; i1 < 5; i1++) {
+    for (int i2=0; i2 < 5; i2++) {
+      byte[] rk=new byte[10];
+      ByteBuffer buf=ByteBuffer.wrap(rk);
+      buf.clear();
+      buf.putShort((short)2);
+      buf.putInt(i1);
+      buf.putInt(i2);
+      for (int c=0; c < 5; c++) {
+        byte[] cq=new byte[4];
+        Bytes.putBytes(cq,0,Bytes.toBytes(c),0,4);
+        Put p=new Put(rk);
+        p.setDurability(Durability.SKIP_WAL);
+        p.add(cf.getBytes(),cq,Bytes.toBytes(c));
+        ht.put(p);
+        LOG.info("Inserting: rk: " + Bytes.toStringBinary(rk) + " cq: "+ Bytes.toStringBinary(cq));
+      }
+    }
+  }
+  TEST_UTIL.flush();
+  runTest(ht,5);
+}

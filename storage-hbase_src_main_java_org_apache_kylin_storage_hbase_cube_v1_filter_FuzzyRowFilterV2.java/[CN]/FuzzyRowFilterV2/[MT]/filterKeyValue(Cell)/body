@@ -1,0 +1,15 @@
+{
+  final int startIndex=lastFoundIndex >= 0 ? lastFoundIndex : 0;
+  final int size=fuzzyKeysData.size();
+  for (int i=startIndex; i < size + startIndex; i++) {
+    final int index=i % size;
+    Pair<byte[],byte[]> fuzzyData=fuzzyKeysData.get(index);
+    SatisfiesCode satisfiesCode=satisfies(isReversed(),c.getRowArray(),c.getRowOffset(),c.getRowLength(),fuzzyData.getFirst(),fuzzyData.getSecond());
+    if (satisfiesCode == SatisfiesCode.YES) {
+      lastFoundIndex=index;
+      return ReturnCode.INCLUDE;
+    }
+  }
+  lastFoundIndex=-1;
+  return ReturnCode.SEEK_NEXT_USING_HINT;
+}

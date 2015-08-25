@@ -1,0 +1,7 @@
+{
+  if (littleEndian) {
+    val=Long.reverseBytes(val);
+  }
+  theUnsafe.putLong(bytes,offset + BYTE_ARRAY_BASE_OFFSET,val);
+  return offset + Bytes.SIZEOF_LONG;
+}

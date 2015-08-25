@@ -1,0 +1,6 @@
+{
+  if (littleEndian) {
+    return Integer.reverseBytes(getAsInt(buf,offset));
+  }
+  return getAsInt(buf,offset);
+}

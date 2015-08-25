@@ -1,0 +1,5 @@
+{
+  KeyValue kv=KeyValue.createFirstOnRow(current);
+  byte[] nextForFuzzyRule=FuzzyRowFilterV2.getNextForFuzzyRule(reverse,kv.getRowArray(),kv.getRowOffset(),kv.getRowLength(),fuzzyRow,mask);
+  Assert.assertEquals(Bytes.toStringBinary(expected),Bytes.toStringBinary(nextForFuzzyRule));
+}

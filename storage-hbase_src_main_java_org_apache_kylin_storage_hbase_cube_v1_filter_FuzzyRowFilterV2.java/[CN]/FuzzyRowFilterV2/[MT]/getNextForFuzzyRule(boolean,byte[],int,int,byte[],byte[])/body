@@ -1,0 +1,40 @@
+{
+  byte[] result=Arrays.copyOf(fuzzyKeyBytes,length > fuzzyKeyBytes.length ? length : fuzzyKeyBytes.length);
+  if (reverse && length > fuzzyKeyBytes.length) {
+    for (int i=fuzzyKeyBytes.length; i < result.length; i++) {
+      result[i]=(byte)0xFF;
+    }
+  }
+  int toInc=-1;
+  final Order order=Order.orderFor(reverse);
+  boolean increased=false;
+  for (int i=0; i < result.length; i++) {
+    if (i >= fuzzyKeyMeta.length || fuzzyKeyMeta[i] == 0) {
+      result[i]=row[offset + i];
+      if (!order.isMax(row[offset + i])) {
+        toInc=i;
+      }
+    }
+ else     if (i < fuzzyKeyMeta.length && fuzzyKeyMeta[i] == -1) {
+      if (order.lt((row[i + offset] & 0xFF),(fuzzyKeyBytes[i] & 0xFF))) {
+        increased=true;
+        break;
+      }
+      if (order.gt((row[i + offset] & 0xFF),(fuzzyKeyBytes[i] & 0xFF))) {
+        break;
+      }
+    }
+  }
+  if (!increased) {
+    if (toInc < 0) {
+      return null;
+    }
+    result[toInc]=order.inc(result[toInc]);
+    for (int i=toInc + 1; i < result.length; i++) {
+      if (i >= fuzzyKeyMeta.length || fuzzyKeyMeta[i] == 0) {
+        result[i]=order.min();
+      }
+    }
+  }
+  return result;
+}

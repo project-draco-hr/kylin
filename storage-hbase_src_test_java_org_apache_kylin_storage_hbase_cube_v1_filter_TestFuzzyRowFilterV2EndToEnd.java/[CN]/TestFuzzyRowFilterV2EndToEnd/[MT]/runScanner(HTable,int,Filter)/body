@@ -1,0 +1,23 @@
+{
+  String cf="f";
+  Scan scan=new Scan();
+  scan.addFamily(cf.getBytes());
+  scan.setFilter(filter);
+  List<HRegion> regions=TEST_UTIL.getHBaseCluster().getRegions(table.getBytes());
+  HRegion first=regions.get(0);
+  first.getScanner(scan);
+  RegionScanner scanner=first.getScanner(scan);
+  List<Cell> results=new ArrayList<Cell>();
+  long timeBeforeScan=System.currentTimeMillis();
+  int found=0;
+  while (scanner.next(results)) {
+    found+=results.size();
+    results.clear();
+  }
+  found+=results.size();
+  long scanTime=System.currentTimeMillis() - timeBeforeScan;
+  scanner.close();
+  LOG.info("\nscan time = " + scanTime + "ms");
+  LOG.info("found " + found + " results\n");
+  assertEquals(expectedSize,found);
+}

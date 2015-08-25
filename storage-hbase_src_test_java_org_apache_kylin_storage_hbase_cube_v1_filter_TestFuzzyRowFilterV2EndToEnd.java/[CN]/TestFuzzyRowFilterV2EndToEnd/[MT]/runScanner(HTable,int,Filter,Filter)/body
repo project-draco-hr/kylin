@@ -1,0 +1,22 @@
+{
+  String cf="f";
+  Scan scan=new Scan();
+  scan.addFamily(cf.getBytes());
+  FilterList filterList=new FilterList(Operator.MUST_PASS_ALL,filter1,filter2);
+  scan.setFilter(filterList);
+  ResultScanner scanner=hTable.getScanner(scan);
+  List<Cell> results=new ArrayList<Cell>();
+  Result result;
+  long timeBeforeScan=System.currentTimeMillis();
+  while ((result=scanner.next()) != null) {
+    for (    Cell kv : result.listCells()) {
+      LOG.info("Got rk: " + Bytes.toStringBinary(CellUtil.cloneRow(kv)) + " cq: "+ Bytes.toStringBinary(CellUtil.cloneQualifier(kv)));
+      results.add(kv);
+    }
+  }
+  long scanTime=System.currentTimeMillis() - timeBeforeScan;
+  scanner.close();
+  LOG.info("scan time = " + scanTime + "ms");
+  LOG.info("found " + results.size() + " results");
+  assertEquals(expectedSize,results.size());
+}

@@ -1,0 +1,8 @@
+{
+  if (fuzzyKeysDataBuilder_ == null) {
+    return fuzzyKeysData_.size();
+  }
+ else {
+    return fuzzyKeysDataBuilder_.getCount();
+  }
+}

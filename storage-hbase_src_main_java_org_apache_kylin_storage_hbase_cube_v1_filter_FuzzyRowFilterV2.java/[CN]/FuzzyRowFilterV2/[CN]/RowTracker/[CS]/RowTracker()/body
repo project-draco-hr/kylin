@@ -1,0 +1,14 @@
+{
+  nextRows=new PriorityQueue<Pair<byte[],Pair<byte[],byte[]>>>(fuzzyKeysData.size(),new Comparator<Pair<byte[],Pair<byte[],byte[]>>>(){
+    @Override public int compare(    Pair<byte[],Pair<byte[],byte[]>> o1,    Pair<byte[],Pair<byte[],byte[]>> o2){
+      int compare=Bytes.compareTo(o1.getFirst(),o2.getFirst());
+      if (!isReversed()) {
+        return compare;
+      }
+ else {
+        return -compare;
+      }
+    }
+  }
+);
+}

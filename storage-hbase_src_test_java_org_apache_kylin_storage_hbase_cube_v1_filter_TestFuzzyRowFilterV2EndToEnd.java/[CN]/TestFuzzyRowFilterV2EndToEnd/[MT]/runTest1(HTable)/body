@@ -1,0 +1,21 @@
+{
+  byte[] mask=new byte[]{0,0,1,1,1,1,0,0,0,0};
+  List<Pair<byte[],byte[]>> list=new ArrayList<Pair<byte[],byte[]>>();
+  for (int i=0; i < totalFuzzyKeys; i++) {
+    byte[] fuzzyKey=new byte[10];
+    ByteBuffer buf=ByteBuffer.wrap(fuzzyKey);
+    buf.clear();
+    buf.putShort((short)2);
+    for (int j=0; j < 4; j++) {
+      buf.put(fuzzyValue);
+    }
+    buf.putInt(i);
+    Pair<byte[],byte[]> pair=new Pair<byte[],byte[]>(fuzzyKey,mask);
+    list.add(pair);
+  }
+  int expectedSize=secondPartCardinality * totalFuzzyKeys * colQualifiersTotal;
+  FuzzyRowFilterV2 fuzzyRowFilter0=new FuzzyRowFilterV2(list);
+  FuzzyRowFilterV2 fuzzyRowFilter1=new FuzzyRowFilterV2(list);
+  runScanner(hTable,expectedSize,fuzzyRowFilter0);
+  runScanner(hTable,expectedSize,fuzzyRowFilter1);
+}

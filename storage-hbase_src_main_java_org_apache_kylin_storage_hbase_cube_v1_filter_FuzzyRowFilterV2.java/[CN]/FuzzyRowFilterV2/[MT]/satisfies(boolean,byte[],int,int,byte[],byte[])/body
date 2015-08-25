@@ -1,0 +1,47 @@
+{
+  if (UnsafeAccess.isAvailable() == false) {
+    return satisfiesNoUnsafe(reverse,row,offset,length,fuzzyKeyBytes,fuzzyKeyMeta);
+  }
+  if (row == null) {
+    return SatisfiesCode.YES;
+  }
+  length=Math.min(length,fuzzyKeyBytes.length);
+  int numWords=length / Bytes.SIZEOF_LONG;
+  int j=numWords << 3;
+  for (int i=0; i < j; i+=Bytes.SIZEOF_LONG) {
+    long fuzzyBytes=UnsafeAccess.toLong(fuzzyKeyBytes,i);
+    long fuzzyMeta=UnsafeAccess.toLong(fuzzyKeyMeta,i);
+    long rowValue=UnsafeAccess.toLong(row,offset + i);
+    if ((rowValue & fuzzyMeta) != (fuzzyBytes)) {
+      return SatisfiesCode.NEXT_EXISTS;
+    }
+  }
+  int off=j;
+  if (length - off >= Bytes.SIZEOF_INT) {
+    int fuzzyBytes=UnsafeAccess.toInt(fuzzyKeyBytes,off);
+    int fuzzyMeta=UnsafeAccess.toInt(fuzzyKeyMeta,off);
+    int rowValue=UnsafeAccess.toInt(row,offset + off);
+    if ((rowValue & fuzzyMeta) != (fuzzyBytes)) {
+      return SatisfiesCode.NEXT_EXISTS;
+    }
+    off+=Bytes.SIZEOF_INT;
+  }
+  if (length - off >= Bytes.SIZEOF_SHORT) {
+    short fuzzyBytes=UnsafeAccess.toShort(fuzzyKeyBytes,off);
+    short fuzzyMeta=UnsafeAccess.toShort(fuzzyKeyMeta,off);
+    short rowValue=UnsafeAccess.toShort(row,offset + off);
+    if ((rowValue & fuzzyMeta) != (fuzzyBytes)) {
+      return SatisfiesCode.NEXT_EXISTS;
+    }
+    off+=Bytes.SIZEOF_SHORT;
+  }
+  if (length - off >= Bytes.SIZEOF_BYTE) {
+    int fuzzyBytes=fuzzyKeyBytes[off] & 0xff;
+    int fuzzyMeta=fuzzyKeyMeta[off] & 0xff;
+    int rowValue=row[offset + off] & 0xff;
+    if ((rowValue & fuzzyMeta) != (fuzzyBytes)) {
+      return SatisfiesCode.NEXT_EXISTS;
+    }
+  }
+  return SatisfiesCode.YES;
+}

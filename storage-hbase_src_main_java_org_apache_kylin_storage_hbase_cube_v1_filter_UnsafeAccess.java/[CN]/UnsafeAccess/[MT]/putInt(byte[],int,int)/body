@@ -1,0 +1,7 @@
+{
+  if (littleEndian) {
+    val=Integer.reverseBytes(val);
+  }
+  theUnsafe.putInt(bytes,offset + BYTE_ARRAY_BASE_OFFSET,val);
+  return offset + Bytes.SIZEOF_INT;
+}

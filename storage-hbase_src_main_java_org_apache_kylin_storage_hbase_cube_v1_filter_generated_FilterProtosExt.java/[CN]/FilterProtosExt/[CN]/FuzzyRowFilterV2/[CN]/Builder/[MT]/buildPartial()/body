@@ -1,0 +1,16 @@
+{
+  org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.FuzzyRowFilterV2 result=new org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.FuzzyRowFilterV2(this);
+  int from_bitField0_=bitField0_;
+  if (fuzzyKeysDataBuilder_ == null) {
+    if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      fuzzyKeysData_=java.util.Collections.unmodifiableList(fuzzyKeysData_);
+      bitField0_=(bitField0_ & ~0x00000001);
+    }
+    result.fuzzyKeysData_=fuzzyKeysData_;
+  }
+ else {
+    result.fuzzyKeysData_=fuzzyKeysDataBuilder_.build();
+  }
+  onBuilt();
+  return result;
+}

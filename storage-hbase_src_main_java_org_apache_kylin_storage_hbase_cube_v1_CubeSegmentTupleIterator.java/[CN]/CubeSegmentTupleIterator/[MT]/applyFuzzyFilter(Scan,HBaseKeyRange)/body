@@ -1,16 +1,20 @@
 {
   List<org.apache.kylin.common.util.Pair<byte[],byte[]>> fuzzyKeys=keyRange.getFuzzyKeys();
   if (fuzzyKeys != null && fuzzyKeys.size() > 0) {
-    FuzzyRowFilter rowFilter=new FuzzyRowFilter(convertToHBasePair(fuzzyKeys));
-    Filter filter=scan.getFilter();
-    if (filter != null) {
-      FilterList filterList=new FilterList();
-      filterList.addFilter(filter);
-      filterList.addFilter(rowFilter);
-      scan.setFilter(filterList);
+    boolean useFuzzyRowFilterV2=false;
+    Filter fuzzyFilter=null;
+    if (useFuzzyRowFilterV2) {
+      fuzzyFilter=new FuzzyRowFilterV2(convertToHBasePair(fuzzyKeys));
     }
  else {
-      scan.setFilter(rowFilter);
+      fuzzyFilter=new FuzzyRowFilter(convertToHBasePair(fuzzyKeys));
+    }
+    Filter filter=scan.getFilter();
+    if (filter != null) {
+      throw new RuntimeException("Scan filter not empty : " + filter);
+    }
+ else {
+      scan.setFilter(fuzzyFilter);
     }
   }
 }

@@ -1,0 +1,14 @@
+{
+  if (fuzzyKeysDataBuilder_ == null) {
+    if (value == null) {
+      throw new NullPointerException();
+    }
+    ensureFuzzyKeysDataIsMutable();
+    fuzzyKeysData_.set(index,value);
+    onChanged();
+  }
+ else {
+    fuzzyKeysDataBuilder_.setMessage(index,value);
+  }
+  return this;
+}

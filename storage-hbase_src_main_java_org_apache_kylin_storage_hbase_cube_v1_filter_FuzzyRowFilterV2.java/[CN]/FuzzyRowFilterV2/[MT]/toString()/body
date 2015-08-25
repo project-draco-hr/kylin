@@ -1,0 +1,11 @@
+{
+  final StringBuilder sb=new StringBuilder();
+  sb.append("FuzzyRowFilter");
+  sb.append("{fuzzyKeysData=");
+  for (  Pair<byte[],byte[]> fuzzyData : fuzzyKeysData) {
+    sb.append('{').append(Bytes.toStringBinary(fuzzyData.getFirst())).append(":");
+    sb.append(Bytes.toStringBinary(fuzzyData.getSecond())).append('}');
+  }
+  sb.append("}, ");
+  return sb.toString();
+}

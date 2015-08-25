@@ -1,0 +1,9 @@
+{
+  if (buf.isDirect()) {
+    theUnsafe.putByte(((DirectBuffer)buf).address() + offset,b);
+  }
+ else {
+    theUnsafe.putByte(buf.array(),BYTE_ARRAY_BASE_OFFSET + buf.arrayOffset() + offset,b);
+  }
+  return offset + 1;
+}

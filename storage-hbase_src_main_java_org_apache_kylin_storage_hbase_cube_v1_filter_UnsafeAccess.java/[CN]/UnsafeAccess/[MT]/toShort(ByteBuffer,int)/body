@@ -1,0 +1,6 @@
+{
+  if (littleEndian) {
+    return Short.reverseBytes(getAsShort(buf,offset));
+  }
+  return getAsShort(buf,offset);
+}

@@ -1,0 +1,3 @@
+HTable hTable
+int expectedSize
+Filter filter

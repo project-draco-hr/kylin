@@ -1,0 +1,30 @@
+{
+  if (row == null) {
+    return SatisfiesCode.YES;
+  }
+  Order order=Order.orderFor(reverse);
+  boolean nextRowKeyCandidateExists=false;
+  for (int i=0; i < fuzzyKeyMeta.length && i < length; i++) {
+    boolean byteAtPositionFixed=fuzzyKeyMeta[i] == 0;
+    boolean fixedByteIncorrect=byteAtPositionFixed && fuzzyKeyBytes[i] != row[i + offset];
+    if (fixedByteIncorrect) {
+      if (nextRowKeyCandidateExists) {
+        return SatisfiesCode.NEXT_EXISTS;
+      }
+      boolean rowByteLessThanFixed=(row[i + offset] & 0xFF) < (fuzzyKeyBytes[i] & 0xFF);
+      if (rowByteLessThanFixed && !reverse) {
+        return SatisfiesCode.NEXT_EXISTS;
+      }
+ else       if (!rowByteLessThanFixed && reverse) {
+        return SatisfiesCode.NEXT_EXISTS;
+      }
+ else {
+        return SatisfiesCode.NO_NEXT;
+      }
+    }
+    if (fuzzyKeyMeta[i] == 1 && !order.isMax(fuzzyKeyBytes[i])) {
+      nextRowKeyCandidateExists=true;
+    }
+  }
+  return SatisfiesCode.YES;
+}

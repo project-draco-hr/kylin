@@ -1,0 +1,6 @@
+{
+  byte[] nextRowKeyCandidate=getNextForFuzzyRule(isReversed(),currentCell.getRowArray(),currentCell.getRowOffset(),currentCell.getRowLength(),fuzzyData.getFirst(),fuzzyData.getSecond());
+  if (nextRowKeyCandidate != null) {
+    nextRows.add(new Pair<byte[],Pair<byte[],byte[]>>(nextRowKeyCandidate,fuzzyData));
+  }
+}

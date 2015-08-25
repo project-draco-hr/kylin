@@ -1,0 +1,18 @@
+{
+  FilterProtosExt.FuzzyRowFilterV2 proto;
+  try {
+    proto=FilterProtosExt.FuzzyRowFilterV2.parseFrom(pbBytes);
+  }
+ catch (  InvalidProtocolBufferException e) {
+    throw new DeserializationException(e);
+  }
+  int count=proto.getFuzzyKeysDataCount();
+  ArrayList<Pair<byte[],byte[]>> fuzzyKeysData=new ArrayList<Pair<byte[],byte[]>>(count);
+  for (int i=0; i < count; ++i) {
+    FilterProtosExt.BytesBytesPair current=proto.getFuzzyKeysData(i);
+    byte[] keyBytes=current.getFirst().toByteArray();
+    byte[] keyMeta=current.getSecond().toByteArray();
+    fuzzyKeysData.add(new Pair<byte[],byte[]>(keyBytes,keyMeta));
+  }
+  return new FuzzyRowFilterV2(fuzzyKeysData);
+}

@@ -1,0 +1,10 @@
+{
+  if (UnsafeAccess.isAvailable() == false) {
+    return;
+  }
+  byte[] key=p.getFirst();
+  byte[] mask=p.getSecond();
+  for (int i=0; i < mask.length; i++) {
+    if (mask[i] == 0)     key[i]=0;
+  }
+}

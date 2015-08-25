@@ -1,0 +1,9 @@
+{
+  if (!hasFirst()) {
+    return false;
+  }
+  if (!hasSecond()) {
+    return false;
+  }
+  return true;
+}

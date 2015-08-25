@@ -1,0 +1,9 @@
+{
+  boolean result=tracker.updateTracker(currentCell);
+  if (result == false) {
+    done=true;
+    return null;
+  }
+  byte[] nextRowKey=tracker.nextRow();
+  return KeyValue.createFirstOnRow(nextRowKey);
+}

@@ -1,0 +1,3 @@
+{
+  return getFuzzyKeysDataFieldBuilder().addBuilder(index,org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.BytesBytesPair.getDefaultInstance());
+}

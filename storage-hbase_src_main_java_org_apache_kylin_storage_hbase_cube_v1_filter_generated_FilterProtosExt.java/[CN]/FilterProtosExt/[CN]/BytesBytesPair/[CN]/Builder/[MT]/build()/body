@@ -1,0 +1,7 @@
+{
+  org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.BytesBytesPair result=buildPartial();
+  if (!result.isInitialized()) {
+    throw newUninitializedMessageException(result);
+  }
+  return result;
+}

@@ -1,0 +1,6 @@
+{
+  if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+    fuzzyKeysData_=new java.util.ArrayList<org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.BytesBytesPair>(fuzzyKeysData_);
+    bitField0_|=0x00000001;
+  }
+}

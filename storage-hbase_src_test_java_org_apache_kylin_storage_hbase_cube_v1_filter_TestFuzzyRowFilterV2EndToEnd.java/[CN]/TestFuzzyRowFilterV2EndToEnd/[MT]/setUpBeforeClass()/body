@@ -1,0 +1,7 @@
+{
+  Configuration conf=TEST_UTIL.getConfiguration();
+  conf.setInt("hbase.client.scanner.caching",1000);
+  conf.set(HConstants.HBASE_REGION_SPLIT_POLICY_KEY,ConstantSizeRegionSplitPolicy.class.getName());
+  conf.setLong(HConstants.HREGION_MAX_FILESIZE,((long)1024) * 1024 * 1024* 10);
+  TEST_UTIL.startMiniCluster();
+}

@@ -1,0 +1,32 @@
+{
+  if (other == org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.FuzzyRowFilterV2.getDefaultInstance())   return this;
+  if (fuzzyKeysDataBuilder_ == null) {
+    if (!other.fuzzyKeysData_.isEmpty()) {
+      if (fuzzyKeysData_.isEmpty()) {
+        fuzzyKeysData_=other.fuzzyKeysData_;
+        bitField0_=(bitField0_ & ~0x00000001);
+      }
+ else {
+        ensureFuzzyKeysDataIsMutable();
+        fuzzyKeysData_.addAll(other.fuzzyKeysData_);
+      }
+      onChanged();
+    }
+  }
+ else {
+    if (!other.fuzzyKeysData_.isEmpty()) {
+      if (fuzzyKeysDataBuilder_.isEmpty()) {
+        fuzzyKeysDataBuilder_.dispose();
+        fuzzyKeysDataBuilder_=null;
+        fuzzyKeysData_=other.fuzzyKeysData_;
+        bitField0_=(bitField0_ & ~0x00000001);
+        fuzzyKeysDataBuilder_=com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ? getFuzzyKeysDataFieldBuilder() : null;
+      }
+ else {
+        fuzzyKeysDataBuilder_.addAllMessages(other.fuzzyKeysData_);
+      }
+    }
+  }
+  this.mergeUnknownFields(other.getUnknownFields());
+  return this;
+}

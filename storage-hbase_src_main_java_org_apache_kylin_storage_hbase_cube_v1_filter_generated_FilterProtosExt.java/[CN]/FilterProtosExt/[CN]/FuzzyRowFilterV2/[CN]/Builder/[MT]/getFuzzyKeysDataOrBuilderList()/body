@@ -1,0 +1,8 @@
+{
+  if (fuzzyKeysDataBuilder_ != null) {
+    return fuzzyKeysDataBuilder_.getMessageOrBuilderList();
+  }
+ else {
+    return java.util.Collections.unmodifiableList(fuzzyKeysData_);
+  }
+}

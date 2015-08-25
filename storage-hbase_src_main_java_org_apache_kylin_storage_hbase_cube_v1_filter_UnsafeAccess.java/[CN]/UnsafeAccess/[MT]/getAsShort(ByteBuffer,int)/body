@@ -1,0 +1,6 @@
+{
+  if (buf.isDirect()) {
+    return theUnsafe.getShort(((DirectBuffer)buf).address() + offset);
+  }
+  return theUnsafe.getShort(buf.array(),BYTE_ARRAY_BASE_OFFSET + buf.arrayOffset() + offset);
+}

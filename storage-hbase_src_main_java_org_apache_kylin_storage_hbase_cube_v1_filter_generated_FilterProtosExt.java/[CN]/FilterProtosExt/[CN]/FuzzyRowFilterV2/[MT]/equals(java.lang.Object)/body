@@ -1,0 +1,13 @@
+{
+  if (obj == this) {
+    return true;
+  }
+  if (!(obj instanceof org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.FuzzyRowFilterV2)) {
+    return super.equals(obj);
+  }
+  org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.FuzzyRowFilterV2 other=(org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.FuzzyRowFilterV2)obj;
+  boolean result=true;
+  result=result && getFuzzyKeysDataList().equals(other.getFuzzyKeysDataList());
+  result=result && getUnknownFields().equals(other.getUnknownFields());
+  return result;
+}

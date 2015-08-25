@@ -1,0 +1,11 @@
+{
+  if (fuzzyKeysDataBuilder_ == null) {
+    ensureFuzzyKeysDataIsMutable();
+    super.addAll(values,fuzzyKeysData_);
+    onChanged();
+  }
+ else {
+    fuzzyKeysDataBuilder_.addAllMessages(values);
+  }
+  return this;
+}

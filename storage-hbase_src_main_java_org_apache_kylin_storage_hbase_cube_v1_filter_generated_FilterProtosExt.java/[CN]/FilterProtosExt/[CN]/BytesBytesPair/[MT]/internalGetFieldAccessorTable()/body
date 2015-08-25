@@ -1,0 +1,3 @@
+{
+  return org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.internal_static_BytesBytesPair_fieldAccessorTable.ensureFieldAccessorsInitialized(org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.BytesBytesPair.class,org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.BytesBytesPair.Builder.class);
+}

@@ -1,0 +1,10 @@
+{
+  FilterProtosExt.FuzzyRowFilterV2.Builder builder=FilterProtosExt.FuzzyRowFilterV2.newBuilder();
+  for (  Pair<byte[],byte[]> fuzzyData : fuzzyKeysData) {
+    FilterProtosExt.BytesBytesPair.Builder bbpBuilder=FilterProtosExt.BytesBytesPair.newBuilder();
+    bbpBuilder.setFirst(ByteStringer.wrap(fuzzyData.getFirst()));
+    bbpBuilder.setSecond(ByteStringer.wrap(fuzzyData.getSecond()));
+    builder.addFuzzyKeysData(bbpBuilder);
+  }
+  return builder.build().toByteArray();
+}

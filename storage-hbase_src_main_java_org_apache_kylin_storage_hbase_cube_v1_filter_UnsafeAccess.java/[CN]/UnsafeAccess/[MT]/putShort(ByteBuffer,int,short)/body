@@ -1,0 +1,12 @@
+{
+  if (littleEndian) {
+    val=Short.reverseBytes(val);
+  }
+  if (buf.isDirect()) {
+    theUnsafe.putShort(((DirectBuffer)buf).address() + offset,val);
+  }
+ else {
+    theUnsafe.putShort(buf.array(),BYTE_ARRAY_BASE_OFFSET + buf.arrayOffset() + offset,val);
+  }
+  return offset + Bytes.SIZEOF_SHORT;
+}

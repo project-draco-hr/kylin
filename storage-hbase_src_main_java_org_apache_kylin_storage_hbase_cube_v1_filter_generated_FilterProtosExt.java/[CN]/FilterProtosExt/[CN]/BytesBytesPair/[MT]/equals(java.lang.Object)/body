@@ -1,0 +1,20 @@
+{
+  if (obj == this) {
+    return true;
+  }
+  if (!(obj instanceof org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.BytesBytesPair)) {
+    return super.equals(obj);
+  }
+  org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.BytesBytesPair other=(org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.BytesBytesPair)obj;
+  boolean result=true;
+  result=result && (hasFirst() == other.hasFirst());
+  if (hasFirst()) {
+    result=result && getFirst().equals(other.getFirst());
+  }
+  result=result && (hasSecond() == other.hasSecond());
+  if (hasSecond()) {
+    result=result && getSecond().equals(other.getSecond());
+  }
+  result=result && getUnknownFields().equals(other.getUnknownFields());
+  return result;
+}

@@ -1,0 +1,5 @@
+boolean reverse
+byte[] fuzzyRow
+byte[] mask
+byte[] current
+byte[] expected

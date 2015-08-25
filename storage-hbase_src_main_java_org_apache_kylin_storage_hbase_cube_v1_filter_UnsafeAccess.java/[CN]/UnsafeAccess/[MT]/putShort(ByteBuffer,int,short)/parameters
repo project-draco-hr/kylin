@@ -1,0 +1,3 @@
+ByteBuffer buf
+int offset
+short val

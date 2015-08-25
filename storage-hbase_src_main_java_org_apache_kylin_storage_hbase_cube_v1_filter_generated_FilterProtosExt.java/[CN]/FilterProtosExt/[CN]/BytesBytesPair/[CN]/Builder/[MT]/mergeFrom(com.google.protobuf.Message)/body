@@ -1,0 +1,9 @@
+{
+  if (other instanceof org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.BytesBytesPair) {
+    return mergeFrom((org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.BytesBytesPair)other);
+  }
+ else {
+    super.mergeFrom(other);
+    return this;
+  }
+}

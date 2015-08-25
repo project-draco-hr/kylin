@@ -1,0 +1,18 @@
+{
+  if (memoizedHashCode != 0) {
+    return memoizedHashCode;
+  }
+  int hash=41;
+  hash=(19 * hash) + getDescriptorForType().hashCode();
+  if (hasFirst()) {
+    hash=(37 * hash) + FIRST_FIELD_NUMBER;
+    hash=(53 * hash) + getFirst().hashCode();
+  }
+  if (hasSecond()) {
+    hash=(37 * hash) + SECOND_FIELD_NUMBER;
+    hash=(53 * hash) + getSecond().hashCode();
+  }
+  hash=(29 * hash) + getUnknownFields().hashCode();
+  memoizedHashCode=hash;
+  return hash;
+}

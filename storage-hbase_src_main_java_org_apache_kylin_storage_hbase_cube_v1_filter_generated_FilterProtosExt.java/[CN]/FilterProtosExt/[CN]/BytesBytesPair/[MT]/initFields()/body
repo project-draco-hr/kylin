@@ -1,0 +1,4 @@
+{
+  first_=com.google.protobuf.ByteString.EMPTY;
+  second_=com.google.protobuf.ByteString.EMPTY;
+}

@@ -1,0 +1,6 @@
+boolean reverse
+byte[] row
+int offset
+int length
+byte[] fuzzyKeyBytes
+byte[] fuzzyKeyMeta

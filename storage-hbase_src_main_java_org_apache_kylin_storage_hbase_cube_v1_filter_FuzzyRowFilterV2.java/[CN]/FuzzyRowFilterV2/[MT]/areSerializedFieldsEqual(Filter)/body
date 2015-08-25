@@ -1,0 +1,14 @@
+{
+  if (o == this)   return true;
+  if (!(o instanceof FuzzyRowFilterV2))   return false;
+  FuzzyRowFilterV2 other=(FuzzyRowFilterV2)o;
+  if (this.fuzzyKeysData.size() != other.fuzzyKeysData.size())   return false;
+  for (int i=0; i < fuzzyKeysData.size(); ++i) {
+    Pair<byte[],byte[]> thisData=this.fuzzyKeysData.get(i);
+    Pair<byte[],byte[]> otherData=other.fuzzyKeysData.get(i);
+    if (!(Bytes.equals(thisData.getFirst(),otherData.getFirst()) && Bytes.equals(thisData.getSecond(),otherData.getSecond()))) {
+      return false;
+    }
+  }
+  return true;
+}

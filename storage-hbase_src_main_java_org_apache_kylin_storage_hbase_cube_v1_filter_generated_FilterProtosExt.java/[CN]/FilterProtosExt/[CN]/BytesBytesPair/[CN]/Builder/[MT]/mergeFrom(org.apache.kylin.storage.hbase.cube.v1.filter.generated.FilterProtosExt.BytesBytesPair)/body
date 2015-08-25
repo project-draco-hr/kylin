@@ -1,0 +1,11 @@
+{
+  if (other == org.apache.kylin.storage.hbase.cube.v1.filter.generated.FilterProtosExt.BytesBytesPair.getDefaultInstance())   return this;
+  if (other.hasFirst()) {
+    setFirst(other.getFirst());
+  }
+  if (other.hasSecond()) {
+    setSecond(other.getSecond());
+  }
+  this.mergeUnknownFields(other.getUnknownFields());
+  return this;
+}

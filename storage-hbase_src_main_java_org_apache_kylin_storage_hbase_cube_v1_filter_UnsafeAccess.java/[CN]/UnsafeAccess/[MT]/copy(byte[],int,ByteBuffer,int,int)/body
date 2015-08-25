@@ -1,0 +1,13 @@
+{
+  long destAddress=destOffset;
+  Object destBase=null;
+  if (dest.isDirect()) {
+    destAddress=destAddress + ((DirectBuffer)dest).address();
+  }
+ else {
+    destAddress=destAddress + BYTE_ARRAY_BASE_OFFSET + dest.arrayOffset();
+    destBase=dest.array();
+  }
+  long srcAddress=srcOffset + BYTE_ARRAY_BASE_OFFSET;
+  theUnsafe.copyMemory(src,srcAddress,destBase,destAddress,length);
+}

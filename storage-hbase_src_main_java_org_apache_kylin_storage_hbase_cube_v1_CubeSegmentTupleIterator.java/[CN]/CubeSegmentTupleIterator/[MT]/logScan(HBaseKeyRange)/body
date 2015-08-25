@@ -19,6 +19,7 @@
   info.append(" - ");
   info.append(Bytes.toStringBinary(keyRange.getStopKey()));
   if (this.scan.getFilter() != null) {
+    info.append("\nFuzzy key counts: " + keyRange.getFuzzyKeys().size());
     info.append("\nFuzzy: ");
     info.append(keyRange.getFuzzyKeyAsString());
   }

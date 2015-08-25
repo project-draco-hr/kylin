@@ -1,0 +1,4 @@
+boolean reverse
+byte[] row
+byte[] fuzzyKeyBytes
+byte[] fuzzyKeyMeta

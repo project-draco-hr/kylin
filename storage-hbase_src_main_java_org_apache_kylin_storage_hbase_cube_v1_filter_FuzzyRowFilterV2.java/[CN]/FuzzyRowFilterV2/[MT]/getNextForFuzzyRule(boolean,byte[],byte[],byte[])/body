@@ -1,0 +1,3 @@
+{
+  return getNextForFuzzyRule(reverse,row,0,row.length,fuzzyKeyBytes,fuzzyKeyMeta);
+}
