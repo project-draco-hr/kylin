@@ -1,3 +1,0 @@
-{
-  System.out.println("LZO supported by current env? " + getSupportness());
-}
