@@ -1,3 +1,0 @@
-{
-  return System.getenv("LD_LIBRARY_PATH");
-}
