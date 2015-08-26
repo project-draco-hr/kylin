@@ -13,41 +13,66 @@
     HTableDescriptor tableDesc=new HTableDescriptor(TableName.valueOf(tableName));
     HColumnDescriptor cf=new HColumnDescriptor(IIDesc.HBASE_FAMILY);
     cf.setMaxVersions(1);
-    if (LZOSupportnessChecker.getSupportness()) {
-      logger.info("hbase will use lzo to compress II data");
-      cf.setCompressionType(Compression.Algorithm.LZO);
-    }
- else {
-      logger.info("hbase will not use lzo to compress II data");
-    }
-    cf.setDataBlockEncoding(DataBlockEncoding.FAST_DIFF);
-    tableDesc.addFamily(cf);
-    tableDesc.setValue(IRealizationConstants.HTableTag,config.getMetadataUrlPrefix());
-    tableDesc.setValue(HTableDescriptor.SPLIT_POLICY,DisabledRegionSplitPolicy.class.getName());
-    Configuration conf=HBaseConfiguration.create(getConf());
-    if (User.isHBaseSecurityEnabled(conf)) {
-      tableDesc.addCoprocessor("org.apache.hadoop.hbase.security.access.SecureBulkLoadEndpoint");
-    }
-    DeployCoprocessorCLI.deployCoprocessor(tableDesc);
-    HBaseAdmin admin=new HBaseAdmin(conf);
-    if (admin.tableExists(tableName)) {
-      admin.disableTable(tableName);
-      admin.deleteTable(tableName);
-    }
-    byte[][] splitKeys=getSplits(sharding);
-    if (splitKeys.length == 0)     splitKeys=null;
-    admin.createTable(tableDesc,splitKeys);
-    if (splitKeys != null) {
-      for (int i=0; i < splitKeys.length; i++) {
-        System.out.println("split key " + i + ": "+ BytesUtil.toHex(splitKeys[i]));
+    String hbaseDefaultCC=config.getHbaseDefaultCompressionCodec().toLowerCase();
+switch (hbaseDefaultCC) {
+case "snappy":
+{
+        logger.info("hbase will use snappy to compress data");
+        cf.setCompressionType(Compression.Algorithm.SNAPPY);
+        break;
       }
+case "lzo":
+{
+      logger.info("hbase will use lzo to compress data");
+      cf.setCompressionType(Compression.Algorithm.LZO);
+      break;
     }
-    System.out.println("create hbase table " + tableName + " done.");
-    admin.close();
-    return 0;
+case "gz":
+case "gzip":
+{
+    logger.info("hbase will use gzip to compress data");
+    cf.setCompressionType(Compression.Algorithm.GZ);
+    break;
   }
- catch (  Exception e) {
-    printUsage(options);
-    throw e;
-  }
+case "lz4":
+{
+  logger.info("hbase will use lz4 to compress data");
+  cf.setCompressionType(Compression.Algorithm.LZ4);
+  break;
+}
+default :
+{
+logger.info("hbase will not user any compression codec to compress data");
+}
+}
+cf.setDataBlockEncoding(DataBlockEncoding.FAST_DIFF);
+tableDesc.addFamily(cf);
+tableDesc.setValue(IRealizationConstants.HTableTag,config.getMetadataUrlPrefix());
+tableDesc.setValue(HTableDescriptor.SPLIT_POLICY,DisabledRegionSplitPolicy.class.getName());
+Configuration conf=HBaseConfiguration.create(getConf());
+if (User.isHBaseSecurityEnabled(conf)) {
+tableDesc.addCoprocessor("org.apache.hadoop.hbase.security.access.SecureBulkLoadEndpoint");
+}
+DeployCoprocessorCLI.deployCoprocessor(tableDesc);
+HBaseAdmin admin=new HBaseAdmin(conf);
+if (admin.tableExists(tableName)) {
+admin.disableTable(tableName);
+admin.deleteTable(tableName);
+}
+byte[][] splitKeys=getSplits(sharding);
+if (splitKeys.length == 0) splitKeys=null;
+admin.createTable(tableDesc,splitKeys);
+if (splitKeys != null) {
+for (int i=0; i < splitKeys.length; i++) {
+System.out.println("split key " + i + ": "+ BytesUtil.toHex(splitKeys[i]));
+}
+}
+System.out.println("create hbase table " + tableName + " done.");
+admin.close();
+return 0;
+}
+ catch (Exception e) {
+printUsage(options);
+throw e;
+}
 }
