@@ -1,7 +1,0 @@
-{
-  if (args.length != 1) {
-    System.out.println("Usage: hbase org.apache.hadoop.util.RunJar kylin-job-0.5.7-SNAPSHOT-job.jar org.apache.kylin.job.deployment.HadoopConfigPrinter targetFile");
-    System.exit(1);
-  }
-  printConfigs(args[0]);
-}
