@@ -1,0 +1,4 @@
+{
+  HadoopUtil.setCurrentConfiguration(null);
+  HadoopUtil.setCurrentHBaseConfiguration(null);
+}

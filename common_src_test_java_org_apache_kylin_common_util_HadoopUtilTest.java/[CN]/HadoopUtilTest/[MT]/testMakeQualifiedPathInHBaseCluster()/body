@@ -1,0 +1,6 @@
+{
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  config.setProperty(KylinConfig.KYLIN_HBASE_CLUSTER_FS,"file:/");
+  String path=HadoopUtil.makeQualifiedPathInHBaseCluster("/path/to/test/hbase");
+  assertEquals("file:/path/to/test/hbase",path);
+}

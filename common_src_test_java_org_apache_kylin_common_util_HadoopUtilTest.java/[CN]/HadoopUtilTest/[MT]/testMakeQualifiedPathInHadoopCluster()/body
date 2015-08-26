@@ -1,0 +1,6 @@
+{
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  config.setProperty(KylinConfig.KYLIN_HADOOP_CLUSTER_FS,"file:/");
+  String path=HadoopUtil.makeQualifiedPathInHadoopCluster("/path/to/test/hadoop");
+  assertEquals("file:/path/to/test/hadoop",path);
+}

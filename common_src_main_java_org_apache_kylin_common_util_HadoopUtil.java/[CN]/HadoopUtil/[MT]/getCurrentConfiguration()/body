@@ -1,6 +1,11 @@
 {
   if (hadoopConfig.get() == null) {
-    hadoopConfig.set(new Configuration());
+    Configuration configuration=new Configuration();
+    String hadoopClusterFs=KylinConfig.getInstanceFromEnv().getHadoopClusterFs();
+    if (hadoopClusterFs != null && !hadoopClusterFs.equals("")) {
+      configuration.set(FileSystem.FS_DEFAULT_NAME_KEY,hadoopClusterFs);
+    }
+    hadoopConfig.set(configuration);
   }
   return hadoopConfig.get();
 }
