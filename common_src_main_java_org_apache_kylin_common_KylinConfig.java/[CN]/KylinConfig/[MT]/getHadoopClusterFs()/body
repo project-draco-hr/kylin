@@ -1,0 +1,3 @@
+{
+  return getOptional(KYLIN_HADOOP_CLUSTER_FS,"");
+}

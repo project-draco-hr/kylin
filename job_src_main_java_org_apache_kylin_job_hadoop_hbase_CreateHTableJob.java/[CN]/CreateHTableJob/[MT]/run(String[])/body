@@ -14,7 +14,7 @@
   HTableDescriptor tableDesc=new HTableDescriptor(TableName.valueOf(tableName));
   tableDesc.setValue(HTableDescriptor.SPLIT_POLICY,ConstantSizeRegionSplitPolicy.class.getName());
   tableDesc.setValue(IRealizationConstants.HTableTag,config.getMetadataUrlPrefix());
-  Configuration conf=HBaseConfiguration.create(getConf());
+  Configuration conf=HadoopUtil.getCurrentHBaseConfiguration();
   HBaseAdmin admin=new HBaseAdmin(conf);
   try {
     if (User.isHBaseSecurityEnabled(conf)) {

@@ -1,0 +1,3 @@
+{
+  hbaseConfig.set(conf);
+}

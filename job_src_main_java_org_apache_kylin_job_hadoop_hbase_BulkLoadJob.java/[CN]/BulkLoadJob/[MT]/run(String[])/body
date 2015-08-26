@@ -7,7 +7,7 @@
     parseOptions(options,args);
     String tableName=getOptionValue(OPTION_HTABLE_NAME).toUpperCase();
     String input=getOptionValue(OPTION_INPUT_PATH);
-    Configuration conf=HBaseConfiguration.create(getConf());
+    Configuration conf=HadoopUtil.getCurrentHBaseConfiguration();
     FileSystem fs=FileSystem.get(conf);
     String cubeName=getOptionValue(OPTION_CUBE_NAME).toUpperCase();
     KylinConfig config=KylinConfig.getInstanceFromEnv();

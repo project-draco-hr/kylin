@@ -1,10 +1,14 @@
 {
   final String hiveTable=this.getOldHiveTable();
   if (StringUtils.isNotEmpty(hiveTable)) {
-    final String dropSQL="DROP TABLE IF EXISTS  " + hiveTable + ";";
-    final String dropHiveCMD="hive -e \"" + dropSQL + "\"";
+    final String dropSQL="USE " + KylinConfig.getInstanceFromEnv().getHiveDatabaseForIntermediateTable() + ";"+ " DROP TABLE IF EXISTS  "+ hiveTable+ ";";
+    final String setClusterHql="-hiveconf " + FileSystem.FS_DEFAULT_NAME_KEY + "=\""+ HadoopUtil.getCurrentConfiguration().get(FileSystem.FS_DEFAULT_NAME_KEY)+ "\"";
+    final String dropHiveCMD="hive " + setClusterHql + " -e \""+ dropSQL+ "\"";
+    logger.info("executing: " + dropHiveCMD);
     ShellCmdOutput shellCmdOutput=new ShellCmdOutput();
     context.getConfig().getCliCommandExecutor().execute(dropHiveCMD,shellCmdOutput);
+    logger.debug("Dropped Hive table " + hiveTable + " \n");
+    output.append(shellCmdOutput.getOutput() + " \n");
     output.append("Dropped Hive table " + hiveTable + " \n");
   }
 }

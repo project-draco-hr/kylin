@@ -1,0 +1,6 @@
+{
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  config.setProperty(KylinConfig.KYLIN_HADOOP_CLUSTER_FS,"hdfs://hadoop-cluster/");
+  Configuration conf=HadoopUtil.getCurrentConfiguration();
+  assertEquals("hdfs://hadoop-cluster/",conf.get(FileSystem.FS_DEFAULT_NAME_KEY));
+}

@@ -1,0 +1,9 @@
+{
+  try {
+    FileSystem fs=FileSystem.get(getCurrentConfiguration());
+    return fs.makeQualified(new Path(path)).toString();
+  }
+ catch (  IOException e) {
+    throw new IllegalArgumentException("Cannot create FileSystem from current hadoop cluster conf",e);
+  }
+}
