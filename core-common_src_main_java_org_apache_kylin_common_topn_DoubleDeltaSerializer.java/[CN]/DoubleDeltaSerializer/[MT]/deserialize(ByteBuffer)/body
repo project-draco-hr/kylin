@@ -1,0 +1,7 @@
+{
+  int meta=buf.getInt();
+  int len=meta & ((1 << LENGTH_BITS) - 1);
+  double[] result=new double[len];
+  deserialize(buf,meta,result);
+  return result;
+}

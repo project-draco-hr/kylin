@@ -1,0 +1,7 @@
+{
+  long maxDelta=0;
+  for (int i=0; i < len; i++) {
+    maxDelta=Math.max(maxDelta,deltas[i]);
+  }
+  return Long.SIZE - Long.numberOfLeadingZeros(maxDelta);
+}

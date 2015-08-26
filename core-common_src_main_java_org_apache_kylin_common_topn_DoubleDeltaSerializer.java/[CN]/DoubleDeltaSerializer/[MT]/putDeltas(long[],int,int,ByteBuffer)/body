@@ -1,0 +1,24 @@
+{
+  long bits=0;
+  int free=Long.SIZE;
+  for (int i=0; i < len; i++) {
+    if (free >= deltaSize) {
+      bits|=deltas[i] << (free - deltaSize);
+      free-=deltaSize;
+      if (free == 0) {
+        buf.putLong(bits);
+        bits=0;
+        free=Long.SIZE;
+      }
+    }
+ else {
+      bits|=deltas[i] >> (deltaSize - free);
+      buf.putLong(bits);
+      free=(Long.SIZE - (deltaSize - free));
+      bits=deltas[i] << free;
+    }
+  }
+  if (free < Long.SIZE) {
+    buf.putLong(bits);
+  }
+}

@@ -1,0 +1,4 @@
+long[] deltas
+int len
+int deltaSize
+ByteBuffer buf

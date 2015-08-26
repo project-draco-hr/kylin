@@ -1,0 +1,11 @@
+{
+  long[] deltas=calculateDeltas(values);
+  int deltaSize=maxDeltaSize(deltas,values.length - 1);
+  checkFitInBits(deltaSize,DELTA_SIZE_BITS);
+  checkFitInBits(values.length,LENGTH_BITS);
+  int meta=(int)precision << (LENGTH_BITS + DELTA_SIZE_BITS) | (int)deltaSize << LENGTH_BITS | values.length;
+  buf.putInt(meta);
+  if (values.length == 0)   return;
+  buf.putLong(roundAndPromote(values[0]));
+  putDeltas(deltas,values.length - 1,deltaSize,buf);
+}

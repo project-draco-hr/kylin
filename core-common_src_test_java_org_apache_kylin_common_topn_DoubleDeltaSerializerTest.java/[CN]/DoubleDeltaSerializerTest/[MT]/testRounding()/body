@@ -1,0 +1,7 @@
+{
+  buf.clear();
+  dds.serialize(new double[]{1.234,2.345},buf);
+  buf.flip();
+  double[] r=dds.deserialize(buf);
+  assertArrayEquals(new double[]{1.23,2.35},r);
+}

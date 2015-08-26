@@ -1,0 +1,7 @@
+{
+  buf.clear();
+  dds.serialize(new double[]{},buf);
+  buf.flip();
+  double[] r=dds.deserialize(buf);
+  assertTrue(r.length == 0);
+}
