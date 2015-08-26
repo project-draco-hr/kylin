@@ -1,9 +1,9 @@
 {
   super();
-  this.TOP_K=topK;
+  this.TOP_K=100;
   this.KEY_SPACE=TOP_K * keySpaceRate;
   this.SPACE_SAVING_ROOM=spaceSavingRate;
   TOTAL_RECORDS=1000000;
-  this.PARALLEL=50;
-  this.verbose=false;
+  this.PARALLEL=10;
+  this.verbose=true;
 }

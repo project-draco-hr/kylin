@@ -23,5 +23,8 @@
  else   if (isHLLC()) {
     return 1 << precision;
   }
+ else   if (isTopN()) {
+    return 8 * precision * 50;
+  }
   throw new IllegalStateException("The return type : " + name + " is not recognized;");
 }

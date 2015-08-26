@@ -1,15 +1,9 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
-  ParameterDesc other=(ParameterDesc)obj;
-  if (type == null) {
-    if (other.type != null)     return false;
-  }
- else   if (!type.equals(other.type))   return false;
-  if (value == null) {
-    if (other.value != null)     return false;
-  }
- else   if (!value.equals(other.value))   return false;
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  ParameterDesc that=(ParameterDesc)o;
+  if (counter != null ? !counter.equals(that.counter) : that.counter != null)   return false;
+  if (type != null ? !type.equals(that.type) : that.type != null)   return false;
+  if (value != null ? !value.equals(that.value) : that.value != null)   return false;
   return true;
 }

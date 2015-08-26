@@ -1,5 +1,5 @@
 {
-  if (isCountDistinct())   return DataType.ANY;
+  if (isCountDistinct() || isTopN())   return DataType.ANY;
  else   if (isSum() || isMax() || isMin())   return parameter.getColRefs().get(0).getType();
  else   return returnDataType;
 }

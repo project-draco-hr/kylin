@@ -1,0 +1,7 @@
+{
+  if (sum == null) {
+    sum=new TopNCounter<ByteArray>(Integer.MAX_VALUE);
+    capacity=value.getCapacity();
+  }
+  sum.merge(value);
+}

@@ -1,0 +1,3 @@
+{
+  return FUNC_TOP_N.equalsIgnoreCase(expression);
+}

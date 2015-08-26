@@ -1,0 +1,17 @@
+{
+  TopNCounter<String> vs=new TopNCounter<String>(10);
+  String[] stream={"X","X","Y","Z","A","B","C","X","X","A","C","A","B"};
+  for (  String i : stream) {
+    vs.offer(i);
+  }
+  String[] stream2={"B","B","Z","Z","B","C","X","X"};
+  TopNCounter<String> vs2=new TopNCounter<String>(10);
+  for (  String i : stream2) {
+    vs2.offer(i);
+  }
+  vs.merge(vs2);
+  List<Counter<String>> topK=vs.topK(3);
+  for (  Counter<String> c : topK) {
+    assertTrue(Arrays.asList("A","B","X").contains(c.getItem()));
+  }
+}

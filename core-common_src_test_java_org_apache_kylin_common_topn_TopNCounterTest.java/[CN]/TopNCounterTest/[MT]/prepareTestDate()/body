@@ -5,14 +5,14 @@
   }
   outputMsg("Start to create test random data...");
   long startTime=System.currentTimeMillis();
-  ZipfDistribution zipf=new ZipfDistribution(KEY_SPACE - 1,0.8);
+  ZipfDistribution zipf=new ZipfDistribution(KEY_SPACE,0.5);
   int keyIndex;
   File tempFile=File.createTempFile("ZipfDistribution",".txt");
   if (tempFile.exists())   FileUtils.forceDelete(tempFile);
   FileWriter fw=new FileWriter(tempFile);
   try {
     for (int i=0; i < TOTAL_RECORDS; i++) {
-      keyIndex=zipf.sample();
+      keyIndex=zipf.sample() - 1;
       fw.write(allKeys[keyIndex]);
       fw.write('\n');
     }

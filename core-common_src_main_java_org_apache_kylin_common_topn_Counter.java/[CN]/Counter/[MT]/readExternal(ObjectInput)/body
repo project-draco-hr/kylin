@@ -1,5 +1,4 @@
 {
   item=(T)in.readObject();
   count=in.readDouble();
-  error=in.readDouble();
 }
