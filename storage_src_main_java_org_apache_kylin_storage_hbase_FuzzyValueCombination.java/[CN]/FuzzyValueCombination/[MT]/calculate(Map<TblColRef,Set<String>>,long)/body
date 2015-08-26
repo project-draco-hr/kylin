@@ -1,5 +1,9 @@
 {
   Dim[] dims=toDims(fuzzyValues);
-  capDims(dims,cap);
-  return combination(dims);
+  if (exceedCap(dims,cap)) {
+    return Lists.newArrayList();
+  }
+ else {
+    return combination(dims);
+  }
 }
