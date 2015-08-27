@@ -1,0 +1,6 @@
+{
+  request.setCubeDescData("");
+  request.setSuccessful(false);
+  request.setMessage(errmsg);
+  return request;
+}

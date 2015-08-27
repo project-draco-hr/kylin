@@ -1,5 +1,0 @@
-{
-  request.setCubeDescData("");
-  request.setSuccessful(success);
-  request.setMessage(message);
-}

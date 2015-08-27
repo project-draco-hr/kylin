@@ -1,0 +1,7 @@
+{
+  CubeDesc[] cubes=cubeDescController.getCube(cubeDescName);
+  if (cubes == null || cubes.length < 1) {
+    throw new IllegalStateException("cube desc " + cubeDescName + " not existed");
+  }
+  return cubes[0];
+}

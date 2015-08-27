@@ -1,0 +1,4 @@
+{
+  cubeController.deleteCube(TEST_CUBE_NAME);
+  super.after();
+}

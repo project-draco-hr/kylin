@@ -1,46 +1,14 @@
 {
-  CubeDesc[] cubes=(CubeDesc[])cubeDescController.getCube("test_kylin_cube_with_slr_ready");
-  Assert.assertNotNull(cubes);
-  Assert.assertNotNull(cubeController.getSql("test_kylin_cube_with_slr_ready","20130331080000_20131212080000"));
+  Assert.assertNotNull(cubeController.getSql(SRC_CUBE_NAME,"20130331080000_20131212080000"));
   Assert.assertNotNull(cubeController.getCubes(null,null,0,5));
-  CubeDesc cube=cubes[0];
-  CubeDesc newCube=new CubeDesc();
-  String newCubeName=cube.getName() + "_test_save";
-  try {
-    cubeController.deleteCube(newCubeName);
-  }
- catch (  Exception e) {
-  }
-  newCube.setName(newCubeName);
-  newCube.setModelName(cube.getModelName());
-  newCube.setModel(cube.getModel());
-  newCube.setDimensions(cube.getDimensions());
-  newCube.setHBaseMapping(cube.getHBaseMapping());
-  newCube.setMeasures(cube.getMeasures());
-  newCube.setConfig(cube.getConfig());
-  newCube.setRowkey(cube.getRowkey());
-  String newModelName=newCubeName + "_model_desc";
-  newCube.getModel().setName(newModelName);
-  newCube.getModel().setLastModified(0);
-  ObjectMapper cubeDescMapper=new ObjectMapper();
-  StringWriter cubeDescWriter=new StringWriter();
-  cubeDescMapper.writeValue(cubeDescWriter,newCube);
-  ObjectMapper modelDescMapper=new ObjectMapper();
-  StringWriter modelDescWriter=new StringWriter();
-  modelDescMapper.writeValue(modelDescWriter,newCube.getModel());
-  CubeRequest cubeRequest=new CubeRequest();
-  cubeRequest.setCubeDescData(cubeDescWriter.toString());
-  cubeRequest.setModelDescData(modelDescWriter.toString());
-  cubeRequest=cubeController.saveCubeDesc(cubeRequest);
-  DataModelDesc model=modelController.getModel(newModelName);
+  DataModelDesc model=modelController.getModel(TEST_CUBE_NAME);
   Assert.assertNotNull(model);
   List<String> notifyList=Lists.newArrayList();
   notifyList.add("john@example.com");
-  cubeController.updateNotifyList(newCubeName,notifyList);
-  cubeController.updateCubeCost(newCubeName,80);
-  List<CubeInstance> cubeInstances=cubeController.getCubes(newCubeName,"default",1,0);
+  cubeController.updateNotifyList(TEST_CUBE_NAME,notifyList);
+  cubeController.updateCubeCost(TEST_CUBE_NAME,80);
+  List<CubeInstance> cubeInstances=cubeController.getCubes(TEST_CUBE_NAME,"default",1,0);
   CubeInstance cubeInstance=cubeInstances.get(0);
   Assert.assertTrue(cubeInstance.getDescriptor().getNotifyList().contains("john@example.com"));
   Assert.assertTrue(cubeInstance.getCost() == 80);
-  cubeController.deleteCube(newCubeName);
 }

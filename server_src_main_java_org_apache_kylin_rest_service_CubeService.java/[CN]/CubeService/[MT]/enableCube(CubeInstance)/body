@@ -11,9 +11,6 @@
   if (!cubingJobs.isEmpty()) {
     throw new JobException("Enable is not allowed with a running job.");
   }
-  if (!cube.getDescriptor().calculateSignature().equals(cube.getDescriptor().getSignature())) {
-    this.releaseAllSegments(cube);
-  }
   cube.setStatus(RealizationStatusEnum.READY);
   try {
     return getCubeManager().updateCube(cube);
