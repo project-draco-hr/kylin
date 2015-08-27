@@ -23,6 +23,12 @@ catch (  IllegalArgumentException e) {
     return desc;
   }
   desc.setSignature(desc.calculateSignature());
+  CubeInstance cube=getCubeManager().getCube(desc.getName());
+  if (cube != null && !StringUtils.equals(desc.getSignature(),cube.getDescriptor().getSignature())) {
+    logger.info("Detect signature change of [" + desc.getName() + "], drop all existing segments");
+    cube.getSegments().clear();
+    getCubeManager().updateCube(cube);
+  }
   String path=desc.getResourcePath();
   getStore().putResource(path,desc,CUBE_DESC_SERIALIZER);
   CubeDesc ndesc=loadCubeDesc(path);

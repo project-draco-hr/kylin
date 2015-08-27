@@ -1,16 +1,16 @@
 {
   CubeDesc desc=null;
   try {
-    logger.debug("Saving cube " + cubeRequest.getCubeDescData());
+    logger.debug("Deserialize cube desc " + cubeRequest.getCubeDescData());
     desc=JsonUtil.readValue(cubeRequest.getCubeDescData(),CubeDesc.class);
   }
  catch (  JsonParseException e) {
     logger.error("The cube definition is not valid.",e);
-    updateRequest(cubeRequest,false,e.getMessage());
+    errorRequest(cubeRequest,e.getMessage());
   }
 catch (  JsonMappingException e) {
     logger.error("The cube definition is not valid.",e);
-    updateRequest(cubeRequest,false,e.getMessage());
+    errorRequest(cubeRequest,e.getMessage());
   }
 catch (  IOException e) {
     logger.error("Failed to deal with the request.",e);

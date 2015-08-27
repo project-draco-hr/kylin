@@ -1,0 +1,48 @@
+{
+  CubeDesc newCubeDesc=getCubeDescByName(TEST_CUBE_NAME);
+  CubeRequest req=new CubeRequest();
+  req.setCubeDescData("invalid");
+  assertUpdateFail(req);
+  req=new CubeRequest();
+  req.setCubeDescData(JsonUtil.writeValueAsIndentString(newCubeDesc));
+  req.setModelDescData("invalid");
+  assertUpdateFail(req);
+  req=new CubeRequest();
+  req.setCubeDescData("{\"name\" : \"myCube\", \"model_name\" : \"anotherModelName\"}");
+  req.setModelDescData("{\"name\" : \"myCube\"}");
+  assertUpdateFail(req);
+  req=new CubeRequest();
+  req.setCubeDescData("{\"name\" : \"noSuchCube\", \"model_name\" : \"noSuchModel\"}");
+  req.setModelDescData("{\"name\" : \"noSuchModel\"}");
+  assertUpdateFail(req);
+  req=new CubeRequest();
+  req.setCubeDescData(JsonUtil.writeValueAsIndentString(newCubeDesc));
+  DataModelDesc modifiedModel=new DataModelDesc();
+  modifiedModel.setName(TEST_CUBE_NAME);
+  modifiedModel.setFactTable("anotherFactTable");
+  req.setModelDescData(JsonUtil.writeValueAsIndentString(modifiedModel));
+  assertUpdateFail(req);
+  req=new CubeRequest();
+  req.setModelDescData(JsonUtil.writeValueAsIndentString(newCubeDesc.getModel()));
+  newCubeDesc.setDescription("hello cube");
+  req.setCubeDescData(JsonUtil.writeValueAsIndentString(newCubeDesc));
+  CubeRequest res=cubeController.updateCubeDesc(req);
+  Assert.assertTrue(res.getSuccessful());
+  CubeDesc resultDesc=getCubeDescByName(TEST_CUBE_NAME);
+  Assert.assertEquals("hello cube",resultDesc.getDescription());
+  Assert.assertEquals(newCubeDesc.getSignature(),resultDesc.getSignature());
+  newCubeDesc=getCubeDescByName(TEST_CUBE_NAME);
+  RowKeyColDesc[] rowkeyColumns=newCubeDesc.getRowkey().getRowKeyColumns();
+  for (int i=0, j=rowkeyColumns.length - 1; i < j; i++, j--) {
+    RowKeyColDesc tmp=rowkeyColumns[i];
+    rowkeyColumns[i]=rowkeyColumns[j];
+    rowkeyColumns[j]=tmp;
+  }
+  req.setCubeDescData(JsonUtil.writeValueAsIndentString(newCubeDesc));
+  res=cubeController.updateCubeDesc(req);
+  Assert.assertTrue(res.getSuccessful());
+  resultDesc=getCubeDescByName(TEST_CUBE_NAME);
+  ;
+  Assert.assertNotEquals(newCubeDesc.getSignature(),resultDesc.getSignature());
+  Assert.assertEquals(newCubeDesc.calculateSignature(),resultDesc.getSignature());
+}

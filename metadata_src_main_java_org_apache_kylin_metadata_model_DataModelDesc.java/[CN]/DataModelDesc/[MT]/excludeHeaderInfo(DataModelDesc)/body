@@ -1,0 +1,7 @@
+{
+  String repr=JsonUtil.writeValueAsString(modelDesc);
+  DataModelDesc copy=JsonUtil.readValue(repr,DataModelDesc.class);
+  copy.setUuid(null);
+  copy.setLastModified(0);
+  return JsonUtil.writeValueAsString(copy);
+}

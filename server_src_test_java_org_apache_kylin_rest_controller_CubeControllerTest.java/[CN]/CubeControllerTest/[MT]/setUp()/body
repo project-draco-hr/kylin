@@ -7,4 +7,6 @@
   cubeDescController.setCubeService(cubeService);
   modelController=new ModelController();
   modelController.setCubeService(cubeService);
+  srcCubeDesc=getCubeDescByName(SRC_CUBE_NAME);
+  saveTestCube(TEST_CUBE_NAME);
 }

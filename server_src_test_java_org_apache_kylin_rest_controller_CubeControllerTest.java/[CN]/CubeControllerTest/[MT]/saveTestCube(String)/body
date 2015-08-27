@@ -1,0 +1,23 @@
+{
+  CubeDesc newCube=new CubeDesc();
+  try {
+    cubeController.deleteCube(newCubeName);
+  }
+ catch (  Exception e) {
+  }
+  newCube.setName(newCubeName);
+  newCube.setModelName(newCubeName);
+  newCube.setModel(srcCubeDesc.getModel());
+  newCube.setDimensions(srcCubeDesc.getDimensions());
+  newCube.setHBaseMapping(srcCubeDesc.getHBaseMapping());
+  newCube.setMeasures(srcCubeDesc.getMeasures());
+  newCube.setConfig(srcCubeDesc.getConfig());
+  newCube.setRowkey(srcCubeDesc.getRowkey());
+  newCube.getModel().setName(newCubeName);
+  newCube.getModel().setLastModified(0);
+  CubeRequest cubeRequest=new CubeRequest();
+  cubeRequest.setCubeDescData(JsonUtil.writeValueAsIndentString(newCube));
+  cubeRequest.setModelDescData(JsonUtil.writeValueAsIndentString(newCube.getModel()));
+  CubeRequest result=cubeController.saveCubeDesc(cubeRequest);
+  Assert.assertTrue(result.getSuccessful());
+}

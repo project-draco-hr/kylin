@@ -1,0 +1,4 @@
+{
+  CubeRequest res=cubeController.updateCubeDesc(req);
+  Assert.assertFalse(res.getSuccessful());
+}
