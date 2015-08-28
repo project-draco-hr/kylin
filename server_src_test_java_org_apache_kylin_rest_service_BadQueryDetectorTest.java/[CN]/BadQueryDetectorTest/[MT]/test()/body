@@ -1,0 +1,25 @@
+{
+  int alertMB=BadQueryDetector.getSystemAvailMB() * 2;
+  int alertRunningSec=5;
+  String mockSql="select * from just_a_test";
+  final ArrayList<String[]> alerts=new ArrayList<>();
+  BadQueryDetector badQueryDetector=new BadQueryDetector(5000,alertMB,alertRunningSec);
+  badQueryDetector.registerNotifier(new BadQueryDetector.Notifier(){
+    @Override public void badQueryFound(    String adj,    int runningSec,    String sql){
+      alerts.add(new String[]{adj,sql});
+    }
+  }
+);
+  badQueryDetector.start();
+{
+    SQLRequest sqlRequest=new SQLRequest();
+    sqlRequest.setSql(mockSql);
+    badQueryDetector.queryStart(Thread.currentThread(),sqlRequest);
+    Thread.sleep(alertRunningSec * 2 * 1000);
+    badQueryDetector.queryEnd(Thread.currentThread());
+  }
+  badQueryDetector.stop();
+  assertEquals(2,alerts.size());
+  assertArrayEquals(new String[]{"Low mem",mockSql},alerts.get(0));
+  assertArrayEquals(new String[]{"Slow",mockSql},alerts.get(1));
+}

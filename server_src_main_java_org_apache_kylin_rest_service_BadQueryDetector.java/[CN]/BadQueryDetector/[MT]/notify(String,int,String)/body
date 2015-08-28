@@ -1,0 +1,10 @@
+{
+  for (  Notifier notifier : notifiers) {
+    try {
+      notifier.badQueryFound(adj,runningSec,sql);
+    }
+ catch (    Exception e) {
+      logger.error("",e);
+    }
+  }
+}

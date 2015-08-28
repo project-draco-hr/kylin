@@ -1,5 +1,5 @@
 {
-  SQLResponse result=doQuery(sqlRequest);
+  SQLResponse result=doQueryWithCache(sqlRequest);
   response.setContentType("text/" + format + ";charset=utf-8");
   response.setHeader("Content-Disposition","attachment; filename=\"result." + format + "\"");
   ICsvListWriter csvWriter=null;

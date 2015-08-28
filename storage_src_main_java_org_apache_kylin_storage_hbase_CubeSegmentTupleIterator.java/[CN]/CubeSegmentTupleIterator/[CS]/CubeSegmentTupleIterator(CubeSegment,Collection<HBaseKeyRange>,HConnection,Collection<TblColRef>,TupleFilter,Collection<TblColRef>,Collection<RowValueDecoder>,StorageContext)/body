@@ -8,7 +8,6 @@
   this.context=context;
   this.tableName=cubeSeg.getStorageLocationIdentifier();
   this.rowKeyDecoder=new RowKeyDecoder(this.cubeSeg);
-  this.scanCount=0;
   try {
     this.table=conn.getTable(tableName);
   }
