@@ -1,0 +1,4 @@
+{
+  this.sqlRequest=sqlRequest;
+  this.startTime=System.currentTimeMillis();
+}

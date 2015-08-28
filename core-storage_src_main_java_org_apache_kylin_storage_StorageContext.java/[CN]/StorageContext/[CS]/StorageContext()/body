@@ -1,7 +1,7 @@
 {
   this.threshold=DEFAULT_THRESHOLD;
   this.limit=DEFAULT_THRESHOLD;
-  this.totalScanCount=0;
+  this.totalScanCount=new AtomicLong();
   this.cuboid=null;
   this.hasSort=false;
   this.sortOrders=new ArrayList<OrderEnum>();

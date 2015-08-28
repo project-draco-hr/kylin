@@ -11,6 +11,7 @@
   }
   Result result=resultIterator.next();
   scanCount++;
+  if (++scanCountDelta >= 1000)   flushScanCountDelta();
   tupleConverter.translateResult(result,oneTuple);
   next=oneTuple;
   return true;

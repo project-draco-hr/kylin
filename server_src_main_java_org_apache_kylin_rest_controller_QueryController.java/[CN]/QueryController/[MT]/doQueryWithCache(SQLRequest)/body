@@ -1,0 +1,33 @@
+{
+  String sql=sqlRequest.getSql();
+  String project=sqlRequest.getProject();
+  logger.info("Using project: " + project);
+  logger.info("The original query:  " + sql);
+  String serverMode=KylinConfig.getInstanceFromEnv().getServerMode();
+  if (!(Constant.SERVER_MODE_QUERY.equals(serverMode.toLowerCase()) || Constant.SERVER_MODE_ALL.equals(serverMode.toLowerCase()))) {
+    throw new InternalErrorException("Query is not allowed in " + serverMode + " mode.");
+  }
+  if (sql.toLowerCase().contains("select") == false) {
+    logger.debug("Directly return expection as not supported");
+    throw new InternalErrorException("Not Supported SQL.");
+  }
+  SQLResponse sqlResponse=searchQueryInCache(sqlRequest);
+  try {
+    if (null == sqlResponse) {
+      sqlResponse=queryService.query(sqlRequest);
+    }
+    checkQueryAuth(sqlResponse);
+  }
+ catch (  Throwable e) {
+    logger.error("Exception when execute sql",e);
+    String errMsg=QueryUtil.makeErrorMsgUserFriendly(e);
+    sqlResponse=new SQLResponse(null,null,0,true,errMsg);
+    if (e instanceof ScanOutOfLimitException) {
+      Cache exceptionCache=cacheManager.getCache(EXCEPTION_QUERY_CACHE);
+      exceptionCache.put(new Element(sqlRequest,sqlResponse));
+    }
+  }
+  queryService.logQuery(sqlRequest,sqlResponse);
+  if (sqlResponse.getIsException())   throw new InternalErrorException(sqlResponse.getExceptionMessage());
+  return sqlResponse;
+}

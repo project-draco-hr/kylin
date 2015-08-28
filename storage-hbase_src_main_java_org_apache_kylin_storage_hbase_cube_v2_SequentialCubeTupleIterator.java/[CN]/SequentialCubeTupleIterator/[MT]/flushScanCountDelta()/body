@@ -1,0 +1,4 @@
+{
+  context.increaseTotalScanCount(scanCountDelta);
+  scanCountDelta=0;
+}

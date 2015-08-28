@@ -2,6 +2,7 @@
   Connection conn=null;
   Statement stat=null;
   ResultSet resultSet=null;
+  long startTime=System.currentTimeMillis();
   List<List<String>> results=new LinkedList<List<String>>();
   List<SelectedColumnMeta> columnMetas=new LinkedList<SelectedColumnMeta>();
   try {
@@ -46,5 +47,6 @@
   }
   SQLResponse response=new SQLResponse(columnMetas,results,cube,0,false,null,isPartialResult);
   response.setTotalScanCount(totalScanCount);
+  response.setDuration(System.currentTimeMillis() - startTime);
   return response;
 }
