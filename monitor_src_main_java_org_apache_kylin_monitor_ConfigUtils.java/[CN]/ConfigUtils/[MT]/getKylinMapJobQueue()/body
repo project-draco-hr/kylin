@@ -1,0 +1,3 @@
+{
+  return this.monitorConfig.getProperty(KYLIN_MAP_JOB_QUEUE);
+}

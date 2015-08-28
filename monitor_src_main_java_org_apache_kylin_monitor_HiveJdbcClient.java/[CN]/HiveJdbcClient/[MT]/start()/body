@@ -1,9 +1,15 @@
 {
+  MAP_QUEUE_NAME=getQueueName();
+  if (org.apache.commons.lang.StringUtils.isEmpty(MAP_QUEUE_NAME)) {
+    MAP_QUEUE_NAME=monitorConfig.getKylinMapJobQueue();
+  }
+  logger.info("mapred.job.queue.name:" + MAP_QUEUE_NAME);
   String CON_URL=monitorConfig.getHiveJdbcConUrl();
   String USER_NAME=monitorConfig.getHiveJdbcConUserName();
   String PASSWD=monitorConfig.getHiveJdbcConPasswd();
   Connection con=DriverManager.getConnection(CON_URL,USER_NAME,PASSWD);
   Statement stmt=con.createStatement();
+  stmt.execute("set mapred.job.queue.name=" + MAP_QUEUE_NAME);
   ResultSet res=null;
   SQL_GENERATE_QUERY_LOG_TABLE=generateQueryLogSql();
   logger.info("Running Sql (Create Table):" + SQL_GENERATE_QUERY_LOG_TABLE);
