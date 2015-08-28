@@ -1,4 +1,4 @@
 {
   Preconditions.checkNotNull(cacheManager,"cacheManager is not injected yet");
-  AbstractCacheFledgedStorageEngine.setCacheManager(cacheManager);
+  AbstractCacheFledgedQuery.setCacheManager(cacheManager);
 }

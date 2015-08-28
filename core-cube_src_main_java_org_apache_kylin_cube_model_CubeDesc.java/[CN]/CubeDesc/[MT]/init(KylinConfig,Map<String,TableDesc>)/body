@@ -12,8 +12,8 @@
     dim.init(this,tables);
   }
   sortDimAndMeasure();
-  initDimensionColumns(tables);
-  initMeasureColumns(tables);
+  initDimensionColumns();
+  initMeasureColumns();
   rowkey.init(this);
   if (hbaseMapping != null) {
     hbaseMapping.init(this);

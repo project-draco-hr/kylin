@@ -7,7 +7,7 @@
   cube=CubeManager.getInstance(config).getCube(cubeName);
   cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   cubeDesc=cube.getDescriptor();
-  factTableDesc=metadataManager.getTableDesc(cubeDesc.getFactTable());
+  factTableDesc=cubeDesc.getFactTableDesc();
   long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
   baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
   rowKeyEncoder=AbstractRowKeyEncoder.createInstance(cubeSegment,baseCuboid);

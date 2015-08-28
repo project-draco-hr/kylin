@@ -9,7 +9,7 @@
       String lookupTableName=dim.getTable();
       if (!lookupTables.containsKey(lookupTableName)) {
         TableDesc tableDesc=metadataManager.getTableDesc(lookupTableName);
-        ReadableTable htable=TableSourceFactory.createReadableTable(tableDesc);
+        ReadableTable htable=SourceFactory.createReadableTable(tableDesc);
         LookupBytesTable btable=new LookupBytesTable(tableDesc,join.getPrimaryKey(),htable);
         lookupTables.put(lookupTableName,btable);
       }

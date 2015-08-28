@@ -1,3 +1,3 @@
 {
-  return model.getFactTable().toUpperCase();
+  return model.getFactTable();
 }

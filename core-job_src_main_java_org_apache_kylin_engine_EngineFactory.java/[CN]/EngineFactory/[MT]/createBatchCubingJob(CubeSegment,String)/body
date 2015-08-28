@@ -1,0 +1,3 @@
+{
+  return batchEngine(newSegment).createBatchCubingJob(newSegment,submitter);
+}

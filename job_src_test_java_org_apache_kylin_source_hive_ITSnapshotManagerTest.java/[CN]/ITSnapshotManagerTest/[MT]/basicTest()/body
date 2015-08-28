@@ -1,7 +1,7 @@
 {
   String tableName="EDW.TEST_SITES";
   TableDesc tableDesc=MetadataManager.getInstance(getTestConfig()).getTableDesc(tableName);
-  ReadableTable hiveTable=TableSourceFactory.createReadableTable(tableDesc);
+  ReadableTable hiveTable=SourceFactory.createReadableTable(tableDesc);
   String snapshotPath=snapshotMgr.buildSnapshot(hiveTable,tableDesc).getResourcePath();
   snapshotMgr.wipeoutCache();
   SnapshotTable snapshot=snapshotMgr.getSnapshotTable(snapshotPath);

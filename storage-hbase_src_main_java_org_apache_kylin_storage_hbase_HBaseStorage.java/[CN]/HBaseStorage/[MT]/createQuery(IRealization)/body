@@ -1,0 +1,35 @@
+{
+  if (realization.getType() == RealizationType.INVERTED_INDEX) {
+    ICachableStorageQuery ret;
+    try {
+      ret=(ICachableStorageQuery)Class.forName(defaultIIStorageQuery).getConstructor(IIInstance.class).newInstance((IIInstance)realization);
+    }
+ catch (    Exception e) {
+      throw new RuntimeException("Failed to initialize storage query for " + defaultIIStorageQuery,e);
+    }
+    if (allowStorageLayerCache) {
+      return wrapWithCache(ret,realization);
+    }
+ else {
+      return ret;
+    }
+  }
+ else   if (realization.getType() == RealizationType.CUBE) {
+    ICachableStorageQuery ret;
+    try {
+      ret=(ICachableStorageQuery)Class.forName(defaultCubeStorageQuery).getConstructor(CubeInstance.class).newInstance((CubeInstance)realization);
+    }
+ catch (    Exception e) {
+      throw new RuntimeException("Failed to initialize storage query for " + defaultCubeStorageQuery,e);
+    }
+    if (allowStorageLayerCache) {
+      return wrapWithCache(ret,realization);
+    }
+ else {
+      return ret;
+    }
+  }
+ else {
+    throw new IllegalArgumentException("Unknown realization type " + realization.getType());
+  }
+}

@@ -1,4 +1,8 @@
 {
+  this.factTableDesc=tables.get(this.factTable.toUpperCase());
+  if (factTableDesc == null) {
+    throw new IllegalStateException("Fact table does not exist:" + this.factTable);
+  }
   initJoinColumns(tables);
   DimensionDesc.capicalizeStrings(dimensions);
   initPartitionDesc(tables);

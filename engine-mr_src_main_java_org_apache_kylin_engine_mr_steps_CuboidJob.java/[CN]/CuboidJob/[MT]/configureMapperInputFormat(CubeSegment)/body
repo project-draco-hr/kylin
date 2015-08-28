@@ -1,6 +1,6 @@
 {
   String input=getOptionValue(OPTION_INPUT_PATH);
-  if (StringUtils.isBlank(input)) {
+  if ("FLAT_TABLE".equals(input)) {
     IMRTableInputFormat flatTableInputFormat=MRUtil.getBatchCubingInputSide(cubeSeg).getFlatTableInputFormat();
     flatTableInputFormat.configureJob(job);
   }

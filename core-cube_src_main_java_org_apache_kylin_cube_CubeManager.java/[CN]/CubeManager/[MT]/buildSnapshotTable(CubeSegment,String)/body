@@ -2,7 +2,7 @@
   MetadataManager metaMgr=getMetadataManager();
   SnapshotManager snapshotMgr=getSnapshotManager();
   TableDesc tableDesc=metaMgr.getTableDesc(lookupTable);
-  ReadableTable hiveTable=TableSourceFactory.createReadableTable(tableDesc);
+  ReadableTable hiveTable=SourceFactory.createReadableTable(tableDesc);
   SnapshotTable snapshot=snapshotMgr.buildSnapshot(hiveTable,tableDesc);
   cubeSeg.putSnapshotResPath(lookupTable,snapshot.getResourcePath());
   CubeUpdate cubeBuilder=new CubeUpdate(cubeSeg.getCubeInstance());

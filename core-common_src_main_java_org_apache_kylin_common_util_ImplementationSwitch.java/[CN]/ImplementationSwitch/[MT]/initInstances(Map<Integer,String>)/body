@@ -1,0 +1,18 @@
+{
+  int maxId=0;
+  for (  Integer id : impls.keySet()) {
+    maxId=Math.max(maxId,id);
+  }
+  if (maxId > 100)   throw new IllegalArgumentException("you have more than 100 implentations?");
+  Object[] result=new Object[maxId + 1];
+  for (  Integer id : impls.keySet()) {
+    String clzName=impls.get(id);
+    try {
+      result[id]=ClassUtil.newInstance(clzName);
+    }
+ catch (    Exception ex) {
+      logger.warn("Implementation missing " + clzName + " - "+ ex);
+    }
+  }
+  return result;
+}

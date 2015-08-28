@@ -1,3 +1,0 @@
-OLAPContext olapContext
-Collection<FunctionDesc> availableAggregations
-String factTableName

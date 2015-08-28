@@ -10,7 +10,7 @@
   }
  else {
     TableDesc tableDesc=MetadataManager.getInstance(config).getTableDesc(srcTable);
-    inpTable=TableSourceFactory.createReadableTable(tableDesc);
+    inpTable=SourceFactory.createReadableTable(tableDesc);
   }
   TableSignature inputSig=inpTable.getSignature();
   if (inputSig == null)   return null;

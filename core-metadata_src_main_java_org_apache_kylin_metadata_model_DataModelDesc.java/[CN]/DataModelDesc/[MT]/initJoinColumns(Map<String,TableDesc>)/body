@@ -21,14 +21,10 @@
       pkCols[i]=colRef;
     }
     join.setPrimaryKeyColumns(pkCols);
-    TableDesc factTable=tables.get(this.factTable.toUpperCase());
-    if (factTable == null) {
-      throw new IllegalStateException("Fact table does not exist:" + this.getFactTable());
-    }
     String[] fks=join.getForeignKey();
     TblColRef[] fkCols=new TblColRef[fks.length];
     for (int i=0; i < fks.length; i++) {
-      ColumnDesc col=factTable.findColumnByName(fks[i]);
+      ColumnDesc col=factTableDesc.findColumnByName(fks[i]);
       if (col == null) {
         throw new IllegalStateException("Can't find column " + fks[i] + " in table "+ this.getFactTable());
       }

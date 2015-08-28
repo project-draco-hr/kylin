@@ -1,3 +1,0 @@
-{
-  return defaultBatchEngine().createBatchCubingJob(newSegment,submitter);
-}

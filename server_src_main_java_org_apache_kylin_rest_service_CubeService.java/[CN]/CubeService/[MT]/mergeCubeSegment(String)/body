@@ -8,7 +8,7 @@ synchronized (CubeService.class) {
         if (newSeg != null) {
           newSeg=getCubeManager().mergeSegments(cube,newSeg.getDateRangeStart(),newSeg.getDateRangeEnd(),true);
           logger.debug("Will submit merge job on " + newSeg);
-          DefaultChainedExecutable job=BuildEngineFactory.createBatchMergeJob(newSeg,"SYSTEM");
+          DefaultChainedExecutable job=EngineFactory.createBatchMergeJob(newSeg,"SYSTEM");
           getExecutableManager().addJob(job);
         }
  else {

@@ -1,0 +1,5 @@
+{
+  @SuppressWarnings("unchecked") I result=(I)instances[id];
+  if (result == null)   throw new IllegalArgumentException("Implementations missing, ID " + id + ", interafce "+ interfaceClz.getName());
+  return result;
+}

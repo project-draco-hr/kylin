@@ -1,0 +1,3 @@
+{
+  return batchEngines.get(aware.getEngineType(),IBatchCubingEngine.class);
+}

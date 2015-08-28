@@ -1,0 +1,3 @@
+{
+  return storage(aware).adaptToBuildEngine(engineInterface);
+}

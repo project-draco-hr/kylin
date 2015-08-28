@@ -1,4 +1,5 @@
 {
+  logger.info("MR_V2 new job to BUILD segment " + seg);
   final CubingJob result=CubingJob.createBuildJob(seg,submitter,config);
   final String jobId=result.getId();
   inputSide.addStepPhase1_CreateFlatTable(result);
