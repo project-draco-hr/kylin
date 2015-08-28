@@ -1,7 +1,0 @@
-{
-  Map<String,String> toggles=sqlRequest.getBackdoorToggles();
-  if (toggles == null || toggles.size() == 0) {
-    return;
-  }
-  BackdoorToggles.setToggles(toggles);
-}

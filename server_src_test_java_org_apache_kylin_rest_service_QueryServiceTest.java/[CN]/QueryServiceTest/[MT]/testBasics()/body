@@ -8,5 +8,5 @@
   request.setAcceptPartial(true);
   SQLResponse response=new SQLResponse();
   response.setHitCache(true);
-  queryService.logQuery(request,response,new Date(),new Date());
+  queryService.logQuery(request,response);
 }

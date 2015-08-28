@@ -4,6 +4,7 @@
     if (resultIterator.hasNext()) {
       result=this.resultIterator.next();
       scanCount++;
+      if (++scanCountDelta >= 1000)       flushScanCountDelta();
       break;
     }
  else {

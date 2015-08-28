@@ -1,4 +1,5 @@
 {
+  flushScanCountDelta();
   if (logger.isDebugEnabled() && scan != null) {
     logger.debug("Scan " + scan.toString());
     byte[] metricsBytes=scan.getAttribute(Scan.SCAN_ATTRIBUTES_METRICS_DATA);

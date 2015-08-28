@@ -1,0 +1,12 @@
+{
+  if (getSystemAvailMB() < alertMB) {
+    ArrayList<Entry> entries=new ArrayList<Entry>(runningQueries.values());
+    Collections.sort(entries);
+    logger.info("System free memory less than " + alertMB + " MB. "+ entries.size()+ " queries running.");
+    long now=System.currentTimeMillis();
+    for (int i=0; i < entries.size(); i++) {
+      Entry e=entries.get(i);
+      notify("Low mem",(int)((now - e.startTime) / 1000),e.sqlRequest.getSql());
+    }
+  }
+}

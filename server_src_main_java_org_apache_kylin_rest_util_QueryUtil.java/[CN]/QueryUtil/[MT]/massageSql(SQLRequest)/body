@@ -1,0 +1,14 @@
+{
+  String sql=sqlRequest.getSql();
+  sql=sql.trim();
+  while (sql.endsWith(";"))   sql=sql.substring(0,sql.length() - 1);
+  int limit=sqlRequest.getLimit();
+  if (limit > 0 && !sql.toLowerCase().contains("limit")) {
+    sql+=(" LIMIT " + limit);
+  }
+  int offset=sqlRequest.getOffset();
+  if (offset > 0 && !sql.toLowerCase().contains("offset")) {
+    sql+=(" OFFSET " + offset);
+  }
+  return healSickSql(sql);
+}
