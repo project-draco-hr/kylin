@@ -1,8 +1,8 @@
 {
   StringBuffer output=new StringBuffer();
-  final String hiveTable=this.getOldHiveTable();
+  final String hiveTable=this.getIntermediateTableIdentity();
   if (StringUtils.isNotEmpty(hiveTable)) {
-    final String dropSQL="USE " + context.getConfig().getHiveDatabaseForIntermediateTable() + ";"+ " DROP TABLE IF EXISTS  "+ hiveTable+ ";";
+    final String dropSQL="DROP TABLE IF EXISTS  " + hiveTable + ";";
     final String dropHiveCMD="hive -e \"" + dropSQL + "\"";
     ShellCmdOutput shellCmdOutput=new ShellCmdOutput();
     try {

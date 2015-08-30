@@ -1,3 +1,3 @@
 {
-  return new HiveTableInputFormat(flatHiveTableDesc.getTableName());
+  return new HiveTableInputFormat(getIntermediateTableIdentity());
 }

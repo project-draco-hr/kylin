@@ -1,5 +1,5 @@
 {
-  String[] parts=HadoopUtil.parseHiveTableName(hiveTable);
+  String[] parts=HadoopUtil.parseHiveTableName(fullQualifiedTableName);
   dbName=parts[0];
   tableName=parts[1];
 }
