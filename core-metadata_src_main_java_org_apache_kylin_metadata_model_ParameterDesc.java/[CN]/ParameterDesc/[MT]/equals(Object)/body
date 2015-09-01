@@ -2,7 +2,7 @@
   if (this == o)   return true;
   if (o == null || getClass() != o.getClass())   return false;
   ParameterDesc that=(ParameterDesc)o;
-  if (counter != null ? !counter.equals(that.counter) : that.counter != null)   return false;
+  if (displayColumn != null ? !displayColumn.equals(that.displayColumn) : that.displayColumn != null)   return false;
   if (type != null ? !type.equals(that.type) : that.type != null)   return false;
   if (value != null ? !value.equals(that.value) : that.value != null)   return false;
   return true;

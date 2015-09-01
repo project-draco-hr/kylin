@@ -1,3 +1,10 @@
 {
-  return 0;
+  int mark=in.position();
+  int capacity=in.getInt();
+  int size=in.getInt();
+  int keyLength=in.getInt();
+  dds.deserialize(in);
+  int len=in.position() - mark + keyLength * size;
+  in.position(mark);
+  return len;
 }

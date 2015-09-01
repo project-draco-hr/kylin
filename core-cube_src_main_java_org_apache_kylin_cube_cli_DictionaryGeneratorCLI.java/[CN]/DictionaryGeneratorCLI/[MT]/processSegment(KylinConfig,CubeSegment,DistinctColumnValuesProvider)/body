@@ -1,12 +1,10 @@
 {
   CubeManager cubeMgr=CubeManager.getInstance(config);
+  for (  TblColRef col : cubeSeg.getCubeDesc().getAllColumnsNeedDictionary()) {
+    logger.info("Building dictionary for " + col);
+    cubeMgr.buildDictionary(cubeSeg,col,factTableValueProvider);
+  }
   for (  DimensionDesc dim : cubeSeg.getCubeDesc().getDimensions()) {
-    for (    TblColRef col : dim.getColumnRefs()) {
-      if (cubeSeg.getCubeDesc().getRowkey().isUseDictionary(col)) {
-        logger.info("Building dictionary for " + col);
-        cubeMgr.buildDictionary(cubeSeg,col,factTableValueProvider);
-      }
-    }
     if (dim.getTable() != null && !dim.getTable().equalsIgnoreCase(cubeSeg.getCubeDesc().getFactTable())) {
       logger.info("Building snapshot of " + dim.getTable());
       cubeMgr.buildSnapshotTable(cubeSeg,dim.getTable());

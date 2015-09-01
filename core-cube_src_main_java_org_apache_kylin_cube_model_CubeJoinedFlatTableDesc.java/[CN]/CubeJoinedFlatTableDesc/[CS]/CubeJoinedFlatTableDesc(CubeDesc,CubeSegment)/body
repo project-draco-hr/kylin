@@ -1,5 +1,6 @@
 {
   this.cubeDesc=cubeDesc;
   this.cubeSegment=cubeSegment;
+  this.columnIndexMap=Maps.newHashMap();
   parseCubeDesc();
 }

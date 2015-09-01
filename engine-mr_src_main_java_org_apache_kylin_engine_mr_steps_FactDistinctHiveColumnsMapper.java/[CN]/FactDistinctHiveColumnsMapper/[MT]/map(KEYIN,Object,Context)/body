@@ -1,9 +1,9 @@
 {
   String[] row=flatTableInputFormat.parseMapperInput(record);
   try {
-    for (    int i : factDictCols) {
-      outputKey.set((long)i);
-      String fieldValue=row[intermediateTableDesc.getRowKeyColumnIndexes()[i]];
+    for (int i=0; i < factDictCols.size(); i++) {
+      outputKey.set((long)factDictCols.get(i));
+      String fieldValue=row[dictionaryColumnIndex[i]];
       if (fieldValue == null)       continue;
       byte[] bytes=Bytes.toBytes(fieldValue);
       outputValue.set(bytes,0,bytes.length);

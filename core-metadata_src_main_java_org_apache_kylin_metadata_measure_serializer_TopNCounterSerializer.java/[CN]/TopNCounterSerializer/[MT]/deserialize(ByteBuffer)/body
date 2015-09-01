@@ -1,3 +1,15 @@
 {
-  return null;
+  int capacity=in.getInt();
+  int size=in.getInt();
+  int keyLength=in.getInt();
+  double[] counters=dds.deserialize(in);
+  List<ByteArray> items=Lists.newArrayList();
+  for (int i=0; i < size; i++) {
+    ByteArray byteArray=new ByteArray(keyLength);
+    in.get(byteArray.array());
+    items.add(byteArray);
+  }
+  TopNCounter<ByteArray> counter=new TopNCounter<ByteArray>(capacity);
+  counter.fromExternal(size,counters,items);
+  return counter;
 }

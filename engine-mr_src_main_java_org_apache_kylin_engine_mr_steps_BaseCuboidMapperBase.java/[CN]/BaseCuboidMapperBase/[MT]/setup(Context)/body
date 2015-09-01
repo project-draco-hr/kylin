@@ -20,5 +20,6 @@
   measures=new Object[cubeDesc.getMeasures().size()];
   int colCount=cubeDesc.getRowkey().getRowKeyColumns().length;
   keyBytesBuf=new byte[colCount][];
+  initTopNDisplayColDictionaryMap();
   initNullBytes();
 }

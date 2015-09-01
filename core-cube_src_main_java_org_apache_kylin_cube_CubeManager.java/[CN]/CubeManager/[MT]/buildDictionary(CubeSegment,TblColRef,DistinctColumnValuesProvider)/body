@@ -1,8 +1,8 @@
 {
   CubeDesc cubeDesc=cubeSeg.getCubeDesc();
-  if (!cubeDesc.getRowkey().isUseDictionary(col))   return null;
+  if (!cubeDesc.getAllColumnsNeedDictionary().contains(col))   return null;
   DictionaryManager dictMgr=getDictionaryManager();
-  DictionaryInfo dictInfo=dictMgr.buildDictionary(cubeDesc.getModel(),cubeDesc.getRowkey().getDictionary(col),col,factTableValueProvider);
+  DictionaryInfo dictInfo=dictMgr.buildDictionary(cubeDesc.getModel(),"true",col,factTableValueProvider);
   if (dictInfo != null) {
     cubeSeg.putDictResPath(col,dictInfo.getResourcePath());
     CubeUpdate cubeBuilder=new CubeUpdate(cubeSeg.getCubeInstance());

@@ -1,0 +1,6 @@
+{
+  String key=colName(colRef.getCanonicalName());
+  Integer index=columnIndexMap.get(key);
+  if (index == null)   throw new IllegalArgumentException("Column " + colRef.toString() + " wasn't found on flat table.");
+  return index.intValue();
+}

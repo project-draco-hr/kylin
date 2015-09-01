@@ -1,0 +1,17 @@
+{
+  this.bucketList=new DoublyLinkedList<Bucket>();
+  this.counterMap=new HashMap<T,ListNode2<Counter<T>>>(size);
+  Bucket currentBucket=null;
+  ListNode2<Bucket> currentBucketNode=null;
+  for (int i=0; i < size; i++) {
+    Counter<T> c=new Counter<T>();
+    c.count=counters[i];
+    c.item=items.get(i);
+    if (currentBucket == null || c.count != currentBucket.count) {
+      currentBucket=new Bucket(c.count);
+      currentBucketNode=bucketList.add(currentBucket);
+    }
+    c.bucketNode=currentBucketNode;
+    counterMap.put(c.item,currentBucket.counterList.add(c));
+  }
+}

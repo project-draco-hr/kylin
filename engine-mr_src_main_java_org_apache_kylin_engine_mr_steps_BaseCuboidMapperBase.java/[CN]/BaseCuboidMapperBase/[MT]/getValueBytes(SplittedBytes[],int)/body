@@ -7,6 +7,24 @@
   if (flatTableIdx == null) {
     result=Bytes.toBytes(paramDesc.getValue());
   }
+ else   if (func.isCount() || func.isHolisticCountDistinct()) {
+    result=ONE;
+  }
+ else   if (func.isTopN()) {
+    int keyColIndex=flatTableIdx[flatTableIdx.length - 1];
+    Dictionary<String> displayColDict=topNDisplayColDictMap.get(keyColIndex);
+    int keyColEncoded=displayColDict.getIdFromValue(Bytes.toString(splitBuffers[keyColIndex].value));
+    valueBuf.clear();
+    valueBuf.putInt(displayColDict.getSizeOfId());
+    valueBuf.putInt(keyColEncoded);
+    if (flatTableIdx.length == 1) {
+      valueBuf.putDouble(1.0);
+    }
+ else {
+      valueBuf.putDouble(Double.valueOf(Bytes.toString(splitBuffers[flatTableIdx[0]].value)));
+    }
+    result=valueBuf.array();
+  }
  else {
     for (int i=0; i < flatTableIdx.length; i++) {
       SplittedBytes split=splitBuffers[flatTableIdx[i]];
@@ -20,9 +38,6 @@
         result=newResult;
       }
     }
-  }
-  if (func.isCount() || func.isHolisticCountDistinct()) {
-    result=ONE;
   }
   if (isNull(result)) {
     result=null;
