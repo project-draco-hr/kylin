@@ -1,6 +1,5 @@
 {
-  System.err.println("Insane record: " + bytesSplitter);
-  ex.printStackTrace(System.err);
+  logger.error("Insane record: " + bytesSplitter,ex);
   errorRecordCounter++;
   if (errorRecordCounter > BatchConstants.ERROR_RECORD_THRESHOLD) {
     if (ex instanceof IOException)     throw (IOException)ex;
