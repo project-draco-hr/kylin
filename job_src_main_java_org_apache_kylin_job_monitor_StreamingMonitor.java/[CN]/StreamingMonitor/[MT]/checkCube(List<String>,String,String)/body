@@ -20,7 +20,7 @@
   }
   if (content.length() > 0) {
     logger.info(content.toString());
-    sendMail(receivers,String.format("%s has gaps or overlaps",cubeName),content.toString());
+    sendMail(receivers,String.format("%s has gaps or overlaps on host %s",cubeName,host),content.toString());
   }
  else {
     logger.info("no gaps or overlaps");
