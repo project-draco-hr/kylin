@@ -1,0 +1,16 @@
+{
+  List<Throwable> es=new ArrayList<Throwable>();
+  logger.info("Using metadata url " + kylinConfig.getMetadataUrl() + " for resource store");
+  for (  Class<? extends ResourceStore> cls : getKnownImpl()) {
+    try {
+      return cls.getConstructor(KylinConfig.class).newInstance(kylinConfig);
+    }
+ catch (    Throwable e) {
+      es.add(e);
+    }
+  }
+  for (  Throwable exceptionOrError : es) {
+    logger.error("Create new store instance failed ",exceptionOrError);
+  }
+  throw new IllegalArgumentException("Failed to find metadata store by url: " + kylinConfig.getMetadataUrl());
+}
