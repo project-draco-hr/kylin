@@ -1,5 +1,8 @@
 {
   LogicalAggregate agg=(LogicalAggregate)rel;
+  if (containsAvg(agg)) {
+    return null;
+  }
   RelTraitSet traitSet=agg.getTraitSet().replace(OLAPRel.CONVENTION);
   try {
     return new OLAPAggregateRel(agg.getCluster(),traitSet,convert(agg.getInput(),traitSet),agg.getGroupSet(),agg.getAggCallList());
