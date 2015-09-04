@@ -1,0 +1,7 @@
+{
+  for (  AggregateCall call : agg.getAggCallList()) {
+    SqlAggFunction func=call.getAggregation();
+    if (func instanceof SqlAvgAggFunction)     return true;
+  }
+  return false;
+}
