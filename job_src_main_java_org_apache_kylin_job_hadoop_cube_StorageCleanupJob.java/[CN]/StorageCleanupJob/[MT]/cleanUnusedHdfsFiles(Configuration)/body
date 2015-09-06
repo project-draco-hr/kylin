@@ -7,7 +7,7 @@
   for (  FileStatus status : fStatus) {
     String path=status.getPath().getName();
     if (path.startsWith(JobInstance.JOB_WORKING_DIR_PREFIX)) {
-      String kylinJobPath=engineConfig.getHdfsWorkingDirectory() + "/" + path;
+      String kylinJobPath=engineConfig.getHdfsWorkingDirectory() + path;
       allHdfsPathsNeedToBeDeleted.add(kylinJobPath);
     }
   }
