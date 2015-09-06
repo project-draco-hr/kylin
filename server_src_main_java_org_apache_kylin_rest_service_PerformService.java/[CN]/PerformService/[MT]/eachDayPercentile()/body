@@ -1,5 +1,5 @@
 {
-  String filePath=KylinConfig.getInstanceFromEnv().getHdfsWorkingDirectory() + "/performance/metadata/each_day_90_95_percentile_latency.csv";
+  String filePath=KylinConfig.getInstanceFromEnv().getHdfsWorkingDirectory() + "performance/metadata/each_day_90_95_percentile_latency.csv";
   List<String[]> res=readHdfsFile(filePath);
   return res;
 }
