@@ -4,7 +4,7 @@
   for (  Integer i : stream) {
     vs.offer(new ByteArray(Bytes.toBytes(i)));
   }
-  ByteBuffer out=ByteBuffer.allocate(1024 * 1024);
+  ByteBuffer out=ByteBuffer.allocate(1024);
   serializer.serialize(vs,out);
   byte[] copyBytes=new byte[out.position()];
   System.arraycopy(out.array(),0,copyBytes,0,out.position());
