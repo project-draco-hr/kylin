@@ -7,8 +7,9 @@
   List<String> allTablesNeedToBeDropped=new ArrayList<String>();
   for (  HTableDescriptor desc : tableDescriptors) {
     String host=desc.getValue(IRealizationConstants.HTableTag);
+    String creationTime=desc.getValue(IRealizationConstants.HTableCreationTime);
     if (KylinConfig.getInstanceFromEnv().getMetadataUrlPrefix().equalsIgnoreCase(host)) {
-      allTablesNeedToBeDropped.add(desc.getTableName().getNameAsString());
+      if (StringUtils.isNotEmpty(creationTime) || (System.currentTimeMillis() - Long.valueOf(creationTime) > TIME_THREADSHOLD))       allTablesNeedToBeDropped.add(desc.getTableName().getNameAsString());
     }
   }
   for (  CubeInstance cube : cubeMgr.listAllCubes()) {

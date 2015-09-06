@@ -48,6 +48,7 @@ logger.info("hbase will not user any compression codec to compress data");
 cf.setDataBlockEncoding(DataBlockEncoding.FAST_DIFF);
 tableDesc.addFamily(cf);
 tableDesc.setValue(IRealizationConstants.HTableTag,config.getMetadataUrlPrefix());
+tableDesc.setValue(IRealizationConstants.HTableCreationTime,String.valueOf(System.currentTimeMillis()));
 tableDesc.setValue(HTableDescriptor.SPLIT_POLICY,DisabledRegionSplitPolicy.class.getName());
 Configuration conf=HBaseConfiguration.create(getConf());
 if (User.isHBaseSecurityEnabled(conf)) {
