@@ -1,0 +1,4 @@
+{
+  int exitCode=ToolRunner.run(new HBaseClean(),args);
+  System.exit(exitCode);
+}

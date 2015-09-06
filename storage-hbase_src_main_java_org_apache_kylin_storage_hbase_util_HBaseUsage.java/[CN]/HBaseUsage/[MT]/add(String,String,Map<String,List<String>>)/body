@@ -1,0 +1,6 @@
+{
+  if (!envs.containsKey(tag)) {
+    envs.put(tag,Lists.<String>newArrayList());
+  }
+  envs.get(tag).add(tableName);
+}

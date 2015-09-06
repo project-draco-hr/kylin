@@ -1,0 +1,41 @@
+{
+  try {
+    Configuration conf=HBaseConfiguration.create();
+    HBaseAdmin hbaseAdmin=new HBaseAdmin(conf);
+    String tableNamePrefix=IRealizationConstants.SharedHbaseStorageLocationPrefix;
+    HTableDescriptor[] tableDescriptors=hbaseAdmin.listTables(tableNamePrefix + ".*");
+    List<String> allTablesNeedToBeDropped=Lists.newArrayList();
+    for (    HTableDescriptor desc : tableDescriptors) {
+      String host=desc.getValue(IRealizationConstants.HTableTag);
+      if (tag.equalsIgnoreCase(host)) {
+        allTablesNeedToBeDropped.add(desc.getTableName().getNameAsString());
+      }
+    }
+    if (delete) {
+      for (      String htableName : allTablesNeedToBeDropped) {
+        log.info("Deleting HBase table " + htableName);
+        if (hbaseAdmin.tableExists(htableName)) {
+          if (hbaseAdmin.isTableEnabled(htableName)) {
+            hbaseAdmin.disableTable(htableName);
+          }
+          hbaseAdmin.deleteTable(htableName);
+          log.info("Deleted HBase table " + htableName);
+        }
+ else {
+          log.info("HBase table" + htableName + " does not exist");
+        }
+      }
+    }
+ else {
+      System.out.println("--------------- Tables To Be Dropped ---------------");
+      for (      String htableName : allTablesNeedToBeDropped) {
+        System.out.println(htableName);
+      }
+      System.out.println("----------------------------------------------------");
+    }
+    hbaseAdmin.close();
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -1,0 +1,18 @@
+{
+  Options options=new Options();
+  log.info("----- jobs args: " + Arrays.toString(args));
+  try {
+    options.addOption(OPTION_DELETE);
+    options.addOption(OPTION_TAG);
+    parseOptions(options,args);
+    log.info("options: '" + getOptionsAsString() + "'");
+    tag=getOptionValue(OPTION_TAG);
+    delete=Boolean.parseBoolean(getOptionValue(OPTION_DELETE));
+    cleanUp();
+    return 0;
+  }
+ catch (  Exception e) {
+    e.printStackTrace(System.err);
+    throw e;
+  }
+}

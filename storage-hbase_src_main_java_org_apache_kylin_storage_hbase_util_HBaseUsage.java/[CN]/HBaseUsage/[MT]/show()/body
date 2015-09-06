@@ -1,0 +1,20 @@
+{
+  Map<String,List<String>> envs=Maps.newHashMap();
+  Configuration conf=HBaseConfiguration.create();
+  HBaseAdmin hbaseAdmin=new HBaseAdmin(conf);
+  String tableNamePrefix=IRealizationConstants.SharedHbaseStorageLocationPrefix;
+  HTableDescriptor[] tableDescriptors=hbaseAdmin.listTables(tableNamePrefix + ".*");
+  for (  HTableDescriptor desc : tableDescriptors) {
+    String host=desc.getValue(IRealizationConstants.HTableTag);
+    if (StringUtils.isEmpty(host)) {
+      add("unknown",desc.getNameAsString(),envs);
+    }
+ else {
+      add(host,desc.getNameAsString(),envs);
+    }
+  }
+  for (  Map.Entry<String,List<String>> entry : envs.entrySet()) {
+    System.out.println(entry.getKey() + " has htable count: " + entry.getValue().size());
+  }
+  hbaseAdmin.close();
+}

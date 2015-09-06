@@ -1,0 +1,3 @@
+String tag
+String tableName
+Map<String,List<String>> envs
