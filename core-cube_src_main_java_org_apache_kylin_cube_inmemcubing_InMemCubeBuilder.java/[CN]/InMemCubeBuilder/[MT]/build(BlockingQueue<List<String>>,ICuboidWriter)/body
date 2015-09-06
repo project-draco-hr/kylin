@@ -1,7 +1,12 @@
 {
   ConcurrentNavigableMap<Long,CuboidResult> result=build(input);
-  for (  CuboidResult cuboidResult : result.values()) {
-    outputCuboid(cuboidResult.cuboidId,cuboidResult.table,output);
-    cuboidResult.table.close();
+  try {
+    for (    CuboidResult cuboidResult : result.values()) {
+      outputCuboid(cuboidResult.cuboidId,cuboidResult.table,output);
+      cuboidResult.table.close();
+    }
+  }
+  finally {
+    output.close();
   }
 }

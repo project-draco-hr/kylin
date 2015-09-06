@@ -1,0 +1,5 @@
+{
+  this.cubeDesc=cubeDesc;
+  this.measureCount=cubeDesc.getMeasures().size();
+  this.columnLengthMap=columnLengthMap;
+}

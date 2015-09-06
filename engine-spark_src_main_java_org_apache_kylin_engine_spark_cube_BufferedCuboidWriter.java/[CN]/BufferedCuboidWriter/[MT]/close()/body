@@ -1,0 +1,15 @@
+{
+  checkError();
+  executorService.submit(new RunnableWrapper(new Runnable(){
+    @Override public void run(){
+      try {
+        blockingQueue.put(new Tuple2(new byte[0],new byte[0]));
+      }
+ catch (      InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+));
+  executorService.shutdown();
+}

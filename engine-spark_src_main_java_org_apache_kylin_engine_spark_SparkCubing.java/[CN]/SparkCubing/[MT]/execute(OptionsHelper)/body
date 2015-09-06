@@ -1,6 +1,8 @@
 {
   final String hiveTable=optionsHelper.getOptionValue(OPTION_INPUT_PATH);
   SparkConf conf=new SparkConf().setAppName("Simple Application");
+  conf.set("spark.executor.memory","6g");
+  conf.set("spark.storage.memoryFraction","0.3");
   JavaSparkContext sc=new JavaSparkContext(conf);
   HiveContext sqlContext=new HiveContext(sc.sc());
   final DataFrame intermediateTable=sqlContext.sql("select * from " + hiveTable);
@@ -30,7 +32,7 @@
   }
 );
   final Map<Long,HyperLogLogPlusCounter> samplingResult=sampling(rowJavaRDD,cubeName);
-  createHTable(cubeName,segmentId,samplingResult);
-  final String hfile=build(rowJavaRDD.glom(),cubeName,segmentId);
+  final byte[][] splitKeys=createHTable(cubeName,segmentId,samplingResult);
+  final String hfile=build(rowJavaRDD,cubeName,segmentId,splitKeys);
   bulkLoadHFile(cubeName,segmentId,hfile);
 }

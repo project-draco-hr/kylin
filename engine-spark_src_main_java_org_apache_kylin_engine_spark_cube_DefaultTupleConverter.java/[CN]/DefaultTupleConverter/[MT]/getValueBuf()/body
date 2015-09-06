@@ -1,0 +1,6 @@
+{
+  if (valueBuf.get() == null) {
+    valueBuf.set(ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE));
+  }
+  return valueBuf.get();
+}

@@ -1,0 +1,10 @@
+{
+  int length=stream.readInt();
+  byte[] trieBytes=new byte[length];
+  int currentCount;
+  int idx=0;
+  while ((currentCount=stream.read(trieBytes,idx,length - idx)) > 0) {
+    idx+=currentCount;
+  }
+  init(trieBytes);
+}

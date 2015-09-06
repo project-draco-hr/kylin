@@ -1,0 +1,17 @@
+{
+  return Lists.newArrayList(IteratorUtils.merge(list.iterator(),new Comparator<Integer>(){
+    @Override public int compare(    Integer o1,    Integer o2){
+      return o1 - o2;
+    }
+  }
+,new Function<Iterable<Integer>,Integer>(){
+    @Override public Integer call(    Iterable<Integer> v1) throws Exception {
+      int sum=0;
+      for (      Integer integer : v1) {
+        sum+=integer;
+      }
+      return sum;
+    }
+  }
+));
+}

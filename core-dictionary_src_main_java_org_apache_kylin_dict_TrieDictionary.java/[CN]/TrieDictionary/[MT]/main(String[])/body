@@ -15,7 +15,13 @@
   b.addValue("paint");
   b.print();
   TrieDictionary<String> dict=b.build(0);
-  dict.enableIdToValueBytesCache();
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  new ObjectOutputStream(baos).writeObject(dict);
+  TrieDictionary<String> dict2=(TrieDictionary<String>)new ObjectInputStream(new ByteArrayInputStream(baos.toByteArray())).readObject();
+  Preconditions.checkArgument(dict.contains(dict2));
+  Preconditions.checkArgument(dict2.contains(dict));
+  Preconditions.checkArgument(dict.equals(dict2));
+  dict2.enableIdToValueBytesCache();
   for (int i=0; i <= dict.getMaxId(); i++) {
     System.out.println(Bytes.toString(dict.getValueBytesFromId(i)));
   }

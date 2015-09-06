@@ -1,0 +1,4 @@
+{
+  this.blockingQueue=new LinkedBlockingQueue<>(10000);
+  this.tupleConverter=tupleConverter;
+}

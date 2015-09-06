@@ -1,14 +1,14 @@
 {
-  descs=measureDescs;
-  aggs=new MeasureAggregator[descs.length];
+  descLength=measureDescs.length;
+  aggs=new MeasureAggregator[descLength];
   Map<String,Integer> measureIndexMap=new HashMap<String,Integer>();
-  for (int i=0; i < descs.length; i++) {
-    FunctionDesc func=descs[i].getFunction();
+  for (int i=0; i < descLength; i++) {
+    FunctionDesc func=measureDescs[i].getFunction();
     aggs[i]=MeasureAggregator.create(func.getExpression(),func.getReturnType());
-    measureIndexMap.put(descs[i].getName(),i);
+    measureIndexMap.put(measureDescs[i].getName(),i);
   }
-  for (int i=0; i < descs.length; i++) {
-    String depMsrRef=descs[i].getDependentMeasureRef();
+  for (int i=0; i < descLength; i++) {
+    String depMsrRef=measureDescs[i].getDependentMeasureRef();
     if (depMsrRef != null) {
       int index=measureIndexMap.get(depMsrRef);
       aggs[i].setDependentAggregator(aggs[index]);

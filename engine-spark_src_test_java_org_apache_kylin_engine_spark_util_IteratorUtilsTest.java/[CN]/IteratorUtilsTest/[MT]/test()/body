@@ -1,0 +1,27 @@
+{
+  List<Tuple2<Integer,Integer>> list=Lists.newArrayList();
+  ArrayList<Tuple2<Integer,Integer>> result=null;
+  result=getResult(list);
+  assertTrue(result.size() == 0);
+  System.out.println(result);
+  list.clear();
+  list.add(new Tuple2(0,1));
+  list.add(new Tuple2(0,2));
+  list.add(new Tuple2(1,2));
+  list.add(new Tuple2(1,3));
+  list.add(new Tuple2(2,3));
+  list.add(new Tuple2(2,3));
+  list.add(new Tuple2(3,0));
+  result=getResult(list);
+  assertTrue(result.size() == 4);
+  assertEquals(result.get(0),new Tuple2(0,3));
+  assertEquals(result.get(1),new Tuple2(1,5));
+  assertEquals(result.get(2),new Tuple2(2,6));
+  assertEquals(result.get(3),new Tuple2(3,0));
+  System.out.println(result);
+  list.clear();
+  list.add(new Tuple2(0,1));
+  result=getResult(list);
+  assertTrue(result.size() == 1);
+  System.out.println(result);
+}

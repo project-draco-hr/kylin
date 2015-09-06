@@ -2,9 +2,11 @@
   final ConcurrentNavigableMap<Long,CuboidResult> result=new ConcurrentSkipListMap<Long,CuboidResult>();
   build(input,new ICuboidCollector(){
     @Override public void collect(    CuboidResult cuboidResult){
+      logger.info("collecting CuboidResult cuboid id:" + cuboidResult.cuboidId);
       result.put(cuboidResult.cuboidId,cuboidResult);
     }
   }
 );
+  logger.info("total CuboidResult count:" + result.size());
   return result;
 }

@@ -1,0 +1,4 @@
+JavaRDD<List<String>> javaRDD
+String cubeName
+String segmentId
+byte[][] splitKeys

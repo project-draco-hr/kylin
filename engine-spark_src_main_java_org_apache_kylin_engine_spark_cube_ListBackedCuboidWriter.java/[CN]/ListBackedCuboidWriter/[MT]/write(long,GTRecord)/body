@@ -1,0 +1,3 @@
+{
+  result.add(tupleConverter.convert(cuboidId,record));
+}

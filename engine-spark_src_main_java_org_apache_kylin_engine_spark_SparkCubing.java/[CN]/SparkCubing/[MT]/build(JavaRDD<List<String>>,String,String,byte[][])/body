@@ -1,0 +1,74 @@
+{
+  CubeInstance cubeInstance=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).getCube(cubeName);
+  CubeDesc cubeDesc=cubeInstance.getDescriptor();
+  CubeSegment cubeSegment=cubeInstance.getSegmentById(segmentId);
+  List<TblColRef> baseCuboidColumn=Cuboid.findById(cubeDesc,Cuboid.getBaseCuboidId(cubeDesc)).getColumns();
+  final Map<TblColRef,Integer> columnLengthMap=Maps.newHashMap();
+  for (  TblColRef tblColRef : baseCuboidColumn) {
+    columnLengthMap.put(tblColRef,cubeSegment.getColumnLength(tblColRef));
+  }
+  final Map<TblColRef,Dictionary<?>> dictionaryMap=Maps.newHashMap();
+  for (  DimensionDesc dim : cubeDesc.getDimensions()) {
+    for (    TblColRef col : dim.getColumnRefs()) {
+      if (cubeDesc.getRowkey().isUseDictionary(col)) {
+        Dictionary<?> dict=cubeSegment.getDictionary(col);
+        if (dict == null) {
+          System.err.println("Dictionary for " + col + " was not found.");
+        }
+        dictionaryMap.put(col,dict);
+        System.out.println("col:" + col + " dictionary size:"+ dict.getSize());
+      }
+    }
+  }
+  final JavaPairRDD<byte[],byte[]> javaPairRDD=javaRDD.glom().mapPartitionsToPair(new PairFlatMapFunction<Iterator<List<List<String>>>,byte[],byte[]>(){
+    @Override public Iterable<Tuple2<byte[],byte[]>> call(    Iterator<List<List<String>>> listIterator) throws Exception {
+      long t=System.currentTimeMillis();
+      prepare();
+      final CubeInstance cubeInstance=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).getCube(cubeName);
+      final CubeDesc cubeDesc=cubeInstance.getDescriptor();
+      LinkedBlockingQueue<List<String>> blockingQueue=new LinkedBlockingQueue();
+      System.out.println("load properties finished");
+      AbstractInMemCubeBuilder inMemCubeBuilder=new InMemCubeBuilder(cubeInstance.getDescriptor(),dictionaryMap);
+      inMemCubeBuilder.setReserveMemoryMB(2400);
+      final SparkCuboidWriter sparkCuboidWriter=new BufferedCuboidWriter(new DefaultTupleConverter(cubeDesc,columnLengthMap));
+      final Future<?> future=Executors.newCachedThreadPool().submit(inMemCubeBuilder.buildAsRunnable(blockingQueue,sparkCuboidWriter));
+      try {
+        while (listIterator.hasNext()) {
+          for (          List<String> row : listIterator.next()) {
+            blockingQueue.put(row);
+          }
+        }
+        blockingQueue.put(Collections.<String>emptyList());
+        future.get();
+      }
+ catch (      Exception e) {
+        throw new RuntimeException(e);
+      }
+      System.out.println("build partition cost: " + (System.currentTimeMillis() - t) + "ms");
+      return sparkCuboidWriter.getResult();
+    }
+  }
+);
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  Configuration conf=getConfigurationForHFile(cubeSegment.getStorageLocationIdentifier());
+  Path path=new Path(kylinConfig.getHdfsWorkingDirectory(),"hfile_" + UUID.randomUUID().toString());
+  Preconditions.checkArgument(!FileSystem.get(conf).exists(path));
+  String url=conf.get("fs.defaultFS") + path.toString();
+  System.out.println("use " + url + " as hfile");
+  List<MeasureDesc> measuresDescs=Lists.newArrayList();
+  for (  HBaseColumnFamilyDesc cfDesc : cubeDesc.getHBaseMapping().getColumnFamily()) {
+    for (    HBaseColumnDesc colDesc : cfDesc.getColumns()) {
+      for (      MeasureDesc measure : colDesc.getMeasures()) {
+        measuresDescs.add(measure);
+      }
+    }
+  }
+  final int measureSize=measuresDescs.size();
+  final String[] dataTypes=new String[measureSize];
+  for (int i=0; i < dataTypes.length; i++) {
+    dataTypes[i]=measuresDescs.get(i).getFunction().getReturnType();
+  }
+  final MeasureAggregators aggs=new MeasureAggregators(measuresDescs);
+  writeToHFile2(javaPairRDD,dataTypes,measureSize,aggs,splitKeys,conf,url);
+  return url;
+}

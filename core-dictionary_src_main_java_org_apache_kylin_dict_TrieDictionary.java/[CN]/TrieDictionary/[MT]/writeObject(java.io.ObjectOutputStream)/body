@@ -1,0 +1,4 @@
+{
+  stream.writeInt(trieBytes.length);
+  stream.write(trieBytes);
+}

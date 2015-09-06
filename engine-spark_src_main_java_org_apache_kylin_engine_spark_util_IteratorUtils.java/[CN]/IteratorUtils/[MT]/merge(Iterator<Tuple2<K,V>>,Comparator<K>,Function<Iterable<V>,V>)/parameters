@@ -1,0 +1,3 @@
+Iterator<Tuple2<K,V>> input
+Comparator<K> comparator
+Function<Iterable<V>,V> converter

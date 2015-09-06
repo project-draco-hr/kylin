@@ -1,0 +1,4 @@
+{
+  this.result=Lists.newArrayList();
+  this.tupleConverter=tupleConverter;
+}

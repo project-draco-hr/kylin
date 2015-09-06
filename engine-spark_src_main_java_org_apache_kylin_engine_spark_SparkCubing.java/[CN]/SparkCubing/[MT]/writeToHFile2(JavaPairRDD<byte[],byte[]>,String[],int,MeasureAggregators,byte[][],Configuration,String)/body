@@ -1,0 +1,65 @@
+{
+  javaPairRDD.repartitionAndSortWithinPartitions(new Partitioner(){
+    @Override public int numPartitions(){
+      return splitKeys.length + 1;
+    }
+    @Override public int getPartition(    Object key){
+      Preconditions.checkArgument(key instanceof byte[]);
+      for (int i=0, n=splitKeys.length; i < n; ++i) {
+        if (UnsignedBytes.lexicographicalComparator().compare((byte[])key,splitKeys[i]) < 0) {
+          return i;
+        }
+      }
+      return splitKeys.length;
+    }
+  }
+,UnsignedBytes.lexicographicalComparator()).mapPartitions(new FlatMapFunction<Iterator<Tuple2<byte[],byte[]>>,Tuple2<byte[],byte[]>>(){
+    @Override public Iterable<Tuple2<byte[],byte[]>> call(    final Iterator<Tuple2<byte[],byte[]>> tuple2Iterator) throws Exception {
+      return new Iterable<Tuple2<byte[],byte[]>>(){
+        final ByteBuffer buffer=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
+        final MeasureCodec codec=new MeasureCodec(dataTypes);
+        final Object[] input=new Object[measureSize];
+        final Object[] result=new Object[measureSize];
+        @Override public Iterator<Tuple2<byte[],byte[]>> iterator(){
+          return IteratorUtils.merge(tuple2Iterator,UnsignedBytes.lexicographicalComparator(),new Function<Iterable<byte[]>,byte[]>(){
+            @Override public byte[] call(            Iterable<byte[]> v1) throws Exception {
+              final LinkedList<byte[]> list=Lists.newLinkedList(v1);
+              if (list.size() == 1) {
+                return list.get(0);
+              }
+              aggs.reset();
+              for (              byte[] v : list) {
+                try {
+                  codec.decode(ByteBuffer.wrap(v),input);
+                }
+ catch (                BufferUnderflowException e) {
+                  e.printStackTrace();
+                  System.out.println("buffer under flow v.length:" + v.length);
+                  System.out.println("value:" + Arrays.toString(v));
+                  throw e;
+                }
+                aggs.aggregate(input);
+              }
+              aggs.collectStates(result);
+              buffer.clear();
+              codec.encode(result,buffer);
+              byte[] bytes=new byte[buffer.position()];
+              System.arraycopy(buffer.array(),buffer.arrayOffset(),bytes,0,buffer.position());
+              return bytes;
+            }
+          }
+);
+        }
+      }
+;
+    }
+  }
+,true).mapToPair(new PairFunction<Tuple2<byte[],byte[]>,ImmutableBytesWritable,KeyValue>(){
+    @Override public Tuple2<ImmutableBytesWritable,KeyValue> call(    Tuple2<byte[],byte[]> tuple2) throws Exception {
+      ImmutableBytesWritable key=new ImmutableBytesWritable(tuple2._1());
+      KeyValue value=new KeyValue(tuple2._1(),"F1".getBytes(),"M".getBytes(),tuple2._2());
+      return new Tuple2(key,value);
+    }
+  }
+).saveAsNewAPIHadoopFile(hFileLocation,ImmutableBytesWritable.class,KeyValue.class,HFileOutputFormat.class,conf);
+}

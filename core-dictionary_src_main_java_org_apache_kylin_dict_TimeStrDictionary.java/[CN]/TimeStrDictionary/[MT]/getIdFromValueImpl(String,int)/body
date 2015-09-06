@@ -1,7 +1,7 @@
 {
   long millis=DateFormat.stringToMillis(value);
   long seconds=millis / 1000;
-  if (seconds > maxid) {
+  if (seconds > MAX_ID) {
     return nullId();
   }
  else   if (seconds < 0) {

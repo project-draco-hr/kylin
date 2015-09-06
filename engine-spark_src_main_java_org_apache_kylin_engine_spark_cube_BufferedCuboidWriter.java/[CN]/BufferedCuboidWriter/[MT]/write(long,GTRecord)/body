@@ -1,0 +1,14 @@
+{
+  checkError();
+  executorService.submit(new RunnableWrapper(new Runnable(){
+    @Override public void run(){
+      try {
+        blockingQueue.put(tupleConverter.convert(cuboidId,record));
+      }
+ catch (      InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+));
+}

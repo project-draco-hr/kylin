@@ -7,4 +7,5 @@
   final byte[][] splitKeys=CreateHTableJob.getSplitsFromCuboidStatistics(cubeSizeMap,kylinConfig,cubeSegment);
   CubeHTableUtil.createHTable(cubeDesc,cubeSegment.getStorageLocationIdentifier(),splitKeys);
   System.out.println(cubeSegment.getStorageLocationIdentifier() + " table created");
+  return splitKeys;
 }
