@@ -1,5 +1,5 @@
 {
-  if (inp.length == 0)   return checkFlag(headSize,BIT_IS_END_OF_VALUE) ? 0 : roundSeqNo(roundingFlag,-1,-1,0);
+  if (o == inpEnd)   return checkFlag(headSize,BIT_IS_END_OF_VALUE) ? 0 : roundSeqNo(roundingFlag,-1,-1,0);
   int seq=0;
   while (true) {
     int p=n + firstByteOffset;
