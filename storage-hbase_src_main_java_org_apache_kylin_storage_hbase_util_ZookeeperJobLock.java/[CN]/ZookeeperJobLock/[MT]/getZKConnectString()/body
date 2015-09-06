@@ -1,4 +1,11 @@
 {
   Configuration conf=HBaseConnection.newHBaseConfiguration(KylinConfig.getInstanceFromEnv().getStorageUrl());
-  return conf.get(HConstants.ZOOKEEPER_QUORUM) + ":" + conf.get(HConstants.ZOOKEEPER_CLIENT_PORT);
+  final String serverList=conf.get(HConstants.ZOOKEEPER_QUORUM);
+  final String port=conf.get(HConstants.ZOOKEEPER_CLIENT_PORT);
+  return org.apache.commons.lang3.StringUtils.join(Iterables.transform(Arrays.asList(serverList.split(",")),new Function<String,String>(){
+    @Nullable @Override public String apply(    String input){
+      return input + ":" + port;
+    }
+  }
+),",");
 }

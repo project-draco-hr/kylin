@@ -1,11 +1,13 @@
 {
   this.scheduleID=schedulerId();
-  String ZKConnectString=getZKConnectString();
-  if (StringUtils.isEmpty(ZKConnectString)) {
+  String zkConnectString=getZKConnectString();
+  logger.info("zk connection string:" + zkConnectString);
+  logger.info("schedulerId:" + scheduleID);
+  if (StringUtils.isEmpty(zkConnectString)) {
     throw new IllegalArgumentException("ZOOKEEPER_QUORUM is empty!");
   }
   RetryPolicy retryPolicy=new ExponentialBackoffRetry(1000,3);
-  this.zkClient=CuratorFrameworkFactory.newClient(ZKConnectString,retryPolicy);
+  this.zkClient=CuratorFrameworkFactory.newClient(zkConnectString,retryPolicy);
   this.zkClient.start();
   this.sharedLock=new InterProcessMutex(zkClient,this.scheduleID);
   boolean hasLock=false;
