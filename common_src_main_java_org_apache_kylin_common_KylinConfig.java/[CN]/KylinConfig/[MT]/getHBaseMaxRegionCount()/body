@@ -1,0 +1,3 @@
+{
+  return Integer.valueOf(getOptional(HBASE_REGION_MAX_COUNT,"500"));
+}

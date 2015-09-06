@@ -1,0 +1,4 @@
+{
+  String key=HBASE_REGION_SIZE + "." + capacity.toLowerCase();
+  return Integer.valueOf(getOptional(key,"10"));
+}

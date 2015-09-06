@@ -1,7 +1,7 @@
 {
   int nRegion=Math.round((float)gbPoints.size() / (float)cut);
   nRegion=Math.max(1,nRegion);
-  nRegion=Math.min(MAX_REGION,nRegion);
+  nRegion=Math.min(maxRegionCount,nRegion);
   int gbPerRegion=gbPoints.size() / nRegion;
   gbPerRegion=Math.max(1,gbPerRegion);
   System.out.println(nRegion + " regions");
