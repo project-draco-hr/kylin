@@ -3,7 +3,7 @@
   signature.setSize(100);
   signature.setLastModifiedTime(System.currentTimeMillis());
   signature.setPath("fake_common_dict");
-  DictionaryInfo newDictInfo=new DictionaryInfo("","",0,"string",signature,"");
+  DictionaryInfo newDictInfo=new DictionaryInfo("","",0,"string",signature);
   List<byte[]> values=new ArrayList<byte[]>();
   values.add(new byte[]{101,101,101});
   values.add(new byte[]{102,102,102});

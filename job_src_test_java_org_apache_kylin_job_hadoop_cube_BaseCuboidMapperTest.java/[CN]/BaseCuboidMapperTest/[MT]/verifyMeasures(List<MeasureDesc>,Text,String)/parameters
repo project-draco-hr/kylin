@@ -1,0 +1,3 @@
+List<MeasureDesc> measures
+Text valueBytes
+String valueStr

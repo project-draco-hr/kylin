@@ -1,0 +1,19 @@
+{
+  Map<String,List<KMetaTable>> schemaMap=new LinkedHashMap<String,List<KMetaTable>>();
+  for (  KMetaTable table : tables) {
+    String key=table.tableCat + "!!" + table.tableSchem;
+    List<KMetaTable> list=schemaMap.get(key);
+    if (list == null) {
+      list=new ArrayList<KMetaTable>();
+      schemaMap.put(key,list);
+    }
+    list.add(table);
+  }
+  List<KMetaSchema> result=new ArrayList<KMetaSchema>();
+  for (  List<KMetaTable> schemaTables : schemaMap.values()) {
+    String catalog=schemaTables.get(0).tableCat;
+    String schema=schemaTables.get(0).tableSchem;
+    result.add(new KMetaSchema(catalog,schema,schemaTables));
+  }
+  return result;
+}

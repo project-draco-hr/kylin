@@ -1,0 +1,7 @@
+{
+  List<KMetaTable> result=new ArrayList<KMetaTable>(tableMetaStubs.size());
+  for (  TableMetaStub tableStub : tableMetaStubs) {
+    result.add(convertMetaTable(tableStub));
+  }
+  return result;
+}

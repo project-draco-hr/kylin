@@ -1,0 +1,13 @@
+{
+  if (null == pattern.s || pattern.s.equals("%")) {
+    return parent.getChildren();
+  }
+  List<NamedWithChildren> result=new ArrayList<NamedWithChildren>();
+  Pattern regex=likeToRegex(pattern);
+  for (  NamedWithChildren c : parent.getChildren()) {
+    if (regex.matcher(c.getName()).matches()) {
+      result.add(c);
+    }
+  }
+  return result;
+}

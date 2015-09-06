@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument(backends != null && backends.size() != 0,"backends not exists");
+  this.backends=backends;
+  this.compoundIterator=Iterators.concat(backends.iterator());
+}

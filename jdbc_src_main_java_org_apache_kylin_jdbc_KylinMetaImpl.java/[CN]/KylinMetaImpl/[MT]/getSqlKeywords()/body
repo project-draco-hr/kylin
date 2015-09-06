@@ -1,3 +1,0 @@
-{
-  return SqlParser.create("").getMetadata().getJdbcKeywords();
-}

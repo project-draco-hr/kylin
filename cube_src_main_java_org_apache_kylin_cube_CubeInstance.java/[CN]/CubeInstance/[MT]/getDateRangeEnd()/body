@@ -1,0 +1,8 @@
+{
+  List<CubeSegment> readySegs=getSegments(SegmentStatusEnum.READY);
+  long endTime=0;
+  for (  CubeSegment seg : readySegs) {
+    if (seg.getDateRangeEnd() > endTime)     endTime=seg.getDateRangeEnd();
+  }
+  return endTime;
+}

@@ -1,0 +1,7 @@
+{
+  long r=b0 % b1;
+  if (r < 0) {
+    r+=b1;
+  }
+  return b0 - r;
+}

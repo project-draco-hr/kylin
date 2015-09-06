@@ -1,0 +1,5 @@
+{
+  for (  ITupleIterator i : backends) {
+    i.close();
+  }
+}

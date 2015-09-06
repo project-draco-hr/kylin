@@ -1,7 +1,0 @@
-{
-  final int prime=31;
-  int result=1;
-  result=prime * result + ((tableCatalog == null) ? 0 : tableCatalog.hashCode());
-  result=prime * result + ((tableSchem == null) ? 0 : tableSchem.hashCode());
-  return result;
-}

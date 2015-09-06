@@ -1,9 +1,10 @@
 {
   args=StringUtil.filterSystemArgs(args);
   if (args.length == 0) {
-    System.out.println("Usage: MetadataTool reset METADATA_URI");
-    System.out.println("Usage: MetadataTool copy  METADATA_URI_SRC  METADATA_URI_DST");
-    System.out.println("Usage: MetadataTool list  METADATA_URI      PATH");
+    System.out.println("Usage: MetadataTool reset");
+    System.out.println("Usage: MetadataTool list  RESOURCE_PATH");
+    System.out.println("Usage: MetadataTool download  LOCAL_DIR");
+    System.out.println("Usage: MetadataTool upload    LOCAL_DIR");
     return;
   }
   String exclude=System.getProperty("exclude");
@@ -15,11 +16,8 @@ switch (cmd) {
 case "reset":
     reset(args.length == 1 ? KylinConfig.getInstanceFromEnv() : KylinConfig.createInstanceFromUri(args[1]));
   break;
-case "copy":
-copy(args[1],args[2]);
-break;
 case "list":
-list(args[1],args[2]);
+list(KylinConfig.getInstanceFromEnv(),args[1]);
 break;
 case "download":
 copy(KylinConfig.getInstanceFromEnv(),KylinConfig.createInstanceFromUri(args[1]));

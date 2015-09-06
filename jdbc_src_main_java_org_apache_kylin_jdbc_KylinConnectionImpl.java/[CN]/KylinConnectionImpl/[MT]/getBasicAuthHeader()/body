@@ -1,5 +1,0 @@
-{
-  String username=this.info.getProperty("user");
-  String password=this.info.getProperty("password");
-  return DatatypeConverter.printBase64Binary((username + ":" + password).getBytes());
-}

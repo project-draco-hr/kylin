@@ -1,0 +1,4 @@
+{
+  List<KMetaCatalog> catalogs=getMetaProject().catalogs;
+  return createResultSet(catalogs,KMetaCatalog.class,"TABLE_CAT");
+}

@@ -1,8 +1,0 @@
-{
-  OLAPRel childRel=(OLAPRel)getChild();
-  childRel.replaceTraitSet(EnumerableConvention.INSTANCE);
-  EnumerableSortRel enumSort=new EnumerableSortRel(getCluster(),getCluster().traitSetOf(EnumerableConvention.INSTANCE,collation),getChild(),collation,offset,fetch);
-  Result res=enumSort.implement(implementor,pref);
-  childRel.replaceTraitSet(OLAPRel.CONVENTION);
-  return res;
-}

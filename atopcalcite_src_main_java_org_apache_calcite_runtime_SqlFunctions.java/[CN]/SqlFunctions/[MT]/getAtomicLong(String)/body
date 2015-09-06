@@ -1,0 +1,9 @@
+{
+  final Map<String,AtomicLong> map=THREAD_SEQUENCES.get();
+  AtomicLong atomic=map.get(key);
+  if (atomic == null) {
+    atomic=new AtomicLong();
+    map.put(key,atomic);
+  }
+  return atomic;
+}

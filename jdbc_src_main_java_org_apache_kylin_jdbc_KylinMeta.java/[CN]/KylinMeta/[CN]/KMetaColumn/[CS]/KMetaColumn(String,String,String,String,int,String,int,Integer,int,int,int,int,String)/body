@@ -1,0 +1,3 @@
+{
+  super(tableCat,tableSchem,tableName,columnName,dataType,typeName,columnSize,decimalDigits,numPrecRadix,nullable,charOctetLength,ordinalPosition,isNullable);
+}

@@ -1,0 +1,37 @@
+{
+  List<String> oldTables=getOldHTables();
+  if (oldTables != null && oldTables.size() > 0) {
+    String metadataUrlPrefix=KylinConfig.getInstanceFromEnv().getMetadataUrlPrefix();
+    Configuration conf=HBaseConfiguration.create();
+    HBaseAdmin admin=null;
+    try {
+      admin=new HBaseAdmin(conf);
+      for (      String table : oldTables) {
+        if (admin.tableExists(table)) {
+          HTableDescriptor tableDescriptor=admin.getTableDescriptor(Bytes.toBytes(table));
+          String host=tableDescriptor.getValue(IRealizationConstants.HTableTag);
+          if (metadataUrlPrefix.equalsIgnoreCase(host)) {
+            if (admin.isTableEnabled(table)) {
+              admin.disableTable(table);
+            }
+            admin.deleteTable(table);
+            logger.debug("Dropped HBase table " + table);
+            output.append("Dropped HBase table " + table + " \n");
+          }
+ else {
+            logger.debug("Skipped HBase table " + table);
+            output.append("Skipped HBase table " + table + " \n");
+          }
+        }
+      }
+    }
+  finally {
+      if (admin != null)       try {
+        admin.close();
+      }
+ catch (      IOException e) {
+        logger.error(e.getLocalizedMessage());
+      }
+    }
+  }
+}

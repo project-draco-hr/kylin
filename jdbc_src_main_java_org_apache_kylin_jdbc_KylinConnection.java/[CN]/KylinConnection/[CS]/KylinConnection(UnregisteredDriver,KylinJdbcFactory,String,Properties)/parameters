@@ -1,0 +1,4 @@
+UnregisteredDriver driver
+KylinJdbcFactory factory
+String url
+Properties info

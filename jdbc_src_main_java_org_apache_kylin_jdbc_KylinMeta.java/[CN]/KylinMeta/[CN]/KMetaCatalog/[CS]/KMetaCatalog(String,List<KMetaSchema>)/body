@@ -1,0 +1,4 @@
+{
+  this.tableCat=tableCatalog;
+  this.schemas=schemas;
+}

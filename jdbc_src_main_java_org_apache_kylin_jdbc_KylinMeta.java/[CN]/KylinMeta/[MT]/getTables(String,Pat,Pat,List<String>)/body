@@ -1,0 +1,4 @@
+{
+  List<KMetaTable> tables=getMetaProject().getTables(catalog,schemaPattern,tableNamePattern,typeList);
+  return createResultSet(tables,KMetaTable.class,"TABLE_CAT","TABLE_SCHEM","TABLE_NAME","TABLE_TYPE","REMARKS","TYPE_CAT","TYPE_SCHEM","TYPE_NAME","SELF_REFERENCING_COL_NAME","REF_GENERATION");
+}

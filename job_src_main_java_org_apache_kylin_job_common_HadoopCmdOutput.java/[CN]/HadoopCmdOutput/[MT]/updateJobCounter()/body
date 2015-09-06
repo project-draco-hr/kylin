@@ -16,5 +16,8 @@
  catch (  Exception e) {
     log.error(e.getLocalizedMessage(),e);
     output.append(e.getLocalizedMessage());
+    mapInputRecords="0";
+    hdfsBytesWritten="0";
+    hdfsBytesRead="0";
   }
 }

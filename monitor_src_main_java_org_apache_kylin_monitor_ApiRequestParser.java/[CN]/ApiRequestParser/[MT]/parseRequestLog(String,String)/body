@@ -28,33 +28,32 @@
           if (m_uri.find()) {
             groups.add(m_uri.group(1));
             if (m_uri.group(1).equals("cubes")) {
-switch (m_request.group(5)) {
-case "DELETE":
+              String method=m_request.group(5);
+              if ("DELETE".equals(method)) {
                 groups.add("drop");
-              break;
-case "POST":
-            groups.add("save");
-          break;
-default :
-        groups.add(m_uri.group(3));
-      break;
+              }
+ else               if ("POST".equals(method)) {
+                groups.add("save");
+              }
+ else {
+                groups.add(m_uri.group(3));
+              }
+            }
+          }
+          groups.add(DEPLOY_ENV);
+          String[] recordArray=groups.toArray(new String[groups.size()]);
+          cwriter.writeNext(recordArray);
+        }
+      }
+    }
   }
-}
-}
-groups.add(DEPLOY_ENV);
-String[] recordArray=groups.toArray(new String[groups.size()]);
-cwriter.writeNext(recordArray);
-}
-}
-}
-}
- catch (IOException ex) {
-logger.info("Failed to write to hdfs:",ex);
-}
+ catch (  IOException ex) {
+    logger.info("Failed to write to hdfs:",ex);
+  }
  finally {
-writer.close();
-cwriter.close();
-fs.close();
-}
-logger.info("Finish parsing file " + filePath + " !");
+    writer.close();
+    cwriter.close();
+    fs.close();
+  }
+  logger.info("Finish parsing file " + filePath + " !");
 }

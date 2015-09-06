@@ -1,0 +1,13 @@
+String tableCat
+String tableSchem
+String tableName
+String columnName
+int dataType
+String typeName
+int columnSize
+Integer decimalDigits
+int numPrecRadix
+int nullable
+int charOctetLength
+int ordinalPosition
+String isNullable

@@ -3,7 +3,9 @@
   if (!cubeDesc.getRowkey().isUseDictionary(col))   return null;
   DictionaryManager dictMgr=getDictionaryManager();
   DictionaryInfo dictInfo=dictMgr.buildDictionary(cubeDesc.getModel(),cubeDesc.getRowkey().getDictionary(col),col,factColumnsPath);
-  cubeSeg.putDictResPath(col,dictInfo.getResourcePath());
-  saveResource(cubeSeg.getCubeInstance());
+  if (dictInfo != null) {
+    cubeSeg.putDictResPath(col,dictInfo.getResourcePath());
+    saveResource(cubeSeg.getCubeInstance());
+  }
   return dictInfo;
 }

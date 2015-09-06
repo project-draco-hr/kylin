@@ -1,5 +1,0 @@
-{
-  this.createTestMetadata();
-  Configuration hconf=new Configuration();
-  fileSystem=FileSystem.get(hconf);
-}

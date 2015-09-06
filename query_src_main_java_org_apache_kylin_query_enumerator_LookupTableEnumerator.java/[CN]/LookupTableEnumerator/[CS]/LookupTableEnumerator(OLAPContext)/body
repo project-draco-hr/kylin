@@ -1,5 +1,16 @@
 {
-  CubeInstance cube=(CubeInstance)olapContext.realization;
+  CubeInstance cube=null;
+  if (olapContext.realization instanceof CubeInstance)   cube=(CubeInstance)olapContext.realization;
+ else   if (olapContext.realization instanceof HybridInstance) {
+    final HybridInstance hybridInstance=(HybridInstance)olapContext.realization;
+    final IRealization latestRealization=hybridInstance.getLatestRealization();
+    if (latestRealization instanceof CubeInstance) {
+      cube=(CubeInstance)latestRealization;
+    }
+ else {
+      throw new IllegalStateException();
+    }
+  }
   String lookupTableName=olapContext.firstTableScan.getTableName();
   DimensionDesc dim=cube.getDescriptor().findDimensionByTable(lookupTableName);
   if (dim == null)   throw new IllegalStateException("No dimension with derived columns found for lookup table " + lookupTableName + ", cube desc "+ cube.getDescriptor());

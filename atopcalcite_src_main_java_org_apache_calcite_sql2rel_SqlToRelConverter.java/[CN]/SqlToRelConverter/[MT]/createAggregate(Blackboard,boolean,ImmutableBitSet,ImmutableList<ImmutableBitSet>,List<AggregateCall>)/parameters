@@ -1,0 +1,5 @@
+Blackboard bb
+boolean indicator
+ImmutableBitSet groupSet
+ImmutableList<ImmutableBitSet> groupSets
+List<AggregateCall> aggCalls

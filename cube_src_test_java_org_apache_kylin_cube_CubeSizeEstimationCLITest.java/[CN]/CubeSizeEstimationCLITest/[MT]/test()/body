@@ -1,4 +1,0 @@
-{
-  long[] x=new long[]{5,8,5,115,122,127,137,236,101};
-  CubeSizeEstimationCLI.estimatedCubeSize(cubeName,x);
-}

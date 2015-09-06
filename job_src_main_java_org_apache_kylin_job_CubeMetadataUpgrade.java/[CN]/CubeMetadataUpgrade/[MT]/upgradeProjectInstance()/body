@@ -21,7 +21,8 @@
       newPrj.setRealizationEntries(realizationEntries);
       Set<String> tables=Sets.newHashSet();
       for (      String table : oldPrj.getTables()) {
-        tables.add(this.appendDBName(table));
+        String tb=this.appendDBName(table);
+        if (tb != null)         tables.add(this.appendDBName(tb));
       }
       newPrj.setTables(tables);
       store.putResource(newPrj.getResourcePath(),newPrj,ProjectManager.PROJECT_SERIALIZER);

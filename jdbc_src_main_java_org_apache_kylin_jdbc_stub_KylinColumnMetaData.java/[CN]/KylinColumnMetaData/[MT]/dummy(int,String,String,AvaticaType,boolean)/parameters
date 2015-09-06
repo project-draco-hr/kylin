@@ -1,5 +1,0 @@
-int ordinal
-String label
-String columnName
-AvaticaType type
-boolean nullable

@@ -1,5 +1,0 @@
-{
-  logger.debug("getMetaTables with catalog:" + catalog + ", schema:"+ schemaPattern.s+ ", table:"+ tableNamePattern.s);
-  List<? extends Node> tables=this.searchByPatterns(Pat.of(catalog),schemaPattern,tableNamePattern);
-  return new DataSet<MetaTable>(MetaTable.meta,new KylinEnumerator<MetaTable>((Collection<MetaTable>)tables));
-}

@@ -1,6 +1,5 @@
 {
   this.signature=table.getSignature();
-  this.columnDelimeter=table.getColumnDelimeter();
   int maxIndex=tableDesc.getMaxColumnIndex();
   TrieDictionaryBuilder<String> b=new TrieDictionaryBuilder<String>(new StringBytesConverter());
   TableReader reader=table.getReader();

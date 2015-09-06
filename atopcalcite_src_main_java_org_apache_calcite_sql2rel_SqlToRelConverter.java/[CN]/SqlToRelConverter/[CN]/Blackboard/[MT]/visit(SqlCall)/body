@@ -1,0 +1,9 @@
+{
+  if (agg != null) {
+    final SqlOperator op=call.getOperator();
+    if (op.isAggregator() || op.getKind() == SqlKind.FILTER) {
+      return agg.lookupAggregates(call);
+    }
+  }
+  return exprConverter.convertCall(this,call);
+}

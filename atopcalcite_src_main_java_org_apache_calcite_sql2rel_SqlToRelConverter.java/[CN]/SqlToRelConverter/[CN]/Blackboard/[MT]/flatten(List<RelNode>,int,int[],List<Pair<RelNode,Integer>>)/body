@@ -1,0 +1,14 @@
+{
+  for (  RelNode rel : rels) {
+    if (leaves.contains(rel)) {
+      relOffsetList.add(Pair.of(rel,start[0]));
+      start[0]+=rel.getRowType().getFieldCount();
+    }
+ else {
+      if (rel instanceof LogicalJoin || rel instanceof LogicalAggregate) {
+        start[0]+=systemFieldCount;
+      }
+      flatten(rel.getInputs(),systemFieldCount,start,relOffsetList);
+    }
+  }
+}

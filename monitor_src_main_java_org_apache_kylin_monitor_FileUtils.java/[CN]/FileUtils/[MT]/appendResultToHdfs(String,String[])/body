@@ -13,8 +13,14 @@
     logger.info("Exception",e);
   }
  finally {
-    writer.close();
-    cwriter.close();
-    fs.close();
+    if (writer != null) {
+      writer.close();
+    }
+    if (cwriter != null) {
+      cwriter.close();
+    }
+    if (fs != null) {
+      fs.close();
+    }
   }
 }

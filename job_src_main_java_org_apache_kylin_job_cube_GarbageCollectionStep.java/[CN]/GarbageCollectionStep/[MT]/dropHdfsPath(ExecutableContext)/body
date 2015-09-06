@@ -1,0 +1,20 @@
+{
+  List<String> oldHdfsPaths=this.getOldHdsfPaths();
+  if (oldHdfsPaths != null && oldHdfsPaths.size() > 0) {
+    Configuration hconf=HadoopUtil.getCurrentConfiguration();
+    FileSystem fileSystem=FileSystem.get(hconf);
+    for (    String path : oldHdfsPaths) {
+      if (path.endsWith("*"))       path=path.substring(0,path.length() - 1);
+      Path oldPath=new Path(path);
+      if (fileSystem.exists(oldPath)) {
+        fileSystem.delete(oldPath,true);
+        logger.debug("Dropped HDFS path: " + path);
+        output.append("Dropped HDFS path  \"" + path + "\" \n");
+      }
+ else {
+        logger.debug("HDFS path not exists: " + path);
+        output.append("HDFS path not exists: \"" + path + "\" \n");
+      }
+    }
+  }
+}

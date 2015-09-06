@@ -1,0 +1,10 @@
+{
+  List<ITupleIterator> tupleIterators=Lists.newArrayList();
+  for (int i=0; i < realizations.length; i++) {
+    if (realizations[i].isReady() && realizations[i].isCapable(sqlDigest)) {
+      ITupleIterator dataIterator=storageEngines[i].search(context,sqlDigest);
+      tupleIterators.add(dataIterator);
+    }
+  }
+  return new CompoundTupleIterator(tupleIterators);
+}

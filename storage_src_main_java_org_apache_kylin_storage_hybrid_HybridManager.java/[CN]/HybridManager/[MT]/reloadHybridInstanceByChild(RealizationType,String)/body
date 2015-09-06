@@ -1,0 +1,12 @@
+{
+  for (  HybridInstance hybridInstance : hybridMap.values()) {
+    boolean includes=false;
+    for (    IRealization realization : hybridInstance.getRealizations()) {
+      if (realization.getType() == type && realization.getName().equalsIgnoreCase(realizationName)) {
+        includes=true;
+        break;
+      }
+    }
+    if (includes == true)     loadHybridInstance(HybridInstance.concatResourcePath(hybridInstance.getName()));
+  }
+}

@@ -1,0 +1,18 @@
+{
+  Options options=new Options();
+  log.info("----- jobs args: " + Arrays.toString(args));
+  try {
+    options.addOption(OPTION_DELETE);
+    parseOptions(options,args);
+    log.info("options: '" + getOptionsAsString() + "'");
+    log.info("delete option value: '" + getOptionValue(OPTION_DELETE) + "'");
+    delete=Boolean.parseBoolean(getOptionValue(OPTION_DELETE));
+    config=KylinConfig.getInstanceFromEnv();
+    cleanup();
+    return 0;
+  }
+ catch (  Exception e) {
+    e.printStackTrace(System.err);
+    throw e;
+  }
+}

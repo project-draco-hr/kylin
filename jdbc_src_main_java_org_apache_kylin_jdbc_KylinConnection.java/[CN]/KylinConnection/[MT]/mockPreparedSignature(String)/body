@@ -1,0 +1,12 @@
+{
+  List<AvaticaParameter> params=new ArrayList<AvaticaParameter>();
+  int startIndex=0;
+  while (sql.indexOf("?",startIndex) >= 0) {
+    AvaticaParameter param=new AvaticaParameter(false,0,0,0,null,null,null);
+    params.add(param);
+    startIndex=sql.indexOf("?",startIndex) + 1;
+  }
+  ArrayList<ColumnMetaData> columns=new ArrayList<ColumnMetaData>();
+  Map<String,Object> internalParams=Collections.<String,Object>emptyMap();
+  return new Meta.Signature(columns,sql,params,internalParams,CursorFactory.ARRAY);
+}

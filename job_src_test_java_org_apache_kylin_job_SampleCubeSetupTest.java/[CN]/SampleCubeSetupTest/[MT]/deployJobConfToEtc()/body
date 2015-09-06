@@ -1,5 +1,0 @@
-{
-  File src=new File(SANDBOX_TEST_DATA,JobEngineConfig.HADOOP_JOB_CONF_FILENAME + ".xml");
-  File dst=new File("/etc/kylin",src.getName());
-  FileUtils.copyFile(src,dst);
-}

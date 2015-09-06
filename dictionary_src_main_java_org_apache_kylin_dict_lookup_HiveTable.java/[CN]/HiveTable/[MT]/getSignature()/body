@@ -1,3 +1,16 @@
 {
-  return getFileTable().getSignature();
+  try {
+    String path=computeHDFSLocation();
+    Pair<Long,Long> sizeAndLastModified=FileTable.getSizeAndLastModified(path);
+    long size=sizeAndLastModified.getFirst();
+    long lastModified=sizeAndLastModified.getSecond();
+    if (getHiveClient().isNativeTable(database,hiveTable) == false) {
+      lastModified=System.currentTimeMillis();
+    }
+    return new TableSignature(path,size,lastModified);
+  }
+ catch (  Exception e) {
+    if (e instanceof IOException)     throw (IOException)e;
+ else     throw new IOException(e);
+  }
 }

@@ -1,0 +1,29 @@
+{
+  if (query instanceof SqlSelect) {
+    SqlSelect select=(SqlSelect)query;
+    SqlNodeList selectList=select.getSelectList();
+    SqlNodeList groupList=select.getGroup();
+    if ((selectList.size() == 1) && ((groupList == null) || (groupList.size() == 0))) {
+      SqlNode selectExpr=selectList.get(0);
+      if (selectExpr instanceof SqlCall) {
+        SqlCall selectExprCall=(SqlCall)selectExpr;
+        if (Util.isSingleValue(selectExprCall)) {
+          return plan;
+        }
+      }
+      if (select.getFetch() != null && select.getFetch() instanceof SqlNumericLiteral) {
+        SqlNumericLiteral limitNum=(SqlNumericLiteral)select.getFetch();
+        if (((BigDecimal)limitNum.getValue()).intValue() < 2) {
+          return plan;
+        }
+      }
+    }
+  }
+ else   if (query instanceof SqlCall) {
+    SqlCall exprCall=(SqlCall)query;
+    if (exprCall.getOperator() instanceof SqlValuesOperator && Util.isSingleValue(exprCall)) {
+      return plan;
+    }
+  }
+  return RelOptUtil.createSingleValueAggRel(cluster,plan);
+}

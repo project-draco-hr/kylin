@@ -1,0 +1,31 @@
+{
+  CubeInstance cube=getCubeManager().getCube(cubeName);
+  if (cube.getRetentionRange() > 0) {
+synchronized (CubeService.class) {
+      cube=getCubeManager().getCube(cubeName);
+      List<CubeSegment> readySegs=cube.getSegment(SegmentStatusEnum.READY);
+      long currentRange=0;
+      int position=readySegs.size() - 1;
+      while (position >= 0) {
+        currentRange+=(readySegs.get(position).getDateRangeEnd() - readySegs.get(position).getDateRangeStart());
+        if (currentRange >= cube.getRetentionRange()) {
+          break;
+        }
+        position--;
+      }
+      List<CubeSegment> toRemoveSegs=Lists.newArrayList();
+      for (int i=0; i < position; i++) {
+        toRemoveSegs.add(readySegs.get(i));
+      }
+      if (toRemoveSegs.size() > 0) {
+        cube.getSegments().removeAll(toRemoveSegs);
+        try {
+          this.getCubeManager().updateCube(cube);
+        }
+ catch (        IOException e) {
+          logger.error("Failed to remove old segment from cube " + cubeName,e);
+        }
+      }
+    }
+  }
+}

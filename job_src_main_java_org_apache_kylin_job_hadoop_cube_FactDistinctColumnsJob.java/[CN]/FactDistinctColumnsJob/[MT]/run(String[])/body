@@ -7,12 +7,13 @@
     options.addOption(OPTION_TABLE_NAME);
     parseOptions(options,args);
     job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
+    Configuration jobConf=job.getConfiguration();
     String cubeName=getOptionValue(OPTION_CUBE_NAME);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
     String intermediateTable=getOptionValue(OPTION_TABLE_NAME);
     CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
     CubeInstance cubeInstance=cubeMgr.getCube(cubeName);
-    job.getConfiguration().set(BatchConstants.CFG_CUBE_NAME,cubeName);
+    jobConf.set(BatchConstants.CFG_CUBE_NAME,cubeName);
     System.out.println("Starting: " + job.getJobName());
     setJobClasspath(job);
     setupMapper(intermediateTable);
@@ -24,5 +25,10 @@
     logger.error("error in FactDistinctColumnsJob",e);
     printUsage(options);
     throw e;
+  }
+ finally {
+    if (job != null) {
+      cleanupTempConfFile(job.getConfiguration());
+    }
   }
 }

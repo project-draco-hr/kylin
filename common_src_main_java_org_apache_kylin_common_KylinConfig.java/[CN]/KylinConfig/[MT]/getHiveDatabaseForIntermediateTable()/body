@@ -1,0 +1,3 @@
+{
+  return this.getOptional(HIVE_DATABASE_FOR_INTERMEDIATE_TABLE,"default");
+}

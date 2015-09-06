@@ -1,0 +1,3 @@
+{
+  getSite(parameterIndex).setCharacterStream(reader,length);
+}

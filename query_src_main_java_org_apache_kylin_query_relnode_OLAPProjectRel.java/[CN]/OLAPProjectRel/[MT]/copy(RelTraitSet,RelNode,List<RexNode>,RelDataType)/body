@@ -1,3 +1,3 @@
 {
-  return new OLAPProjectRel(getCluster(),traitSet,child,exps,rowType,this.flags);
+  return new OLAPProjectRel(getCluster(),traitSet,child,exps,rowType);
 }

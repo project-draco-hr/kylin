@@ -1,4 +1,4 @@
 {
-  List<BitSet> keys=new ArrayList<BitSet>();
+  List<ImmutableBitSet> keys=new ArrayList<ImmutableBitSet>();
   return Statistics.of(100,keys);
 }

@@ -1,0 +1,3 @@
+{
+  getSite(parameterIndex).setNString(value);
+}

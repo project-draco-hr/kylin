@@ -1,0 +1,3 @@
+{
+  return new KylinStatement((KylinConnection)connection,h,resultSetType,resultSetConcurrency,resultSetHoldability);
+}

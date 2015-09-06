@@ -1,0 +1,3 @@
+{
+  return LogicalAggregate.create(bb.root,indicator,groupSet,groupSets,aggCalls);
+}

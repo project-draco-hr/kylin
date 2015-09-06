@@ -1,0 +1,18 @@
+{
+  TupleFilter originalFilter=sqlDigest.filter;
+  sqlDigest.filter=createFilterForRealtime(originalFilter,partitionColRef,tsRange);
+  boolean addFilterColumn=false, addAllColumn=false;
+  if (!sqlDigest.filterColumns.contains(partitionColRef)) {
+    sqlDigest.filterColumns.add(partitionColRef);
+    addFilterColumn=true;
+  }
+  if (!sqlDigest.allColumns.contains(partitionColRef)) {
+    sqlDigest.allColumns.add(partitionColRef);
+    addAllColumn=true;
+  }
+  T ret=action.apply(null);
+  sqlDigest.filter=originalFilter;
+  if (addFilterColumn)   sqlDigest.filterColumns.remove(partitionColRef);
+  if (addAllColumn)   sqlDigest.allColumns.remove(partitionColRef);
+  return ret;
+}

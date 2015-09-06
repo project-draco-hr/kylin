@@ -1,0 +1,3 @@
+{
+  return LogicalJoin.create(left,right,condition,joinType,variablesStopped);
+}

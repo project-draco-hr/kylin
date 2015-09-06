@@ -1,5 +1,5 @@
 {
   ResourceStore store=MetadataManager.getInstance(config).getStore();
   store.deleteResource(resourcePath);
-  dictCache.remove(resourcePath);
+  dictCache.invalidate(resourcePath);
 }

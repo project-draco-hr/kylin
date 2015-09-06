@@ -1,0 +1,6 @@
+CubeInstance cube
+long startDate
+long endDate
+CubeBuildTypeEnum buildType
+boolean forceMergeEmptySeg
+String submitter

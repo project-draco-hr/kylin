@@ -1,0 +1,24 @@
+{
+  final List<ColumnMetaData> columns=new ArrayList<ColumnMetaData>();
+  final List<Field> fields=new ArrayList<Field>();
+  final List<String> fieldNames=new ArrayList<String>();
+  for (  String name : names) {
+    final int index=fields.size();
+    final String fieldName=AvaticaUtils.toCamelCase(name);
+    final Field field;
+    try {
+      field=clazz.getField(fieldName);
+    }
+ catch (    NoSuchFieldException e) {
+      throw new RuntimeException(e);
+    }
+    columns.add(columnMetaData(name,index,field.getType()));
+    fields.add(field);
+    fieldNames.add(fieldName);
+  }
+  CursorFactory cursorFactory=CursorFactory.record(clazz,fields,fieldNames);
+  Signature signature=new Signature(columns,"",null,Collections.<String,Object>emptyMap(),cursorFactory);
+  StatementHandle sh=this.createStatement(connection().handle);
+  Frame frame=new Frame(0,true,iterable);
+  return MetaResultSet.create(connection().id,sh.id,true,signature,frame);
+}

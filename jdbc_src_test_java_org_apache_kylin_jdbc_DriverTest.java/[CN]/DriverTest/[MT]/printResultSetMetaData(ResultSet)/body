@@ -1,0 +1,8 @@
+{
+  ResultSetMetaData metadata=rs.getMetaData();
+  System.out.println("Metadata:");
+  for (int i=0; i < metadata.getColumnCount(); i++) {
+    String metaStr=metadata.getCatalogName(i + 1) + " " + metadata.getColumnClassName(i + 1)+ " "+ metadata.getColumnDisplaySize(i + 1)+ " "+ metadata.getColumnLabel(i + 1)+ " "+ metadata.getColumnName(i + 1)+ " "+ metadata.getColumnType(i + 1)+ " "+ metadata.getColumnTypeName(i + 1)+ " "+ metadata.getPrecision(i + 1)+ " "+ metadata.getScale(i + 1)+ " "+ metadata.getSchemaName(i + 1)+ " "+ metadata.getTableName(i + 1);
+    System.out.println(metaStr);
+  }
+}

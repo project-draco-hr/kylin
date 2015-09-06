@@ -8,5 +8,6 @@
     logger.debug("return TupleIterator...");
   }
   this.fieldIndexes=null;
+  this.tupleFieldsSnapshot=null;
   return iterator;
 }

@@ -4,20 +4,5 @@
     logger.debug("Override hive table location " + hiveTable + " -- "+ override);
     return override;
   }
-  String hdfsDir=null;
-  try {
-    hdfsDir=getHiveClient().getHiveTableLocation(database,hiveTable);
-  }
- catch (  Exception e) {
-    e.printStackTrace();
-    throw new IOException(e);
-  }
-  if (nativeTable) {
-    FileSystem fs=HadoopUtil.getFileSystem(hdfsDir);
-    FileStatus file=findOnlyFile(hdfsDir,fs);
-    return file.getPath().toString();
-  }
- else {
-    return hdfsDir;
-  }
+  return getHiveClient().getHiveTableLocation(database,hiveTable);
 }

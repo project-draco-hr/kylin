@@ -1,5 +1,5 @@
 {
-  ColumnRowType inputColumnRowType=((OLAPRel)getChild()).getColumnRowType();
+  ColumnRowType inputColumnRowType=((OLAPRel)getInput()).getColumnRowType();
   this.aggregations=new ArrayList<FunctionDesc>();
   for (  AggregateCall aggCall : this.rewriteAggCalls) {
     ParameterDesc parameter=null;

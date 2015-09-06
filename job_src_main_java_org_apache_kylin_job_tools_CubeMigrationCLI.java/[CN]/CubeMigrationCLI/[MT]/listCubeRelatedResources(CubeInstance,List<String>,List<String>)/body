@@ -2,6 +2,7 @@
   CubeDesc cubeDesc=cube.getDescriptor();
   metaResource.add(cube.getResourcePath());
   metaResource.add(cubeDesc.getResourcePath());
+  metaResource.add(DataModelDesc.concatResourcePath(cubeDesc.getModelName()));
   for (  String table : cubeDesc.getModel().getAllTables()) {
     metaResource.add(TableDesc.concatResourcePath(table.toUpperCase()));
   }

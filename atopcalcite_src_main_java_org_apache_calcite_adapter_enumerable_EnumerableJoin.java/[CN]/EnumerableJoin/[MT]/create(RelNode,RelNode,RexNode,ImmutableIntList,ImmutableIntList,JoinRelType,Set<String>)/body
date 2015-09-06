@@ -1,0 +1,5 @@
+{
+  final RelOptCluster cluster=left.getCluster();
+  final RelTraitSet traitSet=cluster.traitSetOf(EnumerableConvention.INSTANCE);
+  return new EnumerableJoin(cluster,traitSet,left,right,condition,leftKeys,rightKeys,joinType,variablesStopped);
+}

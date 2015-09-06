@@ -5,7 +5,8 @@
   String srcCol=(String)tmp[1];
   int srcColIdx=(Integer)tmp[2];
   ReadableTable inpTable=(ReadableTable)tmp[3];
-  DictionaryInfo dictInfo=new DictionaryInfo(srcTable,srcCol,srcColIdx,col.getDatatype(),inpTable.getSignature(),inpTable.getColumnDelimeter());
+  if (!inpTable.exists())   return null;
+  DictionaryInfo dictInfo=new DictionaryInfo(srcTable,srcCol,srcColIdx,col.getDatatype(),inpTable.getSignature());
   String dupDict=checkDupByInfo(dictInfo);
   if (dupDict != null) {
     logger.info("Identical dictionary input " + dictInfo.getInput() + ", reuse existing dictionary at "+ dupDict);

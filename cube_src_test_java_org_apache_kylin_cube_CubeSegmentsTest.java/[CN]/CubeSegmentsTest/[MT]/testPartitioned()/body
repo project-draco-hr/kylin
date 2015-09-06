@@ -10,7 +10,7 @@
   assertEquals(2000,seg2.getDateRangeEnd());
   assertEquals(SegmentStatusEnum.NEW,seg2.getStatus());
   seg2.setStatus(SegmentStatusEnum.READY);
-  CubeSegment merge=mgr.mergeSegments(cube,0,2000);
+  CubeSegment merge=mgr.mergeSegments(cube,0,2000,true);
   assertEquals(3,cube.getSegments().size());
   assertEquals(0,merge.getDateRangeStart());
   assertEquals(2000,merge.getDateRangeEnd());
@@ -19,7 +19,7 @@
   assertEquals(merge,cube.getSegments().get(1));
   assertEquals(seg2,cube.getSegments().get(2));
   cube.getSegments().remove(merge);
-  CubeSegment merge2=mgr.mergeSegments(cube,500,1500);
+  CubeSegment merge2=mgr.mergeSegments(cube,500,1500,true);
   assertEquals(3,cube.getSegments().size());
   assertEquals(0,merge2.getDateRangeStart());
   assertEquals(2000,merge2.getDateRangeEnd());

@@ -1,4 +1,4 @@
 {
-  OLAPRel olapChild=(OLAPRel)getChild();
+  OLAPRel olapChild=(OLAPRel)getInput();
   return olapChild.hasSubQuery();
 }

@@ -1,0 +1,6 @@
+{
+  if (realizations.length > 0) {
+    return realizations[realizations.length - 1];
+  }
+  return null;
+}

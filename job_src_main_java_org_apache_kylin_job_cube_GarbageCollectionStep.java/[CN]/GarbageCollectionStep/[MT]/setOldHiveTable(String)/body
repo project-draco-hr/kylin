@@ -1,0 +1,3 @@
+{
+  setParam(OLD_HIVE_TABLE,hiveTable);
+}

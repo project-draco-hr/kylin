@@ -1,0 +1,15 @@
+{
+  final ModifiableTable modifiableTable=targetTable.unwrap(ModifiableTable.class);
+  if (modifiableTable != null) {
+    return modifiableTable.toModificationRel(cluster,targetTable,catalogReader,source,LogicalTableModify.Operation.INSERT,null,false);
+  }
+  final ModifiableView modifiableView=targetTable.unwrap(ModifiableView.class);
+  if (modifiableView != null) {
+    final Table delegateTable=modifiableView.getTable();
+    final RelDataType delegateRowType=delegateTable.getRowType(typeFactory);
+    final RelOptTable delegateRelOptTable=RelOptTableImpl.create(null,delegateRowType,delegateTable,modifiableView.getTablePath());
+    final RelNode newSource=createSource(targetTable,source,modifiableView,delegateRowType);
+    return createModify(delegateRelOptTable,newSource);
+  }
+  return LogicalTableModify.create(targetTable,catalogReader,source,LogicalTableModify.Operation.INSERT,null,false);
+}

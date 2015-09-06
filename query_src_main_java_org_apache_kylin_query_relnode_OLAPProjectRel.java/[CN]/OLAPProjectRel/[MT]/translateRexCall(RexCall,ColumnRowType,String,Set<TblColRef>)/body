@@ -1,17 +1,11 @@
 {
   SqlOperator operator=call.getOperator();
   if (operator == SqlStdOperatorTable.EXTRACT_DATE) {
-    List<RexNode> extractDateOps=call.getOperands();
-    RexCall reinterpret=(RexCall)extractDateOps.get(1);
-    List<RexNode> reinterpretOps=reinterpret.getOperands();
-    RexInputRef inputRef=(RexInputRef)reinterpretOps.get(0);
-    return translateRexInputRef(inputRef,inputColumnRowType,fieldName,sourceCollector);
+    return translateFirstRexInputRef(call,inputColumnRowType,fieldName,sourceCollector);
   }
  else   if (operator instanceof SqlUserDefinedFunction) {
     if (operator.getName().equals("QUARTER")) {
-      List<RexNode> quaterOps=call.getOperands();
-      RexInputRef inputRef=(RexInputRef)quaterOps.get(0);
-      return translateRexInputRef(inputRef,inputColumnRowType,fieldName,sourceCollector);
+      return translateFirstRexInputRef(call,inputColumnRowType,fieldName,sourceCollector);
     }
   }
  else   if (operator instanceof SqlCaseOperator) {

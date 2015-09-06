@@ -1,0 +1,19 @@
+{
+  FileSystem fs=HadoopUtil.getFileSystem(path);
+  ArrayList<FileStatus> allFiles=new ArrayList<>();
+  FileStatus status=fs.getFileStatus(new Path(path));
+  if (status.isFile()) {
+    allFiles.add(status);
+  }
+ else {
+    FileStatus[] listStatus=fs.listStatus(new Path(path));
+    allFiles.addAll(Arrays.asList(listStatus));
+  }
+  long size=0;
+  long lastModified=0;
+  for (  FileStatus file : allFiles) {
+    size+=file.getLen();
+    lastModified=Math.max(lastModified,file.getModificationTime());
+  }
+  return new Pair<Long,Long>(size,lastModified);
+}

@@ -1,3 +1,0 @@
-{
-  getParameter(parameterIndex).setNCharacterStream(value,length);
-}

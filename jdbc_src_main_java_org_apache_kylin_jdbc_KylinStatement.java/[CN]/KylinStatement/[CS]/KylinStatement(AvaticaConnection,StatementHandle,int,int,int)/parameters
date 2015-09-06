@@ -1,0 +1,5 @@
+AvaticaConnection connection
+StatementHandle h
+int resultSetType
+int resultSetConcurrency
+int resultSetHoldability

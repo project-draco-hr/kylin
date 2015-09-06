@@ -1,45 +1,25 @@
 {
-  Driver driver=(Driver)Class.forName("org.apache.kylin.kylin.jdbc.Driver").newInstance();
+  Driver driver=new Driver();
   Properties info=new Properties();
-  info.put("user","");
-  info.put("password","");
-  Connection conn=driver.connect("jdbc:kylin://localhost/default",info);
+  info.put("user","ADMIN");
+  info.put("password","KYLIN");
+  Connection conn=driver.connect("jdbc:kylin://localhost:7070/default",info);
   ResultSet catalogs=conn.getMetaData().getCatalogs();
-  while (catalogs.next()) {
-    System.out.println(catalogs.getString("TABLE_CAT"));
-  }
+  System.out.println("CATALOGS");
+  printResultSetMetaData(catalogs);
+  printResultSet(catalogs);
   ResultSet schemas=conn.getMetaData().getSchemas();
-  while (schemas.next()) {
-    System.out.println(schemas.getString(1));
-    System.out.println(schemas.getString(2));
-  }
+  System.out.println("SCHEMAS");
+  printResultSetMetaData(schemas);
+  printResultSet(schemas);
   ResultSet tables=conn.getMetaData().getTables(null,null,null,null);
-  while (tables.next()) {
-    String tableName=tables.getString(3);
-    assertEquals(tables.getString("TABLE_NAME"),tableName);
-    ResultSet columns=conn.getMetaData().getColumns(null,null,tableName,null);
-    while (columns.next()) {
-      System.out.println(columns.getString("COLUMN_NAME"));
-      String column="";
-      for (int i=0; i < 23; i++) {
-        column+=columns.getString(i + 1) + ", ";
-      }
-      System.out.println("Column in table " + tableName + ": "+ column);
-    }
-  }
+  System.out.println("TABLES");
+  printResultSetMetaData(tables);
+  printResultSet(tables);
   for (int j=0; j < 3; j++) {
     Statement state=conn.createStatement();
     ResultSet resultSet=state.executeQuery("select * from test_kylin_fact");
-    ResultSetMetaData metadata=resultSet.getMetaData();
-    System.out.println("Metadata:");
-    for (int i=0; i < metadata.getColumnCount(); i++) {
-      String metaStr=metadata.getCatalogName(i + 1) + " " + metadata.getColumnClassName(i + 1)+ " "+ metadata.getColumnDisplaySize(i + 1)+ " "+ metadata.getColumnLabel(i + 1)+ " "+ metadata.getColumnName(i + 1)+ " "+ metadata.getColumnType(i + 1)+ " "+ metadata.getColumnTypeName(i + 1)+ " "+ metadata.getPrecision(i + 1)+ " "+ metadata.getScale(i + 1)+ " "+ metadata.getSchemaName(i + 1)+ " "+ metadata.getTableName(i + 1);
-      System.out.println(metaStr);
-    }
-    System.out.println("Data:");
-    while (resultSet.next()) {
-      String dataStr=resultSet.getFloat(1) + " " + resultSet.getInt(2)+ " "+ resultSet.getInt(3)+ " "+ resultSet.getLong(4)+ " "+ resultSet.getDate(5)+ " "+ resultSet.getString(6);
-      System.out.println(dataStr);
-    }
+    printResultSetMetaData(resultSet);
+    printResultSet(resultSet);
   }
 }

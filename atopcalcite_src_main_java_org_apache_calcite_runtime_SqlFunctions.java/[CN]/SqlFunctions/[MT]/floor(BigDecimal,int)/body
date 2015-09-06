@@ -1,0 +1,3 @@
+{
+  return floor(b0,BigDecimal.valueOf(b1));
+}

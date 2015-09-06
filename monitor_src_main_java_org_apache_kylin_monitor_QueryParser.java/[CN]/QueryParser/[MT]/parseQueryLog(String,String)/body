@@ -55,9 +55,15 @@
     logger.info("Failed to write to hdfs:",ex);
   }
  finally {
-    writer.close();
-    cwriter.close();
-    fs.close();
+    if (writer != null) {
+      writer.close();
+    }
+    if (cwriter != null) {
+      cwriter.close();
+    }
+    if (fs != null) {
+      fs.close();
+    }
   }
   logger.info("Finish parsing file " + filePath + " !");
 }

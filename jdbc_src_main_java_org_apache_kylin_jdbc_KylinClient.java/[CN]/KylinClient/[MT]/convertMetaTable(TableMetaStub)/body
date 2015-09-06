@@ -1,0 +1,7 @@
+{
+  List<KMetaColumn> columns=new ArrayList<KMetaColumn>(tableStub.getColumns().size());
+  for (  ColumnMetaStub columnStub : tableStub.getColumns()) {
+    columns.add(convertMetaColumn(columnStub));
+  }
+  return new KMetaTable(tableStub.getTABLE_CAT(),tableStub.getTABLE_SCHEM(),tableStub.getTABLE_NAME(),tableStub.getTABLE_TYPE(),columns);
+}

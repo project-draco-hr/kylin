@@ -1,4 +1,0 @@
-{
-  long month=SqlFunctions.unixDateExtract(TimeUnitRange.MONTH,date);
-  return month / 4 + 1;
-}

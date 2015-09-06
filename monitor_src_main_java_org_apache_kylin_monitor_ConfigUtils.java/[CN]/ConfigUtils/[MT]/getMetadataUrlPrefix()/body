@@ -1,0 +1,7 @@
+{
+  String hbaseMetadataUrl=getMetadataUrl();
+  String defaultPrefix="kylin_metadata";
+  int cut=hbaseMetadataUrl.indexOf('@');
+  String tmp=cut < 0 ? defaultPrefix : hbaseMetadataUrl.substring(0,cut);
+  return tmp;
+}

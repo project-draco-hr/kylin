@@ -1,8 +1,0 @@
-{
-  MeasureCodec codec=new MeasureCodec(measures);
-  Object[] values=new Object[measures.size()];
-  codec.decode(valueBytes,values);
-  assertTrue(new BigDecimal(m1).equals(values[0]));
-  assertTrue(new BigDecimal(m2).equals(values[1]));
-  assertTrue(new BigDecimal(m3).equals(values[2]));
-}

@@ -1,0 +1,12 @@
+{
+  try {
+    if (metaProject == null) {
+      KylinConnection conn=connection();
+      metaProject=conn.getRemoteClient().retrieveMetaData(conn.getProject());
+    }
+    return metaProject;
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

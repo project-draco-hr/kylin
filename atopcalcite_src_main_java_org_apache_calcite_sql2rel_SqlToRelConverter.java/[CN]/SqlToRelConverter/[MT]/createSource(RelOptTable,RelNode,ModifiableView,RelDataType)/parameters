@@ -1,0 +1,4 @@
+RelOptTable targetTable
+RelNode source
+ModifiableView modifiableView
+RelDataType delegateRowType

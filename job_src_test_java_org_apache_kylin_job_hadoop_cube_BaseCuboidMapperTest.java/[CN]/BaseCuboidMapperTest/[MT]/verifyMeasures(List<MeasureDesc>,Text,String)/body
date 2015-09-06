@@ -1,0 +1,10 @@
+{
+  MeasureCodec codec=new MeasureCodec(measures);
+  Object[] values=new Object[measures.size()];
+  codec.decode(valueBytes,values);
+  assertTrue(new BigDecimal(valueStr[0]).equals(values[0]));
+  assertTrue(new BigDecimal(valueStr[1]).equals(values[1]));
+  assertTrue(new BigDecimal(valueStr[2]).equals(values[2]));
+  assertTrue(new LongWritable(Long.valueOf(valueStr[3])).equals(values[3]));
+  assertTrue(new LongWritable(Long.valueOf(valueStr[4])).equals(values[4]));
+}

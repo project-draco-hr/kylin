@@ -1,0 +1,6 @@
+RelTraitSet traitSet
+RexNode condition
+RelNode left
+RelNode right
+JoinRelType joinType
+boolean semiJoinDone

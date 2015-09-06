@@ -1,0 +1,23 @@
+{
+  HybridManager r=CACHE.get(config);
+  if (r != null) {
+    return r;
+  }
+synchronized (HybridManager.class) {
+    r=CACHE.get(config);
+    if (r != null) {
+      return r;
+    }
+    try {
+      r=new HybridManager(config);
+      CACHE.put(config,r);
+      if (CACHE.size() > 1) {
+        logger.warn("More than one Hybrid Manager singleton exist");
+      }
+      return r;
+    }
+ catch (    IOException e) {
+      throw new IllegalStateException("Failed to init Hybrid Manager from " + config,e);
+    }
+  }
+}

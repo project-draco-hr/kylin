@@ -1,0 +1,10 @@
+{
+  PostMethod post=new PostMethod(baseUrl() + "/kylin/api/user/authentication");
+  addHttpHeaders(post);
+  StringRequestEntity requestEntity=new StringRequestEntity("{}","application/json","UTF-8");
+  post.setRequestEntity(requestEntity);
+  httpClient.executeMethod(post);
+  if (post.getStatusCode() != 200 && post.getStatusCode() != 201) {
+    throw asIOException(post);
+  }
+}

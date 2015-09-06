@@ -1,9 +1,0 @@
-{
-  if (agg != null) {
-    final SqlOperator op=call.getOperator();
-    if (op.isAggregator()) {
-      return agg.lookupAggregates(call);
-    }
-  }
-  return exprConverter.convertCall(this,call);
-}

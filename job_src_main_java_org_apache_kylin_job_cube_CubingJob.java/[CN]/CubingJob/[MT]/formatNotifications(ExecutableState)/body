@@ -1,15 +1,13 @@
 {
   final Output output=jobService.getOutput(getId());
-  String logMsg;
+  String logMsg="";
 switch (output.getState()) {
 case ERROR:
     logMsg=output.getVerboseMsg();
   break;
 case DISCARDED:
-logMsg="";
 break;
 case SUCCEED:
-logMsg="";
 break;
 default :
 return null;
@@ -18,6 +16,7 @@ String content=ExecutableConstants.NOTIFY_EMAIL_TEMPLATE;
 content=content.replaceAll("\\$\\{job_name\\}",getName());
 content=content.replaceAll("\\$\\{result\\}",state.toString());
 content=content.replaceAll("\\$\\{cube_name\\}",getCubeName());
+content=content.replaceAll("\\$\\{source_records_count\\}",getSourceRecordCount());
 content=content.replaceAll("\\$\\{start_time\\}",new Date(getStartTime()).toString());
 content=content.replaceAll("\\$\\{duration\\}",getDuration() / 60000 + "mins");
 content=content.replaceAll("\\$\\{mr_waiting\\}",getMapReduceWaitTime() / 60000 + "mins");

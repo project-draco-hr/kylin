@@ -1,0 +1,26 @@
+{
+  String url=baseUrl() + "/kylin/api/query";
+  String project=conn.getProject();
+  QueryRequest request=null;
+  if (null != params) {
+    request=new PreparedQueryRequest();
+    ((PreparedQueryRequest)request).setParams(params);
+    url+="/prestate";
+  }
+ else {
+    request=new QueryRequest();
+  }
+  request.setSql(sql);
+  request.setProject(project);
+  PostMethod post=new PostMethod(url);
+  addHttpHeaders(post);
+  String postBody=jsonMapper.writeValueAsString(request);
+  logger.debug("Post body:\n " + postBody);
+  StringRequestEntity requestEntity=new StringRequestEntity(postBody,"application/json","UTF-8");
+  post.setRequestEntity(requestEntity);
+  httpClient.executeMethod(post);
+  if (post.getStatusCode() != 200 && post.getStatusCode() != 201) {
+    throw asIOException(post);
+  }
+  return jsonMapper.readValue(post.getResponseBodyAsStream(),SQLResponseStub.class);
+}

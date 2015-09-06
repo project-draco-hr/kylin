@@ -1,3 +1,0 @@
-SqlToRelConverter.Blackboard bb
-SqlCall call
-TableFunctionRel callRel

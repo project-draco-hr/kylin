@@ -1,5 +1,5 @@
 {
-  MonitorMetaManager.TABLE_NAME=MonitorMetaManager.getMetadataUrlPrefix();
+  MonitorMetaManager.TABLE_NAME=monitorConfig.getMetadataUrlPrefix();
   logger.info("Monitor Metadata Table :" + MonitorMetaManager.TABLE_NAME);
   logger.info("init monitor metadata,create table if not exist");
   MonitorMetaManager.creatTable(TABLE_NAME,new String[]{COLUMN_FAMILY});

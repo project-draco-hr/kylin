@@ -1,0 +1,8 @@
+{
+  final Map<String,RelDataType> nameToTypeMap=new HashMap<>();
+  for (  Map.Entry<String,RexNode> entry : nameToNodeMap.entrySet()) {
+    nameToTypeMap.put(entry.getKey(),entry.getValue().getType());
+  }
+  Blackboard bb=createBlackboard(new ParameterScope((SqlValidatorImpl)validator,nameToTypeMap),nameToNodeMap);
+  return bb.convertExpression(node);
+}
