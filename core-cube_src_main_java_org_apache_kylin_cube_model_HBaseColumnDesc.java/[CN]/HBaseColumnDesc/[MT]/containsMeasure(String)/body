@@ -1,0 +1,6 @@
+{
+  for (  String ref : measureRefs) {
+    if (ref.equals(refName))     return true;
+  }
+  return false;
+}

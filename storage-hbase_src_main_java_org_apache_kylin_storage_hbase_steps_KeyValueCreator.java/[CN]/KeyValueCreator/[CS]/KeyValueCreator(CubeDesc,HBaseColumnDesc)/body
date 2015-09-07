@@ -2,18 +2,12 @@
   cfBytes=Bytes.toBytes(colDesc.getColumnFamilyName());
   qBytes=Bytes.toBytes(colDesc.getQualifier());
   timestamp=System.currentTimeMillis();
-  List<MeasureDesc> measures=cubeDesc.getMeasures();
-  String[] measureNames=getMeasureNames(cubeDesc);
-  String[] refs=colDesc.getMeasureRefs();
-  refIndex=new int[refs.length];
-  refMeasures=new MeasureDesc[refs.length];
-  for (int i=0; i < refs.length; i++) {
-    refIndex[i]=indexOf(measureNames,refs[i]);
-    refMeasures[i]=measures.get(refIndex[i]);
-  }
+  refIndex=colDesc.getMeasureIndex();
+  refMeasures=colDesc.getMeasures();
   codec=new MeasureCodec(refMeasures);
-  colValues=new Object[refs.length];
+  colValues=new Object[refMeasures.length];
   isFullCopy=true;
+  List<MeasureDesc> measures=cubeDesc.getMeasures();
   for (int i=0; i < measures.size(); i++) {
     if (refIndex.length <= i || refIndex[i] != i)     isFullCopy=false;
   }

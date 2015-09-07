@@ -10,15 +10,7 @@
   storageInputFormat=MRUtil.getBatchMergeInputSide2(mergedCubeSegment).getStorageInputFormat();
   newKeyBuf=new byte[256];
   sourceCubeSegment=storageInputFormat.findSourceSegment(context,cube);
-  logger.info(sourceCubeSegment.toString());
-  this.rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
-  List<MeasureDesc> measuresDescs=Lists.newArrayList();
-  for (  HBaseColumnFamilyDesc cfDesc : cubeDesc.getHBaseMapping().getColumnFamily()) {
-    for (    HBaseColumnDesc colDesc : cfDesc.getColumns()) {
-      for (      MeasureDesc measure : colDesc.getMeasures()) {
-        measuresDescs.add(measure);
-      }
-    }
-  }
-  codec=new MeasureCodec(measuresDescs);
+  logger.info("Source cube segment: " + sourceCubeSegment);
+  rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
+  codec=new MeasureCodec(cubeDesc.getMeasures());
 }

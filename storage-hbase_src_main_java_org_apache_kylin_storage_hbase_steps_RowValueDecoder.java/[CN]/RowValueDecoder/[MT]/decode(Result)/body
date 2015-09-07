@@ -1,3 +1,3 @@
 {
-  decode(hbaseRow,true);
+  decode(hbaseRow,false);
 }

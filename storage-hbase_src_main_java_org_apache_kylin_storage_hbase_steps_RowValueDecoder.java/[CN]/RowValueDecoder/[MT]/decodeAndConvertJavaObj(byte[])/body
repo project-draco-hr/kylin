@@ -1,0 +1,3 @@
+{
+  decode(ByteBuffer.wrap(bytes),true);
+}

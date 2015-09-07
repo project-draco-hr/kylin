@@ -1,5 +1,4 @@
 {
-  MeasureDesc[] measures=CuboidToGridTableMapping.getMeasureSequenceOnGridTable(cubeDesc);
-  reuseAggrs=new MeasureAggregators(measures);
-  reuseMetricsArray=new Object[measures.length];
+  reuseAggrs=new MeasureAggregators(cubeDesc.getMeasures());
+  reuseMetricsArray=new Object[cubeDesc.getMeasures().size()];
 }

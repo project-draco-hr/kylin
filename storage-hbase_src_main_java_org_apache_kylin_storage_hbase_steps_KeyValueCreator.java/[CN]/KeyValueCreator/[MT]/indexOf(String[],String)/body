@@ -1,4 +1,0 @@
-{
-  for (int i=0; i < measureNames.length; i++)   if (measureNames[i].equalsIgnoreCase(ref))   return i;
-  throw new IllegalArgumentException("Measure '" + ref + "' not found in "+ Arrays.toString(measureNames));
-}
