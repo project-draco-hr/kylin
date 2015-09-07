@@ -2,13 +2,13 @@
   String cut;
 switch (capacity) {
 case "SMALL":
-    cut=getProperty(HBASE_REGION_CUT_SMALL,"5");
+    cut=getProperty(HBASE_REGION_CUT_SMALL,"10");
   break;
 case "MEDIUM":
-cut=getProperty(HBASE_REGION_CUT_MEDIUM,"10");
+cut=getProperty(HBASE_REGION_CUT_MEDIUM,"20");
 break;
 case "LARGE":
-cut=getProperty(HBASE_REGION_CUT_LARGE,"50");
+cut=getProperty(HBASE_REGION_CUT_LARGE,"100");
 break;
 default :
 throw new IllegalArgumentException("Capacity not recognized: " + capacity);
