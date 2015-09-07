@@ -12,7 +12,7 @@
     logger.debug("Cube " + cube.getName() + " has no ready segment to merge");
     return null;
   }
-  long[] timeRanges=cube.getAutoMergeTimeRanges();
+  long[] timeRanges=cube.getDescriptor().getAutoMergeTimeRanges();
   Arrays.sort(timeRanges);
   CubeSegment newSeg=null;
   for (int i=timeRanges.length - 1; i >= 0; i--) {
