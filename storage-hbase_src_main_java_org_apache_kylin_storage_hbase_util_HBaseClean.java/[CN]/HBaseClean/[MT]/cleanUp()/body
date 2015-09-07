@@ -13,16 +13,16 @@
     }
     if (delete) {
       for (      String htableName : allTablesNeedToBeDropped) {
-        log.info("Deleting HBase table " + htableName);
+        logger.info("Deleting HBase table " + htableName);
         if (hbaseAdmin.tableExists(htableName)) {
           if (hbaseAdmin.isTableEnabled(htableName)) {
             hbaseAdmin.disableTable(htableName);
           }
           hbaseAdmin.deleteTable(htableName);
-          log.info("Deleted HBase table " + htableName);
+          logger.info("Deleted HBase table " + htableName);
         }
  else {
-          log.info("HBase table" + htableName + " does not exist");
+          logger.info("HBase table" + htableName + " does not exist");
         }
       }
     }

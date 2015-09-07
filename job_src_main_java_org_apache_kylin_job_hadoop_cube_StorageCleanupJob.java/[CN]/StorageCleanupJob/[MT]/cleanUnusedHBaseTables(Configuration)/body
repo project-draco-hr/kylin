@@ -19,7 +19,7 @@
       String tablename=seg.getStorageLocationIdentifier();
       if (allTablesNeedToBeDropped.contains(tablename)) {
         allTablesNeedToBeDropped.remove(tablename);
-        log.info("Exclude table " + tablename + " from drop list, as the table belongs to cube "+ cube.getName()+ " with status "+ cube.getStatus());
+        logger.info("Exclude table " + tablename + " from drop list, as the table belongs to cube "+ cube.getName()+ " with status "+ cube.getStatus());
       }
     }
   }
@@ -28,22 +28,22 @@
       String tablename=seg.getStorageLocationIdentifier();
       if (allTablesNeedToBeDropped.contains(tablename)) {
         allTablesNeedToBeDropped.remove(tablename);
-        log.info("Exclude table " + tablename + " from drop list, as the table belongs to ii "+ ii.getName()+ " with status "+ ii.getStatus());
+        logger.info("Exclude table " + tablename + " from drop list, as the table belongs to ii "+ ii.getName()+ " with status "+ ii.getStatus());
       }
     }
   }
   if (delete == true) {
     for (    String htableName : allTablesNeedToBeDropped) {
-      log.info("Deleting HBase table " + htableName);
+      logger.info("Deleting HBase table " + htableName);
       if (hbaseAdmin.tableExists(htableName)) {
         if (hbaseAdmin.isTableEnabled(htableName)) {
           hbaseAdmin.disableTable(htableName);
         }
         hbaseAdmin.deleteTable(htableName);
-        log.info("Deleted HBase table " + htableName);
+        logger.info("Deleted HBase table " + htableName);
       }
  else {
-        log.info("HBase table" + htableName + " does not exist");
+        logger.info("HBase table" + htableName + " does not exist");
       }
     }
   }

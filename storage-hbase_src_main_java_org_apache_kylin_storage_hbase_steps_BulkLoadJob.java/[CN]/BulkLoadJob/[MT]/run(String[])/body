@@ -25,9 +25,9 @@
     String[] newArgs=new String[2];
     newArgs[0]=input;
     newArgs[1]=tableName;
-    log.debug("Start to run LoadIncrementalHFiles");
+    logger.debug("Start to run LoadIncrementalHFiles");
     int ret=ToolRunner.run(new LoadIncrementalHFiles(conf),newArgs);
-    log.debug("End to run LoadIncrementalHFiles");
+    logger.debug("End to run LoadIncrementalHFiles");
     return ret;
   }
  catch (  Exception e) {

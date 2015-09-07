@@ -24,11 +24,11 @@
       }
       if (redirect == null) {
         response=get.getResponseBodyAsString();
-        log.debug("Job " + mrJobId + " get status check result.\n");
+        logger.debug("Job " + mrJobId + " get status check result.\n");
       }
  else {
         url=redirect;
-        log.debug("Job " + mrJobId + " check redirect url "+ url+ ".\n");
+        logger.debug("Job " + mrJobId + " check redirect url "+ url+ ".\n");
       }
     }
   finally {

@@ -23,7 +23,7 @@
     job.getConfiguration().set(BatchConstants.CFG_STATISTICS_ENABLED,statistics_enabled);
     job.getConfiguration().set(BatchConstants.CFG_STATISTICS_OUTPUT,statistics_output);
     job.getConfiguration().set(BatchConstants.CFG_STATISTICS_SAMPLING_PERCENT,statistics_sampling_percent);
-    log.info("Starting: " + job.getJobName());
+    logger.info("Starting: " + job.getJobName());
     setJobClasspath(job);
     setupMapper(cube.getSegment(segmentName,SegmentStatusEnum.NEW));
     setupReducer(output);

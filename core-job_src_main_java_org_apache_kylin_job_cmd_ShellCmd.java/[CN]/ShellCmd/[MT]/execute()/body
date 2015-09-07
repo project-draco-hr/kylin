@@ -12,10 +12,10 @@
   if (!isAsync) {
     try {
       exitCode=future.get();
-      log.info("finish executing");
+      logger.info("finish executing");
     }
  catch (    CancellationException e) {
-      log.debug("Command is cancelled");
+      logger.debug("Command is cancelled");
       exitCode=-2;
     }
 catch (    Exception e) {

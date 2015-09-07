@@ -1,4 +1,4 @@
 {
   output.append(message).append(System.getProperty("line.separator"));
-  log.debug(message);
+  logger.debug(message);
 }

@@ -1,16 +1,16 @@
 {
   Options options=new Options();
-  log.info("----- jobs args: " + Arrays.toString(args));
+  logger.info("jobs args: " + Arrays.toString(args));
   try {
     options.addOption(OPTION_DELETE);
     options.addOption(OPTION_WHITELIST);
     parseOptions(options,args);
-    log.info("options: '" + getOptionsAsString() + "'");
-    log.info("delete option value: '" + getOptionValue(OPTION_DELETE) + "'");
+    logger.info("options: '" + getOptionsAsString() + "'");
+    logger.info("delete option value: '" + getOptionValue(OPTION_DELETE) + "'");
     delete=Boolean.parseBoolean(getOptionValue(OPTION_DELETE));
     String[] metastoreWhitelist=getOptionValue(OPTION_WHITELIST).split(",");
     for (    String ms : metastoreWhitelist) {
-      log.info("metadata store in white list: " + ms);
+      logger.info("metadata store in white list: " + ms);
       metastoreWhitelistSet.add(ms);
     }
     Configuration conf=HBaseConfiguration.create(getConf());

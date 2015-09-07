@@ -10,7 +10,7 @@
     String tableName=getOptionValue(OPTION_TABLE_NAME).toUpperCase();
     String iiName=getOptionValue(OPTION_II_NAME);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
-    log.info("Starting: " + job.getJobName() + " on table "+ tableName);
+    logger.info("Starting: " + job.getJobName() + " on table "+ tableName);
     IIManager iiMgr=IIManager.getInstance(KylinConfig.getInstanceFromEnv());
     IIInstance ii=iiMgr.getII(iiName);
     job.getConfiguration().set(BatchConstants.TABLE_NAME,tableName);

@@ -6,25 +6,25 @@
   for (  HTableDescriptor desc : tableDescriptors) {
     String host=desc.getValue(IRealizationConstants.HTableTag);
     if (!metastoreWhitelistSet.contains(host)) {
-      log.info("HTable {} is recognized as orphan because its tag is {}",desc.getTableName(),host);
+      logger.info("HTable {} is recognized as orphan because its tag is {}",desc.getTableName(),host);
       allTablesNeedToBeDropped.add(desc.getTableName().getNameAsString());
     }
  else {
-      log.info("HTable {} belongs to {}",desc.getTableName(),host);
+      logger.info("HTable {} belongs to {}",desc.getTableName(),host);
     }
   }
   if (delete == true) {
     for (    String htableName : allTablesNeedToBeDropped) {
-      log.info("Deleting HBase table " + htableName);
+      logger.info("Deleting HBase table " + htableName);
       if (hbaseAdmin.tableExists(htableName)) {
         if (hbaseAdmin.isTableEnabled(htableName)) {
           hbaseAdmin.disableTable(htableName);
         }
         hbaseAdmin.deleteTable(htableName);
-        log.info("Deleted HBase table " + htableName);
+        logger.info("Deleted HBase table " + htableName);
       }
  else {
-        log.info("HBase table" + htableName + " does not exist");
+        logger.info("HBase table" + htableName + " does not exist");
       }
     }
   }
