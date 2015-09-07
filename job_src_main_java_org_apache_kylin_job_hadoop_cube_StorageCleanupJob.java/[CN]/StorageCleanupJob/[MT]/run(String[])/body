@@ -8,9 +8,9 @@
     log.info("delete option value: '" + getOptionValue(OPTION_DELETE) + "'");
     delete=Boolean.parseBoolean(getOptionValue(OPTION_DELETE));
     Configuration conf=HBaseConfiguration.create(getConf());
+    cleanUnusedIntermediateHiveTable(conf);
     cleanUnusedHdfsFiles(conf);
     cleanUnusedHBaseTables(conf);
-    cleanUnusedIntermediateHiveTable(conf);
     return 0;
   }
  catch (  Exception e) {
