@@ -1,5 +1,4 @@
 {
-  FileSystem fs=FileSystem.get(conf);
   int uuidLength=36;
   StringBuilder buf=new StringBuilder();
   buf.append("hive -e \"");
@@ -24,29 +23,20 @@
     final ExecutableState state=executableManager.getOutput(jobId).getState();
     if (!state.isFinalState()) {
       workingJobList.add(jobId);
-      log.info("Remove intermediate hive table with job id " + jobId + " with job status "+ state);
+      log.info("Exclude intermediate hive table with job id " + jobId + " with job status "+ state);
     }
   }
   while ((line=reader.readLine()) != null) {
     if (line.startsWith("kylin_intermediate_")) {
-      boolean isNeedDel=true;
+      boolean isNeedDel=false;
       String uuid=line.substring(line.length() - uuidLength,line.length());
       uuid=uuid.replace("_","-");
-      if (workingJobList.contains(uuid)) {
-        isNeedDel=false;
+      if (allJobs.contains(uuid) && !workingJobList.contains(uuid)) {
+        isNeedDel=true;
       }
- else {
-        log.info("Hive table with uuid " + uuid + " is in use.");
+      if (isNeedDel) {
+        allHiveTablesNeedToBeDeleted.add(line);
       }
-      String hdfsPath=JobInstance.getJobWorkingDir(uuid,KylinConfig.getInstanceFromEnv().getHdfsWorkingDirectory());
-      Path p=new Path(hdfsPath);
-      if (fs.exists(p) == false) {
-        isNeedDel=false;
-      }
- else {
-        log.info("Hive table with uuid " + uuid + " belongs to a different Kylin instance.");
-      }
-      if (isNeedDel)       allHiveTablesNeedToBeDeleted.add(line);
     }
   }
   if (delete == true) {
