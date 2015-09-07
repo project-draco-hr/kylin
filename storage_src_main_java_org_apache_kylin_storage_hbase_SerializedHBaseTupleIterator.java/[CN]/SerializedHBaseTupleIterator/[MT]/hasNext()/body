@@ -1,5 +1,5 @@
 {
-  if (context.isLimitEnabled() && scanCount >= context.getLimit()) {
+  if (context.isLimitEnabled() && scanCount >= context.getLimit() + context.getOffset()) {
     return false;
   }
   if (context.isAcceptPartialResult() && scanCount > partialResultLimit) {
