@@ -3,8 +3,11 @@
   if (context.getConfiguration().get(BatchConstants.REGION_SPLIT_SIZE) != null) {
     cut=Integer.valueOf(context.getConfiguration().get(BatchConstants.REGION_SPLIT_SIZE));
   }
-  if (context.getConfiguration().get(BatchConstants.REGION_NUMBER) != null) {
-    maxRegionCount=Integer.valueOf(context.getConfiguration().get(BatchConstants.REGION_NUMBER));
+  if (context.getConfiguration().get(BatchConstants.REGION_NUMBER_MIN) != null) {
+    minRegionCount=Integer.valueOf(context.getConfiguration().get(BatchConstants.REGION_NUMBER_MIN));
   }
-  logger.info("Chosen cut for htable is " + cut + ", max region count is "+ maxRegionCount);
+  if (context.getConfiguration().get(BatchConstants.REGION_NUMBER_MAX) != null) {
+    maxRegionCount=Integer.valueOf(context.getConfiguration().get(BatchConstants.REGION_NUMBER_MAX));
+  }
+  logger.info("Chosen cut for htable is " + cut + ", max region count="+ maxRegionCount+ ", min region count ="+ minRegionCount);
 }
