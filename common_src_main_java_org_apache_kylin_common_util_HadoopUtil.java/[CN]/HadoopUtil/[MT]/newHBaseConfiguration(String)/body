@@ -29,7 +29,7 @@
   conf.set(HConstants.HBASE_CLIENT_RETRIES_NUMBER,"5");
   conf.set(HConstants.HBASE_CLIENT_OPERATION_TIMEOUT,"60000");
   String hbaseClusterFs=KylinConfig.getInstanceFromEnv().getHBaseClusterFs();
-  if (hbaseClusterFs != null && !hbaseClusterFs.equals("")) {
+  if (StringUtils.isNotEmpty(hbaseClusterFs)) {
     conf.set(FileSystem.FS_DEFAULT_NAME_KEY,hbaseClusterFs);
   }
   return conf;

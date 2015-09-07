@@ -1,6 +1,6 @@
 {
   final String jobId=result.getId();
-  final String cuboidPath=HadoopUtil.makeQualifiedPathInHadoopCluster(cuboidRootPath + "*");
+  final String cuboidPath=cuboidRootPath + "*";
   result.addTask(createRangeRowkeyDistributionStep(seg,cuboidPath));
   result.addTask(createCreateHTableStep(seg));
   final MapReduceExecutable convertCuboidToHfileStep=createConvertCuboidToHfileStep(seg,cuboidPath,jobId);
