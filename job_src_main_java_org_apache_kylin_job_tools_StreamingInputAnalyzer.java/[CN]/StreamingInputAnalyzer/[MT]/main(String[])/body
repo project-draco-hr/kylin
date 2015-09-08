@@ -1,0 +1,4 @@
+{
+  int exitCode=ToolRunner.run(new StreamingInputAnalyzer(),args);
+  System.exit(exitCode);
+}
