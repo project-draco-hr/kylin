@@ -1,11 +1,7 @@
 {
+  logger.info("start time:" + startTime + " end time:"+ endTime+ " batch interval:"+ batchInterval+ " batch count:"+ ((endTime - startTime) / batchInterval));
   for (long start=startTime; start < endTime; start+=batchInterval) {
-    BootstrapConfig bootstrapConfig=new BootstrapConfig();
-    bootstrapConfig.setStart(start);
-    bootstrapConfig.setEnd(start + batchInterval);
-    bootstrapConfig.setOneOff(true);
-    bootstrapConfig.setPartitionId(0);
-    bootstrapConfig.setStreaming(streamingName);
-    StreamingBootstrap.getInstance(KylinConfig.getInstanceFromEnv()).start(bootstrapConfig);
+    logger.info(String.format("build batch:{%d, %d}",start,start + batchInterval));
+    new OneOffStreamingBuilder(streamingName,start,start + batchInterval).build().run();
   }
 }

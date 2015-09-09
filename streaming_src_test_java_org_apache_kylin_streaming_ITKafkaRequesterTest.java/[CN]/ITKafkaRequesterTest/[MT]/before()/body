@@ -1,4 +1,0 @@
-{
-  streamingConfig=StreamingManager.getInstance(KylinConfig.getInstanceFromEnv()).getStreamingConfig("kafka_test");
-  kafkaClusterConfig=streamingConfig.getKafkaClusterConfigs().get(0);
-}

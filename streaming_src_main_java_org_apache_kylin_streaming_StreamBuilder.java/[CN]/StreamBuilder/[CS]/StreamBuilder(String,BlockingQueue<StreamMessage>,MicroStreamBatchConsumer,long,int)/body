@@ -1,9 +1,0 @@
-{
-  this.streaming=streaming;
-  this.streamMessageQueues=Lists.newArrayList();
-  this.consumer=Preconditions.checkNotNull(consumer);
-  this.startTimestamp=startTimestamp;
-  this.batchInterval=-1L;
-  this.batchSize=batchSize;
-  init(Preconditions.checkNotNull(input));
-}

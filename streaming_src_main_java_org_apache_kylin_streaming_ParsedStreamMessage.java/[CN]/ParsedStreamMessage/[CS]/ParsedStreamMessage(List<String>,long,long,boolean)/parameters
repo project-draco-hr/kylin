@@ -1,4 +1,0 @@
-List<String> streamMessage
-long offset
-long timestamp
-boolean accepted

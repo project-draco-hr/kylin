@@ -1,8 +1,0 @@
-{
-  final HashMap<Integer,Long> result=Maps.newHashMap();
-  final Random random=new Random();
-  for (  Integer partition : partitions) {
-    result.put(partition,random.nextLong());
-  }
-  return result;
-}

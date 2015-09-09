@@ -1,3 +1,0 @@
-{
-  return new ParsedStreamMessage(Lists.newArrayList(new String(streamMessage.getRawData()).split(",")),streamMessage.getOffset(),streamMessage.getOffset(),true);
-}

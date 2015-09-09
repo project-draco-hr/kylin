@@ -1,3 +1,0 @@
-{
-  this.streamMessageQueues.addAll(inputs);
-}

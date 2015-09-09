@@ -1,9 +1,0 @@
-{
-  streamingManager.updateOffset(streaming,offset);
-  final Map<Integer,Long> result=streamingManager.getOffset(streaming,Lists.newLinkedList(offset.keySet()));
-  System.out.println(result);
-  assertEquals(offset.size(),result.size());
-  for (  Integer partition : result.keySet()) {
-    assertEquals(offset.get(partition),result.get(partition));
-  }
-}

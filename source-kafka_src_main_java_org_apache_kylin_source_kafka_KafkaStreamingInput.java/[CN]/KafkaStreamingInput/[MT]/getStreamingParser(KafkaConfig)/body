@@ -9,8 +9,8 @@
 );
   if (!StringUtils.isEmpty(kafkaConfig.getParserName())) {
     Class clazz=Class.forName(kafkaConfig.getParserName());
-    Constructor constructor=clazz.getConstructor(List.class);
-    return (StreamingParser)constructor.newInstance(columns);
+    Constructor constructor=clazz.getConstructor(List.class,String.class);
+    return (StreamingParser)constructor.newInstance(columns,kafkaConfig.getParserProperties());
   }
  else {
     throw new IllegalStateException("invalid StreamingConfig:" + kafkaConfig.getName() + " missing property StreamingParser");

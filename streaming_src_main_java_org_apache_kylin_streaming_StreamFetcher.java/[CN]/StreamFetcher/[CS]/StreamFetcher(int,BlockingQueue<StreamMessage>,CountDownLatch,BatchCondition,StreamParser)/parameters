@@ -1,5 +1,0 @@
-int partitionId
-BlockingQueue<StreamMessage> streamMessageQueue
-CountDownLatch countDownLatch
-BatchCondition condition
-StreamParser streamParser

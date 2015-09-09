@@ -1,8 +1,0 @@
-{
-  this.bucketsBoundary=bucketsBoundary;
-  this.counters=new AtomicLong[this.bucketsBoundary.length + 1];
-  for (int i=0; i < counters.length; i++) {
-    this.counters[i]=new AtomicLong();
-  }
-  this.id=id;
-}

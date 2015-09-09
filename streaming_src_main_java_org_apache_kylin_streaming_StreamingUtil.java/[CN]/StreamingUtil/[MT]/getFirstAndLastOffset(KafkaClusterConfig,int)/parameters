@@ -1,2 +1,0 @@
-KafkaClusterConfig kafkaClusterConfig
-int partitionId

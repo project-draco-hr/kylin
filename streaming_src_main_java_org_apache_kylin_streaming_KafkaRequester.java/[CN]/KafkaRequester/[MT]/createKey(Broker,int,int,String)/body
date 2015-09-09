@@ -1,3 +1,0 @@
-{
-  return broker.getConnectionString() + "_" + timeout+ "_"+ bufferSize+ "_"+ clientId;
-}

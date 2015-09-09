@@ -1,0 +1,9 @@
+{
+  final Slice slice=sliceBuilder.buildSlice(batch);
+  try {
+    loadToHBase(htable,slice,new IIKeyValueCodec(slice.getInfo()));
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

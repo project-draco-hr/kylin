@@ -1,4 +1,0 @@
-{
-  this.leftMargin=leftMargin;
-  this.rightMargin=rightMargin;
-}

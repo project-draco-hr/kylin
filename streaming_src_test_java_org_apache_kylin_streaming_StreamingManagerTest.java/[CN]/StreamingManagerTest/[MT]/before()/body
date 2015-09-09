@@ -1,5 +1,0 @@
-{
-  this.createTestMetadata();
-  kylinConfig=KylinConfig.getInstanceFromEnv();
-  streamingManager=StreamingManager.getInstance(kylinConfig);
-}

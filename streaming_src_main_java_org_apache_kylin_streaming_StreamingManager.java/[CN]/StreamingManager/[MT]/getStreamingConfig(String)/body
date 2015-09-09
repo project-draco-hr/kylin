@@ -1,9 +1,0 @@
-{
-  try {
-    return getStore().getResource(formatStreamingConfigPath(name),StreamingConfig.class,StreamingConfig.SERIALIZER);
-  }
- catch (  IOException e) {
-    logger.error("error get resource name:" + name,e);
-    throw new RuntimeException("error get resource name:" + name,e);
-  }
-}

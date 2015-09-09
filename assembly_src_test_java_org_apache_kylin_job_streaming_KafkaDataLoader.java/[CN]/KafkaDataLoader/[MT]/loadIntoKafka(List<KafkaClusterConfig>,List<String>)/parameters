@@ -1,0 +1,2 @@
+List<KafkaClusterConfig> kafkaClusterConfigs
+List<String> messages

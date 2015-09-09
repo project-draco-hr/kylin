@@ -1,0 +1,11 @@
+{
+  final List<List<String>> messages=Lists.transform(microStreamBatch.getMessages(),new Function<StreamingMessage,List<String>>(){
+    @Nullable @Override public List<String> apply(    @Nullable StreamingMessage input){
+      return input.getData();
+    }
+  }
+);
+  final Dictionary<?>[] dictionaries=useLocalDict ? IIDictionaryBuilder.buildDictionary(messages,iiDesc) : new Dictionary[iiDesc.listAllColumns().size()];
+  TableRecordInfo tableRecordInfo=new TableRecordInfo(iiDesc,dictionaries);
+  return build(messages,tableRecordInfo,dictionaries);
+}

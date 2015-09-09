@@ -1,4 +1,0 @@
-{
-  streamingManager.updateOffset(streaming,partition,offset);
-  assertEquals(offset,streamingManager.getOffset(streaming,partition));
-}

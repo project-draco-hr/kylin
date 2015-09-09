@@ -12,28 +12,29 @@
       logger.info("measure:" + tblColRef.getName());
     }
   }
-  LinkedBlockingDeque<StreamMessage> queue=new LinkedBlockingDeque<StreamMessage>();
   final IISegment segment=createSegment(iiName);
+  final HTableInterface htable=HBaseConnection.get(KylinConfig.getInstanceFromEnv().getStorageUrl()).getTable(segment.getStorageLocationIdentifier());
   String[] args=new String[]{"-iiname",iiName,"-htablename",segment.getStorageLocationIdentifier()};
   ToolRunner.run(new IICreateHTableJob(),args);
-  ExecutorService executorService=Executors.newSingleThreadExecutor();
-  final StreamBuilder streamBuilder=StreamBuilder.newLimitedSizeStreamBuilder(iiName,queue,new IIStreamConsumer(iiName,segment.getStorageLocationIdentifier(),segment.getIIDesc(),0),0,segment.getIIDesc().getSliceSize());
+  final IIDesc iiDesc=segment.getIIDesc();
+  final SliceBuilder sliceBuilder=new SliceBuilder(desc,(short)0,iiDesc.isUseLocalDictionary());
   List<String[]> sorted=getSortedRows(reader,desc.getTimestampColumn());
   int count=sorted.size();
+  ArrayList<StreamingMessage> messages=Lists.newArrayList();
   for (  String[] row : sorted) {
-    logger.info("another row: " + StringUtils.join(row,","));
-    queue.put(parse(row));
+    if (messages.size() < iiDesc.getSliceSize()) {
+      messages.add(parse(row));
+    }
+ else {
+      build(sliceBuilder,new StreamingBatch(messages,Pair.newPair(System.currentTimeMillis(),System.currentTimeMillis())),htable);
+      messages=Lists.newArrayList();
+      messages.add((parse(row)));
+    }
+  }
+  if (!messages.isEmpty()) {
+    build(sliceBuilder,new StreamingBatch(messages,Pair.newPair(System.currentTimeMillis(),System.currentTimeMillis())),htable);
   }
   reader.close();
   logger.info("total record count:" + count + " htable:"+ segment.getStorageLocationIdentifier());
-  queue.put(StreamMessage.EOF);
-  final Future<?> future=executorService.submit(streamBuilder);
-  try {
-    future.get();
-  }
- catch (  Exception e) {
-    logger.error("stream build failed",e);
-    fail("stream build failed");
-  }
   logger.info("stream build finished, htable name:" + segment.getStorageLocationIdentifier());
 }

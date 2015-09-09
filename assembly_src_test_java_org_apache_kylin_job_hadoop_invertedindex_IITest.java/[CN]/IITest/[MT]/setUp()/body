@@ -2,21 +2,20 @@
   this.createTestMetadata();
   this.ii=IIManager.getInstance(getTestConfig()).getII(iiName);
   this.iiDesc=ii.getDescriptor();
-  List<StreamMessage> streamMessages=Lists.transform(Arrays.asList(inputData),new Function<String,StreamMessage>(){
-    @Nullable @Override public StreamMessage apply(    String input){
-      return new StreamMessage(System.currentTimeMillis(),input.getBytes());
+  List<MessageAndOffset> messages=Lists.transform(Arrays.asList(inputData),new Function<String,MessageAndOffset>(){
+    @Nullable @Override public MessageAndOffset apply(    String input){
+      return new MessageAndOffset(new Message(input.getBytes()),System.currentTimeMillis());
     }
   }
 );
-  List<List<String>> parsedStreamMessages=Lists.newArrayList();
-  StreamParser parser=StringStreamParser.instance;
-  MicroStreamBatch batch=new MicroStreamBatch(0);
-  for (  StreamMessage message : streamMessages) {
-    ParsedStreamMessage parsedStreamMessage=parser.parse(message);
-    if ((parsedStreamMessage.isAccepted())) {
-      batch.add(parsedStreamMessage);
+  final StreamingParser parser=StringStreamingParser.instance;
+  final List<StreamingMessage> streamingMessages=Lists.transform(messages,new Function<MessageAndOffset,StreamingMessage>(){
+    @Nullable @Override public StreamingMessage apply(    @Nullable MessageAndOffset input){
+      return parser.parse(input);
     }
   }
+);
+  StreamingBatch batch=new StreamingBatch(streamingMessages,Pair.newPair(0L,System.currentTimeMillis()));
   iiRows=Lists.newArrayList();
   final Slice slice=new SliceBuilder(iiDesc,(short)0,true).buildSlice((batch));
   IIKeyValueCodec codec=new IIKeyValueCodec(slice.getInfo());

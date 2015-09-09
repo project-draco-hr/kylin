@@ -2,8 +2,9 @@
   HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.SANDBOX_TEST_DATA);
   DeployUtil.overrideJobJarLocations();
   kylinConfig=KylinConfig.getInstanceFromEnv();
-  StreamingConfig streamingConfig=StreamingManager.getInstance(kylinConfig).getStreamingConfig(streamingName);
+  final StreamingConfig config=StreamingManager.getInstance(KylinConfig.getInstanceFromEnv()).getStreamingConfig(streamingName);
+  KafkaConfig streamingConfig=KafkaConfigManager.getInstance(kylinConfig).getKafkaConfig(streamingName);
   streamingConfig.setTopic(UUID.randomUUID().toString());
-  StreamingManager.getInstance(kylinConfig).saveStreamingConfig(streamingConfig);
-  DeployUtil.prepareTestDataForStreamingCube(startTime,endTime,streamingConfig);
+  KafkaConfigManager.getInstance(kylinConfig).saveStreamingConfig(streamingConfig);
+  DeployUtil.prepareTestDataForStreamingCube(startTime,endTime,config.getCubeName(),streamingConfig);
 }

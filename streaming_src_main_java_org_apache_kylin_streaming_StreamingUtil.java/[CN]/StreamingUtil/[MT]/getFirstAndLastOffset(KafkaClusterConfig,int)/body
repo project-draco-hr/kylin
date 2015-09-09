@@ -1,7 +1,0 @@
-{
-  final String topic=kafkaClusterConfig.getTopic();
-  final Broker leadBroker=Preconditions.checkNotNull(getLeadBroker(kafkaClusterConfig,partitionId),"unable to find leadBroker with config:" + kafkaClusterConfig + " partitionId:"+ partitionId);
-  final long earliestOffset=KafkaRequester.getLastOffset(topic,partitionId,OffsetRequest.EarliestTime(),leadBroker,kafkaClusterConfig);
-  final long latestOffset=KafkaRequester.getLastOffset(topic,partitionId,OffsetRequest.LatestTime(),leadBroker,kafkaClusterConfig) - 1;
-  return Pair.newPair(earliestOffset,latestOffset);
-}

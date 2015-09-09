@@ -1,5 +1,0 @@
-{
-  for (  KafkaConsumer consumer : kafkaConsumers.values()) {
-    consumer.stop();
-  }
-}
