@@ -1,7 +1,9 @@
 {
   int uuidLength=36;
+  final String useDatabaseHql="USE " + KylinConfig.getInstanceFromEnv().getHiveDatabaseForIntermediateTable() + ";";
   StringBuilder buf=new StringBuilder();
   buf.append("hive -e \"");
+  buf.append(useDatabaseHql);
   buf.append("show tables " + "\'kylin_intermediate_*\'" + "; ");
   buf.append("\"");
   ShellCmd cmd=new ShellCmd(buf.toString(),null,null,null,false);
@@ -42,6 +44,7 @@
   if (delete == true) {
     buf.delete(0,buf.length());
     buf.append("hive -e \"");
+    buf.append(useDatabaseHql);
     for (    String delHive : allHiveTablesNeedToBeDeleted) {
       buf.append("drop table if exists " + delHive + "; ");
       log.info("Remove " + delHive + " from hive tables.");
