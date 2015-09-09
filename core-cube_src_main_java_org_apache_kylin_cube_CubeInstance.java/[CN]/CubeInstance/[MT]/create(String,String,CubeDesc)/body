@@ -8,7 +8,5 @@
   cubeInstance.setStatus(RealizationStatusEnum.DISABLED);
   cubeInstance.updateRandomUuid();
   cubeInstance.setProjectName(projectName);
-  cubeInstance.setEngineType(IEngineAware.ID_MR_V2);
-  cubeInstance.setStorageType(IStorageAware.ID_HBASE);
   return cubeInstance;
 }

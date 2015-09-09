@@ -2,8 +2,13 @@
   try {
     Map<String,String> root=mapper.readValue(stream.getRawData(),mapType);
     String tsStr=root.get(tsColName);
-    Preconditions.checkArgument(!StringUtils.isEmpty(tsStr),"Timestamp field cannot be null");
-    long t=Long.valueOf(root.get(tsColName));
+    long t;
+    if (StringUtils.isEmpty(tsStr)) {
+      t=0;
+    }
+ else {
+      t=Long.valueOf(tsStr);
+    }
     ArrayList<String> result=Lists.newArrayList();
     for (    TblColRef column : allColumns) {
       String columnName=column.getName();
