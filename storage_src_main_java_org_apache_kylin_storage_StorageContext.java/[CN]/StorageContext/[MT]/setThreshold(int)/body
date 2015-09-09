@@ -1,3 +1,3 @@
 {
-  threshold=Math.min(t,HARD_THRESHOLD);
+  threshold=t;
 }
