@@ -3,5 +3,8 @@
   DataModelDesc copy=JsonUtil.readValue(repr,DataModelDesc.class);
   copy.setUuid(null);
   copy.setLastModified(0);
+  copy.setCapacity(RealizationCapacity.MEDIUM);
+  copy.setFilterCondition(null);
+  copy.setPartitionDesc(null);
   return JsonUtil.writeValueAsString(copy);
 }
