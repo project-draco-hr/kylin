@@ -1,16 +1,13 @@
 {
   super.bindCurrentConfiguration(context.getConfiguration());
-  DataModelDesc.RealizationCapacity cubeCapacity=DataModelDesc.RealizationCapacity.valueOf(context.getConfiguration().get(BatchConstants.CUBE_CAPACITY));
-switch (cubeCapacity) {
-case SMALL:
-    cut=SMALL_CUT;
-  break;
-case MEDIUM:
-cut=MEDIUM_CUT;
-break;
-case LARGE:
-cut=LARGE_CUT;
-break;
-}
-logger.info("Chosen cut for htable is " + cut);
+  if (context.getConfiguration().get(BatchConstants.REGION_SPLIT_SIZE) != null) {
+    cut=Integer.valueOf(context.getConfiguration().get(BatchConstants.REGION_SPLIT_SIZE));
+  }
+  if (context.getConfiguration().get(BatchConstants.REGION_NUMBER_MIN) != null) {
+    minRegionCount=Integer.valueOf(context.getConfiguration().get(BatchConstants.REGION_NUMBER_MIN));
+  }
+  if (context.getConfiguration().get(BatchConstants.REGION_NUMBER_MAX) != null) {
+    maxRegionCount=Integer.valueOf(context.getConfiguration().get(BatchConstants.REGION_NUMBER_MAX));
+  }
+  logger.info("Chosen cut for htable is " + cut + ", max region count="+ maxRegionCount+ ", min region count ="+ minRegionCount);
 }
