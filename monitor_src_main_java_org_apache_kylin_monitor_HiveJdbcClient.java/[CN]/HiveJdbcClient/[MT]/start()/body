@@ -74,4 +74,28 @@
     FileUtils.appendResultToHdfs(each_day_percentile_file,new String[]{res.getString(1),res.getString(2),res.getString(3)});
     logger.info(res.getString(1) + "," + res.getString(2)+ ","+ res.getString(3));
   }
+  if (res != null) {
+    try {
+      res.close();
+    }
+ catch (    SQLException e) {
+      logger.error("failed to close",e);
+    }
+  }
+  if (stmt != null) {
+    try {
+      stmt.close();
+    }
+ catch (    SQLException e) {
+      logger.error("failed to close",e);
+    }
+  }
+  if (con != null) {
+    try {
+      con.close();
+    }
+ catch (    SQLException e) {
+      logger.error("failed to close",e);
+    }
+  }
 }
