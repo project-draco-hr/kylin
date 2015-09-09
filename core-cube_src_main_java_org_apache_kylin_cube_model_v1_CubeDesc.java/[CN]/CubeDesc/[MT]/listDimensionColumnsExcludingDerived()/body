@@ -1,7 +1,0 @@
-{
-  List<TblColRef> result=new ArrayList<TblColRef>();
-  for (  TblColRef col : dimensionColumns) {
-    if (isDerived(col) == false)     result.add(col);
-  }
-  return result;
-}

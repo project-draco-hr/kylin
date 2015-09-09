@@ -1,3 +1,0 @@
-{
-  return ExecutableManager.getInstance(config);
-}

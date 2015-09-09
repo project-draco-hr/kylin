@@ -1,4 +1,0 @@
-{
-  tableName=tableName.toUpperCase();
-  return tables.contains(tableName);
-}

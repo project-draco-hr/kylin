@@ -1,3 +1,0 @@
-org.apache.kylin.cube.model.v1.DimensionDesc dim
-int dimId
-String name

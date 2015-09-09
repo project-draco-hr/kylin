@@ -1,7 +1,0 @@
-{
-  DimensionDesc newDim=new DimensionDesc();
-  newDim.setId(dimId);
-  newDim.setName(name);
-  newDim.setTable(getMetadataManager().appendDBName(dim.getTable()));
-  return newDim;
-}

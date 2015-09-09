@@ -1,6 +1,0 @@
-{
-  for (  MeasureDesc m : measures) {
-    if (m.getFunction().equals(manualFunc))     return m.getFunction();
-  }
-  return null;
-}

@@ -1,5 +1,0 @@
-{
-  lookupTableName=lookupTableName.toUpperCase();
-  for (  DimensionDesc dim : dimensions)   if (dim.getTable() != null && dim.getTable().equals(lookupTableName))   return dim;
-  return null;
-}

@@ -1,3 +1,0 @@
-{
-  return getSnapshots().get(table);
-}
