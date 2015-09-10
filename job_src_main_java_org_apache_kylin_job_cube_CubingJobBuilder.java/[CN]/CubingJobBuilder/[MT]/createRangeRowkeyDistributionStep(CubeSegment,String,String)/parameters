@@ -1,2 +1,3 @@
 CubeSegment seg
 String inputPath
+String jobId

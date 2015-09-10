@@ -4,7 +4,7 @@
   StringBuilder cmd=new StringBuilder();
   appendMapReduceParameters(cmd,seg);
   appendExecCmdParameters(cmd,"input",inputPath);
-  appendExecCmdParameters(cmd,"output",getRowkeyDistributionOutputPath(seg));
+  appendExecCmdParameters(cmd,"output",getRowkeyDistributionOutputPath(seg,jobId));
   appendExecCmdParameters(cmd,"cubename",seg.getCubeInstance().getName());
   appendExecCmdParameters(cmd,"jobname","Kylin_Region_Splits_Calculator_" + seg.getCubeInstance().getName() + "_Step");
   rowkeyDistributionStep.setMapReduceParams(cmd.toString());

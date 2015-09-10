@@ -1,8 +1,8 @@
 {
   final String jobId=result.getId();
   final String cuboidPath=cuboidRootPath + "*";
-  result.addTask(createRangeRowkeyDistributionStep(seg,cuboidPath));
-  result.addTask(createCreateHTableStep(seg));
+  result.addTask(createRangeRowkeyDistributionStep(seg,cuboidPath,jobId));
+  result.addTask(createCreateHTableStep(seg,jobId));
   final MapReduceExecutable convertCuboidToHfileStep=createConvertCuboidToHfileStep(seg,cuboidPath,jobId);
   result.addTask(convertCuboidToHfileStep);
   result.addTask(createBulkLoadStep(seg,jobId));
