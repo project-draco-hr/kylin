@@ -1,0 +1,3 @@
+{
+  setArrayParam(OLD_HDFS_PATHS_ON_HBASE_CLUSTER,paths);
+}

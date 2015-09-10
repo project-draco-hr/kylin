@@ -1,0 +1,19 @@
+{
+  if (oldHdfsPaths != null && oldHdfsPaths.size() > 0) {
+    logger.debug("Drop HDFS path on FileSystem: " + fileSystem.getUri());
+    output.append("Drop HDFS path on FileSystem: \"" + fileSystem.getUri() + "\" \n");
+    for (    String path : oldHdfsPaths) {
+      if (path.endsWith("*"))       path=path.substring(0,path.length() - 1);
+      Path oldPath=new Path(path);
+      if (fileSystem.exists(oldPath)) {
+        fileSystem.delete(oldPath,true);
+        logger.debug("Dropped HDFS path: " + path);
+        output.append("Dropped HDFS path  \"" + path + "\" \n");
+      }
+ else {
+        logger.debug("HDFS path not exists: " + path);
+        output.append("HDFS path not exists: \"" + path + "\" \n");
+      }
+    }
+  }
+}

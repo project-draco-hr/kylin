@@ -1,3 +1,4 @@
 CubeSegment seg
 String cuboidRootPath
 CubingJob result
+List<String> toDeletePaths

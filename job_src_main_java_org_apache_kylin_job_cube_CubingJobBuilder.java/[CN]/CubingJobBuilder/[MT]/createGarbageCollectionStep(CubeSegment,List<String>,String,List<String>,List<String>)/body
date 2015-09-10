@@ -3,6 +3,7 @@
   result.setName(ExecutableConstants.STEP_NAME_GARBAGE_COLLECTION);
   result.setOldHTables(oldHtables);
   result.setOldHiveTable(hiveIntermediateTable);
-  result.setOldHdsfPaths(oldHdsfPaths);
+  result.setOldHdfsPaths(oldHdsfPaths);
+  result.setOldHdfsPathsOnHBaseCluster(oldHdfsPathsOnHBaseCluster);
   return result;
 }

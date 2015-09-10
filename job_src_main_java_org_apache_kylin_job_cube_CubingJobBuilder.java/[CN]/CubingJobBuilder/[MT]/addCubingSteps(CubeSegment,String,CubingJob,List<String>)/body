@@ -17,5 +17,7 @@
     int dimNum=totalRowkeyColumnsCount - i;
     result.addTask(createNDimensionCuboidStep(seg,cuboidOutputTempPath,dimNum,totalRowkeyColumnsCount));
   }
+  toDeletePaths.add(intermediateHiveTableLocation);
+  toDeletePaths.add(factDistinctColumnsPath);
   return new Pair<AbstractExecutable,AbstractExecutable>(intermediateHiveTableStep,baseCuboidStep);
 }
