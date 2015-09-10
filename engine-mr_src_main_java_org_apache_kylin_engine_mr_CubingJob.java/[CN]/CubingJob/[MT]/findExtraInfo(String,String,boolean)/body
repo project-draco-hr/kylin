@@ -1,0 +1,12 @@
+{
+  ArrayList<AbstractExecutable> tasks=new ArrayList<AbstractExecutable>(getTasks());
+  if (backward) {
+    Collections.reverse(tasks);
+  }
+  for (  AbstractExecutable child : tasks) {
+    Output output=executableManager.getOutput(child.getId());
+    String value=output.getExtra().get(key);
+    if (value != null)     return value;
+  }
+  return dft;
+}

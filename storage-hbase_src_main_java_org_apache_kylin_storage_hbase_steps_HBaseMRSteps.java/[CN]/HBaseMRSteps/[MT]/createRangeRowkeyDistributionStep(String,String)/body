@@ -1,4 +1,5 @@
 {
+  String inputPath=cuboidRootPath + (cuboidRootPath.endsWith("/") ? "" : "/") + "*";
   MapReduceExecutable rowkeyDistributionStep=new MapReduceExecutable();
   rowkeyDistributionStep.setName(ExecutableConstants.STEP_NAME_GET_CUBOID_KEY_DISTRIBUTION);
   StringBuilder cmd=new StringBuilder();

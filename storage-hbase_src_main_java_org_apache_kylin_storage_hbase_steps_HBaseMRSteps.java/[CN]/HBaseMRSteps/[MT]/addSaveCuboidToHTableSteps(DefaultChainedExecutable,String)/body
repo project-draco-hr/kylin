@@ -1,7 +1,7 @@
 {
   String jobId=jobFlow.getId();
-  jobFlow.addTask(createRangeRowkeyDistributionStep(cuboidRootPath + "*",jobId));
+  jobFlow.addTask(createRangeRowkeyDistributionStep(cuboidRootPath,jobId));
   jobFlow.addTask(createCreateHTableStep(jobId));
-  jobFlow.addTask(createConvertCuboidToHfileStep(cuboidRootPath + "*",jobId));
+  jobFlow.addTask(createConvertCuboidToHfileStep(cuboidRootPath,jobId));
   jobFlow.addTask(createBulkLoadStep(jobId));
 }

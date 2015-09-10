@@ -1,0 +1,8 @@
+{
+  return new IMRBatchMergeInputSide2(){
+    @Override public IMRStorageInputFormat getStorageInputFormat(){
+      return new HBaseInputFormat(seg);
+    }
+  }
+;
+}

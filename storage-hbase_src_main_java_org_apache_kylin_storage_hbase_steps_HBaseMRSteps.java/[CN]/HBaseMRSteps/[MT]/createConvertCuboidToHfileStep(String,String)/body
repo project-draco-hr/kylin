@@ -1,4 +1,5 @@
 {
+  String inputPath=cuboidRootPath + (cuboidRootPath.endsWith("/") ? "" : "/") + "*";
   MapReduceExecutable createHFilesStep=new MapReduceExecutable();
   createHFilesStep.setName(ExecutableConstants.STEP_NAME_CONVERT_CUBOID_TO_HFILE);
   StringBuilder cmd=new StringBuilder();

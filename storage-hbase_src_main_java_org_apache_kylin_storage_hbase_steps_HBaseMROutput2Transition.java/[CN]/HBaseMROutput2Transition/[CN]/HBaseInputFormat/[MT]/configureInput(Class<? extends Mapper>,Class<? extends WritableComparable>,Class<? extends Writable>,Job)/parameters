@@ -1,0 +1,4 @@
+Class<? extends Mapper> mapper
+Class<? extends WritableComparable> outputKeyClass
+Class<? extends Writable> outputValueClass
+Job job

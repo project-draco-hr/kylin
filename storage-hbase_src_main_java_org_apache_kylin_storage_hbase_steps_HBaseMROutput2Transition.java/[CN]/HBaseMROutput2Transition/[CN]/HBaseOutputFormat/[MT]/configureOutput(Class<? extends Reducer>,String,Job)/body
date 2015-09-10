@@ -1,0 +1,9 @@
+{
+  job.setReducerClass(reducer);
+  job.setOutputFormatClass(SequenceFileOutputFormat.class);
+  job.setOutputKeyClass(Text.class);
+  job.setOutputValueClass(Text.class);
+  Path output=new Path(new HBaseMRSteps(seg).getCuboidRootPath(jobFlowId));
+  FileOutputFormat.setOutputPath(job,output);
+  HadoopUtil.deletePath(job.getConfiguration(),output);
+}

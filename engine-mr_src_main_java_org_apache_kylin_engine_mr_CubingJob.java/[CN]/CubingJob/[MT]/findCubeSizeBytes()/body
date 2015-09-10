@@ -1,3 +1,3 @@
 {
-  return Long.parseLong(findExtraInfo(CUBE_SIZE_BYTES,"0"));
+  return Long.parseLong(findExtraInfoBackward(CUBE_SIZE_BYTES,"0"));
 }

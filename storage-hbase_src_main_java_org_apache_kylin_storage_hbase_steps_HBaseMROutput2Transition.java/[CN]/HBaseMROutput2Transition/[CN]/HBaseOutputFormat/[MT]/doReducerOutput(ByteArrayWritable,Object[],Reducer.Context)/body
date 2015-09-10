@@ -1,0 +1,13 @@
+{
+  if (outputKey == null) {
+    outputKey=new Text();
+    outputValue=new Text();
+    valueBuf=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
+    codec=new MeasureCodec(seg.getCubeDesc().getMeasures());
+  }
+  outputKey.set(key.array(),key.offset(),key.length());
+  valueBuf.clear();
+  codec.encode(value,valueBuf);
+  outputValue.set(valueBuf.array(),0,valueBuf.position());
+  context.write(outputKey,outputValue);
+}

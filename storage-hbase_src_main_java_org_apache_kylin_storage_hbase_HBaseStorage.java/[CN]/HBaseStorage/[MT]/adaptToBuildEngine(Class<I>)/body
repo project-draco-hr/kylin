@@ -3,7 +3,7 @@
     return (I)new HBaseMROutput();
   }
  else   if (engineInterface == IMROutput2.class) {
-    return (I)new HBaseMROutput2();
+    return (I)new HBaseMROutput2Transition();
   }
  else {
     throw new RuntimeException("Cannot adapt to " + engineInterface);

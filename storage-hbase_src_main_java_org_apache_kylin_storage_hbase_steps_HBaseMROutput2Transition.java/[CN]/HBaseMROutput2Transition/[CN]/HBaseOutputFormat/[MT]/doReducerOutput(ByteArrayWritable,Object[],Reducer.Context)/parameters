@@ -1,0 +1,3 @@
+ByteArrayWritable key
+Object[] value
+Reducer.Context context
