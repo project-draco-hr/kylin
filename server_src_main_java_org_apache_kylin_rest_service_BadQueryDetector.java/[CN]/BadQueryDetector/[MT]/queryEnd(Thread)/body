@@ -1,9 +1,3 @@
 {
-  Entry e=runningQueries.remove(thread);
-  if (e != null) {
-    int runningSec=(int)((System.currentTimeMillis() - e.startTime) / 1000);
-    if (runningSec >= alertRunningSec) {
-      notify("Slow",runningSec,e.sqlRequest.getSql());
-    }
-  }
+  runningQueries.remove(thread);
 }
