@@ -1,5 +1,5 @@
 {
-  this.htables=new HBaseMRSteps(seg).getMergingHTables();
+  this.seg=seg;
   List<RowValueDecoder> valueDecoderList=Lists.newArrayList();
   List<MeasureDesc> measuresDescs=Lists.newArrayList();
   for (  HBaseColumnFamilyDesc cfDesc : seg.getCubeDesc().getHBaseMapping().getColumnFamily()) {

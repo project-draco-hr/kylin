@@ -1,4 +1,4 @@
-Class<? extends Mapper> mapper
-Class<? extends WritableComparable> outputKeyClass
-Class<? extends Writable> outputValueClass
+Class<? extends Mapper> mapperClz
+Class<? extends WritableComparable> outputKeyClz
+Class<? extends Writable> outputValueClz
 Job job

@@ -8,12 +8,7 @@
   cubeDesc=cube.getDescriptor();
   mergedCubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   newKeyBuf=new byte[256];
-  InputSplit inputSplit=context.getInputSplit();
-  String filePath=((FileSplit)inputSplit).getPath().toString();
-  System.out.println("filePath:" + filePath);
-  String jobID=extractJobIDFromPath(filePath);
-  System.out.println("jobID:" + jobID);
-  sourceCubeSegment=findSegmentWithUuid(jobID,cube);
-  System.out.println(sourceCubeSegment);
-  this.rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
+  FileSplit fileSplit=(FileSplit)context.getInputSplit();
+  sourceCubeSegment=findSourceSegment(fileSplit,cube);
+  rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
 }

@@ -1,13 +1,24 @@
 {
-  Configuration conf=job.getConfiguration();
-  HBaseConfiguration.merge(conf,HBaseConfiguration.create(conf));
-  List<Scan> scans=new ArrayList<Scan>();
-  for (  String htable : htables) {
-    Scan scan=new Scan();
-    scan.setCaching(500);
-    scan.setCacheBlocks(false);
-    scan.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME,Bytes.toBytes(htable));
-    scans.add(scan);
+  if (isMergeFromCuboidFiles(job.getConfiguration())) {
+    logger.info("Merge from cuboid files for " + seg);
+    job.setInputFormatClass(SequenceFileInputFormat.class);
+    addCuboidInputDirs(job);
+    job.setMapperClass(mapperClz);
+    job.setMapOutputKeyClass(outputKeyClz);
+    job.setMapOutputValueClass(outputValueClz);
   }
-  TableMapReduceUtil.initTableMapperJob(scans,(Class<? extends TableMapper>)mapper,outputKeyClass,outputValueClass,job);
+ else {
+    logger.info("Merge from HTables for " + seg);
+    Configuration conf=job.getConfiguration();
+    HBaseConfiguration.merge(conf,HBaseConfiguration.create(conf));
+    List<Scan> scans=new ArrayList<Scan>();
+    for (    String htable : new HBaseMRSteps(seg).getMergingHTables()) {
+      Scan scan=new Scan();
+      scan.setCaching(500);
+      scan.setCacheBlocks(false);
+      scan.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME,Bytes.toBytes(htable));
+      scans.add(scan);
+    }
+    TableMapReduceUtil.initTableMapperJob(scans,(Class<? extends TableMapper>)mapperClz,outputKeyClz,outputValueClz,job);
+  }
 }

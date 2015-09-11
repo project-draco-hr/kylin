@@ -2,7 +2,7 @@
   TableSplit currentSplit=(TableSplit)context.getInputSplit();
   byte[] tableName=currentSplit.getTableName();
   String htableName=Bytes.toString(tableName);
-  for (  CubeSegment segment : cubeInstance.getSegments()) {
+  for (  CubeSegment segment : seg.getCubeInstance().getSegments()) {
     String segmentHtable=segment.getStorageLocationIdentifier();
     if (segmentHtable != null && segmentHtable.equalsIgnoreCase(htableName)) {
       return segment;

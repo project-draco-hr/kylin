@@ -9,7 +9,7 @@
   mergedCubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   storageInputFormat=MRUtil.getBatchMergeInputSide2(mergedCubeSegment).getStorageInputFormat();
   newKeyBuf=new byte[256];
-  sourceCubeSegment=storageInputFormat.findSourceSegment(context,cube);
+  sourceCubeSegment=storageInputFormat.findSourceSegment(context);
   logger.info("Source cube segment: " + sourceCubeSegment);
   rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
   codec=new MeasureCodec(cubeDesc.getMeasures());

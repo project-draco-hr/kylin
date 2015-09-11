@@ -1,25 +1,3 @@
 {
-  for (  String inp : StringSplitter.split(input,",")) {
-    inp=inp.trim();
-    if (inp.endsWith("/*")) {
-      inp=inp.substring(0,inp.length() - 2);
-      FileSystem fs=FileSystem.get(job.getConfiguration());
-      Path path=new Path(inp);
-      FileStatus[] fileStatuses=fs.listStatus(path);
-      boolean hasDir=false;
-      for (      FileStatus stat : fileStatuses) {
-        if (stat.isDirectory() && !stat.getPath().getName().startsWith("_")) {
-          hasDir=true;
-          addInputDirs(stat.getPath().toString(),job);
-        }
-      }
-      if (fileStatuses.length > 0 && !hasDir) {
-        addInputDirs(path.toString(),job);
-      }
-    }
- else {
-      logger.debug("Add input " + inp);
-      FileInputFormat.addInputPath(job,new Path(inp));
-    }
-  }
+  addInputDirs(StringSplitter.split(input,","),job);
 }
