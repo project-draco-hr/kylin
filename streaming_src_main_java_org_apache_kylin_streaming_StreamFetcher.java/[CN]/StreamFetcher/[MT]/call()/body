@@ -4,7 +4,6 @@
     while (true) {
       if (microStreamBatch == null) {
         microStreamBatch=new MicroStreamBatch(partitionId);
-        clearCounter();
       }
       StreamMessage streamMessage=peek(streamMessageQueue,60000);
       if (streamMessage == null) {
@@ -29,26 +28,30 @@
  else         if (result == BatchCondition.Result.LAST_ACCEPT_FOR_BATCH) {
           streamMessageQueue.take();
           microStreamBatch.add(parsedStreamMessage);
-          return microStreamBatch;
+          break;
         }
  else         if (result == BatchCondition.Result.DISCARD) {
           streamMessageQueue.take();
         }
  else         if (result == BatchCondition.Result.REJECT) {
-          return microStreamBatch;
+          logger.info("Partition :" + partitionId + " rejecting message at "+ parsedStreamMessage.getOffset());
+          break;
         }
       }
  else {
         streamMessageQueue.take();
       }
     }
+    Preconditions.checkArgument(microStreamBatch != null,"microStreamBatch is null!");
+    logger.info(String.format("Partition %d contributing %d filtered messages out from %d raw messages",partitionId,microStreamBatch.getFilteredMessageCount(),microStreamBatch.getRawMessageCount()));
+    return microStreamBatch;
   }
  catch (  Exception e) {
     logger.error("build stream error, stop building",e);
     throw new RuntimeException("build stream error, stop building",e);
   }
  finally {
-    logger.info("one partition sign off");
+    logger.info("partition {} sign off",partitionId);
     countDownLatch.countDown();
   }
 }
