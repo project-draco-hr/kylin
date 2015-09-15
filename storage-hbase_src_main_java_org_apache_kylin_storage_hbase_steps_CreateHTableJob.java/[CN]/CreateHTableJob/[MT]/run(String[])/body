@@ -16,7 +16,7 @@
   segmentName=getOptionValue(OPTION_SEGMENT_NAME);
   CubeSegment cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   String tableName=getOptionValue(OPTION_HTABLE_NAME).toUpperCase();
-  Configuration conf=HBaseConfiguration.create(getConf());
+  Configuration conf=HadoopUtil.getCurrentHBaseConfiguration();
   try {
     byte[][] splitKeys;
     if (statistics_enabled) {
