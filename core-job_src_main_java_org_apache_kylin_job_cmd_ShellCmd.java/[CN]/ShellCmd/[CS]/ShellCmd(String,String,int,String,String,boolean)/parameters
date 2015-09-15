@@ -1,6 +1,0 @@
-String executeCmd
-String host
-int port
-String user
-String password
-boolean async

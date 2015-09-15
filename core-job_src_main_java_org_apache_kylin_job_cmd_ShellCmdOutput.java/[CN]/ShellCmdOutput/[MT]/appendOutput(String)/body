@@ -1,4 +1,0 @@
-{
-  output.append(message).append(System.getProperty("line.separator"));
-  logger.debug(message);
-}

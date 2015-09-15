@@ -1,3 +1,0 @@
-{
-  return Arrays.copyOf(splittedBytes.value,splittedBytes.length);
-}

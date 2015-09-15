@@ -3,8 +3,7 @@
   if (StringUtils.isNotEmpty(hiveTable)) {
     final String dropSQL="USE " + context.getConfig().getHiveDatabaseForIntermediateTable() + ";"+ " DROP TABLE IF EXISTS  "+ hiveTable+ ";";
     final String dropHiveCMD="hive -e \"" + dropSQL + "\"";
-    ShellCmdOutput shellCmdOutput=new ShellCmdOutput();
-    context.getConfig().getCliCommandExecutor().execute(dropHiveCMD,shellCmdOutput);
+    context.getConfig().getCliCommandExecutor().execute(dropHiveCMD);
     output.append("Dropped Hive table " + hiveTable + " \n");
   }
 }
