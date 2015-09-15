@@ -1,0 +1,12 @@
+{
+  Statement statement=null;
+  ResultSet resultSet=null;
+  try {
+    statement=connection.createStatement();
+    resultSet=statement.executeQuery(query);
+    return resultSet;
+  }
+ catch (  SQLException sqlException) {
+    throw sqlException;
+  }
+}

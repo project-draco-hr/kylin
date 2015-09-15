@@ -1,0 +1,3 @@
+{
+  return getOptional(KYLIN_ROUTE_HIVE_URL,KYLIN_ROUTE_HIVE_URL_DEFAULT);
+}

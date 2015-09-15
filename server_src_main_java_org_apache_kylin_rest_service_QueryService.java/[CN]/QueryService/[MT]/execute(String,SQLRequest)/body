@@ -32,7 +32,32 @@
       oneRow.clear();
     }
   }
-  finally {
+ catch (  SQLException sqlException) {
+    boolean isExpectedCause=(ExceptionUtils.getRootCause(sqlException).getClass().equals(SqlValidatorException.class)) || (ExceptionUtils.getRootCause(sqlException).getClass().equals(ParseException.class));
+    KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+    if (isExpectedCause && kylinConfig.isHiveReroutingEnabled()) {
+      logger.debug("query rerouting option enabled for Kylin");
+      HiveRerouteUtil rerouteUtil=new HiveRerouteUtil();
+      try {
+        conn=rerouteUtil.createConnection(kylinConfig.getHiveRerouteUrl(),kylinConfig.getHiveRerouteUsername(),kylinConfig.getHiveReroutePassword());
+        resultSet=rerouteUtil.executQuery(conn,sql);
+        columnMetas=rerouteUtil.extractColumnMetadata(resultSet,columnMetas);
+        results=rerouteUtil.extractResults(resultSet,results);
+      }
+ catch (      Exception exception) {
+        logger.error("exception in re-routing the query to hive",exception);
+        throw exception;
+      }
+ finally {
+        rerouteUtil.closeConnection(conn);
+      }
+    }
+ else {
+      logger.error("exception in running the query: " + sql);
+      throw sqlException;
+    }
+  }
+ finally {
     close(resultSet,stat,conn);
   }
   boolean isPartialResult=false;
