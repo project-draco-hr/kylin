@@ -8,6 +8,5 @@
   cubeInstance.setStatus(RealizationStatusEnum.DISABLED);
   cubeInstance.updateRandomUuid();
   cubeInstance.setProjectName(projectName);
-  cubeInstance.setRetentionRange(cubeDesc.getRetentionRange());
   return cubeInstance;
 }
