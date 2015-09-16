@@ -9,6 +9,8 @@
   for (  CubeSegment segment : cube.getSegments()) {
     dictAndSnapshot.addAll(segment.getSnapshotPaths());
     dictAndSnapshot.addAll(segment.getDictionaryPaths());
-    metaResource.add(segment.getStatisticsResourcePath());
+    if (cube.getDescriptor().getEngineType() == IEngineAware.ID_MR_V2) {
+      metaResource.add(segment.getStatisticsResourcePath());
+    }
   }
 }
