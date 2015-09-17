@@ -29,28 +29,9 @@ case COPY_DICT_OR_SNAPSHOT:
     DictionaryManager dstDictMgr=DictionaryManager.getInstance(dstConfig);
     DictionaryManager srcDicMgr=DictionaryManager.getInstance(srcConfig);
     DictionaryInfo dictSrc=srcDicMgr.getDictionaryInfo(item);
-    long ts=dictSrc.getLastModified();
-    dictSrc.setLastModified(0);
-    DictionaryInfo dictSaved=dstDictMgr.trySaveNewDict(dictSrc.getDictionaryObject(),dictSrc);
-    dictSrc.setLastModified(ts);
-    if (dictSaved == dictSrc) {
-      logger.info("Item " + item + " is copied");
-    }
- else {
-      String cubeName=(String)opt.params[1];
-      String cubeResPath=CubeInstance.concatResourcePath(cubeName);
-      Serializer<CubeInstance> cubeSerializer=new JsonSerializer<CubeInstance>(CubeInstance.class);
-      CubeInstance cube=dstStore.getResource(cubeResPath,CubeInstance.class,cubeSerializer);
-      for (      CubeSegment segment : cube.getSegments()) {
-        for (        Map.Entry<String,String> entry : segment.getDictionaries().entrySet()) {
-          if (entry.getValue().equalsIgnoreCase(item)) {
-            entry.setValue(dictSaved.getResourcePath());
-          }
-        }
-      }
-      dstStore.putResource(cubeResPath,cube,cubeSerializer);
-      logger.info("Item " + item + " is dup, instead "+ dictSaved.getResourcePath()+ " is reused");
-    }
+    DictionaryInfo dictSaved=dstDictMgr.forceSave(dictSrc.getDictionaryObject(),dictSrc);
+    Preconditions.checkState(dictSaved == dictSrc);
+    logger.info("Item " + item + " is copied");
   }
  else   if (item.toLowerCase().endsWith(".snapshot")) {
     SnapshotManager dstSnapMgr=SnapshotManager.getInstance(dstConfig);
