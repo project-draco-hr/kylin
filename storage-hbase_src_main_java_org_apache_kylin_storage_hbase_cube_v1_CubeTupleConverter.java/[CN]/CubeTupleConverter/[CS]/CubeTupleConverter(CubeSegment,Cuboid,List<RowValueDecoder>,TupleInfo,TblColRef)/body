@@ -1,0 +1,53 @@
+{
+  this.cubeSeg=cubeSeg;
+  this.cuboid=cuboid;
+  this.tupleInfo=tupleInfo;
+  this.rowKeyDecoder=new RowKeyDecoder(this.cubeSeg);
+  this.rowValueDecoders=rowValueDecoders;
+  this.derivedColFillers=Lists.newArrayList();
+  this.topNCol=topNCol;
+  List<TblColRef> dimCols=cuboid.getColumns();
+  dimensionTupleIdx=new int[dimCols.size()];
+  for (int i=0; i < dimCols.size(); i++) {
+    TblColRef col=dimCols.get(i);
+    dimensionTupleIdx[i]=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
+  }
+  metricsMeasureIdx=new int[rowValueDecoders.size()][];
+  metricsTupleIdx=new int[rowValueDecoders.size()][];
+  for (int i=0; i < rowValueDecoders.size(); i++) {
+    RowValueDecoder decoder=rowValueDecoders.get(i);
+    MeasureDesc[] measures=decoder.getMeasures();
+    BitSet selectedMeasures=decoder.getProjectionIndex();
+    metricsMeasureIdx[i]=new int[selectedMeasures.cardinality()];
+    metricsTupleIdx[i]=new int[selectedMeasures.cardinality()];
+    for (int j=0, mi=selectedMeasures.nextSetBit(0); j < metricsMeasureIdx[i].length; j++, mi=selectedMeasures.nextSetBit(mi + 1)) {
+      FunctionDesc aggrFunc=measures[mi].getFunction();
+      int tupleIdx;
+      if (aggrFunc.needRewrite()) {
+        String rewriteFieldName=aggrFunc.getRewriteFieldName();
+        tupleIdx=tupleInfo.hasField(rewriteFieldName) ? tupleInfo.getFieldIndex(rewriteFieldName) : -1;
+      }
+ else {
+        TblColRef col=aggrFunc.getParameter().getColRefs().get(0);
+        tupleIdx=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
+      }
+      metricsMeasureIdx[i][j]=mi;
+      metricsTupleIdx[i][j]=tupleIdx;
+    }
+  }
+  if (this.topNCol != null) {
+    this.topNColTupleIdx=tupleInfo.hasColumn(this.topNCol) ? tupleInfo.getColumnIndex(this.topNCol) : -1;
+    this.topNMeasureTupleIdx=metricsTupleIdx[0][0];
+    this.topNColDict=(Dictionary<String>)cubeSeg.getDictionary(this.topNCol);
+  }
+  Map<Array<TblColRef>,List<DeriveInfo>> hostToDerivedInfo=cuboid.getCube().getHostToDerivedInfo(dimCols,null);
+  for (  Entry<Array<TblColRef>,List<DeriveInfo>> entry : hostToDerivedInfo.entrySet()) {
+    TblColRef[] hostCols=entry.getKey().data;
+    for (    DeriveInfo deriveInfo : entry.getValue()) {
+      IDerivedColumnFiller filler=newDerivedColumnFiller(hostCols,deriveInfo);
+      if (filler != null) {
+        derivedColFillers.add(filler);
+      }
+    }
+  }
+}

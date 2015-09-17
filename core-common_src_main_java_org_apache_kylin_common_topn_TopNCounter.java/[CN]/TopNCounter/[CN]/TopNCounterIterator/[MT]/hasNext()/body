@@ -1,0 +1,12 @@
+{
+  if (currentCounterIterator == null) {
+    return false;
+  }
+  if (currentCounterIterator.hasNext()) {
+    return true;
+  }
+  currentBNode=currentBNode.getPrev();
+  if (currentBNode == null)   return false;
+  currentCounterIterator=currentBNode.getValue().counterList.iterator();
+  return hasNext();
+}

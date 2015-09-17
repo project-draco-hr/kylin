@@ -4,8 +4,6 @@
   this.totalScanCount=new AtomicLong();
   this.cuboid=null;
   this.hasSort=false;
-  this.sortOrders=new ArrayList<OrderEnum>();
-  this.sortMeasures=new ArrayList<MeasureDesc>();
   this.exactAggregation=false;
   this.enableLimit=false;
   this.enableCoprocessor=false;

@@ -1,3 +1,4 @@
 {
-  return this.getLatestRealization().getDataModelDesc();
+  if (this.getLatestRealization() != null)   return this.getLatestRealization().getDataModelDesc();
+  return null;
 }

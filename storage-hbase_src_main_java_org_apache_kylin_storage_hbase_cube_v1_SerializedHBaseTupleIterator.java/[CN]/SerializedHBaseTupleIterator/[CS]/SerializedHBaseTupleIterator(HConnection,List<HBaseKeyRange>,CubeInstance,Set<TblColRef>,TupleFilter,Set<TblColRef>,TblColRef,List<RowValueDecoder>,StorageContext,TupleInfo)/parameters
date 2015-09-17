@@ -1,0 +1,10 @@
+HConnection conn
+List<HBaseKeyRange> segmentKeyRanges
+CubeInstance cube
+Set<TblColRef> dimensions
+TupleFilter filter
+Set<TblColRef> groupBy
+TblColRef topNCol
+List<RowValueDecoder> rowValueDecoders
+StorageContext context
+TupleInfo returnTupleInfo

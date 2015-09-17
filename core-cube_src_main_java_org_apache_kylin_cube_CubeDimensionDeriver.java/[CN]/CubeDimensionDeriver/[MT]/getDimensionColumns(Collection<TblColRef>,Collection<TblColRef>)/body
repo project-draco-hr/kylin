@@ -1,6 +1,0 @@
-{
-  Collection<TblColRef> dimensionColumns=new HashSet<TblColRef>();
-  dimensionColumns.addAll(groupByColumns);
-  dimensionColumns.addAll(filterColumns);
-  return dimensionColumns;
-}

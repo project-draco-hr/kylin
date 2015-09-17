@@ -1,0 +1,3 @@
+Collection<TblColRef> dimensionColumns
+CubeInstance cube
+SQLDigest digest

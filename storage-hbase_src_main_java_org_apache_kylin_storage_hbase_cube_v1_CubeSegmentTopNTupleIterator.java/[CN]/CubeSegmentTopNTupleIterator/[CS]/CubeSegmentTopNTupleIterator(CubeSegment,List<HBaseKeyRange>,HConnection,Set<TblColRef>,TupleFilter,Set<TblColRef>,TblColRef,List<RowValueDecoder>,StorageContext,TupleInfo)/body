@@ -1,0 +1,4 @@
+{
+  super(cubeSeg,keyRanges,conn,dimensions,filter,groupBy,rowValueDecoders,context,returnTupleInfo);
+  this.tupleConverter=new CubeTupleConverter(cubeSeg,cuboid,rowValueDecoders,returnTupleInfo,topNCol);
+}

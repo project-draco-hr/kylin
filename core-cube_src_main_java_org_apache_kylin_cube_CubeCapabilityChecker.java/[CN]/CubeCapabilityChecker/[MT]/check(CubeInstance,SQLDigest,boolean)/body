@@ -1,8 +1,9 @@
 {
-  Collection<TblColRef> dimensionColumns=CubeDimensionDeriver.getDimensionColumns(digest.groupbyColumns,digest.filterColumns);
+  Collection<TblColRef> dimensionColumns=CubeDimensionDeriver.getDimensionColumns(digest);
   Collection<FunctionDesc> functions=digest.aggregations;
   Collection<TblColRef> metricsColumns=digest.metricColumns;
   Collection<JoinDesc> joins=digest.joinDescs;
+  boolean hasTopN=hasTopNMeasure(cube.getDescriptor());
   boolean isOnline=cube.isReady();
   boolean matchDimensions=isMatchedWithDimensions(dimensionColumns,cube);
   boolean matchAggregation=isMatchedWithAggregations(functions,cube);
@@ -12,6 +13,11 @@
       logger.info("Weakly matched cube found " + cube.getName());
       return true;
     }
+  }
+  if (hasTopN & matchJoin && !matchDimensions && functions.size() == 1) {
+    boolean matchedTopN=isMatchedWithTopN(dimensionColumns,cube,digest);
+    matchDimensions=matchedTopN;
+    matchAggregation=matchedTopN;
   }
   if (!isOnline || !matchDimensions || !matchAggregation|| !matchJoin) {
     logger.info("Exclude cube " + cube.getName() + " because "+ " isOnlne="+ isOnline+ ",matchDimensions="+ matchDimensions+ ",matchAggregation="+ matchAggregation+ ",matchJoin="+ matchJoin);

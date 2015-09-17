@@ -7,6 +7,9 @@
  else     if (this.values[i] instanceof HyperLogLogPlusCounter) {
       ret.values[i]=new HyperLogLogPlusCounter((HyperLogLogPlusCounter)this.values[i]);
     }
+ else     if (this.values[i] instanceof TopNCounter) {
+      ret.values[i]=null;
+    }
  else {
       ret.values[i]=this.values[i];
     }

@@ -1,0 +1,27 @@
+{
+  if (next != null)   return true;
+  if (innerResultIterator == null) {
+    if (resultIterator == null) {
+      if (rangeIterator.hasNext() == false)       return false;
+      resultIterator=doScan(rangeIterator.next());
+    }
+    if (resultIterator.hasNext() == false) {
+      closeScanner();
+      resultIterator=null;
+      innerResultIterator=null;
+      return hasNext();
+    }
+    Result result=resultIterator.next();
+    scanCount++;
+    if (++scanCountDelta >= 1000)     flushScanCountDelta();
+    innerResultIterator=tupleConverter.translateTopNResult(result,oneTuple);
+  }
+  if (innerResultIterator.hasNext()) {
+    next=innerResultIterator.next();
+    return true;
+  }
+ else {
+    innerResultIterator=null;
+    return hasNext();
+  }
+}

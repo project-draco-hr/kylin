@@ -1,0 +1,26 @@
+{
+  CubeDesc cubeDesc=cube.getDescriptor();
+  List<FunctionDesc> cubeFunctions=cubeDesc.listAllFunctions();
+  Collection<FunctionDesc> functions=digest.aggregations;
+  Collection<MeasureDesc> sortMeasures=digest.sortMeasures;
+  Collection<SQLDigest.OrderEnum> sortOrders=digest.sortOrders;
+  FunctionDesc onlyFunction=functions.iterator().next();
+  if (onlyFunction.isSum() == false) {
+    return false;
+  }
+  Collection<TblColRef> dimensionColumnsCopy=new ArrayList<TblColRef>(dimensionColumns);
+  for (  MeasureDesc measure : cubeDesc.getMeasures()) {
+    if (measure.getFunction().isTopN()) {
+      List<TblColRef> cols=measure.getFunction().getParameter().getColRefs();
+      TblColRef displayCol=cols.get(cols.size() - 1);
+      dimensionColumnsCopy.remove(displayCol);
+      if (isMatchedWithDimensions(dimensionColumnsCopy,cube)) {
+        if (measure.getFunction().isCompatible(onlyFunction)) {
+          return true;
+        }
+      }
+      dimensionColumnsCopy.add(displayCol);
+    }
+  }
+  return false;
+}

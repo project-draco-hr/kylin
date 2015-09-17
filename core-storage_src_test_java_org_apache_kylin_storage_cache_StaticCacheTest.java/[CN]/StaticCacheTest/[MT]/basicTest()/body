@@ -3,7 +3,7 @@
   final List<TblColRef> groups=StorageMockUtils.buildGroups();
   final List<FunctionDesc> aggregations=StorageMockUtils.buildAggregations();
   final TupleFilter filter=StorageMockUtils.buildFilter1(groups.get(0));
-  final SQLDigest sqlDigest=new SQLDigest("default.test_kylin_fact",filter,null,Collections.<TblColRef>emptySet(),groups,Collections.<TblColRef>emptySet(),Collections.<TblColRef>emptySet(),aggregations);
+  final SQLDigest sqlDigest=new SQLDigest("default.test_kylin_fact",filter,null,Collections.<TblColRef>emptySet(),groups,Collections.<TblColRef>emptySet(),Collections.<TblColRef>emptySet(),aggregations,new ArrayList<MeasureDesc>(),new ArrayList<SQLDigest.OrderEnum>());
   final TupleInfo tupleInfo=StorageMockUtils.newTupleInfo(groups,aggregations);
   final List<ITuple> ret=Lists.newArrayList();
   ret.add(new Tuple(tupleInfo));

@@ -1,0 +1,10 @@
+{
+  Collection<TblColRef> groupByColumns=sqlDigest.groupbyColumns;
+  Collection<TblColRef> filterColumns=sqlDigest.filterColumns;
+  Collection<MeasureDesc> sortMeasures=sqlDigest.sortMeasures;
+  Collection<SQLDigest.OrderEnum> sortOrders=sqlDigest.sortOrders;
+  Collection<TblColRef> dimensionColumns=new HashSet<TblColRef>();
+  dimensionColumns.addAll(groupByColumns);
+  dimensionColumns.addAll(filterColumns);
+  return dimensionColumns;
+}
