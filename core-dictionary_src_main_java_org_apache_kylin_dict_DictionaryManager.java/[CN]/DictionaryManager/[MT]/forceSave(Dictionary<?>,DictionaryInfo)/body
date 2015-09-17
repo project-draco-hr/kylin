@@ -1,0 +1,5 @@
+{
+  initDictInfo(newDict,newDictInfo);
+  logger.info("force to save dict directly");
+  return saveNewDict(newDictInfo);
+}

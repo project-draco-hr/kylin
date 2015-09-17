@@ -1,7 +1,5 @@
 {
-  newDictInfo.setCardinality(newDict.getSize());
-  newDictInfo.setDictionaryObject(newDict);
-  newDictInfo.setDictionaryClass(newDict.getClass().getName());
+  initDictInfo(newDict,newDictInfo);
   DictionaryInfo largestDictInfo=findLargestDictInfo(newDictInfo);
   if (largestDictInfo != null) {
     largestDictInfo=getDictionaryInfo(largestDictInfo.getResourcePath());

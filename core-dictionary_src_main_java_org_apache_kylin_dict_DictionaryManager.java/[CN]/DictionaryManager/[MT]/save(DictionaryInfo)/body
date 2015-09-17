@@ -2,5 +2,12 @@
   ResourceStore store=MetadataManager.getInstance(config).getStore();
   String path=dict.getResourcePath();
   logger.info("Saving dictionary at " + path);
-  store.putResource(path,dict,DictionaryInfoSerializer.FULL_SERIALIZER);
+  ByteArrayOutputStream buf=new ByteArrayOutputStream();
+  DataOutputStream dout=new DataOutputStream(buf);
+  DictionaryInfoSerializer.FULL_SERIALIZER.serialize(dict,dout);
+  dout.close();
+  buf.close();
+  ByteArrayInputStream inputStream=new ByteArrayInputStream(buf.toByteArray());
+  store.putResource(path,inputStream,System.currentTimeMillis());
+  inputStream.close();
 }
