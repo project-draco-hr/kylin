@@ -1,6 +1,0 @@
-{
-  IICreateHFileJob job=new IICreateHFileJob();
-  job.setConf(HBaseConnection.newHBaseConfiguration(KylinConfig.getInstanceFromEnv().getStorageUrl()));
-  int exitCode=ToolRunner.run(job,args);
-  System.exit(exitCode);
-}

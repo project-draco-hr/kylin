@@ -1,0 +1,6 @@
+{
+  logger.info("Add coprocessor on " + desc.getNameAsString());
+  desc.addCoprocessor(IIEndpointClass,hdfsCoprocessorJar,1000,null);
+  desc.addCoprocessor(CubeEndpointClass,hdfsCoprocessorJar,1001,null);
+  desc.addCoprocessor(CubeObserverClass,hdfsCoprocessorJar,1002,null);
+}

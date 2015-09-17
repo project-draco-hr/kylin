@@ -1,5 +1,0 @@
-{
-  IICreateHTableJob job=new IICreateHTableJob();
-  job.setConf(HBaseConnection.newHBaseConfiguration(KylinConfig.getInstanceFromEnv().getStorageUrl()));
-  ToolRunner.run(job,args);
-}

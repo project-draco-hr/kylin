@@ -21,7 +21,6 @@
         continue;
       }
       String jarPath=valueMatcher.group(1).trim();
-      String clsName=valueMatcher.group(2).trim();
       result.add(jarPath);
     }
   }
