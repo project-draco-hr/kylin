@@ -1,0 +1,11 @@
+{
+  Map<String,String> result=new HashMap<String,String>();
+  String project=request.getProject();
+  TableDesc desc=JsonUtil.readValue(request.getTableData(),TableDesc.class);
+  desc.setUuid(UUID.randomUUID().toString());
+  MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+  metaMgr.saveSourceTable(desc);
+  cubeMgmtService.syncTableToProject(new String[]{desc.getName()},project);
+  result.put("success","true");
+  return result;
+}
