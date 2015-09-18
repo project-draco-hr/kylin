@@ -29,15 +29,7 @@
               }
               aggs.reset();
               for (              byte[] v : list) {
-                try {
-                  codec.decode(ByteBuffer.wrap(v),input);
-                }
- catch (                BufferUnderflowException e) {
-                  e.printStackTrace();
-                  System.out.println("buffer under flow v.length:" + v.length);
-                  System.out.println("value:" + Arrays.toString(v));
-                  throw e;
-                }
+                codec.decode(ByteBuffer.wrap(v),input);
                 aggs.aggregate(input);
               }
               aggs.collectStates(result);

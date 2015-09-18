@@ -28,10 +28,9 @@
       final CubeDesc cubeDesc=cubeInstance.getDescriptor();
       LinkedBlockingQueue<List<String>> blockingQueue=new LinkedBlockingQueue();
       System.out.println("load properties finished");
-      AbstractInMemCubeBuilder inMemCubeBuilder=new InMemCubeBuilder(cubeInstance.getDescriptor(),dictionaryMap);
-      inMemCubeBuilder.setReserveMemoryMB(2400);
+      AbstractInMemCubeBuilder inMemCubeBuilder=new DoggedCubeBuilder(cubeInstance.getDescriptor(),dictionaryMap);
       final SparkCuboidWriter sparkCuboidWriter=new BufferedCuboidWriter(new DefaultTupleConverter(cubeDesc,columnLengthMap));
-      final Future<?> future=Executors.newCachedThreadPool().submit(inMemCubeBuilder.buildAsRunnable(blockingQueue,sparkCuboidWriter));
+      Executors.newCachedThreadPool().submit(inMemCubeBuilder.buildAsRunnable(blockingQueue,sparkCuboidWriter));
       try {
         while (listIterator.hasNext()) {
           for (          List<String> row : listIterator.next()) {
@@ -39,7 +38,6 @@
           }
         }
         blockingQueue.put(Collections.<String>emptyList());
-        future.get();
       }
  catch (      Exception e) {
         throw new RuntimeException(e);
