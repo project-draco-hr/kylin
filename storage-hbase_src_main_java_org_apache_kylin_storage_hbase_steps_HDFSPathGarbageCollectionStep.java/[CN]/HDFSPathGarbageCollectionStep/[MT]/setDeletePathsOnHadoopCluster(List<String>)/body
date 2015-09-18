@@ -1,0 +1,3 @@
+{
+  setArrayParam("toDeletePathsOnHadoopCluster",deletePaths);
+}

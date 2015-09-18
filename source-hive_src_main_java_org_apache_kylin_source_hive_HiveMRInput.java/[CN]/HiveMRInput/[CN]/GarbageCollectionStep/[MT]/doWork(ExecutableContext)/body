@@ -8,6 +8,12 @@
     try {
       config.getCliCommandExecutor().execute(dropHiveCMD);
       output.append("Hive table " + hiveTable + " is dropped. \n");
+      Path externalDataPath=new Path(getExternalDataPath());
+      FileSystem fs=FileSystem.get(externalDataPath.toUri(),HadoopUtil.getCurrentConfiguration());
+      if (fs.exists(externalDataPath)) {
+        fs.delete(externalDataPath,true);
+        output.append("Hive table " + hiveTable + " external data path "+ externalDataPath+ " is deleted. \n");
+      }
     }
  catch (    IOException e) {
       logger.error("job:" + getId() + " execute finished with exception",e);

@@ -1,0 +1,15 @@
+{
+  String jobId=jobFlow.getId();
+  jobFlow.addTask(createMergeGCStep());
+  List<String> toDeletePathsOnHadoopCluster=new ArrayList<>();
+  toDeletePathsOnHadoopCluster.addAll(getMergingHDFSPaths());
+  List<String> toDeletePathsOnHbaseCluster=new ArrayList<>();
+  toDeletePathsOnHbaseCluster.add(getRowkeyDistributionOutputPath(jobId));
+  toDeletePathsOnHbaseCluster.add(getHFilePath(jobId));
+  HDFSPathGarbageCollectionStep step=new HDFSPathGarbageCollectionStep();
+  step.setName(ExecutableConstants.STEP_NAME_GARBAGE_COLLECTION);
+  step.setDeletePathsOnHadoopCluster(toDeletePathsOnHadoopCluster);
+  step.setDeletePathsOnHBaseCluster(toDeletePathsOnHbaseCluster);
+  step.setJobId(jobId);
+  jobFlow.addTask(step);
+}

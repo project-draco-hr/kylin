@@ -12,6 +12,6 @@
   ddl.append(")" + "\n");
   ddl.append("ROW FORMAT DELIMITED FIELDS TERMINATED BY '\\177'" + "\n");
   ddl.append("STORED AS SEQUENCEFILE" + "\n");
-  ddl.append("LOCATION '" + storageDfsDir + "/"+ intermediateTableDesc.getTableName()+ "';").append("\n");
+  ddl.append("LOCATION '" + getTableDir(intermediateTableDesc,storageDfsDir) + "';").append("\n");
   return ddl.toString();
 }

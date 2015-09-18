@@ -1,0 +1,27 @@
+{
+  if (oldHdfsPaths != null && oldHdfsPaths.size() > 0) {
+    logger.debug("Drop HDFS path on FileSystem: " + fileSystem.getUri());
+    output.append("Drop HDFS path on FileSystem: \"" + fileSystem.getUri() + "\" \n");
+    for (    String path : oldHdfsPaths) {
+      if (path.endsWith("*"))       path=path.substring(0,path.length() - 1);
+      Path oldPath=new Path(path);
+      if (fileSystem.exists(oldPath)) {
+        fileSystem.delete(oldPath,true);
+        logger.debug("HDFS path " + path + " is dropped.");
+        output.append("HDFS path " + path + " is dropped.\n");
+      }
+ else {
+        logger.debug("HDFS path " + path + " not exists.");
+        output.append("HDFS path " + path + " not exists.\n");
+      }
+      if (fileSystem.listStatus(oldPath.getParent()).length == 0) {
+        Path emptyJobPath=new Path(JobBuilderSupport.getJobWorkingDir(config,getJobId()));
+        if (fileSystem.exists(emptyJobPath)) {
+          fileSystem.delete(emptyJobPath,true);
+          logger.debug("HDFS path " + emptyJobPath + " is empty and dropped.");
+          output.append("HDFS path " + emptyJobPath + " is empty and dropped.\n");
+        }
+      }
+    }
+  }
+}
