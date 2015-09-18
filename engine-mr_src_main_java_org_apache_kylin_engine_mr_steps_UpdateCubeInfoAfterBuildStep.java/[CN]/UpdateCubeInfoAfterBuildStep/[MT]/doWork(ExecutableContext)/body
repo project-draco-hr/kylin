@@ -6,20 +6,19 @@
   long sourceCount=cubingJob.findSourceRecordCount();
   long sourceSizeBytes=cubingJob.findSourceSizeBytes();
   long cubeSizeBytes=cubingJob.findCubeSizeBytes();
-  boolean segmentReady=cubeSizeBytes > 0;
   segment.setLastBuildJobID(getCubingJobId());
   segment.setLastBuildTime(System.currentTimeMillis());
   segment.setSizeKB(cubeSizeBytes / 1024);
   segment.setInputRecords(sourceCount);
   segment.setInputRecordsSize(sourceSizeBytes);
   try {
-    if (segmentReady) {
-      cubeManager.promoteNewlyBuiltSegments(cube,segment);
-    }
- else {
+    if (isBuildAndMerge(cubingJob)) {
       CubeUpdate cubeBuilder=new CubeUpdate(cube);
       cubeBuilder.setToUpdateSegs(segment);
       cubeManager.updateCube(cubeBuilder);
+    }
+ else {
+      cubeManager.promoteNewlyBuiltSegments(cube,segment);
     }
     return new ExecuteResult(ExecuteResult.State.SUCCEED,"succeed");
   }
