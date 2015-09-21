@@ -1,5 +1,0 @@
-{
-  List<String> oldHdfsPaths=this.getOldHdfsPathsOnHBaseCluster();
-  FileSystem fileSystem=FileSystem.get(HadoopUtil.getCurrentHBaseConfiguration());
-  dropHdfsPathOnCluster(oldHdfsPaths,fileSystem);
-}

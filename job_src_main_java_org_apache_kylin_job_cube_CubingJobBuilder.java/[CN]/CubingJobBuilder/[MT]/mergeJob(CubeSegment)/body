@@ -8,18 +8,16 @@
   List<String> mergingSegmentIds=Lists.newArrayList();
   List<String> mergingCuboidPaths=Lists.newArrayList();
   List<String> mergingHTables=Lists.newArrayList();
-  final List<String> toDeletePathsOnHadoopCluster=Lists.newArrayList();
-  final List<String> toDeletePathsOnHBaseCluster=Lists.newArrayList();
+  final List<String> toDeletePaths=Lists.newArrayList();
   for (  CubeSegment merging : mergingSegments) {
     mergingSegmentIds.add(merging.getUuid());
     mergingCuboidPaths.add(getPathToMerge(merging));
     mergingHTables.add(merging.getStorageLocationIdentifier());
-    toDeletePathsOnHadoopCluster.add(getJobWorkingDir(merging.getLastBuildJobID()));
+    toDeletePaths.add(getJobWorkingDir(merging.getLastBuildJobID()));
   }
   addMergeSteps(seg,mergingSegmentIds,mergingCuboidPaths,mergedCuboidPath,result);
   AbstractExecutable convertCuboidToHfileStep=addHTableSteps(seg,mergedCuboidPath,result);
   result.addTask(createUpdateCubeInfoAfterMergeStep(seg,mergingSegmentIds,convertCuboidToHfileStep.getId(),jobId));
-  toDeletePathsOnHBaseCluster.add(getJobWorkingDir(jobId));
-  result.addTask(createGarbageCollectionStep(seg,mergingHTables,null,toDeletePathsOnHadoopCluster,toDeletePathsOnHBaseCluster));
+  result.addTask(createGarbageCollectionStep(seg,mergingHTables,null,toDeletePaths));
   return result;
 }

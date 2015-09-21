@@ -4,6 +4,5 @@
   result.setOldHTables(oldHtables);
   result.setOldHiveTable(hiveIntermediateTable);
   result.setOldHdfsPaths(oldHdsfPaths);
-  result.setOldHdfsPathsOnHBaseCluster(oldHdfsPathsOnHBaseCluster);
   return result;
 }
