@@ -1,6 +1,0 @@
-{
-  for (  AbstractExecutable task : cubingJob.getTasks()) {
-    if (task instanceof UpdateCubeInfoAfterMergeStep)     return true;
-  }
-  return false;
-}

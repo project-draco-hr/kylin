@@ -12,14 +12,7 @@
   segment.setInputRecords(sourceCount);
   segment.setInputRecordsSize(sourceSizeBytes);
   try {
-    if (isBuildAndMerge(cubingJob)) {
-      CubeUpdate cubeBuilder=new CubeUpdate(cube);
-      cubeBuilder.setToUpdateSegs(segment);
-      cubeManager.updateCube(cubeBuilder);
-    }
- else {
-      cubeManager.promoteNewlyBuiltSegments(cube,segment);
-    }
+    cubeManager.promoteNewlyBuiltSegments(cube,segment);
     return new ExecuteResult(ExecuteResult.State.SUCCEED,"succeed");
   }
  catch (  IOException e) {
