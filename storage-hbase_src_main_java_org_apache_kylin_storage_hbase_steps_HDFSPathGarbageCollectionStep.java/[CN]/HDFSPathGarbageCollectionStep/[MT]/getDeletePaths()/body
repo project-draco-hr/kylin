@@ -1,0 +1,3 @@
+{
+  return getArrayParam(TO_DELETE_PATHS);
+}

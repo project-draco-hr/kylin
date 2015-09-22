@@ -1,8 +1,11 @@
 {
   try {
     config=new JobEngineConfig(context.getConfig());
-    dropHdfsPathOnCluster(getDeletePathsOnHadoopCluster(),FileSystem.get(HadoopUtil.getCurrentConfiguration()));
-    dropHdfsPathOnCluster(getDeletePathsOnHBaseCluster(),FileSystem.get(HadoopUtil.getCurrentHBaseConfiguration()));
+    List<String> toDeletePaths=getDeletePaths();
+    dropHdfsPathOnCluster(toDeletePaths,FileSystem.get(HadoopUtil.getCurrentConfiguration()));
+    if (StringUtils.isNotEmpty(context.getConfig().getHBaseClusterFs())) {
+      dropHdfsPathOnCluster(toDeletePaths,FileSystem.get(HadoopUtil.getCurrentHBaseConfiguration()));
+    }
   }
  catch (  IOException e) {
     logger.error("job:" + getId() + " execute finished with exception",e);
