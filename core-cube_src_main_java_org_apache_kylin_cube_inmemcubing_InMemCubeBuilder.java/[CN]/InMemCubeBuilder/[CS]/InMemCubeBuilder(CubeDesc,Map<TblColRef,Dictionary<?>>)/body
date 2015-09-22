@@ -15,4 +15,5 @@
     measureIndexMap.put(measureDesc.getName(),i);
   }
   this.metricsAggrFuncs=metricsAggrFuncsList.toArray(new String[metricsAggrFuncsList.size()]);
+  initTopNDisplayColDictionaryMap();
 }

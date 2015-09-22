@@ -6,11 +6,26 @@
     Object value=null;
     int[] flatTableIdx=intermediateTableDesc.getMeasureColumnIndexes()[i];
     FunctionDesc function=cubeDesc.getMeasures().get(i).getFunction();
-    if (function.isCount() || function.isHolisticCountDistinct()) {
+    if (flatTableIdx == null) {
+      value=measureCodec.getSerializer(i).valueOf(measureDesc.getFunction().getParameter().getValue());
+    }
+ else     if (function.isCount() || function.isHolisticCountDistinct()) {
       value=ONE;
     }
- else     if (flatTableIdx == null) {
-      value=measureCodec.getSerializer(i).valueOf(measureDesc.getFunction().getParameter().getValue());
+ else     if (function.isTopN()) {
+      int keyColIndex=flatTableIdx[flatTableIdx.length - 1];
+      Dictionary<String> displayColDict=topNDisplayColDictMap.get(keyColIndex);
+      int keyColEncoded=displayColDict.getIdFromValue(row.get(keyColIndex));
+      valueBuf.clear();
+      valueBuf.putInt(displayColDict.getSizeOfId());
+      valueBuf.putInt(keyColEncoded);
+      if (flatTableIdx.length == 1) {
+        valueBuf.putDouble(1.0);
+      }
+ else {
+        valueBuf.putDouble(Double.valueOf(row.get(flatTableIdx[0])));
+      }
+      value=measureCodec.getSerializer(i).valueOf(valueBuf.array());
     }
  else     if (flatTableIdx.length == 1) {
       value=measureCodec.getSerializer(i).valueOf(toBytes(row.get(flatTableIdx[0])));
