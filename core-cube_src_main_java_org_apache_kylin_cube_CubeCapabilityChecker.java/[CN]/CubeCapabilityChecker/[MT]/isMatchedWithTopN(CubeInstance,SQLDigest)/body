@@ -1,4 +1,8 @@
 {
+  boolean hasTopN=hasTopNMeasure(cube.getDescriptor());
+  if (hasTopN == false) {
+    return false;
+  }
   Collection<TblColRef> dimensionColumns=CubeDimensionDeriver.getDimensionColumns(digest);
   boolean matchDimensions=isMatchedWithDimensions(dimensionColumns,cube);
   if (matchDimensions == true) {
