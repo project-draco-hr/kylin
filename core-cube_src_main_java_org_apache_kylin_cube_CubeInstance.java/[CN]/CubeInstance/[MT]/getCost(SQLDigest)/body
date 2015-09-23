@@ -7,7 +7,7 @@
       calculatedCost+=COST_WEIGHT_INNER_JOIN;
     }
   }
-  if (CubeCapabilityChecker.isMatchedWithTopN(CubeDimensionDeriver.getDimensionColumns(digest),this,digest)) {
+  if (CubeCapabilityChecker.isMatchedWithTopN(this,digest)) {
     calculatedCost=calculatedCost / 3;
   }
   return calculatedCost;

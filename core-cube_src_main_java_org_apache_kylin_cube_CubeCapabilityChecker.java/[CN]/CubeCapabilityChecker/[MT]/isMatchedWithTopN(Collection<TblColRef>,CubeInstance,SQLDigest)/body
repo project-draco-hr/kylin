@@ -1,9 +1,6 @@
 {
   CubeDesc cubeDesc=cube.getDescriptor();
-  List<FunctionDesc> cubeFunctions=cubeDesc.listAllFunctions();
   Collection<FunctionDesc> functions=digest.aggregations;
-  Collection<MeasureDesc> sortMeasures=digest.sortMeasures;
-  Collection<SQLDigest.OrderEnum> sortOrders=digest.sortOrders;
   FunctionDesc onlyFunction=functions.iterator().next();
   if (onlyFunction.isSum() == false) {
     return false;

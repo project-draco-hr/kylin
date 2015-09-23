@@ -1,0 +1,12 @@
+{
+  Collection<TblColRef> dimensionColumns=CubeDimensionDeriver.getDimensionColumns(digest);
+  boolean matchDimensions=isMatchedWithDimensions(dimensionColumns,cube);
+  if (matchDimensions == true) {
+    return false;
+  }
+  Collection<FunctionDesc> functions=digest.aggregations;
+  if (functions == null || functions.size() != 1) {
+    return false;
+  }
+  return isMatchedWithTopN(dimensionColumns,cube,digest);
+}
