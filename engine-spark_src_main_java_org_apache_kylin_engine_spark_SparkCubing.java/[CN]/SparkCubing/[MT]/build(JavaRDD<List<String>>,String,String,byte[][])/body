@@ -53,14 +53,7 @@
   Preconditions.checkArgument(!FileSystem.get(conf).exists(path));
   String url=conf.get("fs.defaultFS") + path.toString();
   System.out.println("use " + url + " as hfile");
-  List<MeasureDesc> measuresDescs=Lists.newArrayList();
-  for (  HBaseColumnFamilyDesc cfDesc : cubeDesc.getHBaseMapping().getColumnFamily()) {
-    for (    HBaseColumnDesc colDesc : cfDesc.getColumns()) {
-      for (      MeasureDesc measure : colDesc.getMeasures()) {
-        measuresDescs.add(measure);
-      }
-    }
-  }
+  List<MeasureDesc> measuresDescs=cubeDesc.getMeasures();
   final int measureSize=measuresDescs.size();
   final String[] dataTypes=new String[measureSize];
   for (int i=0; i < dataTypes.length; i++) {

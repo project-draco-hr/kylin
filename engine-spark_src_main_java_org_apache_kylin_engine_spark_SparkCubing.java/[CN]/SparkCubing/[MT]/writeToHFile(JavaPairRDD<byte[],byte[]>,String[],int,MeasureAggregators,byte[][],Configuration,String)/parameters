@@ -1,7 +1,0 @@
-JavaPairRDD<byte[],byte[]> javaPairRDD
-String[] dataTypes
-int measureSize
-MeasureAggregators aggs
-byte[][] splitKeys
-Configuration conf
-String hFileLocation
