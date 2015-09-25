@@ -1,0 +1,3 @@
+{
+  return getKafkaManager().getKafkaConfig(configName);
+}

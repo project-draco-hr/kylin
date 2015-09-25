@@ -1,0 +1,3 @@
+StreamingRequest request
+boolean success
+String message

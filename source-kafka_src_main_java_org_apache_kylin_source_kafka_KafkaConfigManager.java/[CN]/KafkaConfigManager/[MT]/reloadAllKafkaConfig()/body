@@ -1,0 +1,26 @@
+{
+  ResourceStore store=getStore();
+  logger.info("Reloading Kafka Metadata from folder " + store.getReadableResourcePath(ResourceStore.KAfKA_RESOURCE_ROOT));
+  kafkaMap.clear();
+  List<String> paths=store.collectResourceRecursively(ResourceStore.KAfKA_RESOURCE_ROOT,MetadataConstants.FILE_SURFIX);
+  for (  String path : paths) {
+    KafkaConfig kafkaConfig;
+    try {
+      kafkaConfig=loadKafkaConfigAt(path);
+    }
+ catch (    Exception e) {
+      logger.error("Error loading kafkaConfig desc " + path,e);
+      continue;
+    }
+    if (path.equals(kafkaConfig.getResourcePath()) == false) {
+      logger.error("Skip suspicious desc at " + path + ", "+ kafkaConfig+ " should be at "+ kafkaConfig.getResourcePath());
+      continue;
+    }
+    if (kafkaMap.containsKey(kafkaConfig.getName())) {
+      logger.error("Dup KafkaConfig name '" + kafkaConfig.getName() + "' on path "+ path);
+      continue;
+    }
+    kafkaMap.putLocal(kafkaConfig.getName(),kafkaConfig);
+  }
+  logger.debug("Loaded " + kafkaMap.size() + " KafkaConfig(s)");
+}

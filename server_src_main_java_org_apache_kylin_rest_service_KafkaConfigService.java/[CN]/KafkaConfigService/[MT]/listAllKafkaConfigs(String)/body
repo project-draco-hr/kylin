@@ -1,0 +1,15 @@
+{
+  List<KafkaConfig> kafkaConfigs=new ArrayList<KafkaConfig>();
+  if (null == kafkaConfigName) {
+    kafkaConfigs=getKafkaManager().listAllKafkaConfigs();
+  }
+ else {
+    List<KafkaConfig> configs=getKafkaManager().listAllKafkaConfigs();
+    for (    KafkaConfig config : configs) {
+      if (kafkaConfigName.equals(config.getName())) {
+        kafkaConfigs.add(config);
+      }
+    }
+  }
+  return kafkaConfigs;
+}

@@ -1,0 +1,8 @@
+{
+  ResourceStore store=getStore();
+  KafkaConfig kafkaConfig=store.getResource(path,KafkaConfig.class,KAFKA_SERIALIZER);
+  if (StringUtils.isBlank(kafkaConfig.getName())) {
+    throw new IllegalStateException("KafkaConfig name must not be blank");
+  }
+  return kafkaConfig;
+}

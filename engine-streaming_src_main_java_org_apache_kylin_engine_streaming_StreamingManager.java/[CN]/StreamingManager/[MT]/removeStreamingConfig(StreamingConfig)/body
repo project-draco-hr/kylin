@@ -1,0 +1,5 @@
+{
+  String path=streamingConfig.getResourcePath();
+  getStore().deleteResource(path);
+  streamingMap.remove(streamingConfig.getName());
+}

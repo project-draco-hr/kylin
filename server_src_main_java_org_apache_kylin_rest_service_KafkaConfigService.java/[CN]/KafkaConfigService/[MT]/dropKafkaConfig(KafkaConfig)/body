@@ -1,0 +1,3 @@
+{
+  getKafkaManager().removeKafkaConfig(config);
+}

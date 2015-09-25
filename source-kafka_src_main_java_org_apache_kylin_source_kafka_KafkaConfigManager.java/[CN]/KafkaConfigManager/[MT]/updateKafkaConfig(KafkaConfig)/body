@@ -1,0 +1,14 @@
+{
+  if (desc.getUuid() == null || desc.getName() == null) {
+    throw new IllegalArgumentException();
+  }
+  String name=desc.getName();
+  if (!kafkaMap.containsKey(name)) {
+    throw new IllegalArgumentException("KafkaConfig '" + name + "' does not exist.");
+  }
+  String path=desc.getResourcePath();
+  getStore().putResource(path,desc,KAFKA_SERIALIZER);
+  KafkaConfig ndesc=loadKafkaConfigAt(path);
+  kafkaMap.put(ndesc.getName(),desc);
+  return ndesc;
+}

@@ -1,0 +1,7 @@
+{
+  if (getKafkaManager().getKafkaConfig(config.getName()) != null) {
+    throw new InternalErrorException("The kafkaConfig named " + config.getName() + " already exists");
+  }
+  getKafkaManager().createKafkaConfig(config.getName(),config);
+  return config;
+}

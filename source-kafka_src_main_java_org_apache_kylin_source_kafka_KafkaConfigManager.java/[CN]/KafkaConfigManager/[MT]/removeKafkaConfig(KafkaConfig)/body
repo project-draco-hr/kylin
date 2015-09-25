@@ -1,0 +1,5 @@
+{
+  String path=kafkaConfig.getResourcePath();
+  getStore().deleteResource(path);
+  kafkaMap.remove(kafkaConfig.getName());
+}

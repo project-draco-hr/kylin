@@ -1,0 +1,35 @@
+{
+  StreamingConfig streamingConfig=deserializeSchemalDesc(streamingRequest);
+  KafkaConfig kafkaConfig=deserializeKafkaSchemalDesc(streamingRequest);
+  if (streamingConfig == null || kafkaConfig == null) {
+    return streamingRequest;
+  }
+  if (StringUtils.isEmpty(streamingConfig.getName())) {
+    logger.info("StreamingConfig should not be empty.");
+    throw new BadRequestException("StremingConfig name should not be empty.");
+  }
+  try {
+    streamingConfig.setUuid(UUID.randomUUID().toString());
+    streamingService.createStreamingConfig(streamingConfig);
+  }
+ catch (  IOException e) {
+    logger.error("Failed to save StreamingConfig:" + e.getLocalizedMessage(),e);
+    throw new InternalErrorException("Failed to save StreamingConfig: " + e.getLocalizedMessage());
+  }
+  try {
+    kafkaConfig.setUuid(UUID.randomUUID().toString());
+    kafkaConfigService.createKafkaConfig(kafkaConfig);
+  }
+ catch (  IOException e) {
+    try {
+      streamingService.dropStreamingConfig(streamingConfig);
+    }
+ catch (    IOException e1) {
+      throw new InternalErrorException("StreamingConfig is created, but failed to create KafkaConfig: " + e.getLocalizedMessage());
+    }
+    logger.error("Failed to save KafkaConfig:" + e.getLocalizedMessage(),e);
+    throw new InternalErrorException("Failed to save KafkaConfig: " + e.getLocalizedMessage());
+  }
+  streamingRequest.setSuccessful(true);
+  return streamingRequest;
+}

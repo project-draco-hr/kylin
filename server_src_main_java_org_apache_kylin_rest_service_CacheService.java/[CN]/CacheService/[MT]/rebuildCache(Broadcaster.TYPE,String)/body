@@ -10,6 +10,12 @@ case CUBE:
 super.cleanDataCache(newCube.getUuid());
 cubeService.updateOnNewSegmentReady(cacheKey);
 break;
+case STREAMING:
+getSreamingManager().reloadStreamingConfigLocal(cacheKey);
+break;
+case KAFKA:
+getKafkaManager().reloadKafkaConfigLocal(cacheKey);
+break;
 case CUBE_DESC:
 getCubeDescManager().reloadCubeDescLocal(cacheKey);
 break;
@@ -44,6 +50,8 @@ IIManager.clearCache();
 HybridManager.clearCache();
 RealizationRegistry.clearCache();
 ProjectManager.clearCache();
+KafkaConfigManager.clearCache();
+StreamingManager.clearCache();
 super.cleanAllDataCache();
 BasicService.removeAllOLAPDataSources();
 break;

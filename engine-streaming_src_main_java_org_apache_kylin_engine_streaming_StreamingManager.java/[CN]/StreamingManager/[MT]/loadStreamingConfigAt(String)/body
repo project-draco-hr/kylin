@@ -1,0 +1,8 @@
+{
+  ResourceStore store=getStore();
+  StreamingConfig streamingDesc=store.getResource(path,StreamingConfig.class,STREAMING_SERIALIZER);
+  if (StringUtils.isBlank(streamingDesc.getName())) {
+    throw new IllegalStateException("StreamingConfig name must not be blank");
+  }
+  return streamingDesc;
+}

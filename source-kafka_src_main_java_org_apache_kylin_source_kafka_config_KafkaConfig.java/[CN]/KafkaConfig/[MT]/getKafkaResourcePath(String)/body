@@ -1,0 +1,3 @@
+{
+  return ResourceStore.KAfKA_RESOURCE_ROOT + "/" + streamingName+ MetadataConstants.FILE_SURFIX;
+}

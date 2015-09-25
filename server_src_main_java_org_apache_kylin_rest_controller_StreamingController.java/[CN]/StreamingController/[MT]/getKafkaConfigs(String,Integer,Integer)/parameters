@@ -1,0 +1,3 @@
+String kafkaConfigName
+Integer limit
+Integer offset

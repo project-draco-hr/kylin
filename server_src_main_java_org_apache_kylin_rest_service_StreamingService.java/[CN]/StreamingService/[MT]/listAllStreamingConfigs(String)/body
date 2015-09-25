@@ -1,0 +1,15 @@
+{
+  List<StreamingConfig> streamingConfigs=new ArrayList();
+  CubeInstance cubeInstance=(null != cubeName) ? getCubeManager().getCube(cubeName) : null;
+  if (null == cubeInstance) {
+    streamingConfigs=getSreamingManager().listAllStreaming();
+  }
+ else {
+    for (    StreamingConfig config : getSreamingManager().listAllStreaming()) {
+      if (cubeInstance.getName().equals(config.getCubeName())) {
+        streamingConfigs.add(config);
+      }
+    }
+  }
+  return streamingConfigs;
+}

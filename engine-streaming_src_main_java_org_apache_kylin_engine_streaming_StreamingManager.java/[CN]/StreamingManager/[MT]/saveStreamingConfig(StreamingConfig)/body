@@ -2,6 +2,9 @@
   if (streamingConfig == null || StringUtils.isEmpty(streamingConfig.getName())) {
     throw new IllegalArgumentException();
   }
+  if (streamingMap.containsKey(streamingConfig.getName()))   throw new IllegalArgumentException("StreamingConfig '" + streamingConfig.getName() + "' already exists");
   String path=formatStreamingConfigPath(streamingConfig.getName());
   getStore().putResource(path,streamingConfig,StreamingConfig.SERIALIZER);
+  streamingMap.put(streamingConfig.getName(),streamingConfig);
+  return streamingConfig;
 }

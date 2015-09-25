@@ -1,0 +1,4 @@
+{
+  request.setSuccessful(success);
+  request.setMessage(message);
+}

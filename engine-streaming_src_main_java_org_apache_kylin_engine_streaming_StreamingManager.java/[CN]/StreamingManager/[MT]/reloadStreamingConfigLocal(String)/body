@@ -1,0 +1,6 @@
+{
+  String path=StreamingConfig.concatResourcePath(name);
+  StreamingConfig ndesc=loadStreamingConfigAt(path);
+  streamingMap.putLocal(ndesc.getName(),ndesc);
+  return ndesc;
+}

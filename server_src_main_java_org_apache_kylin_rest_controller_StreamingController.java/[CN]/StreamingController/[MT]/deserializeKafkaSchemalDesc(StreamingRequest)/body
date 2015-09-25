@@ -1,0 +1,20 @@
+{
+  KafkaConfig desc=null;
+  try {
+    logger.debug("Saving KafkaConfig " + streamingRequest.getKafkaConfig());
+    desc=JsonUtil.readValue(streamingRequest.getKafkaConfig(),KafkaConfig.class);
+  }
+ catch (  JsonParseException e) {
+    logger.error("The KafkaConfig definition is not valid.",e);
+    updateRequest(streamingRequest,false,e.getMessage());
+  }
+catch (  JsonMappingException e) {
+    logger.error("The data KafkaConfig definition is not valid.",e);
+    updateRequest(streamingRequest,false,e.getMessage());
+  }
+catch (  IOException e) {
+    logger.error("Failed to deal with the request.",e);
+    throw new InternalErrorException("Failed to deal with the request:" + e.getMessage(),e);
+  }
+  return desc;
+}

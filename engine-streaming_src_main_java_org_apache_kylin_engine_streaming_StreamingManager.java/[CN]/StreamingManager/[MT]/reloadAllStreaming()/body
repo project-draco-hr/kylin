@@ -1,0 +1,26 @@
+{
+  ResourceStore store=getStore();
+  logger.info("Reloading Streaming Metadata from folder " + store.getReadableResourcePath(ResourceStore.STREAMING_RESOURCE_ROOT));
+  streamingMap.clear();
+  List<String> paths=store.collectResourceRecursively(ResourceStore.STREAMING_RESOURCE_ROOT,MetadataConstants.FILE_SURFIX);
+  for (  String path : paths) {
+    StreamingConfig streamingConfig;
+    try {
+      streamingConfig=loadStreamingConfigAt(path);
+    }
+ catch (    Exception e) {
+      logger.error("Error loading streaming desc " + path,e);
+      continue;
+    }
+    if (path.equals(streamingConfig.getResourcePath()) == false) {
+      logger.error("Skip suspicious desc at " + path + ", "+ streamingConfig+ " should be at "+ streamingConfig.getResourcePath());
+      continue;
+    }
+    if (streamingMap.containsKey(streamingConfig.getName())) {
+      logger.error("Dup StreamingConfig name '" + streamingConfig.getName() + "' on path "+ path);
+      continue;
+    }
+    streamingMap.putLocal(streamingConfig.getName(),streamingConfig);
+  }
+  logger.debug("Loaded " + streamingMap.size() + " StreamingConfig(s)");
+}

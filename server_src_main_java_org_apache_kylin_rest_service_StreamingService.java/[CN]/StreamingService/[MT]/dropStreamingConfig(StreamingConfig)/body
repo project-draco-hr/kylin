@@ -1,0 +1,3 @@
+{
+  getSreamingManager().removeStreamingConfig(config);
+}

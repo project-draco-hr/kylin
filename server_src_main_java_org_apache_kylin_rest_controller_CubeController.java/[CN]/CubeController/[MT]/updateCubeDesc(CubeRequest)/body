@@ -31,6 +31,40 @@ catch (  Exception e) {
     logger.warn("Cube " + desc.getName() + " fail to update because "+ desc.getError());
     updateRequest(cubeRequest,false,omitMessage(desc.getError()));
   }
+  if (cubeRequest.getStreamingCube().equals("true")) {
+    StreamingConfig streamingConfig=deserializeStreamingDesc(cubeRequest);
+    KafkaConfig kafkaConfig=deserializeKafkaDesc(cubeRequest);
+    if (streamingConfig == null) {
+      cubeRequest.setMessage("No StreamingConfig info to update.");
+      return cubeRequest;
+    }
+    if (kafkaConfig == null) {
+      cubeRequest.setMessage("No KafkaConfig info to update.");
+      return cubeRequest;
+    }
+    if (StringUtils.isEmpty(streamingConfig.getName())) {
+      logger.info("StreamingConfig Name should not be empty.");
+      throw new BadRequestException("StremingConfig name should not be empty.");
+    }
+    if (StringUtils.isEmpty(kafkaConfig.getName())) {
+      logger.info("KafkaConfig Name should not be empty.");
+      throw new BadRequestException("KafkaConfig name should not be empty.");
+    }
+    try {
+      streamingService.updateStreamingConfig(streamingConfig);
+    }
+ catch (    IOException e) {
+      logger.error("Failed to update StreamingConfig:" + e.getLocalizedMessage(),e);
+      throw new InternalErrorException("Failed to update StreamingConfig: " + e.getLocalizedMessage());
+    }
+    try {
+      kafkaConfigService.updateKafkaConfig(kafkaConfig);
+    }
+ catch (    IOException e) {
+      logger.error("Failed to update KafkaConfig:" + e.getLocalizedMessage(),e);
+      throw new InternalErrorException("Failed to update KafkaConfig: " + e.getLocalizedMessage());
+    }
+  }
   String descData=JsonUtil.writeValueAsIndentString(desc);
   cubeRequest.setCubeDescData(descData);
   cubeRequest.setSuccessful(true);

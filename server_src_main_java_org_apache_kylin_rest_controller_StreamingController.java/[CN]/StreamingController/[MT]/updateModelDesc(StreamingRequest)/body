@@ -1,0 +1,29 @@
+{
+  StreamingConfig streamingConfig=deserializeSchemalDesc(streamingRequest);
+  KafkaConfig kafkaConfig=deserializeKafkaSchemalDesc(streamingRequest);
+  if (streamingConfig == null) {
+    return streamingRequest;
+  }
+  try {
+    streamingConfig=streamingService.updateStreamingConfig(streamingConfig);
+  }
+ catch (  AccessDeniedException accessDeniedException) {
+    throw new ForbiddenException("You don't have right to update this StreamingConfig.");
+  }
+catch (  Exception e) {
+    logger.error("Failed to deal with the request:" + e.getLocalizedMessage(),e);
+    throw new InternalErrorException("Failed to deal with the request: " + e.getLocalizedMessage());
+  }
+  try {
+    kafkaConfig=kafkaConfigService.updateKafkaConfig(kafkaConfig);
+  }
+ catch (  AccessDeniedException accessDeniedException) {
+    throw new ForbiddenException("You don't have right to update this KafkaConfig.");
+  }
+catch (  Exception e) {
+    logger.error("Failed to deal with the request:" + e.getLocalizedMessage(),e);
+    throw new InternalErrorException("Failed to deal with the request: " + e.getLocalizedMessage());
+  }
+  streamingRequest.setSuccessful(true);
+  return streamingRequest;
+}

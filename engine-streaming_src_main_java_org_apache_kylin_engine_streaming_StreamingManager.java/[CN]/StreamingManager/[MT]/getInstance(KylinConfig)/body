@@ -8,11 +8,16 @@ synchronized (StreamingManager.class) {
     if (r != null) {
       return r;
     }
-    r=new StreamingManager(config);
-    CACHE.put(config,r);
-    if (CACHE.size() > 1) {
-      logger.warn("More than one cubemanager singleton exist");
+    try {
+      r=new StreamingManager(config);
+      CACHE.put(config,r);
+      if (CACHE.size() > 1) {
+        logger.warn("More than one streamingManager singleton exist");
+      }
+      return r;
     }
-    return r;
+ catch (    IOException e) {
+      throw new IllegalStateException("Failed to init StreamingManager from " + config,e);
+    }
   }
 }

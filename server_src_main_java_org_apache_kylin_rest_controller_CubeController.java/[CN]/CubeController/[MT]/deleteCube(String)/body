@@ -4,6 +4,28 @@
     throw new NotFoundException("Cube with name " + cubeName + " not found..");
   }
   try {
+    List<StreamingConfig> configs=streamingService.listAllStreamingConfigs(cubeName);
+    for (    StreamingConfig config : configs) {
+      try {
+        streamingService.dropStreamingConfig(config);
+      }
+ catch (      IOException e) {
+        logger.error(e.getLocalizedMessage(),e);
+        throw new InternalErrorException("Failed to delete StreamingConfig. " + " Caused by: " + e.getMessage(),e);
+      }
+      try {
+        KafkaConfig kfkConfig=kafkaConfigService.getKafkaConfig(config.getName());
+        kafkaConfigService.dropKafkaConfig(kfkConfig);
+      }
+ catch (      IOException e) {
+        throw new InternalErrorException("Failed to delete KafkaConfig. " + " Caused by: " + e.getMessage(),e);
+      }
+    }
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  try {
     cubeService.deleteCube(cube);
   }
  catch (  Exception e) {

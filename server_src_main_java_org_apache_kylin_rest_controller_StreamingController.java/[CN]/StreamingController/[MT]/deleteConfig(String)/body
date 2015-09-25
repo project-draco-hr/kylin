@@ -1,0 +1,15 @@
+{
+  StreamingConfig config=streamingService.getSreamingManager().getStreamingConfig(configName);
+  KafkaConfig kafkaConfig=kafkaConfigService.getKafkaConfig(configName);
+  if (null == config) {
+    throw new NotFoundException("StreamingConfig with name " + configName + " not found..");
+  }
+  try {
+    streamingService.dropStreamingConfig(config);
+    kafkaConfigService.dropKafkaConfig(kafkaConfig);
+  }
+ catch (  Exception e) {
+    logger.error(e.getLocalizedMessage(),e);
+    throw new InternalErrorException("Failed to delete StreamingConfig. " + " Caused by: " + e.getMessage(),e);
+  }
+}

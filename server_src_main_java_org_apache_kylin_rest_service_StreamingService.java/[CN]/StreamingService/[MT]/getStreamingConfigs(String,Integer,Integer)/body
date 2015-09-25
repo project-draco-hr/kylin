@@ -1,0 +1,11 @@
+{
+  List<StreamingConfig> streamingConfigs;
+  streamingConfigs=listAllStreamingConfigs(cubeName);
+  if (limit == null || offset == null) {
+    return streamingConfigs;
+  }
+  if ((streamingConfigs.size() - offset) < limit) {
+    return streamingConfigs.subList(offset,streamingConfigs.size());
+  }
+  return streamingConfigs.subList(offset,offset + limit);
+}
