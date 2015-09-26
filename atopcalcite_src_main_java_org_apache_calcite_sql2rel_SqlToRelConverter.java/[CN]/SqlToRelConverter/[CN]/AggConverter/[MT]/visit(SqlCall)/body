@@ -6,6 +6,9 @@ case FILTER:
 case SELECT:
 return null;
 }
+if (call.getOperator().getKind() == SqlKind.OVER) {
+return null;
+}
 if (call.getOperator().isAggregator()) {
 translateAgg(call,null,call);
 return null;

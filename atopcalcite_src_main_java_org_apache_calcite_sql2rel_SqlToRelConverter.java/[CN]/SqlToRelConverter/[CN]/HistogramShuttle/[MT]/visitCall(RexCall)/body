@@ -14,7 +14,7 @@
       exprs=new ArrayList<>(exprs);
       exprs.set(0,reinterpretCast ? rexBuilder.makeReinterpretCast(histogramType,exprs.get(0),rexBuilder.makeLiteral(false)) : rexBuilder.makeCast(histogramType,exprs.get(0)));
     }
-    RexCallBinding bind=new RexCallBinding(rexBuilder.getTypeFactory(),SqlStdOperatorTable.HISTOGRAM_AGG,exprs);
+    RexCallBinding bind=new RexCallBinding(rexBuilder.getTypeFactory(),SqlStdOperatorTable.HISTOGRAM_AGG,exprs,ImmutableList.<RelCollation>of());
     RexNode over=rexBuilder.makeOver(SqlStdOperatorTable.HISTOGRAM_AGG.inferReturnType(bind),SqlStdOperatorTable.HISTOGRAM_AGG,exprs,partitionKeys,orderKeys,lowerBound,upperBound,window.isRows(),window.isAllowPartial(),false);
     RexNode histogramCall=rexBuilder.makeCall(histogramType,histogramOp,ImmutableList.of(over));
     if (histogramType != type) {

@@ -1,4 +1,4 @@
-ConnectionHandle ch
+StatementHandle sh
 String sql
-int maxRowCount
+long maxRowCount
 PrepareCallback callback

@@ -1,13 +1,12 @@
 {
-  final StatementHandle sh;
   try {
 synchronized (callback.getMonitor()) {
       callback.clear();
-      sh=prepare(ch,sql,maxRowCount);
+      sh.signature=connection().mockPreparedSignature(sql);
       callback.assign(sh.signature,null,-1);
     }
     callback.execute();
-    final MetaResultSet metaResultSet=MetaResultSet.create(ch.id,sh.id,false,sh.signature,null);
+    final MetaResultSet metaResultSet=MetaResultSet.create(sh.connectionId,sh.id,false,sh.signature,null);
     return new ExecuteResult(ImmutableList.of(metaResultSet));
   }
  catch (  SQLException e) {

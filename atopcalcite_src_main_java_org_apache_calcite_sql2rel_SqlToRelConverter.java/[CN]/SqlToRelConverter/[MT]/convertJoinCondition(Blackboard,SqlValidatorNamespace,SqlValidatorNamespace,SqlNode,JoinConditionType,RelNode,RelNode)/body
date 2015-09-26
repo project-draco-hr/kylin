@@ -16,7 +16,7 @@ final SqlIdentifier id=(SqlIdentifier)columnName;
 String name=id.getSimple();
 nameList.add(name);
 }
-return convertUsing(leftRel,rightRel,nameList);
+return convertUsing(leftNamespace,rightNamespace,nameList);
 default :
 throw Util.unexpected(conditionType);
 }

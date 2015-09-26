@@ -1,4 +1,6 @@
 Blackboard bb
+SqlValidatorNamespace leftNamespace
+SqlValidatorNamespace rightNamespace
 SqlNode condition
 JoinConditionType conditionType
 RelNode leftRel
