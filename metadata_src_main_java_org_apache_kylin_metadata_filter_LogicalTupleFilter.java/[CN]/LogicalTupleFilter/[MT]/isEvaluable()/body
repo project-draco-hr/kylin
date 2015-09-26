@@ -1,3 +1,16 @@
 {
+switch (operator) {
+case NOT:
+    for (    TupleFilter child : children) {
+      if (TupleFilter.isEvaluableRecursively(child) == false)       return false;
+    }
   return true;
+case OR:
+for (TupleFilter child : children) {
+  if (TupleFilter.isEvaluableRecursively(child) == false)   return false;
+}
+return true;
+default :
+return true;
+}
 }
