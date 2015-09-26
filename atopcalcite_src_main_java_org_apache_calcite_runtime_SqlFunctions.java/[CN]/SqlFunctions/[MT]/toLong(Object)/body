@@ -1,3 +1,0 @@
-{
-  return o instanceof Long ? (Long)o : o instanceof Number ? toLong((Number)o) : o instanceof String ? toLong((String)o) : (Long)cannotConvert(o,long.class);
-}

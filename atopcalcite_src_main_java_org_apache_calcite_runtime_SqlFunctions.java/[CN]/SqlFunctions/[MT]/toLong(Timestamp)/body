@@ -1,3 +1,0 @@
-{
-  return toLong(v,LOCAL_TZ);
-}

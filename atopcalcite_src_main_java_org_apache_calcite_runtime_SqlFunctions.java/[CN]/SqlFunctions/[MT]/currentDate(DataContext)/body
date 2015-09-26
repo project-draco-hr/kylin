@@ -1,9 +1,0 @@
-{
-  final long timestamp=currentTimestamp(root);
-  int date=(int)(timestamp / DateTimeUtils.MILLIS_PER_DAY);
-  final int time=(int)(timestamp % DateTimeUtils.MILLIS_PER_DAY);
-  if (time < 0) {
-    --date;
-  }
-  return date;
-}

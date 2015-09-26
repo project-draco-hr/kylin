@@ -1,3 +1,0 @@
-{
-  return (Function1<List<E>,Enumerable<E>>)(Function1)LIST_AS_ENUMERABLE;
-}

@@ -49,7 +49,7 @@
   for (int i=0; i < joinList.size(); i++) {
     Object o=joinList.get(i);
     if (o instanceof List) {
-      List<SqlNode> projectList=(List<SqlNode>)o;
+      @SuppressWarnings("unchecked") List<SqlNode> projectList=(List<SqlNode>)o;
       final List<RexNode> selectList=new ArrayList<>();
       final List<String> fieldNameList=new ArrayList<>();
       for (int j=0; j < projectList.size(); j++) {
@@ -64,7 +64,7 @@
   RelNode ret=(RelNode)joinList.get(0);
   for (int i=1; i < joinList.size(); i++) {
     RelNode relNode=(RelNode)joinList.get(i);
-    ret=createJoin(ret,relNode,rexBuilder.makeLiteral(true),JoinRelType.INNER,ImmutableSet.<String>of());
+    ret=RelFactories.DEFAULT_JOIN_FACTORY.createJoin(ret,relNode,rexBuilder.makeLiteral(true),JoinRelType.INNER,ImmutableSet.<String>of(),false);
   }
   return ret;
 }

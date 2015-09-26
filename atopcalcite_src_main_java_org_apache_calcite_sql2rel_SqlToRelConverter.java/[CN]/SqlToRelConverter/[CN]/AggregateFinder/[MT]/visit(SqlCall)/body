@@ -1,4 +1,7 @@
 {
+  if (call.getOperator().getKind() == SqlKind.OVER) {
+    return null;
+  }
   if (call.getOperator().isAggregator()) {
     list.add(call);
     return null;

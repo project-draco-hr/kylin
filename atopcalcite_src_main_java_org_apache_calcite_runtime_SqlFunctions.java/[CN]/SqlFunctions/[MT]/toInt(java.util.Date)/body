@@ -1,3 +1,0 @@
-{
-  return toInt(v,LOCAL_TZ);
-}

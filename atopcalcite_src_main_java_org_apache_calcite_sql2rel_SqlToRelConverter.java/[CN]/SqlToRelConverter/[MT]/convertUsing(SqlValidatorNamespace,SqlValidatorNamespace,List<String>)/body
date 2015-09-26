@@ -1,0 +1,15 @@
+{
+  final List<RexNode> list=Lists.newArrayList();
+  for (  String name : nameList) {
+    List<RexNode> operands=new ArrayList<>();
+    int offset=0;
+    for (    SqlValidatorNamespace n : ImmutableList.of(leftNamespace,rightNamespace)) {
+      final RelDataType rowType=n.getRowType();
+      final RelDataTypeField field=catalogReader.field(rowType,name);
+      operands.add(rexBuilder.makeInputRef(field.getType(),offset + field.getIndex()));
+      offset+=rowType.getFieldList().size();
+    }
+    list.add(rexBuilder.makeCall(SqlStdOperatorTable.EQUALS,operands));
+  }
+  return RexUtil.composeConjunction(rexBuilder,list,false);
+}

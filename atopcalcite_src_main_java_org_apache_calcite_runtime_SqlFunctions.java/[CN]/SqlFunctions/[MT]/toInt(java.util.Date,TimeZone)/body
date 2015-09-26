@@ -1,3 +1,0 @@
-{
-  return (int)(toLong(v,timeZone) / DateTimeUtils.MILLIS_PER_DAY);
-}
