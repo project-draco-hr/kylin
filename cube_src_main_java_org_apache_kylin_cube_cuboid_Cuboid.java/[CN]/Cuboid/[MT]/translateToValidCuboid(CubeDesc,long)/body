@@ -1,19 +1,64 @@
 {
-  if (Cuboid.isValid(cube,cuboidID)) {
-    return cuboidID;
+  RowKeyDesc rowkey=cubeDesc.getRowkey();
+  long mandatoryColumnMask=rowkey.getMandatoryColumnMask();
+  if (cuboidID < mandatoryColumnMask) {
+    cuboidID=cuboidID | mandatoryColumnMask;
   }
-  HashSet<Long> dedupped=new HashSet<Long>();
-  Queue<Long> queue=new LinkedList<Long>();
-  List<Long> parents=Cuboid.getAllPossibleParents(cube,cuboidID);
-  addToQueue(queue,parents,dedupped);
-  while (queue.size() > 0) {
-    long parent=pollFromQueue(queue,dedupped);
-    if (Cuboid.isValid(cube,parent)) {
-      return parent;
+  for (  DimensionDesc dimension : cubeDesc.getDimensions()) {
+    HierarchyDesc[] hierarchies=dimension.getHierarchy();
+    boolean found=false;
+    long result=0;
+    if (hierarchies != null && hierarchies.length > 0) {
+      for (int i=hierarchies.length - 1; i >= 0; i--) {
+        TblColRef hColumn=hierarchies[i].getColumnRef();
+        Integer index=rowkey.getColumnBitIndex(hColumn);
+        long bit=1L << index;
+        if ((rowkey.getTailMask() & bit) > 0)         continue;
+        if ((bit & cuboidID) > 0) {
+          found=true;
+        }
+        if (found == true) {
+          result=result | bit;
+        }
+      }
+      cuboidID=cuboidID | result;
+    }
+  }
+  long cuboidWithoutMandatory=cuboidID & ~rowkey.getMandatoryColumnMask();
+  long leftover;
+  for (  AggrGroupMask mask : rowkey.getAggrGroupMasks()) {
+    if ((cuboidWithoutMandatory & mask.uniqueMask) == mask.uniqueMask) {
+      leftover=cuboidWithoutMandatory & ~mask.groupMask;
+      if (leftover == 0) {
+        return cuboidID;
+      }
+      if (leftover != 0) {
+        cuboidID=cuboidID | mask.leftoverMask;
+        return cuboidID;
+      }
+    }
+  }
+  leftover=cuboidWithoutMandatory & rowkey.getTailMask();
+  if (leftover == 0) {
+    if (cuboidWithoutMandatory != 0) {
+      return cuboidID;
     }
  else {
-      addToQueue(queue,Cuboid.getAllPossibleParents(cube,parent),dedupped);
+      long toAddCol=(1 << (BitSet.valueOf(new long[]{rowkey.getTailMask()}).cardinality()));
+      List<HierarchyMask> hierarchyMaskList=rowkey.getHierarchyMasks();
+      if (hierarchyMaskList != null && hierarchyMaskList.size() > 0) {
+        for (        HierarchyMask hierarchyMasks : hierarchyMaskList) {
+          long result=toAddCol & hierarchyMasks.fullMask;
+          if (result > 0) {
+            toAddCol=hierarchyMasks.allMasks[0];
+            break;
+          }
+        }
+      }
+      cuboidID=cuboidID | toAddCol;
+      return cuboidID;
     }
   }
-  return -1;
+  cuboidID=cuboidID | rowkey.getTailMask();
+  return cuboidID;
 }
