@@ -1,0 +1,6 @@
+{
+  Throwable rootCause=ExceptionUtils.getRootCause(sqlException);
+  boolean isExpectedCause=(rootCause instanceof SqlValidatorException || rootCause instanceof ParseException);
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  return isExpectedCause && kylinConfig.isHiveReroutingEnabled();
+}

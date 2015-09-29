@@ -28,32 +28,20 @@
       for (int i=0; i < columnCount; i++) {
         oneRow.add((resultSet.getString(i + 1)));
       }
-      results.add(new LinkedList<String>(oneRow));
+      results.add(new ArrayList<String>(oneRow));
       oneRow.clear();
     }
   }
  catch (  SQLException sqlException) {
-    boolean isExpectedCause=(ExceptionUtils.getRootCause(sqlException).getClass().equals(SqlValidatorException.class)) || (ExceptionUtils.getRootCause(sqlException).getClass().equals(ParseException.class));
-    KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
-    if (isExpectedCause && kylinConfig.isHiveReroutingEnabled()) {
-      logger.debug("query rerouting option enabled for Kylin");
-      HiveRerouteUtil rerouteUtil=new HiveRerouteUtil();
-      try {
-        conn=rerouteUtil.createConnection(kylinConfig.getHiveRerouteUrl(),kylinConfig.getHiveRerouteUsername(),kylinConfig.getHiveReroutePassword());
-        resultSet=rerouteUtil.executQuery(conn,sql);
-        columnMetas=rerouteUtil.extractColumnMetadata(resultSet,columnMetas);
-        results=rerouteUtil.extractResults(resultSet,results);
-      }
- catch (      Exception exception) {
-        logger.error("exception in re-routing the query to hive",exception);
-        throw exception;
-      }
- finally {
-        rerouteUtil.closeConnection(conn);
-      }
+    HiveReroute reroute=new HiveReroute();
+    if (reroute.shouldReroute(sqlException) == false) {
+      throw sqlException;
     }
- else {
-      logger.error("exception in running the query: " + sql);
+    try {
+      reroute.query(sql,results,columnMetas);
+    }
+ catch (    Throwable ex) {
+      logger.error("Reroute hive failed",ex);
       throw sqlException;
     }
   }

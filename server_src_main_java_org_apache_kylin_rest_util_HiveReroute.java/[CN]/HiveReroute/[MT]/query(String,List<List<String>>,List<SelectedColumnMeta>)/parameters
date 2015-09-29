@@ -1,0 +1,3 @@
+String sql
+List<List<String>> results
+List<SelectedColumnMeta> columnMetas

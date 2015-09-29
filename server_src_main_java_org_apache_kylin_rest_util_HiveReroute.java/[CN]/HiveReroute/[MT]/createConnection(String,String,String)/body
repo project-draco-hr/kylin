@@ -1,11 +1,6 @@
 {
   logger.info("rerouting to : " + connectionURL + " for executing the query");
-  try {
-    Class.forName(driverName);
-  }
- catch (  ClassNotFoundException classNotFoundException) {
-    throw classNotFoundException;
-  }
+  Class.forName(HIVE_DRIVER_CLASS);
   Connection connection=DriverManager.getConnection(connectionURL,username,password);
   return connection;
 }

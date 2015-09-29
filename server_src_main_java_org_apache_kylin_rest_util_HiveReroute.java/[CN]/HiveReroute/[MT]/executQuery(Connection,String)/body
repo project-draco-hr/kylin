@@ -1,0 +1,7 @@
+{
+  Statement statement=null;
+  ResultSet resultSet=null;
+  statement=connection.createStatement();
+  resultSet=statement.executeQuery(query);
+  return resultSet;
+}

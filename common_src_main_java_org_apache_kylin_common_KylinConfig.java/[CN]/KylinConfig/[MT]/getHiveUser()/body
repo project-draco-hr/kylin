@@ -1,3 +1,3 @@
 {
-  return getOptional(HIVE_USER,"");
+  return getOptional("hive.user","");
 }
