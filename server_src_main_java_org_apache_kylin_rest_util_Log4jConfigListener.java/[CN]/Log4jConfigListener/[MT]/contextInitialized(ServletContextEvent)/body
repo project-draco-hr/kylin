@@ -1,0 +1,5 @@
+{
+  if (!isTesting) {
+    super.contextInitialized(event);
+  }
+}
