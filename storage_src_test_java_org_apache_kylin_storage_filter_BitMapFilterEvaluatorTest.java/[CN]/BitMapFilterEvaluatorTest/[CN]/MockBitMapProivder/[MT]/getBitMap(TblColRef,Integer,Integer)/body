@@ -1,22 +1,21 @@
 {
   if (!col.equals(colA))   return null;
   if (startId == null && endId == null) {
-    ConciseSet s=new ConciseSet();
-    s.add(getRecordCount() - 1);
-    return s;
+    return RoaringBitmap.bitmapOf(getRecordCount() - 1);
   }
-  int start=0;
-  int end=MAX_ID;
-  if (startId != null) {
-    start=startId;
+  final int start=(startId != null) ? startId : 0;
+  final int end=(endId != null) ? endId : MAX_ID;
+  return RoaringBitmap.or(new Iterator<RoaringBitmap>(){
+    int i=start;
+    @Override public boolean hasNext(){
+      return i <= end;
+    }
+    @Override public RoaringBitmap next(){
+      return getBitMap(col,i++);
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
   }
-  if (endId != null) {
-    end=endId;
-  }
-  ConciseSet ret=new ConciseSet();
-  for (int i=start; i <= end; ++i) {
-    ConciseSet temp=getBitMap(col,i);
-    ret.addAll(temp);
-  }
-  return ret;
+);
 }

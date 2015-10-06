@@ -1,11 +1,27 @@
 {
-  if (bytes.get() == null || bytes.getLength() == 0) {
-    return new ConciseSet();
+  RoaringBitmap set=new RoaringBitmap();
+  if ((bytes.get() != null) && (bytes.getLength() > 0)) {
+    try {
+      set.deserialize(new java.io.DataInputStream(new java.io.InputStream(){
+        byte[] array=bytes.get();
+        int c=bytes.getOffset();
+        @Override public int read(){
+          return array[c++] & 0xff;
+        }
+        @Override public int read(        byte b[]){
+          return read(b,0,b.length);
+        }
+        @Override public int read(        byte[] b,        int off,        int l){
+          System.arraycopy(array,c,b,off,l);
+          c+=l;
+          return l;
+        }
+      }
+));
+    }
+ catch (    IOException ioe) {
+      throw new RuntimeException("unexpected error while deserializing from a byte array");
+    }
   }
- else {
-    IntBuffer intBuffer=ByteBuffer.wrap(bytes.get(),bytes.getOffset(),bytes.getLength()).asIntBuffer();
-    int[] words=new int[intBuffer.capacity()];
-    intBuffer.get(words);
-    return new ConciseSet(words,false);
-  }
+  return set;
 }

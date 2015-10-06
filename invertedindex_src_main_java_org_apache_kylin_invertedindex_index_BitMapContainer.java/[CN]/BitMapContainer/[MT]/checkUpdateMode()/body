@@ -3,9 +3,9 @@
     throw new IllegalStateException();
   }
   if (sets == null) {
-    sets=new ConciseSet[nValues + 1];
+    sets=new RoaringBitmap[nValues + 1];
     for (int i=0; i <= nValues; i++) {
-      sets[i]=new ConciseSet();
+      sets[i]=new RoaringBitmap();
     }
   }
 }

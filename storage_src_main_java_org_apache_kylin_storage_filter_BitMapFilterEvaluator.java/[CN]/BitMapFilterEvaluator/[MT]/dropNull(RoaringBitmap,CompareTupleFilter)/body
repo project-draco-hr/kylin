@@ -1,0 +1,5 @@
+{
+  if (set == null)   return;
+  RoaringBitmap nullSet=evalCompareIsNull(filter);
+  set.andNot(nullSet);
+}

@@ -1,10 +1,10 @@
 {
-  ConciseSet set=new ConciseSet();
+  java.util.ArrayList<RoaringBitmap> buffer=new java.util.ArrayList<RoaringBitmap>();
   for (  String value : filter.getValues()) {
     int id=Dictionary.stringToDictId(value);
-    ConciseSet bitMap=provider.getBitMap(filter.getColumn(),id,id);
+    RoaringBitmap bitMap=provider.getBitMap(filter.getColumn(),id,id);
     if (bitMap == null)     return null;
-    set.addAll(bitMap);
+    buffer.add(bitMap);
   }
-  return set;
+  return RoaringBitmap.or(buffer.iterator());
 }

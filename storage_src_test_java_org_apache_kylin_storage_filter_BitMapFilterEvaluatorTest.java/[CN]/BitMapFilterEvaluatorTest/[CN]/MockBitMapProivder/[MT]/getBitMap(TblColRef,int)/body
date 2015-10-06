@@ -1,6 +1,6 @@
 {
   if (!col.equals(colA))   return null;
-  ConciseSet bitMap=new ConciseSet();
+  RoaringBitmap bitMap=new RoaringBitmap();
   if (valueId < 0 || valueId > getMaxValueId(col))   bitMap.add(getRecordCount() - 1);
  else   bitMap.add(valueId);
   return bitMap;

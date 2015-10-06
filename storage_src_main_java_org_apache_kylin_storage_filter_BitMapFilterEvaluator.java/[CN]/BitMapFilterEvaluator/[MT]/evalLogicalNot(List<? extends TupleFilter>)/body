@@ -1,5 +1,5 @@
 {
-  ConciseSet set=evaluate(children.get(0));
+  RoaringBitmap set=evaluate(children.get(0));
   not(set);
   return set;
 }

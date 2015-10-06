@@ -1,0 +1,28 @@
+{
+  set.runOptimize();
+  final byte[] array=new byte[set.serializedSizeInBytes()];
+  try {
+    set.serialize(new java.io.DataOutputStream(new java.io.OutputStream(){
+      int c=0;
+      @Override public void close(){
+      }
+      @Override public void flush(){
+      }
+      @Override public void write(      int b){
+        array[c++]=(byte)b;
+      }
+      @Override public void write(      byte[] b){
+        write(b,0,b.length);
+      }
+      @Override public void write(      byte[] b,      int off,      int l){
+        System.arraycopy(b,off,array,c,l);
+        c+=l;
+      }
+    }
+));
+  }
+ catch (  IOException ioe) {
+    throw new RuntimeException("unexpected error while serializing to a byte array");
+  }
+  return new ImmutableBytesWritable(array);
+}

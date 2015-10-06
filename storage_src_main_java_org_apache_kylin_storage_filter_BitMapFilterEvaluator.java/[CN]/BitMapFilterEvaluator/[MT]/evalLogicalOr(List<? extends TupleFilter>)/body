@@ -1,9 +1,9 @@
 {
-  ConciseSet set=new ConciseSet();
+  java.util.ArrayList<RoaringBitmap> buffer=new java.util.ArrayList<RoaringBitmap>();
   for (  TupleFilter c : children) {
-    ConciseSet t=evaluate(c);
+    RoaringBitmap t=evaluate(c);
     if (t == null)     return null;
-    set.addAll(t);
+    buffer.add(t);
   }
-  return set;
+  return RoaringBitmap.or(buffer.iterator());
 }
