@@ -1,5 +1,13 @@
 {
   job.setReducerClass(reducer);
+  String htableName=seg.getStorageLocationIdentifier();
+  Configuration conf=HBaseConfiguration.create(job.getConfiguration());
+  HTable htable=new HTable(conf,htableName);
+  int regions=htable.getStartKeys().length + 1;
+  int reducerNum=regions * 10;
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  reducerNum=Math.min(kylinConfig.getHadoopJobMaxReducerNumber(),reducerNum);
+  job.setNumReduceTasks(reducerNum);
   job.setOutputFormatClass(SequenceFileOutputFormat.class);
   job.setOutputKeyClass(Text.class);
   job.setOutputValueClass(Text.class);
