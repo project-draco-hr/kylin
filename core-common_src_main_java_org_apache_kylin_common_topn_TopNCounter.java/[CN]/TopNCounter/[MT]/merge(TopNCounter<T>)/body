@@ -1,30 +1,26 @@
 {
   double m1=0.0, m2=0.0;
   if (this.size() >= this.capacity) {
-    m1=this.bucketList.tail().getValue().count;
+    m1=this.counterList.tail().getValue().count;
   }
   if (another.size() >= another.capacity) {
-    m2=another.bucketList.tail().getValue().count;
+    m2=another.counterList.tail().getValue().count;
   }
   for (  Map.Entry<T,ListNode2<Counter<T>>> entry : this.counterMap.entrySet()) {
     T item=entry.getKey();
     ListNode2<Counter<T>> existing=another.counterMap.get(item);
     if (existing != null) {
       this.offer(item,another.counterMap.get(item).getValue().count);
-      this.counterMap.get(item).getValue().error=entry.getValue().getValue().error + another.counterMap.get(item).getValue().error;
       another.counterMap.remove(item);
     }
  else {
       this.offer(item,m2);
-      this.counterMap.get(item).getValue().error=entry.getValue().getValue().error + m2;
     }
   }
   for (  Map.Entry<T,ListNode2<Counter<T>>> entry : another.counterMap.entrySet()) {
     T item=entry.getKey();
     double counter=entry.getValue().getValue().count;
-    double error=entry.getValue().getValue().error;
     this.offer(item,counter + m1);
-    this.counterMap.get(item).getValue().error=error + m1;
   }
   return this;
 }

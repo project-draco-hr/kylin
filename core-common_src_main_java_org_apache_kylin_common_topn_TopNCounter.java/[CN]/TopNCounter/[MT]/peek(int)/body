@@ -1,13 +1,11 @@
 {
   List<T> topK=new ArrayList<T>(k);
-  for (ListNode2<Bucket> bNode=bucketList.head(); bNode != null; bNode=bNode.getPrev()) {
-    Bucket b=bNode.getValue();
-    for (    Counter<T> c : b.counterList) {
-      if (topK.size() == k) {
-        return topK;
-      }
-      topK.add(c.item);
+  for (ListNode2<Counter<T>> bNode=counterList.head(); bNode != null; bNode=bNode.getPrev()) {
+    Counter<T> b=bNode.getValue();
+    if (topK.size() == k) {
+      return topK;
     }
+    topK.add(b.item);
   }
   return topK;
 }

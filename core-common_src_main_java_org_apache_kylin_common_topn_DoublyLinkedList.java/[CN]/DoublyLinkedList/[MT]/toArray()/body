@@ -1,8 +1,0 @@
-{
-  T[] a=(T[])new Object[size];
-  int i=0;
-  for (  T v : this) {
-    a[i++]=v;
-  }
-  return a;
-}

@@ -1,6 +1,6 @@
 {
   TopNCounter<String> vs=new TopNCounter<String>(10);
-  String[] stream={"X","X","Y","Z","A","B","C","X","X","A","C","A","B"};
+  String[] stream={"X","X","Y","Z","A","B","C","X","X","A","C","A","B","A"};
   for (  String i : stream) {
     vs.offer(i);
   }

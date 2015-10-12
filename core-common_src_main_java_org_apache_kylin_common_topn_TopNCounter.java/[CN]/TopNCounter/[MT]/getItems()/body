@@ -1,10 +1,2 @@
 {
-  List<T> items=Lists.newArrayList();
-  for (ListNode2<Bucket> bNode=bucketList.tail(); bNode != null; bNode=bNode.getNext()) {
-    Bucket b=bNode.getValue();
-    for (    Counter<T> c : b.counterList) {
-      items.add(c.item);
-    }
-  }
-  return items;
 }

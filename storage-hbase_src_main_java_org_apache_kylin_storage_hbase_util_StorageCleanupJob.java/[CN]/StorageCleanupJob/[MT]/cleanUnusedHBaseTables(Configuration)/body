@@ -12,6 +12,9 @@
       if (StringUtils.isEmpty(creationTime) || (System.currentTimeMillis() - Long.valueOf(creationTime) > TIME_THREADSHOLD)) {
         allTablesNeedToBeDropped.add(desc.getTableName().getNameAsString());
       }
+ else {
+        logger.info("Exclude table " + desc.getTableName().getNameAsString() + " from drop list, as it is newly created");
+      }
     }
   }
   for (  CubeInstance cube : cubeMgr.listAllCubes()) {

@@ -1,6 +1,3 @@
 {
-  currentBNode=bucketList.head();
-  if (currentBNode != null && currentBNode.getValue() != null) {
-    currentCounterIterator=currentBNode.getValue().counterList.iterator();
-  }
+  currentBNode=counterList.tail();
 }

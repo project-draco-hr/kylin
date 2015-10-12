@@ -1,8 +1,0 @@
-{
-  if (length != list.size) {
-    throw new ConcurrentModificationException();
-  }
-  T next=itr.value;
-  itr=itr.next;
-  return next;
-}

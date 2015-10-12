@@ -4,16 +4,15 @@
   T droppedItem=null;
   if (isNewItem) {
     if (size() < capacity) {
-      counterNode=bucketList.enqueue(new Bucket(0)).getValue().counterList.add(new Counter<T>(bucketList.tail(),item));
+      counterNode=counterList.enqueue(new Counter<T>(item));
     }
  else {
-      Bucket min=bucketList.first();
-      counterNode=min.counterList.tail();
+      counterNode=counterList.tail();
       Counter<T> counter=counterNode.getValue();
       droppedItem=counter.item;
       counterMap.remove(droppedItem);
       counter.item=item;
-      counter.error=min.count;
+      counter.count=0.0;
     }
     counterMap.put(item,counterNode);
   }

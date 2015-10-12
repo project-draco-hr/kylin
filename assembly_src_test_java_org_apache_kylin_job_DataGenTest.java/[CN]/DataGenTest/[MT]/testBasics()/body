@@ -1,7 +1,5 @@
 {
   String content=FactTableGenerator.generate("test_kylin_cube_with_slr_ready","10000","1",null);
-  System.out.println(content);
   assertTrue(content.contains("FP-non GTC"));
   assertTrue(content.contains("ABIN"));
-  DeployUtil.overrideFactTableData(content,"default.test_kylin_fact");
 }

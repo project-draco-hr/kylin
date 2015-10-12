@@ -6,6 +6,7 @@
   int regions=htable.getStartKeys().length + 1;
   htable.close();
   int reducerNum=regions * 3;
+  reducerNum=Math.max(1,reducerNum);
   KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   reducerNum=Math.min(kylinConfig.getHadoopJobMaxReducerNumber(),reducerNum);
   job.setNumReduceTasks(reducerNum);
