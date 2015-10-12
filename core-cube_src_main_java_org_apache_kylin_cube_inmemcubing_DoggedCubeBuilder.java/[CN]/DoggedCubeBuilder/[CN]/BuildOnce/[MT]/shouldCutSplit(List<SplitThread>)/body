@@ -3,5 +3,5 @@
   int nSplit=splits.size();
   long splitRowCount=nSplit == 0 ? 0 : splits.get(nSplit - 1).inputRowCount;
   logger.debug(splitRowCount + " records went into split #" + nSplit+ "; "+ systemAvailMB+ " MB left, "+ reserveMemoryMB+ " MB threshold");
-  return splitRowCount >= splitRowThreshold || systemAvailMB <= reserveMemoryMB;
+  return splitRowCount >= splitRowThreshold || systemAvailMB <= reserveMemoryMB * 1.5;
 }

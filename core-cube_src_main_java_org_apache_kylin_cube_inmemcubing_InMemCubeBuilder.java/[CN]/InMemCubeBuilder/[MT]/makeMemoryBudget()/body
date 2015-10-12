@@ -1,7 +1,7 @@
 {
   int systemAvailMB=getSystemAvailMB();
   logger.info("System avail " + systemAvailMB + " MB");
-  int reserve=Math.max(reserveMemoryMB,baseResult.aggrCacheMB / 3);
+  int reserve=reserveMemoryMB;
   logger.info("Reserve " + reserve + " MB for system basics");
   int budget=systemAvailMB - reserve;
   if (budget < baseResult.aggrCacheMB) {

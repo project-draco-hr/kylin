@@ -17,6 +17,7 @@
       }
       builder.write(newRecord);
     }
+    sanityCheck(scanner.getTotalSumForSanityCheck());
   }
   finally {
     scanner.close();
