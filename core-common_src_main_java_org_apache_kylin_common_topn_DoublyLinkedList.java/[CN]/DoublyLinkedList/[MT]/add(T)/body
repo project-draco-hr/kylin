@@ -1,12 +1,5 @@
 {
   ListNode2<T> node=new ListNode2<T>(value);
-  if (size++ == 0) {
-    tail=node;
-  }
- else {
-    node.prev=head;
-    head.next=node;
-  }
-  head=node;
+  add(node);
   return node;
 }

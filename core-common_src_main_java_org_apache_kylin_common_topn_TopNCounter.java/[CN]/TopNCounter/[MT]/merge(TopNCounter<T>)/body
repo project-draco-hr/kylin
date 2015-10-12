@@ -6,21 +6,30 @@
   if (another.size() >= another.capacity) {
     m2=another.counterList.tail().getValue().count;
   }
+  Set<T> duplicateItems=Sets.newHashSet();
+  List<T> notDuplicateItems=Lists.newArrayList();
   for (  Map.Entry<T,ListNode2<Counter<T>>> entry : this.counterMap.entrySet()) {
     T item=entry.getKey();
     ListNode2<Counter<T>> existing=another.counterMap.get(item);
     if (existing != null) {
-      this.offer(item,another.counterMap.get(item).getValue().count);
-      another.counterMap.remove(item);
+      duplicateItems.add(item);
     }
  else {
-      this.offer(item,m2);
+      notDuplicateItems.add(item);
     }
+  }
+  for (  T item : duplicateItems) {
+    this.offer(item,another.counterMap.get(item).getValue().count);
+  }
+  for (  T item : notDuplicateItems) {
+    this.offer(item,m2);
   }
   for (  Map.Entry<T,ListNode2<Counter<T>>> entry : another.counterMap.entrySet()) {
     T item=entry.getKey();
-    double counter=entry.getValue().getValue().count;
-    this.offer(item,counter + m1);
+    if (duplicateItems.contains(item) == false) {
+      double counter=entry.getValue().getValue().count;
+      this.offer(item,counter + m1);
+    }
   }
   return this;
 }

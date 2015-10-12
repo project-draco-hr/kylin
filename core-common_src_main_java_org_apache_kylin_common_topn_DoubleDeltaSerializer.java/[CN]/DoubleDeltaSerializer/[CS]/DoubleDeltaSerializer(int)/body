@@ -2,4 +2,5 @@
   checkFitInBits(precision,PRECISION_BITS);
   this.precision=precision;
   this.multiplier=(int)Math.pow(10,precision);
+  this.deltasThreadLocal=new ThreadLocal<long[]>();
 }

@@ -16,5 +16,5 @@
     }
     mask=mask >> 1;
   }
-  return scanAndAggregateGridTable(parent.table,cuboidId,childDimensions,measureColumns);
+  return scanAndAggregateGridTable(parent.table,parent.cuboidId,cuboidId,childDimensions,measureColumns);
 }

@@ -1,0 +1,27 @@
+{
+  for (int i=0; i < totalSum.length; i++) {
+    if (totalSum[i] instanceof DoubleMutable) {
+      totalSum[i]=Math.round(((DoubleMutable)totalSum[i]).get());
+    }
+ else     if (totalSum[i] instanceof TopNCounter) {
+      TopNCounter counter=(TopNCounter)totalSum[i];
+      Iterator<Counter> iterator=counter.iterator();
+      double total=0.0;
+      while (iterator.hasNext()) {
+        Counter aCounter=iterator.next();
+        total+=aCounter.getCount();
+      }
+      totalSum[i]=Math.round(total);
+    }
+  }
+  if (totalSumForSanityCheck == null) {
+    totalSumForSanityCheck=totalSum;
+    return;
+  }
+  if (Arrays.equals(totalSumForSanityCheck,totalSum) == false) {
+    logger.info("sanityCheck failed when calculate " + cuboidId + " from parent "+ parentId);
+    logger.info("Expected: " + Arrays.toString(totalSumForSanityCheck));
+    logger.info("Actually: " + Arrays.toString(totalSum));
+    throw new IllegalStateException();
+  }
+}
