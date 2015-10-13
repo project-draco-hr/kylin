@@ -6,8 +6,8 @@
   this.alertRunningSec=alertRunningSec;
   this.killRunningSec=killRunningSec;
   this.notifiers.add(new Notifier(){
-    @Override public void badQueryFound(    String adj,    int runningSec,    String sql){
-      logger.info(adj + " query has been running " + runningSec+ " seconds -- "+ sql);
+    @Override public void badQueryFound(    String adj,    int runningSec,    String sql,    Thread t){
+      logger.info(adj + " query has been running " + runningSec+ " seconds, (thread id 0x"+ Long.toHexString(t.getId())+ ") -- "+ sql);
     }
   }
 );

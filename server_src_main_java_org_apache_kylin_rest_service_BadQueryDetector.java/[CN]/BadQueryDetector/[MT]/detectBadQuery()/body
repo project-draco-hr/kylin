@@ -5,7 +5,7 @@
   for (  Entry e : entries) {
     int runningSec=(int)((now - e.startTime) / 1000);
     if (runningSec >= alertRunningSec) {
-      notify("Slow",runningSec,e.sqlRequest.getSql());
+      notify("Slow",runningSec,e.sqlRequest.getSql(),e.thread);
     }
  else {
       break;
@@ -17,12 +17,12 @@
       Entry e=mapEntry.getValue();
       int duration=(int)((now - e.startTime) / 1000);
       if (duration > killRunningSec) {
-        notify("Kill",duration,e.sqlRequest.getSql());
+        notify("Kill",duration,e.sqlRequest.getSql(),e.thread);
         Thread queryThread=mapEntry.getKey();
         killQueryThread(queryThread);
       }
  else {
-        notify("Low mem",duration,e.sqlRequest.getSql());
+        notify("Low mem",duration,e.sqlRequest.getSql(),e.thread);
       }
     }
   }
