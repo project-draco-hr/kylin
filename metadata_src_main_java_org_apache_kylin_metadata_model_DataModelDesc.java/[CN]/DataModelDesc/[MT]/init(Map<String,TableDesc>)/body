@@ -1,4 +1,5 @@
 {
+  this.factTable=factTable.toUpperCase();
   initJoinColumns(tables);
   initPartitionDesc(tables);
 }
