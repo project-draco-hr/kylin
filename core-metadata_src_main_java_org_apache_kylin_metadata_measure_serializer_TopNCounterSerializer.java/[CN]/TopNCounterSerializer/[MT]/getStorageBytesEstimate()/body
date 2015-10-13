@@ -1,0 +1,3 @@
+{
+  return precision * TopNCounter.EXTRA_SPACE_RATE * 8;
+}

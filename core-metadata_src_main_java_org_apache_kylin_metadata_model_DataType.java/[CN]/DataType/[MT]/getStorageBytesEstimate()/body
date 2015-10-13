@@ -1,0 +1,3 @@
+{
+  return DataTypeSerializer.create(this).getStorageBytesEstimate();
+}

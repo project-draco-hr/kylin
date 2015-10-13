@@ -10,7 +10,7 @@
   }
   int rowSizeEst=dimensions.size() * 3;
   for (  FunctionDesc func : metrics) {
-    rowSizeEst+=func.getReturnDataType().getSpaceEstimate();
+    rowSizeEst+=func.getReturnDataType().getStorageBytesEstimate();
   }
   long rowEst=MEM_BUDGET_PER_QUERY / rowSizeEst;
   context.setThreshold((int)rowEst);
