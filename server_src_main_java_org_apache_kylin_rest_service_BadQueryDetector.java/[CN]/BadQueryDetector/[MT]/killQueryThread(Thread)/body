@@ -1,3 +1,10 @@
 {
-  thread.interrupt();
+  StackTraceElement[] stackTrace=t.getStackTrace();
+  t.interrupt();
+  StringBuilder buf=new StringBuilder("Interrupted thread 0x" + Long.toHexString(t.getId()));
+  buf.append("\n");
+  for (  StackTraceElement e : stackTrace) {
+    buf.append("\t").append("at ").append(e.toString()).append("\n");
+  }
+  logger.info(buf.toString());
 }
