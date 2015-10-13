@@ -4,7 +4,8 @@
   Configuration conf=HBaseConfiguration.create(job.getConfiguration());
   HTable htable=new HTable(conf,htableName);
   int regions=htable.getStartKeys().length + 1;
-  int reducerNum=regions * 10;
+  htable.close();
+  int reducerNum=regions * 3;
   KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   reducerNum=Math.min(kylinConfig.getHadoopJobMaxReducerNumber(),reducerNum);
   job.setNumReduceTasks(reducerNum);

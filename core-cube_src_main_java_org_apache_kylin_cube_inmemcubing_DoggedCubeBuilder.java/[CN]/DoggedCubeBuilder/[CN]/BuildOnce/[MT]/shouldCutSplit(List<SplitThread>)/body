@@ -3,5 +3,13 @@
   int nSplit=splits.size();
   long splitRowCount=nSplit == 0 ? 0 : splits.get(nSplit - 1).inputRowCount;
   logger.debug(splitRowCount + " records went into split #" + nSplit+ "; "+ systemAvailMB+ " MB left, "+ reserveMemoryMB+ " MB threshold");
-  return splitRowCount >= splitRowThreshold || systemAvailMB <= reserveMemoryMB * 1.5;
+  if (splitRowCount >= splitRowThreshold) {
+    logger.info("Split cut due to hitting splitRowThreshold " + splitRowThreshold);
+    return true;
+  }
+  if (systemAvailMB <= reserveMemoryMB + cutAheadMB) {
+    logger.info("Split cut due to hitting memory threshold, system avail " + systemAvailMB + " MB <= reserve "+ reserveMemoryMB+ " MB + cut ahead "+ cutAheadMB+ " MB");
+    return true;
+  }
+  return false;
 }

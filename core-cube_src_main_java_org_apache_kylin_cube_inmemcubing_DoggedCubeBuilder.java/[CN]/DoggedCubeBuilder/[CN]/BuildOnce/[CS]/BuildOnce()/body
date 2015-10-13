@@ -1,0 +1,10 @@
+{
+  int systemAvailMB=MemoryBudgetController.getSystemAvailMB();
+  cutAheadMB=(int)(systemAvailMB * InMemCubeBuilder.BASE_CUBOID_CACHE_OVERSIZE_FACTOR);
+  logger.info("Cut ahead MB is " + cutAheadMB);
+  int half=systemAvailMB / 2;
+  if (getReserveMemoryMB() > half) {
+    logger.info("Reserve " + getReserveMemoryMB() + " MB is more than half of system avail "+ systemAvailMB+ " MB, override to "+ half);
+    setReserveMemoryMB(half);
+  }
+}

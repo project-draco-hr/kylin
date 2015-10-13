@@ -23,7 +23,7 @@
   logger.info("Cuboid " + baseCuboidId + " has "+ count+ " rows, build takes "+ timeSpent+ "ms");
   int mbBaseAggrCacheOnHeap=mbAfter == 0 ? 0 : mbBefore - mbAfter;
   int mbEstimateBaseAggrCache=(int)(aggregationScanner.getEstimateSizeOfAggrCache() / MemoryBudgetController.ONE_MB);
-  int mbBaseAggrCache=mbBaseAggrCacheOnHeap;
+  int mbBaseAggrCache=(int)(mbBaseAggrCacheOnHeap * (1 + BASE_CUBOID_CACHE_OVERSIZE_FACTOR));
   mbBaseAggrCache=Math.max(mbBaseAggrCache,10);
   logger.info("Base aggr cache is " + mbBaseAggrCache + " MB (heap "+ mbBaseAggrCacheOnHeap+ " MB, estimate "+ mbEstimateBaseAggrCache+ " MB)");
   return updateCuboidResult(baseCuboidId,baseCuboid,count,timeSpent,mbBaseAggrCache);
