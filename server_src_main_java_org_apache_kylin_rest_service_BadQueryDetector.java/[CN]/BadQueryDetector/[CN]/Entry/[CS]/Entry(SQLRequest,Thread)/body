@@ -1,4 +1,5 @@
 {
   this.sqlRequest=sqlRequest;
   this.startTime=System.currentTimeMillis();
+  this.thread=thread;
 }
