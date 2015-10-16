@@ -1,5 +1,6 @@
 {
   int mark=in.position();
+  @SuppressWarnings("unused") int capacity=in.getInt();
   int size=in.getInt();
   int keyLength=in.getInt();
   dds.deserialize(in);
