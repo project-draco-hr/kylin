@@ -28,4 +28,5 @@
   }
   jobConf.set(MAP_REDUCE_CLASSPATH,classpath);
   logger.info("Hadoop job classpath is: " + job.getConfiguration().get(MAP_REDUCE_CLASSPATH));
+  setJobTmpJarsAndFiles(job);
 }
