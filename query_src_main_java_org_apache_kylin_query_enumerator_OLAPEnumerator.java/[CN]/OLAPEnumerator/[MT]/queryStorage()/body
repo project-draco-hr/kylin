@@ -4,8 +4,10 @@
   bindVariable(olapContext.filter);
   olapContext.filter=modifyTimeLiterals(olapContext.filter);
   olapContext.resetSQLDigest();
+  SQLDigest sqlDigest=olapContext.getSQLDigest();
+  hackNoGroupByAggregation(sqlDigest);
   IStorageQuery storageEngine=StorageFactory.createQuery(olapContext.realization);
-  ITupleIterator iterator=storageEngine.search(olapContext.storageContext,olapContext.getSQLDigest(),olapContext.returnTupleInfo);
+  ITupleIterator iterator=storageEngine.search(olapContext.storageContext,sqlDigest,olapContext.returnTupleInfo);
   if (logger.isDebugEnabled()) {
     logger.debug("return TupleIterator...");
   }
