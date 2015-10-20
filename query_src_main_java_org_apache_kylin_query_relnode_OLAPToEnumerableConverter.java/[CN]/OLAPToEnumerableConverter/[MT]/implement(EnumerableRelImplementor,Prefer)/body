@@ -3,6 +3,9 @@
   olapImplementor.visitChild(getInput(),this);
   try {
     for (    OLAPContext context : OLAPContext.getThreadLocalContexts()) {
+      if (context.firstTableScan == null) {
+        continue;
+      }
       IRealization realization=QueryRouter.selectRealization(context);
       context.realization=realization;
     }
