@@ -1,0 +1,38 @@
+{
+  if (!sqlDigest.groupbyColumns.isEmpty() || !sqlDigest.metricColumns.isEmpty())   return;
+  logger.info("No group by and aggregation found in this query, will hack some result for better look of output...");
+  IRealization cube=olapContext.realization;
+  boolean isSelectAll=sqlDigest.allColumns.isEmpty() || sqlDigest.allColumns.equals(sqlDigest.filterColumns);
+  for (  TblColRef col : cube.getAllColumns()) {
+    if (col.getTable().equals(sqlDigest.factTable) && (cube.getAllDimensions().contains(col) || isSelectAll)) {
+      sqlDigest.allColumns.add(col);
+    }
+  }
+  for (  TblColRef col : sqlDigest.allColumns) {
+    if (cube.getAllDimensions().contains(col)) {
+      sqlDigest.groupbyColumns.add(col);
+    }
+ else {
+      ParameterDesc colParameter=new ParameterDesc();
+      colParameter.setType("column");
+      colParameter.setValue(col.getName());
+      FunctionDesc sumFunc=new FunctionDesc();
+      sumFunc.setExpression("SUM");
+      sumFunc.setParameter(colParameter);
+      boolean measureHasSum=false;
+      for (      MeasureDesc colMeasureDesc : cube.getMeasures()) {
+        if (colMeasureDesc.getFunction().equals(sumFunc)) {
+          measureHasSum=true;
+          break;
+        }
+      }
+      if (measureHasSum) {
+        sqlDigest.aggregations.add(sumFunc);
+      }
+ else {
+        logger.warn("SUM is not defined for measure column " + col + ", output will be meaningless.");
+      }
+      sqlDigest.metricColumns.add(col);
+    }
+  }
+}
