@@ -1,12 +1,12 @@
 {
-  if (hasFilterPushDown() == false)   return;
+  if (!hasFilterPushDown())   return;
   Set<TblColRef> filterColumns=Sets.newHashSet();
   TupleFilter.collectColumns(filterPushDown,filterColumns);
   for (  TblColRef col : filterColumns) {
     info.validateColRef(col);
     columns=columns.set(col.getColumnDesc().getZeroBasedIndex());
   }
-  if (TupleFilter.isEvaluableRecursively(filterPushDown) == false) {
+  if (!TupleFilter.isEvaluableRecursively(filterPushDown)) {
     Set<TblColRef> unevaluableColumns=Sets.newHashSet();
     filterPushDown=GTUtil.convertFilterUnevaluatable(filterPushDown,info,unevaluableColumns);
     if (hasAggregation()) {

@@ -1,7 +1,7 @@
 {
   CubeInstance cube=CubeManager.getInstance(getTestConfig()).getCube("TEST_KYLIN_CUBE_WITHOUT_SLR_READY");
-  RowKeySplitter rowKeySplitter=new RowKeySplitter(cube.getFirstSegment(),10,20);
-  byte[] input={0,0,0,0,0,0,0,-1,11,55,-13,13,22,34,121,70,80,45,71,84,67,9,9,9,9,9,9,0,10,5};
-  rowKeySplitter.split(input,input.length);
-  assertEquals(9,rowKeySplitter.getBufferSize());
+  RowKeySplitter rowKeySplitter=new RowKeySplitter(cube.getFirstSegment(),11,20);
+  byte[] input={0,0,0,0,0,0,0,0,0,-1,11,55,-13,13,22,34,121,70,80,45,71,84,67,9,9,9,9,9,9,0,10,5};
+  rowKeySplitter.split(input);
+  assertEquals(10,rowKeySplitter.getBufferSize());
 }

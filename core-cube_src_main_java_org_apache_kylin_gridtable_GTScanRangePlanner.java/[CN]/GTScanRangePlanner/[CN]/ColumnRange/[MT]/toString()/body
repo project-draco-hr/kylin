@@ -1,8 +1,8 @@
 {
-  if (equals == null) {
+  if (valueSet == null) {
     return column.getName() + " between " + begin+ " and "+ end;
   }
  else {
-    return column.getName() + " in " + equals;
+    return column.getName() + " in " + valueSet;
   }
 }

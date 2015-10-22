@@ -1,5 +1,4 @@
 {
   this.info=info;
   this.rowList=new ArrayList<byte[]>();
-  if (info.isShardingEnabled())   throw new UnsupportedOperationException();
 }

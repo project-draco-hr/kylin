@@ -1,0 +1,9 @@
+{
+  this.info=info;
+  this.segmentStartAndEnd=segmentStartAndEnd;
+  this.partitionColRef=partitionColRef;
+  IGTComparator comp=info.codeSystem.getComparator();
+  this.rangeStartComparator=getRangeStartComparator(comp);
+  this.rangeEndComparator=getRangeEndComparator(comp);
+  this.rangeStartEndComparator=getRangeStartEndComparator(comp);
+}

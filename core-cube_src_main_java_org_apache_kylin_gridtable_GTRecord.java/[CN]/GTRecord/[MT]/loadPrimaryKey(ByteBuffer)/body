@@ -1,3 +1,0 @@
-{
-  loadColumns(info.primaryKey,buf);
-}

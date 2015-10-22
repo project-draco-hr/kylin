@@ -1,0 +1,8 @@
+{
+  if (hbaseColumnsToGTBuilder_ != null) {
+    return hbaseColumnsToGTBuilder_.getMessageOrBuilderList();
+  }
+ else {
+    return java.util.Collections.unmodifiableList(hbaseColumnsToGT_);
+  }
+}

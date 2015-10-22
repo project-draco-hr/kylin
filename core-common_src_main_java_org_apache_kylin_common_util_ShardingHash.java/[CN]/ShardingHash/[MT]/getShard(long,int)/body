@@ -1,0 +1,7 @@
+{
+  if (totalShards <= 1) {
+    return 0;
+  }
+  long hash=hashFunc.hashLong(longValue).asLong();
+  return _getShard(hash,totalShards);
+}

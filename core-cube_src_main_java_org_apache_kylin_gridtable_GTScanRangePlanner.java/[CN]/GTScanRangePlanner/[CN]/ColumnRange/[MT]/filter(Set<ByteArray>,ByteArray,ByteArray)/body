@@ -1,7 +1,7 @@
 {
   Set<ByteArray> result=Sets.newHashSetWithExpectedSize(equalValues.size());
   for (  ByteArray v : equalValues) {
-    if (byteUnknownIsSmaller.compare(beginValue,v) <= 0 && byteUnknownIsBigger.compare(v,endValue) <= 0) {
+    if (rangeStartEndComparator.comparator.compare(beginValue,v) <= 0 && rangeStartEndComparator.comparator.compare(v,endValue) <= 0) {
       result.add(v);
     }
   }

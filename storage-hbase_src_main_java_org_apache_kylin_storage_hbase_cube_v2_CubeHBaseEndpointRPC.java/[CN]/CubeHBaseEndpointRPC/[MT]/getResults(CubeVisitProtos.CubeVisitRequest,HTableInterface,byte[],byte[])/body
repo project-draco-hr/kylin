@@ -12,6 +12,5 @@
     }
   }
 );
-  logger.info("{} regions returned results ",results.values().size());
   return results.values();
 }

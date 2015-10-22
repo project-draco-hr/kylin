@@ -12,6 +12,10 @@
     hash=(37 * hash) + HBASERAWSCAN_FIELD_NUMBER;
     hash=(53 * hash) + getHbaseRawScan().hashCode();
   }
+  if (getHbaseColumnsToGTCount() > 0) {
+    hash=(37 * hash) + HBASECOLUMNSTOGT_FIELD_NUMBER;
+    hash=(53 * hash) + getHbaseColumnsToGTList().hashCode();
+  }
   hash=(29 * hash) + getUnknownFields().hashCode();
   memoizedHashCode=hash;
   return hash;

@@ -1,0 +1,10 @@
+{
+  Collections.emptyMap();
+  Dim[] dims=toDims(fuzzyValues);
+  if (exceedCap(dims,cap)) {
+    return Lists.newArrayList();
+  }
+ else {
+    return combination(dims);
+  }
+}

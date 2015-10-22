@@ -1,6 +1,7 @@
 {
   byte[] bytes=new byte[this.bytesLength];
-  int offset=fillHeader(bytes,values);
+  int bodyOffset=RowConstants.ROWKEY_HEADER_LEN;
+  int offset=bodyOffset;
   for (int i=0; i < cuboid.getColumns().size(); i++) {
     TblColRef column=cuboid.getColumns().get(i);
     int colLength=colIO.getColumnLength(column);
@@ -13,5 +14,6 @@
     }
     offset+=colLength;
   }
+  fillHeader(bytes);
   return bytes;
 }

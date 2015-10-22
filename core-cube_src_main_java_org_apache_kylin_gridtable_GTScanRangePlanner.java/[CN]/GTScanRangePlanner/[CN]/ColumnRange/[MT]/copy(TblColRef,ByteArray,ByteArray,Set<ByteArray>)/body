@@ -2,5 +2,5 @@
   this.column=column;
   this.begin=beginValue;
   this.end=endValue;
-  this.equals=equalValues;
+  this.valueSet=equalValues;
 }

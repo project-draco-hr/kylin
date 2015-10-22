@@ -1,4 +1,0 @@
-{
-  info.nShards=nShards;
-  return this;
-}

@@ -1,5 +1,5 @@
 {
-  bytesLength=RowConstants.ROWKEY_CUBOIDID_LEN;
+  bytesLength=RowConstants.ROWKEY_HEADER_LEN;
   Cuboid cuboid=Cuboid.findById(cubeDesc,cuboidId);
   for (  TblColRef column : cuboid.getColumns()) {
     bytesLength+=cubeSegment.getColumnLength(column);
@@ -10,5 +10,5 @@
   for (int i=0; i < measureCount; i++) {
     measureColumnsIndex[i]=dimensions + i;
   }
-  System.arraycopy(Bytes.toBytes(cuboidId),0,keyBuf,0,RowConstants.ROWKEY_CUBOIDID_LEN);
+  BytesUtil.writeLong(cuboidId,keyBuf,RowConstants.ROWKEY_SHARDID_LEN,RowConstants.ROWKEY_CUBOIDID_LEN);
 }

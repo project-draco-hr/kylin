@@ -1,0 +1,11 @@
+{
+  org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.IntList result=new org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.IntList(this);
+  int from_bitField0_=bitField0_;
+  if (((bitField0_ & 0x00000001) == 0x00000001)) {
+    ints_=java.util.Collections.unmodifiableList(ints_);
+    bitField0_=(bitField0_ & ~0x00000001);
+  }
+  result.ints_=ints_;
+  onBuilt();
+  return result;
+}

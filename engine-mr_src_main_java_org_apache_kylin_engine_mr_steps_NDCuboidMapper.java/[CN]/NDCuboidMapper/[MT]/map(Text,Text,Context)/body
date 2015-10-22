@@ -1,5 +1,5 @@
 {
-  long cuboidId=rowKeySplitter.split(key.getBytes(),key.getLength());
+  long cuboidId=rowKeySplitter.split(key.getBytes());
   Cuboid parentCuboid=Cuboid.findById(cubeDesc,cuboidId);
   Collection<Long> myChildren=cuboidScheduler.getSpanningCuboid(cuboidId);
   if (myChildren == null || myChildren.size() == 0) {

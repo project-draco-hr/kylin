@@ -4,7 +4,7 @@
     ((DictionarySerializer)serializer).serializeWithRounding(value,roundingFlag,buf);
   }
  else {
-    if ((!(serializer instanceof StringSerializer || serializer instanceof FixLenSerializer)) && (value instanceof String)) {
+    if ((value instanceof String) && (!(serializer instanceof StringSerializer || serializer instanceof FixLenSerializer))) {
       value=serializer.valueOf((String)value);
     }
     serializer.serialize(value,buf);

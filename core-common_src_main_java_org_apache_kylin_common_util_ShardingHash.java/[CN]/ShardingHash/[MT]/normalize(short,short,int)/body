@@ -1,0 +1,6 @@
+{
+  if (totalShards <= 1) {
+    return 0;
+  }
+  return (short)((cuboidShardBase + shardOffset) % totalShards);
+}

@@ -1,0 +1,10 @@
+{
+  int pos=buf.position();
+  for (int i=0; i < selectedCols.size(); i++) {
+    int c=selectedCols.get(i);
+    int len=info.codeSystem.codeLength(c,buf);
+    cols[c].set(buf.array(),buf.arrayOffset() + pos,len);
+    pos+=len;
+    buf.position(pos);
+  }
+}

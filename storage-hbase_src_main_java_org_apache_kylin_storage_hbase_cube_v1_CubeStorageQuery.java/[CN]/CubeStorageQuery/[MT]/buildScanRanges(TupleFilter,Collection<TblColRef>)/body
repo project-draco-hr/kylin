@@ -14,16 +14,18 @@
       HBaseKeyRange rowKeyRange=new HBaseKeyRange(dimensionColumns,andDimRanges,cubeSeg,cubeDesc);
       scanRanges.add(rowKeyRange);
     }
-    sb.append(scanRanges.size() + "=>");
+    sb.append(scanRanges.size() + "=(mergeoverlap)>");
     List<HBaseKeyRange> mergedRanges=mergeOverlapRanges(scanRanges);
-    sb.append(mergedRanges.size() + "=>");
+    sb.append(mergedRanges.size() + "=(mergetoomany)>");
     mergedRanges=mergeTooManyRanges(mergedRanges);
-    sb.append(mergedRanges.size() + ", ");
+    sb.append(mergedRanges.size() + ",");
     result.addAll(mergedRanges);
   }
   logger.info(sb.toString());
   logger.info("hbasekeyrange count: " + result.size());
   dropUnhitSegments(result);
   logger.info("hbasekeyrange count after dropping unhit :" + result.size());
+  result=duplicateRangeByShard(result);
+  logger.info("hbasekeyrange count after dropping duplicatebyshard :" + result.size());
   return result;
 }

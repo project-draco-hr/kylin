@@ -1,0 +1,16 @@
+{
+  int size=memoizedSerializedSize;
+  if (size != -1)   return size;
+  size=0;
+{
+    int dataSize=0;
+    for (int i=0; i < ints_.size(); i++) {
+      dataSize+=com.google.protobuf.CodedOutputStream.computeInt32SizeNoTag(ints_.get(i));
+    }
+    size+=dataSize;
+    size+=1 * getIntsList().size();
+  }
+  size+=getUnknownFields().getSerializedSize();
+  memoizedSerializedSize=size;
+  return size;
+}

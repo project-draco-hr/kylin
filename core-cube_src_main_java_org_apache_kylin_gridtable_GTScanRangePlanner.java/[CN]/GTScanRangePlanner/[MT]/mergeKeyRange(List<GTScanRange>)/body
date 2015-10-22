@@ -6,9 +6,9 @@
   List<GTRecord> newFuzzyKeys=new ArrayList<GTRecord>();
   boolean hasNonFuzzyRange=false;
   for (  GTScanRange range : ranges) {
-    hasNonFuzzyRange=hasNonFuzzyRange || range.hbaseFuzzyKeys.isEmpty();
-    newFuzzyKeys.addAll(range.hbaseFuzzyKeys);
-    end=recordUnknownIsBigger.max(end,range.pkEnd);
+    hasNonFuzzyRange=hasNonFuzzyRange || range.fuzzyKeys.isEmpty();
+    newFuzzyKeys.addAll(range.fuzzyKeys);
+    end=rangeEndComparator.max(end,range.pkEnd);
   }
   if (hasNonFuzzyRange || newFuzzyKeys.size() > MAX_HBASE_FUZZY_KEYS) {
     newFuzzyKeys.clear();

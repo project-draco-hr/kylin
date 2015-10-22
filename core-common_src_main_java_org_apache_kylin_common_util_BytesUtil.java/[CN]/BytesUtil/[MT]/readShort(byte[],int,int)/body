@@ -1,0 +1,8 @@
+{
+  short num=0;
+  for (int i=offset, n=offset + size; i < n; i++) {
+    num<<=8;
+    num|=(short)bytes[i] & 0xFF;
+  }
+  return num;
+}

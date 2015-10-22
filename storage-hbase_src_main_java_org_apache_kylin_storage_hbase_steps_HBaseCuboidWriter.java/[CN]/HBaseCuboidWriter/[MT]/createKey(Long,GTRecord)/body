@@ -1,10 +1,16 @@
 {
   byteBuffer.clear();
-  byteBuffer.put(Bytes.toBytes(cuboidId));
+  byteBuffer.put(Bytes.toBytes((short)0),0,RowConstants.ROWKEY_SHARDID_LEN);
+  byteBuffer.put(Bytes.toBytes(cuboidId),0,RowConstants.ROWKEY_CUBOIDID_LEN);
   final int cardinality=BitSet.valueOf(new long[]{cuboidId}).cardinality();
   for (int i=0; i < cardinality; i++) {
     final ByteArray byteArray=record.get(i);
     byteBuffer.put(byteArray.array(),byteArray.offset(),byteArray.length());
   }
+  short cuboidShardNum=cubeSegment.getCuboidShardNum(cuboidId);
+  short shardOffset=ShardingHash.getShard(byteBuffer.array(),RowConstants.ROWKEY_HEADER_LEN,byteBuffer.position() - RowConstants.ROWKEY_HEADER_LEN,cuboidShardNum);
+  Short cuboidShardBase=cubeSegment.getCuboidBaseShard(cuboidId);
+  short finalShard=ShardingHash.normalize(cuboidShardBase,shardOffset,cubeSegment.getTotalShards());
+  BytesUtil.writeShort(finalShard,byteBuffer.array(),0,RowConstants.ROWKEY_SHARDID_LEN);
   return byteBuffer;
 }

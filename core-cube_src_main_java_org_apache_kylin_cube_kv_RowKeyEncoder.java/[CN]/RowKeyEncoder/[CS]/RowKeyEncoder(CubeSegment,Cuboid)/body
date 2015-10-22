@@ -1,7 +1,8 @@
 {
   super(cuboid);
+  this.cubeSeg=cubeSeg;
   colIO=new RowKeyColumnIO(cubeSeg);
-  bytesLength=headerLength=RowConstants.ROWKEY_CUBOIDID_LEN;
+  bytesLength=headerLength=RowConstants.ROWKEY_HEADER_LEN;
   for (  TblColRef column : cuboid.getColumns()) {
     bytesLength+=colIO.getColumnLength(column);
   }

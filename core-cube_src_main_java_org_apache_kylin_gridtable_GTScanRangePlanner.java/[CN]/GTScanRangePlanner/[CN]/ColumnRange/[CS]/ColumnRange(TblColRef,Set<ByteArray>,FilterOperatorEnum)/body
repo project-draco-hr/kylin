@@ -3,16 +3,16 @@
 switch (op) {
 case EQ:
 case IN:
-    equals=new HashSet<ByteArray>(values);
+    valueSet=new HashSet<ByteArray>(values);
   refreshBeginEndFromEquals();
 break;
 case LT:
 case LTE:
-end=byteUnknownIsBigger.max(values);
+end=rangeEndComparator.comparator.max(values);
 break;
 case GT:
 case GTE:
-begin=byteUnknownIsSmaller.min(values);
+begin=rangeStartComparator.comparator.min(values);
 break;
 case NEQ:
 case NOTIN:

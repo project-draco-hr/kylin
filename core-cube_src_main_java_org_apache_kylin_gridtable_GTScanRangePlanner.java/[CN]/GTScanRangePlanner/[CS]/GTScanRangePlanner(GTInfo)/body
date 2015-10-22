@@ -1,8 +1,0 @@
-{
-  this.info=info;
-  IGTComparator comp=info.codeSystem.getComparator();
-  this.byteUnknownIsSmaller=byteComparatorTreatsUnknownSmaller(comp);
-  this.byteUnknownIsBigger=byteComparatorTreatsUnknownBigger(comp);
-  this.recordUnknownIsSmaller=recordComparatorTreatsUnknownSmaller(comp);
-  this.recordUnknownIsBigger=recordComparatorTreatsUnknownBigger(comp);
-}

@@ -1,0 +1,5 @@
+{
+  byte[] ret=Arrays.copyOf(bytes,bytes.length);
+  BytesUtil.writeShort(newShard,ret,0,RowConstants.ROWKEY_SHARDID_LEN);
+  return ret;
+}

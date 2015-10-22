@@ -6,6 +6,33 @@
   if (other.hasHbaseRawScan()) {
     setHbaseRawScan(other.getHbaseRawScan());
   }
+  if (hbaseColumnsToGTBuilder_ == null) {
+    if (!other.hbaseColumnsToGT_.isEmpty()) {
+      if (hbaseColumnsToGT_.isEmpty()) {
+        hbaseColumnsToGT_=other.hbaseColumnsToGT_;
+        bitField0_=(bitField0_ & ~0x00000004);
+      }
+ else {
+        ensureHbaseColumnsToGTIsMutable();
+        hbaseColumnsToGT_.addAll(other.hbaseColumnsToGT_);
+      }
+      onChanged();
+    }
+  }
+ else {
+    if (!other.hbaseColumnsToGT_.isEmpty()) {
+      if (hbaseColumnsToGTBuilder_.isEmpty()) {
+        hbaseColumnsToGTBuilder_.dispose();
+        hbaseColumnsToGTBuilder_=null;
+        hbaseColumnsToGT_=other.hbaseColumnsToGT_;
+        bitField0_=(bitField0_ & ~0x00000004);
+        hbaseColumnsToGTBuilder_=com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ? getHbaseColumnsToGTFieldBuilder() : null;
+      }
+ else {
+        hbaseColumnsToGTBuilder_.addAllMessages(other.hbaseColumnsToGT_);
+      }
+    }
+  }
   this.mergeUnknownFields(other.getUnknownFields());
   return this;
 }

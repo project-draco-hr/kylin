@@ -3,10 +3,10 @@
   if (obj == null)   return false;
   if (getClass() != obj.getClass())   return false;
   GTScanRange other=(GTScanRange)obj;
-  if (hbaseFuzzyKeys == null) {
-    if (other.hbaseFuzzyKeys != null)     return false;
+  if (fuzzyKeys == null) {
+    if (other.fuzzyKeys != null)     return false;
   }
- else   if (!hbaseFuzzyKeys.equals(other.hbaseFuzzyKeys))   return false;
+ else   if (!fuzzyKeys.equals(other.fuzzyKeys))   return false;
   if (pkEnd == null) {
     if (other.pkEnd != null)     return false;
   }

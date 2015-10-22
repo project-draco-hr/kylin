@@ -1,3 +1,0 @@
-{
-  return convertFilter(rootFilter,info,null,true,null);
-}

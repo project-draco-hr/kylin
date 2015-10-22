@@ -1,11 +1,10 @@
 {
-  ByteArray pk=GTRecord.exportScanKey(pkRec);
-  int pkMaxLen=pkRec.getInfo().getMaxColumnLength(pkRec.getInfo().getPrimaryKey());
-  byte[] buf=new byte[pkMaxLen + RowConstants.ROWKEY_CUBOIDID_LEN];
+  ByteArray pk=HBaseScan.exportScanKey(pkRec,fill);
+  byte[] buf=new byte[pk.length() + RowConstants.ROWKEY_HEADER_LEN];
   Arrays.fill(buf,fill);
-  System.arraycopy(cuboid.getBytes(),0,buf,0,RowConstants.ROWKEY_CUBOIDID_LEN);
+  System.arraycopy(cuboid.getBytes(),0,buf,RowConstants.ROWKEY_SHARDID_LEN,RowConstants.ROWKEY_CUBOIDID_LEN);
   if (pk != null && pk.array() != null) {
-    System.arraycopy(pk.array(),pk.offset(),buf,RowConstants.ROWKEY_CUBOIDID_LEN,pk.length());
+    System.arraycopy(pk.array(),pk.offset(),buf,RowConstants.ROWKEY_HEADER_LEN,pk.length());
   }
   return buf;
 }

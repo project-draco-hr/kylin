@@ -1,21 +1,24 @@
 {
   GTRecord pkStart=new GTRecord(info);
   GTRecord pkEnd=new GTRecord(info);
-  List<GTRecord> hbaseFuzzyKeys=Lists.newArrayList();
+  Map<Integer,Set<ByteArray>> fuzzyValues=Maps.newHashMap();
+  List<GTRecord> fuzzyKeys;
   for (  ColumnRange range : andDimRanges) {
-    int col=range.column.getColumnDesc().getZeroBasedIndex();
-    if (info.primaryKey.get(col) == false)     continue;
-    pkStart.set(col,range.begin);
-    pkEnd.set(col,range.end);
-    if (range.equals != null) {
-      ImmutableBitSet fuzzyMask=new ImmutableBitSet(col);
-      for (      ByteArray v : range.equals) {
-        GTRecord fuzzy=new GTRecord(info);
-        fuzzy.set(col,v);
-        fuzzy.maskForEqualHashComp(fuzzyMask);
-        hbaseFuzzyKeys.add(fuzzy);
+    if (partitionColRef != null && range.column.equals(partitionColRef)) {
+      if (rangeStartEndComparator.comparator.compare(segmentStartAndEnd.getFirst(),range.end) <= 0 && rangeStartEndComparator.comparator.compare(range.begin,segmentStartAndEnd.getSecond()) < 0) {
+      }
+ else {
+        return null;
       }
     }
+    int col=range.column.getColumnDesc().getZeroBasedIndex();
+    if (!info.primaryKey.get(col))     continue;
+    pkStart.set(col,range.begin);
+    pkEnd.set(col,range.end);
+    if (range.valueSet != null && !range.valueSet.isEmpty()) {
+      fuzzyValues.put(col,range.valueSet);
+    }
   }
-  return new GTScanRange(pkStart,pkEnd,hbaseFuzzyKeys);
+  fuzzyKeys=buildFuzzyKeys(fuzzyValues);
+  return new GTScanRange(pkStart,pkEnd,fuzzyKeys);
 }

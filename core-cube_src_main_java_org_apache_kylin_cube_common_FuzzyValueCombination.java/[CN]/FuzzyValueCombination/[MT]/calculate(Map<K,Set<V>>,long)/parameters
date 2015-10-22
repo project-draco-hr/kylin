@@ -1,0 +1,2 @@
+Map<K,Set<V>> fuzzyValues
+long cap

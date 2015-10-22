@@ -1,0 +1,4 @@
+int flag
+TupleFilter filter
+ByteBuffer buffer
+IFilterCodeSystem<?> cs

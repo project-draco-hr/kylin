@@ -1,3 +1,0 @@
-GTRecord pkStart
-GTRecord pkEnd
-List<Pair<byte[],byte[]>> selectedColumns

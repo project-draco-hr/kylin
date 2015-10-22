@@ -1,0 +1,9 @@
+{
+  Short ret=this.cuboidShardNums.get(cuboidId);
+  if (ret == null) {
+    return 1;
+  }
+ else {
+    return ret;
+  }
+}

@@ -1,6 +1,0 @@
-{
-  int cuboidStart=this.headerLength - RowConstants.ROWKEY_CUBOIDID_LEN;
-  Arrays.fill(bytes,0,cuboidStart,RowConstants.FUZZY_MASK_ONE);
-  Arrays.fill(bytes,cuboidStart,this.headerLength,RowConstants.FUZZY_MASK_ZERO);
-  return this.headerLength;
-}

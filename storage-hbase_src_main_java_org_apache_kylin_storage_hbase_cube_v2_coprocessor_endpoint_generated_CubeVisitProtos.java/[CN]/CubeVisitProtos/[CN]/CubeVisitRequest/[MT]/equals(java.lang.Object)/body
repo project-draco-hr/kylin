@@ -15,6 +15,7 @@
   if (hasHbaseRawScan()) {
     result=result && getHbaseRawScan().equals(other.getHbaseRawScan());
   }
+  result=result && getHbaseColumnsToGTList().equals(other.getHbaseColumnsToGTList());
   result=result && getUnknownFields().equals(other.getUnknownFields());
   return result;
 }

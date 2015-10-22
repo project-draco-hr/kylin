@@ -1,0 +1,5 @@
+{
+  Arrays.fill(bytes,0,RowConstants.ROWKEY_SHARDID_LEN,RowConstants.BYTE_ONE);
+  Arrays.fill(bytes,RowConstants.ROWKEY_SHARDID_LEN,RowConstants.ROWKEY_HEADER_LEN,RowConstants.BYTE_ZERO);
+  return this.headerLength;
+}

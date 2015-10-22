@@ -1,0 +1,3 @@
+CubeSegment segment
+Map<Long,Short> cuboidShards
+int totalShards

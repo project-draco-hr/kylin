@@ -1,5 +1,0 @@
-{
-  byte[] start=makeRowKeyToScan(pkStart,(byte)0x00);
-  byte[] end=makeRowKeyToScan(pkEnd,(byte)0xff);
-  return new RawScan(start,end,selectedColumns,null);
-}

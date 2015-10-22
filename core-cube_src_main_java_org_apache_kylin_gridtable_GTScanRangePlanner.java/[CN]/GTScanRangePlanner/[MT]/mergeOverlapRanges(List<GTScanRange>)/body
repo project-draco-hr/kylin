@@ -4,23 +4,23 @@
   }
   Collections.sort(ranges,new Comparator<GTScanRange>(){
     @Override public int compare(    GTScanRange a,    GTScanRange b){
-      return recordUnknownIsSmaller.compare(a.pkStart,b.pkStart);
+      return rangeStartComparator.compare(a.pkStart,b.pkStart);
     }
   }
 );
   List<GTScanRange> mergedRanges=new ArrayList<GTScanRange>();
   int mergeBeginIndex=0;
   GTRecord mergeEnd=ranges.get(0).pkEnd;
-  for (int index=0; index < ranges.size(); index++) {
+  for (int index=1; index < ranges.size(); index++) {
     GTScanRange range=ranges.get(index);
-    if (recordUnknownIsSmaller.min(range.pkStart,mergeEnd) == range.pkStart || recordUnknownIsBigger.max(mergeEnd,range.pkStart) == mergeEnd) {
-      mergeEnd=recordUnknownIsBigger.max(mergeEnd,range.pkEnd);
+    if (rangeStartEndComparator.compare(range.pkStart,mergeEnd) <= 0) {
+      mergeEnd=rangeEndComparator.max(mergeEnd,range.pkEnd);
       continue;
     }
     GTScanRange mergedRange=mergeKeyRange(ranges.subList(mergeBeginIndex,index));
     mergedRanges.add(mergedRange);
     mergeBeginIndex=index;
-    mergeEnd=recordUnknownIsBigger.max(mergeEnd,range.pkEnd);
+    mergeEnd=range.pkEnd;
   }
   GTScanRange mergedRange=mergeKeyRange(ranges.subList(mergeBeginIndex,ranges.size()));
   mergedRanges.add(mergedRange);

@@ -1,0 +1,11 @@
+{
+  if (hbaseColumnsToGTBuilder_ == null) {
+    ensureHbaseColumnsToGTIsMutable();
+    hbaseColumnsToGT_.remove(index);
+    onChanged();
+  }
+ else {
+    hbaseColumnsToGTBuilder_.remove(index);
+  }
+  return this;
+}

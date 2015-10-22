@@ -1,0 +1,15 @@
+{
+  table=newTestTable();
+  info=table.getInfo();
+  timeComp0=compare(info.colRef(0),FilterOperatorEnum.LT,enc(info,0,"2015-01-14"));
+  timeComp1=compare(info.colRef(0),FilterOperatorEnum.GT,enc(info,0,"2015-01-14"));
+  timeComp2=compare(info.colRef(0),FilterOperatorEnum.LT,enc(info,0,"2015-01-13"));
+  timeComp3=compare(info.colRef(0),FilterOperatorEnum.LT,enc(info,0,"2015-01-15"));
+  timeComp4=compare(info.colRef(0),FilterOperatorEnum.EQ,enc(info,0,"2015-01-15"));
+  timeComp5=compare(info.colRef(0),FilterOperatorEnum.GT,enc(info,0,"2015-01-15"));
+  timeComp6=compare(info.colRef(0),FilterOperatorEnum.EQ,enc(info,0,"2015-01-14"));
+  ageComp1=compare(info.colRef(1),FilterOperatorEnum.EQ,enc(info,1,"10"));
+  ageComp2=compare(info.colRef(1),FilterOperatorEnum.EQ,enc(info,1,"20"));
+  ageComp3=compare(info.colRef(1),FilterOperatorEnum.EQ,enc(info,1,"30"));
+  ageComp4=compare(info.colRef(1),FilterOperatorEnum.NEQ,enc(info,1,"30"));
+}

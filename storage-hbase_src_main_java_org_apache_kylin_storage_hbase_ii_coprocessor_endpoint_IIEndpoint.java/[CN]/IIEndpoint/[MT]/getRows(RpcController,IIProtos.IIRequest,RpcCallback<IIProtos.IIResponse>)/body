@@ -6,13 +6,13 @@
     region=env.getRegion();
     region.startRegionOperation();
     innerScanner=region.getScanner(prepareScan(request,region));
-    CoprocessorRowType type=CoprocessorRowType.deserialize(request.getType().toByteArray());
-    CoprocessorProjector projector=CoprocessorProjector.deserialize(request.getProjector().toByteArray());
-    EndpointAggregators aggregators=EndpointAggregators.deserialize(request.getAggregator().toByteArray());
-    CoprocessorFilter filter=CoprocessorFilter.deserialize(request.getFilter().toByteArray());
+    CoprocessorRowType type=CoprocessorRowType.deserialize(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getType()));
+    CoprocessorProjector projector=CoprocessorProjector.deserialize(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getProjector()));
+    EndpointAggregators aggregators=EndpointAggregators.deserialize(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getAggregator()));
+    CoprocessorFilter filter=CoprocessorFilter.deserialize(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getFilter()));
     IIProtos.IIResponseInternal response=getResponse(innerScanner,type,projector,aggregators,filter);
     byte[] compressed=CompressionUtils.compress(response.toByteArray());
-    IIProtos.IIResponse compressedR=IIProtos.IIResponse.newBuilder().setBlob(ByteString.copyFrom(compressed)).build();
+    IIProtos.IIResponse compressedR=IIProtos.IIResponse.newBuilder().setBlob(HBaseZeroCopyByteString.wrap(compressed)).build();
     done.run(compressedR);
   }
  catch (  IOException ioe) {

@@ -1,0 +1,4 @@
+short num
+byte[] bytes
+int offset
+int size

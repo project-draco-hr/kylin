@@ -1,0 +1,30 @@
+{
+  StringBuilder info=new StringBuilder();
+  info.append("\nVisiting hbase table ").append(tableName).append(": ");
+  if (cuboid.requirePostAggregation()) {
+    info.append("cuboid require post aggregation, from ");
+  }
+ else {
+    info.append("cuboid exact match, from ");
+  }
+  info.append(cuboid.getInputID());
+  info.append(" to ");
+  info.append(cuboid.getId());
+  info.append("\nStart: ");
+  info.append(rawScan.getStartKeyAsString());
+  info.append(" - ");
+  info.append(Bytes.toStringBinary(rawScan.startKey));
+  info.append("\nStop:  ");
+  info.append(rawScan.getEndKeyAsString());
+  info.append(" - ");
+  info.append(Bytes.toStringBinary(rawScan.endKey));
+  if (rawScan.fuzzyKey != null) {
+    info.append("\nFuzzy key counts: " + rawScan.fuzzyKey.size());
+    info.append("\nFuzzy: ");
+    info.append(rawScan.getFuzzyKeyAsString());
+  }
+ else {
+    info.append("\nNo Fuzzy Key");
+  }
+  logger.info(info.toString());
+}

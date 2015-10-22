@@ -1,0 +1,14 @@
+{
+  if (indexes == null || indexes.length == 0) {
+    return new BitSet();
+  }
+  int maxIndex=Integer.MIN_VALUE;
+  for (  int index : indexes) {
+    maxIndex=Math.max(maxIndex,index);
+  }
+  BitSet set=new BitSet(maxIndex);
+  for (  int index : indexes) {
+    set.set(index);
+  }
+  return set;
+}

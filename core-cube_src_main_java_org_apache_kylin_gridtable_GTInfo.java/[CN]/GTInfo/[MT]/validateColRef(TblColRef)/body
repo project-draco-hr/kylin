@@ -1,4 +1,4 @@
 {
   TblColRef expected=colRef(ref.getColumnDesc().getZeroBasedIndex());
-  if (expected.equals(ref) == false)   throw new IllegalArgumentException();
+  if (!expected.equals(ref))   throw new IllegalArgumentException();
 }

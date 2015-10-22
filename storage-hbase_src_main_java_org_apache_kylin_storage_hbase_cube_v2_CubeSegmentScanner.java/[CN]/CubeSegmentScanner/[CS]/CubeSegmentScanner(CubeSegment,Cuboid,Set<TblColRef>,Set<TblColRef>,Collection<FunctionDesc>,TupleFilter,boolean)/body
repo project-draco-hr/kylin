@@ -1,0 +1,32 @@
+{
+  this.cuboid=cuboid;
+  this.cubeSeg=cubeSeg;
+  this.info=CubeGridTable.newGTInfo(cubeSeg,cuboid.getId());
+  CuboidToGridTableMapping mapping=cuboid.getCuboidToGridTableMapping();
+  TupleFilter gtFilter=GTUtil.convertFilterColumnsAndConstants(filter,info,mapping.getCuboidDimensionsInGTOrder(),groups);
+  ImmutableBitSet gtDimensions=makeGridTableColumns(mapping,dimensions);
+  ImmutableBitSet gtAggrGroups=makeGridTableColumns(mapping,replaceDerivedColumns(groups,cubeSeg.getCubeDesc()));
+  ImmutableBitSet gtAggrMetrics=makeGridTableColumns(mapping,metrics);
+  String[] gtAggrFuncs=makeAggrFuncs(mapping,metrics);
+  GTScanRangePlanner scanRangePlanner;
+  if (cubeSeg.getCubeDesc().getModel().getPartitionDesc().isPartitioned()) {
+    TblColRef tblColRef=cubeSeg.getCubeDesc().getModel().getPartitionDesc().getPartitionDateColumnRef();
+    Pair<ByteArray,ByteArray> segmentStartAndEnd=null;
+    int index=mapping.getIndexOf(tblColRef);
+    if (index >= 0) {
+      segmentStartAndEnd=getSegmentStartAndEnd(tblColRef,index);
+    }
+    scanRangePlanner=new GTScanRangePlanner(info,segmentStartAndEnd,tblColRef);
+  }
+ else {
+    scanRangePlanner=new GTScanRangePlanner(info,null,null);
+  }
+  List<GTScanRange> scanRanges=scanRangePlanner.planScanRanges(gtFilter,MAX_SCAN_RANGES);
+  scanRequests=Lists.newArrayListWithCapacity(scanRanges.size());
+  trimmedInfoBytes=GTInfo.serialize(info);
+  GTInfo trimmedInfo=GTInfo.deserialize(trimmedInfoBytes);
+  for (  GTScanRange range : scanRanges) {
+    scanRequests.add(new GTScanRequest(trimmedInfo,range,gtDimensions,gtAggrGroups,gtAggrMetrics,gtAggrFuncs,gtFilter,allowPreAggregate));
+  }
+  scanner=new Scanner();
+}

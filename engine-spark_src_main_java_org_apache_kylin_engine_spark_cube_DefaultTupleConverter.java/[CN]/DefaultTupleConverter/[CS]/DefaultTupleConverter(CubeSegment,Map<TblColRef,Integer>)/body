@@ -1,0 +1,5 @@
+{
+  this.segment=segment;
+  this.measureCount=segment.getCubeDesc().getMeasures().size();
+  this.columnLengthMap=columnLengthMap;
+}

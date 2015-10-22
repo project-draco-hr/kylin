@@ -16,13 +16,13 @@
   for (int i=0; i < colBlocks.length; i++) {
     merge=merge.or(colBlocks[i]);
   }
-  if (merge.equals(colAll) == false)   throw new IllegalStateException();
-  if (primaryKey.equals(colBlocks[0]) == false)   throw new IllegalStateException();
+  if (!merge.equals(colAll))   throw new IllegalStateException();
+  if (!primaryKey.equals(colBlocks[0]))   throw new IllegalStateException();
   LinkedList<ImmutableBitSet> list=new LinkedList<ImmutableBitSet>(Arrays.asList(colBlocks));
   Iterator<ImmutableBitSet> it=list.iterator();
   while (it.hasNext()) {
     ImmutableBitSet cb=it.next();
     if (cb.isEmpty())     it.remove();
   }
-  colBlocks=(ImmutableBitSet[])list.toArray(new ImmutableBitSet[list.size()]);
+  colBlocks=list.toArray(new ImmutableBitSet[list.size()]);
 }

@@ -25,8 +25,7 @@
   Set<TblColRef> groupsCopD=Sets.newHashSet(groupsD);
   collectNonEvaluable(filter,groupsCopD);
   TupleFilter filterD=translateDerived(filter,groupsCopD);
-  TupleFilter flatFilter=flattenToOrAndFilter(filterD);
-  List<HBaseKeyRange> scans=buildScanRanges(flatFilter,dimensionsD);
+  List<HBaseKeyRange> scans=buildScanRanges(flattenToOrAndFilter(filterD),dimensionsD);
   List<RowValueDecoder> valueDecoders=translateAggregation(cubeDesc.getHBaseMapping(),metrics,context);
   setCoprocessor(groupsCopD,valueDecoders,context);
   setLimit(filter,context);

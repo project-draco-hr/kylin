@@ -25,9 +25,9 @@
   TupleFilter filterD=translateDerived(filter,groupsD);
   setThreshold(dimensionsD,metrics,context);
   setLimit(filter,context);
-  List<CubeScanner> scanners=Lists.newArrayList();
+  List<CubeSegmentScanner> scanners=Lists.newArrayList();
   for (  CubeSegment cubeSeg : cubeInstance.getSegments(SegmentStatusEnum.READY)) {
-    scanners.add(new CubeScanner(cubeSeg,cuboid,dimensionsD,groupsD,metrics,filterD,!isExactAggregation));
+    scanners.add(new CubeSegmentScanner(cubeSeg,cuboid,dimensionsD,groupsD,metrics,filterD,!isExactAggregation));
   }
   if (scanners.isEmpty())   return ITupleIterator.EMPTY_TUPLE_ITERATOR;
   return new SequentialCubeTupleIterator(scanners,cuboid,dimensionsD,metrics,returnTupleInfo,context);

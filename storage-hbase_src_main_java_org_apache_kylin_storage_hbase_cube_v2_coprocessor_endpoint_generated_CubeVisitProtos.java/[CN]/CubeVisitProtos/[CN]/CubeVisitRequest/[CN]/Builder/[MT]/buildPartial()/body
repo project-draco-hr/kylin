@@ -10,6 +10,16 @@
     to_bitField0_|=0x00000002;
   }
   result.hbaseRawScan_=hbaseRawScan_;
+  if (hbaseColumnsToGTBuilder_ == null) {
+    if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      hbaseColumnsToGT_=java.util.Collections.unmodifiableList(hbaseColumnsToGT_);
+      bitField0_=(bitField0_ & ~0x00000004);
+    }
+    result.hbaseColumnsToGT_=hbaseColumnsToGT_;
+  }
+ else {
+    result.hbaseColumnsToGT_=hbaseColumnsToGTBuilder_.build();
+  }
   result.bitField0_=to_bitField0_;
   onBuilt();
   return result;

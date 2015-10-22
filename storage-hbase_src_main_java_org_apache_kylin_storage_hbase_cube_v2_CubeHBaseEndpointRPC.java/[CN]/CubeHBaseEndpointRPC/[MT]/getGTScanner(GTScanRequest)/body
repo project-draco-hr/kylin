@@ -1,30 +1,69 @@
 {
-  try {
-    final ImmutableBitSet selectedColBlocks=scanRequest.getSelectedColBlocks().set(0);
-    HConnection hbaseConn=HBaseConnection.get(cubeSeg.getCubeInstance().getConfig().getStorageUrl());
-    final HTableInterface hbaseTable=hbaseConn.getTable(cubeSeg.getStorageLocationIdentifier());
-    final List<Pair<byte[],byte[]>> hbaseColumns=makeHBaseColumns(selectedColBlocks);
-    RawScan rawScan=prepareRawScan(scanRequest.getPkStart(),scanRequest.getPkEnd(),hbaseColumns);
-    byte[] scanRequestBytes=KryoUtils.serialize(scanRequest);
-    byte[] rawScanBytes=KryoUtils.serialize(rawScan);
-    CubeVisitProtos.CubeVisitRequest.Builder builder=CubeVisitProtos.CubeVisitRequest.newBuilder();
-    builder.setGtScanRequest(ByteString.copyFrom(scanRequestBytes)).setHbaseRawScan(ByteString.copyFrom(rawScanBytes));
-    Collection<CubeVisitProtos.CubeVisitResponse> results=getResults(builder.build(),hbaseTable,rawScan.startKey,rawScan.endKey);
-    final Collection<byte[]> rowBlocks=Collections2.transform(results,new Function<CubeVisitProtos.CubeVisitResponse,byte[]>(){
-      @Nullable @Override public byte[] apply(      CubeVisitProtos.CubeVisitResponse input){
+  final ImmutableBitSet selectedColBlocks=scanRequest.getSelectedColBlocks().set(0);
+  HConnection hbaseConn=HBaseConnection.get(cubeSeg.getCubeInstance().getConfig().getStorageUrl());
+  final HTableInterface hbaseTable=hbaseConn.getTable(cubeSeg.getStorageLocationIdentifier());
+  List<RawScan> rawScans=preparedHBaseScan(scanRequest.getPkStart(),scanRequest.getPkEnd(),scanRequest.getFuzzyKeys(),selectedColBlocks);
+  List<List<Integer>> hbaseColumnsToGT=getHBaseColumnsGTMapping(selectedColBlocks);
+  final List<IntList> hbaseColumnsToGTIntList=Lists.newArrayList();
+  for (  List<Integer> list : hbaseColumnsToGT) {
+    hbaseColumnsToGTIntList.add(IntList.newBuilder().addAllInts(list).build());
+  }
+  byte[] scanRequestBytes=KryoUtils.serialize(scanRequest);
+  final ByteString scanRequestBytesString=HBaseZeroCopyByteString.wrap(scanRequestBytes);
+  ExecutorService executorService=Executors.newFixedThreadPool(rawScans.size());
+  final List<byte[]> rowBlocks=Collections.synchronizedList(Lists.<byte[]>newArrayList());
+  logger.info("Total RawScan range count: " + rawScans.size());
+  for (  RawScan rawScan : rawScans) {
+    logScan(rawScan,cubeSeg.getStorageLocationIdentifier());
+  }
+  for (int i=0; i < rawScans.size(); ++i) {
+    final int shardIndex=i;
+    final RawScan rawScan=rawScans.get(i);
+    executorService.submit(new Runnable(){
+      @Override public void run(){
+        final byte[] rawScanBytes=KryoUtils.serialize(rawScan);
+        CubeVisitProtos.CubeVisitRequest.Builder builder=CubeVisitProtos.CubeVisitRequest.newBuilder();
+        builder.setGtScanRequest(scanRequestBytesString).setHbaseRawScan(HBaseZeroCopyByteString.wrap(rawScanBytes));
+        for (        IntList intList : hbaseColumnsToGTIntList) {
+          builder.addHbaseColumnsToGT(intList);
+        }
+        Collection<CubeVisitProtos.CubeVisitResponse> results;
         try {
-          return CompressionUtils.decompress(input.getCompressedRows().toByteArray());
+          results=getResults(builder.build(),hbaseTable,rawScan.startKey,rawScan.endKey);
         }
- catch (        IOException|DataFormatException e) {
-          throw new RuntimeException(e);
+ catch (        Throwable throwable) {
+          throw new RuntimeException("Error when visiting cubes by endpoint:",throwable);
         }
+        if (results.size() != 1) {
+          logger.warn("{} CubeVisitResponse returned for shard {}",results.size(),shardIndex);
+        }
+        for (        CubeVisitProtos.CubeVisitResponse result : results) {
+          logger.info(getStatsString(result,shardIndex));
+        }
+        Collection<byte[]> part=Collections2.transform(results,new Function<CubeVisitProtos.CubeVisitResponse,byte[]>(){
+          @Nullable @Override public byte[] apply(          CubeVisitProtos.CubeVisitResponse input){
+            try {
+              return CompressionUtils.decompress(HBaseZeroCopyByteString.zeroCopyGetBytes(input.getCompressedRows()));
+            }
+ catch (            IOException|DataFormatException e) {
+              throw new RuntimeException(e);
+            }
+          }
+        }
+);
+        rowBlocks.addAll(part);
       }
     }
 );
-    return new EndpintResultsAsGTScanner(fullGTInfo,rowBlocks.iterator());
   }
- catch (  Throwable throwable) {
-    throwable.printStackTrace();
+  executorService.shutdown();
+  try {
+    if (!executorService.awaitTermination(1,TimeUnit.HOURS)) {
+      throw new RuntimeException("Visiting cube by endpoint timeout");
+    }
   }
-  return null;
+ catch (  InterruptedException e) {
+    throw new RuntimeException("Visiting cube by endpoint gets interrupted");
+  }
+  return new EndpointResultsAsGTScanner(fullGTInfo,rowBlocks.iterator(),scanRequest.getColumns());
 }

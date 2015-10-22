@@ -3,27 +3,33 @@
   HRegion region=null;
   try {
     this.serviceStartTime=System.currentTimeMillis();
-    GTScanRequest scanReq=KryoUtils.deserialize(request.getGtScanRequest().toByteArray(),GTScanRequest.class);
-    RawScan hbaseRawScan=KryoUtils.deserialize(request.getHbaseRawScan().toByteArray(),RawScan.class);
+    GTScanRequest scanReq=KryoUtils.deserialize(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getGtScanRequest()),GTScanRequest.class);
+    RawScan hbaseRawScan=KryoUtils.deserialize(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getHbaseRawScan()),RawScan.class);
+    List<List<Integer>> hbaseColumnsToGT=Lists.newArrayList();
+    for (    IntList intList : request.getHbaseColumnsToGTList()) {
+      hbaseColumnsToGT.add(intList.getIntsList());
+    }
     Scan scan=CubeHBaseRPC.buildScan(hbaseRawScan);
     region=env.getRegion();
     region.startRegionOperation();
     innerScanner=region.getScanner(scan);
     InnerScannerAsIterator cellListIterator=new InnerScannerAsIterator(innerScanner);
-    IGTStore store=new HBaseReadonlyStore(cellListIterator,scanReq,hbaseRawScan.hbaseColumns);
+    IGTStore store=new HBaseReadonlyStore(cellListIterator,scanReq,hbaseRawScan.hbaseColumns,hbaseColumnsToGT);
     IGTScanner rawScanner=store.scan(scanReq);
     IGTScanner finalScanner=scanReq.decorateScanner(rawScanner);
     ByteBuffer buffer=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
     ByteArrayOutputStream outputStream=new ByteArrayOutputStream(RowConstants.ROWVALUE_BUFFER_SIZE);
+    int finalRowCount=0;
     for (    GTRecord oneRecord : finalScanner) {
       buffer.clear();
-      oneRecord.exportAllColumns(buffer);
+      oneRecord.exportColumns(scanReq.getColumns(),buffer);
       buffer.flip();
       outputStream.write(buffer.array(),buffer.arrayOffset() - buffer.position(),buffer.remaining());
+      finalRowCount++;
     }
     byte[] allRows=outputStream.toByteArray();
     CubeVisitProtos.CubeVisitResponse.Builder responseBuilder=CubeVisitProtos.CubeVisitResponse.newBuilder();
-    done.run(responseBuilder.setCompressedRows(ByteString.copyFrom(CompressionUtils.compress(allRows))).setStats(CubeVisitProtos.CubeVisitResponse.Stats.newBuilder().setAggregatedRowCount(0).setScannedRowCount(0).setServiceStartTime(serviceStartTime).setServiceEndTime(System.currentTimeMillis()).build()).build());
+    done.run(responseBuilder.setCompressedRows(HBaseZeroCopyByteString.wrap(CompressionUtils.compress(allRows))).setStats(CubeVisitProtos.CubeVisitResponse.Stats.newBuilder().setAggregatedRowCount(finalScanner.getScannedRowCount() - finalRowCount).setScannedRowCount(finalScanner.getScannedRowCount()).setServiceStartTime(serviceStartTime).setServiceEndTime(System.currentTimeMillis()).build()).build());
   }
  catch (  IOException ioe) {
     logger.error(ioe.toString());

@@ -6,13 +6,13 @@
     return;
   }
   if (filter.hasChildren()) {
-    serializeFilter(1,filter,decorator,buffer,cs);
+    serializeFilter(1,filter,buffer,cs);
     for (    TupleFilter child : filter.getChildren()) {
       internalSerialize(child,decorator,buffer,cs);
     }
-    serializeFilter(-1,filter,decorator,buffer,cs);
+    serializeFilter(-1,filter,buffer,cs);
   }
  else {
-    serializeFilter(0,filter,decorator,buffer,cs);
+    serializeFilter(0,filter,buffer,cs);
   }
 }

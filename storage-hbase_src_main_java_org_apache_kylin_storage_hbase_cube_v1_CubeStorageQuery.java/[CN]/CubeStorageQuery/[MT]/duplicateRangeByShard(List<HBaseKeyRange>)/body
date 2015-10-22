@@ -1,0 +1,23 @@
+{
+  List<HBaseKeyRange> ret=Lists.newArrayList();
+  for (  HBaseKeyRange scan : scans) {
+    CubeSegment segment=scan.getCubeSegment();
+    byte[] startKey=scan.getStartKey();
+    byte[] stopKey=scan.getStopKey();
+    short cuboidShardNum=segment.getCuboidShardNum(scan.getCuboid().getId());
+    short cuboidShardBase=segment.getCuboidBaseShard(scan.getCuboid().getId());
+    for (short i=0; i < cuboidShardNum; ++i) {
+      byte[] newStartKey=duplicateKeyAndChangeShard(i,startKey);
+      byte[] newStopKey=duplicateKeyAndChangeShard(i,stopKey);
+      HBaseKeyRange newRange=new HBaseKeyRange(segment,scan.getCuboid(),newStartKey,newStopKey,scan.getFuzzyKeys(),scan.getFlatOrAndFilter(),scan.getPartitionColumnStartDate(),scan.getPartitionColumnEndDate());
+      ret.add(newRange);
+    }
+  }
+  Collections.sort(ret,new Comparator<HBaseKeyRange>(){
+    @Override public int compare(    HBaseKeyRange o1,    HBaseKeyRange o2){
+      return Bytes.compareTo(o1.getStartKey(),o2.getStartKey());
+    }
+  }
+);
+  return ret;
+}

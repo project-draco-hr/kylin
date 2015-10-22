@@ -1,0 +1,11 @@
+{
+  if (hbaseColumnsToGTBuilder_ == null) {
+    ensureHbaseColumnsToGTIsMutable();
+    super.addAll(values,hbaseColumnsToGT_);
+    onChanged();
+  }
+ else {
+    hbaseColumnsToGTBuilder_.addAllMessages(values);
+  }
+  return this;
+}

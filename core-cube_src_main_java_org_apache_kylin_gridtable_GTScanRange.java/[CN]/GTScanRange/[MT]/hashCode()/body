@@ -1,7 +1,7 @@
 {
   final int prime=31;
   int result=1;
-  result=prime * result + ((hbaseFuzzyKeys == null) ? 0 : hbaseFuzzyKeys.hashCode());
+  result=prime * result + ((fuzzyKeys == null) ? 0 : fuzzyKeys.hashCode());
   result=prime * result + ((pkEnd == null) ? 0 : pkEnd.hashCode());
   result=prime * result + ((pkStart == null) ? 0 : pkStart.hashCode());
   return result;

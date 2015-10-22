@@ -1,0 +1,4 @@
+{
+  this.interfaceClz=interfaceClz;
+  this.instances=initInstances(impls);
+}

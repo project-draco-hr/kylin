@@ -14,7 +14,7 @@
   Cuboid baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
   AbstractRowKeyEncoder rowKeyEncoder=AbstractRowKeyEncoder.createInstance(cube.getFirstSegment(),baseCuboid);
   byte[] encodedKey=rowKeyEncoder.encode(data);
-  assertEquals(30,encodedKey.length);
+  assertEquals(22 + RowConstants.ROWKEY_HEADER_LEN,encodedKey.length);
   RowKeyDecoder rowKeyDecoder=new RowKeyDecoder(cube.getFirstSegment());
   rowKeyDecoder.decode(encodedKey);
   List<String> values=rowKeyDecoder.getValues();

@@ -1,0 +1,8 @@
+{
+  if (hbaseColumnsToGTBuilder_ == null) {
+    return hbaseColumnsToGT_.size();
+  }
+ else {
+    return hbaseColumnsToGTBuilder_.getCount();
+  }
+}

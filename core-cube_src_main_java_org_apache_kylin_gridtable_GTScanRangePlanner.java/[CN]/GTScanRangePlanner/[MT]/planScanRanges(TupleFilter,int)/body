@@ -4,7 +4,7 @@
   List<GTScanRange> scanRanges=Lists.newArrayListWithCapacity(orAndDimRanges.size());
   for (  Collection<ColumnRange> andDimRanges : orAndDimRanges) {
     GTScanRange scanRange=newScanRange(andDimRanges);
-    scanRanges.add(scanRange);
+    if (scanRange != null)     scanRanges.add(scanRange);
   }
   List<GTScanRange> mergedRanges=mergeOverlapRanges(scanRanges);
   mergedRanges=mergeTooManyRanges(mergedRanges,maxRanges);

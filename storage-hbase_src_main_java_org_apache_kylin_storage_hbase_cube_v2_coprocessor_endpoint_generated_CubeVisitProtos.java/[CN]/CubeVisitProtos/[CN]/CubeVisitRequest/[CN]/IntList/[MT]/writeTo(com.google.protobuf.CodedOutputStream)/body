@@ -1,0 +1,7 @@
+{
+  getSerializedSize();
+  for (int i=0; i < ints_.size(); i++) {
+    output.writeInt32(1,ints_.get(i));
+  }
+  getUnknownFields().writeTo(output);
+}

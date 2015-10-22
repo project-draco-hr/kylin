@@ -11,21 +11,20 @@
           return cellListIterator.hasNext();
         }
         @Override public GTRecord next(){
+          count++;
           List<Cell> oneRow=cellListIterator.next();
           if (oneRow.size() < 1) {
             throw new IllegalStateException("cell list's size less than 1");
           }
-          ByteBuffer buf;
           Cell firstCell=oneRow.get(0);
-          buf=byteBuffer(firstCell.getRowArray(),RowConstants.ROWKEY_CUBOIDID_LEN + firstCell.getRowOffset(),firstCell.getRowLength() - RowConstants.ROWKEY_CUBOIDID_LEN);
+          ByteBuffer buf=byteBuffer(firstCell.getRowArray(),RowConstants.ROWKEY_HEADER_LEN + firstCell.getRowOffset(),firstCell.getRowLength() - RowConstants.ROWKEY_HEADER_LEN);
           oneRecord.loadCellBlock(0,buf);
-          int hbaseColIdx=0;
-          for (int i=1; i < selectedColBlocks.trueBitCount(); i++) {
-            int colBlockIdx=selectedColBlocks.trueBitAt(i);
-            Pair<byte[],byte[]> hbaseColumn=hbaseColumns.get(hbaseColIdx++);
-            Cell cell=CubeHBaseRPC.findCell(oneRow,hbaseColumn.getFirst(),hbaseColumn.getSecond());
+          for (int i=0; i < hbaseColumns.size(); i++) {
+            Pair<byte[],byte[]> hbaseColumn=hbaseColumns.get(i);
+            Cell cell=HBaseReadonlyStore.findCell(oneRow,hbaseColumn.getFirst(),hbaseColumn.getSecond());
+            Preconditions.checkNotNull(cell);
             buf=byteBuffer(cell.getValueArray(),cell.getValueOffset(),cell.getValueLength());
-            oneRecord.loadCellBlock(colBlockIdx,buf);
+            oneRecord.loadColumns(hbaseColumnsToGT.get(i),buf);
           }
           return oneRecord;
         }

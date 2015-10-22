@@ -3,10 +3,10 @@
     throw new IllegalStateException("No more Tuple in the SingleRegionTupleIterator");
   }
   IIProtos.IIResponseInternal.IIRow currentRow=rows.get(index);
-  byte[] columnsBytes=currentRow.getColumns().toByteArray();
+  byte[] columnsBytes=HBaseZeroCopyByteString.zeroCopyGetBytes(currentRow.getColumns());
   this.tableRecord.setBytes(columnsBytes,0,columnsBytes.length);
   if (currentRow.hasMeasures()) {
-    byte[] measuresBytes=currentRow.getMeasures().toByteArray();
+    byte[] measuresBytes=HBaseZeroCopyByteString.zeroCopyGetBytes(currentRow.getMeasures());
     this.measureValues=pushedDownAggregators.deserializeMetricValues(measuresBytes,0);
   }
   index++;

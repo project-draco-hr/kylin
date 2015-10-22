@@ -1,0 +1,6 @@
+{
+  BitSet a=BitSets.valueOf(new int[]{1,3,10});
+  Assert.assertEquals(3,a.cardinality());
+  Assert.assertTrue(10 < a.size());
+  Assert.assertTrue(a.get(3));
+}

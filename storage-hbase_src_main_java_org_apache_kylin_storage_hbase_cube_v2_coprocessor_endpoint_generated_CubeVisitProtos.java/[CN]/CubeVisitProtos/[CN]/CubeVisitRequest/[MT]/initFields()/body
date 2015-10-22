@@ -1,4 +1,5 @@
 {
   gtScanRequest_=com.google.protobuf.ByteString.EMPTY;
   hbaseRawScan_=com.google.protobuf.ByteString.EMPTY;
+  hbaseColumnsToGT_=java.util.Collections.emptyList();
 }

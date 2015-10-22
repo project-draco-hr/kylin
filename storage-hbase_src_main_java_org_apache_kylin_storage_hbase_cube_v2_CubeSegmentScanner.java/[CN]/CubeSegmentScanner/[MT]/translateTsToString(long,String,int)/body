@@ -1,0 +1,15 @@
+{
+  String value;
+  if ("date".equalsIgnoreCase(partitionColType)) {
+    value=DateFormat.formatToDateStr(ts);
+  }
+ else   if ("timestamp".equalsIgnoreCase(partitionColType)) {
+    value=DateFormat.formatToTimeWithoutMilliStr(ts);
+  }
+ else {
+    throw new RuntimeException("Type " + partitionColType + " is not valid partition column type");
+  }
+  ByteBuffer buffer=ByteBuffer.allocate(info.getMaxColumnLength());
+  info.getCodeSystem().encodeColumnValue(index,value,buffer);
+  return ByteArray.copyOf(buffer.array(),0,buffer.position());
+}

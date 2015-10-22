@@ -7,7 +7,7 @@
   options.addOption(OPTION_STATISTICS_ENABLED);
   parseOptions(options,args);
   Path partitionFilePath=new Path(getOptionValue(OPTION_PARTITION_FILE_PATH));
-  boolean statistics_enabled=Boolean.parseBoolean(getOptionValue(OPTION_STATISTICS_ENABLED));
+  boolean statsEnabled=Boolean.parseBoolean(getOptionValue(OPTION_STATISTICS_ENABLED));
   String cubeName=getOptionValue(OPTION_CUBE_NAME).toUpperCase();
   kylinConfig=KylinConfig.getInstanceFromEnv();
   CubeManager cubeMgr=CubeManager.getInstance(kylinConfig);
@@ -19,7 +19,7 @@
   Configuration conf=HBaseConnection.getCurrentHBaseConfiguration();
   try {
     byte[][] splitKeys;
-    if (statistics_enabled) {
+    if (statsEnabled) {
       final Map<Long,Long> cuboidSizeMap=getCubeRowCountMapFromCuboidStatistics(cubeSegment,kylinConfig,conf);
       splitKeys=getSplitsFromCuboidStatistics(cuboidSizeMap,kylinConfig,cubeSegment);
     }

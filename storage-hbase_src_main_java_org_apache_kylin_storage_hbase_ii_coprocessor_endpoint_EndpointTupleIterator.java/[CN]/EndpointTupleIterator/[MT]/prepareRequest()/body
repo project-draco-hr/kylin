@@ -2,9 +2,9 @@
   IIProtos.IIRequest.Builder builder=IIProtos.IIRequest.newBuilder();
   if (this.tsRange != null) {
     byte[] tsRangeBytes=SerializationUtils.serialize(this.tsRange);
-    builder.setTsRange(ByteString.copyFrom(tsRangeBytes));
+    builder.setTsRange(HBaseZeroCopyByteString.wrap(tsRangeBytes));
   }
-  builder.setType(ByteString.copyFrom(CoprocessorRowType.serialize(pushedDownRowType))).setFilter(ByteString.copyFrom(CoprocessorFilter.serialize(pushedDownFilter))).setProjector(ByteString.copyFrom(CoprocessorProjector.serialize(pushedDownProjector))).setAggregator(ByteString.copyFrom(EndpointAggregators.serialize(pushedDownAggregators)));
+  builder.setType(HBaseZeroCopyByteString.wrap(CoprocessorRowType.serialize(pushedDownRowType))).setFilter(HBaseZeroCopyByteString.wrap(CoprocessorFilter.serialize(pushedDownFilter))).setProjector(HBaseZeroCopyByteString.wrap(CoprocessorProjector.serialize(pushedDownProjector))).setAggregator(HBaseZeroCopyByteString.wrap(EndpointAggregators.serialize(pushedDownAggregators)));
   IIProtos.IIRequest request=builder.build();
   return request;
 }

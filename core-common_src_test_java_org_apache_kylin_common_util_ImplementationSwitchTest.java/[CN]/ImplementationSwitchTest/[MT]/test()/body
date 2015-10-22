@@ -1,4 +1,4 @@
 {
-  assertTrue(sw.get(1,I.class) instanceof Impl1);
-  assertTrue(sw.get(2,I.class) instanceof Impl2);
+  assertTrue(sw.get(1) instanceof Impl1);
+  assertTrue(sw.get(2) instanceof Impl2);
 }

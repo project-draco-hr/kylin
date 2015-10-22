@@ -1,0 +1,1 @@
+java.lang.Iterable<? extends org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.IntList> values

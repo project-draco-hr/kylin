@@ -2,7 +2,6 @@
   int calculatedCost=cost;
   calculatedCost+=getAllDimensions().size() * COST_WEIGHT_DIMENSION + getMeasures().size() * COST_WEIGHT_MEASURE;
   for (  LookupDesc lookupDesc : this.getDescriptor().getModel().getLookups()) {
-    calculatedCost+=COST_WEIGHT_LOOKUP_TABLE;
     if ("inner".equals(lookupDesc.getJoin().getType())) {
       calculatedCost+=COST_WEIGHT_INNER_JOIN;
     }

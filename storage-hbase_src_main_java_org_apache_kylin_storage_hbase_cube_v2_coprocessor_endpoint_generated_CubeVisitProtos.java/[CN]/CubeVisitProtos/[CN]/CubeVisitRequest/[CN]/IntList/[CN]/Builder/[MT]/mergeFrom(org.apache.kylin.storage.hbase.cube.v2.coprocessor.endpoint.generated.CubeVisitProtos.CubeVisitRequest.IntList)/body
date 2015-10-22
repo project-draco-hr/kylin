@@ -1,0 +1,16 @@
+{
+  if (other == org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.IntList.getDefaultInstance())   return this;
+  if (!other.ints_.isEmpty()) {
+    if (ints_.isEmpty()) {
+      ints_=other.ints_;
+      bitField0_=(bitField0_ & ~0x00000001);
+    }
+ else {
+      ensureIntsIsMutable();
+      ints_.addAll(other.ints_);
+    }
+    onChanged();
+  }
+  this.mergeUnknownFields(other.getUnknownFields());
+  return this;
+}

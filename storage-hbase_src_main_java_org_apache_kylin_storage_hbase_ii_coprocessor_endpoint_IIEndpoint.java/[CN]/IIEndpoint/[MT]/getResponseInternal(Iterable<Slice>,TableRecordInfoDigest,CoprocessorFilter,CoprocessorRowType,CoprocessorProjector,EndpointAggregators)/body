@@ -50,7 +50,7 @@
         if (totalByteFormLen >= MEMORY_LIMIT) {
           throw new RuntimeException("the query has exceeded the memory limit, please check the query");
         }
-        IIProtos.IIResponseInternal.IIRow.Builder rowBuilder=IIProtos.IIResponseInternal.IIRow.newBuilder().setColumns(ByteString.copyFrom(recordBuffer));
+        IIProtos.IIResponseInternal.IIRow.Builder rowBuilder=IIProtos.IIResponseInternal.IIRow.newBuilder().setColumns(HBaseZeroCopyByteString.wrap(recordBuffer));
         responseBuilder.addRows(rowBuilder.build());
         totalByteFormLen+=byteFormLen;
       }
@@ -60,9 +60,9 @@
   if (needAgg) {
     for (    Map.Entry<AggrKey,MeasureAggregator[]> entry : aggCache.getAllEntries()) {
       AggrKey aggrKey=entry.getKey();
-      IIProtos.IIResponseInternal.IIRow.Builder rowBuilder=IIProtos.IIResponseInternal.IIRow.newBuilder().setColumns(ByteString.copyFrom(aggrKey.get(),aggrKey.offset(),aggrKey.length()));
+      IIProtos.IIResponseInternal.IIRow.Builder rowBuilder=IIProtos.IIResponseInternal.IIRow.newBuilder().setColumns(HBaseZeroCopyByteString.wrap(aggrKey.get(),aggrKey.offset(),aggrKey.length()));
       int length=aggregators.serializeMetricValues(entry.getValue(),buffer);
-      rowBuilder.setMeasures(ByteString.copyFrom(buffer,0,length));
+      rowBuilder.setMeasures(HBaseZeroCopyByteString.wrap(buffer,0,length));
       responseBuilder.addRows(rowBuilder.build());
     }
   }

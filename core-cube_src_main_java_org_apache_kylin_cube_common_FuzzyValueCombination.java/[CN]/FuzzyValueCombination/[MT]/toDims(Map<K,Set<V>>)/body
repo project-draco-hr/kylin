@@ -1,0 +1,12 @@
+{
+  Dim[] dims=new Dim[fuzzyValues.size()];
+  int i=0;
+  for (  Entry<K,Set<V>> entry : fuzzyValues.entrySet()) {
+    dims[i]=new Dim<K,V>();
+    dims[i].col=entry.getKey();
+    dims[i].values=entry.getValue();
+    if (dims[i].values == null)     dims[i].values=Collections.emptySet();
+    i++;
+  }
+  return dims;
+}

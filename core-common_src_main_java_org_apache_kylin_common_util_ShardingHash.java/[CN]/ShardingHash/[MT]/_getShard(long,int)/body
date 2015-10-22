@@ -1,0 +1,7 @@
+{
+  long x=hash % totalShard;
+  if (x < 0) {
+    x+=totalShard;
+  }
+  return (short)x;
+}

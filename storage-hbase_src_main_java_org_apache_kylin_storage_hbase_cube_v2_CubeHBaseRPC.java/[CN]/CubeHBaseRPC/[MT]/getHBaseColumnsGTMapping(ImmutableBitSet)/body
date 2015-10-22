@@ -1,0 +1,21 @@
+{
+  List<List<Integer>> ret=Lists.newArrayList();
+  int colBlkIndex=1;
+  int metricOffset=fullGTInfo.getPrimaryKey().trueBitCount();
+  HBaseMappingDesc hbaseMapping=cubeSeg.getCubeDesc().getHbaseMapping();
+  for (  HBaseColumnFamilyDesc familyDesc : hbaseMapping.getColumnFamily()) {
+    for (    HBaseColumnDesc hbaseColDesc : familyDesc.getColumns()) {
+      if (selectedColBlocks.get(colBlkIndex)) {
+        int[] metricIndexes=hbaseColDesc.getMeasureIndex();
+        Integer[] gtIndexes=new Integer[metricIndexes.length];
+        for (int i=0; i < gtIndexes.length; i++) {
+          gtIndexes[i]=metricIndexes[i] + metricOffset;
+        }
+        ret.add(Arrays.asList(gtIndexes));
+      }
+      colBlkIndex++;
+    }
+  }
+  Preconditions.checkState(selectedColBlocks.trueBitCount() == ret.size() + 1);
+  return ret;
+}

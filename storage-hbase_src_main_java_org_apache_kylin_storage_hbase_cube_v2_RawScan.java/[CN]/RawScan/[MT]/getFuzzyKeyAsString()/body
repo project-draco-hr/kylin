@@ -1,0 +1,10 @@
+{
+  StringBuilder buf=new StringBuilder();
+  for (  Pair<byte[],byte[]> fuzzyKey : this.fuzzyKey) {
+    buf.append(BytesUtil.toHex(fuzzyKey.getFirst()));
+    buf.append(" ");
+    buf.append(BytesUtil.toHex(fuzzyKey.getSecond()));
+    buf.append(System.lineSeparator());
+  }
+  return buf.toString();
+}

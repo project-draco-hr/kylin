@@ -1,0 +1,3 @@
+short cuboidShardBase
+short shardOffset
+int totalShards

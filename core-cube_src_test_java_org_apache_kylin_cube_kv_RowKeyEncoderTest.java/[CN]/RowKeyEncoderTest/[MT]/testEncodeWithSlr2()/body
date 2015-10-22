@@ -15,10 +15,12 @@
   Cuboid baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
   AbstractRowKeyEncoder rowKeyEncoder=AbstractRowKeyEncoder.createInstance(cube.getFirstSegment(),baseCuboid);
   byte[] encodedKey=rowKeyEncoder.encode(data);
-  assertEquals(48,encodedKey.length);
-  byte[] sellerId=Arrays.copyOfRange(encodedKey,8,26);
-  byte[] cuboidId=Arrays.copyOfRange(encodedKey,0,8);
-  byte[] rest=Arrays.copyOfRange(encodedKey,26,encodedKey.length);
+  assertEquals(40 + RowConstants.ROWKEY_HEADER_LEN,encodedKey.length);
+  byte[] shard=Arrays.copyOfRange(encodedKey,0,RowConstants.ROWKEY_SHARDID_LEN);
+  byte[] cuboidId=Arrays.copyOfRange(encodedKey,RowConstants.ROWKEY_SHARDID_LEN,RowConstants.ROWKEY_HEADER_LEN);
+  byte[] sellerId=Arrays.copyOfRange(encodedKey,RowConstants.ROWKEY_HEADER_LEN,18 + RowConstants.ROWKEY_HEADER_LEN);
+  byte[] rest=Arrays.copyOfRange(encodedKey,18 + RowConstants.ROWKEY_HEADER_LEN,encodedKey.length);
+  assertEquals(0,Bytes.toShort(shard));
   assertTrue(Bytes.toString(sellerId).startsWith("123456789"));
   assertEquals(511,Bytes.toLong(cuboidId));
   assertArrayEquals(new byte[]{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},rest);

@@ -1,5 +1,5 @@
 {
-  int bytesLength=RowConstants.ROWKEY_CUBOIDID_LEN;
+  int bytesLength=RowConstants.ROWKEY_HEADER_LEN;
   long mask=Long.highestOneBit(baseCuboidId);
   long parentCuboidIdActualLength=Long.SIZE - Long.numberOfLeadingZeros(baseCuboidId);
   for (int i=0; i < parentCuboidIdActualLength; i++) {
@@ -19,7 +19,7 @@
     }
   }
   bytesLength+=space;
-  logger.info("Cuboid " + cuboidId + " has "+ rowCount+ " rows, each row size is "+ bytesLength+ " bytes.");
-  logger.info("Cuboid " + cuboidId + " total size is "+ (bytesLength * rowCount / (1024L * 1024L))+ "M.");
-  return bytesLength * rowCount / (1024L * 1024L);
+  double ret=1.0 * bytesLength * rowCount / (1024L * 1024L);
+  logger.info("Cuboid " + cuboidId + " has "+ rowCount+ " rows, each row size is "+ bytesLength+ " bytes."+ " Total size is "+ ret+ "M.");
+  return ret;
 }

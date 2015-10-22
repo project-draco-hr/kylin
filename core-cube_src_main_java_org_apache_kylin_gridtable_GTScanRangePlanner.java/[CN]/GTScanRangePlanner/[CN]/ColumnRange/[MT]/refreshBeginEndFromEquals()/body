@@ -1,10 +1,10 @@
 {
-  if (equals.isEmpty()) {
+  if (valueSet.isEmpty()) {
     begin=ByteArray.EMPTY;
     end=ByteArray.EMPTY;
   }
  else {
-    begin=byteUnknownIsSmaller.min(equals);
-    end=byteUnknownIsBigger.max(equals);
+    begin=rangeStartComparator.comparator.min(valueSet);
+    end=rangeEndComparator.comparator.max(valueSet);
   }
 }

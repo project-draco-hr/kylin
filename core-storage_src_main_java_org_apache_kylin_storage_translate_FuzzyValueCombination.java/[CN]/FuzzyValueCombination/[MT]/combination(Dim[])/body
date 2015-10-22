@@ -1,5 +1,5 @@
 {
-  List<Map<TblColRef,String>> result=Lists.newArrayList();
+  List<Map<TblColRef,E>> result=Lists.newArrayList();
   int emptyDims=0;
   for (  Dim dim : dims) {
     if (dim.values.isEmpty()) {
@@ -10,15 +10,15 @@
   if (emptyDims == dims.length) {
     return result;
   }
-  Map<TblColRef,String> r=Maps.newHashMap();
-  Iterator<String>[] iters=new Iterator[dims.length];
+  Map<TblColRef,E> r=Maps.newHashMap();
+  Iterator<E>[] iters=new Iterator[dims.length];
   int level=0;
   while (true) {
     Dim dim=dims[level];
     if (iters[level] == null) {
       iters[level]=dim.values.iterator();
     }
-    Iterator<String> it=iters[level];
+    Iterator<E> it=iters[level];
     if (it.hasNext() == false) {
       if (level == 0)       break;
       r.remove(dim.col);
@@ -28,7 +28,7 @@
     }
     r.put(dim.col,it.next());
     if (level == dims.length - 1) {
-      result.add(new HashMap<TblColRef,String>(r));
+      result.add(new HashMap<TblColRef,E>(r));
     }
  else {
       level++;
