@@ -1,5 +1,5 @@
 {
-  final Configuration conf=HBaseConnection.newHBaseConfiguration(KylinConfig.getInstanceFromEnv().getStorageUrl());
+  final Configuration conf=HBaseConnection.getCurrentHBaseConfiguration();
   Job job=Job.getInstance(conf);
   job.setMapOutputKeyClass(ImmutableBytesWritable.class);
   job.setMapOutputValueClass(KeyValue.class);

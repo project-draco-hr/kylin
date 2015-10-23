@@ -1,0 +1,7 @@
+{
+  if (hbaseConfig.get() == null) {
+    String storageUrl=KylinConfig.getInstanceFromEnv().getStorageUrl();
+    hbaseConfig.set(newHBaseConfiguration(storageUrl));
+  }
+  return hbaseConfig.get();
+}

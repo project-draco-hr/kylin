@@ -1,6 +1,6 @@
 {
   KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
-  Configuration hconf=HBaseConnection.newHBaseConfiguration(kylinConfig.getStorageUrl());
+  Configuration hconf=HBaseConnection.getCurrentHBaseConfiguration();
   FileSystem fileSystem=FileSystem.get(hconf);
   HBaseAdmin hbaseAdmin=new HBaseAdmin(hconf);
   String localCoprocessorJar=new File(args[0]).getAbsolutePath();

@@ -2,8 +2,7 @@
   if (htableInfoCache.containsKey(tableName)) {
     return htableInfoCache.get(tableName);
   }
-  String hbaseUrl=KylinConfig.getInstanceFromEnv().getStorageUrl();
-  Configuration hconf=HBaseConnection.newHBaseConfiguration(hbaseUrl);
+  Configuration hconf=HBaseConnection.getCurrentHBaseConfiguration();
   HTable table=null;
   HBaseResponse hr=null;
   long tableSize=0;

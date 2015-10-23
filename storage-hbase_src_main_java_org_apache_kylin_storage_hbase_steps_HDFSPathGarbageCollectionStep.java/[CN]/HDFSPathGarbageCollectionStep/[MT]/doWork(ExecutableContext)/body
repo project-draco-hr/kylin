@@ -4,7 +4,7 @@
     List<String> toDeletePaths=getDeletePaths();
     dropHdfsPathOnCluster(toDeletePaths,FileSystem.get(HadoopUtil.getCurrentConfiguration()));
     if (StringUtils.isNotEmpty(context.getConfig().getHBaseClusterFs())) {
-      dropHdfsPathOnCluster(toDeletePaths,FileSystem.get(HadoopUtil.getCurrentHBaseConfiguration()));
+      dropHdfsPathOnCluster(toDeletePaths,FileSystem.get(HBaseConnection.getCurrentHBaseConfiguration()));
     }
   }
  catch (  IOException e) {

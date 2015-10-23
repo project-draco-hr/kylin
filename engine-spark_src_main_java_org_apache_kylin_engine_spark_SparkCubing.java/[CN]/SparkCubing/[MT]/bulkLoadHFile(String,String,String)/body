@@ -3,7 +3,7 @@
   final CubeInstance cubeInstance=CubeManager.getInstance(kylinConfig).getCube(cubeName);
   final CubeDesc cubeDesc=cubeInstance.getDescriptor();
   final CubeSegment cubeSegment=cubeInstance.getSegmentById(segmentId);
-  final Configuration hbaseConf=HBaseConnection.newHBaseConfiguration(kylinConfig.getStorageUrl());
+  final Configuration hbaseConf=HBaseConnection.getCurrentHBaseConfiguration();
   FileSystem fs=FileSystem.get(hbaseConf);
   FsPermission permission=new FsPermission((short)0777);
   for (  HBaseColumnFamilyDesc cf : cubeDesc.getHBaseMapping().getColumnFamily()) {
