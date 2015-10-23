@@ -1,11 +1,7 @@
 {
   if (hbaseConfig.get() == null) {
-    Configuration configuration=HBaseConfiguration.create(new Configuration());
-    String hbaseClusterFs=KylinConfig.getInstanceFromEnv().getHBaseClusterFs();
-    if (StringUtils.isNotEmpty(hbaseClusterFs)) {
-      configuration.set(FileSystem.FS_DEFAULT_NAME_KEY,hbaseClusterFs);
-    }
-    hbaseConfig.set(configuration);
+    String storageUrl=KylinConfig.getInstanceFromEnv().getStorageUrl();
+    hbaseConfig.set(newHBaseConfiguration(storageUrl));
   }
   return hbaseConfig.get();
 }
