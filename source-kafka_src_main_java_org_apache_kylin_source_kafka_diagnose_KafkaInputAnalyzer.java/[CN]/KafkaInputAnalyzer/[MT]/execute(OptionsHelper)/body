@@ -1,0 +1,16 @@
+{
+  String streaming=optionsHelper.getOptionValue(OPTION_STREAMING);
+  String task=optionsHelper.getOptionValue(OPTION_TASK);
+  String tsColName=optionsHelper.getOptionValue(OPTION_TSCOLNAME);
+  kafkaConfig=KafkaConfigManager.getInstance(KylinConfig.getInstanceFromEnv()).getKafkaConfig(streaming);
+  parser=new TimedJsonStreamParser(Lists.<TblColRef>newArrayList(),"formatTs=true;tsColName=" + tsColName);
+  if ("disorder".equalsIgnoreCase(task)) {
+    analyzeDisorder();
+  }
+ else   if ("delay".equalsIgnoreCase(task)) {
+    analyzeLatency();
+  }
+ else {
+    optionsHelper.printUsage(this.getClass().getName(),options);
+  }
+}

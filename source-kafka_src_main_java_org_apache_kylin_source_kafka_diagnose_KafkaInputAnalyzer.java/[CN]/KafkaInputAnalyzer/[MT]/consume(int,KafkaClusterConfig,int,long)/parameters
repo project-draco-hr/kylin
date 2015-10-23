@@ -1,0 +1,4 @@
+int clusterID
+KafkaClusterConfig kafkaClusterConfig
+int partitionCount
+long whichtime

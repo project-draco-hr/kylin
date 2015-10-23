@@ -8,15 +8,12 @@
     while (i < args.length) {
       String argName=args[i];
 switch (argName) {
-case "-oneoff":
-        Boolean.parseBoolean(args[++i]);
-      break;
 case "-start":
-    bootstrapConfig.setStart(Long.parseLong(args[++i]));
-  break;
+        bootstrapConfig.setStart(Long.parseLong(args[++i]));
+      break;
 case "-end":
-bootstrapConfig.setEnd(Long.parseLong(args[++i]));
-break;
+    bootstrapConfig.setEnd(Long.parseLong(args[++i]));
+  break;
 case "-streaming":
 bootstrapConfig.setStreaming(args[++i]);
 break;

@@ -1,14 +1,5 @@
 {
-  byte[] temp=new byte[]{1,2,3};
-  byte[] temp2=new byte[]{1,2,3};
-  System.out.println(temp.hashCode());
-  System.out.println(temp2.hashCode());
-  ByteBuffer buffer=ByteBuffer.allocateDirect(3);
-  buffer.put((byte)1);
-  buffer.put((byte)1);
-  buffer.put((byte)1);
-  buffer.put((byte)1);
-  System.out.println(buffer.position());
-  System.out.println(buffer.limit());
-  System.out.println(buffer.capacity());
+  B b=new B();
+  b.foo();
+  ;
 }

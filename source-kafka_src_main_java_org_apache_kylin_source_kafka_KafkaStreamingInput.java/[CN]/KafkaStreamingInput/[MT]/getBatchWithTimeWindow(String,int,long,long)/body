@@ -4,7 +4,7 @@
     final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
     final KafkaConfigManager kafkaConfigManager=KafkaConfigManager.getInstance(kylinConfig);
     final KafkaConfig kafkaConfig=kafkaConfigManager.getKafkaConfig(streaming);
-    final StreamingParser streamingParser=getStreamingParser(kafkaConfig);
+    final StreamingParser streamingParser=StreamingParser.getStreamingParser(kafkaConfig);
     final ExecutorService executorService=Executors.newCachedThreadPool();
     final List<Future<List<StreamingMessage>>> futures=Lists.newArrayList();
     for (    final KafkaClusterConfig kafkaClusterConfig : kafkaConfig.getKafkaClusterConfigs()) {
