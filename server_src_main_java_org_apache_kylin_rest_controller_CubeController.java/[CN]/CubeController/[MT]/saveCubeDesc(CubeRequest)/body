@@ -19,7 +19,7 @@
     logger.error("Failed to deal with the request.",e);
     throw new InternalErrorException(e.getLocalizedMessage(),e);
   }
-  if (cubeRequest.getStreamingCube().equals("true")) {
+  if (cubeRequest.getStreamingCube() != null && cubeRequest.getStreamingCube().equals("true")) {
     StreamingConfig streamingConfig=deserializeStreamingDesc(cubeRequest);
     KafkaConfig kafkaConfig=deserializeKafkaDesc(cubeRequest);
     if (streamingConfig == null) {
