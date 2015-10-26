@@ -2,7 +2,7 @@
   EndpointAggregationCache aggCache=new EndpointAggregationCache(aggregators);
   IIProtos.IIResponse.Builder responseBuilder=IIProtos.IIResponse.newBuilder();
   for (  Slice slice : slices) {
-    ConciseSet result=null;
+    RoaringBitmap result=null;
     if (filter != null) {
       result=new BitMapFilterEvaluator(new SliceBitMapProvider(slice,type)).evaluate(filter.getFilter());
     }

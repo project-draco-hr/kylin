@@ -1,10 +1,16 @@
 {
-  ConciseSet set=new ConciseSet();
-  not(set);
-  for (  TupleFilter c : children) {
-    ConciseSet t=evaluate(c);
+  int i=0;
+  RoaringBitmap answer=null;
+  for (; (i < children.size()) && (answer == null); ++i) {
+    RoaringBitmap t=evaluate(children.get(i));
     if (t == null)     continue;
-    set.retainAll(t);
+    answer=t;
   }
-  return set;
+  for (; i < children.size(); ++i) {
+    RoaringBitmap t=evaluate(children.get(i));
+    if (t == null)     continue;
+    answer.and(t);
+  }
+  if (answer == null)   answer=new RoaringBitmap();
+  return answer;
 }

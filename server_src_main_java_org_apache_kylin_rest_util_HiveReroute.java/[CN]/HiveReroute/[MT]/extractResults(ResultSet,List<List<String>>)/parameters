@@ -1,0 +1,2 @@
+ResultSet resultSet
+List<List<String>> results

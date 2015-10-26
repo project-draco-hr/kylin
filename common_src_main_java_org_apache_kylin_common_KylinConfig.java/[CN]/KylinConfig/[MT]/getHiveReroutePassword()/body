@@ -1,0 +1,3 @@
+{
+  return getOptional("kylin.route.hive.password","");
+}

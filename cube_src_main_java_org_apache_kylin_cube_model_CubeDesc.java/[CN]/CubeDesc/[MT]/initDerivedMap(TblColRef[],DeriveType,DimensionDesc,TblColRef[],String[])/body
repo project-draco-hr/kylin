@@ -1,5 +1,12 @@
 {
   if (hostCols.length == 0 || derivedCols.length == 0)   throw new IllegalStateException("host/derived columns must not be empty");
+  for (int i=0; i < derivedCols.length; i++) {
+    if (ArrayUtils.contains(hostCols,derivedCols[i])) {
+      derivedCols=(TblColRef[])ArrayUtils.remove(derivedCols,i);
+      extra=(String[])ArrayUtils.remove(extra,i);
+      i--;
+    }
+  }
   Array<TblColRef> hostColArray=new Array<TblColRef>(hostCols);
   List<DeriveInfo> infoList=hostToDerivedMap.get(hostColArray);
   if (infoList == null) {

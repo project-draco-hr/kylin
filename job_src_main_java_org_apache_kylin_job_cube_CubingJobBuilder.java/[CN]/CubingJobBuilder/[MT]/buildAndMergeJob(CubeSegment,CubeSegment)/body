@@ -8,9 +8,8 @@
   List<String> mergingSegmentIds=Lists.newArrayList();
   List<String> mergingCuboidPaths=Lists.newArrayList();
   List<String> mergingHTables=Lists.newArrayList();
-  final List<String> toDeletePathsOnHadoopCluster=Lists.newArrayList();
-  final List<String> toDeletePathsOnHBaseCluster=Lists.newArrayList();
-  Pair<AbstractExecutable,AbstractExecutable> twoSteps=addCubingSteps(appendSegment,appendRootPath,result,toDeletePathsOnHadoopCluster);
+  final List<String> toDeletePaths=Lists.newArrayList();
+  Pair<AbstractExecutable,AbstractExecutable> twoSteps=addCubingSteps(appendSegment,appendRootPath,result,toDeletePaths);
   final String intermediateHiveTableStepId=twoSteps.getFirst().getId();
   final String baseCuboidStepId=twoSteps.getSecond().getId();
   result.addTask(createUpdateCubeInfoAfterBuildStep(appendSegment,intermediateHiveTableStepId,baseCuboidStepId,null,jobId));
@@ -25,12 +24,11 @@
  else {
       mergingCuboidPaths.add(getPathToMerge(merging));
     }
-    toDeletePathsOnHadoopCluster.add(getJobWorkingDir(merging.getLastBuildJobID()));
+    toDeletePaths.add(getJobWorkingDir(merging.getLastBuildJobID()));
   }
   addMergeSteps(mergeSegment,mergingSegmentIds,mergingCuboidPaths,mergedRootPath,result);
   AbstractExecutable convertCuboidToHfileStep=addHTableSteps(mergeSegment,mergedRootPath,result);
   result.addTask(createUpdateCubeInfoAfterMergeStep(mergeSegment,mergingSegmentIds,convertCuboidToHfileStep.getId(),jobId));
-  toDeletePathsOnHBaseCluster.add(getJobWorkingDir(jobId));
-  result.addTask(createGarbageCollectionStep(mergeSegment,mergingHTables,null,toDeletePathsOnHadoopCluster,toDeletePathsOnHBaseCluster));
+  result.addTask(createGarbageCollectionStep(mergeSegment,mergingHTables,null,toDeletePaths));
   return result;
 }

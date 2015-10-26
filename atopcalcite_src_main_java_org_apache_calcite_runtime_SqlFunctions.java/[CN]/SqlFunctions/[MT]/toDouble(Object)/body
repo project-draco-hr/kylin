@@ -1,3 +1,0 @@
-{
-  return o instanceof Double ? (Double)o : o instanceof Number ? toDouble((Number)o) : o instanceof String ? toDouble((String)o) : (Double)cannotConvert(o,double.class);
-}

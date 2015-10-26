@@ -1,0 +1,3 @@
+{
+  return getOptional("kylin.route.hive.url","jdbc:hive2://");
+}

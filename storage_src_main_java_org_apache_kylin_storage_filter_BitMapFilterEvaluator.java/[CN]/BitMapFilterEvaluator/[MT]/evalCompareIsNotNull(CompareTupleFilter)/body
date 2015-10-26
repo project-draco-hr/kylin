@@ -1,5 +1,5 @@
 {
-  ConciseSet set=evalCompareIsNull(filter);
+  RoaringBitmap set=evalCompareIsNull(filter);
   not(set);
   return set;
 }

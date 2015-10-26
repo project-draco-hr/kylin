@@ -1,0 +1,15 @@
+{
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  logger.debug("query rerouting option enabled for Kylin");
+  Connection conn=null;
+  ResultSet resultSet=null;
+  try {
+    conn=createConnection(kylinConfig.getHiveRerouteUrl(),kylinConfig.getHiveRerouteUsername(),kylinConfig.getHiveReroutePassword());
+    resultSet=executQuery(conn,sql);
+    extractColumnMetadata(resultSet,columnMetas);
+    extractResults(resultSet,results);
+  }
+  finally {
+    closeConnection(conn);
+  }
+}

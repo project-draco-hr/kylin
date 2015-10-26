@@ -1,3 +1,0 @@
-{
-  return s.indexOf(seek) + 1;
-}

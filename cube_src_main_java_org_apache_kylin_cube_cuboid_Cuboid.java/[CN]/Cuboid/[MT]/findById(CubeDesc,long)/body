@@ -7,6 +7,9 @@
   Cuboid cuboid=cubeCache.get(cuboidID);
   if (cuboid == null) {
     long validCuboidID=translateToValidCuboid(cube,cuboidID);
+    if (Cuboid.isValid(cube,validCuboidID) == false) {
+      throw new RuntimeException("Didn't find a valid cuboid: " + validCuboidID);
+    }
     cuboid=new Cuboid(cube,cuboidID,validCuboidID);
     cubeCache.put(cuboidID,cuboid);
   }

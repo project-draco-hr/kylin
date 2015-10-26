@@ -1,0 +1,4 @@
+{
+  if (set == null)   return;
+  set.flip(0,provider.getRecordCount());
+}

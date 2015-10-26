@@ -1,3 +1,0 @@
-{
-  return floor(b0,b1.intValue());
-}

@@ -1,5 +1,0 @@
-Blackboard bb
-SqlNode condition
-JoinConditionType conditionType
-RelNode leftRel
-RelNode rightRel

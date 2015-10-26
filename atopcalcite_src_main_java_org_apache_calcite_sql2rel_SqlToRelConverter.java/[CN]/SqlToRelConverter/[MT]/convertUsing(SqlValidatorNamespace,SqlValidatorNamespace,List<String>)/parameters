@@ -1,0 +1,3 @@
+SqlValidatorNamespace leftNamespace
+SqlValidatorNamespace rightNamespace
+List<String> nameList

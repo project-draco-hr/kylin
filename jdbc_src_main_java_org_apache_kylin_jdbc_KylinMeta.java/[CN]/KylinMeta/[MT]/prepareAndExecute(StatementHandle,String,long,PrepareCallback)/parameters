@@ -1,0 +1,4 @@
+StatementHandle sh
+String sql
+long maxRowCount
+PrepareCallback callback

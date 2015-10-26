@@ -1,0 +1,9 @@
+{
+  ResultSetMetaData metaData=null;
+  int columnCount=0;
+  metaData=resultSet.getMetaData();
+  columnCount=metaData.getColumnCount();
+  for (int i=1; i <= columnCount; ++i) {
+    columnMetas.add(new SelectedColumnMeta(metaData.isAutoIncrement(i),metaData.isCaseSensitive(i),false,metaData.isCurrency(i),metaData.isNullable(i),false,metaData.getColumnDisplaySize(i),metaData.getColumnLabel(i),metaData.getColumnName(i),null,null,null,metaData.getPrecision(i),metaData.getScale(i),metaData.getColumnType(i),metaData.getColumnTypeName(i),metaData.isReadOnly(i),false,false));
+  }
+}

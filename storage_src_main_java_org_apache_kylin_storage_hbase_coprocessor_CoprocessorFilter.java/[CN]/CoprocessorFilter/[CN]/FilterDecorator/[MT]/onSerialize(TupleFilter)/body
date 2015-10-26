@@ -1,6 +1,6 @@
 {
   if (filter == null)   return null;
-  if (filter.getOperator() == FilterOperatorEnum.NOT && !TupleFilter.isEvaluableRecursively(filter)) {
+  if (!filter.isEvaluable()) {
     TupleFilter.collectColumns(filter,unstrictlyFilteredColumns);
     return ConstantTupleFilter.TRUE;
   }

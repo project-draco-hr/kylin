@@ -1,0 +1,4 @@
+long detectionInterval
+int alertMB
+int alertRunningSec
+int killRunningSec

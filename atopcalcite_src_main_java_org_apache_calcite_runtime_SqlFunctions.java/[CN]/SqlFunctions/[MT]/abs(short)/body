@@ -1,3 +1,0 @@
-{
-  return (short)Math.abs(b0);
-}

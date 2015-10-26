@@ -28,11 +28,24 @@
       for (int i=0; i < columnCount; i++) {
         oneRow.add((resultSet.getString(i + 1)));
       }
-      results.add(new LinkedList<String>(oneRow));
+      results.add(new ArrayList<String>(oneRow));
       oneRow.clear();
     }
   }
-  finally {
+ catch (  SQLException sqlException) {
+    HiveReroute reroute=new HiveReroute();
+    if (reroute.shouldReroute(sqlException) == false) {
+      throw sqlException;
+    }
+    try {
+      reroute.query(sql,results,columnMetas);
+    }
+ catch (    Throwable ex) {
+      logger.error("Reroute hive failed",ex);
+      throw sqlException;
+    }
+  }
+ finally {
     close(resultSet,stat,conn);
   }
   boolean isPartialResult=false;

@@ -1,0 +1,27 @@
+{
+  if (resultBitMap == null) {
+    return this.iterator();
+  }
+ else {
+    final RawTableRecord rec=info.createTableRecordBytes();
+    final ImmutableBytesWritable temp=new ImmutableBytesWritable();
+    return new Iterator<RawTableRecord>(){
+      IntIterator iter=resultBitMap.getIntIterator();
+      @Override public boolean hasNext(){
+        return iter.hasNext();
+      }
+      @Override public RawTableRecord next(){
+        int i=iter.next();
+        for (int col=0; col < nColumns; col++) {
+          containers[col].getValueAt(i,temp);
+          rec.setValueBytes(col,temp);
+        }
+        return rec;
+      }
+      @Override public void remove(){
+        throw new UnsupportedOperationException();
+      }
+    }
+;
+  }
+}

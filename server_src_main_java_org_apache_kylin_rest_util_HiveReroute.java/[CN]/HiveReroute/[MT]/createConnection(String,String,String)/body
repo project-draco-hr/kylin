@@ -1,0 +1,6 @@
+{
+  logger.info("rerouting to : " + connectionURL + " for executing the query");
+  Class.forName(HIVE_DRIVER_CLASS);
+  Connection connection=DriverManager.getConnection(connectionURL,username,password);
+  return connection;
+}

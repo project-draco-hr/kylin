@@ -1,3 +1,0 @@
-{
-  return getAtomicLong(key).get();
-}

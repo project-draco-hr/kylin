@@ -10,10 +10,5 @@
   if (endId != null) {
     end=endId;
   }
-  ConciseSet ret=new ConciseSet();
-  for (int i=start; i <= end; ++i) {
-    ConciseSet temp=getBitMap(i);
-    ret.addAll(temp);
-  }
-  return ret;
+  return RoaringBitmap.or(Arrays.copyOfRange(sets,start,end + 1));
 }

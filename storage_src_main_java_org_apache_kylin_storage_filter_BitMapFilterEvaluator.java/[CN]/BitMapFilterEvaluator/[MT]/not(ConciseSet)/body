@@ -1,5 +1,0 @@
-{
-  if (set == null)   return;
-  set.add(provider.getRecordCount());
-  set.complement();
-}

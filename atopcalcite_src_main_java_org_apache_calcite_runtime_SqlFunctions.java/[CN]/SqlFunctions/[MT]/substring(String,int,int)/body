@@ -1,3 +1,0 @@
-{
-  return s.substring(from - 1,Math.min(from - 1 + for_,s.length()));
-}

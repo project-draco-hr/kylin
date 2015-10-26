@@ -1,6 +1,0 @@
-{
-  if (v == null) {
-    return null;
-  }
-  return toLong(v,LOCAL_TZ);
-}

@@ -1,4 +1,0 @@
-{
-  final String regex=Like.sqlToRegexSimilar(pattern,escape);
-  return Pattern.matches(regex,s);
-}

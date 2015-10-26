@@ -1,3 +1,0 @@
-{
-  return mod(b0,BigDecimal.valueOf(b1));
-}

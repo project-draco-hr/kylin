@@ -1,3 +1,0 @@
-{
-  return b1 == null ? null : (b0 + b1);
-}

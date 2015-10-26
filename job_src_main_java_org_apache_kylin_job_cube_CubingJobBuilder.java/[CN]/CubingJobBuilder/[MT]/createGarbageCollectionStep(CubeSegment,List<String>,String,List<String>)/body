@@ -1,0 +1,8 @@
+{
+  GarbageCollectionStep result=new GarbageCollectionStep();
+  result.setName(ExecutableConstants.STEP_NAME_GARBAGE_COLLECTION);
+  result.setOldHTables(oldHtables);
+  result.setOldHiveTable(hiveIntermediateTable);
+  result.setOldHdfsPaths(oldHdsfPaths);
+  return result;
+}

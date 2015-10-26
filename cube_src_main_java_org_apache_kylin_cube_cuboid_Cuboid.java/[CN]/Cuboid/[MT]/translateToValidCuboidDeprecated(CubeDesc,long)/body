@@ -1,0 +1,19 @@
+{
+  if (Cuboid.isValid(cube,cuboidID)) {
+    return cuboidID;
+  }
+  HashSet<Long> dedupped=new HashSet<Long>();
+  Queue<Long> queue=new LinkedList<Long>();
+  List<Long> parents=Cuboid.getAllPossibleParents(cube,cuboidID);
+  addToQueue(queue,parents,dedupped);
+  while (queue.size() > 0) {
+    long parent=pollFromQueue(queue,dedupped);
+    if (Cuboid.isValid(cube,parent)) {
+      return parent;
+    }
+ else {
+      addToQueue(queue,Cuboid.getAllPossibleParents(cube,parent),dedupped);
+    }
+  }
+  return -1;
+}

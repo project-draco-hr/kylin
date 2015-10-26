@@ -2,4 +2,8 @@
   List<String> oldHdfsPaths=this.getOldHdfsPaths();
   FileSystem fileSystem=FileSystem.get(HadoopUtil.getCurrentConfiguration());
   dropHdfsPathOnCluster(oldHdfsPaths,fileSystem);
+  if (StringUtils.isNotEmpty(context.getConfig().getHBaseClusterFs())) {
+    fileSystem=FileSystem.get(HadoopUtil.getCurrentHBaseConfiguration());
+    dropHdfsPathOnCluster(oldHdfsPaths,fileSystem);
+  }
 }

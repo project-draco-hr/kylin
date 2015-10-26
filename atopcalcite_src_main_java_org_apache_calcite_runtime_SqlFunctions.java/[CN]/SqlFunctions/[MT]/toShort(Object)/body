@@ -1,3 +1,0 @@
-{
-  return o instanceof Short ? (Short)o : o instanceof Number ? toShort((Number)o) : o instanceof String ? toShort((String)o) : (Short)cannotConvert(o,short.class);
-}
