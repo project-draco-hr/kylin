@@ -1,0 +1,8 @@
+{
+  return new GTScanRange(new GTRecord(gtInfo,pkStart.maskForEqualHashComp(),pkStart.cols),new GTRecord(gtInfo,pkEnd.maskForEqualHashComp(),pkEnd.cols),Lists.transform(fuzzyKeys,new Function<GTRecord,GTRecord>(){
+    @Nullable @Override public GTRecord apply(    GTRecord input){
+      return new GTRecord(gtInfo,input.maskForEqualHashComp(),input.cols);
+    }
+  }
+));
+}

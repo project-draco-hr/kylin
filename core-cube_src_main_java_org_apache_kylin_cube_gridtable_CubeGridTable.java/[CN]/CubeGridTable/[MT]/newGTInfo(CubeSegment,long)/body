@@ -1,4 +1,13 @@
 {
   Map<TblColRef,Dictionary<?>> dictionaryMap=getDimensionToDictionaryMap(cubeSeg,cuboidId);
+  Cuboid cuboid=Cuboid.findById(cubeSeg.getCubeDesc(),cuboidId);
+  for (  TblColRef dim : cuboid.getColumns()) {
+    if (cubeSeg.getCubeDesc().getRowkey().isUseDictionary(dim)) {
+      Dictionary dict=dictionaryMap.get(dim);
+      if (dict == null) {
+        throw new NotEnoughGTInfoException();
+      }
+    }
+  }
   return newGTInfo(cubeSeg.getCubeDesc(),cuboidId,dictionaryMap);
 }
