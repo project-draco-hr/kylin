@@ -1,4 +1,11 @@
 {
   this.cubeInstance=cube;
   this.cubeDesc=cube.getDescriptor();
+  this.topNColumns=Lists.newArrayList();
+  for (  MeasureDesc measureDesc : cubeDesc.getMeasures()) {
+    if (measureDesc.getFunction().isTopN()) {
+      List<TblColRef> colRefs=measureDesc.getFunction().getParameter().getColRefs();
+      topNColumns.add(colRefs.get(colRefs.size() - 1));
+    }
+  }
 }

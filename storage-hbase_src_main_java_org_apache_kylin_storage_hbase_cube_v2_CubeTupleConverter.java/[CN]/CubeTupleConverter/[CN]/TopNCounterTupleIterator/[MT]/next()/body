@@ -1,0 +1,8 @@
+{
+  counter=topNCounterIterator.next();
+  int key=BytesUtil.readUnsigned(counter.getItem().array(),0,counter.getItem().array().length);
+  String colValue=topNColDict.getValueFromId(key);
+  tuple.setDimensionValue(topNColTupleIdx,colValue);
+  tuple.setMeasureValue(topNMeasureTupleIdx,counter.getCount());
+  return tuple;
+}

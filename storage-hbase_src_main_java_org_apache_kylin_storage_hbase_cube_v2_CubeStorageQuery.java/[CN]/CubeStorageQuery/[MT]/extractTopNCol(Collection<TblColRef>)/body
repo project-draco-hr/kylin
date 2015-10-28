@@ -1,0 +1,8 @@
+{
+  for (  TblColRef colRef : colRefs) {
+    if (topNColumns.contains(colRef)) {
+      return colRef;
+    }
+  }
+  return null;
+}

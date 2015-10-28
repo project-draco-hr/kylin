@@ -3,6 +3,7 @@
   this.cuboid=cuboid;
   this.tupleInfo=returnTupleInfo;
   this.derivedColFillers=Lists.newArrayList();
+  this.topNCol=topNCol;
   List<TblColRef> cuboidDims=cuboid.getColumns();
   CuboidToGridTableMapping mapping=cuboid.getCuboidToGridTableMapping();
   nSelectedDims=selectedDimensions.size();
@@ -28,6 +29,11 @@
       tupleIdx[iii]=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
     }
     iii++;
+  }
+  if (this.topNCol != null) {
+    this.topNColTupleIdx=tupleInfo.hasColumn(this.topNCol) ? tupleInfo.getColumnIndex(this.topNCol) : -1;
+    this.topNMeasureTupleIdx=nSelectedDims;
+    this.topNColDict=(Dictionary<String>)cubeSeg.getDictionary(this.topNCol);
   }
   Map<Array<TblColRef>,List<DeriveInfo>> hostToDerivedInfo=cuboid.getCube().getHostToDerivedInfo(cuboidDims,null);
   for (  Entry<Array<TblColRef>,List<DeriveInfo>> entry : hostToDerivedInfo.entrySet()) {

@@ -1,0 +1,25 @@
+{
+  Collection<TblColRef> groups=sqlDigest.groupbyColumns;
+  TblColRef topNDisplayCol=extractTopNCol(groups);
+  boolean hasTopN=topNDisplayCol != null;
+  if (hasTopN == false)   return;
+  if (sqlDigest.aggregations.size() != 1) {
+    throw new IllegalStateException("When query with topN, only one metrics is allowed.");
+  }
+  FunctionDesc functionDesc=sqlDigest.aggregations.iterator().next();
+  if (functionDesc.isSum() == false) {
+    throw new IllegalStateException("When query with topN, only SUM function is allowed.");
+  }
+  FunctionDesc rewriteFunction=null;
+  for (  MeasureDesc measureDesc : cubeDesc.getMeasures()) {
+    if (measureDesc.getFunction().isCompatible(functionDesc) && topNDisplayCol.getName().equalsIgnoreCase(measureDesc.getFunction().getParameter().getDisplayColumn())) {
+      rewriteFunction=measureDesc.getFunction();
+      break;
+    }
+  }
+  if (rewriteFunction == null) {
+    throw new IllegalStateException("Didn't find topN measure for " + functionDesc);
+  }
+  sqlDigest.aggregations=Lists.newArrayList(rewriteFunction);
+  logger.info("Rewrite function " + functionDesc + " to "+ rewriteFunction);
+}
