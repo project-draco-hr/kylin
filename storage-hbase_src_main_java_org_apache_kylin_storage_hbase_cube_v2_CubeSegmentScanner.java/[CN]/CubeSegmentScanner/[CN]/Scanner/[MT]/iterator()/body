@@ -5,7 +5,13 @@
       if (curIterator == null) {
         if (cur >= scanRequests.size())         return false;
         try {
-          CubeHBaseRPC rpc=new CubeHBaseEndpointRPC(cubeSeg,cuboid,info);
+          CubeHBaseRPC rpc;
+          if ("scan".equalsIgnoreCase(BackdoorToggles.getHbaseCubeQueryProtocol())) {
+            rpc=new CubeHBaseScanRPC(cubeSeg,cuboid,info);
+          }
+ else {
+            rpc=new CubeHBaseEndpointRPC(cubeSeg,cuboid,info);
+          }
           inputScanners[cur]=rpc.getGTScanner(scanRequests.get(cur));
           curIterator=inputScanners[cur].iterator();
         }

@@ -1,0 +1,3 @@
+{
+  return getString(DEBUG_TOGGLE_HBASE_CUBE_QUERY_PROTOCOL);
+}
