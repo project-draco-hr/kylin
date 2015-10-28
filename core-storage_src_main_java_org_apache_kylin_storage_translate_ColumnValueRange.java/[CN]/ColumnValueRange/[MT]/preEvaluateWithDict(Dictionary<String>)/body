@@ -15,18 +15,18 @@
   }
   if (beginValue != null) {
     try {
-      beginValue=dict.getValueFromId(dict.getIdFromValue(beginValue,-1));
+      beginValue=dict.getValueFromId(dict.getIdFromValue(beginValue,1));
     }
  catch (    IllegalArgumentException e) {
-      beginValue=null;
+      equalValues=Sets.newHashSet();
     }
   }
   if (endValue != null) {
     try {
-      endValue=dict.getValueFromId(dict.getIdFromValue(endValue,1));
+      endValue=dict.getValueFromId(dict.getIdFromValue(endValue,-1));
     }
  catch (    IllegalArgumentException e) {
-      endValue=null;
+      equalValues=Sets.newHashSet();
     }
   }
 }
