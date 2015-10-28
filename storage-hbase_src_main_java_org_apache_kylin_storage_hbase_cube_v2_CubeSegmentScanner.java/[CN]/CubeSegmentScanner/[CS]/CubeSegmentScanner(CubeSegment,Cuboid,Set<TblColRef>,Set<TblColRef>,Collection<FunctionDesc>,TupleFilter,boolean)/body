@@ -26,7 +26,7 @@
   trimmedInfoBytes=GTInfo.serialize(info);
   GTInfo trimmedInfo=GTInfo.deserialize(trimmedInfoBytes);
   for (  GTScanRange range : scanRanges) {
-    scanRequests.add(new GTScanRequest(trimmedInfo,range,gtDimensions,gtAggrGroups,gtAggrMetrics,gtAggrFuncs,gtFilter,allowPreAggregate));
+    scanRequests.add(new GTScanRequest(trimmedInfo,range.replaceGTInfo(trimmedInfo),gtDimensions,gtAggrGroups,gtAggrMetrics,gtAggrFuncs,gtFilter,allowPreAggregate));
   }
   scanner=new Scanner();
 }
