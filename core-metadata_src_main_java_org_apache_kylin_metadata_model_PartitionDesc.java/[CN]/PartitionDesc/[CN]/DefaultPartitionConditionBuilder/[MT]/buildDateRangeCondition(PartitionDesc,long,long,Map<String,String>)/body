@@ -7,9 +7,9 @@
   }
   StringBuilder builder=new StringBuilder();
   if (startInclusive > 0) {
-    builder.append(partitionColumnName + " >= '" + DateFormat.formatToDateStr(startInclusive)+ "' ");
+    builder.append(partitionColumnName + " >= '" + DateFormat.formatToDateStr(startInclusive,partDesc.getPartitionDateFormat())+ "' ");
     builder.append("AND ");
   }
-  builder.append(partitionColumnName + " < '" + DateFormat.formatToDateStr(endExclusive)+ "'");
+  builder.append(partitionColumnName + " < '" + DateFormat.formatToDateStr(endExclusive,partDesc.getPartitionDateFormat())+ "'");
   return builder.toString();
 }
