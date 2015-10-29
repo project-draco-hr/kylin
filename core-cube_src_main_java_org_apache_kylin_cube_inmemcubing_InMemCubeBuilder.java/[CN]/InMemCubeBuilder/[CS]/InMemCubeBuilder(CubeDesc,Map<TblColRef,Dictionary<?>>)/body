@@ -7,13 +7,10 @@
   this.measureCodec=new MeasureCodec(cubeDesc.getMeasures());
   this.measureCount=cubeDesc.getMeasures().size();
   this.measureDescs=cubeDesc.getMeasures().toArray(new MeasureDesc[measureCount]);
-  Map<String,Integer> measureIndexMap=Maps.newHashMap();
   List<String> metricsAggrFuncsList=Lists.newArrayList();
   for (int i=0; i < measureCount; i++) {
     MeasureDesc measureDesc=measureDescs[i];
     metricsAggrFuncsList.add(measureDesc.getFunction().getExpression());
-    measureIndexMap.put(measureDesc.getName(),i);
   }
   this.metricsAggrFuncs=metricsAggrFuncsList.toArray(new String[metricsAggrFuncsList.size()]);
-  initTopNDisplayColDictionaryMap();
 }

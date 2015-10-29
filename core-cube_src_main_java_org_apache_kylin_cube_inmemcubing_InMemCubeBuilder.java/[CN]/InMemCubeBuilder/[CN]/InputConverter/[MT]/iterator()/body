@@ -12,7 +12,7 @@
     }
     @Override public GTRecord next(){
       if (currentObject.size() == 0)       throw new IllegalStateException();
-      buildGTRecord(currentObject,record);
+      inMemCubeBuilderInputConverter.convert(currentObject,record);
       return record;
     }
     @Override public void remove(){

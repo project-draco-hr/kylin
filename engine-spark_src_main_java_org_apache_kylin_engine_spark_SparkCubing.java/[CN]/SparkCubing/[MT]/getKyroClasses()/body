@@ -1,0 +1,36 @@
+{
+  Set<Class> kyroClasses=Sets.newHashSet();
+  kyroClasses.addAll(new Reflections("org.apache.kylin").getSubTypesOf(Serializable.class));
+  kyroClasses.addAll(new Reflections("org.apache.kylin.cube.model").getSubTypesOf(Object.class));
+  kyroClasses.addAll(new Reflections("org.apache.kylin.metadata.model").getSubTypesOf(Object.class));
+  kyroClasses.addAll(new Reflections("org.apache.kylin.metadata.measure").getSubTypesOf(Object.class));
+  kyroClasses.add(HashMap.class);
+  kyroClasses.add(org.apache.spark.sql.Row[].class);
+  kyroClasses.add(org.apache.spark.sql.Row.class);
+  kyroClasses.add(org.apache.spark.sql.catalyst.expressions.GenericRowWithSchema.class);
+  kyroClasses.add(org.apache.spark.sql.types.StructType.class);
+  kyroClasses.add(org.apache.spark.sql.types.StructField[].class);
+  kyroClasses.add(org.apache.spark.sql.types.StructField.class);
+  kyroClasses.add(org.apache.spark.sql.types.DateType$.class);
+  kyroClasses.add(org.apache.spark.sql.types.Metadata.class);
+  kyroClasses.add(Object[].class);
+  kyroClasses.add(org.apache.spark.sql.types.StringType$.class);
+  kyroClasses.add(Hashing.murmur3_128().getClass());
+  kyroClasses.add(org.apache.spark.sql.columnar.CachedBatch.class);
+  kyroClasses.add(byte[][].class);
+  kyroClasses.add(org.apache.spark.sql.types.Decimal.class);
+  kyroClasses.add(scala.math.BigDecimal.class);
+  kyroClasses.add(java.math.BigDecimal.class);
+  kyroClasses.add(java.math.MathContext.class);
+  kyroClasses.add(java.math.RoundingMode.class);
+  kyroClasses.add(java.util.ArrayList.class);
+  kyroClasses.add(java.util.LinkedList.class);
+  ArrayList<String> result=Lists.newArrayList();
+  for (  Class kyroClass : kyroClasses) {
+    result.add(kyroClass.getName());
+  }
+  result.add("scala.collection.immutable.Map$EmptyMap$");
+  result.add("org.apache.spark.sql.catalyst.expressions.GenericInternalRow");
+  result.add("org.apache.spark.unsafe.types.UTF8String");
+  return result;
+}

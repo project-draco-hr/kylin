@@ -1,0 +1,5 @@
+{
+  final GTRecord record=new GTRecord(gtInfo);
+  convert(row,record);
+  return record;
+}

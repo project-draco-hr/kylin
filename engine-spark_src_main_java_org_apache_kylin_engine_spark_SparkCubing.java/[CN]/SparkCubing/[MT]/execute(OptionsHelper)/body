@@ -3,6 +3,16 @@
   SparkConf conf=new SparkConf().setAppName("Simple Application");
   conf.set("spark.executor.memory","6g");
   conf.set("spark.storage.memoryFraction","0.3");
+  conf.set("spark.serializer","org.apache.spark.serializer.KryoSerializer");
+  conf.set("spark.kryo.registrationRequired","true");
+  final Iterable<String> allClasses=Iterables.filter(Iterables.concat(Lists.newArrayList(conf.get("spark.kryo.classesToRegister","").split(",")),getKyroClasses()),new Predicate<String>(){
+    @Override public boolean apply(    @Nullable String input){
+      return input != null && input.trim().length() > 0;
+    }
+  }
+);
+  System.out.println("kyro classes:" + allClasses.toString());
+  conf.set("spark.kryo.classesToRegister",StringUtils.join(allClasses,","));
   JavaSparkContext sc=new JavaSparkContext(conf);
   HiveContext sqlContext=new HiveContext(sc.sc());
   final DataFrame intermediateTable=sqlContext.sql("select * from " + hiveTable);

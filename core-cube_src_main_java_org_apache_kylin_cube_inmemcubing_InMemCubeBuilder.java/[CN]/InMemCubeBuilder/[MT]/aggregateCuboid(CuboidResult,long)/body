@@ -1,20 +1,4 @@
 {
-  Pair<ImmutableBitSet,ImmutableBitSet> columnBitSets=getDimensionAndMetricColumnBitSet(parent.cuboidId);
-  ImmutableBitSet parentDimensions=columnBitSets.getFirst();
-  ImmutableBitSet measureColumns=columnBitSets.getSecond();
-  ImmutableBitSet childDimensions=parentDimensions;
-  long mask=Long.highestOneBit(parent.cuboidId);
-  long childCuboidId=cuboidId;
-  long parentCuboidIdActualLength=Long.SIZE - Long.numberOfLeadingZeros(parent.cuboidId);
-  int index=0;
-  for (int i=0; i < parentCuboidIdActualLength; i++) {
-    if ((mask & parent.cuboidId) > 0) {
-      if ((mask & childCuboidId) == 0) {
-        childDimensions=childDimensions.set(index,false);
-      }
-      index++;
-    }
-    mask=mask >> 1;
-  }
-  return scanAndAggregateGridTable(parent.table,parent.cuboidId,cuboidId,childDimensions,measureColumns);
+  final Pair<ImmutableBitSet,ImmutableBitSet> allNeededColumns=InMemCubeBuilderUtils.getDimensionAndMetricColumnBitSet(parent.cuboidId,cuboidId,measureCount);
+  return scanAndAggregateGridTable(parent.table,parent.cuboidId,cuboidId,allNeededColumns.getFirst(),allNeededColumns.getSecond());
 }

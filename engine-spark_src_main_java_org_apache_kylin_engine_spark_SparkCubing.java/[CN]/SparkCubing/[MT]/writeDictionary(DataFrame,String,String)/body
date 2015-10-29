@@ -3,12 +3,12 @@
   final CubeManager cubeManager=CubeManager.getInstance(kylinConfig);
   final CubeInstance cubeInstance=cubeManager.reloadCubeLocal(cubeName);
   final String[] columns=intermediateTable.columns();
-  long start=System.currentTimeMillis();
   final CubeDesc cubeDesc=cubeInstance.getDescriptor();
   final HashMap<Integer,TblColRef> tblColRefMap=Maps.newHashMap();
   final CubeJoinedFlatTableDesc flatTableDesc=new CubeJoinedFlatTableDesc(cubeDesc,null);
   final List<TblColRef> baseCuboidColumn=Cuboid.findById(cubeDesc,Cuboid.getBaseCuboidId(cubeDesc)).getColumns();
-  RowKeyDesc rowKey=cubeDesc.getRowkey();
+  final long start=System.currentTimeMillis();
+  final RowKeyDesc rowKey=cubeDesc.getRowkey();
   for (int i=0; i < baseCuboidColumn.size(); i++) {
     TblColRef col=baseCuboidColumn.get(i);
     if (!rowKey.isUseDictionary(col)) {

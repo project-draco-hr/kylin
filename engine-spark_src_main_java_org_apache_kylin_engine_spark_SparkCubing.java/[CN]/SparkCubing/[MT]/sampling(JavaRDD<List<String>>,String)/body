@@ -12,6 +12,7 @@
   final int nRowKey=cubeDesc.getRowkey().getRowKeyColumns().length;
   final long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
   final Map<Long,Integer[]> allCuboidsBitSet=Maps.newHashMapWithExpectedSize(allCuboidIds.size());
+  final ByteArray[] row_hashcodes=new ByteArray[nRowKey];
   for (  Long cuboidId : allCuboidIds) {
     BitSet bitSet=BitSet.valueOf(new long[]{cuboidId});
     Integer[] cuboidBitSet=new Integer[bitSet.cardinality()];
@@ -26,7 +27,6 @@
     }
     allCuboidsBitSet.put(cuboidId,cuboidBitSet);
   }
-  final ByteArray[] row_hashcodes=new ByteArray[nRowKey];
   for (int i=0; i < nRowKey; ++i) {
     row_hashcodes[i]=new ByteArray();
   }
