@@ -32,7 +32,7 @@
   }
   if (this.topNCol != null) {
     this.topNColTupleIdx=tupleInfo.hasColumn(this.topNCol) ? tupleInfo.getColumnIndex(this.topNCol) : -1;
-    this.topNMeasureTupleIdx=nSelectedDims;
+    this.topNMeasureTupleIdx=tupleIdx[tupleIdx.length - 1];
     this.topNColDict=(Dictionary<String>)cubeSeg.getDictionary(this.topNCol);
   }
   Map<Array<TblColRef>,List<DeriveInfo>> hostToDerivedInfo=cuboid.getCube().getHostToDerivedInfo(cuboidDims,null);
