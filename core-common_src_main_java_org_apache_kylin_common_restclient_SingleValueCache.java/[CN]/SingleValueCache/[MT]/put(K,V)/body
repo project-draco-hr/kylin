@@ -1,5 +1,6 @@
 {
   boolean exists=innerCache.containsKey(key);
+  innerCache.put(key,value);
   if (!exists) {
     cacheUpdater.updateCache(key,value,Broadcaster.EVENT.CREATE,syncType,this);
   }

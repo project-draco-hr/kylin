@@ -14,5 +14,5 @@
   getStore().putResource(path,is,System.currentTimeMillis());
   os.close();
   is.close();
-  srcTableExdMap.putLocal(tableId,tableExdProperties);
+  srcTableExdMap.put(tableId,tableExdProperties);
 }
