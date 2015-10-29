@@ -1,7 +1,7 @@
 {
   ImmutableBytesWritable key=encodeKey(slice.getShard(),slice.getTimestamp(),col);
   ImmutableBytesWritable value=container.toBytes();
-  final Dictionary<?> dictionary=slice.getLocalDictionaries()[col];
+  final Dictionary<?> dictionary=slice.getLocalDictionaries() != null ? slice.getLocalDictionaries()[col] : null;
   if (dictionary == null) {
     return new IIRow(key,value,new ImmutableBytesWritable(BytesUtil.EMPTY_BYTE_ARRAY));
   }

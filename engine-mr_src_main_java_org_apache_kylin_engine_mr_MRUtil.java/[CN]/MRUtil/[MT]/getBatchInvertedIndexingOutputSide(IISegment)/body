@@ -1,0 +1,3 @@
+{
+  return StorageFactory.createEngineAdapter(seg,IMROutput.class).getBatchInvertedIndexingOutputSide(seg);
+}

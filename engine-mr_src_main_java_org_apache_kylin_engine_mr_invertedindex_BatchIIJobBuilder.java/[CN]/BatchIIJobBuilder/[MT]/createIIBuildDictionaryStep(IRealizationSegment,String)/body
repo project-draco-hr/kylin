@@ -1,0 +1,10 @@
+{
+  HadoopShellExecutable buildDictionaryStep=new HadoopShellExecutable();
+  buildDictionaryStep.setName(ExecutableConstants.STEP_NAME_BUILD_DICTIONARY);
+  StringBuilder cmd=new StringBuilder();
+  appendExecCmdParameters(cmd,"iiname",seg.getRealization().getName());
+  appendExecCmdParameters(cmd,"input",factDistinctColumnsPath);
+  buildDictionaryStep.setJobParams(cmd.toString());
+  buildDictionaryStep.setJobClass(CreateInvertedIndexDictionaryJob.class);
+  return buildDictionaryStep;
+}

@@ -1,0 +1,3 @@
+{
+  this.setParam(SEGMENT_ID,segmentId);
+}

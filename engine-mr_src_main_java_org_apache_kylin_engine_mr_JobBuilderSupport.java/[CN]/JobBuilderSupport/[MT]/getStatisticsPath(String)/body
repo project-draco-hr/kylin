@@ -1,3 +1,3 @@
 {
-  return getJobWorkingDir(jobId) + "/" + seg.getCubeInstance().getName()+ "/statistics";
+  return getRealizationRootPath(jobId) + "/statistics";
 }

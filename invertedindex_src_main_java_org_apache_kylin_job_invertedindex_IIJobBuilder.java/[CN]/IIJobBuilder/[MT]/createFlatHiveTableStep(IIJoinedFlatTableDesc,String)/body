@@ -1,3 +1,0 @@
-{
-  return BatchCubingInputSide.createFlatHiveTableStep(engineConfig,intermediateTableDesc,jobId);
-}

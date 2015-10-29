@@ -2,12 +2,12 @@
   MapReduceExecutable ndCuboidStep=new MapReduceExecutable();
   ndCuboidStep.setName(ExecutableConstants.STEP_NAME_BUILD_N_D_CUBOID + " : " + dimNum+ "-Dimension");
   StringBuilder cmd=new StringBuilder();
-  appendMapReduceParameters(cmd,seg);
-  appendExecCmdParameters(cmd,"cubename",seg.getCubeInstance().getName());
+  appendMapReduceParameters(cmd,((CubeSegment)seg).getCubeDesc().getModel());
+  appendExecCmdParameters(cmd,"cubename",seg.getRealization().getName());
   appendExecCmdParameters(cmd,"segmentname",seg.getName());
   appendExecCmdParameters(cmd,"input",cuboidOutputTempPath[totalRowkeyColumnCount - dimNum - 1]);
   appendExecCmdParameters(cmd,"output",cuboidOutputTempPath[totalRowkeyColumnCount - dimNum]);
-  appendExecCmdParameters(cmd,"jobname","Kylin_ND-Cuboid_Builder_" + seg.getCubeInstance().getName() + "_Step");
+  appendExecCmdParameters(cmd,"jobname","Kylin_ND-Cuboid_Builder_" + seg.getRealization().getName() + "_Step");
   appendExecCmdParameters(cmd,"level","" + (totalRowkeyColumnCount - dimNum));
   ndCuboidStep.setMapReduceParams(cmd.toString());
   ndCuboidStep.setMapReduceJobClass(NDCuboidJob.class);

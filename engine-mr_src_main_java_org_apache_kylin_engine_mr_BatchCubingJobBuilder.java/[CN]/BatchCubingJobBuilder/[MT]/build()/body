@@ -1,13 +1,14 @@
 {
   logger.info("MR_V1 new job to BUILD segment " + seg);
-  final CubingJob result=CubingJob.createBuildJob(seg,submitter,config);
+  final CubingJob result=CubingJob.createBuildJob((CubeSegment)seg,submitter,config);
   final String jobId=result.getId();
   final String cuboidRootPath=getCuboidRootPath(jobId);
   inputSide.addStepPhase1_CreateFlatTable(result);
   result.addTask(createFactDistinctColumnsStep(jobId));
   result.addTask(createBuildDictionaryStep(jobId));
-  final int groupRowkeyColumnsCount=seg.getCubeDesc().getRowkey().getNCuboidBuildLevels();
-  final int totalRowkeyColumnsCount=seg.getCubeDesc().getRowkey().getRowKeyColumns().length;
+  RowKeyDesc rowKeyDesc=((CubeSegment)seg).getCubeDesc().getRowkey();
+  final int groupRowkeyColumnsCount=rowKeyDesc.getNCuboidBuildLevels();
+  final int totalRowkeyColumnsCount=rowKeyDesc.getRowKeyColumns().length;
   final String[] cuboidOutputTempPath=getCuboidOutputPaths(cuboidRootPath,totalRowkeyColumnsCount,groupRowkeyColumnsCount);
   result.addTask(createBaseCuboidStep(cuboidOutputTempPath,jobId));
   for (int i=1; i <= groupRowkeyColumnsCount; i++) {

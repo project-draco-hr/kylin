@@ -3,7 +3,7 @@
   for (  Integer id : impls.keySet()) {
     maxId=Math.max(maxId,id);
   }
-  if (maxId > 100)   throw new IllegalArgumentException("you have more than 100 implentations?");
+  if (maxId > 100)   throw new IllegalArgumentException("you have more than 100 implementations?");
   Object[] result=new Object[maxId + 1];
   for (  Integer id : impls.keySet()) {
     String clzName=impls.get(id);

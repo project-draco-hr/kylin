@@ -1,4 +1,4 @@
 {
   super(mergeSegment,submitter);
-  this.outputSide=MRUtil.getBatchMergeOutputSide(seg);
+  this.outputSide=MRUtil.getBatchMergeOutputSide((CubeSegment)seg);
 }

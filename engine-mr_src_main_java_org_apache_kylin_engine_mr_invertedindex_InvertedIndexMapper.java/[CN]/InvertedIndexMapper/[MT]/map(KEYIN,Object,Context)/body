@@ -1,0 +1,10 @@
+{
+  String[] row=flatTableInputFormat.parseMapperInput(record);
+  rec.reset();
+  for (int i=0; i < row.length; i++) {
+    Object fieldValue=row[i];
+    if (fieldValue != null)     rec.setValueString(i,fieldValue.toString());
+  }
+  outputKey.set(rec.getTimestamp());
+  context.write(outputKey,outputValue);
+}

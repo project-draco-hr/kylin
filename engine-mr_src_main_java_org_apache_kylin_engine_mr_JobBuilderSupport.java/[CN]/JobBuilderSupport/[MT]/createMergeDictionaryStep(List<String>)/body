@@ -1,7 +1,7 @@
 {
   MergeDictionaryStep result=new MergeDictionaryStep();
   result.setName(ExecutableConstants.STEP_NAME_MERGE_DICTIONARY);
-  result.setCubeName(seg.getCubeInstance().getName());
+  result.setCubeName(seg.getRealization().getName());
   result.setSegmentId(seg.getUuid());
   result.setMergingSegmentIds(mergingSegmentIds);
   return result;

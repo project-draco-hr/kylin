@@ -1,3 +1,0 @@
-{
-  return getJobWorkingDir(jobUuid) + "/" + seg.getIIInstance().getName()+ "/ii_distinct_columns";
-}

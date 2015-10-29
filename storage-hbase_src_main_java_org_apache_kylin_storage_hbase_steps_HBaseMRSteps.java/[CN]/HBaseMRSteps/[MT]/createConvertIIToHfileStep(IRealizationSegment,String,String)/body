@@ -1,0 +1,14 @@
+{
+  MapReduceExecutable createHFilesStep=new MapReduceExecutable();
+  createHFilesStep.setName(ExecutableConstants.STEP_NAME_CONVERT_II_TO_HFILE);
+  StringBuilder cmd=new StringBuilder();
+  appendMapReduceParameters(cmd,seg.getRealization().getDataModelDesc());
+  appendExecCmdParameters(cmd,"iiname",seg.getRealization().getName());
+  appendExecCmdParameters(cmd,"input",inputPath);
+  appendExecCmdParameters(cmd,"output",getHFilePath(jobId));
+  appendExecCmdParameters(cmd,"htablename",seg.getStorageLocationIdentifier());
+  appendExecCmdParameters(cmd,"jobname","Kylin_HFile_Generator_" + seg.getRealization().getName() + "_Step");
+  createHFilesStep.setMapReduceParams(cmd.toString());
+  createHFilesStep.setMapReduceJobClass(IICreateHFileJob.class);
+  return createHFilesStep;
+}

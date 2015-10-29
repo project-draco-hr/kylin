@@ -1,3 +1,0 @@
-{
-  return engineConfig.getHdfsWorkingDirectory() + "kylin-" + uuid;
-}

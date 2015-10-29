@@ -1,3 +1,0 @@
-{
-  return engineConfig.getConfig().getHiveDatabaseForIntermediateTable() + "." + intermediateTableDesc.getTableName();
-}

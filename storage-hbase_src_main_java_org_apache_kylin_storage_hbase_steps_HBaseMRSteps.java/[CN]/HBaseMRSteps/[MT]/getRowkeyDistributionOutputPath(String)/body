@@ -1,3 +1,3 @@
 {
-  return HBaseConnection.makeQualifiedPathInHBaseCluster(getJobWorkingDir(jobId) + "/" + seg.getCubeInstance().getName()+ "/rowkey_stats");
+  return HBaseConnection.makeQualifiedPathInHBaseCluster(getJobWorkingDir(jobId) + "/" + seg.getRealization().getName()+ "/rowkey_stats");
 }

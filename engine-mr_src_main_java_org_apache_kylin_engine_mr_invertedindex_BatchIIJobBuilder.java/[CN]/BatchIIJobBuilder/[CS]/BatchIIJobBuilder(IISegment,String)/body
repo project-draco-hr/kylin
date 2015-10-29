@@ -1,0 +1,5 @@
+{
+  super(newSegment,submitter);
+  this.inputSide=MRUtil.getBatchCubingInputSide(newSegment);
+  this.outputSide=MRUtil.getBatchInvertedIndexingOutputSide(newSegment);
+}

@@ -1,0 +1,10 @@
+{
+  String[] row=flatTableInputFormat.parseMapperInput(record);
+  for (short i=0; i < row.length; i++) {
+    outputKey.set(i);
+    if (row[i] == null)     continue;
+    byte[] bytes=Bytes.toBytes(row[i].toString());
+    outputValue.set(bytes,0,bytes.length);
+    context.write(outputKey,outputValue);
+  }
+}

@@ -1,5 +1,0 @@
-{
-  super.bindCurrentConfiguration(context.getConfiguration());
-  schema=HCatInputFormat.getTableSchema(context.getConfiguration());
-  columnSize=schema.getFields().size();
-}

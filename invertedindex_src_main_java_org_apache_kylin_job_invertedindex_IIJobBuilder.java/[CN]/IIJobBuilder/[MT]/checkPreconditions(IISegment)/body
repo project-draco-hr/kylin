@@ -1,4 +1,0 @@
-{
-  Preconditions.checkNotNull(seg,"segment cannot be null");
-  Preconditions.checkNotNull(engineConfig,"jobEngineConfig cannot be null");
-}

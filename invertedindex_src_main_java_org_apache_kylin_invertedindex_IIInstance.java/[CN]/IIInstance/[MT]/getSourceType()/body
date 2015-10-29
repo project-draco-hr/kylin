@@ -1,0 +1,3 @@
+{
+  return getDataModelDesc().getFactTableDesc().getSourceType();
+}

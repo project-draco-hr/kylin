@@ -1,0 +1,16 @@
+{
+  logger.info("MR new job to BUILD segment " + seg);
+  final IIJob result=IIJob.createBuildJob((IISegment)seg,submitter,config);
+  final String jobId=result.getId();
+  final String iiRootPath=getRealizationRootPath(jobId) + "/";
+  inputSide.addStepPhase1_CreateFlatTable(result);
+  final String intermediateTableIdentity=seg.getJoinedFlatTableDesc().getTableName();
+  result.addTask(createIIFactDistinctColumnsStep(seg,intermediateTableIdentity,getFactDistinctColumnsPath(jobId)));
+  result.addTask(createIIBuildDictionaryStep(seg,getFactDistinctColumnsPath(jobId)));
+  result.addTask(createInvertedIndexStep((IISegment)seg,intermediateTableIdentity,iiRootPath));
+  outputSide.addStepPhase3_BuildII(result,iiRootPath);
+  result.addTask(createUpdateInvertedIndexInfoAfterBuildStep(jobId));
+  inputSide.addStepPhase4_Cleanup(result);
+  outputSide.addStepPhase4_Cleanup(result);
+  return result;
+}

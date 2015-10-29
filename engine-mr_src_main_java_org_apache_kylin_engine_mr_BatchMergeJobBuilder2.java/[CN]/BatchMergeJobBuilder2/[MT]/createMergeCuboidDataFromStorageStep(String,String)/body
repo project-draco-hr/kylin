@@ -2,10 +2,10 @@
   MapReduceExecutable mergeCuboidDataStep=new MapReduceExecutable();
   mergeCuboidDataStep.setName(ExecutableConstants.STEP_NAME_MERGE_CUBOID);
   StringBuilder cmd=new StringBuilder();
-  appendMapReduceParameters(cmd,seg);
-  appendExecCmdParameters(cmd,"cubename",seg.getCubeInstance().getName());
+  appendMapReduceParameters(cmd,((CubeSegment)seg).getCubeDesc().getModel());
+  appendExecCmdParameters(cmd,"cubename",seg.getRealization().getName());
   appendExecCmdParameters(cmd,"segmentname",seg.getName());
-  appendExecCmdParameters(cmd,"jobname","Kylin_Merge_Cuboid_" + seg.getCubeInstance().getName() + "_Step");
+  appendExecCmdParameters(cmd,"jobname","Kylin_Merge_Cuboid_" + seg.getRealization().getName() + "_Step");
   appendExecCmdParameters(cmd,"jobflowid",jobId);
   mergeCuboidDataStep.setMapReduceParams(cmd.toString());
   mergeCuboidDataStep.setMapReduceJobClass(MergeCuboidFromStorageJob.class);

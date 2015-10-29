@@ -1,0 +1,30 @@
+{
+  Options options=new Options();
+  try {
+    options.addOption(OPTION_JOB_NAME);
+    options.addOption(OPTION_TABLE_NAME);
+    options.addOption(OPTION_II_NAME);
+    options.addOption(OPTION_OUTPUT_PATH);
+    parseOptions(options,args);
+    job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
+    String tableName=getOptionValue(OPTION_TABLE_NAME).toUpperCase();
+    String iiName=getOptionValue(OPTION_II_NAME);
+    Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
+    logger.info("Starting: " + job.getJobName() + " on table "+ tableName);
+    IIManager iiMgr=IIManager.getInstance(KylinConfig.getInstanceFromEnv());
+    IIInstance ii=iiMgr.getII(iiName);
+    job.getConfiguration().set(BatchConstants.TABLE_NAME,tableName);
+    job.getConfiguration().set(BatchConstants.TABLE_COLUMNS,getColumns(ii));
+    setJobClasspath(job);
+    setupMapper(ii.getFirstSegment());
+    setupReducer(output);
+    Configuration conf=job.getConfiguration();
+    conf.set(BatchConstants.CFG_II_NAME,ii.getName());
+    attachKylinPropsAndMetadata(ii,conf);
+    return waitForCompletion(job);
+  }
+ catch (  Exception e) {
+    printUsage(options);
+    throw e;
+  }
+}

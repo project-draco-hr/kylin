@@ -1,5 +1,5 @@
 {
   super(newSegment,submitter);
   this.inputSide=MRUtil.getBatchCubingInputSide(seg);
-  this.outputSide=MRUtil.getBatchCubingOutputSide(seg);
+  this.outputSide=MRUtil.getBatchCubingOutputSide((CubeSegment)seg);
 }

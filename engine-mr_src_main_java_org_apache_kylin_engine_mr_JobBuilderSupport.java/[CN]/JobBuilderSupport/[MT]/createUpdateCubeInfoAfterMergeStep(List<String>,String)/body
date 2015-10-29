@@ -1,7 +1,7 @@
 {
   UpdateCubeInfoAfterMergeStep result=new UpdateCubeInfoAfterMergeStep();
   result.setName(ExecutableConstants.STEP_NAME_UPDATE_CUBE_INFO);
-  result.setCubeName(seg.getCubeInstance().getName());
+  result.setCubeName(seg.getRealization().getName());
   result.setSegmentId(seg.getUuid());
   result.setMergingSegmentIds(mergingSegmentIds);
   result.setCubingJobId(jobId);
