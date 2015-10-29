@@ -8,7 +8,7 @@
       int displayColIdx=flatTableIdx[flatTableIdx.length - 1];
       TblColRef displayCol=func.getParameter().getColRefs().get(flatTableIdx.length - 1);
       @SuppressWarnings("unchecked") Dictionary<String> dictionary=(Dictionary<String>)dictionaryMap.get(displayCol);
-      result.put(displayColIdx,Preconditions.checkNotNull(dictionary));
+      result.put(displayColIdx,dictionary);
     }
   }
   return result;
