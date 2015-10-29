@@ -5,7 +5,6 @@
   for (  String ptn : DATE_PATTERNS) {
     matchPattern=ptn;
     int badCount=0;
-    int totalCount=0;
     SimpleDateFormat sdf=new SimpleDateFormat(ptn);
     while (valueEnumerator.moveNext()) {
       value=valueEnumerator.current();
@@ -14,7 +13,6 @@
       try {
         sdf.parse(str);
         if (samples.size() < nSamples && !samples.contains(str))         samples.add(str);
-        totalCount++;
       }
  catch (      ParseException e) {
         logger.info("Unrecognized datetime value: " + str);
@@ -26,7 +24,6 @@
       }
     }
     if (matchPattern != null) {
-      info.setCardinality(totalCount);
       return new DateStrDictionary(matchPattern,baseId);
     }
   }

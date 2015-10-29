@@ -3,6 +3,6 @@
     return KylinConfig.getInstanceFromEnv().getDictionaryMaxCardinality();
   }
  catch (  Throwable e) {
-    return 2000000;
+    return 5000000;
   }
 }
