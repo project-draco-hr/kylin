@@ -1,0 +1,5 @@
+DictionaryInfo info
+IDictionaryValueEnumerator valueEnumerator
+int baseId
+int nSamples
+ArrayList samples

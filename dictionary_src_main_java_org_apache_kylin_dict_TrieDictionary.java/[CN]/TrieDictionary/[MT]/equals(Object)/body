@@ -1,5 +1,5 @@
 {
-  if ((o instanceof TrieDictionary) == false) {
+  if (!(o instanceof TrieDictionary)) {
     logger.info("Equals return false because o is not TrieDictionary");
     return false;
   }

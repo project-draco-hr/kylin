@@ -1,0 +1,16 @@
+{
+  NumberDictionaryBuilder builder=new NumberDictionaryBuilder(new StringBytesConverter());
+  byte[] value;
+  int totalCount=0;
+  while (valueEnumerator.moveNext()) {
+    value=valueEnumerator.current();
+    if (value == null)     continue;
+    String v=Bytes.toString(value);
+    if (StringUtils.isBlank(v))     continue;
+    builder.addValue(v);
+    if (samples.size() < nSamples && !samples.contains(v))     samples.add(v);
+    totalCount++;
+  }
+  info.setCardinality(totalCount);
+  return builder.build(baseId);
+}
