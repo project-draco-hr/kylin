@@ -9,7 +9,7 @@
     if (desc.getRowkey().isUseDictionary(col)) {
       logger.info("Building dictionary for " + col);
       List<byte[]> valueList=readValueList(flatTable,nColumns,flatTableDesc.getRowKeyColumnIndexes()[c]);
-      Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueList(col.getType(),valueList);
+      Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueEnumerator(col.getType(),new IterableDictionaryValueEnumerator(valueList));
       result.put(col,dict);
     }
   }
@@ -22,7 +22,7 @@
       TblColRef displayCol=func.getParameter().getColRefs().get(flatTableIdx.length - 1);
       logger.info("Building dictionary for " + displayCol);
       List<byte[]> valueList=readValueList(flatTable,nColumns,displayColIdx);
-      Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueList(displayCol.getType(),valueList);
+      Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueEnumerator(displayCol.getType(),new IterableDictionaryValueEnumerator(valueList));
       result.put(displayCol,dict);
     }
   }

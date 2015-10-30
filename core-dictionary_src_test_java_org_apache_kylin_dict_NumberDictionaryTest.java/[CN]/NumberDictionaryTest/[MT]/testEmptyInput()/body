@@ -1,10 +1,10 @@
 {
   String[] ints=new String[]{"","0","5","100","13"};
-  Collection<byte[]> intBytes=new ArrayList<byte[]>();
+  Collection<byte[]> intBytes=Lists.newArrayListWithCapacity(ints.length);
   for (  String s : ints) {
     intBytes.add((s == null) ? null : Bytes.toBytes(s));
   }
-  Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueList(DataType.getInstance("integer"),intBytes);
+  Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueEnumerator(DataType.getInstance("integer"),new IterableDictionaryValueEnumerator(intBytes));
   assertEquals(4,dict.getSize());
   final int id=((NumberDictionary<String>)dict).getIdFromValue("");
   assertEquals(id,dict.nullId());
