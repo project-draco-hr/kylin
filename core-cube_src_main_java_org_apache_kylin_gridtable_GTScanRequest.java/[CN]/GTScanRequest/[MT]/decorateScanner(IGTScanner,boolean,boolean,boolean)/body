@@ -1,0 +1,20 @@
+{
+  IGTScanner result=scanner;
+  if (!doFilter) {
+    lookAndForget(result);
+    return new EmptyGTScanner();
+  }
+ else {
+    if (this.hasFilterPushDown()) {
+      result=new GTFilterScanner(result,this);
+    }
+    if (!doAggr) {
+      lookAndForget(result);
+      return new EmptyGTScanner();
+    }
+    if (this.allowPreAggregation && this.hasAggregation()) {
+      result=new GTAggregateScanner(result,this,doMemCheck);
+    }
+    return result;
+  }
+}

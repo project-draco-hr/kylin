@@ -4,6 +4,10 @@
   }
   int hash=41;
   hash=(19 * hash) + getDescriptorForType().hashCode();
+  if (hasBehavior()) {
+    hash=(37 * hash) + BEHAVIOR_FIELD_NUMBER;
+    hash=(53 * hash) + getBehavior().hashCode();
+  }
   if (hasGtScanRequest()) {
     hash=(37 * hash) + GTSCANREQUEST_FIELD_NUMBER;
     hash=(53 * hash) + getGtScanRequest().hashCode();

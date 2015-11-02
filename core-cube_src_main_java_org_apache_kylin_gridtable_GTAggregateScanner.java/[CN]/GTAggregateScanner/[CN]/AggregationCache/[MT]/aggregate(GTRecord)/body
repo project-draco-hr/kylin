@@ -1,4 +1,9 @@
 {
+  if (enableMemCheck && (++aggregatedRowCount % 100000 == 0)) {
+    if (estimatedMemSize() > MemoryBudgetController.ONE_GB) {
+      throw new RuntimeException("AggregationCache exceed 1GB");
+    }
+  }
   final byte[] key=createKey(r);
   MeasureAggregator[] aggrs=aggBufMap.get(key);
   if (aggrs == null) {

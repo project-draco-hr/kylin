@@ -1,0 +1,13 @@
+{
+  return new Iterator<GTRecord>(){
+    @Override public boolean hasNext(){
+      return false;
+    }
+    @Override public GTRecord next(){
+      return null;
+    }
+    @Override public void remove(){
+    }
+  }
+;
+}

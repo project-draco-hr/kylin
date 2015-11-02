@@ -17,6 +17,7 @@
   for (  RawScan rawScan : rawScans) {
     logScan(rawScan,cubeSeg.getStorageLocationIdentifier());
   }
+  final AtomicInteger totalScannedCount=new AtomicInteger(0);
   for (int i=0; i < rawScans.size(); ++i) {
     final int shardIndex=i;
     final RawScan rawScan=rawScans.get(i);
@@ -28,6 +29,14 @@
         for (        IntList intList : hbaseColumnsToGTIntList) {
           builder.addHbaseColumnsToGT(intList);
         }
+        String toggle=BackdoorToggles.getCoprocessorBehavior();
+        if (toggle == null) {
+          toggle=CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM.toString();
+        }
+ else {
+          logger.info("The execution of this query will use " + toggle + " as endpoint's behavior");
+        }
+        builder.setBehavior(toggle);
         Collection<CubeVisitProtos.CubeVisitResponse> results;
         try {
           results=getResults(builder.build(),hbaseTable,rawScan.startKey,rawScan.endKey);
@@ -39,6 +48,7 @@
           logger.warn("{} CubeVisitResponse returned for shard {}",results.size(),shardIndex);
         }
         for (        CubeVisitProtos.CubeVisitResponse result : results) {
+          totalScannedCount.addAndGet(result.getStats().getScannedRowCount());
           logger.info(getStatsString(result,shardIndex));
         }
         Collection<byte[]> part=Collections2.transform(results,new Function<CubeVisitProtos.CubeVisitResponse,byte[]>(){
@@ -66,5 +76,5 @@
  catch (  InterruptedException e) {
     throw new RuntimeException("Visiting cube by endpoint gets interrupted");
   }
-  return new EndpointResultsAsGTScanner(fullGTInfo,rowBlocks.iterator(),scanRequest.getColumns());
+  return new EndpointResultsAsGTScanner(fullGTInfo,rowBlocks.iterator(),scanRequest.getColumns(),totalScannedCount.get());
 }

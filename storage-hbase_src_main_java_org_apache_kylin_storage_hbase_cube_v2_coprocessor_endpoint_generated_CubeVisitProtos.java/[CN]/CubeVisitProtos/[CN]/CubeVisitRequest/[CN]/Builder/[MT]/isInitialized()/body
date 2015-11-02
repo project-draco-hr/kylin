@@ -1,4 +1,7 @@
 {
+  if (!hasBehavior()) {
+    return false;
+  }
   if (!hasGtScanRequest()) {
     return false;
   }

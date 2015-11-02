@@ -1,6 +1,10 @@
 {
   byte isInitialized=memoizedIsInitialized;
   if (isInitialized != -1)   return isInitialized == 1;
+  if (!hasBehavior()) {
+    memoizedIsInitialized=0;
+    return false;
+  }
   if (!hasGtScanRequest()) {
     memoizedIsInitialized=0;
     return false;

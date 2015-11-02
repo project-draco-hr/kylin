@@ -7,6 +7,10 @@
   }
   org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest other=(org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest)obj;
   boolean result=true;
+  result=result && (hasBehavior() == other.hasBehavior());
+  if (hasBehavior()) {
+    result=result && getBehavior().equals(other.getBehavior());
+  }
   result=result && (hasGtScanRequest() == other.hasGtScanRequest());
   if (hasGtScanRequest()) {
     result=result && getGtScanRequest().equals(other.getGtScanRequest());

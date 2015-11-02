@@ -16,7 +16,8 @@
     InnerScannerAsIterator cellListIterator=new InnerScannerAsIterator(innerScanner);
     IGTStore store=new HBaseReadonlyStore(cellListIterator,scanReq,hbaseRawScan.hbaseColumns,hbaseColumnsToGT);
     IGTScanner rawScanner=store.scan(scanReq);
-    IGTScanner finalScanner=scanReq.decorateScanner(rawScanner);
+    CoprocessorBehavior behavior=CoprocessorBehavior.valueOf(request.getBehavior());
+    IGTScanner finalScanner=scanReq.decorateScanner(rawScanner,behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER.ordinal(),behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER_AGGR.ordinal(),behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM.ordinal());
     ByteBuffer buffer=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
     ByteArrayOutputStream outputStream=new ByteArrayOutputStream(RowConstants.ROWVALUE_BUFFER_SIZE);
     int finalRowCount=0;

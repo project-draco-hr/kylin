@@ -3,13 +3,16 @@
   if (size != -1)   return size;
   size=0;
   if (((bitField0_ & 0x00000001) == 0x00000001)) {
-    size+=com.google.protobuf.CodedOutputStream.computeBytesSize(1,gtScanRequest_);
+    size+=com.google.protobuf.CodedOutputStream.computeBytesSize(1,getBehaviorBytes());
   }
   if (((bitField0_ & 0x00000002) == 0x00000002)) {
-    size+=com.google.protobuf.CodedOutputStream.computeBytesSize(2,hbaseRawScan_);
+    size+=com.google.protobuf.CodedOutputStream.computeBytesSize(2,gtScanRequest_);
+  }
+  if (((bitField0_ & 0x00000004) == 0x00000004)) {
+    size+=com.google.protobuf.CodedOutputStream.computeBytesSize(3,hbaseRawScan_);
   }
   for (int i=0; i < hbaseColumnsToGT_.size(); i++) {
-    size+=com.google.protobuf.CodedOutputStream.computeMessageSize(3,hbaseColumnsToGT_.get(i));
+    size+=com.google.protobuf.CodedOutputStream.computeMessageSize(4,hbaseColumnsToGT_.get(i));
   }
   size+=getUnknownFields().getSerializedSize();
   memoizedSerializedSize=size;

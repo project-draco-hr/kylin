@@ -1,12 +1,14 @@
 {
   super.clear();
-  gtScanRequest_=com.google.protobuf.ByteString.EMPTY;
+  behavior_="";
   bitField0_=(bitField0_ & ~0x00000001);
-  hbaseRawScan_=com.google.protobuf.ByteString.EMPTY;
+  gtScanRequest_=com.google.protobuf.ByteString.EMPTY;
   bitField0_=(bitField0_ & ~0x00000002);
+  hbaseRawScan_=com.google.protobuf.ByteString.EMPTY;
+  bitField0_=(bitField0_ & ~0x00000004);
   if (hbaseColumnsToGTBuilder_ == null) {
     hbaseColumnsToGT_=java.util.Collections.emptyList();
-    bitField0_=(bitField0_ & ~0x00000004);
+    bitField0_=(bitField0_ & ~0x00000008);
   }
  else {
     hbaseColumnsToGTBuilder_.clear();

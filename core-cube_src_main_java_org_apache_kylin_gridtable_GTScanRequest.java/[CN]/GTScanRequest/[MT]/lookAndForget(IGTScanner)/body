@@ -1,0 +1,14 @@
+{
+  byte meaninglessByte=0;
+  for (  GTRecord gtRecord : scanner) {
+    for (    ByteArray col : gtRecord.getInternal()) {
+      if (col != null) {
+        int endIndex=col.offset() + col.length();
+        for (int i=col.offset(); i < endIndex; ++i) {
+          meaninglessByte+=col.array()[i];
+        }
+      }
+    }
+  }
+  System.out.println("meaningless byte is now " + meaninglessByte);
+}

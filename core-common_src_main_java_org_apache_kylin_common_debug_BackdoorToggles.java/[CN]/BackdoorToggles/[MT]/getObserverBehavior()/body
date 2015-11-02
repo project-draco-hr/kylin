@@ -1,3 +1,0 @@
-{
-  return getString(DEBUG_TOGGLE_OBSERVER_BEHAVIOR);
-}
