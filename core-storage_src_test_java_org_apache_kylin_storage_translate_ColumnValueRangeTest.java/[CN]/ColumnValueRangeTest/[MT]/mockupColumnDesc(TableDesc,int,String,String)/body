@@ -1,0 +1,9 @@
+{
+  ColumnDesc desc=new ColumnDesc();
+  String id="" + oneBasedColumnIndex;
+  desc.setId(id);
+  desc.setName(name);
+  desc.setDatatype(datatype);
+  desc.init(table);
+  return desc;
+}
