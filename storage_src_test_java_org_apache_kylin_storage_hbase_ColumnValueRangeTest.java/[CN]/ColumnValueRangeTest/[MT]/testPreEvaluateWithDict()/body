@@ -12,11 +12,11 @@
     ColumnValueRange r3=new ColumnValueRange(col,set("Other"),FilterOperatorEnum.LT);
     r3.preEvaluateWithDict(dict);
     assertEquals(null,r3.getBeginValue());
-    assertEquals("US",r3.getEndValue());
+    assertEquals("CN",r3.getEndValue());
     ColumnValueRange r4=new ColumnValueRange(col,set("UT"),FilterOperatorEnum.LT);
     r4.preEvaluateWithDict(dict);
     assertEquals(null,r4.getBeginValue());
-    assertEquals(null,r4.getEndValue());
+    assertEquals("US",r4.getEndValue());
   }
 {
     ColumnValueRange r2=new ColumnValueRange(col,set("CN"),FilterOperatorEnum.GTE);
@@ -25,11 +25,19 @@
     assertEquals(null,r2.getEndValue());
     ColumnValueRange r3=new ColumnValueRange(col,set("Other"),FilterOperatorEnum.GTE);
     r3.preEvaluateWithDict(dict);
-    assertEquals("CN",r3.getBeginValue());
+    assertEquals("US",r3.getBeginValue());
     assertEquals(null,r3.getEndValue());
     ColumnValueRange r4=new ColumnValueRange(col,set("CI"),FilterOperatorEnum.GTE);
     r4.preEvaluateWithDict(dict);
-    assertEquals(null,r4.getBeginValue());
+    assertEquals("CN",r4.getBeginValue());
     assertEquals(null,r4.getEndValue());
+  }
+{
+    ColumnValueRange r2=new ColumnValueRange(col,set("UT"),FilterOperatorEnum.GTE);
+    r2.preEvaluateWithDict(dict);
+    assertTrue(r2.satisfyNone());
+    ColumnValueRange r3=new ColumnValueRange(col,set("CM"),FilterOperatorEnum.LT);
+    r3.preEvaluateWithDict(dict);
+    assertTrue(r3.satisfyNone());
   }
 }
