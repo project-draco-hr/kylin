@@ -9,12 +9,7 @@
         curKey=curDict.getMinId();
       }
     }
-    if (dedup.contains(curValue)) {
-      return moveNext();
-    }
- else {
-      return true;
-    }
+    return true;
   }
   curValue=null;
   return false;

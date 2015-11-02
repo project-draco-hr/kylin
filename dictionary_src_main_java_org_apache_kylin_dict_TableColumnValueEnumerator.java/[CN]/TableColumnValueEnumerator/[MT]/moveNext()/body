@@ -11,14 +11,8 @@
       }
       colStrValue=split[colIndex];
     }
-    if (!dedup.contains(colStrValue)) {
-      dedup.add(colStrValue);
-      colValue=Bytes.toBytes(colStrValue);
-      return true;
-    }
- else {
-      return moveNext();
-    }
+    colValue=Bytes.toBytes(colStrValue);
+    return true;
   }
  else {
     colValue=null;
