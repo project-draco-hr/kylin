@@ -1,5 +1,5 @@
 {
-  Configuration hconf=new Configuration();
+  Configuration hconf=HadoopUtil.getCurrentConfiguration();
   Context context=MockupMapContext.create(hconf,getTestConfig().getMetadataUrl(),cubeName,outKV);
   CubeHFileMapper mapper=new CubeHFileMapper();
   mapper.setup(context);

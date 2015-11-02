@@ -1,5 +1,5 @@
 {
-  conf=new Configuration();
+  conf=HadoopUtil.getCurrentConfiguration();
   conf.set("fs.default.name","file:///");
   conf.set("mapred.job.tracker","local");
   this.createTestMetadata();

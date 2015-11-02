@@ -1,7 +1,6 @@
 {
   if (hadoopConfig.get() == null) {
-    Configuration conf=new Configuration();
-    conf.set(DFSConfigKeys.DFS_CLIENT_BLOCK_WRITE_LOCATEFOLLOWINGBLOCK_RETRIES_KEY,"8");
+    Configuration conf=healSickConfig(new Configuration());
     hadoopConfig.set(conf);
   }
   return hadoopConfig.get();

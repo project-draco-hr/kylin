@@ -15,7 +15,7 @@
   checkAndGetHbaseUrl();
   Configuration conf=HBaseConfiguration.create();
   hbaseAdmin=new HBaseAdmin(conf);
-  hdfsFS=FileSystem.get(new Configuration());
+  hdfsFS=FileSystem.get(HadoopUtil.getCurrentConfiguration());
   operations=new ArrayList<Opt>();
   copyFilesInMetaStore(cube,overwriteIfExists);
   renameFoldersInHdfs(cube);

@@ -1,0 +1,10 @@
+{
+  conf.set(DFSConfigKeys.DFS_CLIENT_BLOCK_WRITE_LOCATEFOLLOWINGBLOCK_RETRIES_KEY,"8");
+  if (StringUtils.isBlank(conf.get("hadoop.tmp.dir"))) {
+    conf.set("hadoop.tmp.dir","/tmp");
+  }
+  if (StringUtils.isBlank(conf.get("hbase.fs.tmp.dir"))) {
+    conf.set("hbase.fs.tmp.dir","/tmp");
+  }
+  return conf;
+}

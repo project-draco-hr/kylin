@@ -1,5 +1,5 @@
 {
   this.createTestMetadata();
-  Configuration hconf=new Configuration();
+  Configuration hconf=HadoopUtil.getCurrentConfiguration();
   fileSystem=FileSystem.get(hconf);
 }

@@ -3,7 +3,7 @@
   final CubeManager mgr=CubeManager.getInstance(kylinConf);
   final CubeInstance cube=mgr.getCube(getCubeName());
   final CubeSegment newSegment=cube.getSegmentById(getSegmentId());
-  Configuration conf=new Configuration();
+  Configuration conf=HadoopUtil.getCurrentConfiguration();
   ResourceStore rs=ResourceStore.getStore(kylinConf);
   try {
     int averageSamplingPercentage=0;

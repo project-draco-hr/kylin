@@ -1,5 +1,5 @@
 {
-  Configuration hconf=new Configuration();
+  Configuration hconf=HadoopUtil.getCurrentConfiguration();
   HiveToBaseCuboidMapper mapper=new HiveToBaseCuboidMapper();
   Context context=MockupMapContext.create(hconf,metadataUrl,cubeName,null);
   mapper.setup(context);
