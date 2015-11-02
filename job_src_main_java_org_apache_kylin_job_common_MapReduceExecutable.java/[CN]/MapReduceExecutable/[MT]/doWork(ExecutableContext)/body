@@ -7,7 +7,8 @@
     Job job;
     final Map<String,String> extra=executableManager.getOutput(getId()).getExtra();
     if (extra.containsKey(ExecutableConstants.MR_JOB_ID)) {
-      job=new Cluster(new Configuration()).getJob(JobID.forName(extra.get(ExecutableConstants.MR_JOB_ID)));
+      Configuration conf=HadoopUtil.getCurrentConfiguration();
+      job=new Cluster(conf).getJob(JobID.forName(extra.get(ExecutableConstants.MR_JOB_ID)));
       logger.info("mr_job_id:" + extra.get(ExecutableConstants.MR_JOB_ID + " resumed"));
     }
  else {

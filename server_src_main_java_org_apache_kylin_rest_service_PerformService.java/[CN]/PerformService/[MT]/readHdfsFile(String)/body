@@ -2,7 +2,7 @@
   List<String[]> allRows=null;
   CSVReader reader=null;
   FileSystem fs=null;
-  Configuration conf=new Configuration();
+  Configuration conf=HadoopUtil.newConfiguration();
   try {
     fs=FileSystem.newInstance(conf);
     FSDataInputStream inputStream=fs.open(new Path(filePath));
@@ -13,7 +13,8 @@
     logger.info("failed to read hdfs file:",e);
   }
  finally {
-    fs.close();
+    IOUtils.closeQuietly(reader);
+    IOUtils.closeQuietly(fs);
   }
   return allRows;
 }
