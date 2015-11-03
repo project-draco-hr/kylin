@@ -1,2 +1,12 @@
 {
+  Configuration conf=HBaseConfiguration.create(getCurrentConfiguration());
+  if (!(StringUtils.isEmpty(url) || "hbase".equals(url)))   throw new IllegalArgumentException("to use hbase storage, pls set 'kylin.storage.url=hbase' in kylin.properties");
+  String hbaseClusterFs=KylinConfig.getInstanceFromEnv().getHBaseClusterFs();
+  if (StringUtils.isNotEmpty(hbaseClusterFs)) {
+    conf.set(FileSystem.FS_DEFAULT_NAME_KEY,hbaseClusterFs);
+  }
+  conf.set(HConstants.HBASE_CLIENT_PAUSE,"3000");
+  conf.set(HConstants.HBASE_CLIENT_RETRIES_NUMBER,"5");
+  conf.set(HConstants.HBASE_CLIENT_OPERATION_TIMEOUT,"60000");
+  return healSickConfig(conf);
 }
