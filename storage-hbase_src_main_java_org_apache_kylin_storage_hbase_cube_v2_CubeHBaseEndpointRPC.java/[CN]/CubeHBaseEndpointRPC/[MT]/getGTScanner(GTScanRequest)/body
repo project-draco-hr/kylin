@@ -18,6 +18,8 @@
     logScan(rawScan,cubeSeg.getStorageLocationIdentifier());
   }
   final AtomicInteger totalScannedCount=new AtomicInteger(0);
+  final String toggle=BackdoorToggles.getCoprocessorBehavior() == null ? CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM.toString() : BackdoorToggles.getCoprocessorBehavior();
+  logger.info("The execution of this query will use " + toggle + " as endpoint's behavior");
   for (int i=0; i < rawScans.size(); ++i) {
     final int shardIndex=i;
     final RawScan rawScan=rawScans.get(i);
@@ -28,13 +30,6 @@
         builder.setGtScanRequest(scanRequestBytesString).setHbaseRawScan(HBaseZeroCopyByteString.wrap(rawScanBytes));
         for (        IntList intList : hbaseColumnsToGTIntList) {
           builder.addHbaseColumnsToGT(intList);
-        }
-        String toggle=BackdoorToggles.getCoprocessorBehavior();
-        if (toggle == null) {
-          toggle=CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM.toString();
-        }
- else {
-          logger.info("The execution of this query will use " + toggle + " as endpoint's behavior");
         }
         builder.setBehavior(toggle);
         Collection<CubeVisitProtos.CubeVisitResponse> results;
