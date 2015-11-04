@@ -1,4 +1,5 @@
 {
   super(mergeSegment,submitter);
-  this.outputSide=MRUtil.getBatchMergeOutputSide((CubeSegment)seg);
+  Preconditions.checkArgument(!mergeSegment.isEnableSharding(),"V1 job engine does not support merging sharded cubes");
+  this.outputSide=MRUtil.getBatchMergeOutputSide(seg);
 }

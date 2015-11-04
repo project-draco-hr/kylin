@@ -1,0 +1,3 @@
+ImmutableBitSet selectedCols
+ByteArray buf
+byte defaultValue

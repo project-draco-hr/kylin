@@ -1,5 +1,0 @@
-{
-  byte[] values=new byte[length];
-  Arrays.fill(values,this.blankByte);
-  return values;
-}

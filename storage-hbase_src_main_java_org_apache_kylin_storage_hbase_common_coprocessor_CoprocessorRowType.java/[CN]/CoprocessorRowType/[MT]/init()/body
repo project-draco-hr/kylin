@@ -1,6 +1,6 @@
 {
   int[] offsets=new int[columns.length];
-  int o=RowConstants.ROWKEY_HEADER_LEN;
+  int o=bodyOffset;
   for (int i=0; i < columns.length; i++) {
     offsets[i]=o;
     o+=columnSizes[i];

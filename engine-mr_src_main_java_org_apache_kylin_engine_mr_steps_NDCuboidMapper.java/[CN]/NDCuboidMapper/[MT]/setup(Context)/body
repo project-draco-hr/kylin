@@ -8,4 +8,5 @@
   cubeDesc=cube.getDescriptor();
   cuboidScheduler=new CuboidScheduler(cubeDesc);
   rowKeySplitter=new RowKeySplitter(cubeSegment,65,256);
+  rowKeyEncoderProvider=new RowKeyEncoderProvider(cubeSegment);
 }

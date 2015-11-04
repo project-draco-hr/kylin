@@ -1,0 +1,3 @@
+TblColRef[] columns
+int[] columnSizes
+int bodyOffset

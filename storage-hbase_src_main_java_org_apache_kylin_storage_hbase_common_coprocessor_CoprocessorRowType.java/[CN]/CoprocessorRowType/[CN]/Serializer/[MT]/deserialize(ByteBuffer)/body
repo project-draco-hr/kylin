@@ -1,5 +1,6 @@
 {
   int n=BytesUtil.readVInt(in);
+  int bodyOffset=BytesUtil.readVInt(in);
   TblColRef[] cols=new TblColRef[n];
   int[] colSizes=new int[n];
   for (int i=0; i < n; i++) {
@@ -15,5 +16,5 @@
     int colSize=BytesUtil.readVInt(in);
     colSizes[i]=colSize;
   }
-  return new CoprocessorRowType(cols,colSizes);
+  return new CoprocessorRowType(cols,colSizes,bodyOffset);
 }

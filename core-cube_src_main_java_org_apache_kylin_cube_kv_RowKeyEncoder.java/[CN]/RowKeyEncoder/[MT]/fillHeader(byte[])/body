@@ -1,19 +1,9 @@
 {
   int offset=0;
-  if (encodeShard) {
-    short cuboidShardNum=cubeSeg.getCuboidShardNum(cuboid.getId());
-    short shardOffset=ShardingHash.getShard(bytes,RowConstants.ROWKEY_HEADER_LEN,bytes.length - RowConstants.ROWKEY_HEADER_LEN,cuboidShardNum);
-    short finalShard=ShardingHash.normalize(cubeSeg.getCuboidBaseShard(cuboid.getId()),shardOffset,cubeSeg.getTotalShards());
-    BytesUtil.writeShort(finalShard,bytes,offset,RowConstants.ROWKEY_SHARDID_LEN);
+  if (enableSharding) {
+    short shard=calculateShard(bytes);
+    BytesUtil.writeShort(shard,bytes,offset,RowConstants.ROWKEY_SHARDID_LEN);
+    offset+=RowConstants.ROWKEY_SHARDID_LEN;
   }
- else {
-    BytesUtil.writeShort((short)0,bytes,offset,RowConstants.ROWKEY_SHARDID_LEN);
-  }
-  offset+=RowConstants.ROWKEY_SHARDID_LEN;
   System.arraycopy(cuboid.getBytes(),0,bytes,offset,RowConstants.ROWKEY_CUBOIDID_LEN);
-  offset+=RowConstants.ROWKEY_CUBOIDID_LEN;
-  if (this.headerLength != offset) {
-    throw new IllegalStateException("Expected header length is " + headerLength + ". But the offset is "+ offset);
-  }
-  return offset;
 }

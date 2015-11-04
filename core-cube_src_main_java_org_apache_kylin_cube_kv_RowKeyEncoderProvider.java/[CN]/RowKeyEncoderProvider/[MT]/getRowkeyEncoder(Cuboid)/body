@@ -1,0 +1,8 @@
+{
+  RowKeyEncoder rowKeyEncoder=rowKeyEncoders.get(cuboid.getId());
+  if (rowKeyEncoder == null) {
+    rowKeyEncoder=new RowKeyEncoder(cubeSegment,cuboid);
+    rowKeyEncoders.put(cuboid.getId(),rowKeyEncoder);
+  }
+  return rowKeyEncoder;
+}

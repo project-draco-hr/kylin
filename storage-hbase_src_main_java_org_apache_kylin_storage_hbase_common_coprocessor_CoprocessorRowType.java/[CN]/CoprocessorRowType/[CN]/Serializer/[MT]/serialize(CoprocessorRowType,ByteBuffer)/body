@@ -1,6 +1,7 @@
 {
   int n=o.columns.length;
   BytesUtil.writeVInt(o.columns.length,out);
+  BytesUtil.writeVInt(o.bodyOffset,out);
   for (int i=0; i < n; i++) {
     BytesUtil.writeAsciiString(o.columns[i].getTable(),out);
     BytesUtil.writeAsciiString(o.columns[i].getName(),out);

@@ -1,0 +1,5 @@
+{
+  ByteArray byteArray=new ByteArray(buf,getHeaderLength(),0);
+  record.exportColumns(keyColumns,byteArray,defaultValue());
+  fillHeader(buf);
+}

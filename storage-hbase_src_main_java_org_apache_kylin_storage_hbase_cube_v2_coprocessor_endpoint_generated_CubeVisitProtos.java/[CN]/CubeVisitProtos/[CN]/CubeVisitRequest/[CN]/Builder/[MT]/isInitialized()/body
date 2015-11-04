@@ -8,5 +8,8 @@
   if (!hasHbaseRawScan()) {
     return false;
   }
+  if (!hasRowkeyPreambleSize()) {
+    return false;
+  }
   return true;
 }

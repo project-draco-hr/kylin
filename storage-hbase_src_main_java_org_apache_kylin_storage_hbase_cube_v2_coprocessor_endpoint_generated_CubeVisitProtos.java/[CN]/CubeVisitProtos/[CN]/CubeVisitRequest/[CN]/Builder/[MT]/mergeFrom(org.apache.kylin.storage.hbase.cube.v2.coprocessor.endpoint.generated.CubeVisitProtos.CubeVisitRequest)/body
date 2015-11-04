@@ -11,11 +11,14 @@
   if (other.hasHbaseRawScan()) {
     setHbaseRawScan(other.getHbaseRawScan());
   }
+  if (other.hasRowkeyPreambleSize()) {
+    setRowkeyPreambleSize(other.getRowkeyPreambleSize());
+  }
   if (hbaseColumnsToGTBuilder_ == null) {
     if (!other.hbaseColumnsToGT_.isEmpty()) {
       if (hbaseColumnsToGT_.isEmpty()) {
         hbaseColumnsToGT_=other.hbaseColumnsToGT_;
-        bitField0_=(bitField0_ & ~0x00000008);
+        bitField0_=(bitField0_ & ~0x00000010);
       }
  else {
         ensureHbaseColumnsToGTIsMutable();
@@ -30,7 +33,7 @@
         hbaseColumnsToGTBuilder_.dispose();
         hbaseColumnsToGTBuilder_=null;
         hbaseColumnsToGT_=other.hbaseColumnsToGT_;
-        bitField0_=(bitField0_ & ~0x00000008);
+        bitField0_=(bitField0_ & ~0x00000010);
         hbaseColumnsToGTBuilder_=com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ? getHbaseColumnsToGTFieldBuilder() : null;
       }
  else {

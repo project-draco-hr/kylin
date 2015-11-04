@@ -1,0 +1,3 @@
+GTRecord record
+ImmutableBitSet keyColumns
+byte[] buf

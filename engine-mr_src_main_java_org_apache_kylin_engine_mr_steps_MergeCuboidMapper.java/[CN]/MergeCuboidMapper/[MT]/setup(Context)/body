@@ -7,8 +7,10 @@
   cube=cubeManager.getCube(cubeName);
   cubeDesc=cube.getDescriptor();
   mergedCubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
-  newKeyBuf=new byte[256];
+  newKeyBodyBuf=new byte[RowConstants.ROWKEY_BUFFER_SIZE];
+  newKeyBuf=ByteArray.allocate(RowConstants.ROWKEY_BUFFER_SIZE);
   FileSplit fileSplit=(FileSplit)context.getInputSplit();
   sourceCubeSegment=findSourceSegment(fileSplit,cube);
   rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
+  rowKeyEncoderProvider=new RowKeyEncoderProvider(mergedCubeSegment);
 }

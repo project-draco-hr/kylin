@@ -9,6 +9,5 @@
   }
   this.nColumns=keyValueCreators.size();
   this.hTable=hTable;
-  this.byteBuffer=ByteBuffer.allocate(RowConstants.ROWKEY_BUFFER_SIZE);
   this.measureValues=new Object[cubeDesc.getMeasures().size()];
 }

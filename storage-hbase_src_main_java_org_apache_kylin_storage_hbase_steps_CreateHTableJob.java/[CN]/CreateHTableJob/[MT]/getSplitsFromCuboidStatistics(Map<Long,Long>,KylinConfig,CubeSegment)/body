@@ -17,7 +17,7 @@
   Collections.sort(allCuboids);
   Map<Long,Double> cubeSizeMap=Maps.newHashMap();
   for (  Map.Entry<Long,Long> entry : cubeRowCountMap.entrySet()) {
-    cubeSizeMap.put(entry.getKey(),estimateCuboidStorageSize(cubeDesc,entry.getKey(),entry.getValue(),baseCuboidId,rowkeyColumnSize));
+    cubeSizeMap.put(entry.getKey(),estimateCuboidStorageSize(cubeSegment,entry.getKey(),entry.getValue(),baseCuboidId,rowkeyColumnSize));
   }
   for (  Double cuboidSize : cubeSizeMap.values()) {
     totalSizeInM+=cuboidSize;
@@ -25,7 +25,7 @@
   int nRegion=Math.round((float)(totalSizeInM / (cut * 1024L)));
   nRegion=Math.max(kylinConfig.getHBaseRegionCountMin(),nRegion);
   nRegion=Math.min(kylinConfig.getHBaseRegionCountMax(),nRegion);
-  if (ENABLE_CUBOID_SHARDING) {
+  if (cubeSegment.isEnableSharding()) {
     int original=nRegion;
     nRegion=Primes.nextPrime(nRegion);
     if (nRegion > Short.MAX_VALUE) {
@@ -41,7 +41,7 @@
   logger.info("Total size " + totalSizeInM + "M (estimated)");
   logger.info("Expecting " + nRegion + " regions.");
   logger.info("Expecting " + mbPerRegion + " MB per region.");
-  if (ENABLE_CUBOID_SHARDING) {
+  if (cubeSegment.isEnableSharding()) {
     HashMap<Long,Short> cuboidShards=Maps.newHashMap();
     double[] regionSizes=new double[nRegion];
     for (    long cuboidId : allCuboids) {

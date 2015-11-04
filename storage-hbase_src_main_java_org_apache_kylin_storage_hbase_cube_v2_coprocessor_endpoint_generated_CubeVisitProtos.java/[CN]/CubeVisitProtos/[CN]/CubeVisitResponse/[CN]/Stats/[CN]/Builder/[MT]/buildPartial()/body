@@ -18,6 +18,22 @@
     to_bitField0_|=0x00000008;
   }
   result.aggregatedRowCount_=aggregatedRowCount_;
+  if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+    to_bitField0_|=0x00000010;
+  }
+  result.systemCpuLoad_=systemCpuLoad_;
+  if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+    to_bitField0_|=0x00000020;
+  }
+  result.freePhysicalMemorySize_=freePhysicalMemorySize_;
+  if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+    to_bitField0_|=0x00000040;
+  }
+  result.freeSwapSpaceSize_=freeSwapSpaceSize_;
+  if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+    to_bitField0_|=0x00000080;
+  }
+  result.hostname_=hostname_;
   result.bitField0_=to_bitField0_;
   onBuilt();
   return result;

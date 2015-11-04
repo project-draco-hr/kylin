@@ -1,5 +1,9 @@
 {
-  Arrays.fill(bytes,0,RowConstants.ROWKEY_SHARDID_LEN,RowConstants.BYTE_ONE);
-  Arrays.fill(bytes,RowConstants.ROWKEY_SHARDID_LEN,RowConstants.ROWKEY_HEADER_LEN,RowConstants.BYTE_ZERO);
-  return this.headerLength;
+  int offset=0;
+  if (enableSharding) {
+    Arrays.fill(bytes,0,RowConstants.ROWKEY_SHARDID_LEN,RowConstants.BYTE_ONE);
+    offset+=RowConstants.ROWKEY_SHARDID_LEN;
+  }
+  int headerLength=this.getHeaderLength();
+  Arrays.fill(bytes,offset,headerLength,RowConstants.BYTE_ZERO);
 }

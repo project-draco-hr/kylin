@@ -2,6 +2,7 @@
   int pos=0;
   for (int i=0; i < selectedCols.trueBitCount(); i++) {
     int c=selectedCols.trueBitAt(i);
+    Preconditions.checkNotNull(cols[c].array());
     System.arraycopy(cols[c].array(),cols[c].offset(),buf.array(),buf.offset() + pos,cols[c].length());
     pos+=cols[c].length();
   }

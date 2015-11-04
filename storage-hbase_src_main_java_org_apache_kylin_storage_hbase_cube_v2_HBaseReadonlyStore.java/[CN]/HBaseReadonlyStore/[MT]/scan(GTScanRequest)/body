@@ -17,7 +17,7 @@
             throw new IllegalStateException("cell list's size less than 1");
           }
           Cell firstCell=oneRow.get(0);
-          ByteBuffer buf=byteBuffer(firstCell.getRowArray(),RowConstants.ROWKEY_HEADER_LEN + firstCell.getRowOffset(),firstCell.getRowLength() - RowConstants.ROWKEY_HEADER_LEN);
+          ByteBuffer buf=byteBuffer(firstCell.getRowArray(),rowkeyPreambleSize + firstCell.getRowOffset(),firstCell.getRowLength() - rowkeyPreambleSize);
           oneRecord.loadCellBlock(0,buf);
           for (int i=0; i < hbaseColumns.size(); i++) {
             Pair<byte[],byte[]> hbaseColumn=hbaseColumns.get(i);

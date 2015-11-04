@@ -1,32 +1,23 @@
 {
-  int bytesLength=RowConstants.ROWKEY_HEADER_LEN;
   Cuboid cuboid=Cuboid.findById(segment.getCubeDesc(),cuboidId);
-  for (  TblColRef column : cuboid.getColumns()) {
-    bytesLength+=columnLengthMap.get(column);
-  }
+  RowKeyEncoder rowkeyEncoder=rowKeyEncoderProvider.getRowkeyEncoder(cuboid);
   final int dimensions=BitSet.valueOf(new long[]{cuboidId}).cardinality();
   int[] measureColumnsIndex=getMeasureColumnsIndex();
   for (int i=0; i < measureCount; i++) {
     measureColumnsIndex[i]=dimensions + i;
   }
-  byte[] key=new byte[bytesLength];
-  System.arraycopy(Bytes.toBytes(cuboidId),0,key,0,RowConstants.ROWKEY_CUBOIDID_LEN);
-  int header=RowConstants.ROWKEY_HEADER_LEN;
-  int offSet=header;
+  int offSet=0;
   for (int x=0; x < dimensions; x++) {
     final ByteArray byteArray=record.get(x);
-    System.arraycopy(byteArray.array(),byteArray.offset(),key,offSet,byteArray.length());
+    System.arraycopy(byteArray.array(),byteArray.offset(),rowKeyBodyBuf,offSet,byteArray.length());
     offSet+=byteArray.length();
   }
-  short cuboidShardNum=segment.getCuboidShardNum(cuboidId);
-  short shardOffset=ShardingHash.getShard(key,header,offSet - header,cuboidShardNum);
-  short cuboidShardBase=segment.getCuboidBaseShard(cuboidId);
-  short finalShard=ShardingHash.normalize(cuboidShardBase,shardOffset,segment.getTotalShards());
-  BytesUtil.writeShort(finalShard,key,0,RowConstants.ROWKEY_SHARDID_LEN);
+  byte[] rowKey=rowkeyEncoder.createBuf();
+  rowkeyEncoder.encode(new ByteArray(rowKeyBodyBuf),new ByteArray(rowKey));
   ByteBuffer valueBuf=getValueBuf();
   valueBuf.clear();
   record.exportColumns(measureColumnsIndex,valueBuf);
   byte[] value=new byte[valueBuf.position()];
   System.arraycopy(valueBuf.array(),0,value,0,valueBuf.position());
-  return new Tuple2<>(key,value);
+  return new Tuple2<>(rowKey,value);
 }

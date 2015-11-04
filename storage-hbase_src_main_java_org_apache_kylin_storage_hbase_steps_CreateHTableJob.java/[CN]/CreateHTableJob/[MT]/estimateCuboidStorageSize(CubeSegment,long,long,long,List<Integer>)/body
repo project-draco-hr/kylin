@@ -1,0 +1,25 @@
+{
+  int bytesLength=cubeSegment.getRowKeyPreambleSize();
+  long mask=Long.highestOneBit(baseCuboidId);
+  long parentCuboidIdActualLength=Long.SIZE - Long.numberOfLeadingZeros(baseCuboidId);
+  for (int i=0; i < parentCuboidIdActualLength; i++) {
+    if ((mask & cuboidId) > 0) {
+      bytesLength+=rowKeyColumnLength.get(i);
+    }
+    mask=mask >> 1;
+  }
+  int space=0;
+  for (  MeasureDesc measureDesc : cubeSegment.getCubeDesc().getMeasures()) {
+    DataType returnType=measureDesc.getFunction().getReturnDataType();
+    if (returnType.isHLLC()) {
+      space+=returnType.getStorageBytesEstimate() * 0.75;
+    }
+ else {
+      space+=returnType.getStorageBytesEstimate();
+    }
+  }
+  bytesLength+=space;
+  double ret=1.0 * bytesLength * rowCount / (1024L * 1024L);
+  logger.info("Cuboid " + cuboidId + " has "+ rowCount+ " rows, each row size is "+ bytesLength+ " bytes."+ " Total size is "+ ret+ "M.");
+  return ret;
+}

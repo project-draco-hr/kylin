@@ -1,14 +1,9 @@
 {
-  bytesLength=RowConstants.ROWKEY_HEADER_LEN;
-  Cuboid cuboid=Cuboid.findById(cubeDesc,cuboidId);
-  for (  TblColRef column : cuboid.getColumns()) {
-    bytesLength+=cubeSegment.getColumnLength(column);
-  }
-  keyBuf=new byte[bytesLength];
+  rowKeyEncoder=AbstractRowKeyEncoder.createInstance(cubeSegment,Cuboid.findById(cubeDesc,cuboidId));
+  keyBuf=rowKeyEncoder.createBuf();
   dimensions=BitSet.valueOf(new long[]{cuboidId}).cardinality();
   measureColumnsIndex=new int[measureCount];
   for (int i=0; i < measureCount; i++) {
     measureColumnsIndex[i]=dimensions + i;
   }
-  BytesUtil.writeLong(cuboidId,keyBuf,RowConstants.ROWKEY_SHARDID_LEN,RowConstants.ROWKEY_CUBOIDID_LEN);
 }

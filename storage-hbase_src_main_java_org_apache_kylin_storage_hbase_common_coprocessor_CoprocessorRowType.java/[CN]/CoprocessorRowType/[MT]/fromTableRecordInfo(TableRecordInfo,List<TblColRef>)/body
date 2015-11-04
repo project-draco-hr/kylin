@@ -3,5 +3,5 @@
   for (int i=0; i < cols.size(); i++) {
     colSizes[i]=tableRecordInfo.getDigest().length(i);
   }
-  return new CoprocessorRowType(cols.toArray(new TblColRef[cols.size()]),colSizes);
+  return new CoprocessorRowType(cols.toArray(new TblColRef[cols.size()]),colSizes,0);
 }

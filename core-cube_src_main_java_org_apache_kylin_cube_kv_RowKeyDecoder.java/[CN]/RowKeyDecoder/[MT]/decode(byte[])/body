@@ -3,7 +3,7 @@
   long cuboidId=rowKeySplitter.split(bytes);
   initCuboid(cuboidId);
   SplittedBytes[] splits=rowKeySplitter.getSplitBuffers();
-  int offset=2;
+  int offset=rowKeySplitter.getBodySplitOffset();
   for (int i=0; i < this.cuboid.getColumns().size(); i++) {
     TblColRef col=this.cuboid.getColumns().get(i);
     collectValue(col,splits[offset].value,splits[offset].length);

@@ -1,7 +1,7 @@
 {
   KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   HTableDescriptor tableDesc=new HTableDescriptor(TableName.valueOf(tableName));
-  tableDesc.setValue(HTableDescriptor.SPLIT_POLICY,ConstantSizeRegionSplitPolicy.class.getName());
+  tableDesc.setValue(HTableDescriptor.SPLIT_POLICY,DisabledRegionSplitPolicy.class.getName());
   tableDesc.setValue(IRealizationConstants.HTableTag,kylinConfig.getMetadataUrlPrefix());
   tableDesc.setValue(IRealizationConstants.HTableCreationTime,String.valueOf(System.currentTimeMillis()));
   Configuration conf=HBaseConfiguration.create();

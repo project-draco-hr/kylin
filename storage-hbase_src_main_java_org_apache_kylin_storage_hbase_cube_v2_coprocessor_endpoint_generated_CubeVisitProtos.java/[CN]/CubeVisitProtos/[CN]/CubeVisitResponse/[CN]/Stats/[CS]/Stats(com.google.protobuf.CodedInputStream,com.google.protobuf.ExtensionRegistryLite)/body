@@ -41,6 +41,30 @@ bitField0_|=0x00000008;
 aggregatedRowCount_=input.readInt32();
 break;
 }
+case 41:
+{
+bitField0_|=0x00000010;
+systemCpuLoad_=input.readDouble();
+break;
+}
+case 49:
+{
+bitField0_|=0x00000020;
+freePhysicalMemorySize_=input.readDouble();
+break;
+}
+case 57:
+{
+bitField0_|=0x00000040;
+freeSwapSpaceSize_=input.readDouble();
+break;
+}
+case 66:
+{
+bitField0_|=0x00000080;
+hostname_=input.readBytes();
+break;
+}
 }
 }
 }

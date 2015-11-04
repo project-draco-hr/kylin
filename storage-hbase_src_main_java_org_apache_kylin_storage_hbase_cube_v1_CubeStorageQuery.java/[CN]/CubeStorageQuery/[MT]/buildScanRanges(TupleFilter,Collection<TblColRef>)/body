@@ -25,7 +25,9 @@
   logger.info("hbasekeyrange count: " + result.size());
   dropUnhitSegments(result);
   logger.info("hbasekeyrange count after dropping unhit :" + result.size());
-  result=duplicateRangeByShard(result);
+  if (cubeDesc.isEnableSharding()) {
+    result=duplicateRangeByShard(result);
+  }
   logger.info("hbasekeyrange count after dropping duplicatebyshard :" + result.size());
   return result;
 }

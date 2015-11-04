@@ -1,0 +1,6 @@
+{
+  bitField0_|=0x00000040;
+  freeSwapSpaceSize_=value;
+  onChanged();
+  return this;
+}

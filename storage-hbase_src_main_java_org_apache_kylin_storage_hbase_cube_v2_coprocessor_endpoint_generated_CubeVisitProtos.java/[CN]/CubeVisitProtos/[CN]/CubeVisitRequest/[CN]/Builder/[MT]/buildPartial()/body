@@ -14,10 +14,14 @@
     to_bitField0_|=0x00000004;
   }
   result.hbaseRawScan_=hbaseRawScan_;
+  if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+    to_bitField0_|=0x00000008;
+  }
+  result.rowkeyPreambleSize_=rowkeyPreambleSize_;
   if (hbaseColumnsToGTBuilder_ == null) {
-    if (((bitField0_ & 0x00000008) == 0x00000008)) {
+    if (((bitField0_ & 0x00000010) == 0x00000010)) {
       hbaseColumnsToGT_=java.util.Collections.unmodifiableList(hbaseColumnsToGT_);
-      bitField0_=(bitField0_ & ~0x00000008);
+      bitField0_=(bitField0_ & ~0x00000010);
     }
     result.hbaseColumnsToGT_=hbaseColumnsToGT_;
   }

@@ -8,9 +8,11 @@
   cubeDesc=cube.getDescriptor();
   mergedCubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   storageInputFormat=MRUtil.getBatchMergeInputSide2(mergedCubeSegment).getStorageInputFormat();
-  newKeyBuf=new byte[256];
+  newKeyBodyBuf=new byte[RowConstants.ROWKEY_BUFFER_SIZE];
+  newKeyBuf=ByteArray.allocate(RowConstants.ROWKEY_BUFFER_SIZE);
   sourceCubeSegment=storageInputFormat.findSourceSegment(context);
   logger.info("Source cube segment: " + sourceCubeSegment);
   rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
+  rowKeyEncoderProvider=new RowKeyEncoderProvider(mergedCubeSegment);
   codec=new MeasureCodec(cubeDesc.getMeasures());
 }

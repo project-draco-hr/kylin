@@ -1,0 +1,6 @@
+{
+  this.bodyOffset=bodyOffset;
+  this.columns=columns;
+  this.columnSizes=columnSizes;
+  init();
+}

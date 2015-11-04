@@ -12,6 +12,20 @@
   if (other.hasAggregatedRowCount()) {
     setAggregatedRowCount(other.getAggregatedRowCount());
   }
+  if (other.hasSystemCpuLoad()) {
+    setSystemCpuLoad(other.getSystemCpuLoad());
+  }
+  if (other.hasFreePhysicalMemorySize()) {
+    setFreePhysicalMemorySize(other.getFreePhysicalMemorySize());
+  }
+  if (other.hasFreeSwapSpaceSize()) {
+    setFreeSwapSpaceSize(other.getFreeSwapSpaceSize());
+  }
+  if (other.hasHostname()) {
+    bitField0_|=0x00000080;
+    hostname_=other.hostname_;
+    onChanged();
+  }
   this.mergeUnknownFields(other.getUnknownFields());
   return this;
 }

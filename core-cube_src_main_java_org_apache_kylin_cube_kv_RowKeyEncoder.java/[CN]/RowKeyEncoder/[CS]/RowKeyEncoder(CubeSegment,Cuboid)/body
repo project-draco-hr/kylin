@@ -1,9 +1,8 @@
 {
-  super(cuboid);
-  this.cubeSeg=cubeSeg;
+  super(cubeSeg,cuboid);
+  enableSharding=cubeSeg.isEnableSharding();
   colIO=new RowKeyColumnIO(cubeSeg);
-  bytesLength=headerLength=RowConstants.ROWKEY_HEADER_LEN;
   for (  TblColRef column : cuboid.getColumns()) {
-    bytesLength+=colIO.getColumnLength(column);
+    bodyLength+=colIO.getColumnLength(column);
   }
 }

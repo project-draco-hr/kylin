@@ -12,5 +12,17 @@
   if (((bitField0_ & 0x00000008) == 0x00000008)) {
     output.writeInt32(4,aggregatedRowCount_);
   }
+  if (((bitField0_ & 0x00000010) == 0x00000010)) {
+    output.writeDouble(5,systemCpuLoad_);
+  }
+  if (((bitField0_ & 0x00000020) == 0x00000020)) {
+    output.writeDouble(6,freePhysicalMemorySize_);
+  }
+  if (((bitField0_ & 0x00000040) == 0x00000040)) {
+    output.writeDouble(7,freeSwapSpaceSize_);
+  }
+  if (((bitField0_ & 0x00000080) == 0x00000080)) {
+    output.writeBytes(8,getHostnameBytes());
+  }
   getUnknownFields().writeTo(output);
 }

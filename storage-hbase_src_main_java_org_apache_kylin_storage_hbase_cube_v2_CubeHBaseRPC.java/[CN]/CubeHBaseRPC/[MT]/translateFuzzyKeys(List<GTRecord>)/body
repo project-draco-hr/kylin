@@ -3,23 +3,11 @@
     return Collections.emptyList();
   }
   List<Pair<byte[],byte[]>> ret=Lists.newArrayList();
-  int coreLength=fullGTInfo.getMaxColumnLength(fullGTInfo.getPrimaryKey());
   for (  GTRecord gtRecordFuzzyKey : fuzzyKeys) {
-    byte[] hbaseFuzzyKey=new byte[coreLength + RowConstants.ROWKEY_HEADER_LEN];
-    byte[] hbaseFuzzyMask=new byte[coreLength + RowConstants.ROWKEY_HEADER_LEN];
-    int pos=0;
-    Arrays.fill(hbaseFuzzyMask,pos,pos + RowConstants.ROWKEY_SHARDID_LEN,RowConstants.BYTE_ONE);
-    pos+=RowConstants.ROWKEY_SHARDID_LEN;
-    Arrays.fill(hbaseFuzzyMask,pos,pos + RowConstants.ROWKEY_CUBOIDID_LEN,RowConstants.BYTE_ZERO);
-    System.arraycopy(cuboid.getBytes(),0,hbaseFuzzyKey,pos,RowConstants.ROWKEY_CUBOIDID_LEN);
-    pos+=RowConstants.ROWKEY_CUBOIDID_LEN;
-    ByteArray coreKey=HBaseScan.exportScanKey(gtRecordFuzzyKey,RowConstants.BYTE_ZERO);
-    System.arraycopy(coreKey.array(),coreKey.offset(),hbaseFuzzyKey,pos,coreKey.length());
-    ByteArray coreMask=HBaseScan.exportScanMask(gtRecordFuzzyKey);
-    System.arraycopy(coreMask.array(),coreMask.offset(),hbaseFuzzyMask,pos,coreMask.length());
-    Preconditions.checkState(coreKey.length() == coreMask.length(),"corekey length not equal coremask length");
-    pos+=coreKey.length();
-    Preconditions.checkState(hbaseFuzzyKey.length == pos,"HBase fuzzy key not completely populated");
+    byte[] hbaseFuzzyKey=fuzzyKeyEncoder.createBuf();
+    byte[] hbaseFuzzyMask=fuzzyMaskEncoder.createBuf();
+    fuzzyKeyEncoder.encode(gtRecordFuzzyKey,gtRecordFuzzyKey.getInfo().getPrimaryKey(),hbaseFuzzyKey);
+    fuzzyMaskEncoder.encode(gtRecordFuzzyKey,gtRecordFuzzyKey.getInfo().getPrimaryKey(),hbaseFuzzyMask);
     ret.add(new Pair<byte[],byte[]>(hbaseFuzzyKey,hbaseFuzzyMask));
   }
   return ret;

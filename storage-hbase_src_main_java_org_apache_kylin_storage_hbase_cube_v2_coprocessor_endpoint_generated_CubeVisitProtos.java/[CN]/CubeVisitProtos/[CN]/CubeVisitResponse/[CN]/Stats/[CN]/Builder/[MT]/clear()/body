@@ -8,5 +8,13 @@
   bitField0_=(bitField0_ & ~0x00000004);
   aggregatedRowCount_=0;
   bitField0_=(bitField0_ & ~0x00000008);
+  systemCpuLoad_=0D;
+  bitField0_=(bitField0_ & ~0x00000010);
+  freePhysicalMemorySize_=0D;
+  bitField0_=(bitField0_ & ~0x00000020);
+  freeSwapSpaceSize_=0D;
+  bitField0_=(bitField0_ & ~0x00000040);
+  hostname_="";
+  bitField0_=(bitField0_ & ~0x00000080);
   return this;
 }

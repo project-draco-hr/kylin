@@ -1,5 +1,6 @@
 {
   super(newSegment,submitter);
+  Preconditions.checkArgument(!newSegment.isEnableSharding(),"V1 job engine does not support building sharded cubes");
   this.inputSide=MRUtil.getBatchCubingInputSide(seg);
   this.outputSide=MRUtil.getBatchCubingOutputSide((CubeSegment)seg);
 }

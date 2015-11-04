@@ -3,4 +3,8 @@
   serviceEndTime_=0L;
   scannedRowCount_=0;
   aggregatedRowCount_=0;
+  systemCpuLoad_=0D;
+  freePhysicalMemorySize_=0D;
+  freeSwapSpaceSize_=0D;
+  hostname_="";
 }

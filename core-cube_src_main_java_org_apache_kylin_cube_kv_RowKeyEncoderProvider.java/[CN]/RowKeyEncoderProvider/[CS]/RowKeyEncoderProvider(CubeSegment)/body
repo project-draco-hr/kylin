@@ -1,0 +1,4 @@
+{
+  this.cubeSegment=cubeSegment;
+  this.rowKeyEncoders=Maps.newHashMap();
+}

@@ -6,9 +6,11 @@
   bitField0_=(bitField0_ & ~0x00000002);
   hbaseRawScan_=com.google.protobuf.ByteString.EMPTY;
   bitField0_=(bitField0_ & ~0x00000004);
+  rowkeyPreambleSize_=0;
+  bitField0_=(bitField0_ & ~0x00000008);
   if (hbaseColumnsToGTBuilder_ == null) {
     hbaseColumnsToGT_=java.util.Collections.emptyList();
-    bitField0_=(bitField0_ & ~0x00000008);
+    bitField0_=(bitField0_ & ~0x00000010);
   }
  else {
     hbaseColumnsToGTBuilder_.clear();

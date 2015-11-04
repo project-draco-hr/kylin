@@ -1,7 +1,6 @@
 {
   logger.info("MR_V1 new job to MERGE segment " + seg);
-  final CubeSegment cubeSegment=(CubeSegment)seg;
-  final CubingJob result=CubingJob.createMergeJob(cubeSegment,submitter,config);
+  final CubingJob result=CubingJob.createMergeJob(seg,submitter,config);
   final String jobId=result.getId();
   final String cuboidRootPath=getCuboidRootPath(jobId);
   final List<CubeSegment> mergingSegments=cubeSegment.getCubeInstance().getMergingSegments(cubeSegment);

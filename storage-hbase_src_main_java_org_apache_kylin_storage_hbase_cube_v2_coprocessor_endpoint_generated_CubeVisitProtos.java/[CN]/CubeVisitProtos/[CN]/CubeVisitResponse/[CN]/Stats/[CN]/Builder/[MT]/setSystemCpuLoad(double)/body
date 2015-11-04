@@ -1,0 +1,6 @@
+{
+  bitField0_|=0x00000010;
+  systemCpuLoad_=value;
+  onChanged();
+  return this;
+}

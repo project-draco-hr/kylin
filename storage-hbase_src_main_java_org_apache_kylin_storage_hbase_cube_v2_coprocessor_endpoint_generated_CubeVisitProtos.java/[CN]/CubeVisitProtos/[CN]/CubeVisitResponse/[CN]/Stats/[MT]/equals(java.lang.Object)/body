@@ -23,6 +23,22 @@
   if (hasAggregatedRowCount()) {
     result=result && (getAggregatedRowCount() == other.getAggregatedRowCount());
   }
+  result=result && (hasSystemCpuLoad() == other.hasSystemCpuLoad());
+  if (hasSystemCpuLoad()) {
+    result=result && (Double.doubleToLongBits(getSystemCpuLoad()) == Double.doubleToLongBits(other.getSystemCpuLoad()));
+  }
+  result=result && (hasFreePhysicalMemorySize() == other.hasFreePhysicalMemorySize());
+  if (hasFreePhysicalMemorySize()) {
+    result=result && (Double.doubleToLongBits(getFreePhysicalMemorySize()) == Double.doubleToLongBits(other.getFreePhysicalMemorySize()));
+  }
+  result=result && (hasFreeSwapSpaceSize() == other.hasFreeSwapSpaceSize());
+  if (hasFreeSwapSpaceSize()) {
+    result=result && (Double.doubleToLongBits(getFreeSwapSpaceSize()) == Double.doubleToLongBits(other.getFreeSwapSpaceSize()));
+  }
+  result=result && (hasHostname() == other.hasHostname());
+  if (hasHostname()) {
+    result=result && getHostname().equals(other.getHostname());
+  }
   result=result && getUnknownFields().equals(other.getUnknownFields());
   return result;
 }

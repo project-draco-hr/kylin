@@ -2,4 +2,5 @@
   this.segment=segment;
   this.measureCount=segment.getCubeDesc().getMeasures().size();
   this.columnLengthMap=columnLengthMap;
+  this.rowKeyEncoderProvider=new RowKeyEncoderProvider(this.segment);
 }

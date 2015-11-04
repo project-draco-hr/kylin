@@ -20,6 +20,22 @@
     hash=(37 * hash) + AGGREGATEDROWCOUNT_FIELD_NUMBER;
     hash=(53 * hash) + getAggregatedRowCount();
   }
+  if (hasSystemCpuLoad()) {
+    hash=(37 * hash) + SYSTEMCPULOAD_FIELD_NUMBER;
+    hash=(53 * hash) + hashLong(Double.doubleToLongBits(getSystemCpuLoad()));
+  }
+  if (hasFreePhysicalMemorySize()) {
+    hash=(37 * hash) + FREEPHYSICALMEMORYSIZE_FIELD_NUMBER;
+    hash=(53 * hash) + hashLong(Double.doubleToLongBits(getFreePhysicalMemorySize()));
+  }
+  if (hasFreeSwapSpaceSize()) {
+    hash=(37 * hash) + FREESWAPSPACESIZE_FIELD_NUMBER;
+    hash=(53 * hash) + hashLong(Double.doubleToLongBits(getFreeSwapSpaceSize()));
+  }
+  if (hasHostname()) {
+    hash=(37 * hash) + HOSTNAME_FIELD_NUMBER;
+    hash=(53 * hash) + getHostname().hashCode();
+  }
   hash=(29 * hash) + getUnknownFields().hashCode();
   memoizedHashCode=hash;
   return hash;

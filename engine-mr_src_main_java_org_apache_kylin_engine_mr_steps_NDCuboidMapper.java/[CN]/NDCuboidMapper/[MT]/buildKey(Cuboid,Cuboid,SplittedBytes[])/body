@@ -1,27 +1,26 @@
 {
+  RowKeyEncoder rowkeyEncoder=rowKeyEncoderProvider.getRowkeyEncoder(childCuboid);
   int offset=0;
-  offset+=RowConstants.ROWKEY_SHARDID_LEN;
-  System.arraycopy(childCuboid.getBytes(),0,keyBuf,offset,childCuboid.getBytes().length);
-  offset+=RowConstants.ROWKEY_CUBOIDID_LEN;
-  int bodyOffset=offset;
   long mask=Long.highestOneBit(parentCuboid.getId());
   long parentCuboidId=parentCuboid.getId();
   long childCuboidId=childCuboid.getId();
   long parentCuboidIdActualLength=Long.SIZE - Long.numberOfLeadingZeros(parentCuboid.getId());
-  int index=2;
+  int index=rowKeySplitter.getBodySplitOffset();
   for (int i=0; i < parentCuboidIdActualLength; i++) {
     if ((mask & parentCuboidId) > 0) {
       if ((mask & childCuboidId) > 0) {
-        System.arraycopy(splitBuffers[index].value,0,keyBuf,offset,splitBuffers[index].length);
+        System.arraycopy(splitBuffers[index].value,0,newKeyBodyBuf,offset,splitBuffers[index].length);
         offset+=splitBuffers[index].length;
       }
       index++;
     }
     mask=mask >> 1;
   }
-  short cuboidShardNum=cubeSegment.getCuboidShardNum(childCuboidId);
-  short shardOffset=ShardingHash.getShard(keyBuf,bodyOffset,offset - bodyOffset,cuboidShardNum);
-  short finalShard=ShardingHash.normalize(cubeSegment.getCuboidBaseShard(childCuboidId),shardOffset,cubeSegment.getTotalShards());
-  BytesUtil.writeShort(finalShard,keyBuf,0,RowConstants.ROWKEY_SHARDID_LEN);
-  return offset;
+  int fullKeySize=rowkeyEncoder.getBytesLength();
+  while (newKeyBuf.array().length < fullKeySize) {
+    newKeyBuf.set(new byte[newKeyBuf.length() * 2]);
+  }
+  newKeyBuf.set(0,fullKeySize);
+  rowkeyEncoder.encode(new ByteArray(newKeyBodyBuf,0,offset),newKeyBuf);
+  return fullKeySize;
 }

@@ -1,0 +1,4 @@
+{
+  this.cuboid=cuboid;
+  this.cubeSeg=cubeSeg;
+}

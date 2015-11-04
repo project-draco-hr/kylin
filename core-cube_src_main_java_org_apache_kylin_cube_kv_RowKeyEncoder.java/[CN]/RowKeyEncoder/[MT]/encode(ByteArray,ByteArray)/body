@@ -1,0 +1,6 @@
+{
+  Preconditions.checkState(bodyBytes.length() == bodyLength);
+  Preconditions.checkState(bodyBytes.length() + getHeaderLength() == outputBuf.length(),"bodybytes length: " + bodyBytes.length() + " outputBuf length: "+ outputBuf.length()+ " header length: "+ getHeaderLength());
+  System.arraycopy(bodyBytes.array(),bodyBytes.offset(),outputBuf.array(),getHeaderLength(),bodyLength);
+  fillHeader(outputBuf.array());
+}

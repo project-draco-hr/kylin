@@ -1,0 +1,11 @@
+{
+  if (enableSharding) {
+    int bodyOffset=RowConstants.ROWKEY_SHARD_AND_CUBOID_LEN;
+    short cuboidShardNum=cubeSeg.getCuboidShardNum(cuboid.getId());
+    short shardOffset=ShardingHash.getShard(key,bodyOffset,bodyLength,cuboidShardNum);
+    return ShardingHash.normalize(cubeSeg.getCuboidBaseShard(cuboid.getId()),shardOffset,cubeSeg.getTotalShards());
+  }
+ else {
+    throw new RuntimeException("If enableSharding false, you should never calculate shard");
+  }
+}

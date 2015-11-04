@@ -9,8 +9,11 @@
   if (((bitField0_ & 0x00000004) == 0x00000004)) {
     output.writeBytes(3,hbaseRawScan_);
   }
+  if (((bitField0_ & 0x00000008) == 0x00000008)) {
+    output.writeInt32(4,rowkeyPreambleSize_);
+  }
   for (int i=0; i < hbaseColumnsToGT_.size(); i++) {
-    output.writeMessage(4,hbaseColumnsToGT_.get(i));
+    output.writeMessage(5,hbaseColumnsToGT_.get(i));
   }
   getUnknownFields().writeTo(output);
 }

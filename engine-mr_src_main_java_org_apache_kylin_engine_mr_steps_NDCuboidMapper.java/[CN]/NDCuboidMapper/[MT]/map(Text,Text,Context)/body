@@ -17,8 +17,8 @@
   }
   for (  Long child : myChildren) {
     Cuboid childCuboid=Cuboid.findById(cubeDesc,child);
-    int keyLength=buildKey(parentCuboid,childCuboid,rowKeySplitter.getSplitBuffers());
-    outputKey.set(keyBuf,0,keyLength);
+    int fullKeySize=buildKey(parentCuboid,childCuboid,rowKeySplitter.getSplitBuffers());
+    outputKey.set(newKeyBuf.array(),0,fullKeySize);
     context.write(outputKey,value);
   }
 }

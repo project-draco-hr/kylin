@@ -1,7 +1,6 @@
 {
   if (value == null) {
-    byte[] valueBytes=defaultValue(columnLen);
-    System.arraycopy(valueBytes,0,outputValue,outputValueOffset,columnLen);
+    Arrays.fill(outputValue,outputValueOffset,outputValueOffset + columnLen,defaultValue());
     return;
   }
   colIO.writeColumn(column,value,valueLen,this.blankByte,outputValue,outputValueOffset);
