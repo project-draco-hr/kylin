@@ -64,8 +64,9 @@
   System.out.println(response.getRowsList().size());
   Set<String> answers=Sets.newHashSet("120.4747","26.8551");
   for (  IIProtos.IIResponseInternal.IIRow responseRow : response.getRowsList()) {
-    byte[] measuresBytes=HBaseZeroCopyByteString.zeroCopyGetBytes(responseRow.getMeasures());
-    List<Object> metrics=aggregators.deserializeMetricValues(measuresBytes,0);
+    ByteBuffer bf=responseRow.getMeasures().asReadOnlyByteBuffer();
+    List<Object> metrics=aggregators.deserializeMetricValues(bf);
     Assert.assertTrue(answers.contains(metrics.get(0)));
+    answers.remove(metrics.get(0));
   }
 }
