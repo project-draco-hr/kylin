@@ -1,5 +1,7 @@
 {
-  if (innerCache.containsKey(key)) {
+  boolean exists=innerCache.containsKey(key);
+  innerCache.remove(key);
+  if (exists) {
     cacheUpdater.updateCache(key,null,Broadcaster.EVENT.DROP,syncType,this);
   }
 }

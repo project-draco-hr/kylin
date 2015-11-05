@@ -31,9 +31,7 @@
     }
   }
 ;
-  serviceA.initCacheUpdater(new RemoteCacheUpdater());
   serviceA.setCubeService(cubeServiceA);
-  serviceB.initCacheUpdater(new RemoteCacheUpdater());
   serviceB.setCubeService(cubeServiceB);
   context.addServlet(new ServletHolder(new BroadcasterReceiveServlet(new BroadcasterReceiveServlet.BroadcasterHandler(){
     @Override public void handle(    String type,    String name,    String event){
