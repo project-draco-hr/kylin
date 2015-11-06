@@ -4,9 +4,15 @@
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
   IIManager mgr=IIManager.getInstance(config);
   IIInstance ii=mgr.getII(conf.get(BatchConstants.CFG_II_NAME));
-  IISegment seg=ii.getSegment(conf.get(BatchConstants.CFG_II_SEGMENT_NAME),SegmentStatusEnum.NEW);
+  IISegment seg=ii.getFirstSegment();
   info=new TableRecordInfo(seg);
-  rec=info.createTableRecord();
-  builder=null;
   kv=new IIKeyValueCodec(info.getDigest());
+  flatTableInputFormat=MRUtil.getBatchCubingInputSide(ii.getFirstSegment()).getFlatTableInputFormat();
+  sliceSize=ii.getDescriptor().getSliceSize();
+  short shard=(short)context.getTaskAttemptID().getTaskID().getId();
+  System.out.println("Generating to shard - " + shard);
+  sliceBuilder=new SliceBuilder(seg.getIIDesc(),shard,true);
+  messages=Lists.newArrayListWithCapacity(sliceSize);
+  immutableBytesWritable=new ImmutableBytesWritable();
+  valueBuf=ByteBuffer.allocate(1024 * 1024);
 }

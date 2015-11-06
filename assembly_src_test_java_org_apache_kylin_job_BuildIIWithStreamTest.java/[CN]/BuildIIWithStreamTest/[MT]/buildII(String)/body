@@ -22,13 +22,10 @@
   int count=sorted.size();
   ArrayList<StreamingMessage> messages=Lists.newArrayList();
   for (  String[] row : sorted) {
-    if (messages.size() < iiDesc.getSliceSize()) {
-      messages.add(parse(row));
-    }
- else {
+    messages.add((parse(row)));
+    if (messages.size() >= iiDesc.getSliceSize()) {
       build(sliceBuilder,new StreamingBatch(messages,Pair.newPair(System.currentTimeMillis(),System.currentTimeMillis())),htable);
-      messages=Lists.newArrayList();
-      messages.add((parse(row)));
+      messages.clear();
     }
   }
   if (!messages.isEmpty()) {

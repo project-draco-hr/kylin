@@ -1,5 +1,6 @@
 {
   Options options=new Options();
+  HBaseAdmin admin=null;
   try {
     options.addOption(OPTION_II_NAME);
     options.addOption(OPTION_HTABLE_NAME);
@@ -10,6 +11,18 @@
     IIManager iiManager=IIManager.getInstance(config);
     IIInstance ii=iiManager.getII(iiName);
     int sharding=ii.getDescriptor().getSharding();
+    Configuration conf=HBaseConfiguration.create(getConf());
+    admin=new HBaseAdmin(conf);
+    if (admin.tableExists(tableName)) {
+      if (admin.isTableEnabled(tableName)) {
+        logger.info("Table " + tableName + " already exists and is enabled, no need to create.");
+        return 0;
+      }
+ else {
+        logger.error("Table " + tableName + " is disabled, couldn't append data");
+        return 1;
+      }
+    }
     HTableDescriptor tableDesc=new HTableDescriptor(TableName.valueOf(tableName));
     HColumnDescriptor cf=new HColumnDescriptor(IIDesc.HBASE_FAMILY);
     cf.setMaxVersions(1);
@@ -50,16 +63,10 @@ tableDesc.addFamily(cf);
 tableDesc.setValue(IRealizationConstants.HTableTag,config.getMetadataUrlPrefix());
 tableDesc.setValue(IRealizationConstants.HTableCreationTime,String.valueOf(System.currentTimeMillis()));
 tableDesc.setValue(HTableDescriptor.SPLIT_POLICY,DisabledRegionSplitPolicy.class.getName());
-Configuration conf=HBaseConfiguration.create(getConf());
 if (User.isHBaseSecurityEnabled(conf)) {
 tableDesc.addCoprocessor("org.apache.hadoop.hbase.security.access.SecureBulkLoadEndpoint");
 }
 IIDeployCoprocessorCLI.deployCoprocessor(tableDesc);
-HBaseAdmin admin=new HBaseAdmin(conf);
-if (admin.tableExists(tableName)) {
-admin.disableTable(tableName);
-admin.deleteTable(tableName);
-}
 byte[][] splitKeys=getSplits(sharding);
 if (splitKeys.length == 0) splitKeys=null;
 admin.createTable(tableDesc,splitKeys);
@@ -69,11 +76,13 @@ System.out.println("split key " + i + ": "+ BytesUtil.toHex(splitKeys[i]));
 }
 }
 System.out.println("create hbase table " + tableName + " done.");
-admin.close();
 return 0;
 }
  catch (Exception e) {
 printUsage(options);
 throw e;
+}
+ finally {
+if (admin != null) admin.close();
 }
 }

@@ -1,10 +1,7 @@
 {
-  String[] row=flatTableInputFormat.parseMapperInput(record);
-  rec.reset();
-  for (int i=0; i < row.length; i++) {
-    Object fieldValue=row[i];
-    if (fieldValue != null)     rec.setValueString(i,fieldValue.toString());
-  }
-  outputKey.set(rec.getTimestamp());
-  context.write(outputKey,outputValue);
+  Writable writableRecord=(Writable)record;
+  String[] row=flatTableInputFormat.parseMapperInput(writableRecord);
+  String timestampString=row[info.getTimestampColumn()];
+  outputKey.set(DateFormat.stringToMillis(timestampString));
+  context.write(outputKey,writableRecord);
 }

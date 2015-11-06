@@ -1,3 +1,0 @@
-{
-  super.bindCurrentConfiguration(context.getConfiguration());
-}

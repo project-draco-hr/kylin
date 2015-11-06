@@ -1,3 +1,0 @@
-LongWritable key
-Iterable<ImmutableBytesWritable> values
-Context context

@@ -1,5 +1,9 @@
 {
   final IIInstance ii=IIManager.getInstance(getTestConfig()).getII("test_kylin_ii_left_join");
+  if (ii.getFirstSegment() == null) {
+    IISegment segment=IIManager.getInstance(getTestConfig()).buildSegment(ii,0,System.currentTimeMillis());
+    ii.getSegments().add(segment);
+  }
   final TableRecordInfo tableRecordInfo=new TableRecordInfo(ii.getFirstSegment());
   final EndpointAggregators endpointAggregators=EndpointAggregators.fromFunctions(tableRecordInfo,buildAggregations());
   byte[] x=EndpointAggregators.serialize(endpointAggregators);

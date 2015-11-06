@@ -1,9 +1,0 @@
-{
-  super.bindCurrentConfiguration(context.getConfiguration());
-  Configuration conf=context.getConfiguration();
-  KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
-  String iiName=conf.get(BatchConstants.CFG_II_NAME);
-  IIInstance iiInstance=IIManager.getInstance(config).getII(iiName);
-  IISegment seg=iiInstance.getFirstSegment();
-  flatTableInputFormat=MRUtil.getBatchCubingInputSide(seg).getFlatTableInputFormat();
-}

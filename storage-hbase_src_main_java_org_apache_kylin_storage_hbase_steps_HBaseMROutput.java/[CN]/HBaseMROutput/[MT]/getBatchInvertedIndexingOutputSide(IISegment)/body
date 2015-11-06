@@ -5,7 +5,7 @@
       steps.addSaveIIToHTableSteps(jobFlow,rootPath);
     }
     @Override public void addStepPhase4_Cleanup(    DefaultChainedExecutable jobFlow){
-      steps.addCubingGarbageCollectionSteps(jobFlow);
+      steps.addInvertedIndexGarbageCollectionSteps(jobFlow);
     }
   }
 ;

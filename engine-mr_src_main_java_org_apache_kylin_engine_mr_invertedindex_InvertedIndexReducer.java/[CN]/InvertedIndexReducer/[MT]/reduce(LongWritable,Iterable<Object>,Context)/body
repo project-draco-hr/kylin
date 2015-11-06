@@ -1,0 +1,10 @@
+{
+  for (  Object v : values) {
+    String[] row=flatTableInputFormat.parseMapperInput(v);
+    messages.add((parse(row)));
+    if (messages.size() >= sliceSize) {
+      buildAndOutput(new StreamingBatch(messages,Pair.newPair(System.currentTimeMillis(),System.currentTimeMillis())),context);
+      messages=Lists.newArrayList();
+    }
+  }
+}

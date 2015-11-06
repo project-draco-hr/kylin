@@ -1,5 +1,0 @@
-{
-  super.bindCurrentConfiguration(context.getConfiguration());
-  Configuration conf=context.getConfiguration();
-  this.columns=conf.get(BatchConstants.TABLE_COLUMNS).split(",");
-}

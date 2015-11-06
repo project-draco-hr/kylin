@@ -1,5 +1,0 @@
-{
-  for (  IIRow pair : kv.encodeKeyValue(slice)) {
-    context.write(pair.getKey(),pair.getValue());
-  }
-}

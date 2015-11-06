@@ -1,4 +1,0 @@
-{
-  int index=getTableRecordInfo().findColumn(col);
-  return getTableRecordInfo().dict(index);
-}

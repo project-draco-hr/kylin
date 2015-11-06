@@ -3,6 +3,5 @@
   flatTableInputFormat.configureJob(job);
   job.setMapperClass(InvertedIndexMapper.class);
   job.setMapOutputKeyClass(LongWritable.class);
-  job.setMapOutputValueClass(ImmutableBytesWritable.class);
   job.setPartitionerClass(InvertedIndexPartitioner.class);
 }

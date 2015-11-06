@@ -1,6 +1,9 @@
 {
   this.createTestMetadata();
-  this.ii=IIManager.getInstance(getTestConfig()).getII("test_kylin_ii_left_join");
+  IIManager iiManager=IIManager.getInstance(getTestConfig());
+  this.ii=iiManager.getII("test_kylin_ii_left_join");
+  IISegment segment=iiManager.buildSegment(ii,0,System.currentTimeMillis());
+  ii.getSegments().add(segment);
   this.tableRecordInfo=new TableRecordInfo(ii.getFirstSegment());
   this.factTableDesc=MetadataManager.getInstance(getTestConfig()).getTableDesc("DEFAULT.TEST_KYLIN_FACT");
   this.caldt=this.ii.getDescriptor().findColumnRef("DEFAULT.TEST_KYLIN_FACT","CAL_DT");

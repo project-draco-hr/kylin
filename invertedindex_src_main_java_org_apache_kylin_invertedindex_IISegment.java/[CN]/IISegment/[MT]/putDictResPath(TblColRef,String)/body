@@ -1,3 +1,0 @@
-{
-  getDictionaries().put(dictKey(col),dictResPath);
-}

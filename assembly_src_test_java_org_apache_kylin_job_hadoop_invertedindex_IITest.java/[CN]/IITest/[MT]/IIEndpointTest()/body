@@ -1,5 +1,9 @@
 {
   TableRecordInfo info=new TableRecordInfo(ii.getDescriptor());
+  if (ii.getFirstSegment() == null) {
+    IISegment segment=IIManager.getInstance(getTestConfig()).buildSegment(ii,0,System.currentTimeMillis());
+    ii.getSegments().add(segment);
+  }
   CoprocessorRowType type=CoprocessorRowType.fromTableRecordInfo(info,ii.getFirstSegment().getColumns());
   CoprocessorProjector projector=CoprocessorProjector.makeForEndpoint(info,Collections.singletonList(ii.getDescriptor().findColumnRef("default.test_kylin_fact","lstg_format_name")));
   FunctionDesc f1=new FunctionDesc();
