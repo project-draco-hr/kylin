@@ -3,12 +3,14 @@
   try {
 switch (cacheType) {
 case CUBE:
-      String storageUUID=getCubeManager().getCube(cacheKey).getUuid();
-    getCubeManager().removeCubeLocal(cacheKey);
-  super.cleanDataCache(storageUUID);
-break;
+      if (getCubeManager().getCube(cacheKey) != null) {
+        String storageUUID=getCubeManager().getCube(cacheKey).getUuid();
+        getCubeManager().removeCubeLocal(cacheKey);
+        super.cleanDataCache(storageUUID);
+      }
+    break;
 case CUBE_DESC:
-getCubeDescManager().removeLocalCubeDesc(cacheKey);
+  getCubeDescManager().removeLocalCubeDesc(cacheKey);
 break;
 case PROJECT:
 ProjectManager.clearCache();
