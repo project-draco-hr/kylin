@@ -1,5 +1,5 @@
 {
-  String timeZone=jobService.getKylinConfig().getTimeZone();
+  String timeZone=jobService.getConfig().getTimeZone();
   TimeZone tzone=TimeZone.getTimeZone(timeZone);
   TimeZone.setDefault(tzone);
   final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();

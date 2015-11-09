@@ -1,7 +1,7 @@
 {
-  if (getSreamingManager().getStreamingConfig(config.getName()) != null) {
+  if (getStreamingManager().getStreamingConfig(config.getName()) != null) {
     throw new InternalErrorException("The streamingConfig named " + config.getName() + " already exists");
   }
-  StreamingConfig streamingConfig=getSreamingManager().saveStreamingConfig(config);
+  StreamingConfig streamingConfig=getStreamingManager().saveStreamingConfig(config);
   return streamingConfig;
 }

@@ -1,7 +1,0 @@
-{
-  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
-  if (kylinConfig == null) {
-    throw new IllegalArgumentException("Failed to load kylin config instance");
-  }
-  return kylinConfig;
-}

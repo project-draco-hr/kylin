@@ -1,8 +1,3 @@
 {
-  try {
-    return reloadCubeLocalAt(CubeInstance.concatResourcePath(cubeName));
-  }
- catch (  IOException e) {
-    throw new RuntimeException(e);
-  }
+  return reloadCubeLocalAt(CubeInstance.concatResourcePath(cubeName));
 }

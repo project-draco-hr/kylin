@@ -6,7 +6,7 @@
     return Collections.emptyList();
   }
   try {
-    DataSource dataSource=getOLAPDataSource(project);
+    DataSource dataSource=cacheService.getOLAPDataSource(project);
     conn=dataSource.getConnection();
     DatabaseMetaData metaData=conn.getMetaData();
     logger.debug("getting table metas");

@@ -7,11 +7,13 @@ case CUBE:
       CubeInstance newCube=getCubeManager().reloadCubeLocal(cacheKey);
     getHybridManager().reloadHybridInstanceByChild(RealizationType.CUBE,cacheKey);
   getProjectManager().clearL2Cache();
-super.cleanDataCache(newCube.getUuid());
+if (newCube != null) {
+  cleanDataCache(newCube.getUuid());
+}
 cubeService.updateOnNewSegmentReady(cacheKey);
 break;
 case STREAMING:
-getSreamingManager().reloadStreamingConfigLocal(cacheKey);
+getStreamingManager().reloadStreamingConfigLocal(cacheKey);
 break;
 case KAFKA:
 getKafkaManager().reloadKafkaConfigLocal(cacheKey);
@@ -21,7 +23,9 @@ getCubeDescManager().reloadCubeDescLocal(cacheKey);
 break;
 case PROJECT:
 ProjectInstance projectInstance=getProjectManager().reloadProjectLocal(cacheKey);
+if (projectInstance != null) {
 removeOLAPDataSource(projectInstance.getName());
+}
 break;
 case INVERTED_INDEX:
 getIIManager().reloadIILocal(cacheKey);
@@ -52,8 +56,8 @@ RealizationRegistry.clearCache();
 ProjectManager.clearCache();
 KafkaConfigManager.clearCache();
 StreamingManager.clearCache();
-super.cleanAllDataCache();
-BasicService.removeAllOLAPDataSources();
+cleanAllDataCache();
+removeAllOLAPDataSources();
 break;
 default :
 throw new RuntimeException("invalid cacheType:" + cacheType);
