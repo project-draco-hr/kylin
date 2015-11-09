@@ -4,16 +4,10 @@
   try {
 switch (cacheType) {
 case CUBE:
-      CubeInstance newCube=getCubeManager().reloadCubeLocal(cacheKey);
-    getHybridManager().reloadHybridInstanceByChild(RealizationType.CUBE,cacheKey);
-  getProjectManager().clearL2Cache();
-if (newCube != null) {
-  cleanDataCache(newCube.getUuid());
-}
-cubeService.updateOnNewSegmentReady(cacheKey);
-break;
+      rebuildCubeCache(cacheKey);
+    break;
 case STREAMING:
-getStreamingManager().reloadStreamingConfigLocal(cacheKey);
+  getStreamingManager().reloadStreamingConfigLocal(cacheKey);
 break;
 case KAFKA:
 getKafkaManager().reloadKafkaConfigLocal(cacheKey);
@@ -22,10 +16,8 @@ case CUBE_DESC:
 getCubeDescManager().reloadCubeDescLocal(cacheKey);
 break;
 case PROJECT:
-ProjectInstance projectInstance=getProjectManager().reloadProjectLocal(cacheKey);
-if (projectInstance != null) {
-removeOLAPDataSource(projectInstance.getName());
-}
+getProjectManager().reloadProjectLocal(cacheKey);
+removeOLAPDataSource(cacheKey);
 break;
 case INVERTED_INDEX:
 getIIManager().reloadIILocal(cacheKey);

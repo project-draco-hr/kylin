@@ -7,5 +7,6 @@
   getStore().deleteResource(cube.getResourcePath());
   cubeMap.remove(cube.getName());
   ProjectManager.getInstance(config).removeRealizationsFromProjects(RealizationType.CUBE,cubeName);
+  if (listener != null)   listener.afterCubeDelete(cube);
   return cube;
 }

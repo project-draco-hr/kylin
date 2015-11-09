@@ -34,7 +34,9 @@
   }
 ;
   serviceA.setCubeService(cubeServiceA);
+  serviceA.initCubeChangeListener();
   serviceB.setCubeService(cubeServiceB);
+  serviceB.initCubeChangeListener();
   context.addServlet(new ServletHolder(new BroadcasterReceiveServlet(new BroadcasterReceiveServlet.BroadcasterHandler(){
     @Override public void handle(    String type,    String name,    String event){
       Broadcaster.TYPE wipeType=Broadcaster.TYPE.getType(type);

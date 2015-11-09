@@ -1,0 +1,9 @@
+{
+  if (cube == null) {
+    cube=getCubeManager().getCube(cubeName);
+  }
+  getCubeManager().removeCubeLocal(cubeName);
+  if (cube != null) {
+    cleanDataCache(cube.getUuid());
+  }
+}

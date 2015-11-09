@@ -1,3 +1,5 @@
 {
-  return updateCube(update,0);
+  CubeInstance cube=updateCubeWithRetry(update,0);
+  if (listener != null)   listener.afterCubeUpdate(cube);
+  return cube;
 }

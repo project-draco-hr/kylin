@@ -50,7 +50,7 @@
     cube=reloadCubeLocal(cube.getName());
     update.setCubeInstance(cube);
     retry++;
-    cube=updateCube(update,retry);
+    cube=updateCubeWithRetry(update,retry);
   }
   if (toRemoveResources.size() > 0) {
     for (    String resource : toRemoveResources) {

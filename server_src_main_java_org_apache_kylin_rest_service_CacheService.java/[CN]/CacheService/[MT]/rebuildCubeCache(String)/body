@@ -1,0 +1,9 @@
+{
+  CubeInstance cube=getCubeManager().reloadCubeLocal(cubeName);
+  getHybridManager().reloadHybridInstanceByChild(RealizationType.CUBE,cubeName);
+  getProjectManager().clearL2Cache();
+  if (cube != null) {
+    cleanDataCache(cube.getUuid());
+  }
+  cubeService.updateOnNewSegmentReady(cubeName);
+}
