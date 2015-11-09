@@ -1,4 +1,0 @@
-{
-  super(syncType);
-  this.innerCache=innerCache;
-}

@@ -1,5 +1,8 @@
 {
   this.config=config;
+  this.srcTableMap=new CaseInsensitiveStringCache<TableDesc>(config,Broadcaster.TYPE.TABLE);
+  this.srcTableExdMap=new CaseInsensitiveStringCache<Map<String,String>>(config,Broadcaster.TYPE.TABLE);
+  this.dataModelDescMap=new CaseInsensitiveStringCache<DataModelDesc>(config,Broadcaster.TYPE.DATA_MODEL);
   reloadAllSourceTable();
   reloadAllSourceTableExd();
   reloadAllDataModel();

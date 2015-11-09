@@ -1,0 +1,18 @@
+{
+  Broadcaster r=CACHE.get(config);
+  if (r != null) {
+    return r;
+  }
+synchronized (Broadcaster.class) {
+    r=CACHE.get(config);
+    if (r != null) {
+      return r;
+    }
+    r=new Broadcaster(config);
+    CACHE.put(config,r);
+    if (CACHE.size() > 1) {
+      logger.warn("More than one cubemanager singleton exist");
+    }
+    return r;
+  }
+}

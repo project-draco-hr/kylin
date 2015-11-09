@@ -1,2 +1,0 @@
-Broadcaster.TYPE syncType
-ConcurrentMap<K,V> innerCache

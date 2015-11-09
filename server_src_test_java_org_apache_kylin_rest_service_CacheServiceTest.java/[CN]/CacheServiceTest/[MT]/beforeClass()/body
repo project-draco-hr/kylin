@@ -1,7 +1,9 @@
 {
   staticCreateTestMetadata();
   configA=KylinConfig.getInstanceFromEnv();
+  configA.setProperty("kylin.rest.servers","localhost:7070");
   configB=KylinConfig.getKylinConfigFromInputStream(KylinConfig.getKylinPropertiesAsInputSteam());
+  configB.setProperty("kylin.rest.servers","localhost:7070");
   configB.setMetadataUrl("../examples/test_metadata");
   server=new Server(7070);
   ServletContextHandler context=new ServletContextHandler(ServletContextHandler.SESSIONS);

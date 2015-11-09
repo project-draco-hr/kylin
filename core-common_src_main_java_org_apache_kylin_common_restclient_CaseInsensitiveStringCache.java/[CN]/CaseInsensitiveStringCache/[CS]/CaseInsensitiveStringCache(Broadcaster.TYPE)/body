@@ -1,3 +1,0 @@
-{
-  super(syncType,new ConcurrentSkipListMap<String,V>(String.CASE_INSENSITIVE_ORDER));
-}

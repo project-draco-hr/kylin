@@ -1,7 +1,7 @@
 {
   final MetadataManager metadataManager=MetadataManager.getInstance(configA);
   final MetadataManager metadataManagerB=MetadataManager.getInstance(configB);
-  final Broadcaster broadcaster=Broadcaster.getInstance();
+  final Broadcaster broadcaster=Broadcaster.getInstance(configA);
   broadcaster.getCounterAndClear();
   TableDesc tableDesc=createTestTableDesc();
   assertTrue(metadataManager.getTableDesc(tableDesc.getIdentity()) == null);

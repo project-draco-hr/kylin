@@ -2,6 +2,6 @@
   boolean exists=innerCache.containsKey(key);
   innerCache.remove(key);
   if (exists) {
-    cacheUpdater.updateCache(key,null,Broadcaster.EVENT.DROP,syncType,this);
+    getBroadcaster().queue(syncType.getType(),Broadcaster.EVENT.DROP.getType(),key.toString());
   }
 }

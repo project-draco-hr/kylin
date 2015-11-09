@@ -1,0 +1,3 @@
+{
+  this(config,syncType,new ConcurrentHashMap<K,V>());
+}

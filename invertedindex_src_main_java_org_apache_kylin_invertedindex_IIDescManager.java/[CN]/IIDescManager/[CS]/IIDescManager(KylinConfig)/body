@@ -1,5 +1,6 @@
 {
   logger.info("Initializing IIDescManager with config " + config);
   this.config=config;
+  this.iiDescMap=new CaseInsensitiveStringCache<IIDesc>(config,Broadcaster.TYPE.INVERTED_INDEX_DESC);
   reloadAllIIDesc();
 }

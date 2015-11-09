@@ -1,4 +1,5 @@
 {
   this.config=config;
+  this.streamingMap=new CaseInsensitiveStringCache<StreamingConfig>(config,Broadcaster.TYPE.STREAMING);
   reloadAllStreaming();
 }

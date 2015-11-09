@@ -1,5 +1,6 @@
 {
   logger.info("Initializing CubeDescManager with config " + config);
   this.config=config;
+  this.cubeDescMap=new CaseInsensitiveStringCache<CubeDesc>(config,Broadcaster.TYPE.CUBE_DESC);
   reloadAllCubeDesc();
 }

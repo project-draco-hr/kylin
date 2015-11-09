@@ -1,4 +1,5 @@
 {
   this.config=config;
+  this.kafkaMap=new CaseInsensitiveStringCache<KafkaConfig>(config,Broadcaster.TYPE.KAFKA);
   reloadAllKafkaConfig();
 }

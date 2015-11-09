@@ -1,4 +1,5 @@
 {
+  if (broadcastEvents == null)   return;
   try {
     counter.incrementAndGet();
     broadcastEvents.putFirst(new BroadcastEvent(type,action,key));
