@@ -4,7 +4,11 @@
     method.setAccessible(true);
     return (List<String>)method.invoke(BuildCubeWithEngineTest.this);
   }
-  finally {
+ catch (  Exception e) {
+    logger.error(e.getMessage());
+    throw e;
+  }
+ finally {
     countDownLatch.countDown();
   }
 }
