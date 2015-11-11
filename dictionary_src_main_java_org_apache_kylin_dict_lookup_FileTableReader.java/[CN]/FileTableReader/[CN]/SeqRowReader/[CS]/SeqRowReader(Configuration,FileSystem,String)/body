@@ -1,4 +1,5 @@
 {
+  path=HadoopUtil.fixWindowsPath(path);
   reader=new Reader(hconf,SequenceFile.Reader.file(new Path(path)));
   key=(Writable)ReflectionUtils.newInstance(reader.getKeyClass(),hconf);
   value=new Text();
