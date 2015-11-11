@@ -46,5 +46,13 @@
   newKeyBuf.set(0,fullKeySize);
   rowkeyEncoder.encode(new ByteArray(newKeyBodyBuf,0,bufOffset),newKeyBuf);
   outputKey.set(newKeyBuf.array(),0,fullKeySize);
+  if (cubeDesc.hasMeasureUsingDictionary()) {
+    codec.decode(ByteBuffer.wrap(value.getBytes(),0,value.getLength()),measureObjs);
+    reEncodeMeasure(measureObjs);
+    valueBuf.clear();
+    codec.encode(measureObjs,valueBuf);
+    outputValue.set(valueBuf.array(),0,valueBuf.position());
+    value=outputValue;
+  }
   context.write(outputKey,value);
 }

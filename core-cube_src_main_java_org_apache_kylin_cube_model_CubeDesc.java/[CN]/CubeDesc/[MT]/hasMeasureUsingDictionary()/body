@@ -1,0 +1,6 @@
+{
+  for (  MeasureDesc measureDesc : this.getMeasures()) {
+    if (measureDesc.getFunction().isTopN())     return true;
+  }
+  return false;
+}
