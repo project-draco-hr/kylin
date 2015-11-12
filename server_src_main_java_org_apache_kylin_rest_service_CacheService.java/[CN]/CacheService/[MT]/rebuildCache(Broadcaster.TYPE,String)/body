@@ -16,8 +16,7 @@ case CUBE_DESC:
 getCubeDescManager().reloadCubeDescLocal(cacheKey);
 break;
 case PROJECT:
-getProjectManager().reloadProjectLocal(cacheKey);
-removeOLAPDataSource(cacheKey);
+reloadProjectCache(cacheKey);
 break;
 case INVERTED_INDEX:
 getIIManager().reloadIILocal(cacheKey);

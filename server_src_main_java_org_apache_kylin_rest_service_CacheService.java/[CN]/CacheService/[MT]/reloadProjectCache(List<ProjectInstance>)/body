@@ -1,0 +1,5 @@
+{
+  for (  ProjectInstance prj : projects) {
+    reloadProjectCache(prj.getName());
+  }
+}

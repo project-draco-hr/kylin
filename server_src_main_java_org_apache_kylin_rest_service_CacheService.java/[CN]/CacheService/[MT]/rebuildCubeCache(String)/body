@@ -1,7 +1,7 @@
 {
   CubeInstance cube=getCubeManager().reloadCubeLocal(cubeName);
   getHybridManager().reloadHybridInstanceByChild(RealizationType.CUBE,cubeName);
-  getProjectManager().clearL2Cache();
+  reloadProjectCache(getProjectManager().findProjects(RealizationType.CUBE,cubeName));
   if (cube != null) {
     cleanDataCache(cube.getUuid());
   }
