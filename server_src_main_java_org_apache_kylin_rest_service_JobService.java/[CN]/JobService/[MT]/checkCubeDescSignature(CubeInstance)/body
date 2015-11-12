@@ -1,0 +1,3 @@
+{
+  if (!cube.getDescriptor().checkSignature())   throw new IllegalStateException("Inconsistent cube desc signature for " + cube.getDescriptor());
+}

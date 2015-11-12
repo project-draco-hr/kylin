@@ -4,7 +4,7 @@
     throw new JobException("Cube schema shouldn't be changed with running job.");
   }
   try {
-    if (!cube.getDescriptor().calculateSignature().equals(cube.getDescriptor().getSignature())) {
+    if (!cube.getDescriptor().checkSignature()) {
       logger.info("Releasing all segments due to cube desc conflict");
       this.releaseAllSegments(cube);
     }

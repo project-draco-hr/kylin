@@ -1,4 +1,5 @@
 {
+  checkCubeDescSignature(cube);
   checkNoRunningJob(cube);
   DefaultChainedExecutable job;
   if (buildType == CubeBuildTypeEnum.BUILD) {
