@@ -1,4 +1,6 @@
 {
+  boolean queryCacheGloballyEnabled=KylinConfig.getInstanceFromEnv().isQueryCacheEnabled();
+  boolean queryCacheQueryLevelEnabled=!BackdoorToggles.getDisableCache();
   if (realization.getType() == RealizationType.INVERTED_INDEX) {
     ICachableStorageQuery ret;
     try {
@@ -7,7 +9,7 @@
  catch (    Exception e) {
       throw new RuntimeException("Failed to initialize storage query for " + defaultIIStorageQuery,e);
     }
-    if (allowStorageLayerCache) {
+    if (queryCacheGloballyEnabled && queryCacheQueryLevelEnabled) {
       return wrapWithCache(ret,realization);
     }
  else {
@@ -29,7 +31,7 @@
  catch (    Exception e) {
       throw new RuntimeException("Failed to initialize storage query for " + cubeStorageQuery,e);
     }
-    if (allowStorageLayerCache) {
+    if (queryCacheGloballyEnabled && queryCacheQueryLevelEnabled) {
       return wrapWithCache(ret,realization);
     }
  else {

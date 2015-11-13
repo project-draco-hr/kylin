@@ -1,0 +1,9 @@
+{
+  long storageQueryTime=System.currentTimeMillis() - createTime;
+  long durationThreshold=KylinConfig.getInstanceFromEnv().getQueryDurationCacheThreshold();
+  if (storageQueryTime < durationThreshold) {
+    logger.info("Skip saving storage caching for storage cache because storage query time {} less than {}",storageQueryTime,durationThreshold);
+    return false;
+  }
+  return true;
+}

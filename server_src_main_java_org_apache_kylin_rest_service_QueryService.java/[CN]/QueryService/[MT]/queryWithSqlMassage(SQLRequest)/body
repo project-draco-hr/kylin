@@ -9,11 +9,5 @@
   Map<String,String> parameters=new HashMap<String,String>();
   parameters.put(OLAPContext.PRM_ACCEPT_PARTIAL_RESULT,String.valueOf(sqlRequest.isAcceptPartial()));
   OLAPContext.setParameters(parameters);
-  try {
-    BackdoorToggles.setToggles(sqlRequest.getBackdoorToggles());
-    return execute(correctedSql,sqlRequest);
-  }
-  finally {
-    BackdoorToggles.cleanToggles();
-  }
+  return execute(correctedSql,sqlRequest);
 }

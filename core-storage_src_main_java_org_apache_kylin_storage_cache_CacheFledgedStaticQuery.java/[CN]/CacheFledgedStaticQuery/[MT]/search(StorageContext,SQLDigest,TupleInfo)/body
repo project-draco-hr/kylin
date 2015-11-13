@@ -1,32 +1,15 @@
 {
-  streamSQLDigest=new StreamSQLDigest(sqlDigest,null);
-  StreamSQLResult cachedResult=null;
-  Cache cache=CACHE_MANAGER.getCache(this.underlyingStorage.getStorageUUID());
-  Element element=cache.get(streamSQLDigest.hashCode());
-  if (element != null) {
-    this.queryCacheExists=true;
-    cachedResult=(StreamSQLResult)element.getObjectValue();
-  }
+  StreamSQLResult cachedResult=getStreamSQLResult(new StreamSQLDigest(sqlDigest,null));
   ITupleIterator ret=null;
   if (cachedResult != null) {
-    ret=new SimpleTupleIterator(cachedResult.reuse(Ranges.<Long>all()));
+    logger.info("using existing cache");
+    return new SimpleTupleIterator(cachedResult.reuse(Ranges.<Long>all()));
   }
  else {
-    logger.info("no cache entry for this query");
-  }
-  if (ret == null) {
-    logger.info("decision: not using cache");
+    logger.info("no existing cache to use");
     ret=underlyingStorage.search(context,sqlDigest,returnTupleInfo);
-  }
- else {
-    logger.info("decision: use cache");
-  }
-  if (!queryCacheExists) {
     final TeeTupleIterator tee=new TeeTupleIterator(ret);
     tee.addCloseListener(this);
     return tee;
-  }
- else {
-    return ret;
   }
 }

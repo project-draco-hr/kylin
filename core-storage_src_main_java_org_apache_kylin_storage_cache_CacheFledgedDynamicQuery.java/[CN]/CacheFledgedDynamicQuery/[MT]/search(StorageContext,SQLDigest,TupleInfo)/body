@@ -4,60 +4,27 @@
     logger.info("ts range in the query conflicts,return empty directly");
     return ITupleIterator.EMPTY_TUPLE_ITERATOR;
   }
-  boolean needUpdateCache=sqlDigest.groupbyColumns.contains(partitionColRef);
-  streamSQLDigest=new StreamSQLDigest(sqlDigest,partitionColRef);
-  StreamSQLResult cachedResult=null;
-  Cache cache=CACHE_MANAGER.getCache(this.underlyingStorage.getStorageUUID());
-  Element element=cache.get(streamSQLDigest.hashCode());
-  if (element != null) {
-    this.queryCacheExists=true;
-    cachedResult=(StreamSQLResult)element.getObjectValue();
-  }
   ITupleIterator ret=null;
-  if (cachedResult != null) {
-    Range<Long> reusePeriod=cachedResult.getReusableResults(ts);
-    logger.info("existing cache    : " + cachedResult);
-    logger.info("ts Range in query: " + RangeUtil.formatTsRange(ts));
-    logger.info("potential reusable range   : " + RangeUtil.formatTsRange(reusePeriod));
-    if (reusePeriod != null) {
-      List<Range<Long>> remainings=RangeUtil.remove(ts,reusePeriod);
-      if (remainings.size() == 1) {
-        SimpleTupleIterator reusedTuples=new SimpleTupleIterator(cachedResult.reuse(reusePeriod));
-        List<ITupleIterator> iTupleIteratorList=Lists.newArrayList();
-        iTupleIteratorList.add(reusedTuples);
-        for (        Range<Long> remaining : remainings) {
-          logger.info("Appending ts " + RangeUtil.formatTsRange(remaining) + " as additional filter");
-          ITupleIterator freshTuples=SQLDigestUtil.appendTsFilterToExecute(sqlDigest,partitionColRef,remaining,new Function<Void,ITupleIterator>(){
-            @Override public ITupleIterator apply(            Void input){
-              return underlyingStorage.search(context,sqlDigest,returnTupleInfo);
-            }
-          }
-);
-          iTupleIteratorList.add(freshTuples);
-        }
-        ret=new CompoundTupleIterator(iTupleIteratorList);
-      }
- else       if (remainings.size() == 0) {
-        logger.info("The ts range in new query was fully cached");
-        needUpdateCache=false;
-        ret=new SimpleTupleIterator(cachedResult.reuse(reusePeriod));
-      }
- else {
-        logger.info("Give up using cache to avoid complexity");
-      }
+  boolean enableDynamicCache=sqlDigest.groupbyColumns.contains(partitionColRef);
+  if (enableDynamicCache) {
+    StreamSQLResult cachedResult=getStreamSQLResult(new StreamSQLDigest(sqlDigest,partitionColRef));
+    if (cachedResult != null) {
+      ret=tryReuseCache(context,sqlDigest,returnTupleInfo,ret,cachedResult);
     }
-  }
  else {
-    logger.info("no cache entry for this query");
+      logger.info("no cache entry for this query");
+    }
   }
   if (ret == null) {
     ret=underlyingStorage.search(context,sqlDigest,returnTupleInfo);
+    noCacheUsed=true;
     logger.info("No Cache being used");
   }
  else {
+    noCacheUsed=false;
     logger.info("Cache being used");
   }
-  if (needUpdateCache) {
+  if (enableDynamicCache) {
     final TeeTupleIterator tee=new TeeTupleIterator(ret);
     tee.addCloseListener(this);
     return tee;

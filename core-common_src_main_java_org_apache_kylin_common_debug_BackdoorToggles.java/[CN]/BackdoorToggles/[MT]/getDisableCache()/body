@@ -1,0 +1,3 @@
+{
+  return getBoolean(DEBUG_TOGGLE_DISABLE_QUERY_CACHE);
+}

@@ -1,0 +1,5 @@
+StorageContext context
+SQLDigest sqlDigest
+TupleInfo returnTupleInfo
+ITupleIterator ret
+StreamSQLResult cachedResult

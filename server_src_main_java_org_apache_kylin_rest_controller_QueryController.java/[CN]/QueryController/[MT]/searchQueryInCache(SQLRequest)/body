@@ -1,7 +1,7 @@
 {
   SQLResponse response=null;
   Cache exceptionCache=cacheManager.getCache(EXCEPTION_QUERY_CACHE);
-  if (KylinConfig.getInstanceFromEnv().isQueryCacheEnabled() && null != exceptionCache.get(sqlRequest)) {
+  if (KylinConfig.getInstanceFromEnv().isQueryCacheEnabled() && !BackdoorToggles.getDisableCache() && exceptionCache.get(sqlRequest) != null) {
     Element element=exceptionCache.get(sqlRequest);
     response=(SQLResponse)element.getObjectValue();
     response.setHitCache(true);

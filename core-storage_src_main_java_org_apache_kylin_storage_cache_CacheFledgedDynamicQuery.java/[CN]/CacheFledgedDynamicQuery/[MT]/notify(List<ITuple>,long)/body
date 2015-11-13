@@ -1,10 +1,13 @@
 {
+  if (noCacheUsed && !needSaveCache(createTime)) {
+    return;
+  }
   Range<Long> cacheExclude=this.underlyingStorage.getVolatilePeriod();
   if (cacheExclude != null) {
     List<Range<Long>> cachablePeriods=RangeUtil.remove(ts,cacheExclude);
     if (cachablePeriods.size() == 1) {
       if (!ts.equals(cachablePeriods.get(0))) {
-        logger.info("With respect to growing storage, the cacheable tsRange shrinks from " + RangeUtil.formatTsRange(ts) + " to "+ RangeUtil.formatTsRange(cachablePeriods.get(0)));
+        logger.info("tsRange shrinks from " + RangeUtil.formatTsRange(ts) + " to "+ RangeUtil.formatTsRange(cachablePeriods.get(0)));
       }
       ts=cachablePeriods.get(0);
     }
