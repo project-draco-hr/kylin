@@ -18,10 +18,12 @@
       }
 );
       iTupleIteratorList.add(freshTuples);
+      context.setReusedPeriod(reusePeriod);
       return new CompoundTupleIterator(iTupleIteratorList);
     }
  else     if (remainings.size() == 0) {
       logger.info("The ts range in new query was fully cached");
+      context.setReusedPeriod(reusePeriod);
       return new SimpleTupleIterator(cachedResult.reuse(reusePeriod));
     }
  else {

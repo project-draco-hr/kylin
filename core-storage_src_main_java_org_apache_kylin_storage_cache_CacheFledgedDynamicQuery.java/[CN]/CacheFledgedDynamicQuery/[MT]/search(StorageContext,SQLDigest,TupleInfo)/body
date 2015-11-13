@@ -9,7 +9,7 @@
   if (enableDynamicCache) {
     StreamSQLResult cachedResult=getStreamSQLResult(new StreamSQLDigest(sqlDigest,partitionColRef));
     if (cachedResult != null) {
-      ret=tryReuseCache(context,sqlDigest,returnTupleInfo,ret,cachedResult);
+      ret=tryReuseCache(context,sqlDigest,returnTupleInfo,cachedResult);
     }
  else {
       logger.info("no cache entry for this query");
@@ -17,11 +17,9 @@
   }
   if (ret == null) {
     ret=underlyingStorage.search(context,sqlDigest,returnTupleInfo);
-    noCacheUsed=true;
     logger.info("No Cache being used");
   }
  else {
-    noCacheUsed=false;
     logger.info("Cache being used");
   }
   if (enableDynamicCache) {
