@@ -1,0 +1,29 @@
+{
+  if (!functionTupleFilter.isValid())   return null;
+  TblColRef columnRef=functionTupleFilter.getColumn();
+  Dictionary<String> dict=rowKeyColumnIO.getDictionary(columnRef);
+  if (dict == null)   return null;
+  CompareTupleFilter translated=new CompareTupleFilter(FilterOperatorEnum.IN);
+  translated.addChild(new ColumnTupleFilter(columnRef));
+  try {
+    for (int i=dict.getMinId(); i <= dict.getMaxId(); i++) {
+      String dictVal=dict.getValueFromId(i);
+      if ((Boolean)functionTupleFilter.invokeFunction(dictVal)) {
+        translated.addChild(new ConstantTupleFilter(dictVal));
+      }
+    }
+  }
+ catch (  IllegalAccessException e) {
+    logger.debug(e.getMessage());
+    return null;
+  }
+catch (  InvocationTargetException e) {
+    logger.debug(e.getMessage());
+    return null;
+  }
+catch (  IllegalArgumentException e) {
+    logger.debug(e.getMessage());
+    return null;
+  }
+  return translated;
+}

@@ -1,4 +1,5 @@
 {
+  if (filter == null)   return;
   if (filter instanceof ColumnTupleFilter) {
     collectColumns(((ColumnTupleFilter)filter).getColumn(),collector);
   }

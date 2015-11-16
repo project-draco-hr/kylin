@@ -1,0 +1,10 @@
+{
+  super(Lists.<TupleFilter>newArrayList(),FilterOperatorEnum.FUNCTION);
+  this.methodParams=Lists.newArrayList();
+  this.sqlOperator=sqlOperator;
+  String opName=sqlOperator.getName().toUpperCase();
+  if (BuiltInMethod.MAP.containsKey(opName)) {
+    this.method=BuiltInMethod.MAP.get(opName).method;
+    isValid=true;
+  }
+}

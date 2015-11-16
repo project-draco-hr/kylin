@@ -1,5 +1,7 @@
 {
   if (filter == null)   return null;
+  ITupleFilterTranslator translator=new CoprocessorTupleFilterTranslator(columnIO);
+  filter=translator.translate(filter);
   if (!filter.isEvaluable()) {
     TupleFilter.collectColumns(filter,unstrictlyFilteredColumns);
     return ConstantTupleFilter.TRUE;
