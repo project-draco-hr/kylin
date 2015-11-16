@@ -1,18 +1,51 @@
 {
-  TreeMultiset<Long> xx=TreeMultiset.create();
-  xx.add(2L);
-  xx.add(1L);
-  xx.add(1L);
-  for (  Long hi : xx) {
-    System.out.println(hi);
+  ExecutorService executorService=Executors.newCachedThreadPool();
+  List<Future<?>> futures=Lists.newArrayList();
+  futures.add(executorService.submit(new Runnable(){
+    @Override public void run(){
+      throw new RuntimeException("hi");
+    }
   }
-  System.out.println(Long.MAX_VALUE);
-  IdentityHashMap<String,Void> a=new IdentityHashMap<>();
-  IdentityHashMap<String,Void> b=new IdentityHashMap<>();
-  String s1=new String("s1");
-  String s2=new String("s1");
-  Assert.assertEquals(s1,s2);
-  Assert.assertTrue(s1 != s2);
-  a.put(s1,null);
-  b.put(s2,null);
+));
+  futures.add(executorService.submit(new Runnable(){
+    @Override public void run(){
+      try {
+        Thread.sleep(2000);
+        System.out.println("finish 1");
+      }
+ catch (      InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+));
+  try {
+    for (    Future<?> future : futures) {
+      future.get(1,TimeUnit.HOURS);
+    }
+  }
+ catch (  InterruptedException|ExecutionException|TimeoutException e) {
+    System.out.println(e.getMessage());
+  }
+  futures.clear();
+  futures.add(executorService.submit(new Runnable(){
+    @Override public void run(){
+      try {
+        Thread.sleep(3000);
+        System.out.println("finish 2");
+      }
+ catch (      InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+));
+  try {
+    for (    Future<?> future : futures) {
+      future.get(1,TimeUnit.HOURS);
+    }
+  }
+ catch (  InterruptedException|ExecutionException|TimeoutException e) {
+    System.out.println(e.getMessage());
+  }
 }
