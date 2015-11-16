@@ -1,5 +1,6 @@
 {
-  StreamSQLResult cachedResult=getStreamSQLResult(new StreamSQLDigest(sqlDigest,null));
+  streamSQLDigest=new StreamSQLDigest(sqlDigest,null);
+  StreamSQLResult cachedResult=getStreamSQLResult(streamSQLDigest);
   ITupleIterator ret;
   if (cachedResult != null) {
     logger.info("using existing cache");

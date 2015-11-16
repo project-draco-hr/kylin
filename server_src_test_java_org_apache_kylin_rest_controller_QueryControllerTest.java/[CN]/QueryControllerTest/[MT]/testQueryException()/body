@@ -2,5 +2,8 @@
   SQLRequest sqlRequest=new SQLRequest();
   sqlRequest.setSql("select * from not_exist_table");
   sqlRequest.setProject("default");
-  queryController.query(sqlRequest);
+  SQLResponse response1=queryController.query(sqlRequest);
+  Assert.assertEquals(false,response1.getIsException());
+  SQLResponse response2=queryController.query(sqlRequest);
+  Assert.assertEquals(false,response2.getIsException());
 }
