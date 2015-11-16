@@ -4,16 +4,9 @@
     initCacheManger();
   }
   if (CACHE_MANAGER.getCache(storageUUID) == null) {
-    logger.info("Cache for {} initting...",storageUUID);
+    logger.info("Cache for {} initializing...",storageUUID);
     CacheConfiguration templateConf=CACHE_MANAGER.getCache(storageCacheTemplate).getCacheConfiguration();
-    PersistenceConfiguration pconf=templateConf.getPersistenceConfiguration();
-    if (pconf != null) {
-      logger.info("PersistenceConfiguration strategy: " + pconf.getStrategy());
-    }
- else {
-      logger.warn("PersistenceConfiguration is null");
-    }
-    Cache storageCache=new Cache(new CacheConfiguration(storageUUID,(int)templateConf.getMaxEntriesLocalHeap()).memoryStoreEvictionPolicy(templateConf.getMemoryStoreEvictionPolicy()).eternal(templateConf.isEternal()).timeToIdleSeconds(templateConf.getTimeToIdleSeconds()).maxBytesLocalHeap(templateConf.getMaxBytesLocalHeap(),MemoryUnit.BYTES).persistence(pconf));
+    Cache storageCache=new Cache(new CacheConfiguration(storageUUID,0).memoryStoreEvictionPolicy(templateConf.getMemoryStoreEvictionPolicy()).eternal(templateConf.isEternal()).timeToIdleSeconds(templateConf.getTimeToIdleSeconds()).persistence(templateConf.getPersistenceConfiguration()));
     CACHE_MANAGER.addCache(storageCache);
   }
 }

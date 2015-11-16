@@ -1,0 +1,18 @@
+{
+  int oneM=1 << 20;
+  cacheManager.getCache("1").put(new Element("xx",new byte[oneM]));
+  Element xx=cacheManager.getCache("1").get("xx");
+  Assert.assertEquals(oneM,((byte[])xx.getObjectValue()).length);
+  cacheManager.getCache("2").put(new Element("yy",new byte[3 * oneM]));
+  Element yy=cacheManager.getCache("2").get("yy");
+  Assert.assertEquals(3 * oneM,((byte[])yy.getObjectValue()).length);
+  cacheManager.getCache("3").put(new Element("zz",new byte[10 * oneM]));
+  Element zz=cacheManager.getCache("3").get("zz");
+  Assert.assertEquals(null,zz);
+  cacheManager.getCache("4").put(new Element("aa",new byte[oneM]));
+  Element aa=cacheManager.getCache("4").get("aa");
+  Assert.assertEquals(oneM,((byte[])aa.getObjectValue()).length);
+  cacheManager.getCache("2").put(new Element("bb",new byte[3 * oneM]));
+  Element bb=cacheManager.getCache("2").get("bb");
+  Assert.assertEquals(3 * oneM,((byte[])bb.getObjectValue()).length);
+}
