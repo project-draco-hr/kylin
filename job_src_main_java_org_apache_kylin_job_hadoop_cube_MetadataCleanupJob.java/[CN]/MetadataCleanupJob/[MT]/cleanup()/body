@@ -15,9 +15,8 @@
         ArrayList<String> snapshotNames=getStore().listResources(snapshotTable);
         if (snapshotNames != null)         for (        String snapshot : snapshotNames) {
           if (!activeResourceList.contains(snapshot)) {
-            RawResource res=getStore().getResource(snapshot);
-            res.inputStream.close();
-            if (isOlderThanThreshold(res.timestamp))             toDeleteResource.add(snapshot);
+            long ts=getStore().getResourceTimestamp(snapshot);
+            if (isOlderThanThreshold(ts))             toDeleteResource.add(snapshot);
           }
         }
       }
@@ -30,9 +29,8 @@
       if (tableColNames != null)       for (      String tableCol : tableColNames) {
         ArrayList<String> dictionaries=getStore().listResources(tableCol);
         if (dictionaries != null)         for (        String dict : dictionaries)         if (!activeResourceList.contains(dict)) {
-          RawResource res=getStore().getResource(dict);
-          res.inputStream.close();
-          if (isOlderThanThreshold(res.timestamp))           toDeleteResource.add(dict);
+          long ts=getStore().getResourceTimestamp(dict);
+          if (isOlderThanThreshold(ts))           toDeleteResource.add(dict);
         }
       }
     }

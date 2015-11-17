@@ -1,0 +1,5 @@
+{
+  File f=file(resPath);
+  if (f.exists() && f.isFile())   return f.lastModified();
+ else   return 0;
+}

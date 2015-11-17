@@ -6,7 +6,7 @@
     Put put=buildPut(resPath,newTS,row,content,table);
     boolean ok=table.checkAndPut(row,B_FAMILY,B_COLUMN_TS,bOldTS,put);
     if (!ok) {
-      long real=getTimestamp(getByScan(resPath,false,true));
+      long real=getResourceTimestampImpl(resPath);
       throw new IllegalStateException("Overwriting conflict " + resPath + ", expect old TS "+ real+ ", but it is "+ oldTS);
     }
     table.flushCommits();
