@@ -2,14 +2,13 @@
   ArrayList<String> children=src.listResources(path);
   if (children == null) {
     if (matchExclude(path) == false) {
-      InputStream content=src.getResource(path);
-      long ts=src.getResourceTimestamp(path);
-      if (content != null) {
-        dst.putResource(path,content,ts);
-        content.close();
+      RawResource res=src.getResource(path);
+      if (res != null) {
+        dst.putResource(path,res.inputStream,res.timestamp);
+        res.inputStream.close();
       }
  else {
-        System.out.println("Null inputstream for " + path);
+        System.out.println("Resource not exist for " + path);
       }
     }
   }

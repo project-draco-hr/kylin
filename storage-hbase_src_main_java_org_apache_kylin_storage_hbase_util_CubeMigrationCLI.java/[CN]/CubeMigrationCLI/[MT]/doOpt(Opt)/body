@@ -15,10 +15,9 @@ case CHANGE_HTABLE_HOST:
 case COPY_FILE_IN_META:
 {
     String item=(String)opt.params[0];
-    InputStream inputStream=srcStore.getResource(item);
-    long ts=srcStore.getResourceTimestamp(item);
-    dstStore.putResource(item,inputStream,ts);
-    inputStream.close();
+    RawResource res=srcStore.getResource(item);
+    dstStore.putResource(item,res.inputStream,res.timestamp);
+    res.inputStream.close();
     logger.info("Item " + item + " is copied");
     break;
   }

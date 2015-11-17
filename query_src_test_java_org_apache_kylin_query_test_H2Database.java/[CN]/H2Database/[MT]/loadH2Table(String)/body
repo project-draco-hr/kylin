@@ -6,7 +6,7 @@
     tempFile=File.createTempFile("tmp_h2",".csv");
     FileOutputStream tempFileStream=new FileOutputStream(tempFile);
     String normalPath="/data/" + tableDesc.getIdentity() + ".csv";
-    InputStream csvStream=metaMgr.getStore().getResource(normalPath);
+    InputStream csvStream=metaMgr.getStore().getResource(normalPath).inputStream;
     org.apache.commons.io.IOUtils.copy(csvStream,tempFileStream);
     csvStream.close();
     tempFileStream.close();

@@ -1,15 +1,15 @@
 {
   resPath=norm(resPath);
-  InputStream in=getResourceImpl(resPath);
-  if (in == null)   return null;
-  DataInputStream din=new DataInputStream(in);
+  RawResource res=getResourceImpl(resPath);
+  if (res == null)   return null;
+  DataInputStream din=new DataInputStream(res.inputStream);
   try {
     T r=serializer.deserialize(din);
-    r.setLastModified(getResourceTimestamp(resPath));
+    r.setLastModified(res.timestamp);
     return r;
   }
   finally {
     IOUtils.closeQuietly(din);
-    IOUtils.closeQuietly(in);
+    IOUtils.closeQuietly(res.inputStream);
   }
 }

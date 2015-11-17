@@ -1,7 +1,7 @@
 {
   ResourceStore rs=ResourceStore.getStore(kylinConfig);
   String fileKey=cubeSegment.getStatisticsResourcePath();
-  InputStream is=rs.getResource(fileKey);
+  InputStream is=rs.getResource(fileKey).inputStream;
   File tempFile=null;
   FileOutputStream tempFileStream=null;
   try {

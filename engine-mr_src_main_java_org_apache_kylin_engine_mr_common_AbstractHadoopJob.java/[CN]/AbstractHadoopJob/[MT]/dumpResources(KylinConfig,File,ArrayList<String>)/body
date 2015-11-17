@@ -3,10 +3,9 @@
   KylinConfig localConfig=KylinConfig.createInstanceFromUri(metaDir.getAbsolutePath());
   ResourceStore to=ResourceStore.getStore(localConfig);
   for (  String path : dumpList) {
-    InputStream in=from.getResource(path);
-    if (in == null)     throw new IllegalStateException("No resource found at -- " + path);
-    long ts=from.getResourceTimestamp(path);
-    to.putResource(path,in,ts);
-    in.close();
+    RawResource res=from.getResource(path);
+    if (res == null)     throw new IllegalStateException("No resource found at -- " + path);
+    to.putResource(path,res.inputStream,res.timestamp);
+    res.inputStream.close();
   }
 }
