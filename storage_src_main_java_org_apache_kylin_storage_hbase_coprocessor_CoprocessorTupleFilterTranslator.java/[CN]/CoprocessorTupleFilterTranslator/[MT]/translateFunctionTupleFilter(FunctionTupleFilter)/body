@@ -13,15 +13,7 @@
       }
     }
   }
- catch (  IllegalAccessException e) {
-    logger.debug(e.getMessage());
-    return null;
-  }
-catch (  InvocationTargetException e) {
-    logger.debug(e.getMessage());
-    return null;
-  }
-catch (  IllegalArgumentException e) {
+ catch (  Exception e) {
     logger.debug(e.getMessage());
     return null;
   }

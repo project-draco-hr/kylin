@@ -1,6 +1,6 @@
 {
-  if (compTupleFilter.getFunctionTupleFilter() == null)   return null;
-  FunctionTupleFilter functionTupleFilter=compTupleFilter.getFunctionTupleFilter();
+  if (compTupleFilter.getFunction() == null)   return null;
+  FunctionTupleFilter functionTupleFilter=compTupleFilter.getFunction();
   if (!functionTupleFilter.isValid())   return null;
   TblColRef columnRef=functionTupleFilter.getColumn();
   Dictionary<String> dict=rowKeyColumnIO.getDictionary(columnRef);
@@ -11,10 +11,10 @@
     for (int i=dict.getMinId(); i <= dict.getMaxId(); i++) {
       String dictVal=dict.getValueFromId(i);
       Object computedVal=functionTupleFilter.invokeFunction(dictVal);
-      Class clazz=Primitives.wrap(computedVal.getClass());
+      Class<?> clazz=Primitives.wrap(computedVal.getClass());
       Object targetVal=compTupleFilter.getFirstValue();
       if (Primitives.isWrapperType(clazz))       targetVal=clazz.cast(clazz.getDeclaredMethod("valueOf",String.class).invoke(null,compTupleFilter.getFirstValue()));
-      int comp=((Comparable)computedVal).compareTo(targetVal);
+      int comp=((Comparable<Object>)computedVal).compareTo(targetVal);
       boolean compResult=false;
 switch (compTupleFilter.getOperator()) {
 case EQ:
@@ -49,19 +49,7 @@ translated.addChild(new ConstantTupleFilter(dictVal));
 }
 }
 }
- catch (IllegalAccessException e) {
-logger.debug(e.getMessage());
-return null;
-}
-catch (InvocationTargetException e) {
-logger.debug(e.getMessage());
-return null;
-}
-catch (IllegalArgumentException e) {
-logger.debug(e.getMessage());
-return null;
-}
-catch (NoSuchMethodException e) {
+ catch (Exception e) {
 logger.debug(e.getMessage());
 return null;
 }

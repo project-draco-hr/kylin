@@ -19,6 +19,6 @@
     this.dynamicVariables.put(dynamicFilter.getVariableName(),null);
   }
  else   if (child instanceof FunctionTupleFilter) {
-    this.functionTupleFilter=(FunctionTupleFilter)child;
+    this.function=(FunctionTupleFilter)child;
   }
 }
