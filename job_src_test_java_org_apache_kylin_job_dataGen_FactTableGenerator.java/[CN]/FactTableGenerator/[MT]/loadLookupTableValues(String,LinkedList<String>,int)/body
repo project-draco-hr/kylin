@@ -12,7 +12,7 @@
       zeroBasedInice.put(columnName,cDesc.getZeroBasedIndex());
     }
     String path="/data/" + lookupTableName + ".csv";
-    tableStream=store.getResource(path);
+    tableStream=store.getResource(path).inputStream;
     tableReader=new BufferedReader(new InputStreamReader(tableStream));
     tableReader.mark(0);
     int rowCount=0;
@@ -28,7 +28,7 @@
     tableStream.close();
     tableStream=null;
     tableReader=null;
-    tableStream=store.getResource(path);
+    tableStream=store.getResource(path).inputStream;
     tableReader=new BufferedReader(new InputStreamReader(tableStream));
     while ((curRow=tableReader.readLine()) != null) {
       if (rows.contains(curRowNum)) {

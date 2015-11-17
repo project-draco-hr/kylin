@@ -1,6 +1,6 @@
 {
   ResourceStore store=ResourceStore.getStore(config());
-  InputStream in=store.getResource("/data/" + factTableName + ".csv");
+  InputStream in=store.getResource("/data/" + factTableName + ".csv").inputStream;
   String factTablePathWithJoinType="/data/" + factTableName + ".csv."+ joinType.toLowerCase();
   store.deleteResource(factTablePathWithJoinType);
   store.putResource(factTablePathWithJoinType,in,System.currentTimeMillis());

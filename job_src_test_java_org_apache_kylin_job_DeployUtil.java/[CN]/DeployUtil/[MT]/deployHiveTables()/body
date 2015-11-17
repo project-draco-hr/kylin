@@ -6,7 +6,7 @@
     tablename=tablename.toUpperCase();
     File localBufferFile=new File(temp.getParent() + "/" + tablename+ ".csv");
     localBufferFile.createNewFile();
-    InputStream hbaseDataStream=metaMgr.getStore().getResource("/data/" + tablename + ".csv");
+    InputStream hbaseDataStream=metaMgr.getStore().getResource("/data/" + tablename + ".csv").inputStream;
     FileOutputStream localFileStream=new FileOutputStream(localBufferFile);
     IOUtils.copy(hbaseDataStream,localFileStream);
     hbaseDataStream.close();

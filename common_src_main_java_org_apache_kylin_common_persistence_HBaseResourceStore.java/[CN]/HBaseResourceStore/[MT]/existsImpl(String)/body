@@ -1,4 +1,4 @@
 {
-  Result r=getByScan(resPath,null,null);
+  Result r=getByScan(resPath,false,false);
   return r != null;
 }

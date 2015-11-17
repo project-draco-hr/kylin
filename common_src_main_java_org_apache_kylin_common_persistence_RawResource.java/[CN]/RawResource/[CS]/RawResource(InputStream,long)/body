@@ -1,4 +1,4 @@
 {
-  this.resource=resource;
+  this.inputStream=inputStream;
   this.timestamp=timestamp;
 }

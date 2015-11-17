@@ -2,11 +2,12 @@
   byte[] startRow=Bytes.toBytes(path);
   byte[] endRow=plusZero(startRow);
   Scan scan=new Scan(startRow,endRow);
-  if (family == null || column == null) {
+  if (!fetchContent && !fetchTimestamp) {
     scan.setFilter(new KeyOnlyFilter());
   }
  else {
-    scan.addColumn(family,column);
+    if (fetchContent)     scan.addColumn(B_FAMILY,B_COLUMN);
+    if (fetchTimestamp)     scan.addColumn(B_FAMILY,B_COLUMN_TS);
   }
   HTableInterface table=getConnection().getTable(getAllInOneTableName());
   try {

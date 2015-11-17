@@ -14,7 +14,7 @@
   }
  catch (  IOException e) {
     for (    RawResource rawResource : result) {
-      IOUtils.closeQuietly(rawResource.resource);
+      IOUtils.closeQuietly(rawResource.inputStream);
     }
     throw e;
   }

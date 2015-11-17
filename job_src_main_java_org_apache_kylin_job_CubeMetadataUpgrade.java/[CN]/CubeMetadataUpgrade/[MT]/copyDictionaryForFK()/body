@@ -24,7 +24,7 @@
           if (pkToFK.containsKey(key) && !newSeg.getDictionaries().containsKey(pkToFK.get(key))) {
             logger.debug("Duplicate dictionary for FK " + pkToFK.get(key) + " in cube "+ newInstance.getName());
             changedCubes.add(newInstance.getName());
-            newDictionaries.add(new Pair(pkToFK.get(key),e.getValue()));
+            newDictionaries.add(new Pair<String,String>(pkToFK.get(key),e.getValue()));
           }
         }
         for (        Pair<String,String> dict : newDictionaries) {
