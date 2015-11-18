@@ -35,8 +35,22 @@
       }
     }
   }
+  ExecutableDao executableDao=ExecutableDao.getInstance(KylinConfig.getInstanceFromEnv());
+  List<ExecutablePO> allExecutable=executableDao.getJobs();
+  for (  ExecutablePO executable : allExecutable) {
+    long lastModified=executable.getLastModified();
+    ExecutableOutputPO output=executableDao.getJobOutput(executable.getUuid());
+    if (System.currentTimeMillis() - lastModified > TIME_THREADSHOLD_FOR_JOB && (output.getStatus().equals(JobStatusEnum.FINISHED.toString()) || output.getStatus().equals(JobStatusEnum.DISCARDED.toString()))) {
+      toDeleteResource.add(ResourceStore.EXECUTE_PATH_ROOT + "/" + executable.getUuid());
+      toDeleteResource.add(ResourceStore.EXECUTE_OUTPUT_ROOT + "/" + executable.getUuid());
+      for (      ExecutablePO task : executable.getTasks()) {
+        toDeleteResource.add(ResourceStore.EXECUTE_PATH_ROOT + "/" + task.getUuid());
+        toDeleteResource.add(ResourceStore.EXECUTE_OUTPUT_ROOT + "/" + task.getUuid());
+      }
+    }
+  }
   if (toDeleteResource.size() > 0) {
-    logger.info("The following resources have no reference, will be cleaned from metadata store: \n");
+    logger.info("The following resources have no reference or is too old, will be cleaned from metadata store: \n");
     for (    String s : toDeleteResource) {
       logger.info(s);
       if (delete == true) {
