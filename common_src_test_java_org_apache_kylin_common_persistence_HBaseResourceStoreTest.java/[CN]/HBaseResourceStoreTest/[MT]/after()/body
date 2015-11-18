@@ -1,3 +1,5 @@
 {
   this.cleanupTestMetadata();
+  HadoopUtil.setCurrentConfiguration(null);
+  HadoopUtil.setCurrentHBaseConfiguration(null);
 }
