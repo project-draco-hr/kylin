@@ -2,4 +2,6 @@
   cleanupCache();
   System.clearProperty(KylinConfig.KYLIN_CONF);
   KylinConfig.destoryInstance();
+  HadoopUtil.setCurrentConfiguration(null);
+  HadoopUtil.setCurrentHBaseConfiguration(null);
 }

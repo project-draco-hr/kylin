@@ -1,4 +1,6 @@
 {
-  KylinConfig.getInstanceFromEnv().setMetadataUrl(TEST_METADATA_TABLE + "@" + hbaseconnectionUrl);
-  KylinConfig.getInstanceFromEnv().setStorageUrl(hbaseconnectionUrl);
+  Configuration hbaseConfiguration=HadoopUtil.getCurrentHBaseConfiguration();
+  hbaseConfiguration.set(HConstants.ZOOKEEPER_QUORUM,zkHost);
+  hbaseConfiguration.set(HConstants.ZOOKEEPER_CLIENT_PORT,zkPort);
+  hbaseConfiguration.set(HConstants.ZOOKEEPER_ZNODE_PARENT,zkParent);
 }
