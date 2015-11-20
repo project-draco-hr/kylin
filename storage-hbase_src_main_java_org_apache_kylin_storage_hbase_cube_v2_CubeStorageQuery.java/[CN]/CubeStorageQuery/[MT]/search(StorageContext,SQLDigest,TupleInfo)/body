@@ -1,8 +1,6 @@
 {
-  checkAndRewriteTopN(context,sqlDigest,returnTupleInfo);
+  checkAndRewriteTopN(sqlDigest);
   Collection<TblColRef> groups=sqlDigest.groupbyColumns;
-  TblColRef topNCol=extractTopNCol(groups);
-  if (topNCol != null)   groups.remove(topNCol);
   TupleFilter filter=sqlDigest.filter;
   Set<TblColRef> dimensions=new LinkedHashSet<TblColRef>();
   Set<FunctionDesc> metrics=new LinkedHashSet<FunctionDesc>();
@@ -41,6 +39,5 @@
     scanners.add(scanner);
   }
   if (scanners.isEmpty())   return ITupleIterator.EMPTY_TUPLE_ITERATOR;
-  if (topNCol != null)   return new SequentialCubeTopNTupleIterator(scanners,cuboid,dimensionsD,topNCol,metrics,returnTupleInfo,context);
-  return new SequentialCubeTupleIterator(scanners,cuboid,dimensionsD,metrics,returnTupleInfo,context);
+  return newSequentialCubeTupleIterator(scanners,cuboid,dimensionsD,metrics,returnTupleInfo,context);
 }

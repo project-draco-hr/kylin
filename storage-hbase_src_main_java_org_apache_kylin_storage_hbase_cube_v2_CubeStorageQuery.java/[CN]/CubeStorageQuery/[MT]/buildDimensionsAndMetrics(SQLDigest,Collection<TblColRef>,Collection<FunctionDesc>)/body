@@ -8,9 +8,6 @@
     if (sqlDigest.metricColumns.contains(column)) {
       continue;
     }
-    if (topNColumns.contains(column)) {
-      continue;
-    }
     dimensions.add(column);
   }
 }

@@ -8,29 +8,10 @@
     if (m.getDependentMeasureRef() != null) {
       m.setDependentMeasureRef(m.getDependentMeasureRef().toUpperCase());
     }
-    FunctionDesc f=m.getFunction();
-    f.setExpression(f.getExpression().toUpperCase());
-    f.initReturnDataType();
-    ParameterDesc p=f.getParameter();
-    p.normalizeColumnValue();
-    ArrayList<TblColRef> colRefs=Lists.newArrayList();
-    if (p.isColumnType()) {
-      for (      String cName : p.getValue().split("\\s*,\\s*")) {
-        ColumnDesc sourceColumn=factTable.findColumnByName(cName);
-        TblColRef colRef=new TblColRef(sourceColumn);
-        colRefs.add(colRef);
-        allColumns.add(colRef);
-      }
-    }
-    if (StringUtils.isNotEmpty(p.getDisplayColumn())) {
-      ColumnDesc sourceColumn=factTable.findColumnByName(p.getDisplayColumn());
-      TblColRef colRef=new TblColRef(sourceColumn);
-      colRefs.add(colRef);
-      measureDisplayColumns.add(colRef);
-      allColumns.add(colRef);
-    }
-    if (colRefs.isEmpty() == false)     p.setColRefs(colRefs);
-    if (m.getFunction().isHolisticCountDistinct() && StringUtils.isBlank(m.getDependentMeasureRef())) {
+    FunctionDesc func=m.getFunction();
+    func.init(factTable);
+    allColumns.addAll(func.getParameter().getColRefs());
+    if (func.isHolisticCountDistinct() && StringUtils.isBlank(m.getDependentMeasureRef())) {
       throw new IllegalStateException(m + " is a holistic count distinct but it has no DependentMeasureRef defined!");
     }
   }

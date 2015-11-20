@@ -1,6 +1,6 @@
 {
   int result=type != null ? type.hashCode() : 0;
   result=31 * result + (value != null ? value.hashCode() : 0);
-  result=31 * result + (displayColumn != null ? displayColumn.hashCode() : 0);
+  result=31 * result + (nextParameter != null ? nextParameter.hashCode() : 0);
   return result;
 }

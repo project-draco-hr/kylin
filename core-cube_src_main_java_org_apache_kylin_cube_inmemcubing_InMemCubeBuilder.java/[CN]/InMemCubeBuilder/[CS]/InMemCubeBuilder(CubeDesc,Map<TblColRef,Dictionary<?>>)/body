@@ -4,7 +4,6 @@
   this.baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
   this.totalCuboidCount=cuboidScheduler.getCuboidCount();
   this.intermediateTableDesc=new CubeJoinedFlatTableDesc(cubeDesc,null);
-  this.measureCodec=new MeasureCodec(cubeDesc.getMeasures());
   this.measureCount=cubeDesc.getMeasures().size();
   this.measureDescs=cubeDesc.getMeasures().toArray(new MeasureDesc[measureCount]);
   List<String> metricsAggrFuncsList=Lists.newArrayList();

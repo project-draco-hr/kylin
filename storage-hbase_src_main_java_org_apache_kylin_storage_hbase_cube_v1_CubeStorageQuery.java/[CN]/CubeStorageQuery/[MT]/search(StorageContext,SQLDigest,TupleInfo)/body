@@ -1,8 +1,6 @@
 {
-  checkAndRewriteTopN(context,sqlDigest,returnTupleInfo);
+  checkAndRewriteTopN(sqlDigest);
   Collection<TblColRef> groups=sqlDigest.groupbyColumns;
-  TblColRef topNCol=extractTopNCol(groups);
-  if (topNCol != null)   groups.remove(topNCol);
   TupleFilter filter=sqlDigest.filter;
   Collection<TblColRef> dimensions=new HashSet<TblColRef>();
   Collection<FunctionDesc> metrics=new HashSet<FunctionDesc>();
@@ -30,5 +28,5 @@
   setCoprocessor(groupsCopD,valueDecoders,context);
   setLimit(filter,context);
   HConnection conn=HBaseConnection.get(context.getConnUrl());
-  return new SerializedHBaseTupleIterator(conn,scans,cubeInstance,dimensionsD,filterD,groupsCopD,topNCol,valueDecoders,context,returnTupleInfo);
+  return new SerializedHBaseTupleIterator(conn,scans,cubeInstance,dimensionsD,filterD,groupsCopD,valueDecoders,context,returnTupleInfo);
 }

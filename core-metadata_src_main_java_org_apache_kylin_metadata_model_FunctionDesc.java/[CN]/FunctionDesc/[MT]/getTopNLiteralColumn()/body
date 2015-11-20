@@ -1,0 +1,4 @@
+{
+  if (isTopN() == false)   throw new IllegalStateException();
+  return parameter.getColRefs().get(1);
+}

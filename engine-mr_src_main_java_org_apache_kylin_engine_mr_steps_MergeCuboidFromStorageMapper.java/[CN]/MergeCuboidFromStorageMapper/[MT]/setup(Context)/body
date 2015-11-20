@@ -14,15 +14,12 @@
   logger.info("Source cube segment: " + sourceCubeSegment);
   rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
   rowKeyEncoderProvider=new RowKeyEncoderProvider(mergedCubeSegment);
-  measuresDescs=cubeDesc.getMeasures();
-  codec=new MeasureCodec(cubeDesc.getMeasures());
-  if (cubeDesc.hasMeasureUsingDictionary()) {
-    List<Integer> measuresUsingDict=Lists.newArrayList();
-    for (int i=0; i < measuresDescs.size(); i++) {
-      if (measuresDescs.get(i).getFunction().isTopN()) {
-        measuresUsingDict.add(i);
-      }
+  measureDescs=cubeDesc.getMeasures();
+  codec=new MeasureCodec(measureDescs);
+  topNMeasureIdx=Lists.newArrayList();
+  for (int i=0; i < measureDescs.size(); i++) {
+    if (measureDescs.get(i).getFunction().isTopN()) {
+      topNMeasureIdx.add(i);
     }
-    measureIdxUsingDict=measuresUsingDict.toArray(new Integer[measuresUsingDict.size()]);
   }
 }

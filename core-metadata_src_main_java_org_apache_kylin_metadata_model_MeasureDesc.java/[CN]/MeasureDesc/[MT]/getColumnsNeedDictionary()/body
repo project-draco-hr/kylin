@@ -1,0 +1,8 @@
+{
+  if (function.isTopN()) {
+    return Collections.singletonList(function.getTopNLiteralColumn());
+  }
+ else {
+    return Collections.emptyList();
+  }
+}

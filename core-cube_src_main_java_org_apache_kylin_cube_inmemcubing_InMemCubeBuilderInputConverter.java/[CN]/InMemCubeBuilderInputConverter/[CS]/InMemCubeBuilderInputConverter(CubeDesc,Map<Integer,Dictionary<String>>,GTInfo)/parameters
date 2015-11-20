@@ -1,3 +1,3 @@
 CubeDesc cubeDesc
-Map<Integer,Dictionary<String>> topNDisplayColDictMap
+Map<Integer,Dictionary<String>> topNLiteralColDictMap
 GTInfo gtInfo

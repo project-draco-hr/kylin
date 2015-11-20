@@ -1,9 +1,0 @@
-{
-  if (another == null) {
-    return false;
-  }
-  if (this.isTopN() && another.isSum()) {
-    if (this.getParameter().getColRefs().get(0).equals(another.getParameter().getColRefs().get(0)))     return true;
-  }
-  return false;
-}

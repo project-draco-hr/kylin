@@ -13,18 +13,15 @@
   sourceCubeSegment=findSourceSegment(fileSplit,cube);
   rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
   rowKeyEncoderProvider=new RowKeyEncoderProvider(mergedCubeSegment);
-  if (cubeDesc.hasMeasureUsingDictionary()) {
-    measuresDescs=cubeDesc.getMeasures();
-    codec=new MeasureCodec(measuresDescs);
-    measureObjs=new Object[measuresDescs.size()];
-    List<Integer> measuresUsingDict=Lists.newArrayList();
-    for (int i=0; i < measuresDescs.size(); i++) {
-      if (measuresDescs.get(i).getFunction().isTopN()) {
-        measuresUsingDict.add(i);
-      }
+  measureDescs=cubeDesc.getMeasures();
+  codec=new MeasureCodec(measureDescs);
+  measureObjs=new Object[measureDescs.size()];
+  valueBuf=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
+  outputValue=new Text();
+  topNMeasureIdx=Lists.newArrayList();
+  for (int i=0; i < measureDescs.size(); i++) {
+    if (measureDescs.get(i).getFunction().isTopN()) {
+      topNMeasureIdx.add(i);
     }
-    measureIdxUsingDict=measuresUsingDict.toArray(new Integer[measuresUsingDict.size()]);
-    valueBuf=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
-    outputValue=new Text();
   }
 }

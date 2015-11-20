@@ -1,5 +1,5 @@
 {
-  Boolean ret=dictsNeedMerging.get(col);
+  Boolean ret=dimensionsNeedDict.get(col);
   if (ret != null)   return ret;
  else {
     ret=cubeDesc.getRowkey().isUseDictionary(col);
@@ -7,7 +7,7 @@
       String dictTable=DictionaryManager.getInstance(config).decideSourceData(cubeDesc.getModel(),cubeDesc.getRowkey().getDictionary(col),col).getTable();
       ret=cubeDesc.getFactTable().equalsIgnoreCase(dictTable);
     }
-    dictsNeedMerging.put(col,ret);
+    dimensionsNeedDict.put(col,ret);
     return ret;
   }
 }

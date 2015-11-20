@@ -5,5 +5,5 @@
   this.measureCount=cubeDesc.getMeasures().size();
   this.measureDescs=cubeDesc.getMeasures().toArray(new MeasureDesc[measureCount]);
   this.measureCodec=new MeasureCodec(cubeDesc.getMeasures());
-  this.topNDisplayColDictMap=Preconditions.checkNotNull(topNDisplayColDictMap,"topNDisplayColDictMap cannot be null");
+  this.topNLiteralColDictMap=Preconditions.checkNotNull(topNLiteralColDictMap,"topNLiteralColDictMap cannot be null");
 }

@@ -6,8 +6,8 @@
       result.add(colRef);
     }
   }
-  for (  TblColRef colRef : measureDisplayColumns) {
-    if (!result.contains(colRef))     result.add(colRef);
+  for (  MeasureDesc measure : measures) {
+    result.addAll(measure.getColumnsNeedDictionary());
   }
   return result;
 }

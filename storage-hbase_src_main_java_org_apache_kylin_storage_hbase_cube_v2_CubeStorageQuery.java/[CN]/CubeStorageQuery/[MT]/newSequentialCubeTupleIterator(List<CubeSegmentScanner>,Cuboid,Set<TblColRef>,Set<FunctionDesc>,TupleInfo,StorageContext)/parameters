@@ -1,0 +1,6 @@
+List<CubeSegmentScanner> scanners
+Cuboid cuboid
+Set<TblColRef> dimensionsD
+Set<FunctionDesc> metrics
+TupleInfo returnTupleInfo
+StorageContext context

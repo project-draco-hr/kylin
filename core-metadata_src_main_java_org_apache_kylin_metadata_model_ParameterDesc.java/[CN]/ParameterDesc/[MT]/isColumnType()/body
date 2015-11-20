@@ -1,3 +1,3 @@
 {
-  return COLUMN_TYPE.equals(type);
+  return FunctionDesc.PARAMETER_TYPE_COLUMN.equals(type);
 }

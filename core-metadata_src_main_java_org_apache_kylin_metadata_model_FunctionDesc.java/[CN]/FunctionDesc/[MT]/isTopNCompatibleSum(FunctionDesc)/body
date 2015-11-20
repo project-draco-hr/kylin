@@ -1,0 +1,10 @@
+{
+  if (isTopN() == false)   throw new IllegalStateException();
+  if (sum == null) {
+    return false;
+  }
+  if (this.isTopN() && sum.isSum()) {
+    if (this.getParameter().getColRefs().get(0).equals(sum.getParameter().getColRefs().get(0)))     return true;
+  }
+  return false;
+}

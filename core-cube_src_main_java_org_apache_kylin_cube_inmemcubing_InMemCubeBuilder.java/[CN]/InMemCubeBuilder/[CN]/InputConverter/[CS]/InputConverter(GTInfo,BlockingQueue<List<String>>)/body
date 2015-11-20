@@ -2,5 +2,5 @@
   this.info=info;
   this.input=input;
   this.record=new GTRecord(info);
-  this.inMemCubeBuilderInputConverter=new InMemCubeBuilderInputConverter(cubeDesc,InMemCubeBuilderUtils.createTopNDisplayColDictionaryMap(cubeDesc,intermediateTableDesc,dictionaryMap),info);
+  this.inMemCubeBuilderInputConverter=new InMemCubeBuilderInputConverter(cubeDesc,InMemCubeBuilderUtils.createTopNLiteralColDictionaryMap(cubeDesc,intermediateTableDesc,dictionaryMap),info);
 }
