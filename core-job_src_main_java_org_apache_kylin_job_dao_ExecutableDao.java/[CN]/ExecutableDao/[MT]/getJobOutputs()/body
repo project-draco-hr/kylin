@@ -1,6 +1,6 @@
 {
   try {
-    ArrayList<String> resources=store.listResources(JOB_OUTPUT_ROOT);
+    ArrayList<String> resources=store.listResources(ResourceStore.EXECUTE_OUTPUT_RESOURCE_ROOT);
     if (resources == null || resources.isEmpty()) {
       return Collections.emptyList();
     }

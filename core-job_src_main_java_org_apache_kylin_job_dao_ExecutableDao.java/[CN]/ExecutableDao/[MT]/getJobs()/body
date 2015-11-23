@@ -1,6 +1,6 @@
 {
   try {
-    final List<String> jobIds=store.listResources(JOB_PATH_ROOT);
+    final List<String> jobIds=store.listResources(ResourceStore.EXECUTE_RESOURCE_ROOT);
     if (jobIds == null || jobIds.isEmpty()) {
       return Collections.emptyList();
     }
