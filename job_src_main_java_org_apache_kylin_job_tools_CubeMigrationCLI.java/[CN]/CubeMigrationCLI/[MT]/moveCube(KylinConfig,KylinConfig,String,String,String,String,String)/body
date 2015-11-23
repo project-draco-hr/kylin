@@ -21,6 +21,9 @@
   renameFoldersInHdfs(cube);
   changeHtableHost(cube);
   addCubeIntoProject(cubeName,projectName);
+  if (Boolean.valueOf(copyAcl).booleanValue() == true) {
+    copyACL(cube);
+  }
   if (realExecute.equalsIgnoreCase("true")) {
     doOpts();
   }

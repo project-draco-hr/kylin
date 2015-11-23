@@ -1,6 +1,7 @@
-String srcCfgUri
-String dstCfgUri
+KylinConfig srcCfg
+KylinConfig dstCfg
 String cubeName
 String projectName
+String copyAcl
 String overwriteIfExists
 String realExecute
