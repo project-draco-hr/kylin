@@ -1,5 +1,5 @@
 {
-  if (r == null) {
+  if (r == null || r.getValue(B_FAMILY,B_COLUMN_TS) == null) {
     return 0;
   }
  else {
