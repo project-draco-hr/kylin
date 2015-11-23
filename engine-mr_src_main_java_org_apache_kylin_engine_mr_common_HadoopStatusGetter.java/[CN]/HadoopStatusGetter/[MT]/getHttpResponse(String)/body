@@ -20,6 +20,10 @@
         int cut=s.indexOf("url=");
         if (cut >= 0) {
           redirect=s.substring(cut + 4);
+          if (isValidURL(redirect) == false) {
+            logger.info("Get invalid redirect url, skip it: " + redirect);
+            continue;
+          }
         }
       }
       if (redirect == null) {
