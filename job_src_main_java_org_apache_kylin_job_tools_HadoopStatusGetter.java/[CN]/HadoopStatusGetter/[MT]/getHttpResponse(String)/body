@@ -19,6 +19,7 @@
         redirect=h.getValue();
         if (isValidURL(redirect) == false) {
           log.info("Get invalid redirect url, skip it: " + redirect);
+          Thread.sleep(1000l);
           continue;
         }
       }
@@ -31,6 +32,7 @@
             redirect=s.substring(cut + 4);
             if (isValidURL(redirect) == false) {
               log.info("Get invalid redirect url, skip it: " + redirect);
+              Thread.sleep(1000l);
               continue;
             }
           }
@@ -45,7 +47,10 @@
         log.debug("Job " + mrJobId + " check redirect url "+ url+ ".\n");
       }
     }
-  finally {
+ catch (    InterruptedException e) {
+      log.error(e.getMessage());
+    }
+ finally {
       get.releaseConnection();
     }
   }
