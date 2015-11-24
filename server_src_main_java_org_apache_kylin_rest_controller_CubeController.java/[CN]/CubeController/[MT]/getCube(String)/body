@@ -1,0 +1,7 @@
+{
+  CubeInstance cube=cubeService.getCubeManager().getCube(cubeName);
+  if (cube == null) {
+    throw new InternalErrorException("Cannot find cube " + cubeName);
+  }
+  return cube;
+}
