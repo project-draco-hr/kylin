@@ -88,5 +88,27 @@ dstStore.putResource(projectResPath,project,projectSerializer);
 logger.info("Project instance for " + projectName + " is corrected");
 break;
 }
+case COPY_ACL:
+{
+String cubeId=(String)opt.params[0];
+HTableInterface srcAclHtable=null;
+HTableInterface destAclHtable=null;
+try {
+srcAclHtable=HBaseConnection.get(srcConfig.getMetadataUrl()).getTable(srcConfig.getMetadataUrlPrefix() + "_acl");
+destAclHtable=HBaseConnection.get(dstConfig.getMetadataUrl()).getTable(dstConfig.getMetadataUrlPrefix() + "_acl");
+Result result=srcAclHtable.get(new Get(Bytes.toBytes(cubeId)));
+for (Cell cell : result.listCells()) {
+Put put=new Put(Bytes.toBytes(cubeId));
+put.add(CellUtil.cloneFamily(cell),CellUtil.cloneQualifier(cell),CellUtil.cloneValue(cell));
+destAclHtable.put(put);
+}
+destAclHtable.flushCommits();
+}
+  finally {
+IOUtils.closeQuietly(srcAclHtable);
+IOUtils.closeQuietly(destAclHtable);
+}
+break;
+}
 }
 }

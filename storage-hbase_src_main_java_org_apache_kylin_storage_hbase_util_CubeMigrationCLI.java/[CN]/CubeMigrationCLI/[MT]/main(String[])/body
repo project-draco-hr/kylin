@@ -1,7 +1,7 @@
 {
-  if (args.length != 6) {
+  if (args.length != 7) {
     usage();
     System.exit(1);
   }
-  moveCube(args[0],args[1],args[2],args[3],args[4],args[5]);
+  moveCube(args[0],args[1],args[2],args[3],args[4],args[5],args[6]);
 }
