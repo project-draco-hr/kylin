@@ -1,0 +1,5 @@
+{
+  org.apache.log4j.Logger log4jLogger=org.apache.log4j.Logger.getLogger(clazz);
+  if (log4jLogger != null && !log4jLogger.getAllAppenders().hasMoreElements())   log4jLogger.addAppender(new ConsoleAppender(new PatternLayout(DEFAULT_PATTERN_LAYOUT)));
+  return LoggerFactory.getLogger(clazz);
+}
