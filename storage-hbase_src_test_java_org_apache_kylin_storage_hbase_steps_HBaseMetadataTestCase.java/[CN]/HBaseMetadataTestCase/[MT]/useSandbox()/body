@@ -1,7 +1,0 @@
-{
-  String useSandbox=System.getProperty("useSandbox");
-  if (StringUtils.isEmpty(useSandbox)) {
-    return true;
-  }
-  return Boolean.parseBoolean(useSandbox);
-}

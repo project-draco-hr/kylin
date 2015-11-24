@@ -1,9 +1,3 @@
 {
-  if (useSandbox()) {
-    staticCreateTestMetadata(SANDBOX_TEST_DATA);
-  }
- else {
-    staticCreateTestMetadata(MINICLUSTER_TEST_DATA);
-    HBaseMiniclusterHelper.startupMinicluster();
-  }
+  staticCreateTestMetadata(SANDBOX_TEST_DATA);
 }

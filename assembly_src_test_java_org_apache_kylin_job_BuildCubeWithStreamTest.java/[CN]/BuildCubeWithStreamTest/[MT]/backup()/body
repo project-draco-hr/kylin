@@ -1,9 +1,0 @@
-{
-  int exitCode=cleanupOldStorage();
-  if (exitCode == 0) {
-    String exportHTables=System.getProperty("kylinExportHTables");
-    if (Boolean.parseBoolean(exportHTables) == true) {
-      exportHBaseData();
-    }
-  }
-}
