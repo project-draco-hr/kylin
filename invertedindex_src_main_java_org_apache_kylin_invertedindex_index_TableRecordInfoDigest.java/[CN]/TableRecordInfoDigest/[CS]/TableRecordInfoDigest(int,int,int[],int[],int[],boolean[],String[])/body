@@ -9,7 +9,7 @@
   this.measureCodecs=new FixedLenMeasureCodec[nColumns];
   for (int i=0; i < isMetric.length; i++) {
     if (isMetric[i]) {
-      measureCodecs[i]=FixedLenMeasureCodec.get(DataType.getInstance(metricDataTypes[i]));
+      measureCodecs[i]=FixedLenMeasureCodec.get(DataType.getType(metricDataTypes[i]));
     }
   }
 }

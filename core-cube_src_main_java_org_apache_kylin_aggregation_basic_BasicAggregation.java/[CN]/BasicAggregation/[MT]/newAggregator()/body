@@ -1,0 +1,18 @@
+{
+  if (isSum() || isCount()) {
+    if (dataType.isDecimal())     return new BigDecimalSumAggregator();
+ else     if (dataType.isIntegerFamily())     return new LongSumAggregator();
+ else     if (dataType.isNumberFamily())     return new DoubleSumAggregator();
+  }
+ else   if (isMax()) {
+    if (dataType.isDecimal())     return new BigDecimalMaxAggregator();
+ else     if (dataType.isIntegerFamily())     return new LongMaxAggregator();
+ else     if (dataType.isNumberFamily())     return new DoubleMaxAggregator();
+  }
+ else   if (isMin()) {
+    if (dataType.isDecimal())     return new BigDecimalMinAggregator();
+ else     if (dataType.isIntegerFamily())     return new LongMinAggregator();
+ else     if (dataType.isNumberFamily())     return new DoubleMinAggregator();
+  }
+  throw new IllegalArgumentException("No aggregator for func '" + funcName + "' and return type '"+ dataType+ "'");
+}

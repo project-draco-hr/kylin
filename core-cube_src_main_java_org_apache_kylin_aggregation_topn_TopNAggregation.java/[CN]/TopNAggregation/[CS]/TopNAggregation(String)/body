@@ -1,0 +1,4 @@
+{
+  this.dataType=DataType.getType(dataType);
+  if (this.dataType.getPrecision() < 1 || this.dataType.getPrecision() > 1000)   throw new IllegalArgumentException("TopN precision must be between 1 and 1000");
+}

@@ -1,0 +1,3 @@
+{
+  return FunctionDesc.FUNC_SUM.equalsIgnoreCase(funcName);
+}

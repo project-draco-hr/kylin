@@ -2,7 +2,7 @@
   this.table=table;
   if (name != null)   name=name.toUpperCase();
   if (id != null)   zeroBasedIndex=Integer.parseInt(id) - 1;
-  DataType normalized=DataType.getInstance(datatype);
+  DataType normalized=DataType.getType(datatype);
   if (normalized == null) {
     this.setDatatype(null);
   }

@@ -1,0 +1,4 @@
+{
+  if (dataType.isHLLC())   return new HLLCAggregator(dataType.getPrecision());
+ else   return new LDCAggregator();
+}

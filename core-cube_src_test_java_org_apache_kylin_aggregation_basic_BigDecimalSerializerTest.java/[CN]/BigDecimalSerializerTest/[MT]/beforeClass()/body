@@ -1,3 +1,0 @@
-{
-  bigDecimalSerializer=new BigDecimalSerializer(DataType.getInstance("decimal"));
-}

@@ -4,7 +4,7 @@
   for (  String s : ints) {
     intBytes.add((s == null) ? null : Bytes.toBytes(s));
   }
-  Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueEnumerator(DataType.getInstance("integer"),new IterableDictionaryValueEnumerator(intBytes));
+  Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueEnumerator(DataType.getType("integer"),new IterableDictionaryValueEnumerator(intBytes));
   assertEquals(4,dict.getSize());
   final int id=((NumberDictionary<String>)dict).getIdFromValue("");
   assertEquals(id,dict.nullId());

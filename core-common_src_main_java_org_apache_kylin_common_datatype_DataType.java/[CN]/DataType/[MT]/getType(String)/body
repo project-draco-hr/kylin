@@ -1,0 +1,3 @@
+{
+  return getTypeInner(type,false);
+}

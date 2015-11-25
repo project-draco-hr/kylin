@@ -1,7 +1,7 @@
 {
   Builder builder=GTInfo.builder();
   builder.setCodeSystem(new GTSampleCodeSystem());
-  builder.setColumns(DataType.getInstance("varchar(10)"),DataType.getInstance("varchar(10)"),DataType.getInstance("varchar(10)"),DataType.getInstance("bigint"),DataType.getInstance("decimal"));
+  builder.setColumns(DataType.getType("varchar(10)"),DataType.getType("varchar(10)"),DataType.getType("varchar(10)"),DataType.getType("bigint"),DataType.getType("decimal"));
   builder.setPrimaryKey(setOf(0));
   builder.setColumnPreferIndex(setOf(0));
   return builder;

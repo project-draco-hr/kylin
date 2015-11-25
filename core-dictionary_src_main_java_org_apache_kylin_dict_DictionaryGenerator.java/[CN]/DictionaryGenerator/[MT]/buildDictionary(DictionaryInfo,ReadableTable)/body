@@ -3,7 +3,7 @@
   try {
     logger.debug("Building dictionary object " + JsonUtil.writeValueAsString(info));
     columnValueEnumerator=new TableColumnValueEnumerator(inpTable.getReader(),info.getSourceColumnIndex());
-    return buildDictionaryFromValueEnumerator(DataType.getInstance(info.getDataType()),columnValueEnumerator);
+    return buildDictionaryFromValueEnumerator(DataType.getType(info.getDataType()),columnValueEnumerator);
   }
   finally {
     if (columnValueEnumerator != null)     columnValueEnumerator.close();

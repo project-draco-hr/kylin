@@ -4,12 +4,12 @@
   final boolean emptyDictionary=Array.isEmpty(dictionaries);
   for (int i=0; i < nColumns; ++i) {
     if (isMetric[i]) {
-      final FixedLenMeasureCodec<?> fixedLenMeasureCodec=FixedLenMeasureCodec.get(DataType.getInstance(dataTypes[i]));
+      final FixedLenMeasureCodec<?> fixedLenMeasureCodec=FixedLenMeasureCodec.get(DataType.getType(dataTypes[i]));
       lengths[i]=fixedLenMeasureCodec.getLength();
     }
  else {
       if (emptyDictionary) {
-        final DataType dataType=DataType.getInstance(dataTypes[i]);
+        final DataType dataType=DataType.getType(dataTypes[i]);
         if (dataType.isNumberFamily()) {
           lengths[i]=16;
         }

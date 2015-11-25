@@ -1,9 +1,9 @@
 {
   String ret;
-  if (type == DataType.getInstance("date")) {
+  if (type == DataType.getType("date")) {
     ret=DateFormat.formatToDateStr(ts);
   }
- else   if (type == DataType.getInstance("long")) {
+ else   if (type == DataType.getType("long")) {
     ret=String.valueOf(ts);
   }
  else {

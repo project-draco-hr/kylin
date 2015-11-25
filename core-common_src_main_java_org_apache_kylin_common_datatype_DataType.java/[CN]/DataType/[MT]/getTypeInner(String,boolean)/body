@@ -1,0 +1,10 @@
+{
+  if (type == null)   return null;
+  DataType dataType=new DataType(type,isCustom);
+  DataType cached=CACHE.get(dataType);
+  if (cached == null) {
+    CACHE.put(dataType,dataType);
+    cached=dataType;
+  }
+  return cached;
+}

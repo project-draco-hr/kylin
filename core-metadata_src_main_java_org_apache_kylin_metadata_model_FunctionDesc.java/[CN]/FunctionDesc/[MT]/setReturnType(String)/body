@@ -1,4 +1,4 @@
 {
   this.returnType=returnType;
-  this.returnDataType=DataType.getInstance(returnType);
+  this.returnDataType=DataType.getType(returnType);
 }

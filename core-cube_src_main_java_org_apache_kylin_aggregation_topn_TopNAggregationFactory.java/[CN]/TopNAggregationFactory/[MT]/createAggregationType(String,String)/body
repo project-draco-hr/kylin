@@ -1,0 +1,4 @@
+{
+  if (FunctionDesc.FUNC_TOP_N.equalsIgnoreCase(funcName) == false)   throw new IllegalArgumentException();
+  return new TopNAggregation(dataType);
+}

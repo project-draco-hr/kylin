@@ -1,6 +1,6 @@
 {
   expression=expression.toUpperCase();
-  returnDataType=DataType.getInstance(returnType);
+  returnDataType=DataType.getType(returnType);
   for (ParameterDesc p=parameter; p != null; p=p.getNextParameter()) {
     p.setValue(p.getValue().toUpperCase());
   }
@@ -13,4 +13,7 @@
     }
   }
   parameter.setColRefs(colRefs);
+  if (isSum() || isMax() || isMin() && (colRefs.size() > 0)) {
+    setReturnType(colRefs.get(0).getDatatype());
+  }
 }

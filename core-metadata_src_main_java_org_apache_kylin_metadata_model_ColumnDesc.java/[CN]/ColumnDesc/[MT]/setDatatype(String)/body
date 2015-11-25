@@ -1,4 +1,4 @@
 {
   this.datatype=datatype;
-  type=DataType.getInstance(datatype);
+  type=DataType.getType(datatype);
 }

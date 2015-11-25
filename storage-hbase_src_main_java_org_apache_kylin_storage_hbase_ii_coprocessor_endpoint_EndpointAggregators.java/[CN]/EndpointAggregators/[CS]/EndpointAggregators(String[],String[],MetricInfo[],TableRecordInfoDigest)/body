@@ -9,6 +9,6 @@
   this.metricValues=new Object[funcNames.length];
   this.measureSerializers=new FixedLenMeasureCodec[funcNames.length];
   for (int i=0; i < this.measureSerializers.length; ++i) {
-    this.measureSerializers[i]=FixedLenMeasureCodec.get(DataType.getInstance(dataTypes[i]));
+    this.measureSerializers[i]=FixedLenMeasureCodec.get(DataType.getType(dataTypes[i]));
   }
 }

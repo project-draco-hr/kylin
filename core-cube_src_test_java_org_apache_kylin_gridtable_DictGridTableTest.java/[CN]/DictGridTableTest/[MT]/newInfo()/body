@@ -1,7 +1,7 @@
 {
   Builder builder=GTInfo.builder();
   builder.setCodeSystem(newDictCodeSystem());
-  builder.setColumns(DataType.getInstance("timestamp"),DataType.getInstance("integer"),DataType.getInstance("varchar(10)"),DataType.getInstance("bigint"),DataType.getInstance("decimal"));
+  builder.setColumns(DataType.getType("timestamp"),DataType.getType("integer"),DataType.getType("varchar(10)"),DataType.getType("bigint"),DataType.getType("decimal"));
   builder.setPrimaryKey(setOf(0,1));
   builder.setColumnPreferIndex(setOf(0));
   builder.enableColumnBlock(new ImmutableBitSet[]{setOf(0,1),setOf(2),setOf(3,4)});

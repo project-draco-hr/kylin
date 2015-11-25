@@ -39,7 +39,7 @@
     return dicts.get(0);
   }
  else {
-    Dictionary<?> newDict=DictionaryGenerator.mergeDictionaries(DataType.getInstance(newDictInfo.getDataType()),dicts);
+    Dictionary<?> newDict=DictionaryGenerator.mergeDictionaries(DataType.getType(newDictInfo.getDataType()),dicts);
     return trySaveNewDict(newDict,newDictInfo);
   }
 }

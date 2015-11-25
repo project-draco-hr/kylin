@@ -1,26 +1,3 @@
 {
-  if (FunctionDesc.FUNC_SUM.equalsIgnoreCase(funcName) || FunctionDesc.FUNC_COUNT.equalsIgnoreCase(funcName)) {
-    if (isInteger(returnType))     return new LongSumAggregator();
- else     if (isBigDecimal(returnType))     return new BigDecimalSumAggregator();
- else     if (isDouble(returnType))     return new DoubleSumAggregator();
-  }
- else   if (FunctionDesc.FUNC_COUNT_DISTINCT.equalsIgnoreCase(funcName)) {
-    DataType hllcType=DataType.getInstance(returnType);
-    if (hllcType.isHLLC())     return new HLLCAggregator(hllcType.getPrecision());
- else     return new LDCAggregator();
-  }
- else   if (FunctionDesc.FUNC_MAX.equalsIgnoreCase(funcName)) {
-    if (isInteger(returnType))     return new LongMaxAggregator();
- else     if (isBigDecimal(returnType))     return new BigDecimalMaxAggregator();
- else     if (isDouble(returnType))     return new DoubleMaxAggregator();
-  }
- else   if (FunctionDesc.FUNC_MIN.equalsIgnoreCase(funcName)) {
-    if (isInteger(returnType))     return new LongMinAggregator();
- else     if (isBigDecimal(returnType))     return new BigDecimalMinAggregator();
- else     if (isDouble(returnType))     return new DoubleMinAggregator();
-  }
- else   if (FunctionDesc.FUNC_TOP_N.equalsIgnoreCase(funcName)) {
-    return new TopNAggregator();
-  }
-  throw new IllegalArgumentException("No aggregator for func '" + funcName + "' and return type '"+ returnType+ "'");
+  return AggregationType.create(funcName,dataType).newAggregator();
 }
