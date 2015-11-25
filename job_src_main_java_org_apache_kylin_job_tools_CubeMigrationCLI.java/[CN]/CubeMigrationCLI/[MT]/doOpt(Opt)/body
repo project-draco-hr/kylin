@@ -127,5 +127,16 @@ IOUtils.closeQuietly(destAclHtable);
 }
 break;
 }
+case PURGE_AND_DISABLE:
+{
+String cubeName=(String)opt.params[0];
+String cubeResPath=CubeInstance.concatResourcePath(cubeName);
+Serializer<CubeInstance> cubeSerializer=new JsonSerializer<CubeInstance>(CubeInstance.class);
+CubeInstance cube=srcStore.getResource(cubeResPath,CubeInstance.class,cubeSerializer);
+cube.getSegments().clear();
+cube.setStatus(RealizationStatusEnum.DISABLED);
+srcStore.putResource(cubeResPath,cube,cubeSerializer);
+logger.info("Cube " + cubeName + " is purged and disabled in "+ srcConfig.getMetadataUrl());
+}
 }
 }
