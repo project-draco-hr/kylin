@@ -1,0 +1,21 @@
+{
+  long waitStart=0;
+  while (true) {
+    try {
+      reserve(consumer,requestMB);
+      if (debug && waitStart > 0)       logger.debug(consumer + " waited " + (System.currentTimeMillis() - waitStart)+ " ms on the "+ requestMB+ " MB request");
+      return;
+    }
+ catch (    NotEnoughBudgetException ex) {
+    }
+    if (waitStart == 0)     waitStart=System.currentTimeMillis();
+synchronized (lock) {
+      try {
+        lock.wait();
+      }
+ catch (      InterruptedException e) {
+        throw new NotEnoughBudgetException(e);
+      }
+    }
+  }
+}

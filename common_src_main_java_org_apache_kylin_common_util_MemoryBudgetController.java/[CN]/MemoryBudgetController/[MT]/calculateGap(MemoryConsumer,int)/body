@@ -1,0 +1,12 @@
+{
+  lock.lock();
+  try {
+    ConsumerEntry entry=booking.get(consumer);
+    int curMB=entry == null ? 0 : entry.reservedMB;
+    int delta=requestMB - curMB;
+    return delta - (totalBudgetMB - totalReservedMB);
+  }
+  finally {
+    lock.unlock();
+  }
+}

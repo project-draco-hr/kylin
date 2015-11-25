@@ -1,0 +1,9 @@
+{
+  lock.lock();
+  try {
+    return totalReservedMB;
+  }
+  finally {
+    lock.unlock();
+  }
+}
