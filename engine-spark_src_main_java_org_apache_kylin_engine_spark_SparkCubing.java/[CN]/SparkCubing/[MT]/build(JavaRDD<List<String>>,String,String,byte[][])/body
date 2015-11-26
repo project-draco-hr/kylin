@@ -7,11 +7,11 @@
   for (  TblColRef tblColRef : baseCuboidColumn) {
     columnLengthMap.put(tblColRef,cubeSegment.getColumnLength(tblColRef));
   }
-  final Map<TblColRef,Dictionary<?>> dictionaryMap=Maps.newHashMap();
+  final Map<TblColRef,Dictionary<String>> dictionaryMap=Maps.newHashMap();
   for (  DimensionDesc dim : cubeDesc.getDimensions()) {
     for (    TblColRef col : dim.getColumnRefs()) {
       if (cubeDesc.getRowkey().isUseDictionary(col)) {
-        Dictionary<?> dict=cubeSegment.getDictionary(col);
+        Dictionary<String> dict=cubeSegment.getDictionary(col);
         if (dict == null) {
           System.err.println("Dictionary for " + col + " was not found.");
         }

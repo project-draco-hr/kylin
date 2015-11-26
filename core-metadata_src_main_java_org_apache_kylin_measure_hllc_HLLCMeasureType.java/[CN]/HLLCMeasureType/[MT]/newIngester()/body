@@ -1,0 +1,12 @@
+{
+  return new MeasureIngester<HyperLogLogPlusCounter>(){
+    HyperLogLogPlusCounter current=new HyperLogLogPlusCounter(dataType.getPrecision());
+    @Override public HyperLogLogPlusCounter valueOf(    String[] values,    MeasureDesc measureDesc,    Map<TblColRef,Dictionary<String>> dictionaryMap){
+      HyperLogLogPlusCounter hllc=current;
+      hllc.clear();
+      for (      String v : values)       hllc.add(v == null ? "__nUlL__" : v);
+      return hllc;
+    }
+  }
+;
+}

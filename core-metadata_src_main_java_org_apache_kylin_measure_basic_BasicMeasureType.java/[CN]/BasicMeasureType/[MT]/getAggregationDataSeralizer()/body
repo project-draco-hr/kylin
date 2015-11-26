@@ -1,0 +1,6 @@
+{
+  if (dataType.isIntegerFamily())   return LongSerializer.class;
+ else   if (dataType.isDecimal())   return BigDecimalSerializer.class;
+ else   if (dataType.isNumberFamily())   return DoubleSerializer.class;
+ else   throw new IllegalArgumentException("No serializer for aggregation type " + dataType);
+}

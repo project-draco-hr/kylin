@@ -1,0 +1,4 @@
+{
+  if (FunctionDesc.FUNC_COUNT_DISTINCT.equalsIgnoreCase(funcName) == false)   throw new IllegalArgumentException();
+  return new HLLCMeasureType(DataType.getType(dataType));
+}

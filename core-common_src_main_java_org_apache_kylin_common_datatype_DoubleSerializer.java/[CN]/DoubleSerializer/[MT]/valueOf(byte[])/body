@@ -1,6 +1,0 @@
-{
-  DoubleMutable d=current();
-  if (value == null)   d.set(0d);
- else   d.set(Double.parseDouble(Bytes.toString(value)));
-  return d;
-}

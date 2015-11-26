@@ -5,7 +5,7 @@
   for (  TblColRef column : columnsNeedToBuildDictionary) {
     tblColRefMap.put(index++,column);
   }
-  HashMap<TblColRef,Dictionary<?>> result=Maps.newHashMap();
+  HashMap<TblColRef,Dictionary<String>> result=Maps.newHashMap();
   HashMultimap<TblColRef,String> valueMap=HashMultimap.create();
   for (  List<String> row : recordList) {
     for (int i=0; i < row.size(); i++) {
@@ -22,7 +22,7 @@
       }
     }
 );
-    final Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueEnumerator(tblColRef.getType(),new IterableDictionaryValueEnumerator(bytes));
+    final Dictionary<String> dict=DictionaryGenerator.buildDictionaryFromValueEnumerator(tblColRef.getType(),new IterableDictionaryValueEnumerator(bytes));
     result.put(tblColRef,dict);
   }
   return result;

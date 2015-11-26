@@ -17,7 +17,7 @@
     final int rowKeyColumnIndex=flatTableDesc.getRowKeyColumnIndexes()[i];
     tblColRefMap.put(rowKeyColumnIndex,col);
   }
-  Map<TblColRef,Dictionary<?>> dictionaryMap=Maps.newHashMap();
+  Map<TblColRef,Dictionary<String>> dictionaryMap=Maps.newHashMap();
   for (  Map.Entry<Integer,TblColRef> entry : tblColRefMap.entrySet()) {
     final String column=columns[entry.getKey()];
     final TblColRef tblColRef=entry.getValue();

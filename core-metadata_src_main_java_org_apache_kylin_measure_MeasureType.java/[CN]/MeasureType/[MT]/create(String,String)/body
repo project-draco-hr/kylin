@@ -1,0 +1,12 @@
+{
+  funcName=funcName.toUpperCase();
+  dataType=dataType.toLowerCase();
+  IMeasureFactory factory=factoryRegistry.get(funcName);
+  if (factory == null)   factory=defaultFactory;
+  MeasureType result=factory.createMeasureType(funcName,dataType);
+  DataType aggregationDataType=result.getAggregationDataType();
+  if (DataTypeSerializer.hasRegistered(aggregationDataType.getName()) == false) {
+    DataTypeSerializer.register(aggregationDataType.getName(),result.getAggregationDataSeralizer());
+  }
+  return result;
+}

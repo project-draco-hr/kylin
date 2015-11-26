@@ -1,9 +1,0 @@
-{
-  this.cubeDesc=cubeDesc;
-  this.gtInfo=gtInfo;
-  this.intermediateTableDesc=new CubeJoinedFlatTableDesc(cubeDesc,null);
-  this.measureCount=cubeDesc.getMeasures().size();
-  this.measureDescs=cubeDesc.getMeasures().toArray(new MeasureDesc[measureCount]);
-  this.measureCodec=new MeasureCodec(cubeDesc.getMeasures());
-  this.topNLiteralColDictMap=Preconditions.checkNotNull(topNLiteralColDictMap,"topNLiteralColDictMap cannot be null");
-}

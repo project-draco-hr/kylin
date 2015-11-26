@@ -1,0 +1,5 @@
+{
+  if (values.length > 1)   throw new IllegalArgumentException();
+  if (values[0] == null)   return new BigDecimal(0);
+ else   return new BigDecimal(values[0]);
+}

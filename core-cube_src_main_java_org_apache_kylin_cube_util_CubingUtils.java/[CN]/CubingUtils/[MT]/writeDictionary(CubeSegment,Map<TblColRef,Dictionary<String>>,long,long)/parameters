@@ -1,0 +1,4 @@
+CubeSegment cubeSegment
+Map<TblColRef,Dictionary<String>> dictionaryMap
+long startOffset
+long endOffset

@@ -1,0 +1,8 @@
+{
+  MeasureIngester<?>[] result=new MeasureIngester<?>[measures.size()];
+  int i=0;
+  for (  MeasureDesc measure : measures) {
+    result[i++]=create(measure);
+  }
+  return result;
+}

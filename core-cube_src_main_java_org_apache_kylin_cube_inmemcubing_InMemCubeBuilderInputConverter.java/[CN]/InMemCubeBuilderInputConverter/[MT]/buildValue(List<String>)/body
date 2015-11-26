@@ -1,49 +1,7 @@
 {
   Object[] values=new Object[measureCount];
   for (int i=0; i < measureCount; i++) {
-    MeasureDesc measureDesc=measureDescs[i];
-    int[] flatTableIdx=intermediateTableDesc.getMeasureColumnIndexes()[i];
-    FunctionDesc function=cubeDesc.getMeasures().get(i).getFunction();
-    if (flatTableIdx == null) {
-      values[i]=measureCodec.getSerializer(i).valueOf(measureDesc.getFunction().getParameter().getValue());
-    }
- else     if (function.isCount() || function.isHolisticCountDistinct()) {
-      values[i]=ONE;
-    }
- else     if (function.isTopN()) {
-      int keyColIndex=flatTableIdx[flatTableIdx.length - 1];
-      Dictionary<String> literalColDict=topNLiteralColDictMap.get(keyColIndex);
-      int keyColEncoded=literalColDict.getIdFromValue(row.get(keyColIndex));
-      valueBuf.clear();
-      valueBuf.putInt(literalColDict.getSizeOfId());
-      valueBuf.putInt(keyColEncoded);
-      if (flatTableIdx.length == 1) {
-        valueBuf.putDouble(1.0);
-      }
- else {
-        valueBuf.putDouble(Double.valueOf(row.get(flatTableIdx[0])));
-      }
-      values[i]=measureCodec.getSerializer(i).valueOf(valueBuf.array());
-    }
- else     if (flatTableIdx.length == 1) {
-      values[i]=measureCodec.getSerializer(i).valueOf(toBytes(row.get(flatTableIdx[0])));
-    }
- else {
-      byte[] result=null;
-      for (int x=0; x < flatTableIdx.length; x++) {
-        byte[] split=toBytes(row.get(flatTableIdx[x]));
-        if (result == null) {
-          result=Arrays.copyOf(split,split.length);
-        }
- else {
-          byte[] newResult=new byte[result.length + split.length];
-          System.arraycopy(result,0,newResult,0,result.length);
-          System.arraycopy(split,0,newResult,result.length,split.length);
-          result=newResult;
-        }
-      }
-      values[i]=measureCodec.getSerializer(i).valueOf(result);
-    }
+    values[i]=buildValueOf(i,row);
   }
   return values;
 }

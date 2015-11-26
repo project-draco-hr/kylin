@@ -1,8 +1,0 @@
-{
-  if (dataType.isStringFamily())   return StringSerializer.class;
- else   if (dataType.isIntegerFamily())   return LongSerializer.class;
- else   if (dataType.isDecimal())   return BigDecimalSerializer.class;
- else   if (dataType.isNumberFamily())   return DoubleSerializer.class;
- else   if (dataType.isDateTimeFamily())   return DateTimeSerializer.class;
- else   throw new IllegalArgumentException("No default serializer for type " + dataType);
-}

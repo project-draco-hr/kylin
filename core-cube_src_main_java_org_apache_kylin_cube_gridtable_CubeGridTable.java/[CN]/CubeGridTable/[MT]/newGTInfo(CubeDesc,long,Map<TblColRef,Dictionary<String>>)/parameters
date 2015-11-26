@@ -1,0 +1,3 @@
+CubeDesc cubeDesc
+long cuboidId
+Map<TblColRef,Dictionary<String>> dictionaryMap

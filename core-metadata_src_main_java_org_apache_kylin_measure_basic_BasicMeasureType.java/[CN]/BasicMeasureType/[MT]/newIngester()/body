@@ -1,0 +1,6 @@
+{
+  if (dataType.isIntegerFamily())   return new LongIngester();
+ else   if (dataType.isDecimal())   return new BigDecimalIngester();
+ else   if (dataType.isNumberFamily())   return new DoubleIngester();
+ else   throw new IllegalArgumentException("No ingester for aggregation type " + dataType);
+}

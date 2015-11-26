@@ -1,0 +1,4 @@
+{
+  this.funcName=funcName;
+  this.dataType=dataType;
+}

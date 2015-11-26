@@ -1,5 +1,5 @@
 {
-  Map<TblColRef,Dictionary<?>> dictionaryMap=getDimensionToDictionaryMap(cubeSeg,cuboidId);
+  Map<TblColRef,Dictionary<String>> dictionaryMap=getDimensionToDictionaryMap(cubeSeg,cuboidId);
   Cuboid cuboid=Cuboid.findById(cubeSeg.getCubeDesc(),cuboidId);
   for (  TblColRef dim : cuboid.getColumns()) {
     if (cubeSeg.getCubeDesc().getRowkey().isUseDictionary(dim)) {

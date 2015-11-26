@@ -10,5 +10,5 @@
  catch (  IOException e) {
     throw new IllegalStateException("Failed to get dictionary for cube segment" + cubeSeg + ", col"+ col,e);
   }
-  return info.getDictionaryObject();
+  return (Dictionary<String>)info.getDictionaryObject();
 }

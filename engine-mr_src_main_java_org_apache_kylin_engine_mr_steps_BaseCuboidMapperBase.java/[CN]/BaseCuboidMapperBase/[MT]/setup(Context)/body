@@ -20,6 +20,7 @@
   measures=new Object[cubeDesc.getMeasures().size()];
   int colCount=cubeDesc.getRowkey().getRowKeyColumns().length;
   keyBytesBuf=new byte[colCount][];
-  initTopNLiteralColDictionaryMap();
+  aggrIngesters=MeasureIngester.create(cubeDesc.getMeasures());
+  dictionaryMap=cubeSegment.buildDictionaryMap();
   initNullBytes();
 }

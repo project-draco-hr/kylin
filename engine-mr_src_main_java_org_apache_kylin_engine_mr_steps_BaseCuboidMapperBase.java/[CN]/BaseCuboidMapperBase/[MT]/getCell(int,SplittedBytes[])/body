@@ -1,0 +1,5 @@
+{
+  byte[] bytes=Arrays.copyOf(splitBuffers[i].value,splitBuffers[i].length);
+  if (isNull(bytes))   return null;
+ else   return Bytes.toString(bytes);
+}

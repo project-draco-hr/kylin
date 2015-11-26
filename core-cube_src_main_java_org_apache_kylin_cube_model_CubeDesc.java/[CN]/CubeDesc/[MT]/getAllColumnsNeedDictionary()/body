@@ -7,7 +7,8 @@
     }
   }
   for (  MeasureDesc measure : measures) {
-    result.addAll(measure.getColumnsNeedDictionary());
+    MeasureType aggrType=MeasureType.create(measure.getFunction());
+    result.addAll(aggrType.getColumnsNeedDictionary(measure));
   }
   return result;
 }

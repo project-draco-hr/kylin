@@ -8,7 +8,7 @@
   String segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME);
   cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   flatTableInputFormat=MRUtil.getBatchCubingInputSide(cubeSegment).getFlatTableInputFormat();
-  Map<TblColRef,Dictionary<?>> dictionaryMap=Maps.newHashMap();
+  Map<TblColRef,Dictionary<String>> dictionaryMap=Maps.newHashMap();
   for (  TblColRef col : cubeDesc.getAllColumnsNeedDictionary()) {
     Dictionary<?> dict=cubeSegment.getDictionary(col);
     if (dict == null) {

@@ -1,0 +1,3 @@
+{
+  return MeasureType.create(measure.getFunction()).newIngester();
+}

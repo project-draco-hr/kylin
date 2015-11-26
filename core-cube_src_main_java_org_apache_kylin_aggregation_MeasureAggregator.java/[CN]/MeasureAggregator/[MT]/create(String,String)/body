@@ -1,3 +1,0 @@
-{
-  return AggregationType.create(funcName,dataType).newAggregator();
-}

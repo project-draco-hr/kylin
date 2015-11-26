@@ -1,3 +1,0 @@
-CubeDesc cubeDesc
-long cuboidId
-Map<TblColRef,Dictionary<?>> dictionaryMap
