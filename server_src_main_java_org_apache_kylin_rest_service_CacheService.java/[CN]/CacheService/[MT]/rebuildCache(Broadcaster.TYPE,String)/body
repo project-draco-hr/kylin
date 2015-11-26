@@ -9,8 +9,10 @@ case CUBE:
 cleanProjectCacheByRealization(RealizationType.CUBE,cacheKey);
 break;
 case CUBE_DESC:
+if (getCubeDescManager().getCubeDesc(cacheKey) != null) {
 String modelName=getCubeDescManager().getCubeDesc(cacheKey).getModelName();
 getMetadataManager().reloadDataModelDesc(modelName);
+}
 getCubeDescManager().reloadCubeDesc(cacheKey);
 IIDescManager.clearCache();
 CubeDescManager.clearCache();

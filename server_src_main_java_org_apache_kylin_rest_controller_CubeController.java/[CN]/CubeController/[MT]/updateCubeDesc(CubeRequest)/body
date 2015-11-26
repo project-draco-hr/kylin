@@ -56,6 +56,7 @@ catch (  Exception e) {
  finally {
     if (updateModelSuccess == true && updateCubeSuccess == false) {
       try {
+        oldModelDesc.setLastModified(modelDesc.getLastModified());
         metadataManager.updateDataModelDesc(oldModelDesc);
       }
  catch (      IOException e) {
