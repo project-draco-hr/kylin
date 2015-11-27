@@ -1,5 +1,5 @@
 {
   final StringWriter stringWriter=new StringWriter();
-  properties.list(new PrintWriter(stringWriter));
+  list(new PrintWriter(stringWriter));
   return stringWriter.toString();
 }

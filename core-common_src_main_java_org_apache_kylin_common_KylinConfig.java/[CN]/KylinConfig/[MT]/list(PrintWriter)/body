@@ -1,0 +1,7 @@
+{
+  for (Enumeration e=properties.keys(); e.hasMoreElements(); ) {
+    String key=(String)e.nextElement();
+    String val=(String)properties.get(key);
+    out.println(key + "=" + val);
+  }
+}
