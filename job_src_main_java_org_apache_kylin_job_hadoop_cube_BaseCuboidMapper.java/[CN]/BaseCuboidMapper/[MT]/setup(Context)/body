@@ -14,7 +14,7 @@
   long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
   baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
   intermediateTableDesc=new CubeJoinedFlatTableDesc(cube.getDescriptor(),cubeSegment);
-  bytesSplitter=new BytesSplitter(200,4096);
+  bytesSplitter=new BytesSplitter(200,16384);
   rowKeyEncoder=AbstractRowKeyEncoder.createInstance(cubeSegment,baseCuboid);
   measureCodec=new MeasureCodec(cubeDesc.getMeasures());
   measures=new Object[cubeDesc.getMeasures().size()];
