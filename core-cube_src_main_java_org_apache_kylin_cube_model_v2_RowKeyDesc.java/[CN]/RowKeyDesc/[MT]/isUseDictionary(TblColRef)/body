@@ -1,0 +1,4 @@
+{
+  String useDictionary=getDictionary(col);
+  return useDictionary(useDictionary);
+}

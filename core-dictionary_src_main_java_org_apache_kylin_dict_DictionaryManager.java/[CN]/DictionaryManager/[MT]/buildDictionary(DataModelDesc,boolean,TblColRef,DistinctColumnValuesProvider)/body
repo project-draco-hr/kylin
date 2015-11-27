@@ -1,0 +1,25 @@
+{
+  logger.info("building dictionary for " + col);
+  TblColRef srcCol=decideSourceData(model,usingDict,col);
+  String srcTable=srcCol.getTable();
+  String srcColName=srcCol.getName();
+  int srcColIdx=srcCol.getColumnDesc().getZeroBasedIndex();
+  ReadableTable inpTable;
+  if (model.isFactTable(srcTable)) {
+    inpTable=factTableValueProvider.getDistinctValuesFor(srcCol);
+  }
+ else {
+    TableDesc tableDesc=MetadataManager.getInstance(config).getTableDesc(srcTable);
+    inpTable=SourceFactory.createReadableTable(tableDesc);
+  }
+  TableSignature inputSig=inpTable.getSignature();
+  if (inputSig == null)   return null;
+  DictionaryInfo dictInfo=new DictionaryInfo(srcTable,srcColName,srcColIdx,col.getDatatype(),inputSig);
+  String dupDict=checkDupByInfo(dictInfo);
+  if (dupDict != null) {
+    logger.info("Identical dictionary input " + dictInfo.getInput() + ", reuse existing dictionary at "+ dupDict);
+    return getDictionaryInfo(dupDict);
+  }
+  Dictionary<?> dictionary=DictionaryGenerator.buildDictionary(dictInfo,inpTable);
+  return trySaveNewDict(dictionary,dictInfo);
+}

@@ -1,0 +1,14 @@
+{
+  this.cubeDesc=cubeDesc;
+  Map<String,TblColRef> colNameAbbr=cubeDesc.buildColumnNameAbbreviation();
+  if (this.includes == null || this.includes.length == 0 || this.selectRule == null) {
+    throw new IllegalStateException("AggregationGroup incomplete");
+  }
+  buildPartialCubeFullMask(colNameAbbr,rowKeyDesc);
+  buildMandatoryColumnMask(colNameAbbr,rowKeyDesc);
+  buildHierarchyMasks(colNameAbbr,rowKeyDesc);
+  buildJointColumnMask(colNameAbbr,rowKeyDesc);
+  buildJointDimsMask();
+  buildNormalDimsMask();
+  buildHierarchyDimsMask();
+}

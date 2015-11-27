@@ -24,7 +24,7 @@
   collectNonEvaluable(filter,groupsCopD);
   TupleFilter filterD=translateDerived(filter,groupsCopD);
   List<HBaseKeyRange> scans=buildScanRanges(flattenToOrAndFilter(filterD),dimensionsD);
-  List<RowValueDecoder> valueDecoders=translateAggregation(cubeDesc.getHBaseMapping(),metrics,context);
+  List<RowValueDecoder> valueDecoders=translateAggregation(cubeDesc.getHbaseMapping(),metrics,context);
   setCoprocessor(groupsCopD,valueDecoders,context);
   setLimit(filter,context);
   HConnection conn=HBaseConnection.get(context.getConnUrl());

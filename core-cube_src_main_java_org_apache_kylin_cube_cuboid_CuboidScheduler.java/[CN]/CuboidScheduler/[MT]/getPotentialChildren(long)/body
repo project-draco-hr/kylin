@@ -1,0 +1,46 @@
+{
+  if (parent != Cuboid.getBaseCuboid(cubeDesc).getId() && !Cuboid.isValid(cubeDesc,parent)) {
+    throw new IllegalStateException();
+  }
+  HashSet<Long> set=Sets.newHashSet();
+  if (Long.bitCount(parent) == 1) {
+    return set;
+  }
+  if (parent == Cuboid.getBaseCuboidId(cubeDesc)) {
+    for (    AggregationGroup agg : cubeDesc.getAggregationGroups()) {
+      long partialCubeFullMask=agg.getPartialCubeFullMask();
+      if (partialCubeFullMask != parent && containsNonMandatoryColumn(agg,partialCubeFullMask)) {
+        set.add(partialCubeFullMask);
+      }
+    }
+  }
+  for (  AggregationGroup agg : Cuboid.getValidAggGroupForCuboid(cubeDesc,parent)) {
+    for (    long normalDimMask : agg.getNormalDims()) {
+      long common=parent & normalDimMask;
+      long temp=parent ^ normalDimMask;
+      if (common != 0 && containsNonMandatoryColumn(agg,temp)) {
+        set.add(temp);
+      }
+    }
+    for (    AggregationGroup.HierarchyMask hierarchyMask : agg.getHierarchyMasks()) {
+      for (int i=hierarchyMask.allMasks.length - 1; i >= 0; i--) {
+        if ((parent & hierarchyMask.allMasks[i]) == hierarchyMask.allMasks[i]) {
+          if ((agg.getJointDimsMask() & hierarchyMask.dims[i]) == 0) {
+            if (containsNonMandatoryColumn(agg,parent ^ hierarchyMask.dims[i])) {
+              set.add(parent ^ hierarchyMask.dims[i]);
+            }
+          }
+          break;
+        }
+      }
+    }
+    for (    long joint : agg.getJoints()) {
+      if ((parent & joint) == joint) {
+        if (containsNonMandatoryColumn(agg,parent ^ joint)) {
+          set.add(parent ^ joint);
+        }
+      }
+    }
+  }
+  return set;
+}

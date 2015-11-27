@@ -1,0 +1,7 @@
+{
+  KylinConfig.destoryInstance();
+  System.setProperty(KylinConfig.KYLIN_CONF,newMetadataUrl);
+  KylinConfig.getInstanceFromEnv().setMetadataUrl(newMetadataUrl);
+  config=KylinConfig.getInstanceFromEnv();
+  store=getStore();
+}

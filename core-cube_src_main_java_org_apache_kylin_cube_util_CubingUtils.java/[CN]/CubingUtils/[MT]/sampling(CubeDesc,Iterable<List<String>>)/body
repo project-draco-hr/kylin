@@ -6,8 +6,7 @@
   final Map<Long,Integer[]> allCuboidsBitSet=Maps.newHashMap();
   Lists.transform(allCuboidIds,new Function<Long,Integer[]>(){
     @Nullable @Override public Integer[] apply(    @Nullable Long cuboidId){
-      BitSet bitSet=BitSet.valueOf(new long[]{cuboidId});
-      Integer[] result=new Integer[bitSet.cardinality()];
+      Integer[] result=new Integer[Long.bitCount(cuboidId)];
       long mask=Long.highestOneBit(baseCuboidId);
       int position=0;
       for (int i=0; i < rowkeyLength; i++) {
@@ -24,8 +23,7 @@
   final Map<Long,HyperLogLogPlusCounter> result=Maps.newHashMapWithExpectedSize(allCuboidIds.size());
   for (  Long cuboidId : allCuboidIds) {
     result.put(cuboidId,new HyperLogLogPlusCounter(14));
-    BitSet bitSet=BitSet.valueOf(new long[]{cuboidId});
-    Integer[] cuboidBitSet=new Integer[bitSet.cardinality()];
+    Integer[] cuboidBitSet=new Integer[Long.bitCount(cuboidId)];
     long mask=Long.highestOneBit(baseCuboidId);
     int position=0;
     for (int i=0; i < rowkeyLength; i++) {

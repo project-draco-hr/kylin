@@ -1,0 +1,4 @@
+{
+  CubeDesc cube=getStreamingCubeDesc();
+  CuboidCLI.simulateCuboidGeneration(cube,true);
+}

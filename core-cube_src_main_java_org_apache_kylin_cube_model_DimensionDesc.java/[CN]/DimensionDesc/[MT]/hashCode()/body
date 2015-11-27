@@ -1,5 +1,3 @@
 {
-  int result=id;
-  result=31 * result + name.hashCode();
-  return result;
+  throw new NotImplementedException();
 }

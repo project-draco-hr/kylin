@@ -1,0 +1,9 @@
+{
+  List<AggregationGroup> ret=Lists.newArrayList();
+  for (  AggregationGroup agg : cubeDesc.getAggregationGroups()) {
+    if (isValid(agg,cuboidID)) {
+      ret.add(agg);
+    }
+  }
+  return ret;
+}

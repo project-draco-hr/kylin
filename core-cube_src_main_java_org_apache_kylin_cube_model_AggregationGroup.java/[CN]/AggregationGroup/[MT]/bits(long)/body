@@ -1,0 +1,10 @@
+{
+  List<Long> r=Lists.newArrayList();
+  long l=x;
+  while (l != 0) {
+    long bit=Long.lowestOneBit(l);
+    r.add(bit);
+    l^=bit;
+  }
+  return r;
+}

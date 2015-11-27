@@ -1,0 +1,5 @@
+{
+  if (measures == null) {
+    measures=Lists.newArrayList();
+  }
+}

@@ -1,5 +1,5 @@
 {
-  int levels=cube.getRowkey().getNCuboidBuildLevels();
+  int levels=cube.getBuildLevel();
   int[] allLevelCounts=new int[levels + 1];
   CuboidScheduler scheduler=new CuboidScheduler(cube);
   LinkedList<Long> nextQueue=new LinkedList<Long>();

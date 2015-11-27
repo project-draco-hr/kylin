@@ -1,0 +1,11 @@
+{
+  ValidateContext vContext=new ValidateContext();
+  CubeDesc desc=JsonUtil.readValue(new FileInputStream("../examples/test_case_data/localmeta/cube_desc/test_kylin_cube_with_slr_desc.json"),CubeDesc.class);
+  String[] temp=Arrays.asList(desc.getAggregationGroups().get(0).getIncludes()).subList(0,3).toArray(new String[3]);
+  desc.getAggregationGroups().get(0).setIncludes(temp);
+  IValidatorRule<CubeDesc> rule=getAggregationGroupRule();
+  rule.validate(desc,vContext);
+  vContext.print(System.out);
+  assertEquals(1,vContext.getResults().length);
+  assertEquals("Aggregation group 0 Include dims not containing all the used dims",(vContext.getResults()[0].getMessage()));
+}

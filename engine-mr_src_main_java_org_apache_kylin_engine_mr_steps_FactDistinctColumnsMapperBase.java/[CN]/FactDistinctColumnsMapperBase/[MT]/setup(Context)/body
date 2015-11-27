@@ -12,7 +12,7 @@
   DictionaryManager dictMgr=DictionaryManager.getInstance(config);
   for (int i=0; i < dictionaryColumns.size(); i++) {
     TblColRef col=dictionaryColumns.get(i);
-    String scanTable=dictMgr.decideSourceData(cubeDesc.getModel(),"true",col).getTable();
+    String scanTable=dictMgr.decideSourceData(cubeDesc.getModel(),true,col).getTable();
     if (cubeDesc.getModel().isFactTable(scanTable)) {
       factDictCols.add(i);
     }

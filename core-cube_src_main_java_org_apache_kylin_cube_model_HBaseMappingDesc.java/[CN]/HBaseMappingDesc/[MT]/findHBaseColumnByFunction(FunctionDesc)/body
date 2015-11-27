@@ -1,6 +1,6 @@
 {
   Collection<HBaseColumnDesc> result=new LinkedList<HBaseColumnDesc>();
-  HBaseMappingDesc hbaseMapping=cubeRef.getHBaseMapping();
+  HBaseMappingDesc hbaseMapping=cubeRef.getHbaseMapping();
   if (hbaseMapping == null || hbaseMapping.getColumnFamily() == null) {
     return result;
   }

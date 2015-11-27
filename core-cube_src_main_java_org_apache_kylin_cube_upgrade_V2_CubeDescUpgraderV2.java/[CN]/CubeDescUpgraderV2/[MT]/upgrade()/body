@@ -1,0 +1,10 @@
+{
+  CubeDesc oldModel=loadOldCubeDesc(resourcePath);
+  org.apache.kylin.cube.model.CubeDesc newModel=new org.apache.kylin.cube.model.CubeDesc();
+  copyUnChangedProperties(oldModel,newModel);
+  upgradeDimension(oldModel,newModel);
+  upgradeRowKey(oldModel,newModel);
+  upgradeHBaseMapping(oldModel,newModel);
+  upgradeAggregationGroup(newModel);
+  return newModel;
+}

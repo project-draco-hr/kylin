@@ -1,0 +1,11 @@
+{
+  CubeDesc cube=getTestKylinCubeWithSeller();
+  CuboidScheduler cuboidScheduler=new CuboidScheduler(cube);
+  int[] counts=CuboidCLI.calculateAllLevelCount(cube);
+  printCount(counts);
+  int sum=0;
+  for (  Integer x : counts) {
+    sum+=x;
+  }
+  assertEquals(cuboidScheduler.getCuboidCount(),sum);
+}

@@ -1,4 +1,3 @@
 {
-  String useDictionary=getDictionary(col);
-  return useDictionary(useDictionary);
+  return getColDesc(col).isUsingDictionary();
 }

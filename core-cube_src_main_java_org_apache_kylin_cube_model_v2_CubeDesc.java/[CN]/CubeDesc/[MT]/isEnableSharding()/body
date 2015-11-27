@@ -1,0 +1,3 @@
+{
+  return storageType == IStorageAware.ID_SHARDED_HBASE;
+}

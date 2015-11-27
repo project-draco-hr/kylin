@@ -1,0 +1,9 @@
+{
+  long mandatoryColumnMask=agg.getMandatoryColumnMask();
+  if ((cuboidID & mandatoryColumnMask) != mandatoryColumnMask) {
+    return false;
+  }
+ else {
+    return ((cuboidID & ~mandatoryColumnMask) != 0);
+  }
+}

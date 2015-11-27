@@ -9,7 +9,7 @@
       this.releaseAllSegments(cube);
     }
     CubeDesc updatedCubeDesc=getCubeDescManager().updateCubeDesc(desc);
-    int cuboidCount=CuboidCLI.simulateCuboidGeneration(updatedCubeDesc);
+    int cuboidCount=CuboidCLI.simulateCuboidGeneration(updatedCubeDesc,false);
     logger.info("Updated cube " + cube.getName() + " has "+ cuboidCount+ " cuboids");
     ProjectManager projectManager=getProjectManager();
     if (!isCubeInProject(newProjectName,cube)) {

@@ -1,3 +1,3 @@
 {
-  return "RowKeyColDesc [column=" + column + ", length="+ length+ ", dictionary="+ dictionary+ ", mandatory="+ mandatory+ "]";
+  return Objects.toStringHelper(this).add("column",column).add("encoding",encoding).toString();
 }

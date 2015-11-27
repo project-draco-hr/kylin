@@ -2,7 +2,12 @@
   CubeDesc cube=getTestKylinCubeWithoutSeller();
   CuboidScheduler scheduler=new CuboidScheduler(cube);
   long quiz=toLong("01100111");
-  testSpanningAndGetParent(scheduler,cube,new long[]{quiz});
+  try {
+    testSpanningAndGetParent(scheduler,cube,new long[]{quiz});
+    fail();
+  }
+ catch (  IllegalStateException ex) {
+  }
   System.out.println("Spanning for 7D Cuboids");
   testSpanningAndGetParent(scheduler,cube,new long[]{255});
   System.out.println("Spanning for 6D Cuboids");

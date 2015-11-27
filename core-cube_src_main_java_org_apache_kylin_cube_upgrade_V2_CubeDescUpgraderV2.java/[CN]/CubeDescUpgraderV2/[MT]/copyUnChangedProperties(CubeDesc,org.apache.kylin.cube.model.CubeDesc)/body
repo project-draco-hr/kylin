@@ -1,0 +1,12 @@
+{
+  newModel.setUuid(oldModel.getUuid());
+  newModel.setName(oldModel.getName());
+  newModel.setDescription(oldModel.getDescription());
+  newModel.setMeasures(oldModel.getMeasures());
+  newModel.setNullStrings(oldModel.getNullStrings());
+  newModel.setModelName(oldModel.getModelName());
+  newModel.setNotifyList(oldModel.getNotifyList());
+  newModel.setLastModified(oldModel.getLastModified());
+  newModel.setStorageType(oldModel.getStorageType());
+  newModel.setEngineType(oldModel.getEngineType());
+}

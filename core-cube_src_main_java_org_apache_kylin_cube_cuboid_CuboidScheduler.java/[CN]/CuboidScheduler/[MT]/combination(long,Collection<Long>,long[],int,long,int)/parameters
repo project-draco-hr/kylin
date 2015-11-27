@@ -1,6 +1,0 @@
-long cuboid
-Collection<Long> siblings
-long[] bitMasks
-int offset
-long bitValue
-int k

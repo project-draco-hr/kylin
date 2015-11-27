@@ -4,7 +4,7 @@
   for (  MeasureDesc m : measures)   measureLookup.put(m.getName(),m);
   Map<String,Integer> measureIndexLookup=new HashMap<String,Integer>();
   for (int i=0; i < measures.size(); i++)   measureIndexLookup.put(measures.get(i).getName(),i);
-  for (  HBaseColumnFamilyDesc cf : getHBaseMapping().getColumnFamily()) {
+  for (  HBaseColumnFamilyDesc cf : getHbaseMapping().getColumnFamily()) {
     for (    HBaseColumnDesc c : cf.getColumns()) {
       String[] colMeasureRefs=c.getMeasureRefs();
       MeasureDesc[] measureDescs=new MeasureDesc[colMeasureRefs.length];

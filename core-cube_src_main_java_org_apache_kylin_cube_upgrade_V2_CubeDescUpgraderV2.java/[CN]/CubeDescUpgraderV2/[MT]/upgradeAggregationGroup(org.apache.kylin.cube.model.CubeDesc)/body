@@ -1,0 +1,48 @@
+{
+  List<AggregationGroup> aggs=Lists.newArrayList();
+  if (oldAggGroup == null || oldAggGroup.length == 0) {
+    oldAggGroup=new String[1][];
+    oldAggGroup[0]=toArray(allRowKeyCols);
+  }
+  if (rowKeyColExistsInMultipleAggGroup()) {
+    throw new IllegalArgumentException("rowKeyColExistsInMultipleAggGroup!");
+  }
+  Set<String> visited=newIgnoreCaseSet(null);
+  for (  String[] group : oldAggGroup) {
+    AggregationGroup agg=new AggregationGroup();
+    Set<String> remaining=newIgnoreCaseSet(allRowKeyCols);
+    remaining.removeAll(visited);
+    Set<String> joint=newIgnoreCaseSet(remaining);
+    joint.removeAll(oldMandatories);
+    Set<String> groupAsSet=newIgnoreCaseSet(null);
+    for (    String entry : group) {
+      groupAsSet.add(entry);
+    }
+    visited.addAll(groupAsSet);
+    joint.removeAll(groupAsSet);
+    List<String> mandatories=Lists.newArrayList();
+    List<String[]> hierarchies=Lists.newArrayList();
+    for (    String s : oldMandatories) {
+      mandatories.add(s);
+    }
+    for (    String[] h : oldHierarchies) {
+      if (groupAsSet.containsAll(Arrays.asList(h))) {
+        hierarchies.add(h);
+      }
+    }
+    agg.setIncludes(toArray(remaining));
+    SelectRule selectRule=new SelectRule();
+    selectRule.hierarchy_dims=hierarchies.toArray(new String[hierarchies.size()][]);
+    if (joint.size() != 0) {
+      selectRule.joint_dims=new String[1][];
+      selectRule.joint_dims[0]=joint.toArray(new String[joint.size()]);
+    }
+ else {
+      selectRule.joint_dims=new String[0][];
+    }
+    selectRule.mandatory_dims=mandatories.toArray(new String[mandatories.size()]);
+    agg.setSelectRule(selectRule);
+    aggs.add(agg);
+  }
+  newModel.setAggregationGroups(aggs);
+}

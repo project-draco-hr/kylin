@@ -1,0 +1,9 @@
+{
+  AggregationGroupRule rule=new AggregationGroupRule(){
+    @Override protected int getMaxAgrGroupSize(){
+      return 20;
+    }
+  }
+;
+  return rule;
+}

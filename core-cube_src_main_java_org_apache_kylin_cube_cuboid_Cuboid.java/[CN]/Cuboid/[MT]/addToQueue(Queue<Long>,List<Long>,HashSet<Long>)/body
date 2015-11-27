@@ -1,9 +1,0 @@
-{
-  Collections.sort(parents);
-  for (  Long p : parents) {
-    if (!dedupped.contains(p)) {
-      dedupped.add(p);
-      queue.offer(p);
-    }
-  }
-}

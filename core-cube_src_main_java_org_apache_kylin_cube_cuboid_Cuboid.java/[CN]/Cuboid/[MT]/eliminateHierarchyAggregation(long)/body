@@ -1,15 +1,20 @@
 {
-  List<HierarchyMask> hierarchyMaskList=cube.getRowkey().getHierarchyMasks();
-  if (hierarchyMaskList != null && hierarchyMaskList.size() > 0) {
-    for (    HierarchyMask hierMask : hierarchyMaskList) {
-      long[] allMasks=hierMask.allMasks;
-      for (int i=allMasks.length - 1; i > 0; i--) {
-        long bit=allMasks[i] ^ allMasks[i - 1];
-        if ((inputID & bit) != 0) {
-          id&=~allMasks[i - 1];
+  long finalId=id;
+  for (  AggregationGroup agg : cubeDesc.getAggregationGroups()) {
+    long temp=id;
+    List<HierarchyMask> hierarchyMaskList=agg.getHierarchyMasks();
+    if (hierarchyMaskList != null && hierarchyMaskList.size() > 0) {
+      for (      HierarchyMask hierMask : hierarchyMaskList) {
+        long[] allMasks=hierMask.allMasks;
+        for (int i=allMasks.length - 1; i > 0; i--) {
+          long bit=allMasks[i] ^ allMasks[i - 1];
+          if ((inputID & bit) != 0) {
+            temp&=~allMasks[i - 1];
+            if (temp < finalId)             finalId=temp;
+          }
         }
       }
     }
   }
-  return id;
+  return finalId;
 }

@@ -1,3 +1,3 @@
 {
-  return "RowKeyDesc [rowkeyColumns=" + Arrays.toString(rowkeyColumns) + ", aggregationGroups="+ Arrays.toString(aggregationGroups)+ "]";
+  return Objects.toStringHelper(this).add("RowKeyColumns",Arrays.toString(rowkeyColumns)).toString();
 }

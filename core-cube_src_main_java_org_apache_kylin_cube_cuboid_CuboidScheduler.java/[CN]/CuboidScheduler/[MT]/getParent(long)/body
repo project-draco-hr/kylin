@@ -1,0 +1,52 @@
+{
+  List<Long> candidates=Lists.newArrayList();
+  long baseCuboidID=Cuboid.getBaseCuboidId(cubeDesc);
+  if (child == baseCuboidID || !Cuboid.isValid(cubeDesc,child)) {
+    throw new IllegalStateException();
+  }
+  for (  AggregationGroup agg : Cuboid.getValidAggGroupForCuboid(cubeDesc,child)) {
+    boolean thisAggContributed=false;
+    if (agg.getPartialCubeFullMask() == child) {
+      return baseCuboidID;
+    }
+    long normalDimsMask=(agg.getNormalDimsMask() & ~child);
+    if (normalDimsMask != 0) {
+      candidates.add(child | Long.lowestOneBit(normalDimsMask));
+      thisAggContributed=true;
+    }
+    for (    AggregationGroup.HierarchyMask hierarchyMask : agg.getHierarchyMasks()) {
+      if ((child & hierarchyMask.fullMask) == 0) {
+        candidates.add(child | hierarchyMask.dims[0]);
+        thisAggContributed=true;
+      }
+ else {
+        for (int i=hierarchyMask.allMasks.length - 1; i >= 0; i--) {
+          if ((child & hierarchyMask.allMasks[i]) == hierarchyMask.allMasks[i]) {
+            if (i == hierarchyMask.allMasks.length - 1) {
+              continue;
+            }
+            if ((agg.getJointDimsMask() & hierarchyMask.dims[i + 1]) == 0) {
+              if ((child & hierarchyMask.dims[i + 1]) == 0) {
+                candidates.add(child | hierarchyMask.dims[i + 1]);
+                thisAggContributed=true;
+              }
+            }
+            break;
+          }
+        }
+      }
+    }
+    if (thisAggContributed) {
+      continue;
+    }
+    for (    long joint : agg.getJoints()) {
+      if ((child & joint) == 0) {
+        candidates.add(child | joint);
+      }
+    }
+  }
+  if (candidates.size() == 0) {
+    throw new IllegalStateException();
+  }
+  return Collections.min(candidates,Cuboid.cuboidSelectComparator);
+}

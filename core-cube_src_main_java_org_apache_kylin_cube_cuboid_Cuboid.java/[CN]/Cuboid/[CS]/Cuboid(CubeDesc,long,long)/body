@@ -1,5 +1,5 @@
 {
-  this.cube=cube;
+  this.cubeDesc=cubeDesc;
   this.inputID=originalID;
   this.id=validID;
   this.idBytes=Bytes.toBytes(id);

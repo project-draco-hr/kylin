@@ -40,7 +40,7 @@
     this.topNMeasureTupleIdx=metricsTupleIdx[0][0];
     this.topNColDict=(Dictionary<String>)cubeSeg.getDictionary(this.topNCol);
   }
-  Map<Array<TblColRef>,List<DeriveInfo>> hostToDerivedInfo=cuboid.getCube().getHostToDerivedInfo(dimCols,null);
+  Map<Array<TblColRef>,List<DeriveInfo>> hostToDerivedInfo=cuboid.getCubeDesc().getHostToDerivedInfo(dimCols,null);
   for (  Entry<Array<TblColRef>,List<DeriveInfo>> entry : hostToDerivedInfo.entrySet()) {
     TblColRef[] hostCols=entry.getKey().data;
     for (    DeriveInfo deriveInfo : entry.getValue()) {

@@ -1,6 +1,6 @@
 {
-  this.cubeDef=cube;
-  this.size=cube.getRowkey().getRowKeyColumns().length;
+  this.cubeDesc=cubeDesc;
+  int size=this.cubeDesc.getRowkey().getRowKeyColumns().length;
   this.max=(long)Math.pow(2,size) - 1;
   this.cache=new ConcurrentHashMap<Long,List<Long>>();
 }

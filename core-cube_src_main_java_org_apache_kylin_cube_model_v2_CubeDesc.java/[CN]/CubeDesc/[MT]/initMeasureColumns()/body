@@ -1,0 +1,18 @@
+{
+  if (measures == null || measures.isEmpty()) {
+    return;
+  }
+  TableDesc factTable=getFactTableDesc();
+  for (  MeasureDesc m : measures) {
+    m.setName(m.getName().toUpperCase());
+    if (m.getDependentMeasureRef() != null) {
+      m.setDependentMeasureRef(m.getDependentMeasureRef().toUpperCase());
+    }
+    FunctionDesc func=m.getFunction();
+    func.init(factTable);
+    allColumns.addAll(func.getParameter().getColRefs());
+    if (func.isHolisticCountDistinct() && StringUtils.isBlank(m.getDependentMeasureRef())) {
+      throw new IllegalStateException(m + " is a holistic count distinct but it has no DependentMeasureRef defined!");
+    }
+  }
+}

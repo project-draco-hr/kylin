@@ -1,0 +1,16 @@
+{
+  Preconditions.checkState(StringUtils.isNotEmpty(this.encoding));
+  if (this.encoding.equalsIgnoreCase("dict")) {
+    this.colEncoding=new ColEncoding(ColEncodingType.DICT,null);
+  }
+ else   if (this.encoding.startsWith("fixed_length")) {
+    int length=RowConstants.ROWKEY_COL_DEFAULT_LENGTH;
+    if (this.encoding.indexOf(":") > 0) {
+      length=Integer.parseInt(this.encoding.substring(this.encoding.indexOf(":") + 1));
+    }
+    this.colEncoding=new ColEncoding(ColEncodingType.FIXED_LEN,length);
+  }
+ else {
+    throw new IllegalArgumentException("Not supported row key col encoding:" + this.encoding);
+  }
+}

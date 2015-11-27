@@ -1,3 +1,3 @@
 {
-  return getCuboidCount(Cuboid.getBaseCuboidId(cubeDef));
+  return getCuboidCount(Cuboid.getBaseCuboidId(cubeDesc));
 }

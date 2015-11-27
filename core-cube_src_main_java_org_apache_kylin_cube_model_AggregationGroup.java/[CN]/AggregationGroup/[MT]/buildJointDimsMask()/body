@@ -1,0 +1,7 @@
+{
+  long ret=0;
+  for (  long x : joints) {
+    ret|=x;
+  }
+  this.jointDimsMask=ret;
+}

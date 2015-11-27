@@ -1,0 +1,3 @@
+{
+  return "HBaseColumnFamilyDesc [name=" + name + ", columns="+ Arrays.toString(columns)+ "]";
+}

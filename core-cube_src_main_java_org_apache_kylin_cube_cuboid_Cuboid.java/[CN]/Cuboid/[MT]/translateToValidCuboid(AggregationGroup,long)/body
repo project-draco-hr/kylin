@@ -1,0 +1,48 @@
+{
+  if ((cuboidID & ~agg.getPartialCubeFullMask()) > 0) {
+    return null;
+  }
+  cuboidID=cuboidID | agg.getMandatoryColumnMask();
+  for (  HierarchyMask hierarchyMask : agg.getHierarchyMasks()) {
+    long fullMask=hierarchyMask.fullMask;
+    long intersect=cuboidID & fullMask;
+    if (intersect != 0 && intersect != fullMask) {
+      long lsb=Long.lowestOneBit(intersect);
+      long fillMask=fullMask & ~(lsb - 1);
+      cuboidID|=fillMask;
+    }
+  }
+  for (  Long joint : agg.getJoints()) {
+    if (((cuboidID | joint) != cuboidID) && ((cuboidID & ~joint) != cuboidID)) {
+      cuboidID=cuboidID | joint;
+    }
+  }
+  if ((cuboidID & ~agg.getMandatoryColumnMask()) != 0) {
+    return cuboidID;
+  }
+ else {
+    long nonJointDims=removeBits((agg.getPartialCubeFullMask() ^ agg.getMandatoryColumnMask()),agg.getJoints());
+    if (nonJointDims != 0) {
+      long nonJointNonHierarchy=removeBits(nonJointDims,Collections2.transform(agg.getHierarchyMasks(),new Function<HierarchyMask,Long>(){
+        @Override public Long apply(        HierarchyMask input){
+          return input.fullMask;
+        }
+      }
+));
+      if (nonJointNonHierarchy != 0) {
+        return cuboidID | Long.lowestOneBit(nonJointNonHierarchy);
+      }
+ else {
+        long allJointDims=agg.getJointDimsMask();
+        int index=0;
+        for (        HierarchyMask hierarchyMask : agg.getHierarchyMasks()) {
+          long dim=hierarchyMask.allMasks[index];
+          if ((nonJointDims & allJointDims) == 0) {
+            return cuboidID | dim;
+          }
+        }
+      }
+    }
+    return cuboidID | Collections.min(agg.getJoints(),cuboidSelectComparator);
+  }
+}

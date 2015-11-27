@@ -1,0 +1,7 @@
+{
+  long ret=0;
+  for (  HierarchyMask mask : hierarchyMasks) {
+    ret|=mask.fullMask;
+  }
+  this.hierarchyDimsMask=ret;
+}

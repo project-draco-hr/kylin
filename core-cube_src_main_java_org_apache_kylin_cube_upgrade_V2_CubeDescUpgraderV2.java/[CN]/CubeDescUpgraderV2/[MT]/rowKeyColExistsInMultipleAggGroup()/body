@@ -1,0 +1,14 @@
+{
+  if (oldAggGroup == null)   return false;
+  int total=0;
+  Set<String> overall=newIgnoreCaseSet(null);
+  for (  String[] group : oldAggGroup) {
+    Set<String> temp=newIgnoreCaseSet(null);
+    for (    String entry : group) {
+      overall.add(entry);
+      temp.add(entry);
+    }
+    total+=temp.size();
+  }
+  return overall.size() != total;
+}

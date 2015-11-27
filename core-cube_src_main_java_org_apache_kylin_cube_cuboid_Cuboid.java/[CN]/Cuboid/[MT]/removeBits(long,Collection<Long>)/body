@@ -1,0 +1,7 @@
+{
+  long ret=original;
+  for (  Long joint : toRemove) {
+    ret=ret & ~joint;
+  }
+  return ret;
+}

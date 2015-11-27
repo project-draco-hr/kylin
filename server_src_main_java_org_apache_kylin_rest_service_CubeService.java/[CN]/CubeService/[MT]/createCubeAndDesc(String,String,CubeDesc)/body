@@ -20,7 +20,7 @@
     throw new InternalErrorException(createdDesc.getError().get(0));
   }
   try {
-    int cuboidCount=CuboidCLI.simulateCuboidGeneration(createdDesc);
+    int cuboidCount=CuboidCLI.simulateCuboidGeneration(createdDesc,false);
     logger.info("New cube " + cubeName + " has "+ cuboidCount+ " cuboids");
   }
  catch (  Exception e) {

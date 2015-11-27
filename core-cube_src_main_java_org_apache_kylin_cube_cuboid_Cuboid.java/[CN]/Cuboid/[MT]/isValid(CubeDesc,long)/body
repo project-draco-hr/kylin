@@ -1,19 +1,8 @@
 {
-  RowKeyDesc rowkey=cube.getRowkey();
-  if (cuboidID < 0) {
-    throw new IllegalArgumentException("Cuboid " + cuboidID + " should be greater than 0");
+  for (  AggregationGroup agg : cube.getAggregationGroups()) {
+    if (isValid(agg,cuboidID)) {
+      return true;
+    }
   }
-  if (checkBaseCuboid(rowkey,cuboidID)) {
-    return true;
-  }
-  if (checkMandatoryColumns(rowkey,cuboidID) == false) {
-    return false;
-  }
-  if (checkAggregationGroup(rowkey,cuboidID) == false) {
-    return false;
-  }
-  if (checkHierarchy(rowkey,cuboidID) == false) {
-    return false;
-  }
-  return true;
+  return false;
 }

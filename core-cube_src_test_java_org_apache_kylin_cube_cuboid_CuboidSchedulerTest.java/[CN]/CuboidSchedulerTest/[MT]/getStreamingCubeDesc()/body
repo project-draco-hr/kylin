@@ -1,0 +1,3 @@
+{
+  return getCubeDescManager().getCubeDesc("test_streaming_table_cube_desc");
+}

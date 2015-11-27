@@ -1,0 +1,8 @@
+{
+  return Collections.max(Collections2.transform(aggregationGroups,new Function<AggregationGroup,Integer>(){
+    @Nullable @Override public Integer apply(    AggregationGroup input){
+      return input.getBuildLevel();
+    }
+  }
+));
+}

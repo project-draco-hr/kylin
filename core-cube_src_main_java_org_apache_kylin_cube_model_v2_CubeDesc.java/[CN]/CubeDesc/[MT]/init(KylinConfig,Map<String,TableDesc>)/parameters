@@ -1,0 +1,2 @@
+KylinConfig config
+Map<String,TableDesc> tables

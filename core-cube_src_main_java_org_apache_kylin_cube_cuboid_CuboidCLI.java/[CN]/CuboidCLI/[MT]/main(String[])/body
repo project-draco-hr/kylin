@@ -2,6 +2,6 @@
   CubeDescManager cubeDescMgr=CubeDescManager.getInstance(KylinConfig.getInstanceFromEnv());
   if ("test".equals(args[0])) {
     CubeDesc cubeDesc=cubeDescMgr.getCubeDesc(args[1]);
-    simulateCuboidGeneration(cubeDesc);
+    simulateCuboidGeneration(cubeDesc,true);
   }
 }

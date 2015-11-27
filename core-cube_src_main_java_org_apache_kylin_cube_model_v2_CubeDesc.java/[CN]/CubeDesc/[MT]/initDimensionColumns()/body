@@ -1,0 +1,48 @@
+{
+  for (  DimensionDesc dim : dimensions) {
+    JoinDesc join=dim.getJoin();
+    ArrayList<TblColRef> dimCols=Lists.newArrayList();
+    String[] colStrs=dim.getColumn();
+    if (colStrs == null && dim.isDerived() || ArrayUtils.contains(colStrs,"{FK}")) {
+      for (      TblColRef col : join.getForeignKeyColumns()) {
+        dimCols.add(initDimensionColRef(col));
+      }
+    }
+ else {
+      if (colStrs == null || colStrs.length == 0)       throw new IllegalStateException("Dimension column must not be blank " + dim);
+      for (      String colStr : colStrs) {
+        dimCols.add(initDimensionColRef(dim,colStr));
+      }
+      if (dim.isHierarchy()) {
+        for (int i=0; i < dimCols.size(); i++)         dim.getHierarchy()[i].setColumnRef(dimCols.get(i));
+      }
+    }
+    TblColRef[] dimColArray=(TblColRef[])dimCols.toArray(new TblColRef[dimCols.size()]);
+    dim.setColumnRefs(dimColArray);
+    TblColRef[] hostCols=dimColArray;
+    if (dim.isDerived()) {
+      String[] derived=dim.getDerived();
+      String[][] split=splitDerivedColumnAndExtra(derived);
+      String[] derivedNames=split[0];
+      String[] derivedExtra=split[1];
+      TblColRef[] derivedCols=new TblColRef[derivedNames.length];
+      for (int i=0; i < derivedNames.length; i++) {
+        derivedCols[i]=initDimensionColRef(dim,derivedNames[i]);
+      }
+      initDerivedMap(hostCols,DeriveType.LOOKUP,dim,derivedCols,derivedExtra);
+    }
+    if (join != null) {
+      TblColRef[] fk=join.getForeignKeyColumns();
+      TblColRef[] pk=join.getPrimaryKeyColumns();
+      allColumns.addAll(Arrays.asList(fk));
+      allColumns.addAll(Arrays.asList(pk));
+      for (int i=0; i < fk.length; i++) {
+        int find=ArrayUtils.indexOf(hostCols,fk[i]);
+        if (find >= 0) {
+          TblColRef derivedCol=initDimensionColRef(pk[i]);
+          initDerivedMap(hostCols[find],DeriveType.PK_FK,dim,derivedCol);
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   Map<Integer,Integer> result=Maps.newHashMap();
-  List<MeasureDesc> measures=cuboid.getCube().getMeasures();
+  List<MeasureDesc> measures=cuboid.getCubeDesc().getMeasures();
   for (  MeasureDesc child : measures) {
     if (child.getDependentMeasureRef() != null) {
       boolean ok=false;

@@ -1,0 +1,33 @@
+{
+  RowKeyDesc oldRowKey=oldModel.getRowkey();
+  if (oldModel == null) {
+    throw new IllegalArgumentException("RowKeyDesc is null");
+  }
+  if (oldRowKey.getRowKeyColumns() == null) {
+    throw new IllegalArgumentException("RowKeyDesc.getRowKeyColumns is null");
+  }
+  org.apache.kylin.cube.model.RowKeyDesc newRowKey=new org.apache.kylin.cube.model.RowKeyDesc();
+  org.apache.kylin.cube.model.RowKeyColDesc[] cols=new org.apache.kylin.cube.model.RowKeyColDesc[oldRowKey.getRowKeyColumns().length];
+  int index=0;
+  for (  RowKeyColDesc oldRowKeyCol : oldRowKey.getRowKeyColumns()) {
+    org.apache.kylin.cube.model.RowKeyColDesc newRowKeyCol=new org.apache.kylin.cube.model.RowKeyColDesc();
+    allRowKeyCols.add(oldRowKeyCol.getColumn());
+    if (oldRowKeyCol.isMandatory()) {
+      oldMandatories.add(oldRowKeyCol.getColumn());
+    }
+    newRowKeyCol.setColumn(oldRowKeyCol.getColumn());
+    if (oldRowKeyCol.getDictionary() != null && "true".equalsIgnoreCase(oldRowKeyCol.getDictionary())) {
+      newRowKeyCol.setEncoding("dict");
+    }
+ else     if (oldRowKeyCol.getLength() > 0) {
+      newRowKeyCol.setEncoding("fixed_length:" + oldRowKeyCol.getLength());
+    }
+ else {
+      throw new IllegalArgumentException("Unknow encoding: Dictionary " + oldRowKeyCol.getDictionary() + ", length: "+ oldRowKeyCol.getLength());
+    }
+    cols[index++]=newRowKeyCol;
+  }
+  oldAggGroup=oldRowKey.getAggregationGroups();
+  newRowKey.setRowkeyColumns(cols);
+  newModel.setRowkey(newRowKey);
+}

@@ -1,7 +1,5 @@
 {
-  setCubeRef(cube);
-  Map<String,TblColRef> colNameAbbr=cube.buildColumnNameAbbreviation();
+  setCubeDesc(cubeDesc);
+  Map<String,TblColRef> colNameAbbr=cubeDesc.buildColumnNameAbbreviation();
   buildRowKey(colNameAbbr);
-  buildAggregationGroups(colNameAbbr);
-  buildHierarchyMasks();
 }

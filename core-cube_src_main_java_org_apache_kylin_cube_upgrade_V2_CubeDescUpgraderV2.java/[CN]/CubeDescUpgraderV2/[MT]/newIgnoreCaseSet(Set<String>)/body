@@ -1,0 +1,5 @@
+{
+  Set<String> ret=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+  if (input != null)   ret.addAll(input);
+  return ret;
+}

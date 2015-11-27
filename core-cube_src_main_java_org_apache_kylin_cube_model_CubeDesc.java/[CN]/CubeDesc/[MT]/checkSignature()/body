@@ -2,5 +2,7 @@
   if (StringUtils.isBlank(getSignature())) {
     return true;
   }
-  return calculateSignature().equals(getSignature());
+  String calculated=calculateSignature();
+  String saved=getSignature();
+  return calculated.equals(saved);
 }

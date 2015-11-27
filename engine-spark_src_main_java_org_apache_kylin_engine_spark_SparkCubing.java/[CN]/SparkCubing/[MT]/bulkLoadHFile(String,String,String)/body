@@ -6,7 +6,7 @@
   final Configuration hbaseConf=HBaseConnection.getCurrentHBaseConfiguration();
   FileSystem fs=FileSystem.get(hbaseConf);
   FsPermission permission=new FsPermission((short)0777);
-  for (  HBaseColumnFamilyDesc cf : cubeDesc.getHBaseMapping().getColumnFamily()) {
+  for (  HBaseColumnFamilyDesc cf : cubeDesc.getHbaseMapping().getColumnFamily()) {
     String cfName=cf.getName();
     Path columnFamilyPath=new Path(hfileLocation,cfName);
     if (fs.exists(columnFamilyPath)) {

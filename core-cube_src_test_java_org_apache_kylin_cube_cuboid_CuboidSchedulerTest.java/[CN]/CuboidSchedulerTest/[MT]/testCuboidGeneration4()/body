@@ -1,0 +1,4 @@
+{
+  CubeDesc cube=getTestKylinCubeWithSellerLeft();
+  CuboidCLI.simulateCuboidGeneration(cube,true);
+}

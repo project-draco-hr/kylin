@@ -1,0 +1,27 @@
+{
+  CuboidScheduler scheduler=new CuboidScheduler(cube);
+  long baseCuboid=Cuboid.getBaseCuboidId(cube);
+  Collection<Long> cuboidSet=new TreeSet<Long>();
+  cuboidSet.add(baseCuboid);
+  LinkedList<Long> cuboidQueue=new LinkedList<Long>();
+  cuboidQueue.push(baseCuboid);
+  while (!cuboidQueue.isEmpty()) {
+    long cuboid=cuboidQueue.pop();
+    Collection<Long> spnanningCuboids=scheduler.getSpanningCuboid(cuboid);
+    for (    Long sc : spnanningCuboids) {
+      boolean notfound=cuboidSet.add(sc);
+      if (!notfound) {
+        throw new IllegalStateException("Find duplicate spanning cuboid " + sc + " from cuboid "+ cuboid);
+      }
+      cuboidQueue.push(sc);
+    }
+  }
+  if (validate) {
+    TreeSet<Long> enumCuboids=enumCalcCuboidCount(cube);
+    System.out.println(Arrays.toString(enumCuboids.toArray(new Long[enumCuboids.size()])));
+    if (enumCuboids.equals(cuboidSet) == false) {
+      throw new IllegalStateException("Expected cuboid set " + enumCuboids + "; but actual cuboid set "+ cuboidSet);
+    }
+  }
+  return cuboidSet.size();
+}

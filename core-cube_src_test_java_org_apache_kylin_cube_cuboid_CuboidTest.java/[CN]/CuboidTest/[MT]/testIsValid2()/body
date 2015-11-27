@@ -1,11 +1,6 @@
 {
   CubeDesc cube=getTestKylinCubeWithoutSeller();
-  try {
-    assertEquals(false,Cuboid.isValid(cube,toLong("111111111")));
-    fail();
-  }
- catch (  IllegalArgumentException ex) {
-  }
+  assertEquals(false,Cuboid.isValid(cube,toLong("111111111")));
   assertEquals(false,Cuboid.isValid(cube,0));
   assertEquals(true,Cuboid.isValid(cube,toLong("11111111")));
   assertEquals(true,Cuboid.isValid(cube,toLong("10000111")));

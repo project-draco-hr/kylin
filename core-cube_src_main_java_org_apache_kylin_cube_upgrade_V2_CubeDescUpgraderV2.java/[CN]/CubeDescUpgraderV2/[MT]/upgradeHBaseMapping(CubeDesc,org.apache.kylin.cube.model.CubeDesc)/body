@@ -1,0 +1,14 @@
+{
+  HBaseMappingDesc hbaseMappingDesc=oldModel.getHBaseMapping();
+  try {
+    ByteArrayOutputStream os=new ByteArrayOutputStream();
+    JsonUtil.writeValueIndent(os,hbaseMappingDesc);
+    byte[] blob=os.toByteArray();
+    ByteArrayInputStream is=new ByteArrayInputStream(blob);
+    org.apache.kylin.cube.model.HBaseMappingDesc newHBaseMappingDesc=JsonUtil.readValue(is,org.apache.kylin.cube.model.HBaseMappingDesc.class);
+    newModel.setHbaseMapping(newHBaseMappingDesc);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("error when copying HBaseMappingDesc");
+  }
+}

@@ -1,0 +1,10 @@
+{
+  if (usingDict) {
+    if (model.isFactTable(col.getTable())) {
+      TblColRef pkCol=model.findPKByFK(col,"inner");
+      if (pkCol != null)       col=pkCol;
+    }
+    return col;
+  }
+ else   throw new IllegalArgumentException("Not using Dictionary ");
+}

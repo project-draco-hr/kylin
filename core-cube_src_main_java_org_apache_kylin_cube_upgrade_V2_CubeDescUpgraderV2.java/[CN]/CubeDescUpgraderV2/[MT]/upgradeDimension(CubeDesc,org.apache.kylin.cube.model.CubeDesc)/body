@@ -1,0 +1,31 @@
+{
+  List<DimensionDesc> oldDimensions=oldModel.getDimensions();
+  if (oldDimensions == null) {
+    throw new IllegalArgumentException("dimensions is null");
+  }
+  List<org.apache.kylin.cube.model.DimensionDesc> newDimensions=Lists.newArrayList();
+  for (  DimensionDesc oldDim : oldDimensions) {
+    if (oldDim.isDerived()) {
+      org.apache.kylin.cube.model.DimensionDesc newDim=new org.apache.kylin.cube.model.DimensionDesc();
+      newDim.setName(oldDim.getName());
+      newDim.setTable(oldDim.getTable());
+      newDim.setColumn("{FK}");
+      newDim.setDerived(oldDim.getDerived());
+      newDimensions.add(newDim);
+    }
+ else {
+      if (oldDim.isHierarchy()) {
+        oldHierarchies.add(oldDim.getColumn());
+      }
+      for (      String columnStr : oldDim.getColumn()) {
+        org.apache.kylin.cube.model.DimensionDesc newDim=new org.apache.kylin.cube.model.DimensionDesc();
+        newDim.setName(oldDim.getName());
+        newDim.setTable(oldDim.getTable());
+        newDim.setColumn(columnStr);
+        newDim.setDerived(null);
+        newDimensions.add(newDim);
+      }
+    }
+  }
+  newModel.setDimensions(newDimensions);
+}

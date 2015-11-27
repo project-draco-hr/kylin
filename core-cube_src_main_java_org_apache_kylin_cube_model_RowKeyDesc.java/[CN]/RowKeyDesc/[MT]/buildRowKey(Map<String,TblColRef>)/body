@@ -1,8 +1,8 @@
 {
   columnMap=new HashMap<TblColRef,RowKeyColDesc>();
-  mandatoryColumnMask=0;
   for (int i=0; i < rowkeyColumns.length; i++) {
     RowKeyColDesc rowKeyColDesc=rowkeyColumns[i];
+    rowKeyColDesc.init();
     String column=rowKeyColDesc.getColumn();
     rowKeyColDesc.setColumn(column.toUpperCase());
     rowKeyColDesc.setBitIndex(rowkeyColumns.length - i - 1);
@@ -11,8 +11,10 @@
       throw new IllegalArgumentException("Cannot find rowkey column " + column + " in cube "+ cubeDesc);
     }
     columnMap.put(rowKeyColDesc.getColRef(),rowKeyColDesc);
-    if (rowKeyColDesc.isMandatory()) {
-      mandatoryColumnMask|=1L << rowKeyColDesc.getBitIndex();
-    }
+  }
+  this.fullMask=0L;
+  for (int i=0; i < this.rowkeyColumns.length; i++) {
+    int index=rowkeyColumns[i].getBitIndex();
+    this.fullMask|=1L << index;
   }
 }

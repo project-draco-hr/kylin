@@ -1,0 +1,16 @@
+{
+  int ret=1;
+  if (this.getPartialCubeFullMask() == Cuboid.getBaseCuboidId(cubeDesc)) {
+    ret-=1;
+  }
+  ret+=getNormalDims().size();
+  for (  HierarchyMask hierarchyMask : this.hierarchyMasks) {
+    ret+=hierarchyMask.allMasks.length;
+  }
+  for (  Long joint : joints) {
+    if ((joint & this.getHierarchyDimsMask()) == 0) {
+      ret+=1;
+    }
+  }
+  return ret;
+}

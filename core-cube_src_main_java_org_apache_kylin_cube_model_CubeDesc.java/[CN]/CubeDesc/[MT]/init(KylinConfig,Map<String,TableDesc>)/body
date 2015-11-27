@@ -11,10 +11,12 @@
   for (  DimensionDesc dim : dimensions) {
     dim.init(this,tables);
   }
-  sortDimAndMeasure();
   initDimensionColumns();
   initMeasureColumns();
   rowkey.init(this);
+  for (  AggregationGroup agg : this.aggregationGroups) {
+    agg.init(this,rowkey);
+  }
   if (hbaseMapping != null) {
     hbaseMapping.init(this);
   }

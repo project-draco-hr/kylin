@@ -1,3 +1,3 @@
 {
-  return fullMask;
+  return this.fullMask;
 }

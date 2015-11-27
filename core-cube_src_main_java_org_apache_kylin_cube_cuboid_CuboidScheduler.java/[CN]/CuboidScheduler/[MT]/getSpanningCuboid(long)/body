@@ -6,15 +6,11 @@
   if (result != null) {
     return result;
   }
-  Collection<Long> allPrevOffspring=new HashSet<Long>();
-  for (  Long sibling : findSmallerSibling(cuboid)) {
-    Collection<Long> prevOffsprings=generateChildren(sibling);
-    allPrevOffspring.addAll(prevOffsprings);
-  }
-  result=new ArrayList<Long>();
-  for (  Long offspring : generateChildren(cuboid)) {
-    if (!allPrevOffspring.contains(offspring)) {
-      result.add(offspring);
+  result=Lists.newArrayList();
+  Set<Long> potentials=getPotentialChildren(cuboid);
+  for (  Long potential : potentials) {
+    if (getParent(potential) == cuboid) {
+      result.add(potential);
     }
   }
   cache.put(cuboid,result);

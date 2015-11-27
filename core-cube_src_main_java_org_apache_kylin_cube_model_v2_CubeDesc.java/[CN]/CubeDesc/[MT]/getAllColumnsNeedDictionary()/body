@@ -1,0 +1,13 @@
+{
+  List<TblColRef> result=Lists.newArrayList();
+  for (  RowKeyColDesc rowKeyColDesc : rowkey.getRowKeyColumns()) {
+    TblColRef colRef=rowKeyColDesc.getColRef();
+    if (rowkey.isUseDictionary(colRef)) {
+      result.add(colRef);
+    }
+  }
+  for (  MeasureDesc measure : measures) {
+    result.addAll(measure.getColumnsNeedDictionary());
+  }
+  return result;
+}

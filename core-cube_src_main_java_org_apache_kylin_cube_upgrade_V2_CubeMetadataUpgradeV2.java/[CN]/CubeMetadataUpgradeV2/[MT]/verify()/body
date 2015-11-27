@@ -1,0 +1,10 @@
+{
+  MetadataManager.clearCache();
+  MetadataManager.getInstance(config);
+  CubeDescManager.clearCache();
+  CubeDescManager.getInstance(config);
+  CubeManager.clearCache();
+  CubeManager.getInstance(config);
+  ProjectManager.clearCache();
+  ProjectManager.getInstance(config);
+}

@@ -1,0 +1,10 @@
+{
+  for (  File f : new File("../examples/test_case_data/localmeta/cube_desc/").listFiles()) {
+    CubeDesc desc=JsonUtil.readValue(new FileInputStream(f),CubeDesc.class);
+    ValidateContext vContext=new ValidateContext();
+    IValidatorRule<CubeDesc> rule=new RowKeyAttrRule();
+    rule.validate(desc,vContext);
+    vContext.print(System.out);
+    assertTrue(vContext.getResults().length == 0);
+  }
+}

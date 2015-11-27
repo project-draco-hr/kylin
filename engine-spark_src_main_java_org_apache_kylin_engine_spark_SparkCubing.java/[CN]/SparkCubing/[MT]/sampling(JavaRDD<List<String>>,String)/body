@@ -14,8 +14,7 @@
   final Map<Long,Integer[]> allCuboidsBitSet=Maps.newHashMapWithExpectedSize(allCuboidIds.size());
   final ByteArray[] row_hashcodes=new ByteArray[nRowKey];
   for (  Long cuboidId : allCuboidIds) {
-    BitSet bitSet=BitSet.valueOf(new long[]{cuboidId});
-    Integer[] cuboidBitSet=new Integer[bitSet.cardinality()];
+    Integer[] cuboidBitSet=new Integer[Long.bitCount(cuboidId)];
     long mask=Long.highestOneBit(baseCuboidId);
     int position=0;
     for (int i=0; i < nRowKey; i++) {

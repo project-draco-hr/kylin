@@ -1,0 +1,12 @@
+{
+  if (input == null) {
+    return 0;
+  }
+ else {
+    int count=0;
+    for (    String[] x : input) {
+      count+=count(x);
+    }
+    return count;
+  }
+}

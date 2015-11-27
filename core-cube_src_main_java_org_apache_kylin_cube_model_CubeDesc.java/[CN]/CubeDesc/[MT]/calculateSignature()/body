@@ -1,11 +1,12 @@
 {
-  MessageDigest md=null;
+  MessageDigest md;
   try {
     md=MessageDigest.getInstance("MD5");
     StringBuilder sigString=new StringBuilder();
-    sigString.append(this.name).append("|").append(this.getFactTable()).append("|").append(JsonUtil.writeValueAsString(this.model.getPartitionDesc())).append("|").append(JsonUtil.writeValueAsString(this.dimensions)).append("|").append(JsonUtil.writeValueAsString(this.measures)).append("|").append(JsonUtil.writeValueAsString(this.rowkey)).append("|").append(JsonUtil.writeValueAsString(this.hbaseMapping));
-    byte[] signature=md.digest(sigString.toString().getBytes());
-    return new String(Base64.encodeBase64(signature));
+    sigString.append(this.name).append("|").append(JsonUtil.writeValueAsString(this.modelName)).append("|").append(JsonUtil.writeValueAsString(this.dimensions)).append("|").append(JsonUtil.writeValueAsString(this.measures)).append("|").append(JsonUtil.writeValueAsString(this.rowkey)).append("|").append(JsonUtil.writeValueAsString(this.aggregationGroups)).append("|").append(JsonUtil.writeValueAsString(this.hbaseMapping));
+    byte[] signature=md.digest(sigString.toString().toLowerCase().getBytes());
+    String ret=new String(Base64.encodeBase64(signature));
+    return ret;
   }
  catch (  NoSuchAlgorithmException|JsonProcessingException e) {
     throw new RuntimeException("Failed to calculate signature");

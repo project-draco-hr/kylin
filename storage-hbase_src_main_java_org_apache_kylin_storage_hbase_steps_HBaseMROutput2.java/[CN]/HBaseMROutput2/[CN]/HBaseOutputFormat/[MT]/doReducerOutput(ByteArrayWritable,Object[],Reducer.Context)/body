@@ -1,6 +1,6 @@
 {
   if (keyValueCreators.size() == 0) {
-    for (    HBaseColumnFamilyDesc cfDesc : seg.getCubeDesc().getHBaseMapping().getColumnFamily()) {
+    for (    HBaseColumnFamilyDesc cfDesc : seg.getCubeDesc().getHbaseMapping().getColumnFamily()) {
       for (      HBaseColumnDesc colDesc : cfDesc.getColumns()) {
         keyValueCreators.add(new KeyValueCreator(seg.getCubeDesc(),colDesc));
       }

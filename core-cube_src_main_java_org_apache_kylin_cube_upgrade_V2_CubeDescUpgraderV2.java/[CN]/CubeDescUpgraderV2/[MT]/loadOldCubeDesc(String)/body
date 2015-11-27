@@ -1,0 +1,8 @@
+{
+  ResourceStore store=getStore();
+  CubeDesc ndesc=store.getResource(path,CubeDesc.class,oldCubeDescSerializer);
+  if (StringUtils.isBlank(ndesc.getName())) {
+    throw new IllegalStateException("CubeDesc name must not be blank");
+  }
+  return ndesc;
+}

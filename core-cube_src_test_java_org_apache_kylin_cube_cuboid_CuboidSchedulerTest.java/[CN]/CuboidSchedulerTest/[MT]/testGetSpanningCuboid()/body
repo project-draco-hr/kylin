@@ -1,6 +1,0 @@
-{
-  CubeDesc cube=getTestKylinCubeWithoutSeller();
-  CuboidScheduler scheduler=new CuboidScheduler(cube);
-  Collection<Long> spnanningCuboids=scheduler.getSpanningCuboid(248);
-  assertEquals("[]",spnanningCuboids.toString());
-}

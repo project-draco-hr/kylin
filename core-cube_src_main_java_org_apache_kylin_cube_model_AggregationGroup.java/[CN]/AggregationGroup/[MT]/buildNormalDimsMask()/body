@@ -1,0 +1,9 @@
+{
+  long leftover=partialCubeFullMask & ~mandatoryColumnMask;
+  leftover&=~this.jointDimsMask;
+  for (  HierarchyMask hierarchyMask : this.hierarchyMasks) {
+    leftover&=~hierarchyMask.fullMask;
+  }
+  this.normalDimsMask=leftover;
+  this.normalDims=bits(leftover);
+}

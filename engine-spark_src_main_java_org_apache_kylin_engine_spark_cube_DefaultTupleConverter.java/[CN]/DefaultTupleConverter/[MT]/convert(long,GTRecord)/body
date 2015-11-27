@@ -1,7 +1,7 @@
 {
   Cuboid cuboid=Cuboid.findById(segment.getCubeDesc(),cuboidId);
   RowKeyEncoder rowkeyEncoder=rowKeyEncoderProvider.getRowkeyEncoder(cuboid);
-  final int dimensions=BitSet.valueOf(new long[]{cuboidId}).cardinality();
+  final int dimensions=Long.bitCount(cuboidId);
   int[] measureColumnsIndex=getMeasureColumnsIndex();
   for (int i=0; i < measureCount; i++) {
     measureColumnsIndex[i]=dimensions + i;

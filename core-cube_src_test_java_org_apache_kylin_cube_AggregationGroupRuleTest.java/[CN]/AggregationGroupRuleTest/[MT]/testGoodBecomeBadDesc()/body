@@ -1,0 +1,17 @@
+{
+  AggregationGroupRule rule=new AggregationGroupRule(){
+    @Override protected int getMaxAgrGroupSize(){
+      return 4;
+    }
+  }
+;
+  for (  File f : new File("../examples/test_case_data/localmeta/cube_desc/").listFiles()) {
+    System.out.println(f.getName());
+    CubeDesc desc=JsonUtil.readValue(new FileInputStream(f),CubeDesc.class);
+    ValidateContext vContext=new ValidateContext();
+    rule.validate(desc,vContext);
+    vContext.print(System.out);
+    assertEquals(1,vContext.getResults().length);
+    assertEquals("Aggregation group 0 has too many dimensions",(vContext.getResults()[0].getMessage()));
+  }
+}

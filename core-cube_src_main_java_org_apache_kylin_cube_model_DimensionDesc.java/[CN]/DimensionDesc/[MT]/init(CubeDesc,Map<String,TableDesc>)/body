@@ -10,22 +10,7 @@
       break;
     }
   }
-  if (isHierarchy && this.column.length > 0) {
-    List<HierarchyDesc> hierarchyList=new ArrayList<HierarchyDesc>(3);
-    for (int i=0, n=this.column.length; i < n; i++) {
-      String aColumn=this.column[i];
-      HierarchyDesc aHierarchy=new HierarchyDesc();
-      aHierarchy.setLevel(String.valueOf(i + 1));
-      aHierarchy.setColumn(aColumn);
-      hierarchyList.add(aHierarchy);
-    }
-    this.hierarchy=hierarchyList.toArray(new HierarchyDesc[hierarchyList.size()]);
-  }
-  if (hierarchy != null && hierarchy.length == 0)   hierarchy=null;
   if (derived != null && derived.length == 0)   derived=null;
-  if (hierarchy != null) {
-    for (    HierarchyDesc h : hierarchy)     h.setColumn(h.getColumn().toUpperCase());
-  }
   if (derived != null) {
     StringUtil.toUpperCaseArray(derived,derived);
   }
