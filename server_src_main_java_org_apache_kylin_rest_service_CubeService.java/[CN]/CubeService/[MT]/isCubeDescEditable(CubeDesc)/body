@@ -1,11 +1,10 @@
 {
-  String cubeName=getCubeNameFromDesc(cd.getName());
-  CubeInstance cube=getCubeManager().getCube(cubeName);
-  if (cube == null) {
-    return true;
-  }
-  if (cube.getSegments().size() != 0) {
-    return false;
+  List<CubeInstance> cubes=getCubeManager().getCubesByDesc(cd.getName());
+  for (  CubeInstance cube : cubes) {
+    if (cube.getSegments().size() != 0) {
+      logger.debug("cube '" + cube.getName() + " has "+ cube.getSegments().size()+ " segments, couldn't edit cube desc.");
+      return false;
+    }
   }
   return true;
 }

@@ -1,8 +1,0 @@
-{
-  if (descName.toLowerCase().endsWith(DESC_SUFFIX)) {
-    return descName.substring(0,descName.toLowerCase().indexOf(DESC_SUFFIX));
-  }
- else {
-    return descName;
-  }
-}

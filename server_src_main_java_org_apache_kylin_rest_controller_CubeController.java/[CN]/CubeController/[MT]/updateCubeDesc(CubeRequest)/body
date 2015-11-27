@@ -8,10 +8,6 @@
     updateRequest(cubeRequest,false,error);
     return cubeRequest;
   }
-  if (!cubeRequest.getCubeName().equalsIgnoreCase(CubeService.getCubeNameFromDesc(desc.getName()))) {
-    deleteCube(cubeRequest.getCubeName());
-    saveCubeDesc(cubeRequest);
-  }
   try {
     CubeInstance cube=cubeService.getCubeManager().getCube(cubeRequest.getCubeName());
     String projectName=(null == cubeRequest.getProject()) ? ProjectInstance.DEFAULT_PROJECT_NAME : cubeRequest.getProject();
