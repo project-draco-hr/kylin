@@ -13,6 +13,31 @@
       topNCounter.offer(key,counter);
       return topNCounter;
     }
+    @SuppressWarnings("unchecked") @Override public TopNCounter reEncodeDictionary(    TopNCounter value,    MeasureDesc measureDesc,    Map<TblColRef,Dictionary<String>> oldDicts,    Map<TblColRef,Dictionary<String>> newDicts){
+      TopNCounter<ByteArray> topNCounter=(TopNCounter<ByteArray>)value;
+      TblColRef colRef=measureDesc.getFunction().getTopNLiteralColumn();
+      Dictionary<String> sourceDict=oldDicts.get(colRef);
+      Dictionary<String> mergedDict=newDicts.get(colRef);
+      int topNSize=topNCounter.size();
+      byte[] newIdBuf=new byte[topNSize * mergedDict.getSizeOfId()];
+      byte[] literal=new byte[sourceDict.getSizeOfValue()];
+      int bufOffset=0;
+      for (      Counter<ByteArray> c : topNCounter) {
+        int oldId=BytesUtil.readUnsigned(c.getItem().array(),c.getItem().offset(),c.getItem().length());
+        int newId;
+        int size=sourceDict.getValueBytesFromId(oldId,literal,0);
+        if (size < 0) {
+          newId=mergedDict.nullId();
+        }
+ else {
+          newId=mergedDict.getIdFromValueBytes(literal,0,size);
+        }
+        BytesUtil.writeUnsigned(newId,newIdBuf,bufOffset,mergedDict.getSizeOfId());
+        c.getItem().set(newIdBuf,bufOffset,mergedDict.getSizeOfId());
+        bufOffset+=mergedDict.getSizeOfId();
+      }
+      return value;
+    }
   }
 ;
 }

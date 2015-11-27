@@ -1,0 +1,4 @@
+LongMutable value
+MeasureDesc measureDesc
+Map<TblColRef,Dictionary<String>> oldDict
+Map<TblColRef,Dictionary<String>> newDict

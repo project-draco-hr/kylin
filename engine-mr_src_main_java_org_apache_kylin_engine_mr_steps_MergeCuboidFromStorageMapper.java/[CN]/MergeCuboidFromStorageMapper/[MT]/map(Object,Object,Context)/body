@@ -50,7 +50,9 @@
   newKeyBuf.set(0,fullKeySize);
   rowkeyEncoder.encode(new ByteArray(newKeyBodyBuf,0,bufOffset),newKeyBuf);
   outputKey.set(newKeyBuf.array(),0,fullKeySize);
-  reEncodeMeasure(value);
+  if (dictMeasures.size() > 0) {
+    reEncodeMeasure(value);
+  }
   valueBuf.clear();
   codec.encode(value,valueBuf);
   outputValue.set(valueBuf.array(),0,valueBuf.position());

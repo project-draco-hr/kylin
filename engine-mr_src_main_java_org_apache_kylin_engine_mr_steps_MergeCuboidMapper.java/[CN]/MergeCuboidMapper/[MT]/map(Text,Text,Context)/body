@@ -46,9 +46,13 @@
   newKeyBuf.set(0,fullKeySize);
   rowkeyEncoder.encode(new ByteArray(newKeyBodyBuf,0,bufOffset),newKeyBuf);
   outputKey.set(newKeyBuf.array(),0,fullKeySize);
-  if (topNMeasureIdx.size() > 0) {
+  if (dictMeasures.size() > 0) {
     codec.decode(ByteBuffer.wrap(value.getBytes(),0,value.getLength()),measureObjs);
-    reEncodeMeasure(measureObjs);
+    for (    Pair<Integer,MeasureIngester> pair : dictMeasures) {
+      int i=pair.getFirst();
+      MeasureIngester ingester=pair.getSecond();
+      measureObjs[i]=ingester.reEncodeDictionary(measureObjs[i],measureDescs.get(i),oldDicts,newDicts);
+    }
     valueBuf.clear();
     codec.encode(measureObjs,valueBuf);
     outputValue.set(valueBuf.array(),0,valueBuf.position());

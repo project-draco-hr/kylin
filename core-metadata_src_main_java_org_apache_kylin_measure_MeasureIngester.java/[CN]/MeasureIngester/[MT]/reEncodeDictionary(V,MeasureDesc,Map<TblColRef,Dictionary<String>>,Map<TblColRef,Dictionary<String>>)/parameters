@@ -1,0 +1,4 @@
+V value
+MeasureDesc measureDesc
+Map<TblColRef,Dictionary<String>> oldDicts
+Map<TblColRef,Dictionary<String>> newDicts
