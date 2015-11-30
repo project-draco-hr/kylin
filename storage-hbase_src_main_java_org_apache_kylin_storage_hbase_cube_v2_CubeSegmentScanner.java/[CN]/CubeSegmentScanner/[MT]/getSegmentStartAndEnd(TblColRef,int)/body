@@ -1,15 +1,14 @@
 {
-  String partitionColType=tblColRef.getColumnDesc().getDatatype();
   ByteArray start;
   if (cubeSeg.getDateRangeStart() != Long.MIN_VALUE) {
-    start=translateTsToString(cubeSeg.getDateRangeStart(),partitionColType,index);
+    start=translateTsToString(cubeSeg.getDateRangeStart(),index,1);
   }
  else {
     start=new ByteArray();
   }
   ByteArray end;
   if (cubeSeg.getDateRangeEnd() != Long.MAX_VALUE) {
-    end=translateTsToString(cubeSeg.getDateRangeEnd(),partitionColType,index);
+    end=translateTsToString(cubeSeg.getDateRangeEnd(),index,-1);
   }
  else {
     end=new ByteArray();
