@@ -1,0 +1,32 @@
+{
+  long colIndex=Bytes.toLong(key.getBytes(),0,Bytes.SIZEOF_LONG);
+  if (colIndex >= 0) {
+    if (colIndex != currentColIndex || colValues.size() == 1000000) {
+      if (colValues.size() > 0) {
+        System.out.println("spill values to disk...");
+        outputDistinctValues(columnList.get((int)currentColIndex),colValues,context);
+        colValues.clear();
+      }
+      currentColIndex=colIndex;
+    }
+    colValues.add(new ByteArray(Bytes.copy(key.getBytes(),Bytes.SIZEOF_LONG,key.getLength() - Bytes.SIZEOF_LONG)));
+  }
+ else {
+    long cuboidId=0 - colIndex;
+    for (    Text value : values) {
+      HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(14);
+      ByteArray byteArray=new ByteArray(value.getBytes());
+      hll.readRegisters(byteArray.asBuffer());
+      totalRowsBeforeMerge+=hll.getCountEstimate();
+      if (cuboidId == baseCuboidId) {
+        baseCuboidRowCountInMappers.add(hll.getCountEstimate());
+      }
+      if (cuboidHLLMap.get(cuboidId) != null) {
+        cuboidHLLMap.get(cuboidId).merge(hll);
+      }
+ else {
+        cuboidHLLMap.put(cuboidId,hll);
+      }
+    }
+  }
+}

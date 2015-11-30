@@ -1,1 +1,1 @@
-KylinReducer<LongWritable,Text,LongWritable,Text>
+KylinReducer<Text,Text,Text,Text>

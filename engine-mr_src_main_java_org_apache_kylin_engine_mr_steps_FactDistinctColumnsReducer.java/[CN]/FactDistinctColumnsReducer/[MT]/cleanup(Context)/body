@@ -1,4 +1,8 @@
 {
+  if (colValues.size() > 0) {
+    outputDistinctValues(columnList.get((int)currentColIndex),colValues,context);
+    colValues.clear();
+  }
   if (collectStatistics) {
     writeMapperAndCuboidStatistics(context);
     CuboidStatsUtil.writeCuboidStatistics(context.getConfiguration(),new Path(statisticsOutput),cuboidHLLMap,SAMPING_PERCENTAGE);

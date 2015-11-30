@@ -4,7 +4,7 @@
   FSDataOutputStream out=fs.create(new Path(statisticsOutput,BatchConstants.CFG_STATISTICS_CUBE_ESTIMATION));
   try {
     String msg;
-    List<Long> allCuboids=new ArrayList<Long>();
+    List<Long> allCuboids=Lists.newArrayList();
     allCuboids.addAll(cuboidHLLMap.keySet());
     Collections.sort(allCuboids);
     msg="Total cuboid number: \t" + allCuboids.size();
@@ -34,6 +34,6 @@
     }
   }
   finally {
-    out.close();
+    IOUtils.closeQuietly(out);
   }
 }

@@ -3,6 +3,6 @@
   flatTableInputFormat.configureJob(job);
   job.setMapperClass(FactDistinctHiveColumnsMapper.class);
   job.setCombinerClass(FactDistinctColumnsCombiner.class);
-  job.setMapOutputKeyClass(LongWritable.class);
+  job.setMapOutputKeyClass(Text.class);
   job.setMapOutputValueClass(Text.class);
 }

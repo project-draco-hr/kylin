@@ -2,12 +2,13 @@
   String[] row=flatTableInputFormat.parseMapperInput(record);
   try {
     for (int i=0; i < factDictCols.size(); i++) {
-      outputKey.set((long)factDictCols.get(i));
       String fieldValue=row[dictionaryColumnIndex[i]];
       if (fieldValue == null)       continue;
-      byte[] bytes=Bytes.toBytes(fieldValue);
-      outputValue.set(bytes,0,bytes.length);
-      context.write(outputKey,outputValue);
+      keyBuffer.clear();
+      keyBuffer.putLong((long)factDictCols.get(i));
+      keyBuffer.put(Bytes.toBytes(fieldValue));
+      outputKey.set(keyBuffer.array(),0,keyBuffer.position());
+      context.write(outputKey,EMPTY_TEXT);
     }
   }
  catch (  Exception ex) {

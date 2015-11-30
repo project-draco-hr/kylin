@@ -1,0 +1,25 @@
+{
+  final Configuration conf=context.getConfiguration();
+  final FileSystem fs=FileSystem.get(conf);
+  final String outputPath=conf.get(BatchConstants.OUTPUT_PATH);
+  final Path outputFile=new Path(outputPath,col.getName());
+  FSDataOutputStream out=null;
+  try {
+    if (fs.exists(outputFile)) {
+      out=fs.append(outputFile);
+      System.out.println("append file " + outputFile);
+    }
+ else {
+      out=fs.create(outputFile);
+      System.out.println("create file " + outputFile);
+    }
+    for (    ByteArray value : values) {
+      out.write(value.array(),value.offset(),value.length());
+      out.write('\n');
+    }
+  }
+  finally {
+    IOUtils.closeQuietly(out);
+    IOUtils.closeQuietly(fs);
+  }
+}

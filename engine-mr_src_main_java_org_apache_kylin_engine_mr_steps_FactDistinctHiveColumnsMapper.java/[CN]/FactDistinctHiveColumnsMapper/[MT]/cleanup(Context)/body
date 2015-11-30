@@ -4,7 +4,7 @@
     HyperLogLogPlusCounter hll;
     for (int i=0; i < cuboidIds.length; i++) {
       hll=allCuboidsHLL[i];
-      outputKey.set(0 - cuboidIds[i]);
+      outputKey.set(Bytes.toBytes(0 - cuboidIds[i]));
       hllBuf.clear();
       hll.writeRegisters(hllBuf);
       outputValue.set(hllBuf.array(),0,hllBuf.position());
