@@ -1,0 +1,29 @@
+{
+  if (args != null && args.length != 0 && args.length != 1) {
+    System.out.println("Usage: java CubeDescSignatureUpdate [Cubes]; e.g, cube1,cube2 ");
+    return;
+  }
+  CubeDescSignatureUpdate metadataUpgrade=new CubeDescSignatureUpdate(args);
+  metadataUpgrade.update();
+  logger.info("=================================================================");
+  logger.info("Run CubeDescSignatureUpdate completed;");
+  if (!metadataUpgrade.updatedResources.isEmpty()) {
+    logger.info("Following resources are updated successfully:");
+    for (    String s : metadataUpgrade.updatedResources) {
+      logger.info(s);
+    }
+  }
+ else {
+    logger.warn("No resource updated.");
+  }
+  if (!metadataUpgrade.errorMsgs.isEmpty()) {
+    logger.info("Here are the error/warning messages, you may need to check:");
+    for (    String s : metadataUpgrade.errorMsgs) {
+      logger.warn(s);
+    }
+  }
+ else {
+    logger.info("No error or warning messages; The update succeeds.");
+  }
+  logger.info("=================================================================");
+}

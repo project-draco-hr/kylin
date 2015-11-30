@@ -1,0 +1,5 @@
+{
+  config=KylinConfig.getInstanceFromEnv();
+  store=ResourceStore.getStore(config);
+  cubeNames=cubes;
+}

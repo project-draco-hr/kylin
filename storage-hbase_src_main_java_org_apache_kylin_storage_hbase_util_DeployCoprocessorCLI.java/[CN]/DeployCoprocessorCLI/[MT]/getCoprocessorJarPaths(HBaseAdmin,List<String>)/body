@@ -21,7 +21,9 @@
         continue;
       }
       String jarPath=valueMatcher.group(1).trim();
-      result.add(jarPath);
+      if (StringUtils.isNotEmpty(jarPath)) {
+        result.add(jarPath);
+      }
     }
   }
   return result;

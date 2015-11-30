@@ -1,0 +1,19 @@
+{
+  logger.info("Reloading Cube Metadata from store: " + store.getReadableResourcePath(ResourceStore.CUBE_DESC_RESOURCE_ROOT));
+  CubeDescManager cubeDescManager=CubeDescManager.getInstance(config);
+  List<CubeDesc> cubeDescs;
+  if (ArrayUtils.isEmpty(cubeNames)) {
+    cubeDescs=cubeDescManager.listAllDesc();
+  }
+ else {
+    String[] names=cubeNames[0].split(",");
+    if (ArrayUtils.isEmpty(names))     return;
+    cubeDescs=Lists.newArrayListWithCapacity(names.length);
+    for (    String name : names) {
+      cubeDescs.add(cubeDescManager.getCubeDesc(name));
+    }
+  }
+  for (  CubeDesc cubeDesc : cubeDescs) {
+    updateCubeDesc(cubeDesc);
+  }
+}
