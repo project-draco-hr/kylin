@@ -1,3 +1,13 @@
 {
-  return CubeCapabilityChecker.check(this,digest,true);
+  CapabilityResult result=CubeCapabilityChecker.check(this,digest);
+  if (result.capable) {
+    result.cost=getCost(digest);
+    for (    CapabilityInfluence i : result.influences) {
+      result.cost*=(i.suggestCostMultiplier() == 0) ? 1.0 : i.suggestCostMultiplier();
+    }
+  }
+ else {
+    result.cost=-1;
+  }
+  return result;
 }

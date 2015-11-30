@@ -1,0 +1,5 @@
+Collection<TblColRef> unmatchedDimensions
+Collection<FunctionDesc> unmatchedAggregations
+SQLDigest digest
+CubeInstance cube
+CapabilityResult result

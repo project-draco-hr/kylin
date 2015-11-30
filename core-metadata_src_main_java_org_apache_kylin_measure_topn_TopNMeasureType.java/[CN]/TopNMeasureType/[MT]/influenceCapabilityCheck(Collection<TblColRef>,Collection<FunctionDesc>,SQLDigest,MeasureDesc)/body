@@ -1,0 +1,17 @@
+{
+  if (digest.aggregations.size() != 1)   return null;
+  FunctionDesc onlyFunction=digest.aggregations.iterator().next();
+  if (onlyFunction.isSum() == false)   return null;
+  TblColRef literalCol=topN.getFunction().getTopNLiteralColumn();
+  if (unmatchedDimensions.contains(literalCol) && topN.getFunction().isTopNCompatibleSum(onlyFunction)) {
+    unmatchedDimensions.remove(literalCol);
+    unmatchedAggregations.remove(onlyFunction);
+    return new CapabilityInfluence(){
+      @Override public double suggestCostMultiplier(){
+        return 0.3;
+      }
+    }
+;
+  }
+ else   return null;
+}

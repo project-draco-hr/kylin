@@ -1,5 +1,0 @@
-{
-  IIDesc iiDesc=ii.getDescriptor();
-  Collection<FunctionDesc> iiFuncs=iiDesc.listAllFunctions();
-  convertAggregationToDimension(olapContext,iiFuncs);
-}

@@ -1,0 +1,8 @@
+{
+  for (Iterator<Candidate> iterator=candidates.iterator(); iterator.hasNext(); ) {
+    Candidate candidate=iterator.next();
+    CapabilityResult capability=candidate.getRealization().isCapable(candidate.getSqlDigest());
+    if (capability.capable)     candidate.setCapability(capability);
+ else     iterator.remove();
+  }
+}

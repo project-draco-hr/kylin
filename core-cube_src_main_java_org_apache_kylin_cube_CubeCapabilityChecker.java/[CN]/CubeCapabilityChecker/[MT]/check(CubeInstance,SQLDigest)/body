@@ -1,0 +1,30 @@
+{
+  CapabilityResult result=new CapabilityResult();
+  result.capable=false;
+  Collection<TblColRef> dimensionColumns=getDimensionColumns(digest);
+  Collection<FunctionDesc> aggrFunctions=digest.aggregations;
+  Collection<JoinDesc> joins=digest.joinDescs;
+  Collection<TblColRef> unmatchedDimensions=unmatchedDimensions(dimensionColumns,cube);
+  Collection<FunctionDesc> unmatchedAggregations=unmatchedAggregations(aggrFunctions,cube);
+  boolean isJoinMatch=isJoinMatch(joins,cube);
+  if (!isJoinMatch) {
+    logger.info("Exclude cube " + cube.getName() + " because unmatched joins");
+    return result;
+  }
+  if (!unmatchedDimensions.isEmpty() || !unmatchedAggregations.isEmpty()) {
+    tryCustomMeasureTypes(unmatchedDimensions,unmatchedAggregations,digest,cube,result);
+  }
+  if (!unmatchedAggregations.isEmpty()) {
+    tryDimensionAsMeasures(unmatchedAggregations,digest,cube,result);
+  }
+  if (!unmatchedDimensions.isEmpty()) {
+    logger.info("Exclude cube " + cube.getName() + " because unmatched dimensions");
+    return result;
+  }
+  if (!unmatchedAggregations.isEmpty()) {
+    logger.info("Exclude cube " + cube.getName() + " because unmatched aggregations");
+    return result;
+  }
+  result.capable=true;
+  return result;
+}

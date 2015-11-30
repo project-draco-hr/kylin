@@ -1,4 +1,11 @@
 {
-  if (!digest.factTable.equalsIgnoreCase(this.getFactTable()))   return false;
-  return IICapabilityChecker.check(this,digest);
+  CapabilityResult result=new CapabilityResult();
+  if (!digest.factTable.equalsIgnoreCase(this.getFactTable())) {
+    result.capable=false;
+  }
+ else {
+    result.capable=IICapabilityChecker.check(this,digest);
+    if (result.capable)     result.cost=getCost(digest);
+  }
+  return result;
 }

@@ -1,0 +1,6 @@
+{
+  HashSet<FunctionDesc> result=Sets.newHashSet(aggregations);
+  CubeDesc cubeDesc=cube.getDescriptor();
+  result.removeAll(cubeDesc.listAllFunctions());
+  return result;
+}

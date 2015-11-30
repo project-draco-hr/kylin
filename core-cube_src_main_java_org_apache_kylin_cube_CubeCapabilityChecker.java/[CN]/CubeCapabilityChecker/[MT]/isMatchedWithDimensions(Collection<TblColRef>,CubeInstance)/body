@@ -1,5 +1,0 @@
-{
-  CubeDesc cubeDesc=cube.getDescriptor();
-  boolean matchAgg=cubeDesc.listDimensionColumnsIncludingDerived().containsAll(dimensionColumns);
-  return matchAgg;
-}

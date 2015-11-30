@@ -1,0 +1,9 @@
+{
+  for (  RoutingRule rule : rules) {
+    logger.info("Realizations order before: " + getPrintableText(candidates));
+    logger.info("Applying rule : " + rule);
+    rule.apply(candidates);
+    logger.info("Realizations order after: " + getPrintableText(candidates));
+    logger.info("===================================================");
+  }
+}

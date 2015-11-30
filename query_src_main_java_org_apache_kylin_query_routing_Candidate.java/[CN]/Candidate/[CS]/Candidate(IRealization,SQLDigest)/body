@@ -1,0 +1,5 @@
+{
+  this.realization=realization;
+  this.sqlDigest=sqlDigest;
+  this.priority=PRIORITIES.get(realization.getType());
+}

@@ -1,0 +1,25 @@
+{
+  CubeDesc cubeDesc=cube.getDescriptor();
+  Collection<FunctionDesc> cubeFuncs=cubeDesc.listAllFunctions();
+  Iterator<FunctionDesc> it=unmatchedAggregations.iterator();
+  while (it.hasNext()) {
+    FunctionDesc functionDesc=it.next();
+    if (cubeFuncs.contains(functionDesc)) {
+      it.remove();
+      continue;
+    }
+    if (functionDesc.isCount()) {
+      it.remove();
+      continue;
+    }
+    if (functionDesc.isCountDistinct()) {
+      continue;
+    }
+    List<TblColRef> neededCols=functionDesc.getParameter().getColRefs();
+    if (neededCols.size() > 0 && cubeDesc.listDimensionColumnsIncludingDerived().containsAll(neededCols)) {
+      result.influences.add(new CapabilityResult.DimensionAsMeasure(functionDesc));
+      it.remove();
+      continue;
+    }
+  }
+}

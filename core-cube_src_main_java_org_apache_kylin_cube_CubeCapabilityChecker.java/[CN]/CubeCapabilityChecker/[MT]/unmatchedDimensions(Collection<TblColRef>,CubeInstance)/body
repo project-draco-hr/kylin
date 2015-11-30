@@ -1,0 +1,6 @@
+{
+  HashSet<TblColRef> result=Sets.newHashSet(dimensionColumns);
+  CubeDesc cubeDesc=cube.getDescriptor();
+  result.removeAll(cubeDesc.listDimensionColumnsIncludingDerived());
+  return result;
+}

@@ -3,5 +3,5 @@
   priorities.put(RealizationType.INVERTED_INDEX,0);
   priorities.put(RealizationType.CUBE,1);
   priorities.put(RealizationType.HYBRID,1);
-  RealizationPriorityRule.setPriorities(priorities);
+  Candidate.setPriorities(priorities);
 }
