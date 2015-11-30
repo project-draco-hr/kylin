@@ -1,9 +1,0 @@
-{
-  Runtime runtime=Runtime.getRuntime();
-  long totalMemory=runtime.totalMemory();
-  long freeMemory=runtime.freeMemory();
-  long maxMemory=runtime.maxMemory();
-  long usedMemory=totalMemory - freeMemory;
-  long availableMemory=maxMemory - usedMemory;
-  return availableMemory;
-}

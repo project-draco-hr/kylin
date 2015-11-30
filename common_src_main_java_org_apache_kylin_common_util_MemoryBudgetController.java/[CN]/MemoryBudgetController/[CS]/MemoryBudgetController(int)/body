@@ -1,6 +1,0 @@
-{
-  Preconditions.checkArgument(totalBudgetMB >= 0);
-  Preconditions.checkState(totalBudgetMB <= getSystemAvailMB());
-  this.totalBudgetMB=totalBudgetMB;
-  this.totalReservedMB=0;
-}

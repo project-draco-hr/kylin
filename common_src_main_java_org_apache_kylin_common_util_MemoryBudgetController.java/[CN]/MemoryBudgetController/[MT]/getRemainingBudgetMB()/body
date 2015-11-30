@@ -1,9 +1,0 @@
-{
-  lock.lock();
-  try {
-    return totalBudgetMB - totalReservedMB;
-  }
-  finally {
-    lock.unlock();
-  }
-}
