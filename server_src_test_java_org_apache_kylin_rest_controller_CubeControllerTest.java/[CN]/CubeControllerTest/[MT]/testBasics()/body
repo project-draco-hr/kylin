@@ -28,6 +28,7 @@
   modelDescMapper.writeValue(modelDescWriter,newCube.getModel());
   CubeRequest cubeRequest=new CubeRequest();
   cubeRequest.setCubeDescData(cubeDescWriter.toString());
+  cubeRequest.setCubeName(newCube.getName());
   cubeRequest=cubeController.saveCubeDesc(cubeRequest);
   List<String> notifyList=Lists.newArrayList();
   notifyList.add("john@example.com");
