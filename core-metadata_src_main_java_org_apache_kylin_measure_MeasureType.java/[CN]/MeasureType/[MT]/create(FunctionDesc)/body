@@ -1,3 +1,0 @@
-{
-  return create(function.getExpression(),function.getReturnType());
-}

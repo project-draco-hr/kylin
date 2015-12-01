@@ -7,9 +7,6 @@
       for (      String v : values)       hllc.add(v == null ? "__nUlL__" : v);
       return hllc;
     }
-    @Override public HyperLogLogPlusCounter reEncodeDictionary(    HyperLogLogPlusCounter value,    MeasureDesc measureDesc,    Map<TblColRef,Dictionary<String>> oldDict,    Map<TblColRef,Dictionary<String>> newDict){
-      throw new UnsupportedOperationException();
-    }
   }
 ;
 }

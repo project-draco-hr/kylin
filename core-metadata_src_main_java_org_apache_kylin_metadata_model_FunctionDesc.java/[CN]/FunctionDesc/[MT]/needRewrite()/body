@@ -1,3 +1,4 @@
 {
-  return !isSum() && !isDimensionAsMetric() && !isTopN();
+  if (isDimensionAsMetric)   return false;
+  return getMeasureType().needRewrite();
 }

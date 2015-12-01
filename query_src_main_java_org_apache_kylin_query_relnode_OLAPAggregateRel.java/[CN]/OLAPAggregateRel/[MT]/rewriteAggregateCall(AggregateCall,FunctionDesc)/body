@@ -5,11 +5,11 @@
   newArgList.add(field.getIndex());
   RelDataType fieldType=aggCall.getType();
   SqlAggFunction newAgg=aggCall.getAggregation();
-  if (func.isCountDistinct()) {
-    newAgg=createHyperLogLogAggFunction(fieldType);
-  }
- else   if (func.isCount()) {
+  if (func.isCount()) {
     newAgg=SqlStdOperatorTable.SUM0;
+  }
+ else   if (func.getMeasureType().getRewriteAggregationFunctionClass() != null) {
+    newAgg=createCustomAggFunction(fieldType,func.getMeasureType().getRewriteAggregationFunctionClass());
   }
   AggregateCall newAggCall=new AggregateCall(newAgg,false,newArgList,fieldType,newAgg.getName());
   return newAggCall;

@@ -1,7 +1,7 @@
 {
   ColumnDesc fakeCol=new ColumnDesc();
   fakeCol.setName(getRewriteFieldName());
-  fakeCol.setDatatype(getSQLType().toString());
+  fakeCol.setDatatype(getRewriteFieldType().toString());
   if (isCount())   fakeCol.setNullable(false);
   fakeCol.init(sourceTable);
   return fakeCol;
