@@ -1,0 +1,3 @@
+{
+  return Long.parseLong(this.getOptional("kylin.query.mem.budget",String.valueOf(3L * 1024 * 1024* 1024)));
+}
