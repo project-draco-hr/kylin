@@ -7,7 +7,7 @@
   if (StringUtils.isEmpty(cubeName)) {
     return errorRequest(cubeRequest,"Missing cubeName");
   }
-  MetadataManager metadataManager=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+  MetadataManager metadataManager=MetadataManager.getInstance(cubeService.getConfig());
   DataModelDesc modelDesc=null;
   DataModelDesc oldModelDesc=null;
   if (StringUtils.isNotEmpty(cubeRequest.getModelDescData())) {
@@ -37,6 +37,12 @@
     CubeInstance cube=cubeService.getCubeManager().getCube(cubeName);
     String projectName=(null == cubeRequest.getProject()) ? ProjectInstance.DEFAULT_PROJECT_NAME : cubeRequest.getProject();
     desc=cubeService.updateCubeAndDesc(cube,desc,projectName);
+    ProjectManager projectManager=cubeService.getProjectManager();
+    if (!cubeService.isCubeInProject(projectName,cube)) {
+      String owner=SecurityContextHolder.getContext().getAuthentication().getName();
+      ProjectInstance newProject=projectManager.moveRealizationToProject(RealizationType.CUBE,cube.getName(),projectName,owner);
+      accessService.inherit(cube,newProject);
+    }
     if (desc.getError().isEmpty()) {
       cubeRequest.setSuccessful(true);
       updateCubeSuccess=true;

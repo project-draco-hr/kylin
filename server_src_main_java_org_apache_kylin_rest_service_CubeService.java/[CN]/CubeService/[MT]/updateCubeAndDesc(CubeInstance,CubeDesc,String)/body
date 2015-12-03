@@ -11,12 +11,6 @@
     cube=getCubeManager().updateCube(cube);
     int cuboidCount=CuboidCLI.simulateCuboidGeneration(updatedCubeDesc);
     logger.info("Updated cube " + cube.getName() + " has "+ cuboidCount+ " cuboids");
-    ProjectManager projectManager=getProjectManager();
-    if (!isCubeInProject(newProjectName,cube)) {
-      String owner=SecurityContextHolder.getContext().getAuthentication().getName();
-      ProjectInstance newProject=projectManager.moveRealizationToProject(RealizationType.CUBE,cube.getName(),newProjectName,owner);
-      accessService.inherit(cube,newProject);
-    }
     return updatedCubeDesc;
   }
  catch (  IOException e) {

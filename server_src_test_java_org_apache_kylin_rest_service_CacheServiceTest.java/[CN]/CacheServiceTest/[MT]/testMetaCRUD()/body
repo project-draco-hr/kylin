@@ -22,11 +22,4 @@
   assertEquals(1,broadcaster.getCounterAndClear());
   waitForCounterAndClear(1);
   assertEquals(dataModelDesc.getName(),metadataManagerB.getDataModelDesc(dataModelName).getName());
-  final LookupDesc[] lookups=dataModelDesc.getLookups();
-  assertTrue(lookups.length > 0);
-  dataModelDesc.setLookups(new LookupDesc[]{lookups[0]});
-  metadataManager.updateDataModelDesc(dataModelDesc);
-  assertEquals(1,broadcaster.getCounterAndClear());
-  waitForCounterAndClear(1);
-  assertEquals(dataModelDesc.getLookups().length,metadataManagerB.getDataModelDesc(dataModelName).getLookups().length);
 }

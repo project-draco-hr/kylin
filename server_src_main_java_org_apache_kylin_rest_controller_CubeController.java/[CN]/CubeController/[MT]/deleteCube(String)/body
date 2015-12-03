@@ -5,6 +5,7 @@
   }
   try {
     cubeService.deleteCube(cube);
+    accessService.clean(cube,true);
   }
  catch (  Exception e) {
     logger.error(e.getLocalizedMessage(),e);
