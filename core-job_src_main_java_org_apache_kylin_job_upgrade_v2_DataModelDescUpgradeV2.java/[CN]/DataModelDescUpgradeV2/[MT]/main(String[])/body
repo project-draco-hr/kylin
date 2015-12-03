@@ -1,12 +1,12 @@
 {
   if (args != null && args.length > 1) {
-    System.out.println("Usage: java CubeDescSignatureUpdate [Cubes]; e.g, cube1,cube2 ");
+    System.out.println("Usage: java DataModelDescUpradeV2 [Models]; e.g, model1,model2 ");
     return;
   }
-  CubeDescSignatureUpdate metadataUpgrade=new CubeDescSignatureUpdate(args);
-  metadataUpgrade.update();
+  DataModelDescUpgradeV2 metadataUpgrade=new DataModelDescUpgradeV2(args);
+  metadataUpgrade.upgrade();
   logger.info("=================================================================");
-  logger.info("Run CubeDescSignatureUpdate completed;");
+  logger.info("Run DataModelDescUpradeV2 completed;");
   if (!metadataUpgrade.updatedResources.isEmpty()) {
     logger.info("Following resources are updated successfully:");
     for (    String s : metadataUpgrade.updatedResources) {

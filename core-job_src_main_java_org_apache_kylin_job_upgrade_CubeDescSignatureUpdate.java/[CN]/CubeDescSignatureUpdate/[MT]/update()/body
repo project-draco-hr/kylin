@@ -16,4 +16,5 @@
   for (  CubeDesc cubeDesc : cubeDescs) {
     updateCubeDesc(cubeDesc);
   }
+  verify();
 }
