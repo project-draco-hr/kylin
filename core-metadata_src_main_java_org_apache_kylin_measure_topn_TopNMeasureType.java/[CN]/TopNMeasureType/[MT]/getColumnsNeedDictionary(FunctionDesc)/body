@@ -1,0 +1,4 @@
+{
+  TblColRef literalCol=functionDesc.getParameter().getColRefs().get(1);
+  return Collections.singletonList(literalCol);
+}

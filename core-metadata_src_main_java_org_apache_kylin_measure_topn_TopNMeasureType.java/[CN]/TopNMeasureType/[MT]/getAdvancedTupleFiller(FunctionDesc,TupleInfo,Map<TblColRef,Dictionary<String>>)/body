@@ -1,0 +1,28 @@
+{
+  final TblColRef literalCol=getTopNLiteralColumn(function);
+  final TblColRef numericCol=getTopNNumericColumn(function);
+  final Dictionary<String> topNColDict=dictionaryMap.get(literalCol);
+  final int literalTupleIdx=tupleInfo.hasColumn(literalCol) ? tupleInfo.getColumnIndex(literalCol) : -1;
+  final int numericTupleIdx=tupleInfo.hasColumn(numericCol) ? tupleInfo.getColumnIndex(numericCol) : -1;
+  return new IAdvMeasureFiller(){
+    private TopNCounter<ByteArray> topNCounter;
+    private Iterator<Counter<ByteArray>> topNCounterIterator;
+    private int expectRow=0;
+    @SuppressWarnings("unchecked") @Override public void reload(    Object measureValue){
+      this.topNCounter=(TopNCounter<ByteArray>)measureValue;
+      this.topNCounterIterator=topNCounter.iterator();
+    }
+    @Override public int getNumOfRows(){
+      return topNCounter.size();
+    }
+    @Override public void fillTuplle(    Tuple tuple,    int row){
+      if (expectRow++ != row)       throw new IllegalStateException();
+      Counter<ByteArray> counter=topNCounterIterator.next();
+      int key=BytesUtil.readUnsigned(counter.getItem().array(),0,counter.getItem().array().length);
+      String colValue=topNColDict.getValueFromId(key);
+      tuple.setDimensionValue(literalTupleIdx,colValue);
+      tuple.setMeasureValue(numericTupleIdx,counter.getCount());
+    }
+  }
+;
+}

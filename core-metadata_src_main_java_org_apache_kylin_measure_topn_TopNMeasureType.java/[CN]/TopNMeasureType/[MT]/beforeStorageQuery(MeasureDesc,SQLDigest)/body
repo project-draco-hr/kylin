@@ -1,14 +1,7 @@
 {
-  FunctionDesc topnFunc=null;
-  TblColRef topnLiteralCol=null;
-  for (  MeasureDesc measure : cubeDesc.getMeasures()) {
-    FunctionDesc func=measure.getFunction();
-    if (func.isTopN() && sqlDigest.groupbyColumns.contains(func.getTopNLiteralColumn())) {
-      topnFunc=func;
-      topnLiteralCol=func.getTopNLiteralColumn();
-    }
-  }
-  if (topnFunc == null)   return;
+  FunctionDesc topnFunc=measureDesc.getFunction();
+  TblColRef topnLiteralCol=topnFunc.getTopNLiteralColumn();
+  if (sqlDigest.groupbyColumns.contains(topnLiteralCol) == false)   return;
   if (sqlDigest.aggregations.size() != 1) {
     throw new IllegalStateException("When query with topN, only one metrics is allowed.");
   }

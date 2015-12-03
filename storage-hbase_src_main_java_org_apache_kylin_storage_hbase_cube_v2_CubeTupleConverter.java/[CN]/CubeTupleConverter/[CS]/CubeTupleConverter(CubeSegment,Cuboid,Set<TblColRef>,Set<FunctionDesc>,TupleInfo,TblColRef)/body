@@ -9,7 +9,10 @@
   nSelectedDims=selectedDimensions.size();
   gtColIdx=new int[selectedDimensions.size() + selectedMetrics.size()];
   tupleIdx=new int[selectedDimensions.size() + selectedMetrics.size()];
-  tmpValues=new Object[selectedDimensions.size() + selectedMetrics.size()];
+  gtValues=new Object[selectedDimensions.size() + selectedMetrics.size()];
+  measureTypes=new MeasureType[selectedDimensions.size() + selectedMetrics.size()];
+  advMeasureFillers=Lists.newArrayListWithCapacity(1);
+  advMeasureIndexInGTValues=Lists.newArrayListWithCapacity(1);
   int iii=0;
   for (  TblColRef dim : selectedDimensions) {
     int i=mapping.getIndexOf(dim);
@@ -27,6 +30,15 @@
  else {
       TblColRef col=metric.getParameter().getColRefs().get(0);
       tupleIdx[iii]=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
+    }
+    MeasureType measureType=metric.getMeasureType();
+    if (measureType.needAdvancedTupleFilling()) {
+      Map<TblColRef,Dictionary<String>> dictionaryMap=buildDictionaryMap(measureType.getColumnsNeedDictionary(metric));
+      advMeasureFillers.add(measureType.getAdvancedTupleFiller(metric,returnTupleInfo,dictionaryMap));
+      advMeasureIndexInGTValues.add(iii);
+    }
+ else {
+      measureTypes[iii]=measureType;
     }
     iii++;
   }

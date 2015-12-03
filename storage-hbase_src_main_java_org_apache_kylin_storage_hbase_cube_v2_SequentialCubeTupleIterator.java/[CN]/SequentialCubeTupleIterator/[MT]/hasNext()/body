@@ -1,5 +1,14 @@
 {
   if (next != null)   return true;
+  if (advMeasureRowsRemaining > 0) {
+    for (    IAdvMeasureFiller filler : advMeasureFillers) {
+      filler.fillTuplle(tuple,advMeasureRowIndex);
+    }
+    advMeasureRowIndex++;
+    advMeasureRowsRemaining--;
+    next=tuple;
+    return true;
+  }
   if (curScanner == null) {
     if (scannerIterator.hasNext()) {
       curScanner=scannerIterator.next();
@@ -10,16 +19,25 @@
       return false;
     }
   }
-  if (curRecordIterator.hasNext()) {
-    curTupleConverter.translateResult(curRecordIterator.next(),tuple);
-    next=tuple;
-    return true;
-  }
- else {
+  if (curRecordIterator.hasNext() == false) {
     close(curScanner);
     curScanner=null;
     curRecordIterator=null;
     curTupleConverter=null;
     return hasNext();
   }
+  GTRecord curRecord=curRecordIterator.next();
+  List<IAdvMeasureFiller> advMeasureFillers=curTupleConverter.translateResult(curRecord,tuple);
+  if (advMeasureFillers == null) {
+    next=tuple;
+    return true;
+  }
+  advMeasureRowsRemaining=-1;
+  for (  IAdvMeasureFiller filler : advMeasureFillers) {
+    if (advMeasureRowsRemaining < 0)     advMeasureRowsRemaining=filler.getNumOfRows();
+    if (advMeasureRowsRemaining != filler.getNumOfRows())     throw new IllegalStateException();
+  }
+  if (advMeasureRowsRemaining < 0)   throw new IllegalStateException();
+  advMeasureRowIndex=0;
+  return hasNext();
 }

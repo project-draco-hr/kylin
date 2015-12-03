@@ -1,18 +1,28 @@
 {
-  record.getValues(gtColIdx,tmpValues);
+  record.getValues(gtColIdx,gtValues);
   for (int i=0; i < nSelectedDims; i++) {
     int ti=tupleIdx[i];
     if (ti >= 0) {
-      tuple.setDimensionValue(ti,toString(tmpValues[i]));
+      tuple.setDimensionValue(ti,toString(gtValues[i]));
     }
   }
   for (int i=nSelectedDims; i < gtColIdx.length; i++) {
     int ti=tupleIdx[i];
-    if (ti >= 0) {
-      tuple.setMeasureValue(ti,tmpValues[i]);
+    if (ti >= 0 && measureTypes[i] != null) {
+      measureTypes[i].fillTupleSimply(tuple,ti,gtValues[i]);
     }
   }
   for (  IDerivedColumnFiller filler : derivedColFillers) {
-    filler.fillDerivedColumns(tmpValues,tuple);
+    filler.fillDerivedColumns(gtValues,tuple);
+  }
+  if (advMeasureFillers.isEmpty()) {
+    return null;
+  }
+ else {
+    for (int i=0; i < advMeasureFillers.size(); i++) {
+      Object measureValue=gtValues[advMeasureIndexInGTValues.get(i)];
+      advMeasureFillers.get(i).reload(measureValue);
+    }
+    return advMeasureFillers;
   }
 }

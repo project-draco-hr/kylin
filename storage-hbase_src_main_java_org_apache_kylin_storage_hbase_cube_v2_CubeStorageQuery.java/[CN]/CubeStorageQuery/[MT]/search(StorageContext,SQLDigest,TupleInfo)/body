@@ -1,5 +1,5 @@
 {
-  checkAndRewriteTopN(sqlDigest);
+  notifyBeforeStorageQuery(sqlDigest);
   Collection<TblColRef> groups=sqlDigest.groupbyColumns;
   TupleFilter filter=sqlDigest.filter;
   Set<TblColRef> dimensions=new LinkedHashSet<TblColRef>();

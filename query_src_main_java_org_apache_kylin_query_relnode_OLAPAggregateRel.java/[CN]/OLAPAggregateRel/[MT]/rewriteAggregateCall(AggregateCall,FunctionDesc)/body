@@ -8,8 +8,8 @@
   if (func.isCount()) {
     newAgg=SqlStdOperatorTable.SUM0;
   }
- else   if (func.getMeasureType().getRewriteAggregationFunctionClass() != null) {
-    newAgg=createCustomAggFunction(fieldType,func.getMeasureType().getRewriteAggregationFunctionClass());
+ else   if (func.getMeasureType().getRewriteCalciteAggrFunctionClass() != null) {
+    newAgg=createCustomAggFunction(fieldType,func.getMeasureType().getRewriteCalciteAggrFunctionClass());
   }
   AggregateCall newAggCall=new AggregateCall(newAgg,false,newArgList,fieldType,newAgg.getName());
   return newAggCall;

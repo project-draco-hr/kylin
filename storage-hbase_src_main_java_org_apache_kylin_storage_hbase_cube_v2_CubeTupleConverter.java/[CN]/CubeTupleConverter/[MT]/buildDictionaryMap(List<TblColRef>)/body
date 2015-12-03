@@ -1,0 +1,7 @@
+{
+  Map<TblColRef,Dictionary<String>> result=Maps.newHashMap();
+  for (  TblColRef col : columnsNeedDictionary) {
+    result.put(col,cubeSeg.getDictionary(col));
+  }
+  return result;
+}

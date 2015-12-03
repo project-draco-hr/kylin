@@ -2,7 +2,7 @@
   boolean allHostsPresent=true;
   final int[] hostTmpIdx=new int[hostCols.length];
   for (int i=0; i < hostCols.length; i++) {
-    hostTmpIdx[i]=indexOnTheTmpValues(hostCols[i]);
+    hostTmpIdx[i]=indexOnTheGTValues(hostCols[i]);
     allHostsPresent=allHostsPresent && hostTmpIdx[i] >= 0;
   }
   boolean needCopyDerived=false;
@@ -27,9 +27,9 @@ case LOOKUP:
         }
         return idx;
       }
-      @Override public void fillDerivedColumns(      Object[] tmpValues,      Tuple tuple){
+      @Override public void fillDerivedColumns(      Object[] gtValues,      Tuple tuple){
         for (int i=0; i < hostTmpIdx.length; i++) {
-          lookupKey.data[i]=CubeTupleConverter.toString(tmpValues[hostTmpIdx[i]]);
+          lookupKey.data[i]=CubeTupleConverter.toString(gtValues[hostTmpIdx[i]]);
         }
         String[] lookupRow=lookupTable.getRow(lookupKey);
         if (lookupRow != null) {
@@ -52,8 +52,8 @@ case LOOKUP:
 ;
 case PK_FK:
   return new IDerivedColumnFiller(){
-    @Override public void fillDerivedColumns(    Object[] tmpValues,    Tuple tuple){
-      tuple.setDimensionValue(derivedTupleIdx[0],CubeTupleConverter.toString(tmpValues[hostTmpIdx[0]]));
+    @Override public void fillDerivedColumns(    Object[] gtValues,    Tuple tuple){
+      tuple.setDimensionValue(derivedTupleIdx[0],CubeTupleConverter.toString(gtValues[hostTmpIdx[0]]));
     }
   }
 ;
