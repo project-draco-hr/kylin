@@ -1,5 +1,0 @@
-{
-  this.config=KylinConfig.getInstanceFromEnv();
-  this.store=ResourceStore.getStore(config);
-  this.models=models;
-}

@@ -1,0 +1,17 @@
+{
+  logger.info("Reloading Cube Metadata from folder " + store.getReadableResourcePath(ResourceStore.CUBE_DESC_RESOURCE_ROOT));
+  List<String> paths=listResourceStore(ResourceStore.CUBE_DESC_RESOURCE_ROOT);
+  for (  String path : paths) {
+    try {
+      CubeDescUpgraderV3 upgrade=new CubeDescUpgraderV3(path);
+      CubeDesc ndesc=upgrade.upgrade();
+      ndesc.setSignature(ndesc.calculateSignature());
+      getStore().putResource(ndesc.getResourcePath(),ndesc,CubeDescManager.CUBE_DESC_SERIALIZER);
+      updatedResources.add(ndesc.getResourcePath());
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+      errorMsgs.add("Upgrade CubeDesc at '" + path + "' failed: "+ e.getLocalizedMessage());
+    }
+  }
+}
