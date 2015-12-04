@@ -2,7 +2,7 @@
   CubeDesc cubeDesc=cube.getDescriptor();
   for (  MeasureDesc measure : cubeDesc.getMeasures()) {
     if (unmatchedDimensions.isEmpty() && unmatchedAggregations.isEmpty())     break;
-    MeasureType measureType=measure.getFunction().getMeasureType();
+    MeasureType<?> measureType=measure.getFunction().getMeasureType();
     if (measureType instanceof BasicMeasureType)     continue;
     CapabilityInfluence inf=measureType.influenceCapabilityCheck(unmatchedDimensions,unmatchedAggregations,digest,measure);
     if (inf != null)     result.influences.add(inf);

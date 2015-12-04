@@ -12,6 +12,6 @@
     Class<? extends DataTypeSerializer<?>> serializer=factory.getAggrDataTypeSerializer();
     DataType.register(dataTypeName);
     DataTypeSerializer.register(dataTypeName,serializer);
-    factories.put(Pair.newPair(funcName,dataTypeName),factory);
+    factories.put(funcName,factory);
   }
 }

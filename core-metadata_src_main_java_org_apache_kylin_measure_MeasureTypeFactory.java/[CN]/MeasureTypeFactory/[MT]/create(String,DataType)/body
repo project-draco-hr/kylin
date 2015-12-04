@@ -1,6 +1,6 @@
 {
   funcName=funcName.toUpperCase();
-  MeasureTypeFactory<?> factory=factories.get(Pair.newPair(funcName,dataType.getName()));
+  MeasureTypeFactory<?> factory=factories.get(funcName);
   if (factory == null)   factory=defaultFactory;
   return factory.createMeasureType(funcName,dataType);
 }
