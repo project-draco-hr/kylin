@@ -36,8 +36,6 @@ case DATA_MODEL:
 if (getMetadataManager().getDataModelDesc(cacheKey) == null) {
 getMetadataManager().reloadDataModelDesc(cacheKey);
 }
-IIDescManager.clearCache();
-CubeDescManager.clearCache();
 break;
 case ALL:
 MetadataManager.clearCache();
