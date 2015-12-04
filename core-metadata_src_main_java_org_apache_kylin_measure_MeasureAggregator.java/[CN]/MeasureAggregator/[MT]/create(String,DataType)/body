@@ -1,0 +1,3 @@
+{
+  return MeasureTypeFactory.create(funcName,dataType).newAggregator();
+}

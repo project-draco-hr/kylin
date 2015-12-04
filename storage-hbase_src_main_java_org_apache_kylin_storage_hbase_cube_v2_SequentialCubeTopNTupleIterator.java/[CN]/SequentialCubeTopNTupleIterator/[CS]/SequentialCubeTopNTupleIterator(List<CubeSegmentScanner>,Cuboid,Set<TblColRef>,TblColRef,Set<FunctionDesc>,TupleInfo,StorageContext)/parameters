@@ -1,7 +1,0 @@
-List<CubeSegmentScanner> scanners
-Cuboid cuboid
-Set<TblColRef> selectedDimensions
-TblColRef topNCol
-Set<FunctionDesc> selectedMetrics
-TupleInfo returnTupleInfo
-StorageContext context

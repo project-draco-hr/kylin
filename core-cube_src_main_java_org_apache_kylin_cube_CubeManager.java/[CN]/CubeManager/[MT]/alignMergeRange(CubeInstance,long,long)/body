@@ -15,5 +15,5 @@
       }
     }
   }
-  return new Pair<Long,Long>(start,end);
+  return Pair.newPair(start,end);
 }

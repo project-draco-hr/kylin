@@ -10,7 +10,7 @@
       buf.put(fuzzyValue);
     }
     buf.putInt(i * 2);
-    Pair<byte[],byte[]> pair=new Pair<byte[],byte[]>(fuzzyKey,mask);
+    Pair<byte[],byte[]> pair=Pair.newPair(fuzzyKey,mask);
     list.add(pair);
   }
   int expectedSize=totalFuzzyKeys * secondPartCardinality * colQualifiersTotal;

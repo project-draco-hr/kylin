@@ -1,0 +1,17 @@
+{
+  if (factories.isEmpty() == false)   return;
+  List<MeasureTypeFactory<?>> factoryInsts=Lists.newArrayList();
+  factoryInsts.add(new HLLCMeasureType.Factory());
+  factoryInsts.add(new TopNMeasureType.Factory());
+  for (  String factoryClz : config.getMeasureTypeFactories()) {
+    factoryInsts.add((MeasureTypeFactory<?>)ClassUtil.newInstance(factoryClz));
+  }
+  for (  MeasureTypeFactory<?> factory : factoryInsts) {
+    String funcName=factory.getAggrFunctionName().toUpperCase();
+    String dataTypeName=factory.getAggrDataTypeName().toLowerCase();
+    Class<? extends DataTypeSerializer<?>> serializer=factory.getAggrDataTypeSerializer();
+    DataType.register(dataTypeName);
+    DataTypeSerializer.register(dataTypeName,serializer);
+    factories.put(Pair.newPair(funcName,dataTypeName),factory);
+  }
+}

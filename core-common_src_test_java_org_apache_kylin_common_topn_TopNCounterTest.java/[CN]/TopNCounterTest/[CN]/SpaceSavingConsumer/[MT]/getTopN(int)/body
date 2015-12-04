@@ -2,7 +2,7 @@
   long startTime=System.currentTimeMillis();
   List<Counter<String>> tops=vs.topK(k);
   List<Pair<String,Double>> allRecords=Lists.newArrayList();
-  for (  Counter<String> counter : tops)   allRecords.add(new Pair(counter.getItem(),counter.getCount()));
+  for (  Counter<String> counter : tops)   allRecords.add(Pair.newPair(counter.getItem(),counter.getCount()));
   timeSpent+=(System.currentTimeMillis() - startTime);
   return allRecords;
 }

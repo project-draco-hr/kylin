@@ -1,0 +1,3 @@
+{
+  return create(funcName,DataType.getType(dataType));
+}

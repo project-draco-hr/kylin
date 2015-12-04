@@ -1,0 +1,3 @@
+{
+  if ((funcName.equals(FunctionDesc.FUNC_SUM) || funcName.equals(FunctionDesc.FUNC_COUNT) || funcName.equals(FunctionDesc.FUNC_MAX)|| funcName.equals(FunctionDesc.FUNC_MIN)) == false)   throw new IllegalArgumentException();
+}

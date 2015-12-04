@@ -7,7 +7,7 @@
     for (    HBaseColumnDesc hbaseColDesc : familyDesc.getColumns()) {
       if (selectedColBlocks.get(colBlkIndex)) {
         byte[] byteQualifier=Bytes.toBytes(hbaseColDesc.getQualifier());
-        result.add(new Pair<byte[],byte[]>(byteFamily,byteQualifier));
+        result.add(Pair.newPair(byteFamily,byteQualifier));
       }
       colBlkIndex++;
     }

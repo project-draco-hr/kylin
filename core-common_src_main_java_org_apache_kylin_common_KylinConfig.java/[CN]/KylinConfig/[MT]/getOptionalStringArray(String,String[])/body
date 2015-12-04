@@ -1,0 +1,9 @@
+{
+  final String property=getOptional(prop);
+  if (!StringUtils.isBlank(property)) {
+    return property.split("\\s*,\\s*");
+  }
+ else {
+    return dft;
+  }
+}

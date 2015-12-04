@@ -8,7 +8,7 @@
     byte[] hbaseFuzzyMask=fuzzyMaskEncoder.createBuf();
     fuzzyKeyEncoder.encode(gtRecordFuzzyKey,gtRecordFuzzyKey.getInfo().getPrimaryKey(),hbaseFuzzyKey);
     fuzzyMaskEncoder.encode(gtRecordFuzzyKey,gtRecordFuzzyKey.getInfo().getPrimaryKey(),hbaseFuzzyMask);
-    ret.add(new Pair<byte[],byte[]>(hbaseFuzzyKey,hbaseFuzzyMask));
+    ret.add(Pair.newPair(hbaseFuzzyKey,hbaseFuzzyMask));
   }
   return ret;
 }

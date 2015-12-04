@@ -1,9 +1,0 @@
-CubeSegment seg
-List<HBaseKeyRange> keyRange
-HConnection conn
-Set<TblColRef> dimensions
-TupleFilter filter
-Set<TblColRef> groupBy
-List<RowValueDecoder> rowValueDecoders
-StorageContext context2
-TupleInfo returnTupleInfo

@@ -3,6 +3,7 @@
   if (r != null) {
     return r;
   }
+  MeasureTypeFactory.init(config);
 synchronized (CubeDescManager.class) {
     r=CACHE.get(config);
     if (r != null) {

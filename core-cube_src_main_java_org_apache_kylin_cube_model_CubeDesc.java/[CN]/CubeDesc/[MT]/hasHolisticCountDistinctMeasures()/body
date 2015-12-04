@@ -1,8 +1,0 @@
-{
-  for (  MeasureDesc measure : measures) {
-    if (measure.getFunction().isHolisticCountDistinct()) {
-      return true;
-    }
-  }
-  return false;
-}

@@ -5,7 +5,8 @@
   this.segmentIteratorList=new ArrayList<CubeSegmentTupleIterator>(segmentKeyRanges.size());
   Map<CubeSegment,List<HBaseKeyRange>> rangesMap=makeRangesMap(segmentKeyRanges);
   for (  Map.Entry<CubeSegment,List<HBaseKeyRange>> entry : rangesMap.entrySet()) {
-    this.segmentIteratorList.add(newCubeSegmentTupleIterator(entry.getKey(),entry.getValue(),conn,dimensions,filter,groupBy,rowValueDecoders,context,returnTupleInfo));
+    CubeSegmentTupleIterator it=new CubeSegmentTupleIterator(entry.getKey(),entry.getValue(),conn,dimensions,filter,groupBy,rowValueDecoders,context,returnTupleInfo);
+    this.segmentIteratorList.add(it);
   }
   this.segmentIteratorIterator=this.segmentIteratorList.iterator();
   if (this.segmentIteratorIterator.hasNext()) {

@@ -1,3 +1,0 @@
-{
-  return MeasureType.create(funcName,dataType).newAggregator();
-}

@@ -20,9 +20,6 @@
   Set<TblColRef> singleValuesD=findSingleValueColumns(filter);
   boolean isExactAggregation=isExactAggregation(cuboid,groups,filterDimsD,singleValuesD,derivedPostAggregation);
   context.setExactAggregation(isExactAggregation);
-  if (isExactAggregation) {
-    metrics=replaceHolisticCountDistinct(metrics);
-  }
   TupleFilter filterD=translateDerived(filter,groupsD);
   setThreshold(dimensionsD,metrics,context);
   setLimit(filter,context);
@@ -39,5 +36,5 @@
     scanners.add(scanner);
   }
   if (scanners.isEmpty())   return ITupleIterator.EMPTY_TUPLE_ITERATOR;
-  return newSequentialCubeTupleIterator(scanners,cuboid,dimensionsD,metrics,returnTupleInfo,context);
+  return new SequentialCubeTupleIterator(scanners,cuboid,dimensionsD,metrics,returnTupleInfo,context);
 }

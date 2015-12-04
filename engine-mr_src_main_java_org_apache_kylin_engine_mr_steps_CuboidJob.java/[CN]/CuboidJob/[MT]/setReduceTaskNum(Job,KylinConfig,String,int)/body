@@ -16,7 +16,7 @@
   }
   double totalReduceInputMB=totalMapInputMB * thisLevelCuboids / preLevelCuboids;
   int numReduceTasks=(int)Math.round(totalReduceInputMB / perReduceInputMB * reduceCountRatio);
-  if (cubeDesc.hasHolisticCountDistinctMeasures()) {
+  if (cubeDesc.hasMemoryHungryMeasures()) {
     numReduceTasks=numReduceTasks * 4;
   }
   numReduceTasks=Math.max(1,numReduceTasks);

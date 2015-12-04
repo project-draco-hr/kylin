@@ -12,9 +12,6 @@
       it.remove();
       continue;
     }
-    if (functionDesc.isCountDistinct()) {
-      continue;
-    }
     List<TblColRef> neededCols=functionDesc.getParameter().getColRefs();
     if (neededCols.size() > 0 && cubeDesc.listDimensionColumnsIncludingDerived().containsAll(neededCols)) {
       result.influences.add(new CapabilityResult.DimensionAsMeasure(functionDesc));

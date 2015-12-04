@@ -1,3 +1,0 @@
-CubeDesc cubeDesc
-CubeJoinedFlatTableDesc intermediateTableDesc
-Map<TblColRef,Dictionary<?>> dictionaryMap

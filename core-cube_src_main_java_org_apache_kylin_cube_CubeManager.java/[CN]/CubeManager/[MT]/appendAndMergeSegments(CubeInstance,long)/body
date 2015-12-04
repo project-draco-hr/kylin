@@ -9,5 +9,5 @@
   validateNewSegments(cube,mergeSegment);
   CubeUpdate cubeBuilder=new CubeUpdate(cube).setToAddSegs(appendSegment,mergeSegment);
   updateCube(cubeBuilder);
-  return new Pair<CubeSegment,CubeSegment>(appendSegment,mergeSegment);
+  return Pair.newPair(appendSegment,mergeSegment);
 }

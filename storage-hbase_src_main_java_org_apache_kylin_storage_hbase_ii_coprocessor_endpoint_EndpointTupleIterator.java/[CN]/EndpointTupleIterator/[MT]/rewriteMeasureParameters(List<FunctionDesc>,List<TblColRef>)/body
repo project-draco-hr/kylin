@@ -7,7 +7,7 @@
       boolean updated=false;
       for (      TblColRef column : columns) {
         if (column.isSameAs(factTableName,functionDesc.getParameter().getValue())) {
-          if (functionDesc.isCountDistinct()) {
+          if (HLLCMeasureType.isCountDistinct(functionDesc)) {
             String iiDefaultHLLC="hllc10";
             functionDesc.setReturnType(iiDefaultHLLC);
           }

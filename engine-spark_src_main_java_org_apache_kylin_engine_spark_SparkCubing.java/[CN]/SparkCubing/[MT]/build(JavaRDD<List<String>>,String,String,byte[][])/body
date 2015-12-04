@@ -21,9 +21,9 @@
     }
   }
   for (  MeasureDesc measureDesc : cubeDesc.getMeasures()) {
-    if (measureDesc.getFunction().isTopN()) {
-      List<TblColRef> colRefs=measureDesc.getFunction().getParameter().getColRefs();
-      TblColRef col=colRefs.get(colRefs.size() - 1);
+    FunctionDesc func=measureDesc.getFunction();
+    List<TblColRef> colRefs=func.getMeasureType().getColumnsNeedDictionary(func);
+    for (    TblColRef col : colRefs) {
       dictionaryMap.put(col,cubeSegment.getDictionary(col));
     }
   }

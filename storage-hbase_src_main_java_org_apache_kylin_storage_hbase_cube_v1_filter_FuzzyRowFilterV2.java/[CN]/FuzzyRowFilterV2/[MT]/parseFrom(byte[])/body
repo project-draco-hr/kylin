@@ -12,7 +12,7 @@
     FilterProtosExt.BytesBytesPair current=proto.getFuzzyKeysData(i);
     byte[] keyBytes=current.getFirst().toByteArray();
     byte[] keyMeta=current.getSecond().toByteArray();
-    fuzzyKeysData.add(new Pair<byte[],byte[]>(keyBytes,keyMeta));
+    fuzzyKeysData.add(Pair.newPair(keyBytes,keyMeta));
   }
   return new FuzzyRowFilterV2(fuzzyKeysData);
 }

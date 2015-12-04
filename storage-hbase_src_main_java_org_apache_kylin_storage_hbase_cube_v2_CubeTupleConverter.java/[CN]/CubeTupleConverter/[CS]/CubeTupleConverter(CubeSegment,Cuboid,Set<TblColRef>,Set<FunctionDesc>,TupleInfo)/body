@@ -1,0 +1,54 @@
+{
+  this.cubeSeg=cubeSeg;
+  this.cuboid=cuboid;
+  this.tupleInfo=returnTupleInfo;
+  this.derivedColFillers=Lists.newArrayList();
+  List<TblColRef> cuboidDims=cuboid.getColumns();
+  CuboidToGridTableMapping mapping=cuboid.getCuboidToGridTableMapping();
+  nSelectedDims=selectedDimensions.size();
+  gtColIdx=new int[selectedDimensions.size() + selectedMetrics.size()];
+  tupleIdx=new int[selectedDimensions.size() + selectedMetrics.size()];
+  gtValues=new Object[selectedDimensions.size() + selectedMetrics.size()];
+  measureTypes=new MeasureType[selectedDimensions.size() + selectedMetrics.size()];
+  advMeasureFillers=Lists.newArrayListWithCapacity(1);
+  advMeasureIndexInGTValues=Lists.newArrayListWithCapacity(1);
+  int iii=0;
+  for (  TblColRef dim : selectedDimensions) {
+    int i=mapping.getIndexOf(dim);
+    gtColIdx[iii]=i;
+    tupleIdx[iii]=tupleInfo.hasColumn(dim) ? tupleInfo.getColumnIndex(dim) : -1;
+    iii++;
+  }
+  for (  FunctionDesc metric : selectedMetrics) {
+    int i=mapping.getIndexOf(metric);
+    gtColIdx[iii]=i;
+    if (metric.needRewrite()) {
+      String rewriteFieldName=metric.getRewriteFieldName();
+      tupleIdx[iii]=tupleInfo.hasField(rewriteFieldName) ? tupleInfo.getFieldIndex(rewriteFieldName) : -1;
+    }
+ else {
+      TblColRef col=metric.getParameter().getColRefs().get(0);
+      tupleIdx[iii]=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
+    }
+    MeasureType<?> measureType=metric.getMeasureType();
+    if (measureType.needAdvancedTupleFilling()) {
+      Map<TblColRef,Dictionary<String>> dictionaryMap=buildDictionaryMap(measureType.getColumnsNeedDictionary(metric));
+      advMeasureFillers.add(measureType.getAdvancedTupleFiller(metric,returnTupleInfo,dictionaryMap));
+      advMeasureIndexInGTValues.add(iii);
+    }
+ else {
+      measureTypes[iii]=measureType;
+    }
+    iii++;
+  }
+  Map<Array<TblColRef>,List<DeriveInfo>> hostToDerivedInfo=cuboid.getCubeDesc().getHostToDerivedInfo(cuboidDims,null);
+  for (  Entry<Array<TblColRef>,List<DeriveInfo>> entry : hostToDerivedInfo.entrySet()) {
+    TblColRef[] hostCols=entry.getKey().data;
+    for (    DeriveInfo deriveInfo : entry.getValue()) {
+      IDerivedColumnFiller filler=newDerivedColumnFiller(hostCols,deriveInfo);
+      if (filler != null) {
+        derivedColFillers.add(filler);
+      }
+    }
+  }
+}

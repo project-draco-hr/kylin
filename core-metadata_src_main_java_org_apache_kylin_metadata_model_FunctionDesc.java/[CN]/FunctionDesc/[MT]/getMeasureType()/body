@@ -1,7 +1,7 @@
 {
   if (isDimensionAsMetric)   return null;
   if (measureType == null) {
-    measureType=MeasureType.create(getExpression(),getReturnType());
+    measureType=MeasureTypeFactory.create(getExpression(),getReturnDataType());
   }
   return measureType;
 }

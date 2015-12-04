@@ -15,5 +15,5 @@
     }
   }
   if (returnBegin == null && returnEnd == null)   return null;
- else   return new Pair<T,T>(returnBegin,returnEnd);
+ else   return Pair.newPair(returnBegin,returnEnd);
 }

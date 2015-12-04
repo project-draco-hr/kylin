@@ -1,10 +1,10 @@
 {
-  return new MeasureIngester<TopNCounter>(){
-    @Override public TopNCounter valueOf(    String[] values,    MeasureDesc measureDesc,    Map<TblColRef,Dictionary<String>> dictionaryMap){
+  return new MeasureIngester<TopNCounter<ByteArray>>(){
+    @Override public TopNCounter<ByteArray> valueOf(    String[] values,    MeasureDesc measureDesc,    Map<TblColRef,Dictionary<String>> dictionaryMap){
       if (values.length != 2)       throw new IllegalArgumentException();
       double counter=values[0] == null ? 0 : Double.parseDouble(values[0]);
       String literal=values[1];
-      TblColRef literalCol=measureDesc.getFunction().getTopNLiteralColumn();
+      TblColRef literalCol=getTopNLiteralColumn(measureDesc.getFunction());
       Dictionary<String> dictionary=dictionaryMap.get(literalCol);
       int keyEncodedValue=dictionary.getIdFromValue(literal);
       ByteArray key=new ByteArray(dictionary.getSizeOfId());
@@ -13,9 +13,9 @@
       topNCounter.offer(key,counter);
       return topNCounter;
     }
-    @SuppressWarnings("unchecked") @Override public TopNCounter reEncodeDictionary(    TopNCounter value,    MeasureDesc measureDesc,    Map<TblColRef,Dictionary<String>> oldDicts,    Map<TblColRef,Dictionary<String>> newDicts){
-      TopNCounter<ByteArray> topNCounter=(TopNCounter<ByteArray>)value;
-      TblColRef colRef=measureDesc.getFunction().getTopNLiteralColumn();
+    @Override public TopNCounter<ByteArray> reEncodeDictionary(    TopNCounter<ByteArray> value,    MeasureDesc measureDesc,    Map<TblColRef,Dictionary<String>> oldDicts,    Map<TblColRef,Dictionary<String>> newDicts){
+      TopNCounter<ByteArray> topNCounter=value;
+      TblColRef colRef=getTopNLiteralColumn(measureDesc.getFunction());
       Dictionary<String> sourceDict=oldDicts.get(colRef);
       Dictionary<String> mergedDict=newDicts.get(colRef);
       int topNSize=topNCounter.size();

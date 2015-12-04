@@ -1,5 +1,5 @@
 {
-  if (RowValueDecoder.hasMemHungryCountDistinct(valueDecoders) == false) {
+  if (RowValueDecoder.hasMemHungryMeasures(valueDecoders) == false) {
     return;
   }
   int rowSizeEst=dimensions.size() * 3;

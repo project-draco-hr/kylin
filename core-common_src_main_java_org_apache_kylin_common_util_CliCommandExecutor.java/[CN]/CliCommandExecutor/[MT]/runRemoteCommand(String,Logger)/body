@@ -5,7 +5,7 @@
     sshOutput=ssh.execCommand(command,remoteTimeoutSeconds,logAppender);
     int exitCode=sshOutput.getExitCode();
     String output=sshOutput.getText();
-    return new Pair<Integer,String>(exitCode,output);
+    return Pair.newPair(exitCode,output);
   }
  catch (  IOException e) {
     throw e;

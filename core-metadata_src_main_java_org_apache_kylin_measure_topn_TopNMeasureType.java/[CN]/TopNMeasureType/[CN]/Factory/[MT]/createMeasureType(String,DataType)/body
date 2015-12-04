@@ -1,0 +1,3 @@
+{
+  return new TopNMeasureType(funcName,dataType);
+}

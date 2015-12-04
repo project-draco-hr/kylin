@@ -13,5 +13,5 @@
   this.rowValueDecoders=valueDecoderList.toArray(new RowValueDecoder[valueDecoderList.size()]);
   this.parsedKey=new ByteArrayWritable();
   this.parsedValue=new Object[measuresDescs.size()];
-  this.parsedPair=new Pair<ByteArrayWritable,Object[]>(parsedKey,parsedValue);
+  this.parsedPair=Pair.newPair(parsedKey,parsedValue);
 }

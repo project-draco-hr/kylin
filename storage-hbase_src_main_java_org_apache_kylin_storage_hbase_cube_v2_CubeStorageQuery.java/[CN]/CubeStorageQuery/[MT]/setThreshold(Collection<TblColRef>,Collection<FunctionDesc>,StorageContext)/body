@@ -1,11 +1,9 @@
 {
-  boolean hasMemHungryCountDistinct=false;
+  boolean hasMemHungryMeasure=false;
   for (  FunctionDesc func : metrics) {
-    if (func.isCountDistinct() && !func.isHolisticCountDistinct()) {
-      hasMemHungryCountDistinct=true;
-    }
+    hasMemHungryMeasure|=func.getMeasureType().isMemoryHungry();
   }
-  if (hasMemHungryCountDistinct == false) {
+  if (hasMemHungryMeasure == false) {
     return;
   }
   int rowSizeEst=dimensions.size() * 3;

@@ -11,12 +11,7 @@
   int space=0;
   for (  MeasureDesc measureDesc : cubeSegment.getCubeDesc().getMeasures()) {
     DataType returnType=measureDesc.getFunction().getReturnDataType();
-    if (returnType.isHLLC()) {
-      space+=returnType.getStorageBytesEstimate() * 0.75;
-    }
- else {
-      space+=returnType.getStorageBytesEstimate();
-    }
+    space+=returnType.getStorageBytesEstimate();
   }
   bytesLength+=space;
   double ret=1.0 * bytesLength * rowCount / (1024L * 1024L);

@@ -1,3 +1,3 @@
 {
-  return FunctionDesc.FUNC_MIN.equalsIgnoreCase(funcName);
+  return FunctionDesc.FUNC_MIN.equals(funcName);
 }

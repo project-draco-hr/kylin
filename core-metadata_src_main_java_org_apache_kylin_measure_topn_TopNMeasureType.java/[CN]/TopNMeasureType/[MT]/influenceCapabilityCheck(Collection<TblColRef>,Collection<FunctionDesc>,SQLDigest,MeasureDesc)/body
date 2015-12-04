@@ -1,9 +1,9 @@
 {
   if (digest.aggregations.size() != 1)   return null;
   FunctionDesc onlyFunction=digest.aggregations.iterator().next();
-  if (onlyFunction.isSum() == false)   return null;
-  TblColRef literalCol=topN.getFunction().getTopNLiteralColumn();
-  if (unmatchedDimensions.contains(literalCol) && topN.getFunction().isTopNCompatibleSum(onlyFunction)) {
+  if (isTopNCompatibleSum(topN.getFunction(),onlyFunction) == false)   return null;
+  TblColRef literalCol=getTopNLiteralColumn(topN.getFunction());
+  if (unmatchedDimensions.contains(literalCol)) {
     unmatchedDimensions.remove(literalCol);
     unmatchedAggregations.remove(onlyFunction);
     return new CapabilityInfluence(){

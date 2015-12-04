@@ -1,5 +1,0 @@
-{
-  if ("hllc".equals(dataType.getName()) == false)   throw new IllegalArgumentException();
-  this.dataType=dataType;
-  if (this.dataType.getPrecision() < 10 || this.dataType.getPrecision() > 16)   throw new IllegalArgumentException("HLLC precision must be between 10 and 16");
-}

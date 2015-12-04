@@ -1,6 +1,0 @@
-{
-  translateResult(hbaseRow,tuple);
-  Object topNCounterObj=tuple.getAllValues()[topNMeasureTupleIdx];
-  assert(topNCounterObj instanceof TopNCounter);
-  return new TopNCounterTupleIterator(tuple,(TopNCounter)topNCounterObj);
-}

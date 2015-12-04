@@ -17,5 +17,5 @@
     counterMap.put(item,counterNode);
   }
   incrementCounter(counterNode,incrementCount);
-  return new Pair<Boolean,T>(isNewItem,droppedItem);
+  return Pair.newPair(isNewItem,droppedItem);
 }

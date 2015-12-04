@@ -1,0 +1,6 @@
+{
+  for (  String typeName : typeNames) {
+    VALID_TYPES.add(typeName);
+  }
+  TYPE_PATTERN=Pattern.compile("(" + StringUtils.join(VALID_TYPES,"|") + ")"+ TYPE_PATTEN_TAIL,Pattern.CASE_INSENSITIVE);
+}

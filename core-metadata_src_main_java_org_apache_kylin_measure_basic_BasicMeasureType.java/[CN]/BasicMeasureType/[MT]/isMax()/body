@@ -1,3 +1,3 @@
 {
-  return FunctionDesc.FUNC_MAX.equalsIgnoreCase(funcName);
+  return FunctionDesc.FUNC_MAX.equals(funcName);
 }

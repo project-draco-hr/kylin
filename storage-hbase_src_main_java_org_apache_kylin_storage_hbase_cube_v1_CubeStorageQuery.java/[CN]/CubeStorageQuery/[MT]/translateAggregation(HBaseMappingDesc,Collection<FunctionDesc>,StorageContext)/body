@@ -10,11 +10,7 @@
     for (    HBaseColumnDesc hbCol : hbCols) {
       bestHBCol=hbCol;
       bestIndex=hbCol.findMeasure(aggrFunc);
-      MeasureDesc measure=hbCol.getMeasures()[bestIndex];
-      if (measure.getFunction().isHolisticCountDistinct() && context.isExactAggregation()) {
-        logger.info("Holistic count distinct chosen for " + aggrFunc);
-        break;
-      }
+      break;
     }
     RowValueDecoder codec=codecMap.get(bestHBCol);
     if (codec == null) {

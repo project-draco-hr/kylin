@@ -1,2 +1,4 @@
 {
+  Integer r=metrics2gt.get(metric);
+  return r == null ? -1 : r.intValue();
 }

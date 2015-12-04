@@ -1,6 +1,6 @@
 {
   FunctionDesc topnFunc=measureDesc.getFunction();
-  TblColRef topnLiteralCol=topnFunc.getTopNLiteralColumn();
+  TblColRef topnLiteralCol=getTopNLiteralColumn(topnFunc);
   if (sqlDigest.groupbyColumns.contains(topnLiteralCol) == false)   return;
   if (sqlDigest.aggregations.size() != 1) {
     throw new IllegalStateException("When query with topN, only one metrics is allowed.");

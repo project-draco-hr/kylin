@@ -2,7 +2,7 @@
   if (parsedPair == null) {
     parsedKey=new ByteArrayWritable();
     parsedValue=new Object[seg.getCubeDesc().getMeasures().size()];
-    parsedPair=new Pair<ByteArrayWritable,Object[]>(parsedKey,parsedValue);
+    parsedPair=Pair.newPair(parsedKey,parsedValue);
   }
   if (isMergeFromCuboidFiles(null)) {
     return parseMapperInputFromCuboidFile(inKey,inValue);

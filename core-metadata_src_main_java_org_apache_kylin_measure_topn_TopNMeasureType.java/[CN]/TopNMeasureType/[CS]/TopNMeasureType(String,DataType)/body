@@ -1,0 +1,4 @@
+{
+  validate(funcName,dataType);
+  this.dataType=dataType;
+}

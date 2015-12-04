@@ -1,0 +1,5 @@
+CubeSegment cubeSeg
+Cuboid cuboid
+Set<TblColRef> selectedDimensions
+Set<FunctionDesc> selectedMetrics
+TupleInfo returnTupleInfo
