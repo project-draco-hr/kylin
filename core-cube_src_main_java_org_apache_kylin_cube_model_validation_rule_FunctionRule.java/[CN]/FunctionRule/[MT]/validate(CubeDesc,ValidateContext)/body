@@ -30,7 +30,12 @@
  else     if (StringUtils.equals(FunctionDesc.PARAMETER_TYPE_CONSTANT,type)) {
       validateCostantParameter(context,cube,value);
     }
-    validateReturnType(context,cube,func);
+    try {
+      func.getMeasureType().validate(func);
+    }
+ catch (    IllegalArgumentException ex) {
+      context.addResult(ResultLevel.ERROR,ex.getMessage());
+    }
     if (func.isCount())     countFuncs.add(func);
   }
   if (countFuncs.size() != 1) {
