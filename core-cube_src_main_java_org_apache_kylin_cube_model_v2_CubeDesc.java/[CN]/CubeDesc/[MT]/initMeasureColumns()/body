@@ -11,8 +11,6 @@
     FunctionDesc func=m.getFunction();
     func.init(factTable);
     allColumns.addAll(func.getParameter().getColRefs());
-    if (func.isHolisticCountDistinct() && StringUtils.isBlank(m.getDependentMeasureRef())) {
-      throw new IllegalStateException(m + " is a holistic count distinct but it has no DependentMeasureRef defined!");
-    }
+    func.getMeasureType().validate(func);
   }
 }

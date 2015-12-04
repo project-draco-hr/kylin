@@ -1,6 +1,6 @@
 {
   for (  MeasureDesc measure : measures) {
-    if (measure.getFunction().isHolisticCountDistinct()) {
+    if (measure.getFunction().getMeasureType().isMemoryHungry()) {
       return true;
     }
   }
