@@ -3,8 +3,10 @@
   List<MeasureTypeFactory<?>> factoryInsts=Lists.newArrayList();
   factoryInsts.add(new HLLCMeasureType.Factory());
   factoryInsts.add(new TopNMeasureType.Factory());
-  for (  String factoryClz : config.getMeasureTypeFactories()) {
-    factoryInsts.add((MeasureTypeFactory<?>)ClassUtil.newInstance(factoryClz));
+  if (config != null) {
+    for (    String factoryClz : config.getMeasureTypeFactories()) {
+      factoryInsts.add((MeasureTypeFactory<?>)ClassUtil.newInstance(factoryClz));
+    }
   }
   for (  MeasureTypeFactory<?> factory : factoryInsts) {
     String funcName=factory.getAggrFunctionName().toUpperCase();
