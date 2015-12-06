@@ -3,15 +3,14 @@
   FunctionDesc onlyFunction=digest.aggregations.iterator().next();
   if (isTopNCompatibleSum(topN.getFunction(),onlyFunction) == false)   return null;
   TblColRef literalCol=getTopNLiteralColumn(topN.getFunction());
-  if (unmatchedDimensions.contains(literalCol)) {
-    unmatchedDimensions.remove(literalCol);
-    unmatchedAggregations.remove(onlyFunction);
-    return new CapabilityInfluence(){
-      @Override public double suggestCostMultiplier(){
-        return 0.3;
-      }
+  if (unmatchedDimensions.contains(literalCol) == false)   return null;
+  if (digest.groupbyColumns.contains(literalCol) == false)   return null;
+  unmatchedDimensions.remove(literalCol);
+  unmatchedAggregations.remove(onlyFunction);
+  return new CapabilityInfluence(){
+    @Override public double suggestCostMultiplier(){
+      return 0.3;
     }
-;
   }
- else   return null;
+;
 }

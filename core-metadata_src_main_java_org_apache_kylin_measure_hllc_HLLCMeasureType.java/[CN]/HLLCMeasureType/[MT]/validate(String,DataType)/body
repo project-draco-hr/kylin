@@ -1,7 +1,0 @@
-{
-  if (FUNC_COUNT_DISTINCT.equals(funcName) == false)   throw new IllegalArgumentException();
-  if (dataType != null) {
-    if (DATATYPE_HLLC.equals(dataType.getName()) == false)     throw new IllegalArgumentException();
-    if (dataType.getPrecision() < 1 || dataType.getPrecision() > 5000)     throw new IllegalArgumentException();
-  }
-}

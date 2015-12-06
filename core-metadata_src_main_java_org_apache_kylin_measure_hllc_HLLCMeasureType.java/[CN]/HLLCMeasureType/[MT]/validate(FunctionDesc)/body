@@ -1,3 +1,3 @@
 {
-  validate(functionDesc.getExpression(),functionDesc.getReturnDataType());
+  validate(functionDesc.getExpression(),functionDesc.getReturnDataType(),true);
 }
