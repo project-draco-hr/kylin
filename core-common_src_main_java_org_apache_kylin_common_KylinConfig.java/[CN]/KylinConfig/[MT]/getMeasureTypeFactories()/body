@@ -1,3 +1,0 @@
-{
-  return getOptionalStringArray("kylin.measure.type.factories",new String[0]);
-}
