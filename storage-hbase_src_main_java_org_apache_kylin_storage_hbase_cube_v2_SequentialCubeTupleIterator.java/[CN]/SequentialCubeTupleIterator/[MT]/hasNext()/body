@@ -27,7 +27,7 @@
     return hasNext();
   }
   GTRecord curRecord=curRecordIterator.next();
-  List<IAdvMeasureFiller> advMeasureFillers=curTupleConverter.translateResult(curRecord,tuple);
+  advMeasureFillers=curTupleConverter.translateResult(curRecord,tuple);
   if (advMeasureFillers == null) {
     next=tuple;
     return true;

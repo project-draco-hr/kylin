@@ -4,7 +4,7 @@
   if (partitionColType.isDate()) {
     value=DateFormat.formatToDateStr(ts);
   }
- else   if (partitionColType.isDatetime()) {
+ else   if (partitionColType.isDatetime() || partitionColType.isTimestamp()) {
     value=DateFormat.formatToTimeWithoutMilliStr(ts);
   }
  else   if (partitionColType.isStringFamily()) {

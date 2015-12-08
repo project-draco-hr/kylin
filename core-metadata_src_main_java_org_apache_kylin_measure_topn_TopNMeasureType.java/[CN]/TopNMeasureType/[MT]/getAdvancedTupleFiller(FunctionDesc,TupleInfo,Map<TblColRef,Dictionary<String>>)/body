@@ -11,6 +11,7 @@
     @SuppressWarnings("unchecked") @Override public void reload(    Object measureValue){
       this.topNCounter=(TopNCounter<ByteArray>)measureValue;
       this.topNCounterIterator=topNCounter.iterator();
+      this.expectRow=0;
     }
     @Override public int getNumOfRows(){
       return topNCounter.size();
