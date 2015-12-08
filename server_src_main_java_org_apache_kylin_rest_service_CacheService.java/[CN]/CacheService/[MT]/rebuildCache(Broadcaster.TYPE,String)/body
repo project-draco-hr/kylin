@@ -47,6 +47,7 @@ HybridManager.clearCache();
 RealizationRegistry.clearCache();
 ProjectManager.clearCache();
 BasicService.resetOLAPDataSources();
+HBaseConnection.clearCache();
 break;
 default :
 throw new RuntimeException("invalid cacheType:" + cacheType);

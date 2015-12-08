@@ -1,0 +1,3 @@
+{
+  return Integer.parseInt(this.getOptional("kylin.hbase.scan.cache_rows","1024"));
+}
