@@ -6,10 +6,14 @@
   this.rowValueDecoders=rowValueDecoders;
   this.derivedColFillers=Lists.newArrayList();
   List<TblColRef> dimCols=cuboid.getColumns();
+  measureTypes=Lists.newArrayList();
+  advMeasureFillers=Lists.newArrayListWithCapacity(1);
+  advMeasureIndexInRV=Lists.newArrayListWithCapacity(1);
   dimensionTupleIdx=new int[dimCols.size()];
   for (int i=0; i < dimCols.size(); i++) {
     TblColRef col=dimCols.get(i);
     dimensionTupleIdx[i]=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
+    measureTypes.add(null);
   }
   metricsMeasureIdx=new int[rowValueDecoders.size()][];
   metricsTupleIdx=new int[rowValueDecoders.size()][];
@@ -32,6 +36,16 @@
       }
       metricsMeasureIdx[i][j]=mi;
       metricsTupleIdx[i][j]=tupleIdx;
+      MeasureType<?> measureType=aggrFunc.getMeasureType();
+      if (measureType.needAdvancedTupleFilling()) {
+        Map<TblColRef,Dictionary<String>> dictionaryMap=buildDictionaryMap(measureType.getColumnsNeedDictionary(aggrFunc));
+        advMeasureFillers.add(measureType.getAdvancedTupleFiller(aggrFunc,tupleInfo,dictionaryMap));
+        advMeasureIndexInRV.add(Pair.newPair(i,mi));
+        measureTypes.add(null);
+      }
+ else {
+        measureTypes.add(measureType);
+      }
     }
   }
   Map<Array<TblColRef>,List<DeriveInfo>> hostToDerivedInfo=cuboid.getCubeDesc().getHostToDerivedInfo(dimCols,null);

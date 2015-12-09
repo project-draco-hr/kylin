@@ -10,4 +10,7 @@
   }
  else   if (coprocessorToggle.equals("unset")) {
   }
+  if ("v1".equalsIgnoreCase(queryEngine)) {
+    HBaseStorage.overwriteStorageQuery=HBaseStorage.v1CubeStorageQuery;
+  }
 }

@@ -1,5 +1,14 @@
 {
   if (next != null)   return true;
+  if (advMeasureRowsRemaining > 0) {
+    for (    MeasureType.IAdvMeasureFiller filler : advMeasureFillers) {
+      filler.fillTuplle(oneTuple,advMeasureRowIndex);
+    }
+    advMeasureRowIndex++;
+    advMeasureRowsRemaining--;
+    next=oneTuple;
+    return true;
+  }
   if (resultIterator == null) {
     if (rangeIterator.hasNext() == false)     return false;
     resultIterator=doScan(rangeIterator.next());
@@ -12,7 +21,17 @@
   Result result=resultIterator.next();
   scanCount++;
   if (++scanCountDelta >= 1000)   flushScanCountDelta();
-  tupleConverter.translateResult(result,oneTuple);
-  next=oneTuple;
-  return true;
+  advMeasureFillers=tupleConverter.translateResult(result,oneTuple);
+  if (advMeasureFillers == null) {
+    next=oneTuple;
+    return true;
+  }
+  advMeasureRowsRemaining=-1;
+  for (  MeasureType.IAdvMeasureFiller filler : advMeasureFillers) {
+    if (advMeasureRowsRemaining < 0)     advMeasureRowsRemaining=filler.getNumOfRows();
+    if (advMeasureRowsRemaining != filler.getNumOfRows())     throw new IllegalStateException();
+  }
+  if (advMeasureRowsRemaining < 0)   throw new IllegalStateException();
+  advMeasureRowIndex=0;
+  return hasNext();
 }

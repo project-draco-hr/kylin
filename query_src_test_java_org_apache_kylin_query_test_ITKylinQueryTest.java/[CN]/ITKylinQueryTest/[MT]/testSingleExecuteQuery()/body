@@ -1,5 +1,5 @@
 {
-  String queryFileName="src/test/resources/query/sql/query58.sql";
+  String queryFileName="src/test/resources/query/sql_tableau/query20.sql";
   File sqlFile=new File(queryFileName);
   String sql=getTextFromFile(sqlFile);
   IDatabaseConnection kylinConn=new DatabaseConnection(cubeConnection);

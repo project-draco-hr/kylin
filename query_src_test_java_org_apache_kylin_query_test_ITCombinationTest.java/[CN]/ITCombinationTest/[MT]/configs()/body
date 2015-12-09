@@ -1,3 +1,3 @@
 {
-  return Arrays.asList(new Object[][]{{"inner","on"},{"left","on"}});
+  return Arrays.asList(new Object[][]{{"inner","on","v2"},{"left","on","v1"},{"left","on","v2"}});
 }

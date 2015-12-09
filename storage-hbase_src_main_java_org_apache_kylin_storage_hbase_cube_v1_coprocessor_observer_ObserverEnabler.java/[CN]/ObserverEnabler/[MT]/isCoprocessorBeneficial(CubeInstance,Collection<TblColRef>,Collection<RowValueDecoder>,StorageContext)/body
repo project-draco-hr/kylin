@@ -11,6 +11,10 @@
     logger.info("Coprocessor is " + (r ? "enabled" : "disabled") + " according to cube overrides");
     return r;
   }
+  if (RowValueDecoder.hasMemHungryMeasures(rowValueDecoders)) {
+    logger.info("Coprocessor is disabled because there is memory hungry count distinct");
+    return false;
+  }
   if (context.isExactAggregation()) {
     logger.info("Coprocessor is disabled because exactAggregation is true");
     return false;

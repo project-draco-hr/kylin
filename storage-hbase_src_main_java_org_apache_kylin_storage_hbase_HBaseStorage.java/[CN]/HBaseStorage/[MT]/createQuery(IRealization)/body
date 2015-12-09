@@ -18,7 +18,10 @@
   }
  else   if (realization.getType() == RealizationType.CUBE) {
     String cubeStorageQuery;
-    if ("v1".equalsIgnoreCase(BackdoorToggles.getHbaseCubeQueryVersion())) {
+    if (overwriteStorageQuery != null) {
+      cubeStorageQuery=overwriteStorageQuery;
+    }
+ else     if ("v1".equalsIgnoreCase(BackdoorToggles.getHbaseCubeQueryVersion())) {
       cubeStorageQuery=v1CubeStorageQuery;
     }
  else {
