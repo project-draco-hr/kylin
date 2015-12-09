@@ -1,7 +1,7 @@
 {
   List<org.apache.hadoop.hbase.util.Pair<byte[],byte[]>> result=Lists.newArrayList();
-  for (  org.apache.kylin.common.util.Pair pair : pairList) {
-    org.apache.hadoop.hbase.util.Pair element=new org.apache.hadoop.hbase.util.Pair(pair.getFirst(),pair.getSecond());
+  for (  org.apache.kylin.common.util.Pair<byte[],byte[]> pair : pairList) {
+    org.apache.hadoop.hbase.util.Pair<byte[],byte[]> element=new org.apache.hadoop.hbase.util.Pair<byte[],byte[]>(pair.getFirst(),pair.getSecond());
     result.add(element);
   }
   return result;

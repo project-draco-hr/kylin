@@ -1,0 +1,7 @@
+{
+  ImmutableBitSet result=ImmutableBitSet.EMPTY;
+  for (int i=0; i < selectedColBlocks.trueBitCount(); i++) {
+    result=result.or(colBlocks[selectedColBlocks.trueBitAt(i)]);
+  }
+  return result;
+}

@@ -47,6 +47,7 @@ RealizationRegistry.clearCache();
 ProjectManager.clearCache();
 KafkaConfigManager.clearCache();
 StreamingManager.clearCache();
+HBaseConnection.clearConnCache();
 cleanAllDataCache();
 removeAllOLAPDataSources();
 break;

@@ -1,0 +1,9 @@
+{
+  KylinConfig config=cubeSeg.getCubeDesc().getConfig();
+  scan.setCaching(config.getHBaseScanCacheRows());
+  scan.setMaxResultSize(config.getHBaseScanMaxResultSize());
+  scan.setCacheBlocks(true);
+  if (RowValueDecoder.hasMemHungryMeasures(rowValueDecoders)) {
+    scan.setCaching(scan.getCaching() / 10);
+  }
+}

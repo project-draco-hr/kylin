@@ -3,4 +3,6 @@
   this.endKey=endKey;
   this.hbaseColumns=hbaseColumns;
   this.fuzzyKey=fuzzyKey;
+  this.hbaseCaching=hbaseCaching;
+  this.hbaseMaxResultSize=hbaseMaxResultSize;
 }

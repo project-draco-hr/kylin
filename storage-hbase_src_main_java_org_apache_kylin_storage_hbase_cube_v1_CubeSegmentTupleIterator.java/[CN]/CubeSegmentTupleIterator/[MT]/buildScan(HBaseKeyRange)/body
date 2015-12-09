@@ -1,7 +1,6 @@
 {
   Scan scan=new Scan();
-  scan.setCaching(SCAN_CACHE);
-  scan.setCacheBlocks(true);
+  tuneScanParameters(scan);
   scan.setAttribute(Scan.SCAN_ATTRIBUTES_METRICS_ENABLE,Bytes.toBytes(Boolean.TRUE));
   for (  RowValueDecoder valueDecoder : this.rowValueDecoders) {
     HBaseColumnDesc hbaseColumn=valueDecoder.getHBaseColumn();

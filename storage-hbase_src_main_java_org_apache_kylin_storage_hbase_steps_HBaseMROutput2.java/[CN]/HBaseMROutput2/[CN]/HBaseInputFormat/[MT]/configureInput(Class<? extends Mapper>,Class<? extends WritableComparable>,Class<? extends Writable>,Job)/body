@@ -4,7 +4,7 @@
   List<Scan> scans=new ArrayList<Scan>();
   for (  String htable : new HBaseMRSteps(seg).getMergingHTables()) {
     Scan scan=new Scan();
-    scan.setCaching(500);
+    scan.setCaching(512);
     scan.setCacheBlocks(false);
     scan.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME,Bytes.toBytes(htable));
     scans.add(scan);

@@ -1,0 +1,4 @@
+{
+  ImmutableBitSet selectColumns=fullGTInfo.selectColumns(selectedColBlocks);
+  return fullGTInfo.getMaxColumnLength(selectColumns) > 1024;
+}

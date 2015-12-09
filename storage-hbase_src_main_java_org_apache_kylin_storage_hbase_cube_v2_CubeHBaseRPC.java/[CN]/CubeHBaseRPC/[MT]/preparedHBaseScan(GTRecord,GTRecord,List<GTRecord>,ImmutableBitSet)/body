@@ -22,8 +22,12 @@
 );
   Preconditions.checkState(startKeys.size() == endKeys.size());
   List<Pair<byte[],byte[]>> hbaseFuzzyKeys=translateFuzzyKeys(fuzzyKeys);
+  KylinConfig config=cubeSeg.getCubeDesc().getConfig();
+  int hbaseCaching=config.getHBaseScanCacheRows();
+  int hbaseMaxResultSize=config.getHBaseScanMaxResultSize();
+  if (isMemoryHungry(selectedColBlocks))   hbaseCaching/=10;
   for (short i=0; i < startKeys.size(); ++i) {
-    ret.add(new RawScan(startKeys.get(i),endKeys.get(i),selectedColumns,hbaseFuzzyKeys));
+    ret.add(new RawScan(startKeys.get(i),endKeys.get(i),selectedColumns,hbaseFuzzyKeys,hbaseCaching,hbaseMaxResultSize));
   }
   return ret;
 }

@@ -1,6 +1,7 @@
 {
   Scan scan=new Scan();
-  scan.setCaching(SCAN_CACHE);
+  scan.setCaching(rawScan.hbaseCaching);
+  scan.setMaxResultSize(rawScan.hbaseMaxResultSize);
   scan.setCacheBlocks(true);
   scan.setAttribute(Scan.SCAN_ATTRIBUTES_METRICS_ENABLE,Bytes.toBytes(Boolean.TRUE));
   if (rawScan.startKey != null) {
