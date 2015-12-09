@@ -1,17 +1,3 @@
 {
-  if (isAllDigits(str)) {
-    return Long.parseLong(str);
-  }
- else   if (str.length() == 10) {
-    return stringToDate(str,DEFAULT_DATE_PATTERN).getTime();
-  }
- else   if (str.length() == 19) {
-    return stringToDate(str,DEFAULT_DATETIME_PATTERN_WITHOUT_MILLISECONDS).getTime();
-  }
- else   if (str.length() > 19) {
-    return stringToDate(str,DEFAULT_DATETIME_PATTERN_WITH_MILLISECONDS).getTime();
-  }
- else {
-    throw new IllegalArgumentException("there is no valid date pattern for:" + str);
-  }
+  return stringToMillis(str,DEFAULT_DATE_PATTERN);
 }

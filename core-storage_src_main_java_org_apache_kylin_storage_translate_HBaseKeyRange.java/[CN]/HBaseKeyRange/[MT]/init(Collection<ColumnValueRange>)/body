@@ -10,7 +10,7 @@
     fuzzyValues.put(column,dimRange.getEqualValues());
     TblColRef partitionDateColumnRef=cubeSeg.getCubeDesc().getModel().getPartitionDesc().getPartitionDateColumnRef();
     if (column.equals(partitionDateColumnRef)) {
-      initPartitionRange(dimRange);
+      initPartitionRange(dimRange,cubeSeg.getCubeDesc().getModel().getPartitionDesc().getPartitionDateFormat());
     }
   }
   AbstractRowKeyEncoder encoder=new LazyRowKeyEncoder(cubeSeg,cuboid);
