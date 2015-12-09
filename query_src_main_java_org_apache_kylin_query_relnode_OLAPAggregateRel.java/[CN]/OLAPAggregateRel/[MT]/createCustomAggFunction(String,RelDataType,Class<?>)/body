@@ -1,6 +1,6 @@
 {
   RelDataTypeFactory typeFactory=getCluster().getTypeFactory();
-  SqlIdentifier sqlIdentifier=new SqlIdentifier(customAggFuncClz.getSimpleName(),new SqlParserPos(1,1));
+  SqlIdentifier sqlIdentifier=new SqlIdentifier(funcName,new SqlParserPos(1,1));
   AggregateFunction aggFunction=AggregateFunctionImpl.create(customAggFuncClz);
   List<RelDataType> argTypes=new ArrayList<RelDataType>();
   List<SqlTypeFamily> typeFamilies=new ArrayList<SqlTypeFamily>();
