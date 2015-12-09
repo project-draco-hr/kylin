@@ -8,9 +8,9 @@
     startValues.put(column,dimRange.getBeginValue());
     stopValues.put(column,dimRange.getEndValue());
     fuzzyValues.put(column,dimRange.getEqualValues());
-    TblColRef partitionDateColumnRef=cubeSeg.getCubeDesc().getModel().getPartitionDesc().getPartitionDateColumnRef();
-    if (column.equals(partitionDateColumnRef)) {
-      initPartitionRange(dimRange);
+    PartitionDesc partDesc=cubeSeg.getCubeDesc().getModel().getPartitionDesc();
+    if (column.equals(partDesc.getPartitionDateColumnRef())) {
+      initPartitionRange(dimRange,partDesc.getPartitionDateFormat());
     }
   }
   AbstractRowKeyEncoder encoder=AbstractRowKeyEncoder.createInstance(cubeSeg,cuboid);
