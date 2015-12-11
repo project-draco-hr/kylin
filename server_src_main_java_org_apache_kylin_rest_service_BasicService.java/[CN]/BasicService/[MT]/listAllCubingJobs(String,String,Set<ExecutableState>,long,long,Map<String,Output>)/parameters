@@ -1,0 +1,6 @@
+String cubeName
+String projectName
+Set<ExecutableState> statusList
+long timeStartInMillis
+long timeEndInMillis
+Map<String,Output> allOutputs

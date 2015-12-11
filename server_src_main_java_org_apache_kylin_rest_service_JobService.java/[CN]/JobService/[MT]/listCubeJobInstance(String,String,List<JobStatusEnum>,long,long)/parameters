@@ -1,0 +1,5 @@
+String cubeName
+String projectName
+List<JobStatusEnum> statusList
+long timeStartInMillis
+long timeEndInMillis

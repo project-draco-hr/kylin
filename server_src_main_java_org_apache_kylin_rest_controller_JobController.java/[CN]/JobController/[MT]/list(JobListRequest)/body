@@ -6,8 +6,9 @@
       statusList.add(JobStatusEnum.getByCode(status));
     }
   }
+  JobTimeFilterEnum timeFilter=JobTimeFilterEnum.getByCode(jobRequest.getTimeFilter());
   try {
-    jobInstanceList=jobService.listAllJobs(jobRequest.getCubeName(),jobRequest.getProjectName(),statusList,jobRequest.getLimit(),jobRequest.getOffset());
+    jobInstanceList=jobService.listAllJobs(jobRequest.getCubeName(),jobRequest.getProjectName(),statusList,jobRequest.getLimit(),jobRequest.getOffset(),timeFilter);
   }
  catch (  Exception e) {
     logger.error(e.getLocalizedMessage(),e);

@@ -1,0 +1,19 @@
+{
+  Set<ExecutableState> states;
+  if (statusList == null || statusList.isEmpty()) {
+    states=EnumSet.allOf(ExecutableState.class);
+  }
+ else {
+    states=Sets.newHashSet();
+    for (    JobStatusEnum status : statusList) {
+      states.add(parseToExecutableState(status));
+    }
+  }
+  final Map<String,Output> allOutputs=getExecutableManager().getAllOutputs(timeStartInMillis,timeEndInMillis);
+  return Lists.newArrayList(FluentIterable.from(listAllCubingJobs(cubeName,projectName,states,timeStartInMillis,timeEndInMillis,allOutputs)).transform(new Function<CubingJob,JobInstance>(){
+    @Override public JobInstance apply(    CubingJob cubingJob){
+      return parseToJobInstance(cubingJob,allOutputs);
+    }
+  }
+));
+}

@@ -1,0 +1,7 @@
+{
+  Calendar calendar=Calendar.getInstance();
+  calendar.setTime(new Date());
+  long currentTimeMillis=calendar.getTimeInMillis();
+  long timeStartInMillis=getTimeStartInMillis(calendar,timeFilter);
+  return listCubeJobInstance(cubeName,projectName,statusList,timeStartInMillis,currentTimeMillis);
+}

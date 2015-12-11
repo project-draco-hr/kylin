@@ -1,0 +1,6 @@
+String cubeName
+String projectName
+List<JobStatusEnum> statusList
+Integer limitValue
+Integer offsetValue
+JobTimeFilterEnum timeFilter

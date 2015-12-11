@@ -1,0 +1,6 @@
+String rangeStart
+String rangeEnd
+long timeStartInMillis
+long timeEndInMillis
+Class<T> clazz
+Serializer<T> serializer
