@@ -1,0 +1,33 @@
+{
+  Authentication authed=null;
+  Cache userCache=cacheManager.getCache("UserCache");
+  md.reset();
+  byte[] hashKey=md.digest((authentication.getName() + authentication.getCredentials()).getBytes());
+  String userKey=Arrays.toString(hashKey);
+  Element authedUser=userCache.get(userKey);
+  if (null != authedUser) {
+    authed=(Authentication)authedUser.getObjectValue();
+    SecurityContextHolder.getContext().setAuthentication(authed);
+  }
+ else {
+    try {
+      authed=authenticationProvider.authenticate(authentication);
+      userCache.put(new Element(userKey,authed));
+    }
+ catch (    AuthenticationException e) {
+      logger.error("Failed to auth user: " + authentication.getName(),e);
+      throw e;
+    }
+    logger.debug("Authenticated user " + authed.toString());
+    UserDetails user=(UserDetails)authed.getDetails();
+    Assert.notNull(user,"The UserDetail is null.");
+    logger.debug("User authorities :" + user.getAuthorities());
+    if (!userService.userExists(user.getUsername())) {
+      userService.createUser(user);
+    }
+ else {
+      userService.updateUser(user);
+    }
+  }
+  return authed;
+}

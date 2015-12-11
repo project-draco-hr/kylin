@@ -1,0 +1,11 @@
+{
+  super();
+  Assert.notNull(authenticationProvider,"The embedded authenticationProvider should not be null.");
+  this.authenticationProvider=authenticationProvider;
+  try {
+    md=MessageDigest.getInstance("MD5");
+  }
+ catch (  NoSuchAlgorithmException e) {
+    throw new RuntimeException("Failed to init Message Digest ",e);
+  }
+}

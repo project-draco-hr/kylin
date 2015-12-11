@@ -1,0 +1,8 @@
+{
+  final String userEmail=samlCredential.getAttributeAsString("email");
+  logger.debug("samlCredential.email:" + userEmail);
+  final String userName=userEmail.substring(0,userEmail.indexOf("@"));
+  UserDetails userDetails=ldapUserDetailsService.loadUserByUsername(userName);
+  logger.debug("userDeail by search ldap with '" + userName + "' is: "+ userDetails);
+  return userDetails;
+}
