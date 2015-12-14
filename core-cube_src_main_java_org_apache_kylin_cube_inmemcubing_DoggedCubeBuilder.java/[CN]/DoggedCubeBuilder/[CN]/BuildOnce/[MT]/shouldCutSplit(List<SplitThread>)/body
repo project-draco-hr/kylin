@@ -7,8 +7,8 @@
     logger.info("Split cut due to hitting splitRowThreshold " + splitRowThreshold);
     return true;
   }
-  if (systemAvailMB <= reserveMemoryMB + cutAheadMB) {
-    logger.info("Split cut due to hitting memory threshold, system avail " + systemAvailMB + " MB <= reserve "+ reserveMemoryMB+ " MB + cut ahead "+ cutAheadMB+ " MB");
+  if (systemAvailMB <= reserveMemoryMB) {
+    logger.info("Split cut due to hitting memory threshold, system avail " + systemAvailMB + " MB <= reserve "+ reserveMemoryMB+ " MB");
     return true;
   }
   return false;

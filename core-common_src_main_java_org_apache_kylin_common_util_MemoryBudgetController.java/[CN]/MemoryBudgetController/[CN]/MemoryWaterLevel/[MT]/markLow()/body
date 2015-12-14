@@ -1,0 +1,4 @@
+{
+  highAvail=Math.max(highAvail,MemoryBudgetController.gcAndGetSystemAvailMB());
+  logger.info("Higher system avail " + highAvail + " MB in markLow()");
+}

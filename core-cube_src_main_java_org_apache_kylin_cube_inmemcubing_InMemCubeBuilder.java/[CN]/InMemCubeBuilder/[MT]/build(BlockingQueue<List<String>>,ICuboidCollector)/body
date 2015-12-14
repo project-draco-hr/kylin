@@ -1,6 +1,8 @@
 {
   long startTime=System.currentTimeMillis();
   logger.info("In Mem Cube Build start, " + cubeDesc.getName());
+  baseCuboidMemTracker=new MemoryWaterLevel();
+  baseCuboidMemTracker.markLow();
   taskPending=new TreeSet<CuboidTask>();
   taskCuboidCompleted.set(0);
   taskThreads=prepareTaskThreads();
@@ -9,6 +11,7 @@
   totalSumForSanityCheck=null;
   baseResult=createBaseCuboid(input);
   if (baseResult.nRows == 0)   return;
+  baseCuboidMemTracker.markLow();
   makeMemoryBudget();
   addChildTasks(baseResult);
   start(taskThreads);
