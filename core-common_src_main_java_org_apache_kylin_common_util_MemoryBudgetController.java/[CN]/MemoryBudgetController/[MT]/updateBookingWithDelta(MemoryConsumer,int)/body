@@ -16,7 +16,7 @@
     booking.remove(entry.consumer);
   }
   if (debug) {
-    logger.debug(entry.consumer + " reserved " + entry.reservedMB+ " MB, total reserved "+ totalReservedMB+ " MB, remaining budget "+ getRemainingBudgetMB()+ " MB");
+    logger.info(entry.consumer + " reserved " + entry.reservedMB+ " MB, total reserved "+ totalReservedMB+ " MB, remaining budget "+ getRemainingBudgetMB()+ " MB");
   }
   if (delta < 0) {
 synchronized (lock) {

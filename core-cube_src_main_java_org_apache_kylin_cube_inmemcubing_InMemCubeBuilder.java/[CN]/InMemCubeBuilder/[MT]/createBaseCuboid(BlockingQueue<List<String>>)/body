@@ -1,14 +1,14 @@
 {
+  int mbBefore=getSystemAvailMB();
+  int mbAfter=0;
+  long startTime=System.currentTimeMillis();
+  logger.info("Calculating base cuboid " + baseCuboidId + ", system avail "+ mbBefore+ " MB");
   GridTable baseCuboid=newGridTableByCuboidID(baseCuboidId);
   GTBuilder baseBuilder=baseCuboid.rebuild();
   IGTScanner baseInput=new InputConverter(baseCuboid.getInfo(),input);
-  int mbBefore=getSystemAvailMB();
-  int mbAfter=0;
   Pair<ImmutableBitSet,ImmutableBitSet> dimensionMetricsBitSet=InMemCubeBuilderUtils.getDimensionAndMetricColumnBitSet(baseCuboidId,measureCount);
   GTScanRequest req=new GTScanRequest(baseCuboid.getInfo(),null,dimensionMetricsBitSet.getFirst(),dimensionMetricsBitSet.getSecond(),metricsAggrFuncs,null);
   GTAggregateScanner aggregationScanner=new GTAggregateScanner(baseInput,req,true);
-  long startTime=System.currentTimeMillis();
-  logger.info("Calculating cuboid " + baseCuboidId);
   int count=0;
   for (  GTRecord r : aggregationScanner) {
     if (mbAfter == 0) {
@@ -23,7 +23,7 @@
   logger.info("Cuboid " + baseCuboidId + " has "+ count+ " rows, build takes "+ timeSpent+ "ms");
   int mbBaseAggrCacheOnHeap=mbAfter == 0 ? 0 : mbBefore - mbAfter;
   int mbEstimateBaseAggrCache=(int)(aggregationScanner.getEstimateSizeOfAggrCache() / MemoryBudgetController.ONE_MB);
-  int mbBaseAggrCache=(int)(mbBaseAggrCacheOnHeap * (1 + BASE_CUBOID_CACHE_OVERSIZE_FACTOR));
+  int mbBaseAggrCache=(int)(mbBaseAggrCacheOnHeap * (1 + getAggrCacheOversizeFactor(cubeDesc)));
   mbBaseAggrCache=Math.max(mbBaseAggrCache,10);
   logger.info("Base aggr cache is " + mbBaseAggrCache + " MB (heap "+ mbBaseAggrCacheOnHeap+ " MB, estimate "+ mbEstimateBaseAggrCache+ " MB)");
   return updateCuboidResult(baseCuboidId,baseCuboid,count,timeSpent,mbBaseAggrCache);

@@ -6,12 +6,7 @@
       }
       Thread.sleep(1000);
     }
-    while (last.isAlive()) {
-      if (last.builder.isAllCuboidDone()) {
-        break;
-      }
-      Thread.sleep(1000);
-    }
+    last.join();
   }
  catch (  InterruptedException e) {
     throw new RuntimeException(e);

@@ -1,3 +1,4 @@
 {
   super(cubeDesc,dictionaryMap);
+  if (cubeDesc.hasMemoryHungryMeasures())   unitRows/=10;
 }

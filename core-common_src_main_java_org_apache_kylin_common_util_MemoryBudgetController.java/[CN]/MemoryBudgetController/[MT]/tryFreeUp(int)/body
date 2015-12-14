@@ -16,7 +16,7 @@
   if (gap > 0)   throw new NotEnoughBudgetException();
   if (debug) {
     if (getSystemAvailMB() < getRemainingBudgetMB()) {
-      logger.debug("Remaining budget is " + getRemainingBudgetMB() + " MB free, but system only has "+ getSystemAvailMB()+ " MB free. If this persists, some memory calculation must be wrong.");
+      logger.info("Remaining budget is " + getRemainingBudgetMB() + " MB free, but system only has "+ getSystemAvailMB()+ " MB free. If this persists, some memory calculation must be wrong.");
     }
   }
 }

@@ -3,7 +3,7 @@
   while (true) {
     try {
       reserve(consumer,requestMB);
-      if (debug && waitStart > 0)       logger.debug(consumer + " waited " + (System.currentTimeMillis() - waitStart)+ " ms on the "+ requestMB+ " MB request");
+      if (debug && waitStart > 0)       logger.info(consumer + " waited " + (System.currentTimeMillis() - waitStart)+ " ms on the "+ requestMB+ " MB request");
       return;
     }
  catch (    NotEnoughBudgetException ex) {
