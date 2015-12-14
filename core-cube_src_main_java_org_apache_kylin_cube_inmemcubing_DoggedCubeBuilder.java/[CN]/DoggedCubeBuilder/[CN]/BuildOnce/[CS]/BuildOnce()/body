@@ -1,8 +1,2 @@
 {
-  int systemAvailMB=MemoryBudgetController.getSystemAvailMB();
-  int half=systemAvailMB / 2;
-  if (getReserveMemoryMB() > half) {
-    logger.info("Reserve " + getReserveMemoryMB() + " MB is more than half of system avail "+ systemAvailMB+ " MB, override to "+ half);
-    setReserveMemoryMB(half);
-  }
 }
