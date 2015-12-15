@@ -17,6 +17,7 @@
     dictionaryMap.put(col,cubeSegment.getDictionary(col));
   }
   DoggedCubeBuilder cubeBuilder=new DoggedCubeBuilder(cube.getDescriptor(),dictionaryMap);
+  cubeBuilder.setReserveMemoryMB(calculateReserveMB(context.getConfiguration()));
   ExecutorService executorService=Executors.newSingleThreadExecutor();
   future=executorService.submit(cubeBuilder.buildAsRunnable(queue,new MapContextGTRecordWriter(context,cubeDesc,cubeSegment)));
 }

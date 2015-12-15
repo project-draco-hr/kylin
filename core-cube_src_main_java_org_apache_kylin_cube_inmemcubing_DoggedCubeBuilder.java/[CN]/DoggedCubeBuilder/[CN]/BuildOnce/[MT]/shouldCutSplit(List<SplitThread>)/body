@@ -2,7 +2,7 @@
   int systemAvailMB=MemoryBudgetController.getSystemAvailMB();
   int nSplit=splits.size();
   long splitRowCount=nSplit == 0 ? 0 : splits.get(nSplit - 1).inputRowCount;
-  logger.debug(splitRowCount + " records went into split #" + nSplit+ "; "+ systemAvailMB+ " MB left, "+ reserveMemoryMB+ " MB threshold");
+  logger.info(splitRowCount + " records went into split #" + nSplit+ "; "+ systemAvailMB+ " MB left, "+ reserveMemoryMB+ " MB threshold");
   if (splitRowCount >= splitRowThreshold) {
     logger.info("Split cut due to hitting splitRowThreshold " + splitRowThreshold);
     return true;

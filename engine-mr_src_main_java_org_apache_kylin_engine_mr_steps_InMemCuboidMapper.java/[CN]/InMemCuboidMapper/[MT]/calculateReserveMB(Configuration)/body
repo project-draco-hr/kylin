@@ -1,0 +1,8 @@
+{
+  int sysAvailMB=MemoryBudgetController.getSystemAvailMB();
+  int mrReserve=configuration.getInt("mapreduce.task.io.sort.mb",100);
+  int sysReserve=Math.max(sysAvailMB / 10,100);
+  int reserveMB=mrReserve + sysReserve;
+  logger.info("Reserve " + reserveMB + " MB = "+ mrReserve+ " (MR reserve) + "+ sysReserve+ " (SYS reserve)");
+  return reserveMB;
+}

@@ -1,4 +1,7 @@
 {
-  lowAvail=Math.min(lowAvail,MemoryBudgetController.getSystemAvailMB());
-  logger.info("Lower system avail " + lowAvail + " MB in markHigh()");
+  int mb=MemoryBudgetController.getSystemAvailMB();
+  if (mb < lowAvail) {
+    lowAvail=mb;
+    logger.info("Lower system avail " + lowAvail + " MB in markHigh()");
+  }
 }
