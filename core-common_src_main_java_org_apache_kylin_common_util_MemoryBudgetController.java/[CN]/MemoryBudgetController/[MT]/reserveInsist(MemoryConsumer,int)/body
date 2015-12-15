@@ -1,4 +1,5 @@
 {
+  if (requestMB > totalBudgetMB)   throw new NotEnoughBudgetException();
   long waitStart=0;
   while (true) {
     try {
