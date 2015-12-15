@@ -23,7 +23,7 @@
     int[] measureIdx=metricsMeasureIdx[i];
     int[] tupleIdx=metricsTupleIdx[i];
     for (int j=0; j < measureIdx.length; j++) {
-      if (measureTypes.get(dimensionValues.size() + j) != null) {
+      if (measureTypes.get(j) != null) {
         tuple.setMeasureValue(tupleIdx[j],measureValues[measureIdx[j]]);
       }
     }

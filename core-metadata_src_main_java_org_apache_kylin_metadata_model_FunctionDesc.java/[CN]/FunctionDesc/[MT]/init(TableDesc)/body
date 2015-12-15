@@ -13,7 +13,4 @@
     }
   }
   parameter.setColRefs(colRefs);
-  if ((isSum() || isMax() || isMin()) && colRefs.size() > 0) {
-    setReturnType(colRefs.get(0).getDatatype());
-  }
 }

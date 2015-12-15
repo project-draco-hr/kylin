@@ -13,7 +13,6 @@
   for (int i=0; i < dimCols.size(); i++) {
     TblColRef col=dimCols.get(i);
     dimensionTupleIdx[i]=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
-    measureTypes.add(null);
   }
   metricsMeasureIdx=new int[rowValueDecoders.size()][];
   metricsTupleIdx=new int[rowValueDecoders.size()][];
