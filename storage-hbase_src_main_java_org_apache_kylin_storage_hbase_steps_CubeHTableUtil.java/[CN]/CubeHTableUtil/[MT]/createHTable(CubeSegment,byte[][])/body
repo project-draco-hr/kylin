@@ -1,9 +1,16 @@
 {
+  String tableName=cubeSegment.getStorageLocationIdentifier();
+  CubeInstance cubeInstance=cubeSegment.getCubeInstance();
+  CubeDesc cubeDesc=cubeInstance.getDescriptor();
   KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
-  HTableDescriptor tableDesc=new HTableDescriptor(TableName.valueOf(tableName));
+  HTableDescriptor tableDesc=new HTableDescriptor(TableName.valueOf(cubeSegment.getStorageLocationIdentifier()));
   tableDesc.setValue(HTableDescriptor.SPLIT_POLICY,DisabledRegionSplitPolicy.class.getName());
   tableDesc.setValue(IRealizationConstants.HTableTag,kylinConfig.getMetadataUrlPrefix());
   tableDesc.setValue(IRealizationConstants.HTableCreationTime,String.valueOf(System.currentTimeMillis()));
+  if (!StringUtils.isEmpty(kylinConfig.getKylinOwner())) {
+    tableDesc.setValue(IRealizationConstants.HTableOwner,kylinConfig.getKylinOwner());
+  }
+  tableDesc.setValue(IRealizationConstants.HTableUser,cubeInstance.getOwner());
   Configuration conf=HBaseConfiguration.create();
   HBaseAdmin admin=new HBaseAdmin(conf);
   try {

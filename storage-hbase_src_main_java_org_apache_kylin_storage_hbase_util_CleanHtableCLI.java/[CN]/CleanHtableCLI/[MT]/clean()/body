@@ -4,10 +4,12 @@
   for (  HTableDescriptor descriptor : hbaseAdmin.listTables()) {
     String name=descriptor.getNameAsString().toLowerCase();
     if (name.startsWith("kylin") || name.startsWith("_kylin")) {
-      String x=descriptor.getValue("KYLIN_HOST");
+      String x=descriptor.getValue(IRealizationConstants.HTableTag);
       System.out.println("table name " + descriptor.getNameAsString() + " host: "+ x);
       System.out.println(descriptor);
       System.out.println();
+      descriptor.setValue(IRealizationConstants.HTableOwner,"DL-eBay-Kylin@ebay.com");
+      hbaseAdmin.modifyTable(descriptor.getNameAsString(),descriptor);
     }
   }
   hbaseAdmin.close();
