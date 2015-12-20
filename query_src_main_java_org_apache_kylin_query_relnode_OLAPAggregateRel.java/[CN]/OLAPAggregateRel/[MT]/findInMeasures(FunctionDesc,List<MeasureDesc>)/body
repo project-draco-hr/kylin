@@ -1,0 +1,6 @@
+{
+  for (  MeasureDesc m : measures) {
+    if (aggFunc.equals(m.getFunction()))     return m.getFunction();
+  }
+  return aggFunc;
+}

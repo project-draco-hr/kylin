@@ -1,0 +1,7 @@
+{
+  for (  MeasureTypeFactory<?> f : factory) {
+    boolean b=f.createMeasureType(funcName,null).needRewrite();
+    if (needRewrite == null)     needRewrite=Boolean.valueOf(b);
+ else     if (needRewrite.booleanValue() != b)     throw new IllegalStateException("needRewrite() of factorys " + factory + " does not have consensus");
+  }
+}

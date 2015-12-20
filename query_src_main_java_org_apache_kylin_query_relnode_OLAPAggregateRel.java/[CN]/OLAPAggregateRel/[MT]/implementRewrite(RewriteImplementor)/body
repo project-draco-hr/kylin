@@ -1,4 +1,8 @@
 {
+  if (!this.afterAggregate) {
+    translateAggregation();
+    buildRewriteFieldsAndMetricsColumns();
+  }
   implementor.visitChild(this,getInput());
   if (!this.afterAggregate && RewriteImplementor.needRewrite(this.context)) {
     this.rewriteAggCalls=new ArrayList<AggregateCall>(aggCalls.size());

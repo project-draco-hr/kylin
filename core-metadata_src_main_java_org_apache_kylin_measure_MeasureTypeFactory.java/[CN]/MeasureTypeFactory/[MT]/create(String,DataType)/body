@@ -1,6 +1,15 @@
 {
   funcName=funcName.toUpperCase();
-  MeasureTypeFactory<?> factory=factories.get(funcName);
+  List<MeasureTypeFactory<?>> factory=factories.get(funcName);
   if (factory == null)   factory=defaultFactory;
-  return factory.createMeasureType(funcName,dataType);
+  if (dataType == null) {
+    return new NeedRewriteOnlyMeasureType(funcName,factory);
+  }
+  if (factory.size() == 1) {
+    return factory.get(0).createMeasureType(funcName,dataType);
+  }
+  for (  MeasureTypeFactory<?> f : factory) {
+    if (f.getAggrDataTypeName().equals(dataType.getName()))     return f.createMeasureType(funcName,dataType);
+  }
+  throw new IllegalStateException();
 }

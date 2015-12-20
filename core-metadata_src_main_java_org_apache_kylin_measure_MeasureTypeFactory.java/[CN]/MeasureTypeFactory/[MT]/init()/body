@@ -4,11 +4,16 @@
   factoryInsts.add(new HLLCMeasureType.Factory());
   factoryInsts.add(new TopNMeasureType.Factory());
   for (  MeasureTypeFactory<?> factory : factoryInsts) {
-    String funcName=factory.getAggrFunctionName().toUpperCase();
+    String funcName=factory.getAggrFunctionName();
+    if (funcName.equals(funcName.toUpperCase()) == false)     throw new IllegalArgumentException("Aggregation function name '" + funcName + "' must be in upper case");
     String dataTypeName=factory.getAggrDataTypeName().toLowerCase();
+    if (dataTypeName.equals(dataTypeName.toLowerCase()) == false)     throw new IllegalArgumentException("Aggregation data type name '" + dataTypeName + "' must be in lower case");
     Class<? extends DataTypeSerializer<?>> serializer=factory.getAggrDataTypeSerializer();
     DataType.register(dataTypeName);
     DataTypeSerializer.register(dataTypeName,serializer);
-    factories.put(funcName,factory);
+    List<MeasureTypeFactory<?>> list=factories.get(funcName);
+    if (list == null)     factories.put(funcName,list=Lists.newArrayListWithCapacity(2));
+    list.add(factory);
   }
+  defaultFactory.add(new BasicMeasureType.Factory());
 }

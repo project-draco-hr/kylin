@@ -5,8 +5,7 @@
   this.afterAggregate=this.context.afterAggregate;
   if (!this.afterAggregate) {
     translateGroupBy();
-    fillbackOptimizedColumn();
-    translateAggregation();
+    this.context.aggregations.addAll(this.aggregations);
     this.context.afterAggregate=true;
   }
  else {
