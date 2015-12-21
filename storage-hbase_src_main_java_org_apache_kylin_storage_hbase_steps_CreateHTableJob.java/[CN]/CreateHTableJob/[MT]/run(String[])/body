@@ -18,7 +18,7 @@
   try {
     byte[][] splitKeys;
     if (statsEnabled) {
-      final Map<Long,Long> cuboidSizeMap=getCubeRowCountMapFromCuboidStatistics(cubeSegment,kylinConfig,conf);
+      final Map<Long,Double> cuboidSizeMap=InMemCuboidJob.getCubeSizeMapFromCuboidStatistics(cubeSegment,kylinConfig,conf);
       splitKeys=getSplitsFromCuboidStatistics(cuboidSizeMap,kylinConfig,cubeSegment);
     }
  else {

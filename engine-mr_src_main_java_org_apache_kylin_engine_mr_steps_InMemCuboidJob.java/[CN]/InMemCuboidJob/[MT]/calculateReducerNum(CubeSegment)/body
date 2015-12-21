@@ -1,0 +1,17 @@
+{
+  Configuration jobConf=job.getConfiguration();
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  Map<Long,Double> cubeSizeMap=getCubeSizeMapFromCuboidStatistics(cubeSeg,kylinConfig,jobConf);
+  double totalSizeInM=0;
+  for (  Double cuboidSize : cubeSizeMap.values()) {
+    totalSizeInM+=cuboidSize;
+  }
+  double perReduceInputMB=kylinConfig.getDefaultHadoopJobReducerInputMB();
+  int numReduceTasks=(int)Math.round(totalSizeInM / perReduceInputMB);
+  numReduceTasks=Math.max(1,numReduceTasks);
+  numReduceTasks=Math.min(kylinConfig.getHadoopJobMaxReducerNumber(),numReduceTasks);
+  logger.info("Having total map input MB " + Math.round(totalSizeInM));
+  logger.info("Having per reduce MB " + perReduceInputMB);
+  logger.info("Setting " + "mapred.reduce.tasks" + "="+ numReduceTasks);
+  return numReduceTasks;
+}

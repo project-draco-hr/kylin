@@ -2,12 +2,13 @@
   Options options=new Options();
   try {
     options.addOption(OPTION_JOB_NAME);
-    options.addOption(OPTION_JOB_FLOW_ID);
     options.addOption(OPTION_CUBE_NAME);
     options.addOption(OPTION_SEGMENT_NAME);
+    options.addOption(OPTION_OUTPUT_PATH);
     parseOptions(options,args);
     String cubeName=getOptionValue(OPTION_CUBE_NAME).toUpperCase();
     String segmentName=getOptionValue(OPTION_SEGMENT_NAME);
+    String output=getOptionValue(OPTION_OUTPUT_PATH);
     KylinConfig config=KylinConfig.getInstanceFromEnv();
     CubeManager cubeMgr=CubeManager.getInstance(config);
     CubeInstance cube=cubeMgr.getCube(cubeName);
@@ -25,8 +26,14 @@
     job.setMapperClass(InMemCuboidMapper.class);
     job.setMapOutputKeyClass(ByteArrayWritable.class);
     job.setMapOutputValueClass(ByteArrayWritable.class);
-    IMRStorageOutputFormat storageOutputFormat=MRUtil.getBatchCubingOutputSide2(cubeSeg).getStorageOutputFormat();
-    storageOutputFormat.configureOutput(InMemCuboidReducer.class,getOptionValue(OPTION_JOB_FLOW_ID),job);
+    job.setReducerClass(InMemCuboidReducer.class);
+    job.setNumReduceTasks(calculateReducerNum(cubeSeg));
+    job.setOutputFormatClass(SequenceFileOutputFormat.class);
+    job.setOutputKeyClass(Text.class);
+    job.setOutputValueClass(Text.class);
+    Path outputPath=new Path(output);
+    FileOutputFormat.setOutputPath(job,outputPath);
+    HadoopUtil.deletePath(job.getConfiguration(),outputPath);
     return waitForCompletion(job);
   }
  catch (  Exception e) {

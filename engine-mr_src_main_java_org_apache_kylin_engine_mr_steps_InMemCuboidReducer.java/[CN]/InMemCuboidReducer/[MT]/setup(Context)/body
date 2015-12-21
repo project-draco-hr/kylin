@@ -7,11 +7,12 @@
   CubeInstance cube=CubeManager.getInstance(config).getCube(cubeName);
   CubeDesc cubeDesc=cube.getDescriptor();
   CubeSegment cubeSeg=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
-  if (isMerge)   storageOutputFormat=MRUtil.getBatchMergeOutputSide2(cubeSeg).getStorageOutputFormat();
- else   storageOutputFormat=MRUtil.getBatchCubingOutputSide2(cubeSeg).getStorageOutputFormat();
   List<MeasureDesc> measuresDescs=cubeDesc.getMeasures();
   codec=new MeasureCodec(measuresDescs);
   aggs=new MeasureAggregators(measuresDescs);
   input=new Object[measuresDescs.size()];
   result=new Object[measuresDescs.size()];
+  outputKey=new Text();
+  outputValue=new Text();
+  valueBuf=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
 }

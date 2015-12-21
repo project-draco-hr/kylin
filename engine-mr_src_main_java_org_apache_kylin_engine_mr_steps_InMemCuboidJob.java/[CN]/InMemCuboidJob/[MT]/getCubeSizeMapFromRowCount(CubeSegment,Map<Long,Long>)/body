@@ -1,0 +1,15 @@
+{
+  final CubeDesc cubeDesc=cubeSegment.getCubeDesc();
+  final List<Integer> rowkeyColumnSize=Lists.newArrayList();
+  final long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
+  final Cuboid baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
+  final List<TblColRef> columnList=baseCuboid.getColumns();
+  for (int i=0; i < columnList.size(); i++) {
+    rowkeyColumnSize.add(cubeSegment.getColumnLength(columnList.get(i)));
+  }
+  Map<Long,Double> sizeMap=Maps.newHashMap();
+  for (  Map.Entry<Long,Long> entry : rowCountMap.entrySet()) {
+    sizeMap.put(entry.getKey(),estimateCuboidStorageSize(cubeSegment,entry.getKey(),entry.getValue(),baseCuboidId,rowkeyColumnSize));
+  }
+  return sizeMap;
+}

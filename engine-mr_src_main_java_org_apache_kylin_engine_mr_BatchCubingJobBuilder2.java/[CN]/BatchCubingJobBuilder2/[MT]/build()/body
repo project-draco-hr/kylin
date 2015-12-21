@@ -2,13 +2,19 @@
   logger.info("MR_V2 new job to BUILD segment " + seg);
   final CubingJob result=CubingJob.createBuildJob((CubeSegment)seg,submitter,config);
   final String jobId=result.getId();
+  final String cuboidRootPath=getCuboidRootPath(jobId);
   inputSide.addStepPhase1_CreateFlatTable(result);
   result.addTask(createFactDistinctColumnsStepWithStats(jobId));
   result.addTask(createBuildDictionaryStep(jobId));
   result.addTask(createSaveStatisticsStep(jobId));
   outputSide.addStepPhase2_BuildDictionary(result);
-  result.addTask(createInMemCubingStep(jobId));
-  outputSide.addStepPhase3_BuildCube(result);
+  if (new Random().nextBoolean()) {
+    addLayerCubingSteps(result,jobId,cuboidRootPath);
+  }
+ else {
+    result.addTask(createInMemCubingStep(jobId,cuboidRootPath));
+  }
+  outputSide.addStepPhase3_BuildCube(result,cuboidRootPath);
   result.addTask(createUpdateCubeInfoAfterBuildStep(jobId));
   inputSide.addStepPhase4_Cleanup(result);
   outputSide.addStepPhase4_Cleanup(result);

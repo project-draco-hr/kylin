@@ -1,7 +1,0 @@
-{
-  for (  Pair<Integer,MeasureIngester> pair : dictMeasures) {
-    int i=pair.getFirst();
-    MeasureIngester ingester=pair.getSecond();
-    measureObjs[i]=ingester.reEncodeDictionary(measureObjs[i],measureDescs.get(i),oldDicts,newDicts);
-  }
-}

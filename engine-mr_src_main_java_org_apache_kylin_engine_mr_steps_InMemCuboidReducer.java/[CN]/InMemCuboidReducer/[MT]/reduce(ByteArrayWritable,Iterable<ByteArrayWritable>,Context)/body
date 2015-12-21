@@ -5,7 +5,11 @@
     aggs.aggregate(input);
   }
   aggs.collectStates(result);
-  storageOutputFormat.doReducerOutput(key,result,context);
+  outputKey.set(key.array(),key.offset(),key.length());
+  valueBuf.clear();
+  codec.encode(result,valueBuf);
+  outputValue.set(valueBuf.array(),0,valueBuf.position());
+  context.write(outputKey,outputValue);
   counter++;
   if (counter % BatchConstants.COUNTER_MAX == 0) {
     logger.info("Handled " + counter + " records!");

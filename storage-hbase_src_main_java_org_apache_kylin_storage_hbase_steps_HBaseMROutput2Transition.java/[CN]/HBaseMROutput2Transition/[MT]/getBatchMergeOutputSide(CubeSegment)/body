@@ -1,14 +1,10 @@
 {
   return new IMRBatchMergeOutputSide2(){
     HBaseMRSteps steps=new HBaseMRSteps(seg);
-    @Override public IMRStorageOutputFormat getStorageOutputFormat(){
-      return new HBaseOutputFormat(seg);
-    }
     @Override public void addStepPhase1_MergeDictionary(    DefaultChainedExecutable jobFlow){
       jobFlow.addTask(steps.createCreateHTableStepWithStats(jobFlow.getId()));
     }
-    @Override public void addStepPhase2_BuildCube(    DefaultChainedExecutable jobFlow){
-      String cuboidRootPath=steps.getCuboidRootPath(jobFlow.getId());
+    @Override public void addStepPhase2_BuildCube(    DefaultChainedExecutable jobFlow,    String cuboidRootPath){
       jobFlow.addTask(steps.createConvertCuboidToHfileStep(cuboidRootPath,jobFlow.getId()));
       jobFlow.addTask(steps.createBulkLoadStep(jobFlow.getId()));
     }

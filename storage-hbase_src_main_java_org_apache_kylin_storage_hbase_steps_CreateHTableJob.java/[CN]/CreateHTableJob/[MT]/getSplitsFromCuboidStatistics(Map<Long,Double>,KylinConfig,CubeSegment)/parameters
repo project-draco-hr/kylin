@@ -1,0 +1,3 @@
+Map<Long,Double> cubeSizeMap
+KylinConfig kylinConfig
+CubeSegment cubeSegment
