@@ -1,0 +1,12 @@
+{
+  if (StringUtils.isBlank(jarList))   return;
+  String tmpJars=conf.get("tmpjars",null);
+  if (tmpJars == null) {
+    tmpJars=jarList;
+  }
+ else {
+    tmpJars+="," + jarList;
+  }
+  conf.set("tmpjars",tmpJars);
+  logger.info("Job 'tmpjars' updated -- " + tmpJars);
+}

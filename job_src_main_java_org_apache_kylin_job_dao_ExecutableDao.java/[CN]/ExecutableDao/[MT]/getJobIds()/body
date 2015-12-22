@@ -1,6 +1,6 @@
 {
   try {
-    ArrayList<String> resources=store.listResources(JOB_PATH_ROOT);
+    ArrayList<String> resources=store.listResources(ResourceStore.EXECUTE_PATH_ROOT);
     if (resources == null) {
       return Collections.emptyList();
     }

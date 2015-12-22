@@ -1,7 +1,6 @@
 {
   try {
-    InputStream configStream=null;
-    configStream=store.getResource("/data/data_gen_config.json");
+    InputStream configStream=store.getResource("/data/data_gen_config.json").inputStream;
     this.genConf=GenConfig.loadConfig(configStream);
     if (configStream != null)     configStream.close();
   }

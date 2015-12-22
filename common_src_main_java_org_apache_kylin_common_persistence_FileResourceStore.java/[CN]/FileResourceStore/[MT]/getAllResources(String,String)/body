@@ -7,7 +7,7 @@
     for (    String resource : resources) {
       if (resource.compareTo(rangeStart) >= 0 && resource.compareTo(rangeEnd) <= 0) {
         if (existsImpl(resource)) {
-          result.add(new RawResource(getResourceImpl(resource),getResourceTimestampImpl(resource)));
+          result.add(getResourceImpl(resource));
         }
       }
     }
@@ -15,7 +15,7 @@
   }
  catch (  IOException ex) {
     for (    RawResource rawResource : result) {
-      IOUtils.closeQuietly(rawResource.resource);
+      IOUtils.closeQuietly(rawResource.inputStream);
     }
     throw ex;
   }

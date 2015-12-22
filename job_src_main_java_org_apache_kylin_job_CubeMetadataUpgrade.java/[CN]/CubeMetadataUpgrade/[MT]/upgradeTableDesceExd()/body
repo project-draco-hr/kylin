@@ -4,7 +4,7 @@
     Map<String,String> attrs=Maps.newHashMap();
     InputStream is=null;
     try {
-      is=store.getResource(path);
+      is=store.getResource(path).inputStream;
       if (is == null) {
         continue;
       }

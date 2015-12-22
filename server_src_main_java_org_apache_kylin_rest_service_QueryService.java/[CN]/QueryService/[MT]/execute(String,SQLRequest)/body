@@ -54,8 +54,10 @@
   if (OLAPContext.getThreadLocalContexts() != null) {
     for (    OLAPContext ctx : OLAPContext.getThreadLocalContexts()) {
       isPartialResult|=ctx.storageContext.isPartialResultReturned();
-      cube=ctx.realization.getName();
-      totalScanCount+=ctx.storageContext.getTotalScanCount();
+      if (ctx.realization != null) {
+        cube=ctx.realization.getName();
+        totalScanCount+=ctx.storageContext.getTotalScanCount();
+      }
     }
   }
   SQLResponse response=new SQLResponse(columnMetas,results,cube,0,false,null,isPartialResult);

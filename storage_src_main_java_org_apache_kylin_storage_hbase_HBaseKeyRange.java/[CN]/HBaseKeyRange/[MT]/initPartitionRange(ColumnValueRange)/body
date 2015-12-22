@@ -1,8 +1,0 @@
-{
-  if (null != dimRange.getBeginValue()) {
-    this.partitionColumnStartDate=DateFormat.stringToDate(dimRange.getBeginValue()).getTime();
-  }
-  if (null != dimRange.getEndValue()) {
-    this.partitionColumnEndDate=DateFormat.stringToDate(dimRange.getEndValue()).getTime();
-  }
-}

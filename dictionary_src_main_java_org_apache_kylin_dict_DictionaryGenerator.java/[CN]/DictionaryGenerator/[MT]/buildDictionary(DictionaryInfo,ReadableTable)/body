@@ -1,5 +1,11 @@
 {
-  logger.info("Building dictionary " + JsonUtil.writeValueAsString(info));
-  ArrayList<byte[]> values=loadColumnValues(inpTable,info.getSourceColumnIndex());
-  return buildDictionaryFromValueList(info,values);
+  IDictionaryValueEnumerator columnValueEnumerator=null;
+  try {
+    logger.info("Building dictionary " + JsonUtil.writeValueAsString(info));
+    columnValueEnumerator=new TableColumnValueEnumerator(inpTable.getReader(),info.getSourceColumnIndex());
+    return buildDictionaryFromValueEnumerator(info,columnValueEnumerator);
+  }
+  finally {
+    if (columnValueEnumerator != null)     columnValueEnumerator.close();
+  }
 }

@@ -1,8 +1,11 @@
 {
-  MetadataManager metaManager=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+  MetadataManager metaManager=MetadataManager.getInstance(cubeService.getConfig());
   DataModelDesc modelDesc=deserializeDataModelDesc(cubeRequest);
-  if (modelDesc == null || StringUtils.isEmpty(modelDesc.getName())) {
-    return cubeRequest;
+  if (modelDesc == null) {
+    return errorRequest(cubeRequest,"Missing ModelDesc data in the request.");
+  }
+  if (StringUtils.isEmpty(modelDesc.getName())) {
+    return errorRequest(cubeRequest,"Missing modelName.");
   }
   try {
     DataModelDesc existingModel=metaManager.getDataModelDesc(modelDesc.getName());
@@ -22,15 +25,17 @@
   if (desc == null) {
     return cubeRequest;
   }
-  String name=CubeService.getCubeNameFromDesc(desc.getName());
-  if (StringUtils.isEmpty(name)) {
+  if (StringUtils.isEmpty(desc.getName())) {
     logger.info("Cube name should not be empty.");
-    throw new BadRequestException("Cube name should not be empty.");
+    return errorRequest(cubeRequest,"Missing cubeDescName");
   }
   try {
     desc.setUuid(UUID.randomUUID().toString());
     String projectName=(null == cubeRequest.getProject()) ? ProjectInstance.DEFAULT_PROJECT_NAME : cubeRequest.getProject();
-    cubeService.createCubeAndDesc(name,projectName,desc);
+    CubeInstance createdCube=cubeService.createCubeAndDesc(desc.getName(),projectName,desc);
+    accessService.init(createdCube,AclPermission.ADMINISTRATION);
+    ProjectInstance project=cubeService.getProjectManager().getProject(projectName);
+    accessService.inherit(createdCube,project);
   }
  catch (  Exception e) {
     logger.error("Failed to deal with the request.",e);

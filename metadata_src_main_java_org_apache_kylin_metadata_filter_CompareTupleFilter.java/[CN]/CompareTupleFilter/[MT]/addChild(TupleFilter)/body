@@ -18,4 +18,7 @@
     DynamicTupleFilter dynamicFilter=(DynamicTupleFilter)child;
     this.dynamicVariables.put(dynamicFilter.getVariableName(),null);
   }
+ else   if (child instanceof FunctionTupleFilter) {
+    this.function=(FunctionTupleFilter)child;
+  }
 }

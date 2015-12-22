@@ -8,9 +8,9 @@
     startValues.put(column,dimRange.getBeginValue());
     stopValues.put(column,dimRange.getEndValue());
     fuzzyValues.put(column,dimRange.getEqualValues());
-    TblColRef partitionDateColumnRef=cubeSeg.getCubeDesc().getModel().getPartitionDesc().getPartitionDateColumnRef();
-    if (column.equals(partitionDateColumnRef)) {
-      initPartitionRange(dimRange);
+    PartitionDesc partDesc=cubeSeg.getCubeDesc().getModel().getPartitionDesc();
+    if (column.equals(partDesc.getPartitionDateColumnRef())) {
+      initPartitionRange(dimRange,partDesc.getPartitionDateFormat());
     }
   }
   AbstractRowKeyEncoder encoder=AbstractRowKeyEncoder.createInstance(cubeSeg,cuboid);
@@ -18,6 +18,5 @@
   this.startKey=encoder.encode(startValues);
   encoder.setBlankByte(RowConstants.ROWKEY_UPPER_BYTE);
   this.stopKey=Bytes.add(encoder.encode(stopValues),ZERO_TAIL_BYTES);
-  encoder.setBlankByte(AbstractRowKeyEncoder.DEFAULT_BLANK_BYTE);
   this.fuzzyKeys=buildFuzzyKeys(fuzzyValues);
 }

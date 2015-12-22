@@ -9,6 +9,11 @@ case CUBE:
 cleanProjectCacheByRealization(RealizationType.CUBE,cacheKey);
 break;
 case CUBE_DESC:
+CubeDesc oldDesc=getCubeDescManager().getCubeDesc(cacheKey);
+if (oldDesc != null) {
+String modelName=oldDesc.getModelName();
+getMetadataManager().reloadDataModelDesc(modelName);
+}
 getCubeDescManager().reloadCubeDesc(cacheKey);
 break;
 case PROJECT:
@@ -28,9 +33,9 @@ IIDescManager.clearCache();
 CubeDescManager.clearCache();
 break;
 case DATA_MODEL:
+if (getMetadataManager().getDataModelDesc(cacheKey) == null) {
 getMetadataManager().reloadDataModelDesc(cacheKey);
-IIDescManager.clearCache();
-CubeDescManager.clearCache();
+}
 break;
 case ALL:
 MetadataManager.clearCache();
@@ -42,6 +47,7 @@ HybridManager.clearCache();
 RealizationRegistry.clearCache();
 ProjectManager.clearCache();
 BasicService.resetOLAPDataSources();
+HBaseConnection.clearCache();
 break;
 default :
 throw new RuntimeException("invalid cacheType:" + cacheType);

@@ -15,10 +15,9 @@ case CHANGE_HTABLE_HOST:
 case COPY_FILE_IN_META:
 {
     String item=(String)opt.params[0];
-    InputStream inputStream=srcStore.getResource(item);
-    long ts=srcStore.getResourceTimestamp(item);
-    dstStore.putResource(item,inputStream,ts);
-    inputStream.close();
+    RawResource res=srcStore.getResource(item);
+    dstStore.putResource(item,res.inputStream,res.timestamp);
+    res.inputStream.close();
     logger.info("Item " + item + " is copied");
     break;
   }
@@ -105,6 +104,39 @@ project.addRealizationEntry(RealizationType.CUBE,cubeName);
 dstStore.putResource(projectResPath,project,projectSerializer);
 logger.info("Project instance for " + projectName + " is corrected");
 break;
+}
+case COPY_ACL:
+{
+String cubeId=(String)opt.params[0];
+HTableInterface srcAclHtable=null;
+HTableInterface destAclHtable=null;
+try {
+srcAclHtable=HBaseConnection.get(srcConfig.getMetadataUrl()).getTable(srcConfig.getMetadataUrlPrefix() + "_acl");
+destAclHtable=HBaseConnection.get(dstConfig.getMetadataUrl()).getTable(dstConfig.getMetadataUrlPrefix() + "_acl");
+Result result=srcAclHtable.get(new Get(Bytes.toBytes(cubeId)));
+for (Cell cell : result.listCells()) {
+Put put=new Put(Bytes.toBytes(cubeId));
+put.add(CellUtil.cloneFamily(cell),CellUtil.cloneQualifier(cell),CellUtil.cloneValue(cell));
+destAclHtable.put(put);
+}
+destAclHtable.flushCommits();
+}
+  finally {
+IOUtils.closeQuietly(srcAclHtable);
+IOUtils.closeQuietly(destAclHtable);
+}
+break;
+}
+case PURGE_AND_DISABLE:
+{
+String cubeName=(String)opt.params[0];
+String cubeResPath=CubeInstance.concatResourcePath(cubeName);
+Serializer<CubeInstance> cubeSerializer=new JsonSerializer<CubeInstance>(CubeInstance.class);
+CubeInstance cube=srcStore.getResource(cubeResPath,CubeInstance.class,cubeSerializer);
+cube.getSegments().clear();
+cube.setStatus(RealizationStatusEnum.DISABLED);
+srcStore.putResource(cubeResPath,cube,cubeSerializer);
+logger.info("Cube " + cubeName + " is purged and disabled in "+ srcConfig.getMetadataUrl());
 }
 }
 }

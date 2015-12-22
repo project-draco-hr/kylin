@@ -3,7 +3,6 @@
   if (!cubingJobs.isEmpty()) {
     throw new JobException("The cube " + cube.getName() + " has running job, please discard it and try again.");
   }
-  this.releaseAllSegments(cube);
+  this.discardAllRunningJobs(cube);
   getCubeManager().dropCube(cube.getName(),true);
-  accessService.clean(cube,true);
 }

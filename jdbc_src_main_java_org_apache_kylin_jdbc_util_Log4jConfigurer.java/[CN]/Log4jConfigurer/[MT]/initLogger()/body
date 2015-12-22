@@ -1,0 +1,6 @@
+{
+  if (!INITIALIZED && !isConfigured()) {
+    org.apache.log4j.BasicConfigurator.configure(new ConsoleAppender(new PatternLayout(DEFAULT_PATTERN_LAYOUT)));
+  }
+  INITIALIZED=true;
+}

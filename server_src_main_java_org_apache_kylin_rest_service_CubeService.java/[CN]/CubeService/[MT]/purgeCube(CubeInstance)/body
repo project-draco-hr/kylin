@@ -5,6 +5,7 @@
     throw new InternalErrorException("Only disabled cube can be purged, status of " + cubeName + " is "+ ostatus);
   }
   try {
+    this.discardAllRunningJobs(cube);
     this.releaseAllSegments(cube);
     return cube;
   }

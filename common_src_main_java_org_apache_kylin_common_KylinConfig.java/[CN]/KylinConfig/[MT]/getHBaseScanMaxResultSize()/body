@@ -1,0 +1,3 @@
+{
+  return Integer.parseInt(this.getOptional("kylin.hbase.scan.max_result_size","" + (5 * 1024 * 1024)));
+}

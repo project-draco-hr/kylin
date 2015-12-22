@@ -1,4 +1,5 @@
 {
+  path=HadoopUtil.fixWindowsPath(path);
   FSDataInputStream in=fs.open(new Path(path));
   reader=new BufferedReader(new InputStreamReader(in,"UTF-8"));
 }

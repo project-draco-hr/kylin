@@ -5,7 +5,7 @@
   for (  Entry e : entries) {
     int runningSec=(int)((now - e.startTime) / 1000);
     if (runningSec >= alertRunningSec) {
-      notify("Slow",runningSec,e.sqlRequest.getSql());
+      notify("Slow",runningSec,e.sqlRequest.getSql(),e.thread);
     }
  else {
       break;
@@ -13,16 +13,14 @@
   }
   if (getSystemAvailMB() < alertMB) {
     logger.info("System free memory less than " + alertMB + " MB. "+ entries.size()+ " queries running.");
-    for (    Map.Entry<Thread,Entry> mapEntry : runningQueries.entrySet()) {
-      Entry e=mapEntry.getValue();
+    for (    Entry e : entries) {
       int duration=(int)((now - e.startTime) / 1000);
       if (duration > killRunningSec) {
-        notify("Kill",duration,e.sqlRequest.getSql());
-        Thread queryThread=mapEntry.getKey();
-        killQueryThread(queryThread);
+        notify("Kill",duration,e.sqlRequest.getSql(),e.thread);
+        killQueryThread(e.thread);
       }
  else {
-        notify("Low mem",duration,e.sqlRequest.getSql());
+        notify("Low mem",duration,e.sqlRequest.getSql(),e.thread);
       }
     }
   }

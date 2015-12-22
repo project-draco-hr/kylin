@@ -1,0 +1,81 @@
+{
+  final Broadcaster broadcaster=Broadcaster.getInstance();
+  broadcaster.getCounterAndClear();
+  getStore().deleteResource("/cube/a_whole_new_cube_2.json");
+  getStore().deleteResource("/cube_desc/a_whole_new_cube_2.json");
+  getStore().deleteResource("/model_desc/a_whole_new_cube_2.json");
+  final CubeController cubeController=new CubeController();
+  final CubeDesc cubeDesc=getCubeDescManager(configA).getCubeDesc("test_kylin_cube_with_slr_desc");
+  final DataModelDesc modelDesc=getMetadataManager(configA).getDataModelDesc(cubeDesc.getModelName());
+  cubeController.setCubeService(new CubeService(){
+    @Override public KylinConfig getConfig(){
+      return configA;
+    }
+  }
+);
+  cubeController.setAccessService(new AccessService(){
+    @Override public Acl init(    AclEntity ae,    Permission initPermission){
+      return null;
+    }
+    @Override public void inherit(    AclEntity ae,    AclEntity parentAe){
+    }
+    @Override public void clean(    AclEntity ae,    boolean deleteChildren){
+    }
+  }
+);
+  String newCubeName="a_whole_new_cube_2";
+  cubeDesc.setName(newCubeName);
+  cubeDesc.setModelName(newCubeName);
+  modelDesc.setName(newCubeName);
+  cubeDesc.setLastModified(0);
+  modelDesc.setLastModified(0);
+  CubeRequest cubeRequest=new CubeRequest();
+  cubeRequest.setCubeName(newCubeName);
+  cubeRequest.setModelDescData(JsonUtil.writeValueAsString(modelDesc));
+  cubeRequest.setCubeDescData(JsonUtil.writeValueAsString(cubeDesc));
+  cubeRequest=cubeController.saveCubeDesc(cubeRequest);
+  assertEquals(4,broadcaster.getCounterAndClear());
+  waitForCounterAndClear(4);
+  assertTrue(cubeRequest.getSuccessful() == true);
+  CubeDescManager cubeDescManagerB=getCubeDescManager(configB);
+  MetadataManager metadataManagerB=getMetadataManager(configB);
+  final CubeManager cubeManagerB=getCubeManager(configB);
+  assertTrue(metadataManagerB.getDataModelDesc(newCubeName) != null);
+  assertTrue(cubeDescManagerB.getCubeDesc(newCubeName) != null);
+  assertTrue(cubeManagerB.getCube(newCubeName) != null);
+  final DataModelDesc newdataModelDesc=getMetadataManager(configA).getDataModelDesc(newCubeName);
+  final CubeDesc newcubeDesc=getCubeDescManager(configA).getCubeDesc(newCubeName);
+  newdataModelDesc.setCapacity(DataModelDesc.RealizationCapacity.LARGE);
+  newcubeDesc.setRetentionRange(200000);
+  cubeRequest=new CubeRequest();
+  cubeRequest.setCubeName(newCubeName);
+  cubeRequest.setModelDescData(JsonUtil.writeValueAsString(newdataModelDesc));
+  cubeRequest.setCubeDescData(JsonUtil.writeValueAsString(newcubeDesc));
+  cubeRequest=cubeController.updateCubeDesc(cubeRequest);
+  assertTrue(cubeRequest.getSuccessful() == true);
+  assertEquals(3,broadcaster.getCounterAndClear());
+  waitForCounterAndClear(3);
+  assertTrue(getCubeDescManager(configB).getCubeDesc(newCubeName).getRetentionRange() == 200000);
+  assertTrue(getMetadataManager(configB).getDataModelDesc(newCubeName).getCapacity().equals(DataModelDesc.RealizationCapacity.LARGE));
+  final DataModelDesc validDataModelDesc=getMetadataManager(configA).getDataModelDesc(newCubeName);
+  final CubeDesc invalidCubeDesc=getCubeDescManager(configA).getCubeDesc(newCubeName);
+  DataModelDesc modelDescCopy=JsonUtil.readValue(JsonUtil.writeValueAsString(validDataModelDesc),DataModelDesc.class);
+  int lookupTableCount=validDataModelDesc.getLookups().length;
+  LookupDesc[] newLookups=new LookupDesc[lookupTableCount - 1];
+  System.arraycopy(validDataModelDesc.getLookups(),0,newLookups,0,lookupTableCount - 1);
+  modelDescCopy.setLookups(newLookups);
+  cubeRequest=new CubeRequest();
+  cubeRequest.setCubeName(newCubeName);
+  cubeRequest.setModelDescData(JsonUtil.writeValueAsString(modelDescCopy));
+  cubeRequest.setCubeDescData(JsonUtil.writeValueAsString(invalidCubeDesc));
+  cubeRequest=cubeController.updateCubeDesc(cubeRequest);
+  assertTrue(cubeRequest.getSuccessful() == false);
+  assertEquals(2,broadcaster.getCounterAndClear());
+  waitForCounterAndClear(2);
+  assertTrue(getMetadataManager(configB).getDataModelDesc(newCubeName).getLookups().length == lookupTableCount);
+  assertTrue(getMetadataManager(configA).getDataModelDesc(newCubeName).getLookups().length == lookupTableCount);
+  cubeController.deleteCube(newCubeName);
+  assertEquals(2,broadcaster.getCounterAndClear());
+  waitForCounterAndClear(2);
+  assertTrue(getCubeManager(configB).getCube(newCubeName) == null);
+}

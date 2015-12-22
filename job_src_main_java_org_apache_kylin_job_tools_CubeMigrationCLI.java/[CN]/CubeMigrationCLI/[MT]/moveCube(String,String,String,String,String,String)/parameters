@@ -1,6 +1,0 @@
-String srcCfgUri
-String dstCfgUri
-String cubeName
-String projectName
-String overwriteIfExists
-String realExecute

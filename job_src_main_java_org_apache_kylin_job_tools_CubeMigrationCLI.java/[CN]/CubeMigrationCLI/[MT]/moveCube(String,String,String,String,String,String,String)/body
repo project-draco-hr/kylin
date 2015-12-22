@@ -1,0 +1,3 @@
+{
+  moveCube(KylinConfig.createInstanceFromUri(srcCfgUri),KylinConfig.createInstanceFromUri(dstCfgUri),cubeName,projectName,copyAcl,overwriteIfExists,realExecute);
+}

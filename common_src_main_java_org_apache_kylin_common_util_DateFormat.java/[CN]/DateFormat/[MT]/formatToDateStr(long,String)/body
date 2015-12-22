@@ -1,0 +1,3 @@
+{
+  return getDateFormat(pattern).format(new Date(millis));
+}

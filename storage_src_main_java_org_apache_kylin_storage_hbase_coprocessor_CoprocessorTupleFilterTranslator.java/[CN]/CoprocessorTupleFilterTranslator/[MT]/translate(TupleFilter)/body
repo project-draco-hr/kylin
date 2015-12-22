@@ -1,0 +1,14 @@
+{
+  TupleFilter translated=null;
+  if (tupleFilter instanceof CompareTupleFilter) {
+    logger.info("Translation to IN clause: " + tupleFilter);
+    translated=translateCompareTupleFilter((CompareTupleFilter)tupleFilter);
+    logger.info(translated == null ? "Failed, will use Calcite to handle computed comparison." : "Succeed: " + translated);
+  }
+ else   if (tupleFilter instanceof FunctionTupleFilter) {
+    logger.info("Translation to IN clause: " + tupleFilter);
+    translated=translateFunctionTupleFilter((FunctionTupleFilter)tupleFilter);
+    logger.info(translated == null ? "Failed, will use Calcite to handle computed column." : "Succeed: " + translated);
+  }
+  return translated == null ? tupleFilter : translated;
+}

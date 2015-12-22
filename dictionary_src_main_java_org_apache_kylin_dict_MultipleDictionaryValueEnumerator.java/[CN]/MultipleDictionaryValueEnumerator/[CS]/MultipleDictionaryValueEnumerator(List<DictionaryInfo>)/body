@@ -1,0 +1,10 @@
+{
+  dictionaryList=Lists.newArrayListWithCapacity(dictionaryInfoList.size());
+  for (  DictionaryInfo dictInfo : dictionaryInfoList) {
+    dictionaryList.add(dictInfo.getDictionaryObject());
+  }
+  if (!dictionaryList.isEmpty()) {
+    curDict=dictionaryList.get(0);
+    curKey=curDict.getMinId();
+  }
+}

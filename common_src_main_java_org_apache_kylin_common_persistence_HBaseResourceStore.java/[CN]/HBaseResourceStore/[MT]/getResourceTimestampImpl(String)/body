@@ -1,4 +1,3 @@
 {
-  Result r=getByScan(resPath,B_FAMILY,B_COLUMN_TS);
-  return getTimestamp(r);
+  return getTimestamp(getByScan(resPath,false,true));
 }

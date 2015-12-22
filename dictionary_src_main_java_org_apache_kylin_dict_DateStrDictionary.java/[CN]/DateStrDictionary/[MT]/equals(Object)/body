@@ -1,5 +1,5 @@
 {
-  if ((o instanceof DateStrDictionary) == false)   return false;
+  if (!(o instanceof DateStrDictionary))   return false;
   DateStrDictionary that=(DateStrDictionary)o;
   return StringUtils.equals(this.pattern,that.pattern) && this.baseId == that.baseId;
 }

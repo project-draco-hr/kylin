@@ -1,0 +1,24 @@
+{
+  byte[] startRow=Bytes.toBytes(path);
+  byte[] endRow=plusZero(startRow);
+  Scan scan=new Scan(startRow,endRow);
+  if (!fetchContent && !fetchTimestamp) {
+    scan.setFilter(new KeyOnlyFilter());
+  }
+ else {
+    if (fetchContent)     scan.addColumn(B_FAMILY,B_COLUMN);
+    if (fetchTimestamp)     scan.addColumn(B_FAMILY,B_COLUMN_TS);
+  }
+  HTableInterface table=getConnection().getTable(getAllInOneTableName());
+  try {
+    ResultScanner scanner=table.getScanner(scan);
+    Result result=null;
+    for (    Result r : scanner) {
+      result=r;
+    }
+    return result == null || result.isEmpty() ? null : result;
+  }
+  finally {
+    IOUtils.closeQuietly(table);
+  }
+}

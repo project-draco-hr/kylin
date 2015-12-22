@@ -1,0 +1,3 @@
+{
+  operations.add(new Opt(OptType.PURGE_AND_DISABLE,new Object[]{cubeName}));
+}

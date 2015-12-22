@@ -1,0 +1,16 @@
+{
+  StringBuilder sb=new StringBuilder();
+  sb.append(sqlOperator.getName());
+  sb.append("(");
+  for (int i=0; i < methodParams.size(); i++) {
+    if (colPosition == i) {
+      sb.append(columnContainerFilter);
+    }
+ else {
+      sb.append(methodParams.get(i));
+    }
+    if (i < methodParams.size() - 1)     sb.append(",");
+  }
+  sb.append(")");
+  return sb.toString();
+}

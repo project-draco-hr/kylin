@@ -1,9 +1,5 @@
 {
-  Configuration conf=ConfigCache.get(url);
-  if (conf == null) {
-    conf=HadoopUtil.newHBaseConfiguration(url);
-    ConfigCache.put(url,conf);
-  }
+  Configuration conf=HadoopUtil.getCurrentHBaseConfiguration();
   HConnection connection=ConnPool.get(url);
   try {
     if (connection == null) {

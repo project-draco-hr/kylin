@@ -1,0 +1,20 @@
+{
+  if (child instanceof ColumnTupleFilter || child instanceof FunctionTupleFilter) {
+    columnContainerFilter=child;
+    colPosition=methodParams.size();
+    methodParams.add(null);
+  }
+ else   if (child instanceof ConstantTupleFilter) {
+    String constVal=child.getValues().iterator().next();
+    try {
+      Class<?> clazz=Primitives.wrap(method.getParameterTypes()[methodParams.size()]);
+      if (!Primitives.isWrapperType(clazz))       methodParams.add(constVal);
+ else       methodParams.add(clazz.cast(clazz.getDeclaredMethod("valueOf",String.class).invoke(null,constVal)));
+    }
+ catch (    Exception e) {
+      logger.debug(e.getMessage());
+      isValid=false;
+    }
+  }
+  super.addChild(child);
+}

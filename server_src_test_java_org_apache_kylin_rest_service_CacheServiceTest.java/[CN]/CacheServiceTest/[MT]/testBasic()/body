@@ -4,9 +4,9 @@
   assertNotNull(getCubeManager(configB));
   assertNotNull(getCubeDescManager(configA));
   assertNotNull(getCubeDescManager(configB));
+  assertNotNull(getProjectManager(configA));
   assertNotNull(getProjectManager(configB));
-  assertNotNull(getProjectManager(configB));
-  assertNotNull(getMetadataManager(configB));
+  assertNotNull(getMetadataManager(configA));
   assertNotNull(getMetadataManager(configB));
   assertTrue(!getCubeManager(configA).equals(getCubeManager(configB)));
   assertTrue(!getCubeDescManager(configA).equals(getCubeDescManager(configB)));

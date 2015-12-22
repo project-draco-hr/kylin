@@ -7,7 +7,8 @@
       return;
     }
     try {
-      Job job=new Cluster(new Configuration()).getJob(JobID.forName(mrJobId));
+      Configuration conf=HadoopUtil.getCurrentConfiguration();
+      Job job=new Cluster(conf).getJob(JobID.forName(mrJobId));
       if (job.getJobState() == JobStatus.State.FAILED) {
         super.onExecuteStart(executableContext);
       }

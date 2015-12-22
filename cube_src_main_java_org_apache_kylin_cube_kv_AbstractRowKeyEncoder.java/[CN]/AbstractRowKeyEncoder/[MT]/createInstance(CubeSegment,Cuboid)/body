@@ -1,13 +1,3 @@
 {
-  Map<Long,AbstractRowKeyEncoder> cubeCache=ENCODER_CACHE.get(cubeSeg.getStorageLocationIdentifier());
-  if (cubeCache == null) {
-    cubeCache=new HashMap<Long,AbstractRowKeyEncoder>();
-    ENCODER_CACHE.put(cuboid.getCube().getName(),cubeCache);
-  }
-  AbstractRowKeyEncoder encoder=cubeCache.get(cuboid.getId());
-  if (encoder == null) {
-    encoder=new RowKeyEncoder(cubeSeg,cuboid);
-    cubeCache.put(cuboid.getId(),encoder);
-  }
-  return encoder;
+  return new RowKeyEncoder(cubeSeg,cuboid);
 }

@@ -28,8 +28,5 @@
     throw new InternalErrorException("Failed to deal with the request.",e);
   }
   createdCube=getCubeManager().createCube(cubeName,projectName,createdDesc,owner);
-  accessService.init(createdCube,AclPermission.ADMINISTRATION);
-  ProjectInstance project=getProjectManager().getProject(projectName);
-  accessService.inherit(createdCube,project);
   return createdCube;
 }

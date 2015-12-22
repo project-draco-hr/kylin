@@ -1,0 +1,19 @@
+{
+  Dictionary dict=null;
+  int baseId=0;
+  final int nSamples=5;
+  ArrayList samples=Lists.newArrayListWithCapacity(nSamples);
+  DataType dataType=DataType.getInstance(info.getDataType());
+  if (dataType.isDateTimeFamily())   dict=buildDateStrDict(valueEnumerator,baseId,nSamples,samples);
+ else   if (dataType.isNumberFamily())   dict=buildNumberDict(valueEnumerator,baseId,nSamples,samples);
+ else   dict=buildStringDict(valueEnumerator,baseId,nSamples,samples);
+  StringBuilder buf=new StringBuilder();
+  for (  Object s : samples) {
+    if (buf.length() > 0)     buf.append(", ");
+    buf.append(s.toString()).append("=>").append(dict.getIdFromValue(s));
+  }
+  logger.info("Dictionary value samples: " + buf.toString());
+  logger.info("Dictionary cardinality: " + dict.getSize());
+  if (dict instanceof TrieDictionary && dict.getSize() > DICT_MAX_CARDINALITY)   throw new IllegalArgumentException("Too high cardinality is not suitable for dictionary -- " + info.getSourceTable() + "."+ info.getSourceColumn()+ " cardinality: "+ dict.getSize());
+  return dict;
+}

@@ -36,5 +36,24 @@ case ADD_INTO_PROJECT:
 logger.info("Undo for ADD_INTO_PROJECT is ignored");
 break;
 }
+case COPY_ACL:
+{
+String cubeId=(String)opt.params[0];
+HTableInterface destAclHtable=null;
+try {
+destAclHtable=HBaseConnection.get(dstConfig.getMetadataUrl()).getTable(dstConfig.getMetadataUrlPrefix() + "_acl");
+destAclHtable.delete(new Delete(Bytes.toBytes(cubeId)));
+destAclHtable.flushCommits();
+}
+  finally {
+IOUtils.closeQuietly(destAclHtable);
+}
+break;
+}
+case PURGE_AND_DISABLE:
+{
+logger.info("Undo for PURGE_AND_DISABLE is not supported");
+break;
+}
 }
 }

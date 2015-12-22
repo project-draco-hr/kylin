@@ -2,8 +2,10 @@
   logger.debug("query storage...");
   setConnectionProperties();
   bindVariable(olapContext.filter);
+  SQLDigest sqlDigest=olapContext.getSQLDigest();
+  hackNoGroupByAggregation(sqlDigest);
   IStorageEngine storageEngine=StorageEngineFactory.getStorageEngine(olapContext.realization);
-  ITupleIterator iterator=storageEngine.search(olapContext.storageContext,olapContext.getSQLDigest());
+  ITupleIterator iterator=storageEngine.search(olapContext.storageContext,sqlDigest);
   if (logger.isDebugEnabled()) {
     logger.debug("return TupleIterator...");
   }

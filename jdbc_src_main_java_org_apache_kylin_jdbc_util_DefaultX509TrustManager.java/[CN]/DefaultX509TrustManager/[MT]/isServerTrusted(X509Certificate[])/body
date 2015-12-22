@@ -1,9 +1,9 @@
 {
-  if ((certificates != null) && LOG.isDebugEnabled()) {
-    LOG.debug("Server certificate chain:");
+  if ((certificates != null) && logger.isDebugEnabled()) {
+    logger.debug("Server certificate chain:");
     for (int i=0; i < certificates.length; i++) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("X509Certificate[" + i + "]="+ certificates[i]);
+      if (logger.isDebugEnabled()) {
+        logger.debug("X509Certificate[" + i + "]="+ certificates[i]);
       }
     }
   }
@@ -13,7 +13,7 @@
       certificate.checkValidity();
     }
  catch (    CertificateException e) {
-      LOG.error(e.toString());
+      logger.error(e.toString());
       return false;
     }
     return true;

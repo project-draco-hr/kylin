@@ -1,0 +1,13 @@
+{
+  if (StringUtils.isNotEmpty(value)) {
+    java.net.URL url;
+    try {
+      url=new java.net.URL(value);
+    }
+ catch (    MalformedURLException var5) {
+      return false;
+    }
+    return StringUtils.isNotEmpty(url.getProtocol()) && StringUtils.isNotEmpty(url.getHost());
+  }
+  return false;
+}

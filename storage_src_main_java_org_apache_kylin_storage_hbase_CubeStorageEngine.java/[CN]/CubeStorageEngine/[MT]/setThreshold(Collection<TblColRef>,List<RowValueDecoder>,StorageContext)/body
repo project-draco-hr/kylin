@@ -11,6 +11,12 @@
       rowSizeEst+=func.getReturnDataType().getSpaceEstimate();
     }
   }
-  long rowEst=MEM_BUDGET_PER_QUERY / rowSizeEst;
-  context.setThreshold((int)rowEst);
+  long rowEst=this.cubeInstance.getConfig().getQueryMemBudget() / rowSizeEst;
+  if (rowEst > 0) {
+    logger.info("Memory budget is set to: " + rowEst);
+    context.setThreshold((int)rowEst);
+  }
+ else {
+    logger.info("Memory budget is not set.");
+  }
 }

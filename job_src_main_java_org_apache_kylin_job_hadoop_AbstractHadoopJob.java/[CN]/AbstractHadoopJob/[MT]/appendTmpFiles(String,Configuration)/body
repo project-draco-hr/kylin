@@ -1,0 +1,12 @@
+{
+  if (StringUtils.isBlank(fileList))   return;
+  String tmpFiles=conf.get("tmpfiles",null);
+  if (tmpFiles == null) {
+    tmpFiles=fileList;
+  }
+ else {
+    tmpFiles+="," + fileList;
+  }
+  conf.set("tmpfiles",tmpFiles);
+  logger.info("Job 'tmpfiles' updated -- " + tmpFiles);
+}

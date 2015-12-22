@@ -1,0 +1,21 @@
+{
+  if (reader.next()) {
+    String colStrValue;
+    String[] split=reader.getRow();
+    if (split.length == 1) {
+      colStrValue=split[0];
+    }
+ else {
+      if (split.length <= colIndex) {
+        throw new ArrayIndexOutOfBoundsException("Column no. " + colIndex + " not found, line split is "+ Arrays.asList(split));
+      }
+      colStrValue=split[colIndex];
+    }
+    colValue=Bytes.toBytes(colStrValue);
+    return true;
+  }
+ else {
+    colValue=null;
+    return false;
+  }
+}

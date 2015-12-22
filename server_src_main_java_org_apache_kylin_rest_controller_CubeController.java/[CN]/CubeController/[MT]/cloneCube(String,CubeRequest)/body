@@ -1,0 +1,40 @@
+{
+  String targetCubeName=cubeRequest.getCubeName();
+  String project=cubeRequest.getProject();
+  CubeInstance cube=cubeService.getCubeManager().getCube(cubeName);
+  if (cube == null) {
+    throw new InternalErrorException("Cannot find cube " + cubeName);
+  }
+  CubeDesc cubeDesc=cube.getDescriptor();
+  String modelName=cubeDesc.getModelName();
+  MetadataManager metaManager=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+  DataModelDesc modelDesc=metaManager.getDataModelDesc(modelName);
+  modelDesc.setName(targetCubeName);
+  modelDesc.setLastModified(0);
+  modelDesc.setUuid(UUID.randomUUID().toString());
+  DataModelDesc newModel=null;
+  try {
+    newModel=metaManager.createDataModelDesc(modelDesc);
+  }
+ catch (  IOException e) {
+    throw new InternalErrorException("failed to clone DataModelDesc",e);
+  }
+  cubeDesc.setName(targetCubeName);
+  cubeDesc.setLastModified(0);
+  cubeDesc.setUuid(UUID.randomUUID().toString());
+  cubeDesc.setModelName(targetCubeName);
+  CubeInstance newCube=null;
+  try {
+    newCube=cubeService.createCubeAndDesc(targetCubeName,project,cubeDesc);
+  }
+ catch (  IOException e) {
+    try {
+      metaManager.dropModel(newModel);
+    }
+ catch (    IOException e1) {
+      throw new InternalErrorException("New model already created and failed to rollback",e);
+    }
+    throw new InternalErrorException("failed to clone DataModelDesc",e);
+  }
+  return newCube;
+}

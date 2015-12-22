@@ -1,0 +1,9 @@
+{
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  scan.setCaching(config.getHBaseScanCacheRows());
+  scan.setMaxResultSize(config.getHBaseScanMaxResultSize());
+  scan.setCacheBlocks(true);
+  if (RowValueDecoder.hasMemHungryCountDistinct(rowValueDecoders)) {
+    scan.setCaching(scan.getCaching() / 10);
+  }
+}

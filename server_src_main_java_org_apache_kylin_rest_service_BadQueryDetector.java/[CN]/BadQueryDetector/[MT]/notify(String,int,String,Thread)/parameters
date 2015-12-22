@@ -1,0 +1,4 @@
+String adj
+int runningSec
+String sql
+Thread t

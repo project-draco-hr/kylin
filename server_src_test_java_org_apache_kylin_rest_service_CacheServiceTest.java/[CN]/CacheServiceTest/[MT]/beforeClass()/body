@@ -15,6 +15,12 @@
         }
       }
 ;
+      cacheService.setCubeService(new CubeService(){
+        @Override public KylinConfig getConfig(){
+          return configB;
+        }
+      }
+);
       Broadcaster.TYPE wipeType=Broadcaster.TYPE.getType(type);
       Broadcaster.EVENT wipeEvent=Broadcaster.EVENT.getEvent(event);
       final String log="wipe cache type: " + wipeType + " event:"+ wipeEvent+ " name:"+ name;
@@ -35,4 +41,8 @@ throw new RuntimeException("invalid type:" + wipeEvent);
 }
 )),"/");
 server.start();
+List<GrantedAuthority> authorities=new ArrayList<GrantedAuthority>();
+User user=new User("ADMIN","ADMIN",authorities);
+Authentication authentication=new TestingAuthenticationToken(user,"ADMIN","ROLE_ADMIN");
+SecurityContextHolder.getContext().setAuthentication(authentication);
 }
