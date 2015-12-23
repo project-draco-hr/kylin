@@ -9,7 +9,7 @@
     Collections.sort(allCuboids);
     msg="Total cuboid number: \t" + allCuboids.size();
     writeLine(out,msg);
-    msg="Samping percentage: \t" + SAMPING_PERCENTAGE;
+    msg="Samping percentage: \t" + samplingPercentage;
     writeLine(out,msg);
     writeLine(out,"The following statistics are collected based sampling data.");
     for (int i=0; i < baseCuboidRowCountInMappers.size(); i++) {
@@ -29,7 +29,7 @@
     msg="After merge, the cube has row count: \t " + grantTotal;
     writeLine(out,msg);
     if (grantTotal > 0) {
-      msg="The compaction factor is: \t" + totalRowsBeforeMerge / grantTotal;
+      msg="The mapper overlap ratio is: \t" + totalRowsBeforeMerge / grantTotal;
       writeLine(out,msg);
     }
   }

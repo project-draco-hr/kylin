@@ -7,7 +7,7 @@
     logger.debug("Cube " + cube.getName() + " has bulding segment, will not trigger merge at this moment");
     return null;
   }
-  List<CubeSegment> readySegments=Lists.newArrayList(cube.getSegment(SegmentStatusEnum.READY));
+  List<CubeSegment> readySegments=Lists.newArrayList(cube.getSegments(SegmentStatusEnum.READY));
   if (readySegments.size() == 0) {
     logger.debug("Cube " + cube.getName() + " has no ready segment to merge");
     return null;

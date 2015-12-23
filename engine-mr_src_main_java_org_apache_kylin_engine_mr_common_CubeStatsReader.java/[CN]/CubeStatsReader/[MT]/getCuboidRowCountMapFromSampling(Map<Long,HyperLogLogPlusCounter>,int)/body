@@ -1,0 +1,8 @@
+{
+  return Maps.transformValues(hllcMap,new Function<HyperLogLogPlusCounter,Long>(){
+    @Nullable @Override public Long apply(    HyperLogLogPlusCounter input){
+      return input.getCountEstimate();
+    }
+  }
+);
+}

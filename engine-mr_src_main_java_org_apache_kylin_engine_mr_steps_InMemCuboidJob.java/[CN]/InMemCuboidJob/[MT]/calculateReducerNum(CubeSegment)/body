@@ -1,7 +1,6 @@
 {
-  Configuration jobConf=job.getConfiguration();
   KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
-  Map<Long,Double> cubeSizeMap=getCubeSizeMapFromCuboidStatistics(cubeSeg,kylinConfig,jobConf);
+  Map<Long,Double> cubeSizeMap=new CubeStatsReader(cubeSeg,kylinConfig).getCuboidSizeMap();
   double totalSizeInM=0;
   for (  Double cuboidSize : cubeSizeMap.values()) {
     totalSizeInM+=cuboidSize;

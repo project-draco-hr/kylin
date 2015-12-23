@@ -1,5 +1,5 @@
 {
-  final List<CubeSegment> readySegments=cube.getSegment(SegmentStatusEnum.READY);
+  final List<CubeSegment> readySegments=cube.getSegments(SegmentStatusEnum.READY);
   if (readySegments.size() == 0) {
     return true;
   }

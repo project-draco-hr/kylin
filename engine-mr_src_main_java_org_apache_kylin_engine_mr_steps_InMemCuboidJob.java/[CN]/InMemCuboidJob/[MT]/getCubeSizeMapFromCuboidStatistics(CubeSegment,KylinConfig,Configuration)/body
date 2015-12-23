@@ -1,5 +1,0 @@
-{
-  Map<Long,Long> rowCountMap=getCubeRowCountMapFromCuboidStatistics(cubeSegment,kylinConfig,conf);
-  Map<Long,Double> sizeMap=getCubeSizeMapFromRowCount(cubeSegment,rowCountMap);
-  return sizeMap;
-}

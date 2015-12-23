@@ -4,7 +4,12 @@
     colValues.clear();
   }
   if (collectStatistics) {
+    long grandTotal=0;
+    for (    HyperLogLogPlusCounter hll : cuboidHLLMap.values()) {
+      grandTotal+=hll.getCountEstimate();
+    }
+    double mapperOverlapRatio=(double)totalRowsBeforeMerge / grandTotal;
     writeMapperAndCuboidStatistics(context);
-    CuboidStatsUtil.writeCuboidStatistics(context.getConfiguration(),new Path(statisticsOutput),cuboidHLLMap,SAMPING_PERCENTAGE);
+    CuboidStatsUtil.writeCuboidStatistics(context.getConfiguration(),new Path(statisticsOutput),cuboidHLLMap,samplingPercentage,mapperOverlapRatio);
   }
 }

@@ -1,0 +1,38 @@
+{
+  ResourceStore store=ResourceStore.getStore(kylinConfig);
+  String statsKey=cubeSegment.getStatisticsResourcePath();
+  InputStream is=store.getResource(statsKey).inputStream;
+  Reader reader=null;
+  try {
+    Configuration hadoopConf=HadoopUtil.getCurrentConfiguration();
+    Option streamInput=SequenceFile.Reader.stream(new FSDataInputStream(is));
+    reader=new SequenceFile.Reader(hadoopConf,streamInput);
+    int percentage=100;
+    double mapperOverlapRatio=0;
+    Map<Long,HyperLogLogPlusCounter> counterMap=Maps.newHashMap();
+    LongWritable key=(LongWritable)ReflectionUtils.newInstance(reader.getKeyClass(),hadoopConf);
+    BytesWritable value=(BytesWritable)ReflectionUtils.newInstance(reader.getValueClass(),hadoopConf);
+    while (reader.next(key,value)) {
+      if (key.get() == 0L) {
+        percentage=Bytes.toInt(value.getBytes());
+      }
+ else       if (key.get() == -1) {
+        mapperOverlapRatio=Bytes.toDouble(value.getBytes());
+      }
+ else {
+        HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(14);
+        ByteArray byteArray=new ByteArray(value.getBytes());
+        hll.readRegisters(byteArray.asBuffer());
+        counterMap.put(key.get(),hll);
+      }
+    }
+    this.seg=cubeSegment;
+    this.samplingPercentage=percentage;
+    this.mapperOverlapRatioOfFirstBuild=mapperOverlapRatio;
+    this.cuboidRowCountMap=counterMap;
+  }
+  finally {
+    IOUtils.closeStream(reader);
+    IOUtils.closeStream(is);
+  }
+}

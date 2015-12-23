@@ -1,20 +1,3 @@
 {
-  Path seqFilePath=new Path(outputPath,BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION);
-  List<Long> allCuboids=new ArrayList<Long>();
-  allCuboids.addAll(cuboidHLLMap.keySet());
-  Collections.sort(allCuboids);
-  ByteBuffer valueBuf=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
-  SequenceFile.Writer writer=SequenceFile.createWriter(conf,SequenceFile.Writer.file(seqFilePath),SequenceFile.Writer.keyClass(LongWritable.class),SequenceFile.Writer.valueClass(BytesWritable.class));
-  try {
-    writer.append(new LongWritable(0l),new BytesWritable(Bytes.toBytes(samplingPercentage)));
-    for (    long i : allCuboids) {
-      valueBuf.clear();
-      cuboidHLLMap.get(i).writeRegisters(valueBuf);
-      valueBuf.flip();
-      writer.append(new LongWritable(i),new BytesWritable(valueBuf.array(),valueBuf.limit()));
-    }
-  }
-  finally {
-    IOUtils.closeQuietly(writer);
-  }
+  writeCuboidStatistics(conf,outputPath,cuboidHLLMap,samplingPercentage,0);
 }

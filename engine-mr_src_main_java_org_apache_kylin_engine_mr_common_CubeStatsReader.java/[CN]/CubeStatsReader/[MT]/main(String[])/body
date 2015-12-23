@@ -1,0 +1,10 @@
+{
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  CubeInstance cube=CubeManager.getInstance(config).getCube(args[0]);
+  List<CubeSegment> segments=cube.getSegments(SegmentStatusEnum.READY);
+  PrintWriter out=new PrintWriter(System.out);
+  for (  CubeSegment seg : segments) {
+    new CubeStatsReader(seg,config).print(out);
+  }
+  out.flush();
+}

@@ -1,9 +1,0 @@
-{
-  Preconditions.checkArgument(samplingPercentage > 0);
-  return Maps.transformValues(counterMap,new Function<HyperLogLogPlusCounter,Long>(){
-    @Nullable @Override public Long apply(    HyperLogLogPlusCounter input){
-      return input.getCountEstimate() * 100 / samplingPercentage;
-    }
-  }
-);
-}
