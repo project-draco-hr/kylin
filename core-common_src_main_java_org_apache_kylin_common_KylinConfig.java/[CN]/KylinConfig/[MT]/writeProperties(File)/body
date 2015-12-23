@@ -2,7 +2,7 @@
   FileOutputStream fos=null;
   try {
     fos=new FileOutputStream(file);
-    properties.store(fos,file.getAbsolutePath());
+    getAllProperties().store(fos,file.getAbsolutePath());
   }
   finally {
     IOUtils.closeQuietly(fos);

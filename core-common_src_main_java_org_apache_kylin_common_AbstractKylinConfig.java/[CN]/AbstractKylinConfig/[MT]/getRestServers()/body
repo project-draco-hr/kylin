@@ -1,0 +1,3 @@
+{
+  return getOptionalStringArray("kylin.rest.servers",new String[0]);
+}

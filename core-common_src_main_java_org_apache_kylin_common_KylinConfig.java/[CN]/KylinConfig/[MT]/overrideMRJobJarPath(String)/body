@@ -1,4 +1,0 @@
-{
-  logger.info("override " + KYLIN_JOB_JAR + " to "+ path);
-  System.setProperty(KYLIN_JOB_JAR,path);
-}

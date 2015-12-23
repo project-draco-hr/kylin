@@ -1,0 +1,3 @@
+{
+  setProperty("kylin.metadata.url",metadataUrl);
+}

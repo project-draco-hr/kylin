@@ -1,0 +1,11 @@
+{
+  final String jobJar=getOptional("kylin.job.jar.spark");
+  if (StringUtils.isNotEmpty(jobJar)) {
+    return jobJar;
+  }
+  String kylinHome=getKylinHome();
+  if (StringUtils.isEmpty(kylinHome)) {
+    return "";
+  }
+  return getFileName(kylinHome + File.separator + "lib",SPARK_JOB_JAR_NAME_PATTERN);
+}

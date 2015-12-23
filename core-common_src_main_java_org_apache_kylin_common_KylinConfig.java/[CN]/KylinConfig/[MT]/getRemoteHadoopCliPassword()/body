@@ -1,3 +1,0 @@
-{
-  return getOptional(KYLIN_JOB_REMOTE_CLI_PASSWORD);
-}

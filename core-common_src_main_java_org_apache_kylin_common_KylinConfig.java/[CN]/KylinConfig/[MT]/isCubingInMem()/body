@@ -1,3 +1,0 @@
-{
-  return Boolean.parseBoolean(this.getOptional(KYLIN_JOB_CUBING_IN_MEM,"false"));
-}

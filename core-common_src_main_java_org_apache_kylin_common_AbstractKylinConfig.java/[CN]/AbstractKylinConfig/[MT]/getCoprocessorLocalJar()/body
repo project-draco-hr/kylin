@@ -1,0 +1,11 @@
+{
+  final String coprocessorJar=getOptional("kylin.coprocessor.local.jar");
+  if (StringUtils.isNotEmpty(coprocessorJar)) {
+    return coprocessorJar;
+  }
+  String kylinHome=getKylinHome();
+  if (StringUtils.isEmpty(kylinHome)) {
+    throw new RuntimeException("getCoprocessorLocalJar needs KYLIN_HOME");
+  }
+  return getFileName(kylinHome + File.separator + "lib",COPROCESSOR_JAR_NAME_PATTERN);
+}

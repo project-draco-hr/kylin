@@ -1,0 +1,3 @@
+{
+  return Double.parseDouble(getOptional("kylin.job.mapreduce.default.reduce.input.mb","500"));
+}

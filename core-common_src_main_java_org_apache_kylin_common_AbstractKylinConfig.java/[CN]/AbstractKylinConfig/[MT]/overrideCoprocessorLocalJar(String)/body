@@ -1,0 +1,4 @@
+{
+  logger.info("override " + "kylin.coprocessor.local.jar" + " to "+ path);
+  System.setProperty("kylin.coprocessor.local.jar",path);
+}

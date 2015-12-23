@@ -1,0 +1,3 @@
+{
+  return getOptional("kylin.job.yarn.app.rest.check.status.url",null);
+}

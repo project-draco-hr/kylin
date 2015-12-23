@@ -1,4 +1,0 @@
-{
-  final String property=System.getProperty(prop);
-  return property != null ? property : properties.getProperty(prop);
-}

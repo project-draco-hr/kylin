@@ -1,0 +1,3 @@
+{
+  setProperty("kylin.job.remote.cli.hostname",v);
+}

@@ -1,3 +1,0 @@
-{
-  return getOptionalStringArray(KYLIN_REST_SERVERS,new String[0]);
-}

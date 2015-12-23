@@ -1,3 +1,0 @@
-{
-  properties.setProperty(KYLIN_JOB_REMOTE_CLI_HOSTNAME,v);
-}

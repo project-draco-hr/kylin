@@ -1,0 +1,7 @@
+{
+  String root=getRequired("kylin.hdfs.working.dir");
+  if (!root.endsWith("/")) {
+    root+="/";
+  }
+  return root + getMetadataUrlPrefix() + "/";
+}

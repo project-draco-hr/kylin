@@ -1,3 +1,0 @@
-{
-  return Integer.parseInt(getOptional(KYLIN_JOB_REMOTE_CLI_PORT,"22"));
-}

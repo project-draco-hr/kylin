@@ -1,3 +1,0 @@
-{
-  return this.getOptional(KYLIN_OWNER,"");
-}

@@ -1,3 +1,0 @@
-{
-  properties.setProperty(KYLIN_METADATA_URL,metadataUrl);
-}

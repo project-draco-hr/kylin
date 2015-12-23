@@ -1,0 +1,4 @@
+{
+  logger.info("override " + "kylin.job.jar.spark" + " to "+ path);
+  System.setProperty("kylin.job.jar.spark",path);
+}

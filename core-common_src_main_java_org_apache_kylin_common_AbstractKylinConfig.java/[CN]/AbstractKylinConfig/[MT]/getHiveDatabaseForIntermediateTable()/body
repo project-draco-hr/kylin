@@ -1,0 +1,3 @@
+{
+  return this.getOptional("kylin.job.hive.database.for.intermediatetable","default");
+}

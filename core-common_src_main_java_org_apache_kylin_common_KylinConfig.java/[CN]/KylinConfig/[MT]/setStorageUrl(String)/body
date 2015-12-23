@@ -1,3 +1,0 @@
-{
-  properties.setProperty(KYLIN_STORAGE_URL,storageUrl);
-}
