@@ -1,12 +1,12 @@
 {
   ResourceStore store=ResourceStore.getStore(kylinConfig);
   String statsKey=cubeSegment.getStatisticsResourcePath();
-  InputStream is=store.getResource(statsKey).inputStream;
+  File tmpSeqFile=writeTmpSeqFile(store.getResource(statsKey).inputStream);
   Reader reader=null;
   try {
     Configuration hadoopConf=HadoopUtil.getCurrentConfiguration();
-    Option streamInput=SequenceFile.Reader.stream(new FSDataInputStream(is));
-    reader=new SequenceFile.Reader(hadoopConf,streamInput);
+    Option seqInput=SequenceFile.Reader.file(new Path("file://" + tmpSeqFile.getAbsolutePath()));
+    reader=new SequenceFile.Reader(hadoopConf,seqInput);
     int percentage=100;
     double mapperOverlapRatio=0;
     Map<Long,HyperLogLogPlusCounter> counterMap=Maps.newHashMap();
@@ -33,6 +33,6 @@
   }
   finally {
     IOUtils.closeStream(reader);
-    IOUtils.closeStream(is);
+    tmpSeqFile.delete();
   }
 }

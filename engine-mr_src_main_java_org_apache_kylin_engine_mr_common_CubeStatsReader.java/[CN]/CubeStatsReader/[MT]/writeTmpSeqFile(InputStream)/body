@@ -1,0 +1,13 @@
+{
+  File tempFile=File.createTempFile("kylin_stats_tmp",".seq");
+  FileOutputStream out=null;
+  try {
+    out=new FileOutputStream(tempFile);
+    org.apache.commons.io.IOUtils.copy(inputStream,out);
+  }
+  finally {
+    IOUtils.closeStream(inputStream);
+    IOUtils.closeStream(out);
+  }
+  return tempFile;
+}
