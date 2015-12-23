@@ -19,7 +19,13 @@
       throw e;
     }
     logger.debug("Authenticated user " + authed.toString());
-    UserDetails user=(UserDetails)authed.getDetails();
+    UserDetails user;
+    if (authed.getDetails() instanceof UserDetails) {
+      user=(UserDetails)authed.getDetails();
+    }
+ else {
+      user=new User(authentication.getName(),"skippped-ldap",authed.getAuthorities());
+    }
     Assert.notNull(user,"The UserDetail is null.");
     logger.debug("User authorities :" + user.getAuthorities());
     if (!userService.userExists(user.getUsername())) {
