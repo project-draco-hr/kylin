@@ -11,7 +11,7 @@
   if (collectStatistics) {
     baseCuboidRowCountInMappers=Lists.newArrayList();
     cuboidHLLMap=Maps.newHashMap();
-    samplingPercentage=Integer.parseInt(context.getConfiguration().get(BatchConstants.CFG_STATISTICS_SAMPLING_PERCENT,"100"));
+    samplingPercentage=Integer.parseInt(context.getConfiguration().get(BatchConstants.CFG_STATISTICS_SAMPLING_PERCENT));
   }
   colValues=Lists.newArrayList();
 }

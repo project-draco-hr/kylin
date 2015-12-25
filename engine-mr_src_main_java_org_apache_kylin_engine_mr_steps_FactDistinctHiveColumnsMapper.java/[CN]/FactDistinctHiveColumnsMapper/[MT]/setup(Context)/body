@@ -3,7 +3,7 @@
   keyBuffer=ByteBuffer.allocate(4096);
   collectStatistics=Boolean.parseBoolean(context.getConfiguration().get(BatchConstants.CFG_STATISTICS_ENABLED));
   if (collectStatistics) {
-    SAMPING_PERCENTAGE=Integer.parseInt(context.getConfiguration().get(BatchConstants.CFG_STATISTICS_SAMPLING_PERCENT,"5"));
+    samplingPercentage=Integer.parseInt(context.getConfiguration().get(BatchConstants.CFG_STATISTICS_SAMPLING_PERCENT));
     cuboidScheduler=new CuboidScheduler(cubeDesc);
     nRowKey=cubeDesc.getRowkey().getRowKeyColumns().length;
     List<Long> cuboidIdList=Lists.newArrayList();

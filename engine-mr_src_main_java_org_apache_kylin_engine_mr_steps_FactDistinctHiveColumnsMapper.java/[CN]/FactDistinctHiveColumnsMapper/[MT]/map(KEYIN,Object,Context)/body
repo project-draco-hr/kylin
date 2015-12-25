@@ -14,7 +14,7 @@
  catch (  Exception ex) {
     handleErrorRecord(row,ex);
   }
-  if (collectStatistics && rowCount < SAMPING_PERCENTAGE) {
+  if (collectStatistics && rowCount < samplingPercentage) {
     putRowKeyToHLL(row);
   }
   if (rowCount++ == 100)   rowCount=0;
