@@ -5,6 +5,7 @@
   scan.addColumn(B_FAMILY,B_COLUMN_TS);
   scan.addColumn(B_FAMILY,B_COLUMN);
   scan.setFilter(generateTimeFilterList(timeStartInMillis,timeEndInMillis));
+  tuneScanParameters(scan);
   HTableInterface table=getConnection().getTable(getAllInOneTableName());
   List<RawResource> result=Lists.newArrayList();
   try {

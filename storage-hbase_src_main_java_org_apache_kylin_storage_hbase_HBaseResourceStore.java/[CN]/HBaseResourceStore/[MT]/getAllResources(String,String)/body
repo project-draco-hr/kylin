@@ -4,6 +4,7 @@
   Scan scan=new Scan(startRow,endRow);
   scan.addColumn(B_FAMILY,B_COLUMN_TS);
   scan.addColumn(B_FAMILY,B_COLUMN);
+  tuneScanParameters(scan);
   HTableInterface table=getConnection().getTable(getAllInOneTableName());
   List<RawResource> result=Lists.newArrayList();
   try {
