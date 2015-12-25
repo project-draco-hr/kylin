@@ -1,0 +1,3 @@
+{
+  addExtraInfo("algorithm",alg.name());
+}

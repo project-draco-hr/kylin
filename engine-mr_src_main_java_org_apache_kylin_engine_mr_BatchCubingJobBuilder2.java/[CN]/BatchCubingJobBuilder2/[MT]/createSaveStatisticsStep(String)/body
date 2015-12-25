@@ -4,5 +4,6 @@
   result.setCubeName(seg.getRealization().getName());
   result.setSegmentId(seg.getUuid());
   result.setStatisticsPath(getStatisticsPath(jobId));
+  result.setCubingJobId(jobId);
   return result;
 }

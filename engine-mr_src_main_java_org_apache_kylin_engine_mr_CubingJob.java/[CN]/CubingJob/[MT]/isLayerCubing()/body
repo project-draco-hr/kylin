@@ -1,0 +1,3 @@
+{
+  return AlgorithmEnum.LAYER == getAlgorithm();
+}

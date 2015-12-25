@@ -9,6 +9,7 @@
   appendExecCmdParameters(cmd,"output",cuboidOutputTempPath[totalRowkeyColumnCount - dimNum]);
   appendExecCmdParameters(cmd,"jobname","Kylin_ND-Cuboid_Builder_" + seg.getRealization().getName() + "_Step");
   appendExecCmdParameters(cmd,"level","" + (totalRowkeyColumnCount - dimNum));
+  appendExecCmdParameters(cmd,"cubingJobId",jobId);
   ndCuboidStep.setMapReduceParams(cmd.toString());
   ndCuboidStep.setMapReduceJobClass(NDCuboidJob.class);
   return ndCuboidStep;

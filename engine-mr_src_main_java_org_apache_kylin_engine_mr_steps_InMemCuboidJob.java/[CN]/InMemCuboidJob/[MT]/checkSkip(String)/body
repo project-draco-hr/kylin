@@ -1,0 +1,7 @@
+{
+  if (cubingJobId == null)   return false;
+  ExecutableManager execMgr=ExecutableManager.getInstance(KylinConfig.getInstanceFromEnv());
+  CubingJob cubingJob=(CubingJob)execMgr.getJob(cubingJobId);
+  skipped=cubingJob.isInMemCubing() == false;
+  return skipped;
+}

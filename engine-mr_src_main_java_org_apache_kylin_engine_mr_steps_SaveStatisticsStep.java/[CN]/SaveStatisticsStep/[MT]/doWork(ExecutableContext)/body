@@ -17,6 +17,7 @@
       IOUtils.closeStream(is);
       fs.delete(statisticsFilePath,true);
     }
+    decideCubingAlgorithm(newSegment,kylinConf);
     return new ExecuteResult(ExecuteResult.State.SUCCEED,"succeed");
   }
  catch (  IOException e) {

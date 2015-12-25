@@ -9,6 +9,7 @@
   appendExecCmdParameters(cmd,"output",cuboidOutputTempPath[0]);
   appendExecCmdParameters(cmd,"jobname","Kylin_Base_Cuboid_Builder_" + seg.getRealization().getName());
   appendExecCmdParameters(cmd,"level","0");
+  appendExecCmdParameters(cmd,"cubingJobId",jobId);
   baseCuboidStep.setMapReduceParams(cmd.toString());
   baseCuboidStep.setMapReduceJobClass(BaseCuboidJob.class);
   baseCuboidStep.setCounterSaveAs(CubingJob.SOURCE_RECORD_COUNT + "," + CubingJob.SOURCE_SIZE_BYTES);

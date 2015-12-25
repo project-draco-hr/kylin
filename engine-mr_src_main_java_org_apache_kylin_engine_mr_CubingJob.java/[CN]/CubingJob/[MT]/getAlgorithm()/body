@@ -1,0 +1,4 @@
+{
+  String alg=getExtraInfo().get("algorithm");
+  return alg == null ? null : AlgorithmEnum.valueOf(alg);
+}

@@ -8,12 +8,8 @@
   result.addTask(createBuildDictionaryStep(jobId));
   result.addTask(createSaveStatisticsStep(jobId));
   outputSide.addStepPhase2_BuildDictionary(result);
-  if (new Random().nextBoolean()) {
-    addLayerCubingSteps(result,jobId,cuboidRootPath);
-  }
- else {
-    result.addTask(createInMemCubingStep(jobId,cuboidRootPath));
-  }
+  addLayerCubingSteps(result,jobId,cuboidRootPath);
+  result.addTask(createInMemCubingStep(jobId,cuboidRootPath));
   outputSide.addStepPhase3_BuildCube(result,cuboidRootPath);
   result.addTask(createUpdateCubeInfoAfterBuildStep(jobId));
   inputSide.addStepPhase4_Cleanup(result);

@@ -21,6 +21,9 @@
       String[] args=params.trim().split("\\s+");
       try {
         ToolRunner.run(hadoopJob,args);
+        if (hadoopJob.isSkipped()) {
+          return new ExecuteResult(ExecuteResult.State.SUCCEED,"skipped");
+        }
       }
  catch (      Exception ex) {
         StringBuilder log=new StringBuilder();
