@@ -20,7 +20,7 @@
     CubeManager cubeMgr=CubeManager.getInstance(config);
     CubeInstance cube=cubeMgr.getCube(cubeName);
     if (checkSkip(cubingJobId)) {
-      logger.info("Skip job " + getOptionValue(OPTION_JOB_NAME) + " for "+ segmentName);
+      logger.info("Skip job " + getOptionValue(OPTION_JOB_NAME) + " for "+ cubeName+ "["+ segmentName+ "]");
       return 0;
     }
     job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
