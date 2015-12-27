@@ -1,0 +1,7 @@
+{
+  if (dumpIterators.get(index) != null && dumpIterators.get(index).hasNext()) {
+    Pair<byte[],MeasureAggregator[]> entry=dumpIterators.get(index).next();
+    minHeap.offer(new Pair(entry.getKey(),index));
+    dumpCurrentValues.set(index,entry.getValue());
+  }
+}

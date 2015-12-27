@@ -1,4 +1,3 @@
 IGTScanner scanner
 boolean doFilter
 boolean doAggr
-boolean doMemCheck

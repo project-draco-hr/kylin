@@ -1,0 +1,25 @@
+{
+  return new Iterator<Pair<byte[],MeasureAggregator[]>>(){
+    @Override public boolean hasNext(){
+      return !minHeap.isEmpty();
+    }
+    @Override public Pair<byte[],MeasureAggregator[]> next(){
+      Pair<byte[],Integer> peekEntry=minHeap.poll();
+      MeasureAggregator[] mergedAggr=dumpCurrentValues.get(peekEntry.getValue());
+      enqueueFromDump(peekEntry.getValue());
+      while (!minHeap.isEmpty() && bytesComparator.compare(peekEntry.getKey(),minHeap.peek().getKey()) == 0) {
+        Pair<byte[],Integer> newPeek=minHeap.poll();
+        MeasureAggregator[] newPeekAggr=dumpCurrentValues.get(newPeek.getValue());
+        for (int i=0; i < newPeekAggr.length; i++) {
+          mergedAggr[i].aggregate(newPeekAggr[i].getState());
+        }
+        enqueueFromDump(newPeek.getValue());
+      }
+      return new Pair(peekEntry.getKey(),mergedAggr);
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+  }
+;
+}

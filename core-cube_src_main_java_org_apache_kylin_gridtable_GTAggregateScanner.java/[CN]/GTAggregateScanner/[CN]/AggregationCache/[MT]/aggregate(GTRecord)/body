@@ -1,11 +1,12 @@
 {
-  if (enableMemCheck && (++aggregatedRowCount % 1000 == 0)) {
+  if (++aggregatedRowCount % 1000 == 0) {
     if (memTracker != null) {
       memTracker.markHigh();
     }
-    long estimated=estimatedMemSize();
-    if (estimated > 10 * MemoryBudgetController.ONE_GB) {
-      throw new RuntimeException("AggregationCache exceed 10GB, estimated size is: " + estimated);
+    if (spillThreshold > 0) {
+      if (estimatedMemSize() > spillThreshold) {
+        spillBuffMap();
+      }
     }
   }
   final byte[] key=createKey(r);

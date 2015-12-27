@@ -1,0 +1,10 @@
+{
+  try {
+    for (    Dump dump : dumps) {
+      dump.terminate();
+    }
+  }
+ catch (  Exception e) {
+    throw new RuntimeException("AggregationCache close failed: " + e.getMessage());
+  }
+}

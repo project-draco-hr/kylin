@@ -1,0 +1,24 @@
+{
+  minHeap=new PriorityQueue<>(dumps.size(),new Comparator<Pair<byte[],Integer>>(){
+    @Override public int compare(    Pair<byte[],Integer> o1,    Pair<byte[],Integer> o2){
+      return bytesComparator.compare(o1.getFirst(),o2.getFirst());
+    }
+  }
+);
+  dumpIterators=Lists.newArrayListWithCapacity(dumps.size());
+  dumpCurrentValues=Lists.newArrayListWithCapacity(dumps.size());
+  Iterator<Pair<byte[],MeasureAggregator[]>> it;
+  for (int i=0; i < dumps.size(); i++) {
+    it=dumps.get(i).iterator();
+    if (it.hasNext()) {
+      dumpIterators.add(i,it);
+      Pair<byte[],MeasureAggregator[]> entry=it.next();
+      minHeap.offer(new Pair(entry.getKey(),i));
+      dumpCurrentValues.add(i,entry.getValue());
+    }
+ else {
+      dumpIterators.add(i,null);
+      dumpCurrentValues.add(i,null);
+    }
+  }
+}

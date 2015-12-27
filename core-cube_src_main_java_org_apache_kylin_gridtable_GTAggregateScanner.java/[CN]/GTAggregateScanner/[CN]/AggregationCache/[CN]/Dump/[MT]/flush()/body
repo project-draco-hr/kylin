@@ -1,0 +1,18 @@
+{
+  if (buffMap != null) {
+    Output output=null;
+    try {
+      dumpedFile=File.createTempFile("KYLIN_AGGR_",".tmp");
+      logger.info("AggregationCache will dump to file: " + dumpedFile.getAbsolutePath());
+      output=new Output(new FileOutputStream(dumpedFile));
+      kryo.writeObject(output,buffMap.size());
+      for (      Entry<byte[],MeasureAggregator[]> entry : buffMap.entrySet()) {
+        kryo.writeObject(output,new Pair(entry.getKey(),entry.getValue()));
+      }
+    }
+  finally {
+      buffMap=null;
+      if (output != null)       output.close();
+    }
+  }
+}

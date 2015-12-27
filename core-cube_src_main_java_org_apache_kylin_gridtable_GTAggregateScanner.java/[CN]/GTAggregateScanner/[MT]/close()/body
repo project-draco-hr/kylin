@@ -1,3 +1,4 @@
 {
   inputScanner.close();
+  aggrCache.close();
 }

@@ -13,7 +13,7 @@
       return new EmptyGTScanner();
     }
     if (this.allowPreAggregation && this.hasAggregation()) {
-      result=new GTAggregateScanner(result,this,doMemCheck);
+      result=new GTAggregateScanner(result,this);
     }
     return result;
   }

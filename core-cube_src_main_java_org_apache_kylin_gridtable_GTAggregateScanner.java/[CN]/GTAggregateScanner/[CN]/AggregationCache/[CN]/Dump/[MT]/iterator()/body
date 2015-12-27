@@ -1,0 +1,31 @@
+{
+  try {
+    if (dumpedFile == null || !dumpedFile.exists()) {
+      throw new RuntimeException("Dumped file cannot be found at: " + (dumpedFile == null ? "<null>" : dumpedFile.getAbsolutePath()));
+    }
+    input=new Input(new FileInputStream(dumpedFile));
+    final int count=kryo.readObject(input,Integer.class);
+    return new Iterator<Pair<byte[],MeasureAggregator[]>>(){
+      int cursorIdx=0;
+      @Override public boolean hasNext(){
+        return cursorIdx < count;
+      }
+      @Override public Pair<byte[],MeasureAggregator[]> next(){
+        try {
+          cursorIdx++;
+          return (Pair<byte[],MeasureAggregator[]>)kryo.readObject(input,Pair.class);
+        }
+ catch (        Exception e) {
+          throw new RuntimeException("Cannot read AggregationCache from dumped file: " + e.getMessage());
+        }
+      }
+      @Override public void remove(){
+        throw new UnsupportedOperationException();
+      }
+    }
+;
+  }
+ catch (  Exception e) {
+    throw new RuntimeException("Failed to read dumped file: " + e.getMessage());
+  }
+}

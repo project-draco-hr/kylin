@@ -1,0 +1,12 @@
+{
+  if (aggBufMap.isEmpty())   return;
+  try {
+    Dump dump=new Dump(aggBufMap);
+    dump.flush();
+    dumps.add(dump);
+    aggBufMap=createBuffMap();
+  }
+ catch (  Exception e) {
+    throw new RuntimeException("AggregationCache spill failed: " + e.getMessage());
+  }
+}

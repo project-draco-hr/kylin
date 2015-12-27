@@ -1,24 +1,6 @@
 {
   compareMask=createCompareMask();
   keyLength=compareMask.length;
-  aggBufMap=Maps.newTreeMap(new Comparator<byte[]>(){
-    @Override public int compare(    byte[] o1,    byte[] o2){
-      int result=0;
-      for (int i=0; i < keyLength; ++i) {
-        if (compareMask[i]) {
-          int a=(o1[i] & 0xff);
-          int b=(o2[i] & 0xff);
-          result=a - b;
-          if (result == 0) {
-            continue;
-          }
- else {
-            return result;
-          }
-        }
-      }
-      return result;
-    }
-  }
-);
+  dumps=Lists.newArrayList();
+  aggBufMap=createBuffMap();
 }

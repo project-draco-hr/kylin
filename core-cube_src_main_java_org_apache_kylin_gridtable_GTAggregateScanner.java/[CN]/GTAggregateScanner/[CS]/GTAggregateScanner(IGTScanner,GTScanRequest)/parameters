@@ -1,3 +1,2 @@
 IGTScanner inputScanner
 GTScanRequest req
-boolean enableMemCheck
