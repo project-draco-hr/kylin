@@ -1,0 +1,4 @@
+{
+  GTRecord rec=new GTRecord(info);
+  return rec.setValues(values);
+}

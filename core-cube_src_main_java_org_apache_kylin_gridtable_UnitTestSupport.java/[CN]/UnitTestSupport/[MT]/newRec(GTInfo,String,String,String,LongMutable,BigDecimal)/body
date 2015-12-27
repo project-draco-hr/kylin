@@ -1,4 +1,0 @@
-{
-  GTRecord rec=new GTRecord(info);
-  return rec.setValues(date,name,category,amount,price);
-}

@@ -1,0 +1,30 @@
+{
+  IGTScanner inputScanner=new IGTScanner(){
+    @Override public GTInfo getInfo(){
+      return INFO;
+    }
+    @Override public int getScannedRowCount(){
+      throw new UnsupportedOperationException();
+    }
+    @Override public void close() throws IOException {
+    }
+    @Override public Iterator<GTRecord> iterator(){
+      return TEST_DATA.iterator();
+    }
+  }
+;
+  GTScanRequest scanRequest=new GTScanRequest(INFO,null,new ImmutableBitSet(0,3),new ImmutableBitSet(0,3),new ImmutableBitSet(3,6),new String[]{"SUM","SUM","COUNT_DISTINCT"},null,true);
+  scanRequest.setAggrCacheGB(0.5);
+  GTAggregateScanner scanner=new GTAggregateScanner(inputScanner,scanRequest);
+  int count=0;
+  for (  GTRecord record : scanner) {
+    assertNotNull(record);
+    Object[] returnRecord=record.getValues();
+    assertEquals(20,((LongMutable)returnRecord[3]).get());
+    assertEquals(21,((BigDecimal)returnRecord[4]).longValue());
+    count++;
+    System.out.println(record);
+  }
+  assertEquals(DATA_CARDINALITY,count);
+  scanner.close();
+}
