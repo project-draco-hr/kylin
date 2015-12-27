@@ -2,7 +2,12 @@
   aggs.reset();
   for (  Text value : values) {
     codec.decode(ByteBuffer.wrap(value.getBytes(),0,value.getLength()),input);
-    aggs.aggregate(input);
+    if (cuboidLevel > 0) {
+      aggs.aggregate(input,needAggr);
+    }
+ else {
+      aggs.aggregate(input);
+    }
   }
   aggs.collectStates(result);
   valueBuf.clear();

@@ -1,4 +1,7 @@
 {
+  for (  FunctionDesc metric : metrics) {
+    if (metric.getMeasureType().onlyAggrInBaseCuboid())     return Cuboid.getBaseCuboid(cubeDesc);
+  }
   long cuboidID=0;
   for (  TblColRef column : dimensions) {
     int index=cubeDesc.getRowkey().getColumnBitIndex(column);

@@ -1,6 +1,7 @@
 {
   super.bindCurrentConfiguration(context.getConfiguration());
   cubeName=context.getConfiguration().get(BatchConstants.CFG_CUBE_NAME).toUpperCase();
+  cuboidLevel=context.getConfiguration().getInt(BatchConstants.CFG_CUBE_CUBOID_LEVEL,0);
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
   cubeDesc=CubeManager.getInstance(config).getCube(cubeName).getDescriptor();
   measuresDescs=cubeDesc.getMeasures();
@@ -8,4 +9,10 @@
   aggs=new MeasureAggregators(measuresDescs);
   input=new Object[measuresDescs.size()];
   result=new Object[measuresDescs.size()];
+  needAggr=new boolean[measuresDescs.size()];
+  if (cuboidLevel > 0) {
+    for (int i=0; i < measuresDescs.size(); i++) {
+      needAggr[i]=!measuresDescs.get(i).getFunction().getMeasureType().onlyAggrInBaseCuboid();
+    }
+  }
 }

@@ -15,7 +15,7 @@
   Set<TblColRef> dimensionsD=Sets.newHashSet();
   dimensionsD.addAll(groupsD);
   dimensionsD.addAll(othersD);
-  Cuboid cuboid=identifyCuboid(dimensionsD);
+  Cuboid cuboid=identifyCuboid(dimensionsD,metrics);
   context.setCuboid(cuboid);
   Set<TblColRef> singleValuesD=findSingleValueColumns(filter);
   boolean isExactAggregation=isExactAggregation(cuboid,groups,othersD,singleValuesD,derivedPostAggregation);

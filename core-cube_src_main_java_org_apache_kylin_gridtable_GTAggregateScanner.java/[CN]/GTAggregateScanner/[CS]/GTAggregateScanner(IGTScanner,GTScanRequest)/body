@@ -8,4 +8,6 @@
   this.inputScanner=inputScanner;
   this.aggrCache=new AggregationCache();
   this.spillThreshold=(long)(req.getAggrCacheGB() * MemoryBudgetController.ONE_GB);
+  this.aggrMask=new boolean[metricsAggrFuncs.length];
+  Arrays.fill(aggrMask,true);
 }

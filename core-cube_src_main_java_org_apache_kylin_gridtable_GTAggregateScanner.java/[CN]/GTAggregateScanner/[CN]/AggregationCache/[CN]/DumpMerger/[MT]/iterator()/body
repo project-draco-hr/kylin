@@ -11,7 +11,7 @@
         Pair<byte[],Integer> newPeek=minHeap.poll();
         MeasureAggregator[] newPeekAggr=dumpCurrentValues.get(newPeek.getValue());
         for (int i=0; i < newPeekAggr.length; i++) {
-          mergedAggr[i].aggregate(newPeekAggr[i].getState());
+          if (aggrMask[i])           mergedAggr[i].aggregate(newPeekAggr[i].getState());
         }
         enqueueFromDump(newPeek.getValue());
       }
