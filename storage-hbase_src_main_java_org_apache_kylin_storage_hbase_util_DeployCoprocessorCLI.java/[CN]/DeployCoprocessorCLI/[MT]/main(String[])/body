@@ -7,6 +7,12 @@
   logger.info("Identify coprocessor jar " + localCoprocessorJar);
   List<String> tableNames=getHTableNames(kylinConfig);
   logger.info("Identify tables " + tableNames);
+  if (args.length == 1) {
+    logger.info("Probe run, existing. Append argument 'all' or specific tables to execute.");
+    System.exit(0);
+  }
+  tableNames=filterTables(tableNames,Arrays.asList(args).subList(1,args.length));
+  logger.info("Will execute tables " + tableNames);
   Set<String> oldJarPaths=getCoprocessorJarPaths(hbaseAdmin,tableNames);
   logger.info("Old coprocessor jar: " + oldJarPaths);
   Path hdfsCoprocessorJar=uploadCoprocessorJar(localCoprocessorJar,fileSystem,oldJarPaths);
