@@ -15,16 +15,18 @@
   checkAndGetHbaseUrl();
   Configuration conf=HBaseConfiguration.create();
   hbaseAdmin=new HBaseAdmin(conf);
-  hdfsFS=FileSystem.get(HadoopUtil.getCurrentConfiguration());
+  hdfsFS=FileSystem.get(new Configuration());
   operations=new ArrayList<Opt>();
   copyFilesInMetaStore(cube,overwriteIfExists);
   renameFoldersInHdfs(cube);
   changeHtableHost(cube);
-  addCubeIntoProject(cubeName,projectName,cube.getModelName());
+  addCubeIntoProject(cubeName,projectName);
   if (Boolean.parseBoolean(copyAcl) == true) {
-    copyACL(cube);
+    copyACL(cube,projectName);
   }
-  purgeAndDisable(cubeName);
+  if (Boolean.parseBoolean(purgeAndDisable) == true) {
+    purgeAndDisable(cubeName);
+  }
   if (realExecute.equalsIgnoreCase("true")) {
     doOpts();
   }

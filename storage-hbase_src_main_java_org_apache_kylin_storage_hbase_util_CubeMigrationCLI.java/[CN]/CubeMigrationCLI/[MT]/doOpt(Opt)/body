@@ -28,9 +28,28 @@ case COPY_DICT_OR_SNAPSHOT:
     DictionaryManager dstDictMgr=DictionaryManager.getInstance(dstConfig);
     DictionaryManager srcDicMgr=DictionaryManager.getInstance(srcConfig);
     DictionaryInfo dictSrc=srcDicMgr.getDictionaryInfo(item);
-    DictionaryInfo dictSaved=dstDictMgr.forceSave(dictSrc.getDictionaryObject(),dictSrc);
-    Preconditions.checkState(dictSaved == dictSrc);
-    logger.info("Item " + item + " is copied");
+    long ts=dictSrc.getLastModified();
+    dictSrc.setLastModified(0);
+    DictionaryInfo dictSaved=dstDictMgr.trySaveNewDict(dictSrc.getDictionaryObject(),dictSrc);
+    dictSrc.setLastModified(ts);
+    if (dictSaved == dictSrc) {
+      logger.info("Item " + item + " is copied");
+    }
+ else {
+      String cubeName=(String)opt.params[1];
+      String cubeResPath=CubeInstance.concatResourcePath(cubeName);
+      Serializer<CubeInstance> cubeSerializer=new JsonSerializer<CubeInstance>(CubeInstance.class);
+      CubeInstance cube=dstStore.getResource(cubeResPath,CubeInstance.class,cubeSerializer);
+      for (      CubeSegment segment : cube.getSegments()) {
+        for (        Map.Entry<String,String> entry : segment.getDictionaries().entrySet()) {
+          if (entry.getValue().equalsIgnoreCase(item)) {
+            entry.setValue(dictSaved.getResourcePath());
+          }
+        }
+      }
+      dstStore.putResource(cubeResPath,cube,cubeSerializer);
+      logger.info("Item " + item + " is dup, instead "+ dictSaved.getResourcePath()+ " is reused");
+    }
   }
  else   if (item.toLowerCase().endsWith(".snapshot")) {
     SnapshotManager dstSnapMgr=SnapshotManager.getInstance(dstConfig);
@@ -77,13 +96,11 @@ case ADD_INTO_PROJECT:
 {
 String cubeName=(String)opt.params[0];
 String projectName=(String)opt.params[1];
-String modelName=(String)opt.params[2];
 String projectResPath=ProjectInstance.concatResourcePath(projectName);
 Serializer<ProjectInstance> projectSerializer=new JsonSerializer<ProjectInstance>(ProjectInstance.class);
 ProjectInstance project=dstStore.getResource(projectResPath,ProjectInstance.class,projectSerializer);
 project.removeRealization(RealizationType.CUBE,cubeName);
 project.addRealizationEntry(RealizationType.CUBE,cubeName);
-if (project.getModels().contains(modelName) == false) project.getModels().add(modelName);
 dstStore.putResource(projectResPath,project,projectSerializer);
 logger.info("Project instance for " + projectName + " is corrected");
 break;
@@ -91,16 +108,31 @@ break;
 case COPY_ACL:
 {
 String cubeId=(String)opt.params[0];
+String modelId=(String)opt.params[1];
+String projectName=(String)opt.params[2];
+String projectResPath=ProjectInstance.concatResourcePath(projectName);
+Serializer<ProjectInstance> projectSerializer=new JsonSerializer<ProjectInstance>(ProjectInstance.class);
+ProjectInstance project=dstStore.getResource(projectResPath,ProjectInstance.class,projectSerializer);
+String projUUID=project.getUuid();
 HTableInterface srcAclHtable=null;
 HTableInterface destAclHtable=null;
 try {
-srcAclHtable=HBaseConnection.get(srcConfig.getMetadataUrl()).getTable(srcConfig.getMetadataUrlPrefix() + "_acl");
-destAclHtable=HBaseConnection.get(dstConfig.getMetadataUrl()).getTable(dstConfig.getMetadataUrlPrefix() + "_acl");
+srcAclHtable=HBaseConnection.get(srcConfig.getMetadataUrl()).getTable(srcConfig.getMetadataUrlPrefix() + ACL_TABLE_NAME);
+destAclHtable=HBaseConnection.get(dstConfig.getMetadataUrl()).getTable(dstConfig.getMetadataUrlPrefix() + ACL_TABLE_NAME);
 Result result=srcAclHtable.get(new Get(Bytes.toBytes(cubeId)));
+if (result.listCells() != null) {
 for (Cell cell : result.listCells()) {
-Put put=new Put(Bytes.toBytes(cubeId));
-put.add(CellUtil.cloneFamily(cell),CellUtil.cloneQualifier(cell),CellUtil.cloneValue(cell));
-destAclHtable.put(put);
+  byte[] family=CellUtil.cloneFamily(cell);
+  byte[] column=CellUtil.cloneQualifier(cell);
+  byte[] value=CellUtil.cloneValue(cell);
+  if (Bytes.toString(family).equals(ACL_INFO_FAMILY) && Bytes.toString(column).equals(ACL_INFO_FAMILY_PARENT_COLUMN)) {
+    String valueString="{\"id\":\"" + projUUID + "\",\"type\":\"org.apache.kylin.metadata.project.ProjectInstance\"}";
+    value=Bytes.toBytes(valueString);
+  }
+  Put put=new Put(Bytes.toBytes(cubeId));
+  put.add(family,column,value);
+  destAclHtable.put(put);
+}
 }
 destAclHtable.flushCommits();
 }

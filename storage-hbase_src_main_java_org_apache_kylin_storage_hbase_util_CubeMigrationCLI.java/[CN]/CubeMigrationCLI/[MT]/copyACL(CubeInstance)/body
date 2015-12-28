@@ -1,3 +1,0 @@
-{
-  operations.add(new Opt(OptType.COPY_ACL,new Object[]{cube.getUuid()}));
-}

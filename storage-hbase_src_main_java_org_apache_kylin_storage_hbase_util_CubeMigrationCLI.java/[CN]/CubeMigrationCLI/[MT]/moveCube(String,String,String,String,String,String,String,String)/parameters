@@ -1,7 +1,8 @@
-KylinConfig srcCfg
-KylinConfig dstCfg
+String srcCfgUri
+String dstCfgUri
 String cubeName
 String projectName
 String copyAcl
+String purgeAndDisable
 String overwriteIfExists
 String realExecute

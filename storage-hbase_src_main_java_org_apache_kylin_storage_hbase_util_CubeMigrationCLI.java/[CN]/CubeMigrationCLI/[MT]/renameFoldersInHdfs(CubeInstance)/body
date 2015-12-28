@@ -1,9 +1,6 @@
 {
   for (  CubeSegment segment : cube.getSegments()) {
     String jobUuid=segment.getLastBuildJobID();
-    if (StringUtils.isEmpty(jobUuid)) {
-      continue;
-    }
     String src=JobInstance.getJobWorkingDir(jobUuid,srcConfig.getHdfsWorkingDirectory());
     String tgt=JobInstance.getJobWorkingDir(jobUuid,dstConfig.getHdfsWorkingDirectory());
     operations.add(new Opt(OptType.RENAME_FOLDER_IN_HDFS,new Object[]{src,tgt}));
