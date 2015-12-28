@@ -1,0 +1,3 @@
+{
+  return getCubeManager().getCube("test_kylin_cube_with_slr_empty");
+}
