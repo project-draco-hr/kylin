@@ -1,7 +1,9 @@
 {
   String applicationId=mrJobId.replace("job","application");
   String url=yarnUrl.replace("${job_id}",applicationId);
-  JsonNode root=new ObjectMapper().readTree(getHttpResponse(url));
+  String response=useKerberosAuth ? getHttpResponseWithKerberosAuth(url) : getHttpResponse(url);
+  logger.debug("Hadoop job " + mrJobId + " status : "+ response);
+  JsonNode root=new ObjectMapper().readTree(response);
   RMAppState state=RMAppState.valueOf(root.findValue("state").getTextValue());
   FinalApplicationStatus finalStatus=FinalApplicationStatus.valueOf(root.findValue("finalStatus").getTextValue());
   return Pair.of(state,finalStatus);
