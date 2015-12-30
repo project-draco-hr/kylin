@@ -1,12 +1,13 @@
 {
-  DataTypeSerializer[] newSerializers=new DataTypeSerializer[serializers.length];
+  Map<Integer,Integer> dictSizes=Maps.newHashMap();
+  Map<Integer,Integer> fixedLengthSizes=Maps.newHashMap();
   for (int i=0; i < serializers.length; i++) {
     if (serializers[i] instanceof DictionarySerializer) {
-      newSerializers[i]=new TrimmedDictionarySerializer(serializers[i].maxLength());
+      dictSizes.put(i,serializers[i].maxLength());
     }
- else {
-      newSerializers[i]=serializers[i];
+ else     if (serializers[i] instanceof FixLenSerializer) {
+      fixedLengthSizes.put(i,serializers[i].maxLength());
     }
   }
-  return new TrimmedCubeCodeSystem(info,dependentMetricsMap,newSerializers,comparator);
+  return new TrimmedCubeCodeSystem(dependentMetricsMap,dictSizes,fixedLengthSizes);
 }

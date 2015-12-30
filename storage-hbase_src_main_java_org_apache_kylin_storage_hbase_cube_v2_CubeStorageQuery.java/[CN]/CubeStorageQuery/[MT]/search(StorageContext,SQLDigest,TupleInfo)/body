@@ -11,7 +11,6 @@
   Set<TblColRef> groupsD=expandDerived(groups,derivedPostAggregation);
   Set<TblColRef> filterDimsD=expandDerived(filterDims,derivedPostAggregation);
   filterDimsD.removeAll(groupsD);
-  derivedPostAggregation.removeAll(groups);
   Set<TblColRef> dimensionsD=new LinkedHashSet<TblColRef>();
   dimensionsD.addAll(groupsD);
   dimensionsD.addAll(filterDimsD);

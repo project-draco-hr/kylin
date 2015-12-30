@@ -4,9 +4,10 @@
   int i=0;
   for (  GTRecord r : scanner) {
     System.out.println(r);
-    if (verifyRows != null && i < verifyRows.length) {
-      assertEquals(verifyRows[i],r.toString());
+    if (verifyRows == null || i >= verifyRows.length) {
+      Assert.fail();
     }
+    assertEquals(verifyRows[i],r.toString());
     i++;
   }
   scanner.close();

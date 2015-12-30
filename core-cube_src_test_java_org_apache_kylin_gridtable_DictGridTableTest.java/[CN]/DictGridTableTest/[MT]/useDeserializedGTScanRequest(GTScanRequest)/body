@@ -1,0 +1,9 @@
+{
+  ByteBuffer buffer=ByteBuffer.allocate(BytesSerializer.SERIALIZE_BUFFER_SIZE);
+  GTScanRequest.serializer.serialize(origin,buffer);
+  buffer.flip();
+  GTScanRequest sGTScanRequest=GTScanRequest.serializer.deserialize(buffer);
+  Assert.assertArrayEquals(origin.getAggrMetricsFuncs(),sGTScanRequest.getAggrMetricsFuncs());
+  Assert.assertEquals(origin.getAggrCacheGB(),sGTScanRequest.getAggrCacheGB(),0.01);
+  return sGTScanRequest;
+}

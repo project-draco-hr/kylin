@@ -1,0 +1,9 @@
+{
+  CubeInstance cube=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).getCube("test_kylin_cube_with_slr_ready");
+  CubeSegment segment=cube.getFirstSegment();
+  GTInfo info=CubeGridTable.newGTInfo(segment,Cuboid.getBaseCuboidId(cube.getDescriptor()));
+  GTInfo.serializer.serialize(info,buffer);
+  buffer.flip();
+  GTInfo sInfo=GTInfo.serializer.deserialize(buffer);
+  this.compareTwoGTInfo(info,sInfo);
+}

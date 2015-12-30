@@ -1,0 +1,12 @@
+{
+  ImmutableBitSet x=new ImmutableBitSet(10,100);
+  ImmutableBitSet.serializer.serialize(x,buffer);
+  buffer.flip();
+  ImmutableBitSet sx=ImmutableBitSet.serializer.deserialize(buffer);
+  for (int i=0; i < 10; i++) {
+    Assert.assertFalse(sx.get(i));
+  }
+  for (int i=10; i < 100; i++) {
+    Assert.assertTrue(sx.get(i));
+  }
+}

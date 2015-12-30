@@ -10,8 +10,8 @@
   if (rawScan.endKey != null) {
     scan.setStopRow(rawScan.endKey);
   }
-  if (rawScan.fuzzyKey != null) {
-    applyFuzzyFilter(scan,rawScan.fuzzyKey);
+  if (rawScan.fuzzyKeys != null) {
+    applyFuzzyFilter(scan,rawScan.fuzzyKeys);
   }
   if (rawScan.hbaseColumns != null) {
     applyHBaseColums(scan,rawScan.hbaseColumns);

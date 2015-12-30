@@ -1,4 +1,0 @@
-GTInfo info
-Map<Integer,Integer> dependentMetricsMap
-DataTypeSerializer[] serializers
-IGTComparator comparator

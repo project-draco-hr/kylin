@@ -1,0 +1,5 @@
+{
+  this.dependentMetricsMap=dependentMetricsMap;
+  this.dictSizes=dictSizes;
+  this.fixedLengthSize=fixedLengthSize;
+}

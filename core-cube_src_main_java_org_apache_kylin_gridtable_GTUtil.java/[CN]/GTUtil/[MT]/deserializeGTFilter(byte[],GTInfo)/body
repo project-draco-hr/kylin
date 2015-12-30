@@ -1,0 +1,4 @@
+{
+  IFilterCodeSystem<ByteArray> filterCodeSystem=wrap(info.codeSystem.getComparator());
+  return TupleFilterSerializer.deserialize(bytes,filterCodeSystem);
+}

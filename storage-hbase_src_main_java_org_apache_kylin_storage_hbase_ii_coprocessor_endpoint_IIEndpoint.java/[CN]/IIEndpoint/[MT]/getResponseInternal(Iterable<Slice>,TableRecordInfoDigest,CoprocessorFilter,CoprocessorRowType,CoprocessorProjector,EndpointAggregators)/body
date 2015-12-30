@@ -7,7 +7,7 @@
   ClearTextDictionary clearTextDictionary=new ClearTextDictionary(recordInfo,type);
   RowKeyColumnIO rowKeyColumnIO=new RowKeyColumnIO(clearTextDictionary);
   byte[] recordBuffer=new byte[recordInfo.getByteFormLen()];
-  byte[] buffer=new byte[CoprocessorConstants.METRIC_SERIALIZE_BUFFER_SIZE];
+  byte[] buffer=new byte[BytesSerializer.SERIALIZE_BUFFER_SIZE];
   int iteratedSliceCount=0;
   long latestSliceTs=Long.MIN_VALUE;
   for (  Slice slice : slices) {
@@ -64,7 +64,7 @@
       AggrKey aggrKey=entry.getKey();
       IIProtos.IIResponseInternal.IIRow.Builder rowBuilder=IIProtos.IIResponseInternal.IIRow.newBuilder().setColumns(HBaseZeroCopyByteString.wrap(aggrKey.get(),aggrKey.offset(),aggrKey.length()));
       if (offset + measureLength > buffer.length) {
-        buffer=new byte[CoprocessorConstants.METRIC_SERIALIZE_BUFFER_SIZE];
+        buffer=new byte[BytesSerializer.SERIALIZE_BUFFER_SIZE];
         offset=0;
       }
       int length=aggregators.serializeMetricValues(entry.getValue(),buffer,offset);

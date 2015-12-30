@@ -1,4 +1,0 @@
-{
-  BytesUtil.writeByteArray(value.groupByMask,out);
-  BytesUtil.writeVInt(value.hasGroupby ? 1 : 0,out);
-}

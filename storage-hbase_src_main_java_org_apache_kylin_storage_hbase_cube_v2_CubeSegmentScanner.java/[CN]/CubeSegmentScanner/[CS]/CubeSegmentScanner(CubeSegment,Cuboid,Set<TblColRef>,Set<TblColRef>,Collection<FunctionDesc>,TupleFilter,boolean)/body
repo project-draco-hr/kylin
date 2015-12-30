@@ -23,12 +23,9 @@
   }
   List<GTScanRange> scanRanges=scanRangePlanner.planScanRanges(gtFilter,MAX_SCAN_RANGES);
   scanRequests=Lists.newArrayListWithCapacity(scanRanges.size());
-  trimmedInfoBytes=GTInfo.serialize(info);
-  GTInfo trimmedInfo=GTInfo.deserialize(trimmedInfoBytes);
   KylinConfig config=cubeSeg.getCubeInstance().getConfig();
   for (  GTScanRange range : scanRanges) {
-    GTScanRequest req=new GTScanRequest(trimmedInfo,range.replaceGTInfo(trimmedInfo),gtDimensions,gtAggrGroups,gtAggrMetrics,gtAggrFuncs,gtFilter,allowPreAggregate);
-    req.setAggrCacheGB(config.getQueryCoprocessorMemGB());
+    GTScanRequest req=new GTScanRequest(info,range,gtDimensions,gtAggrGroups,gtAggrMetrics,gtAggrFuncs,gtFilter,allowPreAggregate,config.getQueryCoprocessorMemGB());
     scanRequests.add(req);
   }
   scanner=new Scanner();

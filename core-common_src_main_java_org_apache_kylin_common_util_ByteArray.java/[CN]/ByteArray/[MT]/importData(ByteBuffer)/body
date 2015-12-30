@@ -1,0 +1,4 @@
+{
+  byte[] bytes=BytesUtil.readByteArray(in);
+  return new ByteArray(bytes);
+}

@@ -1,0 +1,3 @@
+{
+  BytesUtil.writeByteArray(this.data,this.offset,this.length,out);
+}

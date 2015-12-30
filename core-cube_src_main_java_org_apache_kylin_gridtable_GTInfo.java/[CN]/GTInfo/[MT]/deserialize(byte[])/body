@@ -1,3 +1,0 @@
-{
-  return KryoUtils.deserialize(bytes,GTInfo.class);
-}

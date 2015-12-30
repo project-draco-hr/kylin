@@ -13,8 +13,7 @@
     }
   }
 ;
-  GTScanRequest scanRequest=new GTScanRequest(INFO,null,new ImmutableBitSet(0,3),new ImmutableBitSet(0,3),new ImmutableBitSet(3,6),new String[]{"SUM","SUM","COUNT_DISTINCT"},null,true);
-  scanRequest.setAggrCacheGB(0.5);
+  GTScanRequest scanRequest=new GTScanRequest(INFO,null,new ImmutableBitSet(0,3),new ImmutableBitSet(0,3),new ImmutableBitSet(3,6),new String[]{"SUM","SUM","COUNT_DISTINCT"},null,true,0.5);
   GTAggregateScanner scanner=new GTAggregateScanner(inputScanner,scanRequest);
   int count=0;
   for (  GTRecord record : scanner) {

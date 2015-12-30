@@ -1,0 +1,7 @@
+{
+  GTInfo info=UnitTestSupport.advancedInfo();
+  GTInfo.serializer.serialize(info,buffer);
+  buffer.flip();
+  GTInfo sInfo=GTInfo.serializer.deserialize(buffer);
+  this.compareTwoGTInfo(info,sInfo);
+}

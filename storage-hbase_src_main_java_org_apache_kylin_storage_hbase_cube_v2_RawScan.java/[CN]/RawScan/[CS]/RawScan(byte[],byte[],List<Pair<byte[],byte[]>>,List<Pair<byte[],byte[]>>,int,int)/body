@@ -2,7 +2,7 @@
   this.startKey=startKey;
   this.endKey=endKey;
   this.hbaseColumns=hbaseColumns;
-  this.fuzzyKey=fuzzyKey;
+  this.fuzzyKeys=fuzzyKeys;
   this.hbaseCaching=hbaseCaching;
   this.hbaseMaxResultSize=hbaseMaxResultSize;
 }

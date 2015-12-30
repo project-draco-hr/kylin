@@ -1,6 +1,6 @@
 byte[] startKey
 byte[] endKey
 List<Pair<byte[],byte[]>> hbaseColumns
-List<Pair<byte[],byte[]>> fuzzyKey
+List<Pair<byte[],byte[]>> fuzzyKeys
 int hbaseCaching
 int hbaseMaxResultSize

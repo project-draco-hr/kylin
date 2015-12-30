@@ -1,6 +1,0 @@
-{
-  this.info=info;
-  this.dependentMetricsMap=dependentMetricsMap;
-  this.serializers=serializers;
-  this.comparator=comparator;
-}

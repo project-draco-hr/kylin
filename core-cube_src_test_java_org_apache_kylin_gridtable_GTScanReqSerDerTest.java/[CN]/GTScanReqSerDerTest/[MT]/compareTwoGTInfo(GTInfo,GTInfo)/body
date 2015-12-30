@@ -1,0 +1,12 @@
+{
+  Assert.assertEquals(info.tableName,sInfo.tableName);
+  Assert.assertEquals(info.primaryKey,sInfo.primaryKey);
+  for (int i=0; i < info.colTypes.length; i++) {
+    Assert.assertEquals(info.codeSystem.maxCodeLength(i),sInfo.codeSystem.maxCodeLength(i));
+    Assert.assertTrue(info.codeSystem.maxCodeLength(i) > 0);
+    Assert.assertEquals(info.colRef(i),sInfo.colRef(i));
+  }
+  Assert.assertArrayEquals(info.colBlocks,sInfo.colBlocks);
+  Assert.assertEquals(info.getRowBlockSize(),sInfo.getRowBlockSize());
+  Assert.assertEquals(info.rowBlockSize,sInfo.rowBlockSize);
+}

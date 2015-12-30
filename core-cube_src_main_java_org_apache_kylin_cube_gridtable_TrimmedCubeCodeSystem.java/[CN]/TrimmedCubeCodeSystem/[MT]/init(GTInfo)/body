@@ -1,2 +1,16 @@
 {
+  this.info=info;
+  serializers=new DataTypeSerializer[info.getColumnCount()];
+  for (int i=0; i < info.getColumnCount(); i++) {
+    if (dictSizes.get(i) != null) {
+      serializers[i]=new CubeCodeSystem.TrimmedDictionarySerializer(dictSizes.get(i));
+    }
+ else     if (fixedLengthSize.get(i) != null) {
+      serializers[i]=new FixLenSerializer(fixedLengthSize.get(i));
+    }
+ else {
+      serializers[i]=DataTypeSerializer.create(info.getColumnType(i));
+    }
+  }
+  this.comparator=new DefaultGTComparator();
 }
