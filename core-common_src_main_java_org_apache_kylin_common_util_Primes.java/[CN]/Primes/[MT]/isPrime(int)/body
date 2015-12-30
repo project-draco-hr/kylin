@@ -1,0 +1,11 @@
+{
+  if (n < 2) {
+    return false;
+  }
+  for (  int p : PRIMES) {
+    if (0 == (n % p)) {
+      return n == p;
+    }
+  }
+  return millerRabinPrimeTest(n);
+}

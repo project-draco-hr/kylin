@@ -1,0 +1,32 @@
+{
+  if (n < 0) {
+    throw new IllegalArgumentException();
+  }
+  if (n == 2) {
+    return 2;
+  }
+  n|=1;
+  if (n == 1) {
+    return 2;
+  }
+  if (isPrime(n)) {
+    return n;
+  }
+  final int rem=n % 3;
+  if (0 == rem) {
+    n+=2;
+  }
+ else   if (1 == rem) {
+    n+=4;
+  }
+  while (true) {
+    if (isPrime(n)) {
+      return n;
+    }
+    n+=2;
+    if (isPrime(n)) {
+      return n;
+    }
+    n+=4;
+  }
+}

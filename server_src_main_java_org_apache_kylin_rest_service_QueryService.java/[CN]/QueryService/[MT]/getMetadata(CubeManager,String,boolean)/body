@@ -2,7 +2,7 @@
   Connection conn=null;
   ResultSet columnMeta=null;
   List<TableMeta> tableMetas=null;
-  if (StringUtils.isNullOrEmpty(project)) {
+  if (StringUtils.isBlank(project)) {
     return Collections.emptyList();
   }
   try {
