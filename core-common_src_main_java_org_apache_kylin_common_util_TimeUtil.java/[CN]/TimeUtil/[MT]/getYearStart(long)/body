@@ -1,0 +1,8 @@
+{
+  Calendar calendar=Calendar.getInstance(gmt);
+  calendar.setTimeInMillis(ts);
+  int year=calendar.get(Calendar.YEAR);
+  calendar.clear();
+  calendar.set(year,0,1);
+  return calendar.getTimeInMillis();
+}

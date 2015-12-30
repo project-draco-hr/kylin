@@ -1,0 +1,6 @@
+{
+  Calendar calendar=Calendar.getInstance(gmt);
+  calendar.setTimeInMillis(getDayStart(ts));
+  calendar.add(Calendar.DAY_OF_WEEK,calendar.getFirstDayOfWeek() - calendar.get(Calendar.DAY_OF_WEEK));
+  return calendar.getTimeInMillis();
+}

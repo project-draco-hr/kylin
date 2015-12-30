@@ -1,3 +1,0 @@
-{
-  return ((ts + period - 1) / period) * period;
-}

@@ -10,19 +10,36 @@
       t=Long.valueOf(tsStr);
     }
     ArrayList<String> result=Lists.newArrayList();
+    long normalized=0;
     for (    TblColRef column : allColumns) {
       String columnName=column.getName();
       if (columnName.equalsIgnoreCase("minute_start")) {
-        long minuteStart=TimeUtil.getMinuteStart(t);
-        result.add(formatTs ? DateFormat.formatToTimeStr(minuteStart) : String.valueOf(minuteStart));
+        normalized=TimeUtil.getMinuteStart(t);
+        result.add(formatTs ? DateFormat.formatToTimeStr(normalized) : String.valueOf(normalized));
       }
  else       if (columnName.equalsIgnoreCase("hour_start")) {
-        long hourStart=TimeUtil.getHourStart(t);
-        result.add(formatTs ? DateFormat.formatToTimeStr(hourStart) : String.valueOf(hourStart));
+        normalized=TimeUtil.getHourStart(t);
+        result.add(formatTs ? DateFormat.formatToTimeStr(normalized) : String.valueOf(normalized));
       }
  else       if (columnName.equalsIgnoreCase("day_start")) {
-        long ts=TimeUtil.getDayStart(t);
-        result.add(DateFormat.formatToDateStr(ts));
+        normalized=TimeUtil.getDayStart(t);
+        result.add(formatTs ? DateFormat.formatToDateStr(normalized) : String.valueOf(normalized));
+      }
+ else       if (columnName.equalsIgnoreCase("week_start")) {
+        normalized=TimeUtil.getWeekStart(t);
+        result.add(formatTs ? DateFormat.formatToDateStr(normalized) : String.valueOf(normalized));
+      }
+ else       if (columnName.equalsIgnoreCase("month_start")) {
+        normalized=TimeUtil.getMonthStart(t);
+        result.add(formatTs ? DateFormat.formatToDateStr(normalized) : String.valueOf(normalized));
+      }
+ else       if (columnName.equalsIgnoreCase("quarter_start")) {
+        normalized=TimeUtil.getQuarterStart(t);
+        result.add(formatTs ? DateFormat.formatToDateStr(normalized) : String.valueOf(normalized));
+      }
+ else       if (columnName.equalsIgnoreCase("year_start")) {
+        normalized=TimeUtil.getYearStart(t);
+        result.add(formatTs ? DateFormat.formatToDateStr(normalized) : String.valueOf(normalized));
       }
  else {
         String x=root.get(columnName.toLowerCase());
