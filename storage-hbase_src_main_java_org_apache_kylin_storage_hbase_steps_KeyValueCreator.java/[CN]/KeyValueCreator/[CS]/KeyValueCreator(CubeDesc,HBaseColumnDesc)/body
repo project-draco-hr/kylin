@@ -1,7 +1,7 @@
 {
   cfBytes=Bytes.toBytes(colDesc.getColumnFamilyName());
   qBytes=Bytes.toBytes(colDesc.getQualifier());
-  timestamp=System.currentTimeMillis();
+  timestamp=0;
   refIndex=colDesc.getMeasureIndex();
   refMeasures=colDesc.getMeasures();
   codec=new MeasureCodec(refMeasures);
