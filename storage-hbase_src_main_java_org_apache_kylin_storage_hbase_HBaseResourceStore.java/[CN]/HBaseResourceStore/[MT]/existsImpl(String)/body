@@ -1,4 +1,4 @@
 {
-  Result r=getByScan(resPath,false,false);
+  Result r=getFromHTable(resPath,false,false);
   return r != null;
 }

@@ -1,0 +1,19 @@
+{
+  byte[] rowkey=Bytes.toBytes(path);
+  Get get=new Get(rowkey);
+  if (!fetchContent && !fetchTimestamp) {
+    get.setCheckExistenceOnly(true);
+  }
+ else {
+    if (fetchContent)     get.addColumn(B_FAMILY,B_COLUMN);
+    if (fetchTimestamp)     get.addColumn(B_FAMILY,B_COLUMN_TS);
+  }
+  HTableInterface table=getConnection().getTable(getAllInOneTableName());
+  try {
+    Result result=table.get(get);
+    return result == null || result.isEmpty() ? null : result;
+  }
+  finally {
+    IOUtils.closeQuietly(table);
+  }
+}

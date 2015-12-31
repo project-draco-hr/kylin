@@ -1,5 +1,5 @@
 {
-  Result r=getByScan(resPath,true,true);
+  Result r=getFromHTable(resPath,true,true);
   if (r == null)   return null;
  else   return new RawResource(getInputStream(resPath,r),getTimestamp(r));
 }
