@@ -5,7 +5,7 @@
   }
  catch (  Exception e) {
     e.printStackTrace();
-    System.out.println("Failed to resolve cardinality for " + tableName + " from "+ outPath);
+    logger.info("Failed to resolve cardinality for " + tableName + " from "+ outPath);
     return;
   }
   StringBuffer cardi=new StringBuffer();
@@ -14,7 +14,7 @@
     String string=(String)it.next();
     String[] ss=StringUtils.split(string,"\t");
     if (ss.length != 2) {
-      System.out.println("The hadoop cardinality value is not valid " + string);
+      logger.info("The hadoop cardinality value is not valid " + string);
       continue;
     }
     cardi.append(ss[1]);

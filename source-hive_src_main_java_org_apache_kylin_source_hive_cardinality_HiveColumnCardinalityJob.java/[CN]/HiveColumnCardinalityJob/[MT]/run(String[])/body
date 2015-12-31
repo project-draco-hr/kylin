@@ -5,7 +5,7 @@
     options.addOption(OPTION_OUTPUT_PATH);
     parseOptions(options,args);
     String jobName=JOB_TITLE + getOptionsAsString();
-    System.out.println("Starting: " + jobName);
+    logger.info("Starting: " + jobName);
     Configuration conf=getConf();
     job=Job.getInstance(conf,jobName);
     setJobClasspath(job);
@@ -25,7 +25,7 @@
     job.setOutputValueClass(LongWritable.class);
     job.setNumReduceTasks(1);
     this.deletePath(job.getConfiguration(),output);
-    System.out.println("Going to submit HiveColumnCardinalityJob for table '" + table + "'");
+    logger.info("Going to submit HiveColumnCardinalityJob for table '" + table + "'");
     int result=waitForCompletion(job);
     return result;
   }

@@ -6,7 +6,7 @@
     parseOptions(options,args);
     this.table=getOptionValue(OPTION_TABLE).toUpperCase();
     String jobName=JOB_TITLE + getOptionsAsString();
-    System.out.println("Starting: " + jobName);
+    logger.info("Starting: " + jobName);
     Configuration conf=getConf();
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
     updateKylinTableExd(table.toUpperCase(),output.toString(),conf);

@@ -8,7 +8,7 @@
     job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
     String iiname=getOptionValue(OPTION_II_NAME);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
-    System.out.println("Starting: " + job.getJobName());
+    logger.info("Starting: " + job.getJobName());
     IIInstance ii=getII(iiname);
     short sharding=ii.getDescriptor().getSharding();
     setJobClasspath(job);
