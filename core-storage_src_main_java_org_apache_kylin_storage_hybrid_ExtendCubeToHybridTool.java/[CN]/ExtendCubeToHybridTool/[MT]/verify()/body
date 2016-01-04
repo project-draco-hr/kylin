@@ -1,0 +1,10 @@
+{
+  CubeDescManager.clearCache();
+  CubeDescManager.getInstance(kylinConfig);
+  CubeManager.clearCache();
+  CubeManager.getInstance(kylinConfig);
+  ProjectManager.clearCache();
+  ProjectManager.getInstance(kylinConfig);
+  HybridManager.clearCache();
+  HybridManager.getInstance(kylinConfig);
+}

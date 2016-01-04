@@ -1,0 +1,7 @@
+{
+  this.kylinConfig=KylinConfig.getInstanceFromEnv();
+  this.store=ResourceStore.getStore(kylinConfig);
+  this.cubeManager=CubeManager.getInstance(kylinConfig);
+  this.cubeDescManager=CubeDescManager.getInstance(kylinConfig);
+  this.metadataManager=MetadataManager.getInstance(kylinConfig);
+}

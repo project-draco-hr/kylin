@@ -1,0 +1,3 @@
+KylinConfig config
+String name
+List<RealizationEntry> realizationEntries

@@ -1,0 +1,19 @@
+{
+  if (args.length != 2 && args.length != 3) {
+    System.out.println("Usage: ExtendCubeToHybridTool project cube [partition_date]");
+    return;
+  }
+  ExtendCubeToHybridTool tool=new ExtendCubeToHybridTool();
+  String projectName=args[0];
+  String cubeName=args[1];
+  String partitionDate=args.length == 3 ? args[2] : null;
+  try {
+    tool.createFromCube(projectName,cubeName,partitionDate);
+    tool.verify();
+    logger.info("Job Finished.");
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    logger.error("Job Aborted.",e.getMessage());
+  }
+}

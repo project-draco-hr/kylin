@@ -1,0 +1,60 @@
+{
+  logger.info("Create hybrid for cube[" + cubeName + "], project["+ projectName+ "], partition_date["+ partitionDateStr+ "].");
+  CubeInstance cubeInstance=cubeManager.getCube(cubeName);
+  if (!validateCubeInstance(cubeInstance)) {
+    return;
+  }
+  CubeDesc cubeDesc=cubeDescManager.getCubeDesc(cubeInstance.getDescName());
+  DataModelDesc dataModelDesc=metadataManager.getDataModelDesc(cubeDesc.getModelName());
+  String owner=cubeInstance.getOwner();
+  String dateFormat=dataModelDesc.getPartitionDesc().getPartitionDateFormat();
+  long partitionDate=partitionDateStr != null ? DateFormat.stringToMillis(partitionDateStr,dateFormat) : 0;
+  String newCubeDescName=rename(cubeDesc.getName());
+  String newCubeInstanceName=rename(cubeInstance.getName());
+  while (cubeDescManager.getCubeDesc(newCubeDescName) != null)   newCubeDescName=rename(newCubeDescName);
+  while (cubeManager.getCube(newCubeInstanceName) != null)   newCubeInstanceName=rename(newCubeInstanceName);
+  CubeInstance newCubeInstance=CubeInstance.getCopyOf(cubeInstance);
+  newCubeInstance.setName(newCubeInstanceName);
+  newCubeInstance.setDescName(newCubeDescName);
+  newCubeInstance.updateRandomUuid();
+  Iterator<CubeSegment> segmentIterator=newCubeInstance.getSegments().iterator();
+  CubeSegment currentSeg=null;
+  while (segmentIterator.hasNext()) {
+    currentSeg=segmentIterator.next();
+    if (partitionDateStr != null && (currentSeg.getDateRangeStart() >= partitionDate || currentSeg.getDateRangeEnd() > partitionDate)) {
+      segmentIterator.remove();
+      logger.info("CubeSegment[" + currentSeg + "] was removed.");
+    }
+  }
+  if (partitionDateStr != null && partitionDate != currentSeg.getDateRangeEnd()) {
+    logger.error("PartitionDate must be end date of one segment.");
+    return;
+  }
+  if (currentSeg != null && partitionDateStr == null)   partitionDate=currentSeg.getDateRangeEnd();
+  cubeManager.createCube(newCubeInstance,projectName,owner);
+  logger.info("CubeInstance was saved at: " + newCubeInstance.getResourcePath());
+  CubeDesc newCubeDesc=CubeDesc.getCopyOf(cubeDesc);
+  newCubeDesc.setName(newCubeDescName);
+  newCubeDesc.updateRandomUuid();
+  newCubeDesc.init(kylinConfig,metadataManager.getAllTablesMap());
+  newCubeDesc.setPartitionDateEnd(partitionDate);
+  newCubeDesc.calculateSignature();
+  cubeDescManager.createCubeDesc(newCubeDesc);
+  logger.info("CubeDesc was saved at: " + newCubeDesc.getResourcePath());
+  cubeDesc.setPartitionDateStart(partitionDate);
+  cubeDesc.setEngineType(IEngineAware.ID_MR_V2);
+  cubeDesc.setStorageType(IStorageAware.ID_SHARDED_HBASE);
+  cubeDesc.calculateSignature();
+  cubeDescManager.updateCubeDesc(cubeDesc);
+  logger.info("CubeDesc was saved at: " + cubeDesc.getResourcePath());
+  cubeInstance.setSegments(new ArrayList<CubeSegment>());
+  store.putResource(cubeInstance.getResourcePath(),cubeInstance,CubeManager.CUBE_SERIALIZER);
+  logger.info("CubeInstance was saved at: " + cubeInstance.getResourcePath());
+  List<RealizationEntry> realizationEntries=Lists.newArrayListWithCapacity(2);
+  realizationEntries.add(RealizationEntry.create(RealizationType.CUBE,cubeInstance.getName()));
+  realizationEntries.add(RealizationEntry.create(RealizationType.CUBE,newCubeInstance.getName()));
+  HybridInstance hybridInstance=HybridInstance.create(kylinConfig,cubeInstance.getName(),realizationEntries);
+  store.putResource(hybridInstance.getResourcePath(),hybridInstance,HybridManager.HYBRID_SERIALIZER);
+  ProjectManager.getInstance(kylinConfig).moveRealizationToProject(RealizationType.HYBRID,hybridInstance.getName(),projectName,owner);
+  logger.info("HybridInstance was saved at: " + hybridInstance.getResourcePath());
+}

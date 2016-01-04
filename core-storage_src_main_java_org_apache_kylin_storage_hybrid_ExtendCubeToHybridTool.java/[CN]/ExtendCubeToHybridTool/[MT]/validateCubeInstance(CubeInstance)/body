@@ -1,0 +1,11 @@
+{
+  if (cubeInstance == null) {
+    logger.error("This cube does not exist.");
+    return false;
+  }
+  if (cubeInstance.getSegments().isEmpty()) {
+    logger.error("No segments in this cube, no need to extend.");
+    return false;
+  }
+  return true;
+}

@@ -1,0 +1,6 @@
+{
+  RealizationEntry entry=new RealizationEntry();
+  entry.setRealization(realization);
+  entry.setType(type);
+  return entry;
+}
