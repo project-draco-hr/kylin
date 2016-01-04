@@ -2,6 +2,10 @@
   if (dataType.isDatetime() || dataType.isTime()) {
     throw new RuntimeException("Datetime and time type are not supported yet");
   }
+  if (DateFormat.isSupportedDateFormat(dateStr)) {
+    return dateStr;
+  }
+  long millis=Long.valueOf(dateStr);
   if (dataType.isTimestamp()) {
     return DateFormat.formatToTimeStr(millis);
   }

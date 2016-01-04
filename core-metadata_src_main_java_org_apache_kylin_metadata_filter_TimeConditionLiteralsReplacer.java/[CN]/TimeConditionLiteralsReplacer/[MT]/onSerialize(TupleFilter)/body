@@ -18,7 +18,7 @@
     Set<String> newValues=Sets.newHashSet();
     DataType columnType=dateCompareTupleChildren.get(filter);
     for (    String value : (Collection<String>)constantTupleFilter.getValues()) {
-      newValues.add(formatTime(Long.valueOf(value),columnType));
+      newValues.add(formatTime(value,columnType));
     }
     return new ConstantTupleFilter(newValues);
   }

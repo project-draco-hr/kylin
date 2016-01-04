@@ -1,2 +1,2 @@
-long millis
+String dateStr
 DataType dataType
