@@ -22,11 +22,6 @@
   signature.setSize(totalSize);
   signature.setLastModifiedTime(System.currentTimeMillis());
   signature.setPath("merged_with_no_original_path");
-  String dupDict=checkDupByInfo(newDictInfo);
-  if (dupDict != null) {
-    logger.info("Identical dictionary input " + newDictInfo.getInput() + ", reuse existing dictionary at "+ dupDict);
-    return getDictionaryInfo(dupDict);
-  }
   boolean identicalSourceDicts=true;
   for (int i=1; i < dicts.size(); ++i) {
     if (!dicts.get(0).getDictionaryObject().equals(dicts.get(i).getDictionaryObject())) {
