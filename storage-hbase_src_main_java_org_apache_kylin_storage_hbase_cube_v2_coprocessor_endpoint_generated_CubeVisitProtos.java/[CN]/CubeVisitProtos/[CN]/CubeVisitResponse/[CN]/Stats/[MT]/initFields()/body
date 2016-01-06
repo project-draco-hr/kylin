@@ -7,4 +7,5 @@
   freePhysicalMemorySize_=0D;
   freeSwapSpaceSize_=0D;
   hostname_="";
+  etcMsg_="";
 }

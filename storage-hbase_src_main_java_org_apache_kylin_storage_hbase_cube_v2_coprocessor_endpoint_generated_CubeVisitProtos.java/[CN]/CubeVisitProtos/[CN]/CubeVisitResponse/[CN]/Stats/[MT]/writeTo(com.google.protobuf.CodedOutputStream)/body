@@ -24,5 +24,8 @@
   if (((bitField0_ & 0x00000080) == 0x00000080)) {
     output.writeBytes(8,getHostnameBytes());
   }
+  if (((bitField0_ & 0x00000100) == 0x00000100)) {
+    output.writeBytes(9,getEtcMsgBytes());
+  }
   getUnknownFields().writeTo(output);
 }

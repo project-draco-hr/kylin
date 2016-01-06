@@ -34,6 +34,10 @@
     to_bitField0_|=0x00000080;
   }
   result.hostname_=hostname_;
+  if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+    to_bitField0_|=0x00000100;
+  }
+  result.etcMsg_=etcMsg_;
   result.bitField0_=to_bitField0_;
   onBuilt();
   return result;

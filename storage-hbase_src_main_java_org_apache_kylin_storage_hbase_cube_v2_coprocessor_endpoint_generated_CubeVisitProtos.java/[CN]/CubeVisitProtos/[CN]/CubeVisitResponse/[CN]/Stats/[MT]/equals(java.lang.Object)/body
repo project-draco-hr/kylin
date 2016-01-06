@@ -39,6 +39,10 @@
   if (hasHostname()) {
     result=result && getHostname().equals(other.getHostname());
   }
+  result=result && (hasEtcMsg() == other.hasEtcMsg());
+  if (hasEtcMsg()) {
+    result=result && getEtcMsg().equals(other.getEtcMsg());
+  }
   result=result && getUnknownFields().equals(other.getUnknownFields());
   return result;
 }

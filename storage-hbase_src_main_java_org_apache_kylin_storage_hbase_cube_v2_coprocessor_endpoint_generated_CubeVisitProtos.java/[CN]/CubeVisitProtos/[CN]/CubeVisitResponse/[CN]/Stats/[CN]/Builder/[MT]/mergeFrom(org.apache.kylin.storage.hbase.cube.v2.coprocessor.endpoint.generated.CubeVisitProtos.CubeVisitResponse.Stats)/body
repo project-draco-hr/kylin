@@ -26,6 +26,11 @@
     hostname_=other.hostname_;
     onChanged();
   }
+  if (other.hasEtcMsg()) {
+    bitField0_|=0x00000100;
+    etcMsg_=other.etcMsg_;
+    onChanged();
+  }
   this.mergeUnknownFields(other.getUnknownFields());
   return this;
 }
