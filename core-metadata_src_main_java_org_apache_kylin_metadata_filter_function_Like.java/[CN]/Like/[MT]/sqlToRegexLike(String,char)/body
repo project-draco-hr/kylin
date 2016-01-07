@@ -1,0 +1,35 @@
+{
+  int i;
+  final int len=sqlPattern.length();
+  final StringBuilder javaPattern=new StringBuilder(len + len);
+  for (i=0; i < len; i++) {
+    char c=sqlPattern.charAt(i);
+    if (JAVA_REGEX_SPECIALS.indexOf(c) >= 0) {
+      javaPattern.append('\\');
+    }
+    if (c == escapeChar) {
+      if (i == (sqlPattern.length() - 1)) {
+        throw invalidEscapeSequence(sqlPattern,i);
+      }
+      char nextChar=sqlPattern.charAt(i + 1);
+      if ((nextChar == '_') || (nextChar == '%') || (nextChar == escapeChar)) {
+        javaPattern.append(nextChar);
+        i++;
+      }
+ else {
+        throw invalidEscapeSequence(sqlPattern,i);
+      }
+    }
+ else     if (c == '_') {
+      javaPattern.append('.');
+    }
+ else     if (c == '%') {
+      javaPattern.append(".");
+      javaPattern.append('*');
+    }
+ else {
+      javaPattern.append(c);
+    }
+  }
+  return javaPattern.toString();
+}

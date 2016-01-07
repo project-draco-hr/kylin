@@ -1,0 +1,57 @@
+{
+  if (compTupleFilter.getFunction() == null)   return null;
+  FunctionTupleFilter functionTupleFilter=compTupleFilter.getFunction();
+  if (!functionTupleFilter.isValid())   return null;
+  TblColRef columnRef=functionTupleFilter.getColumn();
+  Dictionary<?> dict=dictionaryAware.getDictionary(columnRef);
+  if (dict == null)   return null;
+  CompareTupleFilter translated=new CompareTupleFilter(FilterOperatorEnum.IN);
+  translated.addChild(new ColumnTupleFilter(columnRef));
+  try {
+    for (int i=dict.getMinId(); i <= dict.getMaxId(); i++) {
+      Object dictVal=dict.getValueFromId(i);
+      Object computedVal=functionTupleFilter.invokeFunction(dictVal);
+      Class clazz=Primitives.wrap(computedVal.getClass());
+      Object targetVal=compTupleFilter.getFirstValue();
+      if (Primitives.isWrapperType(clazz))       targetVal=clazz.cast(clazz.getDeclaredMethod("valueOf",String.class).invoke(null,compTupleFilter.getFirstValue()));
+      int comp=((Comparable)computedVal).compareTo(targetVal);
+      boolean compResult=false;
+switch (compTupleFilter.getOperator()) {
+case EQ:
+        compResult=comp == 0;
+      break;
+case NEQ:
+    compResult=comp != 0;
+  break;
+case LT:
+compResult=comp < 0;
+break;
+case LTE:
+compResult=comp <= 0;
+break;
+case GT:
+compResult=comp > 0;
+break;
+case GTE:
+compResult=comp >= 0;
+break;
+case IN:
+compResult=compTupleFilter.getValues().contains(computedVal.toString());
+break;
+case NOTIN:
+compResult=!compTupleFilter.getValues().contains(computedVal.toString());
+break;
+default :
+break;
+}
+if (compResult) {
+translated.addChild(new ConstantTupleFilter(dictVal));
+}
+}
+}
+ catch (Exception e) {
+logger.debug(e.getMessage());
+return null;
+}
+return translated;
+}

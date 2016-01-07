@@ -1,0 +1,8 @@
+{
+  super(Lists.<TupleFilter>newArrayList(),FilterOperatorEnum.FUNCTION);
+  this.methodParams=Lists.newArrayList();
+  if (name != null) {
+    this.name=name.toUpperCase();
+    initMethod();
+  }
+}

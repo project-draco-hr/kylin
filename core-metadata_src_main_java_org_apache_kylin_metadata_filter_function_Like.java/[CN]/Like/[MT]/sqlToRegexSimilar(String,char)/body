@@ -1,0 +1,63 @@
+{
+  similarEscapeRuleChecking(sqlPattern,escapeChar);
+  boolean insideCharacterEnumeration=false;
+  final StringBuilder javaPattern=new StringBuilder(sqlPattern.length() * 2);
+  final int len=sqlPattern.length();
+  for (int i=0; i < len; i++) {
+    char c=sqlPattern.charAt(i);
+    if (c == escapeChar) {
+      if (i == (len - 1)) {
+        throw invalidEscapeSequence(sqlPattern,i);
+      }
+      char nextChar=sqlPattern.charAt(i + 1);
+      if (SQL_SIMILAR_SPECIALS.indexOf(nextChar) >= 0) {
+        if (JAVA_REGEX_SPECIALS.indexOf(nextChar) >= 0) {
+          javaPattern.append('\\');
+        }
+        javaPattern.append(nextChar);
+      }
+ else       if (nextChar == escapeChar) {
+        javaPattern.append(nextChar);
+      }
+ else {
+        throw invalidEscapeSequence(sqlPattern,i);
+      }
+      i++;
+    }
+ else {
+switch (c) {
+case '_':
+        javaPattern.append('.');
+      break;
+case '%':
+    javaPattern.append('.');
+  javaPattern.append('*');
+break;
+case '[':
+javaPattern.append('[');
+insideCharacterEnumeration=true;
+i=sqlSimilarRewriteCharEnumeration(sqlPattern,javaPattern,i,escapeChar);
+break;
+case ']':
+if (!insideCharacterEnumeration) {
+throw invalidRegularExpression(sqlPattern,i);
+}
+insideCharacterEnumeration=false;
+javaPattern.append(']');
+break;
+case '\\':
+javaPattern.append("\\\\");
+break;
+case '$':
+javaPattern.append("\\$");
+break;
+default :
+javaPattern.append(c);
+}
+}
+}
+if (insideCharacterEnumeration) {
+throw invalidRegularExpression(sqlPattern,len);
+}
+return javaPattern.toString();
+}

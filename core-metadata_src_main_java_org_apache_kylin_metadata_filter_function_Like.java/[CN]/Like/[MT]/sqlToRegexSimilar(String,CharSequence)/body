@@ -1,0 +1,13 @@
+{
+  final char escapeChar;
+  if (escapeStr != null) {
+    if (escapeStr.length() != 1) {
+      throw invalidEscapeCharacter(escapeStr.toString());
+    }
+    escapeChar=escapeStr.charAt(0);
+  }
+ else {
+    escapeChar=0;
+  }
+  return sqlToRegexSimilar(sqlPattern,escapeChar);
+}

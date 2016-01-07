@@ -1,0 +1,53 @@
+{
+  int i;
+  for (i=pos + 1; i < sqlPattern.length(); i++) {
+    char c=sqlPattern.charAt(i);
+    if (c == ']') {
+      return i - 1;
+    }
+ else     if (c == escapeChar) {
+      i++;
+      char nextChar=sqlPattern.charAt(i);
+      if (SQL_SIMILAR_SPECIALS.indexOf(nextChar) >= 0) {
+        if (JAVA_REGEX_SPECIALS.indexOf(nextChar) >= 0) {
+          javaPattern.append('\\');
+        }
+        javaPattern.append(nextChar);
+      }
+ else       if (escapeChar == nextChar) {
+        javaPattern.append(nextChar);
+      }
+ else {
+        throw invalidRegularExpression(sqlPattern,i);
+      }
+    }
+ else     if (c == '-') {
+      javaPattern.append('-');
+    }
+ else     if (c == '^') {
+      javaPattern.append('^');
+    }
+ else     if (sqlPattern.startsWith("[:",i)) {
+      int numOfRegCharSets=REG_CHAR_CLASSES.length / 2;
+      boolean found=false;
+      for (int j=0; j < numOfRegCharSets; j++) {
+        if (sqlPattern.startsWith(REG_CHAR_CLASSES[j + j],i)) {
+          javaPattern.append(REG_CHAR_CLASSES[j + j + 1]);
+          i+=REG_CHAR_CLASSES[j + j].length() - 1;
+          found=true;
+          break;
+        }
+      }
+      if (!found) {
+        throw invalidRegularExpression(sqlPattern,i);
+      }
+    }
+ else     if (SQL_SIMILAR_SPECIALS.indexOf(c) >= 0) {
+      throw invalidRegularExpression(sqlPattern,i);
+    }
+ else {
+      javaPattern.append(c);
+    }
+  }
+  return i - 1;
+}

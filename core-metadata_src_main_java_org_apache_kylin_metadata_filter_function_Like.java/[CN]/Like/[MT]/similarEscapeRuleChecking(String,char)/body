@@ -1,0 +1,28 @@
+{
+  if (escapeChar == 0) {
+    return;
+  }
+  if (SQL_SIMILAR_SPECIALS.indexOf(escapeChar) >= 0) {
+    for (int i=0; i < sqlPattern.length(); i++) {
+      if (sqlPattern.charAt(i) == escapeChar) {
+        if (i == (sqlPattern.length() - 1)) {
+          throw invalidEscapeSequence(sqlPattern,i);
+        }
+        char c=sqlPattern.charAt(i + 1);
+        if ((SQL_SIMILAR_SPECIALS.indexOf(c) < 0) && (c != escapeChar)) {
+          throw invalidEscapeSequence(sqlPattern,i);
+        }
+      }
+    }
+  }
+  if (escapeChar == ':') {
+    int position;
+    position=sqlPattern.indexOf("[:");
+    if (position >= 0) {
+      position=sqlPattern.indexOf(":]");
+    }
+    if (position < 0) {
+      throw invalidEscapeSequence(sqlPattern,position);
+    }
+  }
+}

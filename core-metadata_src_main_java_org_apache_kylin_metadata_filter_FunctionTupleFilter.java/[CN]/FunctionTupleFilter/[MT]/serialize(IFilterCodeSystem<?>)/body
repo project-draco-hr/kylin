@@ -1,0 +1,10 @@
+{
+  ByteBuffer buffer=ByteBuffer.allocate(BUFFER_SIZE);
+  BytesUtil.writeUTFString(name,buffer);
+  BytesUtil.writeVInt(colPosition,buffer);
+  BytesUtil.writeVInt(isValid ? 1 : 0,buffer);
+  BytesUtil.writeByteArray(TupleFilterSerializer.serialize(columnContainerFilter,cs),buffer);
+  byte[] result=new byte[buffer.position()];
+  System.arraycopy(buffer.array(),0,result,0,buffer.position());
+  return result;
+}

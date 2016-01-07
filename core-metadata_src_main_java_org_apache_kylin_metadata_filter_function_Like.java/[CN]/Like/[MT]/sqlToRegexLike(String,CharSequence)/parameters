@@ -1,0 +1,2 @@
+String sqlPattern
+CharSequence escapeStr

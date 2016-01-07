@@ -1,5 +1,7 @@
 {
   if (filter == null)   return null;
+  ITupleFilterTranslator translator=new TupleFilterDictionaryTranslater(columnIO.getIDictionaryAware());
+  filter=translator.translate(filter);
   if (!filter.isEvaluable()) {
     TupleFilter.collectColumns(filter,inevaluableColumns);
     return ConstantTupleFilter.TRUE;

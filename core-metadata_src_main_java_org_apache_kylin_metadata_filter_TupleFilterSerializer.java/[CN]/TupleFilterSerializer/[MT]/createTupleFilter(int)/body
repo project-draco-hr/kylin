@@ -36,6 +36,9 @@ break;
 case DYNAMIC:
 filter=new DynamicTupleFilter(null);
 break;
+case FUNCTION:
+filter=new FunctionTupleFilter(null);
+break;
 default :
 throw new IllegalStateException("Error FilterOperatorEnum: " + op.getValue());
 }

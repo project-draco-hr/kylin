@@ -1,0 +1,4 @@
+String sqlPattern
+StringBuilder javaPattern
+int pos
+char escapeChar
