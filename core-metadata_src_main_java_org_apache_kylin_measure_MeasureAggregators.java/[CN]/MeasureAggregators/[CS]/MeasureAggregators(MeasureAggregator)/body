@@ -1,0 +1,4 @@
+{
+  this.descLength=aggs.length;
+  this.aggs=aggs;
+}

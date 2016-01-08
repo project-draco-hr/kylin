@@ -1,18 +1,26 @@
 {
   if (buffMap != null) {
-    Output output=null;
+    ObjectOutputStream oos=null;
+    Object[] aggrResult=null;
+    final ByteBuffer metricsBuf=ByteBuffer.allocate(info.getMaxColumnLength(metrics));
     try {
       dumpedFile=File.createTempFile("KYLIN_AGGR_",".tmp");
       logger.info("AggregationCache will dump to file: " + dumpedFile.getAbsolutePath());
-      output=new Output(new FileOutputStream(dumpedFile));
-      kryo.writeObject(output,buffMap.size());
+      oos=new ObjectOutputStream(new FileOutputStream(dumpedFile));
+      oos.writeInt(buffMap.size());
       for (      Entry<byte[],MeasureAggregator[]> entry : buffMap.entrySet()) {
-        kryo.writeObject(output,new Pair(entry.getKey(),entry.getValue()));
+        metricsBuf.clear();
+        MeasureAggregators aggs=new MeasureAggregators(entry.getValue());
+        aggrResult=new Object[metrics.trueBitCount()];
+        aggs.collectStates(aggrResult);
+        measureCodec.encode(aggrResult,metricsBuf);
+        oos.writeObject(entry.getKey());
+        oos.writeObject(metricsBuf.array());
       }
     }
   finally {
       buffMap=null;
-      if (output != null)       output.close();
+      if (oos != null)       oos.close();
     }
   }
 }

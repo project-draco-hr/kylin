@@ -1,7 +1,7 @@
 {
-  nMeasures=dataTypes.length;
-  serializers=new DataTypeSerializer[nMeasures];
-  for (int i=0; i < nMeasures; i++) {
-    serializers[i]=DataTypeSerializer.create(dataTypes[i]);
+  DataType[] typeInstances=new DataType[dataTypes.length];
+  for (int i=0; i < dataTypes.length; i++) {
+    typeInstances[i]=DataType.getType(dataTypes[i]);
   }
+  init(typeInstances);
 }

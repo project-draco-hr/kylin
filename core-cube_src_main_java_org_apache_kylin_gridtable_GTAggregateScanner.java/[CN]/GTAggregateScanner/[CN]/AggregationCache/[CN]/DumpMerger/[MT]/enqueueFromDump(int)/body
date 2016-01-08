@@ -1,7 +1,9 @@
 {
   if (dumpIterators.get(index) != null && dumpIterators.get(index).hasNext()) {
-    Pair<byte[],MeasureAggregator[]> entry=dumpIterators.get(index).next();
-    minHeap.offer(new Pair(entry.getKey(),index));
-    dumpCurrentValues.set(index,entry.getValue());
+    Pair<byte[],byte[]> pair=dumpIterators.get(index).next();
+    minHeap.offer(new Pair(pair.getKey(),index));
+    Object[] metricValues=new Object[metrics.trueBitCount()];
+    measureCodec.decode(ByteBuffer.wrap(pair.getValue()),metricValues);
+    dumpCurrentValues.set(index,metricValues);
   }
 }

@@ -7,18 +7,16 @@
 );
   dumpIterators=Lists.newArrayListWithCapacity(dumps.size());
   dumpCurrentValues=Lists.newArrayListWithCapacity(dumps.size());
-  Iterator<Pair<byte[],MeasureAggregator[]>> it;
+  Iterator<Pair<byte[],byte[]>> it;
   for (int i=0; i < dumps.size(); i++) {
     it=dumps.get(i).iterator();
+    dumpCurrentValues.add(i,null);
     if (it.hasNext()) {
       dumpIterators.add(i,it);
-      Pair<byte[],MeasureAggregator[]> entry=it.next();
-      minHeap.offer(new Pair(entry.getKey(),i));
-      dumpCurrentValues.add(i,entry.getValue());
+      enqueueFromDump(i);
     }
  else {
       dumpIterators.add(i,null);
-      dumpCurrentValues.add(i,null);
     }
   }
 }

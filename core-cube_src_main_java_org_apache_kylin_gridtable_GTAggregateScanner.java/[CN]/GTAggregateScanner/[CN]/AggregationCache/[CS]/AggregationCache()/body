@@ -3,4 +3,5 @@
   keyLength=compareMask.length;
   dumps=Lists.newArrayList();
   aggBufMap=createBuffMap();
+  measureCodec=createMeasureCodec();
 }

@@ -3,19 +3,19 @@
     @Override public boolean hasNext(){
       return !minHeap.isEmpty();
     }
-    @Override public Pair<byte[],MeasureAggregator[]> next(){
+    private void internalAggregate(){
       Pair<byte[],Integer> peekEntry=minHeap.poll();
-      MeasureAggregator[] mergedAggr=dumpCurrentValues.get(peekEntry.getValue());
+      resultAggrs.aggregate(dumpCurrentValues.get(peekEntry.getValue()));
       enqueueFromDump(peekEntry.getValue());
-      while (!minHeap.isEmpty() && bytesComparator.compare(peekEntry.getKey(),minHeap.peek().getKey()) == 0) {
-        Pair<byte[],Integer> newPeek=minHeap.poll();
-        MeasureAggregator[] newPeekAggr=dumpCurrentValues.get(newPeek.getValue());
-        for (int i=0; i < newPeekAggr.length; i++) {
-          if (aggrMask[i])           mergedAggr[i].aggregate(newPeekAggr[i].getState());
-        }
-        enqueueFromDump(newPeek.getValue());
+    }
+    @Override public Pair<byte[],MeasureAggregator[]> next(){
+      resultAggrs.reset();
+      byte[] peekKey=minHeap.peek().getKey();
+      internalAggregate();
+      while (!minHeap.isEmpty() && bytesComparator.compare(peekKey,minHeap.peek().getKey()) == 0) {
+        internalAggregate();
       }
-      return new Pair(peekEntry.getKey(),mergedAggr);
+      return new Pair(peekKey,resultMeasureAggregators);
     }
     @Override public void remove(){
       throw new UnsupportedOperationException();
