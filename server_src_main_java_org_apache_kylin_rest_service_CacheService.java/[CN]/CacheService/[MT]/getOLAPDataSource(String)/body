@@ -2,13 +2,11 @@
   project=ProjectInstance.getNormalizedProjectName(project);
   DataSource ret=olapDataSources.get(project);
   if (ret == null) {
-    logger.debug("Creating a new data source");
-    logger.debug("OLAP data source pointing to " + getConfig());
+    logger.debug("Creating a new data source, OLAP data source pointing to " + getConfig());
     File modelJson=OLAPSchemaFactory.createTempOLAPJson(project,getConfig());
     try {
-      List<String> text=Files.readLines(modelJson,Charset.defaultCharset());
-      logger.debug("The new temp olap json is :");
-      for (      String line : text)       logger.debug(line);
+      String text=FileUtils.readFileToString(modelJson);
+      logger.debug("The new temp olap json is :" + text);
     }
  catch (    IOException e) {
       e.printStackTrace();

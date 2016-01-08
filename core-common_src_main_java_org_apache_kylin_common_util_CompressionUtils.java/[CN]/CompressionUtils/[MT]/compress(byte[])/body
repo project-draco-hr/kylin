@@ -10,6 +10,6 @@
   }
   outputStream.close();
   byte[] output=outputStream.toByteArray();
-  logger.info("Original: " + data.length + " bytes. "+ "Compressed: "+ output.length+ " bytes ");
+  logger.debug("Original: " + data.length + " bytes. "+ "Compressed: "+ output.length+ " bytes ");
   return output;
 }

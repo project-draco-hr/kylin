@@ -21,6 +21,6 @@
   long timeSpent=System.currentTimeMillis() - startTime;
   logger.info("Cuboid " + baseCuboidId + " has "+ count+ " rows, build takes "+ timeSpent+ "ms");
   int mbEstimateBaseAggrCache=(int)(aggregationScanner.getEstimateSizeOfAggrCache() / MemoryBudgetController.ONE_MB);
-  logger.info("Wild esitmate of base aggr cache is " + mbEstimateBaseAggrCache + " MB");
+  logger.info("Wild estimate of base aggr cache is " + mbEstimateBaseAggrCache + " MB");
   return updateCuboidResult(baseCuboidId,baseCuboid,count,timeSpent,0);
 }

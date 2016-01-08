@@ -1,7 +1,0 @@
-{
-  for (int i=0; i < COMMON_DELIMS.length; i++) {
-    int nParts=split(array,arrayLen,(byte)COMMON_DELIMS[i]);
-    if (nParts == expectedParts)     return COMMON_DELIMS[i];
-  }
-  throw new RuntimeException("Cannot detect delimeter from first line -- " + Bytes.toString(array,0,arrayLen) + " -- expect "+ expectedParts+ " columns");
-}

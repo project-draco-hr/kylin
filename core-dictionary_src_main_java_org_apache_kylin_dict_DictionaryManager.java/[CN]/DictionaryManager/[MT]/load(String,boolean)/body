@@ -1,7 +1,5 @@
 {
   ResourceStore store=MetadataManager.getInstance(config).getStore();
-  logger.debug("Going to load DictionaryInfo from " + resourcePath);
   DictionaryInfo info=store.getResource(resourcePath,DictionaryInfo.class,loadDictObj ? DictionaryInfoSerializer.FULL_SERIALIZER : DictionaryInfoSerializer.INFO_SERIALIZER);
-  if (loadDictObj)   logger.debug("Loaded dictionary at " + resourcePath);
   return info;
 }
