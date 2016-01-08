@@ -1,0 +1,8 @@
+{
+  if (this.evaluate(null,null)) {
+    return ConstantTupleFilter.FALSE;
+  }
+ else {
+    return ConstantTupleFilter.TRUE;
+  }
+}

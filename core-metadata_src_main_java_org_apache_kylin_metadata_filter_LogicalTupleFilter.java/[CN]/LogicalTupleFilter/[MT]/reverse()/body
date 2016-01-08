@@ -1,13 +1,12 @@
 {
 switch (operator) {
 case NOT:
-    assert(children.size() == 1);
-  return children.get(0);
+    throw new IllegalStateException("not( not in ()) is invalid syntax");
 case AND:
 case OR:
-LogicalTupleFilter reverse=new LogicalTupleFilter(REVERSE_OP_MAP.get(operator));
+  LogicalTupleFilter reverse=new LogicalTupleFilter(REVERSE_OP_MAP.get(operator));
 for (TupleFilter child : children) {
-reverse.addChild(child.reverse());
+  reverse.addChild(child.reverse());
 }
 return reverse;
 default :
