@@ -1,4 +1,5 @@
 {
+  logger.info("Remvoing dict: " + resourcePath);
   ResourceStore store=MetadataManager.getInstance(config).getStore();
   store.deleteResource(resourcePath);
   dictCache.invalidate(resourcePath);
