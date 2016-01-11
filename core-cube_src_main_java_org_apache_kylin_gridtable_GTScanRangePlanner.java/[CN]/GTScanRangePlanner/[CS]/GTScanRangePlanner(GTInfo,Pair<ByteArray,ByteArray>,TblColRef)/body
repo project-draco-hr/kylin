@@ -1,7 +1,4 @@
 {
-  if (partitionColRef != null && segmentStartAndEnd == null) {
-    throw new IllegalArgumentException("segmentStartAndEnd not provided when partitionColRef is set to " + partitionColRef);
-  }
   this.info=info;
   this.segmentStartAndEnd=segmentStartAndEnd;
   this.partitionColRef=partitionColRef;
