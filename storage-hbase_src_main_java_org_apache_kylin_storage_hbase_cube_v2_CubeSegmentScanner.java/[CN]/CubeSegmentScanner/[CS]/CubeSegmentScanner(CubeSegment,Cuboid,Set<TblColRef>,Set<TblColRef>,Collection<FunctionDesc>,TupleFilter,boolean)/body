@@ -13,12 +13,15 @@
   GTScanRangePlanner scanRangePlanner;
   if (cubeSeg.getCubeDesc().getModel().getPartitionDesc().isPartitioned()) {
     TblColRef tblColRef=cubeSeg.getCubeDesc().getModel().getPartitionDesc().getPartitionDateColumnRef();
-    Pair<ByteArray,ByteArray> segmentStartAndEnd=null;
+    Pair<ByteArray,ByteArray> segmentStartAndEnd;
     int index=mapping.getIndexOf(tblColRef);
     if (index >= 0) {
-      segmentStartAndEnd=getSegmentStartAndEnd(tblColRef,index);
+      segmentStartAndEnd=getSegmentStartAndEnd(index);
     }
-    scanRangePlanner=new GTScanRangePlanner(info,segmentStartAndEnd,tblColRef);
+ else {
+      throw new IllegalStateException("Cannot found partition column on cuboid to gt mapping:" + tblColRef);
+    }
+    scanRangePlanner=new GTScanRangePlanner(info,segmentStartAndEnd,info.colRef(index));
   }
  else {
     scanRangePlanner=new GTScanRangePlanner(info,null,null);
