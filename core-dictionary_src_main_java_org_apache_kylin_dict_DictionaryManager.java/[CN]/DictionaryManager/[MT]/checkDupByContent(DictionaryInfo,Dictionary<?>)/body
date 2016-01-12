@@ -1,0 +1,16 @@
+{
+  ResourceStore store=MetadataManager.getInstance(config).getStore();
+  ArrayList<String> existings=store.listResources(dictInfo.getResourceDir());
+  if (existings == null)   return null;
+  logger.info("{} existing dictionaries of the same column",existings.size());
+  if (existings.size() > 100) {
+    logger.warn("Too many dictionaries under {}, dict count: {}",dictInfo.getResourceDir(),existings.size());
+  }
+  for (  String existing : existings) {
+    DictionaryInfo existingInfo=getDictionaryInfo(existing);
+    if (existingInfo != null && dict.equals(existingInfo.getDictionaryObject())) {
+      return existing;
+    }
+  }
+  return null;
+}

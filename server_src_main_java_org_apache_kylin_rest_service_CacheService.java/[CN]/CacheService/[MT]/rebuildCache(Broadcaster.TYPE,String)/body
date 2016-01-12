@@ -37,6 +37,7 @@ IIDescManager.clearCache();
 CubeDescManager.clearCache();
 break;
 case ALL:
+DictionaryManager.clearCache();
 MetadataManager.clearCache();
 CubeDescManager.clearCache();
 CubeManager.clearCache();
