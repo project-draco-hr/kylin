@@ -3,6 +3,9 @@
   Object[] key=new Object[keySize];
   for (int i=0; i < keySize; i++) {
     key[i]=row.get(intermediateTableDesc.getRowKeyColumnIndexes()[i]);
+    if (key[i] != null && isNull(Bytes.toBytes((String)key[i]))) {
+      key[i]=null;
+    }
   }
   return key;
 }

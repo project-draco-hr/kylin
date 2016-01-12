@@ -5,4 +5,5 @@
   this.measureDescs=cubeDesc.getMeasures().toArray(new MeasureDesc[measureCount]);
   this.measureIngesters=MeasureIngester.create(cubeDesc.getMeasures());
   this.dictionaryMap=dictionaryMap;
+  initNullBytes(cubeDesc);
 }
