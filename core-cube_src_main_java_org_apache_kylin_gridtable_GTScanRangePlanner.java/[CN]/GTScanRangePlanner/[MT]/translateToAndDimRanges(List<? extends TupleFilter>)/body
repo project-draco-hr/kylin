@@ -2,7 +2,12 @@
   Map<TblColRef,ColumnRange> rangeMap=new HashMap<TblColRef,ColumnRange>();
   for (  TupleFilter filter : andFilters) {
     if ((filter instanceof CompareTupleFilter) == false) {
-      continue;
+      if (filter instanceof ConstantTupleFilter && !filter.evaluate(null,null)) {
+        return null;
+      }
+ else {
+        continue;
+      }
     }
     CompareTupleFilter comp=(CompareTupleFilter)filter;
     if (comp.getColumn() == null) {

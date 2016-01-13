@@ -7,7 +7,9 @@
   for (  TupleFilter andFilter : flatFilter.getChildren()) {
     if (andFilter.getOperator() != FilterOperatorEnum.AND)     throw new IllegalStateException("Filter should be AND instead of " + andFilter);
     Collection<ColumnRange> andRanges=translateToAndDimRanges(andFilter.getChildren());
-    result.add(andRanges);
+    if (andRanges != null) {
+      result.add(andRanges);
+    }
   }
   return preEvaluateConstantConditions(result);
 }

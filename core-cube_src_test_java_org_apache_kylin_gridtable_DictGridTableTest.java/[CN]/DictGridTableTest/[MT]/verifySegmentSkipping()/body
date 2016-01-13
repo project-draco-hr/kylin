@@ -41,4 +41,21 @@
     assertEquals("[1421193600000, null]-[null, null]",r.get(0).toString());
     assertEquals(0,r.get(0).fuzzyKeys.size());
   }
+{
+    LogicalTupleFilter filter=and(ageComp1,ConstantTupleFilter.FALSE);
+    List<GTScanRange> r=planner.planScanRanges(filter);
+    assertEquals(0,r.size());
+  }
+{
+    LogicalTupleFilter filter=or(ConstantTupleFilter.TRUE,ConstantTupleFilter.FALSE);
+    List<GTScanRange> r=planner.planScanRanges(filter);
+    assertEquals(1,r.size());
+    assertEquals("[null, null]-[null, null]",r.get(0).toString());
+  }
+{
+    LogicalTupleFilter filter=or(ageComp1,ConstantTupleFilter.TRUE);
+    List<GTScanRange> r=planner.planScanRanges(filter);
+    assertEquals(1,r.size());
+    assertEquals("[null, null]-[null, null]",r.get(0).toString());
+  }
 }
