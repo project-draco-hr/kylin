@@ -1,13 +1,9 @@
 {
   List<String> result=Lists.newArrayList();
-  for (  String t : list) {
+  for (  String t : tableNames) {
     t=t.trim();
     if (t.endsWith(","))     t=t.substring(0,t.length() - 1);
-    if (t.equals("all")) {
-      result.addAll(tableNames);
-      break;
-    }
-    if (tableNames.contains(t)) {
+    if (allTableNames.contains(t)) {
       result.add(t);
     }
   }

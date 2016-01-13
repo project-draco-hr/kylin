@@ -7,11 +7,19 @@
   logger.info("Identify coprocessor jar " + localCoprocessorJar);
   List<String> tableNames=getHTableNames(kylinConfig);
   logger.info("Identify tables " + tableNames);
-  if (args.length == 1) {
-    logger.info("Probe run, existing. Append argument 'all' or specific tables to execute.");
-    System.exit(0);
+  if (args.length <= 1) {
+    printUsageAndExit();
   }
-  tableNames=filterTables(tableNames,Arrays.asList(args).subList(1,args.length));
+  String filterType=args[1].toLowerCase();
+  if (filterType.equals("-table")) {
+    tableNames=filterByTables(tableNames,Arrays.asList(args).subList(2,args.length));
+  }
+ else   if (filterType.equals("-cube")) {
+    tableNames=filterByCubes(tableNames,Arrays.asList(args).subList(2,args.length));
+  }
+ else   if (!filterType.equals("all")) {
+    printUsageAndExit();
+  }
   logger.info("Will execute tables " + tableNames);
   Set<String> oldJarPaths=getCoprocessorJarPaths(hbaseAdmin,tableNames);
   logger.info("Old coprocessor jar: " + oldJarPaths);

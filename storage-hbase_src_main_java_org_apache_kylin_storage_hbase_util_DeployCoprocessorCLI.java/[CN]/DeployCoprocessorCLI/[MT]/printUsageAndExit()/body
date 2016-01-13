@@ -1,0 +1,4 @@
+{
+  logger.info("Probe run, exiting. Append argument 'all' or specific tables/cubes to execute.");
+  System.exit(0);
+}
