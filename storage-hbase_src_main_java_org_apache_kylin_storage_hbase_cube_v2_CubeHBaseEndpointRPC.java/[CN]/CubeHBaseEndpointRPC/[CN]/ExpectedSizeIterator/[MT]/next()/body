@@ -4,7 +4,7 @@
   }
   try {
     current++;
-    return queue.take();
+    return queue.poll(1,TimeUnit.HOURS);
   }
  catch (  InterruptedException e) {
     throw new RuntimeException("error when waiting queue",e);
