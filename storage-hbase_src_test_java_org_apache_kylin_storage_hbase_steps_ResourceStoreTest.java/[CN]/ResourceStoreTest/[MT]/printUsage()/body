@@ -1,0 +1,3 @@
+{
+  logger.info("Usage: ResourceStoreTest cat file");
+}
