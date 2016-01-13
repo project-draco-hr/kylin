@@ -1,4 +1,7 @@
 {
+  if (cuboidID == getBaseCuboidId(cubeDesc)) {
+    return cuboidID;
+  }
   List<Long> candidates=Lists.newArrayList();
   for (  AggregationGroup agg : cubeDesc.getAggregationGroups()) {
     Long candidate=translateToValidCuboid(agg,cuboidID);
