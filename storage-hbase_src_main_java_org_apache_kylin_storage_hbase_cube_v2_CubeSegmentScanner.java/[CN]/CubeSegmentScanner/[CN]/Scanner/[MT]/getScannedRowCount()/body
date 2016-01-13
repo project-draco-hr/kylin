@@ -1,8 +1,3 @@
 {
-  int result=0;
-  for (int i=0; i < inputScanners.length; i++) {
-    if (inputScanners[i] == null)     break;
-    result+=inputScanners[i].getScannedRowCount();
-  }
-  return result;
+  return internal.getScannedRowCount();
 }

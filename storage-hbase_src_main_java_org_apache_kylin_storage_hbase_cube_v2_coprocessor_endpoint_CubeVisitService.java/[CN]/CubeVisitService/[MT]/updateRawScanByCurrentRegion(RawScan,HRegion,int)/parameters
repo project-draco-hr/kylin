@@ -1,0 +1,3 @@
+RawScan rawScan
+HRegion region
+int shardLength

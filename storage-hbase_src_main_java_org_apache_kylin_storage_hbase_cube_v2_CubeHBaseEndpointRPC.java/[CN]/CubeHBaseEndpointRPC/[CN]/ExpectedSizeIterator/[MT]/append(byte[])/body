@@ -1,0 +1,8 @@
+{
+  try {
+    queue.put(data);
+  }
+ catch (  InterruptedException e) {
+    throw new RuntimeException("error when waiting queue",e);
+  }
+}

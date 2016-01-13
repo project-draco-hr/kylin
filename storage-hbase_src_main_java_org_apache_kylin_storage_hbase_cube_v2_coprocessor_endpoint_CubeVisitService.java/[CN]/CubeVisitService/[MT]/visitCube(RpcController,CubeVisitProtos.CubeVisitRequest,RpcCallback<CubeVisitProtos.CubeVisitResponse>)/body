@@ -5,17 +5,19 @@
   byte[] allRows;
   try {
     this.serviceStartTime=System.currentTimeMillis();
+    region=env.getRegion();
+    region.startRegionOperation();
     GTScanRequest scanReq=GTScanRequest.serializer.deserialize(ByteBuffer.wrap(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getGtScanRequest())));
     RawScan hbaseRawScan=RawScan.serializer.deserialize(ByteBuffer.wrap(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getHbaseRawScan())));
     List<List<Integer>> hbaseColumnsToGT=Lists.newArrayList();
     for (    IntList intList : request.getHbaseColumnsToGTList()) {
       hbaseColumnsToGT.add(intList.getIntsList());
     }
+    if (request.getRowkeyPreambleSize() - RowConstants.ROWKEY_CUBOIDID_LEN > 0) {
+      updateRawScanByCurrentRegion(hbaseRawScan,region,request.getRowkeyPreambleSize() - RowConstants.ROWKEY_CUBOIDID_LEN);
+    }
     Scan scan=CubeHBaseRPC.buildScan(hbaseRawScan);
-    sb.append(System.currentTimeMillis() - this.serviceStartTime);
-    sb.append(",");
-    region=env.getRegion();
-    region.startRegionOperation();
+    appendProfileInfo(sb);
     innerScanner=region.getScanner(scan);
     CoprocessorBehavior behavior=CoprocessorBehavior.valueOf(request.getBehavior());
     InnerScannerAsIterator cellListIterator=new InnerScannerAsIterator(innerScanner);
@@ -35,18 +37,15 @@
       outputStream.write(buffer.array(),buffer.arrayOffset() - buffer.position(),buffer.remaining());
       finalRowCount++;
     }
-    sb.append(System.currentTimeMillis() - this.serviceStartTime);
-    sb.append(",");
+    appendProfileInfo(sb);
     allRows=outputStream.toByteArray();
     byte[] compressedAllRows=CompressionUtils.compress(allRows);
-    sb.append(System.currentTimeMillis() - this.serviceStartTime);
-    sb.append(",");
+    appendProfileInfo(sb);
     OperatingSystemMXBean operatingSystemMXBean=(OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean();
     double systemCpuLoad=operatingSystemMXBean.getSystemCpuLoad();
     double freePhysicalMemorySize=operatingSystemMXBean.getFreePhysicalMemorySize();
     double freeSwapSpaceSize=operatingSystemMXBean.getFreeSwapSpaceSize();
-    sb.append(System.currentTimeMillis() - this.serviceStartTime);
-    sb.append(",");
+    appendProfileInfo(sb);
     CubeVisitProtos.CubeVisitResponse.Builder responseBuilder=CubeVisitProtos.CubeVisitResponse.newBuilder();
     done.run(responseBuilder.setCompressedRows(HBaseZeroCopyByteString.wrap(compressedAllRows)).setStats(CubeVisitProtos.CubeVisitResponse.Stats.newBuilder().setAggregatedRowCount(finalScanner.getScannedRowCount() - finalRowCount).setScannedRowCount(finalScanner.getScannedRowCount()).setServiceStartTime(serviceStartTime).setServiceEndTime(System.currentTimeMillis()).setSystemCpuLoad(systemCpuLoad).setFreePhysicalMemorySize(freePhysicalMemorySize).setFreeSwapSpaceSize(freeSwapSpaceSize).setHostname(InetAddress.getLocalHost().getHostName()).setEtcMsg(sb.toString()).build()).build());
   }

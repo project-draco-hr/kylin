@@ -1,0 +1,12 @@
+{
+  if (current >= expectedSize) {
+    throw new IllegalStateException("Won't have more data");
+  }
+  try {
+    current++;
+    return queue.take();
+  }
+ catch (  InterruptedException e) {
+    throw new RuntimeException("error when waiting queue",e);
+  }
+}

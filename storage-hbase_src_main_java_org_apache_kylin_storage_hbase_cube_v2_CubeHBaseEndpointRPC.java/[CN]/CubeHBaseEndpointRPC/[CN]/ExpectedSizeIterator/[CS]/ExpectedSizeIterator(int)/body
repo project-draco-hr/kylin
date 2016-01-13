@@ -1,0 +1,4 @@
+{
+  this.expectedSize=expectedSize;
+  this.queue=new ArrayBlockingQueue<byte[]>(expectedSize);
+}

@@ -1,7 +1,3 @@
 {
-  for (int i=0; i < inputScanners.length; i++) {
-    if (inputScanners[i] != null) {
-      inputScanners[i].close();
-    }
-  }
+  internal.close();
 }

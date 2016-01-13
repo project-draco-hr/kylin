@@ -1,0 +1,8 @@
+{
+  if (baseShard + shardNum <= totalShards) {
+    return Lists.newArrayList(Pair.newPair(getByteArrayForShort(baseShard),getByteArrayForShort((short)(baseShard + shardNum - 1))));
+  }
+ else {
+    return Lists.newArrayList(Pair.newPair(getByteArrayForShort(baseShard),getByteArrayForShort((short)(totalShards - 1))),Pair.newPair(getByteArrayForShort((short)0),getByteArrayForShort((short)(baseShard + shardNum - totalShards - 1))));
+  }
+}

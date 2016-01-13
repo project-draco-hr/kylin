@@ -1,5 +1,4 @@
 {
-  if (range == null)   range=new GTScanRange(null,null);
   if (hasAggregation()) {
     if (aggrGroupBy.intersects(aggrMetrics))     throw new IllegalStateException();
     if (aggrMetrics.cardinality() != aggrMetricsFuncs.length)     throw new IllegalStateException();

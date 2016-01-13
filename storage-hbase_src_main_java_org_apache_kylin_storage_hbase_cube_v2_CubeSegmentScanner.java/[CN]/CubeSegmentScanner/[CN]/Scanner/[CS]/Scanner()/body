@@ -1,0 +1,20 @@
+{
+  CubeHBaseRPC rpc;
+  if ("scan".equalsIgnoreCase(BackdoorToggles.getHbaseCubeQueryProtocol())) {
+    rpc=null;
+  }
+ else {
+    rpc=new CubeHBaseEndpointRPC(cubeSeg,cuboid,info);
+  }
+  try {
+    if (scanRequests.size() == 0) {
+      internal=new EmptyGTScanner();
+    }
+ else {
+      internal=rpc.getGTScanner(scanRequests);
+    }
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("error",e);
+  }
+}
