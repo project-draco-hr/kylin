@@ -12,6 +12,12 @@
   while (desc.hasCoprocessor(IIEndpointClass)) {
     desc.removeCoprocessor(IIEndpointClass);
   }
+  while (desc.hasCoprocessor(CubeObserverClassOld)) {
+    desc.removeCoprocessor(CubeObserverClassOld);
+  }
+  while (desc.hasCoprocessor(IIEndpointClassOld)) {
+    desc.removeCoprocessor(IIEndpointClassOld);
+  }
   addCoprocessorOnHTable(desc,hdfsCoprocessorJar);
   hbaseAdmin.modifyTable(tableName,desc);
   logger.info("Enable " + tableName);
