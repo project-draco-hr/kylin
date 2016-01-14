@@ -72,6 +72,14 @@
       }
       Thread.sleep(context.getConfig().getYarnStatusCheckIntervalSeconds() * 1000);
     }
+    if (job != null) {
+      try {
+        job.killJob();
+      }
+ catch (      Exception e) {
+        logger.warn("failed to kill hadoop job: " + job.getJobID(),e);
+      }
+    }
     return new ExecuteResult(ExecuteResult.State.DISCARDED,output.toString());
   }
  catch (  ReflectiveOperationException e) {
