@@ -1,4 +1,5 @@
 {
+  logger.info("hasNext called");
   if (next != null)   return true;
   if (advMeasureRowsRemaining > 0) {
     for (    IAdvMeasureFiller filler : advMeasureFillers) {
@@ -13,7 +14,9 @@
     if (scannerIterator.hasNext()) {
       curScanner=scannerIterator.next();
       curRecordIterator=curScanner.iterator();
-      curTupleConverter=new CubeTupleConverter(curScanner.cubeSeg,cuboid,selectedDimensions,selectedMetrics,tupleInfo);
+      if (curRecordIterator.hasNext()) {
+        curTupleConverter=new CubeTupleConverter(curScanner.cubeSeg,cuboid,selectedDimensions,selectedMetrics,tupleInfo);
+      }
     }
  else {
       return false;
