@@ -8,6 +8,7 @@
   }
   try {
     if (scanRequests.size() == 0) {
+      logger.info("Segment {} will be skipped",cubeSeg);
       internal=new EmptyGTScanner();
     }
  else {

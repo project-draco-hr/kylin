@@ -1,0 +1,8 @@
+{
+  if (byteArray == null) {
+    return null;
+  }
+ else {
+    return byteArray.toReadableText();
+  }
+}
