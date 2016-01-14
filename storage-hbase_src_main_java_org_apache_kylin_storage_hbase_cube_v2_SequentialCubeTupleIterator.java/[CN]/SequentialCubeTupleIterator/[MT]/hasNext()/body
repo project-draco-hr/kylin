@@ -1,5 +1,4 @@
 {
-  logger.info("hasNext called");
   if (next != null)   return true;
   if (advMeasureRowsRemaining > 0) {
     for (    IAdvMeasureFiller filler : advMeasureFillers) {
