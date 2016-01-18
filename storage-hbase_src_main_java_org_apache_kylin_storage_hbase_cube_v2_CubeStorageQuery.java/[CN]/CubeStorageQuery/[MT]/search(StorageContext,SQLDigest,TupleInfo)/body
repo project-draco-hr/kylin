@@ -30,6 +30,7 @@
     }
  catch (    NotEnoughGTInfoException e) {
       logger.info("Cannot construct Segment {}'s GTInfo, this may due to empty segment or broken metadata",cubeSeg);
+      logger.info("error stack",e);
       continue;
     }
     scanners.add(scanner);
