@@ -1,0 +1,4 @@
+{
+  logger.info("Usage: exec -all|-cube cubeA,cubeB|-table tableA,tableB");
+  System.exit(0);
+}

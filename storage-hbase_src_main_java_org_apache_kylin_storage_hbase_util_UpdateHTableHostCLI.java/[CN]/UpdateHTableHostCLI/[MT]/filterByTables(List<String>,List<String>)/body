@@ -1,0 +1,11 @@
+{
+  List<String> result=Lists.newArrayList();
+  for (  String t : tableNames) {
+    t=t.trim();
+    if (t.endsWith(","))     t=t.substring(0,t.length() - 1);
+    if (allTableNames.contains(t)) {
+      result.add(t);
+    }
+  }
+  return result;
+}

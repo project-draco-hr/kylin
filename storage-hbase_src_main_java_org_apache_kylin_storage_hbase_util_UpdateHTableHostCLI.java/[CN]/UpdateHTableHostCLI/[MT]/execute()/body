@@ -1,0 +1,12 @@
+{
+  for (  String htable : htables) {
+    try {
+      updateHtable(htable);
+      updatedResources.add(htable);
+    }
+ catch (    IOException ex) {
+      ex.printStackTrace();
+      errorMsgs.add("Update HTable[" + htable + "] failed: "+ ex.getMessage());
+    }
+  }
+}

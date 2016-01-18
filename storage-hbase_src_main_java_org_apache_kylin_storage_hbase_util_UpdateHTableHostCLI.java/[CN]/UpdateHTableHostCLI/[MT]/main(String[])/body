@@ -1,0 +1,39 @@
+{
+  if (args.length < 1) {
+    printUsageAndExit();
+  }
+  List<String> tableNames=getHTableNames(KylinConfig.getInstanceFromEnv());
+  String filterType=args[0].toLowerCase();
+  if (filterType.equals("-table")) {
+    tableNames=filterByTables(tableNames,Arrays.asList(args).subList(1,args.length));
+  }
+ else   if (filterType.equals("-cube")) {
+    tableNames=filterByCubes(tableNames,Arrays.asList(args).subList(1,args.length));
+  }
+ else   if (!filterType.equals("-all")) {
+    printUsageAndExit();
+  }
+  UpdateHTableHostCLI updateHTableHostCLI=new UpdateHTableHostCLI(tableNames);
+  updateHTableHostCLI.execute();
+  logger.info("=================================================================");
+  logger.info("Run UpdateHTableHostCLI completed;");
+  if (!updateHTableHostCLI.updatedResources.isEmpty()) {
+    logger.info("Following resources are updated successfully:");
+    for (    String s : updateHTableHostCLI.updatedResources) {
+      logger.info(s);
+    }
+  }
+ else {
+    logger.warn("No resource updated.");
+  }
+  if (!updateHTableHostCLI.errorMsgs.isEmpty()) {
+    logger.info("Here are the error/warning messages, you may need to check:");
+    for (    String s : updateHTableHostCLI.errorMsgs) {
+      logger.warn(s);
+    }
+  }
+ else {
+    logger.info("No error or warning messages; The update succeeds.");
+  }
+  logger.info("=================================================================");
+}

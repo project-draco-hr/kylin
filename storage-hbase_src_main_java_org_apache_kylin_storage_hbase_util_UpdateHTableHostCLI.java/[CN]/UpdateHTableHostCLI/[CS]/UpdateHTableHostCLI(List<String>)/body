@@ -1,0 +1,5 @@
+{
+  this.htables=htables;
+  this.hbaseAdmin=new HBaseAdmin(HBaseConnection.getCurrentHBaseConfiguration());
+  this.kylinConfig=KylinConfig.getInstanceFromEnv();
+}

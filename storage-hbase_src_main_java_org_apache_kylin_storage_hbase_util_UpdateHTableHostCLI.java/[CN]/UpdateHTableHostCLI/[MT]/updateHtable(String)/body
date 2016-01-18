@@ -1,0 +1,7 @@
+{
+  HTableDescriptor desc=hbaseAdmin.getTableDescriptor(TableName.valueOf(tableName));
+  hbaseAdmin.disableTable(tableName);
+  desc.setValue(IRealizationConstants.HTableTag,kylinConfig.getMetadataUrlPrefix());
+  hbaseAdmin.modifyTable(tableName,desc);
+  hbaseAdmin.enableTable(tableName);
+}
