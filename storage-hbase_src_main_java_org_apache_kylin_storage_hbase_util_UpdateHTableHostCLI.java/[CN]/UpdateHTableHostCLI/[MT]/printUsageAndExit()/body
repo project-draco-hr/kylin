@@ -1,4 +1,4 @@
 {
-  logger.info("Usage: exec -all|-cube cubeA,cubeB|-table tableA,tableB");
+  logger.info("Usage: exec -from oldHostValue -all|-cube cubeA,cubeB|-table tableA,tableB");
   System.exit(0);
 }

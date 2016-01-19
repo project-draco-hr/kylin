@@ -3,17 +3,22 @@
     printUsageAndExit();
   }
   List<String> tableNames=getHTableNames(KylinConfig.getInstanceFromEnv());
-  String filterType=args[0].toLowerCase();
+  if (!args[0].toLowerCase().equals("-from")) {
+    printUsageAndExit();
+  }
+  String oldHostValue=args[1].toLowerCase();
+  String filterType=args[2].toLowerCase();
   if (filterType.equals("-table")) {
-    tableNames=filterByTables(tableNames,Arrays.asList(args).subList(1,args.length));
+    tableNames=filterByTables(tableNames,Arrays.asList(args).subList(3,args.length));
   }
  else   if (filterType.equals("-cube")) {
-    tableNames=filterByCubes(tableNames,Arrays.asList(args).subList(1,args.length));
+    tableNames=filterByCubes(tableNames,Arrays.asList(args).subList(3,args.length));
   }
  else   if (!filterType.equals("-all")) {
     printUsageAndExit();
   }
-  UpdateHTableHostCLI updateHTableHostCLI=new UpdateHTableHostCLI(tableNames);
+  logger.info("These htables are needed to be updated: " + StringUtils.join(tableNames,","));
+  UpdateHTableHostCLI updateHTableHostCLI=new UpdateHTableHostCLI(tableNames,oldHostValue);
   updateHTableHostCLI.execute();
   logger.info("=================================================================");
   logger.info("Run UpdateHTableHostCLI completed;");

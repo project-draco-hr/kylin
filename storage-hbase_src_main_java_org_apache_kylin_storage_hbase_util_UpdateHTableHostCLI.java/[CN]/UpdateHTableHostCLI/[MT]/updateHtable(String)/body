@@ -1,7 +1,10 @@
 {
   HTableDescriptor desc=hbaseAdmin.getTableDescriptor(TableName.valueOf(tableName));
-  hbaseAdmin.disableTable(tableName);
-  desc.setValue(IRealizationConstants.HTableTag,kylinConfig.getMetadataUrlPrefix());
-  hbaseAdmin.modifyTable(tableName,desc);
-  hbaseAdmin.enableTable(tableName);
+  if (oldHostValue.equals(desc.getValue(kylinConfig.getMetadataUrlPrefix()))) {
+    desc.setValue(IRealizationConstants.HTableTag,kylinConfig.getMetadataUrlPrefix());
+    hbaseAdmin.disableTable(tableName);
+    hbaseAdmin.modifyTable(tableName,desc);
+    hbaseAdmin.enableTable(tableName);
+    updatedResources.add(tableName);
+  }
 }
