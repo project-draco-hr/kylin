@@ -17,8 +17,12 @@
     }
   }
  else   if (realization.getType() == RealizationType.CUBE) {
+    CubeInstance cubeInstance=(CubeInstance)realization;
     String cubeStorageQuery;
-    if (overwriteStorageQuery != null) {
+    if (cubeInstance.getStorageType() == IStorageAware.ID_HBASE) {
+      cubeStorageQuery=v1CubeStorageQuery;
+    }
+ else     if (overwriteStorageQuery != null) {
       cubeStorageQuery=overwriteStorageQuery;
     }
  else     if ("v1".equalsIgnoreCase(BackdoorToggles.getHbaseCubeQueryVersion())) {
