@@ -1,7 +1,7 @@
 {
   ArrayList<String> children=store.listResources(path);
   if (children == null) {
-    if (matchExclude(path) == false) {
+    if (matchFilter(path)) {
       store.deleteResource(path);
     }
   }

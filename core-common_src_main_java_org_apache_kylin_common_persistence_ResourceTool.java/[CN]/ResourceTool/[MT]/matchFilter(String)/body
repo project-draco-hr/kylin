@@ -1,0 +1,15 @@
+{
+  if (includes != null) {
+    boolean in=false;
+    for (    String include : includes) {
+      in=in || path.startsWith(include);
+    }
+    if (!in)     return false;
+  }
+  if (excludes != null) {
+    for (    String exclude : excludes) {
+      if (path.startsWith(exclude))       return false;
+    }
+  }
+  return true;
+}

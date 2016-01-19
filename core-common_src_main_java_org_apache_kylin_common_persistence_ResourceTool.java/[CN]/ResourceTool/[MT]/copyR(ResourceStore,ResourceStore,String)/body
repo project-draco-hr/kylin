@@ -1,7 +1,7 @@
 {
   ArrayList<String> children=src.listResources(path);
   if (children == null) {
-    if (matchExclude(path) == false) {
+    if (matchFilter(path)) {
       RawResource res=src.getResource(path);
       if (res != null) {
         dst.putResource(path,res.inputStream,res.timestamp);

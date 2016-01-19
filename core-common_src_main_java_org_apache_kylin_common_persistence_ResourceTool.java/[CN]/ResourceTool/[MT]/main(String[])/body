@@ -6,6 +6,10 @@
     System.out.println("Usage: ResourceTool upload    LOCAL_DIR");
     return;
   }
+  String include=System.getProperty("include");
+  if (include != null) {
+    includes=include.split("\\s*,\\s*");
+  }
   String exclude=System.getProperty("exclude");
   if (exclude != null) {
     excludes=exclude.split("\\s*,\\s*");
