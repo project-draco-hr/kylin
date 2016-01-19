@@ -6,6 +6,10 @@
   }
   CubeDesc cubeDesc=cubeDescManager.getCubeDesc(cubeInstance.getDescName());
   DataModelDesc dataModelDesc=metadataManager.getDataModelDesc(cubeDesc.getModelName());
+  if (StringUtils.isEmpty(dataModelDesc.getPartitionDesc().getPartitionDateColumn())) {
+    logger.error("No incremental cube, no need to extend.");
+    return;
+  }
   String owner=cubeInstance.getOwner();
   String dateFormat=dataModelDesc.getPartitionDesc().getPartitionDateFormat();
   long partitionDate=partitionDateStr != null ? DateFormat.stringToMillis(partitionDateStr,dateFormat) : 0;
@@ -57,4 +61,6 @@
   store.putResource(hybridInstance.getResourcePath(),hybridInstance,HybridManager.HYBRID_SERIALIZER);
   ProjectManager.getInstance(kylinConfig).moveRealizationToProject(RealizationType.HYBRID,hybridInstance.getName(),projectName,owner);
   logger.info("HybridInstance was saved at: " + hybridInstance.getResourcePath());
+  copyAcl(cubeInstance.getId(),newCubeInstance.getId(),projectName);
+  logger.info("Acl copied from [" + cubeName + "] to ["+ newCubeInstanceName+ "].");
 }

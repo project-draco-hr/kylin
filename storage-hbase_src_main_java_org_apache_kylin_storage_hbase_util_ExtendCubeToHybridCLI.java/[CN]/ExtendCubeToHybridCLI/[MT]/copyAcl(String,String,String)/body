@@ -1,0 +1,29 @@
+{
+  String projectResPath=ProjectInstance.concatResourcePath(projectName);
+  Serializer<ProjectInstance> projectSerializer=new JsonSerializer<ProjectInstance>(ProjectInstance.class);
+  ProjectInstance project=store.getResource(projectResPath,ProjectInstance.class,projectSerializer);
+  String projUUID=project.getUuid();
+  HTableInterface aclHtable=null;
+  try {
+    aclHtable=HBaseConnection.get(kylinConfig.getStorageUrl()).getTable(kylinConfig.getMetadataUrlPrefix() + "_acl");
+    Result result=aclHtable.get(new Get(Bytes.toBytes(origCubeId)));
+    if (result.listCells() != null) {
+      for (      Cell cell : result.listCells()) {
+        byte[] family=CellUtil.cloneFamily(cell);
+        byte[] column=CellUtil.cloneQualifier(cell);
+        byte[] value=CellUtil.cloneValue(cell);
+        if (Bytes.toString(family).equals(ACL_INFO_FAMILY) && Bytes.toString(column).equals(ACL_INFO_FAMILY_PARENT_COLUMN)) {
+          String valueString="{\"id\":\"" + projUUID + "\",\"type\":\"org.apache.kylin.metadata.project.ProjectInstance\"}";
+          value=Bytes.toBytes(valueString);
+        }
+        Put put=new Put(Bytes.toBytes(newCubeId));
+        put.add(family,column,value);
+        aclHtable.put(put);
+      }
+    }
+    aclHtable.flushCommits();
+  }
+  finally {
+    IOUtils.closeQuietly(aclHtable);
+  }
+}

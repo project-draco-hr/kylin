@@ -1,9 +1,9 @@
 {
   if (args.length != 2 && args.length != 3) {
-    System.out.println("Usage: ExtendCubeToHybridTool project cube [partition_date]");
+    System.out.println("Usage: ExtendCubeToHybridCLI project cube [partition_date]");
     return;
   }
-  ExtendCubeToHybridTool tool=new ExtendCubeToHybridTool();
+  ExtendCubeToHybridCLI tool=new ExtendCubeToHybridCLI();
   String projectName=args[0];
   String cubeName=args[1];
   String partitionDate=args.length == 3 ? args[2] : null;
