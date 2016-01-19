@@ -1,3 +1,0 @@
-{
-  dataModelDescMap.remove(desc.getName());
-}
