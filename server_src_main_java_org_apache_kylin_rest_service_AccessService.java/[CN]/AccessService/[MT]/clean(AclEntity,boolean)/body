@@ -1,5 +1,6 @@
 {
   Assert.notNull(ae,"Acl domain object required");
+  if (ae.getId() == null)   return;
   ObjectIdentity objectIdentity=new ObjectIdentityImpl(ae.getClass(),ae.getId());
   try {
     aclService.deleteAcl(objectIdentity,deleteChildren);
