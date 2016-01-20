@@ -1,0 +1,8 @@
+{
+  LongMutable l=current.get();
+  if (l == null) {
+    l=new LongMutable();
+    current.set(l);
+  }
+  return l;
+}

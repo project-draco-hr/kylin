@@ -1,0 +1,6 @@
+{
+  LongMutable l=current();
+  if (str == null)   l.set(0L);
+ else   l.set(BooleanUtils.toInteger(ArrayUtils.contains(TRUE_VALUE_SET,str.toLowerCase())));
+  return l;
+}
