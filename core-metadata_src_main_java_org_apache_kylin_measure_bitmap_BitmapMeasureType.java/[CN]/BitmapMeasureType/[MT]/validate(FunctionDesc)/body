@@ -1,0 +1,13 @@
+{
+  if (FUNC_COUNT_DISTINCT.equals(functionDesc.getExpression()) == false)   throw new IllegalArgumentException("BitmapMeasureType func is not " + FUNC_COUNT_DISTINCT + " but "+ functionDesc.getExpression());
+  if (DATATYPE_BITMAP.equals(functionDesc.getReturnDataType().getName()) == false)   throw new IllegalArgumentException("BitmapMeasureType datatype is not " + DATATYPE_BITMAP + " but "+ functionDesc.getReturnDataType().getName());
+  List<TblColRef> colRefs=functionDesc.getParameter().getColRefs();
+  if (colRefs.size() != 1) {
+    throw new IllegalArgumentException("BitmapMeasureType col parameters count is not 1 but " + colRefs.size());
+  }
+  TblColRef colRef=colRefs.get(0);
+  DataType type=colRef.getType();
+  if (!type.isIntegerFamily()) {
+    throw new IllegalArgumentException("BitmapMeasureType col type is not IntegerFamily but " + type.getName() + " of column "+ colRef.getCanonicalName());
+  }
+}

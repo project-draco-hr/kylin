@@ -1,0 +1,10 @@
+{
+  BitmapCounter c=(BitmapCounter)v;
+  if (counter == null) {
+    return new BitmapCounter(c);
+  }
+ else {
+    counter.merge(c);
+    return counter;
+  }
+}

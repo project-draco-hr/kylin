@@ -1,0 +1,10 @@
+{
+  BitmapCounter counter=current();
+  try {
+    counter.readRegisters(in);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+  return counter;
+}

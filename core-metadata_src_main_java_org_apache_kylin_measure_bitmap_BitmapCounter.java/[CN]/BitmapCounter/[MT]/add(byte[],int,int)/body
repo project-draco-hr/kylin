@@ -1,0 +1,12 @@
+{
+  if (value == null || length == 0) {
+    return;
+  }
+  try {
+    int l=Integer.parseInt(new String(value,offset,length));
+    add(l);
+  }
+ catch (  NumberFormatException e) {
+    throw e;
+  }
+}

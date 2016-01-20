@@ -1,0 +1,8 @@
+{
+  if (sum == null) {
+    return Integer.MIN_VALUE;
+  }
+ else {
+    return sum.getMemBytes();
+  }
+}

@@ -1,0 +1,8 @@
+{
+  BitmapCounter counter=current.get();
+  if (counter == null) {
+    counter=new BitmapCounter();
+    current.set(counter);
+  }
+  return counter;
+}

@@ -2,6 +2,7 @@
   if (factories.isEmpty() == false)   return;
   List<MeasureTypeFactory<?>> factoryInsts=Lists.newArrayList();
   factoryInsts.add(new HLLCMeasureType.Factory());
+  factoryInsts.add(new BitmapMeasureType.Factory());
   factoryInsts.add(new TopNMeasureType.Factory());
   for (  MeasureTypeFactory<?> factory : factoryInsts) {
     String funcName=factory.getAggrFunctionName();

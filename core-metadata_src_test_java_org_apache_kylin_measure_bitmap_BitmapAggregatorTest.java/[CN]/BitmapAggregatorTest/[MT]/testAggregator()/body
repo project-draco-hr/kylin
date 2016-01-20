@@ -1,0 +1,22 @@
+{
+  BitmapCounter counter=new BitmapCounter();
+  counter.add(1);
+  counter.add(3333);
+  counter.add("123".getBytes());
+  counter.add((long)123);
+  assertEquals(3,counter.getCount());
+  BitmapCounter counter2=new BitmapCounter();
+  counter2.add("23456");
+  counter2.add(12273456);
+  counter2.add("4258");
+  counter2.add(123);
+  assertEquals(4,counter2.getCount());
+  BitmapAggregator aggregator=new BitmapAggregator();
+  assertNull(aggregator.getState());
+  assertEquals(Integer.MIN_VALUE,aggregator.getMemBytesEstimate());
+  aggregator.aggregate(counter);
+  aggregator.aggregate(counter2);
+  assertEquals(6,aggregator.getState().getCount());
+  aggregator.reset();
+  assertNull(aggregator.getState());
+}

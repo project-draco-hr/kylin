@@ -1,0 +1,12 @@
+{
+  return new MeasureIngester<BitmapCounter>(){
+    BitmapCounter current=new BitmapCounter();
+    @Override public BitmapCounter valueOf(    String[] values,    MeasureDesc measureDesc,    Map<TblColRef,Dictionary<String>> dictionaryMap){
+      BitmapCounter bitmap=current;
+      bitmap.clear();
+      for (      String v : values)       bitmap.add(v);
+      return bitmap;
+    }
+  }
+;
+}

@@ -1,0 +1,15 @@
+{
+  int mark=in.position();
+  int len;
+  DataInputByteBuffer input=new DataInputByteBuffer();
+  input.reset(new ByteBuffer[]{in});
+  RoaringBitmap bitmap=new RoaringBitmap();
+  try {
+    bitmap.deserialize(input);
+  }
+ catch (  IOException e) {
+  }
+  len=in.position() - mark;
+  in.position(mark);
+  return len;
+}

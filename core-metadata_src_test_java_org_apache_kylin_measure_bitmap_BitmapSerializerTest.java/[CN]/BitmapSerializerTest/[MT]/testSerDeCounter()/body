@@ -1,0 +1,20 @@
+{
+  BitmapCounter counter=new BitmapCounter();
+  counter.add(1);
+  counter.add(3333);
+  counter.add("123".getBytes());
+  counter.add((long)123);
+  assertEquals(3,counter.getCount());
+  ByteBuffer buffer=ByteBuffer.allocate(10 * 1024 * 1024);
+  BitmapSerializer serializer=new BitmapSerializer(DataType.ANY);
+  serializer.serialize(counter,buffer);
+  int len=buffer.position();
+  buffer.position(0);
+  BitmapSerializer deSerializer=new BitmapSerializer(DataType.ANY);
+  BitmapCounter counter2=deSerializer.deserialize(buffer);
+  assertEquals(3,counter2.getCount());
+  buffer.position(0);
+  assertEquals(len,deSerializer.peekLength(buffer));
+  assertEquals(32 * 1024 * 1024,deSerializer.maxLength());
+  System.out.println("counter size " + deSerializer.getStorageBytesEstimate());
+}

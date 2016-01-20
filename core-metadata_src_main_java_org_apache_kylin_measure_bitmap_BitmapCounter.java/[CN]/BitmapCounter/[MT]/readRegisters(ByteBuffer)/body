@@ -1,0 +1,5 @@
+{
+  DataInputByteBuffer input=new DataInputByteBuffer();
+  input.reset(new ByteBuffer[]{in});
+  bitmap.deserialize(input);
+}

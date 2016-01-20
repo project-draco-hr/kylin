@@ -1,0 +1,15 @@
+{
+  BitmapCounter counter=new BitmapCounter();
+  for (int i=1; i < 1000; i++) {
+    counter.add(i);
+  }
+  ByteBuffer buffer=ByteBuffer.allocate(10 * 1024 * 1024);
+  counter.writeRegisters(buffer);
+  int len=buffer.position();
+  buffer.position(0);
+  assertEquals(len,counter.peekLength(buffer));
+  assertEquals(0,buffer.position());
+  BitmapCounter counter2=new BitmapCounter();
+  counter2.readRegisters(buffer);
+  assertEquals(999,counter2.getCount());
+}

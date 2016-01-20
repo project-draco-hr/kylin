@@ -1,0 +1,8 @@
+{
+  if (sum == null) {
+    sum=new BitmapCounter(value);
+  }
+ else {
+    sum.merge(value);
+  }
+}
