@@ -1,3 +1,4 @@
 {
-  decode(hbaseRow.getValueAsByteBuffer(hbaseColumnFamily,hbaseColumnQualifier),convertToJavaObject);
+  ByteBuffer buffer=Results.getValueAsByteBuffer(hbaseRow,hbaseColumnFamily,hbaseColumnQualifier);
+  decode(buffer,convertToJavaObject);
 }

@@ -1,0 +1,3 @@
+Result hbaseRow
+byte[] cf
+byte[] cq
