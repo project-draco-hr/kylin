@@ -30,7 +30,7 @@
     row_hashcodes[i]=new ByteArray();
   }
   final HashMap<Long,HyperLogLogPlusCounter> samplingResult=rowJavaRDD.aggregate(zeroValue,new Function2<HashMap<Long,HyperLogLogPlusCounter>,List<String>,HashMap<Long,HyperLogLogPlusCounter>>(){
-    final HashFunction hashFunction=Hashing.murmur3_32();
+    final HashFunction hashFunction=Hashing.murmur3_128();
     @Override public HashMap<Long,HyperLogLogPlusCounter> call(    HashMap<Long,HyperLogLogPlusCounter> v1,    List<String> v2) throws Exception {
       for (int i=0; i < nRowKey; i++) {
         Hasher hc=hashFunction.newHasher();

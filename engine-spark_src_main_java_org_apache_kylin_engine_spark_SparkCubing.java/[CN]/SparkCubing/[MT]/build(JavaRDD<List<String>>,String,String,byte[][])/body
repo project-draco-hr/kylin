@@ -32,11 +32,10 @@
       long t=System.currentTimeMillis();
       prepare();
       final CubeInstance cubeInstance=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).getCube(cubeName);
-      final CubeDesc cubeDesc=cubeInstance.getDescriptor();
       LinkedBlockingQueue<List<String>> blockingQueue=new LinkedBlockingQueue();
       System.out.println("load properties finished");
       AbstractInMemCubeBuilder inMemCubeBuilder=new DoggedCubeBuilder(cubeInstance.getDescriptor(),dictionaryMap);
-      final SparkCuboidWriter sparkCuboidWriter=new BufferedCuboidWriter(new DefaultTupleConverter(cubeSegment,columnLengthMap));
+      final SparkCuboidWriter sparkCuboidWriter=new BufferedCuboidWriter(new DefaultTupleConverter(cubeInstance.getSegmentById(segmentId),columnLengthMap));
       Executors.newCachedThreadPool().submit(inMemCubeBuilder.buildAsRunnable(blockingQueue,sparkCuboidWriter));
       try {
         while (listIterator.hasNext()) {
