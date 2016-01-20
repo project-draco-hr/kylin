@@ -13,7 +13,7 @@
     offSet+=byteArray.length();
   }
   byte[] rowKey=rowkeyEncoder.createBuf();
-  rowkeyEncoder.encode(new ByteArray(rowKeyBodyBuf),new ByteArray(rowKey));
+  rowkeyEncoder.encode(new ByteArray(rowKeyBodyBuf,0,offSet),new ByteArray(rowKey));
   ByteBuffer valueBuf=getValueBuf();
   valueBuf.clear();
   record.exportColumns(measureColumnsIndex,valueBuf);
