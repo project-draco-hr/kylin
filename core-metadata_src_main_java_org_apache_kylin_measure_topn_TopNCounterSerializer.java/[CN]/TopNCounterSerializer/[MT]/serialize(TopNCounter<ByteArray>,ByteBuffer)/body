@@ -7,7 +7,9 @@
   out.putInt(keyLength);
   dds.serialize(counters,out);
   Iterator<Counter<ByteArray>> iterator=value.iterator();
+  ByteArray item;
   while (iterator.hasNext()) {
-    out.put(iterator.next().getItem().array());
+    item=iterator.next().getItem();
+    out.put(item.array(),item.offset(),item.length());
   }
 }
