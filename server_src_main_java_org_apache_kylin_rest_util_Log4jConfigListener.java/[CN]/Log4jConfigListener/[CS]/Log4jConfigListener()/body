@@ -1,3 +1,4 @@
 {
-  this.isTesting="testing".equals(System.getProperty("spring.profiles.active"));
+  String property=System.getProperty(KylinConfig.KYLIN_CONF);
+  this.isDebugTomcat=property != null && property.contains("examples/test_case_data/sandbox");
 }
