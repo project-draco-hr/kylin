@@ -7,9 +7,9 @@
  else {
     byte[] bytes=Bytes.toBytes(value.toString());
     if (bytes.length > fixLen) {
-      throw new IllegalStateException("Expect at most " + fixLen + " bytes, but got "+ bytes.length+ ", value string: "+ value.toString());
+      logger.warn("Expect at most " + fixLen + " bytes, but got "+ bytes.length+ ", will truncate, value string: "+ value.toString());
     }
-    out.put(bytes);
+    out.put(bytes,0,Math.min(bytes.length,fixLen));
     for (int i=bytes.length; i < fixLen; i++) {
       out.put(RowConstants.ROWKEY_PLACE_HOLDER_BYTE);
     }
