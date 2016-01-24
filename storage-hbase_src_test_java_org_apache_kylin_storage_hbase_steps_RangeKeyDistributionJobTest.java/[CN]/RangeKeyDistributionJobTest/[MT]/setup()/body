@@ -1,7 +1,8 @@
 {
   conf=HadoopUtil.getCurrentConfiguration();
   conf.set("fs.default.name","file:///");
-  conf.set("mapred.job.tracker","local");
+  conf.set("mapreduce.framework.name","local");
+  conf.set("mapreduce.application.framework.path","");
   conf.set("mapreduce.task.io.sort.mb","10");
   createTestMetadata();
 }
