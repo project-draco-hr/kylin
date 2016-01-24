@@ -10,7 +10,7 @@
   }
   String kylinHiveDependency=System.getProperty("kylin.hive.dependency");
   String kylinHBaseDependency=System.getProperty("kylin.hbase.dependency");
-  logger.info("append kylin.hive.dependency: " + kylinHiveDependency + " and kylin.hbase.dependency: "+ kylinHBaseDependency+ " to "+ MAP_REDUCE_CLASSPATH);
+  logger.info("append kylin.hbase.dependency: " + kylinHBaseDependency + " to "+ MAP_REDUCE_CLASSPATH);
   Configuration jobConf=job.getConfiguration();
   String classpath=jobConf.get(MAP_REDUCE_CLASSPATH);
   if (classpath == null || classpath.length() == 0) {
@@ -22,11 +22,27 @@
     kylinHBaseDependency=kylinHBaseDependency.replace(":",",");
     classpath=classpath + "," + kylinHBaseDependency;
   }
-  if (kylinHiveDependency != null) {
-    kylinHiveDependency=kylinHiveDependency.replace(":",",");
-    classpath=classpath + "," + kylinHiveDependency;
-  }
   jobConf.set(MAP_REDUCE_CLASSPATH,classpath);
   logger.info("Hadoop job classpath is: " + job.getConfiguration().get(MAP_REDUCE_CLASSPATH));
-  setJobTmpJarsAndFiles(job);
+  StringBuilder kylinDependency=new StringBuilder();
+  if (kylinHiveDependency != null) {
+    kylinHiveDependency=kylinHiveDependency.replace(":",",");
+    logger.info("Hive Dependencies Before Filtered: " + kylinHiveDependency);
+    String filteredHive=filterKylinHiveDependency(kylinHiveDependency);
+    logger.info("Hive Dependencies After Filtered: " + filteredHive);
+    if (kylinDependency.length() > 0)     kylinDependency.append(",");
+    kylinDependency.append(filteredHive);
+  }
+  String mrLibDir=KylinConfig.getInstanceFromEnv().getKylinJobMRLibDir();
+  if (!StringUtils.isBlank(mrLibDir)) {
+    File dirFileMRLIB=new File(mrLibDir);
+    if (dirFileMRLIB.exists()) {
+      if (kylinDependency.length() > 0)       kylinDependency.append(",");
+      kylinDependency.append(mrLibDir);
+    }
+ else {
+      logger.info("The directory '" + mrLibDir + "' for 'kylin.job.mr.lib.dir' does not exist!!!");
+    }
+  }
+  setJobTmpJarsAndFiles(job,kylinDependency.toString());
 }
