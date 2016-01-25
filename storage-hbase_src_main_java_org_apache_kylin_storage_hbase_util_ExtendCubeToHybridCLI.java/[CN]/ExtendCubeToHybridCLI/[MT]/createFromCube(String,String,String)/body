@@ -52,6 +52,7 @@
   cubeDescManager.updateCubeDesc(cubeDesc);
   logger.info("CubeDesc was saved at: " + cubeDesc.getResourcePath());
   cubeInstance.setSegments(new ArrayList<CubeSegment>());
+  cubeInstance.setStatus(RealizationStatusEnum.DISABLED);
   store.putResource(cubeInstance.getResourcePath(),cubeInstance,CubeManager.CUBE_SERIALIZER);
   logger.info("CubeInstance was saved at: " + cubeInstance.getResourcePath());
   List<RealizationEntry> realizationEntries=Lists.newArrayListWithCapacity(2);
