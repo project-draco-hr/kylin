@@ -1,0 +1,18 @@
+{
+  if (this.bidx >= this.buffers.length) {
+    return -1;
+  }
+ else {
+    int cur=0;
+    do {
+      int rem=Math.min(len,this.buffers[this.bidx].remaining());
+      this.buffers[this.bidx].get(b,off,rem);
+      cur+=rem;
+      off+=rem;
+      len-=rem;
+    }
+ while (len > 0 && ++this.bidx < this.buffers.length);
+    this.pos+=cur;
+    return cur;
+  }
+}

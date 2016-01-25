@@ -1,0 +1,4 @@
+{
+  this.scratch=new byte[1];
+  this.buffers=new ByteBuffer[0];
+}

@@ -3,7 +3,7 @@
   int len;
   DataInputByteBuffer input=new DataInputByteBuffer();
   input.reset(new ByteBuffer[]{in});
-  RoaringBitmap bitmap=new RoaringBitmap();
+  MutableRoaringBitmap bitmap=new MutableRoaringBitmap();
   try {
     bitmap.deserialize(input);
   }

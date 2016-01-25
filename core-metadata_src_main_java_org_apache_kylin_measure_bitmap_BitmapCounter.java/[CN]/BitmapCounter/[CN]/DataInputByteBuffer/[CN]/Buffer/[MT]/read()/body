@@ -1,0 +1,3 @@
+{
+  return -1 == this.read(this.scratch,0,1) ? -1 : this.scratch[0] & 255;
+}

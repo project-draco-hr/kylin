@@ -1,0 +1,10 @@
+{
+  this.bidx=this.pos=this.length=0;
+  this.buffers=buffers;
+  ByteBuffer[] arr$=buffers;
+  int len$=buffers.length;
+  for (int i$=0; i$ < len$; ++i$) {
+    ByteBuffer b=arr$[i$];
+    this.length+=b.remaining();
+  }
+}
