@@ -1,0 +1,3 @@
+{
+  return origName + HYBRID_POSTFIX;
+}

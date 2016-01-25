@@ -13,10 +13,10 @@
   String owner=cubeInstance.getOwner();
   String dateFormat=dataModelDesc.getPartitionDesc().getPartitionDateFormat();
   long partitionDate=partitionDateStr != null ? DateFormat.stringToMillis(partitionDateStr,dateFormat) : 0;
-  String newCubeDescName=rename(cubeDesc.getName());
-  String newCubeInstanceName=rename(cubeInstance.getName());
-  while (cubeDescManager.getCubeDesc(newCubeDescName) != null)   newCubeDescName=rename(newCubeDescName);
-  while (cubeManager.getCube(newCubeInstanceName) != null)   newCubeInstanceName=rename(newCubeInstanceName);
+  String newCubeDescName=renameCube(cubeDesc.getName());
+  String newCubeInstanceName=renameCube(cubeInstance.getName());
+  while (cubeDescManager.getCubeDesc(newCubeDescName) != null)   newCubeDescName=renameCube(newCubeDescName);
+  while (cubeManager.getCube(newCubeInstanceName) != null)   newCubeInstanceName=renameCube(newCubeInstanceName);
   CubeInstance newCubeInstance=CubeInstance.getCopyOf(cubeInstance);
   newCubeInstance.setName(newCubeInstanceName);
   newCubeInstance.setDescName(newCubeDescName);
@@ -57,7 +57,7 @@
   List<RealizationEntry> realizationEntries=Lists.newArrayListWithCapacity(2);
   realizationEntries.add(RealizationEntry.create(RealizationType.CUBE,cubeInstance.getName()));
   realizationEntries.add(RealizationEntry.create(RealizationType.CUBE,newCubeInstance.getName()));
-  HybridInstance hybridInstance=HybridInstance.create(kylinConfig,cubeInstance.getName(),realizationEntries);
+  HybridInstance hybridInstance=HybridInstance.create(kylinConfig,renameHybrid(cubeInstance.getName()),realizationEntries);
   store.putResource(hybridInstance.getResourcePath(),hybridInstance,HybridManager.HYBRID_SERIALIZER);
   ProjectManager.getInstance(kylinConfig).moveRealizationToProject(RealizationType.HYBRID,hybridInstance.getName(),projectName,owner);
   logger.info("HybridInstance was saved at: " + hybridInstance.getResourcePath());
