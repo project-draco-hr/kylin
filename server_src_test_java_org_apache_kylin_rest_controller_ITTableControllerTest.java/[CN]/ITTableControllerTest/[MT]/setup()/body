@@ -1,5 +1,0 @@
-{
-  super.setup();
-  tableController=new TableController();
-  tableController.setCubeService(cubeService);
-}

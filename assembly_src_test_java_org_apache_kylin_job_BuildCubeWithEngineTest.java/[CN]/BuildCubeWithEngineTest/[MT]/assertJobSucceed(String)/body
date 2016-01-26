@@ -1,3 +1,0 @@
-{
-  assertEquals("The job '" + jobId + "' is failed.",ExecutableState.SUCCEED,jobService.getOutput(jobId).getState());
-}

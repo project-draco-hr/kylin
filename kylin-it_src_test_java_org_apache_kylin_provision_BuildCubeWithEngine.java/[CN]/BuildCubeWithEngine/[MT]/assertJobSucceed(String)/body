@@ -1,0 +1,5 @@
+{
+  if (jobService.getOutput(jobId).getState() != ExecutableState.SUCCEED) {
+    throw new RuntimeException("The job '" + jobId + "' is failed.");
+  }
+}

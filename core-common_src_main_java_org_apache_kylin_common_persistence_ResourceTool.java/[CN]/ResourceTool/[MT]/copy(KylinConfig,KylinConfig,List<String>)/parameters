@@ -1,0 +1,3 @@
+KylinConfig srcConfig
+KylinConfig dstConfig
+List<String> paths

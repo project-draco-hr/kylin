@@ -1,0 +1,12 @@
+{
+  options=new Options();
+  OptionGroup realizationOrProject=new OptionGroup();
+  realizationOrProject.addOption(OPTION_CUBE);
+  realizationOrProject.addOption(OPTION_PROJECT);
+  realizationOrProject.addOption(OPTION_HYBRID);
+  realizationOrProject.setRequired(true);
+  options.addOptionGroup(realizationOrProject);
+  options.addOption(OPTION_INCLUDE_SEGMENTS);
+  options.addOption(OPTION_INCLUDE_JOB);
+  options.addOption(OPTION_DEST);
+}

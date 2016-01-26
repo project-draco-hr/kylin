@@ -1,0 +1,4 @@
+{
+  CubeMetaExtractor extractor=new CubeMetaExtractor();
+  extractor.execute(args);
+}

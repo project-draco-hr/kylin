@@ -1,0 +1,10 @@
+{
+  server=new Server(7070);
+  WebAppContext context=new WebAppContext();
+  context.setDescriptor("../server/src/main/webapp/WEB-INF/web.xml");
+  context.setResourceBase("../server/src/main/webapp");
+  context.setContextPath("/kylin");
+  context.setParentLoaderPriority(true);
+  server.setHandler(context);
+  server.start();
+}

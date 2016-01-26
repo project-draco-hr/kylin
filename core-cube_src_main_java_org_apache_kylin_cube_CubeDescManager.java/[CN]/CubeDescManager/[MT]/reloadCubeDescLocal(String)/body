@@ -1,5 +1,5 @@
 {
-  String path=CubeDesc.getCubeDescResourcePath(name);
+  String path=CubeDesc.concatResourcePath(name);
   CubeDesc ndesc=loadCubeDesc(path);
   cubeDescMap.putLocal(ndesc.getName(),ndesc);
   Cuboid.reloadCache(name);

@@ -1,0 +1,70 @@
+{
+  logger.info("Deal with realization {} of type {}",realization.getName(),realization.getType());
+  if (realization instanceof CubeInstance) {
+    CubeInstance cube=(CubeInstance)realization;
+    String descName=cube.getDescName();
+    CubeDesc cubeDesc=cubeDescManager.getCubeDesc(descName);
+    String modelName=cubeDesc.getModelName();
+    DataModelDesc modelDesc=metadataManager.getDataModelDesc(modelName);
+    for (    String tableName : modelDesc.getAllTables()) {
+      addRequired(requiredResources,TableDesc.concatResourcePath(tableName));
+      addOptional(optionalResources,TableDesc.concatExdResourcePath(tableName));
+    }
+    addRequired(requiredResources,DataModelDesc.concatResourcePath(modelDesc.getName()));
+    addRequired(requiredResources,CubeDesc.concatResourcePath(cubeDesc.getName()));
+    if (includeSegments) {
+      addRequired(requiredResources,CubeInstance.concatResourcePath(cube.getName()));
+      for (      CubeSegment segment : cube.getSegments()) {
+        for (        String dictPat : segment.getDictionaryPaths()) {
+          addRequired(requiredResources,dictPat);
+        }
+        for (        String snapshotPath : segment.getSnapshotPaths()) {
+          addRequired(requiredResources,snapshotPath);
+        }
+        addRequired(requiredResources,segment.getStatisticsResourcePath());
+        if (includeJobs) {
+          String lastJobId=segment.getLastBuildJobID();
+          if (!StringUtils.isEmpty(lastJobId)) {
+            logger.warn("No job exist for segment {}",segment);
+          }
+ else {
+            try {
+              ExecutablePO executablePO=executableDao.getJob(lastJobId);
+              addRequired(requiredResources,ExecutableDao.pathOfJob(lastJobId));
+              addRequired(requiredResources,ExecutableDao.pathOfJobOutput(lastJobId));
+              for (              ExecutablePO task : executablePO.getTasks()) {
+                addRequired(requiredResources,ExecutableDao.pathOfJob(task.getUuid()));
+                addRequired(requiredResources,ExecutableDao.pathOfJobOutput(task.getUuid()));
+              }
+            }
+ catch (            PersistentException e) {
+              throw new RuntimeException("PersistentException",e);
+            }
+          }
+        }
+ else {
+          logger.info("Job info will not be extracted");
+        }
+      }
+    }
+ else {
+      if (includeJobs) {
+        logger.warn("It's useless to set includeJobs to true when includeSegments is set to false");
+      }
+      throw new IllegalStateException("Does not support skip segments now");
+    }
+  }
+ else   if (realization instanceof HybridInstance) {
+    HybridInstance hybridInstance=(HybridInstance)realization;
+    addRequired(requiredResources,HybridInstance.concatResourcePath(hybridInstance.getName()));
+    for (    IRealization iRealization : hybridInstance.getRealizations()) {
+      retrieveResourcePath(iRealization,includeSegments,includeJobs,requiredResources,optionalResources);
+    }
+  }
+ else   if (realization instanceof IIInstance) {
+    throw new IllegalStateException("Does not support extract II instance or hybrid that contains II");
+  }
+ else {
+    throw new IllegalStateException("Unknown realization type: " + realization.getType());
+  }
+}

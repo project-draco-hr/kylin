@@ -1,0 +1,5 @@
+IRealization realization
+boolean includeSegments
+boolean includeJobs
+List<String> requiredResources
+List<String> optionalResources

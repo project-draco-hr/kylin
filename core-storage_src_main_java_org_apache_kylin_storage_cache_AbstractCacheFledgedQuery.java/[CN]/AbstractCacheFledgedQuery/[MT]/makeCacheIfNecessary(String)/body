@@ -1,6 +1,6 @@
 {
-  if (CACHE_MANAGER == null) {
-    logger.warn("CACHE_MANAGER is not provided");
+  if (CACHE_MANAGER == null || (!(CACHE_MANAGER.getStatus().equals(Status.STATUS_ALIVE)))) {
+    logger.warn("CACHE_MANAGER is not provided or not alive");
     initCacheManger();
   }
   if (CACHE_MANAGER.getCache(storageUUID) == null) {
