@@ -1,0 +1,7 @@
+{
+  thrown.expect(IllegalStateException.class);
+  thrown.expectMessage("Aggregation group 0 require at least 2 dims in a hierarchy");
+  CubeDesc cubeDesc=CubeDescManager.getInstance(getTestConfig()).getCubeDesc("test_kylin_cube_with_slr_desc");
+  cubeDesc.getAggregationGroups().get(0).getSelectRule().hierarchy_dims=new String[][]{new String[]{"META_CATEG_NAME"}};
+  cubeDesc.init(getTestConfig(),MetadataManager.getInstance(getTestConfig()).getAllTablesMap());
+}

@@ -1,0 +1,9 @@
+{
+  boolean hasOverlap=false;
+  int dimSize=0;
+  for (  Set<String> dims : dimsList) {
+    dimSize+=dims.size();
+  }
+  if (dimSize != Dims.size())   hasOverlap=true;
+  return hasOverlap;
+}

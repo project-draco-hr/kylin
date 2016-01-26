@@ -1,0 +1,67 @@
+{
+  int maxSize=getMaxAgrGroupSize();
+  int index=0;
+  for (  AggregationGroup agg : cube.getAggregationGroups()) {
+    if (agg.getIncludes() == null) {
+      logger.error("Aggregation group " + index + " includes field not set");
+      throw new IllegalStateException("Aggregation group " + index + " includes field not set");
+    }
+    if (agg.getSelectRule() == null) {
+      logger.error("Aggregation group " + index + " includes field not set");
+      throw new IllegalStateException("Aggregation group " + index + " select rule field not set");
+    }
+    Set<String> includeDims=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+    getDims(includeDims,agg.getIncludes());
+    Set<String> mandatoryDims=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+    getDims(mandatoryDims,agg.getSelectRule().mandatory_dims);
+    ArrayList<Set<String>> hierarchyDimsList=new ArrayList();
+    Set<String> hierarchyDims=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+    getDims(hierarchyDimsList,hierarchyDims,agg.getSelectRule().hierarchy_dims);
+    ArrayList<Set<String>> jointDimsList=new ArrayList();
+    Set<String> jointDims=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+    getDims(jointDimsList,jointDims,agg.getSelectRule().joint_dims);
+    if (!includeDims.containsAll(mandatoryDims) || !containsAll(includeDims,hierarchyDimsList) || !containsAll(includeDims,jointDimsList)) {
+      logger.error("Aggregation group " + index + " Include dims not containing all the used dims");
+      throw new IllegalStateException("Aggregation group " + index + " Include dims not containing all the used dims");
+    }
+    Set<String> normalDims=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+    normalDims.addAll(includeDims);
+    normalDims.removeAll(mandatoryDims);
+    normalDims.removeAll(hierarchyDims);
+    normalDims.removeAll(jointDims);
+    int normalDimSize=normalDims.size();
+    int hierarchyDimSize=hierarchyDimsList.size();
+    int jointDimSize=jointDimsList.size();
+    if (normalDimSize + hierarchyDimSize + jointDimSize > maxSize) {
+      logger.error("Aggregation group " + index + " has too many dimensions");
+      throw new IllegalStateException("Aggregation group " + index + " has too many dimensions");
+    }
+    if (CollectionUtils.containsAny(mandatoryDims,hierarchyDims)) {
+      logger.warn("Aggregation group " + index + " mandatory dims overlap with hierarchy dims");
+    }
+    if (CollectionUtils.containsAny(mandatoryDims,jointDims)) {
+      logger.warn("Aggregation group " + index + " mandatory dims overlap with joint dims");
+    }
+    if (CollectionUtils.containsAny(hierarchyDims,jointDims)) {
+      logger.error("Aggregation group " + index + " hierarchy dims overlap with joint dims");
+      throw new IllegalStateException("Aggregation group " + index + " hierarchy dims overlap with joint dims");
+    }
+    if (hasSingle(hierarchyDimsList)) {
+      logger.error("Aggregation group " + index + " require at least 2 dims in a hierarchy");
+      throw new IllegalStateException("Aggregation group " + index + " require at least 2 dims in a hierarchy");
+    }
+    if (hasSingle(jointDimsList)) {
+      logger.error("Aggregation group " + index + " require at least 2 dims in a joint");
+      throw new IllegalStateException("Aggregation group " + index + " require at least 2 dims in a joint");
+    }
+    if (hasOverlap(hierarchyDimsList,hierarchyDims)) {
+      logger.error("Aggregation group " + index + " a dim exist in more than one hierarchy");
+      throw new IllegalStateException("Aggregation group " + index + " a dim exist in more than one hierarchy");
+    }
+    if (hasOverlap(jointDimsList,jointDims)) {
+      logger.error("Aggregation group " + index + " a dim exist in more than one joint");
+      throw new IllegalStateException("Aggregation group " + index + " a dim exist in more than one joint");
+    }
+    index++;
+  }
+}

@@ -1,0 +1,7 @@
+{
+  if (stringSet != null) {
+    for (    String str : stringSet) {
+      dims.add(str);
+    }
+  }
+}
