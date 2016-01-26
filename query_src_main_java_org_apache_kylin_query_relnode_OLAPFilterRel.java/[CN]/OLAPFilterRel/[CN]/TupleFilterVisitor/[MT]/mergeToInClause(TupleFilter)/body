@@ -2,6 +2,7 @@
   List<? extends TupleFilter> children=filter.getChildren();
   TblColRef inColumn=null;
   List<Object> inValues=new LinkedList<Object>();
+  Map<String,Object> dynamicVariables=new HashMap<>();
   for (  TupleFilter child : children) {
     if (child.getOperator() == FilterOperatorEnum.EQ) {
       CompareTupleFilter compFilter=(CompareTupleFilter)child;
@@ -13,6 +14,7 @@
         return null;
       }
       inValues.addAll(compFilter.getValues());
+      dynamicVariables.putAll(compFilter.getVariables());
     }
  else {
       return null;
@@ -22,5 +24,6 @@
   CompareTupleFilter inFilter=new CompareTupleFilter(FilterOperatorEnum.IN);
   inFilter.addChild(new ColumnTupleFilter(inColumn));
   inFilter.addChild(new ConstantTupleFilter(inValues));
+  inFilter.getVariables().putAll(dynamicVariables);
   return inFilter;
 }
