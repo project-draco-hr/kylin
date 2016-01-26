@@ -1,3 +1,5 @@
 {
-  batchExecuteQuery("src/test/resources/query/sql_distinct");
+  if ("left".equalsIgnoreCase(joinType)) {
+    batchExecuteQuery("src/test/resources/query/sql_distinct");
+  }
 }

@@ -1,0 +1,5 @@
+{
+  if ("left".equalsIgnoreCase(joinType)) {
+    this.execAndCompDynamicQuery("src/test/resources/query/sql_topn",null,true);
+  }
+}

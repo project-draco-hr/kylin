@@ -1,3 +1,5 @@
 {
-  execAndCompQuery("src/test/resources/query/sql_distinct_precisely",null,true);
+  if ("left".equalsIgnoreCase(joinType)) {
+    execAndCompQuery("src/test/resources/query/sql_distinct_precisely",null,true);
+  }
 }
