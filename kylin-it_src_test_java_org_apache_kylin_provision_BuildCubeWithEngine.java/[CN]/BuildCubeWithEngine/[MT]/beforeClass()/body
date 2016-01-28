@@ -14,4 +14,17 @@
     throw new RuntimeException("No hdp.version set; Please set hdp.version in your jvm option, for example: -Dhdp.version=2.2.4.2-2");
   }
   HBaseMetadataTestCase.staticCreateTestMetadata(AbstractKylinTestCase.SANDBOX_TEST_DATA);
+  try {
+    Configuration hconf=HadoopUtil.getCurrentConfiguration();
+    FileSystem fileSystem=FileSystem.get(hconf);
+    String hdfsWorkingDirectory=KylinConfig.getInstanceFromEnv().getHdfsWorkingDirectory();
+    Path coprocessorDir=new Path(hdfsWorkingDirectory);
+    boolean success=fileSystem.mkdirs(coprocessorDir);
+    if (!success) {
+      throw new IOException("mkdir fails");
+    }
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("failed to create kylin.hdfs.working.dir, Please make sure the user has right to access " + KylinConfig.getInstanceFromEnv().getHdfsWorkingDirectory(),e);
+  }
 }
