@@ -42,7 +42,7 @@ String cubeId=(String)opt.params[0];
 String modelId=(String)opt.params[1];
 HTableInterface destAclHtable=null;
 try {
-destAclHtable=HBaseConnection.get(dstConfig.getMetadataUrl()).getTable(dstConfig.getMetadataUrlPrefix() + ACL_TABLE_NAME);
+destAclHtable=HBaseConnection.get(dstConfig.getStorageUrl()).getTable(dstConfig.getMetadataUrlPrefix() + ACL_TABLE_NAME);
 destAclHtable.delete(new Delete(Bytes.toBytes(cubeId)));
 destAclHtable.delete(new Delete(Bytes.toBytes(modelId)));
 destAclHtable.flushCommits();
