@@ -5,13 +5,20 @@
   String cubeName=conf.get(BatchConstants.CFG_CUBE_NAME);
   CubeInstance cube=CubeManager.getInstance(config).getCube(cubeName);
   cubeDesc=cube.getDescriptor();
-  columnList=cubeDesc.getAllColumnsNeedDictionary();
-  collectStatistics=Boolean.parseBoolean(conf.get(BatchConstants.CFG_STATISTICS_ENABLED));
-  statisticsOutput=conf.get(BatchConstants.CFG_STATISTICS_OUTPUT);
-  if (collectStatistics) {
+  columnList=CubeManager.getInstance(config).getAllDictColumnsOnFact(cubeDesc);
+  boolean collectStatistics=Boolean.parseBoolean(conf.get(BatchConstants.CFG_STATISTICS_ENABLED));
+  int numberOfTasks=context.getNumReduceTasks();
+  int taskId=context.getTaskAttemptID().getTaskID().getId();
+  if (collectStatistics && (taskId == numberOfTasks - 1)) {
+    isStatistics=true;
+    statisticsOutput=conf.get(BatchConstants.CFG_STATISTICS_OUTPUT);
     baseCuboidRowCountInMappers=Lists.newArrayList();
     cuboidHLLMap=Maps.newHashMap();
     samplingPercentage=Integer.parseInt(context.getConfiguration().get(BatchConstants.CFG_STATISTICS_SAMPLING_PERCENT));
   }
-  colValues=Lists.newArrayList();
+ else {
+    isStatistics=false;
+    col=columnList.get(taskId);
+    colValues=Lists.newArrayList();
+  }
 }

@@ -7,22 +7,12 @@
   cubeSeg=cube.getSegment(conf.get(BatchConstants.CFG_CUBE_SEGMENT_NAME),SegmentStatusEnum.NEW);
   cubeDesc=cube.getDescriptor();
   baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
-  dictionaryColumns=cubeDesc.getAllColumnsNeedDictionary();
-  factDictCols=new ArrayList<Integer>();
-  DictionaryManager dictMgr=DictionaryManager.getInstance(config);
-  for (int i=0; i < dictionaryColumns.size(); i++) {
-    TblColRef col=dictionaryColumns.get(i);
-    String scanTable=dictMgr.decideSourceData(cubeDesc.getModel(),true,col).getTable();
-    if (cubeDesc.getModel().isFactTable(scanTable)) {
-      factDictCols.add(i);
-    }
-  }
+  factDictCols=CubeManager.getInstance(config).getAllDictColumnsOnFact(cubeDesc);
   flatTableInputFormat=MRUtil.getBatchCubingInputSide(cubeSeg).getFlatTableInputFormat();
   intermediateTableDesc=new CubeJoinedFlatTableDesc(cubeDesc,null);
   dictionaryColumnIndex=new int[factDictCols.size()];
   for (int i=0; i < factDictCols.size(); i++) {
-    Integer column=factDictCols.get(i);
-    TblColRef colRef=dictionaryColumns.get(column);
+    TblColRef colRef=factDictCols.get(i);
     int columnIndexOnFlatTbl=intermediateTableDesc.getColumnIndex(colRef);
     dictionaryColumnIndex[i]=columnIndexOnFlatTbl;
   }

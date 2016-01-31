@@ -3,8 +3,9 @@
   job.setOutputFormatClass(SequenceFileOutputFormat.class);
   job.setOutputKeyClass(NullWritable.class);
   job.setOutputValueClass(Text.class);
+  job.setPartitionerClass(FactDistinctColumnPartitioner.class);
+  job.setNumReduceTasks(numberOfReducers);
   FileOutputFormat.setOutputPath(job,output);
   job.getConfiguration().set(BatchConstants.OUTPUT_PATH,output.toString());
-  job.setNumReduceTasks(1);
   deletePath(job.getConfiguration(),output);
 }

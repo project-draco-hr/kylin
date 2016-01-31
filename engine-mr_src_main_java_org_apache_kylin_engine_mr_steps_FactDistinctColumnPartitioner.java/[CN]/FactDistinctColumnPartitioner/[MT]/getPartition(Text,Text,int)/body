@@ -1,0 +1,9 @@
+{
+  long colIndex=Bytes.toLong(key.getBytes(),0,Bytes.SIZEOF_LONG);
+  if (colIndex < 0) {
+    return numReduceTasks - 1;
+  }
+ else {
+    return (int)(colIndex);
+  }
+}

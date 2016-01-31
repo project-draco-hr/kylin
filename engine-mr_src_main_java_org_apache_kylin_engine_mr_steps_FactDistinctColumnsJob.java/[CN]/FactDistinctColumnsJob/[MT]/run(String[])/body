@@ -16,8 +16,11 @@
     String statistics_enabled=getOptionValue(OPTION_STATISTICS_ENABLED);
     String statistics_output=getOptionValue(OPTION_STATISTICS_OUTPUT);
     String statistics_sampling_percent=getOptionValue(OPTION_STATISTICS_SAMPLING_PERCENT);
-    CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
+    KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+    CubeManager cubeMgr=CubeManager.getInstance(kylinConfig);
     CubeInstance cube=cubeMgr.getCube(cubeName);
+    CubeDesc cubeDesc=cube.getDescriptor();
+    List<TblColRef> columnsNeedDict=cubeMgr.getAllDictColumnsOnFact(cubeDesc);
     job.getConfiguration().set(BatchConstants.CFG_CUBE_NAME,cubeName);
     job.getConfiguration().set(BatchConstants.CFG_CUBE_SEGMENT_NAME,segmentName);
     job.getConfiguration().set(BatchConstants.CFG_STATISTICS_ENABLED,statistics_enabled);
@@ -26,7 +29,7 @@
     logger.info("Starting: " + job.getJobName());
     setJobClasspath(job);
     setupMapper(cube.getSegment(segmentName,SegmentStatusEnum.NEW));
-    setupReducer(output);
+    setupReducer(output,"true".equalsIgnoreCase(statistics_enabled) ? columnsNeedDict.size() + 1 : columnsNeedDict.size());
     attachKylinPropsAndMetadata(cube,job.getConfiguration());
     return waitForCompletion(job);
   }

@@ -1,9 +1,11 @@
 {
-  if (colValues.size() > 0) {
-    outputDistinctValues(columnList.get((int)currentColIndex),colValues,context);
-    colValues.clear();
+  if (isStatistics == false) {
+    if (colValues.size() > 0) {
+      outputDistinctValues(col,colValues,context);
+      colValues.clear();
+    }
   }
-  if (collectStatistics) {
+ else {
     long grandTotal=0;
     for (    HyperLogLogPlusCounter hll : cuboidHLLMap.values()) {
       grandTotal+=hll.getCountEstimate();

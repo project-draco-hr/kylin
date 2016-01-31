@@ -1,22 +1,18 @@
 {
-  long colIndex=Bytes.toLong(key.getBytes(),0,Bytes.SIZEOF_LONG);
-  if (colIndex >= 0) {
-    if (colIndex != currentColIndex || colValues.size() == 1000000) {
-      if (colValues.size() > 0) {
-        System.out.println("spill values to disk...");
-        outputDistinctValues(columnList.get((int)currentColIndex),colValues,context);
-        colValues.clear();
-      }
-      currentColIndex=colIndex;
-    }
+  if (isStatistics == false) {
     colValues.add(new ByteArray(Bytes.copy(key.getBytes(),Bytes.SIZEOF_LONG,key.getLength() - Bytes.SIZEOF_LONG)));
+    if (colValues.size() == 1000000) {
+      System.out.println("spill values to disk...");
+      outputDistinctValues(col,colValues,context);
+      colValues.clear();
+    }
   }
  else {
-    long cuboidId=0 - colIndex;
+    long cuboidId=0 - Bytes.toLong(key.getBytes(),0,Bytes.SIZEOF_LONG);
     for (    Text value : values) {
       HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(14);
-      ByteArray byteArray=new ByteArray(value.getBytes());
-      hll.readRegisters(byteArray.asBuffer());
+      ByteBuffer bf=ByteBuffer.wrap(value.getBytes(),0,value.getLength());
+      hll.readRegisters(bf);
       totalRowsBeforeMerge+=hll.getCountEstimate();
       if (cuboidId == baseCuboidId) {
         baseCuboidRowCountInMappers.add(hll.getCountEstimate());
