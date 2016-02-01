@@ -1,5 +1,5 @@
 {
-  printInfo("setU in KylinQueryTest");
+  printInfo("set up in KylinQueryTest");
   joinType="left";
   setupAll();
 }
