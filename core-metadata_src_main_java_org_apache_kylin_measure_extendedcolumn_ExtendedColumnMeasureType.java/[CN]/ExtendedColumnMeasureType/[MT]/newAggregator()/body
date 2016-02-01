@@ -1,0 +1,29 @@
+{
+  return new MeasureAggregator<ByteArray>(){
+    private ByteArray byteArray=null;
+    private boolean warned=false;
+    @Override public void reset(){
+      byteArray=null;
+    }
+    @Override public void aggregate(    ByteArray value){
+      if (byteArray == null) {
+        byteArray=value;
+      }
+ else {
+        if (!byteArray.equals(value)) {
+          if (!warned) {
+            logger.warn("Extended column must be unique given same host column");
+            warned=true;
+          }
+        }
+      }
+    }
+    @Override public ByteArray getState(){
+      return byteArray;
+    }
+    @Override public int getMemBytesEstimate(){
+      return dataType.getPrecision() / 2;
+    }
+  }
+;
+}

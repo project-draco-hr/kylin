@@ -1,0 +1,8 @@
+{
+  if (value != null && value.array() != null) {
+    BytesUtil.writeByteArray(value.array(),value.offset(),value.length(),out);
+  }
+ else {
+    BytesUtil.writeByteArray(null,out);
+  }
+}

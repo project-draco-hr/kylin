@@ -1,0 +1,3 @@
+{
+  return extendedColumnToHosts.containsKey(col);
+}

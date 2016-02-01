@@ -1,7 +1,7 @@
 {
   Set<TblColRef> expanded=Sets.newHashSet();
   for (  TblColRef col : cols) {
-    if (cubeDesc.isDerived(col)) {
+    if (cubeDesc.hasHostColumn(col)) {
       DeriveInfo hostInfo=cubeDesc.getHostInfo(col);
       for (      TblColRef hostCol : hostInfo.columns) {
         expanded.add(hostCol);

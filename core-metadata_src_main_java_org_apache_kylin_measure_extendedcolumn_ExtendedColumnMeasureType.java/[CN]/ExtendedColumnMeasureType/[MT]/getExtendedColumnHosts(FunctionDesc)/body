@@ -1,0 +1,8 @@
+{
+  List<TblColRef> ret=Lists.newArrayList();
+  List<TblColRef> params=functionDesc.getParameter().getColRefs();
+  for (int i=0; i < params.size() - 1; i++) {
+    ret.add(params.get(i));
+  }
+  return ret;
+}

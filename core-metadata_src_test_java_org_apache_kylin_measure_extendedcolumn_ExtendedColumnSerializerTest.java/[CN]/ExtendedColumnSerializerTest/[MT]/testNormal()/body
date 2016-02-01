@@ -1,0 +1,11 @@
+{
+  String text=StringUtils.repeat("h",20);
+  ExtendedColumnSerializer serializer=new ExtendedColumnSerializer(DataType.getType("extendedcolumn(20)"));
+  MeasureIngester<ByteArray> ingester=measureType.newIngester();
+  ByteArray array=ingester.valueOf(new String[]{text},null,null);
+  ByteBuffer buffer=ByteBuffer.allocate(serializer.maxLength());
+  serializer.serialize(array,buffer);
+  buffer.flip();
+  ByteArray des=serializer.deserialize(buffer);
+  Assert.assertTrue(new ByteArray(text.getBytes()).equals(des));
+}

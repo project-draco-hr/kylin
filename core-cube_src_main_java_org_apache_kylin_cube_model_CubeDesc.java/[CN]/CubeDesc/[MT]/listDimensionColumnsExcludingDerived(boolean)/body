@@ -1,0 +1,13 @@
+{
+  List<TblColRef> result=new ArrayList<TblColRef>();
+  for (  TblColRef col : dimensionColumns) {
+    if (isDerived(col)) {
+      continue;
+    }
+    if (alsoExcludeExtendedCol && isExtendedColumn(col)) {
+      continue;
+    }
+    result.add(col);
+  }
+  return result;
+}

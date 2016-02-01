@@ -1,0 +1,16 @@
+{
+  TblColRef extendedCol=getExtendedColumn(measureDesc.getFunction());
+  if (!unmatchedDimensions.contains(extendedCol)) {
+    return null;
+  }
+  if (digest.filterColumns.contains(extendedCol)) {
+    return null;
+  }
+  unmatchedDimensions.remove(extendedCol);
+  return new CapabilityResult.CapabilityInfluence(){
+    @Override public double suggestCostMultiplier(){
+      return 0.9;
+    }
+  }
+;
+}

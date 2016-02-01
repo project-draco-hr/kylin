@@ -10,7 +10,9 @@
       break;
     }
   }
-  if (derived != null && derived.length == 0)   derived=null;
+  if (derived != null && derived.length == 0) {
+    derived=null;
+  }
   if (derived != null) {
     StringUtil.toUpperCaseArray(derived,derived);
   }

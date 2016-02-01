@@ -1,0 +1,3 @@
+TableDesc factTable
+List<TableDesc> lookups
+String columnName

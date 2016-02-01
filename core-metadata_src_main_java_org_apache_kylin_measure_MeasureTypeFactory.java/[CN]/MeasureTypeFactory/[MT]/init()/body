@@ -4,6 +4,7 @@
   factoryInsts.add(new HLLCMeasureType.Factory());
   factoryInsts.add(new BitmapMeasureType.Factory());
   factoryInsts.add(new TopNMeasureType.Factory());
+  factoryInsts.add(new ExtendedColumnMeasureType.Factory());
   for (  MeasureTypeFactory<?> factory : factoryInsts) {
     String funcName=factory.getAggrFunctionName();
     if (funcName.equals(funcName.toUpperCase()) == false)     throw new IllegalArgumentException("Aggregation function name '" + funcName + "' must be in upper case");

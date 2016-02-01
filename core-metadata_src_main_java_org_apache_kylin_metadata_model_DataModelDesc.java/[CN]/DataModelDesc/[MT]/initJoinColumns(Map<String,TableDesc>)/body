@@ -5,6 +5,7 @@
     if (dimTable == null) {
       throw new IllegalStateException("Table " + lookup.getTable() + " does not exist for "+ this);
     }
+    this.lookupTableDescs.add(dimTable);
     JoinDesc join=lookup.getJoin();
     if (join == null)     continue;
     StringUtil.toUpperCaseArray(join.getForeignKey(),join.getForeignKey());

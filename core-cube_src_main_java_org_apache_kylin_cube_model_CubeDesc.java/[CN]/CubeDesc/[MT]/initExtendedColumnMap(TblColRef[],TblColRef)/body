@@ -1,0 +1,3 @@
+{
+  extendedColumnToHosts.put(extendedColumn,new DeriveInfo(DeriveType.EXTENDED_COLUMN,null,hostCols,false));
+}

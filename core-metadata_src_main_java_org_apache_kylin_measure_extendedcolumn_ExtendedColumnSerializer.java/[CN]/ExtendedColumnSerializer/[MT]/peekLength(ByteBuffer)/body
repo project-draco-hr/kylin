@@ -1,0 +1,10 @@
+{
+  int mark=in.position();
+  int size=BytesUtil.readVInt(in);
+  int total=in.position() - mark;
+  if (size >= 0) {
+    total+=size;
+  }
+  in.position(mark);
+  return total;
+}

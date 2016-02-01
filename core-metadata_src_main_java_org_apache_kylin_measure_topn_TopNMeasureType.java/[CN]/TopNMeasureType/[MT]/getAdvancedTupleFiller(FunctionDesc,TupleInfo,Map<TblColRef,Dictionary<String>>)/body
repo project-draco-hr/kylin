@@ -16,7 +16,7 @@
     @Override public int getNumOfRows(){
       return topNCounter.size();
     }
-    @Override public void fillTuplle(    Tuple tuple,    int row){
+    @Override public void fillTuple(    Tuple tuple,    int row){
       if (expectRow++ != row)       throw new IllegalStateException();
       Counter<ByteArray> counter=topNCounterIterator.next();
       int key=BytesUtil.readUnsigned(counter.getItem().array(),counter.getItem().offset(),counter.getItem().length());

@@ -1,0 +1,4 @@
+{
+  this.extendedColumnSize=dataType.getPrecision();
+  this.maxLength=this.extendedColumnSize + 4;
+}

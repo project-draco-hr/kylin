@@ -1,0 +1,3 @@
+{
+  return isDerived(col) || isExtendedColumn(col);
+}

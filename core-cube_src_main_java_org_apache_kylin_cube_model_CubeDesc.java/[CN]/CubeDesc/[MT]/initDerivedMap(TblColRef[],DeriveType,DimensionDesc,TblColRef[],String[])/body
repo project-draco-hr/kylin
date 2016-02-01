@@ -7,15 +7,17 @@
       i--;
     }
   }
+  Map<TblColRef,DeriveInfo> toHostMap=derivedToHostMap;
+  Map<Array<TblColRef>,List<DeriveInfo>> hostToMap=hostToDerivedMap;
   Array<TblColRef> hostColArray=new Array<TblColRef>(hostCols);
-  List<DeriveInfo> infoList=hostToDerivedMap.get(hostColArray);
+  List<DeriveInfo> infoList=hostToMap.get(hostColArray);
   if (infoList == null) {
-    hostToDerivedMap.put(hostColArray,infoList=new ArrayList<DeriveInfo>());
+    hostToMap.put(hostColArray,infoList=new ArrayList<DeriveInfo>());
   }
   infoList.add(new DeriveInfo(type,dimension,derivedCols,false));
   for (int i=0; i < derivedCols.length; i++) {
     TblColRef derivedCol=derivedCols[i];
     boolean isOneToOne=type == DeriveType.PK_FK || ArrayUtils.contains(hostCols,derivedCol) || (extra != null && extra[i].contains("1-1"));
-    derivedToHostMap.put(derivedCol,new DeriveInfo(type,dimension,hostCols,isOneToOne));
+    toHostMap.put(derivedCol,new DeriveInfo(type,dimension,hostCols,isOneToOne));
   }
 }

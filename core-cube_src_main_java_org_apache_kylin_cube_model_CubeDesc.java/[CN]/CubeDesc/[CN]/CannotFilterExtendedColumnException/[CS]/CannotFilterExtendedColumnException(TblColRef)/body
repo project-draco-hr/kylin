@@ -1,0 +1,3 @@
+{
+  super(tblColRef == null ? "null" : tblColRef.getCanonicalName());
+}

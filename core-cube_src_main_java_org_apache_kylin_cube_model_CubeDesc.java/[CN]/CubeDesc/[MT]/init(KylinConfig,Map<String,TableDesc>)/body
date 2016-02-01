@@ -21,7 +21,7 @@
     hbaseMapping.init(this);
   }
   initMeasureReferenceToColumnFamily();
-  List<TblColRef> dimCols=listDimensionColumnsExcludingDerived();
+  List<TblColRef> dimCols=listDimensionColumnsExcludingDerived(true);
   if (rowkey.getRowKeyColumns().length != dimCols.size()) {
     addError("RowKey columns count (" + rowkey.getRowKeyColumns().length + ") does not match dimension columns count ("+ dimCols.size()+ "). ");
   }

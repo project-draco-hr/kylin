@@ -1,0 +1,21 @@
+{
+  final TblColRef extended=getExtendedColumn(function);
+  final int extendedColumnInTupleIdx=returnTupleInfo.hasColumn(extended) ? returnTupleInfo.getColumnIndex(extended) : -1;
+  if (extendedColumnInTupleIdx == -1) {
+    throw new RuntimeException("Extended column is not required in returnTupleInfo");
+  }
+  return new IAdvMeasureFiller(){
+    private String value;
+    @Override public void reload(    Object measureValue){
+      ByteArray byteArray=(ByteArray)measureValue;
+      value=new String(byteArray.array(),Charsets.toCharset("UTF-8"));
+    }
+    @Override public int getNumOfRows(){
+      return 1;
+    }
+    @Override public void fillTuple(    Tuple tuple,    int row){
+      tuple.setDimensionValue(extendedColumnInTupleIdx,value);
+    }
+  }
+;
+}

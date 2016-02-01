@@ -9,7 +9,7 @@
       m.setDependentMeasureRef(m.getDependentMeasureRef().toUpperCase());
     }
     FunctionDesc func=m.getFunction();
-    func.init(factTable);
+    func.init(factTable,null);
     allColumns.addAll(func.getParameter().getColRefs());
     func.getMeasureType().validate(func);
   }

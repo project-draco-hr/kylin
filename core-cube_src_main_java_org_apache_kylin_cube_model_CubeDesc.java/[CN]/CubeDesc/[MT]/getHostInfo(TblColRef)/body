@@ -1,3 +1,9 @@
 {
-  return derivedToHostMap.get(derived);
+  if (isDerived(derived)) {
+    return derivedToHostMap.get(derived);
+  }
+ else   if (isExtendedColumn(derived)) {
+    return extendedColumnToHosts.get(derived);
+  }
+  throw new RuntimeException("Cannot get host info for " + derived);
 }

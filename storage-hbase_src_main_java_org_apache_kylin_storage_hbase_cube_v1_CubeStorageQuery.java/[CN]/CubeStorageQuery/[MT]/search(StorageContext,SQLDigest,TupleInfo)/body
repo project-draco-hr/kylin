@@ -11,14 +11,13 @@
   Set<TblColRef> groupsD=expandDerived(groups,derivedPostAggregation);
   Set<TblColRef> othersD=expandDerived(others,derivedPostAggregation);
   othersD.removeAll(groupsD);
-  derivedPostAggregation.removeAll(groups);
   Set<TblColRef> dimensionsD=Sets.newHashSet();
   dimensionsD.addAll(groupsD);
   dimensionsD.addAll(othersD);
   Cuboid cuboid=identifyCuboid(dimensionsD,metrics);
   context.setCuboid(cuboid);
   Set<TblColRef> singleValuesD=findSingleValueColumns(filter);
-  boolean isExactAggregation=isExactAggregation(cuboid,groups,othersD,singleValuesD,derivedPostAggregation);
+  boolean isExactAggregation=isExactAggregation(cuboid,groupsD,othersD,singleValuesD,derivedPostAggregation);
   context.setExactAggregation(isExactAggregation);
   Set<TblColRef> groupsCopD=Sets.newHashSet(groupsD);
   collectNonEvaluable(filter,groupsCopD);

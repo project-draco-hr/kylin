@@ -20,6 +20,9 @@
   }
   Set<TblColRef> resultD=Sets.newHashSet();
   for (  TblColRef col : result) {
+    if (cubeDesc.isExtendedColumn(col)) {
+      throw new CubeDesc.CannotFilterExtendedColumnException(col);
+    }
     if (cubeDesc.isDerived(col)) {
       DeriveInfo hostInfo=cubeDesc.getHostInfo(col);
       if (hostInfo.isOneToOne) {

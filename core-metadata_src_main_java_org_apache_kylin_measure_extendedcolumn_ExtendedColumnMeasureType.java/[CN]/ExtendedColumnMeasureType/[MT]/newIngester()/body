@@ -1,0 +1,49 @@
+{
+  return new MeasureIngester<ByteArray>(){
+    public String truncateWhenUTF8(    String s,    int maxBytes){
+      int b=0;
+      for (int i=0; i < s.length(); i++) {
+        char c=s.charAt(i);
+        int skip=0;
+        int more;
+        if (c <= 0x007f) {
+          more=1;
+        }
+ else         if (c <= 0x07FF) {
+          more=2;
+        }
+ else         if (c <= 0xd7ff) {
+          more=3;
+        }
+ else         if (c <= 0xDFFF) {
+          more=4;
+          skip=1;
+        }
+ else {
+          more=3;
+        }
+        if (b + more > maxBytes) {
+          return s.substring(0,i);
+        }
+        b+=more;
+        i+=skip;
+      }
+      return s;
+    }
+    @Override public ByteArray valueOf(    String[] values,    MeasureDesc measureDesc,    Map<TblColRef,Dictionary<String>> dictionaryMap){
+      if (values.length <= 1)       throw new IllegalArgumentException();
+      String literal=values[values.length - 1];
+      if (literal == null) {
+        return new ByteArray();
+      }
+      byte[] bytes=literal.getBytes();
+      if (bytes.length <= dataType.getPrecision()) {
+        return new ByteArray(bytes);
+      }
+ else {
+        return new ByteArray(truncateWhenUTF8(literal,dataType.getPrecision()).getBytes());
+      }
+    }
+  }
+;
+}

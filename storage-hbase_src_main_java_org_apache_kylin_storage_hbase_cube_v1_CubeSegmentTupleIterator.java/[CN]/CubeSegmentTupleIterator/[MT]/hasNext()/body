@@ -2,7 +2,7 @@
   if (next != null)   return true;
   if (advMeasureRowsRemaining > 0) {
     for (    MeasureType.IAdvMeasureFiller filler : advMeasureFillers) {
-      filler.fillTuplle(oneTuple,advMeasureRowIndex);
+      filler.fillTuple(oneTuple,advMeasureRowIndex);
     }
     advMeasureRowIndex++;
     advMeasureRowsRemaining--;

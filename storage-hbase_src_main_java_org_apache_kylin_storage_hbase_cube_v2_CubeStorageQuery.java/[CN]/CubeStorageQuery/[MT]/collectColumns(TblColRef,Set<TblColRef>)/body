@@ -1,4 +1,7 @@
 {
+  if (cubeDesc.isExtendedColumn(col)) {
+    throw new CubeDesc.CannotFilterExtendedColumnException(col);
+  }
   if (cubeDesc.isDerived(col)) {
     DeriveInfo hostInfo=cubeDesc.getHostInfo(col);
     for (    TblColRef h : hostInfo.columns)     collector.add(h);

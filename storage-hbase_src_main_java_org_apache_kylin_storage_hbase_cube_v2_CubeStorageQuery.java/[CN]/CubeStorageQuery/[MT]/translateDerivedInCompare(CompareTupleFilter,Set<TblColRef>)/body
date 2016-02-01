@@ -1,6 +1,9 @@
 {
   if (compf.getColumn() == null || compf.getValues().isEmpty())   return compf;
   TblColRef derived=compf.getColumn();
+  if (cubeDesc.isExtendedColumn(derived)) {
+    throw new CubeDesc.CannotFilterExtendedColumnException(derived);
+  }
   if (cubeDesc.isDerived(derived) == false)   return compf;
   DeriveInfo hostInfo=cubeDesc.getHostInfo(derived);
   CubeManager cubeMgr=CubeManager.getInstance(this.cubeInstance.getConfig());

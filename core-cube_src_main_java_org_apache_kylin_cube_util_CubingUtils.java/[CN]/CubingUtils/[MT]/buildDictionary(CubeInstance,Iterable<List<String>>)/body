@@ -1,5 +1,5 @@
 {
-  final List<TblColRef> columnsNeedToBuildDictionary=cubeInstance.getDescriptor().listDimensionColumnsExcludingDerived();
+  final List<TblColRef> columnsNeedToBuildDictionary=cubeInstance.getDescriptor().listDimensionColumnsExcludingDerived(true);
   final HashMap<Integer,TblColRef> tblColRefMap=Maps.newHashMap();
   int index=0;
   for (  TblColRef column : columnsNeedToBuildDictionary) {
