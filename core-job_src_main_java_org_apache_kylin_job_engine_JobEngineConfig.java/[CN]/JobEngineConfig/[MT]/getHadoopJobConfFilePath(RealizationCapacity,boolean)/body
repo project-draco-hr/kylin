@@ -1,6 +1,6 @@
 {
   String hadoopJobConfFile;
-  if (appendSuffix) {
+  if (capaticy != null && appendSuffix) {
     hadoopJobConfFile=(HADOOP_JOB_CONF_FILENAME + "_" + capaticy.toString().toLowerCase()+ ".xml");
   }
  else {
