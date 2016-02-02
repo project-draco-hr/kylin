@@ -1,0 +1,22 @@
+{
+  super.afterExecute(r,t);
+  if (t == null && r instanceof Future<?>) {
+    try {
+      ((Future<?>)r).get();
+    }
+ catch (    ExecutionException ee) {
+      logger.error("Execution exception when running task in " + Thread.currentThread().getName());
+      t=ee.getCause();
+    }
+catch (    InterruptedException ie) {
+      logger.error("Thread interrupted: ");
+      Thread.currentThread().interrupt();
+    }
+catch (    Throwable throwable) {
+      t=throwable;
+    }
+  }
+  if (t != null) {
+    logger.error("Caught exception in thread " + Thread.currentThread().getName() + ": ",t);
+  }
+}

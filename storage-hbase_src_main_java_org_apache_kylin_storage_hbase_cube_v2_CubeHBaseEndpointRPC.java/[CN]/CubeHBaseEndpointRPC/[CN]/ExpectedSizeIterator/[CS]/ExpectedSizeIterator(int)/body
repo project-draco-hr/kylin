@@ -1,4 +1,6 @@
 {
   this.expectedSize=expectedSize;
   this.queue=new ArrayBlockingQueue<byte[]>(expectedSize);
+  this.timeout=HadoopUtil.getCurrentConfiguration().getInt(HConstants.HBASE_RPC_TIMEOUT_KEY,HConstants.DEFAULT_HBASE_RPC_TIMEOUT);
+  logger.info("Timeout for ExpectedSizeIterator is " + this.timeout);
 }
