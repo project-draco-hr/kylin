@@ -1,6 +1,4 @@
 {
+  super(cubeDesc,cubeSegment);
   this.mapContext=mapContext;
-  this.cubeDesc=cubeDesc;
-  this.cubeSegment=cubeSegment;
-  this.measureCount=cubeDesc.getMeasures().size();
 }

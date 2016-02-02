@@ -13,10 +13,5 @@
   record.exportColumns(measureColumnsIndex,valueBuf);
   outputKey.set(keyBuf,0,keyBuf.length);
   outputValue.set(valueBuf.array(),0,valueBuf.position());
-  try {
-    mapContext.write(outputKey,outputValue);
-  }
- catch (  InterruptedException e) {
-    throw new RuntimeException(e);
-  }
+  writeAsKeyValue(outputKey,outputValue);
 }

@@ -3,7 +3,10 @@
     CubeSegment cubeSegment=(CubeSegment)buildable;
     final HTableInterface hTable;
     hTable=createHTable(cubeSegment);
-    return new HBaseCuboidWriter(cubeSegment,hTable);
+    List<ICuboidWriter> cuboidWriters=Lists.newArrayList();
+    cuboidWriters.add(new HBaseCuboidWriter(cubeSegment,hTable));
+    cuboidWriters.add(new SequenceFileCuboidWriter(cubeSegment.getCubeDesc(),cubeSegment));
+    return new CompoundCuboidWriter(cuboidWriters);
   }
  catch (  IOException e) {
     throw new RuntimeException("failed to get ICuboidWriter",e);

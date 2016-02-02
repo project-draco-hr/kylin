@@ -19,4 +19,15 @@
 catch (  ExecutionException e) {
     throw new RuntimeException("error build cube from StreamingBatch",e.getCause());
   }
+catch (  IOException e) {
+    throw new RuntimeException("error build cube from StreamingBatch",e.getCause());
+  }
+ finally {
+    try {
+      cuboidWriter.close();
+    }
+ catch (    IOException e) {
+      throw new RuntimeException("error build cube from StreamingBatch",e.getCause());
+    }
+  }
 }

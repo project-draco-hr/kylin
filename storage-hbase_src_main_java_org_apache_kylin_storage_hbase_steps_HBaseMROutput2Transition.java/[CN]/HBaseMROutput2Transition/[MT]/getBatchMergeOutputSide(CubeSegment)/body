@@ -9,7 +9,7 @@
       jobFlow.addTask(steps.createBulkLoadStep(jobFlow.getId()));
     }
     @Override public void addStepPhase3_Cleanup(    DefaultChainedExecutable jobFlow){
-      jobFlow.addTask(steps.createMergeGCStep());
+      steps.addMergingGarbageCollectionSteps(jobFlow);
     }
   }
 ;

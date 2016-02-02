@@ -1,2 +1,4 @@
 {
+  flush();
+  IOUtils.closeQuietly(hTable);
 }

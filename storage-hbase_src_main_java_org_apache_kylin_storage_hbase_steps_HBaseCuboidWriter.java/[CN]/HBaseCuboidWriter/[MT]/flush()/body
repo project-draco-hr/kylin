@@ -1,16 +1,11 @@
 {
-  try {
-    if (!puts.isEmpty()) {
-      long t=System.currentTimeMillis();
-      if (hTable != null) {
-        hTable.put(puts);
-        hTable.flushCommits();
-      }
-      logger.info("commit total " + puts.size() + " puts, totally cost:"+ (System.currentTimeMillis() - t)+ "ms");
-      puts.clear();
+  if (!puts.isEmpty()) {
+    long t=System.currentTimeMillis();
+    if (hTable != null) {
+      hTable.put(puts);
+      hTable.flushCommits();
     }
-  }
- catch (  IOException e) {
-    throw new RuntimeException(e);
+    logger.info("commit total " + puts.size() + " puts, totally cost:"+ (System.currentTimeMillis() - t)+ "ms");
+    puts.clear();
   }
 }
