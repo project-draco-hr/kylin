@@ -1,6 +1,6 @@
 {
   ProjectInstance projectInstance=new ProjectInstance();
-  projectInstance.updateRandomUuid();
+  projectInstance.updateVersionAndRandomUuid();
   projectInstance.setName(name);
   projectInstance.setOwner(owner);
   projectInstance.setDescription(description);

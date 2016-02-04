@@ -12,7 +12,7 @@
  else {
     project.setName(newName);
     project.setDescription(newDesc);
-    if (project.getUuid() == null)     project.updateRandomUuid();
+    if (project.getUuid() == null)     project.updateVersionAndRandomUuid();
     updateProject(project);
     return project;
   }

@@ -3,7 +3,7 @@
   if (obj == null)   return false;
   if (getClass() != obj.getClass())   return false;
   RootPersistentEntity other=(RootPersistentEntity)obj;
-  if (lastModified != other.lastModified)   return false;
+  if (lastModified != other.lastModified || !(version == null || version.equals(other.getVersion())))   return false;
   if (uuid == null) {
     if (other.uuid != null)     return false;
   }

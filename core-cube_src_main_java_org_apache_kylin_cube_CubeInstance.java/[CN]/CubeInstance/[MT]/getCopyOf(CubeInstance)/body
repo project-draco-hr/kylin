@@ -9,6 +9,6 @@
   newCube.setVersion(cubeInstance.getVersion());
   newCube.setCost(cubeInstance.getCost());
   newCube.setCreateTimeUTC(System.currentTimeMillis());
-  newCube.updateRandomUuid();
+  newCube.updateVersionAndRandomUuid();
   return newCube;
 }

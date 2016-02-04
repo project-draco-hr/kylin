@@ -1,6 +1,6 @@
 {
   SnapshotTable snapshot=new SnapshotTable(table);
-  snapshot.updateRandomUuid();
+  snapshot.updateVersionAndRandomUuid();
   String dup=checkDupByInfo(snapshot);
   if (dup != null) {
     logger.info("Identical input " + table.getSignature() + ", reuse existing snapshot at "+ dup);
