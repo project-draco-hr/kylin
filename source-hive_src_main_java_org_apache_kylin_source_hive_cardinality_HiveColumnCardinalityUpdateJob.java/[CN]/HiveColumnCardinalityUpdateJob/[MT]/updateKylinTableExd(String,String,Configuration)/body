@@ -21,9 +21,14 @@
     cardi.append(",");
   }
   String scardi=cardi.toString();
-  scardi=scardi.substring(0,scardi.length() - 1);
-  MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
-  Map<String,String> tableExd=metaMgr.getTableDescExd(tableName);
-  tableExd.put(MetadataConstants.TABLE_EXD_CARDINALITY,scardi);
-  metaMgr.saveTableExd(tableName.toUpperCase(),tableExd);
+  if (scardi.length() > 0) {
+    scardi=scardi.substring(0,scardi.length() - 1);
+    MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+    Map<String,String> tableExd=metaMgr.getTableDescExd(tableName);
+    tableExd.put(MetadataConstants.TABLE_EXD_CARDINALITY,scardi);
+    metaMgr.saveTableExd(tableName.toUpperCase(),tableExd);
+  }
+ else {
+    throw new IllegalArgumentException("No cardinality data is collected for table " + tableName);
+  }
 }
