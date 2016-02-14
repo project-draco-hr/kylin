@@ -9,17 +9,8 @@
       System.out.println(line);
     }
   }
- catch (  IOException e) {
-    e.printStackTrace();
-  }
- finally {
-    if (br != null) {
-      try {
-        br.close();
-      }
- catch (      IOException e) {
-        e.printStackTrace();
-      }
-    }
+  finally {
+    IOUtils.closeQuietly(is);
+    IOUtils.closeQuietly(br);
   }
 }

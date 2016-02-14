@@ -1,7 +1,7 @@
 {
-  int maxSize=getMaxAgrGroupSize();
+  int maxSize=config.getCubeAggrGroupMaxSize();
   int index=0;
-  for (  AggregationGroup agg : cube.getAggregationGroups()) {
+  for (  AggregationGroup agg : getAggregationGroups()) {
     if (agg.getIncludes() == null) {
       logger.error("Aggregation group " + index + " includes field not set");
       throw new IllegalStateException("Aggregation group " + index + " includes field not set");
@@ -14,10 +14,10 @@
     getDims(includeDims,agg.getIncludes());
     Set<String> mandatoryDims=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
     getDims(mandatoryDims,agg.getSelectRule().mandatory_dims);
-    ArrayList<Set<String>> hierarchyDimsList=new ArrayList();
+    ArrayList<Set<String>> hierarchyDimsList=Lists.newArrayList();
     Set<String> hierarchyDims=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
     getDims(hierarchyDimsList,hierarchyDims,agg.getSelectRule().hierarchy_dims);
-    ArrayList<Set<String>> jointDimsList=new ArrayList();
+    ArrayList<Set<String>> jointDimsList=Lists.newArrayList();
     Set<String> jointDims=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
     getDims(jointDimsList,jointDims,agg.getSelectRule().joint_dims);
     if (!includeDims.containsAll(mandatoryDims) || !containsAll(includeDims,hierarchyDimsList) || !containsAll(includeDims,jointDimsList)) {
