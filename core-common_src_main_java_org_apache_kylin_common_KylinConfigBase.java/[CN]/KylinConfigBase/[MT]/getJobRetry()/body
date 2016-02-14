@@ -1,0 +1,3 @@
+{
+  return Integer.parseInt(this.getOptional("kylin.job.retry","0"));
+}

@@ -1,15 +1,28 @@
 {
   logger.info("Executing >>>>>>>>>>>>>   " + this.getName() + "   <<<<<<<<<<<<<");
   Preconditions.checkArgument(executableContext instanceof DefaultContext);
-  ExecuteResult result;
-  try {
-    onExecuteStart(executableContext);
-    result=doWork(executableContext);
+  ExecuteResult result=null;
+  onExecuteStart(executableContext);
+  Throwable exception;
+  do {
+    if (retry > 0) {
+      logger.info("Retry " + retry);
+    }
+    exception=null;
+    result=null;
+    try {
+      result=doWork(executableContext);
+    }
+ catch (    Throwable e) {
+      logger.error("error running Executable",e);
+      exception=e;
+    }
+    retry++;
   }
- catch (  Throwable e) {
-    logger.error("error running Executable",e);
-    onExecuteError(e,executableContext);
-    throw new ExecuteException(e);
+ while (((result != null && result.succeed() == false) || exception != null) && needRetry() == true);
+  if (exception != null) {
+    onExecuteError(exception,executableContext);
+    throw new ExecuteException(exception);
   }
   onExecuteFinished(result,executableContext);
   return result;
