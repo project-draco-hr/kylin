@@ -1,5 +1,6 @@
 {
   this.column=column;
+  this.op=op;
 switch (op) {
 case EQ:
 case IN:
