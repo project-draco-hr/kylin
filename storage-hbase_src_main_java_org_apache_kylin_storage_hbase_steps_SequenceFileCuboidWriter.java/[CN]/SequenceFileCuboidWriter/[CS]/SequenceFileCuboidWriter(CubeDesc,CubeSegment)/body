@@ -1,3 +1,9 @@
 {
   super(cubeDesc,segment);
+  try {
+    initiate();
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
 }
