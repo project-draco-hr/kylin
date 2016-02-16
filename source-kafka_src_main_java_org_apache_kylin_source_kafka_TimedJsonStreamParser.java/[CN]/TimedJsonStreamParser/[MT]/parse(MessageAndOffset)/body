@@ -1,6 +1,8 @@
 {
   try {
-    Map<String,String> root=mapper.readValue(new ByteBufferBackedInputStream(messageAndOffset.message().payload()),mapType);
+    Map<String,String> message=mapper.readValue(new ByteBufferBackedInputStream(messageAndOffset.message().payload()),mapType);
+    Map<String,String> root=new TreeMap<String,String>(String.CASE_INSENSITIVE_ORDER);
+    root.putAll(message);
     String tsStr=root.get(tsColName);
     long t;
     if (StringUtils.isEmpty(tsStr)) {
