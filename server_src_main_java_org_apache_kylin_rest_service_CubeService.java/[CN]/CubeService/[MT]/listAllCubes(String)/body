@@ -1,2 +1,16 @@
 {
+  ProjectManager projectManager=getProjectManager();
+  ProjectInstance project=projectManager.getProject(projectName);
+  if (project == null) {
+    return Collections.emptyList();
+  }
+  ArrayList<CubeInstance> result=new ArrayList<CubeInstance>();
+  for (  RealizationEntry projectDataModel : project.getRealizationEntries()) {
+    if (projectDataModel.getType() == RealizationType.CUBE) {
+      CubeInstance cube=getCubeManager().getCube(projectDataModel.getRealization());
+      if (cube != null)       result.add(cube);
+ else       logger.error("Cube instance " + projectDataModel.getRealization() + " is failed to load");
+    }
+  }
+  return result;
 }

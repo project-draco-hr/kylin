@@ -1,2 +1,20 @@
 {
+  ProjectManager projectManager=getProjectManager();
+  ProjectInstance project=projectManager.getProject(projectName);
+  if (project == null) {
+    return false;
+  }
+  for (  RealizationEntry projectDataModel : project.getRealizationEntries()) {
+    if (projectDataModel.getType() == RealizationType.CUBE) {
+      CubeInstance cube=getCubeManager().getCube(projectDataModel.getRealization());
+      if (cube == null) {
+        logger.error("Project " + projectName + " contains realization "+ projectDataModel.getRealization()+ " which is not found by CubeManager");
+        continue;
+      }
+      if (cube.equals(target)) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
