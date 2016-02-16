@@ -4,6 +4,7 @@
   try {
     CubeSegment segment=cubeManager.appendSegments(cubeInstance,streamingBatch.getTimeRange().getFirst(),streamingBatch.getTimeRange().getSecond(),false,false);
     segment.setLastBuildJobID(segment.getUuid());
+    segment.setInputRecords(streamingBatch.getMessages().size());
     return segment;
   }
  catch (  IOException e) {
