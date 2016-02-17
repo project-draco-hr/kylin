@@ -1,5 +1,6 @@
 {
   implementor.visitChild(this,getInput());
+  if (this.context.realization == null)   return;
   for (  RelFieldCollation fieldCollation : this.collation.getFieldCollations()) {
     int index=fieldCollation.getFieldIndex();
     SQLDigest.OrderEnum order=getOrderEnum(fieldCollation.getDirection());
