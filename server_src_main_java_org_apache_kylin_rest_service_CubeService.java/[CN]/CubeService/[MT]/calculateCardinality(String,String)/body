@@ -13,9 +13,9 @@
   job.setSubmitter(submitter);
   String outPath=HiveColumnCardinalityJob.OUTPUT_PATH + "/" + tableName;
   String param="-table " + tableName + " -output "+ outPath;
-  HadoopShellExecutable step1=new HadoopShellExecutable();
-  step1.setJobClass(HiveColumnCardinalityJob.class);
-  step1.setJobParams(param);
+  MapReduceExecutable step1=new MapReduceExecutable();
+  step1.setMapReduceJobClass(HiveColumnCardinalityJob.class);
+  step1.setMapReduceParams(param);
   job.addTask(step1);
   HadoopShellExecutable step2=new HadoopShellExecutable();
   step2.setJobClass(HiveColumnCardinalityUpdateJob.class);
