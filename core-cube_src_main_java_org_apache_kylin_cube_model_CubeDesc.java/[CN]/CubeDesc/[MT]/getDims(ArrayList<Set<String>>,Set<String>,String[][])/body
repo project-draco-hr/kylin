@@ -1,8 +1,7 @@
 {
-  Set<String> temp=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
   if (stringSets != null) {
     for (    String[] ss : stringSets) {
-      temp.clear();
+      Set<String> temp=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
       for (      String s : ss) {
         temp.add(s);
         dims.add(s);

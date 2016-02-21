@@ -25,13 +25,17 @@
     Set<String> hierarchyDims=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
     if (agg.getSelectRule().hierarchy_dims != null) {
       for (      String[] ss : agg.getSelectRule().hierarchy_dims) {
-        for (        String s : ss)         hierarchyDims.add(s);
+        for (        String s : ss) {
+          hierarchyDims.add(s);
+        }
       }
     }
     Set<String> jointDims=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
     if (agg.getSelectRule().joint_dims != null) {
       for (      String[] ss : agg.getSelectRule().joint_dims) {
-        for (        String s : ss)         jointDims.add(s);
+        for (        String s : ss) {
+          jointDims.add(s);
+        }
       }
     }
     if (!includeDims.containsAll(mandatoryDims) || !includeDims.containsAll(hierarchyDims) || !includeDims.containsAll(jointDims)) {
@@ -46,7 +50,7 @@
     int normalDimSize=normalDims.size();
     int hierarchySize=count(agg.getSelectRule().hierarchy_dims);
     int jointSize=count(agg.getSelectRule().joint_dims);
-    if (normalDimSize + hierarchySize + jointSize > maxSize) {
+    if (mandatoryDims.size() + normalDimSize + hierarchySize+ jointSize > maxSize) {
       context.addResult(ResultLevel.ERROR,"Aggregation group " + index + " has too many dimensions");
       continue;
     }
