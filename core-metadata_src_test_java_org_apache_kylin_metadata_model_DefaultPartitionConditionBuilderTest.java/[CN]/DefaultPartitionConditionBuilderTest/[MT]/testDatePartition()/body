@@ -1,0 +1,7 @@
+{
+  PartitionDesc partitionDesc=new PartitionDesc();
+  partitionDesc.setPartitionDateColumn("DEFAULT.TABLE_NAME.DATE_COLUMN");
+  partitionDesc.setPartitionDateFormat("yyyy-MM-dd");
+  String condition=partitionConditionBuilder.buildDateRangeCondition(partitionDesc,DateFormat.stringToMillis("2016-02-22"),DateFormat.stringToMillis("2016-02-23"),new HashMap<String,String>());
+  Assert.assertEquals("DEFAULT.TABLE_NAME.DATE_COLUMN >= '2016-02-22' AND DEFAULT.TABLE_NAME.DATE_COLUMN < '2016-02-23'",condition);
+}

@@ -1,15 +1,13 @@
 {
-  String partitionColumnName=partDesc.getPartitionDateColumn();
-  int indexOfDot=partitionColumnName.lastIndexOf(".");
-  if (indexOfDot > 0) {
-    String partitionTableName=partitionColumnName.substring(0,indexOfDot);
-    if (tableAlias != null && tableAlias.containsKey(partitionTableName))     partitionColumnName=tableAlias.get(partitionTableName) + partitionColumnName.substring(indexOfDot);
-  }
   StringBuilder builder=new StringBuilder();
-  if (startInclusive > 0) {
-    builder.append(partitionColumnName + " >= '" + DateFormat.formatToDateStr(startInclusive,partDesc.getPartitionDateFormat())+ "' ");
-    builder.append("AND ");
+  String partitionDateColumnName=partDesc.getPartitionDateColumn();
+  String partitionTimeColumnName=partDesc.getPartitionTimeColumn();
+  if (partitionDateColumnName != null) {
+    buildSingleColumnRangeCondition(builder,partitionDateColumnName,startInclusive,endExclusive,partDesc.getPartitionDateFormat(),tableAlias);
   }
-  builder.append(partitionColumnName + " < '" + DateFormat.formatToDateStr(endExclusive,partDesc.getPartitionDateFormat())+ "'");
+  if (partitionTimeColumnName != null) {
+    if (partitionDateColumnName != null)     builder.append(" AND ");
+    buildSingleColumnRangeCondition(builder,partitionTimeColumnName,startInclusive,endExclusive,partDesc.getPartitionTimeFormat(),tableAlias);
+  }
   return builder.toString();
 }

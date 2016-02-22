@@ -1,0 +1,8 @@
+{
+  partitionColumnName=replaceColumnNameWithAlias(partitionColumnName,tableAlias);
+  if (startInclusive > 0) {
+    builder.append(partitionColumnName + " >= '" + DateFormat.formatToDateStr(startInclusive,partitionColumnDateFormat)+ "'");
+    builder.append(" AND ");
+  }
+  builder.append(partitionColumnName + " < '" + DateFormat.formatToDateStr(endExclusive,partitionColumnDateFormat)+ "'");
+}

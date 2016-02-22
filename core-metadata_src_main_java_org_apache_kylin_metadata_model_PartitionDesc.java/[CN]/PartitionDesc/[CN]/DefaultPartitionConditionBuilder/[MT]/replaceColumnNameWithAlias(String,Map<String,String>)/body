@@ -1,0 +1,8 @@
+{
+  int indexOfDot=columnName.lastIndexOf(".");
+  if (indexOfDot > 0) {
+    String partitionTableName=columnName.substring(0,indexOfDot);
+    if (tableAlias != null && tableAlias.containsKey(partitionTableName))     columnName=tableAlias.get(partitionTableName) + columnName.substring(indexOfDot);
+  }
+  return columnName;
+}

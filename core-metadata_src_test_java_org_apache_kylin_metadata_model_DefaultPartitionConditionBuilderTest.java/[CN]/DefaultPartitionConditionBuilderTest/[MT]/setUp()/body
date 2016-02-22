@@ -1,0 +1,3 @@
+{
+  partitionConditionBuilder=new PartitionDesc.DefaultPartitionConditionBuilder();
+}
