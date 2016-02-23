@@ -1,0 +1,7 @@
+{
+  Long sum=0L;
+  for (  Long x : input) {
+    sum+=x;
+  }
+  return sum;
+}

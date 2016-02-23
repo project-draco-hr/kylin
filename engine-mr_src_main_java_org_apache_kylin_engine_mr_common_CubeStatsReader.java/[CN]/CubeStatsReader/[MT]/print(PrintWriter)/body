@@ -1,14 +1,16 @@
 {
-  Map<Long,Long> rowCountMap=getCuboidRowCountMap();
-  Map<Long,Double> sizeMap=getCuboidSizeMap();
-  List<Long> cuboids=new ArrayList<Long>(rowCountMap.keySet());
+  Map<Long,Long> cuboidRows=getCuboidRowCountMap();
+  Map<Long,Double> cuboidSizes=getCuboidSizeMap();
+  List<Long> cuboids=new ArrayList<Long>(cuboidRows.keySet());
   Collections.sort(cuboids);
   out.println("============================================================================");
   out.println("Statistics of " + seg);
-  out.println("  Sampling percentage:  " + samplingPercentage);
-  out.println("  Mapper overlap ratio: " + mapperOverlapRatioOfFirstBuild);
-  for (  Long cuboid : cuboids) {
-    out.println("  Cuboid :\t" + rowCountMap.get(cuboid) + " rows, "+ sizeMap.get(cuboid)+ " MB");
-  }
+  out.println();
+  out.println("Total cuboids: " + cuboidRows.size());
+  out.println("Total estimated rows: " + SumHelper.sumLong(cuboidRows.values()));
+  out.println("Total estimated size(MB): " + SumHelper.sumDouble(cuboidSizes.values()));
+  out.println("Sampling percentage:  " + samplingPercentage);
+  out.println("Mapper overlap ratio: " + mapperOverlapRatioOfFirstBuild);
+  printCuboidInfoTreeEntry(cuboidRows,cuboidSizes,out);
   out.println("----------------------------------------------------------------------------");
 }

@@ -1,0 +1,7 @@
+{
+  CubeDesc cubeDesc=seg.getCubeDesc();
+  CuboidScheduler scheduler=new CuboidScheduler(cubeDesc);
+  long baseCuboid=Cuboid.getBaseCuboidId(cubeDesc);
+  int dimensionCount=Long.bitCount(baseCuboid);
+  printCuboidInfoTree(0L,baseCuboid,scheduler,cuboidRows,cuboidSizes,dimensionCount,0,out);
+}

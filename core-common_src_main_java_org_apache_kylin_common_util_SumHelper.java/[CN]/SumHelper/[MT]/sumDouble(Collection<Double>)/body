@@ -1,0 +1,7 @@
+{
+  Double sum=(double)0;
+  for (  Double x : input) {
+    sum+=x;
+  }
+  return sum;
+}

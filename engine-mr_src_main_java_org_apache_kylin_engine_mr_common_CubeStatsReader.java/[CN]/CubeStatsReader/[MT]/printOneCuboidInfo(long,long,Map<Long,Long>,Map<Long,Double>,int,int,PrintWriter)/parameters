@@ -1,0 +1,7 @@
+long parent
+long cuboidID
+Map<Long,Long> cuboidRows
+Map<Long,Double> cuboidSizes
+int dimensionCount
+int depth
+PrintWriter out
