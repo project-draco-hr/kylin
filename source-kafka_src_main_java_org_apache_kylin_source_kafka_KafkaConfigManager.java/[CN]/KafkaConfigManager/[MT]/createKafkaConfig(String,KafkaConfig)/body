@@ -4,7 +4,7 @@
   }
   if (kafkaMap.containsKey(config.getName()))   throw new IllegalArgumentException("KafkaConfig '" + config.getName() + "' already exists");
   try {
-    getStore().putResource(formatStreamingConfigPath(name),config,KafkaConfig.SERIALIZER);
+    getStore().putResource(KafkaConfig.concatResourcePath(name),config,KafkaConfig.SERIALIZER);
     kafkaMap.put(config.getName(),config);
     return true;
   }

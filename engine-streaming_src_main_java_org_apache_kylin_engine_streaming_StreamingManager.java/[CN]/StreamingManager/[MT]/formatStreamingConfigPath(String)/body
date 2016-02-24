@@ -1,3 +1,0 @@
-{
-  return ResourceStore.STREAMING_RESOURCE_ROOT + "/" + name+ ".json";
-}

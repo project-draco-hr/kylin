@@ -6,6 +6,7 @@
     CubeDesc cubeDesc=cubeDescManager.getCubeDesc(descName);
     String modelName=cubeDesc.getModelName();
     DataModelDesc modelDesc=metadataManager.getDataModelDesc(modelName);
+    dealWithStreaming(cube);
     for (    String tableName : modelDesc.getAllTables()) {
       addRequired(requiredResources,TableDesc.concatResourcePath(tableName));
       addOptional(optionalResources,TableDesc.concatExdResourcePath(tableName));
@@ -14,7 +15,7 @@
     addRequired(requiredResources,CubeDesc.concatResourcePath(cubeDesc.getName()));
     if (includeSegments) {
       addRequired(requiredResources,CubeInstance.concatResourcePath(cube.getName()));
-      for (      CubeSegment segment : cube.getSegments()) {
+      for (      CubeSegment segment : cube.getSegments(SegmentStatusEnum.READY)) {
         for (        String dictPat : segment.getDictionaryPaths()) {
           addRequired(requiredResources,dictPat);
         }
@@ -25,7 +26,7 @@
         if (includeJobs) {
           String lastJobId=segment.getLastBuildJobID();
           if (!StringUtils.isEmpty(lastJobId)) {
-            logger.warn("No job exist for segment {}",segment);
+            throw new RuntimeException("No job exist for segment :" + segment);
           }
  else {
             try {
@@ -51,14 +52,17 @@
       if (includeJobs) {
         logger.warn("It's useless to set includeJobs to true when includeSegments is set to false");
       }
-      throw new IllegalStateException("Does not support skip segments now");
+      cubesToTrimAndSave.add(cube);
     }
   }
  else   if (realization instanceof HybridInstance) {
     HybridInstance hybridInstance=(HybridInstance)realization;
     addRequired(requiredResources,HybridInstance.concatResourcePath(hybridInstance.getName()));
     for (    IRealization iRealization : hybridInstance.getRealizations()) {
-      retrieveResourcePath(iRealization,includeSegments,includeJobs,requiredResources,optionalResources);
+      if (iRealization.getType() != RealizationType.CUBE) {
+        throw new RuntimeException("Hybrid " + iRealization.getName() + " contains non cube child "+ iRealization.getName()+ " with type "+ iRealization.getType());
+      }
+      retrieveResourcePath(iRealization);
     }
   }
  else   if (realization instanceof IIInstance) {

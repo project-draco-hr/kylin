@@ -1,0 +1,8 @@
+{
+  for (  StreamingConfig streamingConfig : streamingManager.listAllStreaming()) {
+    if (streamingConfig.getCubeName() != null && streamingConfig.getCubeName().equalsIgnoreCase(cube.getName())) {
+      requiredResources.add(StreamingConfig.concatResourcePath(streamingConfig.getName()));
+      requiredResources.add(KafkaConfig.concatResourcePath(streamingConfig.getName()));
+    }
+  }
+}

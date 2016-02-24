@@ -1,3 +1,0 @@
-{
-  return ResourceStore.KAFKA_RESOURCE_ROOT + "/" + name+ ".json";
-}

@@ -1,5 +1,5 @@
 {
-  String path=KafkaConfig.getKafkaResourcePath(name);
+  String path=KafkaConfig.concatResourcePath(name);
   KafkaConfig ndesc=loadKafkaConfigAt(path);
   kafkaMap.putLocal(ndesc.getName(),ndesc);
   return ndesc;

@@ -2,6 +2,6 @@
   if (kafkaConfig == null || StringUtils.isEmpty(kafkaConfig.getName())) {
     throw new IllegalArgumentException();
   }
-  String path=formatStreamingConfigPath(kafkaConfig.getName());
+  String path=KafkaConfig.concatResourcePath(kafkaConfig.getName());
   getStore().putResource(path,kafkaConfig,KafkaConfig.SERIALIZER);
 }
