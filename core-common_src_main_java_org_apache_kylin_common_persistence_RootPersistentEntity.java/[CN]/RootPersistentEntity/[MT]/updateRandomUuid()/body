@@ -1,4 +1,3 @@
 {
-  setVersion(KylinConfig.getKylinVersion());
   setUuid(UUID.randomUUID().toString());
 }

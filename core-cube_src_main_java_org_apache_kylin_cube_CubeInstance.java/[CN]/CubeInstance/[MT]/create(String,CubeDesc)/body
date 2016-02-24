@@ -6,6 +6,6 @@
   cubeInstance.setCreateTimeUTC(System.currentTimeMillis());
   cubeInstance.setSegments(new ArrayList<CubeSegment>());
   cubeInstance.setStatus(RealizationStatusEnum.DISABLED);
-  cubeInstance.updateVersionAndRandomUuid();
+  cubeInstance.updateRandomUuid();
   return cubeInstance;
 }

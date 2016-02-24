@@ -1,5 +1,5 @@
 {
-  this.updateVersionAndRandomUuid();
+  this.updateRandomUuid();
   this.sourceTable=sourceTable;
   this.sourceColumn=sourceColumn;
   this.sourceColumnIndex=sourceColumnIndex;
