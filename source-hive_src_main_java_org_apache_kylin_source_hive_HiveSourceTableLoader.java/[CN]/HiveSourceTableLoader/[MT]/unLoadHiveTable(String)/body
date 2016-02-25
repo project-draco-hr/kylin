@@ -1,0 +1,5 @@
+{
+  MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+  metaMgr.removeSourceTable(hiveTable);
+  metaMgr.removeTableExd(hiveTable);
+}

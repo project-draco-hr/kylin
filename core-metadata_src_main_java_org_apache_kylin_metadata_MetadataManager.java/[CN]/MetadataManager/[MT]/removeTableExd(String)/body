@@ -1,0 +1,5 @@
+{
+  String path=TableDesc.concatExdResourcePath(tableIdentity);
+  getStore().deleteResource(path);
+  srcTableExdMap.remove(tableIdentity);
+}

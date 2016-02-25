@@ -1,0 +1,9 @@
+{
+  ProjectInstance projectInstance=ProjectManager.getInstance(getConfig()).getProject(projectName);
+  if (projectInstance != null) {
+    if (projectInstance.containsTable(tableName.toUpperCase())) {
+      return true;
+    }
+  }
+  return false;
+}

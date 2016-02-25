@@ -1,0 +1,5 @@
+{
+  String path=TableDesc.concatResourcePath(tableIdentity);
+  getStore().deleteResource(path);
+  srcTableMap.remove(tableIdentity);
+}

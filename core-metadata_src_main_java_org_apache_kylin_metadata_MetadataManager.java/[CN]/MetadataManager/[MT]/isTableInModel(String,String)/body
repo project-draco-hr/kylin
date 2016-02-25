@@ -1,0 +1,8 @@
+{
+  for (  DataModelDesc modelDesc : getModels(projectName)) {
+    if (modelDesc.getAllTables().contains(tableName.toUpperCase())) {
+      return true;
+    }
+  }
+  return false;
+}

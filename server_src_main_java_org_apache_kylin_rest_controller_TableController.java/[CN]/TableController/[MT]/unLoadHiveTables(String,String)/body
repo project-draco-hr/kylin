@@ -1,0 +1,16 @@
+{
+  Set<String> unLoadSuccess=Sets.newHashSet();
+  Set<String> unLoadFail=Sets.newHashSet();
+  Map<String,String[]> result=new HashMap<String,String[]>();
+  for (  String tableName : tables.split(",")) {
+    if (unLoadHiveTable(tableName,project)) {
+      unLoadSuccess.add(tableName);
+    }
+ else {
+      unLoadFail.add(tableName);
+    }
+  }
+  result.put("result.unload.success",(String[])unLoadSuccess.toArray(new String[unLoadSuccess.size()]));
+  result.put("result.unload.fail",(String[])unLoadFail.toArray(new String[unLoadFail.size()]));
+  return result;
+}

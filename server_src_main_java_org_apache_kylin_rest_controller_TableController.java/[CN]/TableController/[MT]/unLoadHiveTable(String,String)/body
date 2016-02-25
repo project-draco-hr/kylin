@@ -1,0 +1,23 @@
+{
+  boolean rtn=false;
+  try {
+    if (!modelService.isTableInModel(tableName,project)) {
+      cubeMgmtService.removeTableFromProject(tableName,project);
+      rtn=true;
+    }
+  }
+ catch (  IOException e) {
+    logger.error(e.getMessage(),e);
+  }
+  if (!projectService.isTableInAnyProject(tableName) && !modelService.isTableInAnyModel(tableName)) {
+    try {
+      cubeMgmtService.unLoadHiveTable(tableName);
+      rtn=true;
+    }
+ catch (    IOException e) {
+      logger.error(e.getMessage(),e);
+      rtn=false;
+    }
+  }
+  return rtn;
+}
