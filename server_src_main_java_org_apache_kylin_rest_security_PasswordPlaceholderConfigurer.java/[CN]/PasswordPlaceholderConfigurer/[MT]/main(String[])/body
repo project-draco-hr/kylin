@@ -1,4 +1,21 @@
 {
-  BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
-  System.out.println(bCryptPasswordEncoder.encode("MODELER"));
+  if (args.length != 2) {
+    printUsage();
+    System.exit(1);
+  }
+  String encryptMethod=args[0];
+  String passwordTxt=args[1];
+  if ("AES".equalsIgnoreCase(encryptMethod)) {
+    System.out.println(encryptMethod + " encrypted password is: ");
+    System.out.println(encrypt(passwordTxt));
+  }
+ else   if ("BCrypt".equalsIgnoreCase(encryptMethod)) {
+    BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+    System.out.println(encryptMethod + " encrypted password is: ");
+    System.out.println(bCryptPasswordEncoder.encode(passwordTxt));
+  }
+ else {
+    printUsage();
+    System.exit(1);
+  }
 }

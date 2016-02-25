@@ -1,0 +1,4 @@
+{
+  System.out.println("Usage: java org.apache.kylin.rest.security.PasswordPlaceholderConfigurer <EncryptMethod> <your_password>");
+  System.out.println("EncryptMethod: AES or BCrypt");
+}
