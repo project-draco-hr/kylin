@@ -1,0 +1,6 @@
+{
+  this.name=BytesUtil.readUTFString(buffer);
+  this.initMethod();
+  this.colPosition=BytesUtil.readVInt(buffer);
+  this.isValid=BytesUtil.readVInt(buffer) == 1;
+}

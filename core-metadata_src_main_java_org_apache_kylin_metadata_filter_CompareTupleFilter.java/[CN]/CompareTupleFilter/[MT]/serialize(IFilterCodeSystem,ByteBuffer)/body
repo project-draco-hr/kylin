@@ -1,0 +1,8 @@
+{
+  int size=this.dynamicVariables.size();
+  BytesUtil.writeVInt(size,buffer);
+  for (  Map.Entry<String,Object> entry : this.dynamicVariables.entrySet()) {
+    BytesUtil.writeUTFString(entry.getKey(),buffer);
+    cs.serialize(entry.getValue(),buffer);
+  }
+}

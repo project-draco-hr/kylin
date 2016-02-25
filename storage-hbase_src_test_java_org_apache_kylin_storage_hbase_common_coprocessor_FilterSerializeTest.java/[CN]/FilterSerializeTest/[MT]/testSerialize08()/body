@@ -6,7 +6,7 @@
   TblColRef colRef=new TblColRef(column);
   List<TblColRef> groups=new ArrayList<TblColRef>();
   groups.add(colRef);
-  TupleFilter filter=buildCompareFilter(groups,0);
+  TupleFilter filter=buildEQCompareFilter(groups,0);
   byte[] bytes=TupleFilterSerializer.serialize(filter,CS);
   TupleFilter newFilter=TupleFilterSerializer.deserialize(bytes,CS);
   compareFilter(filter,newFilter);

@@ -3,10 +3,9 @@
     BytesUtil.writeVInt(-1,buffer);
   }
  else {
-    byte[] bytes=filter.serialize(cs);
     int opVal=filter.getOperator().getValue();
     BytesUtil.writeVInt(opVal,buffer);
-    BytesUtil.writeByteArray(bytes,buffer);
+    filter.serialize(cs,buffer);
     BytesUtil.writeVInt(flag,buffer);
   }
 }

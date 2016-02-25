@@ -9,8 +9,7 @@
       continue;
     }
     TupleFilter filter=createTupleFilter(opVal);
-    byte[] filterBytes=BytesUtil.readByteArray(buffer);
-    filter.deserialize(filterBytes,cs);
+    filter.deserialize(cs,buffer);
     if (rootFilter == null) {
       rootFilter=filter;
       parentStack.push(filter);

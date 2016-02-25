@@ -1,0 +1,14 @@
+{
+  TableDesc table=null;
+  ColumnDesc column=new ColumnDesc();
+  String tableName=BytesUtil.readUTFString(buffer);
+  if (tableName != null) {
+    table=new TableDesc();
+    table.setName(tableName);
+  }
+  column.setId(BytesUtil.readUTFString(buffer));
+  column.setName(BytesUtil.readUTFString(buffer));
+  column.setDatatype(BytesUtil.readUTFString(buffer));
+  column.init(table);
+  this.columnRef=new TblColRef(column);
+}

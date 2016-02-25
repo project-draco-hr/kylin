@@ -1,0 +1,10 @@
+{
+  String table=columnRef.getTable();
+  BytesUtil.writeUTFString(table,buffer);
+  String columnId=columnRef.getColumnDesc().getId();
+  BytesUtil.writeUTFString(columnId,buffer);
+  String columnName=columnRef.getName();
+  BytesUtil.writeUTFString(columnName,buffer);
+  String dataType=columnRef.getDatatype();
+  BytesUtil.writeUTFString(dataType,buffer);
+}

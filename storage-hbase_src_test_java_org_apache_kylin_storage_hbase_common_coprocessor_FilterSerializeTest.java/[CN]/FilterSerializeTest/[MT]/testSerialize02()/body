@@ -1,6 +1,6 @@
 {
   List<TblColRef> groups=buildGroups();
-  TupleFilter filter=buildCompareFilter(groups,1);
+  TupleFilter filter=buildEQCompareFilter(groups,1);
   byte[] bytes=TupleFilterSerializer.serialize(filter,CS);
   TupleFilter newFilter=TupleFilterSerializer.deserialize(bytes,CS);
   compareFilter(filter,newFilter);

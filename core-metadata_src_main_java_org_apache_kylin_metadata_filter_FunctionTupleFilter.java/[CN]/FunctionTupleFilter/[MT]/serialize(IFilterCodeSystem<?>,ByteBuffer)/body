@@ -1,0 +1,5 @@
+{
+  BytesUtil.writeUTFString(name,buffer);
+  BytesUtil.writeVInt(colPosition,buffer);
+  BytesUtil.writeVInt(isValid ? 1 : 0,buffer);
+}

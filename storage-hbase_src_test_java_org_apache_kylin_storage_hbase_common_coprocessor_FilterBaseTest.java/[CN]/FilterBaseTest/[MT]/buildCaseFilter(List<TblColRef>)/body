@@ -4,11 +4,11 @@
   caseFilter.addChild(when0);
   TupleFilter then0=new ConstantTupleFilter("0");
   caseFilter.addChild(then0);
-  TupleFilter when1=buildCompareFilter(groups,0);
+  TupleFilter when1=buildEQCompareFilter(groups,0);
   caseFilter.addChild(when1);
   TupleFilter then1=new ConstantTupleFilter("1");
   caseFilter.addChild(then1);
-  TupleFilter when2=buildCompareFilter(groups,1);
+  TupleFilter when2=buildEQCompareFilter(groups,1);
   caseFilter.addChild(when2);
   TupleFilter then2=new ConstantTupleFilter("2");
   caseFilter.addChild(then2);

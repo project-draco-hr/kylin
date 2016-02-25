@@ -6,9 +6,7 @@
     throw new IllegalStateException("f1=" + f1 + ", f2="+ f2);
   }
   String str1=f1.toString();
-  System.out.println("f1=" + str1);
   String str2=f2.toString();
-  System.out.println("f2=" + str2);
   if (!str1.equals(str2)) {
     throw new IllegalStateException("f1=" + str1 + ", f2="+ str2);
   }

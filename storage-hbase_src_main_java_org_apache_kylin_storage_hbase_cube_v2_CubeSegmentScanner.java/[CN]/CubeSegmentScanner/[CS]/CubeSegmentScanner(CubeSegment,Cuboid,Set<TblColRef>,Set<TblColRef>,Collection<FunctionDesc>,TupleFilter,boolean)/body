@@ -3,8 +3,8 @@
   this.cubeSeg=cubeSeg;
   this.info=CubeGridTable.newGTInfo(cubeSeg,cuboid.getId());
   CuboidToGridTableMapping mapping=cuboid.getCuboidToGridTableMapping();
-  ITupleFilterTranslator translator=new TupleFilterFunctionTranslator(this.cubeSeg);
-  filter=translator.translate(filter);
+  ITupleFilterTransformer translator=new TupleFilterFunctionTransformer(this.cubeSeg);
+  filter=translator.transform(filter);
   TupleFilter gtFilter=GTUtil.convertFilterColumnsAndConstants(filter,info,mapping.getCuboidDimensionsInGTOrder(),groups);
   ImmutableBitSet gtDimensions=makeGridTableColumns(mapping,dimensions);
   ImmutableBitSet gtAggrGroups=makeGridTableColumns(mapping,replaceDerivedColumns(groups,cubeSeg.getCubeDesc()));

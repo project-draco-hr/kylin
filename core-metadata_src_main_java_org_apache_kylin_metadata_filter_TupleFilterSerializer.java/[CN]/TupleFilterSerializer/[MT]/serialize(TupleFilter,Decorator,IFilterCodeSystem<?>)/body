@@ -1,6 +1,17 @@
 {
-  ByteBuffer buffer=ByteBuffer.allocate(BUFFER_SIZE);
-  internalSerialize(rootFilter,decorator,buffer,cs);
+  ByteBuffer buffer;
+  int bufferSize=BUFFER_SIZE;
+  while (true) {
+    try {
+      buffer=ByteBuffer.allocate(bufferSize);
+      internalSerialize(rootFilter,decorator,buffer,cs);
+      break;
+    }
+ catch (    BufferOverflowException e) {
+      logger.info("Buffer size {} cannot hold the filter, resizing to 4 times",bufferSize);
+      bufferSize*=4;
+    }
+  }
   byte[] result=new byte[buffer.position()];
   System.arraycopy(buffer.array(),0,result,0,buffer.position());
   return result;

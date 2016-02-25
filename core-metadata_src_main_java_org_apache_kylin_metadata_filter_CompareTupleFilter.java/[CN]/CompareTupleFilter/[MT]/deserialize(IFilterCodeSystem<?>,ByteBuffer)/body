@@ -1,0 +1,9 @@
+{
+  this.dynamicVariables.clear();
+  int size=BytesUtil.readVInt(buffer);
+  for (int i=0; i < size; i++) {
+    String name=BytesUtil.readUTFString(buffer);
+    Object value=cs.deserialize(buffer);
+    bindVariable(name,value);
+  }
+}

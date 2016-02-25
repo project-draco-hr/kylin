@@ -1,0 +1,7 @@
+{
+  int size=this.constantValues.size();
+  BytesUtil.writeVInt(size,buffer);
+  for (  Object val : this.constantValues) {
+    cs.serialize(val,buffer);
+  }
+}

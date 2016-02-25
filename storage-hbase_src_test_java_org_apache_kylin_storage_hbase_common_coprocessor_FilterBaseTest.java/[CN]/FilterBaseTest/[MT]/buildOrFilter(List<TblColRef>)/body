@@ -1,6 +1,6 @@
 {
-  CompareTupleFilter compareFilter1=buildCompareFilter(columns,0);
-  CompareTupleFilter compareFilter2=buildCompareFilter(columns,1);
+  CompareTupleFilter compareFilter1=buildEQCompareFilter(columns,0);
+  CompareTupleFilter compareFilter2=buildEQCompareFilter(columns,1);
   LogicalTupleFilter logicFilter=new LogicalTupleFilter(FilterOperatorEnum.OR);
   logicFilter.addChild(compareFilter1);
   logicFilter.addChild(compareFilter2);
