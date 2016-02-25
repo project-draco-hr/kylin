@@ -1,2 +1,4 @@
 {
+  cacheManager=CacheManager.newInstance("../server/src/main/resources/ehcache-test.xml");
+  AbstractCacheFledgedQuery.setCacheManager(cacheManager);
 }
