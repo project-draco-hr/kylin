@@ -1,0 +1,6 @@
+{
+  this.dict=dict;
+  this.fixedLen=dict.getSizeOfId();
+  this.roundingFlag=roundingFlag;
+  this.defaultByte=defaultByte;
+}

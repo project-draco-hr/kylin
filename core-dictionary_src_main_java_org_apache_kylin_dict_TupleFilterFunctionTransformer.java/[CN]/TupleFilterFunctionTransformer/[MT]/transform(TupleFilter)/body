@@ -13,7 +13,7 @@
     }
   }
  else   if (tupleFilter instanceof LogicalTupleFilter) {
-    ListIterator<TupleFilter> childIterator=(ListIterator<TupleFilter>)tupleFilter.getChildren().listIterator();
+    @SuppressWarnings("unchecked") ListIterator<TupleFilter> childIterator=(ListIterator<TupleFilter>)tupleFilter.getChildren().listIterator();
     while (childIterator.hasNext()) {
       TupleFilter transformed=transform(childIterator.next());
       if (transformed != null)       childIterator.set(transformed);

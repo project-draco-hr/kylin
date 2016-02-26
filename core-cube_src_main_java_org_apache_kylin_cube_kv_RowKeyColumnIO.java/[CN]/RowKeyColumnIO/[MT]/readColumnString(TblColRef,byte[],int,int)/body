@@ -1,21 +1,4 @@
 {
-  Dictionary<String> dict=getDictionary(col);
-  if (dict == null) {
-    if (isNull(bytes,offset,length)) {
-      return null;
-    }
-    bytes=removeFixLenPad(bytes,offset,length);
-    return Bytes.toString(bytes);
-  }
- else {
-    int id=BytesUtil.readUnsigned(bytes,offset,length);
-    try {
-      String value=dict.getValueFromId(id);
-      return value;
-    }
- catch (    IllegalArgumentException e) {
-      logger.error("Can't get dictionary value for column " + col.getName() + " (id = "+ id+ ")");
-      return "";
-    }
-  }
+  DimensionEncoding dimEnc=dimEncMap.get(col);
+  return dimEnc.decode(bytes,offset,length);
 }

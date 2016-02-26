@@ -3,5 +3,5 @@
     Arrays.fill(outputValue,outputValueOffset,outputValueOffset + columnLen,defaultValue());
     return;
   }
-  colIO.writeColumn(column,value,valueLen,this.blankByte,outputValue,outputValueOffset);
+  colIO.writeColumn(column,value,valueLen,0,this.blankByte,outputValue,outputValueOffset);
 }

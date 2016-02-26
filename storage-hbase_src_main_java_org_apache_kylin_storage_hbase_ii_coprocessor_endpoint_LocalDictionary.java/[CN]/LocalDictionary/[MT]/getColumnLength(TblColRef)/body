@@ -1,3 +1,0 @@
-{
-  return recordInfo.length(type.getColIndexByTblColRef(col));
-}

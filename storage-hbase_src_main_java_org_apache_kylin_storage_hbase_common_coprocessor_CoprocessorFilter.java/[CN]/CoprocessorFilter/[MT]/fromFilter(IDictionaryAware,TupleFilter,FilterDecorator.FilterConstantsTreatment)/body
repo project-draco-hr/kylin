@@ -1,6 +1,0 @@
-{
-  FilterDecorator filterDecorator=new FilterDecorator(dictionaryAware,filterConstantsTreatment);
-  byte[] bytes=TupleFilterSerializer.serialize(rootFilter,filterDecorator,DictCodeSystem.INSTANCE);
-  TupleFilter copy=TupleFilterSerializer.deserialize(bytes,DictCodeSystem.INSTANCE);
-  return new CoprocessorFilter(copy,filterDecorator.getInevaluableColumns());
-}

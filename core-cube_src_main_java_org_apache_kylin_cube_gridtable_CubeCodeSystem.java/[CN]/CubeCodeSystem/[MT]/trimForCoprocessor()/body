@@ -1,13 +1,3 @@
 {
-  Map<Integer,Integer> dictSizes=Maps.newHashMap();
-  Map<Integer,Integer> fixedLengthSizes=Maps.newHashMap();
-  for (int i=0; i < serializers.length; i++) {
-    if (serializers[i] instanceof DictionarySerializer) {
-      dictSizes.put(i,serializers[i].maxLength());
-    }
- else     if (serializers[i] instanceof FixLenSerializer) {
-      fixedLengthSizes.put(i,serializers[i].maxLength());
-    }
-  }
-  return new TrimmedCubeCodeSystem(dependentMetricsMap,dictSizes,fixedLengthSizes);
+  return new TrimmedCubeCodeSystem(dimEncs,dependentMetricsMap);
 }

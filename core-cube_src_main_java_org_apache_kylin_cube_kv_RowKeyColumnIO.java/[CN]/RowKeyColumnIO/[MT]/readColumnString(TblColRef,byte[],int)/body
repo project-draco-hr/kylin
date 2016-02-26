@@ -1,3 +1,0 @@
-{
-  return readColumnString(col,bytes,0,bytesLen);
-}

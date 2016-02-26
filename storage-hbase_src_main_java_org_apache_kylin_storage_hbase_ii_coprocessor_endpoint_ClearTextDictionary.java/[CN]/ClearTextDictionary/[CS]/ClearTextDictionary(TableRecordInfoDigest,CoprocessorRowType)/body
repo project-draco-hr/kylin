@@ -1,4 +1,6 @@
 {
-  this.digest=digest;
-  this.columnIndexMap=coprocessorRowType.columnIdxMap;
+  encMap=Maps.newHashMap();
+  for (  Entry<TblColRef,Integer> entry : coprocessorRowType.columnIdxMap.entrySet()) {
+    encMap.put(entry.getKey(),new FixedLenDimEnc(entry.getValue()));
+  }
 }

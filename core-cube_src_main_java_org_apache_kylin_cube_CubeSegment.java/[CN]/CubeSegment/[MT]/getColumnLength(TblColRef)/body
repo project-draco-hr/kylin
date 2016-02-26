@@ -1,9 +1,0 @@
-{
-  Dictionary<?> dict=getDictionary(col);
-  if (dict == null) {
-    return this.getCubeDesc().getRowkey().getColumnLength(col);
-  }
- else {
-    return dict.getSizeOfId();
-  }
-}

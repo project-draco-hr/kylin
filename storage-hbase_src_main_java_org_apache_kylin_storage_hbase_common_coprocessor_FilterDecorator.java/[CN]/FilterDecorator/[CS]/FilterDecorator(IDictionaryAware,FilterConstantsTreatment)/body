@@ -1,5 +1,0 @@
-{
-  this.columnIO=new RowKeyColumnIO(seg);
-  this.inevaluableColumns=Sets.newHashSet();
-  this.filterConstantsTreatment=filterConstantsTreatment;
-}

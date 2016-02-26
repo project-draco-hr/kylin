@@ -1,25 +1,4 @@
 {
   Cuboid cuboid=Cuboid.findById(cubeDesc,cuboidId);
-  CuboidToGridTableMapping mapping=new CuboidToGridTableMapping(cuboid);
-  Map<Integer,Dictionary> dictionaryByColIdx=Maps.newHashMap();
-  Map<Integer,Integer> fixLenByColIdx=Maps.newHashMap();
-  for (  TblColRef dim : cuboid.getColumns()) {
-    int colIndex=mapping.getIndexOf(dim);
-    if (cubeDesc.getRowkey().isUseDictionary(dim)) {
-      Dictionary dict=dictionaryMap.get(dim);
-      dictionaryByColIdx.put(colIndex,dict);
-    }
- else {
-      int len=cubeDesc.getRowkey().getColumnLength(dim);
-      if (len == 0)       throw new IllegalStateException();
-      fixLenByColIdx.put(colIndex,len);
-    }
-  }
-  GTInfo.Builder builder=GTInfo.builder();
-  builder.setTableName("Cuboid " + cuboidId);
-  builder.setCodeSystem(new CubeCodeSystem(dictionaryByColIdx,fixLenByColIdx,mapping.getDependentMetricsMap()));
-  builder.setColumns(mapping.getDataTypes());
-  builder.setPrimaryKey(mapping.getPrimaryKey());
-  builder.enableColumnBlock(mapping.getColumnBlocks());
-  return builder.build();
+  return newGTInfo(cuboid,new CubeDimEncMap(cubeDesc,dictionaryMap));
 }

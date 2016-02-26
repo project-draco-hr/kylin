@@ -1,0 +1,14 @@
+{
+  DimensionEncoding result=encMap.get(col);
+  if (result == null) {
+    RowKeyColDesc colDesc=cubeDesc.getRowkey().getColDesc(col);
+    if (colDesc.isUsingDictionary()) {
+      result=new DictionaryDimEnc(getDictionary(col));
+    }
+ else {
+      result=new FixedLenDimEnc(colDesc.getLength());
+    }
+    encMap.put(col,result);
+  }
+  return result;
+}

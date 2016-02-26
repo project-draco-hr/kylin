@@ -1,0 +1,16 @@
+{
+  if (value == null) {
+    Arrays.fill(output,outputOffset,outputOffset + fixedLen,NULL);
+    return;
+  }
+  if (valueLen > fixedLen) {
+    if (avoidVerbose++ % 10000 == 0) {
+      logger.warn("Expect at most " + fixedLen + " bytes, but got "+ valueLen+ ", will truncate, value string: "+ Bytes.toString(value,0,valueLen)+ " times:"+ avoidVerbose);
+    }
+  }
+  int n=Math.min(valueLen,fixedLen);
+  System.arraycopy(value,0,output,outputOffset,n);
+  if (n < fixedLen) {
+    Arrays.fill(output,outputOffset + n,outputOffset + fixedLen,ROWKEY_PLACE_HOLDER_BYTE);
+  }
+}

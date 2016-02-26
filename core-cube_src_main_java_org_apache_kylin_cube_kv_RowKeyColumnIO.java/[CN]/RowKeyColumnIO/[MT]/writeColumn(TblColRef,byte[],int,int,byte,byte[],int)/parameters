@@ -1,4 +1,4 @@
-TblColRef column
+TblColRef col
 byte[] value
 int valueLen
 int roundingFlag

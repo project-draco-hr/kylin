@@ -1,0 +1,4 @@
+{
+  if (this.roundingFlag == roundingFlag && this.defaultByte == defaultByte)   return this;
+ else   return new DictionaryDimEnc(dict,roundingFlag,defaultByte);
+}

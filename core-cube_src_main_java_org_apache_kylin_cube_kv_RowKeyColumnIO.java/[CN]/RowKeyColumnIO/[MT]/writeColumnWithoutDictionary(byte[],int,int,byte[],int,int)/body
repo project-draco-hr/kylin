@@ -1,9 +1,0 @@
-{
-  if (srcLength >= dstLength) {
-    System.arraycopy(src,srcOffset,dst,dstOffset,dstLength);
-  }
- else {
-    System.arraycopy(src,srcOffset,dst,dstOffset,srcLength);
-    Arrays.fill(dst,dstOffset + srcLength,dstOffset + dstLength,RowConstants.ROWKEY_PLACE_HOLDER_BYTE);
-  }
-}

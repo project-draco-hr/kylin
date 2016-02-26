@@ -1,6 +1,6 @@
 {
   byte[] value=Bytes.toBytes(v);
-  byte[] id=new byte[columnIO.getColumnLength(column)];
-  columnIO.writeColumn(column,value,value.length,roundingFlag,Dictionary.NULL,id,0);
+  byte[] id=new byte[dimEncMap.get(column).getLengthOfEncoding()];
+  columnIO.writeColumn(column,value,value.length,roundingFlag,DimensionEncoding.NULL,id,0);
   return Dictionary.dictIdToString(id,0,id.length);
 }

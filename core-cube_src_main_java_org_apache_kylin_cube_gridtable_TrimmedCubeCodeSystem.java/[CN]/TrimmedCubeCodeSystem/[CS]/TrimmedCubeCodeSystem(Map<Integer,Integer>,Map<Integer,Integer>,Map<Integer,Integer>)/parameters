@@ -1,3 +1,0 @@
-Map<Integer,Integer> dependentMetricsMap
-Map<Integer,Integer> dictSizes
-Map<Integer,Integer> fixedLengthSize

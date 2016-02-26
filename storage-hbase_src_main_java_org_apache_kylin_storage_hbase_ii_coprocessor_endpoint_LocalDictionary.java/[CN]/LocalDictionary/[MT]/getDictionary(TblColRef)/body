@@ -1,3 +1,3 @@
 {
-  return this.colDictMap[type.getColIndexByTblColRef(col)];
+  return (Dictionary<String>)this.colDictMap[type.getColIndexByTblColRef(col)];
 }

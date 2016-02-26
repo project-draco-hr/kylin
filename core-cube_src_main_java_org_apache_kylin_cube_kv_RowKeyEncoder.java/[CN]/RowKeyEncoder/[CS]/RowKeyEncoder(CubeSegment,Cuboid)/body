@@ -1,7 +1,7 @@
 {
   super(cubeSeg,cuboid);
   enableSharding=cubeSeg.isEnableSharding();
-  colIO=new RowKeyColumnIO(cubeSeg);
+  colIO=new RowKeyColumnIO(cubeSeg.getDimensionEncodingMap());
   for (  TblColRef column : cuboid.getColumns()) {
     bodyLength+=colIO.getColumnLength(column);
   }

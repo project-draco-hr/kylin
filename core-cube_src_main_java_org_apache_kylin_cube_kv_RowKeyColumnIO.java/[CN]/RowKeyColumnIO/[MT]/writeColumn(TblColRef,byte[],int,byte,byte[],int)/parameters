@@ -1,6 +1,0 @@
-TblColRef column
-byte[] value
-int valueLen
-byte defaultValue
-byte[] output
-int outputOffset

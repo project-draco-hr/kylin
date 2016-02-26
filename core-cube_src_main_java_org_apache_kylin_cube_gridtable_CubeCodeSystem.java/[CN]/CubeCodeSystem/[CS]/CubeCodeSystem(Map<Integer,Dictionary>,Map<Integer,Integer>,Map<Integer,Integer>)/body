@@ -1,5 +1,0 @@
-{
-  this.dictionaryMap=dictionaryMap;
-  this.fixLenMap=fixLenMap;
-  this.dependentMetricsMap=dependentMetricsMap;
-}

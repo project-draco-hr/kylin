@@ -1,0 +1,4 @@
+{
+  int id=BytesUtil.readUnsigned(in,dict.getSizeOfId());
+  return dict.getValueFromId(id);
+}

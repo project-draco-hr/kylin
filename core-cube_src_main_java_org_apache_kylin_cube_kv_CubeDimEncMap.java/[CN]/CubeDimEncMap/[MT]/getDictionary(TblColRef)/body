@@ -1,0 +1,4 @@
+{
+  if (seg == null)   return dictionaryMap.get(col);
+ else   return seg.getDictionary(col);
+}

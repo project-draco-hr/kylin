@@ -1,7 +1,3 @@
 {
-  byte[] array=code.array();
-  for (int i=0, j=code.offset(), n=code.length(); i < n; i++, j++) {
-    if (array[j] != Dictionary.NULL)     return false;
-  }
-  return true;
+  return DimensionEncoding.isNull(code.array(),code.offset(),code.length());
 }

@@ -1,7 +1,11 @@
 {
   DataTypeSerializer serializer=serializers[col];
   if (serializer instanceof DictionarySerializer) {
-    ((DictionarySerializer)serializer).serializeWithRounding(value,roundingFlag,buf);
+    DictionaryDimEnc dictEnc=((DictionaryDimEnc)dimEncs[col]);
+    if (dictEnc.getRoundingFlag() != roundingFlag) {
+      serializer=dictEnc.copy(roundingFlag).asDataTypeSerializer();
+    }
+    serializer.serialize(value,buf);
   }
  else {
     if (value instanceof String) {

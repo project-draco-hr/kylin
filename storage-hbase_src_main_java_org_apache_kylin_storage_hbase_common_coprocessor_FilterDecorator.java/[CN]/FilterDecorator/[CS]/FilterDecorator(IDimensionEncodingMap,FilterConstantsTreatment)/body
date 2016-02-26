@@ -1,0 +1,6 @@
+{
+  this.dimEncMap=dimEncMap;
+  this.columnIO=new RowKeyColumnIO(dimEncMap);
+  this.inevaluableColumns=Sets.newHashSet();
+  this.filterConstantsTreatment=filterConstantsTreatment;
+}

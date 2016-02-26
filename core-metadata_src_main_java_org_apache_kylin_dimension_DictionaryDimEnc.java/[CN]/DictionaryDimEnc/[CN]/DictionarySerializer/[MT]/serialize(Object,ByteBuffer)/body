@@ -1,0 +1,4 @@
+{
+  int id=dict.getIdFromValue(value == null ? null : value.toString(),roundingFlag);
+  BytesUtil.writeUnsigned(id,dict.getSizeOfId(),buf);
+}

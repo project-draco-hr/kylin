@@ -1,0 +1,8 @@
+{
+  DimensionEncoding result=encMap.get(col);
+  if (result == null) {
+    int len=recordInfo.length(type.getColIndexByTblColRef(col));
+    encMap.put(col,result=new FixedLenDimEnc(len));
+  }
+  return result;
+}

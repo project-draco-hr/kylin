@@ -1,0 +1,12 @@
+{
+  try {
+    int id=dict.getIdFromValueBytes(value,0,valueLen,roundingFlag);
+    BytesUtil.writeUnsigned(id,output,outputOffset,fixedLen);
+  }
+ catch (  IllegalArgumentException ex) {
+    for (int i=outputOffset; i < outputOffset + fixedLen; i++) {
+      output[i]=defaultByte;
+    }
+    logger.error("Can't translate value " + Bytes.toString(value,0,valueLen) + " to dictionary ID, roundingFlag "+ roundingFlag+ ". Using default value "+ String.format("\\x%02X",defaultByte));
+  }
+}

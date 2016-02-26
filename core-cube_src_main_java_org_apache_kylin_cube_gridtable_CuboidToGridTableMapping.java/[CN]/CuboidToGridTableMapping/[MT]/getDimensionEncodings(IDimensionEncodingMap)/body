@@ -1,0 +1,8 @@
+{
+  List<TblColRef> dims=cuboid.getColumns();
+  DimensionEncoding[] dimEncs=new DimensionEncoding[dims.size()];
+  for (int i=0; i < dimEncs.length; i++) {
+    dimEncs[i]=dimEncMap.get(dims.get(i));
+  }
+  return dimEncs;
+}

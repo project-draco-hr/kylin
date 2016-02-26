@@ -1,0 +1,5 @@
+{
+  this.cubeDesc=cubeDesc;
+  this.seg=null;
+  this.dictionaryMap=dictionaryMap;
+}

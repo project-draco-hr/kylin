@@ -1,3 +1,0 @@
-{
-  return getColDesc(col).getLength();
-}

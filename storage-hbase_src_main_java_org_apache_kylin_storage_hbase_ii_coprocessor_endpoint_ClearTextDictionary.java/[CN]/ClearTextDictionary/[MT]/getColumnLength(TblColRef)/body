@@ -1,3 +1,0 @@
-{
-  return digest.length(columnIndexMap.get(col));
-}

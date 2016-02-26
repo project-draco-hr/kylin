@@ -3,7 +3,7 @@
   FunctionTupleFilter functionTupleFilter=compTupleFilter.getFunction();
   if (!functionTupleFilter.isValid())   return null;
   TblColRef columnRef=functionTupleFilter.getColumn();
-  Dictionary<?> dict=dictionaryAware.getDictionary(columnRef);
+  Dictionary<?> dict=dimEncMap.getDictionary(columnRef);
   if (dict == null)   return null;
   CompareTupleFilter translated=new CompareTupleFilter(FilterOperatorEnum.IN);
   translated.addChild(new ColumnTupleFilter(columnRef));

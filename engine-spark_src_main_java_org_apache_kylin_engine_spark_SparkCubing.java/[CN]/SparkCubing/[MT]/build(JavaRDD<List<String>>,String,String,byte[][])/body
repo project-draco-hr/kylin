@@ -4,8 +4,9 @@
   final CubeSegment cubeSegment=cubeInstance.getSegmentById(segmentId);
   List<TblColRef> baseCuboidColumn=Cuboid.findById(cubeDesc,Cuboid.getBaseCuboidId(cubeDesc)).getColumns();
   final Map<TblColRef,Integer> columnLengthMap=Maps.newHashMap();
+  final CubeDimEncMap dimEncMap=cubeSegment.getDimensionEncodingMap();
   for (  TblColRef tblColRef : baseCuboidColumn) {
-    columnLengthMap.put(tblColRef,cubeSegment.getColumnLength(tblColRef));
+    columnLengthMap.put(tblColRef,dimEncMap.get(tblColRef).getLengthOfEncoding());
   }
   final Map<TblColRef,Dictionary<String>> dictionaryMap=Maps.newHashMap();
   for (  DimensionDesc dim : cubeDesc.getDimensions()) {

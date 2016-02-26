@@ -1,16 +1,13 @@
 {
   this.info=info;
-  serializers=new DataTypeSerializer[info.getColumnCount()];
-  for (int i=0; i < info.getColumnCount(); i++) {
-    if (dictSizes.get(i) != null) {
-      serializers[i]=new CubeCodeSystem.TrimmedDictionarySerializer(dictSizes.get(i));
-    }
- else     if (fixedLengthSize.get(i) != null) {
-      serializers[i]=new FixLenSerializer(fixedLengthSize.get(i));
+  this.serializers=new DataTypeSerializer[info.getColumnCount()];
+  for (int i=0; i < serializers.length; i++) {
+    DimensionEncoding dimEnc=i < dimEncs.length ? dimEncs[i] : null;
+    if (dimEnc != null) {
+      serializers[i]=new TrimmedDimensionSerializer(dimEnc.getLengthOfEncoding());
     }
  else {
       serializers[i]=DataTypeSerializer.create(info.getColumnType(i));
     }
   }
-  this.comparator=new DefaultGTComparator();
 }

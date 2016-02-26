@@ -1,7 +1,7 @@
 {
   this.enableSharding=cubeSeg.isEnableSharding();
   this.cubeDesc=cubeSeg.getCubeDesc();
-  this.colIO=new RowKeyColumnIO(cubeSeg);
+  this.colIO=new RowKeyColumnIO(new CubeDimEncMap(cubeSeg));
   this.splitBuffers=new SplittedBytes[splitLen];
   for (int i=0; i < splitLen; i++) {
     this.splitBuffers[i]=new SplittedBytes(bytesLen);

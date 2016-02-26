@@ -1,0 +1,11 @@
+{
+  int id=BytesUtil.readUnsigned(bytes,offset,len);
+  try {
+    String value=dict.getValueFromId(id);
+    return value;
+  }
+ catch (  IllegalArgumentException e) {
+    logger.error("Can't get dictionary value from " + dict + " (id = "+ id+ ")");
+    return "";
+  }
+}

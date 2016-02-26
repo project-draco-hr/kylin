@@ -2,7 +2,7 @@
   if (value == null)   return true;
   String v=value;
   for (int i=0, n=v.length(); i < n; i++) {
-    if ((byte)v.charAt(i) != Dictionary.NULL)     return false;
+    if ((byte)v.charAt(i) != DimensionEncoding.NULL)     return false;
   }
   return true;
 }

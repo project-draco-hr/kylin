@@ -1,0 +1,5 @@
+{
+  this.dimEncs=dimEncs;
+  this.comparator=new DefaultGTComparator();
+  this.dependentMetricsMap=dependentMetricsMap;
+}
