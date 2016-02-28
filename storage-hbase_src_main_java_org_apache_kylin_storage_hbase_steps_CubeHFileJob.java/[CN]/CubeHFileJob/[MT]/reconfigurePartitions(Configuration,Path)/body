@@ -1,0 +1,15 @@
+{
+  FileSystem fs=path.getFileSystem(conf);
+  if (fs.exists(path)) {
+    try (SequenceFile.Reader reader=new SequenceFile.Reader(fs,path,conf)){
+      int partitionCount=0;
+      Writable key=(Writable)ReflectionUtils.newInstance(reader.getKeyClass(),conf);
+      Writable value=(Writable)ReflectionUtils.newInstance(reader.getValueClass(),conf);
+      while (reader.next(key,value)) {
+        partitionCount++;
+      }
+      TotalOrderPartitioner.setPartitionFile(job.getConfiguration(),path);
+      job.setNumReduceTasks(partitionCount + 1);
+    }
+   }
+}

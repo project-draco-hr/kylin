@@ -1,0 +1,6 @@
+{
+  super.bindCurrentConfiguration(context.getConfiguration());
+  if (context.getConfiguration().getBoolean("useSandbox",false)) {
+    scaleFactorForSandbox=1024L;
+  }
+}

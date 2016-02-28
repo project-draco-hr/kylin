@@ -20,6 +20,7 @@
         if (tableRegions.contains(regionId)) {
           long regionSizeBytes=regionLoad.getStorefileSizeMB() * megaByte;
           sizeMap.put(regionId,regionSizeBytes);
+          countMap.put(regionId,new Pair<>(regionLoad.getStores(),regionLoad.getStorefiles()));
         }
       }
     }

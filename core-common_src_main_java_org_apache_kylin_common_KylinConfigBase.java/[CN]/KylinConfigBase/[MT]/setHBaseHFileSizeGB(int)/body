@@ -1,0 +1,3 @@
+{
+  setProperty("kylin.hbase.hfile.size.gb",String.valueOf(size));
+}

@@ -4,7 +4,7 @@
   StringBuilder cmd=new StringBuilder();
   appendExecCmdParameters(cmd,"cubename",seg.getRealization().getName());
   appendExecCmdParameters(cmd,"segmentname",seg.getName());
-  appendExecCmdParameters(cmd,"input",getRowkeyDistributionOutputPath(jobId) + "/part-r-00000");
+  appendExecCmdParameters(cmd,"partitions",getRowkeyDistributionOutputPath(jobId) + "/part-r-00000");
   appendExecCmdParameters(cmd,"statisticsenabled",String.valueOf(withStats));
   createHtableStep.setJobParams(cmd.toString());
   createHtableStep.setJobClass(CreateHTableJob.class);
