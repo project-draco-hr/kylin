@@ -2,8 +2,9 @@
   final String hiveTable=this.getOldHiveTable();
   if (StringUtils.isNotEmpty(hiveTable)) {
     final String dropSQL="USE " + context.getConfig().getHiveDatabaseForIntermediateTable() + ";"+ " DROP TABLE IF EXISTS  "+ hiveTable+ ";";
-    final String dropHiveCMD="hive -e \"" + dropSQL + "\"";
-    context.getConfig().getCliCommandExecutor().execute(dropHiveCMD);
+    final HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
+    hiveCmdBuilder.addStatement(dropSQL);
+    context.getConfig().getCliCommandExecutor().execute(hiveCmdBuilder.build());
     output.append("Dropped Hive table " + hiveTable + " \n");
   }
 }

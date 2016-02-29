@@ -1,0 +1,14 @@
+{
+  System.setProperty("kylin.hive.client","beeline");
+  System.setProperty("kylin.hive.beeline.params","-u jdbc_url");
+  HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
+  hiveCmdBuilder.addStatement("USE default;");
+  hiveCmdBuilder.addStatement("DROP TABLE test;");
+  hiveCmdBuilder.addStatement("SHOW\n TABLES;");
+  String cmd=hiveCmdBuilder.build();
+  assertTrue(cmd.startsWith("beeline -u jdbc_url -f") && cmd.contains(";rm -f"));
+  String hqlFile=cmd.substring(cmd.lastIndexOf("-f ") + 3).trim();
+  String hqlStatement=FileUtils.readFileToString(new File(hqlFile));
+  assertEquals("USE default;\nDROP TABLE test;\nSHOW\n TABLES;\n",hqlStatement);
+  FileUtils.forceDelete(new File(hqlFile));
+}

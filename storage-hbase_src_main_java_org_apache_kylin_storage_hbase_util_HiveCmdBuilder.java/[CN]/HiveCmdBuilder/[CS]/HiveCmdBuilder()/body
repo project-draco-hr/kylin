@@ -1,0 +1,4 @@
+{
+  kylinConfig=KylinConfig.getInstanceFromEnv();
+  clientMode=HiveClientMode.valueOf(kylinConfig.getHiveClientMode().toUpperCase());
+}

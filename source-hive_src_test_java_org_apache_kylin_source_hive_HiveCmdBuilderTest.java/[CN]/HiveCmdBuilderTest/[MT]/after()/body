@@ -1,0 +1,4 @@
+{
+  System.clearProperty("kylin.hive.client");
+  System.clearProperty("kylin.hive.beeline.params");
+}

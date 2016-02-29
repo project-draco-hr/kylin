@@ -1,0 +1,8 @@
+{
+  System.setProperty("kylin.hive.client","cli");
+  HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
+  hiveCmdBuilder.addStatement("USE default;");
+  hiveCmdBuilder.addStatement("DROP TABLE test;");
+  hiveCmdBuilder.addStatement("SHOW\n TABLES;");
+  assertEquals("hive -e \"USE default;\nDROP TABLE test;\nSHOW\n TABLES;\n\"",hiveCmdBuilder.build());
+}

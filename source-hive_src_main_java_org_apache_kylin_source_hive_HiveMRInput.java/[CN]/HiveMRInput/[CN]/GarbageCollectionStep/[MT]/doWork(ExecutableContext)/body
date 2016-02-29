@@ -3,10 +3,11 @@
   StringBuffer output=new StringBuffer();
   final String hiveTable=this.getIntermediateTableIdentity();
   if (config.isHiveKeepFlatTable() == false && StringUtils.isNotEmpty(hiveTable)) {
-    final String dropSQL="USE " + context.getConfig().getHiveDatabaseForIntermediateTable() + ";"+ " DROP TABLE IF EXISTS  "+ hiveTable+ ";";
-    final String dropHiveCMD="hive -e \"" + dropSQL + "\"";
+    final HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
+    hiveCmdBuilder.addStatement("USE " + context.getConfig().getHiveDatabaseForIntermediateTable() + ";");
+    hiveCmdBuilder.addStatement("DROP TABLE IF EXISTS  " + hiveTable + ";");
     try {
-      config.getCliCommandExecutor().execute(dropHiveCMD);
+      config.getCliCommandExecutor().execute(hiveCmdBuilder.build());
       output.append("Hive table " + hiveTable + " is dropped. \n");
       Path externalDataPath=new Path(getExternalDataPath());
       FileSystem fs=FileSystem.get(externalDataPath.toUri(),HadoopUtil.getCurrentConfiguration());
