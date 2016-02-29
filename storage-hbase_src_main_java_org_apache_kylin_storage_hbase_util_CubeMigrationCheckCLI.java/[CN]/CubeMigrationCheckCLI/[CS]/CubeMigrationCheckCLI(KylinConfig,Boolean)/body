@@ -1,0 +1,8 @@
+{
+  this.dstCfg=kylinConfig;
+  this.ifFix=isFix;
+  Configuration conf=HBaseConfiguration.create();
+  hbaseAdmin=new HBaseAdmin(conf);
+  issueExistHTables=Lists.newArrayList();
+  inconsistentHTables=Lists.newArrayList();
+}

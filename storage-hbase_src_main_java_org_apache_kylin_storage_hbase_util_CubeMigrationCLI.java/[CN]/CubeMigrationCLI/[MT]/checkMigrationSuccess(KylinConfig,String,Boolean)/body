@@ -1,0 +1,4 @@
+{
+  CubeMigrationCheckCLI checkCLI=new CubeMigrationCheckCLI(kylinConfig,ifFix);
+  checkCLI.execute(cubeName);
+}

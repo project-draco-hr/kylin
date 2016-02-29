@@ -1,0 +1,18 @@
+{
+  issueExistHTables=Lists.newArrayList();
+  inconsistentHTables=Lists.newArrayList();
+  for (  String segFullName : segFullNameList) {
+    String[] sepNameList=segFullName.split(",");
+    try {
+      HTableDescriptor hTableDescriptor=hbaseAdmin.getTableDescriptor(TableName.valueOf(sepNameList[0]));
+      String host=hTableDescriptor.getValue(IRealizationConstants.HTableTag);
+      if (!dstCfg.getMetadataUrlPrefix().equalsIgnoreCase(host)) {
+        inconsistentHTables.add(segFullName);
+      }
+    }
+ catch (    IOException e) {
+      issueExistHTables.add(segFullName);
+      continue;
+    }
+  }
+}

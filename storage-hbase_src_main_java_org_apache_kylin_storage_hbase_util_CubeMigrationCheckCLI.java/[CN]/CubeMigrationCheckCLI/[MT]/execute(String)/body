@@ -1,0 +1,10 @@
+{
+  if (cubeName == null) {
+    checkAll();
+  }
+ else {
+    checkCube(cubeName);
+  }
+  fixInconsistent();
+  printIssueExistingHTables();
+}

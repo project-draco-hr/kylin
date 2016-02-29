@@ -1,0 +1,6 @@
+{
+  List<String> segFullNameList=Lists.newArrayList();
+  CubeInstance cube=CubeManager.getInstance(dstCfg).getCube(cubeName);
+  addHTableNamesForCube(cube,segFullNameList);
+  check(segFullNameList);
+}

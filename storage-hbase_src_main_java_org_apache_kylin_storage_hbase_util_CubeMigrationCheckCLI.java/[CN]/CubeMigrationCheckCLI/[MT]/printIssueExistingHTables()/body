@@ -1,0 +1,8 @@
+{
+  logger.info("------ HTables exist issues in hbase : not existing, metadata broken ------");
+  for (  String segFullName : issueExistHTables) {
+    String[] sepNameList=segFullName.split(",");
+    logger.error(sepNameList[0] + " belonging to cube " + sepNameList[1]+ " has some issues and cannot be read successfully!!!");
+  }
+  logger.info("----------------------------------------------------");
+}

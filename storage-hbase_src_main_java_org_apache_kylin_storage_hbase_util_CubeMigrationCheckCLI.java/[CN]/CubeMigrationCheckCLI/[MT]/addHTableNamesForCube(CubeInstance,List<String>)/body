@@ -1,0 +1,6 @@
+{
+  for (  CubeSegment seg : cube.getSegments()) {
+    String tableName=seg.getStorageLocationIdentifier();
+    segFullNameList.add(tableName + "," + cube.getName());
+  }
+}

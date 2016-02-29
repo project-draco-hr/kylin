@@ -33,4 +33,5 @@
  else {
     showOpts();
   }
+  checkMigrationSuccess(dstConfig,cubeName,true);
 }
