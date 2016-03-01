@@ -8,4 +8,6 @@
   h2Connection=DriverManager.getConnection("jdbc:h2:mem:db" + (h2InstanceCount++),"sa","");
   H2Database h2DB=new H2Database(h2Connection,config);
   h2DB.loadAllTables();
+  cacheManager=CacheManager.newInstance("../server/src/main/resources/ehcache-test.xml");
+  AbstractCacheFledgedQuery.setCacheManager(cacheManager);
 }
