@@ -2,6 +2,6 @@
   logger.info("start time:" + startTime + " end time:"+ endTime+ " batch interval:"+ batchInterval+ " batch count:"+ ((endTime - startTime) / batchInterval));
   for (long start=startTime; start < endTime; start+=batchInterval) {
     logger.info(String.format("build batch:{%d, %d}",start,start + batchInterval));
-    new OneOffStreamingBuilder(streamingName,start,start + batchInterval).build().run();
+    new OneOffStreamingBuilder(RealizationType.CUBE,cubeName,start,start + batchInterval).build().run();
   }
 }

@@ -1,9 +1,11 @@
 {
   DeployUtil.overrideJobJarLocations();
   kylinConfig=KylinConfig.getInstanceFromEnv();
-  final StreamingConfig config=StreamingManager.getInstance(KylinConfig.getInstanceFromEnv()).getStreamingConfig(streamingName);
-  KafkaConfig streamingConfig=KafkaConfigManager.getInstance(kylinConfig).getKafkaConfig(streamingName);
+  final CubeInstance cubeInstance=CubeManager.getInstance(kylinConfig).getCube(cubeName);
+  final String factTable=cubeInstance.getFactTable();
+  final StreamingConfig config=StreamingManager.getInstance(kylinConfig).getStreamingConfig(factTable);
+  KafkaConfig streamingConfig=KafkaConfigManager.getInstance(kylinConfig).getKafkaConfig(config.getName());
   streamingConfig.setTopic(UUID.randomUUID().toString());
   KafkaConfigManager.getInstance(kylinConfig).saveKafkaConfig(streamingConfig);
-  DeployUtil.prepareTestDataForStreamingCube(startTime,endTime,config.getCubeName(),streamingConfig);
+  DeployUtil.prepareTestDataForStreamingCube(startTime,endTime,cubeName,streamingConfig);
 }

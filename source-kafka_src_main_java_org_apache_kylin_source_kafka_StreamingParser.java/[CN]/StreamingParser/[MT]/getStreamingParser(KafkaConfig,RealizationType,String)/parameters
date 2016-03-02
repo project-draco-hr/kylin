@@ -1,0 +1,3 @@
+KafkaConfig kafkaConfig
+RealizationType realizationType
+String realizationName

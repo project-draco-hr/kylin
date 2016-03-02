@@ -1,7 +1,7 @@
 {
   return new Runnable(){
     @Override public void run(){
-      StreamingBatch streamingBatch=streamingInput.getBatchWithTimeWindow(streamingConfig,-1,startTime,endTime);
+      StreamingBatch streamingBatch=streamingInput.getBatchWithTimeWindow(realizationType,realizationName,-1,startTime,endTime);
       final IBuildable buildable=streamingBatchBuilder.createBuildable(streamingBatch);
       final Map<Long,HyperLogLogPlusCounter> samplingResult=streamingBatchBuilder.sampling(streamingBatch);
       final Map<TblColRef,Dictionary<String>> dictionaryMap=streamingBatchBuilder.buildDictionary(streamingBatch,buildable);

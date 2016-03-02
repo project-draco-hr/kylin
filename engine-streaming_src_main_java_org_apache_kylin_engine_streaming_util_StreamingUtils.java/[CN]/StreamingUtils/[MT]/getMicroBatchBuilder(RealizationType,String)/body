@@ -1,0 +1,9 @@
+{
+  Preconditions.checkNotNull(realizationName);
+  if (realizationType == RealizationType.CUBE) {
+    return new StreamingCubeBuilder(realizationName);
+  }
+ else {
+    throw new UnsupportedOperationException("not implemented yet");
+  }
+}

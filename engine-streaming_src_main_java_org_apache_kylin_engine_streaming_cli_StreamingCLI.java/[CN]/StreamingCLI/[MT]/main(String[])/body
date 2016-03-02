@@ -1,6 +1,6 @@
 {
   try {
-    Preconditions.checkArgument(args[0].equals("streaming"));
+    Preconditions.checkArgument(args[0].equals("cube"));
     Preconditions.checkArgument(args[1].equals("start"));
     int i=2;
     BootstrapConfig bootstrapConfig=new BootstrapConfig();
@@ -13,11 +13,8 @@ case "-start":
 case "-end":
     bootstrapConfig.setEnd(Long.parseLong(args[++i]));
   break;
-case "-streaming":
-bootstrapConfig.setStreaming(args[++i]);
-break;
-case "-partition":
-bootstrapConfig.setPartitionId(Integer.parseInt(args[++i]));
+case "-cube":
+bootstrapConfig.setCubeName(args[++i]);
 break;
 case "-fillGap":
 bootstrapConfig.setFillGap(Boolean.parseBoolean(args[++i]));
@@ -28,15 +25,14 @@ logger.warn("ignore this arg:" + argName);
 i++;
 }
 if (bootstrapConfig.isFillGap()) {
-final StreamingConfig streamingConfig=StreamingManager.getInstance(KylinConfig.getInstanceFromEnv()).getStreamingConfig(bootstrapConfig.getStreaming());
-final List<Pair<Long,Long>> gaps=StreamingMonitor.findGaps(streamingConfig.getCubeName());
+final List<Pair<Long,Long>> gaps=StreamingMonitor.findGaps(bootstrapConfig.getCubeName());
 logger.info("all gaps:" + StringUtils.join(gaps,","));
 for (Pair<Long,Long> gap : gaps) {
-startOneOffCubeStreaming(bootstrapConfig.getStreaming(),gap.getFirst(),gap.getSecond());
+startOneOffCubeStreaming(bootstrapConfig.getCubeName(),gap.getFirst(),gap.getSecond());
 }
 }
  else {
-startOneOffCubeStreaming(bootstrapConfig.getStreaming(),bootstrapConfig.getStart(),bootstrapConfig.getEnd());
+startOneOffCubeStreaming(bootstrapConfig.getCubeName(),bootstrapConfig.getStart(),bootstrapConfig.getEnd());
 logger.info("streaming process finished, exit with 0");
 System.exit(0);
 }

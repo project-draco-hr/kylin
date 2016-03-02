@@ -1,6 +1,6 @@
 {
   List<StreamingConfig> streamingConfigs;
-  streamingConfigs=listAllStreamingConfigs(cubeName);
+  streamingConfigs=listAllStreamingConfigs(table);
   if (limit == null || offset == null) {
     return streamingConfigs;
   }

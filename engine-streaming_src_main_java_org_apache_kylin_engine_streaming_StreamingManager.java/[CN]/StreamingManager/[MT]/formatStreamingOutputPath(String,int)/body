@@ -1,0 +1,3 @@
+{
+  return ResourceStore.STREAMING_OUTPUT_RESOURCE_ROOT + "/" + streaming+ "_"+ partition+ ".json";
+}
