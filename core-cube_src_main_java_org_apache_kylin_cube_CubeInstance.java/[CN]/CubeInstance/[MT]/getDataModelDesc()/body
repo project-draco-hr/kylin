@@ -1,3 +1,9 @@
 {
-  return this.getDescriptor().getModel();
+  CubeDesc cubeDesc=this.getDescriptor();
+  if (cubeDesc != null) {
+    return cubeDesc.getModel();
+  }
+ else {
+    return null;
+  }
 }
