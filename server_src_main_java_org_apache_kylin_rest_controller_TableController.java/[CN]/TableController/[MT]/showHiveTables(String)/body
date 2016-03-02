@@ -1,0 +1,12 @@
+{
+  HiveClient hiveClient=new HiveClient();
+  List<String> results=null;
+  try {
+    results=hiveClient.getHiveTableNames(database);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    throw new IOException(e);
+  }
+  return results;
+}
