@@ -1,4 +1,5 @@
 {
+  printInfo("tearDown in ITCombinationTest");
   clean();
   HBaseStorage.overwriteStorageQuery=null;
 }

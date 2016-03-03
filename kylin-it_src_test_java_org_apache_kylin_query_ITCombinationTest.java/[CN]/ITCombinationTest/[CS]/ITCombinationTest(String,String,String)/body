@@ -1,4 +1,5 @@
 {
+  printInfo("Into combination join type: " + joinType + ", coprocessor toggle: "+ coprocessorToggle+ ", query engine: "+ queryEngine);
   ITKylinQueryTest.clean();
   ITKylinQueryTest.joinType=joinType;
   ITKylinQueryTest.setupAll();

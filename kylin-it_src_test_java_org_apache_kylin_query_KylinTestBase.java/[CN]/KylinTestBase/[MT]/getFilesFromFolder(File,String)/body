@@ -1,9 +1,9 @@
 {
-  List<File> files=new ArrayList<File>();
+  Set<File> set=new TreeSet<>(new FileByNameComparator());
   for (  final File fileEntry : folder.listFiles()) {
     if (fileEntry.getName().toLowerCase().endsWith(fileType.toLowerCase())) {
-      files.add(fileEntry);
+      set.add(fileEntry);
     }
   }
-  return files;
+  return new ArrayList<>(set);
 }

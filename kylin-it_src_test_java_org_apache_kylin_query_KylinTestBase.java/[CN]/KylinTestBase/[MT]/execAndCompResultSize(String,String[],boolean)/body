@@ -15,7 +15,13 @@
     H2Connection h2Conn=new H2Connection(h2Connection,null);
     h2Conn.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY,new TestH2DataTypeFactory());
     ITable h2Table=executeQuery(h2Conn,queryName,sql,needSort);
-    Assert.assertEquals(h2Table.getRowCount(),kylinTable.getRowCount());
+    try {
+      Assert.assertEquals(h2Table.getRowCount(),kylinTable.getRowCount());
+    }
+ catch (    Throwable t) {
+      printInfo("execAndCompResultSize failed on: " + sqlFile.getAbsolutePath());
+      throw t;
+    }
     compQueryCount++;
     if (kylinTable.getRowCount() == 0) {
       zeroResultQueries.add(sql);

@@ -1,5 +1,4 @@
 {
-  printInfo("tearDown");
-  printInfo("Closing connection...");
+  printInfo("tearDown in KylinQueryTest");
   clean();
 }
