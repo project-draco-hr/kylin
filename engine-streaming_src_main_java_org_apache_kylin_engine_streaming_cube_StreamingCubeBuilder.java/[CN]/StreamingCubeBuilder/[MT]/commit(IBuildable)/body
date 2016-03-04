@@ -1,6 +1,7 @@
 {
   CubeSegment cubeSegment=(CubeSegment)buildable;
   cubeSegment.setStatus(SegmentStatusEnum.READY);
+  cubeSegment.setInputRecords(processedRowCount);
   CubeUpdate cubeBuilder=new CubeUpdate(cubeSegment.getCubeInstance());
   cubeBuilder.setToAddSegs(cubeSegment);
   try {

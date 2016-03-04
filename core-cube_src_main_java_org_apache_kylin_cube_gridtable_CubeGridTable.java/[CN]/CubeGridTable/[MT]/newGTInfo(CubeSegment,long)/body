@@ -5,7 +5,7 @@
     if (cubeSeg.getCubeDesc().getRowkey().isUseDictionary(dim)) {
       Dictionary dict=dictionaryMap.get(dim);
       if (dict == null) {
-        throw new NotEnoughGTInfoException();
+        throw new RuntimeException("Dictionary for " + dim + " is not found");
       }
     }
   }

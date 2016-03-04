@@ -25,14 +25,11 @@
   List<CubeSegmentScanner> scanners=Lists.newArrayList();
   for (  CubeSegment cubeSeg : cubeInstance.getSegments(SegmentStatusEnum.READY)) {
     CubeSegmentScanner scanner;
-    try {
-      scanner=new CubeSegmentScanner(cubeSeg,cuboid,dimensionsD,groupsD,metrics,filterD,!isExactAggregation);
-    }
- catch (    NotEnoughGTInfoException e) {
-      logger.info("Cannot construct Segment {}'s GTInfo, this may due to empty segment or broken metadata",cubeSeg);
-      logger.info("error stack",e);
+    if (cubeSeg.getInputRecords() == 0) {
+      logger.info("Skip cube segment {} because its input record is 0",cubeSeg);
       continue;
     }
+    scanner=new CubeSegmentScanner(cubeSeg,cuboid,dimensionsD,groupsD,metrics,filterD,!isExactAggregation);
     scanners.add(scanner);
   }
   if (scanners.isEmpty())   return ITupleIterator.EMPTY_TUPLE_ITERATOR;

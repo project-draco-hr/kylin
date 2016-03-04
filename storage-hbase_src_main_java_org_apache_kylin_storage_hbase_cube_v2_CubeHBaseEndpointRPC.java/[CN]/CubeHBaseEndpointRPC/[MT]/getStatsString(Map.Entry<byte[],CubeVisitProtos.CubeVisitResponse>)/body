@@ -1,11 +1,11 @@
 {
   StringBuilder sb=new StringBuilder();
   Stats stats=result.getValue().getStats();
-  sb.append("Endpoint RPC returned from HTable " + cubeSeg.getStorageLocationIdentifier() + " Shard "+ BytesUtil.toHex(result.getKey())+ " on host: "+ stats.getHostname()+ ".");
-  sb.append("Total scanned row: " + stats.getScannedRowCount() + ". ");
-  sb.append("Total filtered/aggred row: " + stats.getAggregatedRowCount() + ". ");
-  sb.append("Time elapsed in EP: " + (stats.getServiceEndTime() - stats.getServiceStartTime()) + "(ms). ");
-  sb.append("Server CPU usage: " + stats.getSystemCpuLoad() + ", server physical mem left: "+ stats.getFreePhysicalMemorySize()+ ", server swap mem left:"+ stats.getFreeSwapSpaceSize()+ ".");
-  sb.append("Etc message: " + stats.getEtcMsg() + ".");
+  sb.append("Endpoint RPC returned from HTable ").append(cubeSeg.getStorageLocationIdentifier()).append(" Shard ").append(BytesUtil.toHex(result.getKey())).append(" on host: ").append(stats.getHostname()).append(".");
+  sb.append("Total scanned row: ").append(stats.getScannedRowCount()).append(". ");
+  sb.append("Total filtered/aggred row: ").append(stats.getAggregatedRowCount()).append(". ");
+  sb.append("Time elapsed in EP: ").append(stats.getServiceEndTime() - stats.getServiceStartTime()).append("(ms). ");
+  sb.append("Server CPU usage: ").append(stats.getSystemCpuLoad()).append(", server physical mem left: ").append(stats.getFreePhysicalMemorySize()).append(", server swap mem left:").append(stats.getFreeSwapSpaceSize()).append(".");
+  sb.append("Etc message: ").append(stats.getEtcMsg()).append(".");
   return sb.toString();
 }

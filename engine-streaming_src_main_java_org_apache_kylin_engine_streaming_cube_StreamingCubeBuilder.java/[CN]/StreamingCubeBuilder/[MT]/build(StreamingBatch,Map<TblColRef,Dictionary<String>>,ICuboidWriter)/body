@@ -5,6 +5,7 @@
     LinkedBlockingQueue<List<String>> blockingQueue=new LinkedBlockingQueue<List<String>>();
     InMemCubeBuilder inMemCubeBuilder=new InMemCubeBuilder(cubeInstance.getDescriptor(),dictionaryMap);
     final Future<?> future=Executors.newCachedThreadPool().submit(inMemCubeBuilder.buildAsRunnable(blockingQueue,cuboidWriter));
+    processedRowCount=streamingBatch.getMessages().size();
     for (    StreamingMessage streamingMessage : streamingBatch.getMessages()) {
       blockingQueue.put(streamingMessage.getData());
     }

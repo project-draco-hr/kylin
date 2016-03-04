@@ -34,13 +34,13 @@
   logger.debug("Submitting rpc to {} shards starting from shard {}, scan requests count {}",new Object[]{shardNum,cuboidBaseShard,scanRequests.size()});
   final AtomicInteger totalScannedCount=new AtomicInteger(0);
   final ExpectedSizeIterator epResultItr=new ExpectedSizeIterator(scanRequests.size() * shardNum);
+  final String currentThreadName=Thread.currentThread().getName();
   for (  final Pair<byte[],byte[]> epRange : getEPKeyRanges(cuboidBaseShard,shardNum,totalShards)) {
     executorService.submit(new Runnable(){
       @Override public void run(){
         for (int i=0; i < scanRequests.size(); ++i) {
-          int scanIndex=i;
           CubeVisitProtos.CubeVisitRequest.Builder builder=CubeVisitProtos.CubeVisitRequest.newBuilder();
-          builder.setGtScanRequest(scanRequestByteStrings.get(scanIndex)).setHbaseRawScan(rawScanByteStrings.get(scanIndex));
+          builder.setGtScanRequest(scanRequestByteStrings.get(i)).setHbaseRawScan(rawScanByteStrings.get(i));
           for (          IntList intList : hbaseColumnsToGTIntList) {
             builder.addHbaseColumnsToGT(intList);
           }
@@ -55,7 +55,7 @@
           }
           for (          Map.Entry<byte[],CubeVisitProtos.CubeVisitResponse> result : results.entrySet()) {
             totalScannedCount.addAndGet(result.getValue().getStats().getScannedRowCount());
-            logger.info(getStatsString(result));
+            logger.info("<spawned by " + currentThreadName + ">"+ getStatsString(result));
             try {
               epResultItr.append(CompressionUtils.decompress(HBaseZeroCopyByteString.zeroCopyGetBytes(result.getValue().getCompressedRows())));
             }
