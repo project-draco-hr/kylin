@@ -5,4 +5,7 @@
   if (!context.afterAggregate) {
     translateFilter(context);
   }
+ else {
+    context.afterSkippedFilter=true;
+  }
 }
