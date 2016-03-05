@@ -19,6 +19,8 @@
   planner.removeRule(AggregateJoinTransposeRule.INSTANCE);
   planner.removeRule(AggregateProjectMergeRule.INSTANCE);
   planner.removeRule(FilterProjectTransposeRule.INSTANCE);
+  planner.removeRule(SortJoinTransposeRule.INSTANCE);
+  planner.removeRule(JoinPushExpressionsRule.INSTANCE);
   planner.removeRule(AggregateExpandDistinctAggregatesRule.INSTANCE);
   planner.removeRule(ExpandConversionRule.INSTANCE);
 }

@@ -9,7 +9,7 @@
       targetColumnNameList.add(name);
     }
   }
-  RelNode mergeSourceRel=convertSelect(call.getSourceSelect());
+  RelNode mergeSourceRel=convertSelect(call.getSourceSelect(),false);
   SqlInsert insertCall=call.getInsertCall();
   int nLevel1Exprs=0;
   List<RexNode> level1InsertExprs=null;

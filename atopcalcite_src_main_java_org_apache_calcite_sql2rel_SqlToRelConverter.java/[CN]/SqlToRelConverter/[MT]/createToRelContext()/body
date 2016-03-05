@@ -3,7 +3,7 @@
     public RelOptCluster getCluster(){
       return cluster;
     }
-    public RelNode expandView(    RelDataType rowType,    String queryString,    List<String> schemaPath){
+    public RelRoot expandView(    RelDataType rowType,    String queryString,    List<String> schemaPath){
       return viewExpander.expandView(rowType,queryString,schemaPath);
     }
   }

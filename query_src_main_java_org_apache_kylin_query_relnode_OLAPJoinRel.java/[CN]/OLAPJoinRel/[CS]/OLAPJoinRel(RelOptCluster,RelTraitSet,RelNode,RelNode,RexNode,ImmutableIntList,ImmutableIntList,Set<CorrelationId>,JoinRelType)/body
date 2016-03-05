@@ -1,0 +1,6 @@
+{
+  super(cluster,traits,left,right,condition,leftKeys,rightKeys,variablesSet,joinType);
+  Preconditions.checkArgument(getConvention() == OLAPRel.CONVENTION);
+  this.rowType=getRowType();
+  this.isTopJoin=false;
+}

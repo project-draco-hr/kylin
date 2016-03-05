@@ -1,3 +1,0 @@
-{
-  return truncate(v + x / 2,x);
-}

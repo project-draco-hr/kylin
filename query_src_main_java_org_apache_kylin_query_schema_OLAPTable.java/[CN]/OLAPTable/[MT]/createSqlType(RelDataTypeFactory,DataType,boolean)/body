@@ -1,0 +1,17 @@
+{
+  SqlTypeName sqlTypeName=SQLTYPE_MAPPING.get(dataType.getName());
+  if (sqlTypeName == null)   throw new IllegalArgumentException("Unrecognized data type " + dataType);
+  int precision=dataType.getPrecision();
+  int scale=dataType.getScale();
+  RelDataType result;
+  if (precision >= 0 && scale >= 0)   result=typeFactory.createSqlType(sqlTypeName,precision,scale);
+ else   if (precision >= 0)   result=typeFactory.createSqlType(sqlTypeName,precision);
+ else   result=typeFactory.createSqlType(sqlTypeName);
+  if (isNullable) {
+    result=typeFactory.createTypeWithNullability(result,true);
+  }
+ else {
+    result=typeFactory.createTypeWithNullability(result,false);
+  }
+  return result;
+}

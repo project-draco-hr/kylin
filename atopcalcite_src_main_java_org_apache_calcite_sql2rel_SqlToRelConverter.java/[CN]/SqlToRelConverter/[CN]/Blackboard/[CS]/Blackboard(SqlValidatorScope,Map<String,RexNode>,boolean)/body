@@ -1,0 +1,6 @@
+{
+  this.scope=scope;
+  this.nameToNodeMap=nameToNodeMap;
+  this.top=top;
+  subqueryNeedsOuterJoin=false;
+}

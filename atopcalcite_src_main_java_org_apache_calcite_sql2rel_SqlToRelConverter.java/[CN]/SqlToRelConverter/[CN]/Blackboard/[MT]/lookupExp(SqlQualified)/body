@@ -22,7 +22,7 @@
  else {
     assert isParent;
     DeferredLookup lookup=new DeferredLookup(this,qualified.identifier.names.get(0));
-    String correlName=createCorrel();
+    final CorrelationId correlName=cluster.createCorrel();
     mapCorrelToDeferred.put(correlName,lookup);
     final RelDataType rowType=foundNs.getRowType();
     return rexBuilder.makeCorrel(rowType,correlName);

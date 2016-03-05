@@ -1,3 +1,0 @@
-{
-  return floor((short)(b0 + b1 - 1),b1);
-}

@@ -1,4 +1,0 @@
-{
-  int n=nextCorrel++;
-  return CORREL_PREFIX + n;
-}

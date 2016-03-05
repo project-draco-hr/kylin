@@ -1,5 +1,6 @@
 {
-  RexNode node=rexBuilder.makeCall(SqlStdOperatorTable.CASE,rexBuilder.makeInputRef(bb.root,aggregatingSelectScope.groupExprList.size() + x),rexBuilder.makeExactLiteral(BigDecimal.ONE,type),rexBuilder.makeExactLiteral(BigDecimal.ZERO,type));
+  final AggregatingSelectScope.Resolved r=aggregatingSelectScope.resolved.get();
+  RexNode node=rexBuilder.makeCall(SqlStdOperatorTable.CASE,rexBuilder.makeInputRef(bb.root,r.groupExprList.size() + x),rexBuilder.makeExactLiteral(BigDecimal.ONE,type),rexBuilder.makeExactLiteral(BigDecimal.ZERO,type));
   if (shift > 0) {
     node=rexBuilder.makeCall(SqlStdOperatorTable.MULTIPLY,node,rexBuilder.makeExactLiteral(TWO.pow(shift),type));
   }

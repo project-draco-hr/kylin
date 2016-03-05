@@ -1,9 +1,0 @@
-RelOptCluster cluster
-RelTraitSet traits
-RelNode left
-RelNode right
-RexNode condition
-ImmutableIntList leftKeys
-ImmutableIntList rightKeys
-JoinRelType joinType
-Set<String> variablesStopped

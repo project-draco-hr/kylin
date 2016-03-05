@@ -1,0 +1,6 @@
+{
+  final SqlValidatorScope seekScope=(seek instanceof SqlSelect) ? validator.getSelectScope((SqlSelect)seek) : null;
+  final Blackboard seekBb=createBlackboard(seekScope,null,false);
+  RelNode seekRel=convertQueryOrInList(seekBb,seek,targetDataType);
+  return RelOptUtil.createExistsPlan(seekRel,subqueryType,logic,needsOuterJoin);
+}

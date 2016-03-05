@@ -1,0 +1,12 @@
+{
+  if (r instanceof Sort) {
+    return ((Sort)r).collation;
+  }
+  if (r instanceof Project) {
+    return requiredCollation(((Project)r).getInput());
+  }
+  if (r instanceof Delta) {
+    return requiredCollation(((Delta)r).getInput());
+  }
+  throw new AssertionError();
+}

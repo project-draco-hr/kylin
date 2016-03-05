@@ -1,0 +1,3 @@
+RelDataTypeFactory typeFactory
+DataType dataType
+boolean isNullable

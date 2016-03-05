@@ -1,0 +1,12 @@
+{
+switch (query.getKind()) {
+case SELECT:
+    return ((SqlSelect)query).getOrderList() != null && ((SqlSelect)query).getOrderList().size() > 0;
+case WITH:
+  return isOrdered(((SqlWith)query).body);
+case ORDER_BY:
+return ((SqlOrderBy)query).orderList.size() > 0;
+default :
+return false;
+}
+}

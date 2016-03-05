@@ -12,7 +12,7 @@
   RelOptCluster cluster=join.getCluster();
   RelNode newRel;
   try {
-    newRel=new OLAPJoinRel(cluster,traitSet,left,right,info.getEquiCondition(left,right,cluster.getRexBuilder()),info.leftKeys,info.rightKeys,join.getJoinType(),join.getVariablesStopped());
+    newRel=new OLAPJoinRel(cluster,traitSet,left,right,info.getEquiCondition(left,right,cluster.getRexBuilder()),info.leftKeys,info.rightKeys,join.getVariablesSet(),join.getJoinType());
   }
  catch (  InvalidRelException e) {
     throw new AssertionError(e);

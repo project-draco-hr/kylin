@@ -1,0 +1,8 @@
+{
+  if (seek instanceof SqlNodeList) {
+    return convertRowValues(bb,seek,((SqlNodeList)seek).getList(),false,targetRowType);
+  }
+ else {
+    return convertQueryRecursive(seek,false,null).project();
+  }
+}

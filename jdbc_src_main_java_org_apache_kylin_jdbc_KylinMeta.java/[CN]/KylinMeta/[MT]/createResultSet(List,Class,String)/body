@@ -17,7 +17,7 @@
     fieldNames.add(fieldName);
   }
   CursorFactory cursorFactory=CursorFactory.record(clazz,fields,fieldNames);
-  Signature signature=new Signature(columns,"",null,Collections.<String,Object>emptyMap(),cursorFactory);
+  Signature signature=new Signature(columns,"",null,Collections.<String,Object>emptyMap(),cursorFactory,StatementType.SELECT);
   StatementHandle sh=this.createStatement(connection().handle);
   Frame frame=new Frame(0,true,iterable);
   return MetaResultSet.create(connection().id,sh.id,true,signature,frame);

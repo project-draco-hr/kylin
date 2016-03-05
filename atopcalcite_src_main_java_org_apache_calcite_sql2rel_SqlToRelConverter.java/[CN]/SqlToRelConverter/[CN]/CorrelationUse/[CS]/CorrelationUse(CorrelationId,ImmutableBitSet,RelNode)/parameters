@@ -1,0 +1,3 @@
+CorrelationId id
+ImmutableBitSet requiredColumns
+RelNode r

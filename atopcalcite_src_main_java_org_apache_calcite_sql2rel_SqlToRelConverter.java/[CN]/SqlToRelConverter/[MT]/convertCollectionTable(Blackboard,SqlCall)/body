@@ -5,15 +5,16 @@
     datasetStack.push(sampleName);
     SqlCall cursorCall=call.operand(1);
     SqlNode query=cursorCall.operand(0);
-    RelNode converted=convertQuery(query,false,false);
+    RelNode converted=convertQuery(query,false,false).rel;
     bb.setRoot(converted,false);
     datasetStack.pop();
     return;
   }
   replaceSubqueries(bb,call,RelOptUtil.Logic.TRUE_FALSE_UNKNOWN);
+  final SqlCallBinding callBinding=new SqlCallBinding(bb.scope.getValidator(),bb.scope,call);
   if (operator instanceof SqlUserDefinedTableMacro) {
     final SqlUserDefinedTableMacro udf=(SqlUserDefinedTableMacro)operator;
-    final TranslatableTable table=udf.getTable(typeFactory,call.getOperandList());
+    final TranslatableTable table=udf.getTable(typeFactory,callBinding.operands());
     final RelDataType rowType=table.getRowType(typeFactory);
     RelOptTable relOptTable=RelOptTableImpl.create(null,rowType,table);
     RelNode converted=toRel(relOptTable);
@@ -23,7 +24,7 @@
   Type elementType;
   if (operator instanceof SqlUserDefinedTableFunction) {
     SqlUserDefinedTableFunction udtf=(SqlUserDefinedTableFunction)operator;
-    elementType=udtf.getElementType(typeFactory,call.getOperandList());
+    elementType=udtf.getElementType(typeFactory,callBinding.operands());
   }
  else {
     elementType=null;

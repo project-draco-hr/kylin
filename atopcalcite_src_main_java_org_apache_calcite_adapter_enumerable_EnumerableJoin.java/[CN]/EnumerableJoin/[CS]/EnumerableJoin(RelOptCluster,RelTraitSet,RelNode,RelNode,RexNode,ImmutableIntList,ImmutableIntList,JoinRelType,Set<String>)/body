@@ -1,3 +1,0 @@
-{
-  super(cluster,traits,left,right,condition,leftKeys,rightKeys,joinType,variablesStopped);
-}

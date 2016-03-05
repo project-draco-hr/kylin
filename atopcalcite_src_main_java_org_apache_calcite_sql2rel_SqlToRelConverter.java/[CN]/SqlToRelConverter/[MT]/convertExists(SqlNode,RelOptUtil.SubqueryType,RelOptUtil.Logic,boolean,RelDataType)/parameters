@@ -1,0 +1,5 @@
+SqlNode seek
+RelOptUtil.SubqueryType subqueryType
+RelOptUtil.Logic logic
+boolean needsOuterJoin
+RelDataType targetDataType

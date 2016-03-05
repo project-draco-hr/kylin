@@ -1,3 +1,0 @@
-{
-  return floor((byte)(b0 + b1 - 1),b1);
-}

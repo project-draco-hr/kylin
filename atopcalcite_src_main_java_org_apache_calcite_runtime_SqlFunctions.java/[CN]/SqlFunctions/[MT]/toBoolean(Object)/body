@@ -1,3 +1,0 @@
-{
-  return o instanceof Boolean ? (Boolean)o : o instanceof Number ? toBoolean((Number)o) : o instanceof String ? toBoolean((String)o) : (Boolean)cannotConvert(o,boolean.class);
-}

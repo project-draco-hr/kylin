@@ -1,0 +1,9 @@
+{
+switch (direction) {
+case DESCENDING:
+case STRICTLY_DESCENDING:
+    return true;
+default :
+  return false;
+}
+}

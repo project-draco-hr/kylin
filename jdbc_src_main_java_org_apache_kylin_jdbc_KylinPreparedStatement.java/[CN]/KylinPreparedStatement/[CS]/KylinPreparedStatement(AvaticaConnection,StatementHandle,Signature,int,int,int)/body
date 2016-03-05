@@ -1,3 +1,4 @@
 {
   super(connection,h,signature,resultSetType,resultSetConcurrency,resultSetHoldability);
+  if (this.handle.signature == null)   this.handle.signature=signature;
 }

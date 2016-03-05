@@ -7,7 +7,7 @@
   final List<RelNode> unionRels=new ArrayList<>();
   for (  SqlNode rowConstructor1 : values.getOperandList()) {
     SqlCall rowConstructor=(SqlCall)rowConstructor1;
-    Blackboard tmpBb=createBlackboard(bb.scope,null);
+    Blackboard tmpBb=createBlackboard(bb.scope,null,false);
     replaceSubqueries(tmpBb,rowConstructor,RelOptUtil.Logic.TRUE_FALSE_UNKNOWN);
     final List<Pair<RexNode,String>> exps=new ArrayList<>();
     for (    Ord<SqlNode> operand : Ord.zip(rowConstructor.getOperandList())) {

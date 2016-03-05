@@ -1,10 +1,12 @@
 {
-  if (!query.isA(SqlKind.DML)) {
-    RelDataType convertedRowType=result.getRowType();
-    if (!checkConvertedRowType(query,convertedRowType)) {
-      RelDataType validatedRowType=validator.getValidatedNodeType(query);
-      validatedRowType=uniquifyFields(validatedRowType);
-      throw Util.newInternal("Conversion to relational algebra failed to " + "preserve datatypes:\n" + "validated type:\n" + validatedRowType.getFullTypeString() + "\nconverted type:\n"+ convertedRowType.getFullTypeString()+ "\nrel:\n"+ RelOptUtil.toString(result));
-    }
+  if (query.isA(SqlKind.DML)) {
+    return;
+  }
+  final List<RelDataTypeField> validatedFields=validator.getValidatedNodeType(query).getFieldList();
+  final RelDataType validatedRowType=validator.getTypeFactory().createStructType(Pair.right(validatedFields),SqlValidatorUtil.uniquify(Pair.left(validatedFields)));
+  final List<RelDataTypeField> convertedFields=result.getRowType().getFieldList().subList(0,validatedFields.size());
+  final RelDataType convertedRowType=validator.getTypeFactory().createStructType(convertedFields);
+  if (!RelOptUtil.equal("validated row type",validatedRowType,"converted row type",convertedRowType,Litmus.IGNORE)) {
+    throw new AssertionError("Conversion to relational algebra failed to " + "preserve datatypes:\n" + "validated type:\n" + validatedRowType.getFullTypeString() + "\nconverted type:\n"+ convertedRowType.getFullTypeString()+ "\nrel:\n"+ RelOptUtil.toString(result));
   }
 }

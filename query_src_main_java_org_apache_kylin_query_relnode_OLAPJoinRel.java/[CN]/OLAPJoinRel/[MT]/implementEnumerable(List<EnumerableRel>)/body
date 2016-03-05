@@ -1,7 +1,7 @@
 {
   if (this.hasSubQuery) {
     try {
-      return constr.newInstance(getCluster(),getCluster().traitSetOf(EnumerableConvention.INSTANCE),inputs.get(0),inputs.get(1),condition,leftKeys,rightKeys,joinType,variablesStopped);
+      return constr.newInstance(getCluster(),getCluster().traitSetOf(EnumerableConvention.INSTANCE),inputs.get(0),inputs.get(1),condition,leftKeys,rightKeys,variablesSet,joinType);
     }
  catch (    Exception e) {
       throw new IllegalStateException("Can't create EnumerableJoin!",e);

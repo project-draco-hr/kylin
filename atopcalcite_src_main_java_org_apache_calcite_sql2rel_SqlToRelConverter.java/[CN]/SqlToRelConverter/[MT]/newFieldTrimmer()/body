@@ -1,3 +1,4 @@
 {
-  return new RelFieldTrimmer(validator);
+  final RelBuilder relBuilder=RelFactories.LOGICAL_BUILDER.create(cluster,null);
+  return new RelFieldTrimmer(validator,relBuilder);
 }

@@ -1,5 +1,5 @@
 {
   RelOptTable targetTable=getTargetTable(call);
-  RelNode sourceRel=convertSelect(call.getSourceSelect());
+  RelNode sourceRel=convertSelect(call.getSourceSelect(),false);
   return LogicalTableModify.create(targetTable,catalogReader,sourceRel,LogicalTableModify.Operation.DELETE,null,false);
 }

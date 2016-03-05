@@ -1,0 +1,3 @@
+{
+  return planner.getCostFactory().makeCost(1E100,0,0);
+}

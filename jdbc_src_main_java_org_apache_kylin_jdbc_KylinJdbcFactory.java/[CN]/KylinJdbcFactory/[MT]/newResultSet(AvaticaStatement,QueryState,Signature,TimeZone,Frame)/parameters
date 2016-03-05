@@ -1,0 +1,5 @@
+AvaticaStatement statement
+QueryState state
+Signature signature
+TimeZone timeZone
+Frame firstFrame

@@ -1,3 +1,0 @@
-{
-  return super.computeSelfCost(planner).multiplyBy(.05);
-}

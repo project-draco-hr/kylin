@@ -1,3 +1,0 @@
-{
-  return validator.getTypeFactory().createStructType(RelOptUtil.getFieldTypeList(rowType),SqlValidatorUtil.uniquify(rowType.getFieldNames()));
-}

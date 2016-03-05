@@ -1,3 +1,0 @@
-{
-  return (byte)Math.abs(b0);
-}

@@ -1,0 +1,16 @@
+{
+  if (isTrimUnusedFields()) {
+    final RelFieldTrimmer trimmer=newFieldTrimmer();
+    final List<RelCollation> collations=rootRel.getTraitSet().getTraits(RelCollationTraitDef.INSTANCE);
+    rootRel=trimmer.trim(rootRel);
+    if (!ordered && collations != null && !collations.isEmpty() && !collations.equals(ImmutableList.of(RelCollations.EMPTY))) {
+      final RelTraitSet traitSet=rootRel.getTraitSet().replace(RelCollationTraitDef.INSTANCE,collations);
+      rootRel=rootRel.copy(traitSet,rootRel.getInputs());
+    }
+    boolean dumpPlan=SQL2REL_LOGGER.isLoggable(Level.FINE);
+    if (dumpPlan) {
+      SQL2REL_LOGGER.fine(RelOptUtil.dumpPlan("Plan after trimming unused fields",rootRel,false,SqlExplainLevel.EXPPLAN_ATTRIBUTES));
+    }
+  }
+  return rootRel;
+}

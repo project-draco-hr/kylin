@@ -1,6 +1,6 @@
 {
-  final RelNode left=convertQueryRecursive(call.operand(0),false,null);
-  final RelNode right=convertQueryRecursive(call.operand(1),false,null);
+  final RelNode left=convertQueryRecursive(call.operand(0),false,null).project();
+  final RelNode right=convertQueryRecursive(call.operand(1),false,null).project();
   boolean all=false;
   if (call.getOperator() instanceof SqlSetOperator) {
     all=((SqlSetOperator)(call.getOperator())).isAll();

@@ -1,0 +1,3 @@
+StatementHandle h
+long offset
+int fetchMaxRowCount

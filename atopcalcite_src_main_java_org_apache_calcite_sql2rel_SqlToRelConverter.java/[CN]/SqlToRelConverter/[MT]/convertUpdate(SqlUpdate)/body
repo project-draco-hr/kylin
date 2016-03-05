@@ -6,6 +6,6 @@
     String name=id.getSimple();
     targetColumnNameList.add(name);
   }
-  RelNode sourceRel=convertSelect(call.getSourceSelect());
+  RelNode sourceRel=convertSelect(call.getSourceSelect(),false);
   return LogicalTableModify.create(targetTable,catalogReader,sourceRel,LogicalTableModify.Operation.UPDATE,targetColumnNameList,false);
 }

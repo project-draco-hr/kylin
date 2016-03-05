@@ -1,0 +1,6 @@
+AvaticaStatement statement
+QueryState state
+Signature signature
+ResultSetMetaData resultSetMetaData
+TimeZone timeZone
+Frame firstFrame

@@ -5,6 +5,7 @@ case EXISTS:
 case SELECT:
 case MULTISET_QUERY_CONSTRUCTOR:
 case MULTISET_VALUE_CONSTRUCTOR:
+case ARRAY_QUERY_CONSTRUCTOR:
 case CURSOR:
 case SCALAR_QUERY:
     if (!registerOnlyScalarSubqueries || (kind == SqlKind.SCALAR_QUERY)) {

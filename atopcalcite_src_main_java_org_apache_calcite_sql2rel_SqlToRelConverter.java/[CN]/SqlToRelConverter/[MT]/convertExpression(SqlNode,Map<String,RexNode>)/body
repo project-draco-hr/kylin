@@ -3,6 +3,7 @@
   for (  Map.Entry<String,RexNode> entry : nameToNodeMap.entrySet()) {
     nameToTypeMap.put(entry.getKey(),entry.getValue().getType());
   }
-  Blackboard bb=createBlackboard(new ParameterScope((SqlValidatorImpl)validator,nameToTypeMap),nameToNodeMap);
+  final ParameterScope scope=new ParameterScope((SqlValidatorImpl)validator,nameToTypeMap);
+  final Blackboard bb=createBlackboard(scope,nameToNodeMap,false);
   return bb.convertExpression(node);
 }

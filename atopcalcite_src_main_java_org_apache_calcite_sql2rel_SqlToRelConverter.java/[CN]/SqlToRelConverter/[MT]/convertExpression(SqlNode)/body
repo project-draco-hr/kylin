@@ -1,5 +1,6 @@
 {
   Map<String,RelDataType> nameToTypeMap=Collections.emptyMap();
-  Blackboard bb=createBlackboard(new ParameterScope((SqlValidatorImpl)validator,nameToTypeMap),null);
+  final ParameterScope scope=new ParameterScope((SqlValidatorImpl)validator,nameToTypeMap);
+  final Blackboard bb=createBlackboard(scope,null,false);
   return bb.convertExpression(node);
 }

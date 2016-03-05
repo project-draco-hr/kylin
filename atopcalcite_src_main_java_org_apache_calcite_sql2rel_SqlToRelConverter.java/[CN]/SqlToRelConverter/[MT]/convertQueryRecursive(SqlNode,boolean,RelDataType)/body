@@ -1,23 +1,24 @@
 {
-switch (query.getKind()) {
+  final SqlKind kind=query.getKind();
+switch (kind) {
 case SELECT:
-    return convertSelect((SqlSelect)query);
+    return RelRoot.of(convertSelect((SqlSelect)query,top),kind);
 case INSERT:
-  return convertInsert((SqlInsert)query);
+  return RelRoot.of(convertInsert((SqlInsert)query),kind);
 case DELETE:
-return convertDelete((SqlDelete)query);
+return RelRoot.of(convertDelete((SqlDelete)query),kind);
 case UPDATE:
-return convertUpdate((SqlUpdate)query);
+return RelRoot.of(convertUpdate((SqlUpdate)query),kind);
 case MERGE:
-return convertMerge((SqlMerge)query);
+return RelRoot.of(convertMerge((SqlMerge)query),kind);
 case UNION:
 case INTERSECT:
 case EXCEPT:
-return convertSetOp((SqlCall)query);
+return RelRoot.of(convertSetOp((SqlCall)query),kind);
 case WITH:
-return convertWith((SqlWith)query);
+return convertWith((SqlWith)query,top);
 case VALUES:
-return convertValues((SqlCall)query,targetRowType);
+return RelRoot.of(convertValues((SqlCall)query,targetRowType),kind);
 default :
 throw Util.newInternal("not a query: " + query);
 }
