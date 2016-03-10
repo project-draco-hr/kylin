@@ -1,34 +1,69 @@
 {
+  String project=streamingRequest.getProject();
+  TableDesc tableDesc=deserializeTableDesc(streamingRequest);
   StreamingConfig streamingConfig=deserializeSchemalDesc(streamingRequest);
   KafkaConfig kafkaConfig=deserializeKafkaSchemalDesc(streamingRequest);
-  if (streamingConfig == null || kafkaConfig == null) {
-    return streamingRequest;
-  }
-  if (StringUtils.isEmpty(streamingConfig.getName())) {
-    logger.info("StreamingConfig should not be empty.");
-    throw new BadRequestException("StremingConfig name should not be empty.");
-  }
+  boolean saveStreamingSuccess=false, saveKafkaSuccess=false;
   try {
-    streamingConfig.setUuid(UUID.randomUUID().toString());
-    streamingService.createStreamingConfig(streamingConfig);
+    tableDesc.setUuid(UUID.randomUUID().toString());
+    MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+    metaMgr.saveSourceTable(tableDesc);
+    cubeMgmtService.syncTableToProject(new String[]{tableDesc.getName()},project);
   }
  catch (  IOException e) {
-    logger.error("Failed to save StreamingConfig:" + e.getLocalizedMessage(),e);
-    throw new InternalErrorException("Failed to save StreamingConfig: " + e.getLocalizedMessage());
+    throw new BadRequestException("Failed to add streaming table.");
   }
   try {
-    kafkaConfig.setUuid(UUID.randomUUID().toString());
-    kafkaConfigService.createKafkaConfig(kafkaConfig);
-  }
- catch (  IOException e) {
+    if (StringUtils.isEmpty(streamingConfig.getName())) {
+      logger.info("StreamingConfig should not be empty.");
+      throw new BadRequestException("StremingConfig name should not be empty.");
+    }
     try {
-      streamingService.dropStreamingConfig(streamingConfig);
+      streamingConfig.setUuid(UUID.randomUUID().toString());
+      streamingService.createStreamingConfig(streamingConfig);
+      saveStreamingSuccess=true;
     }
- catch (    IOException e1) {
-      throw new InternalErrorException("StreamingConfig is created, but failed to create KafkaConfig: " + e.getLocalizedMessage());
+ catch (    IOException e) {
+      logger.error("Failed to save StreamingConfig:" + e.getLocalizedMessage(),e);
+      throw new InternalErrorException("Failed to save StreamingConfig: " + e.getLocalizedMessage());
     }
-    logger.error("Failed to save KafkaConfig:" + e.getLocalizedMessage(),e);
-    throw new InternalErrorException("Failed to save KafkaConfig: " + e.getLocalizedMessage());
+    try {
+      kafkaConfig.setUuid(UUID.randomUUID().toString());
+      kafkaConfigService.createKafkaConfig(kafkaConfig);
+      saveKafkaSuccess=true;
+    }
+ catch (    IOException e) {
+      try {
+        streamingService.dropStreamingConfig(streamingConfig);
+      }
+ catch (      IOException e1) {
+        throw new InternalErrorException("StreamingConfig is created, but failed to create KafkaConfig: " + e.getLocalizedMessage());
+      }
+      logger.error("Failed to save KafkaConfig:" + e.getLocalizedMessage(),e);
+      throw new InternalErrorException("Failed to save KafkaConfig: " + e.getLocalizedMessage());
+    }
+  }
+  finally {
+    if (saveKafkaSuccess == false || saveStreamingSuccess == false) {
+      if (saveStreamingSuccess == true) {
+        StreamingConfig sConfig=streamingService.getStreamingManager().getStreamingConfig(streamingConfig.getName());
+        try {
+          streamingService.dropStreamingConfig(sConfig);
+        }
+ catch (        IOException e) {
+          throw new InternalErrorException("Action failed and failed to rollback the created streaming config: " + e.getLocalizedMessage());
+        }
+      }
+      if (saveKafkaSuccess == true) {
+        try {
+          KafkaConfig kConfig=kafkaConfigService.getKafkaConfig(kafkaConfig.getName());
+          kafkaConfigService.dropKafkaConfig(kConfig);
+        }
+ catch (        IOException e) {
+          throw new InternalErrorException("Action failed and failed to rollback the created kafka config: " + e.getLocalizedMessage());
+        }
+      }
+    }
   }
   streamingRequest.setSuccessful(true);
   return streamingRequest;
