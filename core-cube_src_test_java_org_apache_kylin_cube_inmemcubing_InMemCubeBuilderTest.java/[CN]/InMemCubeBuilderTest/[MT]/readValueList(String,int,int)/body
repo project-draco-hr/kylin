@@ -1,2 +1,14 @@
 {
+  List<byte[]> result=Lists.newArrayList();
+  List<String> lines=FileUtils.readLines(new File(flatTable),"UTF-8");
+  for (  String line : lines) {
+    String[] row=line.trim().split(",");
+    if (row.length != nColumns) {
+      throw new IllegalStateException();
+    }
+    if (row[c] != null) {
+      result.add(Bytes.toBytes(row[c]));
+    }
+  }
+  return result;
 }
