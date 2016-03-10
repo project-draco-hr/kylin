@@ -1,0 +1,4 @@
+{
+  CubeDesc cube=getSSBCubeDesc();
+  CuboidCLI.simulateCuboidGeneration(cube,true);
+}
