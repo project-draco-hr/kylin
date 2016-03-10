@@ -3,6 +3,6 @@
   List<Long> children=scheduler.getSpanningCuboid(cuboidID);
   Collections.sort(children);
   for (  Long child : children) {
-    printCuboidInfoTree(parent,child,scheduler,cuboidRows,cuboidSizes,dimensionCount,depth + 1,out);
+    printCuboidInfoTree(cuboidID,child,scheduler,cuboidRows,cuboidSizes,dimensionCount,depth + 1,out);
   }
 }

@@ -1,4 +1,5 @@
 {
+  System.out.println("CubeStatsReader is used to read cube statistic saved in metadata store");
   KylinConfig config=KylinConfig.getInstanceFromEnv();
   CubeInstance cube=CubeManager.getInstance(config).getCube(args[0]);
   List<CubeSegment> segments=cube.getSegments(SegmentStatusEnum.READY);

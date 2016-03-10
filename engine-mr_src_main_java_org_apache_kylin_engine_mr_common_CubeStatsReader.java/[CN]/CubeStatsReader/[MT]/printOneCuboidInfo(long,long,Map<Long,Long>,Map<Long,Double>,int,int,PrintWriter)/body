@@ -9,7 +9,7 @@
   double size=cuboidSizes.get(cuboidID);
   sb.append(", est row: ").append(rowCount).append(", est MB: ").append(formatDouble(size));
   if (parent != -1) {
-    sb.append(", shrink: ").append(formatDouble(1.0 * cuboidRows.get(cuboidID) / cuboidRows.get(parent))).append("%");
+    sb.append(", shrink: ").append(formatDouble(100.0 * cuboidRows.get(cuboidID) / cuboidRows.get(parent))).append("%");
   }
   out.println(sb.toString());
 }
