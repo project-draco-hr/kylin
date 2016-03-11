@@ -21,6 +21,7 @@
     }
     job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
     logger.info("Starting: " + job.getJobName());
+    overrideJobConf(job.getConfiguration(),config);
     setJobClasspath(job);
     attachKylinPropsAndMetadata(cube,job.getConfiguration());
     job.getConfiguration().set(BatchConstants.CFG_CUBE_NAME,cubeName);

@@ -1,5 +1,5 @@
 {
-  int percent=Integer.parseInt(this.getOptional("kylin.job.cubing.inMem.sampling.percent","30"));
+  int percent=Integer.parseInt(this.getOptional("kylin.job.cubing.inmem.sampling.percent","30"));
   percent=Math.max(percent,1);
   percent=Math.min(percent,100);
   return percent;

@@ -1,0 +1,13 @@
+{
+  String str=getOptional("kylin.job.cubing.inmem.mrjob_conf_override","mapreduce.map.java.opts=-Xmx2700m;  mapreduce.map.memory.mb=3072;  mapreduce.task.io.sort.mb=200");
+  Map<String,String> result=Maps.newHashMap();
+  for (  String pair : str.split(";")) {
+    int cut=pair.indexOf('=');
+    if (cut < 0)     continue;
+    String k=pair.substring(0,cut).trim();
+    String v=pair.substring(cut + 1).trim();
+    if (k.isEmpty() || v.isEmpty())     continue;
+    result.put(k,v);
+  }
+  return result;
+}
