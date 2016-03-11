@@ -1,5 +1,5 @@
 {
-  List<String> mergingSegmentIds=getMergingSegmentIds();
+  List<String> mergingSegmentIds=CubingExecutableUtil.getMergingSegmentIds(this.getParams());
   List<CubeSegment> result=Lists.newArrayListWithCapacity(mergingSegmentIds.size());
   for (  String id : mergingSegmentIds) {
     result.add(cube.getSegmentById(id));

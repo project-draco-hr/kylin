@@ -1,5 +1,5 @@
 {
-  Map<Long,Long> cuboidRows=getCuboidRowCountMap();
+  Map<Long,Long> cuboidRows=getCuboidRowEstimatesHLL();
   Map<Long,Double> cuboidSizes=getCuboidSizeMap();
   List<Long> cuboids=new ArrayList<Long>(cuboidRows.keySet());
   Collections.sort(cuboids);

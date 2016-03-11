@@ -8,7 +8,7 @@
   final SparkExecutable sparkExecutable=new SparkExecutable();
   sparkExecutable.setClassName(SparkCubing.class.getName());
   sparkExecutable.setParam("hiveTable",tableName);
-  sparkExecutable.setParam("cubeName",seg.getRealization().getName());
+  sparkExecutable.setParam(CubingExecutableUtil.CUBE_NAME,seg.getRealization().getName());
   sparkExecutable.setParam("segmentId",seg.getUuid());
   sparkExecutable.setParam("confPath",confPath);
   sparkExecutable.setParam("coprocessor",coprocessor);

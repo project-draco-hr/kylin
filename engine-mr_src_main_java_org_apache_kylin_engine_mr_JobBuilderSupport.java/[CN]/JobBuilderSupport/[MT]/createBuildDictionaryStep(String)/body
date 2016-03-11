@@ -2,9 +2,9 @@
   HadoopShellExecutable buildDictionaryStep=new HadoopShellExecutable();
   buildDictionaryStep.setName(ExecutableConstants.STEP_NAME_BUILD_DICTIONARY);
   StringBuilder cmd=new StringBuilder();
-  appendExecCmdParameters(cmd,"cubename",seg.getRealization().getName());
-  appendExecCmdParameters(cmd,"segmentname",seg.getName());
-  appendExecCmdParameters(cmd,"input",getFactDistinctColumnsPath(jobId));
+  appendExecCmdParameters(cmd,BatchConstants.ARG_CUBE_NAME,seg.getRealization().getName());
+  appendExecCmdParameters(cmd,BatchConstants.ARG_SEGMENT_NAME,seg.getName());
+  appendExecCmdParameters(cmd,BatchConstants.ARG_INPUT,getFactDistinctColumnsPath(jobId));
   buildDictionaryStep.setJobParams(cmd.toString());
   buildDictionaryStep.setJobClass(CreateDictionaryJob.class);
   return buildDictionaryStep;

@@ -1,7 +1,7 @@
 {
   logger.error("Insane record: " + bytesSplitter,ex);
   errorRecordCounter++;
-  if (errorRecordCounter > BatchConstants.ERROR_RECORD_THRESHOLD) {
+  if (errorRecordCounter > BatchConstants.ERROR_RECORD_LOG_THRESHOLD) {
     if (ex instanceof IOException)     throw (IOException)ex;
  else     if (ex instanceof RuntimeException)     throw (RuntimeException)ex;
  else     throw new RuntimeException("",ex);

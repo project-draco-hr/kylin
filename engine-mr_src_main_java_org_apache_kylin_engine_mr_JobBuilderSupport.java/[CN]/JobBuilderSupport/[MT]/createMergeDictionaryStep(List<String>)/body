@@ -1,8 +1,8 @@
 {
   MergeDictionaryStep result=new MergeDictionaryStep();
   result.setName(ExecutableConstants.STEP_NAME_MERGE_DICTIONARY);
-  result.setCubeName(seg.getRealization().getName());
-  result.setSegmentId(seg.getUuid());
-  result.setMergingSegmentIds(mergingSegmentIds);
+  CubingExecutableUtil.setCubeName(seg.getRealization().getName(),result.getParams());
+  CubingExecutableUtil.setSegmentId(seg.getUuid(),result.getParams());
+  CubingExecutableUtil.setMergingSegmentIds(mergingSegmentIds,result.getParams());
   return result;
 }

@@ -4,12 +4,12 @@
   createHFilesStep.setName(ExecutableConstants.STEP_NAME_CONVERT_CUBOID_TO_HFILE);
   StringBuilder cmd=new StringBuilder();
   appendMapReduceParameters(cmd,seg.getRealization().getDataModelDesc());
-  appendExecCmdParameters(cmd,"cubename",seg.getRealization().getName());
-  appendExecCmdParameters(cmd,"partitions",getRowkeyDistributionOutputPath(jobId) + "/part-r-00000_hfile");
-  appendExecCmdParameters(cmd,"input",inputPath);
-  appendExecCmdParameters(cmd,"output",getHFilePath(jobId));
-  appendExecCmdParameters(cmd,"htablename",seg.getStorageLocationIdentifier());
-  appendExecCmdParameters(cmd,"jobname","Kylin_HFile_Generator_" + seg.getRealization().getName() + "_Step");
+  appendExecCmdParameters(cmd,BatchConstants.ARG_CUBE_NAME,seg.getRealization().getName());
+  appendExecCmdParameters(cmd,BatchConstants.ARG_PARTITION,getRowkeyDistributionOutputPath(jobId) + "/part-r-00000_hfile");
+  appendExecCmdParameters(cmd,BatchConstants.ARG_INPUT,inputPath);
+  appendExecCmdParameters(cmd,BatchConstants.ARG_OUTPUT,getHFilePath(jobId));
+  appendExecCmdParameters(cmd,BatchConstants.ARG_HTABLE_NAME,seg.getStorageLocationIdentifier());
+  appendExecCmdParameters(cmd,BatchConstants.ARG_JOB_NAME,"Kylin_HFile_Generator_" + seg.getRealization().getName() + "_Step");
   createHFilesStep.setMapReduceParams(cmd.toString());
   createHFilesStep.setMapReduceJobClass(CubeHFileJob.class);
   createHFilesStep.setCounterSaveAs(",," + CubingJob.CUBE_SIZE_BYTES);

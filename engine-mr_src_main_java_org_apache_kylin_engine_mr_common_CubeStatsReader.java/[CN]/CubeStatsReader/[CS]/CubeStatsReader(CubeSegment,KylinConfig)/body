@@ -29,7 +29,7 @@
     this.seg=cubeSegment;
     this.samplingPercentage=percentage;
     this.mapperOverlapRatioOfFirstBuild=mapperOverlapRatio;
-    this.cuboidRowCountMap=counterMap;
+    this.cuboidRowEstimatesHLL=counterMap;
   }
   finally {
     IOUtils.closeStream(reader);

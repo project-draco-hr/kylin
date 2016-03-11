@@ -1,8 +1,7 @@
 {
-  return Maps.transformValues(hllcMap,new Function<HyperLogLogPlusCounter,Long>(){
-    @Nullable @Override public Long apply(    HyperLogLogPlusCounter input){
-      return input.getCountEstimate();
-    }
+  Map<Long,Long> cuboidRowCountMap=Maps.newHashMap();
+  for (  Map.Entry<Long,HyperLogLogPlusCounter> entry : hllcMap.entrySet()) {
+    cuboidRowCountMap.put(entry.getKey(),entry.getValue().getCountEstimate());
   }
-);
+  return cuboidRowCountMap;
 }

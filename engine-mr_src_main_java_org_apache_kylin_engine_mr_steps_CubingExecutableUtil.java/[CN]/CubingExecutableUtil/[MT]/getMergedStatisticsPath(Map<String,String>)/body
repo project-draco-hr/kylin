@@ -1,0 +1,3 @@
+{
+  return params.get(MERGED_STATISTICS_PATH);
+}

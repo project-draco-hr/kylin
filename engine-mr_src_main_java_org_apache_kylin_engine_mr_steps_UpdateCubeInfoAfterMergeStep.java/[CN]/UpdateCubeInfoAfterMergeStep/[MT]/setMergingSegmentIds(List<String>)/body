@@ -1,3 +1,0 @@
-{
-  setParam(MERGING_SEGMENT_IDS,StringUtils.join(ids,","));
-}

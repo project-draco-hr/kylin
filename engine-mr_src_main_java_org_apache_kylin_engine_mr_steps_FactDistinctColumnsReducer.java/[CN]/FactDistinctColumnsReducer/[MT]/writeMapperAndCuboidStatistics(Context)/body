@@ -1,7 +1,7 @@
 {
   Configuration conf=context.getConfiguration();
   FileSystem fs=FileSystem.get(conf);
-  FSDataOutputStream out=fs.create(new Path(statisticsOutput,BatchConstants.CFG_STATISTICS_CUBE_ESTIMATION));
+  FSDataOutputStream out=fs.create(new Path(statisticsOutput,BatchConstants.CFG_STATISTICS_CUBE_ESTIMATION_FILENAME));
   try {
     String msg;
     List<Long> allCuboids=Lists.newArrayList();

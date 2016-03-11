@@ -5,6 +5,6 @@
   job.setOutputValueClass(ImmutableBytesWritable.class);
   job.setNumReduceTasks(sharding);
   FileOutputFormat.setOutputPath(job,output);
-  job.getConfiguration().set(BatchConstants.OUTPUT_PATH,output.toString());
+  job.getConfiguration().set(BatchConstants.CFG_OUTPUT_PATH,output.toString());
   deletePath(job.getConfiguration(),output);
 }

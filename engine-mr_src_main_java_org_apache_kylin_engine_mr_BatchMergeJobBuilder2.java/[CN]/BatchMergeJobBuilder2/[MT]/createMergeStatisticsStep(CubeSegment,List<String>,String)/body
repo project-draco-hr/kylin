@@ -1,9 +1,9 @@
 {
   MergeStatisticsStep result=new MergeStatisticsStep();
   result.setName(ExecutableConstants.STEP_NAME_MERGE_STATISTICS);
-  result.setCubeName(seg.getCubeInstance().getName());
-  result.setSegmentId(seg.getUuid());
-  result.setMergingSegmentIds(mergingSegmentIds);
-  result.setMergedStatisticsPath(mergedStatisticsFolder);
+  CubingExecutableUtil.setCubeName(seg.getRealization().getName(),result.getParams());
+  CubingExecutableUtil.setSegmentId(seg.getUuid(),result.getParams());
+  CubingExecutableUtil.setMergingSegmentIds(mergingSegmentIds,result.getParams());
+  CubingExecutableUtil.setMergedStatisticsPath(mergedStatisticsFolder,result.getParams());
   return result;
 }

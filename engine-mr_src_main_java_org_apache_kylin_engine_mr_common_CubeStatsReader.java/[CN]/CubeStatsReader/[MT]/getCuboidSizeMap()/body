@@ -1,3 +1,3 @@
 {
-  return getCuboidSizeMapFromRowCount(seg,getCuboidRowCountMap());
+  return getCuboidSizeMapFromRowCount(seg,getCuboidRowEstimatesHLL());
 }

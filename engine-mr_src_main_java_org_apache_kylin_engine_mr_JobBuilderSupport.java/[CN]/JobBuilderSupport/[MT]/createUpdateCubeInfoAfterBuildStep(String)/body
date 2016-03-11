@@ -1,8 +1,8 @@
 {
-  final UpdateCubeInfoAfterBuildStep updateCubeInfoStep=new UpdateCubeInfoAfterBuildStep();
-  updateCubeInfoStep.setName(ExecutableConstants.STEP_NAME_UPDATE_CUBE_INFO);
-  updateCubeInfoStep.setCubeName(seg.getRealization().getName());
-  updateCubeInfoStep.setSegmentId(seg.getUuid());
-  updateCubeInfoStep.setCubingJobId(jobId);
-  return updateCubeInfoStep;
+  final UpdateCubeInfoAfterBuildStep result=new UpdateCubeInfoAfterBuildStep();
+  result.setName(ExecutableConstants.STEP_NAME_UPDATE_CUBE_INFO);
+  CubingExecutableUtil.setCubeName(seg.getRealization().getName(),result.getParams());
+  CubingExecutableUtil.setSegmentId(seg.getUuid(),result.getParams());
+  CubingExecutableUtil.setCubingJobId(jobId,result.getParams());
+  return result;
 }

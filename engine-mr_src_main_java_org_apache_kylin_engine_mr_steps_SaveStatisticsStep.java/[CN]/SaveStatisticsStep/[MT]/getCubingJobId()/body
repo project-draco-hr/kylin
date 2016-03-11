@@ -1,3 +1,0 @@
-{
-  return getParam(CUBING_JOB_ID);
-}

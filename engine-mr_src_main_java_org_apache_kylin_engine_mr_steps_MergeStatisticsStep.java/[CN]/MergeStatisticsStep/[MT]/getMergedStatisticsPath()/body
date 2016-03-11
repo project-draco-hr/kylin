@@ -1,3 +1,0 @@
-{
-  return getParam(MERGED_STATISTICS_PATH);
-}

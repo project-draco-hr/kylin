@@ -1,9 +1,9 @@
 {
   SaveStatisticsStep result=new SaveStatisticsStep();
   result.setName(ExecutableConstants.STEP_NAME_SAVE_STATISTICS);
-  result.setCubeName(seg.getRealization().getName());
-  result.setSegmentId(seg.getUuid());
-  result.setStatisticsPath(getStatisticsPath(jobId));
-  result.setCubingJobId(jobId);
+  CubingExecutableUtil.setCubeName(seg.getRealization().getName(),result.getParams());
+  CubingExecutableUtil.setSegmentId(seg.getUuid(),result.getParams());
+  CubingExecutableUtil.setStatisticsPath(getStatisticsPath(jobId),result.getParams());
+  CubingExecutableUtil.setCubingJobId(jobId,result.getParams());
   return result;
 }

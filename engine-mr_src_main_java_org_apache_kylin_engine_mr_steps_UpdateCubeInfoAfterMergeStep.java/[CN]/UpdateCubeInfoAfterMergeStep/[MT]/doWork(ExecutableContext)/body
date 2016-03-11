@@ -1,12 +1,12 @@
 {
-  final CubeInstance cube=cubeManager.getCube(getCubeName());
-  CubeSegment mergedSegment=cube.getSegmentById(getSegmentId());
+  final CubeInstance cube=cubeManager.getCube(CubingExecutableUtil.getCubeName(this.getParams()));
+  CubeSegment mergedSegment=cube.getSegmentById(CubingExecutableUtil.getSegmentId(this.getParams()));
   if (mergedSegment == null) {
-    return new ExecuteResult(ExecuteResult.State.FAILED,"there is no segment with id:" + getSegmentId());
+    return new ExecuteResult(ExecuteResult.State.FAILED,"there is no segment with id:" + CubingExecutableUtil.getSegmentId(this.getParams()));
   }
-  CubingJob cubingJob=(CubingJob)executableManager.getJob(getCubingJobId());
+  CubingJob cubingJob=(CubingJob)executableManager.getJob(CubingExecutableUtil.getCubingJobId(this.getParams()));
   long cubeSizeBytes=cubingJob.findCubeSizeBytes();
-  List<String> mergingSegmentIds=getMergingSegmentIds();
+  List<String> mergingSegmentIds=CubingExecutableUtil.getMergingSegmentIds(this.getParams());
   if (mergingSegmentIds.isEmpty()) {
     return new ExecuteResult(ExecuteResult.State.FAILED,"there are no merging segments");
   }
@@ -20,7 +20,7 @@
   mergedSegment.setSizeKB(cubeSizeBytes / 1024);
   mergedSegment.setInputRecords(sourceCount);
   mergedSegment.setInputRecordsSize(sourceSize);
-  mergedSegment.setLastBuildJobID(getCubingJobId());
+  mergedSegment.setLastBuildJobID(CubingExecutableUtil.getCubingJobId(this.getParams()));
   mergedSegment.setLastBuildTime(System.currentTimeMillis());
   try {
     cubeManager.promoteNewlyBuiltSegments(cube,mergedSegment);

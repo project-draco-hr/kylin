@@ -12,7 +12,7 @@
     job=Job.getInstance(conf,jobName);
     setJobClasspath(job);
     String table=getOptionValue(OPTION_TABLE);
-    job.getConfiguration().set(BatchConstants.TABLE_NAME,table);
+    job.getConfiguration().set(BatchConstants.CFG_TABLE_NAME,table);
     Path output=new Path(getOptionValue(OPTION_OUTPUT_PATH));
     FileOutputFormat.setOutputPath(job,output);
     job.getConfiguration().set("dfs.block.size","67108864");

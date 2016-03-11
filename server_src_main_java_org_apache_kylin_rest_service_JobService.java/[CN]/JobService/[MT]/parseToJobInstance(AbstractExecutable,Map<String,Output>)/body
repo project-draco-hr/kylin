@@ -7,8 +7,8 @@
   Output output=outputs.get(job.getId());
   final JobInstance result=new JobInstance();
   result.setName(job.getName());
-  result.setRelatedCube(cubeJob.getCubeName());
-  result.setRelatedSegment(cubeJob.getSegmentIds());
+  result.setRelatedCube(CubingExecutableUtil.getCubeName(cubeJob.getParams()));
+  result.setRelatedSegment(CubingExecutableUtil.getSegmentId(cubeJob.getParams()));
   result.setLastModified(output.getLastModified());
   result.setSubmitter(cubeJob.getSubmitter());
   result.setUuid(cubeJob.getId());

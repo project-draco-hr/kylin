@@ -1,20 +1,3 @@
 {
-  final List<RawResource> allResources=getAllResources(rangeStart,rangeEnd);
-  if (allResources.isEmpty()) {
-    return Collections.emptyList();
-  }
-  List<T> result=Lists.newArrayList();
-  try {
-    for (    RawResource rawResource : allResources) {
-      final T element=serializer.deserialize(new DataInputStream(rawResource.inputStream));
-      element.setLastModified(rawResource.timestamp);
-      result.add(element);
-    }
-    return result;
-  }
-  finally {
-    for (    RawResource rawResource : allResources) {
-      IOUtils.closeQuietly(rawResource.inputStream);
-    }
-  }
+  return getAllResources(rangeStart,rangeEnd,-1L,-1L,clazz,serializer);
 }

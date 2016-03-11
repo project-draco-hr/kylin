@@ -1,0 +1,3 @@
+{
+  return params.get(SEGMENT_ID);
+}

@@ -5,7 +5,7 @@
         if (cubeName == null) {
           return true;
         }
-        return ((CubingJob)executable).getCubeName().equalsIgnoreCase(cubeName);
+        return CubingExecutableUtil.getCubeName(executable.getParams()).equalsIgnoreCase(cubeName);
       }
  else {
         return false;
@@ -24,7 +24,7 @@
       }
  else {
         ProjectInstance project=getProjectManager().getProject(projectName);
-        return project.containsRealization(RealizationType.CUBE,executable.getCubeName());
+        return project.containsRealization(RealizationType.CUBE,CubingExecutableUtil.getCubeName(executable.getParams()));
       }
     }
   }

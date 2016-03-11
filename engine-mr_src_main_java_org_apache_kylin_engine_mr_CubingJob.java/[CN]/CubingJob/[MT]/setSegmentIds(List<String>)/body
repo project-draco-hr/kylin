@@ -1,3 +1,0 @@
-{
-  setParam(SEGMENT_ID,StringUtils.join(segmentIds,","));
-}

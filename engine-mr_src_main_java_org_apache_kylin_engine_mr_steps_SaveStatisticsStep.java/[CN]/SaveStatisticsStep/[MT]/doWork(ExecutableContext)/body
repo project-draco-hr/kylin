@@ -1,13 +1,13 @@
 {
   KylinConfig kylinConf=context.getConfig();
   final CubeManager mgr=CubeManager.getInstance(kylinConf);
-  final CubeInstance cube=mgr.getCube(getCubeName());
-  final CubeSegment newSegment=cube.getSegmentById(getSegmentId());
+  final CubeInstance cube=mgr.getCube(CubingExecutableUtil.getCubeName(this.getParams()));
+  final CubeSegment newSegment=cube.getSegmentById(CubingExecutableUtil.getSegmentId(this.getParams()));
   ResourceStore rs=ResourceStore.getStore(kylinConf);
   try {
-    Path statisticsFilePath=new Path(getStatisticsPath(),BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION);
+    Path statisticsFilePath=new Path(CubingExecutableUtil.getStatisticsPath(this.getParams()),BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION_FILENAME);
     FileSystem fs=FileSystem.get(HadoopUtil.getCurrentConfiguration());
-    if (!fs.exists(statisticsFilePath))     throw new IOException("File " + statisticsFilePath + " does not exists;");
+    if (!fs.exists(statisticsFilePath))     throw new IOException("File " + statisticsFilePath + " does not exists");
     FSDataInputStream is=fs.open(statisticsFilePath);
     try {
       String statisticsFileName=newSegment.getStatisticsResourcePath();

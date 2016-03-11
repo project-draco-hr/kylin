@@ -1,14 +1,14 @@
 {
   KylinConfig kylinConf=context.getConfig();
   final CubeManager mgr=CubeManager.getInstance(kylinConf);
-  final CubeInstance cube=mgr.getCube(getCubeName());
-  final CubeSegment newSegment=cube.getSegmentById(getSegmentId());
+  final CubeInstance cube=mgr.getCube(CubingExecutableUtil.getCubeName(this.getParams()));
+  final CubeSegment newSegment=cube.getSegmentById(CubingExecutableUtil.getSegmentId(this.getParams()));
   Configuration conf=HadoopUtil.getCurrentConfiguration();
   ResourceStore rs=ResourceStore.getStore(kylinConf);
   try {
     int averageSamplingPercentage=0;
-    for (    String segmentId : this.getMergingSegmentIds()) {
-      String fileKey=CubeSegment.getStatisticsResourcePath(getCubeName(),segmentId);
+    for (    String segmentId : CubingExecutableUtil.getMergingSegmentIds(this.getParams())) {
+      String fileKey=CubeSegment.getStatisticsResourcePath(CubingExecutableUtil.getCubeName(this.getParams()),segmentId);
       InputStream is=rs.getResource(fileKey).inputStream;
       File tempFile=null;
       FileOutputStream tempFileStream=null;
@@ -53,9 +53,9 @@
         if (tempFile != null)         tempFile.delete();
       }
     }
-    averageSamplingPercentage=averageSamplingPercentage / this.getMergingSegmentIds().size();
-    CuboidStatsUtil.writeCuboidStatistics(conf,new Path(getMergedStatisticsPath()),cuboidHLLMap,averageSamplingPercentage);
-    Path statisticsFilePath=new Path(getMergedStatisticsPath(),BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION);
+    averageSamplingPercentage=averageSamplingPercentage / CubingExecutableUtil.getMergingSegmentIds(this.getParams()).size();
+    CuboidStatsUtil.writeCuboidStatistics(conf,new Path(CubingExecutableUtil.getMergedStatisticsPath(this.getParams())),cuboidHLLMap,averageSamplingPercentage);
+    Path statisticsFilePath=new Path(CubingExecutableUtil.getMergedStatisticsPath(this.getParams()),BatchConstants.CFG_STATISTICS_CUBOID_ESTIMATION_FILENAME);
     FileSystem fs=statisticsFilePath.getFileSystem(conf);
     FSDataInputStream is=fs.open(statisticsFilePath);
     try {

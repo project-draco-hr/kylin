@@ -4,10 +4,10 @@
   rowkeyDistributionStep.setName(ExecutableConstants.STEP_NAME_GET_CUBOID_KEY_DISTRIBUTION);
   StringBuilder cmd=new StringBuilder();
   appendMapReduceParameters(cmd,seg.getRealization().getDataModelDesc());
-  appendExecCmdParameters(cmd,"input",inputPath);
-  appendExecCmdParameters(cmd,"output",getRowkeyDistributionOutputPath(jobId));
-  appendExecCmdParameters(cmd,"cubename",seg.getRealization().getName());
-  appendExecCmdParameters(cmd,"jobname","Kylin_Region_Splits_Calculator_" + seg.getRealization().getName() + "_Step");
+  appendExecCmdParameters(cmd,BatchConstants.ARG_INPUT,inputPath);
+  appendExecCmdParameters(cmd,BatchConstants.ARG_OUTPUT,getRowkeyDistributionOutputPath(jobId));
+  appendExecCmdParameters(cmd,BatchConstants.ARG_CUBE_NAME,seg.getRealization().getName());
+  appendExecCmdParameters(cmd,BatchConstants.ARG_JOB_NAME,"Kylin_Region_Splits_Calculator_" + seg.getRealization().getName() + "_Step");
   rowkeyDistributionStep.setMapReduceParams(cmd.toString());
   rowkeyDistributionStep.setMapReduceJobClass(RangeKeyDistributionJob.class);
   return rowkeyDistributionStep;
