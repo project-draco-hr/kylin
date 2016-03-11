@@ -1,12 +1,12 @@
 {
   InMemCubeBuilder cubeBuilder=new InMemCubeBuilder(cube.getDescriptor(),dictionaryMap);
-  cubeBuilder.setConcurrentThreads(THREADS);
+  cubeBuilder.setConcurrentThreads(nThreads);
   ArrayBlockingQueue<List<String>> queue=new ArrayBlockingQueue<List<String>>(1000);
   ExecutorService executorService=Executors.newSingleThreadExecutor();
   try {
 {
       Future<?> future=executorService.submit(cubeBuilder.buildAsRunnable(queue,new ConsoleGTRecordWriter()));
-      feedData(cube,flatTable,queue,INPUT_ROWS);
+      feedData(cube,flatTable,queue,nInpRows);
       future.get();
     }
 {
@@ -16,7 +16,7 @@
     }
 {
       Future<?> future=executorService.submit(cubeBuilder.buildAsRunnable(queue,new ConsoleGTRecordWriter()));
-      feedData(cube,flatTable,queue,INPUT_ROWS);
+      feedData(cube,flatTable,queue,nInpRows);
       future.get();
     }
   }

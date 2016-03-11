@@ -1,0 +1,10 @@
+{
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  CubeManager cubeManager=CubeManager.getInstance(kylinConfig);
+  this.nInpRows=nInpRows;
+  this.nThreads=nThreads;
+  this.cube=cubeManager.getCube(cubeName);
+  this.flatTable=flatTable;
+  this.dictionaryMap=getDictionaryMap(cube,flatTable);
+  testBuildInner();
+}
