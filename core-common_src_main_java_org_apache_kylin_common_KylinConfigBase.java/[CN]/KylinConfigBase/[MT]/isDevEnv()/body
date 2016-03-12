@@ -1,0 +1,3 @@
+{
+  return "DEV".equals(getOptional("deploy.env","DEV"));
+}
