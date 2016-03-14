@@ -23,6 +23,8 @@ return null;
 String content=ExecutableConstants.NOTIFY_EMAIL_TEMPLATE;
 content=content.replaceAll("\\$\\{job_name\\}",getName());
 content=content.replaceAll("\\$\\{result\\}",state.toString());
+content=content.replaceAll("\\$\\{env_name\\}",getDeployEnvName());
+content=content.replaceAll("\\$\\{project_name\\}",getProjectName());
 content=content.replaceAll("\\$\\{cube_name\\}",CubingExecutableUtil.getCubeName(this.getParams()));
 content=content.replaceAll("\\$\\{source_records_count\\}",String.valueOf(findSourceRecordCount()));
 content=content.replaceAll("\\$\\{start_time\\}",new Date(getStartTime()).toString());
@@ -38,6 +40,6 @@ content=content.replaceAll("\\$\\{job_engine\\}",inetAddress.getCanonicalHostNam
  catch (UnknownHostException e) {
 logger.warn(e.getLocalizedMessage(),e);
 }
-String title="[" + state.toString() + "] - [Kylin Cube Build Job]-"+ CubingExecutableUtil.getCubeName(this.getParams());
+String title="[" + state.toString() + "] - ["+ getDeployEnvName()+ "] - ["+ getProjectName()+ "] - "+ CubingExecutableUtil.getCubeName(this.getParams());
 return Pair.of(title,content);
 }

@@ -1,0 +1,3 @@
+{
+  setParam(PROJECT_INSTANCE_NAME,name);
+}
