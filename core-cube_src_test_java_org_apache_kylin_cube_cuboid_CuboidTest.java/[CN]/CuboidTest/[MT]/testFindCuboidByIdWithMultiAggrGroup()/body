@@ -1,0 +1,8 @@
+{
+  CubeDesc cube=getTestKylinCubeWithoutSellerLeftJoin();
+  Cuboid cuboid;
+  cuboid=Cuboid.findById(cube,toLong("111111110"));
+  assertEquals(toLong("11111111"),cuboid.getId());
+  cuboid=Cuboid.findById(cube,toLong("111111111"));
+  assertEquals(toLong("11111111"),cuboid.getId());
+}

@@ -1,5 +1,6 @@
 {
-  if (cuboidID == getBaseCuboidId(cubeDesc)) {
+  long baseCuboidId=getBaseCuboidId(cubeDesc);
+  if (cuboidID == baseCuboidId) {
     return cuboidID;
   }
   List<Long> candidates=Lists.newArrayList();
@@ -10,7 +11,7 @@
     }
   }
   if (candidates.size() == 0) {
-    throw new IllegalStateException("Cannot find parent for :" + cuboidID);
+    return baseCuboidId;
   }
   return Collections.min(candidates,cuboidSelectComparator);
 }
