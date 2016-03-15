@@ -1,0 +1,10 @@
+{
+  NumberDictionaryBuilder<String> builder=new NumberDictionaryBuilder<String>(new StringBytesConverter());
+  builder.addValue("" + Long.MAX_VALUE);
+  builder.addValue("" + Long.MIN_VALUE);
+  NumberDictionary<String> dict=builder.build(0);
+  int minId=dict.getIdFromValue("" + Long.MIN_VALUE);
+  int maxId=dict.getIdFromValue("" + Long.MAX_VALUE);
+  assertEquals(0,minId);
+  assertEquals(1,maxId);
+}
