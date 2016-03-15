@@ -1,0 +1,11 @@
+{
+  ArrayList<String> children=src.listResources(path);
+  if (children == null) {
+    ret.add(path);
+  }
+ else {
+    for (    String child : children) {
+      collectFiles(src,child,ret);
+    }
+  }
+}

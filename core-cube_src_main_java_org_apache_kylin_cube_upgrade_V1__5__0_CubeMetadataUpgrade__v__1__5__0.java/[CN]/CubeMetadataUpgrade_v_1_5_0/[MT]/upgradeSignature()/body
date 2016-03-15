@@ -1,0 +1,8 @@
+{
+  CubeDescManager cubeDescManager=CubeDescManager.getInstance(config);
+  List<CubeDesc> cubeDescs=cubeDescManager.listAllDesc();
+  for (  CubeDesc cubeDesc : cubeDescs) {
+    logger.info("CubeMetadataUpgrade_v_1_5_0 handling in upgradeSignature {}",cubeDesc.getName());
+    upgradeSignature(cubeDesc);
+  }
+}

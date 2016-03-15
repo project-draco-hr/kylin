@@ -1,0 +1,6 @@
+{
+  MetadataManager.clearCache();
+  CubeDescManager.clearCache();
+  CubeManager.clearCache();
+  ProjectManager.clearCache();
+}

@@ -1,0 +1,50 @@
+{
+  boolean upgrade=false;
+  DataModelDesc modelDesc=getDataModelDesc(cubeDesc.getModelName());
+  try {
+    if (modelDesc != null && modelDesc.getDimensions() == null && modelDesc.getMetrics() == null) {
+      List<DimensionDesc> cubeDimDescList=cubeDesc.getDimensions();
+      if (!CollectionUtils.isEmpty(cubeDimDescList)) {
+        Map<String,HashSet<String>> modelDimMap=Maps.newHashMap();
+        for (        DimensionDesc cubeDimDesc : cubeDimDescList) {
+          if (!modelDimMap.containsKey(cubeDimDesc.getTable())) {
+            modelDimMap.put(cubeDimDesc.getTable(),new HashSet<String>());
+          }
+          modelDimMap.get(cubeDimDesc.getTable()).addAll(Lists.newArrayList(cubeDimDesc.getDerived() != null ? cubeDimDesc.getDerived() : cubeDimDesc.getColumn()));
+        }
+        List<ModelDimensionDesc> modelDimDescList=Lists.newArrayListWithCapacity(modelDimMap.size());
+        for (        Map.Entry<String,HashSet<String>> modelDimEntry : modelDimMap.entrySet()) {
+          ModelDimensionDesc dimDesc=new ModelDimensionDesc();
+          dimDesc.setTable(modelDimEntry.getKey());
+          String[] columns=new String[modelDimEntry.getValue().size()];
+          columns=modelDimEntry.getValue().toArray(columns);
+          dimDesc.setColumns(columns);
+          modelDimDescList.add(dimDesc);
+        }
+        ModelDimensionDesc.capicalizeStrings(modelDimDescList);
+        modelDesc.setDimensions(modelDimDescList);
+        upgrade=true;
+      }
+      List<MeasureDesc> cubeMeasDescList=cubeDesc.getMeasures();
+      if (!CollectionUtils.isEmpty(cubeDimDescList)) {
+        ArrayList<String> metrics=Lists.newArrayListWithExpectedSize(cubeMeasDescList.size());
+        for (        MeasureDesc cubeMeasDesc : cubeMeasDescList) {
+          for (          TblColRef tblColRef : cubeMeasDesc.getFunction().getParameter().getColRefs()) {
+            metrics.add(tblColRef.getName());
+          }
+        }
+        String[] metricsArray=new String[metrics.size()];
+        modelDesc.setMetrics(metrics.toArray(metricsArray));
+        upgrade=true;
+      }
+    }
+    if (upgrade) {
+      store.putResource(modelDesc.getResourcePath(),modelDesc,MetadataManager.MODELDESC_SERIALIZER);
+      updatedResources.add(modelDesc.getResourcePath());
+    }
+  }
+ catch (  Exception e) {
+    logger.error("error",e);
+    errorMsgs.add("upgradeDataModelDesc [" + modelDesc.getName() + "] failed: "+ e.getLocalizedMessage());
+  }
+}

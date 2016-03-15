@@ -1,0 +1,6 @@
+{
+  upgradeVersion();
+  clear();
+  upgradeEngineTypeStorageType();
+  upgradeSignature();
+}

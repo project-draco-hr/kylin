@@ -1,0 +1,9 @@
+{
+  int count=0;
+  for (  ModelDimensionDesc modelDimensionDesc : modelDimensionDescs) {
+    if (modelDimensionDesc.getColumns() != null) {
+      count+=modelDimensionDesc.getColumns().length;
+    }
+  }
+  return count;
+}

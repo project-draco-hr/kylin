@@ -1,0 +1,11 @@
+{
+  List<String> paths=null;
+  try {
+    paths=store.collectResourceRecursively(pathRoot,MetadataConstants.FILE_SURFIX);
+  }
+ catch (  IOException e1) {
+    logger.error("error",e1);
+    errorMsgs.add("Get IOException when scan resource store at: " + ResourceStore.CUBE_DESC_RESOURCE_ROOT);
+  }
+  return paths;
+}

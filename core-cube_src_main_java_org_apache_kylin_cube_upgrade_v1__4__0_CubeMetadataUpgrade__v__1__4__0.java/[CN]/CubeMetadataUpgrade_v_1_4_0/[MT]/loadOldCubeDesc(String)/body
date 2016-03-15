@@ -1,0 +1,13 @@
+{
+  CubeDesc ndesc=null;
+  try {
+    ndesc=store.getResource(path,CubeDesc.class,oldCubeDescSerializer);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("failed to load old cubedesc at " + path);
+  }
+  if (StringUtils.isBlank(ndesc.getName())) {
+    throw new IllegalStateException("CubeDesc name must not be blank");
+  }
+  return ndesc;
+}

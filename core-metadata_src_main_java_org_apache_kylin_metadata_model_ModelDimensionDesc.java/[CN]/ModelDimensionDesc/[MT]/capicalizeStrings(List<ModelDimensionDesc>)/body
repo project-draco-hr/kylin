@@ -1,0 +1,10 @@
+{
+  if (dimensions != null) {
+    for (    ModelDimensionDesc modelDimensionDesc : dimensions) {
+      modelDimensionDesc.setTable(modelDimensionDesc.getTable().toUpperCase());
+      if (modelDimensionDesc.getColumns() != null) {
+        StringUtil.toUpperCaseArray(modelDimensionDesc.getColumns(),modelDimensionDesc.getColumns());
+      }
+    }
+  }
+}

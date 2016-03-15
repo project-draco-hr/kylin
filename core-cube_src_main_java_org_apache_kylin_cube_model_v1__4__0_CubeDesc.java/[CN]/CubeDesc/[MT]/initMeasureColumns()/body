@@ -1,0 +1,16 @@
+{
+  if (measures == null || measures.isEmpty()) {
+    return;
+  }
+  TableDesc factTable=getFactTableDesc();
+  List<TableDesc> lookups=getLookupTableDescs();
+  for (  MeasureDesc m : measures) {
+    m.setName(m.getName().toUpperCase());
+    if (m.getDependentMeasureRef() != null) {
+      m.setDependentMeasureRef(m.getDependentMeasureRef().toUpperCase());
+    }
+    FunctionDesc func=m.getFunction();
+    func.init(factTable,lookups);
+    allColumns.addAll(func.getParameter().getColRefs());
+  }
+}

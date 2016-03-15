@@ -1,0 +1,10 @@
+{
+  List<String> paths=listResourceStore(ResourceStore.CUBE_DESC_RESOURCE_ROOT);
+  for (  String path : paths) {
+    logger.info("CubeMetadataUpgrade_v_1_4_0 handling in dowork {}",path);
+    CubeDesc cubeDesc=loadOldCubeDesc(path);
+    cubeDesc.init(config,MetadataManager.getInstance(config).getAllTablesMap());
+    upgradeDataModelDesc(cubeDesc);
+    upgradeCubeDesc(cubeDesc);
+  }
+}

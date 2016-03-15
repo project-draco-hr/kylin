@@ -1,0 +1,50 @@
+{
+  if (!(args != null && (args.length == 1))) {
+    System.out.println("Usage: java CubeMetadataUpgrade <metadata_export_folder>");
+    System.out.println(", where metadata_export_folder is the folder containing your current metadata's dump (Upgrade program will not modify it directly, relax.");
+    return;
+  }
+  String currentMetaDumpFolderPath=args[0];
+  CubeMetadataUpgrade instance;
+  File currentMetaDumpFolder=new File(currentMetaDumpFolderPath);
+  if (!currentMetaDumpFolder.exists()) {
+    System.out.println("Provided folder doesn't exist: '" + currentMetaDumpFolderPath + "'");
+    return;
+  }
+  if (!currentMetaDumpFolder.isDirectory()) {
+    System.out.println("Provided folder is not a directory: '" + currentMetaDumpFolderPath + "'");
+    return;
+  }
+  String newMetadataUrl;
+  if (firstStepInChain) {
+    newMetadataUrl=currentMetaDumpFolder.getAbsolutePath() + "_workspace";
+    try {
+      FileUtils.deleteDirectory(new File(newMetadataUrl));
+      FileUtils.copyDirectory(currentMetaDumpFolder,new File(newMetadataUrl));
+    }
+ catch (    IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+ else {
+    newMetadataUrl=currentMetaDumpFolder.getAbsolutePath();
+  }
+  instance=(CubeMetadataUpgrade)upgradeClass.getConstructor(String.class).newInstance(newMetadataUrl);
+  instance.upgradeNonCompatibleMeta();
+  logger.info("=================================================================");
+  logger.info("Run {} completed",upgradeClass.toString());
+  logger.info("=================================================================");
+  if (instance.errorMsgs.size() > 0) {
+    logger.info("Here are the error/warning messages, you may need check:");
+    for (    String s : instance.errorMsgs) {
+      logger.error(s);
+    }
+  }
+ else {
+    logger.info("No error or warning messages; The migration is success.");
+  }
+  if (lastStepInChain) {
+    instance.upgradeCompatibleMeta();
+    instance.verify();
+  }
+}

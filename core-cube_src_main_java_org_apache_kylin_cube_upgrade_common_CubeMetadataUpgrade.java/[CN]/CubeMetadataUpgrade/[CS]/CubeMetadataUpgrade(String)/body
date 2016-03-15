@@ -1,0 +1,5 @@
+{
+  KylinConfig.destoryInstance();
+  config=KylinConfig.createInstanceFromUri(newMetadataUrl);
+  store=ResourceStore.getStore(config);
+}

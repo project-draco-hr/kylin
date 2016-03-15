@@ -3,7 +3,7 @@
   try {
     md=MessageDigest.getInstance("MD5");
     StringBuilder sigString=new StringBuilder();
-    sigString.append(this.name).append("|").append(JsonUtil.writeValueAsString(this.modelName)).append("|").append(JsonUtil.writeValueAsString(this.dimensions)).append("|").append(JsonUtil.writeValueAsString(this.measures)).append("|").append(JsonUtil.writeValueAsString(this.rowkey)).append("|").append(JsonUtil.writeValueAsString(this.aggregationGroups)).append("|").append(JsonUtil.writeValueAsString(this.hbaseMapping));
+    sigString.append(this.name).append("|").append(JsonUtil.writeValueAsString(this.modelName)).append("|").append(JsonUtil.writeValueAsString(this.nullStrings)).append("|").append(JsonUtil.writeValueAsString(this.dimensions)).append("|").append(JsonUtil.writeValueAsString(this.measures)).append("|").append(JsonUtil.writeValueAsString(this.rowkey)).append("|").append(JsonUtil.writeValueAsString(this.aggregationGroups)).append("|").append(JsonUtil.writeValueAsString(this.hbaseMapping)).append("|").append(JsonUtil.writeValueAsString(this.engineType)).append("|").append(JsonUtil.writeValueAsString(this.storageType)).append("|");
     byte[] signature=md.digest(sigString.toString().toLowerCase().getBytes());
     String ret=new String(Base64.encodeBase64(signature));
     return ret;

@@ -5,6 +5,6 @@
     throw new IllegalStateException("Fact table does not exist:" + this.factTable);
   }
   initJoinColumns(tables);
-  DimensionDesc.capicalizeStrings(dimensions);
+  ModelDimensionDesc.capicalizeStrings(dimensions);
   initPartitionDesc(tables);
 }

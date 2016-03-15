@@ -1,0 +1,15 @@
+{
+  try {
+    DataModelDesc modelDesc=getDataModelDesc(cubeDesc.getModelName());
+    PartitionDesc modelPartDesc=modelDesc.getPartitionDesc();
+    if (cubeDesc.getPartitionDateStart() == 0 && modelPartDesc.getPartitionDateStart() != 0) {
+      cubeDesc.setPartitionDateStart(modelPartDesc.getPartitionDateStart());
+    }
+    store.putResource(cubeDesc.getResourcePath(),cubeDesc,oldCubeDescSerializer);
+    updatedResources.add(cubeDesc.getResourcePath());
+  }
+ catch (  Exception e) {
+    logger.error("error",e);
+    errorMsgs.add("upgradeCubeDesc [" + cubeDesc.getName() + "] failed: "+ e.getLocalizedMessage());
+  }
+}

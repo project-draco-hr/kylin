@@ -1,0 +1,4 @@
+{
+  MetadataManager.clearCache();
+  return MetadataManager.getInstance(config).getDataModelDesc(modelName);
+}
