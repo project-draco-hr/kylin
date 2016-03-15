@@ -1,6 +1,6 @@
 {
   encMap=Maps.newHashMap();
   for (  Entry<TblColRef,Integer> entry : coprocessorRowType.columnIdxMap.entrySet()) {
-    encMap.put(entry.getKey(),new FixedLenDimEnc(entry.getValue()));
+    encMap.put(entry.getKey(),new FixedLenDimEnc(digest.length(entry.getValue())));
   }
 }

@@ -1,8 +1,16 @@
 {
   DimensionEncoding result=encMap.get(col);
   if (result == null) {
-    int len=recordInfo.length(type.getColIndexByTblColRef(col));
-    encMap.put(col,result=new FixedLenDimEnc(len));
+    Dictionary<String> dict=getDictionary(col);
+    if (dict == null) {
+      int idx=type.getColIndexByTblColRef(col);
+      int len=recordInfo.length(idx);
+      result=new FixedLenDimEnc(len);
+    }
+ else {
+      result=new DictionaryDimEnc(dict);
+    }
+    encMap.put(col,result);
   }
   return result;
 }
