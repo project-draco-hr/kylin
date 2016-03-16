@@ -8,7 +8,7 @@
   CubeDesc cubeDesc=cube.getDescriptor();
   CubeDesc newCubeDesc=CubeDesc.getCopyOf(cubeDesc);
   newCubeDesc.setName(newCubeName);
-  CubeInstance newCube=null;
+  CubeInstance newCube;
   try {
     newCube=cubeService.createCubeAndDesc(newCubeName,project,newCubeDesc);
     cubeService.getCubeDescManager().reloadCubeDescLocal(newCubeName);

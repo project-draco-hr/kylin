@@ -1,0 +1,4 @@
+{
+  if (another == null)   return false;
+  return this.calculateSignature().equals(another.calculateSignature());
+}

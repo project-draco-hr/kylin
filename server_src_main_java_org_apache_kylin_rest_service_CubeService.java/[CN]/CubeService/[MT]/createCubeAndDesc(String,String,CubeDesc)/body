@@ -2,21 +2,15 @@
   if (getCubeManager().getCube(cubeName) != null) {
     throw new InternalErrorException("The cube named " + cubeName + " already exists");
   }
+  if (getCubeDescManager().getCubeDesc(desc.getName()) != null) {
+    throw new InternalErrorException("The cube desc named " + desc.getName() + " already exists");
+  }
   String owner=SecurityContextHolder.getContext().getAuthentication().getName();
-  CubeDesc createdDesc=null;
-  CubeInstance createdCube=null;
-  boolean isNew=false;
-  if (getCubeDescManager().getCubeDesc(desc.getName()) == null) {
-    createdDesc=getCubeDescManager().createCubeDesc(desc);
-    isNew=true;
-  }
- else {
-    createdDesc=getCubeDescManager().updateCubeDesc(desc);
-  }
+  CubeDesc createdDesc;
+  CubeInstance createdCube;
+  createdDesc=getCubeDescManager().createCubeDesc(desc);
   if (!createdDesc.getError().isEmpty()) {
-    if (isNew) {
-      getCubeDescManager().removeCubeDesc(createdDesc);
-    }
+    getCubeDescManager().removeCubeDesc(createdDesc);
     throw new InternalErrorException(createdDesc.getError().get(0));
   }
   try {
