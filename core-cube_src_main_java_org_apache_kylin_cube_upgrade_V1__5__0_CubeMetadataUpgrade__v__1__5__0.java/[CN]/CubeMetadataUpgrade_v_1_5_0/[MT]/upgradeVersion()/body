@@ -1,9 +1,0 @@
-{
-  MetadataVersionRefresher refresher=new MetadataVersionRefresher(this.store);
-  try {
-    refresher.refresh();
-  }
- catch (  IOException e) {
-    throw new RuntimeException("Failed to upgrade version number",e);
-  }
-}

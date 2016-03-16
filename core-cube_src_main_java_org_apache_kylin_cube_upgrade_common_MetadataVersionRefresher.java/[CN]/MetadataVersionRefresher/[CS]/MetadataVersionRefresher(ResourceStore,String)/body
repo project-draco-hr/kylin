@@ -1,0 +1,4 @@
+{
+  this.store=resourceStore;
+  this.version=version;
+}

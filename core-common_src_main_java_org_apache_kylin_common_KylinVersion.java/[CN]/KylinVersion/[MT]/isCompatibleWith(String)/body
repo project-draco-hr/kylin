@@ -1,0 +1,10 @@
+{
+  Version v=new Version(version);
+  Version current=new Version(CURRENT_KYLIN_VERSION);
+  if (current.major != v.major || current.minor != v.minor) {
+    return false;
+  }
+ else {
+    return true;
+  }
+}

@@ -1,6 +1,6 @@
 {
-  if (!KylinVersion.getCurrentVersion().equals(getVersion())) {
-    logger.info("checkSignature on {} is skipped as the its version is {} (not latest but compatible) ",getName(),getVersion());
+  if (KylinVersion.isCompatibleWith(getVersion()) && !KylinVersion.isSignatureCompatibleWith(getVersion())) {
+    logger.info("checkSignature on {} is skipped as the its version is {} (not signature compatible but compatible) ",getName(),getVersion());
     return true;
   }
   if (StringUtils.isBlank(getSignature())) {

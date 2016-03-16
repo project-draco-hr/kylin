@@ -1,0 +1,23 @@
+{
+  if (!isCompatibleWith(version)) {
+    return false;
+  }
+  final Version v=new Version(version);
+  boolean signatureIncompatible=Iterables.any(Iterables.filter(Iterables.transform(SIGNATURE_INCOMPATIBLE_REVISIONS,new Function<String,Version>(){
+    @Nullable @Override public Version apply(    @Nullable String input){
+      return new Version(input);
+    }
+  }
+),new Predicate<Version>(){
+    @Override public boolean apply(    @Nullable Version input){
+      return v.major == input.major && v.minor == input.minor;
+    }
+  }
+),new Predicate<Version>(){
+    @Override public boolean apply(    @Nullable Version input){
+      return input.revision > v.revision;
+    }
+  }
+);
+  return !signatureIncompatible;
+}
