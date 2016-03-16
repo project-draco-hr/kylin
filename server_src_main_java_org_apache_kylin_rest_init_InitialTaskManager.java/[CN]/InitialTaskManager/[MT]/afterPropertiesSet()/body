@@ -1,0 +1,4 @@
+{
+  logger.info("Kylin service is starting.....");
+  runInitialTasks();
+}

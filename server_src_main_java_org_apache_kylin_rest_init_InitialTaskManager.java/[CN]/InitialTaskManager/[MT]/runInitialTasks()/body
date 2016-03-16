@@ -1,0 +1,18 @@
+{
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  String initTasks=kylinConfig.getInitTasks();
+  if (!StringUtils.isEmpty(initTasks)) {
+    String[] taskClasses=initTasks.split(",");
+    for (    String taskClass : taskClasses) {
+      try {
+        InitialTask task=(InitialTask)Class.forName(taskClass).newInstance();
+        logger.info("Running task: " + taskClass);
+        task.execute();
+      }
+ catch (      Exception e) {
+        logger.error("Initial task failed: " + taskClass,e);
+      }
+    }
+    logger.info("All initial tasks finished.");
+  }
+}
