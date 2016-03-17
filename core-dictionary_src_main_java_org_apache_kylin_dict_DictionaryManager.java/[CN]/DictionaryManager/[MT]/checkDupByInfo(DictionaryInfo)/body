@@ -1,11 +1,10 @@
 {
   ResourceStore store=MetadataManager.getInstance(config).getStore();
-  ArrayList<String> existings=store.listResources(dictInfo.getResourceDir());
+  NavigableSet<String> existings=store.listResources(dictInfo.getResourceDir());
   if (existings == null || existings.isEmpty()) {
     return null;
   }
-  Collections.sort(existings);
-  final List<DictionaryInfo> allResources=MetadataManager.getInstance(config).getStore().getAllResources(existings.get(0),existings.get(existings.size() - 1),DictionaryInfo.class,DictionaryInfoSerializer.INFO_SERIALIZER);
+  final List<DictionaryInfo> allResources=MetadataManager.getInstance(config).getStore().getAllResources(existings.first(),existings.last(),DictionaryInfo.class,DictionaryInfoSerializer.INFO_SERIALIZER);
   TableSignature input=dictInfo.getInput();
   for (  DictionaryInfo dictionaryInfo : allResources) {
     if (input.equals(dictionaryInfo.getInput())) {

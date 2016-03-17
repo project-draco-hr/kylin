@@ -1,7 +1,7 @@
 {
   String[] names=file(resPath).list();
   if (names == null)   return null;
-  ArrayList<String> r=new ArrayList<String>(names.length);
+  TreeSet<String> r=new TreeSet<>();
   String prefix=resPath.endsWith("/") ? resPath : resPath + "/";
   for (  String n : names) {
     r.add(prefix + n);

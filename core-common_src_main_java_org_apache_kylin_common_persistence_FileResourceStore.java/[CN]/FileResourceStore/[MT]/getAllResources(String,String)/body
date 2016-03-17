@@ -3,7 +3,7 @@
   try {
     String commonPrefix=StringUtils.getCommonPrefix(rangeEnd,rangeStart);
     commonPrefix=commonPrefix.substring(0,commonPrefix.lastIndexOf("/") + 1);
-    final ArrayList<String> resources=listResourcesImpl(commonPrefix);
+    final NavigableSet<String> resources=listResourcesImpl(commonPrefix);
     for (    String resource : resources) {
       if (resource.compareTo(rangeStart) >= 0 && resource.compareTo(rangeEnd) <= 0) {
         if (existsImpl(resource)) {

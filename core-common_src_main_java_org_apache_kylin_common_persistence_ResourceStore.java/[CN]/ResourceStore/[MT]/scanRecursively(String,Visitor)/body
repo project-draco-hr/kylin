@@ -1,5 +1,5 @@
 {
-  ArrayList<String> children=listResources(path);
+  NavigableSet<String> children=listResources(path);
   if (children != null) {
     for (    String child : children)     scanRecursively(child,visitor);
     return;

@@ -1,6 +1,6 @@
 {
   try {
-    ArrayList<String> resources=store.listResources(ResourceStore.EXECUTE_RESOURCE_ROOT);
+    NavigableSet<String> resources=store.listResources(ResourceStore.EXECUTE_RESOURCE_ROOT);
     if (resources == null) {
       return Collections.emptyList();
     }

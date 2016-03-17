@@ -1,6 +1,6 @@
 {
   ResourceStore store=MetadataManager.getInstance(config).getStore();
-  ArrayList<String> existings=store.listResources(dictInfo.getResourceDir());
+  NavigableSet<String> existings=store.listResources(dictInfo.getResourceDir());
   if (existings == null)   return null;
   logger.info("{} existing dictionaries of the same column",existings.size());
   if (existings.size() > 100) {

@@ -1,12 +1,11 @@
 {
   try {
-    final List<String> jobIds=store.listResources(ResourceStore.EXECUTE_RESOURCE_ROOT);
+    final NavigableSet<String> jobIds=store.listResources(ResourceStore.EXECUTE_RESOURCE_ROOT);
     if (jobIds == null || jobIds.isEmpty()) {
       return Collections.emptyList();
     }
-    Collections.sort(jobIds);
-    String rangeStart=jobIds.get(0);
-    String rangeEnd=jobIds.get(jobIds.size() - 1);
+    String rangeStart=jobIds.first();
+    String rangeEnd=jobIds.last();
     return store.getAllResources(rangeStart,rangeEnd,timeStartInMillis,timeEndInMillis,ExecutablePO.class,JOB_SERIALIZER);
   }
  catch (  IOException e) {

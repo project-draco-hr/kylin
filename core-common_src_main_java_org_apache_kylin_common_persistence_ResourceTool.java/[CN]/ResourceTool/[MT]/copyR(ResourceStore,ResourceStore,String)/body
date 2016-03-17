@@ -1,5 +1,5 @@
 {
-  ArrayList<String> children=src.listResources(path);
+  NavigableSet<String> children=src.listResources(path);
   if (children == null) {
     if (matchFilter(path)) {
       try {

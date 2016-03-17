@@ -1,5 +1,5 @@
 {
   ResourceStore store=ResourceStore.getStore(config);
-  ArrayList<String> result=store.listResources(path);
+  NavigableSet<String> result=store.listResources(path);
   System.out.println("" + result);
 }

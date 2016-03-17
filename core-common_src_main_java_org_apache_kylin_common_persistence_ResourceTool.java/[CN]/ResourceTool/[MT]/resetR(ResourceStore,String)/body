@@ -1,5 +1,5 @@
 {
-  ArrayList<String> children=store.listResources(path);
+  NavigableSet<String> children=store.listResources(path);
   if (children == null) {
     if (matchFilter(path)) {
       store.deleteResource(path);

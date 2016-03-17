@@ -25,7 +25,7 @@
   }
  catch (  IllegalStateException e) {
   }
-  ArrayList<String> list;
+  NavigableSet<String> list;
   list=store.listResources(dir1);
   assertTrue(list.contains(path1));
   assertTrue(list.contains(path2) == false);

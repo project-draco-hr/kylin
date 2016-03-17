@@ -1,12 +1,11 @@
 {
   try {
-    ArrayList<String> resources=store.listResources(ResourceStore.EXECUTE_OUTPUT_RESOURCE_ROOT);
+    NavigableSet<String> resources=store.listResources(ResourceStore.EXECUTE_OUTPUT_RESOURCE_ROOT);
     if (resources == null || resources.isEmpty()) {
       return Collections.emptyList();
     }
-    Collections.sort(resources);
-    String rangeStart=resources.get(0);
-    String rangeEnd=resources.get(resources.size() - 1);
+    String rangeStart=resources.first();
+    String rangeEnd=resources.last();
     return store.getAllResources(rangeStart,rangeEnd,ExecutableOutputPO.class,JOB_OUTPUT_SERIALIZER);
   }
  catch (  IOException e) {
