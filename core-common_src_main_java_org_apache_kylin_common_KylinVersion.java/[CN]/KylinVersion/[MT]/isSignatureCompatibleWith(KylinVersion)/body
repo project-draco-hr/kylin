@@ -1,0 +1,20 @@
+{
+  if (!isCompatibleWith(v)) {
+    return false;
+  }
+  if (v.isSnapshot || isSnapshot) {
+    return false;
+  }
+  boolean signatureIncompatible=Iterables.any(Iterables.filter(SIGNATURE_INCOMPATIBLE_REVISIONS,new Predicate<KylinVersion>(){
+    @Override public boolean apply(    @Nullable KylinVersion input){
+      return v.major == input.major && v.minor == input.minor;
+    }
+  }
+),new Predicate<KylinVersion>(){
+    @Override public boolean apply(    @Nullable KylinVersion input){
+      return input.revision > v.revision;
+    }
+  }
+);
+  return !signatureIncompatible;
+}
