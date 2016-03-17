@@ -3,7 +3,14 @@
   if (result == null) {
     RowKeyColDesc colDesc=cubeDesc.getRowkey().getColDesc(col);
     if (colDesc.isUsingDictionary()) {
-      result=new DictionaryDimEnc(getDictionary(col));
+      Dictionary<String> dict=getDictionary(col);
+      if (dict == null) {
+        logger.warn("No dictionary found for dict-encoding column " + col + ", segment "+ seg);
+        result=new FixedLenDimEnc(0);
+      }
+ else {
+        result=new DictionaryDimEnc(dict);
+      }
     }
  else {
       result=new FixedLenDimEnc(colDesc.getLength());
