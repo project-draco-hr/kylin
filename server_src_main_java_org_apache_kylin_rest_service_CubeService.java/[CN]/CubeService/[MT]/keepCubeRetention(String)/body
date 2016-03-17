@@ -1,4 +1,5 @@
 {
+  logger.info("checking keepCubeRetention");
   CubeInstance cube=getCubeManager().getCube(cubeName);
   CubeDesc desc=cube.getDescriptor();
   if (desc.getRetentionRange() > 0) {

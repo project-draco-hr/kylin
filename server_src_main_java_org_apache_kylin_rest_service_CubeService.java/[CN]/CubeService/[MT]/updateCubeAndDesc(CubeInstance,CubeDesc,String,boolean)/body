@@ -4,7 +4,7 @@
     throw new JobException("Cube schema shouldn't be changed with running job.");
   }
   try {
-    if (!cube.getDescriptor().consistentWith(desc)) {
+    if (!forceUpdate && !cube.getDescriptor().consistentWith(desc)) {
       throw new IllegalStateException("cube's desc is not consistent with the new desc");
     }
     CubeDesc updatedCubeDesc=getCubeDescManager().updateCubeDesc(desc);

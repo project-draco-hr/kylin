@@ -1,3 +1,4 @@
 CubeInstance cube
 CubeDesc desc
 String newProjectName
+boolean forceUpdate
