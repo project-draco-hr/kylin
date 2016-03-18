@@ -1,8 +1,16 @@
 {
   super(cubeSeg,cuboid);
   enableSharding=cubeSeg.isEnableSharding();
+  Set<TblColRef> UHCColumns=cubeSeg.getUHCColumns();
+  if (UHCColumns.size() > 1) {
+    throw new IllegalStateException("Does not support multiple UHC now");
+  }
   colIO=new RowKeyColumnIO(cubeSeg.getDimensionEncodingMap());
   for (  TblColRef column : cuboid.getColumns()) {
+    if (UHCColumns.contains(column)) {
+      UHCOffset=bodyLength;
+      UHCLength=colIO.getColumnLength(column);
+    }
     bodyLength+=colIO.getColumnLength(column);
   }
 }
