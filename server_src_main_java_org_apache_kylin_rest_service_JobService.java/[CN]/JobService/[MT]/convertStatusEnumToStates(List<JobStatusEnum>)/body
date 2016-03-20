@@ -1,0 +1,13 @@
+{
+  Set<ExecutableState> states;
+  if (statusList == null || statusList.isEmpty()) {
+    states=EnumSet.allOf(ExecutableState.class);
+  }
+ else {
+    states=Sets.newHashSet();
+    for (    JobStatusEnum status : statusList) {
+      states.add(parseToExecutableState(status));
+    }
+  }
+  return states;
+}

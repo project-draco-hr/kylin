@@ -17,7 +17,7 @@
       return (CubingJob)executable;
     }
   }
-).filter(new Predicate<CubingJob>(){
+).filter(Predicates.and(new Predicate<CubingJob>(){
     @Override public boolean apply(    CubingJob executable){
       if (null == projectName || null == getProjectManager().getProject(projectName)) {
         return true;
@@ -28,11 +28,11 @@
       }
     }
   }
-).filter(new Predicate<CubingJob>(){
+,new Predicate<CubingJob>(){
     @Override public boolean apply(    CubingJob executable){
       return statusList.contains(allOutputs.get(executable.getId()).getState());
     }
   }
-));
+)));
   return results;
 }
