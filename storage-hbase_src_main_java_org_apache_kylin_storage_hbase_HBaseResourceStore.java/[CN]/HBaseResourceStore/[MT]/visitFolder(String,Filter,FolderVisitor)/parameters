@@ -1,0 +1,3 @@
+String folderPath
+Filter filter
+FolderVisitor visitor

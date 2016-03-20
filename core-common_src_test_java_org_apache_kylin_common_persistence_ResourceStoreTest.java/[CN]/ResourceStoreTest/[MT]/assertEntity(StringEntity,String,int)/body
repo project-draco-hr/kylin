@@ -1,0 +1,4 @@
+{
+  assertEquals(data,entity.str);
+  assertEquals(ts,entity.lastModified);
+}

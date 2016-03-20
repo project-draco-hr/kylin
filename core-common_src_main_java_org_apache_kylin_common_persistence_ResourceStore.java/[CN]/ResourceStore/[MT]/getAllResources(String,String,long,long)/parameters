@@ -1,4 +1,0 @@
-String rangeStart
-String rangeEnd
-long timeStartInMillis
-long timeEndInMillis

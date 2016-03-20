@@ -1,12 +1,7 @@
 {
   final ResourceStore store=ResourceStore.getStore(getTestConfig());
   final NavigableSet<String> cubePath=store.listResources(ResourceStore.CUBE_RESOURCE_ROOT);
-  final Iterator<String> iterator=cubePath.iterator();
-  final String firstPath=iterator.next();
-  final String secondPath=iterator.next();
-  final String lastPath=cubePath.last();
   assertTrue(cubePath.size() > 1);
-  final List<CubeInstance> cubes=store.getAllResources(firstPath,lastPath,CubeInstance.class,CubeManager.CUBE_SERIALIZER);
+  final List<CubeInstance> cubes=store.getAllResources(ResourceStore.CUBE_RESOURCE_ROOT,CubeInstance.class,CubeManager.CUBE_SERIALIZER);
   assertEquals(cubePath.size(),cubes.size());
-  assertEquals(cubePath.size() - 1,store.getAllResources(secondPath,lastPath,CubeInstance.class,CubeManager.CUBE_SERIALIZER).size());
 }

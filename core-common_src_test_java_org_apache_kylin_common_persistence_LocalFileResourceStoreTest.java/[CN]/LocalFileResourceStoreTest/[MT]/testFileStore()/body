@@ -1,3 +1,4 @@
 {
-  testAStore(ResourceStore.getStore(KylinConfig.getInstanceFromEnv()));
+  ResourceStore store=ResourceStore.getStore(KylinConfig.getInstanceFromEnv());
+  ResourceStoreTest.testAStore(store);
 }

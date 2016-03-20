@@ -1,12 +1,6 @@
 {
   try {
-    final NavigableSet<String> jobIds=store.listResources(ResourceStore.EXECUTE_RESOURCE_ROOT);
-    if (jobIds == null || jobIds.isEmpty()) {
-      return Collections.emptyList();
-    }
-    String rangeStart=jobIds.first();
-    String rangeEnd=jobIds.last();
-    return store.getAllResources(rangeStart,rangeEnd,ExecutablePO.class,JOB_SERIALIZER);
+    return store.getAllResources(ResourceStore.EXECUTE_RESOURCE_ROOT,ExecutablePO.class,JOB_SERIALIZER);
   }
  catch (  IOException e) {
     logger.error("error get all Jobs:",e);

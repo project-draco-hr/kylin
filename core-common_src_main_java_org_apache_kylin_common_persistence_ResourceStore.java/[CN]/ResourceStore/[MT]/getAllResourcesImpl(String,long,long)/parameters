@@ -1,2 +1,3 @@
+String folderPath
 long timeStart
 long timeEndExclusive

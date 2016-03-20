@@ -1,4 +1,4 @@
 {
-  resPath=norm(resPath);
-  return listResourcesImpl(resPath);
+  String path=norm(folderPath);
+  return listResourcesImpl(path);
 }

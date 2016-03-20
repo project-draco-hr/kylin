@@ -1,0 +1,20 @@
+{
+  final List<RawResource> allResources=getAllResourcesImpl(folderPath,timeStart,timeEndExclusive);
+  if (allResources == null || allResources.isEmpty()) {
+    return Collections.emptyList();
+  }
+  List<T> result=Lists.newArrayListWithCapacity(allResources.size());
+  try {
+    for (    RawResource rawResource : allResources) {
+      final T element=serializer.deserialize(new DataInputStream(rawResource.inputStream));
+      element.setLastModified(rawResource.timestamp);
+      result.add(element);
+    }
+    return result;
+  }
+  finally {
+    for (    RawResource rawResource : allResources) {
+      if (rawResource != null)       IOUtils.closeQuietly(rawResource.inputStream);
+    }
+  }
+}

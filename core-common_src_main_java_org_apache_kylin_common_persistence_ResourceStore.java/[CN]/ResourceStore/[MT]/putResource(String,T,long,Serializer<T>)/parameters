@@ -1,0 +1,4 @@
+String resPath
+T obj
+long newTS
+Serializer<T> serializer

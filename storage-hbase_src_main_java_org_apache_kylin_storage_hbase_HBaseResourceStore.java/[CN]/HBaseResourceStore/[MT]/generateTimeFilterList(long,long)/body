@@ -1,11 +1,11 @@
 {
   FilterList filterList=new FilterList(FilterList.Operator.MUST_PASS_ALL);
-  if (timeStartInMillis != -1L) {
-    SingleColumnValueFilter timeStartFilter=new SingleColumnValueFilter(B_FAMILY,B_COLUMN_TS,CompareFilter.CompareOp.GREATER,Bytes.toBytes(timeStartInMillis));
+  if (timeStart != Long.MIN_VALUE) {
+    SingleColumnValueFilter timeStartFilter=new SingleColumnValueFilter(B_FAMILY,B_COLUMN_TS,CompareFilter.CompareOp.GREATER_OR_EQUAL,Bytes.toBytes(timeStart));
     filterList.addFilter(timeStartFilter);
   }
-  if (timeEndInMillis != -1L) {
-    SingleColumnValueFilter timeEndFilter=new SingleColumnValueFilter(B_FAMILY,B_COLUMN_TS,CompareFilter.CompareOp.LESS_OR_EQUAL,Bytes.toBytes(timeEndInMillis));
+  if (timeEndExclusive != Long.MAX_VALUE) {
+    SingleColumnValueFilter timeEndFilter=new SingleColumnValueFilter(B_FAMILY,B_COLUMN_TS,CompareFilter.CompareOp.LESS,Bytes.toBytes(timeEndExclusive));
     filterList.addFilter(timeEndFilter);
   }
   return filterList.getFilters().size() == 0 ? null : filterList;

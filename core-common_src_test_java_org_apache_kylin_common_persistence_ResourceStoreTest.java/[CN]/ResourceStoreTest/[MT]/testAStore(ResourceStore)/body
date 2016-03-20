@@ -1,0 +1,4 @@
+{
+  testBasics(store);
+  testGetAllResources(store);
+}

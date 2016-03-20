@@ -1,0 +1,5 @@
+String folderPath
+long timeStart
+long timeEndExclusive
+Class<T> clazz
+Serializer<T> serializer

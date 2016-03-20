@@ -1,2 +1,10 @@
 {
+  final TreeSet<String> result=new TreeSet<>();
+  visitFolder(folderPath,new KeyOnlyFilter(),new FolderVisitor(){
+    @Override public void visit(    String childPath,    String fullPath,    Result hbaseResult){
+      result.add(childPath);
+    }
+  }
+);
+  return result.isEmpty() ? null : result;
 }

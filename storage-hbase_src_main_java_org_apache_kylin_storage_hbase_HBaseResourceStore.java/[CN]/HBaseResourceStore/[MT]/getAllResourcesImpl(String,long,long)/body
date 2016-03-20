@@ -1,0 +1,19 @@
+{
+  FilterList filter=generateTimeFilterList(timeStart,timeEndExclusive);
+  final List<RawResource> result=Lists.newArrayList();
+  try {
+    visitFolder(folderPath,filter,new FolderVisitor(){
+      @Override public void visit(      String childPath,      String fullPath,      Result hbaseResult) throws IOException {
+        if (childPath.equals(fullPath))         result.add(new RawResource(getInputStream(childPath,hbaseResult),getTimestamp(hbaseResult)));
+      }
+    }
+);
+  }
+ catch (  IOException e) {
+    for (    RawResource rawResource : result) {
+      IOUtils.closeQuietly(rawResource.inputStream);
+    }
+    throw e;
+  }
+  return result;
+}

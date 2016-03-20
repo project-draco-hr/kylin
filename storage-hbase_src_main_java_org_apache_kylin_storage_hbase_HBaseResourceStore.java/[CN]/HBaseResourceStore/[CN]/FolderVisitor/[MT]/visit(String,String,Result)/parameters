@@ -1,0 +1,3 @@
+String childPath
+String fullPath
+Result hbaseResult

@@ -1,0 +1,3 @@
+{
+  return getAllResources(folderPath,Long.MIN_VALUE,Long.MAX_VALUE,clazz,serializer);
+}

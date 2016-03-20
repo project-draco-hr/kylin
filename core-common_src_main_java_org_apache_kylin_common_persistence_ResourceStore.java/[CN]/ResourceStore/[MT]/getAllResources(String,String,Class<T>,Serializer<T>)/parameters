@@ -1,4 +1,0 @@
-String rangeStart
-String rangeEnd
-Class<T> clazz
-Serializer<T> serializer

@@ -1,0 +1,21 @@
+{
+  NavigableSet<String> resources=listResources(folderPath);
+  if (resources == null)   return Collections.emptyList();
+  List<RawResource> result=Lists.newArrayListWithCapacity(resources.size());
+  try {
+    for (    String res : resources) {
+      long ts=getResourceTimestampImpl(res);
+      if (timeStart <= ts && ts < timeEndExclusive) {
+        RawResource resource=getResourceImpl(res);
+        if (resource != null)         result.add(resource);
+      }
+    }
+  }
+ catch (  IOException ex) {
+    for (    RawResource rawResource : result) {
+      IOUtils.closeQuietly(rawResource.inputStream);
+    }
+    throw ex;
+  }
+  return result;
+}
