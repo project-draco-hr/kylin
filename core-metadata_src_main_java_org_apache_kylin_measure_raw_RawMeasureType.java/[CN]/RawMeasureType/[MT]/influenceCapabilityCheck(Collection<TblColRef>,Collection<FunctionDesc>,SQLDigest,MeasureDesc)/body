@@ -1,0 +1,14 @@
+{
+  if (!digest.isRawQuery())   return null;
+  TblColRef rawColumn=getRawColumn(measureDesc.getFunction());
+  if (!digest.allColumns.isEmpty() && !digest.allColumns.contains(rawColumn)) {
+    return null;
+  }
+  unmatchedAggregations.remove(measureDesc.getFunction());
+  return new CapabilityResult.CapabilityInfluence(){
+    @Override public double suggestCostMultiplier(){
+      return 0.9;
+    }
+  }
+;
+}

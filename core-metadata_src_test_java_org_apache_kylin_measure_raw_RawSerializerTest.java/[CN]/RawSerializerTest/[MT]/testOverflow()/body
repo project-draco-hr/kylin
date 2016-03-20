@@ -1,0 +1,4 @@
+{
+  List<ByteArray> input=getValueList(512 * 1024);
+  doSAndD(input);
+}

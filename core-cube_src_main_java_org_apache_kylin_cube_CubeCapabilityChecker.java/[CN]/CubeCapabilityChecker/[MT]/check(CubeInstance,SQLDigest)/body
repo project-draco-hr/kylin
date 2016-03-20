@@ -10,9 +10,7 @@
   Collection<FunctionDesc> aggrFunctions=digest.aggregations;
   Collection<TblColRef> unmatchedDimensions=unmatchedDimensions(dimensionColumns,cube);
   Collection<FunctionDesc> unmatchedAggregations=unmatchedAggregations(aggrFunctions,cube);
-  if (!unmatchedDimensions.isEmpty() || !unmatchedAggregations.isEmpty()) {
-    tryCustomMeasureTypes(unmatchedDimensions,unmatchedAggregations,digest,cube,result);
-  }
+  tryCustomMeasureTypes(unmatchedDimensions,unmatchedAggregations,digest,cube,result);
   if (!unmatchedAggregations.isEmpty()) {
     tryDimensionAsMeasures(unmatchedAggregations,digest,cube,result);
   }

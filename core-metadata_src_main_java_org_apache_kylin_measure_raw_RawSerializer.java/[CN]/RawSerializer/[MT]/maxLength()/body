@@ -1,0 +1,3 @@
+{
+  return RAW_BUFFER_SIZE;
+}

@@ -1,0 +1,26 @@
+{
+  final TblColRef literalCol=getRawColumn(function);
+  final Dictionary<String> rawColDict=dictionaryMap.get(literalCol);
+  final int literalTupleIdx=tupleInfo.hasColumn(literalCol) ? tupleInfo.getColumnIndex(literalCol) : -1;
+  return new IAdvMeasureFiller(){
+    private List<ByteArray> rawList;
+    private Iterator<ByteArray> rawIterator;
+    private int expectRow=0;
+    @SuppressWarnings("unchecked") @Override public void reload(    Object measureValue){
+      this.rawList=(List<ByteArray>)measureValue;
+      this.rawIterator=rawList.iterator();
+      this.expectRow=0;
+    }
+    @Override public int getNumOfRows(){
+      return rawList.size();
+    }
+    @Override public void fillTuple(    Tuple tuple,    int row){
+      if (expectRow++ != row)       throw new IllegalStateException();
+      ByteArray raw=rawIterator.next();
+      int key=BytesUtil.readUnsigned(raw.array(),raw.offset(),raw.length());
+      String colValue=rawColDict.getValueFromId(key);
+      tuple.setDimensionValue(literalTupleIdx,colValue);
+    }
+  }
+;
+}

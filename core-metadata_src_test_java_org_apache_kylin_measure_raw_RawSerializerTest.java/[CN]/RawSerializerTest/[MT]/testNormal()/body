@@ -1,0 +1,5 @@
+{
+  List<ByteArray> input=getValueList(1024);
+  List<ByteArray> output=doSAndD(input);
+  assertEquals(input,output);
+}

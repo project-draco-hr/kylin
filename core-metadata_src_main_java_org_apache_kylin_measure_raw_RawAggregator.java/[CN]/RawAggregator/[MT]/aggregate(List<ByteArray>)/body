@@ -1,0 +1,8 @@
+{
+  if (value != null) {
+    if (list == null) {
+      list=new ArrayList<>(value.size());
+    }
+    list.addAll(value);
+  }
+}

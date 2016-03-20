@@ -1,0 +1,9 @@
+{
+  int bytes=0;
+  if (list != null) {
+    for (    ByteArray array : list) {
+      bytes+=array.length() + 1;
+    }
+  }
+  return bytes;
+}

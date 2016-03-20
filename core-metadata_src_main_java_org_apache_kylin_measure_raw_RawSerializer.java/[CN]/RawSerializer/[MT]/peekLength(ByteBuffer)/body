@@ -1,0 +1,15 @@
+{
+  int mark=in.position();
+  int len=0;
+  if (in.hasRemaining()) {
+    int size=BytesUtil.readVInt(in);
+    len=in.position() - mark;
+    for (int i=0; i < size; i++) {
+      int length=BytesUtil.peekByteArrayLength(in);
+      in.position(in.position() + length);
+      len+=length;
+    }
+  }
+  in.position(mark);
+  return len;
+}

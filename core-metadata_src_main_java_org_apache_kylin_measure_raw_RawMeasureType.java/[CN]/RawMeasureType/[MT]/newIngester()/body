@@ -1,0 +1,41 @@
+{
+  return new MeasureIngester<List<ByteArray>>(){
+    @Override public List<ByteArray> valueOf(    String[] values,    MeasureDesc measureDesc,    Map<TblColRef,Dictionary<String>> dictionaryMap){
+      if (values.length != 1)       throw new IllegalArgumentException();
+      String literal=values[0];
+      TblColRef literalCol=getRawColumn(measureDesc.getFunction());
+      Dictionary<String> dictionary=dictionaryMap.get(literalCol);
+      int keyEncodedValue=dictionary.getIdFromValue(literal);
+      ByteArray key=new ByteArray(dictionary.getSizeOfId());
+      BytesUtil.writeUnsigned(keyEncodedValue,key.array(),key.offset(),dictionary.getSizeOfId());
+      List<ByteArray> valueList=new ArrayList<ByteArray>(1);
+      valueList.add(key);
+      return valueList;
+    }
+    @Override public List<ByteArray> reEncodeDictionary(    List<ByteArray> value,    MeasureDesc measureDesc,    Map<TblColRef,Dictionary<String>> oldDicts,    Map<TblColRef,Dictionary<String>> newDicts){
+      TblColRef colRef=getRawColumn(measureDesc.getFunction());
+      Dictionary<String> sourceDict=oldDicts.get(colRef);
+      Dictionary<String> mergedDict=newDicts.get(colRef);
+      int valueSize=value.size();
+      byte[] newIdBuf=new byte[valueSize * mergedDict.getSizeOfId()];
+      byte[] literal=new byte[sourceDict.getSizeOfValue()];
+      int bufOffset=0;
+      for (      ByteArray c : value) {
+        int oldId=BytesUtil.readUnsigned(c.array(),c.offset(),c.length());
+        int newId;
+        int size=sourceDict.getValueBytesFromId(oldId,literal,0);
+        if (size < 0) {
+          newId=mergedDict.nullId();
+        }
+ else {
+          newId=mergedDict.getIdFromValueBytes(literal,0,size);
+        }
+        BytesUtil.writeUnsigned(newId,newIdBuf,bufOffset,mergedDict.getSizeOfId());
+        c.set(newIdBuf,bufOffset,mergedDict.getSizeOfId());
+        bufOffset+=mergedDict.getSizeOfId();
+      }
+      return value;
+    }
+  }
+;
+}

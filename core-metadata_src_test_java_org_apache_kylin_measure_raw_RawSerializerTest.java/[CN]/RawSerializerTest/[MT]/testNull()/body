@@ -1,0 +1,7 @@
+{
+  List<ByteArray> output=doSAndD(null);
+  assertEquals(output.size(),0);
+  List<ByteArray> input=new ArrayList<ByteArray>();
+  output=doSAndD(input);
+  assertEquals(input,output);
+}

@@ -1,0 +1,17 @@
+{
+  List<ByteArray> values=current();
+  values.clear();
+  int size=BytesUtil.readVInt(in);
+  if (size >= 0) {
+    for (int i=0; i < size; i++) {
+      ByteArray ba=new ByteArray(BytesUtil.readByteArray(in));
+      if (ba.length() != 0) {
+        values.add(ba);
+      }
+    }
+  }
+ else {
+    throw new RuntimeException("Read error data size:" + size);
+  }
+  return values;
+}

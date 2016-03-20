@@ -1,0 +1,7 @@
+{
+  ByteBuffer out=ByteBuffer.allocate(rawSerializer.maxLength());
+  out.mark();
+  rawSerializer.serialize(input,out);
+  out.reset();
+  return rawSerializer.deserialize(out);
+}

@@ -1,0 +1,4 @@
+{
+  agg.aggregate(null);
+  assertEquals(agg.getState(),null);
+}

@@ -1,0 +1,4 @@
+{
+  if (FUNC_RAW.equals(funcName) == false)   throw new IllegalArgumentException();
+  if (DATATYPE_RAW.equals(dataType.getName()) == false)   throw new IllegalArgumentException();
+}

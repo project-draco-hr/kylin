@@ -1,0 +1,12 @@
+{
+  if (size == -1) {
+    return null;
+  }
+  List<ByteArray> valueList=new ArrayList<ByteArray>(size);
+  for (Integer i=0; i < size; i++) {
+    ByteArray key=new ByteArray(1);
+    BytesUtil.writeUnsigned(i,key.array(),0,key.length());
+    valueList.add(key);
+  }
+  return valueList;
+}

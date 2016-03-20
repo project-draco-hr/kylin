@@ -1,0 +1,4 @@
+Collection<TblColRef> unmatchedDimensions
+Collection<FunctionDesc> unmatchedAggregations
+SQLDigest digest
+MeasureDesc measureDesc

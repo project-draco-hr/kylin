@@ -9,6 +9,6 @@
     printInfo("Query Result from Kylin - " + queryName + "  ("+ queryFolder+ ")");
     IDatabaseConnection kylinConn=new DatabaseConnection(cubeConnection);
     ITable kylinTable=executeQuery(kylinConn,queryName,sql,false);
-    Assert.assertEquals(expectRowCount,kylinTable.getRowCount());
+    Assert.assertEquals(queryName,expectRowCount,kylinTable.getRowCount());
   }
 }

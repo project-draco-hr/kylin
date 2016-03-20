@@ -1,0 +1,3 @@
+{
+  this.execAndCompQuery("src/test/resources/query/sql_raw",null,true);
+}

@@ -1,0 +1,3 @@
+FunctionDesc function
+TupleInfo tupleInfo
+Map<TblColRef,Dictionary<String>> dictionaryMap
