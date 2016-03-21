@@ -1,7 +1,7 @@
 {
   Object tupleValue=null;
   for (  TupleFilter filter : this.children) {
-    if (isConstant(filter) == false) {
+    if (!isConstant(filter)) {
       filter.evaluate(tuple,cs);
       tupleValue=filter.getValues().iterator().next();
     }

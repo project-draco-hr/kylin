@@ -1,0 +1,4 @@
+{
+  ExternalFilterDesc result=extFilterMap.get(filterTableName);
+  return result;
+}

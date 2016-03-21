@@ -1,0 +1,10 @@
+{
+  ResourceStore store=getStore();
+  logger.debug("Reloading ExternalFilter from folder " + store.getReadableResourcePath(ResourceStore.EXTERNAL_FILTER_RESOURCE_ROOT));
+  extFilterMap.clear();
+  List<String> paths=store.collectResourceRecursively(ResourceStore.EXTERNAL_FILTER_RESOURCE_ROOT,MetadataConstants.FILE_SURFIX);
+  for (  String path : paths) {
+    reloadExternalFilterAt(path);
+  }
+  logger.debug("Loaded " + extFilterMap.size() + " SourceTable(s)");
+}

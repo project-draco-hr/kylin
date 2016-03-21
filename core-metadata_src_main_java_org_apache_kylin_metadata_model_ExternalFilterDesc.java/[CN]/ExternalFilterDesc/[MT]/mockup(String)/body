@@ -1,0 +1,5 @@
+{
+  ExternalFilterDesc mockup=new ExternalFilterDesc();
+  mockup.setName(tableName);
+  return mockup;
+}

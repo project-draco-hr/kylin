@@ -1,0 +1,25 @@
+{
+  if (filterTableType == Functions.FilterTableType.HDFS) {
+    logger.info("Start to load HDFS filter table from " + filterResourceIdentifier);
+    Stopwatch stopwatch=new Stopwatch().start();
+    FileSystem fileSystem;
+    try {
+      fileSystem=FileSystem.get(HBaseConfiguration.create());
+      InputStream inputStream=fileSystem.open(new Path(filterResourceIdentifier));
+      List<String> lines=IOUtils.readLines(inputStream);
+      logger.info("Load HDFS finished after " + stopwatch.elapsedMillis() + " millis");
+      for (      String line : lines) {
+        ByteArray byteArray=ByteArray.allocate(encoding.getLengthOfEncoding());
+        encoding.encode(line.getBytes(),line.getBytes().length,byteArray.array(),0);
+        ret.add(byteArray);
+      }
+      logger.info("Mass In values constructed after " + stopwatch.elapsedMillis() + " millis, containing "+ ret.size()+ " entries");
+    }
+ catch (    IOException e) {
+      throw new RuntimeException("error when loading the mass in values",e);
+    }
+  }
+ else {
+    throw new RuntimeException("HBASE_TABLE FilterTableType Not supported yet");
+  }
+}

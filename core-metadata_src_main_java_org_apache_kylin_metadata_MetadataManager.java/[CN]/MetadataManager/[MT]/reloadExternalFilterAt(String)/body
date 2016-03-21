@@ -1,0 +1,10 @@
+{
+  ResourceStore store=getStore();
+  ExternalFilterDesc t=store.getResource(path,ExternalFilterDesc.class,EXTERNAL_FILTER_DESC_SERIALIZER);
+  if (t == null) {
+    return null;
+  }
+  t.init();
+  extFilterMap.putLocal(t.getName(),t);
+  return t;
+}

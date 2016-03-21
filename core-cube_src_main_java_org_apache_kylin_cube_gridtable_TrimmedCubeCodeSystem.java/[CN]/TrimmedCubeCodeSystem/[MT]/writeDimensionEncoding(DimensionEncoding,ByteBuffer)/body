@@ -1,0 +1,20 @@
+{
+  try {
+    if (encoding == null) {
+      BytesUtil.writeVInt(1,out);
+    }
+ else {
+      BytesUtil.writeVInt(0,out);
+      if (encoding instanceof DictionaryDimEnc) {
+        encoding=new TrimmedDimEnc(encoding.getLengthOfEncoding());
+      }
+      ByteArrayOutputStream baos=new ByteArrayOutputStream();
+      ObjectOutputStream oos=new ObjectOutputStream(baos);
+      oos.writeObject(encoding);
+      BytesUtil.writeByteArray(baos.toByteArray(),out);
+    }
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

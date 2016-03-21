@@ -1,0 +1,3 @@
+{
+  compare("src/test/resources/query/sql_massin",null,true);
+}

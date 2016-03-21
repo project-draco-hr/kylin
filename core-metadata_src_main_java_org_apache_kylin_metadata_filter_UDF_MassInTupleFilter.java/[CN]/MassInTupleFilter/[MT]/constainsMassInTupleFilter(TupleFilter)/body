@@ -1,0 +1,10 @@
+{
+  if (filter == null)   return false;
+  if (filter instanceof MassInTupleFilter) {
+    return true;
+  }
+  for (  TupleFilter child : filter.getChildren()) {
+    if (constainsMassInTupleFilter(child))     return true;
+  }
+  return false;
+}

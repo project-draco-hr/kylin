@@ -7,8 +7,14 @@
     this.serviceStartTime=System.currentTimeMillis();
     region=env.getRegion();
     region.startRegionOperation();
-    GTScanRequest scanReq=GTScanRequest.serializer.deserialize(ByteBuffer.wrap(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getGtScanRequest())));
-    RawScan hbaseRawScan=RawScan.serializer.deserialize(ByteBuffer.wrap(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getHbaseRawScan())));
+    final GTScanRequest scanReq=GTScanRequest.serializer.deserialize(ByteBuffer.wrap(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getGtScanRequest())));
+    final RawScan hbaseRawScan=RawScan.serializer.deserialize(ByteBuffer.wrap(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getHbaseRawScan())));
+    MassInTupleFilter.VALUE_PROVIDER_FACTORY=new MassInValueProviderFactoryImpl(new MassInValueProviderFactoryImpl.DimEncAware(){
+      @Override public DimensionEncoding getDimEnc(      TblColRef col){
+        return scanReq.getInfo().getCodeSystem().getDimEnc(col.getColumnDesc().getZeroBasedIndex());
+      }
+    }
+);
     List<List<Integer>> hbaseColumnsToGT=Lists.newArrayList();
     for (    IntList intList : request.getHbaseColumnsToGTList()) {
       hbaseColumnsToGT.add(intList.getIntsList());

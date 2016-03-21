@@ -1,0 +1,10 @@
+{
+  Preconditions.checkNotNull(tuple);
+  Preconditions.checkNotNull(column);
+  Object colValue=tuple.getValue(column);
+  if (valueProvider == null) {
+    valueProvider=VALUE_PROVIDER_FACTORY.getProvider(filterTableType,filterTableResourceIdentifier,column);
+  }
+  boolean ret=valueProvider.getMassInValues().contains(colValue);
+  return ret;
+}

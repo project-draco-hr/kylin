@@ -29,7 +29,13 @@
       out.write("            \"factory\": \"org.apache.kylin.query.schema.OLAPSchemaFactory\",\n");
       out.write("            \"operand\": {\n");
       out.write("                \"" + SCHEMA_PROJECT + "\": \""+ project+ "\"\n");
-      out.write("            }\n");
+      out.write("            },\n");
+      out.write("            \"functions\": [\n");
+      out.write("               {\n");
+      out.write("                   name: 'MASSIN',\n");
+      out.write("                   className: 'org.apache.kylin.query.udf.MassInUDF'\n");
+      out.write("               }\n");
+      out.write("              ]\n");
       out.write("        }\n");
       if (++counter != schemaCounts.size()) {
         out.write(",\n");
@@ -39,6 +45,7 @@
     out.write("}\n");
     out.close();
     tmp.deleteOnExit();
+    logger.info("Schema json:" + StringUtils.join(FileUtils.readLines(tmp),"\n"));
     return tmp;
   }
  catch (  IOException e) {

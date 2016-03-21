@@ -1,0 +1,15 @@
+{
+  if (name == null) {
+    throw new IllegalStateException("Function name cannot be null");
+  }
+  name=name.toUpperCase();
+  if (SUPPORTED_UDF.containsKey(name)) {
+    try {
+      return (TupleFilter)SUPPORTED_UDF.get(name).getConstructor().newInstance();
+    }
+ catch (    InstantiationException|IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
+      throw new RuntimeException("Failed to on constructing FunctionTupleFilter for " + name);
+    }
+  }
+  return new BuildInFunctionTupleFilter(name);
+}

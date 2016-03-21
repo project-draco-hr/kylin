@@ -1,9 +1,11 @@
 {
   this.config=config;
-  this.srcTableMap=new CaseInsensitiveStringCache<TableDesc>(config,Broadcaster.TYPE.TABLE);
-  this.srcTableExdMap=new CaseInsensitiveStringCache<Map<String,String>>(config,Broadcaster.TYPE.TABLE);
-  this.dataModelDescMap=new CaseInsensitiveStringCache<DataModelDesc>(config,Broadcaster.TYPE.DATA_MODEL);
+  this.srcTableMap=new CaseInsensitiveStringCache<>(config,Broadcaster.TYPE.TABLE);
+  this.srcTableExdMap=new CaseInsensitiveStringCache<>(config,Broadcaster.TYPE.TABLE);
+  this.dataModelDescMap=new CaseInsensitiveStringCache<>(config,Broadcaster.TYPE.DATA_MODEL);
+  this.extFilterMap=new CaseInsensitiveStringCache<>(config,Broadcaster.TYPE.EXTERNAL_FILTER);
   reloadAllSourceTable();
   reloadAllSourceTableExd();
   reloadAllDataModel();
+  reloadAllExternalFilter();
 }

@@ -1,0 +1,19 @@
+{
+  ITKylinQueryTest.clean();
+  ITKylinQueryTest.joinType="inner";
+  ITKylinQueryTest.setupAll();
+  Configuration hconf=HadoopUtil.getCurrentConfiguration();
+  fileSystem=FileSystem.get(hconf);
+  int sellerCount=200;
+  Random r=new Random();
+  vipSellers=Sets.newHashSet();
+  for (int i=0; i < sellerCount; i++) {
+    vipSellers.add(10000000L + r.nextInt(1500));
+  }
+  Path path=new Path("/tmp/vip_customers.txt");
+  fileSystem.delete(path,false);
+  FSDataOutputStream outputStream=fileSystem.create(path);
+  org.apache.commons.io.IOUtils.write(StringUtils.join(vipSellers,"\n"),outputStream);
+  outputStream.close();
+  System.out.println("The filter is " + vipSellers);
+}

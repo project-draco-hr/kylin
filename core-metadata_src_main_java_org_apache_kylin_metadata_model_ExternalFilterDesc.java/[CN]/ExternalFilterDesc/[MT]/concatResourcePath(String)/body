@@ -1,0 +1,3 @@
+{
+  return ResourceStore.TABLE_EXD_RESOURCE_ROOT + "/" + name+ ".json";
+}

@@ -7,7 +7,7 @@
         TupleFilter.collectColumns(filter,unevaluatableColumnCollector);
         return ConstantTupleFilter.TRUE;
       }
-      if (filter.isEvaluable() == false) {
+      if (!filter.isEvaluable()) {
         TupleFilter.collectColumns(filter,unevaluatableColumnCollector);
         return ConstantTupleFilter.TRUE;
       }

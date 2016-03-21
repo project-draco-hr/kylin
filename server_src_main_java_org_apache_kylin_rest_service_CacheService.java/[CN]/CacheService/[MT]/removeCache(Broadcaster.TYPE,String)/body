@@ -19,6 +19,8 @@ getIIDescManager().removeIIDescLocal(cacheKey);
 break;
 case TABLE:
 throw new UnsupportedOperationException(log);
+case EXTERNAL_FILTER:
+throw new UnsupportedOperationException(log);
 case DATA_MODEL:
 getMetadataManager().removeModelCache(cacheKey);
 break;

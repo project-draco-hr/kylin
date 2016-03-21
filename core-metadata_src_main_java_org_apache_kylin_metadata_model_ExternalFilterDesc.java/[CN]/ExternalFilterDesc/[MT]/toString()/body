@@ -1,0 +1,3 @@
+{
+  return "ExternalFilterDesc [ name=" + name + " filter table resource identifier "+ this.filterResourceIdentifier+ "]";
+}

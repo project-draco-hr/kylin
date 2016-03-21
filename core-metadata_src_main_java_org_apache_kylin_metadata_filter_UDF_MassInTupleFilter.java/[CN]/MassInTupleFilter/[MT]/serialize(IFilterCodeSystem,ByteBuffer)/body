@@ -1,0 +1,5 @@
+{
+  BytesUtil.writeUTFString(filterTableName,buffer);
+  BytesUtil.writeUTFString(filterTableResourceIdentifier,buffer);
+  BytesUtil.writeUTFString(filterTableType.toString(),buffer);
+}

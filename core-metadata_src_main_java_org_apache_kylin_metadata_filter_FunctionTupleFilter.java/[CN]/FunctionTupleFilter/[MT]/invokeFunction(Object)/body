@@ -1,5 +1,0 @@
-{
-  if (columnContainerFilter instanceof ColumnTupleFilter)   methodParams.set(colPosition,(Serializable)input);
- else   if (columnContainerFilter instanceof FunctionTupleFilter)   methodParams.set(colPosition,(Serializable)((FunctionTupleFilter)columnContainerFilter).invokeFunction(input));
-  return method.invoke(null,(Object[])(methodParams.toArray()));
-}

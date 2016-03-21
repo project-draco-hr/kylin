@@ -1,0 +1,16 @@
+{
+  try {
+    int isNull=BytesUtil.readVInt(in);
+    if (isNull == 1) {
+      return null;
+    }
+    byte[] bytes=BytesUtil.readByteArray(in);
+    ByteArrayInputStream bais=new ByteArrayInputStream(bytes);
+    ObjectInputStream ois=new ObjectInputStream(bais);
+    DimensionEncoding ret=(DimensionEncoding)ois.readObject();
+    return ret;
+  }
+ catch (  IOException|ClassNotFoundException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -1,6 +1,6 @@
 {
   if (filter == null)   return null;
-  TupleFilterFunctionTransformer translator=new TupleFilterFunctionTransformer(dimEncMap);
+  BuildInFunctionTransformer translator=new BuildInFunctionTransformer(dimEncMap);
   filter=translator.transform(filter);
   if (!filter.isEvaluable()) {
     TupleFilter.collectColumns(filter,inevaluableColumns);

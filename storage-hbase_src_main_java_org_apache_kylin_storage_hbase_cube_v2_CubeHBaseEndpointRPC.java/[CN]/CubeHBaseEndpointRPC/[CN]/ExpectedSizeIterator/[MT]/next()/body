@@ -4,7 +4,13 @@
   }
   try {
     current++;
-    return queue.poll(timeout,TimeUnit.MILLISECONDS);
+    byte[] ret=queue.poll(timeout,TimeUnit.MILLISECONDS);
+    if (ret == null) {
+      throw new RuntimeException("Timeout visiting cube!");
+    }
+ else {
+      return ret;
+    }
   }
  catch (  InterruptedException e) {
     throw new RuntimeException("error when waiting queue",e);

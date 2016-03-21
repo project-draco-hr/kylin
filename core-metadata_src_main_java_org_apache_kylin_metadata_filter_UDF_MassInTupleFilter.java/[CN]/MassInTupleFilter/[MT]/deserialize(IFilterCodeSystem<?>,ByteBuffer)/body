@@ -1,0 +1,5 @@
+{
+  filterTableName=BytesUtil.readUTFString(buffer);
+  filterTableResourceIdentifier=BytesUtil.readUTFString(buffer);
+  filterTableType=Functions.FilterTableType.valueOf(BytesUtil.readUTFString(buffer));
+}
