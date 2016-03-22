@@ -1,0 +1,6 @@
+{
+  if (factoryMap == null) {
+    initFactoryMap();
+  }
+  return DictionaryDimEnc.ENCODING_NAME.equals(encodingName) || factoryMap.containsKey(encodingName);
+}

@@ -1,0 +1,12 @@
+{
+  if (factoryMap == null) {
+    Map<String,DimensionEncodingFactory> map=Maps.newConcurrentMap();
+    map.put(FixedLenDimEnc.ENCODING_NAME,FixedLenDimEnc.getFactory());
+    String[] clsNames=KylinConfig.getInstanceFromEnv().getCubeDimensionCustomEncodingFactories();
+    for (    String clsName : clsNames) {
+      DimensionEncodingFactory factory=(DimensionEncodingFactory)ClassUtil.newInstance(clsName);
+      map.put(factory.getSupportedEncodingName(),factory);
+    }
+    factoryMap=map;
+  }
+}
