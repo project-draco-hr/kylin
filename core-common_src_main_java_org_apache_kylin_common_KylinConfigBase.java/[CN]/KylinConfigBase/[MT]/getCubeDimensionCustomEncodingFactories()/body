@@ -1,0 +1,3 @@
+{
+  return getOptionalStringArray("kylin.cube.dimension.customEncodingFactories",new String[0]);
+}

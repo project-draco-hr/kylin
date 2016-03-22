@@ -1,8 +1,0 @@
-{
-  if (this.colEncoding.type == ColEncodingType.FIXED_LEN) {
-    return (Integer)this.colEncoding.param;
-  }
- else {
-    return 0;
-  }
-}
