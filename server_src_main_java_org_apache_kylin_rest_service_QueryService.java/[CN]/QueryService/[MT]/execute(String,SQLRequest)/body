@@ -2,7 +2,6 @@
   Connection conn=null;
   Statement stat=null;
   ResultSet resultSet=null;
-  long startTime=System.currentTimeMillis();
   List<List<String>> results=new LinkedList<List<String>>();
   List<SelectedColumnMeta> columnMetas=new LinkedList<SelectedColumnMeta>();
   try {
@@ -37,6 +36,7 @@
   }
   boolean isPartialResult=false;
   String cube="";
+  StringBuilder sb=new StringBuilder("Scan count for each storageContext: ");
   long totalScanCount=0;
   if (OLAPContext.getThreadLocalContexts() != null) {
     for (    OLAPContext ctx : OLAPContext.getThreadLocalContexts()) {
@@ -44,11 +44,12 @@
         isPartialResult|=ctx.storageContext.isPartialResultReturned();
         cube=ctx.realization.getName();
         totalScanCount+=ctx.storageContext.getTotalScanCount();
+        sb.append(ctx.storageContext.getTotalScanCount() + ",");
       }
     }
   }
+  logger.info(sb.toString());
   SQLResponse response=new SQLResponse(columnMetas,results,cube,0,false,null,isPartialResult);
   response.setTotalScanCount(totalScanCount);
-  response.setDuration(System.currentTimeMillis() - startTime);
   return response;
 }

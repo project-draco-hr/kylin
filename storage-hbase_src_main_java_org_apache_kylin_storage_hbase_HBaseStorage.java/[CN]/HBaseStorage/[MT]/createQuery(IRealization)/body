@@ -1,20 +1,13 @@
 {
-  boolean queryCacheGloballyEnabled=KylinConfig.getInstanceFromEnv().isQueryCacheEnabled();
-  boolean queryCacheQueryLevelEnabled=!BackdoorToggles.getDisableCache();
   if (realization.getType() == RealizationType.INVERTED_INDEX) {
-    ICachableStorageQuery ret;
+    IStorageQuery ret;
     try {
-      ret=(ICachableStorageQuery)Class.forName(defaultIIStorageQuery).getConstructor(IIInstance.class).newInstance((IIInstance)realization);
+      ret=(IStorageQuery)Class.forName(defaultIIStorageQuery).getConstructor(IIInstance.class).newInstance((IIInstance)realization);
     }
  catch (    Exception e) {
       throw new RuntimeException("Failed to initialize storage query for " + defaultIIStorageQuery,e);
     }
-    if (queryCacheGloballyEnabled && queryCacheQueryLevelEnabled) {
-      return wrapWithCache(ret,realization);
-    }
- else {
-      return ret;
-    }
+    return ret;
   }
  else   if (realization.getType() == RealizationType.CUBE) {
     CubeInstance cubeInstance=(CubeInstance)realization;
@@ -31,19 +24,14 @@
  else {
       cubeStorageQuery=v2CubeStorageQuery;
     }
-    ICachableStorageQuery ret;
+    IStorageQuery ret;
     try {
-      ret=(ICachableStorageQuery)Class.forName(cubeStorageQuery).getConstructor(CubeInstance.class).newInstance((CubeInstance)realization);
+      ret=(IStorageQuery)Class.forName(cubeStorageQuery).getConstructor(CubeInstance.class).newInstance((CubeInstance)realization);
     }
  catch (    Exception e) {
       throw new RuntimeException("Failed to initialize storage query for " + cubeStorageQuery,e);
     }
-    if (queryCacheGloballyEnabled && queryCacheQueryLevelEnabled) {
-      return wrapWithCache(ret,realization);
-    }
- else {
-      return ret;
-    }
+    return ret;
   }
  else {
     throw new IllegalArgumentException("Unknown realization type " + realization.getType());

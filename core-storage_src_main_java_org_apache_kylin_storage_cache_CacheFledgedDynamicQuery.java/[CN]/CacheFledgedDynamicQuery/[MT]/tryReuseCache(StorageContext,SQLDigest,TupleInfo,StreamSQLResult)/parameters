@@ -1,4 +1,0 @@
-StorageContext context
-SQLDigest sqlDigest
-TupleInfo returnTupleInfo
-StreamSQLResult cachedResult

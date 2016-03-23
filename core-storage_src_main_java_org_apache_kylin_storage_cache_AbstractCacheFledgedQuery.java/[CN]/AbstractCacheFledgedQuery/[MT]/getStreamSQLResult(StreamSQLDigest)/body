@@ -1,8 +1,0 @@
-{
-  Cache cache=CACHE_MANAGER.getCache(this.underlyingStorage.getStorageUUID());
-  Element element=cache.get(streamSQLDigest.hashCode());
-  if (element != null) {
-    return (StreamSQLResult)element.getObjectValue();
-  }
-  return null;
-}

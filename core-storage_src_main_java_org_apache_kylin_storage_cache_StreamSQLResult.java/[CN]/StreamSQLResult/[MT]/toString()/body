@@ -1,3 +1,0 @@
-{
-  return sortedRows.size() + " tuples cached for period " + RangeUtil.formatTsRange(timeCovered);
-}

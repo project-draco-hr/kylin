@@ -1,4 +1,0 @@
-{
-  this.partitionCol=partitionCol;
-  this.tsStr=tsStr;
-}

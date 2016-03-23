@@ -1,7 +1,0 @@
-{
-  System.setProperty(KylinConfig.KYLIN_CONF,"../examples/test_case_data/sandbox");
-  KylinConfig config=KylinConfig.getInstanceFromEnv();
-  config.setProperty("kylin.query.cache.threshold.duration","0");
-  cacheManager=CacheManager.newInstance("../server/src/main/resources/ehcache-test.xml");
-  AbstractCacheFledgedQuery.setCacheManager(cacheManager);
-}

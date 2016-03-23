@@ -1,3 +1,0 @@
-List<ITuple> rows
-Range<Long> timeCovered
-TblColRef partitionCol

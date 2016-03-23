@@ -3,8 +3,4 @@
   if (h2Connection != null)   closeConnection(h2Connection);
   ObserverEnabler.forceCoprocessorUnset();
   HBaseMetadataTestCase.staticCleanupTestMetadata();
-  if (cacheManager != null) {
-    cacheManager.shutdown();
-  }
-  AbstractCacheFledgedQuery.setCacheManager(null);
 }

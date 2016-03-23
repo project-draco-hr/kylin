@@ -1,4 +1,0 @@
-{
-  cacheManager.shutdown();
-  AbstractCacheFledgedQuery.setCacheManager(null);
-}

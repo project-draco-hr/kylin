@@ -1,4 +1,0 @@
-{
-  this.underlyingStorage=underlyingStorage;
-  this.makeCacheIfNecessary(underlyingStorage.getStorageUUID());
-}
