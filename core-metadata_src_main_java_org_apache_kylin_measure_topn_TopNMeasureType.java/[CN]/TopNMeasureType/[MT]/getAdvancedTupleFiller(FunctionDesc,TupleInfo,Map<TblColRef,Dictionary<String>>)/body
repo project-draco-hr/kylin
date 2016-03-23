@@ -4,6 +4,8 @@
   final Dictionary<String> topNColDict=dictionaryMap.get(literalCol);
   final int literalTupleIdx=tupleInfo.hasColumn(literalCol) ? tupleInfo.getColumnIndex(literalCol) : -1;
   final int numericTupleIdx=tupleInfo.hasColumn(numericCol) ? tupleInfo.getColumnIndex(numericCol) : -1;
+  final DataType numericField=DataType.getType(tupleInfo.getDataTypeName(numericTupleIdx));
+  final boolean isIntFamily=numericField.isIntegerFamily();
   return new IAdvMeasureFiller(){
     private TopNCounter<ByteArray> topNCounter;
     private Iterator<Counter<ByteArray>> topNCounterIterator;
@@ -22,7 +24,7 @@
       int key=BytesUtil.readUnsigned(counter.getItem().array(),counter.getItem().offset(),counter.getItem().length());
       String colValue=topNColDict.getValueFromId(key);
       tuple.setDimensionValue(literalTupleIdx,colValue);
-      tuple.setMeasureValue(numericTupleIdx,counter.getCount());
+      tuple.setMeasureValue(numericTupleIdx,isIntFamily ? (long)counter.getCount() : counter.getCount());
     }
   }
 ;
