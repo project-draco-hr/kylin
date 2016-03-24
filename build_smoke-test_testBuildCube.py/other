@@ -1,0 +1,7 @@
+import unittest
+import requests
+import json
+import time
+if (__name__ == '__main__'):
+    print 'Test Build Cube for Kylin sample.'
+    unittest.main()

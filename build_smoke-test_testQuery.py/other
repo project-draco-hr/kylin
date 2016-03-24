@@ -1,0 +1,7 @@
+import unittest
+import requests
+import json
+import glob
+if (__name__ == '__main__'):
+    print 'Test Query for Kylin sample.'
+    unittest.main()
