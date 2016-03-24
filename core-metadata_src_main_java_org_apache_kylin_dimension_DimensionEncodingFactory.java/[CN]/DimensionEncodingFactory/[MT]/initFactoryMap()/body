@@ -1,11 +1,16 @@
 {
   if (factoryMap == null) {
     Map<String,DimensionEncodingFactory> map=Maps.newConcurrentMap();
-    map.put(FixedLenDimEnc.ENCODING_NAME,FixedLenDimEnc.getFactory());
+    map.put(FixedLenDimEnc.ENCODING_NAME,new FixedLenDimEnc.Factory());
     String[] clsNames=KylinConfig.getInstanceFromEnv().getCubeDimensionCustomEncodingFactories();
     for (    String clsName : clsNames) {
-      DimensionEncodingFactory factory=(DimensionEncodingFactory)ClassUtil.newInstance(clsName);
-      map.put(factory.getSupportedEncodingName(),factory);
+      try {
+        DimensionEncodingFactory factory=(DimensionEncodingFactory)ClassUtil.newInstance(clsName);
+        map.put(factory.getSupportedEncodingName(),factory);
+      }
+ catch (      Exception ex) {
+        logger.error("Failed to init dimension encoding factory " + clsName,ex);
+      }
     }
     factoryMap=map;
   }

@@ -1,7 +1,5 @@
 {
-  if (factoryMap == null) {
-    initFactoryMap();
-  }
+  if (factoryMap == null)   initFactoryMap();
   DimensionEncodingFactory factory=factoryMap.get(encodingName);
   if (factory == null) {
     throw new IllegalArgumentException("Unknown dimension encoding name " + encodingName + " (note '"+ DictionaryDimEnc.ENCODING_NAME+ "' is not handled by factory)");

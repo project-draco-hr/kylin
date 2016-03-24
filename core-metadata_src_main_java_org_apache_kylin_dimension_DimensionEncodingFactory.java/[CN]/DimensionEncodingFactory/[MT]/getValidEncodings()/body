@@ -1,0 +1,7 @@
+{
+  if (factoryMap == null)   initFactoryMap();
+  TreeSet<String> result=Sets.newTreeSet();
+  result.addAll(factoryMap.keySet());
+  result.add(DictionaryDimEnc.ENCODING_NAME);
+  return result;
+}
