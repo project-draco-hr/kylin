@@ -1,0 +1,3 @@
+{
+  getProjectManager().addExtFilterToProject(filters,project);
+}

@@ -1,0 +1,7 @@
+{
+  Map<String,String> result=new HashMap();
+  ExternalFilterDesc desc=JsonUtil.readValue(request.getExtFilter(),ExternalFilterDesc.class);
+  extFilterService.updateExternalFilter(desc);
+  result.put("success","true");
+  return result;
+}

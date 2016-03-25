@@ -1,0 +1,6 @@
+{
+  if (getMetadataManager().getExtFilterDesc(desc.getName()) == null) {
+    throw new InternalErrorException("The filter named " + desc.getName() + " does not exists");
+  }
+  getMetadataManager().saveExternalFilter(desc);
+}

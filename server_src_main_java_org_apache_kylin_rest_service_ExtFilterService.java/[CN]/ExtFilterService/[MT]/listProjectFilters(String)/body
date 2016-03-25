@@ -1,0 +1,14 @@
+{
+  List<ExternalFilterDesc> filterDescs=Lists.newArrayList();
+  if (project == null) {
+    return filterDescs;
+  }
+  ProjectInstance projectInstance=getProjectManager().getProject(project);
+  for (  String filter : projectInstance.getExtFilters()) {
+    ExternalFilterDesc filterDesc=getMetadataManager().getExtFilterDesc(filter);
+    if (filterDesc != null) {
+      filterDescs.add(filterDesc);
+    }
+  }
+  return filterDescs;
+}

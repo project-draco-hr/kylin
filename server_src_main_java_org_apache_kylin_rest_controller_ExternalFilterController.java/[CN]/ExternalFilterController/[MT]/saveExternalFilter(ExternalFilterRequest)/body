@@ -1,0 +1,10 @@
+{
+  Map<String,String> result=new HashMap();
+  String filterProject=request.getProject();
+  ExternalFilterDesc desc=JsonUtil.readValue(request.getExtFilter(),ExternalFilterDesc.class);
+  desc.setUuid(UUID.randomUUID().toString());
+  extFilterService.saveExternalFilter(desc);
+  extFilterService.syncExtFilterToProject(new String[]{desc.getName()},filterProject);
+  result.put("success","true");
+  return result;
+}

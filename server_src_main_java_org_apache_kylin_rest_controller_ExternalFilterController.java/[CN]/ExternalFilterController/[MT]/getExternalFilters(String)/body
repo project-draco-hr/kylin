@@ -1,0 +1,5 @@
+{
+  List<ExternalFilterDesc> filterDescs;
+  filterDescs=extFilterService.listProjectFilters(project);
+  return filterDescs;
+}

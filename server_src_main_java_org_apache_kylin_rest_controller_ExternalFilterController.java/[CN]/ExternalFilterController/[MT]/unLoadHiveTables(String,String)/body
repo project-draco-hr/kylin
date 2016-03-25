@@ -1,0 +1,7 @@
+{
+  Map<String,String> result=new HashMap<String,String>();
+  extFilterService.removeExtFilterFromProject(filter,project);
+  extFilterService.removeExternalFilter(filter);
+  result.put("success","true");
+  return result;
+}

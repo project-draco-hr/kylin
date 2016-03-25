@@ -1,0 +1,3 @@
+{
+  getProjectManager().removeExtFilterFromProject(filterName,projectName);
+}

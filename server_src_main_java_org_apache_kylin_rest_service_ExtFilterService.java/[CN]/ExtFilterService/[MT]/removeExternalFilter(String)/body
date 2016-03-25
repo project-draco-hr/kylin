@@ -1,0 +1,3 @@
+{
+  getMetadataManager().removeExternalFilter(name);
+}
