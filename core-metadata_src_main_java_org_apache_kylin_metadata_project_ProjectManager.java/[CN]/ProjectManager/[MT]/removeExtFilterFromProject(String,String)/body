@@ -1,0 +1,10 @@
+{
+  MetadataManager metaMgr=getMetadataManager();
+  ProjectInstance projectInstance=getProject(projectName);
+  ExternalFilterDesc filter=metaMgr.getExtFilterDesc(filterName);
+  if (filter == null) {
+    throw new IllegalStateException("Cannot find external filter '" + filterName + "' in metadata manager");
+  }
+  projectInstance.removeExtFilter(filterName);
+  updateProject(projectInstance);
+}

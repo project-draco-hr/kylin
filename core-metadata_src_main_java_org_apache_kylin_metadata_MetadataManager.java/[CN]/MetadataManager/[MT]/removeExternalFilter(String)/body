@@ -1,0 +1,8 @@
+{
+  if (name != null) {
+    name=name.toLowerCase();
+  }
+  String path=ExternalFilterDesc.concatResourcePath(name);
+  getStore().deleteResource(path);
+  extFilterMap.remove(name);
+}

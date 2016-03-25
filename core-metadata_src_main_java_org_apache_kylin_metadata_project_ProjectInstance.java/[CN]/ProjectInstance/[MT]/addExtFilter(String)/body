@@ -1,0 +1,3 @@
+{
+  this.getExtFilters().add(extFilterName.toLowerCase());
+}

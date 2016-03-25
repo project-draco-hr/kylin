@@ -1,0 +1,10 @@
+{
+  Set<String> encodings;
+  try {
+    encodings=DimensionEncodingFactory.getValidEncodings();
+  }
+ catch (  Exception e) {
+    return Sets.newTreeSet();
+  }
+  return encodings;
+}
