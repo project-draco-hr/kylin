@@ -25,8 +25,8 @@
   if (negative) {
     start++;
   }
-  int nZeroPadding=MAX_DIGITS_BEFORE_DECIMAL_POINT - (decimalPoint - start);
-  if (nZeroPadding < 0 || nZeroPadding + 1 > start)   throw new IllegalArgumentException("Too many digits for NumberDictionary: " + Bytes.toString(value,offset,len) + ". Expect "+ MAX_DIGITS_BEFORE_DECIMAL_POINT+ " digits before decimal point at max.");
+  int nZeroPadding=maxDigitsBeforeDecimalPoint - (decimalPoint - start);
+  if (nZeroPadding < 0 || nZeroPadding + 1 > start)   throw new IllegalArgumentException("Too many digits for NumberDictionary: " + Bytes.toString(value,offset,len) + ". Expect "+ maxDigitsBeforeDecimalPoint+ " digits before decimal point at max.");
   for (int i=0; i < nZeroPadding; i++) {
     buf[--start]='0';
   }

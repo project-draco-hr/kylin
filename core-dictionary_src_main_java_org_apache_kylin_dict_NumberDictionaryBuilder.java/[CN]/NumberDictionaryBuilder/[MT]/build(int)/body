@@ -1,5 +1,5 @@
 {
   byte[] trieBytes=buildTrieBytes(baseId);
-  NumberDictionary<T> r=new NumberDictionary<T>(trieBytes);
+  NumberDictionary2<T> r=new NumberDictionary2<T>(trieBytes);
   return r;
 }

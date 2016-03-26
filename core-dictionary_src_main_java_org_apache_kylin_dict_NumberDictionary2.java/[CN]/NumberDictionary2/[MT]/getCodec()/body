@@ -1,7 +1,7 @@
 {
   NumberBytesCodec codec=localCodec.get();
   if (codec == null) {
-    codec=new NumberBytesCodec(MAX_DIGITS_BEFORE_DECIMAL_POINT_LEGACY);
+    codec=new NumberBytesCodec(MAX_DIGITS_BEFORE_DECIMAL_POINT);
     localCodec.set(codec);
   }
   return codec;
