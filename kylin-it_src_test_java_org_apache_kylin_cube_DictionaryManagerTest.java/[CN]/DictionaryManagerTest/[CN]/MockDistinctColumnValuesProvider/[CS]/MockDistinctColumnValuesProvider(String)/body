@@ -1,0 +1,12 @@
+{
+  File tmpFile=File.createTempFile("MockDistinctColumnValuesProvider",".txt");
+  PrintWriter out=new PrintWriter(tmpFile);
+  set=Sets.newTreeSet();
+  for (  String value : values) {
+    out.println(value);
+    set.add(value);
+  }
+  out.close();
+  tmpFilePath=HadoopUtil.fixWindowsPath("file://" + tmpFile.getAbsolutePath());
+  tmpFile.deleteOnExit();
+}

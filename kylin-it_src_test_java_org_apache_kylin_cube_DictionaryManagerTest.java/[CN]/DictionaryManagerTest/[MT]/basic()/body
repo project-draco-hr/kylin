@@ -1,0 +1,29 @@
+{
+  dictMgr=DictionaryManager.getInstance(getTestConfig());
+  CubeDesc cubeDesc=CubeDescManager.getInstance(getTestConfig()).getCubeDesc("test_kylin_cube_without_slr_desc");
+  TblColRef col=cubeDesc.findColumnRef("DEFAULT.TEST_KYLIN_FACT","LSTG_FORMAT_NAME");
+  MockDistinctColumnValuesProvider mockupData=new MockDistinctColumnValuesProvider("A","B","C");
+  DictionaryInfo info1=dictMgr.buildDictionary(cubeDesc.getModel(),true,col,mockupData);
+  System.out.println(JsonUtil.writeValueAsIndentString(info1));
+  DictionaryInfo info2=dictMgr.buildDictionary(cubeDesc.getModel(),true,col,mockupData);
+  System.out.println(JsonUtil.writeValueAsIndentString(info2));
+  assertTrue(info1.getUuid() == info2.getUuid());
+  assertTrue(info1 == dictMgr.getDictionaryInfo(info1.getResourcePath()));
+  assertTrue(info2 == dictMgr.getDictionaryInfo(info2.getResourcePath()));
+  assertTrue(info1.getDictionaryObject() == info2.getDictionaryObject());
+  @SuppressWarnings("unchecked") Dictionary<String> dict=(Dictionary<String>)info1.getDictionaryObject();
+  int id=0;
+  for (  String v : mockupData.set) {
+    assertEquals(id,dict.getIdFromValue(v,0));
+    assertEquals(v,dict.getValueFromId(id));
+    id++;
+  }
+  MockDistinctColumnValuesProvider mockupEmpty=new MockDistinctColumnValuesProvider();
+  DictionaryInfo info3=dictMgr.buildDictionary(cubeDesc.getModel(),true,col,mockupEmpty);
+  System.out.println(JsonUtil.writeValueAsIndentString(info3));
+  assertEquals(0,info3.getCardinality());
+  assertEquals(0,info3.getDictionaryObject().getSize());
+  System.out.println(info3.getDictionaryObject().getMaxId());
+  System.out.println(info3.getDictionaryObject().getMinId());
+  System.out.println(info3.getDictionaryObject().getSizeOfId());
+}

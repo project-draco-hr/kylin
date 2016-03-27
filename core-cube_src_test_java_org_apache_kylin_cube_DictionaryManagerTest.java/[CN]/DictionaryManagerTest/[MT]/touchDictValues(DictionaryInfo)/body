@@ -1,8 +1,0 @@
-{
-  Dictionary<String> dict=(Dictionary<String>)info1.getDictionaryObject();
-  HashSet<String> set=new HashSet<String>();
-  for (int i=0, n=info1.getCardinality(); i < n; i++) {
-    set.add(dict.getValueFromId(i));
-  }
-  assertEquals(info1.getCardinality(),set.size());
-}

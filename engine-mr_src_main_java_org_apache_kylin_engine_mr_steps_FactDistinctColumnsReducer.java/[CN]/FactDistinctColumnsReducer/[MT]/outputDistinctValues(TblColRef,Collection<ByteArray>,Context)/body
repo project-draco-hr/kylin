@@ -21,5 +21,6 @@
   finally {
     IOUtils.closeQuietly(out);
     IOUtils.closeQuietly(fs);
+    outputTouched=true;
   }
 }
