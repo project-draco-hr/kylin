@@ -1,0 +1,6 @@
+{
+  String cubeName="test_kylin_cube_with_slr_ready_3_segments";
+  CubeDesc[] cubes=cubeDescController.getCube(cubeName);
+  Assert.assertNotNull(cubes);
+  cubeController.deleteSegment(cubeName,"not_exist_segment");
+}

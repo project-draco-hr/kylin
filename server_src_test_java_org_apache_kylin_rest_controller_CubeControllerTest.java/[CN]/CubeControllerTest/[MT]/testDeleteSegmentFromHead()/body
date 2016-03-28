@@ -1,0 +1,9 @@
+{
+  String cubeName="test_kylin_cube_with_slr_ready_3_segments";
+  CubeDesc[] cubes=cubeDescController.getCube(cubeName);
+  Assert.assertNotNull(cubes);
+  int segNumber=cubeService.getCubeManager().getCube(cubeName).getSegments().size();
+  cubeController.deleteSegment(cubeName,"19691231160000_20131112000000");
+  int newSegNumber=cubeService.getCubeManager().getCube(cubeName).getSegments().size();
+  Assert.assertTrue(segNumber == newSegNumber + 1);
+}
