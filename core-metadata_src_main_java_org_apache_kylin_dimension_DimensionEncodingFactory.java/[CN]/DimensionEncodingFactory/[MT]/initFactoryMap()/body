@@ -2,6 +2,7 @@
   if (factoryMap == null) {
     Map<String,DimensionEncodingFactory> map=Maps.newConcurrentMap();
     map.put(FixedLenDimEnc.ENCODING_NAME,new FixedLenDimEnc.Factory());
+    map.put(IntegerDimEnc.ENCODING_NAME,new IntegerDimEnc.Factory());
     String[] clsNames=KylinConfig.getInstanceFromEnv().getCubeDimensionCustomEncodingFactories();
     for (    String clsName : clsNames) {
       try {
