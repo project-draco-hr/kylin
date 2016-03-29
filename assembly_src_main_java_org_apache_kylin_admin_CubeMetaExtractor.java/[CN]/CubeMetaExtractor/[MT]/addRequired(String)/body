@@ -1,4 +1,4 @@
 {
   logger.info("adding required resource {}",record);
-  resourcePaths.add(record);
+  requiredResources.add(record);
 }

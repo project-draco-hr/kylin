@@ -10,7 +10,7 @@
     logger.info("Cube {} will be trimmed and extracted",cube);
   }
   if (dest == null) {
-    logger.info("Dest is not set, exit directly without extracting");
+    logger.info("destDir is not set, exit directly without extracting");
   }
  else {
     try {

@@ -8,34 +8,34 @@
     DataModelDesc modelDesc=metadataManager.getDataModelDesc(modelName);
     dealWithStreaming(cube);
     for (    String tableName : modelDesc.getAllTables()) {
-      addRequired(requiredResources,TableDesc.concatResourcePath(tableName));
-      addOptional(optionalResources,TableDesc.concatExdResourcePath(tableName));
+      addRequired(TableDesc.concatResourcePath(tableName));
+      addOptional(TableDesc.concatExdResourcePath(tableName));
     }
-    addRequired(requiredResources,DataModelDesc.concatResourcePath(modelDesc.getName()));
-    addRequired(requiredResources,CubeDesc.concatResourcePath(cubeDesc.getName()));
+    addRequired(DataModelDesc.concatResourcePath(modelDesc.getName()));
+    addRequired(CubeDesc.concatResourcePath(cubeDesc.getName()));
     if (includeSegments) {
-      addRequired(requiredResources,CubeInstance.concatResourcePath(cube.getName()));
+      addRequired(CubeInstance.concatResourcePath(cube.getName()));
       for (      CubeSegment segment : cube.getSegments(SegmentStatusEnum.READY)) {
         for (        String dictPat : segment.getDictionaryPaths()) {
-          addRequired(requiredResources,dictPat);
+          addRequired(dictPat);
         }
         for (        String snapshotPath : segment.getSnapshotPaths()) {
-          addRequired(requiredResources,snapshotPath);
+          addRequired(snapshotPath);
         }
-        addRequired(requiredResources,segment.getStatisticsResourcePath());
+        addRequired(segment.getStatisticsResourcePath());
         if (includeJobs) {
           String lastJobId=segment.getLastBuildJobID();
-          if (!StringUtils.isEmpty(lastJobId)) {
+          if (StringUtils.isEmpty(lastJobId)) {
             throw new RuntimeException("No job exist for segment :" + segment);
           }
  else {
             try {
               ExecutablePO executablePO=executableDao.getJob(lastJobId);
-              addRequired(requiredResources,ExecutableDao.pathOfJob(lastJobId));
-              addRequired(requiredResources,ExecutableDao.pathOfJobOutput(lastJobId));
+              addRequired(ExecutableDao.pathOfJob(lastJobId));
+              addRequired(ExecutableDao.pathOfJobOutput(lastJobId));
               for (              ExecutablePO task : executablePO.getTasks()) {
-                addRequired(requiredResources,ExecutableDao.pathOfJob(task.getUuid()));
-                addRequired(requiredResources,ExecutableDao.pathOfJobOutput(task.getUuid()));
+                addRequired(ExecutableDao.pathOfJob(task.getUuid()));
+                addRequired(ExecutableDao.pathOfJobOutput(task.getUuid()));
               }
             }
  catch (            PersistentException e) {
@@ -57,7 +57,7 @@
   }
  else   if (realization instanceof HybridInstance) {
     HybridInstance hybridInstance=(HybridInstance)realization;
-    addRequired(requiredResources,HybridInstance.concatResourcePath(hybridInstance.getName()));
+    addRequired(HybridInstance.concatResourcePath(hybridInstance.getName()));
     for (    IRealization iRealization : hybridInstance.getRealizations()) {
       if (iRealization.getType() != RealizationType.CUBE) {
         throw new RuntimeException("Hybrid " + iRealization.getName() + " contains non cube child "+ iRealization.getName()+ " with type "+ iRealization.getType());

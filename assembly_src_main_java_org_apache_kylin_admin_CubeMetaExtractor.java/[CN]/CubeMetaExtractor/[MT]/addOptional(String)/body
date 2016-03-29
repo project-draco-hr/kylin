@@ -1,4 +1,4 @@
 {
   logger.info("adding optional resource {}",record);
-  optionalPaths.add(record);
+  optionalResources.add(record);
 }

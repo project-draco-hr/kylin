@@ -20,7 +20,7 @@
     if (projectInstance == null) {
       throw new IllegalArgumentException("Project " + optionsHelper.getOptionValue(OPTION_PROJECT) + " does not exist");
     }
-    addRequired(requiredResources,ProjectInstance.concatResourcePath(projectInstance.getName()));
+    addRequired(ProjectInstance.concatResourcePath(projectInstance.getName()));
     List<RealizationEntry> realizationEntries=projectInstance.getRealizationEntries();
     for (    RealizationEntry realizationEntry : realizationEntries) {
       retrieveResourcePath(getRealization(realizationEntry));
@@ -47,4 +47,5 @@
     }
   }
   executeExtraction(dest);
+  logger.info("Extracted metadata files located at: " + new File(dest).getAbsolutePath());
 }
