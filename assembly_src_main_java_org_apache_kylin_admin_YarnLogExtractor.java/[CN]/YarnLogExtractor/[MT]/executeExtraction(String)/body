@@ -1,0 +1,11 @@
+{
+  logger.info("The resource paths going to be extracted:");
+  for (  String taskId : requiredResources) {
+    logger.info(taskId + "(required)");
+  }
+  logger.info("Start to download yarn logs.");
+  FileUtils.forceMkdir(new File(dest));
+  for (  String taskId : requiredResources) {
+    extractYarnLog(taskId,dest);
+  }
+}

@@ -1,0 +1,4 @@
+{
+  logger.info("adding required resource {}",record);
+  requiredResources.add(record);
+}

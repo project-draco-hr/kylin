@@ -1,0 +1,12 @@
+{
+  final Map<String,String> jobInfo=executableDao.getJobOutput(taskId).getInfo();
+  if (jobInfo.containsKey(ExecutableConstants.MR_JOB_ID)) {
+    String applicationId=jobInfo.get(ExecutableConstants.MR_JOB_ID).replace("job","application");
+    File destFile=new File(dest + applicationId + ".log");
+    ShellExecutable yarnExec=new ShellExecutable();
+    yarnExec.setCmd("yarn logs -applicationId " + applicationId + " > "+ destFile.getAbsolutePath());
+    yarnExec.setName(yarnExec.getCmd());
+    logger.info(yarnExec.getCmd());
+    kylinConfig.getCliCommandExecutor().execute(yarnExec.getCmd(),null);
+  }
+}
