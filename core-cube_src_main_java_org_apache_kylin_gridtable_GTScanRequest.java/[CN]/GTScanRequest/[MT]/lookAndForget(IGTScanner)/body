@@ -1,6 +1,8 @@
 {
   byte meaninglessByte=0;
+  int scanned=0;
   for (  GTRecord gtRecord : scanner) {
+    scanned++;
     for (    ByteArray col : gtRecord.getInternal()) {
       if (col != null) {
         int endIndex=col.offset() + col.length();
@@ -10,4 +12,6 @@
       }
     }
   }
+  System.out.println("Meaningless byte is " + meaninglessByte);
+  return scanned;
 }

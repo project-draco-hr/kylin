@@ -49,12 +49,23 @@ case "lz4":
   }
 default :
 {
-  logger.info("hbase will not user any compression codec to compress data");
+  logger.info("hbase will not user any compression algorithm to compress data");
+  cf.setCompressionType(Algorithm.NONE);
 }
 }
-cf.setDataBlockEncoding(DataBlockEncoding.FAST_DIFF);
+int blockSize=Integer.valueOf(kylinConfig.getHbaseDefaultBlockSize());
+cf.setBlocksize(blockSize);
+try {
+String encodingStr=kylinConfig.getHbaseDefaultEncoding();
+DataBlockEncoding encoding=DataBlockEncoding.valueOf(encodingStr);
+cf.setDataBlockEncoding(encoding);
+}
+ catch (Exception e) {
+logger.info("hbase will not user any encoding");
+cf.setDataBlockEncoding(DataBlockEncoding.NONE);
+}
 cf.setInMemory(false);
-cf.setBlocksize(4 * 1024 * 1024);
+cf.setBloomFilterType(BloomType.NONE);
 tableDesc.addFamily(cf);
 }
 if (admin.tableExists(tableName)) {
