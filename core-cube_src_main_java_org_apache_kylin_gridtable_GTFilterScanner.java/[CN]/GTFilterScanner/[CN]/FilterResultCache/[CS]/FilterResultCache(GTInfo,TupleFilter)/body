@@ -1,0 +1,5 @@
+{
+  colsInFilter=collectColumnsInFilter(filter);
+  lastValues=new byte[info.getMaxColumnLength(colsInFilter)];
+  lastResult=new boolean[1];
+}

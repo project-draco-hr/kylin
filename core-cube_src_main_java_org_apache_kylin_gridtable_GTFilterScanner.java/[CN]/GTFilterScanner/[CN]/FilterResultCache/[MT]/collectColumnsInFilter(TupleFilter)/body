@@ -1,0 +1,7 @@
+{
+  Set<TblColRef> columnsInFilter=new HashSet<TblColRef>();
+  TupleFilter.collectColumns(filter,columnsInFilter);
+  BitSet result=new BitSet();
+  for (  TblColRef col : columnsInFilter)   result.set(col.getColumnDesc().getZeroBasedIndex());
+  return new ImmutableBitSet(result);
+}

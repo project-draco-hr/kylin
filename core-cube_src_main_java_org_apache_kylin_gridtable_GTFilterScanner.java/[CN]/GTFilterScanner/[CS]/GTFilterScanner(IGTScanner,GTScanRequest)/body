@@ -1,6 +1,7 @@
 {
   this.inputScanner=inputScanner;
   this.filter=req.getFilterPushDown();
+  this.filterCodeSystem=GTUtil.wrap(getInfo().codeSystem.getComparator());
   this.oneTuple=new IEvaluatableTuple(){
     @Override public Object getValue(    TblColRef col){
       return next.get(col.getColumnDesc().getZeroBasedIndex());

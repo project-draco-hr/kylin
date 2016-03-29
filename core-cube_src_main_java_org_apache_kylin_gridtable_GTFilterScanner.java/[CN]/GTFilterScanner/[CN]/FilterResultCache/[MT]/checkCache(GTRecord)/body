@@ -1,0 +1,29 @@
+{
+  if (!enabled)   return null;
+  count++;
+  if (count == CHECKPOINT) {
+    if ((double)hit / (double)count < HIT_RATE_THRESHOLD) {
+      enabled=false;
+    }
+  }
+  boolean match=count > 1;
+  int p=0;
+  for (int i=0; i < colsInFilter.trueBitCount(); i++) {
+    int c=colsInFilter.trueBitAt(i);
+    ByteArray col=record.get(c);
+    if (match) {
+      match=BytesUtil.compareBytes(col.array(),col.offset(),lastValues,p,col.length()) == 0;
+    }
+    if (!match) {
+      System.arraycopy(col.array(),col.offset(),lastValues,p,col.length());
+    }
+    p+=col.length();
+  }
+  if (match) {
+    hit++;
+    return lastResult;
+  }
+ else {
+    return null;
+  }
+}

@@ -1,0 +1,15 @@
+{
+  GridTable table=newTestPerfTable();
+  GTInfo info=table.getInfo();
+  CompareTupleFilter fComp1=compare(info.colRef(0),FilterOperatorEnum.GT,enc(info,0,"2015-01-14"));
+  CompareTupleFilter fComp2=compare(info.colRef(1),FilterOperatorEnum.GT,enc(info,1,"10"));
+  LogicalTupleFilter filter=and(fComp1,fComp2);
+  FilterResultCache.ENABLED=false;
+  testFilterScannerPerfInner(table,info,filter);
+  FilterResultCache.ENABLED=true;
+  testFilterScannerPerfInner(table,info,filter);
+  FilterResultCache.ENABLED=false;
+  testFilterScannerPerfInner(table,info,filter);
+  FilterResultCache.ENABLED=true;
+  testFilterScannerPerfInner(table,info,filter);
+}

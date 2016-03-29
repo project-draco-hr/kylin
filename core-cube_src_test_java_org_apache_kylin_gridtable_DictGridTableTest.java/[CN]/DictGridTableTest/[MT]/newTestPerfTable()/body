@@ -1,0 +1,21 @@
+{
+  GTInfo info=newInfo();
+  GTSimpleMemStore store=new GTSimpleMemStore(info);
+  GridTable table=new GridTable(info,store);
+  GTRecord r=new GTRecord(table.getInfo());
+  GTBuilder builder=table.rebuild();
+  for (int i=0; i < 100000; i++) {
+    for (int j=0; j < 10; j++)     builder.write(r.setValues("2015-01-14","30","Yang",new LongMutable(10),new BigDecimal("10.5")));
+    for (int j=0; j < 10; j++)     builder.write(r.setValues("2015-01-14","30","Luke",new LongMutable(10),new BigDecimal("10.5")));
+    for (int j=0; j < 10; j++)     builder.write(r.setValues("2015-01-15","20","Dong",new LongMutable(10),new BigDecimal("10.5")));
+    for (int j=0; j < 10; j++)     builder.write(r.setValues("2015-01-15","20","Jason",new LongMutable(10),new BigDecimal("10.5")));
+    for (int j=0; j < 10; j++)     builder.write(r.setValues("2015-01-15","30","Xu",new LongMutable(10),new BigDecimal("10.5")));
+    for (int j=0; j < 10; j++)     builder.write(r.setValues("2015-01-16","20","Mahone",new LongMutable(10),new BigDecimal("10.5")));
+    for (int j=0; j < 10; j++)     builder.write(r.setValues("2015-01-16","20","Qianhao",new LongMutable(10),new BigDecimal("10.5")));
+    for (int j=0; j < 10; j++)     builder.write(r.setValues("2015-01-16","30","George",new LongMutable(10),new BigDecimal("10.5")));
+    for (int j=0; j < 10; j++)     builder.write(r.setValues("2015-01-16","30","Shaofeng",new LongMutable(10),new BigDecimal("10.5")));
+    for (int j=0; j < 10; j++)     builder.write(r.setValues("2015-01-17","10","Kejia",new LongMutable(10),new BigDecimal("10.5")));
+  }
+  builder.close();
+  return table;
+}

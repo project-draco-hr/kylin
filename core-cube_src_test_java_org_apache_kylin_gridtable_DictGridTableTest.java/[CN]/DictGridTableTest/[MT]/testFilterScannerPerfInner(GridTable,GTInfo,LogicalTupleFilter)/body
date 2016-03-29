@@ -1,0 +1,12 @@
+{
+  long start=System.currentTimeMillis();
+  GTScanRequest req=new GTScanRequest(info,null,null,filter);
+  IGTScanner scanner=table.scan(req);
+  int i=0;
+  for (  GTRecord r : scanner) {
+    i++;
+  }
+  scanner.close();
+  long end=System.currentTimeMillis();
+  System.out.println((end - start) + "ms with filter cache enabled=" + FilterResultCache.ENABLED+ ", "+ i+ " rows");
+}

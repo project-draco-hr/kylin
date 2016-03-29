@@ -1,18 +1,26 @@
 {
   return new Iterator<GTRecord>(){
     private Iterator<GTRecord> inputIterator=inputScanner.iterator();
-    private IFilterCodeSystem<ByteArray> filterCodeSystem=GTUtil.wrap(getInfo().codeSystem.getComparator());
+    private FilterResultCache resultCache=new FilterResultCache(getInfo(),filter);
     @Override public boolean hasNext(){
       if (next != null)       return true;
       while (inputIterator.hasNext()) {
         next=inputIterator.next();
-        if (filter != null && filter.evaluate(oneTuple,filterCodeSystem) == false) {
+        if (!evaluate()) {
           continue;
         }
         return true;
       }
       next=null;
       return false;
+    }
+    private boolean evaluate(){
+      if (filter == null)       return true;
+      boolean[] cachedResult=resultCache.checkCache(next);
+      if (cachedResult != null)       return cachedResult[0];
+      boolean result=filter.evaluate(oneTuple,filterCodeSystem);
+      resultCache.setLastResult(result);
+      return result;
     }
     @Override public GTRecord next(){
       if (next == null) {
