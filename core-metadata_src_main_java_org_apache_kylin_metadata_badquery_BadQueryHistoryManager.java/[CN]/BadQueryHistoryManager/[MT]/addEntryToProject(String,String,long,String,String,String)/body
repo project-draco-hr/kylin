@@ -1,0 +1,3 @@
+{
+  return addEntryToProject(new BadQueryEntry(sql,adj,startTime,server,threadName),project);
+}

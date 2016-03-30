@@ -1,0 +1,6 @@
+String adj
+int runningSec
+long startTime
+String project
+String sql
+Thread t

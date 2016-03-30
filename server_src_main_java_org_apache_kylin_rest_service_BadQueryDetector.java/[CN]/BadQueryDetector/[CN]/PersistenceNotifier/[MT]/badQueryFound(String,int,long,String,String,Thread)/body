@@ -1,0 +1,8 @@
+{
+  try {
+    badQueryManager.addEntryToProject(sql,adj,startTime,serverHostname,t.getName(),project);
+  }
+ catch (  IOException e) {
+    logger.error("Error in bad query persistence.",e);
+  }
+}

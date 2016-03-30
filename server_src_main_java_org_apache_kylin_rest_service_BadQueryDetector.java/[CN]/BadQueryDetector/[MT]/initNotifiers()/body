@@ -1,0 +1,4 @@
+{
+  this.notifiers.add(new LoggerNotifier());
+  this.notifiers.add(new PersistenceNotifier());
+}

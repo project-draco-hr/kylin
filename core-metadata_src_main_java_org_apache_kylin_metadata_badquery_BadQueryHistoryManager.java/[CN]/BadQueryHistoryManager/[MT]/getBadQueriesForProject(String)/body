@@ -1,0 +1,8 @@
+{
+  BadQueryHistory badQueryHistory=getStore().getResource(getResourcePathForProject(project),BadQueryHistory.class,BAD_QUERY_INSTANCE_SERIALIZER);
+  if (badQueryHistory == null) {
+    badQueryHistory=new BadQueryHistory(project);
+  }
+  logger.debug("Loaded " + badQueryHistory.getEntries().size() + " Bad Query(s)");
+  return badQueryHistory;
+}

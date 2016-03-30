@@ -1,0 +1,4 @@
+{
+  logger.info("Initializing BadQueryHistoryManager with config " + config);
+  this.kylinConfig=config;
+}

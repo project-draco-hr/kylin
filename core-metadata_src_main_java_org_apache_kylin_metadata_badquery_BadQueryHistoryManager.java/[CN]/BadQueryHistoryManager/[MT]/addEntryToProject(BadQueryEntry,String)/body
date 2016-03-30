@@ -1,0 +1,11 @@
+{
+  if (StringUtils.isEmpty(project) || badQueryEntry.getAdj() == null || badQueryEntry.getSql() == null)   throw new IllegalArgumentException();
+  BadQueryHistory badQueryHistory=getBadQueriesForProject(project);
+  NavigableSet<BadQueryEntry> entries=badQueryHistory.getEntries();
+  if (entries.size() >= kylinConfig.getBadQueryHistoryNum()) {
+    entries.pollFirst();
+  }
+  entries.add(badQueryEntry);
+  getStore().putResource(badQueryHistory.getResourcePath(),badQueryHistory,BAD_QUERY_INSTANCE_SERIALIZER);
+  return badQueryHistory;
+}

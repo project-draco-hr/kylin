@@ -1,0 +1,9 @@
+{
+  try {
+    serverHostname=InetAddress.getLocalHost().getHostName();
+  }
+ catch (  UnknownHostException e) {
+    serverHostname="Unknow";
+    logger.warn("Error in get current hostname.",e);
+  }
+}

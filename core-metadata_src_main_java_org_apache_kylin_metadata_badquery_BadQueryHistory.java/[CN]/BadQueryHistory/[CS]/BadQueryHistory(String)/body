@@ -1,0 +1,4 @@
+{
+  this.updateRandomUuid();
+  this.project=project;
+}

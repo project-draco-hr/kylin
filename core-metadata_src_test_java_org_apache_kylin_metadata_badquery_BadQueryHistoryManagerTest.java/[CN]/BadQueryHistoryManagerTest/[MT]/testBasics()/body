@@ -1,0 +1,13 @@
+{
+  BadQueryHistory history=BadQueryHistoryManager.getInstance(getTestConfig()).getBadQueriesForProject("default");
+  System.out.println(JsonUtil.writeValueAsIndentString(history));
+  NavigableSet<BadQueryEntry> entries=history.getEntries();
+  assertEquals(2,entries.size());
+  BadQueryEntry entry1=entries.first();
+  assertEquals("Slow",entry1.getAdj());
+  assertEquals("sandbox.hortonworks.com",entry1.getServer());
+  assertEquals("select count(*) from test_kylin_fact",entry1.getSql());
+  entries.pollFirst();
+  BadQueryEntry entry2=entries.first();
+  assertTrue(entry2.getStartTime() > entry1.getStartTime());
+}

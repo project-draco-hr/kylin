@@ -1,0 +1,3 @@
+{
+  return ResourceStore.BAD_QUERY_RESOURCE_ROOT + "/" + project+ MetadataConstants.FILE_SURFIX;
+}

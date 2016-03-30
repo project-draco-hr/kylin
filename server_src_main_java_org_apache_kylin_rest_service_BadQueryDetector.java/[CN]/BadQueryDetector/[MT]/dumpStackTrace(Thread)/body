@@ -1,5 +1,5 @@
 {
-  int maxStackTraceDepth=KylinConfig.getInstanceFromEnv().getBadQueryStackTraceDepth();
+  int maxStackTraceDepth=kylinConfig.getBadQueryStackTraceDepth();
   int current=0;
   StackTraceElement[] stackTrace=t.getStackTrace();
   StringBuilder buf=new StringBuilder("Problematic thread 0x" + Long.toHexString(t.getId()));

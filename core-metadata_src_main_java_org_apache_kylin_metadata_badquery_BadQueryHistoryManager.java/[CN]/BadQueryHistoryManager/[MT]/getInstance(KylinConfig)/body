@@ -1,0 +1,23 @@
+{
+  BadQueryHistoryManager r=CACHE.get(config);
+  if (r != null) {
+    return r;
+  }
+synchronized (BadQueryHistoryManager.class) {
+    r=CACHE.get(config);
+    if (r != null) {
+      return r;
+    }
+    try {
+      r=new BadQueryHistoryManager(config);
+      CACHE.put(config,r);
+      if (CACHE.size() > 1) {
+        logger.warn("More than one singleton exist");
+      }
+      return r;
+    }
+ catch (    IOException e) {
+      throw new IllegalStateException("Failed to init BadQueryHistoryManager from " + config,e);
+    }
+  }
+}

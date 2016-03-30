@@ -9,5 +9,6 @@
   }
   logger.info("Dropping project '" + projectInstance.getName() + "'");
   removeProject(projectInstance);
+  BadQueryHistoryManager.getInstance(config).removeBadQueryHistory(projectName);
   return projectInstance;
 }

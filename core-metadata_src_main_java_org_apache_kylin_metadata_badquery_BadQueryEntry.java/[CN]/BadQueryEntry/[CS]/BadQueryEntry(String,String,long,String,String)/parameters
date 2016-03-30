@@ -1,0 +1,5 @@
+String sql
+String adj
+long startTime
+String server
+String thread

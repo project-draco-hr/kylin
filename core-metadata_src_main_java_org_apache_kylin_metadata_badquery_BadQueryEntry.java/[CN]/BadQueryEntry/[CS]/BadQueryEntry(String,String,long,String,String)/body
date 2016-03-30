@@ -1,0 +1,8 @@
+{
+  this.updateRandomUuid();
+  this.adj=adj;
+  this.sql=sql;
+  this.startTime=startTime;
+  this.server=server;
+  this.thread=thread;
+}
