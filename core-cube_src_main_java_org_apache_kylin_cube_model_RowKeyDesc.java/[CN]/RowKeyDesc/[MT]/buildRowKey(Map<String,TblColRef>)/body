@@ -1,6 +1,6 @@
 {
   columnMap=new HashMap<TblColRef,RowKeyColDesc>();
-  UHCColumns=new HashSet<>();
+  shardByColumns=new HashSet<>();
   for (int i=0; i < rowkeyColumns.length; i++) {
     RowKeyColDesc rowKeyColDesc=rowkeyColumns[i];
     rowKeyColDesc.init();
@@ -12,8 +12,8 @@
       throw new IllegalArgumentException("Cannot find rowkey column " + column + " in cube "+ cubeDesc);
     }
     columnMap.put(rowKeyColDesc.getColRef(),rowKeyColDesc);
-    if (rowKeyColDesc.isUHC()) {
-      UHCColumns.add(rowKeyColDesc.getColRef());
+    if (rowKeyColDesc.isShardBy()) {
+      shardByColumns.add(rowKeyColDesc.getColRef());
     }
   }
   this.fullMask=0L;
