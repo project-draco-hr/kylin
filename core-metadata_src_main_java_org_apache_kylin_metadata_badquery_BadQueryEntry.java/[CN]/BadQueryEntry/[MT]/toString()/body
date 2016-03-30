@@ -1,0 +1,3 @@
+{
+  return "BadQueryEntry [ adj=" + adj + ", server="+ server+ ", startTime="+ DateFormat.formatToTimeStr(startTime)+ "]";
+}
