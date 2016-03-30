@@ -13,10 +13,6 @@
     RowKeyColDesc rd=rcd[i];
     if (rd.getColumn() == null || rd.getColumn().length() == 0) {
       context.addResult(ResultLevel.ERROR,"Rowkey column empty");
-      continue;
-    }
-    if (!rd.getEncoding().equalsIgnoreCase("dict") && !rd.getEncoding().toLowerCase().startsWith("fixed_length")) {
-      context.addResult(ResultLevel.ERROR,"Rowkey column " + rd.getColumn() + " encoding not dict nor fixed_length");
     }
   }
 }
