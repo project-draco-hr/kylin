@@ -1,0 +1,5 @@
+{
+  Properties result=new Properties(super.getAllProperties());
+  result.putAll(overrides);
+  return result;
+}

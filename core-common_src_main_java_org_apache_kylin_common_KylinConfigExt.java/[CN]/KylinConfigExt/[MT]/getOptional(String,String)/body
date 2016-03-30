@@ -1,0 +1,5 @@
+{
+  String value=overrides.get(prop);
+  if (value != null)   return value;
+ else   return super.getOptional(prop,dft);
+}

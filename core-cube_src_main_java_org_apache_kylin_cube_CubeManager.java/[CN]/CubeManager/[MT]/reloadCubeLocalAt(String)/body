@@ -3,7 +3,9 @@
   CubeInstance cubeInstance;
   try {
     cubeInstance=store.getResource(path,CubeInstance.class,CUBE_SERIALIZER);
-    cubeInstance.setConfig(config);
+    CubeDesc cubeDesc=CubeDescManager.getInstance(config).getCubeDesc(cubeInstance.getDescName());
+    if (cubeDesc == null)     throw new IllegalStateException("CubeInstance desc not found '" + cubeInstance.getDescName() + "', at "+ path);
+    cubeInstance.setConfig((KylinConfigExt)cubeDesc.getConfig());
     if (StringUtils.isBlank(cubeInstance.getName()))     throw new IllegalStateException("CubeInstance name must not be blank, at " + path);
     if (cubeInstance.getDescriptor() == null)     throw new IllegalStateException("CubeInstance desc not found '" + cubeInstance.getDescName() + "', at "+ path);
     final String cubeName=cubeInstance.getName();

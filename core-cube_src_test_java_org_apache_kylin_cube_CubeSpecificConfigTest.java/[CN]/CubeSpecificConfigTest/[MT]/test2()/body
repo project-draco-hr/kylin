@@ -1,0 +1,5 @@
+{
+  KylinConfig baseConfig=KylinConfig.getInstanceFromEnv();
+  CubeInstance cube=CubeManager.getInstance(baseConfig).getCube("ssb");
+  verifyOverride(baseConfig,cube.getConfig());
+}

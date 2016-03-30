@@ -1,5 +1,5 @@
 {
-  MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+  MetadataManager metaMgr=MetadataManager.getInstance(ii.getConfig());
   ArrayList<String> dumpList=new ArrayList<String>();
   dumpList.add(ii.getResourcePath());
   dumpList.add(ii.getDescriptor().getModel().getResourcePath());
@@ -8,5 +8,5 @@
     TableDesc table=metaMgr.getTableDesc(tableName);
     dumpList.add(table.getResourcePath());
   }
-  attachKylinPropsAndMetadata(dumpList,conf);
+  attachKylinPropsAndMetadata(dumpList,ii.getConfig(),conf);
 }

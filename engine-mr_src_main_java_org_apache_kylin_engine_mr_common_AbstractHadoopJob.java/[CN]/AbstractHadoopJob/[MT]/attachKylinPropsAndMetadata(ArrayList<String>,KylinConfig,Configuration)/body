@@ -3,7 +3,6 @@
   FileUtils.forceDelete(tmp);
   File metaDir=new File(tmp,"meta");
   metaDir.mkdirs();
-  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   File kylinPropsFile=new File(metaDir,"kylin.properties");
   kylinConfig.writeProperties(kylinPropsFile);
   dumpResources(kylinConfig,metaDir,dumpList);

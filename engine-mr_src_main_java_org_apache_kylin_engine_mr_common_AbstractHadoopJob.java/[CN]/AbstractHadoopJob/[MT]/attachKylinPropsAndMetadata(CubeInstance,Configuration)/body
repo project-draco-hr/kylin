@@ -1,5 +1,5 @@
 {
-  MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+  MetadataManager metaMgr=MetadataManager.getInstance(cube.getConfig());
   ArrayList<String> dumpList=new ArrayList<String>();
   dumpList.add(cube.getResourcePath());
   dumpList.add(cube.getDescriptor().getModel().getResourcePath());
@@ -11,5 +11,5 @@
   for (  CubeSegment segment : cube.getSegments()) {
     dumpList.addAll(segment.getDictionaryPaths());
   }
-  attachKylinPropsAndMetadata(dumpList,conf);
+  attachKylinPropsAndMetadata(dumpList,cube.getConfig(),conf);
 }

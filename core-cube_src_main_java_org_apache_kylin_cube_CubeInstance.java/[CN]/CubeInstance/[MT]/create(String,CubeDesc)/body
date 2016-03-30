@@ -1,6 +1,6 @@
 {
   CubeInstance cubeInstance=new CubeInstance();
-  cubeInstance.setConfig(cubeDesc.getConfig());
+  cubeInstance.setConfig((KylinConfigExt)cubeDesc.getConfig());
   cubeInstance.setName(cubeName);
   cubeInstance.setDescName(cubeDesc.getName());
   cubeInstance.setCreateTimeUTC(System.currentTimeMillis());

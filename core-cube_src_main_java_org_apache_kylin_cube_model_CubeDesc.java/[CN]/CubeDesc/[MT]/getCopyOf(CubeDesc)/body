@@ -18,7 +18,8 @@
   newCubeDesc.setEngineType(cubeDesc.getEngineType());
   newCubeDesc.setStorageType(cubeDesc.getStorageType());
   newCubeDesc.setAggregationGroups(cubeDesc.getAggregationGroups());
-  newCubeDesc.setConfig(cubeDesc.getConfig());
+  newCubeDesc.setOverrideKylinProps(cubeDesc.getOverrideKylinProps());
+  newCubeDesc.setConfig((KylinConfigExt)cubeDesc.getConfig());
   newCubeDesc.updateRandomUuid();
   return newCubeDesc;
 }

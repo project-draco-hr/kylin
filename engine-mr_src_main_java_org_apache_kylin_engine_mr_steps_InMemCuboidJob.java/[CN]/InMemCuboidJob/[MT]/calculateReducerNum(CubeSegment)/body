@@ -1,5 +1,5 @@
 {
-  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  KylinConfig kylinConfig=cubeSeg.getConfig();
   Map<Long,Double> cubeSizeMap=new CubeStatsReader(cubeSeg,kylinConfig).getCuboidSizeMap();
   double totalSizeInM=0;
   for (  Double cuboidSize : cubeSizeMap.values()) {

@@ -1,7 +1,0 @@
-{
-  boolean b=true;
-  for (  Set<String> dims : dimsList) {
-    if (!includeDims.containsAll(dims))     b=false;
-  }
-  return b;
-}

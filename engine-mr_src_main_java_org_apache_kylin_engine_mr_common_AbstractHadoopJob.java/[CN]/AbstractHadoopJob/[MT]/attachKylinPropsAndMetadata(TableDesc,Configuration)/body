@@ -1,5 +1,5 @@
 {
   ArrayList<String> dumpList=new ArrayList<String>();
   dumpList.add(table.getResourcePath());
-  attachKylinPropsAndMetadata(dumpList,conf);
+  attachKylinPropsAndMetadata(dumpList,KylinConfig.getInstanceFromEnv(),conf);
 }

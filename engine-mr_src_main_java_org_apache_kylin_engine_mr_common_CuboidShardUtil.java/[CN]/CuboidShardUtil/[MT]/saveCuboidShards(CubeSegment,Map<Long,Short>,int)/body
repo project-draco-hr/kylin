@@ -1,5 +1,5 @@
 {
-  CubeManager cubeManager=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
+  CubeManager cubeManager=CubeManager.getInstance(segment.getConfig());
   Map<Long,Short> filered=Maps.newHashMap();
   for (  Map.Entry<Long,Short> entry : cuboidShards.entrySet()) {
     if (entry.getValue() <= 1) {

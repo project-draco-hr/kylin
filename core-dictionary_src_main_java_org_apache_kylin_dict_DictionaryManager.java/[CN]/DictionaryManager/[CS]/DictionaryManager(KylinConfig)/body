@@ -5,7 +5,7 @@
       DictionaryManager.logger.info("Dict with resource path " + notification.getKey() + " is removed due to "+ notification.getCause());
     }
   }
-).maximumSize(KylinConfig.getInstanceFromEnv().getCachedDictMaxEntrySize()).expireAfterWrite(1,TimeUnit.DAYS).build(new CacheLoader<String,DictionaryInfo>(){
+).maximumSize(config.getCachedDictMaxEntrySize()).expireAfterWrite(1,TimeUnit.DAYS).build(new CacheLoader<String,DictionaryInfo>(){
     @Override public DictionaryInfo load(    String key) throws Exception {
       DictionaryInfo dictInfo=DictionaryManager.this.load(key,true);
       if (dictInfo == null) {

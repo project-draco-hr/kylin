@@ -2,6 +2,7 @@
   Configuration jobConf=job.getConfiguration();
   KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   CubeDesc cubeDesc=CubeManager.getInstance(config).getCube(cubeName).getDescriptor();
+  kylinConfig=cubeDesc.getConfig();
   double perReduceInputMB=kylinConfig.getDefaultHadoopJobReducerInputMB();
   double reduceCountRatio=kylinConfig.getDefaultHadoopJobReducerCountRatio();
   double totalMapInputMB=this.getTotalMapInputMB();

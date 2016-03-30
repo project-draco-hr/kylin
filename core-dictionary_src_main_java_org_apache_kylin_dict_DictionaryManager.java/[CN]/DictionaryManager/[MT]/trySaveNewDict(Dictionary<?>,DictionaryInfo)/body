@@ -1,6 +1,6 @@
 {
   initDictInfo(newDict,newDictInfo);
-  if (KylinConfig.getInstanceFromEnv().isGrowingDictEnabled()) {
+  if (config.isGrowingDictEnabled()) {
     DictionaryInfo largestDictInfo=findLargestDictInfo(newDictInfo);
     if (largestDictInfo != null) {
       largestDictInfo=getDictionaryInfo(largestDictInfo.getResourcePath());

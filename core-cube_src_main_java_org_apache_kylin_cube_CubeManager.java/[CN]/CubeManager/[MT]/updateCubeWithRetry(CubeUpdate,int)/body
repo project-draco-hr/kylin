@@ -63,6 +63,6 @@
     }
   }
   cubeMap.put(cube.getName(),cube);
-  ProjectManager.getInstance(KylinConfig.getInstanceFromEnv()).clearL2Cache();
+  ProjectManager.getInstance(cube.getConfig()).clearL2Cache();
   return cube;
 }
