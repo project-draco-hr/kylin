@@ -8,5 +8,6 @@
   options.addOptionGroup(realizationOrProject);
   options.addOption(OPTION_INCLUDE_SEGMENTS);
   options.addOption(OPTION_INCLUDE_JOB);
+  options.addOption(OPTION_INCLUDE_SEGMENT_DETAILS);
   options.addOption(OPTION_DEST);
 }

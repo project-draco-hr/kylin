@@ -15,6 +15,9 @@
   for (  ExecutablePO task : executablePO.getTasks()) {
     addRequired(ExecutableDao.pathOfJob(task.getUuid()));
     addRequired(ExecutableDao.pathOfJobOutput(task.getUuid()));
+    if (includeYarnLogs) {
+      yarnLogsResources.add(task.getUuid());
+    }
   }
   executeExtraction(dest);
   if (includeCube) {
@@ -24,9 +27,10 @@
     cubeMetaExtractor.execute(cubeMetaArgs);
   }
   if (includeYarnLogs) {
-    String[] yarnLogsArgs={"-jobId",jobId,"-destDir",dest + "yarn_" + jobId+ "/"};
-    logger.info("Start to related yarn job logs: " + StringUtils.join(yarnLogsArgs));
-    yarnLogExtractor.execute(yarnLogsArgs);
+    logger.info("Start to related yarn job logs: " + jobId);
+    for (    String taskId : yarnLogsResources) {
+      extractYarnLog(taskId,dest + "yarn_" + jobId+ "/");
+    }
   }
   logger.info("Extracted kylin jobs located at: " + new File(dest).getAbsolutePath());
 }

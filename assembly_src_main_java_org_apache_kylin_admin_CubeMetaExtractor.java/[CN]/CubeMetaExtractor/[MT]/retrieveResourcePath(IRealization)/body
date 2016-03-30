@@ -16,13 +16,15 @@
     if (includeSegments) {
       addRequired(CubeInstance.concatResourcePath(cube.getName()));
       for (      CubeSegment segment : cube.getSegments(SegmentStatusEnum.READY)) {
-        for (        String dictPat : segment.getDictionaryPaths()) {
-          addRequired(dictPat);
+        if (includeSegmentDetails) {
+          for (          String dictPat : segment.getDictionaryPaths()) {
+            addRequired(dictPat);
+          }
+          for (          String snapshotPath : segment.getSnapshotPaths()) {
+            addRequired(snapshotPath);
+          }
+          addRequired(segment.getStatisticsResourcePath());
         }
-        for (        String snapshotPath : segment.getSnapshotPaths()) {
-          addRequired(snapshotPath);
-        }
-        addRequired(segment.getStatisticsResourcePath());
         if (includeJobs) {
           String lastJobId=segment.getLastBuildJobID();
           if (StringUtils.isEmpty(lastJobId)) {
@@ -42,9 +44,6 @@
               throw new RuntimeException("PersistentException",e);
             }
           }
-        }
- else {
-          logger.info("Job info will not be extracted");
         }
       }
     }

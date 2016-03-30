@@ -1,4 +1,0 @@
-{
-  YarnLogExtractor extractor=new YarnLogExtractor();
-  extractor.execute(args);
-}

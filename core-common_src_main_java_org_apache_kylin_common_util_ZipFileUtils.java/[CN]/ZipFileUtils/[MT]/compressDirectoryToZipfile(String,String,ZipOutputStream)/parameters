@@ -1,0 +1,3 @@
+String rootDir
+String sourceDir
+ZipOutputStream out

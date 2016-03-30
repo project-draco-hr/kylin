@@ -1,0 +1,47 @@
+{
+  String dest=null;
+  if (this.type.equals("job")) {
+    jobInfoExtractor.execute(optionsHelper);
+    dest=optionsHelper.getOptionValue(options.getOption("destDir"));
+  }
+ else   if (this.type.equals("metadata")) {
+    cubeMetaExtractor.execute(optionsHelper);
+    dest=optionsHelper.getOptionValue(options.getOption("destDir"));
+  }
+  if (StringUtils.isEmpty(dest)) {
+    throw new RuntimeException("destDir is not set, exit directly without extracting");
+  }
+  if (!dest.endsWith("/")) {
+    dest=dest + "/";
+  }
+  int logPeriod=optionsHelper.hasOption(OPTION_LOG_PERIOD) ? Integer.valueOf(optionsHelper.getOptionValue(OPTION_LOG_PERIOD)) : DEFAULT_LOG_PERIOD;
+  boolean compress=optionsHelper.hasOption(OPTION_COMPRESS) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_COMPRESS)) : false;
+  if (logPeriod > 0) {
+    logger.info("Start to extract kylin logs in {} days",logPeriod);
+    final String logFolder=KylinConfig.getKylinHome() + "/logs/";
+    final String defaultLogFilename="kylin.log";
+    final File logsDir=new File(dest + "/logs/");
+    final SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+    FileUtils.forceMkdir(logsDir);
+    final ArrayList<String> logFileNames=Lists.newArrayListWithCapacity(logPeriod);
+    logFileNames.add(defaultLogFilename);
+    for (int i=1; i < logPeriod; i++) {
+      Calendar todayCal=Calendar.getInstance();
+      todayCal.add(Calendar.DAY_OF_MONTH,0 - i);
+      logFileNames.add(defaultLogFilename + "." + format.format(todayCal.getTime()));
+    }
+    for (    String logFilename : logFileNames) {
+      File logFile=new File(logFolder + logFilename);
+      if (logFile.exists()) {
+        FileUtils.copyFileToDirectory(logFile,logsDir);
+      }
+    }
+  }
+  if (compress) {
+    File tempZipFile=File.createTempFile("extraction_",".zip");
+    ZipFileUtils.compressZipFile(dest,tempZipFile.getAbsolutePath());
+    FileUtils.forceDelete(new File(dest));
+    FileUtils.moveFileToDirectory(tempZipFile,new File(dest),true);
+  }
+  logger.info("Extraction finished at: " + new File(dest).getAbsolutePath());
+}

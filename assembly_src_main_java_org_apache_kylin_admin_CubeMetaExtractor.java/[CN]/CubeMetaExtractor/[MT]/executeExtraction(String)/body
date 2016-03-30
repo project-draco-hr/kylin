@@ -9,33 +9,28 @@
   for (  CubeInstance cube : cubesToTrimAndSave) {
     logger.info("Cube {} will be trimmed and extracted",cube);
   }
-  if (dest == null) {
-    logger.info("destDir is not set, exit directly without extracting");
-  }
- else {
-    try {
-      ResourceStore src=ResourceStore.getStore(KylinConfig.getInstanceFromEnv());
-      ResourceStore dst=ResourceStore.getStore(KylinConfig.createInstanceFromUri(dest));
-      for (      String path : requiredResources) {
+  try {
+    ResourceStore src=ResourceStore.getStore(KylinConfig.getInstanceFromEnv());
+    ResourceStore dst=ResourceStore.getStore(KylinConfig.createInstanceFromUri(dest));
+    for (    String path : requiredResources) {
+      ResourceTool.copyR(src,dst,path);
+    }
+    for (    String path : optionalResources) {
+      try {
         ResourceTool.copyR(src,dst,path);
       }
-      for (      String path : optionalResources) {
-        try {
-          ResourceTool.copyR(src,dst,path);
-        }
- catch (        Exception e) {
-          logger.warn("Exception when copying optional resource {}. May be caused by resource missing. Ignore it.");
-        }
-      }
-      for (      CubeInstance cube : cubesToTrimAndSave) {
-        CubeInstance trimmedCube=CubeInstance.getCopyOf(cube);
-        trimmedCube.getSegments().clear();
-        trimmedCube.setUuid(cube.getUuid());
-        dst.putResource(trimmedCube.getResourcePath(),trimmedCube,CubeManager.CUBE_SERIALIZER);
+ catch (      Exception e) {
+        logger.warn("Exception when copying optional resource {}. May be caused by resource missing. Ignore it.");
       }
     }
- catch (    IOException e) {
-      throw new RuntimeException("IOException",e);
+    for (    CubeInstance cube : cubesToTrimAndSave) {
+      CubeInstance trimmedCube=CubeInstance.getCopyOf(cube);
+      trimmedCube.getSegments().clear();
+      trimmedCube.setUuid(cube.getUuid());
+      dst.putResource(trimmedCube.getResourcePath(),trimmedCube,CubeManager.CUBE_SERIALIZER);
     }
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("IOException",e);
   }
 }

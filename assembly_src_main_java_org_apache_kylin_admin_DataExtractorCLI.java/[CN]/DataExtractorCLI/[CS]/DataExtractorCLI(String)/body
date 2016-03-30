@@ -1,0 +1,16 @@
+{
+  this.type=type;
+  jobInfoExtractor=new JobInfoExtractor();
+  cubeMetaExtractor=new CubeMetaExtractor();
+  if (this.type.equalsIgnoreCase("job")) {
+    options=jobInfoExtractor.getOptions();
+  }
+ else   if (this.type.equalsIgnoreCase("metadata")) {
+    options=cubeMetaExtractor.getOptions();
+  }
+ else {
+    throw new RuntimeException("Only job and metadata are allowed.");
+  }
+  options.addOption(OPTION_LOG_PERIOD);
+  options.addOption(OPTION_COMPRESS);
+}

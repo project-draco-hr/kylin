@@ -1,0 +1,14 @@
+{
+  for (  File sourceFile : new File(sourceDir).listFiles()) {
+    if (sourceFile.isDirectory()) {
+      compressDirectoryToZipfile(rootDir,sourceDir + sourceFile.getName() + File.separator,out);
+    }
+ else {
+      ZipEntry entry=new ZipEntry(sourceDir.replace(rootDir,"") + sourceFile.getName());
+      out.putNextEntry(entry);
+      FileInputStream in=new FileInputStream(sourceDir + sourceFile.getName());
+      IOUtils.copy(in,out);
+      IOUtils.closeQuietly(in);
+    }
+  }
+}

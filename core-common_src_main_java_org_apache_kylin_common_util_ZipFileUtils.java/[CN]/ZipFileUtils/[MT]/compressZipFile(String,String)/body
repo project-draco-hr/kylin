@@ -1,0 +1,8 @@
+{
+  if (!validateZipFilename(zipFilename)) {
+    throw new RuntimeException("Zipfile must end with .zip");
+  }
+  ZipOutputStream zipFile=new ZipOutputStream(new FileOutputStream(zipFilename));
+  compressDirectoryToZipfile(sourceDir,sourceDir,zipFile);
+  IOUtils.closeQuietly(zipFile);
+}

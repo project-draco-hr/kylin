@@ -1,0 +1,6 @@
+{
+  if (!StringUtils.isEmpty(filename) && filename.trim().toLowerCase().endsWith(".zip")) {
+    return true;
+  }
+  return false;
+}
