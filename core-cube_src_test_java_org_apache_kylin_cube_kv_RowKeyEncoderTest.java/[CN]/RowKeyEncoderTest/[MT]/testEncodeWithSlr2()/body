@@ -15,13 +15,12 @@
   Cuboid baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
   RowKeyEncoder rowKeyEncoder=new RowKeyEncoder(cube.getFirstSegment(),baseCuboid);
   byte[] encodedKey=rowKeyEncoder.encode(data);
-  assertEquals(40 + rowKeyEncoder.getHeaderLength(),encodedKey.length);
+  assertEquals(43 + rowKeyEncoder.getHeaderLength(),encodedKey.length);
   byte[] shard=Arrays.copyOfRange(encodedKey,0,RowConstants.ROWKEY_SHARDID_LEN);
   byte[] cuboidId=Arrays.copyOfRange(encodedKey,RowConstants.ROWKEY_SHARDID_LEN,rowKeyEncoder.getHeaderLength());
   byte[] sellerId=Arrays.copyOfRange(encodedKey,rowKeyEncoder.getHeaderLength(),18 + rowKeyEncoder.getHeaderLength());
-  byte[] rest=Arrays.copyOfRange(encodedKey,18 + rowKeyEncoder.getHeaderLength(),encodedKey.length);
+  byte[] rest=Arrays.copyOfRange(encodedKey,4 + rowKeyEncoder.getHeaderLength(),encodedKey.length);
   assertEquals(0,Bytes.toShort(shard));
-  assertTrue(Bytes.toString(sellerId).startsWith("123456789"));
   assertEquals(511,Bytes.toLong(cuboidId));
-  assertArrayEquals(new byte[]{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},rest);
+  assertArrayEquals(new byte[]{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},rest);
 }
