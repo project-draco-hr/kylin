@@ -1,0 +1,4 @@
+{
+  if (!(another instanceof KylinConfig))   return false;
+ else   return this.base() == ((KylinConfig)another).base();
+}

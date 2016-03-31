@@ -1,4 +1,6 @@
 {
   super(base.getAllProperties());
+  if (base.getClass() != KylinConfig.class)   throw new IllegalArgumentException();
+  this.base=base;
   this.overrides=overrides;
 }
