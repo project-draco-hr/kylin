@@ -1,0 +1,7 @@
+{
+  String tempLocation=System.getProperty("java.io.tmpdir");
+  String[] args={"-project",project,"-destDir",tempLocation,"-compress","true"};
+  DiagnosisInfoCLI diagnosisInfoCli=new DiagnosisInfoCLI("metadata");
+  diagnosisInfoCli.execute(args);
+  return diagnosisInfoCli.getExportDest();
+}
