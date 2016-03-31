@@ -1,4 +1,4 @@
 {
-  DiagnosisInfoCLI diagnosisInfoCLI=new DiagnosisInfoCLI(args[0]);
-  diagnosisInfoCLI.execute(Arrays.copyOfRange(args,1,args.length));
+  DiagnosisInfoCLI diagnosisInfoCLI=new DiagnosisInfoCLI();
+  diagnosisInfoCLI.execute(args);
 }

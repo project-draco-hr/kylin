@@ -2,7 +2,7 @@
   super("BadQueryDetector");
   this.setDaemon(true);
   this.kylinConfig=KylinConfig.getInstanceFromEnv();
-  this.detectionInterval=60 * 1000;
+  this.detectionInterval=kylinConfig.getBadQueryDefaultDetectIntervalSeconds() * 1000;
   this.alertMB=100;
   this.alertRunningSec=kylinConfig.getBadQueryDefaultAlertingSeconds();
   initNotifiers();

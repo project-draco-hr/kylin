@@ -1,0 +1,3 @@
+{
+  return Integer.parseInt(getOptional("kylin.query.badquery.detect.interval.seconds","60"));
+}

@@ -1,6 +1,6 @@
 String sql
 String adj
 long startTime
+int runningSec
 String server
-String threadName
-String project
+String thread

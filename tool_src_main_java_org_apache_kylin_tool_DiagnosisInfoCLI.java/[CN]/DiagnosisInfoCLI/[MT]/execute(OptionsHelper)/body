@@ -1,18 +1,14 @@
 {
-  if (this.type.equals("job")) {
-    jobInfoExtractor.execute(optionsHelper);
-    exportDest=optionsHelper.getOptionValue(options.getOption("destDir"));
-  }
- else   if (this.type.equals("metadata")) {
-    cubeMetaExtractor.execute(optionsHelper);
-    exportDest=optionsHelper.getOptionValue(options.getOption("destDir"));
-  }
+  final String project=optionsHelper.getOptionValue(options.getOption("project"));
+  exportDest=optionsHelper.getOptionValue(options.getOption("destDir"));
   if (StringUtils.isEmpty(exportDest)) {
     throw new RuntimeException("destDir is not set, exit directly without extracting");
   }
   if (!exportDest.endsWith("/")) {
     exportDest=exportDest + "/";
   }
+  String[] cubeMetaArgs={"-destDir",exportDest + File.pathSeparator,"-project",project};
+  cubeMetaExtractor.execute(cubeMetaArgs);
   int logPeriod=optionsHelper.hasOption(OPTION_LOG_PERIOD) ? Integer.valueOf(optionsHelper.getOptionValue(OPTION_LOG_PERIOD)) : DEFAULT_LOG_PERIOD;
   boolean compress=optionsHelper.hasOption(OPTION_COMPRESS) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_COMPRESS)) : false;
   if (logPeriod > 0) {

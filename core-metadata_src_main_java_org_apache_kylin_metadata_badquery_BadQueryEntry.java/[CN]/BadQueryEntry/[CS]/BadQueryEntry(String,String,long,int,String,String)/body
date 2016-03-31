@@ -3,6 +3,7 @@
   this.adj=adj;
   this.sql=sql;
   this.startTime=startTime;
+  this.runningSec=runningSec;
   this.server=server;
   this.thread=thread;
 }
