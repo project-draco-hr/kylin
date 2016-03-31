@@ -1,10 +1,10 @@
 {
   for (  File sourceFile : new File(sourceDir).listFiles()) {
     if (sourceFile.isDirectory()) {
-      compressDirectoryToZipfile(rootDir,sourceDir + sourceFile.getName() + File.separator,out);
+      compressDirectoryToZipfile(rootDir,sourceDir + normDir(sourceFile.getName()),out);
     }
  else {
-      ZipEntry entry=new ZipEntry(sourceDir.replace(rootDir,"") + sourceFile.getName());
+      ZipEntry entry=new ZipEntry(normDir(StringUtils.isEmpty(rootDir) ? sourceDir : sourceDir.replace(rootDir,"")) + sourceFile.getName());
       out.putNextEntry(entry);
       FileInputStream in=new FileInputStream(sourceDir + sourceFile.getName());
       IOUtils.copy(in,out);

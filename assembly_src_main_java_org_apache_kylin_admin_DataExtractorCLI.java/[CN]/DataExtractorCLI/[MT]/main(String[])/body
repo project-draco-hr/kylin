@@ -1,4 +1,0 @@
-{
-  DataExtractorCLI dataExtractorCLI=new DataExtractorCLI(args[0]);
-  dataExtractorCLI.execute(Arrays.copyOfRange(args,1,args.length));
-}

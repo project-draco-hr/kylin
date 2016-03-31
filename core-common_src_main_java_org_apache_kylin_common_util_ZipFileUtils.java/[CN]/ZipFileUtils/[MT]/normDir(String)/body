@@ -1,0 +1,6 @@
+{
+  if (!StringUtils.isEmpty(dirName) && !dirName.endsWith(File.separator)) {
+    dirName=dirName + File.separator;
+  }
+  return dirName;
+}
