@@ -1,0 +1,8 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  BadQueryEntry entry=(BadQueryEntry)o;
+  if (!sql.equals(entry.sql))   return false;
+  if (startTime != entry.startTime)   return false;
+  return true;
+}

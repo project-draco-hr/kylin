@@ -1,0 +1,12 @@
+{
+  if (StringUtils.isEmpty(project) || badQueryEntry.getAdj() == null || badQueryEntry.getSql() == null)   throw new IllegalArgumentException();
+  BadQueryHistory badQueryHistory=getBadQueriesForProject(project);
+  NavigableSet<BadQueryEntry> entries=badQueryHistory.getEntries();
+  BadQueryEntry entry=entries.floor(badQueryEntry);
+  entry.setAdj(badQueryEntry.getAdj());
+  entry.setRunningSec(badQueryEntry.getRunningSec());
+  entry.setServer(badQueryEntry.getServer());
+  entry.setThread(badQueryEntry.getThread());
+  getStore().putResource(badQueryHistory.getResourcePath(),badQueryHistory,BAD_QUERY_INSTANCE_SERIALIZER);
+  return badQueryHistory;
+}
