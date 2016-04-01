@@ -1,0 +1,11 @@
+{
+  String path=System.getProperty(KylinConfig.KYLIN_CONF);
+  if (StringUtils.isNotEmpty(path)) {
+    return path;
+  }
+  path=KylinConfig.getKylinHome();
+  if (StringUtils.isNotEmpty(path)) {
+    return path + File.separator + "conf";
+  }
+  return null;
+}

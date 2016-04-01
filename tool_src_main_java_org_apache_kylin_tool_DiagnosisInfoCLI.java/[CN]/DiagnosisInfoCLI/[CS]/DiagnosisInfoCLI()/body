@@ -5,4 +5,5 @@
   options.addOption(OPTION_COMPRESS);
   options.addOption(OPTION_DEST);
   options.addOption(OPTION_PROJECT);
+  options.addOption(OPTION_INCLUDE_CONF);
 }

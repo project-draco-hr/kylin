@@ -7,15 +7,16 @@
   if (!exportDest.endsWith("/")) {
     exportDest=exportDest + "/";
   }
-  String[] cubeMetaArgs={"-destDir",exportDest + File.pathSeparator,"-project",project};
+  String[] cubeMetaArgs={"-destDir",exportDest + "metadata","-project",project};
   cubeMetaExtractor.execute(cubeMetaArgs);
   int logPeriod=optionsHelper.hasOption(OPTION_LOG_PERIOD) ? Integer.valueOf(optionsHelper.getOptionValue(OPTION_LOG_PERIOD)) : DEFAULT_LOG_PERIOD;
   boolean compress=optionsHelper.hasOption(OPTION_COMPRESS) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_COMPRESS)) : false;
+  boolean includeConf=optionsHelper.hasOption(OPTION_INCLUDE_CONF) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_CONF)) : true;
   if (logPeriod > 0) {
     logger.info("Start to extract kylin logs in {} days",logPeriod);
     final String logFolder=KylinConfig.getKylinHome() + "/logs/";
     final String defaultLogFilename="kylin.log";
-    final File logsDir=new File(exportDest + "/logs/");
+    final File logsDir=new File(exportDest + "logs/");
     final SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
     FileUtils.forceMkdir(logsDir);
     final ArrayList<String> logFileNames=Lists.newArrayListWithCapacity(logPeriod);
@@ -31,6 +32,10 @@
         FileUtils.copyFileToDirectory(logFile,logsDir);
       }
     }
+  }
+  if (includeConf) {
+    logger.info("Start to extract kylin conf files.");
+    FileUtils.copyDirectoryToDirectory(new File(getConfFolder()),new File(exportDest));
   }
   if (compress) {
     File tempZipFile=File.createTempFile("diagnosis_",".zip");
