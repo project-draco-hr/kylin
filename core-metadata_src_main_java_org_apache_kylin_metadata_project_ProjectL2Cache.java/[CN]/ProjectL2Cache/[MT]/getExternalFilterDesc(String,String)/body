@@ -1,0 +1,4 @@
+{
+  ProjectCache prjCache=getCache(project);
+  return prjCache.extFilters.get(extFilterName);
+}

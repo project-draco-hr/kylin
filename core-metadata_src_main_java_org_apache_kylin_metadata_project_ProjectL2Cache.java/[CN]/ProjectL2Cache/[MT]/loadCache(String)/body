@@ -1,33 +1,42 @@
 {
   logger.info("Loading L2 project cache for " + project);
-  ProjectCache result=new ProjectCache(project);
+  ProjectCache projectCache=new ProjectCache(project);
   ProjectInstance pi=mgr.getProject(project);
   if (pi == null)   throw new IllegalArgumentException("Project '" + project + "' does not exist;");
   MetadataManager metaMgr=mgr.getMetadataManager();
   for (  String tableName : pi.getTables()) {
     TableDesc tableDesc=metaMgr.getTableDesc(tableName);
     if (tableDesc != null) {
-      result.tables.put(tableDesc.getIdentity(),new TableCache(tableDesc));
+      projectCache.tables.put(tableDesc.getIdentity(),new TableCache(tableDesc));
     }
  else {
       logger.warn("Table '" + tableName + "' defined under project '"+ project+ "' is not found");
+    }
+  }
+  for (  String extFilterName : pi.getExtFilters()) {
+    ExternalFilterDesc filterDesc=metaMgr.getExtFilterDesc(extFilterName);
+    if (filterDesc != null) {
+      projectCache.extFilters.put(extFilterName,filterDesc);
+    }
+ else {
+      logger.warn("External Filter '" + extFilterName + "' defined under project '"+ project+ "' is not found");
     }
   }
   RealizationRegistry registry=RealizationRegistry.getInstance(mgr.getConfig());
   for (  RealizationEntry entry : pi.getRealizationEntries()) {
     IRealization realization=registry.getRealization(entry.getType(),entry.getRealization());
     if (realization != null) {
-      result.realizations.add(realization);
+      projectCache.realizations.add(realization);
     }
  else {
       logger.warn("Realization '" + entry + "' defined under project '"+ project+ "' is not found");
     }
   }
-  for (  IRealization realization : result.realizations) {
-    if (sanityCheck(result,realization)) {
-      mapTableToRealization(result,realization);
-      markExposedTablesAndColumns(result,realization);
+  for (  IRealization realization : projectCache.realizations) {
+    if (sanityCheck(projectCache,realization)) {
+      mapTableToRealization(projectCache,realization);
+      markExposedTablesAndColumns(projectCache,realization);
     }
   }
-  return result;
+  return projectCache;
 }

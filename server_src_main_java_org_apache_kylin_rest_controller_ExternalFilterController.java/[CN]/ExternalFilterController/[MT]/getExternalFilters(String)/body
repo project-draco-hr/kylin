@@ -1,5 +1,5 @@
 {
-  List<ExternalFilterDesc> filterDescs;
-  filterDescs=extFilterService.listProjectFilters(project);
+  List<ExternalFilterDesc> filterDescs=Lists.newArrayList();
+  filterDescs.addAll(extFilterService.getProjectManager().listExternalFilterDescs(project).values());
   return filterDescs;
 }
