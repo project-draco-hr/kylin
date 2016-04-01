@@ -1,8 +1,7 @@
 {
   if (sum == null) {
     capacity=value.getCapacity();
-    sum=new TopNCounter<>(capacity);
-    sanityCheckMap=Maps.newHashMap();
+    sum=new TopNCounter<>(capacity * 10);
   }
   sum.merge(value);
 }
