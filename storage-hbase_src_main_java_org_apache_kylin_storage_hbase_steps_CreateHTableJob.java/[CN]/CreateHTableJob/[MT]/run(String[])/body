@@ -5,7 +5,7 @@
   options.addOption(OPTION_PARTITION_FILE_PATH);
   options.addOption(OPTION_STATISTICS_ENABLED);
   parseOptions(options,args);
-  Path partitionFilePath=new Path(getOptionValue(OPTION_PARTITION_FILE_PATH));
+  partitionFilePath=new Path(getOptionValue(OPTION_PARTITION_FILE_PATH));
   boolean statsEnabled=Boolean.parseBoolean(getOptionValue(OPTION_STATISTICS_ENABLED));
   String cubeName=getOptionValue(OPTION_CUBE_NAME).toUpperCase();
   CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
@@ -19,10 +19,10 @@
     byte[][] splitKeys;
     if (statsEnabled) {
       final Map<Long,Double> cuboidSizeMap=new CubeStatsReader(cubeSegment,kylinConfig).getCuboidSizeMap();
-      splitKeys=getSplitsFromCuboidStatistics(cuboidSizeMap,kylinConfig,cubeSegment);
+      splitKeys=getRegionSplitsFromCuboidStatistics(cuboidSizeMap,kylinConfig,cubeSegment,partitionFilePath.getParent());
     }
  else {
-      splitKeys=getSplits(conf,partitionFilePath);
+      splitKeys=getRegionSplits(conf,partitionFilePath);
     }
     CubeHTableUtil.createHTable(cubeSegment,splitKeys);
     return 0;

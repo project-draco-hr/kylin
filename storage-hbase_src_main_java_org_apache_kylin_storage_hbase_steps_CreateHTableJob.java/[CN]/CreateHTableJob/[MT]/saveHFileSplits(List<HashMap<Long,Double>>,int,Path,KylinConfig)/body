@@ -1,0 +1,53 @@
+{
+  if (outputFolder == null) {
+    logger.warn("outputFolder for hfile split file is null, skip inner region split");
+    return;
+  }
+  FileSystem fs=FileSystem.get(HadoopUtil.getCurrentConfiguration());
+  if (fs.exists(outputFolder) == false) {
+    fs.mkdirs(outputFolder);
+  }
+  float hfileSizeMB=kylinConfig.getHBaseHFileSizeGB() * 1024;
+  int compactionThreshold=Integer.valueOf(HBaseConnection.getCurrentHBaseConfiguration().get("hbase.hstore.compactionThreshold","3"));
+  if (hfileSizeMB * compactionThreshold < mbPerRegion) {
+    hfileSizeMB=mbPerRegion / compactionThreshold;
+  }
+  if (hfileSizeMB <= 0) {
+    hfileSizeMB=mbPerRegion;
+  }
+  logger.info("hfileSizeMB:" + hfileSizeMB);
+  final Path hfilePartitionFile=new Path(outputFolder,"part-r-00000_hfile");
+  short regionCount=(short)innerRegionSplits.size();
+  List<byte[]> splits=Lists.newArrayList();
+  for (int i=0; i < regionCount; i++) {
+    if (i > 0) {
+      byte[] split=new byte[RowConstants.ROWKEY_SHARDID_LEN];
+      BytesUtil.writeUnsigned(i,split,0,RowConstants.ROWKEY_SHARDID_LEN);
+      splits.add(split);
+    }
+    HashMap<Long,Double> cuboidSize=innerRegionSplits.get(i);
+    List<Long> allCuboids=Lists.newArrayList();
+    allCuboids.addAll(cuboidSize.keySet());
+    Collections.sort(allCuboids);
+    double accumulatedSize=0;
+    int j=0;
+    for (    Long cuboid : allCuboids) {
+      if (accumulatedSize >= hfileSizeMB) {
+        logger.info(String.format("Region %d's hfile %d size is %.2f mb",i,j,accumulatedSize));
+        byte[] split=new byte[RowConstants.ROWKEY_SHARD_AND_CUBOID_LEN];
+        BytesUtil.writeUnsigned(i,split,0,RowConstants.ROWKEY_SHARDID_LEN);
+        System.arraycopy(Bytes.toBytes(cuboid),0,split,RowConstants.ROWKEY_SHARDID_LEN,RowConstants.ROWKEY_CUBOIDID_LEN);
+        splits.add(split);
+        accumulatedSize=0;
+        j++;
+      }
+      accumulatedSize+=cuboidSize.get(cuboid);
+    }
+  }
+  Configuration conf=HadoopUtil.getCurrentConfiguration();
+  SequenceFile.Writer hfilePartitionWriter=SequenceFile.createWriter(conf,SequenceFile.Writer.file(hfilePartitionFile),SequenceFile.Writer.keyClass(ImmutableBytesWritable.class),SequenceFile.Writer.valueClass(NullWritable.class));
+  for (int i=0; i < splits.size(); i++) {
+    hfilePartitionWriter.append(new ImmutableBytesWritable(splits.get(i)),NullWritable.get());
+  }
+  hfilePartitionWriter.close();
+}

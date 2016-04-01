@@ -1,8 +1,8 @@
 {
   byte[][] result=new byte[regionCount - 1][];
   for (int i=1; i < regionCount; ++i) {
-    byte[] split=new byte[Bytes.SIZEOF_SHORT];
-    BytesUtil.writeUnsigned(i,split,0,Bytes.SIZEOF_SHORT);
+    byte[] split=new byte[RowConstants.ROWKEY_SHARDID_LEN];
+    BytesUtil.writeUnsigned(i,split,0,RowConstants.ROWKEY_SHARDID_LEN);
     result[i - 1]=split;
   }
   return result;

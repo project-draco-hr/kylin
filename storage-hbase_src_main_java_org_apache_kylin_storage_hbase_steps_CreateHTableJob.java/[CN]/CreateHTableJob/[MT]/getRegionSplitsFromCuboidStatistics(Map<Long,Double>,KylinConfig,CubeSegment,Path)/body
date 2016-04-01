@@ -1,7 +1,7 @@
 {
   final CubeDesc cubeDesc=cubeSegment.getCubeDesc();
   float cut=RegionSize.getReionSize(kylinConfig,cubeDesc);
-  logger.info("chosen cut for HTable is " + cut + "GB");
+  logger.info("Cut for HBase region is " + cut + "GB");
   double totalSizeInM=0;
   for (  Double cuboidSize : cubeSizeMap.values()) {
     totalSizeInM+=cuboidSize;
@@ -30,6 +30,10 @@
   logger.info("Expecting " + mbPerRegion + " MB per region.");
   if (cubeSegment.isEnableSharding()) {
     HashMap<Long,Short> cuboidShards=Maps.newHashMap();
+    List<HashMap<Long,Double>> innerRegionSplits=Lists.newArrayList();
+    for (int i=0; i < nRegion; i++) {
+      innerRegionSplits.add(new HashMap<Long,Double>());
+    }
     double[] regionSizes=new double[nRegion];
     for (    long cuboidId : allCuboids) {
       double estimatedSize=cubeSizeMap.get(cuboidId);
@@ -50,12 +54,14 @@
       for (short i=startShard; i < startShard + shardNum; ++i) {
         short j=(short)(i % nRegion);
         regionSizes[j]=regionSizes[j] + estimatedSize / shardNum;
+        innerRegionSplits.get(j).put(cuboidId,estimatedSize / shardNum);
       }
     }
     for (int i=0; i < nRegion; ++i) {
       logger.info(String.format("Region %d's estimated size is %.2f MB, accounting for %.2f percent",i,regionSizes[i],100.0 * regionSizes[i] / totalSizeInM));
     }
     CuboidShardUtil.saveCuboidShards(cubeSegment,cuboidShards,nRegion);
+    saveHFileSplits(innerRegionSplits,mbPerRegion,hfileSplitsOutputFolder,kylinConfig);
     return getSplitsByRegionCount(nRegion);
   }
  else {

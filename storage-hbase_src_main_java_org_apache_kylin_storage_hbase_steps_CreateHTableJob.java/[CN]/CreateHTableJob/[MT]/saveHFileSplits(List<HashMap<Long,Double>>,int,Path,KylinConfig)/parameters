@@ -1,0 +1,4 @@
+List<HashMap<Long,Double>> innerRegionSplits
+int mbPerRegion
+Path outputFolder
+KylinConfig kylinConfig
