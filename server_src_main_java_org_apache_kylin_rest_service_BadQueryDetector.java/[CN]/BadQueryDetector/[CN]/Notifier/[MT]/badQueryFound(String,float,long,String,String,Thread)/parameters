@@ -1,5 +1,5 @@
 String adj
-int runningSec
+float runningSec
 long startTime
 String project
 String sql

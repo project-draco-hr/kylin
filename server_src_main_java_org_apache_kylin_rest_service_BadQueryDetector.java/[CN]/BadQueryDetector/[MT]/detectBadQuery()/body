@@ -3,7 +3,7 @@
   ArrayList<Entry> entries=new ArrayList<Entry>(runningQueries.values());
   Collections.sort(entries);
   for (  Entry e : entries) {
-    int runningSec=(int)((now - e.startTime) / 1000);
+    float runningSec=(float)(now - e.startTime) / 1000;
     if (runningSec >= alertRunningSec) {
       notify("Slow",runningSec,e.startTime,e.sqlRequest.getProject(),e.sqlRequest.getSql(),e.thread);
       dumpStackTrace(e.thread);

@@ -1,6 +1,6 @@
 String sql
 String adj
 long startTime
-int runningSec
+float runningSec
 String server
 String thread
