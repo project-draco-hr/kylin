@@ -1,6 +1,6 @@
 {
   this.errors.clear();
-  this.config=new KylinConfigExt(config,overrideKylinProps);
+  this.config=KylinConfigExt.createInstance(config,overrideKylinProps);
   if (this.modelName == null || this.modelName.length() == 0) {
     this.addError("The cubeDesc '" + this.getName() + "' doesn't have data model specified.");
   }

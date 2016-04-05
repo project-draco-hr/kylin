@@ -1,0 +1,8 @@
+{
+  if (kylinConfig instanceof KylinConfigExt) {
+    return new KylinConfigExt((KylinConfigExt)kylinConfig,overrides);
+  }
+ else {
+    return new KylinConfigExt(kylinConfig,overrides);
+  }
+}
