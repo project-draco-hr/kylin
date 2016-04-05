@@ -1,7 +1,6 @@
 {
   super.bindCurrentConfiguration(context.getConfiguration());
-  KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
-  if (config.isDevEnv()) {
+  if (context.getConfiguration().getBoolean("isDevEnv",false)) {
     scaleFactorForSandbox=1024L;
   }
 }
