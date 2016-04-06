@@ -2,12 +2,14 @@
   StringBuilder builder=new StringBuilder();
   String partitionDateColumnName=partDesc.getPartitionDateColumn();
   String partitionTimeColumnName=partDesc.getPartitionTimeColumn();
-  if (partitionDateColumnName != null) {
+  if (partitionDateColumnName != null && partitionTimeColumnName == null) {
     buildSingleColumnRangeCondition(builder,partitionDateColumnName,startInclusive,endExclusive,partDesc.getPartitionDateFormat(),tableAlias);
   }
-  if (partitionTimeColumnName != null) {
-    if (partitionDateColumnName != null)     builder.append(" AND ");
+ else   if (partitionDateColumnName == null && partitionTimeColumnName != null) {
     buildSingleColumnRangeCondition(builder,partitionTimeColumnName,startInclusive,endExclusive,partDesc.getPartitionTimeFormat(),tableAlias);
+  }
+ else   if (partitionDateColumnName != null && partitionTimeColumnName != null) {
+    buildMultipleColumnRangeCondition(builder,partitionDateColumnName,partitionTimeColumnName,startInclusive,endExclusive,partDesc.getPartitionDateFormat(),partDesc.getPartitionTimeFormat(),tableAlias);
   }
   return builder.toString();
 }

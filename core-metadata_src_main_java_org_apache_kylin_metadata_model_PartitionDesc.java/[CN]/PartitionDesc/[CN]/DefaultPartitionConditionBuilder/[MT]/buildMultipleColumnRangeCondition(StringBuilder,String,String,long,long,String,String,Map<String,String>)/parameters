@@ -1,0 +1,8 @@
+StringBuilder builder
+String partitionDateColumnName
+String partitionTimeColumnName
+long startInclusive
+long endExclusive
+String partitionColumnDateFormat
+String partitionColumnTimeFormat
+Map<String,String> tableAlias

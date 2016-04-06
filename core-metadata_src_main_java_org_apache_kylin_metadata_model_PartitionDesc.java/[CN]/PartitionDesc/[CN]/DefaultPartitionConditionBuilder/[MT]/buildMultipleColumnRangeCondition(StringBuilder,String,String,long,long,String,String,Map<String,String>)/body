@@ -1,0 +1,25 @@
+{
+  partitionDateColumnName=replaceColumnNameWithAlias(partitionDateColumnName,tableAlias);
+  partitionTimeColumnName=replaceColumnNameWithAlias(partitionTimeColumnName,tableAlias);
+  if (startInclusive > 0) {
+    builder.append("(");
+    builder.append("(");
+    builder.append(partitionDateColumnName + " = '" + DateFormat.formatToDateStr(startInclusive,partitionColumnDateFormat)+ "'").append(" AND ").append(partitionTimeColumnName + " >= '" + DateFormat.formatToDateStr(startInclusive,partitionColumnTimeFormat)+ "'");
+    builder.append(")");
+    builder.append(" OR ");
+    builder.append("(");
+    builder.append(partitionDateColumnName + " > '" + DateFormat.formatToDateStr(startInclusive,partitionColumnDateFormat)+ "'");
+    builder.append(")");
+    builder.append(")");
+    builder.append(" AND ");
+  }
+  builder.append("(");
+  builder.append("(");
+  builder.append(partitionDateColumnName + " = '" + DateFormat.formatToDateStr(endExclusive,partitionColumnDateFormat)+ "'").append(" AND ").append(partitionTimeColumnName + " < '" + DateFormat.formatToDateStr(endExclusive,partitionColumnTimeFormat)+ "'");
+  builder.append(")");
+  builder.append(" OR ");
+  builder.append("(");
+  builder.append(partitionDateColumnName + " < '" + DateFormat.formatToDateStr(endExclusive,partitionColumnDateFormat)+ "'");
+  builder.append(")");
+  builder.append(")");
+}
