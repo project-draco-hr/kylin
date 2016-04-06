@@ -1,0 +1,3 @@
+{
+  return getOptional("kylin.cube.mr.engine.v1.class","org.apache.kylin.engine.mr.MRBatchCubingEngine");
+}

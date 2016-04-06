@@ -7,6 +7,7 @@
   result.addTask(createFactDistinctColumnsStepWithStats(jobId));
   result.addTask(createBuildDictionaryStep(jobId));
   result.addTask(createSaveStatisticsStep(jobId));
+  addOtherStepBeforeCubing(result);
   outputSide.addStepPhase2_BuildDictionary(result);
   addLayerCubingSteps(result,jobId,cuboidRootPath);
   result.addTask(createInMemCubingStep(jobId,cuboidRootPath));
