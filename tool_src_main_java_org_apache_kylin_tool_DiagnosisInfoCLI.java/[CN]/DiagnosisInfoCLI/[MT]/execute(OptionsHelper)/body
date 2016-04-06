@@ -11,7 +11,7 @@
   String[] cubeMetaArgs={"-destDir",exportDest + "metadata","-project",project};
   cubeMetaExtractor.execute(cubeMetaArgs);
   int logPeriod=optionsHelper.hasOption(OPTION_LOG_PERIOD) ? Integer.valueOf(optionsHelper.getOptionValue(OPTION_LOG_PERIOD)) : DEFAULT_LOG_PERIOD;
-  boolean compress=optionsHelper.hasOption(OPTION_COMPRESS) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_COMPRESS)) : false;
+  boolean compress=optionsHelper.hasOption(OPTION_COMPRESS) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_COMPRESS)) : true;
   boolean includeConf=optionsHelper.hasOption(OPTION_INCLUDE_CONF) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_CONF)) : true;
   if (logPeriod > 0) {
     logger.info("Start to extract kylin logs in {} days",logPeriod);
