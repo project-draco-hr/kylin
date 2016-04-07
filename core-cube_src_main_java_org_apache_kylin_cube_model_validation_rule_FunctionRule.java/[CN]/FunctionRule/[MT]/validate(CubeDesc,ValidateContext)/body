@@ -37,6 +37,12 @@
       context.addResult(ResultLevel.ERROR,ex.getMessage());
     }
     if (func.isCount())     countFuncs.add(func);
+    if (TopNMeasureType.FUNC_TOP_N.equalsIgnoreCase(func.getExpression())) {
+      if (parameter.getNextParameter() == null) {
+        context.addResult(ResultLevel.ERROR,"Must define 2 parameters for function " + func.getExpression() + " in "+ measure.getName());
+        return;
+      }
+    }
   }
   if (countFuncs.size() != 1) {
     context.addResult(ResultLevel.ERROR,"Must define one and only one count(1) function, but there are " + countFuncs.size() + " -- "+ countFuncs);
