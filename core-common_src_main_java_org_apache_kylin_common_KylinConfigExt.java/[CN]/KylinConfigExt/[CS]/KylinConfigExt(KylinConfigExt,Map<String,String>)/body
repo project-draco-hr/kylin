@@ -1,4 +1,5 @@
 {
+  super(ext.base.getAllProperties());
   this.base=ext.base;
   this.overrides=overrides;
 }
