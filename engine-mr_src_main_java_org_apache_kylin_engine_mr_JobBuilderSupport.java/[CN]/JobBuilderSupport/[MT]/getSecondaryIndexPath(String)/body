@@ -1,0 +1,3 @@
+{
+  return getRealizationRootPath(jobId) + "/secondary_index/";
+}
