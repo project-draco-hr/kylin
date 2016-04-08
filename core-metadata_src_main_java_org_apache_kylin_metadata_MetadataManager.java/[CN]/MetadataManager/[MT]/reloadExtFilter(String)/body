@@ -1,0 +1,3 @@
+{
+  reloadExternalFilterAt(ExternalFilterDesc.concatResourcePath(extFilterName));
+}
