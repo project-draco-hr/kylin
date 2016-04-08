@@ -1,7 +1,7 @@
 {
-  if (initiated == true)   return;
+  if (realizations != null)   return;
 synchronized (this) {
-    if (initiated == true)     return;
+    if (realizations != null)     return;
     if (realizationEntries == null || realizationEntries.size() == 0)     throw new IllegalArgumentException();
     RealizationRegistry registry=RealizationRegistry.getInstance(config);
     List<IRealization> realizationList=Lists.newArrayList();
@@ -52,6 +52,5 @@ synchronized (this) {
     }
 );
     this.realizations=realizationList.toArray(new IRealization[realizationList.size()]);
-    initiated=true;
   }
 }
