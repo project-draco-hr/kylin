@@ -1,3 +1,0 @@
-{
-  return getSecondaryIndexPath(seg.getLastBuildJobID());
-}
