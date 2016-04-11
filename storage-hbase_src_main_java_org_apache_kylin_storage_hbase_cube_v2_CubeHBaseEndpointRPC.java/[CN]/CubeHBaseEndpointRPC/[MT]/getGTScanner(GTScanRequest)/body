@@ -1,0 +1,92 @@
+{
+  final String toggle=BackdoorToggles.getCoprocessorBehavior() == null ? CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM.toString() : BackdoorToggles.getCoprocessorBehavior();
+  logger.debug("New scanner for current segment {} will use {} as endpoint's behavior",cubeSeg,toggle);
+  short cuboidBaseShard=cubeSeg.getCuboidBaseShard(this.cuboid.getId());
+  short shardNum=cubeSeg.getCuboidShardNum(this.cuboid.getId());
+  int totalShards=cubeSeg.getTotalShards();
+  ByteString scanRequestByteString=null;
+  ByteString rawScanByteString=null;
+  final ImmutableBitSet selectedColBlocks=scanRequest.getSelectedColBlocks().set(0);
+  final HConnection conn=HBaseConnection.get(cubeSeg.getCubeInstance().getConfig().getStorageUrl());
+  final List<IntList> hbaseColumnsToGTIntList=Lists.newArrayList();
+  List<List<Integer>> hbaseColumnsToGT=getHBaseColumnsGTMapping(selectedColBlocks);
+  for (  List<Integer> list : hbaseColumnsToGT) {
+    hbaseColumnsToGTIntList.add(IntList.newBuilder().addAllInts(list).build());
+  }
+  List<RawScan> rawScans=preparedHBaseScans(scanRequest.getGTScanRanges(),selectedColBlocks);
+  int rawScanBufferSize=BytesSerializer.SERIALIZE_BUFFER_SIZE;
+  while (true) {
+    try {
+      ByteBuffer rawScanBuffer=ByteBuffer.allocate(rawScanBufferSize);
+      BytesUtil.writeVInt(rawScans.size(),rawScanBuffer);
+      for (      RawScan rs : rawScans) {
+        RawScan.serializer.serialize(rs,rawScanBuffer);
+      }
+      rawScanBuffer.flip();
+      rawScanByteString=HBaseZeroCopyByteString.wrap(rawScanBuffer.array(),rawScanBuffer.position(),rawScanBuffer.limit());
+      break;
+    }
+ catch (    BufferOverflowException boe) {
+      logger.info("Buffer size {} cannot hold the raw scans, resizing to 4 times",rawScanBufferSize);
+      rawScanBufferSize*=4;
+    }
+  }
+  scanRequest.setGTScanRanges(Lists.<GTScanRange>newArrayList());
+  int scanRequestBufferSize=BytesSerializer.SERIALIZE_BUFFER_SIZE;
+  while (true) {
+    try {
+      ByteBuffer buffer=ByteBuffer.allocate(scanRequestBufferSize);
+      GTScanRequest.serializer.serialize(scanRequest,buffer);
+      buffer.flip();
+      scanRequestByteString=HBaseZeroCopyByteString.wrap(buffer.array(),buffer.position(),buffer.limit());
+      break;
+    }
+ catch (    BufferOverflowException boe) {
+      logger.info("Buffer size {} cannot hold the scan request, resizing to 4 times",scanRequestBufferSize);
+      scanRequestBufferSize*=4;
+    }
+  }
+  logger.debug("Serialized scanRequestBytes {} bytes, rawScanBytesString {} bytes",scanRequestByteString.size(),rawScanByteString.size());
+  logger.info("The scan {} for segment {} is as below, shard part of start/end key is set to 0",Integer.toHexString(System.identityHashCode(scanRequest)),cubeSeg);
+  for (  RawScan rs : rawScans) {
+    logScan(rs,cubeSeg.getStorageLocationIdentifier());
+  }
+  logger.debug("Submitting rpc to {} shards starting from shard {}, scan range count {}",new Object[]{shardNum,cuboidBaseShard,rawScans.size()});
+  final AtomicInteger totalScannedCount=new AtomicInteger(0);
+  final ExpectedSizeIterator epResultItr=new ExpectedSizeIterator(shardNum);
+  final String currentThreadName=Thread.currentThread().getName();
+  for (  final Pair<byte[],byte[]> epRange : getEPKeyRanges(cuboidBaseShard,shardNum,totalShards)) {
+    final ByteString finalScanRequestByteString=scanRequestByteString;
+    final ByteString finalRawScanByteString=rawScanByteString;
+    executorService.submit(new Runnable(){
+      @Override public void run(){
+        CubeVisitProtos.CubeVisitRequest.Builder builder=CubeVisitProtos.CubeVisitRequest.newBuilder();
+        builder.setGtScanRequest(finalScanRequestByteString).setHbaseRawScan(finalRawScanByteString);
+        for (        IntList intList : hbaseColumnsToGTIntList) {
+          builder.addHbaseColumnsToGT(intList);
+        }
+        builder.setRowkeyPreambleSize(cubeSeg.getRowKeyPreambleSize());
+        builder.setBehavior(toggle);
+        Map<byte[],CubeVisitProtos.CubeVisitResponse> results;
+        try {
+          results=getResults(builder.build(),conn.getTable(cubeSeg.getStorageLocationIdentifier()),epRange.getFirst(),epRange.getSecond());
+        }
+ catch (        Throwable throwable) {
+          throw new RuntimeException("<sub-thread for GTScanRequest " + Integer.toHexString(System.identityHashCode(scanRequest)) + "> "+ "Error when visiting cubes by endpoint",throwable);
+        }
+        for (        Map.Entry<byte[],CubeVisitProtos.CubeVisitResponse> result : results.entrySet()) {
+          totalScannedCount.addAndGet(result.getValue().getStats().getScannedRowCount());
+          logger.info("<sub-thread for GTScanRequest " + Integer.toHexString(System.identityHashCode(scanRequest)) + "> "+ getStatsString(result));
+          try {
+            epResultItr.append(CompressionUtils.decompress(HBaseZeroCopyByteString.zeroCopyGetBytes(result.getValue().getCompressedRows())));
+          }
+ catch (          IOException|DataFormatException e) {
+            throw new RuntimeException("Error when decompressing",e);
+          }
+        }
+      }
+    }
+);
+  }
+  return new EndpointResultsAsGTScanner(fullGTInfo,epResultItr,scanRequest.getColumns(),totalScannedCount.get());
+}

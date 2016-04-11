@@ -1,0 +1,3 @@
+{
+  return LOCALMETA_TEST_DATA;
+}

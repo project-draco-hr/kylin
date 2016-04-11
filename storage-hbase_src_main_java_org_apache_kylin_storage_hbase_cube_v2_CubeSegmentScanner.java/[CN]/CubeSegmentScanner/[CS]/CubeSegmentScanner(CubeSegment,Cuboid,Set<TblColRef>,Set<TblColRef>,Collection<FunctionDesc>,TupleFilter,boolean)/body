@@ -1,36 +1,9 @@
 {
   this.cuboid=cuboid;
   this.cubeSeg=cubeSeg;
-  this.info=CubeGridTable.newGTInfo(cubeSeg,cuboid.getId());
-  CuboidToGridTableMapping mapping=cuboid.getCuboidToGridTableMapping();
   ITupleFilterTransformer translator=new BuildInFunctionTransformer(cubeSeg.getDimensionEncodingMap());
   filter=translator.transform(filter);
-  TupleFilter gtFilter=GTUtil.convertFilterColumnsAndConstants(filter,info,mapping.getCuboidDimensionsInGTOrder(),groups);
-  ImmutableBitSet gtDimensions=makeGridTableColumns(mapping,dimensions);
-  ImmutableBitSet gtAggrGroups=makeGridTableColumns(mapping,replaceDerivedColumns(groups,cubeSeg.getCubeDesc()));
-  ImmutableBitSet gtAggrMetrics=makeGridTableColumns(mapping,metrics);
-  String[] gtAggrFuncs=makeAggrFuncs(mapping,metrics);
-  GTScanRangePlanner scanRangePlanner;
-  if (cubeSeg.getCubeDesc().getModel().getPartitionDesc().isPartitioned()) {
-    TblColRef tblColRef=cubeSeg.getCubeDesc().getModel().getPartitionDesc().getPartitionDateColumnRef();
-    TblColRef partitionColOfGT=null;
-    Pair<ByteArray,ByteArray> segmentStartAndEnd=null;
-    int index=mapping.getIndexOf(tblColRef);
-    if (index >= 0) {
-      segmentStartAndEnd=getSegmentStartAndEnd(index);
-      partitionColOfGT=info.colRef(index);
-    }
-    scanRangePlanner=new GTScanRangePlanner(info,segmentStartAndEnd,partitionColOfGT);
-  }
- else {
-    scanRangePlanner=new GTScanRangePlanner(info,null,null);
-  }
-  List<GTScanRange> scanRanges=scanRangePlanner.planScanRanges(gtFilter,MAX_SCAN_RANGES);
-  scanRequests=Lists.newArrayListWithCapacity(scanRanges.size());
-  KylinConfig config=cubeSeg.getCubeInstance().getConfig();
-  for (  GTScanRange range : scanRanges) {
-    GTScanRequest req=new GTScanRequest(info,range,gtDimensions,gtAggrGroups,gtAggrMetrics,gtAggrFuncs,gtFilter,allowPreAggregate,config.getQueryCoprocessorMemGB());
-    scanRequests.add(req);
-  }
-  scanner=new Scanner();
+  GTScanRangePlanner scanRangePlanner=new GTScanRangePlanner(cubeSeg,cuboid,filter,dimensions,groups,metrics);
+  scanRequest=scanRangePlanner.planScanRequest(allowPreAggregate);
+  scanner=new ScannerWorker(cubeSeg,cuboid,scanRequest);
 }

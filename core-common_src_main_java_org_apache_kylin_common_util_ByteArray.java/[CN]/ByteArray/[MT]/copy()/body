@@ -1,5 +1,11 @@
 {
-  ByteArray copy=new ByteArray(length);
+  ByteArray copy;
+  if (data != null) {
+    copy=new ByteArray(length);
+  }
+ else {
+    copy=new ByteArray(null);
+  }
   copy.copyFrom(this);
   return copy;
 }

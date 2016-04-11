@@ -1,0 +1,3 @@
+CubeDesc cubeDesc
+Set<TblColRef> dimensions
+Collection<FunctionDesc> metrics

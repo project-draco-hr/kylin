@@ -1,35 +1,40 @@
 {
-  GTScanRangePlanner planner=new GTScanRangePlanner(info,null,null);
 {
     LogicalTupleFilter filter=and(timeComp1,or(ageComp1,ageComp2));
-    List<GTScanRange> r=planner.planScanRanges(filter);
+    GTScanRangePlanner planner=new GTScanRangePlanner(info,null,null,filter);
+    List<GTScanRange> r=planner.planScanRanges();
     assertEquals(1,r.size());
     assertEquals("[1421193600000, 10]-[null, 20]",r.get(0).toString());
     assertEquals("[[10], [20]]",r.get(0).fuzzyKeys.toString());
   }
 {
     LogicalTupleFilter filter=and(timeComp1,timeComp2);
-    List<GTScanRange> r=planner.planScanRanges(filter);
+    GTScanRangePlanner planner=new GTScanRangePlanner(info,null,null,filter);
+    List<GTScanRange> r=planner.planScanRanges();
     assertEquals(0,r.size());
   }
 {
     LogicalTupleFilter filter=or(timeComp1,ageComp4);
-    List<GTScanRange> r=planner.planScanRanges(filter);
+    GTScanRangePlanner planner=new GTScanRangePlanner(info,null,null,filter);
+    List<GTScanRange> r=planner.planScanRanges();
     assertEquals("[[null, null]-[null, null]]",r.toString());
   }
 {
     LogicalTupleFilter filter=or(timeComp1,timeComp3);
-    List<GTScanRange> r=planner.planScanRanges(filter);
+    GTScanRangePlanner planner=new GTScanRangePlanner(info,null,null,filter);
+    List<GTScanRange> r=planner.planScanRanges();
     assertEquals("[[null, null]-[null, null]]",r.toString());
   }
 {
     LogicalTupleFilter filter=or(and(timeComp4,ageComp1),and(timeComp4,ageComp2),and(timeComp4,ageComp3));
-    List<GTScanRange> r=planner.planScanRanges(filter);
+    GTScanRangePlanner planner=new GTScanRangePlanner(info,null,null,filter);
+    List<GTScanRange> r=planner.planScanRanges();
     assertEquals(3,r.size());
     assertEquals("[1421280000000, 10]-[1421280000000, 10]",r.get(0).toString());
     assertEquals("[1421280000000, 20]-[1421280000000, 20]",r.get(1).toString());
     assertEquals("[1421280000000, 30]-[1421280000000, 30]",r.get(2).toString());
-    List<GTScanRange> r2=planner.planScanRanges(filter,2);
+    planner.setMaxScanRanges(2);
+    List<GTScanRange> r2=planner.planScanRanges();
     assertEquals("[[1421280000000, 10]-[1421280000000, 30]]",r2.toString());
   }
 }

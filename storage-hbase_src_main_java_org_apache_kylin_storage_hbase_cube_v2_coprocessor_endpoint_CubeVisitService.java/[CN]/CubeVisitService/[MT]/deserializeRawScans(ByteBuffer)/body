@@ -1,0 +1,9 @@
+{
+  int rawScanCount=BytesUtil.readVInt(in);
+  List<RawScan> ret=Lists.newArrayList();
+  for (int i=0; i < rawScanCount; i++) {
+    RawScan temp=RawScan.serializer.deserialize(in);
+    ret.add(temp);
+  }
+  return ret;
+}

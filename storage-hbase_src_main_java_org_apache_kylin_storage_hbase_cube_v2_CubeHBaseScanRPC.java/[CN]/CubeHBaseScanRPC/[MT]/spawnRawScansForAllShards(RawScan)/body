@@ -1,0 +1,12 @@
+{
+  List<RawScan> ret=Lists.newArrayList();
+  List<byte[]> startKeys=getRowKeysDifferentShards(rawScan.startKey);
+  List<byte[]> endKeys=getRowKeysDifferentShards(rawScan.endKey);
+  for (int i=0; i < startKeys.size(); i++) {
+    RawScan temp=new RawScan(rawScan);
+    temp.startKey=startKeys.get(i);
+    temp.endKey=endKeys.get(i);
+    ret.add(temp);
+  }
+  return ret;
+}

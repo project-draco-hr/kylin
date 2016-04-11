@@ -1,6 +1,6 @@
 {
   ResourceTool.reset(config());
-  ResourceTool.copy(KylinConfig.createInstanceFromUri(AbstractKylinTestCase.LOCALMETA_TEST_DATA),config());
+  ResourceTool.copy(KylinConfig.createInstanceFromUri(LocalFileMetadataTestCase.LOCALMETA_TEST_DATA),config());
   for (  CubeInstance cube : CubeManager.getInstance(config()).listAllCubes()) {
     cube.getDescriptor().setSignature(cube.getDescriptor().calculateSignature());
     CubeUpdate cubeBuilder=new CubeUpdate(cube);

@@ -1,19 +1,19 @@
 {
-  GTRecord pkStart=new GTRecord(info);
-  GTRecord pkEnd=new GTRecord(info);
+  GTRecord pkStart=new GTRecord(gtInfo);
+  GTRecord pkEnd=new GTRecord(gtInfo);
   Map<Integer,Set<ByteArray>> fuzzyValues=Maps.newHashMap();
   List<GTRecord> fuzzyKeys;
   for (  ColumnRange range : andDimRanges) {
-    if (partitionColRef != null && range.column.equals(partitionColRef)) {
-      if (rangeStartEndComparator.comparator.compare(segmentStartAndEnd.getFirst(),range.end) <= 0 && (rangeStartEndComparator.comparator.compare(range.begin,segmentStartAndEnd.getSecond()) < 0 || rangeStartEndComparator.comparator.compare(range.begin,segmentStartAndEnd.getSecond()) == 0 && (range.op == FilterOperatorEnum.EQ || range.op == FilterOperatorEnum.LTE || range.op == FilterOperatorEnum.GTE || range.op == FilterOperatorEnum.IN))) {
+    if (gtPartitionCol != null && range.column.equals(gtPartitionCol)) {
+      if (rangeStartEndComparator.comparator.compare(gtStartAndEnd.getFirst(),range.end) <= 0 && (rangeStartEndComparator.comparator.compare(range.begin,gtStartAndEnd.getSecond()) < 0 || rangeStartEndComparator.comparator.compare(range.begin,gtStartAndEnd.getSecond()) == 0 && (range.op == FilterOperatorEnum.EQ || range.op == FilterOperatorEnum.LTE || range.op == FilterOperatorEnum.GTE || range.op == FilterOperatorEnum.IN))) {
       }
  else {
-        logger.debug("Pre-check partition col filter failed, partitionColRef {}, segment start {}, segment end {}, range begin {}, range end {}",new Object[]{partitionColRef,makeReadable(segmentStartAndEnd.getFirst()),makeReadable(segmentStartAndEnd.getSecond()),makeReadable(range.begin),makeReadable(range.end)});
+        logger.debug("Pre-check partition col filter failed, partitionColRef {}, segment start {}, segment end {}, range begin {}, range end {}",new Object[]{gtPartitionCol,makeReadable(gtStartAndEnd.getFirst()),makeReadable(gtStartAndEnd.getSecond()),makeReadable(range.begin),makeReadable(range.end)});
         return null;
       }
     }
     int col=range.column.getColumnDesc().getZeroBasedIndex();
-    if (!info.primaryKey.get(col))     continue;
+    if (!gtInfo.primaryKey.get(col))     continue;
     pkStart.set(col,range.begin);
     pkEnd.set(col,range.end);
     if (range.valueSet != null && !range.valueSet.isEmpty()) {

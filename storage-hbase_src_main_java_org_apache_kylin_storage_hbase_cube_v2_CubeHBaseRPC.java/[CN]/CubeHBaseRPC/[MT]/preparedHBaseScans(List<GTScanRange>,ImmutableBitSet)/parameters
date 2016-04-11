@@ -1,0 +1,2 @@
+List<GTScanRange> ranges
+ImmutableBitSet selectedColBlocks

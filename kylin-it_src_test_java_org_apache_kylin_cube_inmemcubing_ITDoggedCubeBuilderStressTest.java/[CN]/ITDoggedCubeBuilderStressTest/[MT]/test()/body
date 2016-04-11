@@ -6,7 +6,7 @@
   doggedBuilder.setConcurrentThreads(THREADS);
 {
     Future<?> future=executorService.submit(doggedBuilder.buildAsRunnable(queue,new NoopWriter()));
-    InMemCubeBuilderTest.feedData(cube,flatTable,queue,INPUT_ROWS,randSeed);
+    ITInMemCubeBuilderTest.feedData(cube,flatTable,queue,INPUT_ROWS,randSeed);
     future.get();
   }
 }

@@ -1,0 +1,57 @@
+{
+  final ImmutableBitSet selectedColBlocks=scanRequest.getSelectedColBlocks().set(0);
+  HConnection hbaseConn=HBaseConnection.get(cubeSeg.getCubeInstance().getConfig().getStorageUrl());
+  final HTableInterface hbaseTable=hbaseConn.getTable(cubeSeg.getStorageLocationIdentifier());
+  List<RawScan> rawScans=preparedHBaseScans(scanRequest.getGTScanRanges(),selectedColBlocks);
+  List<List<Integer>> hbaseColumnsToGT=getHBaseColumnsGTMapping(selectedColBlocks);
+  final List<ResultScanner> scanners=Lists.newArrayList();
+  final List<Iterator<Result>> resultIterators=Lists.newArrayList();
+  for (  RawScan rawScan : rawScans) {
+    for (    RawScan rawScanWithShard : spawnRawScansForAllShards(rawScan)) {
+      logScan(rawScanWithShard,cubeSeg.getStorageLocationIdentifier());
+      Scan hbaseScan=buildScan(rawScanWithShard);
+      final ResultScanner scanner=hbaseTable.getScanner(hbaseScan);
+      final Iterator<Result> iterator=scanner.iterator();
+      scanners.add(scanner);
+      resultIterators.add(iterator);
+    }
+  }
+  final Iterator<Result> allResultsIterator=Iterators.concat(resultIterators.iterator());
+  CellListIterator cellListIterator=new CellListIterator(){
+    @Override public void close() throws IOException {
+      for (      ResultScanner scanner : scanners) {
+        scanner.close();
+      }
+      hbaseTable.close();
+    }
+    @Override public boolean hasNext(){
+      return allResultsIterator.hasNext();
+    }
+    @Override public List<Cell> next(){
+      return allResultsIterator.next().listCells();
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+  }
+;
+  IGTStore store=new HBaseReadonlyStore(cellListIterator,scanRequest,rawScans.get(0).hbaseColumns,hbaseColumnsToGT,cubeSeg.getRowKeyPreambleSize());
+  IGTScanner rawScanner=store.scan(scanRequest);
+  final IGTScanner decorateScanner=scanRequest.decorateScanner(rawScanner);
+  final TrimmedInfoGTRecordAdapter trimmedInfoGTRecordAdapter=new TrimmedInfoGTRecordAdapter(fullGTInfo,decorateScanner.iterator());
+  return new IGTScanner(){
+    @Override public GTInfo getInfo(){
+      return fullGTInfo;
+    }
+    @Override public int getScannedRowCount(){
+      return decorateScanner.getScannedRowCount();
+    }
+    @Override public void close() throws IOException {
+      decorateScanner.close();
+    }
+    @Override public Iterator<GTRecord> iterator(){
+      return trimmedInfoGTRecordAdapter.iterator();
+    }
+  }
+;
+}

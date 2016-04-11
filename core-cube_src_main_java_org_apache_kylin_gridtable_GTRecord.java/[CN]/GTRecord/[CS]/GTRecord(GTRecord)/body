@@ -1,0 +1,8 @@
+{
+  this.info=other.info;
+  this.maskForEqualHashComp=other.maskForEqualHashComp;
+  this.cols=new ByteArray[info.getColumnCount()];
+  for (int i=0; i < other.cols.length; i++) {
+    this.cols[i]=other.cols[i].copy();
+  }
+}

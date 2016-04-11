@@ -1,0 +1,4 @@
+GTInfo info
+List<GTScanRange> ranges
+ImmutableBitSet columns
+TupleFilter filterPushDown

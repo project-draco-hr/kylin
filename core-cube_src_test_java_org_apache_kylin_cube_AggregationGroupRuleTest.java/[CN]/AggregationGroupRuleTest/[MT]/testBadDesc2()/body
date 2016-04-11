@@ -1,6 +1,6 @@
 {
   ValidateContext vContext=new ValidateContext();
-  CubeDesc desc=JsonUtil.readValue(new FileInputStream("../examples/test_case_data/localmeta/cube_desc/test_kylin_cube_with_slr_desc.json"),CubeDesc.class);
+  CubeDesc desc=JsonUtil.readValue(new FileInputStream(LocalFileMetadataTestCase.LOCALMETA_TEST_DATA + "/cube_desc/test_kylin_cube_with_slr_desc.json"),CubeDesc.class);
   desc.getAggregationGroups().get(0).getSelectRule().joint_dims=new String[][]{new String[]{"lstg_format_name","lstg_site_id","slr_segment_cd","META_CATEG_NAME","CATEG_LVL2_NAME"}};
   IValidatorRule<CubeDesc> rule=getAggregationGroupRule();
   rule.validate(desc,vContext);

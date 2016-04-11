@@ -1,0 +1,11 @@
+{
+  this.maxScanRanges=MAX_SCAN_RANGES;
+  this.gtInfo=info;
+  IGTComparator comp=gtInfo.codeSystem.getComparator();
+  this.rangeStartComparator=getRangeStartComparator(comp);
+  this.rangeEndComparator=getRangeEndComparator(comp);
+  this.rangeStartEndComparator=getRangeStartEndComparator(comp);
+  this.gtFilter=gtFilter;
+  this.gtStartAndEnd=gtStartAndEnd;
+  this.gtPartitionCol=gtPartitionCol;
+}

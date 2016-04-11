@@ -1,0 +1,30 @@
+{
+  this.maxScanRanges=MAX_SCAN_RANGES;
+  this.cubeSegment=cubeSegment;
+  this.cubeDesc=cubeSegment.getCubeDesc();
+  this.cuboid=cuboid;
+  this.dimensions=dimensions;
+  this.groupbyDims=groupbyDims;
+  this.filter=filter;
+  this.metrics=metrics;
+  this.filterDims=Sets.newHashSet();
+  TupleFilter.collectColumns(filter,this.filterDims);
+  this.gtInfo=CubeGridTable.newGTInfo(cubeSegment,cuboid.getId());
+  CuboidToGridTableMapping mapping=cuboid.getCuboidToGridTableMapping();
+  IGTComparator comp=gtInfo.codeSystem.getComparator();
+  this.rangeStartComparator=getRangeStartComparator(comp);
+  this.rangeEndComparator=getRangeEndComparator(comp);
+  this.rangeStartEndComparator=getRangeStartEndComparator(comp);
+  this.gtFilter=GTUtil.convertFilterColumnsAndConstants(filter,gtInfo,mapping.getCuboidDimensionsInGTOrder(),this.groupbyDims);
+  this.gtDimensions=makeGridTableColumns(mapping,dimensions);
+  this.gtAggrGroups=makeGridTableColumns(mapping,replaceDerivedColumns(groupbyDims,cubeSegment.getCubeDesc()));
+  this.gtAggrMetrics=makeGridTableColumns(mapping,metrics);
+  this.gtAggrFuncs=makeAggrFuncs(mapping,metrics);
+  if (cubeSegment.getCubeDesc().getModel().getPartitionDesc().isPartitioned()) {
+    int index=mapping.getIndexOf(cubeSegment.getCubeDesc().getModel().getPartitionDesc().getPartitionDateColumnRef());
+    if (index >= 0) {
+      this.gtStartAndEnd=getSegmentStartAndEnd(index);
+      this.gtPartitionCol=gtInfo.colRef(index);
+    }
+  }
+}

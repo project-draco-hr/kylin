@@ -1,0 +1,7 @@
+{
+  List<RawScan> allRawScans=Lists.newArrayList();
+  for (  GTScanRange range : ranges) {
+    allRawScans.add(preparedHBaseScan(range.pkStart,range.pkEnd,range.fuzzyKeys,selectedColBlocks));
+  }
+  return allRawScans;
+}

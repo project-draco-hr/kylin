@@ -5,7 +5,7 @@
     }
   }
 ;
-  for (  File f : new File("../examples/test_case_data/localmeta/cube_desc/").listFiles()) {
+  for (  File f : new File(LocalFileMetadataTestCase.LOCALMETA_TEST_DATA + "/cube_desc/").listFiles()) {
     System.out.println(f.getName());
     CubeDesc desc=JsonUtil.readValue(new FileInputStream(f),CubeDesc.class);
     ValidateContext vContext=new ValidateContext();

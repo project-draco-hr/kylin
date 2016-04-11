@@ -1,0 +1,4 @@
+GTInfo info
+Pair<ByteArray,ByteArray> gtStartAndEnd
+TblColRef gtPartitionCol
+TupleFilter gtFilter

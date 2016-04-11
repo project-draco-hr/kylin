@@ -1,0 +1,3 @@
+{
+  testBuild("ssb",LOCALMETA_TEST_DATA + "/data/kylin_intermediate_ssb_19920101000000_19920201000000.csv",1000,1);
+}

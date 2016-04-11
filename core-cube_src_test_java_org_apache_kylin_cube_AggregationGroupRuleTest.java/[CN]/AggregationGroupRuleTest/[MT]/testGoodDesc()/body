@@ -1,6 +1,6 @@
 {
   AggregationGroupRule rule=getAggregationGroupRule();
-  for (  File f : new File("../examples/test_case_data/localmeta/cube_desc/").listFiles()) {
+  for (  File f : new File(LocalFileMetadataTestCase.LOCALMETA_TEST_DATA + "/cube_desc/").listFiles()) {
     CubeDesc desc=JsonUtil.readValue(new FileInputStream(f),CubeDesc.class);
     ValidateContext vContext=new ValidateContext();
     rule.validate(desc,vContext);
