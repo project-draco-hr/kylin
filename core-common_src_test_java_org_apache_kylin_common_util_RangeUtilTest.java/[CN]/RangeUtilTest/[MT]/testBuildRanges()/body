@@ -1,0 +1,5 @@
+{
+  int[] test1={1,2,3,5,7,8,10,4};
+  List<Range<Integer>> ranges=RangeUtil.buildRanges(test1,true);
+  Assert.assertEquals(3,ranges.size());
+}
