@@ -1,10 +1,16 @@
 {
-  beforeClass();
-  BuildCubeWithEngine buildCubeWithEngine=new BuildCubeWithEngine();
-  buildCubeWithEngine.before();
-  buildCubeWithEngine.build();
-  logger.info("Build is done");
-  afterClass();
-  logger.info("Going to exit");
-  System.exit(0);
+  try {
+    beforeClass();
+    BuildCubeWithEngine buildCubeWithEngine=new BuildCubeWithEngine();
+    buildCubeWithEngine.before();
+    buildCubeWithEngine.build();
+    logger.info("Build is done");
+    afterClass();
+    logger.info("Going to exit");
+    System.exit(0);
+  }
+ catch (  Exception e) {
+    logger.error("error",e);
+    System.exit(1);
+  }
 }
