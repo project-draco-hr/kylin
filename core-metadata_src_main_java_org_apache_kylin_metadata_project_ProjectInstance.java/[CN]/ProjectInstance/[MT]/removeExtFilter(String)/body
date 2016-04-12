@@ -1,3 +1,3 @@
 {
-  extFilters.remove(filterName.toUpperCase());
+  extFilters.remove(filterName);
 }
