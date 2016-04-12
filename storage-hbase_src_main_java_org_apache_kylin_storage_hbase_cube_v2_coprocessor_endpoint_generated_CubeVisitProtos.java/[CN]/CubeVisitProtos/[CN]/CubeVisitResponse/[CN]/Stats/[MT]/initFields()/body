@@ -8,4 +8,5 @@
   freeSwapSpaceSize_=0D;
   hostname_="";
   etcMsg_="";
+  normalComplete_=0;
 }

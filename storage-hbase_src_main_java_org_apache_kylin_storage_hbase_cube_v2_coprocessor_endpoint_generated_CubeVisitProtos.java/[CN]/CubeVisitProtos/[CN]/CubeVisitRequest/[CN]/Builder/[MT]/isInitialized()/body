@@ -11,5 +11,11 @@
   if (!hasRowkeyPreambleSize()) {
     return false;
   }
+  if (!hasStartTime()) {
+    return false;
+  }
+  if (!hasTimeout()) {
+    return false;
+  }
   return true;
 }

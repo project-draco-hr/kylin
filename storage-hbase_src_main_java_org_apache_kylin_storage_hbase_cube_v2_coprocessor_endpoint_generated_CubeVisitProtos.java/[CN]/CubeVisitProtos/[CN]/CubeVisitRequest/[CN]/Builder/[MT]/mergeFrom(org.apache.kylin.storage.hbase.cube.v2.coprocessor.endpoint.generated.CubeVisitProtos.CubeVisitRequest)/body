@@ -41,6 +41,12 @@
       }
     }
   }
+  if (other.hasStartTime()) {
+    setStartTime(other.getStartTime());
+  }
+  if (other.hasTimeout()) {
+    setTimeout(other.getTimeout());
+  }
   this.mergeUnknownFields(other.getUnknownFields());
   return this;
 }

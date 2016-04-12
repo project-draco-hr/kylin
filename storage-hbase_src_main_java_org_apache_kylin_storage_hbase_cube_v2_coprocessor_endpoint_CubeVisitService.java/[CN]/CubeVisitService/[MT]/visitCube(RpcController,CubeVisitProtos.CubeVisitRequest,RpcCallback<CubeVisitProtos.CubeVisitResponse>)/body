@@ -1,5 +1,5 @@
 {
-  RegionScanner innerScanner=null;
+  List<RegionScanner> regionScanners=Lists.newArrayList();
   HRegion region=null;
   StringBuilder sb=new StringBuilder();
   byte[] allRows;
@@ -14,6 +14,7 @@
     }
     CoprocessorBehavior behavior=CoprocessorBehavior.valueOf(request.getBehavior());
     final List<RawScan> hbaseRawScans=deserializeRawScans(ByteBuffer.wrap(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getHbaseRawScan())));
+    appendProfileInfo(sb,"start latency: " + (this.serviceStartTime - request.getStartTime()));
     MassInTupleFilter.VALUE_PROVIDER_FACTORY=new MassInValueProviderFactoryImpl(new MassInValueProviderFactoryImpl.DimEncAware(){
       @Override public DimensionEncoding getDimEnc(      TblColRef col){
         return scanReq.getInfo().getCodeSystem().getDimEnc(col.getColumnDesc().getZeroBasedIndex());
@@ -26,7 +27,8 @@
         updateRawScanByCurrentRegion(hbaseRawScan,region,request.getRowkeyPreambleSize() - RowConstants.ROWKEY_CUBOIDID_LEN);
       }
       Scan scan=CubeHBaseRPC.buildScan(hbaseRawScan);
-      innerScanner=region.getScanner(scan);
+      RegionScanner innerScanner=region.getScanner(scan);
+      regionScanners.add(innerScanner);
       InnerScannerAsIterator cellListIterator=new InnerScannerAsIterator(innerScanner);
       cellListsForeachRawScan.add(cellListIterator);
     }
@@ -34,21 +36,33 @@
     if (behavior.ordinal() < CoprocessorBehavior.SCAN.ordinal()) {
       List<Cell> temp=Lists.newArrayList();
       int counter=0;
-      while (innerScanner.nextRaw(temp)) {
-        counter++;
+      for (      RegionScanner innerScanner : regionScanners) {
+        while (innerScanner.nextRaw(temp)) {
+          counter++;
+        }
       }
       appendProfileInfo(sb,"scanned " + counter);
     }
     if (behavior.ordinal() < CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM.ordinal()) {
       scanReq.setAggrCacheGB(0);
     }
-    IGTStore store=new HBaseReadonlyStore(new CellListIterator(){
+    final MutableBoolean normalComplete=new MutableBoolean(true);
+    final long startTime=request.getStartTime();
+    final long timeout=(long)(request.getTimeout() * 0.95);
+    final CellListIterator cellListIterator=new CellListIterator(){
+      int counter=0;
       @Override public void close() throws IOException {
         for (        CellListIterator closeable : cellListsForeachRawScan) {
           closeable.close();
         }
       }
       @Override public boolean hasNext(){
+        if (counter++ % 1000 == 1) {
+          if (System.currentTimeMillis() - startTime > timeout) {
+            normalComplete.setValue(false);
+            return false;
+          }
+        }
         return allCellLists.hasNext();
       }
       @Override public List<Cell> next(){
@@ -58,7 +72,8 @@
         throw new UnsupportedOperationException();
       }
     }
-,scanReq,hbaseRawScans.get(0).hbaseColumns,hbaseColumnsToGT,request.getRowkeyPreambleSize());
+;
+    IGTStore store=new HBaseReadonlyStore(cellListIterator,scanReq,hbaseRawScans.get(0).hbaseColumns,hbaseColumnsToGT,request.getRowkeyPreambleSize());
     IGTScanner rawScanner=store.scan(scanReq);
     IGTScanner finalScanner=scanReq.decorateScanner(rawScanner,behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER.ordinal(),behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER_AGGR.ordinal());
     ByteBuffer buffer=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
@@ -71,9 +86,16 @@
       outputStream.write(buffer.array(),buffer.arrayOffset() - buffer.position(),buffer.remaining());
       finalRowCount++;
     }
+    finalScanner.close();
     appendProfileInfo(sb,"agg done");
-    allRows=outputStream.toByteArray();
-    byte[] compressedAllRows=CompressionUtils.compress(allRows);
+    byte[] compressedAllRows;
+    if (normalComplete.booleanValue()) {
+      allRows=outputStream.toByteArray();
+    }
+ else {
+      allRows=new byte[0];
+    }
+    compressedAllRows=CompressionUtils.compress(allRows);
     appendProfileInfo(sb,"compress done");
     OperatingSystemMXBean operatingSystemMXBean=(OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean();
     double systemCpuLoad=operatingSystemMXBean.getSystemCpuLoad();
@@ -81,14 +103,16 @@
     double freeSwapSpaceSize=operatingSystemMXBean.getFreeSwapSpaceSize();
     appendProfileInfo(sb,"server stats done");
     CubeVisitProtos.CubeVisitResponse.Builder responseBuilder=CubeVisitProtos.CubeVisitResponse.newBuilder();
-    done.run(responseBuilder.setCompressedRows(HBaseZeroCopyByteString.wrap(compressedAllRows)).setStats(CubeVisitProtos.CubeVisitResponse.Stats.newBuilder().setAggregatedRowCount(finalScanner.getScannedRowCount() - finalRowCount).setScannedRowCount(finalScanner.getScannedRowCount()).setServiceStartTime(serviceStartTime).setServiceEndTime(System.currentTimeMillis()).setSystemCpuLoad(systemCpuLoad).setFreePhysicalMemorySize(freePhysicalMemorySize).setFreeSwapSpaceSize(freeSwapSpaceSize).setHostname(InetAddress.getLocalHost().getHostName()).setEtcMsg(sb.toString()).build()).build());
+    done.run(responseBuilder.setCompressedRows(HBaseZeroCopyByteString.wrap(compressedAllRows)).setStats(CubeVisitProtos.CubeVisitResponse.Stats.newBuilder().setAggregatedRowCount(finalScanner.getScannedRowCount() - finalRowCount).setScannedRowCount(finalScanner.getScannedRowCount()).setServiceStartTime(serviceStartTime).setServiceEndTime(System.currentTimeMillis()).setSystemCpuLoad(systemCpuLoad).setFreePhysicalMemorySize(freePhysicalMemorySize).setFreeSwapSpaceSize(freeSwapSpaceSize).setHostname(InetAddress.getLocalHost().getHostName()).setEtcMsg(sb.toString()).setNormalComplete(normalComplete.booleanValue() ? 1 : 0).build()).build());
   }
  catch (  IOException ioe) {
     logger.error(ioe.toString());
     ResponseConverter.setControllerException(controller,ioe);
   }
  finally {
-    IOUtils.closeQuietly(innerScanner);
+    for (    RegionScanner innerScanner : regionScanners) {
+      IOUtils.closeQuietly(innerScanner);
+    }
     if (region != null) {
       try {
         region.closeRegionOperation();

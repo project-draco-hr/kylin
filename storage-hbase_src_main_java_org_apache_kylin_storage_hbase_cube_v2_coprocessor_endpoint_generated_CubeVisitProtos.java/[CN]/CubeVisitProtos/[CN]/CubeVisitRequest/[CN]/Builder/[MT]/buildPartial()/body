@@ -28,6 +28,14 @@
  else {
     result.hbaseColumnsToGT_=hbaseColumnsToGTBuilder_.build();
   }
+  if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+    to_bitField0_|=0x00000010;
+  }
+  result.startTime_=startTime_;
+  if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+    to_bitField0_|=0x00000020;
+  }
+  result.timeout_=timeout_;
   result.bitField0_=to_bitField0_;
   onBuilt();
   return result;

@@ -7,5 +7,6 @@
   sb.append("Time elapsed in EP: ").append(stats.getServiceEndTime() - stats.getServiceStartTime()).append("(ms). ");
   sb.append("Server CPU usage: ").append(stats.getSystemCpuLoad()).append(", server physical mem left: ").append(stats.getFreePhysicalMemorySize()).append(", server swap mem left:").append(stats.getFreeSwapSpaceSize()).append(".");
   sb.append("Etc message: ").append(stats.getEtcMsg()).append(".");
+  sb.append("Normal Complete: ").append(stats.getNormalComplete() == 1).append(".");
   return sb.toString();
 }

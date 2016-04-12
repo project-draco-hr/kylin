@@ -15,5 +15,9 @@
  else {
     hbaseColumnsToGTBuilder_.clear();
   }
+  startTime_=0L;
+  bitField0_=(bitField0_ & ~0x00000020);
+  timeout_=0L;
+  bitField0_=(bitField0_ & ~0x00000040);
   return this;
 }

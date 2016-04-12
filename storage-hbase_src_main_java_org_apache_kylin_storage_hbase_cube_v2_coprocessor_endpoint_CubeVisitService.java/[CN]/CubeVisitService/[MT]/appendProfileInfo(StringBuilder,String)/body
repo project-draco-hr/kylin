@@ -1,7 +1,7 @@
 {
-  sb.append(System.currentTimeMillis() - this.serviceStartTime);
   if (info != null) {
-    sb.append(":").append(info);
+    sb.append(info);
   }
+  sb.append("@" + (System.currentTimeMillis() - this.serviceStartTime));
   sb.append(",");
 }

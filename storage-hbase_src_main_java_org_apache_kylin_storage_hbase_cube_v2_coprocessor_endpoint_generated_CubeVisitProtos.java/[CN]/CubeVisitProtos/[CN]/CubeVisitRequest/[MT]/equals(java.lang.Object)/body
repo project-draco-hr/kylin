@@ -24,6 +24,14 @@
     result=result && (getRowkeyPreambleSize() == other.getRowkeyPreambleSize());
   }
   result=result && getHbaseColumnsToGTList().equals(other.getHbaseColumnsToGTList());
+  result=result && (hasStartTime() == other.hasStartTime());
+  if (hasStartTime()) {
+    result=result && (getStartTime() == other.getStartTime());
+  }
+  result=result && (hasTimeout() == other.hasTimeout());
+  if (hasTimeout()) {
+    result=result && (getTimeout() == other.getTimeout());
+  }
   result=result && getUnknownFields().equals(other.getUnknownFields());
   return result;
 }

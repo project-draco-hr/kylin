@@ -31,6 +31,9 @@
     etcMsg_=other.etcMsg_;
     onChanged();
   }
+  if (other.hasNormalComplete()) {
+    setNormalComplete(other.getNormalComplete());
+  }
   this.mergeUnknownFields(other.getUnknownFields());
   return this;
 }

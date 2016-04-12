@@ -54,7 +54,6 @@
   logger.debug("Submitting rpc to {} shards starting from shard {}, scan range count {}",new Object[]{shardNum,cuboidBaseShard,rawScans.size()});
   final AtomicInteger totalScannedCount=new AtomicInteger(0);
   final ExpectedSizeIterator epResultItr=new ExpectedSizeIterator(shardNum);
-  final String currentThreadName=Thread.currentThread().getName();
   for (  final Pair<byte[],byte[]> epRange : getEPKeyRanges(cuboidBaseShard,shardNum,totalShards)) {
     final ByteString finalScanRequestByteString=scanRequestByteString;
     final ByteString finalRawScanByteString=rawScanByteString;
@@ -67,6 +66,8 @@
         }
         builder.setRowkeyPreambleSize(cubeSeg.getRowKeyPreambleSize());
         builder.setBehavior(toggle);
+        builder.setStartTime(System.currentTimeMillis());
+        builder.setTimeout(epResultItr.getTimeout());
         Map<byte[],CubeVisitProtos.CubeVisitResponse> results;
         try {
           results=getResults(builder.build(),conn.getTable(cubeSeg.getStorageLocationIdentifier()),epRange.getFirst(),epRange.getSecond());
@@ -77,6 +78,9 @@
         for (        Map.Entry<byte[],CubeVisitProtos.CubeVisitResponse> result : results.entrySet()) {
           totalScannedCount.addAndGet(result.getValue().getStats().getScannedRowCount());
           logger.info("<sub-thread for GTScanRequest " + Integer.toHexString(System.identityHashCode(scanRequest)) + "> "+ getStatsString(result));
+          if (result.getValue().getStats().getNormalComplete() != 1) {
+            throw new RuntimeException("The coprocessor thread stopped itself due to scan timeout.");
+          }
           try {
             epResultItr.append(CompressionUtils.decompress(HBaseZeroCopyByteString.zeroCopyGetBytes(result.getValue().getCompressedRows())));
           }

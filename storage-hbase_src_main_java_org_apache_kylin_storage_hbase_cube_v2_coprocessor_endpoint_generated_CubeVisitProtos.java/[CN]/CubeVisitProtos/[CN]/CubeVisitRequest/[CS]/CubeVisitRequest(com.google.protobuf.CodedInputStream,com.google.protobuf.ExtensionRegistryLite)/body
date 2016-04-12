@@ -50,6 +50,18 @@ mutable_bitField0_|=0x00000010;
 hbaseColumnsToGT_.add(input.readMessage(org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.IntList.PARSER,extensionRegistry));
 break;
 }
+case 48:
+{
+bitField0_|=0x00000010;
+startTime_=input.readInt64();
+break;
+}
+case 56:
+{
+bitField0_|=0x00000020;
+timeout_=input.readInt64();
+break;
+}
 }
 }
 }

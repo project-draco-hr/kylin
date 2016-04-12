@@ -43,6 +43,10 @@
   if (hasEtcMsg()) {
     result=result && getEtcMsg().equals(other.getEtcMsg());
   }
+  result=result && (hasNormalComplete() == other.hasNormalComplete());
+  if (hasNormalComplete()) {
+    result=result && (getNormalComplete() == other.getNormalComplete());
+  }
   result=result && getUnknownFields().equals(other.getUnknownFields());
   return result;
 }

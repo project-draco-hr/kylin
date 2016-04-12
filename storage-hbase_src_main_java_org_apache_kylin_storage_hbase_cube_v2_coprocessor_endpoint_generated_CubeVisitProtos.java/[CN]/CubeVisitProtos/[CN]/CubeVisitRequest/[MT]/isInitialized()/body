@@ -17,6 +17,14 @@
     memoizedIsInitialized=0;
     return false;
   }
+  if (!hasStartTime()) {
+    memoizedIsInitialized=0;
+    return false;
+  }
+  if (!hasTimeout()) {
+    memoizedIsInitialized=0;
+    return false;
+  }
   memoizedIsInitialized=1;
   return true;
 }

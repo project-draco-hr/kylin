@@ -27,5 +27,8 @@
   if (((bitField0_ & 0x00000100) == 0x00000100)) {
     output.writeBytes(9,getEtcMsgBytes());
   }
+  if (((bitField0_ & 0x00000200) == 0x00000200)) {
+    output.writeInt32(10,normalComplete_);
+  }
   getUnknownFields().writeTo(output);
 }

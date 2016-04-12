@@ -40,6 +40,10 @@
     hash=(37 * hash) + ETCMSG_FIELD_NUMBER;
     hash=(53 * hash) + getEtcMsg().hashCode();
   }
+  if (hasNormalComplete()) {
+    hash=(37 * hash) + NORMALCOMPLETE_FIELD_NUMBER;
+    hash=(53 * hash) + getNormalComplete();
+  }
   hash=(29 * hash) + getUnknownFields().hashCode();
   memoizedHashCode=hash;
   return hash;
