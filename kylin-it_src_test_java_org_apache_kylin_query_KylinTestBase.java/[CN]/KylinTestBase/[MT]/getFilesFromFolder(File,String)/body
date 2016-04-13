@@ -1,4 +1,5 @@
 {
+  System.out.println(folder.getAbsolutePath());
   Set<File> set=new TreeSet<>(new FileByNameComparator());
   for (  final File fileEntry : folder.listFiles()) {
     if (fileEntry.getName().toLowerCase().endsWith(fileType.toLowerCase())) {

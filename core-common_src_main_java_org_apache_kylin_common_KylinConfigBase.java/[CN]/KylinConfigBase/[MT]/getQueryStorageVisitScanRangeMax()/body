@@ -1,0 +1,3 @@
+{
+  return Integer.valueOf(this.getOptional("kylin.query.storage.visit.scanrange.max","1000000"));
+}

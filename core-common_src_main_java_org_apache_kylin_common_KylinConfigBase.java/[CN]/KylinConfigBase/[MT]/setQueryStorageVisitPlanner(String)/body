@@ -1,0 +1,3 @@
+{
+  setProperty("kylin.query.storage.visit.planner",v);
+}

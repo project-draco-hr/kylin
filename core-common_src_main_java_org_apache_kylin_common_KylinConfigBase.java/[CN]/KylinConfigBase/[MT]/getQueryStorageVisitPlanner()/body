@@ -1,0 +1,3 @@
+{
+  return this.getOptional("kylin.query.storage.visit.planner","org.apache.kylin.gridtable.GTScanRangePlanner");
+}
