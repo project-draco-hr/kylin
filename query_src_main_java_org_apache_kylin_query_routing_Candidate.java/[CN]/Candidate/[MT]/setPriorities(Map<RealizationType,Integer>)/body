@@ -1,4 +1,3 @@
 {
-  PRIORITIES.clear();
-  PRIORITIES.putAll(priorities);
+  PRIORITIES=priorities;
 }

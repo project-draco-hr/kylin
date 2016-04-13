@@ -1,4 +1,5 @@
 {
+  Candidate.restorePriorities();
   printInfo("tearDown in KylinQueryTest");
   clean();
 }
