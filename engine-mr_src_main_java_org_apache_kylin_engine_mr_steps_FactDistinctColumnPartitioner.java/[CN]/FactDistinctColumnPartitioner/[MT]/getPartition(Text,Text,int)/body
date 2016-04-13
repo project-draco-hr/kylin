@@ -1,9 +1,9 @@
 {
-  long colIndex=Bytes.toLong(key.getBytes(),0,Bytes.SIZEOF_LONG);
-  if (colIndex < 0) {
+  if (key.getBytes()[0] == FactDistinctHiveColumnsMapper.MARK_FOR_HLL) {
     return numReduceTasks - 1;
   }
  else {
-    return (int)(colIndex);
+    int colIndex=BytesUtil.readUnsigned(key.getBytes(),0,1);
+    return colIndex;
   }
 }
