@@ -5,12 +5,13 @@
   if (StringUtils.isBlank(project)) {
     return Collections.emptyList();
   }
+  ResultSet JDBCTableMeta=null;
   try {
     DataSource dataSource=cacheService.getOLAPDataSource(project);
     conn=dataSource.getConnection();
     DatabaseMetaData metaData=conn.getMetaData();
     logger.debug("getting table metas");
-    ResultSet JDBCTableMeta=metaData.getTables(null,null,null,null);
+    JDBCTableMeta=metaData.getTables(null,null,null,null);
     tableMetas=new LinkedList<TableMeta>();
     Map<String,TableMeta> tableMap=new HashMap<String,TableMeta>();
     while (JDBCTableMeta.next()) {
@@ -36,6 +37,9 @@
   }
   finally {
     close(columnMeta,null,conn);
+    if (JDBCTableMeta != null) {
+      JDBCTableMeta.close();
+    }
   }
   return tableMetas;
 }
