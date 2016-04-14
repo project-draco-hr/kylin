@@ -19,6 +19,10 @@
     desc.removeCoprocessor(IIEndpointClassOld);
   }
   addCoprocessorOnHTable(desc,hdfsCoprocessorJar);
+  String commitInfo=KylinVersion.getGitCommitInfo();
+  if (!StringUtils.isEmpty(commitInfo)) {
+    desc.setValue(IRealizationConstants.HTableGitTag,commitInfo);
+  }
   hbaseAdmin.modifyTable(tableName,desc);
   logger.info("Enable " + tableName);
   hbaseAdmin.enableTable(tableName);

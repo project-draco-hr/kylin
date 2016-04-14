@@ -10,6 +10,10 @@
   if (!StringUtils.isEmpty(kylinConfig.getKylinOwner())) {
     tableDesc.setValue(IRealizationConstants.HTableOwner,kylinConfig.getKylinOwner());
   }
+  String commitInfo=KylinVersion.getGitCommitInfo();
+  if (!StringUtils.isEmpty(commitInfo)) {
+    tableDesc.setValue(IRealizationConstants.HTableGitTag,commitInfo);
+  }
   tableDesc.setValue(IRealizationConstants.HTableUser,cubeInstance.getOwner());
   tableDesc.setValue(IRealizationConstants.HTableSegmentTag,cubeSegment.toString());
   Configuration conf=HBaseConfiguration.create();
