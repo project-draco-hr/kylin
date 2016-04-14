@@ -1,0 +1,3 @@
+{
+  return Float.valueOf(getOptional("kylin.hbase.region.cut.medium","20"));
+}

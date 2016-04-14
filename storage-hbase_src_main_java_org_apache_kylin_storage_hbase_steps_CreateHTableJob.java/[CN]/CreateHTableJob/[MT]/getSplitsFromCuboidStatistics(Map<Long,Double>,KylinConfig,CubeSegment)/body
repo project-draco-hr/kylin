@@ -1,8 +1,7 @@
 {
   final CubeDesc cubeDesc=cubeSegment.getCubeDesc();
-  DataModelDesc.RealizationCapacity cubeCapacity=cubeDesc.getModel().getCapacity();
-  int cut=kylinConfig.getHBaseRegionCut(cubeCapacity.toString());
-  logger.info("Cube capacity " + cubeCapacity.toString() + ", chosen cut for HTable is "+ cut+ "GB");
+  float cut=RegionSize.getReionSize(kylinConfig,cubeDesc);
+  logger.info("chosen cut for HTable is " + cut + "GB");
   double totalSizeInM=0;
   for (  Double cuboidSize : cubeSizeMap.values()) {
     totalSizeInM+=cuboidSize;

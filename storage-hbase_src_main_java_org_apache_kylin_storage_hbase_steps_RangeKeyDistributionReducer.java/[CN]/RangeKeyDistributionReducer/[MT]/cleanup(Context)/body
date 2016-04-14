@@ -1,5 +1,5 @@
 {
-  int nRegion=Math.round((float)gbPoints.size() / (float)cut);
+  int nRegion=Math.round((float)gbPoints.size() / cut);
   nRegion=Math.max(minRegionCount,nRegion);
   nRegion=Math.min(maxRegionCount,nRegion);
   int gbPerRegion=gbPoints.size() / nRegion;
