@@ -7,7 +7,7 @@
     hfileSizeGB=Integer.valueOf(context.getConfiguration().get(BatchConstants.CFG_HFILE_SIZE_GB));
   }
   if (context.getConfiguration().get(BatchConstants.CFG_REGION_SPLIT_SIZE) != null) {
-    cut=Integer.valueOf(context.getConfiguration().get(BatchConstants.CFG_REGION_SPLIT_SIZE));
+    cut=Float.valueOf(context.getConfiguration().get(BatchConstants.CFG_REGION_SPLIT_SIZE));
   }
   if (context.getConfiguration().get(BatchConstants.CFG_REGION_NUMBER_MIN) != null) {
     minRegionCount=Integer.valueOf(context.getConfiguration().get(BatchConstants.CFG_REGION_NUMBER_MIN));
