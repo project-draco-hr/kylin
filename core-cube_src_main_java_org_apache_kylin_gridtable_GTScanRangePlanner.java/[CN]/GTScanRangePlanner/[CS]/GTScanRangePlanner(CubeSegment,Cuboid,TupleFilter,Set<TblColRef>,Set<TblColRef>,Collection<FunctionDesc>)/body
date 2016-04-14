@@ -1,5 +1,6 @@
 {
-  this.maxScanRanges=KylinConfig.getInstanceFromEnv().getQueryScanFuzzyKeyMax();
+  this.maxScanRanges=KylinConfig.getInstanceFromEnv().getQueryStorageVisitScanRangeMax();
+  this.maxFuzzyKeys=KylinConfig.getInstanceFromEnv().getQueryScanFuzzyKeyMax();
   this.cubeSegment=cubeSegment;
   this.cubeDesc=cubeSegment.getCubeDesc();
   this.cuboid=cuboid;

@@ -5,7 +5,7 @@
     logger.info("The execution of this query will not use fuzzy key");
     return result;
   }
-  List<Map<Integer,ByteArray>> fuzzyValueCombinations=FuzzyValueCombination.calculate(fuzzyValueSet,MAX_HBASE_FUZZY_KEYS);
+  List<Map<Integer,ByteArray>> fuzzyValueCombinations=FuzzyValueCombination.calculate(fuzzyValueSet,maxFuzzyKeys);
   for (  Map<Integer,ByteArray> fuzzyValue : fuzzyValueCombinations) {
     BitSet bitSet=new BitSet(gtInfo.getColumnCount());
     for (    Map.Entry<Integer,ByteArray> entry : fuzzyValue.entrySet()) {

@@ -10,7 +10,7 @@
     newFuzzyKeys.addAll(range.fuzzyKeys);
     end=rangeEndComparator.max(end,range.pkEnd);
   }
-  if (hasNonFuzzyRange || newFuzzyKeys.size() > MAX_HBASE_FUZZY_KEYS) {
+  if (hasNonFuzzyRange || newFuzzyKeys.size() > maxFuzzyKeys) {
     newFuzzyKeys.clear();
   }
   return new GTScanRange(start,end,newFuzzyKeys);
