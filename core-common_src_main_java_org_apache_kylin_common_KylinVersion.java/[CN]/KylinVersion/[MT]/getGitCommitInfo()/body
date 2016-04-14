@@ -1,0 +1,16 @@
+{
+  try {
+    File commitFile=new File(KylinConfig.getKylinHome(),COMMIT_SHA1);
+    List<String> lines=FileUtils.readLines(commitFile);
+    StringBuilder sb=new StringBuilder();
+    for (    String line : lines) {
+      if (!line.startsWith("#")) {
+        sb.append(line).append("\n");
+      }
+    }
+    return sb.toString();
+  }
+ catch (  Exception e) {
+    return StringUtils.EMPTY;
+  }
+}

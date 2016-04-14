@@ -36,7 +36,18 @@
   }
   if (includeConf) {
     logger.info("Start to extract kylin conf files.");
-    FileUtils.copyDirectoryToDirectory(new File(getConfFolder()),new File(exportDest));
+    try {
+      FileUtils.copyDirectoryToDirectory(new File(getConfFolder()),new File(exportDest));
+    }
+ catch (    Exception e) {
+      logger.warn("Error in export conf.",e);
+    }
+  }
+  try {
+    FileUtils.copyFileToDirectory(new File(KylinConfig.getKylinHome(),"commit_SHA1"),new File(exportDest));
+  }
+ catch (  Exception e) {
+    logger.warn("Error in export commit id.",e);
   }
   if (compress) {
     File tempZipFile=File.createTempFile("diagnosis_",".zip");
