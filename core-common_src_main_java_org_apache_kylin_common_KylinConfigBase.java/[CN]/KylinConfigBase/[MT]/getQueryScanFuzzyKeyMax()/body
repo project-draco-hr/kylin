@@ -1,0 +1,3 @@
+{
+  return Integer.parseInt(this.getOptional("kylin.query.scan.fuzzykey.max","200"));
+}
