@@ -1,0 +1,21 @@
+{
+  String suffix;
+  if (!StringUtils.isEmpty(jobType)) {
+    suffix=jobType + "_" + capacity;
+  }
+ else {
+    suffix=capacity;
+  }
+  String path=getHadoopJobConfFilePath(suffix,true);
+  if (StringUtils.isEmpty(path)) {
+    path=getHadoopJobConfFilePath(jobType,true);
+    if (StringUtils.isEmpty(path)) {
+      path=getHadoopJobConfFilePath(jobType,false);
+      if (StringUtils.isEmpty(path)) {
+        path="";
+      }
+    }
+  }
+  logger.info("Chosen job conf is : " + path);
+  return path;
+}

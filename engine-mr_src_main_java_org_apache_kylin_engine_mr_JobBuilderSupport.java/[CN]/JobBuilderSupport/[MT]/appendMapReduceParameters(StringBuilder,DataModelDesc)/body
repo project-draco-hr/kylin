@@ -1,11 +1,3 @@
 {
-  try {
-    String jobConf=config.getHadoopJobConfFilePath(modelDesc.getCapacity());
-    if (jobConf != null && jobConf.length() > 0) {
-      buf.append(" -conf ").append(jobConf);
-    }
-  }
- catch (  IOException e) {
-    throw new RuntimeException(e);
-  }
+  appendMapReduceParameters(buf,JobEngineConfig.DEFAUL_JOB_CONF_SUFFIX,dataModelDesc.getCapacity().toString());
 }

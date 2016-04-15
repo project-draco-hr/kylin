@@ -1,0 +1,3 @@
+{
+  appendMapReduceParameters(buf,jobType,dataModelDesc.getCapacity().toString());
+}
