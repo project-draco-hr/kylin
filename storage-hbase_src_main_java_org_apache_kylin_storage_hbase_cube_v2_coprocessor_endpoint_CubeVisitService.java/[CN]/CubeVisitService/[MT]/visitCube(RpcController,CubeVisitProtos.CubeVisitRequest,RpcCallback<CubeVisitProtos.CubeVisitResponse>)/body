@@ -3,10 +3,12 @@
   HRegion region=null;
   StringBuilder sb=new StringBuilder();
   byte[] allRows;
+  String debugGitTag="";
   try {
     this.serviceStartTime=System.currentTimeMillis();
     region=env.getRegion();
     region.startRegionOperation();
+    debugGitTag=region.getTableDesc().getValue(IRealizationConstants.HTableGitTag);
     final GTScanRequest scanReq=GTScanRequest.serializer.deserialize(ByteBuffer.wrap(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getGtScanRequest())));
     List<List<Integer>> hbaseColumnsToGT=Lists.newArrayList();
     for (    IntList intList : request.getHbaseColumnsToGTList()) {
@@ -102,12 +104,14 @@
     double freePhysicalMemorySize=operatingSystemMXBean.getFreePhysicalMemorySize();
     double freeSwapSpaceSize=operatingSystemMXBean.getFreeSwapSpaceSize();
     appendProfileInfo(sb,"server stats done");
+    sb.append(" debugGitTag:" + debugGitTag);
     CubeVisitProtos.CubeVisitResponse.Builder responseBuilder=CubeVisitProtos.CubeVisitResponse.newBuilder();
     done.run(responseBuilder.setCompressedRows(HBaseZeroCopyByteString.wrap(compressedAllRows)).setStats(CubeVisitProtos.CubeVisitResponse.Stats.newBuilder().setAggregatedRowCount(finalScanner.getScannedRowCount() - finalRowCount).setScannedRowCount(finalScanner.getScannedRowCount()).setServiceStartTime(serviceStartTime).setServiceEndTime(System.currentTimeMillis()).setSystemCpuLoad(systemCpuLoad).setFreePhysicalMemorySize(freePhysicalMemorySize).setFreeSwapSpaceSize(freeSwapSpaceSize).setHostname(InetAddress.getLocalHost().getHostName()).setEtcMsg(sb.toString()).setNormalComplete(normalComplete.booleanValue() ? 1 : 0).build()).build());
   }
  catch (  IOException ioe) {
     logger.error(ioe.toString());
-    ResponseConverter.setControllerException(controller,ioe);
+    IOException wrapped=new IOException("Error in coprocessor " + debugGitTag,ioe);
+    ResponseConverter.setControllerException(controller,wrapped);
   }
  finally {
     for (    RegionScanner innerScanner : regionScanners) {
