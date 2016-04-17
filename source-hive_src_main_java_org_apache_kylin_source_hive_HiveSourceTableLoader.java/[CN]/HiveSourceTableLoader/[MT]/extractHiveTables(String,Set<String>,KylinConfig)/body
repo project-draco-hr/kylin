@@ -28,6 +28,12 @@
       tableDesc.setUuid(UUID.randomUUID().toString());
       tableDesc.setLastModified(0);
     }
+    if (table.getTableType().equals(TableType.VIRTUAL_VIEW.toString())) {
+      tableDesc.setSourceTableHiveViewFlag(true);
+    }
+ else {
+      tableDesc.setSourceTableHiveViewFlag(false);
+    }
     int columnNumber=fields.size();
     List<ColumnDesc> columns=new ArrayList<ColumnDesc>(columnNumber);
     for (int i=0; i < columnNumber; i++) {

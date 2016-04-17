@@ -3,5 +3,6 @@
   step.setName(ExecutableConstants.STEP_NAME_GARBAGE_COLLECTION);
   step.setIntermediateTableIdentity(getIntermediateTableIdentity());
   step.setExternalDataPath(JoinedFlatTable.getTableDir(flatHiveTableDesc,JobBuilderSupport.getJobWorkingDir(conf,jobFlow.getId())));
+  step.setHiveViewIntermediateTableIdentitys(hiveViewIntermediateTables);
   jobFlow.addTask(step);
 }

@@ -1,0 +1,7 @@
+{
+  Path externalDataPath=new Path(path);
+  FileSystem fs=FileSystem.get(externalDataPath.toUri(),HadoopUtil.getCurrentConfiguration());
+  if (!fs.exists(externalDataPath)) {
+    fs.mkdirs(externalDataPath);
+  }
+}

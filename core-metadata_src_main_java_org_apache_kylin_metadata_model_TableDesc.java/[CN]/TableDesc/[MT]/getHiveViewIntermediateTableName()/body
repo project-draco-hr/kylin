@@ -1,0 +1,3 @@
+{
+  return hiveViewIntermediateTableNamePrefix + "_" + database.getName()+ "_"+ name;
+}

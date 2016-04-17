@@ -1,25 +1,13 @@
 {
   KylinConfig config=context.getConfig();
   StringBuffer output=new StringBuffer();
-  final String hiveTable=this.getIntermediateTableIdentity();
-  if (config.isHiveKeepFlatTable() == false && StringUtils.isNotEmpty(hiveTable)) {
-    final HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
-    hiveCmdBuilder.addStatement("USE " + config.getHiveDatabaseForIntermediateTable() + ";");
-    hiveCmdBuilder.addStatement("DROP TABLE IF EXISTS  " + hiveTable + ";");
-    try {
-      config.getCliCommandExecutor().execute(hiveCmdBuilder.build());
-      output.append("Hive table " + hiveTable + " is dropped. \n");
-      Path externalDataPath=new Path(getExternalDataPath());
-      FileSystem fs=FileSystem.get(externalDataPath.toUri(),HadoopUtil.getCurrentConfiguration());
-      if (fs.exists(externalDataPath)) {
-        fs.delete(externalDataPath,true);
-        output.append("Hive table " + hiveTable + " external data path "+ externalDataPath+ " is deleted. \n");
-      }
-    }
- catch (    IOException e) {
-      logger.error("job:" + getId() + " execute finished with exception",e);
-      return new ExecuteResult(ExecuteResult.State.ERROR,e.getMessage());
-    }
+  try {
+    output.append(cleanUpIntermediateFlatTable(config));
+    output.append(cleanUpHiveViewIntermediateTable(config));
+  }
+ catch (  IOException e) {
+    logger.error("job:" + getId() + " execute finished with exception",e);
+    return new ExecuteResult(ExecuteResult.State.ERROR,e.getMessage());
   }
   return new ExecuteResult(ExecuteResult.State.SUCCEED,output.toString());
 }

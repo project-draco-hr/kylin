@@ -1,0 +1,35 @@
+{
+  boolean findHiveViewLookUpTable=false;
+  ShellExecutable step=new ShellExecutable();
+  ;
+  step.setName(ExecutableConstants.STEP_NAME_MATERIALIZE_HIVE_VIEW_IN_LOOKUP);
+  HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  CubeManager cubeMgr=CubeManager.getInstance(kylinConfig);
+  String cubeName=seg.getRealization().getName();
+  CubeDesc cubeDesc=cubeMgr.getCube(cubeName).getDescriptor();
+  final String useDatabaseHql="USE " + conf.getConfig().getHiveDatabaseForIntermediateTable() + ";";
+  hiveCmdBuilder.addStatement(useDatabaseHql);
+  for (  TableDesc lookUpTableDesc : cubeDesc.getLookupTableDescs()) {
+    if (lookUpTableDesc.isSourceTableHiveView()) {
+      findHiveViewLookUpTable=true;
+      lookUpTableDesc.setHiveViewIntermediateTableNamePrefix("kylin_intermediate_" + jobId);
+      StringBuilder createIntermediateTableHql=new StringBuilder();
+      createIntermediateTableHql.append("CREATE TABLE IF NOT EXISTS " + lookUpTableDesc.getHiveViewIntermediateTableName() + "\n");
+      createIntermediateTableHql.append("LOCATION '" + JobBuilderSupport.getJobWorkingDir(conf,jobId) + "/"+ lookUpTableDesc.getHiveViewIntermediateTableName()+ "'\n");
+      createIntermediateTableHql.append("AS SELECT * FROM " + lookUpTableDesc.getIdentity() + ";\n");
+      hiveCmdBuilder.addStatement(createIntermediateTableHql.toString());
+      hiveViewIntermediateTables=hiveViewIntermediateTables + lookUpTableDesc.getHiveViewIntermediateTableName() + ";";
+    }
+    if (findHiveViewLookUpTable) {
+      hiveViewIntermediateTables=hiveViewIntermediateTables.substring(0,hiveViewIntermediateTables.length() - 1);
+    }
+  }
+  if (findHiveViewLookUpTable) {
+    step.setCmd(hiveCmdBuilder.build());
+    return step;
+  }
+ else {
+    return null;
+  }
+}

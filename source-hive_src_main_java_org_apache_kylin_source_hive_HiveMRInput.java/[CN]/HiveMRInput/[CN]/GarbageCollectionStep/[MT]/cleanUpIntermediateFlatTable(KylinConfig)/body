@@ -1,0 +1,14 @@
+{
+  StringBuffer output=new StringBuffer();
+  final String hiveTable=this.getIntermediateTableIdentity();
+  if (config.isHiveKeepFlatTable() == false && StringUtils.isNotEmpty(hiveTable)) {
+    final HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
+    hiveCmdBuilder.addStatement("USE " + config.getHiveDatabaseForIntermediateTable() + ";");
+    hiveCmdBuilder.addStatement("DROP TABLE IF EXISTS  " + hiveTable + ";");
+    config.getCliCommandExecutor().execute(hiveCmdBuilder.build());
+    output.append("Hive table " + hiveTable + " is dropped. \n");
+    rmdirOnHDFS(getExternalDataPath());
+    output.append("Hive table " + hiveTable + " external data path "+ getExternalDataPath()+ " is deleted. \n");
+  }
+  return output.toString();
+}

@@ -1,3 +1,7 @@
 {
   jobFlow.addTask(createFlatHiveTableStep(conf,flatHiveTableDesc,jobFlow.getId()));
+  AbstractExecutable task=createLookupHiveViewMaterializationStep(jobFlow.getId());
+  if (task != null) {
+    jobFlow.addTask(task);
+  }
 }

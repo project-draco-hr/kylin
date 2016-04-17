@@ -1,7 +1,12 @@
 {
   MetadataManager metaMgr=getMetadataManager();
   SnapshotManager snapshotMgr=getSnapshotManager();
-  TableDesc tableDesc=metaMgr.getTableDesc(lookupTable);
+  TableDesc tableDesc=new TableDesc(metaMgr.getTableDesc(lookupTable));
+  if (tableDesc.isSourceTableHiveView()) {
+    tableDesc.setDatabase(config.getHiveDatabaseForIntermediateTable());
+    String tableName=tableDesc.getHiveViewIntermediateTableName();
+    tableDesc.setName(tableName);
+  }
   ReadableTable hiveTable=SourceFactory.createReadableTable(tableDesc);
   SnapshotTable snapshot=snapshotMgr.buildSnapshot(hiveTable,tableDesc);
   cubeSeg.putSnapshotResPath(lookupTable,snapshot.getResourcePath());
