@@ -7,6 +7,7 @@
     metaResource.add(TableDesc.concatResourcePath(table.toUpperCase()));
   }
   for (  CubeSegment segment : cube.getSegments()) {
+    metaResource.add(segment.getStatisticsResourcePath());
     dictAndSnapshot.addAll(segment.getSnapshotPaths());
     dictAndSnapshot.addAll(segment.getDictionaryPaths());
   }
