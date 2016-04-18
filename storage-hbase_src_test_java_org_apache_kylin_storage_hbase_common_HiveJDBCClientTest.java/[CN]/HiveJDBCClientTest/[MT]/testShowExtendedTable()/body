@@ -11,4 +11,6 @@
   while (res.next()) {
     System.out.println("---" + res.getString(1) + " | "+ res.getString(2));
   }
+  res.close();
+  con.close();
 }

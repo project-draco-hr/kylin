@@ -9,4 +9,7 @@
   ResultSet resultSet=state.executeQuery();
   printResultSetMetaData(resultSet);
   printResultSet(resultSet);
+  resultSet.close();
+  state.close();
+  conn.close();
 }

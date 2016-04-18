@@ -19,6 +19,7 @@
     System.out.println("Get catalog: catalog=" + catalog);
     catalogList.add(catalog);
   }
+  resultSet.close();
   Assert.assertTrue(catalogList.size() > 0 && catalogList.contains("defaultCatalog"));
   conn.close();
 }

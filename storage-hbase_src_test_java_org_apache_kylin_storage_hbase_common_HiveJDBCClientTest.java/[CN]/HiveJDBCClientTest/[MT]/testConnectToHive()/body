@@ -36,4 +36,6 @@
     System.out.println(res.getInt(1));
   }
   res.close();
+  stmt.close();
+  con.close();
 }

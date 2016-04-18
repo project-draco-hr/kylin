@@ -21,5 +21,10 @@
     ResultSet resultSet=state.executeQuery("select * from test_kylin_fact");
     printResultSetMetaData(resultSet);
     printResultSet(resultSet);
+    resultSet.close();
   }
+  catalogs.close();
+  schemas.close();
+  tables.close();
+  conn.close();
 }
