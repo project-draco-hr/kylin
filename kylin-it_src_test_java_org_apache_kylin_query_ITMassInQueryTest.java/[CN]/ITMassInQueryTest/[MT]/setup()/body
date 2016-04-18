@@ -1,6 +1,6 @@
 {
   ITKylinQueryTest.clean();
-  ITKylinQueryTest.joinType="inner";
+  ITKylinQueryTest.joinType="left";
   ITKylinQueryTest.setupAll();
   Configuration hconf=HadoopUtil.getCurrentConfiguration();
   fileSystem=FileSystem.get(hconf);
