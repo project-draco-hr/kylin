@@ -22,7 +22,6 @@
     assertEquals(80000,((LongMutable)returnRecord[3]).get());
     assertEquals(84000,((BigDecimal)returnRecord[4]).longValue());
     count++;
-    System.out.println(record);
   }
   assertEquals(10,count);
   scanner.close();
