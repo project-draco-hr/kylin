@@ -1,0 +1,3 @@
+{
+  return Integer.valueOf(getOptional("kylin.hbase.small.family.block.size","65536"));
+}
