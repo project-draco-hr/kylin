@@ -16,7 +16,12 @@
   for (  TblColRef tblColRef : valueMap.keys()) {
     result[desc.findColumn(tblColRef)]=DictionaryGenerator.buildDictionaryFromValueEnumerator(tblColRef.getType(),new IterableDictionaryValueEnumerator(Collections2.transform(valueMap.get(tblColRef),new Function<String,byte[]>(){
       @Nullable @Override public byte[] apply(      String input){
-        return input.getBytes();
+        try {
+          return input.getBytes("UTF-8");
+        }
+ catch (        UnsupportedEncodingException e) {
+          throw new RuntimeException(e);
+        }
       }
     }
 )));
