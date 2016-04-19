@@ -11,5 +11,6 @@
     printInfo("Query Result from Kylin - " + queryName + "  ("+ queryFolder+ ")");
     IDatabaseConnection kylinConn=new DatabaseConnection(cubeConnection);
     ITable kylinTable=executeQuery(kylinConn,queryName,sql,needSort);
+    printResult(kylinTable);
   }
 }
