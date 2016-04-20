@@ -1,0 +1,6 @@
+{
+  if (container.size() + counter.container.size() >= MAX_LENGTH) {
+    throw new RuntimeException("Cardinality of dimension exceeds the threshold: " + MAX_LENGTH);
+  }
+  container.addAll(counter.container);
+}

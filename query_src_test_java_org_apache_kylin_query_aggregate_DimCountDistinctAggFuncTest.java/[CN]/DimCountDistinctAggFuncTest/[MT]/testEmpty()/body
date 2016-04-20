@@ -1,0 +1,4 @@
+{
+  DimCountDistinctAggFunc.DimDistinctCounter counter=DimCountDistinctAggFunc.init();
+  assertEquals(0,DimCountDistinctAggFunc.result(counter));
+}

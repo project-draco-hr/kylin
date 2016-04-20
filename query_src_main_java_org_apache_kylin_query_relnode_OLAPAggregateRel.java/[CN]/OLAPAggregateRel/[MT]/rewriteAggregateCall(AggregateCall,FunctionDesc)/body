@@ -1,8 +1,12 @@
 {
-  List<Integer> newArgList=new ArrayList<Integer>(1);
-  String fieldName=func.getRewriteFieldName();
-  RelDataTypeField field=getInput().getRowType().getField(fieldName,true,false);
-  newArgList.add(field.getIndex());
+  List<Integer> newArgList=Lists.newArrayListWithCapacity(1);
+  if (func.needRewriteField()) {
+    RelDataTypeField field=getInput().getRowType().getField(func.getRewriteFieldName(),true,false);
+    newArgList.add(field.getIndex());
+  }
+ else {
+    newArgList=aggCall.getArgList();
+  }
   RelDataType fieldType=aggCall.getType();
   SqlAggFunction newAgg=aggCall.getAggregation();
   if (func.isCount()) {

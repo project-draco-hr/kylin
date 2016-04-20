@@ -1,0 +1,4 @@
+{
+  container=Sets.newHashSet();
+  MAX_LENGTH=KylinConfig.getInstanceFromEnv().getDimCountDistinctMaxCardinality();
+}

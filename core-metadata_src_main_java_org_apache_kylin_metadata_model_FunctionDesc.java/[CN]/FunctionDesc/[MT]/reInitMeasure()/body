@@ -1,0 +1,8 @@
+{
+  if (isDimensionAsMetric && isCountDistinct()) {
+    measureType=MeasureTypeFactory.createNoRewriteFieldsMeasureType(getExpression(),getReturnDataType());
+  }
+ else {
+    measureType=MeasureTypeFactory.create(getExpression(),getReturnDataType());
+  }
+}

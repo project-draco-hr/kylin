@@ -1,7 +1,9 @@
 {
-  if (isDimensionAsMetric)   return null;
+  if (isDimensionAsMetric && !isCountDistinct()) {
+    return null;
+  }
   if (measureType == null) {
-    measureType=MeasureTypeFactory.create(getExpression(),getReturnDataType());
+    reInitMeasure();
   }
   return measureType;
 }

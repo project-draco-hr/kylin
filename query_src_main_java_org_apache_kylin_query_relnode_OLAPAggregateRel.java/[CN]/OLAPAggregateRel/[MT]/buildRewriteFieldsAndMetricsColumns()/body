@@ -8,7 +8,7 @@
       this.context.groupByColumns.addAll(aggFunc.getParameter().getColRefs());
       continue;
     }
-    if (aggFunc.needRewrite()) {
+    if (aggFunc.needRewriteField()) {
       String rewriteFieldName=aggFunc.getRewriteFieldName();
       RelDataType rewriteFieldType=OLAPTable.createSqlType(typeFactory,aggFunc.getRewriteFieldType(),true);
       this.context.rewriteFields.put(rewriteFieldName,rewriteFieldType);

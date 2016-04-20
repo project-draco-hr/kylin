@@ -1,0 +1,6 @@
+{
+  if (funcName.equalsIgnoreCase("COUNT_DISTINCT")) {
+    return new DimCountDistinctMeasureType.DimCountDistinctMeasureTypeFactory().createMeasureType(funcName,dataType);
+  }
+  throw new UnsupportedOperationException("No measure type found.");
+}

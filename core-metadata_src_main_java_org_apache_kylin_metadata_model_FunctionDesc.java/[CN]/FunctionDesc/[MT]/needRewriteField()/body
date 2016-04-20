@@ -1,0 +1,4 @@
+{
+  if (!needRewrite())   return false;
+  return getMeasureType().needRewriteField();
+}

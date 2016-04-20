@@ -1,0 +1,12 @@
+{
+  DimCountDistinctAggFunc.DimDistinctCounter counter=DimCountDistinctAggFunc.init();
+  for (int i=0; i < 10; i++) {
+    for (int j=0; j < 2; j++) {
+      counter=DimCountDistinctAggFunc.add(counter,i);
+      counter=DimCountDistinctAggFunc.add(counter,(double)i);
+      counter=DimCountDistinctAggFunc.add(counter,(char)i);
+      counter=DimCountDistinctAggFunc.add(counter,Integer.toString(i));
+    }
+  }
+  assertEquals(40,DimCountDistinctAggFunc.result(counter));
+}

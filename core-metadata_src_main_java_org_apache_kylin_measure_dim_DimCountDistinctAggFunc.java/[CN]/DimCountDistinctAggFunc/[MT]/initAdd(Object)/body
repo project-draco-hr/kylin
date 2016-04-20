@@ -1,0 +1,5 @@
+{
+  DimDistinctCounter counter=new DimDistinctCounter();
+  counter.add(v);
+  return counter;
+}

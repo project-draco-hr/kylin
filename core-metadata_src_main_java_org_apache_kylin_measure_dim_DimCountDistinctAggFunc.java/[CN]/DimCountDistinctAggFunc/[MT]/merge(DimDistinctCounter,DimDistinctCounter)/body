@@ -1,0 +1,4 @@
+{
+  counter0.addAll(counter1);
+  return counter0;
+}

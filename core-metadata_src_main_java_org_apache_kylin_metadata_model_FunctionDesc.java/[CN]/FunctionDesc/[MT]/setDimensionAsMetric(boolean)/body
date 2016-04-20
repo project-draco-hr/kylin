@@ -1,3 +1,6 @@
 {
   this.isDimensionAsMetric=isDimensionAsMetric;
+  if (measureType != null) {
+    reInitMeasure();
+  }
 }

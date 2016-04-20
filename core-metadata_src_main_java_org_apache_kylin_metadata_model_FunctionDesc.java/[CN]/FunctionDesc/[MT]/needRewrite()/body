@@ -1,4 +1,4 @@
 {
-  if (isDimensionAsMetric)   return false;
+  if (getMeasureType() == null)   return false;
   return getMeasureType().needRewrite();
 }
