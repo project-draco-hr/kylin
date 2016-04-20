@@ -3,8 +3,8 @@
     return 0;
   }
  else {
-    if (length <= Bytes.SIZEOF_LONG) {
-      return Long.valueOf(Bytes.toLong(data,offset,length)).hashCode();
+    if (length <= Bytes.SIZEOF_LONG && length > 0) {
+      return Long.valueOf(BytesUtil.readLong(data,offset,length)).hashCode();
     }
     return Bytes.hashCode(data,offset,length);
   }
