@@ -5,7 +5,7 @@
     }
   }
   for (  TblColRef column : sqlDigest.allColumns) {
-    if (sqlDigest.metricColumns.contains(column)) {
+    if (sqlDigest.metricColumns.contains(column) && !(sqlDigest.groupbyColumns.contains(column) || sqlDigest.filterColumns.contains(column))) {
       continue;
     }
     dimensions.add(column);

@@ -26,6 +26,12 @@
       HColumnDescriptor cf=new HColumnDescriptor(cfDesc.getName());
       cf.setMaxVersions(1);
       String hbaseDefaultCC=kylinConfig.getHbaseDefaultCompressionCodec().toLowerCase();
+      if (cfDesc.isMemoryHungry()) {
+        cf.setBlocksize(kylinConfig.getHbaseDefaultBlockSize());
+      }
+ else {
+        cf.setBlocksize(kylinConfig.getHbaseSmallFamilyBlockSize());
+      }
 switch (hbaseDefaultCC) {
 case "snappy":
 {
@@ -58,8 +64,6 @@ default :
   cf.setCompressionType(Algorithm.NONE);
 }
 }
-int blockSize=Integer.valueOf(kylinConfig.getHbaseDefaultBlockSize());
-cf.setBlocksize(blockSize);
 try {
 String encodingStr=kylinConfig.getHbaseDefaultEncoding();
 DataBlockEncoding encoding=DataBlockEncoding.valueOf(encodingStr);

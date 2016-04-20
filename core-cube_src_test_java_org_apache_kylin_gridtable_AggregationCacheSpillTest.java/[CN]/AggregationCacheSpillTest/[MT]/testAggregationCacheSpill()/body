@@ -22,7 +22,6 @@
     assertEquals(20,((LongMutable)returnRecord[3]).get());
     assertEquals(21,((BigDecimal)returnRecord[4]).longValue());
     count++;
-    System.out.println(record);
   }
   assertEquals(DATA_CARDINALITY,count);
   scanner.close();

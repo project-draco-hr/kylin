@@ -1,0 +1,10 @@
+{
+  for (  HBaseColumnDesc hBaseColumnDesc : columns) {
+    for (    MeasureDesc measureDesc : hBaseColumnDesc.getMeasures()) {
+      if (measureDesc.getFunction().getMeasureType().isMemoryHungry()) {
+        return true;
+      }
+    }
+  }
+  return false;
+}

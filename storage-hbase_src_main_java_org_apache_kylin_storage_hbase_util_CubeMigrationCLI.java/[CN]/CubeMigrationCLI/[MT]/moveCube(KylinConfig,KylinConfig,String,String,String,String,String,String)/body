@@ -29,9 +29,9 @@
   }
   if (realExecute.equalsIgnoreCase("true")) {
     doOpts();
+    checkMigrationSuccess(dstConfig,cubeName,true);
   }
  else {
     showOpts();
   }
-  checkMigrationSuccess(dstConfig,cubeName,true);
 }
