@@ -3,7 +3,7 @@
     return null;
   }
   if (measureType == null) {
-    reInitMeasure();
+    reInitMeasureType();
   }
   return measureType;
 }
