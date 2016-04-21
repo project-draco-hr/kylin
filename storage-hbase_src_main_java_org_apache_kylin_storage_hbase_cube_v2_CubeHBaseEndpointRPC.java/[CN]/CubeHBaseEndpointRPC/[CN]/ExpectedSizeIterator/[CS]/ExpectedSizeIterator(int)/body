@@ -3,5 +3,6 @@
   this.queue=new ArrayBlockingQueue<byte[]>(expectedSize);
   this.timeout=HadoopUtil.getCurrentConfiguration().getInt(HConstants.HBASE_RPC_TIMEOUT_KEY,HConstants.DEFAULT_HBASE_RPC_TIMEOUT);
   this.timeout*=KylinConfig.getInstanceFromEnv().getCubeVisitTimeoutTimes();
-  logger.info("Timeout for ExpectedSizeIterator is " + this.timeout);
+  this.timeout*=1.1;
+  logger.info("Timeout for ExpectedSizeIterator is: " + this.timeout);
 }

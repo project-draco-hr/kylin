@@ -48,9 +48,9 @@
     if (behavior.ordinal() < CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM.ordinal()) {
       scanReq.setAggrCacheGB(0);
     }
-    final MutableBoolean normalComplete=new MutableBoolean(true);
+    final MutableBoolean scanNormalComplete=new MutableBoolean(true);
     final long startTime=this.serviceStartTime;
-    final long timeout=(long)(request.getTimeout() * 0.95);
+    final long timeout=request.getTimeout();
     final CellListIterator cellListIterator=new CellListIterator(){
       int counter=0;
       @Override public void close() throws IOException {
@@ -59,12 +59,17 @@
         }
       }
       @Override public boolean hasNext(){
-        if (counter++ % 1000 == 1) {
+        if (counter % 1000 == 1) {
           if (System.currentTimeMillis() - startTime > timeout) {
-            normalComplete.setValue(false);
+            scanNormalComplete.setValue(false);
+            logger.error("scanner aborted because timeout");
             return false;
           }
         }
+        if (counter % 100000 == 1) {
+          logger.info("Scanned " + counter + " rows.");
+        }
+        counter++;
         return allCellLists.hasNext();
       }
       @Override public List<Cell> next(){
@@ -82,6 +87,16 @@
     ByteArrayOutputStream outputStream=new ByteArrayOutputStream(RowConstants.ROWVALUE_BUFFER_SIZE);
     int finalRowCount=0;
     for (    GTRecord oneRecord : finalScanner) {
+      if (!scanNormalComplete.booleanValue()) {
+        logger.error("aggregate iterator aborted because input iterator aborts");
+        break;
+      }
+      if (finalRowCount % 1000 == 1) {
+        if (System.currentTimeMillis() - startTime > timeout) {
+          logger.error("aggregate iterator aborted because timeout");
+          break;
+        }
+      }
       buffer.clear();
       oneRecord.exportColumns(scanReq.getColumns(),buffer);
       buffer.flip();
@@ -91,7 +106,7 @@
     finalScanner.close();
     appendProfileInfo(sb,"agg done");
     byte[] compressedAllRows;
-    if (normalComplete.booleanValue()) {
+    if (scanNormalComplete.booleanValue()) {
       allRows=outputStream.toByteArray();
     }
  else {
@@ -106,7 +121,7 @@
     appendProfileInfo(sb,"server stats done");
     sb.append(" debugGitTag:" + debugGitTag);
     CubeVisitProtos.CubeVisitResponse.Builder responseBuilder=CubeVisitProtos.CubeVisitResponse.newBuilder();
-    done.run(responseBuilder.setCompressedRows(HBaseZeroCopyByteString.wrap(compressedAllRows)).setStats(CubeVisitProtos.CubeVisitResponse.Stats.newBuilder().setAggregatedRowCount(finalScanner.getScannedRowCount() - finalRowCount).setScannedRowCount(finalScanner.getScannedRowCount()).setServiceStartTime(serviceStartTime).setServiceEndTime(System.currentTimeMillis()).setSystemCpuLoad(systemCpuLoad).setFreePhysicalMemorySize(freePhysicalMemorySize).setFreeSwapSpaceSize(freeSwapSpaceSize).setHostname(InetAddress.getLocalHost().getHostName()).setEtcMsg(sb.toString()).setNormalComplete(normalComplete.booleanValue() ? 1 : 0).build()).build());
+    done.run(responseBuilder.setCompressedRows(HBaseZeroCopyByteString.wrap(compressedAllRows)).setStats(CubeVisitProtos.CubeVisitResponse.Stats.newBuilder().setAggregatedRowCount(finalScanner.getScannedRowCount() - finalRowCount).setScannedRowCount(finalScanner.getScannedRowCount()).setServiceStartTime(serviceStartTime).setServiceEndTime(System.currentTimeMillis()).setSystemCpuLoad(systemCpuLoad).setFreePhysicalMemorySize(freePhysicalMemorySize).setFreeSwapSpaceSize(freeSwapSpaceSize).setHostname(InetAddress.getLocalHost().getHostName()).setEtcMsg(sb.toString()).setNormalComplete(scanNormalComplete.booleanValue() ? 1 : 0).build()).build());
   }
  catch (  IOException ioe) {
     logger.error(ioe.toString());
