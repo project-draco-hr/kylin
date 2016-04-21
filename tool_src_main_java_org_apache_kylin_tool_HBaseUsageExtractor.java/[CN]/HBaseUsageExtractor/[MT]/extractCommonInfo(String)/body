@@ -1,0 +1,35 @@
+{
+  logger.info("The hbase master info/conf are going to be extracted...");
+  try {
+    File masterDir=new File(dest,"master");
+    FileUtils.forceMkdir(masterDir);
+    URL srcMasterUrl=new URL(getHBaseMasterUrl() + "master-status");
+    File masterDestFile=new File(masterDir,"master-status.html");
+    FileUtils.copyURLToFile(srcMasterUrl,masterDestFile);
+  }
+ catch (  Exception e) {
+    logger.warn("HBase Master status fetch failed: ",e);
+  }
+  try {
+    File confDir=new File(dest,"conf");
+    FileUtils.forceMkdir(confDir);
+    URL srcConfUrl=new URL(getHBaseMasterUrl() + "conf");
+    File destConfFile=new File(confDir,"hbase-conf.xml");
+    FileUtils.copyURLToFile(srcConfUrl,destConfFile);
+  }
+ catch (  Exception e) {
+    logger.warn("HBase conf fetch failed: ",e);
+  }
+  try {
+    File hdfsDir=new File(dest,"hdfs");
+    FileUtils.forceMkdir(hdfsDir);
+    CliCommandExecutor cliCommandExecutor=kylinConfig.getCliCommandExecutor();
+    String output=cliCommandExecutor.execute("hadoop fs -ls -R " + conf.get("hbase.rootdir") + "/data/default/KYLIN_*").getSecond();
+    FileUtils.writeStringToFile(new File(hdfsDir,"hdfs-files.list"),output);
+    output=cliCommandExecutor.execute("hadoop fs -ls -R " + conf.get("hbase.rootdir") + "/data/default/kylin_*").getSecond();
+    FileUtils.writeStringToFile(new File(hdfsDir,"hdfs-files.list"),output,true);
+  }
+ catch (  Exception e) {
+    logger.warn("HBase hdfs status fetch failed: ",e);
+  }
+}

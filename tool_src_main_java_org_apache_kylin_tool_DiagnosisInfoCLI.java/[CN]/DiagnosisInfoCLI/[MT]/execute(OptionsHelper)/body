@@ -7,12 +7,19 @@
   if (!exportDest.endsWith("/")) {
     exportDest=exportDest + "/";
   }
-  exportDest=exportDest + "diagnosis_" + new SimpleDateFormat("YYYY_MM_dd_HH_mm_ss").format(new Date())+ "/";
+  if (new File(exportDest).exists()) {
+    exportDest=exportDest + "diagnosis_" + new SimpleDateFormat("YYYY_MM_dd_HH_mm_ss").format(new Date())+ "/";
+  }
   String[] cubeMetaArgs={"-destDir",exportDest + "metadata","-project",project};
   cubeMetaExtractor.execute(cubeMetaArgs);
   int logPeriod=optionsHelper.hasOption(OPTION_LOG_PERIOD) ? Integer.valueOf(optionsHelper.getOptionValue(OPTION_LOG_PERIOD)) : DEFAULT_LOG_PERIOD;
   boolean compress=optionsHelper.hasOption(OPTION_COMPRESS) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_COMPRESS)) : true;
   boolean includeConf=optionsHelper.hasOption(OPTION_INCLUDE_CONF) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_CONF)) : true;
+  boolean includeHBase=optionsHelper.hasOption(OPTION_INCLUDE_HBASE) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_HBASE)) : true;
+  if (includeHBase) {
+    String[] hbaseArgs={"-destDir",exportDest + "hbase","-project",project};
+    hBaseUsageExtractor.execute(hbaseArgs);
+  }
   if (logPeriod > 0) {
     logger.info("Start to extract kylin logs in {} days",logPeriod);
     final String logFolder=KylinConfig.getKylinHome() + "/logs/";

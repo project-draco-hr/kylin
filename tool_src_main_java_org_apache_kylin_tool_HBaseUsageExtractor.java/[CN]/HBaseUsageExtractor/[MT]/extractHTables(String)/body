@@ -1,0 +1,18 @@
+{
+  logger.info("These htables are going to be extracted:");
+  for (  String htable : htables) {
+    logger.info(htable + "(required)");
+  }
+  File tableDir=new File(dest,"table");
+  FileUtils.forceMkdir(tableDir);
+  for (  String htable : htables) {
+    try {
+      URL srcUrl=new URL(getHBaseMasterUrl() + "table.jsp?name=" + htable);
+      File destFile=new File(tableDir,htable + ".html");
+      FileUtils.copyURLToFile(srcUrl,destFile);
+    }
+ catch (    Exception e) {
+      logger.warn("HTable " + htable + "info fetch failed: ",e);
+    }
+  }
+}

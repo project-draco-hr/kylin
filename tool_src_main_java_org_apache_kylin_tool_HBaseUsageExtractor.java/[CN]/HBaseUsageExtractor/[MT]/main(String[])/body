@@ -1,0 +1,4 @@
+{
+  HBaseUsageExtractor extractor=new HBaseUsageExtractor();
+  extractor.execute(args);
+}

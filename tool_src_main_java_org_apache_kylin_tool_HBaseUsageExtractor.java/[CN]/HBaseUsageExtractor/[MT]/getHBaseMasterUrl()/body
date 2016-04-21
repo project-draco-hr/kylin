@@ -1,0 +1,5 @@
+{
+  String host=conf.get("hbase.master.info.bindAddress");
+  String port=conf.get("hbase.master.info.port");
+  return "http://" + host + ":"+ port+ "/";
+}

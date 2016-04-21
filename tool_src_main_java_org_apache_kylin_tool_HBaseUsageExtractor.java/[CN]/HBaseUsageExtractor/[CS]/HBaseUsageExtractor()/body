@@ -1,0 +1,10 @@
+{
+  options=new Options();
+  OptionGroup realizationOrProject=new OptionGroup();
+  realizationOrProject.addOption(OPTION_CUBE);
+  realizationOrProject.addOption(OPTION_PROJECT);
+  realizationOrProject.setRequired(true);
+  options.addOptionGroup(realizationOrProject);
+  options.addOption(OPTION_DEST);
+  conf=HBaseConfiguration.create();
+}
