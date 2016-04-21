@@ -1,5 +1,5 @@
 {
-  scan.setCaching(kylinConfig.getHBaseScanCacheRows() / 10);
+  scan.setCaching(kylinConfig.getHBaseScanCacheRows());
   scan.setMaxResultSize(kylinConfig.getHBaseScanMaxResultSize());
   scan.setCacheBlocks(true);
 }
