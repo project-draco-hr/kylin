@@ -1,17 +1,15 @@
 {
   final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   final CubeInstance cubeInstance=CubeManager.getInstance(kylinConfig).getCube(cubeName);
-  final CubeDesc cubeDesc=cubeInstance.getDescriptor();
   final CubeSegment cubeSegment=cubeInstance.getSegmentById(segmentId);
   final Configuration hbaseConf=HBaseConnection.getCurrentHBaseConfiguration();
-  FileSystem fs=FileSystem.get(hbaseConf);
-  FsPermission permission=new FsPermission((short)0777);
-  for (  HBaseColumnFamilyDesc cf : cubeDesc.getHbaseMapping().getColumnFamily()) {
-    String cfName=cf.getName();
-    Path columnFamilyPath=new Path(hfileLocation,cfName);
-    if (fs.exists(columnFamilyPath)) {
-      fs.setPermission(columnFamilyPath,permission);
-    }
+  FsShell shell=new FsShell(hbaseConf);
+  try {
+    shell.run(new String[]{"-chmod","-R","777",hfileLocation});
+  }
+ catch (  Exception e) {
+    logger.error("Couldnt change the file permissions ",e);
+    throw new IOException(e);
   }
   String[] newArgs=new String[2];
   newArgs[0]=hfileLocation;
