@@ -1,8 +1,0 @@
-{
-  if (col < dimEncs.length) {
-    return dimEncs[col];
-  }
- else {
-    return null;
-  }
-}
