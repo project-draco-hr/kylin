@@ -1,0 +1,5 @@
+{
+  LongMutable l=current();
+  l.set(BytesUtil.readLong(in));
+  return l;
+}

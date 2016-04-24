@@ -1,0 +1,9 @@
+{
+  GTScanRequest req=new GTScanRequest(info,null,info.colAll,filter);
+  IGTScanner scanner=req.decorateScanner(gen.generate(N));
+  long count=0;
+  for (  GTRecord rec : scanner) {
+    count++;
+  }
+  System.out.println(count + " record filtered");
+}

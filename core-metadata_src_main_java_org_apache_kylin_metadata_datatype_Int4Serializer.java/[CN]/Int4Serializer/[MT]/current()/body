@@ -1,0 +1,8 @@
+{
+  IntMutable l=current.get();
+  if (l == null) {
+    l=new IntMutable();
+    current.set(l);
+  }
+  return l;
+}

@@ -4,7 +4,8 @@
   }
  else {
     if (length <= Bytes.SIZEOF_LONG && length > 0) {
-      return Long.valueOf(BytesUtil.readLong(data,offset,length)).hashCode();
+      long value=BytesUtil.readLong(data,offset,length);
+      return (int)(value ^ (value >>> 32));
     }
     return Bytes.hashCode(data,offset,length);
   }

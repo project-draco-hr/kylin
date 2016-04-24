@@ -1,0 +1,5 @@
+{
+  IntMutable l=current();
+  l.set(BytesUtil.readUnsigned(in,4));
+  return l;
+}

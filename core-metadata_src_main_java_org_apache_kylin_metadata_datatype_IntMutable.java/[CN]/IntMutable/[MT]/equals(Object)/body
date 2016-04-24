@@ -1,0 +1,7 @@
+{
+  if (!(o instanceof IntMutable)) {
+    return false;
+  }
+  IntMutable other=(IntMutable)o;
+  return this.v == other.v;
+}

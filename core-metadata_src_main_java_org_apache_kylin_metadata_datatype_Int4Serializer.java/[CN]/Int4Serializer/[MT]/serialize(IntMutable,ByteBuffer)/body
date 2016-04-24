@@ -1,0 +1,3 @@
+{
+  BytesUtil.writeUnsigned(value.get(),4,out);
+}

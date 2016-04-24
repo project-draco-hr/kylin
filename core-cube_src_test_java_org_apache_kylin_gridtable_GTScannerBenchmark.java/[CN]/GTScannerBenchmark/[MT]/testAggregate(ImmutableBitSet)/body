@@ -1,0 +1,9 @@
+{
+  GTScanRequest req=new GTScanRequest(info,null,dimensions,groupBy,metrics,aggrFuncs,null,true,10);
+  IGTScanner scanner=req.decorateScanner(gen.generate(N));
+  long count=0;
+  for (  GTRecord rec : scanner) {
+    count++;
+  }
+  System.out.println(count + " record aggregated");
+}

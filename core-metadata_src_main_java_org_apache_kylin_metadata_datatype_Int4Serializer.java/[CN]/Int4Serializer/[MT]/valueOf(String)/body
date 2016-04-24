@@ -1,0 +1,3 @@
+{
+  return new IntMutable(Integer.parseInt(str));
+}

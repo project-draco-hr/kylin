@@ -1,0 +1,5 @@
+{
+  long thisValue=this.v;
+  long thatValue=o.v;
+  return (thisValue < thatValue ? -1 : (thisValue == thatValue ? 0 : 1));
+}

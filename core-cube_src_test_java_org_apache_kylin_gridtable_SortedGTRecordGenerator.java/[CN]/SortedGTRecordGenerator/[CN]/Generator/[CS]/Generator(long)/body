@@ -1,0 +1,11 @@
+{
+  this.nRows=nRows;
+  this.rand=new Random();
+  rec=new GTRecord(info);
+  dist=new Distribution[colSpecs.size()];
+  for (int i=0; i < colSpecs.size(); i++) {
+    ColSpec spec=colSpecs.get(i);
+    rec.set(i,new ByteArray(spec.length));
+    dist[i]=new Distribution(spec,0);
+  }
+}
