@@ -1,5 +1,8 @@
 {
   String host=conf.get("hbase.master.info.bindAddress");
+  if (host.equals("0.0.0.0")) {
+    host=MasterAddressTracker.getMasterAddress(new ZooKeeperWatcher(conf,null,null)).getHostname();
+  }
   String port=conf.get("hbase.master.info.port");
   return "http://" + host + ":"+ port+ "/";
 }

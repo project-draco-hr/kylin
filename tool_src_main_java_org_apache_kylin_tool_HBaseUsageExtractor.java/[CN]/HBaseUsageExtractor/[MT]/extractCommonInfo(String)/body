@@ -21,6 +21,16 @@
     logger.warn("HBase conf fetch failed: ",e);
   }
   try {
+    File jmxDir=new File(dest,"jmx");
+    FileUtils.forceMkdir(jmxDir);
+    URL srcJmxUrl=new URL(getHBaseMasterUrl() + "jmx");
+    File jmxDestFile=new File(jmxDir,"jmx.html");
+    FileUtils.copyURLToFile(srcJmxUrl,jmxDestFile);
+  }
+ catch (  Exception e) {
+    logger.warn("HBase JMX fetch failed: ",e);
+  }
+  try {
     File hdfsDir=new File(dest,"hdfs");
     FileUtils.forceMkdir(hdfsDir);
     CliCommandExecutor cliCommandExecutor=kylinConfig.getCliCommandExecutor();
