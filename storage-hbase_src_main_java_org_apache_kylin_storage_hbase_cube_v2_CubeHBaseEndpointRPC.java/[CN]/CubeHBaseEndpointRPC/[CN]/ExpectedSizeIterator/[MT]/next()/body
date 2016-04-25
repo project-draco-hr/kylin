@@ -4,7 +4,11 @@
   }
   try {
     current++;
-    byte[] ret=queue.poll(timeout,TimeUnit.MILLISECONDS);
+    long tsRemaining=this.timeoutTS - System.currentTimeMillis();
+    if (tsRemaining < 0) {
+      throw new RuntimeException("Timeout visiting cube!");
+    }
+    byte[] ret=queue.poll(tsRemaining,TimeUnit.MILLISECONDS);
     if (ret == null) {
       throw new RuntimeException("Timeout visiting cube!");
     }

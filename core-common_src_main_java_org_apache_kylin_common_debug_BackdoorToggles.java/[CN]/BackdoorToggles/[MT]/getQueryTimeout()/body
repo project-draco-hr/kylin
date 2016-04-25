@@ -1,0 +1,5 @@
+{
+  String v=getString(DEBUG_TOGGLE_QUERY_TIMEOUT);
+  if (v == null)   return -1;
+ else   return Integer.valueOf(v);
+}

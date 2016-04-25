@@ -4,5 +4,9 @@
   this.timeout=HadoopUtil.getCurrentConfiguration().getInt(HConstants.HBASE_RPC_TIMEOUT_KEY,HConstants.DEFAULT_HBASE_RPC_TIMEOUT);
   this.timeout*=KylinConfig.getInstanceFromEnv().getCubeVisitTimeoutTimes();
   this.timeout*=1.1;
+  if (BackdoorToggles.getQueryTimeout() != -1) {
+    this.timeout=BackdoorToggles.getQueryTimeout();
+  }
   logger.info("Timeout for ExpectedSizeIterator is: " + this.timeout);
+  this.timeoutTS=System.currentTimeMillis() + this.timeout;
 }
