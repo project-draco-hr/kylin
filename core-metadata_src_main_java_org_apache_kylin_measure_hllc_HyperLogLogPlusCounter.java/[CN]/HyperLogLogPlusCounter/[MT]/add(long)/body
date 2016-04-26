@@ -3,4 +3,6 @@
   int bucket=(int)(hash & bucketMask);
   int firstOnePos=Long.numberOfLeadingZeros(hash | bucketMask) + 1;
   if (firstOnePos > registers[bucket])   registers[bucket]=(byte)firstOnePos;
+  if (singleBucket == -1)   singleBucket=bucket;
+ else   singleBucket=Integer.MIN_VALUE;
 }

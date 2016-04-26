@@ -3,4 +3,5 @@
   this.m=1 << p;
   this.hashFunc=hashFunc;
   this.registers=new byte[m];
+  this.singleBucket=-1;
 }
