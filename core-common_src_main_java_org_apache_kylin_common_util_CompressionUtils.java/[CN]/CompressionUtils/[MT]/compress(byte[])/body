@@ -1,5 +1,5 @@
 {
-  Deflater deflater=new Deflater();
+  Deflater deflater=new Deflater(1);
   deflater.setInput(data);
   ByteArrayOutputStream outputStream=new ByteArrayOutputStream(data.length);
   deflater.finish();
