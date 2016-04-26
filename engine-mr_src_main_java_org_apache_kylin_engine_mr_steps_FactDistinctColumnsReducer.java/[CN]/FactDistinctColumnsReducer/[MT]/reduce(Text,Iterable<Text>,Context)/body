@@ -10,7 +10,7 @@
  else {
     long cuboidId=Bytes.toLong(key.getBytes(),1,Bytes.SIZEOF_LONG);
     for (    Text value : values) {
-      HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(14);
+      HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(cubeConfig.getCubeStatsHLLPrecision());
       ByteBuffer bf=ByteBuffer.wrap(value.getBytes(),0,value.getLength());
       hll.readRegisters(bf);
       totalRowsBeforeMerge+=hll.getCountEstimate();

@@ -4,6 +4,7 @@
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
   String cubeName=conf.get(BatchConstants.CFG_CUBE_NAME);
   CubeInstance cube=CubeManager.getInstance(config).getCube(cubeName);
+  cubeConfig=cube.getConfig();
   cubeDesc=cube.getDescriptor();
   columnList=CubeManager.getInstance(config).getAllDictColumnsOnFact(cubeDesc);
   boolean collectStatistics=Boolean.parseBoolean(conf.get(BatchConstants.CFG_STATISTICS_ENABLED));

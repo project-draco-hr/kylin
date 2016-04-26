@@ -21,7 +21,7 @@
         mapperOverlapRatio=Bytes.toDouble(value.getBytes());
       }
  else {
-        HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(14);
+        HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(kylinConfig.getCubeStatsHLLPrecision());
         ByteArray byteArray=new ByteArray(value.getBytes());
         hll.readRegisters(byteArray.asBuffer());
         counterMap.put(key.get(),hll);
