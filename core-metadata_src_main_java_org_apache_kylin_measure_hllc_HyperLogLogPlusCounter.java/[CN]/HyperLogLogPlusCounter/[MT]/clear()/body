@@ -1,4 +1,5 @@
 {
   byte zero=(byte)0;
   Arrays.fill(registers,zero);
+  singleBucket=-1;
 }

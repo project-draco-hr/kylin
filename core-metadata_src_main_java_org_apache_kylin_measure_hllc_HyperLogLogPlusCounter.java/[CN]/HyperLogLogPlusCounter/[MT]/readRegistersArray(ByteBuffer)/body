@@ -1,3 +1,4 @@
 {
   in.get(registers,0,m);
+  singleBucket=Integer.MIN_VALUE;
 }
