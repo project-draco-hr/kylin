@@ -1,9 +1,11 @@
 {
+  long t=System.currentTimeMillis();
   GTScanRequest req=new GTScanRequest(info,null,info.colAll,filter);
   IGTScanner scanner=req.decorateScanner(gen.generate(N));
   long count=0;
   for (  GTRecord rec : scanner) {
     count++;
   }
-  System.out.println(count + " record filtered");
+  t=System.currentTimeMillis() - t;
+  System.out.println(N + " records filtered to " + count+ ", "+ calcSpeed(t)+ "K rec/sec");
 }

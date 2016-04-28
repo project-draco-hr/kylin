@@ -14,4 +14,7 @@
   gen.addDimension(100,4,null);
   gen.addMeasure(8);
   gen.addMeasure(8);
+  long t=System.currentTimeMillis();
+  testGenerate();
+  genTime=System.currentTimeMillis() - t;
 }

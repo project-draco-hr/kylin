@@ -3,5 +3,4 @@
   for (  GTRecord rec : gen.generate(N)) {
     count++;
   }
-  System.out.println(count + " record generated");
 }
