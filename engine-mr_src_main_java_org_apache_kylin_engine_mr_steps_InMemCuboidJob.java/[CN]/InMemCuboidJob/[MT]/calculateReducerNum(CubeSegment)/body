@@ -7,7 +7,7 @@
   }
   double perReduceInputMB=kylinConfig.getDefaultHadoopJobReducerInputMB();
   int numReduceTasks=(int)Math.round(totalSizeInM / perReduceInputMB);
-  numReduceTasks=Math.max(1,numReduceTasks);
+  numReduceTasks=Math.max(kylinConfig.getHadoopJobMinReducerNumber(),numReduceTasks);
   numReduceTasks=Math.min(kylinConfig.getHadoopJobMaxReducerNumber(),numReduceTasks);
   logger.info("Having total map input MB " + Math.round(totalSizeInM));
   logger.info("Having per reduce MB " + perReduceInputMB);
