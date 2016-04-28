@@ -14,6 +14,7 @@
         desc.addFamily(fd);
       }
     }
+    desc.setValue(HTABLE_UUID_TAG,UUID.randomUUID().toString());
     hbase.createTable(desc);
     logger.debug("HTable '" + tableName + "' created");
   }

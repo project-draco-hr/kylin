@@ -67,6 +67,10 @@
     FileUtils.writeStringToFile(new File(basicDir,"process"),output);
     output=kylinConfig.getCliCommandExecutor().execute("lsb_release -a").getSecond();
     FileUtils.writeStringToFile(new File(basicDir,"lsb_release"),output);
+    output=KylinVersion.getKylinClientInformation();
+    FileUtils.writeStringToFile(new File(basicDir,"client"),output);
+    output=getHBaseMetaStoreId();
+    FileUtils.writeStringToFile(new File(basicDir,"client"),output,true);
   }
  catch (  Exception e) {
     logger.warn("Error in export process info.",e);

@@ -64,9 +64,6 @@
       retrieveResourcePath(iRealization);
     }
   }
- else   if (realization instanceof IIInstance) {
-    logger.warn("Does not support extract II instance or hybrid that contains II");
-  }
  else {
     logger.warn("Unknown realization type: " + realization.getType());
   }

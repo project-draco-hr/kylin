@@ -1,0 +1,6 @@
+{
+  HBaseAdmin hbaseAdmin=new HBaseAdmin(HBaseConfiguration.create(HadoopUtil.getCurrentConfiguration()));
+  String metaStoreName=kylinConfig.getMetadataUrlPrefix();
+  HTableDescriptor desc=hbaseAdmin.getTableDescriptor(TableName.valueOf(metaStoreName));
+  return "MetaStore UUID: " + desc.getValue(HBaseConnection.HTABLE_UUID_TAG);
+}

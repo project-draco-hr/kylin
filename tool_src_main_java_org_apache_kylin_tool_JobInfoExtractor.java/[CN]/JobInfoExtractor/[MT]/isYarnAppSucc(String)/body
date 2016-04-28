@@ -1,0 +1,11 @@
+{
+  final String yarnCmd="yarn application -status " + applicationId;
+  final String cmdOutput=kylinConfig.getCliCommandExecutor().execute(yarnCmd).getSecond();
+  final String[] cmdOutputLines=cmdOutput.split("\n");
+  for (  String cmdOutputLine : cmdOutputLines) {
+    if (cmdOutputLine.equals("Final-State : SUCCEEDED")) {
+      return true;
+    }
+  }
+  return false;
+}

@@ -21,7 +21,7 @@
   }
   executeExtraction(dest);
   if (includeCube) {
-    String cubeName=CubingExecutableUtil.getCubeName(executablePO.getParams());
+    String cubeName=executablePO.getParams().get("cubename");
     String[] cubeMetaArgs={"-cube",cubeName,"-destDir",dest + "cube_" + cubeName+ "/","-includeJobs","false"};
     logger.info("Start to extract related cube: " + StringUtils.join(cubeMetaArgs));
     cubeMetaExtractor.execute(cubeMetaArgs);
@@ -29,7 +29,7 @@
   if (includeYarnLogs) {
     logger.info("Start to related yarn job logs: " + jobId);
     for (    String taskId : yarnLogsResources) {
-      extractYarnLog(taskId,dest + "yarn_" + jobId+ "/");
+      extractYarnLog(taskId,dest + "yarn_" + jobId+ "/",true);
     }
   }
   logger.info("Extracted kylin jobs located at: " + new File(dest).getAbsolutePath());
