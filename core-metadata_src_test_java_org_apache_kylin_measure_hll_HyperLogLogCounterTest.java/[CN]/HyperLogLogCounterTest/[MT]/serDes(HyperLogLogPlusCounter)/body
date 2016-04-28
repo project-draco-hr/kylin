@@ -1,0 +1,9 @@
+{
+  buf.clear();
+  hllc.writeRegisters(buf);
+  buf.flip();
+  HyperLogLogPlusCounter copy=new HyperLogLogPlusCounter(hllc.getPrecision());
+  copy.readRegisters(buf);
+  Assert.assertEquals(copy.getCountEstimate(),hllc.getCountEstimate());
+  return copy;
+}

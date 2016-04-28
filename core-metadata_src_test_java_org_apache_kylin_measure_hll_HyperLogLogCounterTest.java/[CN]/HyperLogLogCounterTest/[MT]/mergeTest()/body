@@ -3,15 +3,15 @@
   double absError=0;
   int n=100;
   for (int i=0; i < n; i++) {
-    double e=merge();
+    double e=merge(i);
     error+=e;
     absError+=Math.abs(e);
   }
-  System.out.println("Total average error is " + error / n + " and absolute error is " + absError / n);
+  System.out.println("Total average error is " + error / n);
   System.out.println("  errorRateCount1 is " + errorCount1 + "!");
   System.out.println("  errorRateCount2 is " + errorCount2 + "!");
   System.out.println("  errorRateCount3 is " + errorCount3 + "!");
-  Assert.assertTrue(errorCount1 <= n * 0.40);
-  Assert.assertTrue(errorCount2 <= n * 0.08);
+  Assert.assertTrue(errorCount1 <= n * 0.30);
+  Assert.assertTrue(errorCount2 <= n * 0.05);
   Assert.assertTrue(errorCount3 <= n * 0.02);
 }

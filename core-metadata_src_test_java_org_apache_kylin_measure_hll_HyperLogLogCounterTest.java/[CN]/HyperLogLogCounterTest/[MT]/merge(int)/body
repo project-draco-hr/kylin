@@ -1,6 +1,6 @@
 {
-  int ln=50;
-  int dn=300;
+  int ln=20;
+  int dn=100 * (round + 1);
   Set<String> testSet=new HashSet<String>();
   HyperLogLogPlusCounter[] hllcs=new HyperLogLogPlusCounter[ln];
   for (int i=0; i < ln; i++) {
@@ -15,20 +15,20 @@
   }
   HyperLogLogPlusCounter mergeHllc=newHLLC();
   for (  HyperLogLogPlusCounter hllc : hllcs) {
-    mergeHllc.merge(hllc);
-    checkSerialize(mergeHllc);
+    mergeHllc.merge(serDes(hllc));
   }
   double errorRate=mergeHllc.getErrorRate();
   long estimate=mergeHllc.getCountEstimate();
-  double actualError=(double)(testSet.size() - estimate) / testSet.size();
+  double actualError=Math.abs((double)(testSet.size() - estimate) / testSet.size());
   System.out.println(testSet.size() + "-" + estimate+ " ~ "+ actualError);
-  if (Math.abs(actualError) > errorRate) {
+  Assert.assertTrue(actualError < 0.1);
+  if (actualError > errorRate) {
     errorCount1++;
   }
-  if (Math.abs(actualError) > 2 * errorRate) {
+  if (actualError > 2 * errorRate) {
     errorCount2++;
   }
-  if (Math.abs(actualError) > 3 * errorRate) {
+  if (actualError > 3 * errorRate) {
     errorCount3++;
   }
   return actualError;

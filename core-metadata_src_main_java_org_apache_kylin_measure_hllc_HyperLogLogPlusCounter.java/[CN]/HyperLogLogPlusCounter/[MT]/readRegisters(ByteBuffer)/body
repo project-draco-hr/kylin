@@ -16,6 +16,7 @@
   }
  else   if (scheme == 1) {
     in.get(registers);
+    singleBucket=Integer.MIN_VALUE;
   }
  else   throw new IllegalStateException();
 }
