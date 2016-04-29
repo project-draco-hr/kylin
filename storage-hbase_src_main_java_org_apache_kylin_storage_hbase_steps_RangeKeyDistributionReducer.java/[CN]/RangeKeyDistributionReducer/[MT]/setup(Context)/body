@@ -4,7 +4,7 @@
     output=context.getConfiguration().get(BatchConstants.CFG_OUTPUT_PATH);
   }
   if (context.getConfiguration().get(BatchConstants.CFG_HFILE_SIZE_GB) != null) {
-    hfileSizeGB=Integer.valueOf(context.getConfiguration().get(BatchConstants.CFG_HFILE_SIZE_GB));
+    hfileSizeGB=Float.valueOf(context.getConfiguration().get(BatchConstants.CFG_HFILE_SIZE_GB)).intValue();
   }
   if (context.getConfiguration().get(BatchConstants.CFG_REGION_SPLIT_SIZE) != null) {
     cut=Float.valueOf(context.getConfiguration().get(BatchConstants.CFG_REGION_SPLIT_SIZE));

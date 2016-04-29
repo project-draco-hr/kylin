@@ -7,7 +7,7 @@
   if (hfileSizeGB <= 0) {
     hfileSizeGB=gbPerRegion;
   }
-  int hfilePerRegion=gbPerRegion / hfileSizeGB;
+  int hfilePerRegion=(int)(gbPerRegion / hfileSizeGB);
   hfilePerRegion=Math.max(1,hfilePerRegion);
   System.out.println(nRegion + " regions");
   System.out.println(gbPerRegion + " GB per region");
