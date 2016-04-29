@@ -8,7 +8,7 @@
     logger.info("Starting: " + jobName);
     Configuration conf=getConf();
     JobEngineConfig jobEngineConfig=new JobEngineConfig(KylinConfig.getInstanceFromEnv());
-    conf.addResource(jobEngineConfig.getHadoopJobConfFilePath(null,null));
+    conf.addResource(new Path(jobEngineConfig.getHadoopJobConfFilePath(null,null)));
     job=Job.getInstance(conf,jobName);
     setJobClasspath(job);
     String table=getOptionValue(OPTION_TABLE);
