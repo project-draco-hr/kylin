@@ -6,6 +6,6 @@
   clearSegment(cubeName);
   long date1=cubeManager.getCube(cubeName).getDescriptor().getPartitionDateStart();
   long date4=f.parse("2023-01-01").getTime();
-  result.add(buildSegment("test_kylin_cube_without_slr_left_join_empty",date1,date4));
+  result.add(buildSegment(cubeName,date1,date4));
   return result;
 }
