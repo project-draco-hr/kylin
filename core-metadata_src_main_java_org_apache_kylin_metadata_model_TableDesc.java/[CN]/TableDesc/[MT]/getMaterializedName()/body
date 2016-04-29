@@ -1,0 +1,3 @@
+{
+  return materializedTableNamePrefix + database.getName() + "_"+ name;
+}

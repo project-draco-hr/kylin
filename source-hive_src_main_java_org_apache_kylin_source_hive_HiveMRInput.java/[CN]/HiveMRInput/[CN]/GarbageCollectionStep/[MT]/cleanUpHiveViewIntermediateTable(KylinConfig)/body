@@ -2,12 +2,12 @@
   StringBuffer output=new StringBuffer();
   final HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
   hiveCmdBuilder.addStatement("USE " + config.getHiveDatabaseForIntermediateTable() + ";");
-  if (!getHiveViewIntermediateTableIdentitys().isEmpty()) {
-    for (    String hiveTableName : getHiveViewIntermediateTableIdentitys().split(";")) {
+  if (getHiveViewIntermediateTableIdentities() != null && !getHiveViewIntermediateTableIdentities().isEmpty()) {
+    for (    String hiveTableName : getHiveViewIntermediateTableIdentities().split(";")) {
       hiveCmdBuilder.addStatement("DROP TABLE IF EXISTS  " + hiveTableName + ";");
     }
   }
   config.getCliCommandExecutor().execute(hiveCmdBuilder.build());
-  output.append("hive view intermediate tables: " + getHiveViewIntermediateTableIdentitys() + " is dropped. \n");
+  output.append("hive view intermediate tables: " + getHiveViewIntermediateTableIdentities() + " is dropped. \n");
   return output.toString();
 }
