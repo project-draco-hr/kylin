@@ -65,6 +65,8 @@
       out.write(buf,0,1);
       out.flush();
     }
+    in.close();
+    out.close();
     session.disconnect();
   }
  catch (  Exception e) {
