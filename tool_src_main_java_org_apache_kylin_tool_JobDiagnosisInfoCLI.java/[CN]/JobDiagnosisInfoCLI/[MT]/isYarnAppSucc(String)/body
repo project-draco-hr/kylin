@@ -1,0 +1,17 @@
+{
+  final String yarnCmd="yarn application -status " + applicationId;
+  final String cmdOutput=kylinConfig.getCliCommandExecutor().execute(yarnCmd).getSecond();
+  final Map<String,String> params=Maps.newHashMap();
+  final String[] cmdOutputLines=cmdOutput.split("\n");
+  for (  String cmdOutputLine : cmdOutputLines) {
+    String[] pair=cmdOutputLine.split(":");
+    params.put(pair[0].trim(),pair[1].trim());
+  }
+  for (  Map.Entry<String,String> e : params.entrySet()) {
+    logger.info(e.getKey() + ":" + e.getValue());
+  }
+  if (params.containsKey("Final-State") && params.get("Final-State").equals("SUCCEEDED")) {
+    return true;
+  }
+  return false;
+}

@@ -1,0 +1,38 @@
+{
+  String jobId=optionsHelper.getOptionValue(OPTION_JOB_ID);
+  boolean includeCube=optionsHelper.hasOption(OPTION_INCLUDE_CUBE) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_CUBE)) : true;
+  boolean includeYarnLogs=optionsHelper.hasOption(OPTION_INCLUDE_YARN_LOGS) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_YARN_LOGS)) : true;
+  ExecutablePO executablePO=executableDao.getJob(jobId);
+  addRequired(ExecutableDao.pathOfJob(jobId));
+  addRequired(ExecutableDao.pathOfJobOutput(jobId));
+  for (  ExecutablePO task : executablePO.getTasks()) {
+    addRequired(ExecutableDao.pathOfJob(task.getUuid()));
+    addRequired(ExecutableDao.pathOfJobOutput(task.getUuid()));
+    if (includeYarnLogs) {
+      yarnLogsResources.add(task.getUuid());
+    }
+  }
+  extractResources(exportDir);
+  if (includeCube) {
+    String cubeName=executablePO.getParams().get("cubeName");
+    if (!StringUtils.isEmpty(cubeName)) {
+      File metaDir=new File(exportDir,"cube");
+      FileUtils.forceMkdir(metaDir);
+      String[] cubeMetaArgs={"-cube",cubeName,"-destDir",new File(metaDir,cubeName).getAbsolutePath(),"-includeJobs","false","-compress","false","-quiet","false"};
+      logger.info("Start to extract related cube: " + StringUtils.join(cubeMetaArgs));
+      CubeMetaExtractor cubeMetaExtractor=new CubeMetaExtractor();
+      cubeMetaExtractor.execute(cubeMetaArgs);
+    }
+  }
+  if (includeYarnLogs) {
+    logger.info("Start to related yarn job logs: " + jobId);
+    File yarnLogDir=new File(exportDir,"yarn");
+    FileUtils.forceMkdir(yarnLogDir);
+    for (    String taskId : yarnLogsResources) {
+      extractYarnLog(taskId,new File(yarnLogDir,jobId),true);
+    }
+  }
+  String[] logsArgs={"-destDir",new File(exportDir,"logs").getAbsolutePath(),"-compress","false","-quiet","false"};
+  KylinLogExtractor logExtractor=new KylinLogExtractor();
+  logExtractor.execute(logsArgs);
+}

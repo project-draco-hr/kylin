@@ -1,5 +1,6 @@
 {
-  options=new Options();
+  super();
+  packagePrefix="cubemeta";
   OptionGroup realizationOrProject=new OptionGroup();
   realizationOrProject.addOption(OPTION_CUBE);
   realizationOrProject.addOption(OPTION_PROJECT);
@@ -9,5 +10,4 @@
   options.addOption(OPTION_INCLUDE_SEGMENTS);
   options.addOption(OPTION_INCLUDE_JOB);
   options.addOption(OPTION_INCLUDE_SEGMENT_DETAILS);
-  options.addOption(OPTION_DEST);
 }

@@ -1,0 +1,13 @@
+{
+  final Map<String,String> jobInfo=executableDao.getJobOutput(taskId).getInfo();
+  FileUtils.forceMkdir(destDir);
+  if (jobInfo.containsKey(ExecutableConstants.MR_JOB_ID)) {
+    String applicationId=jobInfo.get(ExecutableConstants.MR_JOB_ID).replace("job","application");
+    if (!onlyFail || !isYarnAppSucc(applicationId)) {
+      File destFile=new File(destDir,applicationId + ".log");
+      String yarnCmd="yarn logs -applicationId " + applicationId + " > "+ destFile.getAbsolutePath();
+      logger.debug(yarnCmd);
+      kylinConfig.getCliCommandExecutor().execute(yarnCmd);
+    }
+  }
+}

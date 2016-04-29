@@ -1,4 +1,0 @@
-{
-  JobInfoExtractor extractor=new JobInfoExtractor();
-  extractor.execute(args);
-}

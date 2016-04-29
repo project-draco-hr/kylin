@@ -1,0 +1,7 @@
+{
+  options=new Options();
+  options.addOption(OPTION_DEST);
+  options.addOption(OPTION_COMPRESS);
+  options.addOption(OPTION_QUIET);
+  packagePrefix=DEFAULT_PACKAGE_PREFIX;
+}

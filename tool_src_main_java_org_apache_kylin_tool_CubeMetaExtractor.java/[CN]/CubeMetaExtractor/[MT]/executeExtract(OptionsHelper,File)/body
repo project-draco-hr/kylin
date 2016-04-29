@@ -1,0 +1,50 @@
+{
+  includeSegments=optionsHelper.hasOption(OPTION_INCLUDE_SEGMENTS) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_SEGMENTS)) : true;
+  includeJobs=optionsHelper.hasOption(OPTION_INCLUDE_JOB) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_JOB)) : false;
+  includeSegmentDetails=optionsHelper.hasOption(OPTION_INCLUDE_SEGMENT_DETAILS) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_SEGMENT_DETAILS)) : false;
+  kylinConfig=KylinConfig.getInstanceFromEnv();
+  metadataManager=MetadataManager.getInstance(kylinConfig);
+  projectManager=ProjectManager.getInstance(kylinConfig);
+  hybridManager=HybridManager.getInstance(kylinConfig);
+  cubeManager=CubeManager.getInstance(kylinConfig);
+  cubeDescManager=CubeDescManager.getInstance(kylinConfig);
+  streamingManager=StreamingManager.getInstance(kylinConfig);
+  kafkaConfigManager=KafkaConfigManager.getInstance(kylinConfig);
+  executableDao=ExecutableDao.getInstance(kylinConfig);
+  realizationRegistry=RealizationRegistry.getInstance(kylinConfig);
+  badQueryHistoryManager=BadQueryHistoryManager.getInstance(kylinConfig);
+  if (optionsHelper.hasOption(OPTION_PROJECT)) {
+    String projectName=optionsHelper.getOptionValue(OPTION_PROJECT);
+    ProjectInstance projectInstance=projectManager.getProject(projectName);
+    if (projectInstance == null) {
+      throw new IllegalArgumentException("Project " + projectName + " does not exist");
+    }
+    addRequired(projectInstance.getResourcePath());
+    List<RealizationEntry> realizationEntries=projectInstance.getRealizationEntries();
+    for (    RealizationEntry realizationEntry : realizationEntries) {
+      retrieveResourcePath(getRealization(realizationEntry));
+    }
+    addOptional(badQueryHistoryManager.getBadQueriesForProject(projectName).getResourcePath());
+  }
+ else   if (optionsHelper.hasOption(OPTION_CUBE)) {
+    String cubeName=optionsHelper.getOptionValue(OPTION_CUBE);
+    IRealization realization;
+    if ((realization=cubeManager.getRealization(cubeName)) != null) {
+      retrieveResourcePath(realization);
+    }
+ else {
+      throw new IllegalArgumentException("No cube found with name of " + cubeName);
+    }
+  }
+ else   if (optionsHelper.hasOption(OPTION_HYBRID)) {
+    String hybridName=optionsHelper.getOptionValue(OPTION_HYBRID);
+    IRealization realization;
+    if ((realization=hybridManager.getRealization(hybridName)) != null) {
+      retrieveResourcePath(realization);
+    }
+ else {
+      throw new IllegalArgumentException("No hybrid found with name of" + hybridName);
+    }
+  }
+  executeExtraction(exportDir.getAbsolutePath());
+}

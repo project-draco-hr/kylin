@@ -1,0 +1,3 @@
+String taskId
+File destDir
+boolean onlyFail

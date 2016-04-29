@@ -1,0 +1,9 @@
+{
+  super();
+  packagePrefix="job";
+  options.addOption(OPTION_JOB_ID);
+  options.addOption(OPTION_INCLUDE_CUBE);
+  options.addOption(OPTION_INCLUDE_YARN_LOGS);
+  kylinConfig=KylinConfig.getInstanceFromEnv();
+  executableDao=ExecutableDao.getInstance(kylinConfig);
+}

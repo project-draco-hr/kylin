@@ -1,6 +1,0 @@
-{
-  String[] args={"-project",project,"-destDir",System.getProperty("java.io.tmpdir") + UUID.randomUUID(),"-compress","true"};
-  DiagnosisInfoCLI diagnosisInfoCli=new DiagnosisInfoCLI();
-  diagnosisInfoCli.execute(args);
-  return diagnosisInfoCli.getExportDest();
-}

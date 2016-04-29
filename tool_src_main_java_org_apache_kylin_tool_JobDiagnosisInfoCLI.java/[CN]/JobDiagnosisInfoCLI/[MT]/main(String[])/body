@@ -1,0 +1,4 @@
+{
+  JobDiagnosisInfoCLI extractor=new JobDiagnosisInfoCLI();
+  extractor.execute(args);
+}

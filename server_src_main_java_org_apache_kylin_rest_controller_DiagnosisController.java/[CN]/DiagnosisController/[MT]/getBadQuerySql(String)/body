@@ -1,0 +1,11 @@
+{
+  List<BadQueryEntry> badEntry=Lists.newArrayList();
+  try {
+    BadQueryHistory badQueryHistory=dgService.getProjectBadQueryHistory(project);
+    badEntry.addAll(badQueryHistory.getEntries());
+  }
+ catch (  IOException e) {
+    throw new InternalErrorException(e + " Caused by: " + e.getMessage(),e);
+  }
+  return badEntry;
+}
