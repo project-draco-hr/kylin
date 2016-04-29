@@ -1,11 +1,9 @@
 {
   double error=0;
-  double absError=0;
   int n=100;
   for (int i=0; i < n; i++) {
     double e=merge(i);
     error+=e;
-    absError+=Math.abs(e);
   }
   System.out.println("Total average error is " + error / n);
   System.out.println("  errorRateCount1 is " + errorCount1 + "!");

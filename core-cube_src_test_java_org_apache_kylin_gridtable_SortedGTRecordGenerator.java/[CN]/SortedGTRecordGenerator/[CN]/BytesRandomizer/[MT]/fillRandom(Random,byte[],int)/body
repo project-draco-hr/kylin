@@ -1,0 +1,5 @@
+{
+  rand.nextBytes(bytes);
+  System.arraycopy(bytes,0,array,offset,bytes.length);
+  return bytes.length;
+}
