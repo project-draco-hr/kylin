@@ -1,0 +1,6 @@
+{
+  long count=0;
+  for (  GTRecord rec : gen.generate(N)) {
+    count++;
+  }
+}
