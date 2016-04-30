@@ -3,7 +3,7 @@
     String output=KylinVersion.getKylinClientInformation() + "\n";
     FileUtils.writeStringToFile(new File(exportDir,"kylin_env"),output);
     StringBuilder basicSb=new StringBuilder();
-    basicSb.append(ToolUtil.getHBaseMetaStoreId()).append("\n");
+    basicSb.append("MetaStoreID: ").append(ToolUtil.getHBaseMetaStoreId()).append("\n");
     basicSb.append("PackageType: ").append(packageType.toUpperCase()).append("\n");
     FileUtils.writeStringToFile(new File(exportDir,"info"),basicSb.toString());
   }

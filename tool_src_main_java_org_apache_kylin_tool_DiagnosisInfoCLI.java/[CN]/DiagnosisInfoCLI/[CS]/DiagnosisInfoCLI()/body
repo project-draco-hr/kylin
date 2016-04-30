@@ -1,7 +1,6 @@
 {
   super();
-  packageType="diagnosis";
-  kylinConfig=KylinConfig.getInstanceFromEnv();
+  packageType="project";
   options.addOption(OPTION_PROJECT);
   options.addOption(OPTION_INCLUDE_CONF);
   options.addOption(OPTION_INCLUDE_HBASE);

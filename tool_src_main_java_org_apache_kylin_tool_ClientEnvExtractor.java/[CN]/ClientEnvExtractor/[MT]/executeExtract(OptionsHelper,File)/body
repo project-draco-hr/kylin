@@ -1,6 +1,14 @@
 {
   addLocalFile("/sys/kernel/mm/transparent_hugepage/defrag","linux/transparent_hugepage");
   addLocalFile("/proc/sys/vm/swappiness","linux/swappiness");
+  addLocalFile("/proc/cpuinfo","linux/cpuinfo");
   addShellOutput("lsb_release -a","linux","lsb_release");
-  addShellOutput("ps aux|grep kylin","kylin","processes");
+  addShellOutput("df -h","linux","disk_usage");
+  addShellOutput("free -m","linux","mem_usage_mb");
+  addShellOutput("top -n 1 | head -n 30","linux","top");
+  addShellOutput("ps aux|grep kylin","linux","kylin_processes");
+  addShellOutput("hadoop version","hadoop","version");
+  addShellOutput("hbase version","hbase","version");
+  addShellOutput("hive --version","hive","version");
+  addShellOutput("beeline --version","hive","beeline_version");
 }

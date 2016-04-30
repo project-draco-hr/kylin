@@ -2,6 +2,6 @@
   options=new Options();
   options.addOption(OPTION_DEST);
   options.addOption(OPTION_COMPRESS);
-  options.addOption(OPTION_QUIET);
+  options.addOption(OPTION_SUBMODULE);
   packageType=DEFAULT_PACKAGE_TYPE;
 }

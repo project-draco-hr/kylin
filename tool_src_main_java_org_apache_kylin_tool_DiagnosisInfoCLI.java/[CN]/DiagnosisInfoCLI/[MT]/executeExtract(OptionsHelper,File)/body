@@ -3,11 +3,11 @@
   boolean includeConf=optionsHelper.hasOption(OPTION_INCLUDE_CONF) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_CONF)) : true;
   boolean includeHBase=optionsHelper.hasOption(OPTION_INCLUDE_HBASE) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_HBASE)) : true;
   boolean includeClient=optionsHelper.hasOption(OPTION_INCLUDE_CLIENT) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_CLIENT)) : true;
-  String[] cubeMetaArgs={"-destDir",new File(exportDir,"metadata").getAbsolutePath(),"-project",project,"-compress","false","-quiet","false"};
+  String[] cubeMetaArgs={"-destDir",new File(exportDir,"metadata").getAbsolutePath(),"-project",project,"-compress","false","-submodule","true"};
   CubeMetaExtractor cubeMetaExtractor=new CubeMetaExtractor();
   cubeMetaExtractor.execute(cubeMetaArgs);
   if (includeHBase) {
-    String[] hbaseArgs={"-destDir",new File(exportDir,"hbase").getAbsolutePath(),"-project",project,"-compress","false","-quiet","false"};
+    String[] hbaseArgs={"-destDir",new File(exportDir,"hbase").getAbsolutePath(),"-project",project,"-compress","false","-submodule","true"};
     HBaseUsageExtractor hBaseUsageExtractor=new HBaseUsageExtractor();
     hBaseUsageExtractor.execute(hbaseArgs);
   }
@@ -21,7 +21,7 @@
     }
   }
   if (includeClient) {
-    String[] clientArgs={"-destDir",new File(exportDir,"client").getAbsolutePath(),"-compress","false","-quiet","false"};
+    String[] clientArgs={"-destDir",new File(exportDir,"client").getAbsolutePath(),"-compress","false","-submodule","true"};
     ClientEnvExtractor clientEnvExtractor=new ClientEnvExtractor();
     clientEnvExtractor.execute(clientArgs);
   }
@@ -31,18 +31,7 @@
  catch (  Exception e) {
     logger.warn("Error in export commit id.",e);
   }
-  try {
-    File basicDir=new File(exportDir,"basic");
-    FileUtils.forceMkdir(basicDir);
-    String output=KylinVersion.getKylinClientInformation();
-    FileUtils.writeStringToFile(new File(basicDir,"client"),output + "\n");
-    output=ToolUtil.getHBaseMetaStoreId();
-    FileUtils.writeStringToFile(new File(basicDir,"client"),output,true);
-  }
- catch (  Exception e) {
-    logger.warn("Error in export process info.",e);
-  }
-  String[] logsArgs={"-destDir",new File(exportDir,"logs").getAbsolutePath(),"-compress","false","-quiet","false"};
+  String[] logsArgs={"-destDir",new File(exportDir,"logs").getAbsolutePath(),"-compress","false","-submodule","true"};
   KylinLogExtractor logExtractor=new KylinLogExtractor();
   logExtractor.execute(logsArgs);
 }
