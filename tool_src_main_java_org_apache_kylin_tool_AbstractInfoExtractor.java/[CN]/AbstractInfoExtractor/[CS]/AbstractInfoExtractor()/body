@@ -3,5 +3,5 @@
   options.addOption(OPTION_DEST);
   options.addOption(OPTION_COMPRESS);
   options.addOption(OPTION_QUIET);
-  packagePrefix=DEFAULT_PACKAGE_PREFIX;
+  packageType=DEFAULT_PACKAGE_TYPE;
 }

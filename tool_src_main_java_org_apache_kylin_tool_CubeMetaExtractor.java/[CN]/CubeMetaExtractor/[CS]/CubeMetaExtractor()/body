@@ -1,6 +1,6 @@
 {
   super();
-  packagePrefix="cubemeta";
+  packageType="cubemeta";
   OptionGroup realizationOrProject=new OptionGroup();
   realizationOrProject.addOption(OPTION_CUBE);
   realizationOrProject.addOption(OPTION_PROJECT);

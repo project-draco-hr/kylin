@@ -1,0 +1,6 @@
+{
+  super();
+  packageType="client";
+  kylinConfig=KylinConfig.getInstanceFromEnv();
+  cmdExecutor=kylinConfig.getCliCommandExecutor();
+}

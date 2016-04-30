@@ -1,9 +1,9 @@
 {
   super();
-  packagePrefix="diagnosis";
+  packageType="diagnosis";
   kylinConfig=KylinConfig.getInstanceFromEnv();
   options.addOption(OPTION_PROJECT);
   options.addOption(OPTION_INCLUDE_CONF);
   options.addOption(OPTION_INCLUDE_HBASE);
-  options.addOption(OPTION_INCLUDE_LINUX);
+  options.addOption(OPTION_INCLUDE_CLIENT);
 }

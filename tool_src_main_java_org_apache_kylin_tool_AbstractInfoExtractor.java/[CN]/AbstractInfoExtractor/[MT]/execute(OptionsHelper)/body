@@ -8,14 +8,15 @@
   if (!exportDest.endsWith("/")) {
     exportDest=exportDest + "/";
   }
-  String packageName=packagePrefix + "_" + new SimpleDateFormat("YYYY_MM_dd_HH_mm_ss").format(new Date());
+  String packageName=packageType.toLowerCase() + "_" + new SimpleDateFormat("YYYY_MM_dd_HH_mm_ss").format(new Date());
   if (new File(exportDest).exists()) {
     exportDest=exportDest + packageName + "/";
   }
   exportDir=new File(exportDest);
+  dumpBasicDiagInfo();
   executeExtract(optionsHelper,exportDir);
   if (compress) {
-    File tempZipFile=File.createTempFile(packagePrefix + "_",".zip");
+    File tempZipFile=File.createTempFile(packageType + "_",".zip");
     ZipFileUtils.compressZipFile(exportDir.getAbsolutePath(),tempZipFile.getAbsolutePath());
     FileUtils.cleanDirectory(exportDir);
     File zipFile=new File(exportDir,packageName + ".zip");
@@ -26,7 +27,7 @@
   if (!quiet) {
     StringBuffer output=new StringBuffer();
     output.append("\n========================================");
-    output.append("\nDump " + packagePrefix + " package locates at: \n"+ exportDir.getAbsolutePath());
+    output.append("\nDump " + packageType + " package locates at: \n"+ exportDir.getAbsolutePath());
     output.append("\n========================================");
     logger.info(output.toString());
   }

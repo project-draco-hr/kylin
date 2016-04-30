@@ -2,7 +2,7 @@
   final String project=optionsHelper.getOptionValue(options.getOption("project"));
   boolean includeConf=optionsHelper.hasOption(OPTION_INCLUDE_CONF) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_CONF)) : true;
   boolean includeHBase=optionsHelper.hasOption(OPTION_INCLUDE_HBASE) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_HBASE)) : true;
-  boolean includeLinux=optionsHelper.hasOption(OPTION_INCLUDE_LINUX) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_LINUX)) : true;
+  boolean includeClient=optionsHelper.hasOption(OPTION_INCLUDE_CLIENT) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_CLIENT)) : true;
   String[] cubeMetaArgs={"-destDir",new File(exportDir,"metadata").getAbsolutePath(),"-project",project,"-compress","false","-quiet","false"};
   CubeMetaExtractor cubeMetaExtractor=new CubeMetaExtractor();
   cubeMetaExtractor.execute(cubeMetaArgs);
@@ -20,27 +20,10 @@
       logger.warn("Error in export conf.",e);
     }
   }
-  if (includeLinux) {
-    File linuxDir=new File(exportDir,"linux");
-    FileUtils.forceMkdir(linuxDir);
-    File transparentHugepageCompactionDir=new File(linuxDir,"transparent_hugepage");
-    FileUtils.forceMkdir(transparentHugepageCompactionDir);
-    File vmSwappinessDir=new File(linuxDir,"vm.swappiness");
-    FileUtils.forceMkdir(vmSwappinessDir);
-    try {
-      String transparentHugepageCompactionPath="/sys/kernel/mm/transparent_hugepage/defrag";
-      Files.copy(new File(transparentHugepageCompactionPath),new File(transparentHugepageCompactionDir,"defrag"));
-    }
- catch (    Exception e) {
-      logger.warn("Error in export transparent hugepage compaction status.",e);
-    }
-    try {
-      String vmSwapinessPath="/proc/sys/vm/swappiness";
-      Files.copy(new File(vmSwapinessPath),new File(vmSwappinessDir,"swappiness"));
-    }
- catch (    Exception e) {
-      logger.warn("Error in export vm swapiness.",e);
-    }
+  if (includeClient) {
+    String[] clientArgs={"-destDir",new File(exportDir,"client").getAbsolutePath(),"-compress","false","-quiet","false"};
+    ClientEnvExtractor clientEnvExtractor=new ClientEnvExtractor();
+    clientEnvExtractor.execute(clientArgs);
   }
   try {
     FileUtils.copyFileToDirectory(new File(KylinConfig.getKylinHome(),"commit_SHA1"),exportDir);
@@ -51,11 +34,7 @@
   try {
     File basicDir=new File(exportDir,"basic");
     FileUtils.forceMkdir(basicDir);
-    String output=kylinConfig.getCliCommandExecutor().execute("ps -ef|grep kylin").getSecond();
-    FileUtils.writeStringToFile(new File(basicDir,"process"),output);
-    output=kylinConfig.getCliCommandExecutor().execute("lsb_release -a").getSecond();
-    FileUtils.writeStringToFile(new File(basicDir,"lsb_release"),output);
-    output=KylinVersion.getKylinClientInformation();
+    String output=KylinVersion.getKylinClientInformation();
     FileUtils.writeStringToFile(new File(basicDir,"client"),output + "\n");
     output=ToolUtil.getHBaseMetaStoreId();
     FileUtils.writeStringToFile(new File(basicDir,"client"),output,true);

@@ -1,0 +1,6 @@
+{
+  addLocalFile("/sys/kernel/mm/transparent_hugepage/defrag","linux/transparent_hugepage");
+  addLocalFile("/proc/sys/vm/swappiness","linux/swappiness");
+  addShellOutput("lsb_release -a","linux","lsb_release");
+  addShellOutput("ps aux|grep kylin","kylin","processes");
+}
