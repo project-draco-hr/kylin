@@ -1,0 +1,4 @@
+{
+  if (spec.weights != null && spec.weights.containsKey(v))   return spec.weights.get(v);
+ else   return 1;
+}

@@ -1,0 +1,10 @@
+{
+  CompareTupleFilter r=new CompareTupleFilter(FilterOperatorEnum.GT);
+  r.addChild(col);
+  int c=col.getColumn().getColumnDesc().getZeroBasedIndex();
+  int len=info.getCodeSystem().maxCodeLength(c);
+  ByteArray bytes=new ByteArray(len);
+  BytesUtil.writeLong(v,bytes.array(),bytes.offset(),len);
+  r.addChild(new ConstantTupleFilter(bytes));
+  return r;
+}

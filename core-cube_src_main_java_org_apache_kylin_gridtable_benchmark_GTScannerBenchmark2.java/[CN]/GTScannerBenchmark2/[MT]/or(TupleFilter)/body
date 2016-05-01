@@ -1,0 +1,3 @@
+{
+  return logical(FilterOperatorEnum.OR,filters);
+}
