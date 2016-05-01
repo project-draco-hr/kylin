@@ -1,0 +1,4 @@
+{
+  double sec=(double)t / 1000;
+  return (int)(N / sec / 1000);
+}

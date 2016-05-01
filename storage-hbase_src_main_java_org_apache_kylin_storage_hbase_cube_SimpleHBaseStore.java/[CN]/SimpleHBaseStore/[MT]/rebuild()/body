@@ -1,0 +1,4 @@
+{
+  CubeHTableUtil.createBenchmarkHTable(htableName,CF);
+  return new Writer();
+}

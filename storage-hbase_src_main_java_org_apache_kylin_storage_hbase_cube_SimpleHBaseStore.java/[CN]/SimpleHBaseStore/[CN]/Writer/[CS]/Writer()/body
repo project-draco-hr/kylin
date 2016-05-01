@@ -1,0 +1,5 @@
+{
+  HConnection conn=HBaseConnection.get(KylinConfig.getInstanceFromEnv().getStorageUrl());
+  table=conn.getTable(htableName);
+  table.setAutoFlush(false,true);
+}

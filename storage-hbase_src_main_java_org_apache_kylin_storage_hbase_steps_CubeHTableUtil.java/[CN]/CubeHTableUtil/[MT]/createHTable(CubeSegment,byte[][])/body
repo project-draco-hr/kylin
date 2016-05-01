@@ -16,80 +16,25 @@
   }
   tableDesc.setValue(IRealizationConstants.HTableUser,cubeInstance.getOwner());
   tableDesc.setValue(IRealizationConstants.HTableSegmentTag,cubeSegment.toString());
-  Configuration conf=HBaseConfiguration.create();
+  Configuration conf=HBaseConnection.getCurrentHBaseConfiguration();
   HBaseAdmin admin=new HBaseAdmin(conf);
   try {
     if (User.isHBaseSecurityEnabled(conf)) {
       tableDesc.addCoprocessor("org.apache.hadoop.hbase.security.access.SecureBulkLoadEndpoint");
     }
     for (    HBaseColumnFamilyDesc cfDesc : cubeDesc.getHbaseMapping().getColumnFamily()) {
-      HColumnDescriptor cf=new HColumnDescriptor(cfDesc.getName());
-      cf.setMaxVersions(1);
-      String hbaseDefaultCC=kylinConfig.getHbaseDefaultCompressionCodec().toLowerCase();
-      if (cfDesc.isMemoryHungry()) {
-        cf.setBlocksize(kylinConfig.getHbaseDefaultBlockSize());
-      }
- else {
-        cf.setBlocksize(kylinConfig.getHbaseSmallFamilyBlockSize());
-      }
-switch (hbaseDefaultCC) {
-case "snappy":
-{
-          logger.info("hbase will use snappy to compress data");
-          cf.setCompressionType(Algorithm.SNAPPY);
-          break;
-        }
-case "lzo":
-{
-        logger.info("hbase will use lzo to compress data");
-        cf.setCompressionType(Algorithm.LZO);
-        break;
-      }
-case "gz":
-case "gzip":
-{
-      logger.info("hbase will use gzip to compress data");
-      cf.setCompressionType(Algorithm.GZ);
-      break;
+      HColumnDescriptor cf=createColumnFamily(kylinConfig,cfDesc.getName(),cfDesc.isMemoryHungry());
+      tableDesc.addFamily(cf);
     }
-case "lz4":
-{
-    logger.info("hbase will use lz4 to compress data");
-    cf.setCompressionType(Algorithm.LZ4);
-    break;
+    if (admin.tableExists(tableName)) {
+      throw new RuntimeException("HBase table " + tableName + " exists!");
+    }
+    DeployCoprocessorCLI.deployCoprocessor(tableDesc);
+    admin.createTable(tableDesc,splitKeys);
+    Preconditions.checkArgument(admin.isTableAvailable(tableName),"table " + tableName + " created, but is not available due to some reasons");
+    logger.info("create hbase table " + tableName + " done.");
   }
-default :
-{
-  logger.info("hbase will not user any compression algorithm to compress data");
-  cf.setCompressionType(Algorithm.NONE);
-}
-}
-try {
-String encodingStr=kylinConfig.getHbaseDefaultEncoding();
-DataBlockEncoding encoding=DataBlockEncoding.valueOf(encodingStr);
-cf.setDataBlockEncoding(encoding);
-}
- catch (Exception e) {
-logger.info("hbase will not user any encoding");
-cf.setDataBlockEncoding(DataBlockEncoding.NONE);
-}
-cf.setInMemory(false);
-cf.setBloomFilterType(BloomType.NONE);
-tableDesc.addFamily(cf);
-}
-if (admin.tableExists(tableName)) {
-throw new RuntimeException("HBase table " + tableName + " exists!");
-}
-DeployCoprocessorCLI.deployCoprocessor(tableDesc);
-admin.createTable(tableDesc,splitKeys);
-Preconditions.checkArgument(admin.isTableAvailable(tableName),"table " + tableName + " created, but is not available due to some reasons");
-logger.info("create hbase table " + tableName + " done.");
-}
- catch (Exception e) {
-logger.error("Failed to create HTable",e);
-throw e;
-}
- finally {
-admin.close();
-}
+  finally {
+    admin.close();
+  }
 }

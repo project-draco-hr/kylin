@@ -1,0 +1,19 @@
+{
+  Builder builder=GTInfo.builder();
+  builder.setCodeSystem(new GTSampleCodeSystem());
+  DataType tint=DataType.getType("int4");
+  DataType tlong=DataType.getType("long8");
+  builder.setColumns(tint,tint,tint,tint,tint,tlong,tlong);
+  builder.setPrimaryKey(ImmutableBitSet.valueOf(0,1,2,3,4));
+  info=builder.build();
+  gen=new SortedGTRecordGenerator(info);
+  gen.addDimension(10,4,null);
+  gen.addDimension(10,4,null);
+  gen.addDimension(10,4,null);
+  gen.addDimension(10,4,null);
+  gen.addDimension(100,4,null);
+  gen.addMeasure(8);
+  gen.addMeasure(8);
+  simpleStore=new SimpleHBaseStore(info,htableName);
+  buildTable();
+}

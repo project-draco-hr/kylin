@@ -1,0 +1,7 @@
+{
+  int rounds=5;
+  for (int i=0; i < rounds; i++) {
+    testScanRaw("Scan raw " + (i + 1) + " of "+ rounds);
+    testScanRecords("Scan records " + (i + 1) + " of "+ rounds);
+  }
+}

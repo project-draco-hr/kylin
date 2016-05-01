@@ -1,6 +1,8 @@
 {
   if (!INITIALIZED && !isConfigured()) {
-    org.apache.log4j.BasicConfigurator.configure(new ConsoleAppender(new PatternLayout(DEFAULT_PATTERN_LAYOUT)));
+    InputStream is=Log4jConfigurer.class.getClassLoader().getResourceAsStream("kylin-log4j.properties");
+    PropertyConfigurator.configure(is);
+    closeQuietly(is);
   }
   INITIALIZED=true;
 }

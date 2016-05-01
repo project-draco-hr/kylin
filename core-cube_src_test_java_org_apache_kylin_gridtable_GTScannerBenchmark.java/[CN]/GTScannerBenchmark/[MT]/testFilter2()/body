@@ -1,3 +1,0 @@
-{
-  testFilter(and(gt(col(0),5),eq(col(2),2,4)));
-}

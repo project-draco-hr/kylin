@@ -1,0 +1,3 @@
+KylinConfig kylinConfig
+String cfName
+boolean isMemoryHungry

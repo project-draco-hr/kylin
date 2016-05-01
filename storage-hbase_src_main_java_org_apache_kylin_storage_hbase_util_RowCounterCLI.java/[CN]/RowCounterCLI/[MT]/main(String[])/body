@@ -16,7 +16,7 @@
   }
   System.out.println("start key in binary: " + Bytes.toStringBinary(startKey));
   System.out.println("end key in binary: " + Bytes.toStringBinary(endKey));
-  Configuration conf=HBaseConfiguration.create();
+  Configuration conf=HBaseConnection.getCurrentHBaseConfiguration();
   Scan scan=new Scan();
   scan.setCaching(512);
   scan.setCacheBlocks(true);

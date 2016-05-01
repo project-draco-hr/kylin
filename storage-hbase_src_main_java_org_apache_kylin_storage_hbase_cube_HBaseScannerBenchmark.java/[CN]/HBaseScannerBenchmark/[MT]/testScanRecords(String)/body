@@ -1,0 +1,12 @@
+{
+  long t=System.currentTimeMillis();
+  IGTScanner scan=simpleStore.scan(new GTScanRequest(info,null,null,null));
+  int count=0;
+  for (  GTRecord rec : scan) {
+    count++;
+  }
+  scan.close();
+  if (scan.getScannedRowCount() != count)   throw new IllegalStateException();
+  t=System.currentTimeMillis() - t;
+  logger.info(msg + ", " + count+ " records, "+ speed(t)+ "K rec/sec");
+}

@@ -2,7 +2,7 @@
   List<String> oldTables=getOldHTables();
   if (oldTables != null && oldTables.size() > 0) {
     String metadataUrlPrefix=KylinConfig.getInstanceFromEnv().getMetadataUrlPrefix();
-    Configuration conf=HBaseConfiguration.create();
+    Configuration conf=HBaseConnection.getCurrentHBaseConfiguration();
     HBaseAdmin admin=null;
     try {
       admin=new HBaseAdmin(conf);

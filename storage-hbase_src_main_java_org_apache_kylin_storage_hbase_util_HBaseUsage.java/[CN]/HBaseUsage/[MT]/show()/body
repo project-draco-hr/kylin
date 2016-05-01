@@ -1,6 +1,6 @@
 {
   Map<String,List<String>> envs=Maps.newHashMap();
-  Configuration conf=HBaseConfiguration.create();
+  Configuration conf=HBaseConnection.getCurrentHBaseConfiguration();
   HBaseAdmin hbaseAdmin=new HBaseAdmin(conf);
   String tableNamePrefix=IRealizationConstants.SharedHbaseStorageLocationPrefix;
   HTableDescriptor[] tableDescriptors=hbaseAdmin.listTables(tableNamePrefix + ".*");

@@ -1,8 +1,7 @@
 {
   try {
     System.setProperty("log4j.configuration","kylin-log4j.properties");
-    ClasspathUtil.addClasspath(new File("../examples/test_case_data/sandbox").getAbsolutePath());
-    System.setProperty(KylinConfig.KYLIN_CONF,"../examples/test_case_data/sandbox");
+    KylinConfig.setSandboxEnvIfPossible();
     overrideDevJobJarLocations();
     System.setProperty("spring.profiles.active","testing");
     if (System.getProperty("catalina.home") == null)     System.setProperty("catalina.home",".");

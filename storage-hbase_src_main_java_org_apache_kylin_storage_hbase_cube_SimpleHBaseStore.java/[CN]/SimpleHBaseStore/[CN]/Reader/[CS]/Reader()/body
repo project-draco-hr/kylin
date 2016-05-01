@@ -1,0 +1,9 @@
+{
+  HConnection conn=HBaseConnection.get(KylinConfig.getInstanceFromEnv().getStorageUrl());
+  table=conn.getTable(htableName);
+  Scan scan=new Scan();
+  scan.addFamily(CF_B);
+  scan.setCaching(1024);
+  scan.setCacheBlocks(true);
+  scanner=table.getScanner(scan);
+}

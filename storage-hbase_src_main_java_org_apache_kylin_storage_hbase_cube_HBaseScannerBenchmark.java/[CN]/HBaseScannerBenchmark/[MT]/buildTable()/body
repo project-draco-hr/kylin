@@ -1,0 +1,14 @@
+{
+  IGTWriter builder=simpleStore.rebuild();
+  logger.info("Writing " + N + " records");
+  long t=System.currentTimeMillis();
+  long count=0;
+  for (  GTRecord rec : gen.generate(N)) {
+    builder.write(rec);
+    count++;
+    if (count % 100000 == 0)     logger.info(count + " rows written");
+  }
+  builder.close();
+  t=System.currentTimeMillis() - t;
+  logger.info(count + " rows written, " + speed(t)+ "K row/sec");
+}

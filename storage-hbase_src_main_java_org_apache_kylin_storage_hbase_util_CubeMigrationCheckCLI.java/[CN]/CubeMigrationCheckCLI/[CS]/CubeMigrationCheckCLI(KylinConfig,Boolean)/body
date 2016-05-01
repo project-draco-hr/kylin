@@ -1,7 +1,7 @@
 {
   this.dstCfg=kylinConfig;
   this.ifFix=isFix;
-  Configuration conf=HBaseConfiguration.create();
+  Configuration conf=HBaseConnection.getCurrentHBaseConfiguration();
   hbaseAdmin=new HBaseAdmin(conf);
   issueExistHTables=Lists.newArrayList();
   inconsistentHTables=Lists.newArrayList();

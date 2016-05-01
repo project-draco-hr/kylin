@@ -5,7 +5,7 @@
     FileSystem fileSystem=null;
     try {
 synchronized (hdfs_caches) {
-        fileSystem=FileSystem.get(HBaseConfiguration.create());
+        fileSystem=FileSystem.get(HBaseConnection.getCurrentHBaseConfiguration());
         long modificationTime=fileSystem.getFileStatus(new Path(filterResourceIdentifier)).getModificationTime();
         Pair<Long,Set<ByteArray>> cached=hdfs_caches.getIfPresent(filterResourceIdentifier);
         if (cached != null && cached.getFirst().equals(modificationTime)) {

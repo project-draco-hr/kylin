@@ -1,7 +1,0 @@
-{
-  if (info.getColumnCount() != colSpecs.size())   throw new IllegalArgumentException();
-  for (int i=0; i < colSpecs.size(); i++) {
-    ColSpec spec=colSpecs.get(i);
-    if (info.codeSystem.maxCodeLength(i) < spec.length)     throw new IllegalArgumentException();
-  }
-}

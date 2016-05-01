@@ -1,0 +1,4 @@
+{
+  scanner.close();
+  table.close();
+}

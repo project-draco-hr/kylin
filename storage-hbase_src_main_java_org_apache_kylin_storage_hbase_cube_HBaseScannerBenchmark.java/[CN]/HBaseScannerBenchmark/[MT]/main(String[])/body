@@ -1,0 +1,6 @@
+{
+  KylinConfig.setSandboxEnvIfPossible();
+  HBaseScannerBenchmark benchmark=new HBaseScannerBenchmark();
+  benchmark.testScan();
+  benchmark.cleanup();
+}

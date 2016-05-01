@@ -1,3 +1,3 @@
 {
-  return HConnectionManager.createConnection(HBaseConfiguration.create());
+  return HConnectionManager.createConnection(HBaseConnection.getCurrentHBaseConfiguration());
 }

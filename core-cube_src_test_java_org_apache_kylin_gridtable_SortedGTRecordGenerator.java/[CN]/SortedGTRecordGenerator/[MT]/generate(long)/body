@@ -1,4 +1,0 @@
-{
-  validate();
-  return new Generator(nRows);
-}

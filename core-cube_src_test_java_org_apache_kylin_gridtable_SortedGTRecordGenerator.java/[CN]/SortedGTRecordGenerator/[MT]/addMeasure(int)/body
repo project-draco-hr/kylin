@@ -1,3 +1,0 @@
-{
-  addMeasure(length,new BytesRandomizer(length));
-}

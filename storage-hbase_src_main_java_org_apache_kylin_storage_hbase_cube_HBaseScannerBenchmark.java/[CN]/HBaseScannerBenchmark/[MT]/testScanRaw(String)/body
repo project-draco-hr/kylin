@@ -1,0 +1,12 @@
+{
+  long t=System.currentTimeMillis();
+  IGTScanner scan=simpleStore.scan(new GTScanRequest(info,null,null,null));
+  ResultScanner innerScanner=((SimpleHBaseStore.Reader)scan).getHBaseScanner();
+  int count=0;
+  for (  Result r : innerScanner) {
+    count++;
+  }
+  scan.close();
+  t=System.currentTimeMillis() - t;
+  logger.info(msg + ", " + count+ " rows, "+ speed(t)+ "K row/sec");
+}

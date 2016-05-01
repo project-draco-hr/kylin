@@ -1,0 +1,15 @@
+{
+  Configuration conf=HBaseConnection.getCurrentHBaseConfiguration();
+  HBaseAdmin admin=new HBaseAdmin(conf);
+  try {
+    if (admin.tableExists(tableName)) {
+      logger.info("disabling hbase table " + tableName);
+      admin.disableTable(tableName);
+      logger.info("deleting hbase table " + tableName);
+      admin.deleteTable(tableName);
+    }
+  }
+  finally {
+    admin.close();
+  }
+}
