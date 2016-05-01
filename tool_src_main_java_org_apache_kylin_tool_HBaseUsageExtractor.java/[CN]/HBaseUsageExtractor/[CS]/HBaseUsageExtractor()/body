@@ -1,5 +1,6 @@
 {
   super();
+  packageType="hbase";
   OptionGroup realizationOrProject=new OptionGroup();
   realizationOrProject.addOption(OPTION_CUBE);
   realizationOrProject.addOption(OPTION_PROJECT);

@@ -25,12 +25,6 @@
     ClientEnvExtractor clientEnvExtractor=new ClientEnvExtractor();
     clientEnvExtractor.execute(clientArgs);
   }
-  try {
-    FileUtils.copyFileToDirectory(new File(KylinConfig.getKylinHome(),"commit_SHA1"),exportDir);
-  }
- catch (  Exception e) {
-    logger.warn("Error in export commit id.",e);
-  }
   String[] logsArgs={"-destDir",new File(exportDir,"logs").getAbsolutePath(),"-compress","false","-submodule","true"};
   KylinLogExtractor logExtractor=new KylinLogExtractor();
   logExtractor.execute(logsArgs);
