@@ -1,0 +1,9 @@
+{
+  GTScannerBenchmark2 benchmark=new GTScannerBenchmark2();
+  benchmark.testFilter1();
+  benchmark.testFilter2();
+  benchmark.testFilter3();
+  benchmark.testAggregate2();
+  benchmark.testAggregate2_();
+  benchmark.testAggregate4();
+}
