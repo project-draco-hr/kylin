@@ -1,5 +1,5 @@
 {
-  DeployUtil.overrideJobJarLocations();
+  deployEnv();
   kylinConfig=KylinConfig.getInstanceFromEnv();
   iiManager=IIManager.getInstance(kylinConfig);
   for (  String iiInstance : II_NAME) {

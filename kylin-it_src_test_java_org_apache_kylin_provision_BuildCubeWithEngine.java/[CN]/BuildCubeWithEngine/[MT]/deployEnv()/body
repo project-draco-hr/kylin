@@ -1,0 +1,5 @@
+{
+  DeployUtil.initCliWorkDir();
+  DeployUtil.deployMetadata();
+  DeployUtil.overrideJobJarLocations();
+}

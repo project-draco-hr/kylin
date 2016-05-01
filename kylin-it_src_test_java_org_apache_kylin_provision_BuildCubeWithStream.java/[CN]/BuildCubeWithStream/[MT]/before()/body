@@ -1,5 +1,5 @@
 {
-  DeployUtil.overrideJobJarLocations();
+  deployEnv();
   kylinConfig=KylinConfig.getInstanceFromEnv();
   final CubeInstance cubeInstance=CubeManager.getInstance(kylinConfig).getCube(cubeName);
   final String factTable=cubeInstance.getFactTable();
