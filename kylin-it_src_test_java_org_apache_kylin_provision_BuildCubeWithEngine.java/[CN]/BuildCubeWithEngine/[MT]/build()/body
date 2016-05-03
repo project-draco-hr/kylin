@@ -3,5 +3,6 @@
   KylinConfig.getInstanceFromEnv().setHBaseHFileSizeGB(1.0f);
   testInner();
   testLeft();
+  testViewAsLookup();
   KylinConfig.getInstanceFromEnv().setHBaseHFileSizeGB(0.0f);
 }
