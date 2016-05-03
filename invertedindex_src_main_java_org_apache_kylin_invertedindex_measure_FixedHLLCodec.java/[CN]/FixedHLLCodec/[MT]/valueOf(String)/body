@@ -1,6 +1,5 @@
 {
   current.clear();
-  if (value == null)   current.add("__nUlL__");
- else   current.add(value.getBytes());
+  if (value != null)   current.add(value.getBytes());
   return current;
 }
