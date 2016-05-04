@@ -1,0 +1,32 @@
+{
+  if (job == null || job.getJobID() == null) {
+    output.append("Skip status check with empty job id..\n");
+    return JobStepStatusEnum.WAITING;
+  }
+  JobStepStatusEnum status=null;
+  try {
+switch (job.getStatus().getState()) {
+case SUCCEEDED:
+      status=JobStepStatusEnum.FINISHED;
+    break;
+case FAILED:
+  status=JobStepStatusEnum.ERROR;
+break;
+case KILLED:
+status=JobStepStatusEnum.KILLED;
+break;
+case RUNNING:
+status=JobStepStatusEnum.RUNNING;
+break;
+case PREP:
+status=JobStepStatusEnum.WAITING;
+break;
+}
+}
+ catch (Exception e) {
+logger.error("error check status",e);
+output.append("Exception: " + e.getLocalizedMessage() + "\n");
+status=JobStepStatusEnum.ERROR;
+}
+return status;
+}
