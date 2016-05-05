@@ -6,12 +6,6 @@
     CubeDesc cubeDesc=cubeDescManager.getCubeDesc(descName);
     String modelName=cubeDesc.getModelName();
     DataModelDesc modelDesc=metadataManager.getDataModelDesc(modelName);
-    try {
-      dealWithStreaming(cube);
-    }
- catch (    Exception e) {
-      logger.warn("Failed to deal with streaming.",e);
-    }
     for (    String tableName : modelDesc.getAllTables()) {
       addRequired(TableDesc.concatResourcePath(tableName));
       addOptional(TableDesc.concatExdResourcePath(tableName));

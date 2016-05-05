@@ -1,9 +1,0 @@
-{
-  streamingManager=StreamingManager.getInstance(kylinConfig);
-  for (  StreamingConfig streamingConfig : streamingManager.listAllStreaming()) {
-    if (streamingConfig.getName() != null && streamingConfig.getName().equalsIgnoreCase(cube.getFactTable())) {
-      addRequired(StreamingConfig.concatResourcePath(streamingConfig.getName()));
-      addRequired(KafkaConfig.concatResourcePath(streamingConfig.getName()));
-    }
-  }
-}
