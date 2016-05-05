@@ -1,15 +1,27 @@
 {
   boolean createTable=true;
-  if (args != null && args.length > 0) {
+  boolean deleteTable=true;
+  if (args != null && args.length > 1) {
     try {
       createTable=Boolean.parseBoolean(args[0]);
     }
  catch (    Exception e) {
       createTable=true;
     }
+    try {
+      deleteTable=Boolean.parseBoolean(args[1]);
+    }
+ catch (    Exception e) {
+      deleteTable=true;
+    }
   }
   KylinConfig.setSandboxEnvIfPossible();
-  HBaseScannerBenchmark benchmark=new HBaseScannerBenchmark(createTable);
+  HBaseScannerBenchmark benchmark=new HBaseScannerBenchmark();
+  if (createTable) {
+    benchmark.buildTable();
+  }
   benchmark.testScan();
-  benchmark.cleanup();
+  if (deleteTable) {
+    benchmark.cleanup();
+  }
 }
