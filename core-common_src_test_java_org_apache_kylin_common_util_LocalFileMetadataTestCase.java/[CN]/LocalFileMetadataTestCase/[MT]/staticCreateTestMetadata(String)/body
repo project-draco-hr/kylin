@@ -1,5 +1,5 @@
 {
-  KylinConfig.destoryInstance();
+  KylinConfig.destroyInstance();
   String tempTestMetadataUrl="../examples/test_metadata";
   try {
     FileUtils.deleteDirectory(new File(tempTestMetadataUrl));
