@@ -4,7 +4,7 @@
     return true;
   }
   for (  TupleFilter child : filter.getChildren()) {
-    if (constainsMassInTupleFilter(child))     return true;
+    if (containsMassInTupleFilter(child))     return true;
   }
   return false;
 }
