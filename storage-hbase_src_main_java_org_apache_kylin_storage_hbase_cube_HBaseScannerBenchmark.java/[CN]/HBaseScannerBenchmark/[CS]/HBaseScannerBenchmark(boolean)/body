@@ -15,5 +15,7 @@
   gen.addMeasure(8);
   gen.addMeasure(8);
   simpleStore=new SimpleHBaseStore(info,htableName);
-  buildTable();
+  if (createTable) {
+    buildTable();
+  }
 }

@@ -1,6 +1,15 @@
 {
+  boolean createTable=true;
+  if (args != null && args.length > 0) {
+    try {
+      createTable=Boolean.parseBoolean(args[0]);
+    }
+ catch (    Exception e) {
+      createTable=true;
+    }
+  }
   KylinConfig.setSandboxEnvIfPossible();
-  HBaseScannerBenchmark benchmark=new HBaseScannerBenchmark();
+  HBaseScannerBenchmark benchmark=new HBaseScannerBenchmark(createTable);
   benchmark.testScan();
   benchmark.cleanup();
 }
