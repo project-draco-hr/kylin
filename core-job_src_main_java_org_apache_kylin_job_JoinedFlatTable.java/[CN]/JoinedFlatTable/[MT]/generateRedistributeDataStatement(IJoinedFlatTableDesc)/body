@@ -1,0 +1,4 @@
+{
+  final String tableName=intermediateTableDesc.getTableName();
+  return "INSERT OVERWRITE TABLE " + tableName + " SELECT * FROM "+ tableName+ " distribute by rand();\n";
+}

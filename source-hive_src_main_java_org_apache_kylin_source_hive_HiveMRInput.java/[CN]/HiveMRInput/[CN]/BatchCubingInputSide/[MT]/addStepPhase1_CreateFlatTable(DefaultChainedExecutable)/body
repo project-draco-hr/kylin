@@ -1,7 +1,9 @@
 {
+  final String cubeName=CubingExecutableUtil.getCubeName(jobFlow.getParams());
   jobFlow.addTask(createFlatHiveTableStep(conf,flatHiveTableDesc,jobFlow.getId()));
   AbstractExecutable task=createLookupHiveViewMaterializationStep(jobFlow.getId());
   if (task != null) {
     jobFlow.addTask(task);
   }
+  jobFlow.addTask(createRedistributeFlatHiveTableStep(conf,flatHiveTableDesc,jobFlow.getId(),cubeName));
 }

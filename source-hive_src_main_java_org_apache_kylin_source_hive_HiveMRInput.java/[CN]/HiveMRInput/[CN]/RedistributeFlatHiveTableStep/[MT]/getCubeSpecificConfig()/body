@@ -1,0 +1,6 @@
+{
+  String cubeName=CubingExecutableUtil.getCubeName(getParams());
+  CubeManager manager=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
+  CubeInstance cube=manager.getCube(cubeName);
+  return cube.getConfig();
+}

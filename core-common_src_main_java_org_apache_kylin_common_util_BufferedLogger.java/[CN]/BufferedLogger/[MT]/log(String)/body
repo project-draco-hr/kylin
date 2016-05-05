@@ -1,0 +1,4 @@
+{
+  wrappedLogger.info(message);
+  buffer.append(message).append("\n");
+}

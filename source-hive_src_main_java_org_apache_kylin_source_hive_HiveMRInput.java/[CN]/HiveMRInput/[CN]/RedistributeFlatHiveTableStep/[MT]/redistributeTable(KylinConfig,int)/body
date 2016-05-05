@@ -1,0 +1,14 @@
+{
+  final HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
+  hiveCmdBuilder.addStatement(getInitStatement());
+  hiveCmdBuilder.addStatement("set mapreduce.job.reduces=" + numReducers + ";\n");
+  hiveCmdBuilder.addStatement("set hive.merge.mapredfiles=false;\n");
+  hiveCmdBuilder.addStatement(getRedistributeDataStatement());
+  final String cmd=hiveCmdBuilder.toString();
+  stepLogger.log("Redistribute table, cmd: ");
+  stepLogger.log(cmd);
+  Pair<Integer,String> response=config.getCliCommandExecutor().execute(cmd,stepLogger);
+  if (response.getFirst() != 0) {
+    throw new RuntimeException("Failed to redistribute flat hive table");
+  }
+}
