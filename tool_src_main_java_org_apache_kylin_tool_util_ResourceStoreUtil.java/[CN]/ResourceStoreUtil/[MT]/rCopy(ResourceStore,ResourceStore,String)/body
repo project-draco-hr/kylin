@@ -1,0 +1,23 @@
+{
+  Method listResourceMethod=ResourceStore.class.getMethod("listResources",String.class);
+  Iterable<String> children=(Iterable<String>)listResourceMethod.invoke(src,path);
+  if (children == null) {
+    try {
+      RawResource res=src.getResource(path);
+      if (res != null) {
+        dst.putResource(path,res.inputStream,res.timestamp);
+        res.inputStream.close();
+      }
+ else {
+        System.out.println("Resource not exist for " + path);
+      }
+    }
+ catch (    Exception ex) {
+      System.err.println("Failed to open " + path);
+      ex.printStackTrace();
+    }
+  }
+ else {
+    for (    String child : children)     rCopy(src,dst,child);
+  }
+}

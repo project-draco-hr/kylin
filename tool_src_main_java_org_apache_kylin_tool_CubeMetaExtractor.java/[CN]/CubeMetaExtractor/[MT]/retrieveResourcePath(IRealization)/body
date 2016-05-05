@@ -11,7 +11,7 @@
       addOptional(TableDesc.concatExdResourcePath(tableName));
     }
     addRequired(DataModelDesc.concatResourcePath(modelDesc.getName()));
-    addRequired(CubeDesc.concatResourcePath(cubeDesc.getName()));
+    addRequired(concatCubeDescResourcePath(cubeDesc.getName()));
     if (includeSegments) {
       addRequired(CubeInstance.concatResourcePath(cube.getName()));
       for (      CubeSegment segment : cube.getSegments(SegmentStatusEnum.READY)) {

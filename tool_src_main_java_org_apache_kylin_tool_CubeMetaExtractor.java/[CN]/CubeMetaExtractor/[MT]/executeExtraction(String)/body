@@ -10,27 +10,24 @@
     logger.info("Cube {} will be trimmed and extracted",cube);
   }
   try {
-    ResourceStore src=ResourceStore.getStore(KylinConfig.getInstanceFromEnv());
-    ResourceStore dst=ResourceStore.getStore(KylinConfig.createInstanceFromUri(dest));
-    for (    String path : requiredResources) {
-      ResourceTool.copyR(src,dst,path);
+    KylinConfig srcConfig=KylinConfig.getInstanceFromEnv();
+    KylinConfig dstConfig=KylinConfig.createInstanceFromUri(dest);
+    ResourceStoreUtil.copy(srcConfig,dstConfig,requiredResources);
+    try {
+      ResourceStoreUtil.copy(srcConfig,dstConfig,optionalResources);
     }
-    for (    String path : optionalResources) {
-      try {
-        ResourceTool.copyR(src,dst,path);
-      }
- catch (      Exception e) {
-        logger.warn("Exception when copying optional resource {}. May be caused by resource missing. Ignore it.");
-      }
+ catch (    Exception e) {
+      logger.warn("Exception when copying optional resource {}. May be caused by resource missing. Ignore it.");
     }
+    ResourceStore dstStore=ResourceStore.getStore(dstConfig);
     for (    CubeInstance cube : cubesToTrimAndSave) {
-      CubeInstance trimmedCube=CubeInstance.getCopyOf(cube);
+      CubeInstance trimmedCube=copyCubeInstance(cube);
       trimmedCube.getSegments().clear();
       trimmedCube.setUuid(cube.getUuid());
-      dst.putResource(trimmedCube.getResourcePath(),trimmedCube,CubeManager.CUBE_SERIALIZER);
+      dstStore.putResource(trimmedCube.getResourcePath(),trimmedCube,CubeManager.CUBE_SERIALIZER);
     }
   }
- catch (  IOException e) {
-    throw new RuntimeException("IOException",e);
+ catch (  Exception e) {
+    throw new RuntimeException("Exception",e);
   }
 }
