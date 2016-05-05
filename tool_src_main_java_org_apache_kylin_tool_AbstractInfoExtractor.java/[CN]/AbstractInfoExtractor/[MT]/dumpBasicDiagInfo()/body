@@ -1,6 +1,10 @@
 {
   try {
-    FileUtils.copyFileToDirectory(new File(KylinConfig.getKylinHome(),COMMIT_SHA1_FILE),exportDir);
+    for (    String commitSHA1File : COMMIT_SHA1_FILES) {
+      if (new File(commitSHA1File).exists()) {
+        FileUtils.copyFileToDirectory(new File(KylinConfig.getKylinHome(),commitSHA1File),exportDir);
+      }
+    }
   }
  catch (  IOException e) {
     logger.warn("Failed to copy commit_SHA1 file.",e);

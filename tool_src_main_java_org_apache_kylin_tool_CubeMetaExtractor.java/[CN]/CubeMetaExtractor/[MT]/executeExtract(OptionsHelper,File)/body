@@ -8,8 +8,6 @@
   hybridManager=HybridManager.getInstance(kylinConfig);
   cubeManager=CubeManager.getInstance(kylinConfig);
   cubeDescManager=CubeDescManager.getInstance(kylinConfig);
-  streamingManager=StreamingManager.getInstance(kylinConfig);
-  kafkaConfigManager=KafkaConfigManager.getInstance(kylinConfig);
   executableDao=ExecutableDao.getInstance(kylinConfig);
   realizationRegistry=RealizationRegistry.getInstance(kylinConfig);
   badQueryHistoryManager=BadQueryHistoryManager.getInstance(kylinConfig);
