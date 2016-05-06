@@ -18,7 +18,6 @@
   HiveClient hiveClient=new HiveClient();
   hiveClient.executeHQL("CREATE DATABASE IF NOT EXISTS EDW");
   hiveClient.executeHQL(generateCreateTableHql(metaMgr.getTableDesc(TABLE_CAL_DT.toUpperCase())));
-  hiveClient.executeHQL(generateCreateViewHql(VIEW_CAL_DT,metaMgr.getTableDesc(TABLE_CAL_DT.toUpperCase())));
   hiveClient.executeHQL(generateCreateTableHql(metaMgr.getTableDesc(TABLE_CATEGORY_GROUPINGS.toUpperCase())));
   hiveClient.executeHQL(generateCreateTableHql(metaMgr.getTableDesc(TABLE_KYLIN_FACT.toUpperCase())));
   hiveClient.executeHQL(generateCreateTableHql(metaMgr.getTableDesc(TABLE_SELLER_TYPE_DIM.toUpperCase())));
@@ -28,4 +27,7 @@
   hiveClient.executeHQL(generateLoadDataHql(TABLE_KYLIN_FACT,tableFileDir));
   hiveClient.executeHQL(generateLoadDataHql(TABLE_SELLER_TYPE_DIM,tableFileDir));
   hiveClient.executeHQL(generateLoadDataHql(TABLE_SITES,tableFileDir));
+  final HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
+  hiveCmdBuilder.addStatements(generateCreateViewHql(VIEW_CAL_DT,metaMgr.getTableDesc(TABLE_CAL_DT.toUpperCase())));
+  config().getCliCommandExecutor().execute(hiveCmdBuilder.build());
 }

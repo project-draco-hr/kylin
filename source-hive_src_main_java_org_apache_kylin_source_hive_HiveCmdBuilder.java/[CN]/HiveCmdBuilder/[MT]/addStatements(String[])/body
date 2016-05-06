@@ -1,0 +1,5 @@
+{
+  for (  String s : stats) {
+    statements.add(s);
+  }
+}
