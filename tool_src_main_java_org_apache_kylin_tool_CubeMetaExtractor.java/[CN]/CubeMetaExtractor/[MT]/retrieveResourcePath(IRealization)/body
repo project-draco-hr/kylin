@@ -15,7 +15,7 @@
     if (includeSegments) {
       addRequired(CubeInstance.concatResourcePath(cube.getName()));
       for (      CubeSegment segment : cube.getSegments(SegmentStatusEnum.READY)) {
-        addRequired(segment.getStatisticsResourcePath());
+        addRequired(concatCubeSegmentStatisticsResourcePath(cube.getName(),segment.getUuid()));
         if (includeSegmentDetails) {
           for (          String dictPat : segment.getDictionaryPaths()) {
             addRequired(dictPat);

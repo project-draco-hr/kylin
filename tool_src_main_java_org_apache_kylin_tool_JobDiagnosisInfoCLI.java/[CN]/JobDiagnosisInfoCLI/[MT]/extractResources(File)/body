@@ -4,13 +4,11 @@
     logger.info(s + "(required)");
   }
   try {
-    ResourceStore src=ResourceStore.getStore(KylinConfig.getInstanceFromEnv());
-    ResourceStore dst=ResourceStore.getStore(KylinConfig.createInstanceFromUri(destDir.getAbsolutePath()));
-    for (    String path : requiredResources) {
-      ResourceTool.copyR(src,dst,path);
-    }
+    KylinConfig srcConfig=KylinConfig.getInstanceFromEnv();
+    KylinConfig dstConfig=KylinConfig.createInstanceFromUri(destDir.getAbsolutePath());
+    ResourceStoreUtil.copy(srcConfig,dstConfig,requiredResources);
   }
- catch (  IOException e) {
+ catch (  Exception e) {
     throw new RuntimeException("Failed to extract job resources. ",e);
   }
 }

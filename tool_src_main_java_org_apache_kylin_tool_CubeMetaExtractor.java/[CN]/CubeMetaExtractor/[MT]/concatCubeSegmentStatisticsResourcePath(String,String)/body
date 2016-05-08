@@ -1,0 +1,3 @@
+{
+  return ResourceStore.CUBE_STATISTICS_ROOT + "/" + cubeName+ "/"+ cubeSegmentId+ ".seq";
+}
