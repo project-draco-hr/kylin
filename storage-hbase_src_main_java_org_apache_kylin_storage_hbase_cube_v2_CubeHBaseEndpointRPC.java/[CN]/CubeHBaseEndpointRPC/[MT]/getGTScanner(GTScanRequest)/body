@@ -1,8 +1,9 @@
 {
   final String toggle=BackdoorToggles.getCoprocessorBehavior() == null ? CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM.toString() : BackdoorToggles.getCoprocessorBehavior();
   logger.debug("New scanner for current segment {} will use {} as endpoint's behavior",cubeSeg,toggle);
-  short cuboidBaseShard=cubeSeg.getCuboidBaseShard(this.cuboid.getId());
-  short shardNum=cubeSeg.getCuboidShardNum(this.cuboid.getId());
+  Pair<Short,Short> shardNumAndBaseShard=getShardNumAndBaseShard();
+  short shardNum=shardNumAndBaseShard.getFirst();
+  short cuboidBaseShard=shardNumAndBaseShard.getSecond();
   int totalShards=cubeSeg.getTotalShards();
   ByteString scanRequestByteString=null;
   ByteString rawScanByteString=null;
@@ -51,23 +52,21 @@
   for (  RawScan rs : rawScans) {
     logScan(rs,cubeSeg.getStorageLocationIdentifier());
   }
-  logger.debug("Submitting rpc to {} shards starting from shard {}, scan range count {}",new Object[]{shardNum,cuboidBaseShard,rawScans.size()});
+  logger.debug("Submitting rpc to {} shards starting from shard {}, scan range count {}",shardNum,cuboidBaseShard,rawScans.size());
   final AtomicInteger totalScannedCount=new AtomicInteger(0);
   final ExpectedSizeIterator epResultItr=new ExpectedSizeIterator(shardNum);
+  final CubeVisitProtos.CubeVisitRequest.Builder builder=CubeVisitProtos.CubeVisitRequest.newBuilder();
+  builder.setGtScanRequest(scanRequestByteString).setHbaseRawScan(rawScanByteString);
+  for (  IntList intList : hbaseColumnsToGTIntList) {
+    builder.addHbaseColumnsToGT(intList);
+  }
+  builder.setRowkeyPreambleSize(cubeSeg.getRowKeyPreambleSize());
+  builder.setBehavior(toggle);
+  builder.setStartTime(System.currentTimeMillis());
+  builder.setTimeout(epResultItr.getTimeout());
   for (  final Pair<byte[],byte[]> epRange : getEPKeyRanges(cuboidBaseShard,shardNum,totalShards)) {
-    final ByteString finalScanRequestByteString=scanRequestByteString;
-    final ByteString finalRawScanByteString=rawScanByteString;
     executorService.submit(new Runnable(){
       @Override public void run(){
-        CubeVisitProtos.CubeVisitRequest.Builder builder=CubeVisitProtos.CubeVisitRequest.newBuilder();
-        builder.setGtScanRequest(finalScanRequestByteString).setHbaseRawScan(finalRawScanByteString);
-        for (        IntList intList : hbaseColumnsToGTIntList) {
-          builder.addHbaseColumnsToGT(intList);
-        }
-        builder.setRowkeyPreambleSize(cubeSeg.getRowKeyPreambleSize());
-        builder.setBehavior(toggle);
-        builder.setStartTime(System.currentTimeMillis());
-        builder.setTimeout(epResultItr.getTimeout());
         String logHeader="<sub-thread for GTScanRequest " + Integer.toHexString(System.identityHashCode(scanRequest)) + "> ";
         Map<byte[],CubeVisitProtos.CubeVisitResponse> results;
         try {

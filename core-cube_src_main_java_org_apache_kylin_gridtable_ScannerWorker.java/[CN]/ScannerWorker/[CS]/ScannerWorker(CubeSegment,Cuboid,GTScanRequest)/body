@@ -11,7 +11,7 @@
       rpc=(IGTStorage)Class.forName("org.apache.kylin.storage.hbase.cube.v2.CubeHBaseScanRPC").getConstructor(CubeSegment.class,Cuboid.class,GTInfo.class).newInstance(cubeSeg,cuboid,info);
     }
  else {
-      rpc=(IGTStorage)Class.forName("org.apache.kylin.storage.hbase.cube.v2.CubeHBaseEndpointRPC").getConstructor(CubeSegment.class,Cuboid.class,GTInfo.class).newInstance(cubeSeg,cuboid,info);
+      rpc=(IGTStorage)Class.forName(KylinConfig.getInstanceFromEnv().getDefaultIGTStorage()).getConstructor(CubeSegment.class,Cuboid.class,GTInfo.class).newInstance(cubeSeg,cuboid,info);
     }
     internal=rpc.getGTScanner(scanRequest);
   }

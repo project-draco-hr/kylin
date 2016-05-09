@@ -1,0 +1,8 @@
+{
+  long ret=0;
+  while (iterator.hasNext()) {
+    Number element=iterator.next();
+    ret+=element.longValue();
+  }
+  return ret;
+}
