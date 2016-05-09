@@ -8,7 +8,7 @@
     tableDesc.setUuid(UUID.randomUUID().toString());
     MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
     metaMgr.saveSourceTable(tableDesc);
-    cubeMgmtService.syncTableToProject(new String[]{tableDesc.getName()},project);
+    cubeMgmtService.syncTableToProject(new String[]{tableDesc.getIdentity()},project);
   }
  catch (  IOException e) {
     throw new BadRequestException("Failed to add streaming table.");

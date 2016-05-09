@@ -16,5 +16,9 @@ catch (  IOException e) {
     logger.error("Failed to deal with the request.",e);
     throw new InternalErrorException("Failed to deal with the request:" + e.getMessage(),e);
   }
+  String[] dbTable=HadoopUtil.parseHiveTableName(desc.getName());
+  desc.setName(dbTable[1]);
+  desc.setDatabase(dbTable[0]);
+  desc.getIdentity();
   return desc;
 }
