@@ -1,5 +1,10 @@
 {
   boolean rtn=false;
+  int tableType=0;
+  String[] dbTableName=HadoopUtil.parseHiveTableName(tableName);
+  tableName=dbTableName[0] + "." + dbTableName[1];
+  TableDesc desc=cubeMgmtService.getMetadataManager().getTableDesc(tableName);
+  tableType=desc.getSourceType();
   try {
     if (!modelService.isTableInModel(tableName,project)) {
       cubeMgmtService.removeTableFromProject(tableName,project);
@@ -17,6 +22,21 @@
  catch (    IOException e) {
       logger.error(e.getMessage(),e);
       rtn=false;
+    }
+  }
+  if (tableType == 1 && !projectService.isTableInAnyProject(tableName) && !modelService.isTableInAnyModel(tableName)) {
+    StreamingConfig config=null;
+    KafkaConfig kafkaConfig=null;
+    try {
+      config=streamingService.getStreamingManager().getStreamingConfig(tableName);
+      kafkaConfig=kafkaConfigService.getKafkaConfig(tableName);
+      streamingService.dropStreamingConfig(config);
+      kafkaConfigService.dropKafkaConfig(kafkaConfig);
+      rtn=true;
+    }
+ catch (    Exception e) {
+      rtn=false;
+      logger.error(e.getLocalizedMessage(),e);
     }
   }
   return rtn;
