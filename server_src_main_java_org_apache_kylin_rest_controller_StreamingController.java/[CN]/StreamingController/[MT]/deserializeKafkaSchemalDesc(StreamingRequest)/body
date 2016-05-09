@@ -5,11 +5,11 @@
     desc=JsonUtil.readValue(streamingRequest.getKafkaConfig(),KafkaConfig.class);
   }
  catch (  JsonParseException e) {
-    logger.error("The KafkaConfig definition is not valid.",e);
+    logger.error("The KafkaConfig definition is invalid.",e);
     updateRequest(streamingRequest,false,e.getMessage());
   }
 catch (  JsonMappingException e) {
-    logger.error("The data KafkaConfig definition is not valid.",e);
+    logger.error("The data KafkaConfig definition is invalid.",e);
     updateRequest(streamingRequest,false,e.getMessage());
   }
 catch (  IOException e) {

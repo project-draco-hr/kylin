@@ -5,11 +5,11 @@
     desc=JsonUtil.readValue(streamingRequest.getTableData(),TableDesc.class);
   }
  catch (  JsonParseException e) {
-    logger.error("The TableDesc definition is not valid.",e);
+    logger.error("The TableDesc definition is invalid.",e);
     updateRequest(streamingRequest,false,e.getMessage());
   }
 catch (  JsonMappingException e) {
-    logger.error("The data TableDesc definition is not valid.",e);
+    logger.error("The data TableDesc definition is invalid.",e);
     updateRequest(streamingRequest,false,e.getMessage());
   }
 catch (  IOException e) {

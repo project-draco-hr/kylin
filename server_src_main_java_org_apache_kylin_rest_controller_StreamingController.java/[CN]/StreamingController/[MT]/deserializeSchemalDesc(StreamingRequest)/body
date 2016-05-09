@@ -5,11 +5,11 @@
     desc=JsonUtil.readValue(streamingRequest.getStreamingConfig(),StreamingConfig.class);
   }
  catch (  JsonParseException e) {
-    logger.error("The StreamingConfig definition is not valid.",e);
+    logger.error("The StreamingConfig definition is invalid.",e);
     updateRequest(streamingRequest,false,e.getMessage());
   }
 catch (  JsonMappingException e) {
-    logger.error("The data StreamingConfig definition is not valid.",e);
+    logger.error("The data StreamingConfig definition is invalid.",e);
     updateRequest(streamingRequest,false,e.getMessage());
   }
 catch (  IOException e) {

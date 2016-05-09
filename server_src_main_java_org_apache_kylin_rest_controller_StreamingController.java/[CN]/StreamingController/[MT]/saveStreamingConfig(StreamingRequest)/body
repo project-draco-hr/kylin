@@ -13,6 +13,8 @@
  catch (  IOException e) {
     throw new BadRequestException("Failed to add streaming table.");
   }
+  streamingConfig.setName(tableDesc.getIdentity());
+  kafkaConfig.setName(tableDesc.getIdentity());
   try {
     if (StringUtils.isEmpty(streamingConfig.getName())) {
       logger.info("StreamingConfig should not be empty.");
