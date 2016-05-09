@@ -2,7 +2,7 @@
   if (isStatistics == false) {
     colValues.add(new ByteArray(Bytes.copy(key.getBytes(),1,key.getLength() - 1)));
     if (colValues.size() == 1000000) {
-      System.out.println("spill values to disk...");
+      logger.info("spill values to disk...");
       outputDistinctValues(col,colValues,context);
       colValues.clear();
     }

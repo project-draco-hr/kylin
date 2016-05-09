@@ -7,11 +7,11 @@
   try {
     if (fs.exists(outputFile)) {
       out=fs.append(outputFile);
-      System.out.println("append file " + outputFile);
+      logger.info("append file " + outputFile);
     }
  else {
       out=fs.create(outputFile);
-      System.out.println("create file " + outputFile);
+      logger.info("create file " + outputFile);
     }
     for (    ByteArray value : values) {
       out.write(value.array(),value.offset(),value.length());
@@ -20,7 +20,6 @@
   }
   finally {
     IOUtils.closeQuietly(out);
-    IOUtils.closeQuietly(fs);
     outputTouched=true;
   }
 }
