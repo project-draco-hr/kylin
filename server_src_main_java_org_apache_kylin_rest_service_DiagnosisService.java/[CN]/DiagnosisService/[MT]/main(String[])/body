@@ -1,6 +1,6 @@
 {
   String[] args={"-project","learn_kylin","-destDir",Files.createTempDir().getAbsolutePath()};
-  logger.info("DiagnosisInfoCLI args: " + args);
+  logger.info("DiagnosisInfoCLI args: " + Arrays.toString(args));
   DiagnosisInfoCLI diagnosisInfoCli=new DiagnosisInfoCLI();
   diagnosisInfoCli.execute(args);
 }
