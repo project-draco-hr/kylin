@@ -20,7 +20,6 @@
   newCubeDesc.setAggregationGroups(cubeDesc.getAggregationGroups());
   newCubeDesc.setOverrideKylinProps(cubeDesc.getOverrideKylinProps());
   newCubeDesc.setConfig((KylinConfigExt)cubeDesc.getConfig());
-  newCubeDesc.setRegionSize(cubeDesc.getRegionSize());
   newCubeDesc.updateRandomUuid();
   return newCubeDesc;
 }
