@@ -11,11 +11,11 @@
       addOptional(TableDesc.concatExdResourcePath(tableName));
     }
     addRequired(DataModelDesc.concatResourcePath(modelDesc.getName()));
-    addRequired(concatCubeDescResourcePath(cubeDesc.getName()));
+    addRequired(ResourceStoreUtil.concatCubeDescResourcePath(cubeDesc.getName()));
     if (includeSegments) {
       addRequired(CubeInstance.concatResourcePath(cube.getName()));
       for (      CubeSegment segment : cube.getSegments(SegmentStatusEnum.READY)) {
-        addRequired(concatCubeSegmentStatisticsResourcePath(cube.getName(),segment.getUuid()));
+        addRequired(ResourceStoreUtil.concatCubeSegmentStatisticsResourcePath(cube.getName(),segment.getUuid()));
         if (includeSegmentDetails) {
           for (          String dictPat : segment.getDictionaryPaths()) {
             addRequired(dictPat);
@@ -32,11 +32,11 @@
  else {
             try {
               ExecutablePO executablePO=executableDao.getJob(lastJobId);
-              addRequired(ExecutableDao.pathOfJob(lastJobId));
-              addRequired(ExecutableDao.pathOfJobOutput(lastJobId));
+              addRequired(ResourceStoreUtil.concatJobPath(lastJobId));
+              addRequired(ResourceStoreUtil.concatJobOutputPath(lastJobId));
               for (              ExecutablePO task : executablePO.getTasks()) {
-                addRequired(ExecutableDao.pathOfJob(task.getUuid()));
-                addRequired(ExecutableDao.pathOfJobOutput(task.getUuid()));
+                addRequired(ResourceStoreUtil.concatJobPath(task.getUuid()));
+                addRequired(ResourceStoreUtil.concatJobOutputPath(task.getUuid()));
               }
             }
  catch (            PersistentException e) {

@@ -1,0 +1,11 @@
+{
+  Map<String,String> majorVersionCommitMap=Maps.newHashMap();
+  majorVersionCommitMap.put("1.3","commit.sha1");
+  majorVersionCommitMap.put("1.5","commit_SHA1");
+  for (  Map.Entry<String,String> majorVersionEntry : majorVersionCommitMap.entrySet()) {
+    if (new File(KylinConfig.getKylinHome(),majorVersionEntry.getValue()).exists()) {
+      return majorVersionEntry.getKey();
+    }
+  }
+  return null;
+}
