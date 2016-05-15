@@ -1,12 +1,12 @@
 {
   if (args != null && args.length > 1) {
-    System.out.println("Usage: java CubeDescSignatureUpdate [Cubes]; e.g, cube1,cube2 ");
+    System.out.println("Usage: java CubeSignatureRefresher [Cubes]; e.g, cube1,cube2 ");
     return;
   }
   CubeSignatureRefresher metadataUpgrade=new CubeSignatureRefresher(args);
   metadataUpgrade.update();
   logger.info("=================================================================");
-  logger.info("Run CubeDescSignatureUpdate completed;");
+  logger.info("Run CubeSignatureRefresher completed;");
   if (!metadataUpgrade.updatedResources.isEmpty()) {
     logger.info("Following resources are updated successfully:");
     for (    String s : metadataUpgrade.updatedResources) {
