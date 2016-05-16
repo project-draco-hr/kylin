@@ -1,4 +1,5 @@
 {
+  long startTime=System.currentTimeMillis();
   Inflater inflater=new Inflater();
   inflater.setInput(data);
   ByteArrayOutputStream outputStream=new ByteArrayOutputStream(data.length);
@@ -9,6 +10,6 @@
   }
   outputStream.close();
   byte[] output=outputStream.toByteArray();
-  logger.debug("Original: " + data.length + " bytes. "+ "Decompressed: "+ output.length+ " bytes");
+  logger.debug("Original: " + data.length + " bytes. "+ "Decompressed: "+ output.length+ " bytes. Time: "+ (System.currentTimeMillis() - startTime));
   return output;
 }
