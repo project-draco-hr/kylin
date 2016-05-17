@@ -1,3 +1,0 @@
-{
-  return "INSERT OVERWRITE DIRECTORY '" + outputDir + "' SELECT count(*) FROM "+ intermediateTableDesc.getTableName()+ ";\n";
-}

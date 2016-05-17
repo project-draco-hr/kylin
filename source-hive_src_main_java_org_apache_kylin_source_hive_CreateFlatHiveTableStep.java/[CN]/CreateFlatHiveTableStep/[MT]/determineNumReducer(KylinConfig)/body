@@ -1,5 +1,4 @@
 {
-  computeRowCount(config.getCliCommandExecutor());
   Path rowCountFile=new Path(getRowCountOutputDir(),"000000_0");
   long rowCount=readRowCountFromFile(rowCountFile);
   int mapperInputRows=config.getHadoopJobMapperInputRows();
@@ -7,6 +6,6 @@
   numReducers=Math.max(1,numReducers);
   stepLogger.log("total input rows = " + rowCount);
   stepLogger.log("expected input rows per mapper = " + mapperInputRows);
-  stepLogger.log("num reducers for RedistributeFlatHiveTableStep = " + numReducers);
+  stepLogger.log("reducers for RedistributeFlatHiveTableStep = " + numReducers);
   return numReducers;
 }

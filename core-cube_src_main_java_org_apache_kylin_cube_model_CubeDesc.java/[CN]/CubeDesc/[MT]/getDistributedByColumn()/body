@@ -1,0 +1,7 @@
+{
+  Set<TblColRef> shardBy=getShardByColumns();
+  if (shardBy != null && shardBy.size() > 0) {
+    return shardBy.iterator().next();
+  }
+  return null;
+}

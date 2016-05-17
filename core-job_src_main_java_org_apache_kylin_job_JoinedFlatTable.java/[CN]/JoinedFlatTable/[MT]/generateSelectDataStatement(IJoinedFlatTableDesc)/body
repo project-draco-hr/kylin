@@ -13,5 +13,6 @@
   }
   appendJoinStatement(intermediateTableDesc,sql,tableAliasMap);
   appendWhereStatement(intermediateTableDesc,sql,tableAliasMap);
+  appendDistributeStatement(intermediateTableDesc,sql,tableAliasMap);
   return sql.toString();
 }

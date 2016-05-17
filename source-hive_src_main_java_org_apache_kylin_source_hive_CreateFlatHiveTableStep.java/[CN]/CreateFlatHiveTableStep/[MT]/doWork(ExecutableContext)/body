@@ -2,7 +2,7 @@
   KylinConfig config=getCubeSpecificConfig();
   try {
     int numReducers=determineNumReducer(config);
-    redistributeTable(config,numReducers);
+    createFlatHiveTable(config,numReducers);
     return new ExecuteResult(ExecuteResult.State.SUCCEED,stepLogger.getBufferedLog());
   }
  catch (  Exception e) {
