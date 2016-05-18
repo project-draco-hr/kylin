@@ -1,0 +1,7 @@
+{
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  Map<String,String> override=config.getMRConfigOverride();
+  assertEquals(2,override.size());
+  assertEquals("test1",override.get("test1"));
+  assertEquals("test2",override.get("test2"));
+}

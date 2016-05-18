@@ -1,5 +1,6 @@
 {
-  String jarPath=KylinConfig.getInstanceFromEnv().getKylinJobJarPath();
+  KylinConfig kylinConf=KylinConfig.getInstanceFromEnv();
+  String jarPath=kylinConf.getKylinJobJarPath();
   File jarFile=new File(jarPath);
   if (jarFile.exists()) {
     job.setJar(jarPath);
@@ -50,7 +51,7 @@
       logger.error("Cannot found hive dependency jars: " + e);
     }
   }
-  String mrLibDir=KylinConfig.getInstanceFromEnv().getKylinJobMRLibDir();
+  String mrLibDir=kylinConf.getKylinJobMRLibDir();
   if (!StringUtils.isBlank(mrLibDir)) {
     File dirFileMRLIB=new File(mrLibDir);
     if (dirFileMRLIB.exists()) {
@@ -62,4 +63,5 @@
     }
   }
   setJobTmpJarsAndFiles(job,kylinDependency.toString());
+  overrideJobConfig(job.getConfiguration(),kylinConf.getMRConfigOverride());
 }

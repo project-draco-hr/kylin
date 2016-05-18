@@ -1,0 +1,10 @@
+{
+  Map<String,String> result=Maps.newLinkedHashMap();
+  for (  Entry<Object,Object> entry : getAllProperties().entrySet()) {
+    String key=(String)entry.getKey();
+    if (key.startsWith(prefix)) {
+      result.put(key.substring(prefix.length()),(String)entry.getValue());
+    }
+  }
+  return result;
+}
