@@ -1,0 +1,10 @@
+{
+  Configuration conf=tool.getConf();
+  if (conf == null) {
+    conf=new Configuration();
+  }
+  GenericOptionsParser parser=getParser(conf,args);
+  tool.setConf(conf);
+  String[] toolArgs=parser.getRemainingArgs();
+  return tool.run(toolArgs);
+}
