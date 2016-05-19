@@ -3,7 +3,7 @@
     logger.warn("outputFolder for hfile split file is null, skip inner region split");
     return;
   }
-  FileSystem fs=FileSystem.get(HadoopUtil.getCurrentConfiguration());
+  FileSystem fs=FileSystem.get(HBaseConnection.getCurrentHBaseConfiguration());
   if (fs.exists(outputFolder) == false) {
     fs.mkdirs(outputFolder);
   }
