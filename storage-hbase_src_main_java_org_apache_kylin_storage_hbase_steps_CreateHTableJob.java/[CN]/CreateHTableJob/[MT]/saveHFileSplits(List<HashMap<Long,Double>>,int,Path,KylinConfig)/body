@@ -3,7 +3,8 @@
     logger.warn("outputFolder for hfile split file is null, skip inner region split");
     return;
   }
-  FileSystem fs=FileSystem.get(HBaseConnection.getCurrentHBaseConfiguration());
+  Configuration hbaseConf=HBaseConnection.getCurrentHBaseConfiguration();
+  FileSystem fs=FileSystem.get(hbaseConf);
   if (fs.exists(outputFolder) == false) {
     fs.mkdirs(outputFolder);
   }
@@ -15,7 +16,7 @@
   if (hfileSizeMB > 0.0 && kylinConfig.isDevEnv()) {
     hfileSizeMB=mbPerRegion / 2;
   }
-  int compactionThreshold=Integer.valueOf(HBaseConnection.getCurrentHBaseConfiguration().get("hbase.hstore.compactionThreshold","3"));
+  int compactionThreshold=Integer.valueOf(hbaseConf.get("hbase.hstore.compactionThreshold","3"));
   logger.info("hbase.hstore.compactionThreshold is " + compactionThreshold);
   if (hfileSizeMB > 0.0 && hfileSizeMB * compactionThreshold < mbPerRegion) {
     hfileSizeMB=mbPerRegion / compactionThreshold;
@@ -52,8 +53,7 @@
       accumulatedSize+=cuboidSize.get(cuboid);
     }
   }
-  Configuration conf=HadoopUtil.getCurrentConfiguration();
-  SequenceFile.Writer hfilePartitionWriter=SequenceFile.createWriter(conf,SequenceFile.Writer.file(hfilePartitionFile),SequenceFile.Writer.keyClass(ImmutableBytesWritable.class),SequenceFile.Writer.valueClass(NullWritable.class));
+  SequenceFile.Writer hfilePartitionWriter=SequenceFile.createWriter(hbaseConf,SequenceFile.Writer.file(hfilePartitionFile),SequenceFile.Writer.keyClass(ImmutableBytesWritable.class),SequenceFile.Writer.valueClass(NullWritable.class));
   for (int i=0; i < splits.size(); i++) {
     hfilePartitionWriter.append(new ImmutableBytesWritable(splits.get(i)),NullWritable.get());
   }
