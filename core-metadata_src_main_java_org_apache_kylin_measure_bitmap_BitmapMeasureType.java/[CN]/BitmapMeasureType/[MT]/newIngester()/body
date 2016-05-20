@@ -2,9 +2,24 @@
   return new MeasureIngester<BitmapCounter>(){
     BitmapCounter current=new BitmapCounter();
     @Override public BitmapCounter valueOf(    String[] values,    MeasureDesc measureDesc,    Map<TblColRef,Dictionary<String>> dictionaryMap){
+      List<TblColRef> literalCols=measureDesc.getFunction().getParameter().getColRefs();
+      TblColRef literalCol=null;
+      if (literalCols.size() == 1) {
+        literalCol=literalCols.get(0);
+      }
+ else       if (literalCols.size() == 2) {
+        literalCol=literalCols.get(1);
+      }
+ else {
+        throw new IllegalArgumentException("Bitmap measure need 1 or 2 parameters");
+      }
+      Dictionary<String> dictionary=dictionaryMap.get(literalCol);
       BitmapCounter bitmap=current;
       bitmap.clear();
-      for (      String v : values)       bitmap.add(v);
+      if (values != null && values.length > 0 && values[0] != null) {
+        int id=dictionary.getIdFromValue(values[0]);
+        bitmap.add(id);
+      }
       return bitmap;
     }
   }
