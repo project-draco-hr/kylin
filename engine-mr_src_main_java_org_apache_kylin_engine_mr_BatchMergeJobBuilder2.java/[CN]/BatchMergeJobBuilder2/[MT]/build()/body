@@ -14,7 +14,6 @@
   }
   result.addTask(createMergeDictionaryStep(mergingSegmentIds));
   result.addTask(createMergeStatisticsStep(cubeSegment,mergingSegmentIds,getStatisticsPath(jobId)));
-  addOtherStepBeforeMerge(result);
   outputSide.addStepPhase1_MergeDictionary(result);
   String formattedPath=StringUtil.join(mergingCuboidPaths,",");
   result.addTask(createMergeCuboidDataStep(cubeSegment,formattedPath,cuboidRootPath));
