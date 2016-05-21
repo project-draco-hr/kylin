@@ -21,5 +21,8 @@
   if (((bitField0_ & 0x00000020) == 0x00000020)) {
     output.writeInt64(7,timeout_);
   }
+  if (((bitField0_ & 0x00000040) == 0x00000040)) {
+    output.writeBool(8,useCompression_);
+  }
   getUnknownFields().writeTo(output);
 }

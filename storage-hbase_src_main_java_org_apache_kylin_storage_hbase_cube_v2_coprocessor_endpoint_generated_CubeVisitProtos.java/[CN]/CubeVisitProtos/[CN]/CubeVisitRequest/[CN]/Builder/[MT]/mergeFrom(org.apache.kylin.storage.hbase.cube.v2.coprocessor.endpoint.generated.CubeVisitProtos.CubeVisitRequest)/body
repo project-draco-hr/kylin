@@ -47,6 +47,9 @@
   if (other.hasTimeout()) {
     setTimeout(other.getTimeout());
   }
+  if (other.hasUseCompression()) {
+    setUseCompression(other.getUseCompression());
+  }
   this.mergeUnknownFields(other.getUnknownFields());
   return this;
 }

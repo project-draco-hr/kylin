@@ -6,4 +6,5 @@
   hbaseColumnsToGT_=java.util.Collections.emptyList();
   startTime_=0L;
   timeout_=0L;
+  useCompression_=false;
 }

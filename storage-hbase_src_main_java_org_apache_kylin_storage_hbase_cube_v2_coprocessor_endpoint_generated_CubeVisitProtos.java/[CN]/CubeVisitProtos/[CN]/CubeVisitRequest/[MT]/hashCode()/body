@@ -32,6 +32,10 @@
     hash=(37 * hash) + TIMEOUT_FIELD_NUMBER;
     hash=(53 * hash) + hashLong(getTimeout());
   }
+  if (hasUseCompression()) {
+    hash=(37 * hash) + USECOMPRESSION_FIELD_NUMBER;
+    hash=(53 * hash) + hashBoolean(getUseCompression());
+  }
   hash=(29 * hash) + getUnknownFields().hashCode();
   memoizedHashCode=hash;
   return hash;
