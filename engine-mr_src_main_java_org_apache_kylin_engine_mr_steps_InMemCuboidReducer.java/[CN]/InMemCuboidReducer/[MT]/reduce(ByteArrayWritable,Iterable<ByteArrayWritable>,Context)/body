@@ -6,8 +6,7 @@
   }
   aggs.collectStates(result);
   outputKey.set(key.array(),key.offset(),key.length());
-  valueBuf.clear();
-  codec.encode(result,valueBuf);
+  ByteBuffer valueBuf=codec.encode(result);
   outputValue.set(valueBuf.array(),0,valueBuf.position());
   context.write(outputKey,outputValue);
   counter++;

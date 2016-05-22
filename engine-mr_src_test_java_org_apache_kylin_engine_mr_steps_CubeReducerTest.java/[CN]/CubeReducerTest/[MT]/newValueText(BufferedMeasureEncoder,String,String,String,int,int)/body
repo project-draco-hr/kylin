@@ -1,0 +1,7 @@
+{
+  Object[] values=new Object[]{new BigDecimal(sum),new BigDecimal(min),new BigDecimal(max),new LongMutable(count),new LongMutable(item_count)};
+  ByteBuffer buf=codec.encode(values);
+  Text t=new Text();
+  t.set(buf.array(),0,buf.position());
+  return t;
+}

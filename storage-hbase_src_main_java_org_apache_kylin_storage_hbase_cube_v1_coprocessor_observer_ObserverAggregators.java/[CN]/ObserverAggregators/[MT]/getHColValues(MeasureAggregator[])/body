@@ -3,9 +3,7 @@
   for (int ci=0; ci < nHCols; ci++) {
     HCol col=hcols[ci];
     for (int j=0; j < col.nMeasures; j++)     col.measureValues[j]=aggrs[i++].getState();
-    col.measureBuf.clear();
-    col.measureCodec.encode(col.measureValues,col.measureBuf);
-    hColValues[ci]=col.measureBuf;
+    hColValues[ci]=col.measureCodec.encode(col.measureValues);
   }
   return hColValues;
 }

@@ -2,6 +2,5 @@
   for (int i=0; i < measures.length; i++) {
     measures[i]=buildValueOf(i,splitBuffers);
   }
-  valueBuf.clear();
-  measureCodec.encode(measures,valueBuf);
+  return measureCodec.encode(measures);
 }

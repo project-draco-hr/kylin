@@ -2,7 +2,6 @@
   for (int i=0; i < colValues.length; i++) {
     colValues[i]=measureValues[refIndex[i]];
   }
-  valueBuf.clear();
-  codec.encode(colValues,valueBuf);
+  ByteBuffer valueBuf=codec.encode(colValues);
   return create(keyBytes,keyOffset,keyLength,valueBuf.array(),0,valueBuf.position());
 }

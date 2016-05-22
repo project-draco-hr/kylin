@@ -53,8 +53,7 @@
       MeasureIngester ingester=pair.getSecond();
       measureObjs[i]=ingester.reEncodeDictionary(measureObjs[i],measureDescs.get(i),oldDicts,newDicts);
     }
-    valueBuf.clear();
-    codec.encode(measureObjs,valueBuf);
+    ByteBuffer valueBuf=codec.encode(measureObjs);
     outputValue.set(valueBuf.array(),0,valueBuf.position());
     value=outputValue;
   }

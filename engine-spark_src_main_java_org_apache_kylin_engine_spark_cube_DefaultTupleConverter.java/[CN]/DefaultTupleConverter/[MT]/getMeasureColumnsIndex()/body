@@ -1,6 +1,0 @@
-{
-  if (measureColumnsIndex.get() == null) {
-    measureColumnsIndex.set(new int[measureCount]);
-  }
-  return measureColumnsIndex.get();
-}

@@ -3,5 +3,7 @@
   for (int i=0; i < types.length; i++) {
     types[i]=info.getColumnType(metrics.trueBitAt(i));
   }
-  return new MeasureCodec(types);
+  BufferedMeasureEncoder result=new BufferedMeasureEncoder(types);
+  result.setBufferSize(info.getMaxColumnLength(metrics));
+  return result;
 }

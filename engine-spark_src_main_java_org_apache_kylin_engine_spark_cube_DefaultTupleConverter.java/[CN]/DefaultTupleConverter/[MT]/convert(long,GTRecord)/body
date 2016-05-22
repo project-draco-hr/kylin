@@ -2,10 +2,7 @@
   Cuboid cuboid=Cuboid.findById(segment.getCubeDesc(),cuboidId);
   RowKeyEncoder rowkeyEncoder=rowKeyEncoderProvider.getRowkeyEncoder(cuboid);
   final int dimensions=Long.bitCount(cuboidId);
-  int[] measureColumnsIndex=getMeasureColumnsIndex();
-  for (int i=0; i < measureCount; i++) {
-    measureColumnsIndex[i]=dimensions + i;
-  }
+  final ImmutableBitSet measureColumns=new ImmutableBitSet(dimensions,dimensions + measureCount);
   int offSet=0;
   for (int x=0; x < dimensions; x++) {
     final ByteArray byteArray=record.get(x);
@@ -16,7 +13,14 @@
   rowkeyEncoder.encode(new ByteArray(rowKeyBodyBuf,0,offSet),new ByteArray(rowKey));
   ByteBuffer valueBuf=getValueBuf();
   valueBuf.clear();
-  record.exportColumns(measureColumnsIndex,valueBuf);
+  try {
+    record.exportColumns(measureColumns,valueBuf);
+  }
+ catch (  BufferOverflowException boe) {
+    valueBuf=ByteBuffer.allocate((int)(record.sizeOf(measureColumns) * 1.5));
+    record.exportColumns(measureColumns,valueBuf);
+    setValueBuf(valueBuf);
+  }
   byte[] value=new byte[valueBuf.position()];
   System.arraycopy(valueBuf.array(),0,value,0,valueBuf.position());
   return new Tuple2<>(rowKey,value);

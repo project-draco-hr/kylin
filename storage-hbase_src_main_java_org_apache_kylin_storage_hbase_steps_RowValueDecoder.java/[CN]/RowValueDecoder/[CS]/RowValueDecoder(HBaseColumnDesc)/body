@@ -4,6 +4,6 @@
   this.hbaseColumnQualifier=Bytes.toBytes(hbaseColumn.getQualifier());
   this.projectionIndex=new BitSet();
   this.measures=hbaseColumn.getMeasures();
-  this.codec=new MeasureCodec(measures);
+  this.codec=new MeasureDecoder(measures);
   this.values=new Object[measures.length];
 }

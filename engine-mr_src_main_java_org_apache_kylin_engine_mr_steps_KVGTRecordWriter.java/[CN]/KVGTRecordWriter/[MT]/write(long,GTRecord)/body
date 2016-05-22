@@ -10,7 +10,13 @@
   cuboidRowCount++;
   rowKeyEncoder.encode(record,record.getInfo().getPrimaryKey(),keyBuf);
   valueBuf.clear();
-  record.exportColumns(measureColumnsIndex,valueBuf);
+  try {
+    record.exportColumns(measureColumns,valueBuf);
+  }
+ catch (  BufferOverflowException boe) {
+    valueBuf=ByteBuffer.allocate((int)(record.sizeOf(measureColumns) * 1.5));
+    record.exportColumns(measureColumns,valueBuf);
+  }
   outputKey.set(keyBuf,0,keyBuf.length);
   outputValue.set(valueBuf.array(),0,valueBuf.position());
   writeAsKeyValue(outputKey,outputValue);

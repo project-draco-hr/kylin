@@ -16,7 +16,7 @@
   intermediateTableDesc=new CubeJoinedFlatTableDesc(cube.getDescriptor(),cubeSegment);
   bytesSplitter=new BytesSplitter(200,16384);
   rowKeyEncoder=AbstractRowKeyEncoder.createInstance(cubeSegment,baseCuboid);
-  measureCodec=new MeasureCodec(cubeDesc.getMeasures());
+  measureCodec=new BufferedMeasureEncoder(cubeDesc.getMeasures());
   measures=new Object[cubeDesc.getMeasures().size()];
   int colCount=cubeDesc.getRowkey().getRowKeyColumns().length;
   keyBytesBuf=new byte[colCount][];

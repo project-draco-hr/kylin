@@ -16,8 +16,7 @@
 ,UnsignedBytes.lexicographicalComparator()).mapPartitions(new FlatMapFunction<Iterator<Tuple2<byte[],byte[]>>,Tuple2<byte[],byte[]>>(){
     @Override public Iterable<Tuple2<byte[],byte[]>> call(    final Iterator<Tuple2<byte[],byte[]>> tuple2Iterator) throws Exception {
       return new Iterable<Tuple2<byte[],byte[]>>(){
-        final ByteBuffer buffer=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
-        final MeasureCodec codec=new MeasureCodec(dataTypes);
+        final BufferedMeasureEncoder codec=new BufferedMeasureEncoder(dataTypes);
         final Object[] input=new Object[measureSize];
         final Object[] result=new Object[measureSize];
         @Override public Iterator<Tuple2<byte[],byte[]>> iterator(){
@@ -33,8 +32,7 @@
                 aggs.aggregate(input);
               }
               aggs.collectStates(result);
-              buffer.clear();
-              codec.encode(result,buffer);
+              ByteBuffer buffer=codec.encode(result);
               byte[] bytes=new byte[buffer.position()];
               System.arraycopy(buffer.array(),buffer.arrayOffset(),bytes,0,buffer.position());
               return bytes;

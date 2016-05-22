@@ -2,8 +2,5 @@
   rowKeyEncoder=AbstractRowKeyEncoder.createInstance(cubeSegment,Cuboid.findById(cubeDesc,cuboidId));
   keyBuf=rowKeyEncoder.createBuf();
   dimensions=Long.bitCount(cuboidId);
-  measureColumnsIndex=new int[measureCount];
-  for (int i=0; i < measureCount; i++) {
-    measureColumnsIndex[i]=dimensions + i;
-  }
+  measureColumns=new ImmutableBitSet(dimensions,dimensions + measureCount);
 }

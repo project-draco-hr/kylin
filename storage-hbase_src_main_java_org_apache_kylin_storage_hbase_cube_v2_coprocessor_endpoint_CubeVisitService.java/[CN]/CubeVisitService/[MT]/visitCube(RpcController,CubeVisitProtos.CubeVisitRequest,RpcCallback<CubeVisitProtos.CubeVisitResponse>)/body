@@ -83,8 +83,8 @@
     IGTStore store=new HBaseReadonlyStore(cellListIterator,scanReq,hbaseRawScans.get(0).hbaseColumns,hbaseColumnsToGT,request.getRowkeyPreambleSize());
     IGTScanner rawScanner=store.scan(scanReq);
     IGTScanner finalScanner=scanReq.decorateScanner(rawScanner,behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER.ordinal(),behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER_AGGR.ordinal());
-    ByteBuffer buffer=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
-    ByteArrayOutputStream outputStream=new ByteArrayOutputStream(RowConstants.ROWVALUE_BUFFER_SIZE);
+    ByteBuffer buffer=ByteBuffer.allocate(BufferedMeasureEncoder.DEFAULT_BUFFER_SIZE);
+    ByteArrayOutputStream outputStream=new ByteArrayOutputStream(BufferedMeasureEncoder.DEFAULT_BUFFER_SIZE);
     int finalRowCount=0;
     for (    GTRecord oneRecord : finalScanner) {
       if (!scanNormalComplete.booleanValue()) {
@@ -98,9 +98,14 @@
         }
       }
       buffer.clear();
-      oneRecord.exportColumns(scanReq.getColumns(),buffer);
-      buffer.flip();
-      outputStream.write(buffer.array(),buffer.arrayOffset() - buffer.position(),buffer.remaining());
+      try {
+        oneRecord.exportColumns(scanReq.getColumns(),buffer);
+      }
+ catch (      BufferOverflowException boe) {
+        buffer=ByteBuffer.allocate((int)(oneRecord.sizeOf(scanReq.getColumns()) * 1.5));
+        oneRecord.exportColumns(scanReq.getColumns(),buffer);
+      }
+      outputStream.write(buffer.array(),0,buffer.position());
       finalRowCount++;
     }
     finalScanner.close();

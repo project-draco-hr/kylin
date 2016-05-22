@@ -2,17 +2,13 @@
   super.bindCurrentConfiguration(context.getConfiguration());
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
   String cubeName=context.getConfiguration().get(BatchConstants.CFG_CUBE_NAME).toUpperCase();
-  String segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME);
-  boolean isMerge=Boolean.parseBoolean(context.getConfiguration().get(BatchConstants.CFG_IS_MERGE));
   CubeInstance cube=CubeManager.getInstance(config).getCube(cubeName);
   CubeDesc cubeDesc=cube.getDescriptor();
-  CubeSegment cubeSeg=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   List<MeasureDesc> measuresDescs=cubeDesc.getMeasures();
-  codec=new MeasureCodec(measuresDescs);
+  codec=new BufferedMeasureEncoder(measuresDescs);
   aggs=new MeasureAggregators(measuresDescs);
   input=new Object[measuresDescs.size()];
   result=new Object[measuresDescs.size()];
   outputKey=new Text();
   outputValue=new Text();
-  valueBuf=ByteBuffer.allocate(RowConstants.ROWVALUE_BUFFER_SIZE);
 }

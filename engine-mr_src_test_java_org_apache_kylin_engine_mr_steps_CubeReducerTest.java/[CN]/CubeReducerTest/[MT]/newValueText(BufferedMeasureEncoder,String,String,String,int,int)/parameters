@@ -1,0 +1,6 @@
+BufferedMeasureEncoder codec
+String sum
+String min
+String max
+int count
+int item_count
