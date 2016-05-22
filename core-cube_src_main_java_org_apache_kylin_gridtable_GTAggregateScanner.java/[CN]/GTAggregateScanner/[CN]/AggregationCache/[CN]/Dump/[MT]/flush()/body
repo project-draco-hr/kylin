@@ -13,7 +13,7 @@
         aggs.collectStates(aggrResult);
         ByteBuffer metricsBuf=measureCodec.encode(aggrResult);
         oos.writeObject(entry.getKey());
-        oos.writeObject(metricsBuf.array());
+        oos.writeObject(BytesUtil.subarray(metricsBuf.array(),0,metricsBuf.position()));
       }
     }
   finally {
