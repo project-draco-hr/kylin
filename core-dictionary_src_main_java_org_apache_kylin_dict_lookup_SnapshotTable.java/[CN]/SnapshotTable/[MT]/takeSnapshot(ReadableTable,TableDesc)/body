@@ -3,25 +3,35 @@
   int maxIndex=tableDesc.getMaxColumnIndex();
   TrieDictionaryBuilder<String> b=new TrieDictionaryBuilder<String>(new StringBytesConverter());
   TableReader reader=table.getReader();
-  while (reader.next()) {
-    String[] row=reader.getRow();
-    if (row.length <= maxIndex) {
-      throw new IllegalStateException("Bad hive table row, " + tableDesc + " expect "+ (maxIndex + 1)+ " columns, but got "+ Arrays.toString(row));
-    }
-    for (    String cell : row) {
-      if (cell != null)       b.addValue(cell);
+  try {
+    while (reader.next()) {
+      String[] row=reader.getRow();
+      if (row.length <= maxIndex) {
+        throw new IllegalStateException("Bad hive table row, " + tableDesc + " expect "+ (maxIndex + 1)+ " columns, but got "+ Arrays.toString(row));
+      }
+      for (      String cell : row) {
+        if (cell != null)         b.addValue(cell);
+      }
     }
   }
+  finally {
+    IOUtils.closeQuietly(reader);
+  }
   this.dict=b.build(0);
-  reader=table.getReader();
   ArrayList<int[]> allRowIndices=new ArrayList<int[]>();
-  while (reader.next()) {
-    String[] row=reader.getRow();
-    int[] rowIndex=new int[row.length];
-    for (int i=0; i < row.length; i++) {
-      rowIndex[i]=dict.getIdFromValue(row[i]);
+  reader=table.getReader();
+  try {
+    while (reader.next()) {
+      String[] row=reader.getRow();
+      int[] rowIndex=new int[row.length];
+      for (int i=0; i < row.length; i++) {
+        rowIndex[i]=dict.getIdFromValue(row[i]);
+      }
+      allRowIndices.add(rowIndex);
     }
-    allRowIndices.add(rowIndex);
+  }
+  finally {
+    IOUtils.closeQuietly(reader);
   }
   this.rowIndices=allRowIndices;
 }
