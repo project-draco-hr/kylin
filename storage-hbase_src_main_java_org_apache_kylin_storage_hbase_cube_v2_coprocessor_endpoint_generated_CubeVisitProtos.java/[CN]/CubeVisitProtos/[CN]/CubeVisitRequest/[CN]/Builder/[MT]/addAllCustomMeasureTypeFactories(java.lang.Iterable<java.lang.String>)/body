@@ -1,0 +1,6 @@
+{
+  ensureCustomMeasureTypeFactoriesIsMutable();
+  super.addAll(values,customMeasureTypeFactories_);
+  onChanged();
+  return this;
+}

@@ -30,12 +30,7 @@
       out.write("            \"operand\": {\n");
       out.write("                \"" + SCHEMA_PROJECT + "\": \""+ project+ "\"\n");
       out.write("            },\n");
-      out.write("            \"functions\": [\n");
-      out.write("               {\n");
-      out.write("                   name: 'MASSIN',\n");
-      out.write("                   className: 'org.apache.kylin.query.udf.MassInUDF'\n");
-      out.write("               }\n");
-      out.write("              ]\n");
+      createOLAPSchemaFunctions(out);
       out.write("        }\n");
       if (++counter != schemaCounts.size()) {
         out.write(",\n");

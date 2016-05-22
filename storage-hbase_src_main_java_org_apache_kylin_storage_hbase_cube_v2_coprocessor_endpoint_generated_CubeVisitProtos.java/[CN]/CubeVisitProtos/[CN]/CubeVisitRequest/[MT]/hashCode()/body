@@ -36,6 +36,10 @@
     hash=(37 * hash) + USECOMPRESSION_FIELD_NUMBER;
     hash=(53 * hash) + hashBoolean(getUseCompression());
   }
+  if (getCustomMeasureTypeFactoriesCount() > 0) {
+    hash=(37 * hash) + CUSTOMMEASURETYPEFACTORIES_FIELD_NUMBER;
+    hash=(53 * hash) + getCustomMeasureTypeFactoriesList().hashCode();
+  }
   hash=(29 * hash) + getUnknownFields().hashCode();
   memoizedHashCode=hash;
   return hash;

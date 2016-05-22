@@ -1,0 +1,3 @@
+{
+  return getPropertiesByPrefix("kylin.cube.measure.customMeasureType.");
+}

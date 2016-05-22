@@ -1,0 +1,3 @@
+{
+  return customMeasureTypeFactories_.getByteString(index);
+}

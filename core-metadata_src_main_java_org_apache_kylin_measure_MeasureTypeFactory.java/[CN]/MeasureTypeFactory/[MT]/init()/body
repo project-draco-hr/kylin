@@ -1,11 +1,32 @@
 {
-  if (factories.isEmpty() == false)   return;
+  if (!factories.isEmpty()) {
+    return;
+  }
+  if (customFactories == null) {
+    try {
+      Collection<String> customMeasureTypeFactories=KylinConfig.getInstanceFromEnv().getCubeCustomMeasureTypes().values();
+      customFactories=customMeasureTypeFactories.toArray(new String[customMeasureTypeFactories.size()]);
+    }
+ catch (    Exception e) {
+      customFactories=null;
+    }
+  }
   List<MeasureTypeFactory<?>> factoryInsts=Lists.newArrayList();
   factoryInsts.add(new HLLCMeasureType.Factory());
   factoryInsts.add(new BitmapMeasureType.Factory());
   factoryInsts.add(new TopNMeasureType.Factory());
   factoryInsts.add(new RawMeasureType.Factory());
   factoryInsts.add(new ExtendedColumnMeasureType.Factory());
+  if (customFactories != null) {
+    for (    String customFactory : customFactories) {
+      try {
+        factoryInsts.add((MeasureTypeFactory<?>)Class.forName(customFactory).newInstance());
+      }
+ catch (      Exception e) {
+        throw new IllegalArgumentException("Unrecognized MeasureTypeFactory classname: " + customFactory,e);
+      }
+    }
+  }
   for (  MeasureTypeFactory<?> factory : factoryInsts) {
     String funcName=factory.getAggrFunctionName();
     if (funcName.equals(funcName.toUpperCase()) == false)     throw new IllegalArgumentException("Aggregation function name '" + funcName + "' must be in upper case");

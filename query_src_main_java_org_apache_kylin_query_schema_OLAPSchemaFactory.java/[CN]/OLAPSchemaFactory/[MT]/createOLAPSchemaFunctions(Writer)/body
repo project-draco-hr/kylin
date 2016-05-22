@@ -1,0 +1,20 @@
+{
+  out.write("            \"functions\": [\n");
+  Map<String,String> udfs=KylinConfig.getInstanceFromEnv().getUDFs();
+  int index=0;
+  for (  Map.Entry<String,String> udf : udfs.entrySet()) {
+    String udfName=udf.getKey().trim().toUpperCase();
+    String udfClassName=udf.getValue().trim();
+    out.write("               {\n");
+    out.write("                   name: '" + udfName + "',\n");
+    out.write("                   className: '" + udfClassName + "'\n");
+    if (index < udfs.size() - 1) {
+      out.write("               },\n");
+    }
+ else {
+      out.write("               }\n");
+    }
+    index++;
+  }
+  out.write("              ]\n");
+}

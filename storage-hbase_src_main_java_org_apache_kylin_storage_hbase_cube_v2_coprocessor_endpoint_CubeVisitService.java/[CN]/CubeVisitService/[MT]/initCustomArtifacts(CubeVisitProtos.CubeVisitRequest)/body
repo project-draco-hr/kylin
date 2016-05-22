@@ -1,0 +1,4 @@
+{
+  MeasureTypeFactory.customFactories=request.getCustomMeasureTypeFactoriesList().toArray(new String[request.getCustomMeasureTypeFactoriesCount()]);
+  MeasureTypeFactory.forceInit();
+}

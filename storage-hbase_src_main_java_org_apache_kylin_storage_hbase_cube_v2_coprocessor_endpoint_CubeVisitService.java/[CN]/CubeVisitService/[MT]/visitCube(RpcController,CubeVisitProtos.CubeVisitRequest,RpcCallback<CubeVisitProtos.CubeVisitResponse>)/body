@@ -6,6 +6,7 @@
   String debugGitTag="";
   try {
     this.serviceStartTime=System.currentTimeMillis();
+    initCustomArtifacts(request);
     region=env.getRegion();
     region.startRegionOperation();
     debugGitTag=region.getTableDesc().getValue(IRealizationConstants.HTableGitTag);

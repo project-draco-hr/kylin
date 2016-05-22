@@ -1,0 +1,3 @@
+{
+  return customMeasureTypeFactories_.get(index);
+}

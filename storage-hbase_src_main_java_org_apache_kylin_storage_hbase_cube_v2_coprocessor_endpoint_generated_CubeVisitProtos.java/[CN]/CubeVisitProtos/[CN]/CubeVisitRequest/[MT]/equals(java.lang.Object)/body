@@ -36,6 +36,7 @@
   if (hasUseCompression()) {
     result=result && (getUseCompression() == other.getUseCompression());
   }
+  result=result && getCustomMeasureTypeFactoriesList().equals(other.getCustomMeasureTypeFactoriesList());
   result=result && getUnknownFields().equals(other.getUnknownFields());
   return result;
 }
