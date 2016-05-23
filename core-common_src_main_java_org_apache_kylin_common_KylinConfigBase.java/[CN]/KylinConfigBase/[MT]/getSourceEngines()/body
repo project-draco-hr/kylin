@@ -1,3 +1,5 @@
 {
-  return convertKeyToInteger(getPropertiesByPrefix("kylin.source.engine."));
+  Map<Integer,String> r=convertKeyToInteger(getPropertiesByPrefix("kylin.source.engine."));
+  r.put(0,"org.apache.kylin.source.hive.HiveSource");
+  return r;
 }
