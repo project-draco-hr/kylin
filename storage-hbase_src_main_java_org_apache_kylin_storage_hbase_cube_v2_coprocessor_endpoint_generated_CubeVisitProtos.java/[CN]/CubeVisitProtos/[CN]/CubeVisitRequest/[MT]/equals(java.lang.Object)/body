@@ -32,11 +32,10 @@
   if (hasTimeout()) {
     result=result && (getTimeout() == other.getTimeout());
   }
-  result=result && (hasUseCompression() == other.hasUseCompression());
-  if (hasUseCompression()) {
-    result=result && (getUseCompression() == other.getUseCompression());
+  result=result && (hasKylinProperties() == other.hasKylinProperties());
+  if (hasKylinProperties()) {
+    result=result && getKylinProperties().equals(other.getKylinProperties());
   }
-  result=result && getCustomMeasureTypeFactoriesList().equals(other.getCustomMeasureTypeFactoriesList());
   result=result && getUnknownFields().equals(other.getUnknownFields());
   return result;
 }

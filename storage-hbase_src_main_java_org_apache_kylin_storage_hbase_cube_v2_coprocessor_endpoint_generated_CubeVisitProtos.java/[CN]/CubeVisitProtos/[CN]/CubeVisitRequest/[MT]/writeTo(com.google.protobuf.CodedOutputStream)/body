@@ -22,10 +22,7 @@
     output.writeInt64(7,timeout_);
   }
   if (((bitField0_ & 0x00000040) == 0x00000040)) {
-    output.writeBool(8,useCompression_);
-  }
-  for (int i=0; i < customMeasureTypeFactories_.size(); i++) {
-    output.writeBytes(9,customMeasureTypeFactories_.getByteString(i));
+    output.writeBytes(8,getKylinPropertiesBytes());
   }
   getUnknownFields().writeTo(output);
 }

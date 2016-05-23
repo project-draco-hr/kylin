@@ -1,6 +1,0 @@
-{
-  if (!((bitField0_ & 0x00000100) == 0x00000100)) {
-    customMeasureTypeFactories_=new com.google.protobuf.LazyStringArrayList(customMeasureTypeFactories_);
-    bitField0_|=0x00000100;
-  }
-}

@@ -39,12 +39,7 @@
   if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
     to_bitField0_|=0x00000040;
   }
-  result.useCompression_=useCompression_;
-  if (((bitField0_ & 0x00000100) == 0x00000100)) {
-    customMeasureTypeFactories_=new com.google.protobuf.UnmodifiableLazyStringList(customMeasureTypeFactories_);
-    bitField0_=(bitField0_ & ~0x00000100);
-  }
-  result.customMeasureTypeFactories_=customMeasureTypeFactories_;
+  result.kylinProperties_=kylinProperties_;
   result.bitField0_=to_bitField0_;
   onBuilt();
   return result;

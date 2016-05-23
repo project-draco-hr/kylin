@@ -24,15 +24,7 @@
     size+=com.google.protobuf.CodedOutputStream.computeInt64Size(7,timeout_);
   }
   if (((bitField0_ & 0x00000040) == 0x00000040)) {
-    size+=com.google.protobuf.CodedOutputStream.computeBoolSize(8,useCompression_);
-  }
-{
-    int dataSize=0;
-    for (int i=0; i < customMeasureTypeFactories_.size(); i++) {
-      dataSize+=com.google.protobuf.CodedOutputStream.computeBytesSizeNoTag(customMeasureTypeFactories_.getByteString(i));
-    }
-    size+=dataSize;
-    size+=1 * getCustomMeasureTypeFactoriesList().size();
+    size+=com.google.protobuf.CodedOutputStream.computeBytesSize(8,getKylinPropertiesBytes());
   }
   size+=getUnknownFields().getSerializedSize();
   memoizedSerializedSize=size;

@@ -47,18 +47,9 @@
   if (other.hasTimeout()) {
     setTimeout(other.getTimeout());
   }
-  if (other.hasUseCompression()) {
-    setUseCompression(other.getUseCompression());
-  }
-  if (!other.customMeasureTypeFactories_.isEmpty()) {
-    if (customMeasureTypeFactories_.isEmpty()) {
-      customMeasureTypeFactories_=other.customMeasureTypeFactories_;
-      bitField0_=(bitField0_ & ~0x00000100);
-    }
- else {
-      ensureCustomMeasureTypeFactoriesIsMutable();
-      customMeasureTypeFactories_.addAll(other.customMeasureTypeFactories_);
-    }
+  if (other.hasKylinProperties()) {
+    bitField0_|=0x00000080;
+    kylinProperties_=other.kylinProperties_;
     onChanged();
   }
   this.mergeUnknownFields(other.getUnknownFields());

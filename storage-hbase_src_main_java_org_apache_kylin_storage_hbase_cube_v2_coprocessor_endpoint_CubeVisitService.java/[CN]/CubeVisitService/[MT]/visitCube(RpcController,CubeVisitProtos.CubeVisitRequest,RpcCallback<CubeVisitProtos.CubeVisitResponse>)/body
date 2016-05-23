@@ -6,7 +6,8 @@
   String debugGitTag="";
   try {
     this.serviceStartTime=System.currentTimeMillis();
-    initCustomArtifacts(request);
+    setupKylinProperties(request.getKylinProperties());
+    KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
     region=env.getRegion();
     region.startRegionOperation();
     debugGitTag=region.getTableDesc().getValue(IRealizationConstants.HTableGitTag);
@@ -118,7 +119,7 @@
  else {
       allRows=new byte[0];
     }
-    if (request.hasUseCompression() && request.getUseCompression() == false) {
+    if (!kylinConfig.getCompressionResult()) {
       compressedAllRows=allRows;
     }
  else {

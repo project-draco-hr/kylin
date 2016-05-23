@@ -25,6 +25,10 @@
     memoizedIsInitialized=0;
     return false;
   }
+  if (!hasKylinProperties()) {
+    memoizedIsInitialized=0;
+    return false;
+  }
   memoizedIsInitialized=1;
   return true;
 }

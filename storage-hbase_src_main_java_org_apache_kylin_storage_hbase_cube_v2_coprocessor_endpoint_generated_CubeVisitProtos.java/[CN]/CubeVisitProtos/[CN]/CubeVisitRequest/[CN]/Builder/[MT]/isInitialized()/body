@@ -17,5 +17,8 @@
   if (!hasTimeout()) {
     return false;
   }
+  if (!hasKylinProperties()) {
+    return false;
+  }
   return true;
 }

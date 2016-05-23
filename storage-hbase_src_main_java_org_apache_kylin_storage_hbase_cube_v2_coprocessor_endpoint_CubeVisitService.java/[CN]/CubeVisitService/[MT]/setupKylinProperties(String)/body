@@ -1,0 +1,6 @@
+{
+  File kylinConfDir=Files.createTempDir();
+  Files.write(propFileStr,new File(kylinConfDir,KylinConfig.KYLIN_CONF_PROPERTIES_FILE),Charset.defaultCharset());
+  System.setProperty(KylinConfig.KYLIN_CONF,kylinConfDir.getAbsolutePath());
+  FileUtils.forceDeleteOnExit(kylinConfDir);
+}

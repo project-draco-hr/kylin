@@ -62,19 +62,10 @@ bitField0_|=0x00000020;
 timeout_=input.readInt64();
 break;
 }
-case 64:
+case 66:
 {
 bitField0_|=0x00000040;
-useCompression_=input.readBool();
-break;
-}
-case 74:
-{
-if (!((mutable_bitField0_ & 0x00000100) == 0x00000100)) {
-customMeasureTypeFactories_=new com.google.protobuf.LazyStringArrayList();
-mutable_bitField0_|=0x00000100;
-}
-customMeasureTypeFactories_.add(input.readBytes());
+kylinProperties_=input.readBytes();
 break;
 }
 }
@@ -89,9 +80,6 @@ throw new com.google.protobuf.InvalidProtocolBufferException(e.getMessage()).set
  finally {
 if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
 hbaseColumnsToGT_=java.util.Collections.unmodifiableList(hbaseColumnsToGT_);
-}
-if (((mutable_bitField0_ & 0x00000100) == 0x00000100)) {
-customMeasureTypeFactories_=new com.google.protobuf.UnmodifiableLazyStringList(customMeasureTypeFactories_);
 }
 this.unknownFields=unknownFields.build();
 makeExtensionsImmutable();

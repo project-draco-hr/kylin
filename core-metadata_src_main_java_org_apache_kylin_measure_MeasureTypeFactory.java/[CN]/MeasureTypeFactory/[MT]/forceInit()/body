@@ -1,5 +1,0 @@
-{
-  factories.clear();
-  defaultFactory.clear();
-  init();
-}
