@@ -1,0 +1,5 @@
+{
+  staticCreateTestMetadata();
+  DataType.register("raw");
+  rawSerializer=new RawSerializer(DataType.getType("raw"));
+}

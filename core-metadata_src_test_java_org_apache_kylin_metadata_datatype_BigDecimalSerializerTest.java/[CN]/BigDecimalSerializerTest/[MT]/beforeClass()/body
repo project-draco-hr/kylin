@@ -1,3 +1,4 @@
 {
+  staticCreateTestMetadata();
   bigDecimalSerializer=new BigDecimalSerializer(DataType.getType("decimal"));
 }

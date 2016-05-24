@@ -1,0 +1,4 @@
+{
+  staticCreateTestMetadata();
+  measureType=(MeasureType<ByteArray>)MeasureTypeFactory.create("EXTENDED_COLUMN","extendedcolumn(20)");
+}

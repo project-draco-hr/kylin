@@ -1,0 +1,5 @@
+{
+  staticCreateTestMetadata();
+  DataType.register("topn");
+  serializer=new TopNCounterSerializer(DataType.getType("topn(10)"));
+}

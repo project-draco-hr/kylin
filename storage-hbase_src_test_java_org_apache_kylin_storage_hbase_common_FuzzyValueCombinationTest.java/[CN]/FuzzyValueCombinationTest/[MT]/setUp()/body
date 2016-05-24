@@ -1,0 +1,6 @@
+{
+  staticCreateTestMetadata();
+  col1=col(1,table);
+  col2=col(2,table);
+  col3=col(3,table);
+}
