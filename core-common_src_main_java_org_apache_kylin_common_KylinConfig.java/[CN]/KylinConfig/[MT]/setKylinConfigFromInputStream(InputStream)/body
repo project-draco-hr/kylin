@@ -1,0 +1,11 @@
+{
+  if (ENV_INSTANCE == null) {
+    try {
+      KylinConfig config=createKylinConfigFromInputStream(is);
+      ENV_INSTANCE=config;
+    }
+ catch (    IllegalArgumentException e) {
+      throw new IllegalStateException("Failed to find KylinConfig ",e);
+    }
+  }
+}

@@ -6,10 +6,10 @@
   String debugGitTag="";
   try {
     this.serviceStartTime=System.currentTimeMillis();
-    setupKylinProperties(request.getKylinProperties());
-    KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
     region=env.getRegion();
     region.startRegionOperation();
+    KylinConfig.setKylinConfigFromInputStream(IOUtils.toInputStream(request.getKylinProperties()));
+    KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
     debugGitTag=region.getTableDesc().getValue(IRealizationConstants.HTableGitTag);
     final GTScanRequest scanReq=GTScanRequest.serializer.deserialize(ByteBuffer.wrap(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getGtScanRequest())));
     List<List<Integer>> hbaseColumnsToGT=Lists.newArrayList();
