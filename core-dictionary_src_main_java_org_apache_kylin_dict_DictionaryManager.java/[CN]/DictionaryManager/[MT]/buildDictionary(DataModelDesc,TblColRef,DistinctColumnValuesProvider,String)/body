@@ -1,0 +1,44 @@
+{
+  logger.info("building dictionary for " + col);
+  TblColRef srcCol=decideSourceData(model,col);
+  String srcTable=srcCol.getTable();
+  String srcColName=srcCol.getName();
+  int srcColIdx=srcCol.getColumnDesc().getZeroBasedIndex();
+  ReadableTable inpTable;
+  if (model.isFactTable(srcTable)) {
+    inpTable=factTableValueProvider.getDistinctValuesFor(srcCol);
+  }
+ else {
+    MetadataManager metadataManager=MetadataManager.getInstance(config);
+    TableDesc tableDesc=new TableDesc(metadataManager.getTableDesc(srcTable));
+    if (TableDesc.TABLE_TYPE_VIRTUAL_VIEW.equalsIgnoreCase(tableDesc.getTableType())) {
+      tableDesc.setDatabase(config.getHiveDatabaseForIntermediateTable());
+      String tableName=tableDesc.getMaterializedName();
+      tableDesc.setName(tableName);
+      inpTable=SourceFactory.createReadableTable(tableDesc);
+    }
+ else {
+      inpTable=SourceFactory.createReadableTable(tableDesc);
+    }
+  }
+  TableSignature inputSig=inpTable.getSignature();
+  if (inputSig == null)   return null;
+  DictionaryInfo dictInfo=new DictionaryInfo(srcTable,srcColName,srcColIdx,col.getDatatype(),inputSig);
+  String dupDict=checkDupByInfo(dictInfo);
+  if (dupDict != null) {
+    logger.info("Identical dictionary input " + dictInfo.getInput() + ", reuse existing dictionary at "+ dupDict);
+    return getDictionaryInfo(dupDict);
+  }
+  logger.info("Building dictionary object " + JsonUtil.writeValueAsString(dictInfo));
+  Dictionary<String> dictionary;
+  IDictionaryValueEnumerator columnValueEnumerator=null;
+  try {
+    columnValueEnumerator=new TableColumnValueEnumerator(inpTable.getReader(),dictInfo.getSourceColumnIndex());
+    if (builderClass == null)     dictionary=DictionaryGenerator.buildDictionary(DataType.getType(dictInfo.getDataType()),columnValueEnumerator);
+ else     dictionary=DictionaryGenerator.buildDictionary((IDictionaryBuilder)ClassUtil.newInstance(builderClass),columnValueEnumerator);
+  }
+  finally {
+    if (columnValueEnumerator != null)     columnValueEnumerator.close();
+  }
+  return trySaveNewDict(dictionary,dictInfo);
+}

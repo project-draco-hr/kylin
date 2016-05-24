@@ -1,10 +1,11 @@
 {
   CubeDesc cubeDesc=cubeSeg.getCubeDesc();
-  if (!cubeDesc.getAllColumnsNeedDictionary().contains(col))   return null;
+  if (!cubeDesc.getAllColumnsNeedDictionaryBuilt().contains(col))   return null;
   DictionaryManager dictMgr=getDictionaryManager();
-  DictionaryInfo dictInfo=dictMgr.buildDictionary(cubeDesc.getModel(),true,col,factTableValueProvider);
+  String builderClass=cubeDesc.getDictionaryBuilderClass(col);
+  DictionaryInfo dictInfo=dictMgr.buildDictionary(cubeDesc.getModel(),col,factTableValueProvider,builderClass);
   if (dictInfo != null) {
-    Dictionary dict=dictInfo.getDictionaryObject();
+    Dictionary<?> dict=dictInfo.getDictionaryObject();
     cubeSeg.putDictResPath(col,dictInfo.getResourcePath());
     cubeSeg.getRowkeyStats().add(new Object[]{col.getName(),dict.getSize(),dict.getSizeOfId()});
     CubeUpdate cubeBuilder=new CubeUpdate(cubeSeg.getCubeInstance());

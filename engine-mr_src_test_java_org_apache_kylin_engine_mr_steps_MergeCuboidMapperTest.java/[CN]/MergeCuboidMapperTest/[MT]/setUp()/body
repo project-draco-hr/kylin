@@ -26,7 +26,7 @@
     values.add(new byte[]{97,97,97});
     if (isFirstSegment)     values.add(new byte[]{99,99,99});
  else     values.add(new byte[]{98,98,98});
-    Dictionary<?> dict=DictionaryGenerator.buildDictionaryFromValueEnumerator(DataType.getType(newDictInfo.getDataType()),new IterableDictionaryValueEnumerator(values));
+    Dictionary<?> dict=DictionaryGenerator.buildDictionary(DataType.getType(newDictInfo.getDataType()),new IterableDictionaryValueEnumerator(values));
     dictionaryManager.trySaveNewDict(dict,newDictInfo);
     ((TrieDictionary)dict).dump(System.out);
     segment.putDictResPath(lfn,newDictInfo.getResourcePath());

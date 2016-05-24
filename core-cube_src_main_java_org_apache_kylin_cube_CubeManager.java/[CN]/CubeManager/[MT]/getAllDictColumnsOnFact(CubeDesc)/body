@@ -1,10 +1,8 @@
 {
-  List<TblColRef> dictionaryColumns=cubeDesc.getAllColumnsNeedDictionary();
   List<TblColRef> factDictCols=new ArrayList<TblColRef>();
   DictionaryManager dictMgr=DictionaryManager.getInstance(config);
-  for (int i=0; i < dictionaryColumns.size(); i++) {
-    TblColRef col=dictionaryColumns.get(i);
-    String scanTable=dictMgr.decideSourceData(cubeDesc.getModel(),true,col).getTable();
+  for (  TblColRef col : cubeDesc.getAllColumnsNeedDictionaryBuilt()) {
+    String scanTable=dictMgr.decideSourceData(cubeDesc.getModel(),col).getTable();
     if (cubeDesc.getModel().isFactTable(scanTable)) {
       factDictCols.add(col);
     }

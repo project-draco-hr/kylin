@@ -1,0 +1,12 @@
+{
+  TrieDictionaryBuilder builder=new TrieDictionaryBuilder(new StringBytesConverter());
+  byte[] value;
+  while (valueEnumerator.moveNext()) {
+    value=valueEnumerator.current();
+    if (value == null)     continue;
+    String v=Bytes.toString(value);
+    builder.addValue(v);
+    if (returnSamples.size() < nSamples && returnSamples.contains(v) == false)     returnSamples.add(v);
+  }
+  return builder.build(baseId);
+}

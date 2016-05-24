@@ -1,0 +1,7 @@
+{
+  if (dictionaries != null) {
+    for (    DictionaryDesc dictDesc : dictionaries) {
+      dictDesc.init(this);
+    }
+  }
+}

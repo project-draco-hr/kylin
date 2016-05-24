@@ -9,7 +9,7 @@
     if (desc.getRowkey().isUseDictionary(col)) {
       logger.info("Building dictionary for " + col);
       List<byte[]> valueList=readValueList(flatTable,nColumns,flatTableDesc.getRowKeyColumnIndexes()[c]);
-      Dictionary<String> dict=DictionaryGenerator.buildDictionaryFromValueEnumerator(col.getType(),new IterableDictionaryValueEnumerator(valueList));
+      Dictionary<String> dict=DictionaryGenerator.buildDictionary(col.getType(),new IterableDictionaryValueEnumerator(valueList));
       result.put(col,dict);
     }
   }
@@ -26,7 +26,7 @@
         int colIdxOnFlat=flatTableIdx[i];
         logger.info("Building dictionary for " + col);
         List<byte[]> valueList=readValueList(flatTable,nColumns,colIdxOnFlat);
-        Dictionary<String> dict=DictionaryGenerator.buildDictionaryFromValueEnumerator(col.getType(),new IterableDictionaryValueEnumerator(valueList));
+        Dictionary<String> dict=DictionaryGenerator.buildDictionary(col.getType(),new IterableDictionaryValueEnumerator(valueList));
         result.put(col,dict);
       }
     }

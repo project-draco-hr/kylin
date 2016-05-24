@@ -6,6 +6,7 @@
   newCubeDesc.setNullStrings(cubeDesc.getNullStrings());
   newCubeDesc.setDimensions(cubeDesc.getDimensions());
   newCubeDesc.setMeasures(cubeDesc.getMeasures());
+  newCubeDesc.setDictionaries(cubeDesc.getDictionaries());
   newCubeDesc.setRowkey(cubeDesc.getRowkey());
   newCubeDesc.setHbaseMapping(cubeDesc.getHbaseMapping());
   newCubeDesc.setSignature(cubeDesc.getSignature());

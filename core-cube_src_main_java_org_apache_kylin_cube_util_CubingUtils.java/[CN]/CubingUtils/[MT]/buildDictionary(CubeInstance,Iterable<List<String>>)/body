@@ -22,7 +22,7 @@
       }
     }
 );
-    final Dictionary<String> dict=DictionaryGenerator.buildDictionaryFromValueEnumerator(tblColRef.getType(),new IterableDictionaryValueEnumerator(bytes));
+    final Dictionary<String> dict=DictionaryGenerator.buildDictionary(tblColRef.getType(),new IterableDictionaryValueEnumerator(bytes));
     result.put(tblColRef,dict);
   }
   return result;

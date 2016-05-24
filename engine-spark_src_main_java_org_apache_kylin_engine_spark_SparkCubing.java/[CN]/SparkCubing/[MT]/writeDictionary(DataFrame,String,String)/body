@@ -23,7 +23,7 @@
     final TblColRef tblColRef=entry.getValue();
     final DataFrame frame=intermediateTable.select(column).distinct();
     final Row[] rows=frame.collect();
-    dictionaryMap.put(tblColRef,DictionaryGenerator.buildDictionaryFromValueEnumerator(tblColRef.getType(),new IterableDictionaryValueEnumerator(new Iterable<byte[]>(){
+    dictionaryMap.put(tblColRef,DictionaryGenerator.buildDictionary(tblColRef.getType(),new IterableDictionaryValueEnumerator(new Iterable<byte[]>(){
       @Override public Iterator<byte[]> iterator(){
         return new Iterator<byte[]>(){
           int i=0;

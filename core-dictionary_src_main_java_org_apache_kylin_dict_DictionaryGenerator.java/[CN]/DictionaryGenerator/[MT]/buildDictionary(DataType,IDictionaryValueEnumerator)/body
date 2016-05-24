@@ -1,0 +1,15 @@
+{
+  Preconditions.checkNotNull(dataType,"dataType cannot be null");
+  IDictionaryBuilder builder;
+  if (dataType.isDateTimeFamily()) {
+    if (dataType.isDate())     builder=new DateDictBuilder();
+ else     builder=new TimeDictBuilder();
+  }
+ else   if (dataType.isNumberFamily()) {
+    builder=new NumberDictBuilder();
+  }
+ else {
+    builder=new StringDictBuilder();
+  }
+  return buildDictionary(builder,valueEnumerator);
+}

@@ -1,6 +1,6 @@
 {
   CubeManager cubeMgr=CubeManager.getInstance(config);
-  for (  TblColRef col : cubeSeg.getCubeDesc().getAllColumnsNeedDictionary()) {
+  for (  TblColRef col : cubeSeg.getCubeDesc().getAllColumnsNeedDictionaryBuilt()) {
     logger.info("Building dictionary for " + col);
     cubeMgr.buildDictionary(cubeSeg,col,factTableValueProvider);
   }

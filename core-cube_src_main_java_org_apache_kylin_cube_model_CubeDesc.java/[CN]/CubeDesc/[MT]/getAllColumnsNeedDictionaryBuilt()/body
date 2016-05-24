@@ -1,0 +1,9 @@
+{
+  Set<TblColRef> result=getAllColumnsHaveDictionary();
+  if (dictionaries != null) {
+    for (    DictionaryDesc dictDesc : dictionaries) {
+      if (dictDesc.getResuseColumnRef() != null)       result.remove(dictDesc.getColumnRef());
+    }
+  }
+  return result;
+}

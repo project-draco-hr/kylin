@@ -1,0 +1,20 @@
+{
+  Set<TblColRef> result=Sets.newLinkedHashSet();
+  for (  RowKeyColDesc rowKeyColDesc : rowkey.getRowKeyColumns()) {
+    TblColRef colRef=rowKeyColDesc.getColRef();
+    if (rowkey.isUseDictionary(colRef)) {
+      result.add(colRef);
+    }
+  }
+  for (  MeasureDesc measure : measures) {
+    MeasureType<?> aggrType=measure.getFunction().getMeasureType();
+    result.addAll(aggrType.getColumnsNeedDictionary(measure.getFunction()));
+  }
+  if (dictionaries != null) {
+    for (    DictionaryDesc dictDesc : dictionaries) {
+      TblColRef col=dictDesc.getColumnRef();
+      result.add(col);
+    }
+  }
+  return result;
+}

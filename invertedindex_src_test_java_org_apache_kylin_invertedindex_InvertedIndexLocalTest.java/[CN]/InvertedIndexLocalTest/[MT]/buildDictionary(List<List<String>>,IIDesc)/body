@@ -14,7 +14,7 @@
   }
   Dictionary<?>[] result=new Dictionary<?>[desc.listAllColumns().size()];
   for (  TblColRef tblColRef : valueMap.keys()) {
-    result[desc.findColumn(tblColRef)]=DictionaryGenerator.buildDictionaryFromValueEnumerator(tblColRef.getType(),new IterableDictionaryValueEnumerator(Collections2.transform(valueMap.get(tblColRef),new Function<String,byte[]>(){
+    result[desc.findColumn(tblColRef)]=DictionaryGenerator.buildDictionary(tblColRef.getType(),new IterableDictionaryValueEnumerator(Collections2.transform(valueMap.get(tblColRef),new Function<String,byte[]>(){
       @Nullable @Override public byte[] apply(      String input){
         try {
           return input.getBytes("UTF-8");

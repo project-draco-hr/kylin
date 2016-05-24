@@ -1,6 +1,6 @@
 {
   Map<TblColRef,Dictionary<String>> result=Maps.newHashMap();
-  for (  TblColRef col : getCubeDesc().getAllColumnsNeedDictionary()) {
+  for (  TblColRef col : getCubeDesc().getAllColumnsHaveDictionary()) {
     result.put(col,(Dictionary<String>)getDictionary(col));
   }
   return result;

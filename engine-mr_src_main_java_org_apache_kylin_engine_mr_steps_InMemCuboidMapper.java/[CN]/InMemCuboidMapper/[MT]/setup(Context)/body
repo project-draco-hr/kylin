@@ -9,7 +9,7 @@
   cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
   flatTableInputFormat=MRUtil.getBatchCubingInputSide(cubeSegment).getFlatTableInputFormat();
   Map<TblColRef,Dictionary<String>> dictionaryMap=Maps.newHashMap();
-  for (  TblColRef col : cubeDesc.getAllColumnsNeedDictionary()) {
+  for (  TblColRef col : cubeDesc.getAllColumnsHaveDictionary()) {
     Dictionary<?> dict=cubeSegment.getDictionary(col);
     if (dict == null) {
       logger.warn("Dictionary for " + col + " was not found.");
