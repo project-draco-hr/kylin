@@ -3,8 +3,8 @@
     if (dumpedFile == null || !dumpedFile.exists()) {
       throw new RuntimeException("Dumped file cannot be found at: " + (dumpedFile == null ? "<null>" : dumpedFile.getAbsolutePath()));
     }
-    ois=new ObjectInputStream(new FileInputStream(dumpedFile));
-    final int count=ois.readInt();
+    dis=new DataInputStream(new FileInputStream(dumpedFile));
+    final int count=dis.readInt();
     return new Iterator<Pair<byte[],byte[]>>(){
       int cursorIdx=0;
       @Override public boolean hasNext(){
@@ -13,8 +13,12 @@
       @Override public Pair<byte[],byte[]> next(){
         try {
           cursorIdx++;
-          byte[] key=(byte[])ois.readObject();
-          byte[] value=(byte[])ois.readObject();
+          int keyLen=dis.readInt();
+          byte[] key=new byte[keyLen];
+          dis.read(key);
+          int valueLen=dis.readInt();
+          byte[] value=new byte[valueLen];
+          dis.read(value);
           return new Pair<>(key,value);
         }
  catch (        Exception e) {

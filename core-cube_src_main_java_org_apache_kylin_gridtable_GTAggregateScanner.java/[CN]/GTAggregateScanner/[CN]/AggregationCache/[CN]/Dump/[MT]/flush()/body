@@ -1,24 +1,26 @@
 {
   if (buffMap != null) {
-    ObjectOutputStream oos=null;
+    DataOutputStream dos=null;
     Object[] aggrResult=null;
     try {
       dumpedFile=File.createTempFile("KYLIN_AGGR_",".tmp");
       logger.info("AggregationCache will dump to file: " + dumpedFile.getAbsolutePath());
-      oos=new ObjectOutputStream(new FileOutputStream(dumpedFile));
-      oos.writeInt(buffMap.size());
+      dos=new DataOutputStream(new FileOutputStream(dumpedFile));
+      dos.writeInt(buffMap.size());
       for (      Entry<byte[],MeasureAggregator[]> entry : buffMap.entrySet()) {
         MeasureAggregators aggs=new MeasureAggregators(entry.getValue());
         aggrResult=new Object[metrics.trueBitCount()];
         aggs.collectStates(aggrResult);
         ByteBuffer metricsBuf=measureCodec.encode(aggrResult);
-        oos.writeObject(entry.getKey());
-        oos.writeObject(BytesUtil.subarray(metricsBuf.array(),0,metricsBuf.position()));
+        dos.writeInt(entry.getKey().length);
+        dos.write(entry.getKey());
+        dos.writeInt(metricsBuf.position());
+        dos.write(metricsBuf.array(),0,metricsBuf.position());
       }
     }
   finally {
       buffMap=null;
-      if (oos != null)       oos.close();
+      IOUtils.closeQuietly(dos);
     }
   }
 }

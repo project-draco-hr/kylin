@@ -1,5 +1,5 @@
 {
   buffMap=null;
-  if (ois != null)   ois.close();
+  if (dis != null)   dis.close();
   if (dumpedFile != null && dumpedFile.exists())   dumpedFile.delete();
 }
