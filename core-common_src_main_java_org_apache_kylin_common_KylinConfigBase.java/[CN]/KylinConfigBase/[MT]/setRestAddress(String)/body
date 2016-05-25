@@ -1,0 +1,3 @@
+{
+  setProperty("kylin.rest.address",restAddress);
+}

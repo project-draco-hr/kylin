@@ -1,4 +1,10 @@
 {
+  String serverMode=jobEngineConfig.getConfig().getServerMode();
+  if (!("job".equals(serverMode.toLowerCase()) || "all".equals(serverMode.toLowerCase()))) {
+    logger.info("server mode: " + serverMode + ", no need to run job scheduler");
+    return;
+  }
+  logger.info("Initializing Job Engine ....");
   if (!initialized) {
     initialized=true;
   }
@@ -14,27 +20,7 @@
   int corePoolSize=jobEngineConfig.getMaxConcurrentJobLimit();
   jobPool=new ThreadPoolExecutor(corePoolSize,corePoolSize,Long.MAX_VALUE,TimeUnit.DAYS,new SynchronousQueue<Runnable>());
   context=new DefaultContext(Maps.<String,Executable>newConcurrentMap(),jobEngineConfig.getConfig());
-  for (  AbstractExecutable executable : executableManager.getAllExecutables()) {
-    if (executable.getStatus() == ExecutableState.READY) {
-      executableManager.updateJobOutput(executable.getId(),ExecutableState.ERROR,null,"scheduler initializing work to reset job to ERROR status");
-    }
-  }
-  executableManager.updateAllRunningJobsToError();
-  Runtime.getRuntime().addShutdownHook(new Thread(){
-    public void run(){
-      logger.debug("Closing zk connection");
-      try {
-        shutdown();
-      }
- catch (      SchedulerException e) {
-        logger.error("error shutdown scheduler",e);
-      }
- finally {
-        jobLock.unlock();
-      }
-    }
-  }
-);
+  executableManager.resumeAllRunningJobs();
   fetcher=new FetcherRunner();
   fetcherPool.scheduleAtFixedRate(fetcher,10,ExecutableConstants.DEFAULT_SCHEDULER_INTERVAL_SECONDS,TimeUnit.SECONDS);
   hasStarted=true;

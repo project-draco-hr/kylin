@@ -1,5 +1,18 @@
 {
+  String clzName=impls.get(id);
+  if (clzName == null) {
+    throw new IllegalArgumentException("Implementation class missing, ID " + id + ", interface "+ interfaceClz.getName());
+  }
   @SuppressWarnings("unchecked") I result=(I)instances[id];
+  if (result == null) {
+    try {
+      result=(I)ClassUtil.newInstance(clzName);
+      instances[id]=result;
+    }
+ catch (    Exception ex) {
+      logger.warn("Implementation missing " + clzName + " - "+ ex);
+    }
+  }
   if (result == null)   throw new IllegalArgumentException("Implementations missing, ID " + id + ", interface "+ interfaceClz.getName());
   return result;
 }

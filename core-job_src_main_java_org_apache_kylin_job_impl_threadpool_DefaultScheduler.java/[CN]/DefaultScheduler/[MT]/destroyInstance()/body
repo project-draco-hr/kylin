@@ -1,0 +1,13 @@
+{
+  DefaultScheduler tmp=INSTANCE;
+  INSTANCE=null;
+  if (tmp != null) {
+    try {
+      tmp.shutdown();
+    }
+ catch (    SchedulerException e) {
+      logger.error("error stop DefaultScheduler",e);
+      throw new RuntimeException(e);
+    }
+  }
+}

@@ -3,24 +3,31 @@
   TimeZone tzone=TimeZone.getTimeZone(timeZone);
   TimeZone.setDefault(tzone);
   final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
-  String serverMode=kylinConfig.getServerMode();
-  if (Constant.SERVER_MODE_JOB.equals(serverMode.toLowerCase()) || Constant.SERVER_MODE_ALL.equals(serverMode.toLowerCase())) {
-    logger.info("Initializing Job Engine ....");
-    new Thread(new Runnable(){
-      @Override public void run(){
-        try {
-          DefaultScheduler scheduler=DefaultScheduler.getInstance();
-          scheduler.init(new JobEngineConfig(kylinConfig),jobLock);
-          while (!scheduler.hasStarted()) {
-            logger.error("scheduler has not been started");
-            Thread.sleep(1000);
-          }
-        }
- catch (        Exception e) {
-          throw new RuntimeException(e);
+  final Scheduler<AbstractExecutable> scheduler=(Scheduler<AbstractExecutable>)SchedulerFactory.scheduler(kylinConfig.getSchedulerType());
+  new Thread(new Runnable(){
+    @Override public void run(){
+      try {
+        scheduler.init(new JobEngineConfig(kylinConfig),jobLock);
+        while (!scheduler.hasStarted()) {
+          logger.error("scheduler has not been started");
+          Thread.sleep(1000);
         }
       }
+ catch (      Exception e) {
+        throw new RuntimeException(e);
+      }
     }
-).start();
   }
+).start();
+  Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
+    @Override public void run(){
+      try {
+        scheduler.shutdown();
+      }
+ catch (      SchedulerException e) {
+        logger.error("error occurred to shutdown scheduler",e);
+      }
+    }
+  }
+));
 }

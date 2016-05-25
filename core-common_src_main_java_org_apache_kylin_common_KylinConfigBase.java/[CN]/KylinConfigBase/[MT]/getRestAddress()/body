@@ -1,0 +1,3 @@
+{
+  return this.getOptional("kylin.rest.address","localhost:7070");
+}

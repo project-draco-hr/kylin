@@ -1,0 +1,5 @@
+{
+  destroyInstance();
+  INSTANCE=new DefaultScheduler();
+  return INSTANCE;
+}

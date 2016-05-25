@@ -1,4 +1,5 @@
 {
+  this.impls.putAll(impls);
   this.interfaceClz=interfaceClz;
-  this.instances=initInstances(impls);
+  this.instances=initInstances(this.impls);
 }

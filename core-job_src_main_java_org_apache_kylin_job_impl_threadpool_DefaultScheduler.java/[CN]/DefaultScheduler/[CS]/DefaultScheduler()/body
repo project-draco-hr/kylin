@@ -1,2 +1,5 @@
 {
+  if (INSTANCE != null) {
+    throw new IllegalStateException("DefaultScheduler has been initiated.");
+  }
 }
