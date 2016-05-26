@@ -1,0 +1,3 @@
+{
+  setProperty("kylin.cluster.name",clusterName);
+}

@@ -1,0 +1,3 @@
+{
+  return this.getOptional("kylin.cluster.name",getMetadataUrlPrefix());
+}
