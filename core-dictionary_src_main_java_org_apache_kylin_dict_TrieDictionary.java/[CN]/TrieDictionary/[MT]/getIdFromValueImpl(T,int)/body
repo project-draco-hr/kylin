@@ -1,6 +1,6 @@
 {
   if (enableValueCache && roundingFlag == 0) {
-    HashMap cache=valueToIdCache.get();
+    Map cache=valueToIdCache.get();
     if (cache != null) {
       Integer id=null;
       id=(Integer)cache.get(value);

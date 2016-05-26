@@ -21,7 +21,7 @@
  else     throw new RuntimeException(e);
   }
   if (enableValueCache) {
-    valueToIdCache=new SoftReference<HashMap>(new HashMap());
+    valueToIdCache=new SoftReference<Map>(new ConcurrentHashMap());
     idToValueCache=new SoftReference<Object[]>(new Object[nValues]);
   }
 }
