@@ -1,0 +1,16 @@
+{
+  if (enableValueCache && roundingFlag == 0) {
+    HashMap cache=valueToIdCache.get();
+    if (cache != null) {
+      Integer id=null;
+      id=(Integer)cache.get(value);
+      if (id != null)       return id.intValue();
+      byte[] valueBytes=bytesConverter.convertToBytes(value);
+      id=getIdFromValueBytes(valueBytes,0,valueBytes.length,roundingFlag);
+      cache.put(value,id);
+      return id;
+    }
+  }
+  byte[] valueBytes=bytesConverter.convertToBytes(value);
+  return getIdFromValueBytes(valueBytes,0,valueBytes.length,roundingFlag);
+}

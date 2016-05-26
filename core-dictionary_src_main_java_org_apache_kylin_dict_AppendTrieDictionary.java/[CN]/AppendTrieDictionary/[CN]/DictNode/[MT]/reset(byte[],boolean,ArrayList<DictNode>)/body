@@ -1,0 +1,9 @@
+{
+  this.part=value;
+  this.isEndOfValue=isEndOfValue;
+  clearChild();
+  for (  DictNode child : children) {
+    addChild(child);
+  }
+  this.id=-1;
+}

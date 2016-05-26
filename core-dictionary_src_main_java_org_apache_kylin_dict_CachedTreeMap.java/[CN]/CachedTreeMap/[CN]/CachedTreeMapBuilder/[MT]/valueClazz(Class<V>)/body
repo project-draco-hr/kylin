@@ -1,0 +1,4 @@
+{
+  this.valueClazz=clazz;
+  return this;
+}

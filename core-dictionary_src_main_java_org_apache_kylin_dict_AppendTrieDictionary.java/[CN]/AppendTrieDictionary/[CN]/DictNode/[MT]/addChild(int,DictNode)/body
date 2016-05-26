@@ -1,0 +1,12 @@
+{
+  child.parent=this;
+  if (index < 0) {
+    this.children.add(child);
+  }
+ else {
+    this.children.add(index,child);
+  }
+  for (DictNode p=this; p != null; p=p.parent) {
+    p.childrenCount+=child.childrenCount;
+  }
+}

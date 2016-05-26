@@ -1,0 +1,6 @@
+DictNode n
+int offset
+boolean isLastChild
+int sizeChildOffset
+int sizeId
+byte[] trieBytes

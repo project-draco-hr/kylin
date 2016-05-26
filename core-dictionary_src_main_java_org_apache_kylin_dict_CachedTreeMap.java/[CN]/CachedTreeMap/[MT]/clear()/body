@@ -1,0 +1,5 @@
+{
+  super.clear();
+  values=null;
+  valueCache.invalidateAll();
+}

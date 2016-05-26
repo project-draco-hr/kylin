@@ -1,0 +1,3 @@
+{
+  return Bytes.toStringBinary(key);
+}

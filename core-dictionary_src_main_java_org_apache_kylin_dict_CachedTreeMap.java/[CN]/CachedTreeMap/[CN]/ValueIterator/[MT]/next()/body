@@ -1,0 +1,10 @@
+{
+  currentKey=keyIterator.next();
+  try {
+    return (V)valueCache.get(currentKey);
+  }
+ catch (  ExecutionException e) {
+    logger.error(String.format("get value with key %s exception: ",currentKey,e),e);
+    return null;
+  }
+}

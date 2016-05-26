@@ -1,0 +1,3 @@
+DictNode node
+byte[] value
+int start

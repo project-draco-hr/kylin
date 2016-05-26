@@ -1,0 +1,4 @@
+{
+  DictNode root=DictSlice.rebuildNodeByDeserialize(in);
+  this.clone(root);
+}

@@ -1,0 +1,4 @@
+{
+  visitor.visit(node,level);
+  for (  DictNode c : node.children)   traverseR(c,visitor,level + 1);
+}

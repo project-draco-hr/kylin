@@ -1,0 +1,22 @@
+{
+  if (immutable) {
+    return;
+  }
+  long t0=System.currentTimeMillis();
+  String fileName=generateFileName(key);
+  Path filePath=new Path(fileName);
+  try (FSDataOutputStream out=(FileSystem.get(filePath.toUri(),conf)).create(filePath,true,BUFFER_SIZE,(short)2,BUFFER_SIZE * 8)){
+    value.write(out);
+    if (!persistent) {
+      FileSystem.get(filePath.toUri(),conf).deleteOnExit(filePath);
+    }
+  }
+ catch (  Exception e) {
+    logger.error(String.format("write value into %s exception: %s",fileName,e),e);
+    throw new RuntimeException(e.getCause());
+  }
+ finally {
+    fileList.add(fileName);
+    writeValueTime+=System.currentTimeMillis() - t0;
+  }
+}

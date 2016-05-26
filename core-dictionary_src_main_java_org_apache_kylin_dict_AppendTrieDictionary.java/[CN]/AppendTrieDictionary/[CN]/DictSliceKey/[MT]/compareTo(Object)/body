@@ -1,0 +1,7 @@
+{
+  if (!(o instanceof DictSliceKey)) {
+    return -1;
+  }
+  DictSliceKey other=(DictSliceKey)o;
+  return Bytes.compareTo(key,other.key);
+}

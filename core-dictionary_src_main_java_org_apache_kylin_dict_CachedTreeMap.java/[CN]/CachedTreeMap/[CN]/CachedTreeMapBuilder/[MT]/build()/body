@@ -1,0 +1,10 @@
+{
+  if (baseDir == null) {
+    throw new RuntimeException("CachedTreeMap need a baseDir to cache data");
+  }
+  if (keyClazz == null || valueClazz == null) {
+    throw new RuntimeException("CachedTreeMap need key and value clazz to serialize data");
+  }
+  CachedTreeMap map=new CachedTreeMap(maxCount,keyClazz,valueClazz,baseDir,persistent,immutable);
+  return map;
+}

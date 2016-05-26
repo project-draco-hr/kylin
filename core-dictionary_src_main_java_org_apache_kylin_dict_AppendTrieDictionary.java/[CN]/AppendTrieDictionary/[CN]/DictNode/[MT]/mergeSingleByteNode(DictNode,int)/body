@@ -1,0 +1,16 @@
+{
+  DictNode current=root;
+  DictNode child;
+  while (!current.children.isEmpty()) {
+    child=leftOrRight == 0 ? current.children.get(0) : current.children.get(current.children.size() - 1);
+    if (current.children.size() > 1 || current.isEndOfValue) {
+      current=child;
+      continue;
+    }
+    byte[] newValue=new byte[current.part.length + child.part.length];
+    System.arraycopy(current.part,0,newValue,0,current.part.length);
+    System.arraycopy(child.part,0,newValue,current.part.length,child.part.length);
+    current.reset(newValue,child.isEndOfValue,child.children);
+    current.id=child.id;
+  }
+}

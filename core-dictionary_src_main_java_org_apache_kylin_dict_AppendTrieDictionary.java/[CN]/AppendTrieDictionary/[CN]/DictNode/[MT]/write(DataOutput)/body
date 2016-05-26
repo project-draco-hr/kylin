@@ -1,0 +1,4 @@
+{
+  byte[] bytes=buildTrieBytes();
+  out.write(bytes);
+}

@@ -1,0 +1,15 @@
+{
+  if (dictSliceMap.isEmpty()) {
+    return -1;
+  }
+  byte[] tempVal=new byte[len];
+  System.arraycopy(value,offset,tempVal,0,len);
+  DictSliceKey sliceKey=dictSliceMap.floorKey(DictSliceKey.wrap(tempVal));
+  if (sliceKey == null) {
+    sliceKey=dictSliceMap.firstKey();
+  }
+  DictSlice slice=dictSliceMap.get(sliceKey);
+  int id=slice.getIdFromValueBytesImpl(value,offset,len,roundingFlag);
+  if (id < 0)   logger.error("Not a valid value: " + bytesConverter.convertFromBytes(value,offset,len));
+  return id;
+}

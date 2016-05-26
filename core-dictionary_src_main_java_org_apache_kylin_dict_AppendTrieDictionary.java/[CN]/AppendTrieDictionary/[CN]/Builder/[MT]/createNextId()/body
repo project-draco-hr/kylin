@@ -1,0 +1,8 @@
+{
+  int id=++maxId;
+  if (maxId < 0) {
+    throw new IllegalArgumentException("AppendTrieDictionary Id overflow Integer.MAX_VALUE");
+  }
+  nValues++;
+  return id;
+}

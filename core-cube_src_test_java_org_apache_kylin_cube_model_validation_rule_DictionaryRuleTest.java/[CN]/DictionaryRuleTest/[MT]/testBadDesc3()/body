@@ -1,0 +1,3 @@
+{
+  testBadDictionaryDesc("Column DEFAULT.TEST_KYLIN_FACT.LSTG_SITE_ID used as dimension and conflict with GlobalDictBuilder",DictionaryDesc.create("lstg_site_id",null,GlobalDictionaryBuilder.class.getName()));
+}

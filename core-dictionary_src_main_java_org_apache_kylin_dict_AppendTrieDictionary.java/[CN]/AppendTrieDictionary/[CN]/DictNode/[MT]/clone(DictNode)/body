@@ -1,0 +1,9 @@
+{
+  this.part=o.part;
+  this.id=o.id;
+  this.isEndOfValue=o.isEndOfValue;
+  this.children=o.children;
+  this.nValuesBeneath=o.nValuesBeneath;
+  this.parent=o.parent;
+  this.childrenCount=o.childrenCount;
+}

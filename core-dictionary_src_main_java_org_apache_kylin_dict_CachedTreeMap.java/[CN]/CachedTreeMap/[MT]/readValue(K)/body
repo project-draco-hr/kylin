@@ -1,0 +1,17 @@
+{
+  long t0=System.currentTimeMillis();
+  String fileName=generateFileName(key);
+  Path filePath=new Path(fileName);
+  try (FSDataInputStream input=(FileSystem.get(filePath.toUri(),conf)).open(filePath,BUFFER_SIZE)){
+    V value=valueClazz.newInstance();
+    value.readFields(input);
+    return value;
+  }
+ catch (  Exception e) {
+    logger.error(String.format("read value from %s exception: %s",fileName,e),e);
+    return null;
+  }
+ finally {
+    readValueTime+=System.currentTimeMillis() - t0;
+  }
+}

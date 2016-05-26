@@ -1,0 +1,3 @@
+{
+  return rebuildTrieTreeR(headSize,null);
+}

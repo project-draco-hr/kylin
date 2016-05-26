@@ -1,0 +1,3 @@
+{
+  addValue(bytesConverter.convertToBytes(value));
+}

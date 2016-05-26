@@ -1,0 +1,12 @@
+{
+  ByteArrayOutputStream bytes=new ByteArrayOutputStream();
+  DictNode p=this;
+  while (true) {
+    bytes.write(p.part,0,p.part.length);
+    if (p.isEndOfValue || p.children.size() == 0) {
+      break;
+    }
+    p=p.children.get(0);
+  }
+  return bytes.toByteArray();
+}

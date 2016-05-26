@@ -1,0 +1,4 @@
+{
+  int id=lookupSeqNoFromValue(headSize,value,offset,offset + len,roundingFlag);
+  return id;
+}

@@ -1,0 +1,7 @@
+AppendTrieDictionary dict
+String baseDir
+int maxId
+int maxValueLength
+int nValues
+BytesConverter<T> bytesConverter
+byte[] dictMapBytes

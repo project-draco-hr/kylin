@@ -1,0 +1,14 @@
+{
+  if (super.containsKey(key)) {
+    try {
+      return valueCache.get((K)key);
+    }
+ catch (    ExecutionException e) {
+      logger.error(String.format("get value with key %s exception: ",key,e),e);
+      return null;
+    }
+  }
+ else {
+    return null;
+  }
+}

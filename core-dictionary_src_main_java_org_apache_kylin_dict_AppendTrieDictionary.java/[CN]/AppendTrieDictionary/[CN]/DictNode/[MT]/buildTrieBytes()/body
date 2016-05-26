@@ -1,0 +1,43 @@
+{
+  Stats stats=Stats.stats(this);
+  int sizeChildOffset=stats.mbpn_sizeChildOffset;
+  int sizeId=stats.mbpn_sizeId;
+  byte[] head;
+  try {
+    ByteArrayOutputStream byteBuf=new ByteArrayOutputStream();
+    DataOutputStream headOut=new DataOutputStream(byteBuf);
+    headOut.write(AppendTrieDictionary.HEAD_MAGIC);
+    headOut.writeShort(0);
+    headOut.writeInt(stats.mbpn_footprint);
+    headOut.writeInt(stats.nValues);
+    headOut.write(sizeChildOffset);
+    headOut.write(sizeId);
+    headOut.close();
+    head=byteBuf.toByteArray();
+    BytesUtil.writeUnsigned(head.length,head,AppendTrieDictionary.HEAD_SIZE_I,2);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+  byte[] trieBytes=new byte[stats.mbpn_footprint + head.length];
+  System.arraycopy(head,0,trieBytes,0,head.length);
+  LinkedList<DictNode> open=new LinkedList<DictNode>();
+  IdentityHashMap<DictNode,Integer> offsetMap=new IdentityHashMap<DictNode,Integer>();
+  int o=head.length;
+  offsetMap.put(this,o);
+  o=build_writeNode(this,o,true,sizeChildOffset,sizeId,trieBytes);
+  if (this.children.isEmpty() == false)   open.addLast(this);
+  while (open.isEmpty() == false) {
+    DictNode parent=open.removeFirst();
+    build_overwriteChildOffset(offsetMap.get(parent),o - head.length,sizeChildOffset,trieBytes);
+    for (int i=0; i < parent.children.size(); i++) {
+      DictNode c=parent.children.get(i);
+      boolean isLastChild=(i == parent.children.size() - 1);
+      offsetMap.put(c,o);
+      o=build_writeNode(c,o,isLastChild,sizeChildOffset,sizeId,trieBytes);
+      if (c.children.isEmpty() == false)       open.addLast(c);
+    }
+  }
+  if (o != trieBytes.length)   throw new RuntimeException();
+  return trieBytes;
+}

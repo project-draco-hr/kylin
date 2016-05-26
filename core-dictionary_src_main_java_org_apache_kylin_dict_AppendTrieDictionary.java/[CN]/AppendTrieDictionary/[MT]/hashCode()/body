@@ -1,0 +1,7 @@
+{
+  int hashCode=31;
+  for (  DictSlice slice : dictSliceMap.values()) {
+    hashCode+=31 * slice.hashCode();
+  }
+  return hashCode;
+}

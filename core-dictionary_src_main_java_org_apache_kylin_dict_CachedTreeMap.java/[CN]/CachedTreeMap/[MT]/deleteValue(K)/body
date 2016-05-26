@@ -1,0 +1,19 @@
+{
+  if (persistent && immutable) {
+    return;
+  }
+  String fileName=generateFileName(key);
+  Path filePath=new Path(fileName);
+  try {
+    FileSystem fs=FileSystem.get(filePath.toUri(),conf);
+    if (fs.exists(filePath)) {
+      fs.delete(filePath,true);
+    }
+  }
+ catch (  Exception e) {
+    logger.error(String.format("delete value file %s exception: %s",fileName,e),e);
+  }
+ finally {
+    fileList.remove(fileName);
+  }
+}

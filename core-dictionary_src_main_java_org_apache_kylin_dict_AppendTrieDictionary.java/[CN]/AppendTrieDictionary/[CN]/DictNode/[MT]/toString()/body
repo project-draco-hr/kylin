@@ -1,0 +1,3 @@
+{
+  return String.format("DictNode[root=%s, nodes=%d, firstValue=%s]",Bytes.toStringBinary(part),childrenCount,Bytes.toStringBinary(firstValue()));
+}

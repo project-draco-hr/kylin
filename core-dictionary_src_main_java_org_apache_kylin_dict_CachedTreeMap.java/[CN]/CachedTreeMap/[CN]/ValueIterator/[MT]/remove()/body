@@ -1,0 +1,4 @@
+{
+  keyIterator.remove();
+  valueCache.invalidate(currentKey);
+}

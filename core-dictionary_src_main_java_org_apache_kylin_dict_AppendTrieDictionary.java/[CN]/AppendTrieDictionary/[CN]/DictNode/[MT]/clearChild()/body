@@ -1,0 +1,7 @@
+{
+  this.children.clear();
+  int childrenCountDelta=this.childrenCount - 1;
+  for (DictNode p=this; p != null; p=p.parent) {
+    p.childrenCount-=childrenCountDelta;
+  }
+}

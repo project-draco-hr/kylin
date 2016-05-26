@@ -1,0 +1,7 @@
+{
+  DictionaryDesc desc=new DictionaryDesc();
+  desc.column=column;
+  desc.reuseColumn=reuseColumn;
+  desc.builderClass=builderClass;
+  return desc;
+}

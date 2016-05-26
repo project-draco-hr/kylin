@@ -1,0 +1,5 @@
+{
+  InputStream is=new FileInputStream("src/test/resources/dict/dw_category_grouping_names.dat");
+  ArrayList<String> str=loadStrings(is);
+  testStringDictAppend(str,null,true);
+}

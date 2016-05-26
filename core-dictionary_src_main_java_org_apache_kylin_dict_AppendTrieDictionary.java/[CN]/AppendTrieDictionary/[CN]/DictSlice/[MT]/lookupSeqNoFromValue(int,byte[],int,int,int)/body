@@ -1,0 +1,34 @@
+{
+  while (true) {
+    int p=n + firstByteOffset;
+    int end=p + BytesUtil.readUnsigned(trieBytes,p - 1,1);
+    for (; p < end && o < inpEnd; p++, o++) {
+      if (trieBytes[p] != inp[o]) {
+        return -1;
+      }
+    }
+    boolean isEndOfValue=checkFlag(n,BIT_IS_END_OF_VALUE);
+    if (o == inpEnd) {
+      return p == end && isEndOfValue ? BytesUtil.readUnsigned(trieBytes,end,sizeOfId) : -1;
+    }
+    int c=headSize + (BytesUtil.readUnsigned(trieBytes,n,sizeChildOffset) & childOffsetMask);
+    if (c == headSize)     return -1;
+    byte inpByte=inp[o];
+    int comp;
+    while (true) {
+      p=c + firstByteOffset;
+      comp=BytesUtil.compareByteUnsigned(trieBytes[p],inpByte);
+      if (comp == 0) {
+        n=c;
+        break;
+      }
+ else       if (comp < 0) {
+        if (checkFlag(c,BIT_IS_LAST_CHILD))         return -1;
+        c=p + BytesUtil.readUnsigned(trieBytes,p - 1,1) + (checkFlag(c,BIT_IS_END_OF_VALUE) ? sizeOfId : 0);
+      }
+ else {
+        return -1;
+      }
+    }
+  }
+}

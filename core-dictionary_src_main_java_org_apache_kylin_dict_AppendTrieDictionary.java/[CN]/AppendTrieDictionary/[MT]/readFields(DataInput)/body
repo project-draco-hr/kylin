@@ -1,0 +1,22 @@
+{
+  String baseDir=in.readUTF();
+  Path filePath=new Path(baseDir + "/.index");
+  Configuration conf=new Configuration();
+  try (FSDataInputStream input=(FileSystem.get(filePath.toUri(),conf)).open(filePath,8 * 1024 * 1024)){
+    int baseId=input.readInt();
+    int maxId=input.readInt();
+    int maxValueLength=input.readInt();
+    int nValues=input.readInt();
+    String converterName=input.readUTF();
+    BytesConverter converter=null;
+    if (converterName.isEmpty() == false) {
+      try {
+        converter=ClassUtil.forName(converterName,BytesConverter.class).newInstance();
+      }
+ catch (      Exception e) {
+        throw new IOException(e);
+      }
+    }
+    update(baseDir,baseId,maxId,maxValueLength,nValues,converter,input);
+  }
+ }

@@ -11,5 +11,5 @@
  else {
     builder=new StringDictBuilder();
   }
-  return buildDictionary(builder,valueEnumerator);
+  return buildDictionary(builder,null,valueEnumerator);
 }

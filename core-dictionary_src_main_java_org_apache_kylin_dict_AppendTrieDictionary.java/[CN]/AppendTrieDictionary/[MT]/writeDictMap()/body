@@ -1,0 +1,9 @@
+{
+  ByteArrayOutputStream buf=new ByteArrayOutputStream();
+  DataOutputStream out=new DataOutputStream(buf);
+  ((Writable)dictSliceMap).write(out);
+  byte[] dictMapBytes=buf.toByteArray();
+  buf.close();
+  out.close();
+  return dictMapBytes;
+}

@@ -1,0 +1,4 @@
+{
+  out.writeInt(key.length);
+  out.write(key);
+}

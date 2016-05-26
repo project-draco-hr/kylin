@@ -1,0 +1,36 @@
+{
+  super();
+  this.keyClazz=keyClazz;
+  this.valueClazz=valueClazz;
+  this.fileList=new TreeSet<>();
+  this.conf=new Configuration();
+  this.baseDir=baseDir;
+  this.persistent=persistent;
+  this.immutable=immutable;
+  CacheBuilder builder=CacheBuilder.newBuilder().removalListener(new RemovalListener<K,V>(){
+    @Override public void onRemoval(    RemovalNotification<K,V> notification){
+      logger.info(String.format("Evict cache key %s(%d) with value %s caused by %s, size %d/%d ",notification.getKey(),notification.getKey().hashCode(),notification.getValue(),notification.getCause(),size(),valueCache.size()));
+switch (notification.getCause()) {
+case SIZE:
+        writeValue(notification.getKey(),notification.getValue());
+      break;
+case EXPLICIT:
+    break;
+default :
+  throw new RuntimeException("unexpected evict reason " + notification.getCause());
+}
+}
+}
+).maximumSize(maxCount);
+if (this.immutable) {
+builder.softValues();
+}
+this.valueCache=builder.build(new CacheLoader<K,V>(){
+@Override public V load(K key) throws Exception {
+V value=readValue(key);
+logger.info(String.format("Load cache by key %s(%d) with value %s",key,key.hashCode(),value));
+return value;
+}
+}
+);
+}

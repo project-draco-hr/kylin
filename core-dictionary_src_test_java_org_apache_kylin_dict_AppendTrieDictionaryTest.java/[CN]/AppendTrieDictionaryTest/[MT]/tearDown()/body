@@ -1,0 +1,8 @@
+{
+  String workingDir=KylinConfig.getInstanceFromEnv().getHdfsWorkingDirectory();
+  try {
+    FileSystem.get(new Path(workingDir).toUri(),new Configuration()).delete(new Path(workingDir),true);
+  }
+ catch (  IOException e) {
+  }
+}

@@ -1,0 +1,8 @@
+{
+  if ((o instanceof AppendTrieDictionary.DictSlice) == false) {
+    logger.info("Equals return false because it's not DictInfo");
+    return false;
+  }
+  DictSlice that=(DictSlice)o;
+  return Arrays.equals(this.trieBytes,that.trieBytes);
+}

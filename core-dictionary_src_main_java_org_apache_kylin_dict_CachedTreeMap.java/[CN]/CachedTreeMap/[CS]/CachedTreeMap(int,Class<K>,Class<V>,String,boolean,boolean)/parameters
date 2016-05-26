@@ -1,0 +1,6 @@
+int maxCount
+Class<K> keyClazz
+Class<V> valueClazz
+String baseDir
+boolean persistent
+boolean immutable

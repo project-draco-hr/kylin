@@ -1,0 +1,3 @@
+{
+  setProperty("kylin.dict.append.cache.size",String.valueOf(cacheSize));
+}

@@ -1,0 +1,14 @@
+{
+  DictionaryRule rule=new DictionaryRule();
+  File f=new File(LocalFileMetadataTestCase.LOCALMETA_TEST_DATA + "/cube_desc/test_kylin_cube_without_slr_left_join_desc.json");
+  CubeDesc desc=JsonUtil.readValue(new FileInputStream(f),CubeDesc.class);
+  for (  DictionaryDesc dictDesc : descs) {
+    desc.getDictionaries().add(dictDesc);
+  }
+  desc.init(config,metadataManager.getAllTablesMap());
+  ValidateContext vContext=new ValidateContext();
+  rule.validate(desc,vContext);
+  vContext.print(System.out);
+  assertTrue(vContext.getResults().length >= 1);
+  assertEquals(expectMessage,vContext.getResults()[0].getMessage());
+}

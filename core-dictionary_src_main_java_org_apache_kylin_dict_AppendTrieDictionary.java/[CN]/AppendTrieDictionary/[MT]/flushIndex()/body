@@ -1,0 +1,12 @@
+{
+  Path filePath=new Path(baseDir + "/.index");
+  Configuration conf=new Configuration();
+  try (FSDataOutputStream indexOut=(FileSystem.get(filePath.toUri(),conf)).create(filePath,true,8 * 1024 * 1024,(short)2,8 * 1024 * 1024* 8)){
+    indexOut.writeInt(baseId);
+    indexOut.writeInt(maxId);
+    indexOut.writeInt(maxValueLength);
+    indexOut.writeInt(nValues);
+    indexOut.writeUTF(bytesConverter.getClass().getName());
+    ((Writable)dictSliceMap).write(indexOut);
+  }
+ }

@@ -1,0 +1,4 @@
+{
+  for (  DictNode c : node.children)   traversePostOrderR(c,visitor,level + 1);
+  visitor.visit(node,level);
+}

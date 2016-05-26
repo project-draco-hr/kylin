@@ -1,0 +1,12 @@
+{
+  ArrayList<String> list=new ArrayList<>();
+  Collections.addAll(list,words);
+  ArrayList<String> notfound=new ArrayList<>();
+  notfound.add("pa");
+  notfound.add("pars");
+  notfound.add("tri");
+  notfound.add("???");
+  for (int i=0; i < 100; i++) {
+    testStringDictAppend(list,notfound,true);
+  }
+}

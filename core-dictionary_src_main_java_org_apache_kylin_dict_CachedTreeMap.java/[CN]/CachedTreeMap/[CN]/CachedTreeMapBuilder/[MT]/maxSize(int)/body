@@ -1,0 +1,4 @@
+{
+  this.maxCount=maxCount;
+  return this;
+}

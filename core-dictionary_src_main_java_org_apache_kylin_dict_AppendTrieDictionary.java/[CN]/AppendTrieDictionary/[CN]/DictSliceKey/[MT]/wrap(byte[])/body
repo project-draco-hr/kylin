@@ -1,0 +1,5 @@
+{
+  DictSliceKey dictKey=new DictSliceKey();
+  dictKey.key=key;
+  return dictKey;
+}

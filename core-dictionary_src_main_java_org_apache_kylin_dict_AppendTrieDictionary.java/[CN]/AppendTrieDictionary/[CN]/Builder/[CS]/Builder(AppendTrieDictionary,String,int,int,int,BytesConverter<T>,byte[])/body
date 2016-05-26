@@ -1,0 +1,14 @@
+{
+  this.dict=dict;
+  this.baseDir=baseDir;
+  this.maxId=maxId;
+  this.maxValueLength=maxValueLength;
+  this.nValues=nValues;
+  this.bytesConverter=bytesConverter;
+  MAX_ENTRY_IN_SLICE=KylinConfig.getInstanceFromEnv().getAppendDictEntrySize();
+  int cacheSize=KylinConfig.getInstanceFromEnv().getAppendDictCacheSize();
+  dictSliceMap=CachedTreeMap.CachedTreeMapBuilder.newBuilder().maxSize(cacheSize).baseDir(baseDir).keyClazz(DictSliceKey.class).valueClazz(DictNode.class).persistent(true).immutable(false).build();
+  if (dictMapBytes != null) {
+    ((Writable)dictSliceMap).readFields(new DataInputStream(new ByteArrayInputStream(dictMapBytes)));
+  }
+}

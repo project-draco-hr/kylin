@@ -1,0 +1,14 @@
+{
+  this.baseDir=baseDir;
+  this.baseId=baseId;
+  this.maxId=maxId;
+  this.maxValueLength=maxValueLength;
+  this.nValues=nValues;
+  this.bytesConverter=bytesConverter;
+  int cacheSize=KylinConfig.getInstanceFromEnv().getAppendDictCacheSize();
+  if (dictSliceMap == null) {
+    dictSliceMap=CachedTreeMap.CachedTreeMapBuilder.newBuilder().maxSize(cacheSize).baseDir(baseDir).persistent(true).immutable(true).keyClazz(DictSliceKey.class).valueClazz(DictSlice.class).build();
+  }
+  dictSliceMap.clear();
+  ((Writable)dictSliceMap).readFields(input);
+}

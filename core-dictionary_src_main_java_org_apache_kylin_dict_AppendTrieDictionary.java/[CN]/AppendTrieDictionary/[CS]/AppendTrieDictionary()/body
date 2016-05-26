@@ -1,0 +1,5 @@
+{
+  if (enableValueCache) {
+    valueToIdCache=new SoftReference<>(new HashMap());
+  }
+}

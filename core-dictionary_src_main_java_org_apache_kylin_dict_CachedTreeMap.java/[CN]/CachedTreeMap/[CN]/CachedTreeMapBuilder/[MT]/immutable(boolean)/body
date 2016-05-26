@@ -1,0 +1,4 @@
+{
+  this.immutable=immutable;
+  return this;
+}

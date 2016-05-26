@@ -1,0 +1,4 @@
+{
+  key=new byte[in.readInt()];
+  in.readFully(key);
+}

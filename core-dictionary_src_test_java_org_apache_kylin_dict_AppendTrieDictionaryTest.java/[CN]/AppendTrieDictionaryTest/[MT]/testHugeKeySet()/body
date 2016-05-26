@@ -1,0 +1,21 @@
+{
+  BytesConverter converter=new StringBytesConverter();
+  AppendTrieDictionary.Builder<String> b=AppendTrieDictionary.Builder.create("/tmp");
+  AppendTrieDictionary<String> dict=null;
+  InputStream is=new FileInputStream("src/test/resources/dict/huge_key");
+  BufferedReader reader=new BufferedReader(new InputStreamReader(is,"UTF-8"));
+  try {
+    String word;
+    while ((word=reader.readLine()) != null) {
+      word=word.trim();
+      if (!word.isEmpty())       ;
+      b.addValue(word);
+    }
+  }
+  finally {
+    reader.close();
+    is.close();
+  }
+  dict=b.build(0);
+  dict.dump(System.out);
+}

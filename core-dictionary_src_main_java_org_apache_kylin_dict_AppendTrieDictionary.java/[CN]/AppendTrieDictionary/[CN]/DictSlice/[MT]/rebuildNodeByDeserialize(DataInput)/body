@@ -1,0 +1,5 @@
+{
+  DictSlice slice=new DictSlice();
+  slice.readFields(in);
+  return slice.rebuildTrieTree();
+}

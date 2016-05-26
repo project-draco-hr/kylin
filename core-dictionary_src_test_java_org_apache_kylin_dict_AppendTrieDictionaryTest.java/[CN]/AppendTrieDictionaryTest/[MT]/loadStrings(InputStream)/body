@@ -1,0 +1,16 @@
+{
+  ArrayList<String> r=new ArrayList<String>();
+  BufferedReader reader=new BufferedReader(new InputStreamReader(is,"UTF-8"));
+  try {
+    String word;
+    while ((word=reader.readLine()) != null) {
+      word=word.trim();
+      if (word.isEmpty() == false)       r.add(word);
+    }
+  }
+  finally {
+    reader.close();
+    is.close();
+  }
+  return r;
+}

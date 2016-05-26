@@ -1,0 +1,16 @@
+{
+  int nodeOffset=headSize;
+  ByteArrayOutputStream bytes=new ByteArrayOutputStream();
+  while (true) {
+    int valueLen=BytesUtil.readUnsigned(trieBytes,nodeOffset + firstByteOffset - 1,1);
+    bytes.write(trieBytes,nodeOffset + firstByteOffset,valueLen);
+    if (checkFlag(nodeOffset,BIT_IS_END_OF_VALUE)) {
+      break;
+    }
+    nodeOffset=headSize + (BytesUtil.readUnsigned(trieBytes,nodeOffset,sizeChildOffset) & childOffsetMask);
+    if (nodeOffset == headSize) {
+      break;
+    }
+  }
+  return bytes.toByteArray();
+}

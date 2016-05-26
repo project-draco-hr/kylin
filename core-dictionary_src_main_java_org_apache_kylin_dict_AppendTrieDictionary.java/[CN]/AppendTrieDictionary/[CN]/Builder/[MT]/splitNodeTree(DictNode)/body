@@ -1,0 +1,29 @@
+{
+  DictNode parent=root;
+  DictNode splitNode;
+  int childCountToSplit=(int)(MAX_ENTRY_IN_SLICE * MAX_ENTRY_OVERHEAD_FACTOR / 2);
+  while (true) {
+    List<DictNode> children=parent.children;
+    if (children.size() == 0) {
+      splitNode=parent;
+      break;
+    }
+ else     if (children.size() == 1) {
+      parent=children.get(0);
+      continue;
+    }
+ else {
+      for (int i=children.size() - 1; i >= 0; i--) {
+        parent=children.get(i);
+        if (childCountToSplit > children.get(i).childrenCount) {
+          childCountToSplit-=children.get(i).childrenCount;
+        }
+ else {
+          childCountToSplit--;
+          break;
+        }
+      }
+    }
+  }
+  return DictNode.splitNodeTree(splitNode);
+}

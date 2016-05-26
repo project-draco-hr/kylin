@@ -1,0 +1,8 @@
+{
+  DictNode child=children.remove(index);
+  child.parent=null;
+  for (DictNode p=this; p != null; p=p.parent) {
+    p.childrenCount-=child.childrenCount;
+  }
+  return child;
+}

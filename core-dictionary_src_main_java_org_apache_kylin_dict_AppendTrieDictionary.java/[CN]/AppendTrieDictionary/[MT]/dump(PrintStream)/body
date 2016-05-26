@@ -1,0 +1,3 @@
+{
+  out.println("Total " + nValues + " values, "+ (dictSliceMap == null ? 0 : dictSliceMap.size())+ " slice");
+}
