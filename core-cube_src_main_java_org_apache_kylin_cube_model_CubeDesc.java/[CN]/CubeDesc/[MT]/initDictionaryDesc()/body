@@ -2,6 +2,10 @@
   if (dictionaries != null) {
     for (    DictionaryDesc dictDesc : dictionaries) {
       dictDesc.init(this);
+      allColumns.add(dictDesc.getColumnRef());
+      if (dictDesc.getResuseColumnRef() != null) {
+        allColumns.add(dictDesc.getResuseColumnRef());
+      }
     }
   }
 }

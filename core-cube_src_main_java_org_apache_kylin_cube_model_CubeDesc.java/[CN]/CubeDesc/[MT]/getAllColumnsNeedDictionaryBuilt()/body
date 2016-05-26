@@ -2,7 +2,10 @@
   Set<TblColRef> result=getAllColumnsHaveDictionary();
   if (dictionaries != null) {
     for (    DictionaryDesc dictDesc : dictionaries) {
-      if (dictDesc.getResuseColumnRef() != null)       result.remove(dictDesc.getColumnRef());
+      if (dictDesc.getResuseColumnRef() != null) {
+        result.remove(dictDesc.getColumnRef());
+        result.add(dictDesc.getResuseColumnRef());
+      }
     }
   }
   return result;

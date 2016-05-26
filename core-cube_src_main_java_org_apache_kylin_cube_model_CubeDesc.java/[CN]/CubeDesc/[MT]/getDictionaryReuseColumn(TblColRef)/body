@@ -1,0 +1,11 @@
+{
+  if (dictionaries == null) {
+    return col;
+  }
+  for (  DictionaryDesc dictDesc : dictionaries) {
+    if (dictDesc.getColumnRef().equals(col) && dictDesc.getResuseColumnRef() != null) {
+      return dictDesc.getResuseColumnRef();
+    }
+  }
+  return col;
+}

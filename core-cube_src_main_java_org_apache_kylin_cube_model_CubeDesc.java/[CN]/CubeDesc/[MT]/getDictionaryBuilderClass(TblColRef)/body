@@ -1,7 +1,14 @@
 {
   if (dictionaries == null)   return null;
   for (  DictionaryDesc desc : dictionaries) {
-    if (col.equals(desc.getColumnRef()) && desc.getBuilderClass() != null)     return desc.getBuilderClass();
+    if (desc.getBuilderClass() != null) {
+      if (col.equals(desc.getResuseColumnRef())) {
+        return desc.getBuilderClass();
+      }
+ else       if (col.equals(desc.getColumnRef())) {
+        return desc.getBuilderClass();
+      }
+    }
   }
   return null;
 }
