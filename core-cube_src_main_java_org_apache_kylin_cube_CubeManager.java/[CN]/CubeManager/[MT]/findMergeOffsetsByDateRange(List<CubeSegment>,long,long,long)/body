@@ -1,0 +1,12 @@
+{
+  LinkedList<CubeSegment> result=Lists.newLinkedList();
+  for (  CubeSegment seg : segments) {
+    if (startDate < seg.getDateRangeEnd() && seg.getDateRangeStart() < endDate) {
+      if (seg.getDateRangeEnd() - seg.getDateRangeStart() > skipSegDateRangeCap)       break;
+      if (result.size() > 0 && result.getLast().getSourceOffsetEnd() != seg.getSourceOffsetStart())       break;
+      result.add(seg);
+    }
+  }
+  if (result.size() <= 1)   return null;
+ else   return Pair.newPair(result.getFirst(),result.getLast());
+}

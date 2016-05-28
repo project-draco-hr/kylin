@@ -1,7 +1,7 @@
 {
-  long comp=this.dateRangeStart - other.dateRangeStart;
+  long comp=this.getSourceOffsetStart() - other.getSourceOffsetStart();
   if (comp != 0)   return comp < 0 ? -1 : 1;
-  comp=this.dateRangeEnd - other.dateRangeEnd;
+  comp=this.getSourceOffsetEnd() - other.getSourceOffsetEnd();
   if (comp != 0)   return comp < 0 ? -1 : 1;
  else   return 0;
 }

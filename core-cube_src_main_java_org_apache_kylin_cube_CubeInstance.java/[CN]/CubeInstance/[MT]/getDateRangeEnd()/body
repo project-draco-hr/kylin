@@ -1,8 +1,8 @@
 {
   List<CubeSegment> readySegs=getSegments(SegmentStatusEnum.READY);
-  long endTime=0;
+  long endTime=Long.MIN_VALUE;
   for (  CubeSegment seg : readySegs) {
-    if (seg.getDateRangeEnd() > endTime)     endTime=seg.getDateRangeEnd();
+    endTime=Math.max(endTime,seg.getDateRangeEnd());
   }
   return endTime;
 }

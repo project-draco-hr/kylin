@@ -1,0 +1,4 @@
+{
+  if (isSourceOffsetsOn())   return sourceOffsetStart <= seg.sourceOffsetStart && seg.sourceOffsetEnd <= sourceOffsetEnd;
+ else   return dateRangeContains(seg);
+}

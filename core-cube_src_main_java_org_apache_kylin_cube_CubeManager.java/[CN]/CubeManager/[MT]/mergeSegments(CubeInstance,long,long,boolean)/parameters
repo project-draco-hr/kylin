@@ -1,4 +1,0 @@
-CubeInstance cube
-long startDate
-long endDate
-boolean forceMergeEmptySeg

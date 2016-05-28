@@ -1,0 +1,41 @@
+{
+  if (segments == null || segments.isEmpty())   return;
+  List<CubeSegment> all=Lists.newArrayList(segments);
+  Collections.sort(all);
+  boolean isOffsetsOn=all.get(0).isSourceOffsetsOn();
+  for (  CubeSegment seg : all) {
+    seg.validate();
+    if (seg.isSourceOffsetsOn() != isOffsetsOn)     throw new IllegalStateException("Inconsistent isOffsetsOn for segment " + seg);
+  }
+  List<CubeSegment> ready=Lists.newArrayListWithCapacity(all.size());
+  List<CubeSegment> news=Lists.newArrayListWithCapacity(all.size());
+  for (  CubeSegment seg : all) {
+    if (seg.getStatus() == SegmentStatusEnum.READY)     ready.add(seg);
+ else     news.add(seg);
+  }
+  CubeSegment pre=null;
+  for (  CubeSegment seg : ready) {
+    if (pre != null) {
+      if (pre.sourceOffsetOverlaps(seg))       throw new IllegalStateException("Segments overlap: " + pre + " and "+ seg);
+      if (pre.getSourceOffsetEnd() < seg.getSourceOffsetStart())       logger.warn("Hole between adjacent READY segments " + pre + " and "+ seg);
+    }
+    pre=seg;
+  }
+  pre=null;
+  for (  CubeSegment seg : news) {
+    if (pre != null) {
+      if (pre.sourceOffsetOverlaps(seg))       throw new IllegalStateException("Segments overlap: " + pre + " and "+ seg);
+    }
+    pre=seg;
+    for (    CubeSegment aReady : ready) {
+      if (seg.sourceOffsetOverlaps(aReady) && !seg.sourceOffsetContains(aReady))       throw new IllegalStateException("Segments overlap: " + aReady + " and "+ seg);
+    }
+  }
+  for (  CubeSegment seg : news) {
+    Pair<Boolean,Boolean> pair=fitInSegments(all,seg);
+    boolean startFit=pair.getFirst();
+    boolean endFit=pair.getSecond();
+    if (!startFit)     logger.warn("NEW segment start does not fit/connect with other segments: " + seg);
+    if (!endFit)     logger.warn("NEW segment end does not fit/connect with other segments: " + seg);
+  }
+}

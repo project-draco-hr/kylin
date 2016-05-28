@@ -1,0 +1,5 @@
+{
+  long min=Long.MAX_VALUE;
+  for (  CubeSegment seg : mergingSegments)   min=Math.min(min,seg.getDateRangeStart());
+  return min;
+}

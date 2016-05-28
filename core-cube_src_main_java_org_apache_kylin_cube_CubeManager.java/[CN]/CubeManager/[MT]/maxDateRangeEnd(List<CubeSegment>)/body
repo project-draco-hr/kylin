@@ -1,0 +1,5 @@
+{
+  long max=Long.MIN_VALUE;
+  for (  CubeSegment seg : mergingSegments)   max=Math.max(max,seg.getDateRangeEnd());
+  return max;
+}

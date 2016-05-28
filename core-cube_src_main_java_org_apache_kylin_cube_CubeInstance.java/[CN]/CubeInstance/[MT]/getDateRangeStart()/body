@@ -2,7 +2,7 @@
   List<CubeSegment> readySegs=getSegments(SegmentStatusEnum.READY);
   long startTime=Long.MAX_VALUE;
   for (  CubeSegment seg : readySegs) {
-    if (seg.getDateRangeStart() < startTime)     startTime=seg.getDateRangeStart();
+    startTime=Math.min(startTime,seg.getDateRangeStart());
   }
   return startTime;
 }

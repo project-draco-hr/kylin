@@ -9,11 +9,10 @@
     logger.info("Cube name should not be empty.");
     throw new BadRequestException("Cube name should not be empty.");
   }
-  CubeInstance cubeInstance;
   try {
     desc.setUuid(UUID.randomUUID().toString());
     String projectName=(null == cubeRequest.getProject()) ? ProjectInstance.DEFAULT_PROJECT_NAME : cubeRequest.getProject();
-    cubeInstance=cubeService.createCubeAndDesc(name,projectName,desc);
+    cubeService.createCubeAndDesc(name,projectName,desc);
   }
  catch (  Exception e) {
     logger.error("Failed to deal with the request.",e);

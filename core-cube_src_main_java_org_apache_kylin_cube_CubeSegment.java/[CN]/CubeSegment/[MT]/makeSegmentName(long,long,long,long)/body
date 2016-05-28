@@ -1,0 +1,12 @@
+{
+  if (startOffset == 0 && endOffset == 0) {
+    startOffset=startDate;
+    endOffset=endDate;
+  }
+  if (startOffset == 0 && (endOffset == 0 || endOffset == Long.MAX_VALUE)) {
+    return "FULL_BUILD";
+  }
+  SimpleDateFormat dateFormat=new SimpleDateFormat("yyyyMMddHHmmss");
+  dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+  return dateFormat.format(startOffset) + "_" + dateFormat.format(endOffset);
+}

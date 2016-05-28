@@ -6,5 +6,5 @@
   long dateStart=cubeManager.getCube(cubeName).getDescriptor().getPartitionDateStart();
   long dateEnd=f.parse("2050-11-12").getTime();
   List<String> result=Lists.newArrayList();
-  return cubeManager.appendSegments(cubeManager.getCube(cubeName),dateEnd);
+  return cubeManager.appendSegment(cubeManager.getCube(cubeName),0,dateEnd,0,0);
 }

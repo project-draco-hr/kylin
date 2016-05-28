@@ -1,10 +1,17 @@
 {
   CubeManager mgr=mgr();
   CubeInstance cube=mgr.getCube("test_kylin_cube_without_slr_empty");
-  CubeSegment seg=mgr.appendSegments(cube,0);
+  cube.getDataModelDesc().setPartitionDesc(new PartitionDesc());
+  CubeSegment seg=mgr.appendSegment(cube);
   assertEquals(0,seg.getDateRangeStart());
   assertEquals(Long.MAX_VALUE,seg.getDateRangeEnd());
+  assertEquals(0,seg.getSourceOffsetStart());
+  assertEquals(Long.MAX_VALUE,seg.getSourceOffsetEnd());
   assertEquals(1,cube.getSegments().size());
-  CubeSegment seg2=mgr.appendSegments(cube,0);
-  discard(seg2);
+  try {
+    mgr.appendSegment(cube);
+    fail();
+  }
+ catch (  IllegalStateException ex) {
+  }
 }

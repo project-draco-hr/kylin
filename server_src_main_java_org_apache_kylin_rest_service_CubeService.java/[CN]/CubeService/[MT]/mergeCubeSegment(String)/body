@@ -1,23 +1,22 @@
 {
   CubeInstance cube=getCubeManager().getCube(cubeName);
-  if (cube.needAutoMerge()) {
+  if (!cube.needAutoMerge())   return;
 synchronized (CubeService.class) {
-      try {
-        cube=getCubeManager().getCube(cubeName);
-        CubeSegment newSeg=getCubeManager().autoMergeCubeSegments(cube);
-        if (newSeg != null) {
-          newSeg=getCubeManager().mergeSegments(cube,newSeg.getDateRangeStart(),newSeg.getDateRangeEnd(),true);
-          logger.debug("Will submit merge job on " + newSeg);
-          DefaultChainedExecutable job=EngineFactory.createBatchMergeJob(newSeg,"SYSTEM");
-          getExecutableManager().addJob(job);
-        }
+    try {
+      cube=getCubeManager().getCube(cubeName);
+      Pair<Long,Long> offsets=getCubeManager().autoMergeCubeSegments(cube);
+      if (offsets != null) {
+        CubeSegment newSeg=getCubeManager().mergeSegments(cube,0,0,offsets.getFirst(),offsets.getSecond(),true);
+        logger.debug("Will submit merge job on " + newSeg);
+        DefaultChainedExecutable job=EngineFactory.createBatchMergeJob(newSeg,"SYSTEM");
+        getExecutableManager().addJob(job);
+      }
  else {
-          logger.debug("Not ready for merge on cube " + cubeName);
-        }
+        logger.debug("Not ready for merge on cube " + cubeName);
       }
- catch (      IOException e) {
-        logger.error("Failed to auto merge cube " + cubeName,e);
-      }
+    }
+ catch (    IOException e) {
+      logger.error("Failed to auto merge cube " + cubeName,e);
     }
   }
 }

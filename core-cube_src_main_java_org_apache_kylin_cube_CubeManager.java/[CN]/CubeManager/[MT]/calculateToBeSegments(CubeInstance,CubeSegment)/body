@@ -1,0 +1,45 @@
+{
+  List<CubeSegment> tobe=Lists.newArrayList(cube.getSegments());
+  if (newSegments != null)   tobe.addAll(Arrays.asList(newSegments));
+  if (tobe.size() == 0)   return tobe;
+  Collections.sort(tobe);
+  CubeSegment firstSeg=tobe.get(0);
+  firstSeg.validate();
+  for (int i=0, j=1; j < tobe.size(); ) {
+    CubeSegment is=tobe.get(i);
+    CubeSegment js=tobe.get(j);
+    js.validate();
+    if (!isNew(is) && !isReady(is)) {
+      tobe.remove(i);
+      continue;
+    }
+    if (!isNew(js) && !isReady(js)) {
+      tobe.remove(j);
+      continue;
+    }
+    if (is.getSourceOffsetStart() == js.getSourceOffsetStart()) {
+      if (isReady(is) && isReady(js) || isNew(is) && isNew(js)) {
+        if (is.getSourceOffsetEnd() <= js.getSourceOffsetEnd()) {
+          tobe.remove(i);
+        }
+ else {
+          tobe.remove(j);
+        }
+      }
+ else       if (isNew(is)) {
+        tobe.remove(j);
+      }
+ else {
+        tobe.remove(i);
+      }
+      continue;
+    }
+    if (is.getSourceOffsetEnd() <= js.getSourceOffsetStart()) {
+      i++;
+      j++;
+      continue;
+    }
+    tobe.remove(j);
+  }
+  return tobe;
+}

@@ -1,0 +1,56 @@
+{
+  if (cube.getSegments().isEmpty())   throw new IllegalArgumentException("Cube " + cube + " has no segments");
+  if (startDate >= endDate && startOffset >= endOffset)   throw new IllegalArgumentException("Invalid merge range");
+  checkNoBuildingSegment(cube);
+  checkCubeIsPartitioned(cube);
+  boolean isOffsetsOn=cube.getSegments().get(0).isSourceOffsetsOn();
+  if (isOffsetsOn) {
+    if (startOffset == endOffset) {
+      Pair<CubeSegment,CubeSegment> pair=findMergeOffsetsByDateRange(cube.getSegments(SegmentStatusEnum.READY),startDate,endDate,Long.MAX_VALUE);
+      if (pair == null)       throw new IllegalArgumentException("Find no segments to merge by date range " + startDate + "-"+ endDate+ " for cube "+ cube);
+      startOffset=pair.getFirst().getSourceOffsetStart();
+      endOffset=pair.getSecond().getSourceOffsetEnd();
+    }
+    startDate=0;
+    endDate=0;
+  }
+ else {
+    if (startDate == endDate) {
+      startDate=startOffset;
+      endDate=endOffset;
+    }
+    startOffset=0;
+    endOffset=0;
+  }
+  CubeSegment newSegment=newSegment(cube,startDate,endDate,startOffset,endOffset);
+  List<CubeSegment> mergingSegments=cube.getMergingSegments(newSegment);
+  if (mergingSegments.size() <= 1)   throw new IllegalArgumentException("Range " + newSegment.getSourceOffsetStart() + "-"+ newSegment.getSourceOffsetEnd()+ " must contain at least 2 segments, but there is "+ mergingSegments.size());
+  CubeSegment first=mergingSegments.get(0);
+  CubeSegment last=mergingSegments.get(mergingSegments.size() - 1);
+  if (newSegment.isSourceOffsetsOn()) {
+    newSegment.setDateRangeStart(minDateRangeStart(mergingSegments));
+    newSegment.setDateRangeEnd(maxDateRangeEnd(mergingSegments));
+    newSegment.setSourceOffsetStart(first.getSourceOffsetStart());
+    newSegment.setSourceOffsetEnd(last.getSourceOffsetEnd());
+  }
+ else {
+    newSegment.setDateRangeStart(first.getSourceOffsetStart());
+    newSegment.setDateRangeEnd(last.getSourceOffsetEnd());
+  }
+  if (force == false) {
+    List<String> emptySegment=Lists.newArrayList();
+    for (    CubeSegment seg : mergingSegments) {
+      if (seg.getSizeKB() == 0) {
+        emptySegment.add(seg.getName());
+      }
+    }
+    if (emptySegment.size() > 0) {
+      throw new IllegalArgumentException("Empty cube segment found, couldn't merge unless 'forceMergeEmptySegment' set to true: " + emptySegment);
+    }
+  }
+  validateNewSegments(cube,newSegment);
+  CubeUpdate cubeBuilder=new CubeUpdate(cube);
+  cubeBuilder.setToAddSegs(newSegment);
+  updateCube(cubeBuilder);
+  return newSegment;
+}

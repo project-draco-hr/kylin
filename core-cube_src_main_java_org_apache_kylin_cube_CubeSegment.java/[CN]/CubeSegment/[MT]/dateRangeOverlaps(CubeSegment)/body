@@ -1,0 +1,3 @@
+{
+  return dateRangeStart < seg.dateRangeEnd && seg.dateRangeStart < dateRangeEnd;
+}

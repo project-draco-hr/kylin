@@ -1,3 +1,0 @@
-{
-  return appendSegments(cube,endDate,true,true);
-}

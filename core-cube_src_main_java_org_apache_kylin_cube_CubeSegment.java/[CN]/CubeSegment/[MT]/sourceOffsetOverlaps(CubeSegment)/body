@@ -1,0 +1,4 @@
+{
+  if (isSourceOffsetsOn())   return sourceOffsetStart < seg.sourceOffsetEnd && seg.sourceOffsetStart < sourceOffsetEnd;
+ else   return dateRangeOverlaps(seg);
+}

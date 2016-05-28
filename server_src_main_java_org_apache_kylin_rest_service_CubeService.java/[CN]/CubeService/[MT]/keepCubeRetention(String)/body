@@ -2,32 +2,25 @@
   logger.info("checking keepCubeRetention");
   CubeInstance cube=getCubeManager().getCube(cubeName);
   CubeDesc desc=cube.getDescriptor();
-  if (desc.getRetentionRange() > 0) {
+  if (desc.getRetentionRange() <= 0)   return;
 synchronized (CubeService.class) {
-      cube=getCubeManager().getCube(cubeName);
-      List<CubeSegment> readySegs=cube.getSegments(SegmentStatusEnum.READY);
-      long currentRange=0;
-      int position=readySegs.size() - 1;
-      while (position >= 0) {
-        currentRange+=(readySegs.get(position).getDateRangeEnd() - readySegs.get(position).getDateRangeStart());
-        if (currentRange >= desc.getRetentionRange()) {
-          break;
-        }
-        position--;
+    cube=getCubeManager().getCube(cubeName);
+    List<CubeSegment> readySegs=cube.getSegments(SegmentStatusEnum.READY);
+    if (readySegs.isEmpty())     return;
+    List<CubeSegment> toRemoveSegs=Lists.newArrayList();
+    long tail=readySegs.get(readySegs.size() - 1).getDateRangeEnd();
+    long head=tail - desc.getRetentionRange();
+    for (    CubeSegment seg : readySegs) {
+      if (seg.getDateRangeEnd() <= head)       toRemoveSegs.add(seg);
+    }
+    if (toRemoveSegs.size() > 0) {
+      CubeUpdate cubeBuilder=new CubeUpdate(cube);
+      cubeBuilder.setToRemoveSegs(toRemoveSegs.toArray(new CubeSegment[toRemoveSegs.size()]));
+      try {
+        this.getCubeManager().updateCube(cubeBuilder);
       }
-      List<CubeSegment> toRemoveSegs=Lists.newArrayList();
-      for (int i=0; i < position; i++) {
-        toRemoveSegs.add(readySegs.get(i));
-      }
-      if (toRemoveSegs.size() > 0) {
-        CubeUpdate cubeBuilder=new CubeUpdate(cube);
-        cubeBuilder.setToRemoveSegs(toRemoveSegs.toArray(new CubeSegment[toRemoveSegs.size()]));
-        try {
-          this.getCubeManager().updateCube(cubeBuilder);
-        }
- catch (        IOException e) {
-          logger.error("Failed to remove old segment from cube " + cubeName,e);
-        }
+ catch (      IOException e) {
+        logger.error("Failed to remove old segment from cube " + cubeName,e);
       }
     }
   }

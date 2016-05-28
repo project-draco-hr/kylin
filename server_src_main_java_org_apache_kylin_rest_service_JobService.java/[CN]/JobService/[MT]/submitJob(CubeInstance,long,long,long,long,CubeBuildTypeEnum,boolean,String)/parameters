@@ -1,0 +1,8 @@
+CubeInstance cube
+long startDate
+long endDate
+long startOffset
+long endOffset
+CubeBuildTypeEnum buildType
+boolean force
+String submitter

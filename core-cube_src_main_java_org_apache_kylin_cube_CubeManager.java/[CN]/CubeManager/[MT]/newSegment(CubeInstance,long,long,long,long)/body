@@ -1,0 +1,15 @@
+{
+  CubeSegment segment=new CubeSegment();
+  segment.setUuid(UUID.randomUUID().toString());
+  segment.setName(CubeSegment.makeSegmentName(startDate,endDate,startOffset,endOffset));
+  segment.setCreateTimeUTC(System.currentTimeMillis());
+  segment.setDateRangeStart(startDate);
+  segment.setDateRangeEnd(endDate);
+  segment.setSourceOffsetStart(startOffset);
+  segment.setSourceOffsetEnd(endOffset);
+  segment.setStatus(SegmentStatusEnum.NEW);
+  segment.setStorageLocationIdentifier(generateStorageLocation());
+  segment.setCubeInstance(cube);
+  segment.validate();
+  return segment;
+}

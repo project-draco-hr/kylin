@@ -2,10 +2,11 @@
   if (update == null || update.getCubeInstance() == null)   throw new IllegalStateException();
   CubeInstance cube=update.getCubeInstance();
   logger.info("Updating cube instance '" + cube.getName() + "'");
-  if (update.getToAddSegs() != null)   cube.getSegments().addAll(Arrays.asList(update.getToAddSegs()));
+  List<CubeSegment> newSegs=Lists.newArrayList(cube.getSegments());
+  if (update.getToAddSegs() != null)   newSegs.addAll(Arrays.asList(update.getToAddSegs()));
   List<String> toRemoveResources=Lists.newArrayList();
   if (update.getToRemoveSegs() != null) {
-    Iterator<CubeSegment> iterator=cube.getSegments().iterator();
+    Iterator<CubeSegment> iterator=newSegs.iterator();
     while (iterator.hasNext()) {
       CubeSegment currentSeg=iterator.next();
       for (      CubeSegment toRemoveSeg : update.getToRemoveSegs()) {
@@ -18,17 +19,16 @@
   }
   if (update.getToUpdateSegs() != null) {
     for (    CubeSegment segment : update.getToUpdateSegs()) {
-      for (int i=0; i < cube.getSegments().size(); i++) {
-        if (cube.getSegments().get(i).getUuid().equals(segment.getUuid())) {
-          cube.getSegments().set(i,segment);
+      for (int i=0; i < newSegs.size(); i++) {
+        if (newSegs.get(i).getUuid().equals(segment.getUuid())) {
+          newSegs.set(i,segment);
         }
       }
     }
   }
-  Collections.sort(cube.getSegments());
-  if (!validateReadySegments(cube)) {
-    throw new IllegalStateException("Has invalid Ready segments in cube " + cube.getName());
-  }
+  Collections.sort(newSegs);
+  CubeValidator.validate(newSegs);
+  cube.setSegments(newSegs);
   if (update.getStatus() != null) {
     cube.setStatus(update.getStatus());
   }

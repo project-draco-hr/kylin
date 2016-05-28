@@ -1,0 +1,17 @@
+{
+  if (segments == null || segments.isEmpty())   return null;
+  CubeSegment first=segments.get(0);
+  CubeSegment last=segments.get(segments.size() - 1);
+  long start=newOne.getSourceOffsetStart();
+  long end=newOne.getSourceOffsetEnd();
+  boolean startFit=false;
+  boolean endFit=false;
+  for (  CubeSegment sss : segments) {
+    if (sss == newOne)     continue;
+    startFit=startFit || (start == sss.getSourceOffsetStart() || start == sss.getSourceOffsetEnd());
+    endFit=endFit || (end == sss.getSourceOffsetStart() || end == sss.getSourceOffsetEnd());
+  }
+  if (!startFit && endFit && newOne == first)   startFit=true;
+  if (!endFit && startFit && newOne == last)   endFit=true;
+  return Pair.newPair(startFit,endFit);
+}

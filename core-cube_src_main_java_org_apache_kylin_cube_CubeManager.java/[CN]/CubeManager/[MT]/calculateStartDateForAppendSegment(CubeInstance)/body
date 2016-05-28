@@ -4,6 +4,6 @@
     return cube.getDescriptor().getPartitionDateStart();
   }
  else {
-    return existing.get(existing.size() - 1).getDateRangeEnd();
+    return existing.get(existing.size() - 1).getSourceOffsetEnd();
   }
 }

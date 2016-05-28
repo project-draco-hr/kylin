@@ -1,5 +1,0 @@
-CubeInstance cube
-long startDate
-long endDate
-boolean strictChecking
-boolean saveChange
