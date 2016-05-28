@@ -1,12 +1,8 @@
 {
-  List<TblColRef> literalCols=functionDesc.getParameter().getColRefs();
-  if (literalCols.size() == 1) {
-    return Collections.singletonList(literalCols.get(0));
-  }
- else   if (literalCols.size() == 2) {
-    return Collections.singletonList(literalCols.get(1));
+  if (needDictionaryColumn(functionDesc)) {
+    return Collections.singletonList(functionDesc.getParameter().getColRefs().get(0));
   }
  else {
-    throw new IllegalArgumentException("Bitmap measure need 1 or 2 parameters");
+    return Collections.emptyList();
   }
 }

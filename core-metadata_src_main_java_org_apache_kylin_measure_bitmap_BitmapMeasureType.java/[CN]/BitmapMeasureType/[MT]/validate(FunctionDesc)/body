@@ -1,8 +1,4 @@
 {
   if (FUNC_COUNT_DISTINCT.equals(functionDesc.getExpression()) == false)   throw new IllegalArgumentException("BitmapMeasureType func is not " + FUNC_COUNT_DISTINCT + " but "+ functionDesc.getExpression());
   if (DATATYPE_BITMAP.equals(functionDesc.getReturnDataType().getName()) == false)   throw new IllegalArgumentException("BitmapMeasureType datatype is not " + DATATYPE_BITMAP + " but "+ functionDesc.getReturnDataType().getName());
-  List<TblColRef> colRefs=functionDesc.getParameter().getColRefs();
-  if (colRefs.size() != 1 && colRefs.size() != 2) {
-    throw new IllegalArgumentException("Bitmap measure need 1 or 2 parameters, but has " + colRefs.size());
-  }
 }

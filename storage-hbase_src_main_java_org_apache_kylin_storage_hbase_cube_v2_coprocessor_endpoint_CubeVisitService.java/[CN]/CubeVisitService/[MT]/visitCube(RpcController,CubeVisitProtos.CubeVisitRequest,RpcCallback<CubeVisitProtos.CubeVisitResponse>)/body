@@ -136,8 +136,13 @@
     done.run(responseBuilder.setCompressedRows(HBaseZeroCopyByteString.wrap(compressedAllRows)).setStats(CubeVisitProtos.CubeVisitResponse.Stats.newBuilder().setAggregatedRowCount(finalScanner.getScannedRowCount() - finalRowCount).setScannedRowCount(finalScanner.getScannedRowCount()).setServiceStartTime(serviceStartTime).setServiceEndTime(System.currentTimeMillis()).setSystemCpuLoad(systemCpuLoad).setFreePhysicalMemorySize(freePhysicalMemorySize).setFreeSwapSpaceSize(freeSwapSpaceSize).setHostname(InetAddress.getLocalHost().getHostName()).setEtcMsg(sb.toString()).setNormalComplete(scanNormalComplete.booleanValue() ? 1 : 0).build()).build());
   }
  catch (  IOException ioe) {
-    logger.error(ioe.toString());
+    logger.error(ioe.toString(),ioe);
     IOException wrapped=new IOException("Error in coprocessor " + debugGitTag,ioe);
+    ResponseConverter.setControllerException(controller,wrapped);
+  }
+catch (  OutOfMemoryError oom) {
+    logger.error(oom.toString(),oom);
+    IOException wrapped=new IOException("OOM in coprocessor " + debugGitTag,oom);
     ResponseConverter.setControllerException(controller,wrapped);
   }
  finally {

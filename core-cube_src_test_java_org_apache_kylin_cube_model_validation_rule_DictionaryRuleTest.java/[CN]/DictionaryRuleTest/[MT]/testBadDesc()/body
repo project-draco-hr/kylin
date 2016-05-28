@@ -1,3 +1,3 @@
 {
-  testBadDictionaryDesc("Column DEFAULT.TEST_KYLIN_FACT.SELLER_ID has inconsistent builders " + "FakeBuilderClass and org.apache.kylin.dict.GlobalDictionaryBuilder",DictionaryDesc.create("SELLER_ID",null,"FakeBuilderClass"));
+  testBadDictionaryDesc("Column EDW.TEST_SITES.SITE_NAME has inconsistent builders " + "FakeBuilderClass and org.apache.kylin.dict.GlobalDictionaryBuilder",DictionaryDesc.create("SITE_NAME",null,"FakeBuilderClass"));
 }

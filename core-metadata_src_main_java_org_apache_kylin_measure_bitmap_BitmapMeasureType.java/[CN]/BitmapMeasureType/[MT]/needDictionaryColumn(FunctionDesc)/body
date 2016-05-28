@@ -1,0 +1,7 @@
+{
+  DataType dataType=functionDesc.getParameter().getColRefs().get(0).getType();
+  if (dataType.isIntegerFamily() && !dataType.isBigInt()) {
+    return false;
+  }
+  return true;
+}
