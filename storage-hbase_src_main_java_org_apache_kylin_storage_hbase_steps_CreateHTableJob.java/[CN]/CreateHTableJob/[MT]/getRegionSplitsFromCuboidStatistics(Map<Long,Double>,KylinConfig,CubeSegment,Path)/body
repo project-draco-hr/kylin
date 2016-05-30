@@ -17,7 +17,9 @@
   nRegion=Math.min(kylinConfig.getHBaseRegionCountMax(),nRegion);
   if (cubeSegment.isEnableSharding()) {
     int original=nRegion;
-    nRegion=Primes.nextPrime(nRegion);
+    if (nRegion == 0) {
+      nRegion=1;
+    }
     if (nRegion > Short.MAX_VALUE) {
       logger.info("Too many regions! reduce to " + Short.MAX_VALUE);
       nRegion=Short.MAX_VALUE;
