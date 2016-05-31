@@ -31,8 +31,9 @@
     logger.info("Start to dump yarn job logs: " + jobId);
     File yarnLogDir=new File(exportDir,"yarn");
     FileUtils.forceMkdir(yarnLogDir);
-    for (    String taskId : yarnLogsResources) {
-      extractYarnLog(taskId,new File(yarnLogDir,jobId),true);
+    for (    String stepId : yarnLogsResources) {
+      extractTaskCounter(stepId,new File(new File(yarnLogDir,stepId),"Counters"));
+      extractYarnLog(stepId,new File(yarnLogDir,stepId),true);
     }
   }
   if (includeClient) {

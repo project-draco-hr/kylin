@@ -1,0 +1,4 @@
+{
+  this.mrJobId=mrJobId;
+  this.yarnUrl=getRestCheckUrl();
+}

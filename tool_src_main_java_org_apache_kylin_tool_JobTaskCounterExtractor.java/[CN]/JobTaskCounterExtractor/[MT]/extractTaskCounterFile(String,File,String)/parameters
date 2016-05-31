@@ -1,0 +1,3 @@
+String taskId
+File exportDir
+String taskUrl

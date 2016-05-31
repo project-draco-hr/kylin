@@ -1,0 +1,30 @@
+{
+  try {
+    String taskUrl=yarnUrl + "/ws/v1/history/mapreduce/jobs/" + mrJobId+ "/tasks/";
+    String tasksResponse=getHttpResponse(taskUrl);
+    JsonNode tasks=new ObjectMapper().readTree(tasksResponse).path("tasks").path("task");
+    String maxReduceId=null;
+    String maxMapId=null;
+    long maxMapElapsedTime=0L;
+    long maxReduceElapsedTime=0L;
+    for (    JsonNode node : tasks) {
+      if (node.get("type").textValue().equals("MAP")) {
+        if (node.get("elapsedTime").longValue() >= maxMapElapsedTime) {
+          maxMapElapsedTime=node.get("elapsedTime").longValue();
+          maxMapId=node.get("id").textValue();
+        }
+      }
+      if (node.get("type").textValue().equals("REDUCE")) {
+        if (node.get("elapsedTime").longValue() >= maxReduceElapsedTime) {
+          maxReduceElapsedTime=node.get("elapsedTime").longValue();
+          maxReduceId=node.get("id").textValue();
+        }
+      }
+    }
+    extractTaskCounterFile(maxMapId,exportDir,taskUrl);
+    extractTaskCounterFile(maxReduceId,exportDir,taskUrl);
+  }
+ catch (  Exception e) {
+    logger.warn("Failed to get mr tasks rest response" + e);
+  }
+}

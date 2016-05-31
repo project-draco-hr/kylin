@@ -1,0 +1,8 @@
+{
+  final Map<String,String> jobInfo=executableDao.getJobOutput(taskId).getInfo();
+  if (jobInfo.containsKey(ExecutableConstants.MR_JOB_ID)) {
+    String jobId=jobInfo.get(ExecutableConstants.MR_JOB_ID);
+    FileUtils.forceMkdir(destDir);
+    new JobTaskCounterExtractor(jobId).executeExtract(destDir);
+  }
+}
