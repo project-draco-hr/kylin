@@ -4,6 +4,6 @@
     return false;
   }
  else {
-    return ((cuboidID & ~mandatoryColumnMask) != 0);
+    return agg.isMandatoryOnlyValid() || (cuboidID & ~mandatoryColumnMask) != 0;
   }
 }

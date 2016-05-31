@@ -1,5 +1,6 @@
 {
   this.cubeDesc=cubeDesc;
+  this.isMandatoryOnlyValid=cubeDesc.getConfig().getCubeAggrGroupIsMandatoryOnlyValid();
   Map<String,TblColRef> colNameAbbr=cubeDesc.buildColumnNameAbbreviation();
   if (this.includes == null || this.includes.length == 0 || this.selectRule == null) {
     throw new IllegalStateException("AggregationGroup incomplete");

@@ -9,7 +9,7 @@
   if (parent == Cuboid.getBaseCuboidId(cubeDesc)) {
     for (    AggregationGroup agg : cubeDesc.getAggregationGroups()) {
       long partialCubeFullMask=agg.getPartialCubeFullMask();
-      if (partialCubeFullMask != parent && containsNonMandatoryColumn(agg,partialCubeFullMask)) {
+      if (partialCubeFullMask != parent && Cuboid.isValid(agg,partialCubeFullMask)) {
         set.add(partialCubeFullMask);
       }
     }
@@ -18,7 +18,7 @@
     for (    long normalDimMask : agg.getNormalDims()) {
       long common=parent & normalDimMask;
       long temp=parent ^ normalDimMask;
-      if (common != 0 && containsNonMandatoryColumn(agg,temp)) {
+      if (common != 0 && Cuboid.isValid(agg,temp)) {
         set.add(temp);
       }
     }
@@ -26,7 +26,7 @@
       for (int i=hierarchyMask.allMasks.length - 1; i >= 0; i--) {
         if ((parent & hierarchyMask.allMasks[i]) == hierarchyMask.allMasks[i]) {
           if ((agg.getJointDimsMask() & hierarchyMask.dims[i]) == 0) {
-            if (containsNonMandatoryColumn(agg,parent ^ hierarchyMask.dims[i])) {
+            if (Cuboid.isValid(agg,parent ^ hierarchyMask.dims[i])) {
               set.add(parent ^ hierarchyMask.dims[i]);
             }
           }
@@ -36,7 +36,7 @@
     }
     for (    long joint : agg.getJoints()) {
       if ((parent & joint) == joint) {
-        if (containsNonMandatoryColumn(agg,parent ^ joint)) {
+        if (Cuboid.isValid(agg,parent ^ joint)) {
           set.add(parent ^ joint);
         }
       }

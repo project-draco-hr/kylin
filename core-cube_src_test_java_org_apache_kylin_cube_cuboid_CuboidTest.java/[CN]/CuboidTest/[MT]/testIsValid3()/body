@@ -1,0 +1,6 @@
+{
+  CubeDesc cube=getSSBCubeDesc();
+  assertEquals(false,Cuboid.isValid(cube,toLong("10000000000")));
+  assertEquals(true,Cuboid.isValid(cube,toLong("10000001000")));
+  assertEquals(true,Cuboid.isValid(cube,toLong("00000001000")));
+}

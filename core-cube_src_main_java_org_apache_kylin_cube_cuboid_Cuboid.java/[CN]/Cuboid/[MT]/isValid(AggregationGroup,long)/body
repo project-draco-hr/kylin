@@ -1,6 +1,6 @@
 {
-  if (cuboidID < 0) {
-    throw new IllegalArgumentException("Cuboid " + cuboidID + " should be greater than 0");
+  if (cuboidID <= 0) {
+    return false;
   }
   if ((cuboidID & ~agg.getPartialCubeFullMask()) != 0) {
     return false;
