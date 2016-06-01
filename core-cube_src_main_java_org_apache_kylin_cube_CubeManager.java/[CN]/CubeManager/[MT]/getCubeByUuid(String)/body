@@ -1,0 +1,7 @@
+{
+  Collection<CubeInstance> copy=new ArrayList<CubeInstance>(cubeMap.values());
+  for (  CubeInstance cube : copy) {
+    if (uuid.equals(cube.getUuid()))     return cube;
+  }
+  return null;
+}
