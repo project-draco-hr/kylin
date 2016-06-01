@@ -5,6 +5,7 @@
   options.addOption(OPTION_INCLUDE_CUBE);
   options.addOption(OPTION_INCLUDE_CLIENT);
   options.addOption(OPTION_INCLUDE_YARN_LOGS);
+  options.addOption(OPTION_INCLUDE_CONF);
   kylinConfig=KylinConfig.getInstanceFromEnv();
   executableDao=ExecutableDao.getInstance(kylinConfig);
 }

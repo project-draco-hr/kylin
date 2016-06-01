@@ -3,6 +3,7 @@
   boolean includeCube=optionsHelper.hasOption(OPTION_INCLUDE_CUBE) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_CUBE)) : true;
   boolean includeYarnLogs=optionsHelper.hasOption(OPTION_INCLUDE_YARN_LOGS) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_YARN_LOGS)) : true;
   boolean includeClient=optionsHelper.hasOption(OPTION_INCLUDE_CLIENT) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_CLIENT)) : true;
+  boolean includeConf=optionsHelper.hasOption(OPTION_INCLUDE_CONF) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_CONF)) : true;
   logger.info("Start to dump job output");
   ExecutablePO executablePO=executableDao.getJob(jobId);
   addRequired(ResourceStoreUtil.concatJobPath(jobId));
@@ -41,6 +42,15 @@
     ClientEnvExtractor clientEnvExtractor=new ClientEnvExtractor();
     logger.info("ClientEnvExtractor args: " + Arrays.toString(clientArgs));
     clientEnvExtractor.execute(clientArgs);
+  }
+  if (includeConf) {
+    logger.info("Start to extract kylin conf files.");
+    try {
+      FileUtils.copyDirectoryToDirectory(new File(ToolUtil.getConfFolder()),exportDir);
+    }
+ catch (    Exception e) {
+      logger.warn("Error in export conf.",e);
+    }
   }
   String[] logsArgs={"-destDir",new File(exportDir,"logs").getAbsolutePath(),"-compress","false","-submodule","true"};
   KylinLogExtractor logExtractor=new KylinLogExtractor();
