@@ -1,5 +1,5 @@
 {
   if (FUNC_TOP_N.equals(funcName) == false)   throw new IllegalArgumentException();
   if (DATATYPE_TOPN.equals(dataType.getName()) == false)   throw new IllegalArgumentException();
-  if (dataType.getPrecision() < 1 || dataType.getPrecision() > 5000)   throw new IllegalArgumentException();
+  if (dataType.getPrecision() < 1 || dataType.getPrecision() > 10000)   throw new IllegalArgumentException();
 }
