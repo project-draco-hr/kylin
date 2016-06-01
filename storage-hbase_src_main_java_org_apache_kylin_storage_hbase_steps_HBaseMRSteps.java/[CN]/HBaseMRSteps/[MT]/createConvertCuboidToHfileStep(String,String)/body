@@ -3,7 +3,7 @@
   MapReduceExecutable createHFilesStep=new MapReduceExecutable();
   createHFilesStep.setName(ExecutableConstants.STEP_NAME_CONVERT_CUBOID_TO_HFILE);
   StringBuilder cmd=new StringBuilder();
-  appendMapReduceParameters(cmd,seg.getRealization().getDataModelDesc());
+  appendMapReduceParameters(cmd);
   appendExecCmdParameters(cmd,BatchConstants.ARG_CUBE_NAME,seg.getRealization().getName());
   appendExecCmdParameters(cmd,BatchConstants.ARG_PARTITION,getRowkeyDistributionOutputPath(jobId) + "/part-r-00000_hfile");
   appendExecCmdParameters(cmd,BatchConstants.ARG_INPUT,inputPath);

@@ -1,7 +1,7 @@
 {
   MapReduceExecutable baseCuboidStep=new MapReduceExecutable();
   StringBuilder cmd=new StringBuilder();
-  appendMapReduceParameters(cmd,((CubeSegment)seg).getCubeDesc().getModel());
+  appendMapReduceParameters(cmd);
   baseCuboidStep.setName(ExecutableConstants.STEP_NAME_BUILD_BASE_CUBOID);
   appendExecCmdParameters(cmd,BatchConstants.ARG_CUBE_NAME,seg.getRealization().getName());
   appendExecCmdParameters(cmd,BatchConstants.ARG_SEGMENT_NAME,seg.getName());

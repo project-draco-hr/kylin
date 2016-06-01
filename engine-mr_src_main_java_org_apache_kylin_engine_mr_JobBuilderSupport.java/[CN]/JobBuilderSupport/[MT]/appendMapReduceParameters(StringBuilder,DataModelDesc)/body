@@ -1,3 +1,0 @@
-{
-  appendMapReduceParameters(buf,JobEngineConfig.DEFAUL_JOB_CONF_SUFFIX,dataModelDesc.getCapacity().toString());
-}

@@ -3,7 +3,7 @@
   result.setName(ExecutableConstants.STEP_NAME_FACT_DISTINCT_COLUMNS);
   result.setMapReduceJobClass(FactDistinctColumnsJob.class);
   StringBuilder cmd=new StringBuilder();
-  appendMapReduceParameters(cmd,((CubeSegment)seg).getCubeDesc().getModel());
+  appendMapReduceParameters(cmd);
   appendExecCmdParameters(cmd,BatchConstants.ARG_CUBE_NAME,seg.getRealization().getName());
   appendExecCmdParameters(cmd,BatchConstants.ARG_OUTPUT,getFactDistinctColumnsPath(jobId));
   appendExecCmdParameters(cmd,BatchConstants.ARG_SEGMENT_NAME,seg.getName());

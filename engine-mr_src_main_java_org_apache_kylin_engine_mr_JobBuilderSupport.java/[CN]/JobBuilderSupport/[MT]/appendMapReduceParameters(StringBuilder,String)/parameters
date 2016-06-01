@@ -1,3 +1,2 @@
 StringBuilder buf
 String jobType
-String capacity
