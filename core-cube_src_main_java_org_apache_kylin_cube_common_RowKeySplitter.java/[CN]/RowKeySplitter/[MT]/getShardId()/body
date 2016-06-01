@@ -1,0 +1,6 @@
+{
+  if (enableSharding) {
+    return shardId;
+  }
+  return null;
+}

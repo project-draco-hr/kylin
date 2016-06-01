@@ -6,6 +6,7 @@
     shardSplit.length=RowConstants.ROWKEY_SHARDID_LEN;
     System.arraycopy(bytes,offset,shardSplit.value,0,RowConstants.ROWKEY_SHARDID_LEN);
     offset+=RowConstants.ROWKEY_SHARDID_LEN;
+    shardId=Bytes.toShort(shardSplit.value);
   }
   SplittedBytes cuboidIdSplit=this.splitBuffers[this.bufferSize++];
   cuboidIdSplit.length=RowConstants.ROWKEY_CUBOIDID_LEN;
@@ -14,6 +15,7 @@
   lastSplittedCuboidId=Bytes.toLong(cuboidIdSplit.value,0,cuboidIdSplit.length);
   Cuboid cuboid=Cuboid.findById(cubeDesc,lastSplittedCuboidId);
   for (int i=0; i < cuboid.getColumns().size(); i++) {
+    splitOffsets[i]=offset;
     TblColRef col=cuboid.getColumns().get(i);
     int colLength=colIO.getColumnLength(col);
     SplittedBytes split=this.splitBuffers[this.bufferSize++];
