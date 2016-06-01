@@ -1,3 +1,3 @@
 {
-  return getOptional("kylin.query.hbase.hconnection.threads.max","3072");
+  return Integer.parseInt(getOptional("kylin.query.hbase.hconnection.threads.max","3072"));
 }

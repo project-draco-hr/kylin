@@ -1,7 +1,7 @@
 {
-  if (hbaseConfig.get() == null) {
+  if (configThreadLocal.get() == null) {
     String storageUrl=KylinConfig.getInstanceFromEnv().getStorageUrl();
-    hbaseConfig.set(newHBaseConfiguration(storageUrl));
+    configThreadLocal.set(newHBaseConfiguration(storageUrl));
   }
-  return hbaseConfig.get();
+  return configThreadLocal.get();
 }

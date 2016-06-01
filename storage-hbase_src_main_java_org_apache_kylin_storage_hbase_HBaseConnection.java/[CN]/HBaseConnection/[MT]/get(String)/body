@@ -1,16 +1,16 @@
 {
-  Configuration conf=ConfigCache.get(url);
+  Configuration conf=configCache.get(url);
   if (conf == null) {
     conf=newHBaseConfiguration(url);
-    ConfigCache.put(url,conf);
+    configCache.put(url,conf);
   }
-  HConnection connection=ConnPool.get(url);
+  HConnection connection=connPool.get(url);
   try {
     while (true) {
       if (connection == null || connection.isClosed()) {
         logger.info("connection is null or closed, creating a new one");
         connection=HConnectionManager.createConnection(conf);
-        ConnPool.put(url,connection);
+        connPool.put(url,connection);
       }
       if (connection == null || connection.isClosed()) {
         Thread.sleep(10000);

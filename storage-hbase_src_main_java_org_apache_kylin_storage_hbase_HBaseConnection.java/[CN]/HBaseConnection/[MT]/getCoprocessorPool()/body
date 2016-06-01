@@ -1,0 +1,20 @@
+{
+  if (coprocessorPool != null) {
+    return coprocessorPool;
+  }
+synchronized (HBaseConnection.class) {
+    if (coprocessorPool != null) {
+      return coprocessorPool;
+    }
+    KylinConfig config=KylinConfig.getInstanceFromEnv();
+    int maxThreads=config.getHBaseMaxConnectionThreads();
+    int coreThreads=256;
+    long keepAliveTime=60;
+    LinkedBlockingQueue<Runnable> workQueue=new LinkedBlockingQueue<Runnable>(maxThreads * 100);
+    ThreadPoolExecutor tpe=new ThreadPoolExecutor(coreThreads,maxThreads,keepAliveTime,TimeUnit.SECONDS,workQueue,Threads.newDaemonThreadFactory("kylin-coproc-"));
+    tpe.allowCoreThreadTimeOut(true);
+    logger.info("Creating coprocessor thread pool with max of " + maxThreads);
+    coprocessorPool=tpe;
+    return coprocessorPool;
+  }
+}

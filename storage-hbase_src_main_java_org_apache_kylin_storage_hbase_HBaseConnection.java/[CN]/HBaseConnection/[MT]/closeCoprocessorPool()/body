@@ -1,0 +1,12 @@
+{
+  if (coprocessorPool == null)   return;
+  coprocessorPool.shutdown();
+  try {
+    if (!coprocessorPool.awaitTermination(10,TimeUnit.SECONDS)) {
+      coprocessorPool.shutdownNow();
+    }
+  }
+ catch (  InterruptedException e) {
+    coprocessorPool.shutdownNow();
+  }
+}

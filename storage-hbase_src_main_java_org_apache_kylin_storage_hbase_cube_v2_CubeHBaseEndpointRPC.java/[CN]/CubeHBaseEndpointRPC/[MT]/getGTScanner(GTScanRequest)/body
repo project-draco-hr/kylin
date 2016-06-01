@@ -72,7 +72,8 @@
         String logHeader="<sub-thread for GTScanRequest " + Integer.toHexString(System.identityHashCode(scanRequest)) + "> ";
         Map<byte[],CubeVisitProtos.CubeVisitResponse> results;
         try {
-          results=getResults(builder.build(),conn.getTable(cubeSeg.getStorageLocationIdentifier()),epRange.getFirst(),epRange.getSecond());
+          HTableInterface htable=conn.getTable(cubeSeg.getStorageLocationIdentifier(),HBaseConnection.getCoprocessorPool());
+          results=getResults(builder.build(),htable,epRange.getFirst(),epRange.getSecond());
         }
  catch (        Throwable throwable) {
           throw new RuntimeException(logHeader + "Error when visiting cubes by endpoint",throwable);
