@@ -1,6 +1,4 @@
 {
-  Path rowCountFile=new Path(getRowCountOutputDir(),"000000_0");
-  long rowCount=readRowCountFromFile(rowCountFile);
   int mapperInputRows=config.getHadoopJobMapperInputRows();
   int numReducers=Math.round(rowCount / ((float)mapperInputRows));
   numReducers=Math.max(1,numReducers);

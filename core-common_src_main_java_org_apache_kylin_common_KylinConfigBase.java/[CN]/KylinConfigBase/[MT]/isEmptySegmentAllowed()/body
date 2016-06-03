@@ -1,0 +1,3 @@
+{
+  return Boolean.parseBoolean(getOptional("kylin.job.allow.empty.segment","true"));
+}

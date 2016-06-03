@@ -1,0 +1,12 @@
+{
+  Path rowCountFile=new Path(getRowCountOutputDir(),"000000_0");
+  FileSystem fs=FileSystem.get(rowCountFile.toUri(),HadoopUtil.getCurrentConfiguration());
+  InputStream in=fs.open(rowCountFile);
+  try {
+    String content=IOUtils.toString(in);
+    return Long.valueOf(content.trim());
+  }
+  finally {
+    IOUtils.closeQuietly(in);
+  }
+}
