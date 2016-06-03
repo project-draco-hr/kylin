@@ -1,0 +1,3 @@
+{
+  return Long.parseLong(getOptional("kylin.query.hbase.hconnection.threads.alive.seconds","60"));
+}
