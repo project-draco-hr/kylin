@@ -28,6 +28,9 @@ break;
 case "download":
 copy(KylinConfig.getInstanceFromEnv(),KylinConfig.createInstanceFromUri(args[1]));
 break;
+case "fetch":
+copy(KylinConfig.getInstanceFromEnv(),KylinConfig.createInstanceFromUri(args[1]),args[2]);
+break;
 case "upload":
 copy(KylinConfig.createInstanceFromUri(args[1]),KylinConfig.getInstanceFromEnv());
 break;
