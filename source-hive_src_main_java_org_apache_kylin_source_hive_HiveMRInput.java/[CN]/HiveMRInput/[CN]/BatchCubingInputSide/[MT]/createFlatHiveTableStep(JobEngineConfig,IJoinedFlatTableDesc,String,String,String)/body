@@ -1,21 +1,11 @@
 {
   StringBuilder hiveInitBuf=new StringBuilder();
-  try {
-    hiveInitBuf.append(JoinedFlatTable.generateHiveSetStatements(conf));
-  }
- catch (  IOException e) {
-    throw new RuntimeException("Failed to generate hive set statements for RedistributeFlatHiveTableStep",e);
-  }
+  hiveInitBuf.append(JoinedFlatTable.generateHiveSetStatements(conf));
   final String useDatabaseHql="USE " + conf.getConfig().getHiveDatabaseForIntermediateTable() + ";";
   final String dropTableHql=JoinedFlatTable.generateDropTableStatement(flatTableDesc);
   final String createTableHql=JoinedFlatTable.generateCreateTableStatement(flatTableDesc,JobBuilderSupport.getJobWorkingDir(conf,jobId));
   String insertDataHqls;
-  try {
-    insertDataHqls=JoinedFlatTable.generateInsertDataStatement(flatTableDesc,conf);
-  }
- catch (  IOException e) {
-    throw new RuntimeException("Failed to generate insert data SQL for intermediate table.",e);
-  }
+  insertDataHqls=JoinedFlatTable.generateInsertDataStatement(flatTableDesc,conf);
   CreateFlatHiveTableStep step=new CreateFlatHiveTableStep();
   step.setInitStatement(hiveInitBuf.toString());
   step.setRowCountOutputDir(rowCountOutputDir);

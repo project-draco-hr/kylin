@@ -1,11 +1,11 @@
 {
   StringBuilder buffer=new StringBuilder();
-  File hadoopPropertiesFile=new File(engineConfig.getHiveConfFilePath());
-  if (hadoopPropertiesFile.exists()) {
-    DocumentBuilderFactory factory=DocumentBuilderFactory.newInstance();
-    DocumentBuilder builder;
-    Document doc;
-    try {
+  try {
+    File hadoopPropertiesFile=new File(engineConfig.getHiveConfFilePath());
+    if (hadoopPropertiesFile.exists()) {
+      DocumentBuilderFactory factory=DocumentBuilderFactory.newInstance();
+      DocumentBuilder builder;
+      Document doc;
       builder=factory.newDocumentBuilder();
       doc=builder.parse(hadoopPropertiesFile);
       NodeList nl=doc.getElementsByTagName("property");
@@ -17,12 +17,9 @@
         }
       }
     }
- catch (    ParserConfigurationException e) {
-      throw new IOException(e);
-    }
-catch (    SAXException e) {
-      throw new IOException(e);
-    }
+  }
+ catch (  Exception e) {
+    throw new RuntimeException("Failed to parse hive conf file ",e);
   }
   return buffer.toString();
 }

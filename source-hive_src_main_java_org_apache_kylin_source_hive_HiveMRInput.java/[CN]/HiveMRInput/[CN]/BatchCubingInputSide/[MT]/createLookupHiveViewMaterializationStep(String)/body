@@ -19,6 +19,7 @@
   }
   final String useDatabaseHql="USE " + conf.getConfig().getHiveDatabaseForIntermediateTable() + ";";
   hiveCmdBuilder.addStatement(useDatabaseHql);
+  hiveCmdBuilder.addStatement(JoinedFlatTable.generateHiveSetStatements(conf));
   for (  TableDesc lookUpTableDesc : lookupViewsTables) {
     if (TableDesc.TABLE_TYPE_VIRTUAL_VIEW.equalsIgnoreCase(lookUpTableDesc.getTableType())) {
       StringBuilder createIntermediateTableHql=new StringBuilder();
