@@ -6,5 +6,5 @@
   for (  String path : paths) {
     reloadExternalFilterAt(path);
   }
-  logger.debug("Loaded " + extFilterMap.size() + " SourceTable(s)");
+  logger.debug("Loaded " + extFilterMap.size() + " ExternalFilter(s)");
 }
