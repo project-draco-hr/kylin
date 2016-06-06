@@ -7,7 +7,13 @@
     TblColRef colRef=literalCols.get(i);
     literalTupleIdx[i]=tupleInfo.hasColumn(colRef) ? tupleInfo.getColumnIndex(colRef) : -1;
   }
-  final int numericTupleIdx=(numericCol != null && tupleInfo.hasColumn(numericCol)) ? tupleInfo.getColumnIndex(numericCol) : -1;
+  final int numericTupleIdx;
+  if (numericCol != null) {
+    numericTupleIdx=tupleInfo.hasColumn(numericCol) ? tupleInfo.getColumnIndex(numericCol) : -1;
+  }
+ else {
+    numericTupleIdx=tupleInfo.getFieldIndex("COUNT__");
+  }
   return new IAdvMeasureFiller(){
     private TopNCounter<ByteArray> topNCounter;
     private Iterator<Counter<ByteArray>> topNCounterIterator;

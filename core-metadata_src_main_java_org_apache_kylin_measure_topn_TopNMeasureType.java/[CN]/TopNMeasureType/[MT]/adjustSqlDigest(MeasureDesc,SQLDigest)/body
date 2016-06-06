@@ -7,7 +7,7 @@
   }
   if (sqlDigest.aggregations.size() > 0) {
     FunctionDesc origFunc=sqlDigest.aggregations.iterator().next();
-    if (origFunc.isSum() == false) {
+    if (origFunc.isSum() == false && origFunc.isCount() == false) {
       throw new IllegalStateException("When query with topN, only SUM function is allowed.");
     }
     logger.info("Rewrite function " + origFunc + " to "+ topnFunc);
