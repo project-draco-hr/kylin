@@ -13,7 +13,7 @@ synchronized (HBaseConnection.class) {
     LinkedBlockingQueue<Runnable> workQueue=new LinkedBlockingQueue<Runnable>(maxThreads * 100);
     ThreadPoolExecutor tpe=new ThreadPoolExecutor(coreThreads,maxThreads,keepAliveTime,TimeUnit.SECONDS,workQueue,Threads.newDaemonThreadFactory("kylin-coproc-"));
     tpe.allowCoreThreadTimeOut(true);
-    logger.info("Creating coprocessor thread pool with max of " + maxThreads);
+    logger.info("Creating coprocessor thread pool with max of {}, core of {}",maxThreads,coreThreads);
     coprocessorPool=tpe;
     return coprocessorPool;
   }
