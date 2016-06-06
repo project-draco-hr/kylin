@@ -1,8 +1,11 @@
 {
   if (sum == null)   return false;
   if (!isTopN(topN) || !sum.isSum())   return false;
-  if (sum.getParameter().getColRefs().isEmpty())   return false;
-  TblColRef sumCol=sum.getParameter().getColRefs().get(0);
   TblColRef topnNumCol=getTopNNumericColumn(topN);
+  if (sum.getParameter().getColRefs().isEmpty()) {
+    if (topnNumCol == null && sum.getParameter().getValue().equals(topN.getParameter().getValue()))     return true;
+ else     return false;
+  }
+  TblColRef sumCol=sum.getParameter().getColRefs().get(0);
   return sumCol.equals(topnNumCol);
 }

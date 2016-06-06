@@ -1,4 +1,13 @@
 {
-  TblColRef literalCol=functionDesc.getParameter().getColRefs().get(1);
-  return Collections.singletonList(literalCol);
+  List<TblColRef> columnsNeedDict=Lists.newArrayList();
+  List<TblColRef> allCols=functionDesc.getParameter().getColRefs();
+  int start=(functionDesc.getParameter().isColumnType() == true) ? 1 : 0;
+  for (int i=start; i < allCols.size(); i++) {
+    TblColRef tblColRef=allCols.get(i);
+    String encoding=functionDesc.getConfiguration().get(CONFIG_ENCODING_PREFIX + tblColRef.getName());
+    if (StringUtils.isEmpty(encoding) || DictionaryDimEnc.ENCODING_NAME.equals(encoding)) {
+      columnsNeedDict.add(tblColRef);
+    }
+  }
+  return columnsNeedDict;
 }

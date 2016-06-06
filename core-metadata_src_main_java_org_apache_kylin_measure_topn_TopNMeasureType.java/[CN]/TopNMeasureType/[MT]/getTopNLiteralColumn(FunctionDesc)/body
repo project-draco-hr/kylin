@@ -1,3 +1,7 @@
 {
-  return functionDesc.getParameter().getColRefs().get(1);
+  List<TblColRef> allColumns=functionDesc.getParameter().getColRefs();
+  if (functionDesc.getParameter().isColumnType() == false) {
+    return allColumns;
+  }
+  return allColumns.subList(1,allColumns.size());
 }

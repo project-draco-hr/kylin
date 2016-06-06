@@ -1,0 +1,15 @@
+{
+  final DimensionEncoding[] dimensionEncodings=new DimensionEncoding[literalCols.size()];
+  for (int i=0; i < literalCols.size(); i++) {
+    TblColRef colRef=literalCols.get(i);
+    String encoding=function.getConfiguration().get(TopNMeasureType.CONFIG_ENCODING_PREFIX + colRef.getName());
+    if (StringUtils.isEmpty(encoding) || DictionaryDimEnc.ENCODING_NAME.equals(encoding)) {
+      dimensionEncodings[i]=new DictionaryDimEnc(dictionaryMap.get(colRef));
+    }
+ else {
+      Object[] encodingConf=DimensionEncoding.parseEncodingConf(encoding);
+      dimensionEncodings[i]=DimensionEncodingFactory.create((String)encodingConf[0],(String[])encodingConf[1]);
+    }
+  }
+  return dimensionEncodings;
+}

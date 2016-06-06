@@ -1,9 +1,13 @@
 {
-  final TblColRef literalCol=getTopNLiteralColumn(function);
+  final List<TblColRef> literalCols=getTopNLiteralColumn(function);
   final TblColRef numericCol=getTopNNumericColumn(function);
-  final Dictionary<String> topNColDict=dictionaryMap.get(literalCol);
-  final int literalTupleIdx=tupleInfo.hasColumn(literalCol) ? tupleInfo.getColumnIndex(literalCol) : -1;
-  final int numericTupleIdx=tupleInfo.hasColumn(numericCol) ? tupleInfo.getColumnIndex(numericCol) : -1;
+  final int[] literalTupleIdx=new int[literalCols.size()];
+  final DimensionEncoding[] dimensionEncodings=getDimensionEncodings(function,literalCols,dictionaryMap);
+  for (int i=0; i < literalCols.size(); i++) {
+    TblColRef colRef=literalCols.get(i);
+    literalTupleIdx[i]=tupleInfo.hasColumn(colRef) ? tupleInfo.getColumnIndex(colRef) : -1;
+  }
+  final int numericTupleIdx=(numericCol != null && tupleInfo.hasColumn(numericCol)) ? tupleInfo.getColumnIndex(numericCol) : -1;
   return new IAdvMeasureFiller(){
     private TopNCounter<ByteArray> topNCounter;
     private Iterator<Counter<ByteArray>> topNCounterIterator;
@@ -19,9 +23,12 @@
     @Override public void fillTuple(    Tuple tuple,    int row){
       if (expectRow++ != row)       throw new IllegalStateException();
       Counter<ByteArray> counter=topNCounterIterator.next();
-      int key=BytesUtil.readUnsigned(counter.getItem().array(),counter.getItem().offset(),counter.getItem().length());
-      String colValue=topNColDict.getValueFromId(key);
-      tuple.setDimensionValue(literalTupleIdx,colValue);
+      int offset=counter.getItem().offset();
+      for (int i=0; i < dimensionEncodings.length; i++) {
+        String colValue=dimensionEncodings[i].decode(counter.getItem().array(),offset,dimensionEncodings[i].getLengthOfEncoding());
+        tuple.setDimensionValue(literalTupleIdx[i],colValue);
+        offset+=dimensionEncodings[i].getLengthOfEncoding();
+      }
       tuple.setMeasureValue(numericTupleIdx,counter.getCount());
     }
   }

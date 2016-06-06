@@ -1,0 +1,18 @@
+{
+  CubeDesc desc=CubeDescManager.getInstance(this.getTestConfig()).getCubeDesc("test_kylin_cube_without_slr_left_join_desc");
+  MeasureDesc topSellerMeasure=null;
+  for (  MeasureDesc measureDesc : desc.getMeasures()) {
+    if (measureDesc.getName().equals("TOP_SELLER")) {
+      topSellerMeasure=measureDesc;
+      break;
+    }
+  }
+  TopNMeasureType measureType=(TopNMeasureType)MeasureTypeFactory.create(topSellerMeasure.getFunction().getExpression(),topSellerMeasure.getFunction().getReturnDataType());
+  topSellerMeasure.getFunction().getConfiguration().clear();
+  List<TblColRef> colsNeedDict=measureType.getColumnsNeedDictionary(topSellerMeasure.getFunction());
+  assertTrue(colsNeedDict != null && colsNeedDict.size() == 1);
+  TblColRef sellerColRef=topSellerMeasure.getFunction().getParameter().getColRefs().get(1);
+  topSellerMeasure.getFunction().getConfiguration().put(TopNMeasureType.CONFIG_ENCODING_PREFIX + sellerColRef.getName(),"int:6");
+  colsNeedDict=measureType.getColumnsNeedDictionary(topSellerMeasure.getFunction());
+  assertTrue(colsNeedDict.size() == 0);
+}

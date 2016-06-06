@@ -2,10 +2,10 @@
   if (digest.aggregations.size() != 1)   return null;
   FunctionDesc onlyFunction=digest.aggregations.iterator().next();
   if (isTopNCompatibleSum(topN.getFunction(),onlyFunction) == false)   return null;
-  TblColRef literalCol=getTopNLiteralColumn(topN.getFunction());
-  if (unmatchedDimensions.contains(literalCol) == false)   return null;
-  if (digest.groupbyColumns.contains(literalCol) == false)   return null;
-  unmatchedDimensions.remove(literalCol);
+  List<TblColRef> literalCol=getTopNLiteralColumn(topN.getFunction());
+  if (unmatchedDimensions.containsAll(literalCol) == false)   return null;
+  if (digest.groupbyColumns.containsAll(literalCol) == false)   return null;
+  unmatchedDimensions.removeAll(literalCol);
   unmatchedAggregations.remove(onlyFunction);
   return new CapabilityInfluence(){
     @Override public double suggestCostMultiplier(){

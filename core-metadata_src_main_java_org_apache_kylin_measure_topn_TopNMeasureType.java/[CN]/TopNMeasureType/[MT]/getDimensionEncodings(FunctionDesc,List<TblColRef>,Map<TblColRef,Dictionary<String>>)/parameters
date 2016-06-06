@@ -1,0 +1,3 @@
+FunctionDesc function
+List<TblColRef> literalCols
+Map<TblColRef,Dictionary<String>> dictionaryMap
