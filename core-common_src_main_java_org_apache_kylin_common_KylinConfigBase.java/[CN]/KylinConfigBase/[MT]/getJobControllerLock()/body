@@ -1,0 +1,3 @@
+{
+  return getOptional("kylin.job.controller.lock","org.apache.kylin.storage.hbase.util.ZookeeperJobLock");
+}

@@ -4,6 +4,7 @@
   TimeZone.setDefault(tzone);
   final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   final Scheduler<AbstractExecutable> scheduler=(Scheduler<AbstractExecutable>)SchedulerFactory.scheduler(kylinConfig.getSchedulerType());
+  jobLock=(JobLock)ClassUtil.newInstance(kylinConfig.getJobControllerLock());
   new Thread(new Runnable(){
     @Override public void run(){
       try {
