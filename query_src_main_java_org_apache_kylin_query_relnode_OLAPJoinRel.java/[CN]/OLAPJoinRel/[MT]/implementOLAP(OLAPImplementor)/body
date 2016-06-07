@@ -8,14 +8,14 @@
   implementor.visitChild(this.left,this);
   if (this.context != implementor.getContext() || ((OLAPRel)this.left).hasSubQuery()) {
     this.hasSubQuery=true;
-    if (!(this.left instanceof OLAPJoinRel)) {
+    if (this.context != implementor.getContext()) {
       implementor.freeContext();
     }
   }
   implementor.visitChild(this.right,this);
   if (this.context != implementor.getContext() || ((OLAPRel)this.right).hasSubQuery()) {
     this.hasSubQuery=true;
-    if (!(this.right instanceof OLAPJoinRel)) {
+    if (this.context != implementor.getContext()) {
       implementor.freeContext();
     }
   }
