@@ -2,7 +2,7 @@
   if (dictInfo == null) {
     throw new IllegalArgumentException("GlobalDictinaryBuilder must used with an existing DictionaryInfo");
   }
-  String dictDir=KylinConfig.getInstanceFromEnv().getHdfsWorkingDirectory() + "/resources/GlobalDict/" + dictInfo.getResourceDir()+ "/";
+  String dictDir=KylinConfig.getInstanceFromEnv().getHdfsWorkingDirectory() + "resources/GlobalDict" + dictInfo.getResourceDir()+ "/";
   NavigableSet<String> dicts=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv()).getStore().listResources(dictInfo.getResourceDir());
   ArrayList<String> appendDicts=new ArrayList<>();
   if (dicts != null && !dicts.isEmpty()) {

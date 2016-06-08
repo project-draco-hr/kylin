@@ -30,7 +30,8 @@ case COPY_DICT_OR_SNAPSHOT:
     DictionaryInfo dictSrc=srcDicMgr.getDictionaryInfo(item);
     long ts=dictSrc.getLastModified();
     dictSrc.setLastModified(0);
-    DictionaryInfo dictSaved=dstDictMgr.trySaveNewDict(dictSrc.getDictionaryObject(),dictSrc);
+    Dictionary dictObj=dictSrc.getDictionaryObject().copyToAnotherMeta(srcConfig,dstConfig);
+    DictionaryInfo dictSaved=dstDictMgr.trySaveNewDict(dictObj,dictSrc);
     dictSrc.setLastModified(ts);
     if (dictSaved == dictSrc) {
       logger.info("Item " + item + " is copied");

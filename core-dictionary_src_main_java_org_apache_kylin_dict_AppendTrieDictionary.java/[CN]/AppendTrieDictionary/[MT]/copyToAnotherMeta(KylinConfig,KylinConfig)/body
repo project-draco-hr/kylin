@@ -1,0 +1,15 @@
+{
+  Configuration conf=new Configuration();
+  AppendTrieDictionary newDict=new AppendTrieDictionary();
+  newDict.update(baseDir.replaceFirst(srcConfig.getHdfsWorkingDirectory(),dstConfig.getHdfsWorkingDirectory()),baseId,maxId,maxValueLength,nValues,bytesConverter,writeDictMap());
+  logger.info("Copy AppendDict from {} to {}",this.baseDir,newDict.baseDir);
+  Path srcPath=new Path(this.baseDir);
+  Path dstPath=new Path(newDict.baseDir);
+  FileSystem dstFs=FileSystem.get(dstPath.toUri(),conf);
+  if (dstFs.exists(dstPath)) {
+    logger.info("Delete existing AppendDict {}",dstPath);
+    dstFs.delete(dstPath,true);
+  }
+  FileUtil.copy(FileSystem.get(srcPath.toUri(),conf),srcPath,FileSystem.get(dstPath.toUri(),conf),dstPath,false,true,conf);
+  return newDict;
+}
