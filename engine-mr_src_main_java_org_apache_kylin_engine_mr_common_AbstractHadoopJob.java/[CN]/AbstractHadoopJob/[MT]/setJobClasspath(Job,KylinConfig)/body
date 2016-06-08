@@ -1,5 +1,4 @@
 {
-  KylinConfig kylinConf=KylinConfig.getInstanceFromEnv();
   String jarPath=kylinConf.getKylinJobJarPath();
   File jarFile=new File(jarPath);
   if (jarFile.exists()) {
