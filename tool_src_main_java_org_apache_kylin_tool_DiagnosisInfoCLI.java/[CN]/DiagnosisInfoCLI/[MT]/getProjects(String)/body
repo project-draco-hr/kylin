@@ -1,0 +1,13 @@
+{
+  List<String> result=Lists.newLinkedList();
+  if (projectSeed.equalsIgnoreCase("-all")) {
+    ProjectManager projectManager=ProjectManager.getInstance(KylinConfig.getInstanceFromEnv());
+    for (    ProjectInstance projectInstance : projectManager.listAllProjects()) {
+      result.add(projectInstance.getName());
+    }
+  }
+ else {
+    result.add(projectSeed);
+  }
+  return result;
+}

@@ -1,17 +1,19 @@
 {
-  final String project=optionsHelper.getOptionValue(options.getOption("project"));
+  final String projectInput=optionsHelper.getOptionValue(options.getOption("project"));
   boolean includeConf=optionsHelper.hasOption(OPTION_INCLUDE_CONF) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_CONF)) : true;
   boolean includeHBase=optionsHelper.hasOption(OPTION_INCLUDE_HBASE) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_HBASE)) : true;
   boolean includeClient=optionsHelper.hasOption(OPTION_INCLUDE_CLIENT) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_CLIENT)) : true;
-  String[] cubeMetaArgs={"-destDir",new File(exportDir,"metadata").getAbsolutePath(),"-project",project,"-compress","false","-submodule","true"};
-  CubeMetaExtractor cubeMetaExtractor=new CubeMetaExtractor();
-  logger.info("CubeMetaExtractor args: " + Arrays.toString(cubeMetaArgs));
-  cubeMetaExtractor.execute(cubeMetaArgs);
-  if (includeHBase) {
-    String[] hbaseArgs={"-destDir",new File(exportDir,"hbase").getAbsolutePath(),"-project",project,"-compress","false","-submodule","true"};
-    HBaseUsageExtractor hBaseUsageExtractor=new HBaseUsageExtractor();
-    logger.info("HBaseUsageExtractor args: " + Arrays.toString(hbaseArgs));
-    hBaseUsageExtractor.execute(hbaseArgs);
+  for (  String project : getProjects(projectInput)) {
+    String[] cubeMetaArgs={"-destDir",new File(exportDir,"metadata").getAbsolutePath(),"-project",project,"-compress","false","-submodule","true"};
+    CubeMetaExtractor cubeMetaExtractor=new CubeMetaExtractor();
+    logger.info("CubeMetaExtractor args: " + Arrays.toString(cubeMetaArgs));
+    cubeMetaExtractor.execute(cubeMetaArgs);
+    if (includeHBase) {
+      String[] hbaseArgs={"-destDir",new File(exportDir,"hbase").getAbsolutePath(),"-project",project,"-compress","false","-submodule","true"};
+      HBaseUsageExtractor hBaseUsageExtractor=new HBaseUsageExtractor();
+      logger.info("HBaseUsageExtractor args: " + Arrays.toString(hbaseArgs));
+      hBaseUsageExtractor.execute(hbaseArgs);
+    }
   }
   if (includeConf) {
     logger.info("Start to extract kylin conf files.");
