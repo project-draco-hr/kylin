@@ -5,4 +5,5 @@
   options.addOption(OPTION_INCLUDE_CONF);
   options.addOption(OPTION_INCLUDE_HBASE);
   options.addOption(OPTION_INCLUDE_CLIENT);
+  options.addOption(OPTION_INCLUDE_JOB);
 }

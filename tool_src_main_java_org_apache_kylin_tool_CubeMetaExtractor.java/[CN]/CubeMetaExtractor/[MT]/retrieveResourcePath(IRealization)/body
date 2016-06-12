@@ -31,12 +31,18 @@
           }
  else {
             try {
-              ExecutablePO executablePO=executableDao.getJob(lastJobId);
-              addRequired(ResourceStoreUtil.concatJobPath(lastJobId));
-              addRequired(ResourceStoreUtil.concatJobOutputPath(lastJobId));
-              for (              ExecutablePO task : executablePO.getTasks()) {
-                addRequired(ResourceStoreUtil.concatJobPath(task.getUuid()));
-                addRequired(ResourceStoreUtil.concatJobOutputPath(task.getUuid()));
+              if (onlyJobOutput) {
+                ExecutablePO executablePO=executableDao.getJob(lastJobId);
+                addRequired(ResourceStoreUtil.concatJobOutputPath(lastJobId));
+              }
+ else {
+                ExecutablePO executablePO=executableDao.getJob(lastJobId);
+                addRequired(ResourceStoreUtil.concatJobPath(lastJobId));
+                addRequired(ResourceStoreUtil.concatJobOutputPath(lastJobId));
+                for (                ExecutablePO task : executablePO.getTasks()) {
+                  addRequired(ResourceStoreUtil.concatJobPath(task.getUuid()));
+                  addRequired(ResourceStoreUtil.concatJobOutputPath(task.getUuid()));
+                }
               }
             }
  catch (            PersistentException e) {
