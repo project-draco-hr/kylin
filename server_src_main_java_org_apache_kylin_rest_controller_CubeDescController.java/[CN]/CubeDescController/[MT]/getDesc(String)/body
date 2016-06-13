@@ -1,0 +1,13 @@
+{
+  CubeInstance cubeInstance=cubeService.getCubeManager().getCube(cubeName);
+  if (cubeInstance == null) {
+    return null;
+  }
+  CubeDesc cSchema=cubeInstance.getDescriptor();
+  if (cSchema != null) {
+    return cSchema;
+  }
+ else {
+    return null;
+  }
+}
