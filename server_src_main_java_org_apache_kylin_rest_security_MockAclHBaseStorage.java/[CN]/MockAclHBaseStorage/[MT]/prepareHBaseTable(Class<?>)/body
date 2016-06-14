@@ -1,4 +1,7 @@
 {
+  if (realAcl != null) {
+    return realAcl.prepareHBaseTable(clazz);
+  }
   if (clazz == AclService.class) {
     mockedAclTable=new MockHTable(aclTableName,ACL_INFO_FAMILY,ACL_ACES_FAMILY);
     return aclTableName;

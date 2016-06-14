@@ -1,0 +1,6 @@
+{
+  String metadataUrl=KylinConfig.getInstanceFromEnv().getMetadataUrl();
+  if (metadataUrl != null && metadataUrl.endsWith("hbase")) {
+    realAcl=new RealAclHBaseStorage();
+  }
+}

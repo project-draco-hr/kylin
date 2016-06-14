@@ -1,4 +1,7 @@
 {
+  if (realAcl != null) {
+    return realAcl.getTable(tableName);
+  }
   if (StringUtils.equals(tableName,aclTableName)) {
     return mockedAclTable;
   }
