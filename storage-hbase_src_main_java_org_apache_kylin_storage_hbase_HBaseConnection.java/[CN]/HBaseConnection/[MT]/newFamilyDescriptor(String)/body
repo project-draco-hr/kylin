@@ -1,0 +1,5 @@
+{
+  HColumnDescriptor fd=new HColumnDescriptor(family);
+  fd.setInMemory(true);
+  return fd;
+}

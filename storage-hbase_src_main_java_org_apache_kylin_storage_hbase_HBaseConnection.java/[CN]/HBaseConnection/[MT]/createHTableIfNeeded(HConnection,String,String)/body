@@ -1,22 +1,38 @@
 {
   HBaseAdmin hbase=new HBaseAdmin(conn);
   try {
-    if (tableExists(conn,tableName)) {
-      logger.debug("HTable '" + tableName + "' already exists");
+    if (tableExists(conn,table)) {
+      logger.debug("HTable '" + table + "' already exists");
+      Set<String> existingFamilies=getFamilyNames(hbase.getTableDescriptor(TableName.valueOf(table)));
+      boolean wait=false;
+      for (      String family : families) {
+        if (existingFamilies.contains(family) == false) {
+          logger.debug("Adding family '" + family + "' to HTable '"+ table+ "'");
+          hbase.addColumn(table,newFamilyDescriptor(family));
+          wait=true;
+        }
+      }
+      if (wait) {
+        try {
+          Thread.sleep(10000);
+        }
+ catch (        InterruptedException e) {
+          logger.warn("",e);
+        }
+      }
       return;
     }
-    logger.debug("Creating HTable '" + tableName + "'");
-    HTableDescriptor desc=new HTableDescriptor(TableName.valueOf(tableName));
+    logger.debug("Creating HTable '" + table + "'");
+    HTableDescriptor desc=new HTableDescriptor(TableName.valueOf(table));
     if (null != families && families.length > 0) {
       for (      String family : families) {
-        HColumnDescriptor fd=new HColumnDescriptor(family);
-        fd.setInMemory(true);
+        HColumnDescriptor fd=newFamilyDescriptor(family);
         desc.addFamily(fd);
       }
     }
     desc.setValue(HTABLE_UUID_TAG,UUID.randomUUID().toString());
     hbase.createTable(desc);
-    logger.debug("HTable '" + tableName + "' created");
+    logger.debug("HTable '" + table + "' created");
   }
   finally {
     hbase.close();

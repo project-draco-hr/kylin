@@ -5,7 +5,9 @@
   List<Query> queries=new ArrayList<Query>();
   HTableInterface htable=null;
   try {
-    htable=HBaseConnection.get(hbaseUrl).getTable(userTableName);
+    HConnection conn=HBaseConnection.get(hbaseUrl);
+    HBaseConnection.createHTableIfNeeded(conn,userTableName,USER_QUERY_FAMILY);
+    htable=conn.getTable(userTableName);
     Get get=new Get(Bytes.toBytes(creator));
     get.addFamily(Bytes.toBytes(USER_QUERY_FAMILY));
     Result result=htable.get(get);
