@@ -1,4 +1,4 @@
 {
   ColumnDesc desc=ColumnDesc.mockup(MOCKUP_TABLE,col + 1,"" + col,datatype);
-  return new TblColRef(desc);
+  return desc.getRef();
 }

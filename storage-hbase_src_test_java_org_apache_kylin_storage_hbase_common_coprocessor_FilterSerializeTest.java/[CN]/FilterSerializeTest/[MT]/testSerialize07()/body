@@ -4,7 +4,7 @@
   table.setDatabase("DEFAULT");
   ColumnDesc column=new ColumnDesc();
   column.setTable(table);
-  TblColRef colRef=new TblColRef(column);
+  TblColRef colRef=column.getRef();
   List<TblColRef> groups=new ArrayList<TblColRef>();
   groups.add(colRef);
   TupleFilter filter=buildEQCompareFilter(groups,0);

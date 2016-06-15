@@ -6,7 +6,7 @@
   }
   TableDesc sourceTable=groups.get(0).getColumnDesc().getTable();
   for (  FunctionDesc func : aggregations) {
-    TblColRef col=new TblColRef(func.newFakeRewriteColumn(sourceTable));
+    TblColRef col=func.newFakeRewriteColumn(sourceTable).getRef();
     info.setField(col.getName(),col,idx++);
   }
   return info;

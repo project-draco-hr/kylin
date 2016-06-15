@@ -1,0 +1,6 @@
+{
+  if (ref == null) {
+    ref=new TblColRef(this);
+  }
+  return ref;
+}
