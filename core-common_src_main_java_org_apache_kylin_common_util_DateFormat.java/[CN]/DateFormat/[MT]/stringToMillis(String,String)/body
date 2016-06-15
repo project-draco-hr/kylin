@@ -1,11 +1,16 @@
 {
+  try {
+    if (dateFormat != null) {
+      return getDateFormat(dateFormat).parse(str).getTime();
+    }
+  }
+ catch (  ParseException e) {
+  }
   if (isAllDigits(str)) {
-    return Long.parseLong(str);
+    if (str.length() == 8)     return stringToDate(str,COMPACT_DATE_PATTERN).getTime();
+ else     return Long.parseLong(str);
   }
- else   if (str.length() == 8 && partitionDateFormat.length() == 8) {
-    return stringToDate(str,partitionDateFormat).getTime();
-  }
- else   if (str.length() == 10 && partitionDateFormat.length() == 10) {
+ else   if (str.length() == 10) {
     return stringToDate(str,DEFAULT_DATE_PATTERN).getTime();
   }
  else   if (str.length() == 19) {

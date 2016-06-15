@@ -4,7 +4,7 @@
   partitionDesc.setPartitionDateFormat("yyyy-MM-dd");
   partitionDesc.setPartitionTimeColumn("TABLE_ALIAS.HOUR_COLUMN");
   partitionDesc.setPartitionTimeFormat("H");
-  String condition=partitionConditionBuilder.buildDateRangeCondition(partitionDesc,DateFormat.stringToMillis("2016-02-22 00:00:00",DateFormat.DEFAULT_DATETIME_PATTERN_WITHOUT_MILLISECONDS),DateFormat.stringToMillis("2016-02-23 01:00:00",DateFormat.DEFAULT_DATETIME_PATTERN_WITHOUT_MILLISECONDS),new HashMap<String,String>(){
+  String condition=partitionConditionBuilder.buildDateRangeCondition(partitionDesc,DateFormat.stringToMillis("2016-02-22 00:00:00"),DateFormat.stringToMillis("2016-02-23 01:00:00"),new HashMap<String,String>(){
 {
       put("TABLE_ALIAS","DEFAULT.TABLE_NAME");
     }
