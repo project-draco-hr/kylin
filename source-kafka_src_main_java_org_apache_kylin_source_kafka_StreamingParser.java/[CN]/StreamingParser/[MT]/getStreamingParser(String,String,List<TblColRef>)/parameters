@@ -1,0 +1,3 @@
+String parserName
+String parserProperties
+List<TblColRef> columns

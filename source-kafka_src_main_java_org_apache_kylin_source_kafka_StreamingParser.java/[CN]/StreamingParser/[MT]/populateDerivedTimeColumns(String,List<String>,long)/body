@@ -1,0 +1,33 @@
+{
+  if (derivedTimeColumns.contains(columnName) == false)   return false;
+  long normalized=0;
+  if (columnName.equals("minute_start")) {
+    normalized=TimeUtil.getMinuteStart(t);
+    result.add(DateFormat.formatToTimeStr(normalized));
+  }
+ else   if (columnName.equals("hour_start")) {
+    normalized=TimeUtil.getHourStart(t);
+    result.add(DateFormat.formatToTimeStr(normalized));
+  }
+ else   if (columnName.equals("day_start")) {
+    normalized=TimeUtil.getDayStart(t);
+    result.add(DateFormat.formatToDateStr(normalized));
+  }
+ else   if (columnName.equals("week_start")) {
+    normalized=TimeUtil.getWeekStart(t);
+    result.add(DateFormat.formatToDateStr(normalized));
+  }
+ else   if (columnName.equals("month_start")) {
+    normalized=TimeUtil.getMonthStart(t);
+    result.add(DateFormat.formatToDateStr(normalized));
+  }
+ else   if (columnName.equals("quarter_start")) {
+    normalized=TimeUtil.getQuarterStart(t);
+    result.add(DateFormat.formatToDateStr(normalized));
+  }
+ else   if (columnName.equals("year_start")) {
+    normalized=TimeUtil.getYearStart(t);
+    result.add(DateFormat.formatToDateStr(normalized));
+  }
+  return true;
+}

@@ -15,7 +15,13 @@
     try {
       final KafkaConfigManager kafkaConfigManager=KafkaConfigManager.getInstance(kylinConfig);
       final KafkaConfig kafkaConfig=kafkaConfigManager.getKafkaConfig(streaming);
-      final StreamingParser streamingParser=StreamingParser.getStreamingParser(kafkaConfig,realizationType,realizationName);
+      List<TblColRef> columns=Lists.transform(new CubeJoinedFlatTableDesc(cube.getDescriptor(),null).getColumnList(),new Function<IntermediateColumnDesc,TblColRef>(){
+        @Nullable @Override public TblColRef apply(        IntermediateColumnDesc input){
+          return input.getColRef();
+        }
+      }
+);
+      final StreamingParser streamingParser=StreamingParser.getStreamingParser(kafkaConfig.getParserName(),kafkaConfig.getParserProperties(),columns);
       final ExecutorService executorService=Executors.newCachedThreadPool();
       final List<Future<List<StreamingMessage>>> futures=Lists.newArrayList();
       for (      final KafkaClusterConfig kafkaClusterConfig : kafkaConfig.getKafkaClusterConfigs()) {

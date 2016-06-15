@@ -1,0 +1,29 @@
+{
+  MessageAndOffset messageAndOffset=(MessageAndOffset)msg;
+  try {
+    Map<String,String> message=mapper.readValue(new ByteBufferBackedInputStream(messageAndOffset.message().payload()),mapType);
+    Map<String,String> root=new TreeMap<String,String>(String.CASE_INSENSITIVE_ORDER);
+    root.putAll(message);
+    String tsStr=root.get(tsColName);
+    long t;
+    if (StringUtils.isEmpty(tsStr)) {
+      t=0;
+    }
+ else {
+      t=Long.valueOf(tsStr);
+    }
+    ArrayList<String> result=Lists.newArrayList();
+    for (    TblColRef column : allColumns) {
+      String columnName=column.getName().toLowerCase();
+      if (populateDerivedTimeColumns(columnName,result,t) == false) {
+        String x=root.get(columnName);
+        result.add(x);
+      }
+    }
+    return new StreamingMessage(result,messageAndOffset.offset(),t,Collections.<String,Object>emptyMap());
+  }
+ catch (  IOException e) {
+    logger.error("error",e);
+    throw new RuntimeException(e);
+  }
+}
