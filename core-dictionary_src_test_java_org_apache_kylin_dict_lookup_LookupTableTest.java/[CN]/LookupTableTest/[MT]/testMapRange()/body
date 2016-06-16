@@ -1,8 +1,5 @@
 {
-  List<String> values=new ArrayList<String>();
-  values.add("2012-01-24");
-  values.add("2012-12-30");
-  Pair<String,String> results=lookupTable.mapRange("CAL_DT","2012-01-24","2012-12-30","QTR_BEG_DT");
+  Pair<String,String> results=lookupTable.mapRange("CAL_DT",millis("2012-01-24"),millis("2012-12-30"),"QTR_BEG_DT");
   Assert.assertTrue(results != null);
   System.out.println("The first qtr_beg_dt is " + results.getFirst());
   System.out.println("The last qtr_beg_dt is " + results.getSecond());

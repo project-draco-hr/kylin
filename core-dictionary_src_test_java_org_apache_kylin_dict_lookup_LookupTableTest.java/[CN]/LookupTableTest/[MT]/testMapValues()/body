@@ -1,7 +1,7 @@
 {
   Set<String> values=new HashSet<String>();
-  values.add("2012-01-24");
-  values.add("2012-12-30");
+  values.add(millis("2012-01-24"));
+  values.add(millis("2012-12-30"));
   Set<String> results=lookupTable.mapValues("CAL_DT",values,"YEAR_BEG_DT");
   Assert.assertTrue(results.size() == 1);
   for (  String i : results) {
