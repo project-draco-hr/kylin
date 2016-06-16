@@ -1,0 +1,4 @@
+{
+  BytesUtil.writeLong(code,buf,0,buf.length);
+  return enc.decode(buf,0,buf.length);
+}

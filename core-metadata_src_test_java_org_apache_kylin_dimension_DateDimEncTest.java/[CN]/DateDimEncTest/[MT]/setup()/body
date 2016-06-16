@@ -1,0 +1,4 @@
+{
+  enc=new DateDimEnc();
+  buf=new byte[enc.getLengthOfEncoding()];
+}

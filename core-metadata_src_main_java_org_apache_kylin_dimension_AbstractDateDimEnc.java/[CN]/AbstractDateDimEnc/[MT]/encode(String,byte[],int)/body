@@ -1,0 +1,9 @@
+{
+  if (value == null) {
+    Arrays.fill(output,outputOffset,outputOffset + fixedLen,NULL);
+    return;
+  }
+  long millis=DateFormat.stringToMillis(value);
+  long code=codec.millisToCode(millis);
+  BytesUtil.writeLong(code,output,outputOffset,fixedLen);
+}

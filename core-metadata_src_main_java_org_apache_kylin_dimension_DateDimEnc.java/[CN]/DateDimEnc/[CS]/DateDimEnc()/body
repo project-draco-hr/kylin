@@ -1,0 +1,12 @@
+{
+  super(3,new IMillisCodec(){
+    private static final long serialVersionUID=1L;
+    @Override public long millisToCode(    long millis){
+      return getNumOfDaysSince0000FromMillis(millis);
+    }
+    @Override public long codeToMillis(    long code){
+      return getMillisFromNumOfDaysSince0000(code);
+    }
+  }
+);
+}

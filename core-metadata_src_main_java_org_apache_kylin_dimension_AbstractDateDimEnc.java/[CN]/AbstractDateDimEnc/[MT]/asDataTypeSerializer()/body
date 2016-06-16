@@ -1,0 +1,37 @@
+{
+  return new DataTypeSerializer<Object>(){
+    private ThreadLocal<byte[]> current=new ThreadLocal<byte[]>();
+    private byte[] currentBuf(){
+      byte[] buf=current.get();
+      if (buf == null) {
+        buf=new byte[fixedLen];
+        current.set(buf);
+      }
+      return buf;
+    }
+    @Override public void serialize(    Object value,    ByteBuffer out){
+      byte[] buf=currentBuf();
+      String valueStr=value == null ? null : value.toString();
+      encode(valueStr,buf,0);
+      out.put(buf);
+    }
+    @Override public Object deserialize(    ByteBuffer in){
+      byte[] buf=currentBuf();
+      in.get(buf);
+      return decode(buf,0,buf.length);
+    }
+    @Override public int peekLength(    ByteBuffer in){
+      return fixedLen;
+    }
+    @Override public int maxLength(){
+      return fixedLen;
+    }
+    @Override public int getStorageBytesEstimate(){
+      return fixedLen;
+    }
+    @Override public Object valueOf(    String str){
+      return str;
+    }
+  }
+;
+}

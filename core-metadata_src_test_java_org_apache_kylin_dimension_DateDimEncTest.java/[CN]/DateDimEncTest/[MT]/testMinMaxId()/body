@@ -1,0 +1,10 @@
+{
+  assertEquals(0,encode("0000-01-01"));
+  assertEquals(DateDimEnc.ID_9999_12_31,encode("9999-12-31"));
+  try {
+    encode("10000-1-1");
+    fail("IllegalArgumentException expected");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

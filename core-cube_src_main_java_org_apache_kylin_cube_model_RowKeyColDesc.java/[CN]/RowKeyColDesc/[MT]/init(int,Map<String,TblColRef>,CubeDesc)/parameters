@@ -1,0 +1,3 @@
+int index
+Map<String,TblColRef> colNameAbbr
+CubeDesc cubeDesc

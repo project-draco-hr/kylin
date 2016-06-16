@@ -1,6 +1,6 @@
 {
   if (partitionCol.getDatatype().equals("date")) {
-    return Tuple.epicDaysToMillis(Integer.valueOf(row.getValue(partitionCol).toString()));
+    return epicDaysToMillis(Integer.valueOf(row.getValue(partitionCol).toString()));
   }
  else {
     return Long.valueOf(row.getValue(partitionCol).toString());

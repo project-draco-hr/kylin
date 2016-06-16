@@ -1,0 +1,9 @@
+{
+  long a=encode("1999-01-01");
+  long b=encode("1999-01-01 00:00:00");
+  long c=encode("1999-01-01 00:00:00.000");
+  long d=encode("1999-01-01 00:00:00.022");
+  Assert.assertEquals(a,b);
+  Assert.assertEquals(a,c);
+  Assert.assertEquals(a,d);
+}

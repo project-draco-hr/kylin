@@ -1,0 +1,4 @@
+{
+  enc.encode(value,buf,0);
+  return BytesUtil.readLong(buf,0,buf.length);
+}

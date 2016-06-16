@@ -1,0 +1,4 @@
+{
+  this.fixedLen=in.readInt();
+  this.codec=(IMillisCodec)in.readObject();
+}

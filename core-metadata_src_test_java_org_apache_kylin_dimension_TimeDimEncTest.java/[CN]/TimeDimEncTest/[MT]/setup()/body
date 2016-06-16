@@ -1,0 +1,4 @@
+{
+  enc=new TimeDimEnc();
+  buf=new byte[enc.getLengthOfEncoding()];
+}

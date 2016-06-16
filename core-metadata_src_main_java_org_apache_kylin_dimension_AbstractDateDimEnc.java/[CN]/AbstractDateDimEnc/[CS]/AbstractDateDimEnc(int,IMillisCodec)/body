@@ -1,0 +1,4 @@
+{
+  this.fixedLen=fixedLen;
+  this.codec=codec;
+}

@@ -1,5 +1,4 @@
 {
-  Date dateValue=DateFormat.stringToDate(strValue);
-  long millis=dateValue.getTime();
+  long millis=DateFormat.stringToMillis(strValue);
   return (int)(millis / (1000 * 3600 * 24));
 }

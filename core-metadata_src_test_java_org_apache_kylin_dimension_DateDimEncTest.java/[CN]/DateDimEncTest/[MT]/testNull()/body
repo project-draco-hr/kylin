@@ -1,0 +1,5 @@
+{
+  long nullId=encode(null);
+  assertNull(decode(nullId));
+  assertEquals(0xffffff,nullId & 0xffffff);
+}

@@ -1,0 +1,3 @@
+{
+  return ENCODING_NAME;
+}

@@ -1,0 +1,6 @@
+{
+  long id=encode(dateStr);
+  String millisStr=decode(id);
+  String dateStrBack=DateFormat.formatToDateStr(Long.parseLong(millisStr));
+  assertEquals(dateStr,dateStrBack);
+}

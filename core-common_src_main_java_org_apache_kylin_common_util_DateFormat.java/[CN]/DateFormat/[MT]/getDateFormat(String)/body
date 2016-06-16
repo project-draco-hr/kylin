@@ -1,13 +1,8 @@
 {
-  ThreadLocal<SimpleDateFormat> formatThreadLocal=threadLocalMap.get(datePattern);
-  if (formatThreadLocal == null) {
-    threadLocalMap.put(datePattern,formatThreadLocal=new ThreadLocal<SimpleDateFormat>());
+  FastDateFormat r=formatMap.get(datePattern);
+  if (r == null) {
+    r=FastDateFormat.getInstance(datePattern,TimeZone.getTimeZone("GMT"));
+    formatMap.put(datePattern,r);
   }
-  SimpleDateFormat format=formatThreadLocal.get();
-  if (format == null) {
-    format=new SimpleDateFormat(datePattern);
-    format.setTimeZone(TimeZone.getTimeZone("GMT"));
-    formatThreadLocal.set(format);
-  }
-  return format;
+  return r;
 }

@@ -1,0 +1,7 @@
+{
+  long a=encode(origin);
+  String back=decode(a);
+  String originChoppingMilis=DateFormat.formatToTimeWithoutMilliStr(DateFormat.stringToMillis(origin));
+  String backMillis=DateFormat.formatToTimeWithoutMilliStr(Long.parseLong(back));
+  Assert.assertEquals(originChoppingMilis,backMillis);
+}

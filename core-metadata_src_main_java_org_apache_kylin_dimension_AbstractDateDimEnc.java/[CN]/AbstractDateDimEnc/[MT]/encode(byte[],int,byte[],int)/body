@@ -1,0 +1,12 @@
+{
+  if (value == null) {
+    Arrays.fill(output,outputOffset,outputOffset + fixedLen,NULL);
+    return;
+  }
+  try {
+    String str=new String(value,0,valueLen,"ISO-8859-1");
+    encode(str,output,outputOffset);
+  }
+ catch (  UnsupportedEncodingException e) {
+  }
+}

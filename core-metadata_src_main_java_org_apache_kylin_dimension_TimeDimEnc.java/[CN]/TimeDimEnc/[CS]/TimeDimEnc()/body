@@ -1,0 +1,12 @@
+{
+  super(4,new IMillisCodec(){
+    private static final long serialVersionUID=1L;
+    @Override public long millisToCode(    long millis){
+      return millis / 1000;
+    }
+    @Override public long codeToMillis(    long code){
+      return code * 1000;
+    }
+  }
+);
+}
