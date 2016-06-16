@@ -1,0 +1,3 @@
+{
+  return String.valueOf(DateFormat.stringToMillis(dateStr));
+}
