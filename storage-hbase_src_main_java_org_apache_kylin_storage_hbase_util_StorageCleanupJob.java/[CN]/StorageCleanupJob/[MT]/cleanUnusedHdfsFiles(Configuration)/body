@@ -17,7 +17,7 @@
     if (!state.isFinalState()) {
       String path=JobInstance.getJobWorkingDir(jobId,engineConfig.getHdfsWorkingDirectory());
       allHdfsPathsNeedToBeDeleted.remove(path);
-      logger.info("Remove " + path + " from deletion list, as the path belongs to job "+ jobId+ " with status "+ state);
+      logger.info("Skip " + path + " from deletion list, as the path belongs to job "+ jobId+ " with status "+ state);
     }
   }
   for (  CubeInstance cube : cubeMgr.listAllCubes()) {
@@ -26,7 +26,7 @@
       if (jobUuid != null && jobUuid.equals("") == false) {
         String path=JobInstance.getJobWorkingDir(jobUuid,engineConfig.getHdfsWorkingDirectory());
         allHdfsPathsNeedToBeDeleted.remove(path);
-        logger.info("Remove " + path + " from deletion list, as the path belongs to segment "+ seg+ " of cube "+ cube.getName());
+        logger.info("Skip " + path + " from deletion list, as the path belongs to segment "+ seg+ " of cube "+ cube.getName());
       }
     }
   }

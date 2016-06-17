@@ -17,7 +17,7 @@
     final ExecutableState state=executableManager.getOutput(jobId).getState();
     if (!state.isFinalState()) {
       workingJobList.add(jobId);
-      logger.info("Remove intermediate hive table with job id " + jobId + " with job status "+ state);
+      logger.info("Skip intermediate hive table with job id " + jobId + " with job status "+ state);
     }
   }
   while ((line=reader.readLine()) != null) {
