@@ -8,7 +8,7 @@
     private String value;
     @Override public void reload(    Object measureValue){
       ByteArray byteArray=(ByteArray)measureValue;
-      value=new String(byteArray.array(),Charsets.toCharset("UTF-8"));
+      value=Bytes.toString(byteArray.array());
     }
     @Override public int getNumOfRows(){
       return 1;
