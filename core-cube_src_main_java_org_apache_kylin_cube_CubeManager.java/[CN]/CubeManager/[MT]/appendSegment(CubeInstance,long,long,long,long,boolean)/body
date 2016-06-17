@@ -15,10 +15,8 @@
   }
   CubeSegment newSegment=newSegment(cube,startDate,endDate,startOffset,endOffset);
   validateNewSegments(cube,newSegment);
-  if (saveChange) {
-    CubeUpdate cubeBuilder=new CubeUpdate(cube);
-    cubeBuilder.setToAddSegs(newSegment);
-    updateCube(cubeBuilder);
-  }
+  CubeUpdate cubeBuilder=new CubeUpdate(cube);
+  cubeBuilder.setToAddSegs(newSegment);
+  updateCube(cubeBuilder);
   return newSegment;
 }

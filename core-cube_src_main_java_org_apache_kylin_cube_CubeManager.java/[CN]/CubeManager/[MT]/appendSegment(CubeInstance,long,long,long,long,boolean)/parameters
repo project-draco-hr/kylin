@@ -4,4 +4,3 @@ long endDate
 long startOffset
 long endOffset
 boolean strictChecking
-boolean saveChange
