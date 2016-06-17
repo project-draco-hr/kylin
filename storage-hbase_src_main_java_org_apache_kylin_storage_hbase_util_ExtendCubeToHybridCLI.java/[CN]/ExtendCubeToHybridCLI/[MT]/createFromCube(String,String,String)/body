@@ -11,8 +11,7 @@
     return;
   }
   String owner=cubeInstance.getOwner();
-  String dateFormat=dataModelDesc.getPartitionDesc().getPartitionDateFormat();
-  long partitionDate=partitionDateStr != null ? DateFormat.stringToMillis(partitionDateStr,dateFormat) : 0;
+  long partitionDate=partitionDateStr != null ? DateFormat.stringToMillis(partitionDateStr) : 0;
   String newCubeDescName=renameCube(cubeDesc.getName());
   String newCubeInstanceName=renameCube(cubeInstance.getName());
   while (cubeDescManager.getCubeDesc(newCubeDescName) != null)   newCubeDescName=renameCube(newCubeDescName);
