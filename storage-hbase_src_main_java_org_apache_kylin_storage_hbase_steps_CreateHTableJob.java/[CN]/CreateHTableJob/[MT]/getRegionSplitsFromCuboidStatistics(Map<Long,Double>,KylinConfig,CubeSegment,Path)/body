@@ -10,9 +10,6 @@
   allCuboids.addAll(cubeSizeMap.keySet());
   Collections.sort(allCuboids);
   int nRegion=Math.round((float)(totalSizeInM / (cut * 1024L)));
-  if (kylinConfig.isDevEnv()) {
-    nRegion=Math.round((float)(totalSizeInM / cut));
-  }
   nRegion=Math.max(kylinConfig.getHBaseRegionCountMin(),nRegion);
   nRegion=Math.min(kylinConfig.getHBaseRegionCountMax(),nRegion);
   if (cubeSegment.isEnableSharding()) {
