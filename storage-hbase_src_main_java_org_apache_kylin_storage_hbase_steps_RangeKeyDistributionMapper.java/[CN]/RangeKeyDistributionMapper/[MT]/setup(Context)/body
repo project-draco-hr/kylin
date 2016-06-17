@@ -1,6 +1,3 @@
 {
   super.bindCurrentConfiguration(context.getConfiguration());
-  if (context.getConfiguration().getBoolean("isDevEnv",false)) {
-    scaleFactorForSandbox=1024L;
-  }
 }

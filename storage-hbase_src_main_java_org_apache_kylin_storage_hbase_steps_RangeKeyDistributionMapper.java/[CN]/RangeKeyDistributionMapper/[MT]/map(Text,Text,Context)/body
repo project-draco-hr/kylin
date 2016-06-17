@@ -2,8 +2,8 @@
   lastKey=key;
   int bytesLength=key.getLength() + value.getLength();
   bytesRead+=bytesLength;
-  if ((bytesRead * scaleFactorForSandbox) >= ONE_MEGA_BYTES) {
-    outputValue.set(bytesRead * scaleFactorForSandbox);
+  if (bytesRead >= ONE_MEGA_BYTES) {
+    outputValue.set(bytesRead);
     context.write(key,outputValue);
     bytesRead=0;
   }

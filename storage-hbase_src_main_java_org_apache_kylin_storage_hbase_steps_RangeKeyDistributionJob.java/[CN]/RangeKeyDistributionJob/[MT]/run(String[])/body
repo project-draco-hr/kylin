@@ -41,9 +41,6 @@
     job.getConfiguration().set(BatchConstants.CFG_REGION_NUMBER_MAX,String.valueOf(maxRegionCount));
     job.getConfiguration().set(BatchConstants.CFG_REGION_NUMBER_MIN,String.valueOf(minRegionCount));
     TableMapReduceUtil.addDependencyJars(job.getConfiguration(),ImmutableBytesWritable.class,NullWritable.class);
-    if (KylinConfig.getInstanceFromEnv().isDevEnv()) {
-      job.getConfiguration().setBoolean("isDevEnv",true);
-    }
     return waitForCompletion(job);
   }
  catch (  Exception e) {
