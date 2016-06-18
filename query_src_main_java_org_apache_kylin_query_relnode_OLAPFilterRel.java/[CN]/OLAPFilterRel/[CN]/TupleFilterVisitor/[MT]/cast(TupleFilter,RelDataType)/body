@@ -1,0 +1,15 @@
+{
+  if ((filter instanceof ConstantTupleFilter) == false) {
+    return filter;
+  }
+  ConstantTupleFilter constFilter=(ConstantTupleFilter)filter;
+  if (type.getFamily() == SqlTypeFamily.DATE || type.getFamily() == SqlTypeFamily.DATETIME || type.getFamily() == SqlTypeFamily.TIMESTAMP) {
+    List<String> newValues=Lists.newArrayList();
+    for (    Object v : constFilter.getValues()) {
+      if (v == null)       newValues.add(null);
+ else       newValues.add(String.valueOf(DateFormat.stringToMillis(v.toString())));
+    }
+    constFilter=new ConstantTupleFilter(newValues);
+  }
+  return constFilter;
+}

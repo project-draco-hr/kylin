@@ -6,6 +6,6 @@
   Assert.assertTrue(results.size() > 0);
   for (  String i : results) {
     System.out.println(i);
-    Assert.assertEquals("2012-01-01",i);
+    Assert.assertEquals(millis("2012-01-01"),i);
   }
 }

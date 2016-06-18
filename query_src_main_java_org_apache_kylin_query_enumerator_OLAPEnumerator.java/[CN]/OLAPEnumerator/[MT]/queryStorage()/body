@@ -2,7 +2,6 @@
   logger.debug("query storage...");
   setConnectionProperties();
   bindVariable(olapContext.filter);
-  olapContext.filter=modifyTimeLiterals(olapContext.filter);
   olapContext.resetSQLDigest();
   SQLDigest sqlDigest=olapContext.getSQLDigest();
   hackNoGroupByAggregation(sqlDigest);

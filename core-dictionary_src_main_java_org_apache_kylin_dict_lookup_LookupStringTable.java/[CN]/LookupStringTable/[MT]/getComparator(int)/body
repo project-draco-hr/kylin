@@ -1,0 +1,5 @@
+{
+  if (colIsDateTime[idx])   return dateStrComparator;
+ else   if (colIsNumber[idx])   return numStrComparator;
+ else   return defaultStrComparator;
+}

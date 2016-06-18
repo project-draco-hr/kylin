@@ -1,5 +1,0 @@
-{
-  TimeConditionLiteralsReplacer filterDecorator=new TimeConditionLiteralsReplacer(filter);
-  byte[] bytes=TupleFilterSerializer.serialize(filter,filterDecorator,DictCodeSystem.INSTANCE);
-  return TupleFilterSerializer.deserialize(bytes,DictCodeSystem.INSTANCE);
-}

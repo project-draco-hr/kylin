@@ -59,7 +59,7 @@ throw new UnsupportedOperationException(op.getName());
 for (RexNode operand : call.operands) {
 TupleFilter childFilter=operand.accept(this);
 if (filter == null) {
-filter=childFilter;
+filter=cast(childFilter,call.type);
 }
  else {
 filter.addChild(childFilter);

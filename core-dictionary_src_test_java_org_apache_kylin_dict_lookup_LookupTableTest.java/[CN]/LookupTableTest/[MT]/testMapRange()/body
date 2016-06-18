@@ -3,6 +3,6 @@
   Assert.assertTrue(results != null);
   System.out.println("The first qtr_beg_dt is " + results.getFirst());
   System.out.println("The last qtr_beg_dt is " + results.getSecond());
-  Assert.assertEquals("2012-01-01",results.getFirst());
-  Assert.assertEquals("2012-10-01",results.getSecond());
+  Assert.assertEquals(millis("2012-01-01"),results.getFirst());
+  Assert.assertEquals(millis("2012-10-01"),results.getSecond());
 }

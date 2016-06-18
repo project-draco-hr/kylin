@@ -1,0 +1,11 @@
+{
+  ColumnDesc[] cols=tableDesc.getColumns();
+  colIsDateTime=new boolean[cols.length];
+  colIsNumber=new boolean[cols.length];
+  for (int i=0; i < cols.length; i++) {
+    DataType t=cols[i].getType();
+    colIsDateTime[i]=t.isDateTimeFamily();
+    colIsNumber[i]=t.isNumberFamily();
+  }
+  super.init();
+}
