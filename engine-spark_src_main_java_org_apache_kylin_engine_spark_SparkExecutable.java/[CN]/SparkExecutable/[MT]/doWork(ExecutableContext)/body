@@ -3,7 +3,7 @@
   Preconditions.checkNotNull(config.getSparkHome());
   Preconditions.checkNotNull(config.getSparkMaster());
   try {
-    String cmd=String.format("%s/bin/spark-submit --class \"org.apache.kylin.engine.spark.SparkEntry\" --master %s %s %s",config.getSparkHome(),config.getSparkMaster(),config.getKylinSparkJobJarPath(),formatArgs());
+    String cmd=String.format("%s/bin/spark-submit --class \"org.apache.kylin.common.util.SparkEntry\" --master %s %s %s",config.getSparkHome(),config.getSparkMaster(),config.getKylinSparkJobJarPath(),formatArgs());
     logger.info("cmd:" + cmd);
     final StringBuilder output=new StringBuilder();
     config.getCliCommandExecutor().execute(cmd,new Logger(){
