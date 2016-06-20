@@ -1,9 +1,25 @@
 {
   HTableInterface table=getConnection().getTable(getAllInOneTableName());
   try {
+    boolean hdfsResourceExist=false;
+    Result result=internalGetFromHTable(table,resPath,true,false);
+    if (result != null) {
+      byte[] value=result.getValue(B_FAMILY,B_COLUMN);
+      if (value != null && value.length == 0) {
+        hdfsResourceExist=true;
+      }
+    }
     Delete del=new Delete(Bytes.toBytes(resPath));
     table.delete(del);
     table.flushCommits();
+    if (hdfsResourceExist) {
+      Path redirectPath=bigCellHDFSPath(resPath);
+      Configuration hconf=HBaseConnection.getCurrentHBaseConfiguration();
+      FileSystem fileSystem=FileSystem.get(hconf);
+      if (fileSystem.exists(redirectPath)) {
+        fileSystem.delete(redirectPath,true);
+      }
+    }
   }
   finally {
     IOUtils.closeQuietly(table);

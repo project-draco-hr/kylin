@@ -1,0 +1,4 @@
+HTableInterface table
+String path
+boolean fetchContent
+boolean fetchTimestamp
