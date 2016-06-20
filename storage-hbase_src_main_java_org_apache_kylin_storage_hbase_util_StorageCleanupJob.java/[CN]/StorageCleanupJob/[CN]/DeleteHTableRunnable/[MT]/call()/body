@@ -1,0 +1,14 @@
+{
+  logger.info("Deleting HBase table " + htableName);
+  if (hbaseAdmin.tableExists(htableName)) {
+    if (hbaseAdmin.isTableEnabled(htableName)) {
+      hbaseAdmin.disableTable(htableName);
+    }
+    hbaseAdmin.deleteTable(htableName);
+    logger.info("Deleted HBase table " + htableName);
+  }
+ else {
+    logger.info("HBase table" + htableName + " does not exist");
+  }
+  return null;
+}

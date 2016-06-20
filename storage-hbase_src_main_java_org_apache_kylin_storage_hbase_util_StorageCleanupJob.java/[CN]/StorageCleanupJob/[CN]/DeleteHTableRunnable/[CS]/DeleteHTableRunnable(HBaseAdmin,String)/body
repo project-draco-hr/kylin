@@ -1,0 +1,4 @@
+{
+  this.hbaseAdmin=hbaseAdmin;
+  this.htableName=htableName;
+}
