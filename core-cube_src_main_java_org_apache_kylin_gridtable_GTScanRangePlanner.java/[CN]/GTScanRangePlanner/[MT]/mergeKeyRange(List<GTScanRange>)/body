@@ -3,7 +3,7 @@
   if (ranges.size() == 1)   return first;
   GTRecord start=first.pkStart;
   GTRecord end=first.pkEnd;
-  List<FuzzyKeyGTRecord> newFuzzyKeys=new ArrayList<FuzzyKeyGTRecord>();
+  List<GTRecord> newFuzzyKeys=new ArrayList<GTRecord>();
   boolean hasNonFuzzyRange=false;
   for (  GTScanRange range : ranges) {
     hasNonFuzzyRange=hasNonFuzzyRange || range.fuzzyKeys.isEmpty();

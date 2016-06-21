@@ -1,4 +1,0 @@
-{
-  super(info);
-  this.maskForEqualHashComp=maskForEqualHashComp;
-}
