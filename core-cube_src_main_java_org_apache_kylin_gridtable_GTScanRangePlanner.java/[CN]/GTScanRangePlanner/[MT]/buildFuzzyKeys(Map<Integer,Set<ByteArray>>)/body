@@ -1,5 +1,5 @@
 {
-  ArrayList<GTRecord> result=Lists.newArrayList();
+  ArrayList<FuzzyKeyGTRecord> result=Lists.newArrayList();
   if (fuzzyValueSet.isEmpty())   return result;
   if (BackdoorToggles.getDisableFuzzyKey()) {
     logger.info("The execution of this query will not use fuzzy key");
@@ -11,7 +11,7 @@
     for (    Map.Entry<Integer,ByteArray> entry : fuzzyValue.entrySet()) {
       bitSet.set(entry.getKey());
     }
-    GTRecord fuzzy=new GTRecord(gtInfo,new ImmutableBitSet(bitSet));
+    FuzzyKeyGTRecord fuzzy=new FuzzyKeyGTRecord(gtInfo,new ImmutableBitSet(bitSet));
     for (    Map.Entry<Integer,ByteArray> entry : fuzzyValue.entrySet()) {
       fuzzy.set(entry.getKey(),entry.getValue());
     }

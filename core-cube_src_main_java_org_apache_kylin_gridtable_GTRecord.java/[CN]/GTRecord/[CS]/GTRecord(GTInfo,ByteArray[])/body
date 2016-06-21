@@ -1,3 +1,4 @@
 {
-  this(info,info.colAll,cols);
+  this.info=info;
+  this.cols=cols;
 }

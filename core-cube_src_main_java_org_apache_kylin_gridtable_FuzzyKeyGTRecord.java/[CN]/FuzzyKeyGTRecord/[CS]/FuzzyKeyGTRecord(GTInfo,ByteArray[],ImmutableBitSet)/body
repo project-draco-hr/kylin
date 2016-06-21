@@ -1,5 +1,4 @@
 {
-  this.info=info;
-  this.cols=cols;
+  super(info,cols);
   this.maskForEqualHashComp=maskForEqualHashComp;
 }

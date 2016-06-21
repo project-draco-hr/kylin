@@ -1,8 +1,0 @@
-{
-  this.cols=new ByteArray[info.getColumnCount()];
-  for (int i=0; i < this.cols.length; i++) {
-    this.cols[i]=new ByteArray();
-  }
-  this.info=info;
-  this.maskForEqualHashComp=maskForEqualHashComp;
-}

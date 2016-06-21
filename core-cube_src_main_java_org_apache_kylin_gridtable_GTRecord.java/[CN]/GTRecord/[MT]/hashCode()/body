@@ -1,7 +1,7 @@
 {
   int hash=1;
-  for (int i=0; i < maskForEqualHashComp.trueBitCount(); i++) {
-    int c=maskForEqualHashComp.trueBitAt(i);
+  for (int i=0; i < info.colAll.trueBitCount(); i++) {
+    int c=info.colAll.trueBitAt(i);
     hash=(31 * hash) + cols[c].hashCode();
   }
   return hash;

@@ -1,11 +1,7 @@
 {
-  int len=0;
-  for (int i=0; i < selectedCols.trueBitCount(); i++) {
-    int c=selectedCols.trueBitAt(i);
-    len+=cols[c].length();
-  }
+  int len=sizeOf(selectedCols);
   byte[] space=new byte[len];
-  GTRecord copy=new GTRecord(info,this.maskForEqualHashComp);
+  GTRecord copy=new GTRecord(info);
   int pos=0;
   for (int i=0; i < selectedCols.trueBitCount(); i++) {
     int c=selectedCols.trueBitAt(i);

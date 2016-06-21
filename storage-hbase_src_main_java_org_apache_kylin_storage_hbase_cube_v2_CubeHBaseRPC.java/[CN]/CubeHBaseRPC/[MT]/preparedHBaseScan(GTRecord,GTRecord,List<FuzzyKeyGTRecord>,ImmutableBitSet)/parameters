@@ -1,4 +1,4 @@
 GTRecord pkStart
 GTRecord pkEnd
-List<GTRecord> fuzzyKeys
+List<FuzzyKeyGTRecord> fuzzyKeys
 ImmutableBitSet selectedColBlocks

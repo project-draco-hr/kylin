@@ -1,0 +1,3 @@
+GTInfo info
+ByteArray[] cols
+ImmutableBitSet maskForEqualHashComp

@@ -4,9 +4,8 @@
   if (getClass() != obj.getClass())   return false;
   GTRecord o=(GTRecord)obj;
   if (this.info != o.info)   return false;
-  if (this.maskForEqualHashComp != o.maskForEqualHashComp)   return false;
-  for (int i=0; i < maskForEqualHashComp.trueBitCount(); i++) {
-    int c=maskForEqualHashComp.trueBitAt(i);
+  for (int i=0; i < info.colAll.trueBitCount(); i++) {
+    int c=info.colAll.trueBitAt(i);
     if (!this.cols[c].equals(o.cols[c])) {
       return false;
     }

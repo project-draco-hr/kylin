@@ -3,7 +3,7 @@
     return Collections.emptyList();
   }
   List<Pair<byte[],byte[]>> ret=Lists.newArrayList();
-  for (  GTRecord gtRecordFuzzyKey : fuzzyKeys) {
+  for (  FuzzyKeyGTRecord gtRecordFuzzyKey : fuzzyKeys) {
     byte[] hbaseFuzzyKey=fuzzyKeyEncoder.createBuf();
     byte[] hbaseFuzzyMask=fuzzyMaskEncoder.createBuf();
     fuzzyKeyEncoder.encode(gtRecordFuzzyKey,gtRecordFuzzyKey.getInfo().getPrimaryKey(),hbaseFuzzyKey);

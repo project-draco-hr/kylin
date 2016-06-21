@@ -2,7 +2,7 @@
   GTRecord pkStart=new GTRecord(gtInfo);
   GTRecord pkEnd=new GTRecord(gtInfo);
   Map<Integer,Set<ByteArray>> fuzzyValues=Maps.newHashMap();
-  List<GTRecord> fuzzyKeys;
+  List<FuzzyKeyGTRecord> fuzzyKeys;
   for (  ColumnRange range : andDimRanges) {
     if (gtPartitionCol != null && range.column.equals(gtPartitionCol)) {
       if (rangeStartEndComparator.comparator.compare(gtStartAndEnd.getFirst(),range.end) <= 0 && (rangeStartEndComparator.comparator.compare(range.begin,gtStartAndEnd.getSecond()) < 0 || rangeStartEndComparator.comparator.compare(range.begin,gtStartAndEnd.getSecond()) == 0 && (range.op == FilterOperatorEnum.EQ || range.op == FilterOperatorEnum.LTE || range.op == FilterOperatorEnum.GTE || range.op == FilterOperatorEnum.IN))) {
