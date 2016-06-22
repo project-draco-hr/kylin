@@ -12,6 +12,14 @@
     exact=false;
     logger.info("exactAggregation is false because some column not on group by: " + othersD + " (single value column: "+ singleValuesD+ ")");
   }
+  PartitionDesc partDesc=cuboid.getCubeDesc().getModel().getPartitionDesc();
+  if (partDesc.isPartitioned()) {
+    TblColRef col=partDesc.getPartitionDateColumnRef();
+    if (!groups.contains(col) && !singleValuesD.contains(col)) {
+      exact=false;
+      logger.info("exactAggregation is false because cube is partitioned and " + col + " is not on group by");
+    }
+  }
   if (exact) {
     logger.info("exactAggregation is true");
   }

@@ -1,12 +1,3 @@
 {
-  this.info=info;
-  if (ranges == null) {
-    this.ranges=Lists.newArrayList(new GTScanRange(new GTRecord(info),new GTRecord(info)));
-  }
- else {
-    this.ranges=ranges;
-  }
-  this.columns=columns;
-  this.filterPushDown=filterPushDown;
-  validate(info);
+  this(info,ranges,columns,null,null,null,filterPushDown,true,0);
 }

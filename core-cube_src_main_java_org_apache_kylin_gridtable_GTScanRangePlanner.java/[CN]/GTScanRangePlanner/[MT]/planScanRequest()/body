@@ -1,0 +1,11 @@
+{
+  GTScanRequest scanRequest;
+  List<GTScanRange> scanRanges=this.planScanRanges();
+  if (scanRanges != null && scanRanges.size() != 0) {
+    scanRequest=new GTScanRequest(gtInfo,scanRanges,gtDimensions,gtAggrGroups,gtAggrMetrics,gtAggrFuncs,gtFilter);
+  }
+ else {
+    scanRequest=null;
+  }
+  return scanRequest;
+}

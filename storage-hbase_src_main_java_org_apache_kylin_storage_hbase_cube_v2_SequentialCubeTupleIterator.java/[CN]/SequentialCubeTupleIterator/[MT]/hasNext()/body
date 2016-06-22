@@ -1,5 +1,6 @@
 {
   if (next != null)   return true;
+  if (hitLimitAndThreshold())   return false;
   if (advMeasureRowsRemaining > 0) {
     for (    IAdvMeasureFiller filler : advMeasureFillers) {
       filler.fillTuple(tuple,advMeasureRowIndex);

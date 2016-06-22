@@ -1,0 +1,4 @@
+{
+  if (aggrCacheGB < 0)   return (int)-aggrCacheGB;
+ else   return 0;
+}

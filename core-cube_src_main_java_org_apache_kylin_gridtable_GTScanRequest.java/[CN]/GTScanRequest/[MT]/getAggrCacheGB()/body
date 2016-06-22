@@ -1,3 +1,4 @@
 {
-  return aggrCacheGB;
+  if (aggrCacheGB < 0)   return 0;
+ else   return aggrCacheGB;
 }

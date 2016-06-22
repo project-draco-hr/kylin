@@ -11,6 +11,11 @@
  catch (  Exception e) {
     throw new RuntimeException(e);
   }
-  scanRequest=scanRangePlanner.planScanRequest(allowPreAggregate);
+  scanRequest=scanRangePlanner.planScanRequest();
+  if (scanRequest != null) {
+    scanRequest.setAllowPreAggregation(!context.isExactAggregation());
+    scanRequest.setAggrCacheGB(cubeSeg.getCubeInstance().getConfig().getQueryCoprocessorMemGB());
+    if (context.isLimitEnabled())     scanRequest.setRowLimit(context.getLimit());
+  }
   scanner=new ScannerWorker(cubeSeg,cuboid,scanRequest);
 }

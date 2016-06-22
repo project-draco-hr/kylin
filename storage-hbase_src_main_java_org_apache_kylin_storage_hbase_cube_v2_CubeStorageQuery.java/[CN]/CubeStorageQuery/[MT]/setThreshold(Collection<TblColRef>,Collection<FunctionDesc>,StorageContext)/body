@@ -12,7 +12,7 @@
   }
   long rowEst=this.cubeInstance.getConfig().getQueryMemBudget() / rowSizeEst;
   if (rowEst > 0) {
-    logger.info("Memory budget is set to: " + rowEst);
+    logger.info("Memory budget is set to " + rowEst + " rows");
     context.setThreshold((int)rowEst);
   }
  else {

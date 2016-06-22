@@ -4,4 +4,4 @@ Set<TblColRef> dimensions
 Set<TblColRef> groups
 Collection<FunctionDesc> metrics
 TupleFilter filter
-boolean allowPreAggregate
+StorageContext context

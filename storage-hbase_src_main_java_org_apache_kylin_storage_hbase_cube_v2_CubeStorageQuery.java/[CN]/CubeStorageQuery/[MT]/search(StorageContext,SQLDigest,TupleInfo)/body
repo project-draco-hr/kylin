@@ -28,7 +28,7 @@
     if (cubeSeg.getInputRecords() == 0) {
       logger.warn("cube segment {} input record is 0, " + "it may caused by kylin failed to the job counter " + "as the hadoop history server wasn't running",cubeSeg);
     }
-    scanner=new CubeSegmentScanner(cubeSeg,cuboid,dimensionsD,groupsD,metrics,filterD,!isExactAggregation);
+    scanner=new CubeSegmentScanner(cubeSeg,cuboid,dimensionsD,groupsD,metrics,filterD,context);
     scanners.add(scanner);
   }
   if (scanners.isEmpty())   return ITupleIterator.EMPTY_TUPLE_ITERATOR;

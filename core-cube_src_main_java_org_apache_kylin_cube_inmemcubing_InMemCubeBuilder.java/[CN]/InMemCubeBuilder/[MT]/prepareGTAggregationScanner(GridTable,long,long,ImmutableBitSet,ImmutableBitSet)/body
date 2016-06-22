@@ -1,6 +1,6 @@
 {
   GTInfo info=gridTable.getInfo();
-  GTScanRequest req=new GTScanRequest(info,null,null,aggregationColumns,measureColumns,metricsAggrFuncs,null,true,0);
+  GTScanRequest req=new GTScanRequest(info,null,null,aggregationColumns,measureColumns,metricsAggrFuncs,null);
   GTAggregateScanner scanner=(GTAggregateScanner)gridTable.scan(req);
   if (parentId != cuboidId) {
     boolean[] aggrMask=new boolean[measureDescs.length];
