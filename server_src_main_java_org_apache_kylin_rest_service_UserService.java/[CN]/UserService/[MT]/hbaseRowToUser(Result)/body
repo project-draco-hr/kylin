@@ -3,7 +3,16 @@
   String username=Bytes.toString(result.getRow());
   byte[] valueBytes=result.getValue(Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_FAMILY),Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_COLUMN));
   UserGrantedAuthority[] deserialized=ugaSerializer.deserialize(valueBytes);
-  String password=deserialized[0].getAuthority();
-  List<UserGrantedAuthority> authorities=Arrays.asList(deserialized).subList(1,deserialized.length);
+  String password="";
+  List<UserGrantedAuthority> authorities=Collections.emptyList();
+  if (deserialized != null) {
+    if (deserialized.length > 0 && deserialized[0].getAuthority().startsWith(PWD_PREFIX)) {
+      password=deserialized[0].getAuthority().substring(PWD_PREFIX.length());
+      authorities=Arrays.asList(deserialized).subList(1,deserialized.length);
+    }
+ else {
+      authorities=Arrays.asList(deserialized);
+    }
+  }
   return new User(username,password,authorities);
 }
