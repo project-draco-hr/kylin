@@ -113,11 +113,15 @@
           }
 );
         }
- catch (        Throwable throwable) {
-          throw new RuntimeException(logHeader + "Error when visiting cubes by endpoint",throwable);
+ catch (        Throwable ex) {
+          logger.error(logHeader + "Error when visiting cubes by endpoint",ex);
+          epResultItr.notifyCoprocException(ex);
+          return;
         }
         if (abnormalFinish[0]) {
-          throw new RuntimeException(logHeader + "The coprocessor thread stopped itself due to scan timeout, failing current query...");
+          Throwable ex=new RuntimeException(logHeader + "The coprocessor thread stopped itself due to scan timeout, failing current query...");
+          epResultItr.notifyCoprocException(ex);
+          return;
         }
       }
     }

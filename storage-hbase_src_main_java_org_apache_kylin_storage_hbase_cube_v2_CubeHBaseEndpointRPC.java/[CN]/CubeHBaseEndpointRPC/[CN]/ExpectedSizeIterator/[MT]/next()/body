@@ -4,12 +4,14 @@
   }
   try {
     current++;
-    long tsRemaining=this.timeoutTS - System.currentTimeMillis();
-    if (tsRemaining < 0) {
-      throw new RuntimeException("Timeout visiting cube!");
+    byte[] ret=null;
+    while (ret == null && coprocException == null && timeoutTS - System.currentTimeMillis() > 0) {
+      ret=queue.poll(5000,TimeUnit.MILLISECONDS);
     }
-    byte[] ret=queue.poll(tsRemaining,TimeUnit.MILLISECONDS);
-    if (ret == null) {
+    if (coprocException != null) {
+      throw new RuntimeException("Error in coprocessor",coprocException);
+    }
+ else     if (ret == null) {
       throw new RuntimeException("Timeout visiting cube!");
     }
  else {
@@ -17,6 +19,6 @@
     }
   }
  catch (  InterruptedException e) {
-    throw new RuntimeException("error when waiting queue",e);
+    throw new RuntimeException("Error when waiting queue",e);
   }
 }
