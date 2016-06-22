@@ -19,7 +19,7 @@
         }
         @Override public GTRecord next(){
           byte[] bytes=it.next();
-          oneRecord.loadColumns(info.getAllColumns(),ByteBuffer.wrap(bytes));
+          oneRecord.loadColumns(getColumns(),ByteBuffer.wrap(bytes));
           count++;
           return oneRecord;
         }

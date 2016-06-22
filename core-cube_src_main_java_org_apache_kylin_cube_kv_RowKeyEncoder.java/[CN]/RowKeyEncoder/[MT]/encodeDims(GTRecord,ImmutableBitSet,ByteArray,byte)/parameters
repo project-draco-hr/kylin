@@ -1,3 +1,4 @@
+GTRecord record
 ImmutableBitSet selectedCols
 ByteArray buf
 byte defaultValue
