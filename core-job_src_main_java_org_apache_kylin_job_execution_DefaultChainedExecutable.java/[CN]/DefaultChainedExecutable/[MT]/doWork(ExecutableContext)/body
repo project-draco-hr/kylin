@@ -3,6 +3,13 @@
   final int size=executables.size();
   for (int i=0; i < size; ++i) {
     Executable subTask=executables.get(i);
+    ExecutableState state=subTask.getStatus();
+    if (state == ExecutableState.RUNNING) {
+      break;
+    }
+ else     if (state == ExecutableState.ERROR) {
+      throw new IllegalStateException("invalid subtask state, subtask:" + subTask.getName() + ", state:"+ subTask.getStatus());
+    }
     if (subTask.isRunnable()) {
       return subTask.execute(context);
     }
