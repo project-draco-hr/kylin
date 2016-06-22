@@ -1,4 +1,5 @@
 {
+  beforeExtract();
   int logPeriod=optionsHelper.hasOption(OPTION_LOG_PERIOD) ? Integer.valueOf(optionsHelper.getOptionValue(OPTION_LOG_PERIOD)) : DEFAULT_LOG_PERIOD;
   if (logPeriod < 1) {
     logger.warn("No logs to extract.");

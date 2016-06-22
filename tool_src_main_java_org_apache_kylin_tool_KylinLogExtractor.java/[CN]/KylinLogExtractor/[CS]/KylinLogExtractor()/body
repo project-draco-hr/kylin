@@ -2,4 +2,5 @@
   super();
   packageType="logs";
   options.addOption(OPTION_LOG_PERIOD);
+  config=KylinConfig.getInstanceFromEnv();
 }

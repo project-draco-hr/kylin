@@ -1,0 +1,11 @@
+{
+  logger.info("Start to reload metadata from diagnosis.");
+  CubeManager.clearCache();
+  CubeManager.getInstance(config);
+  CubeDescManager.clearCache();
+  CubeDescManager.getInstance(config);
+  MetadataManager.clearCache();
+  MetadataManager.getInstance(config);
+  ProjectManager.clearCache();
+  ProjectManager.getInstance(config);
+}
