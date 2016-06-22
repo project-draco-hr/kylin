@@ -120,6 +120,7 @@
         }
         if (abnormalFinish[0]) {
           Throwable ex=new RuntimeException(logHeader + "The coprocessor thread stopped itself due to scan timeout, failing current query...");
+          logger.error(logHeader + "Error when visiting cubes by endpoint",ex);
           epResultItr.notifyCoprocException(ex);
           return;
         }
