@@ -7,7 +7,7 @@
     assertEquals(1,r.size());
     assertEquals("[null, 10]-[1421193600000, 10]",r.get(0).toString());
     assertEquals(1,r.get(0).fuzzyKeys.size());
-    assertEquals("[[10]]",r.get(0).fuzzyKeys.toString());
+    assertEquals("[[null, 10, null, null, null]]",r.get(0).fuzzyKeys.toString());
   }
 {
     LogicalTupleFilter filter=and(timeComp5,ageComp1);
