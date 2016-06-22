@@ -1,10 +1,10 @@
 {
   HTableInterface htable=null;
   try {
-    byte[] userAuthorities=serialize(user.getAuthorities());
     htable=aclHBaseStorage.getTable(userTableName);
-    Put put=new Put(Bytes.toBytes(user.getUsername()));
-    put.add(Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_FAMILY),Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_COLUMN),userAuthorities);
+    Pair<byte[],byte[]> pair=userToHBaseRow(user);
+    Put put=new Put(pair.getKey());
+    put.add(Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_FAMILY),Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_COLUMN),pair.getSecond());
     htable.put(put);
     htable.flushCommits();
   }

@@ -1,0 +1,13 @@
+{
+  byte[] key=Bytes.toBytes(user.getUsername());
+  Collection<? extends GrantedAuthority> authorities=user.getAuthorities();
+  if (authorities == null)   authorities=Collections.emptyList();
+  UserGrantedAuthority[] serializing=new UserGrantedAuthority[authorities.size() + 1];
+  serializing[0]=new UserGrantedAuthority(user.getPassword());
+  int i=1;
+  for (  GrantedAuthority a : authorities) {
+    serializing[i++]=new UserGrantedAuthority(a.getAuthority());
+  }
+  byte[] value=ugaSerializer.serialize(serializing);
+  return Pair.newPair(key,value);
+}

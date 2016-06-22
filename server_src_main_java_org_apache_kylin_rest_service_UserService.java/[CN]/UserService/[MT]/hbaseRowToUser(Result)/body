@@ -1,0 +1,9 @@
+{
+  if (null == result || result.isEmpty())   return null;
+  String username=Bytes.toString(result.getRow());
+  byte[] valueBytes=result.getValue(Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_FAMILY),Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_COLUMN));
+  UserGrantedAuthority[] deserialized=ugaSerializer.deserialize(valueBytes);
+  String password=deserialized[0].getAuthority();
+  List<UserGrantedAuthority> authorities=Arrays.asList(deserialized).subList(1,deserialized.length);
+  return new User(username,password,authorities);
+}
