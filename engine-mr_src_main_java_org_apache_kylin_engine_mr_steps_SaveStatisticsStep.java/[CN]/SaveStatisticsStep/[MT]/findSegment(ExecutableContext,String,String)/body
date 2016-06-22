@@ -1,0 +1,26 @@
+{
+  final CubeManager mgr=CubeManager.getInstance(context.getConfig());
+  final CubeInstance cube=mgr.getCube(cubeName);
+  if (cube == null) {
+    String cubeList=StringUtils.join(Iterables.transform(mgr.listAllCubes(),new Function<CubeInstance,String>(){
+      @Nullable @Override public String apply(      @Nullable CubeInstance input){
+        return input.getName();
+      }
+    }
+).iterator(),",");
+    logger.info("target cube name: {}, cube list: {}",cubeName,cubeList);
+    throw new IllegalStateException();
+  }
+  final CubeSegment newSegment=cube.getSegmentById(segmentId);
+  if (newSegment == null) {
+    String segmentList=StringUtils.join(Iterables.transform(cube.getSegments(),new Function<CubeSegment,String>(){
+      @Nullable @Override public String apply(      @Nullable CubeSegment input){
+        return input.getUuid();
+      }
+    }
+).iterator(),",");
+    logger.info("target segment id: {}, segment list: {}",segmentId,segmentList);
+    throw new IllegalStateException();
+  }
+  return newSegment;
+}
