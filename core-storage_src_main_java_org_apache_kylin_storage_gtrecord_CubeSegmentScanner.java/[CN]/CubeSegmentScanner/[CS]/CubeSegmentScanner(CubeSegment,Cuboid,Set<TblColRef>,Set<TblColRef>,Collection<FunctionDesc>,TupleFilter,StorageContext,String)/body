@@ -17,5 +17,5 @@
     scanRequest.setAggrCacheGB(cubeSeg.getCubeInstance().getConfig().getQueryCoprocessorMemGB());
     if (context.isLimitEnabled())     scanRequest.setRowLimit(context.getLimit());
   }
-  scanner=new ScannerWorker(cubeSeg,cuboid,scanRequest);
+  scanner=new ScannerWorker(cubeSeg,cuboid,scanRequest,gtStorage);
 }

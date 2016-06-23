@@ -1,0 +1,8 @@
+{
+  if ("scan".equalsIgnoreCase(BackdoorToggles.getHbaseCubeQueryProtocol())) {
+    return "org.apache.kylin.storage.hbase.cube.v2.CubeHBaseScanRPC";
+  }
+ else {
+    return KylinConfig.getInstanceFromEnv().getDefaultIGTStorage();
+  }
+}

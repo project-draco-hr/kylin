@@ -1,4 +1,3 @@
 {
-  this.cubeInstance=cube;
-  this.cubeDesc=cube.getDescriptor();
+  super(cube);
 }

@@ -5,3 +5,4 @@ Set<TblColRef> groups
 Collection<FunctionDesc> metrics
 TupleFilter filter
 StorageContext context
+String gtStorage
