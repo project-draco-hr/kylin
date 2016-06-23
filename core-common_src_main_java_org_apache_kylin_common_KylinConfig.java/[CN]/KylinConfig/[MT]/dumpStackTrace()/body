@@ -1,0 +1,15 @@
+{
+  Thread t=Thread.currentThread();
+  int maxStackTraceDepth=20;
+  int current=0;
+  StackTraceElement[] stackTrace=t.getStackTrace();
+  StringBuilder buf=new StringBuilder("");
+  buf.append("\n");
+  for (  StackTraceElement e : stackTrace) {
+    if (++current > maxStackTraceDepth) {
+      break;
+    }
+    buf.append("\t").append("at ").append(e.toString()).append("\n");
+  }
+  logger.info(buf.toString());
+}

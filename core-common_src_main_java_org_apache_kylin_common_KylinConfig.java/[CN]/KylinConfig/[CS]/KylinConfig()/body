@@ -1,3 +1,5 @@
 {
   super();
+  logger.info("New KylinConfig " + System.identityHashCode(this));
+  KylinConfig.dumpStackTrace();
 }

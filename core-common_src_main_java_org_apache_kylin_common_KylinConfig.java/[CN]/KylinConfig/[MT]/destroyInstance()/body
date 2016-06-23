@@ -1,3 +1,5 @@
 {
+  logger.info("Destory KylinConfig");
+  dumpStackTrace();
   ENV_INSTANCE=null;
 }

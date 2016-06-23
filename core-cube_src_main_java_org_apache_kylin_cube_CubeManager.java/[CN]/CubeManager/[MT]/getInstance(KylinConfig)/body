@@ -12,7 +12,10 @@ synchronized (CubeManager.class) {
       r=new CubeManager(config);
       CACHE.put(config,r);
       if (CACHE.size() > 1) {
-        logger.warn("More than one cubemanager singleton exist");
+        logger.warn("More than one singleton exist");
+        for (        KylinConfig kylinConfig : CACHE.keySet()) {
+          logger.warn("type: " + kylinConfig.getClass() + " reference: "+ System.identityHashCode(kylinConfig.base()));
+        }
       }
       return r;
     }

@@ -1,0 +1,9 @@
+{
+  ByteBuffer byteBuffer=SerializeToByteBuffer.retrySerialize(new SerializeToByteBuffer.IWriter(){
+    @Override public void write(    ByteBuffer byteBuffer) throws BufferOverflowException {
+      GTScanRequest.serializer.serialize(GTScanRequest.this,byteBuffer);
+    }
+  }
+);
+  return Arrays.copyOf(byteBuffer.array(),byteBuffer.position());
+}

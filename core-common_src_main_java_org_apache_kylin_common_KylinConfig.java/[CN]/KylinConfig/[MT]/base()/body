@@ -1,4 +1,3 @@
 {
-  if (this instanceof KylinConfigExt)   return ((KylinConfigExt)this).base;
- else   return this;
+  return this;
 }

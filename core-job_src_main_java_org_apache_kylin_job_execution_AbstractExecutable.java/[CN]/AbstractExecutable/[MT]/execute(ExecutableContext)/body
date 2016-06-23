@@ -14,7 +14,7 @@
       result=doWork(executableContext);
     }
  catch (    Throwable e) {
-      logger.error("error running Executable",e);
+      logger.error("error running Executable: " + this.toString());
       exception=e;
     }
     retry++;

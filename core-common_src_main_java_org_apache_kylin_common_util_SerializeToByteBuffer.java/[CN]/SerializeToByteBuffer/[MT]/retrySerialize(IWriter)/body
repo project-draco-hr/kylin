@@ -1,0 +1,14 @@
+{
+  int bufferSize=BytesSerializer.SERIALIZE_BUFFER_SIZE;
+  while (true) {
+    try {
+      ByteBuffer byteBuffer=ByteBuffer.allocate(bufferSize);
+      writer.write(byteBuffer);
+      return byteBuffer;
+    }
+ catch (    BufferOverflowException boe) {
+      System.out.println("Buffer size cannot hold the raw scans, resizing to 4 times : " + bufferSize);
+      bufferSize*=4;
+    }
+  }
+}
