@@ -1,9 +1,10 @@
 {
   providers=Maps.newConcurrentMap();
-  final Set<Class<? extends IRealizationProvider>> realizationProviders=new Reflections("org.apache.kylin",new SubTypesScanner()).getSubTypesOf(IRealizationProvider.class);
+  String[] providerNames=config.getRealizationProviders();
   List<Throwable> es=Lists.newArrayList();
-  for (  Class<? extends IRealizationProvider> cls : realizationProviders) {
+  for (  String clsName : providerNames) {
     try {
+      Class<? extends IRealizationProvider> cls=ClassUtil.forName(clsName,IRealizationProvider.class);
       IRealizationProvider p=(IRealizationProvider)cls.getMethod("getInstance",KylinConfig.class).invoke(null,config);
       providers.put(p.getRealizationType(),p);
     }
