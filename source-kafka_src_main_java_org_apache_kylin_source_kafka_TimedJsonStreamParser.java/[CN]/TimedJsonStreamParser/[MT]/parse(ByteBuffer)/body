@@ -1,7 +1,6 @@
 {
-  MessageAndOffset messageAndOffset=(MessageAndOffset)msg;
   try {
-    Map<String,String> message=mapper.readValue(new ByteBufferBackedInputStream(messageAndOffset.message().payload()),mapType);
+    Map<String,String> message=mapper.readValue(new ByteBufferBackedInputStream(buffer),mapType);
     Map<String,String> root=new TreeMap<String,String>(String.CASE_INSENSITIVE_ORDER);
     root.putAll(message);
     String tsStr=root.get(tsColName);
@@ -20,7 +19,7 @@
         result.add(x);
       }
     }
-    return new StreamingMessage(result,messageAndOffset.offset(),t,Collections.<String,Object>emptyMap());
+    return new StreamingMessage(result,0,t,Collections.<String,Object>emptyMap());
   }
  catch (  IOException e) {
     logger.error("error",e);

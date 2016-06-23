@@ -1,7 +1,0 @@
-{
-  MessageAndOffset kafkaMessage=(MessageAndOffset)message;
-  final ByteBuffer payload=kafkaMessage.message().payload();
-  byte[] bytes=new byte[payload.limit()];
-  payload.get(bytes);
-  return new StreamingMessage(Lists.newArrayList(new String(bytes).split(",")),kafkaMessage.offset(),kafkaMessage.offset(),Collections.<String,Object>emptyMap());
-}
