@@ -1,7 +1,7 @@
 {
   Scan s=new Scan();
   s.addColumn(Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_FAMILY),Bytes.toBytes(AclHBaseStorage.USER_AUTHORITY_COLUMN));
-  List<String> all=new ArrayList<String>();
+  List<UserDetails> all=new ArrayList<UserDetails>();
   HTableInterface htable=null;
   ResultScanner scanner=null;
   try {
@@ -9,15 +9,11 @@
     scanner=htable.getScanner(s);
     for (Result result=scanner.next(); result != null; result=scanner.next()) {
       User user=hbaseRowToUser(result);
-      for (      GrantedAuthority auth : user.getAuthorities()) {
-        if (!all.contains(auth.getAuthority())) {
-          all.add(auth.getAuthority());
-        }
-      }
+      all.add(user);
     }
   }
  catch (  IOException e) {
-    throw new RuntimeException(e.getMessage(),e);
+    throw new RuntimeException("Failed to scan users",e);
   }
  finally {
     IOUtils.closeQuietly(scanner);

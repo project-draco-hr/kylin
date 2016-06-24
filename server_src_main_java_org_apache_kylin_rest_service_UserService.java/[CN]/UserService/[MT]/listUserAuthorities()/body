@@ -1,0 +1,11 @@
+{
+  List<String> all=new ArrayList<String>();
+  for (  UserDetails user : listUsers()) {
+    for (    GrantedAuthority auth : user.getAuthorities()) {
+      if (!all.contains(auth.getAuthority())) {
+        all.add(auth.getAuthority());
+      }
+    }
+  }
+  return all;
+}
