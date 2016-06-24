@@ -1,5 +1,5 @@
 {
-  String str[]=StringSplitter.split(line,delim);
+  String[] str=StringSplitter.split(line,delim);
   if (DFSFileTable.DELIM_COMMA.equals(delim)) {
     for (int i=0; i < str.length; i++) {
       str[i]=unescapeCsv(str[i]);

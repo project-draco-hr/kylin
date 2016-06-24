@@ -21,6 +21,8 @@ break;
 case PREP:
 status=JobStepStatusEnum.WAITING;
 break;
+default :
+throw new IllegalStateException();
 }
 }
  catch (Exception e) {

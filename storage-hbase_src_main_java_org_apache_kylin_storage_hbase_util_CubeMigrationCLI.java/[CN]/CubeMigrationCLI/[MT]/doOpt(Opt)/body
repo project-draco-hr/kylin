@@ -153,6 +153,11 @@ cube.getSegments().clear();
 cube.setStatus(RealizationStatusEnum.DISABLED);
 srcStore.putResource(cubeResPath,cube,cubeSerializer);
 logger.info("Cube " + cubeName + " is purged and disabled in "+ srcConfig.getMetadataUrl());
+break;
+}
+default :
+{
+break;
 }
 }
 }

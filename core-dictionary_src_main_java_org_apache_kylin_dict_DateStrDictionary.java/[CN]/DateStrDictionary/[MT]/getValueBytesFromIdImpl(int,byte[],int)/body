@@ -1,5 +1,5 @@
 {
-  byte bytes[]=getValueBytesFromIdImpl(id);
+  byte[] bytes=getValueBytesFromIdImpl(id);
   System.arraycopy(bytes,0,returnValue,offset,bytes.length);
   return bytes.length;
 }

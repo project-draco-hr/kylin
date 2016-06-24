@@ -9,6 +9,4 @@
     }
     executableManager.updateJobOutput(getId(),ExecutableState.ERROR,null,output);
   }
- else {
-  }
 }

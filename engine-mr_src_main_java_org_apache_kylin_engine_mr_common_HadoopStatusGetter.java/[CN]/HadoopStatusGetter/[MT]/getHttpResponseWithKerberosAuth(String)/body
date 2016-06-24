@@ -41,7 +41,7 @@
         redirect=h.getValue();
         if (isValidURL(redirect) == false) {
           logger.info("Get invalid redirect url, skip it: " + redirect);
-          Thread.sleep(1000l);
+          Thread.sleep(1000L);
           continue;
         }
       }
@@ -54,7 +54,7 @@
             redirect=s.substring(cut + 4);
             if (isValidURL(redirect) == false) {
               logger.info("Get invalid redirect url, skip it: " + redirect);
-              Thread.sleep(1000l);
+              Thread.sleep(1000L);
               continue;
             }
           }

@@ -35,6 +35,8 @@ case Types.TIME:
 return Time.valueOf(value);
 case Types.TIMESTAMP:
 return Timestamp.valueOf(value);
+default :
+break;
 }
 return value;
 }

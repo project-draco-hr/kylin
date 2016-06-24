@@ -1,6 +1,6 @@
 {
   String date=getValueFromId(id);
-  byte bytes[];
+  byte[] bytes;
   try {
     bytes=date.getBytes("ISO-8859-1");
   }

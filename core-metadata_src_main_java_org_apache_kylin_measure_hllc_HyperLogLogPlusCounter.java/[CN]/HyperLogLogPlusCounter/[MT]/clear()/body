@@ -1,7 +1,6 @@
 {
   byte zero=(byte)0;
   if (singleBucket == -1) {
-    ;
   }
  else   if (singleBucket >= 0) {
     registers[singleBucket]=0;

@@ -8,6 +8,7 @@
     bitmap.deserialize(input);
   }
  catch (  IOException e) {
+    throw new IllegalStateException(e);
   }
   len=in.position() - mark;
   in.position(mark);

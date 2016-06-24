@@ -44,6 +44,8 @@ break;
 case Types.TIMESTAMP:
 result=Timestamp.class;
 break;
+default :
+break;
 }
 return result;
 }

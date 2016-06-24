@@ -35,8 +35,13 @@ case FINISHED:
 case FAILED:
 case KILLING:
 case KILLED:
+break;
+default :
+throw new IllegalStateException();
 }
 break;
+default :
+throw new IllegalStateException();
 }
 }
  catch (Exception e) {

@@ -1,2 +1,2 @@
-double values[]
+double[] values
 ByteBuffer buf

@@ -64,10 +64,6 @@
     throw e;
   }
  finally {
-    try {
-      if (fis != null)       fis.close();
-    }
- catch (    Exception ee) {
-    }
+    IOUtils.closeQuietly(fis);
   }
 }

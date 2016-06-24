@@ -57,5 +57,9 @@ case PURGE_AND_DISABLE:
 logger.info("Undo for PURGE_AND_DISABLE is not supported");
 break;
 }
+default :
+{
+break;
+}
 }
 }
