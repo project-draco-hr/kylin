@@ -5,5 +5,5 @@
   if (!function.equals(that.getFunction()))   return false;
   if (dependentMeasureRef != null && that.getDependentMeasureRef() == null || dependentMeasureRef == null && that.getDependentMeasureRef() != null)   return false;
   if (dependentMeasureRef == null && that.getDependentMeasureRef() == null)   return true;
-  return dependentMeasureRef.equalsIgnoreCase(that.getDependentMeasureRef());
+  return dependentMeasureRef.equals(that.getDependentMeasureRef());
 }
