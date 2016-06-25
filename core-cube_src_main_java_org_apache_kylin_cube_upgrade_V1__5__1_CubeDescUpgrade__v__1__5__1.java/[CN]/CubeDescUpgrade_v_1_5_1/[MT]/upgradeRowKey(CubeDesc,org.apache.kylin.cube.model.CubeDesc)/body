@@ -1,6 +1,6 @@
 {
   RowKeyDesc oldRowKey=oldModel.getRowkey();
-  if (oldModel == null) {
+  if (oldRowKey == null) {
     throw new IllegalArgumentException("RowKeyDesc is null");
   }
   if (oldRowKey.getRowKeyColumns() == null) {

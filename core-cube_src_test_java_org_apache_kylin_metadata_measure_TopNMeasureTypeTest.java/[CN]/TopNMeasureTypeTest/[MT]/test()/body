@@ -1,5 +1,5 @@
 {
-  CubeDesc desc=CubeDescManager.getInstance(this.getTestConfig()).getCubeDesc("test_kylin_cube_without_slr_left_join_desc");
+  CubeDesc desc=CubeDescManager.getInstance(getTestConfig()).getCubeDesc("test_kylin_cube_without_slr_left_join_desc");
   MeasureDesc topSellerMeasure=null;
   for (  MeasureDesc measureDesc : desc.getMeasures()) {
     if (measureDesc.getName().equals("TOP_SELLER")) {

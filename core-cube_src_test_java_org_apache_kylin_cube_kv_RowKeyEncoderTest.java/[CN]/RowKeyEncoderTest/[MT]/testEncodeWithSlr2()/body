@@ -18,7 +18,7 @@
   assertEquals(43 + rowKeyEncoder.getHeaderLength(),encodedKey.length);
   byte[] shard=Arrays.copyOfRange(encodedKey,0,RowConstants.ROWKEY_SHARDID_LEN);
   byte[] cuboidId=Arrays.copyOfRange(encodedKey,RowConstants.ROWKEY_SHARDID_LEN,rowKeyEncoder.getHeaderLength());
-  byte[] sellerId=Arrays.copyOfRange(encodedKey,rowKeyEncoder.getHeaderLength(),18 + rowKeyEncoder.getHeaderLength());
+  @SuppressWarnings("unused") byte[] sellerId=Arrays.copyOfRange(encodedKey,rowKeyEncoder.getHeaderLength(),18 + rowKeyEncoder.getHeaderLength());
   byte[] rest=Arrays.copyOfRange(encodedKey,4 + rowKeyEncoder.getHeaderLength(),encodedKey.length);
   assertEquals(0,Bytes.toShort(shard));
   assertEquals(511,Bytes.toLong(cuboidId));
