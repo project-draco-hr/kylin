@@ -1,3 +1,0 @@
-{
-  return Boolean.valueOf(this.getOptional("kylin.job.status.with.kerberos","false"));
-}

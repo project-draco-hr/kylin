@@ -1,3 +1,0 @@
-{
-  setProperty("kylin.zookeeper.address",zkAddress);
-}

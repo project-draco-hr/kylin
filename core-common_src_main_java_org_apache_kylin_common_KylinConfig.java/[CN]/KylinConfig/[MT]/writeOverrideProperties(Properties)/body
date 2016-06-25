@@ -20,7 +20,7 @@
   PrintWriter pw=null;
   try {
     pw=new PrintWriter(overrideFile);
-    Enumeration e=override.propertyNames();
+    Enumeration<?> e=override.propertyNames();
     while (e.hasMoreElements()) {
       String key=(String)e.nextElement();
       pw.println(key + "=" + override.getProperty(key));
