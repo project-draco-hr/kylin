@@ -1,0 +1,9 @@
+{
+  List<Integer> measures=Lists.newArrayList();
+  int numDim=info.getPrimaryKey().trueBitCount();
+  for (int i=0; i < aggrMetrics.trueBitCount(); i++) {
+    int index=aggrMetrics.trueBitAt(i);
+    measures.add(index - numDim);
+  }
+  return measures;
+}
