@@ -1,0 +1,4 @@
+{
+  if (e instanceof ClassNotFoundException || e instanceof NoClassDefFoundError)   logger.warn("Failed to create realization provider ",e);
+ else   logger.error("Failed to create realization provider",e);
+}
