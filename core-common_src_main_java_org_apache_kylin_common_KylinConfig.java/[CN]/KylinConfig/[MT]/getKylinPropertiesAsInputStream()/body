@@ -1,5 +1,5 @@
 {
-  File propFile=getKylinProperties();
+  File propFile=getKylinPropertiesFile();
   if (propFile == null || !propFile.exists()) {
     logger.error("fail to locate kylin.properties");
     throw new RuntimeException("fail to locate kylin.properties");

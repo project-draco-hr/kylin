@@ -1,5 +1,5 @@
 {
-  File propFile=getKylinProperties();
+  File propFile=getKylinPropertiesFile();
   File overrideFile=new File(propFile.getParentFile(),propFile.getName() + ".override");
   overrideFile.createNewFile();
   FileInputStream fis2=null;
