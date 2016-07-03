@@ -7,6 +7,8 @@
   for (  String tableName : cube.getDescriptor().getModel().getAllTables()) {
     TableDesc table=metaMgr.getTableDesc(tableName);
     dumpList.add(table.getResourcePath());
+    List<String> dependentResources=SourceFactory.getMRDependentResources(table);
+    dumpList.addAll(dependentResources);
   }
   for (  CubeSegment segment : cube.getSegments()) {
     dumpList.addAll(segment.getDictionaryPaths());

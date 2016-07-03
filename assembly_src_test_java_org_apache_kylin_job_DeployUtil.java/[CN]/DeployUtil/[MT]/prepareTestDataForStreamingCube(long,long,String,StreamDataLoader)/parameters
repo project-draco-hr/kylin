@@ -1,4 +1,4 @@
 long startTime
 long endTime
 String cubeName
-KafkaConfig kafkaConfig
+StreamDataLoader streamDataLoader

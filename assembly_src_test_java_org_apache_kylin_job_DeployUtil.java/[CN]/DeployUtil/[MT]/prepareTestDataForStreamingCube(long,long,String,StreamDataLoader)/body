@@ -3,9 +3,9 @@
   List<String> data=StreamingTableDataGenerator.generate(10000,startTime,endTime,cubeInstance.getFactTable());
   List<String> data2=StreamingTableDataGenerator.generate(10,endTime,endTime + 300000,cubeInstance.getFactTable());
   TableDesc tableDesc=cubeInstance.getFactTableDesc();
-  KafkaDataLoader.loadIntoKafka(kafkaConfig.getKafkaClusterConfigs(),data);
-  KafkaDataLoader.loadIntoKafka(kafkaConfig.getKafkaClusterConfigs(),data2);
-  logger.info("Write {} messages into topic {}",data.size(),kafkaConfig.getTopic());
+  streamDataLoader.loadIntoKafka(data);
+  streamDataLoader.loadIntoKafka(data2);
+  logger.info("Write {} messages into {}",data.size(),streamDataLoader.toString());
   List<TblColRef> tableColumns=Lists.newArrayList();
   for (  ColumnDesc columnDesc : tableDesc.getColumns()) {
     tableColumns.add(columnDesc.getRef());

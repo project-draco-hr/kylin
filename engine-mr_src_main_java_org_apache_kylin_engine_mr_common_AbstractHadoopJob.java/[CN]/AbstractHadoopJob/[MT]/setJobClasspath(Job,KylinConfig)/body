@@ -10,6 +10,7 @@
   }
   String kylinHiveDependency=System.getProperty("kylin.hive.dependency");
   String kylinHBaseDependency=System.getProperty("kylin.hbase.dependency");
+  String kylinKafkaDependency=System.getProperty("kylin.kafka.dependency");
   logger.info("append kylin.hbase.dependency: " + kylinHBaseDependency + " to "+ MAP_REDUCE_CLASSPATH);
   Configuration jobConf=job.getConfiguration();
   String classpath=jobConf.get(MAP_REDUCE_CLASSPATH);
@@ -48,6 +49,23 @@
     }
  catch (    ClassNotFoundException e) {
       logger.error("Cannot found hive dependency jars: " + e);
+    }
+  }
+  if (kylinKafkaDependency != null) {
+    kylinKafkaDependency=kylinKafkaDependency.replace(":",",");
+    logger.info("Kafka Dependencies Before Filtered: " + kylinHiveDependency);
+    if (kylinDependency.length() > 0)     kylinDependency.append(",");
+    kylinDependency.append(kylinKafkaDependency);
+  }
+ else {
+    logger.info("No Kafka dependency jars set in the environment, will find them from jvm:");
+    try {
+      String kafkaClientJarPath=ClassUtil.findContainingJar(Class.forName("org.apache.kafka.clients.consumer.KafkaConsumer"));
+      kylinDependency.append(kafkaClientJarPath).append(",");
+      logger.info("kafka jar file: " + kafkaClientJarPath);
+    }
+ catch (    ClassNotFoundException e) {
+      logger.error("Cannot found kafka dependency jars: " + e);
     }
   }
   String mrLibDir=kylinConf.getKylinJobMRLibDir();
