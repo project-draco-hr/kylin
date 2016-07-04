@@ -1,7 +1,6 @@
 {
-  String[] args={"-jobId",jobId,"-destDir",getDumpDir().getAbsolutePath()};
-  logger.info("JobDiagnosisInfoCLI args: " + Arrays.toString(args));
-  JobDiagnosisInfoCLI jobInfoExtractor=new JobDiagnosisInfoCLI();
-  jobInfoExtractor.execute(args);
-  return jobInfoExtractor.getExportDest();
+  File exportPath=getDumpDir();
+  String[] args={jobId,exportPath.getAbsolutePath()};
+  runDiagnosisCLI(args);
+  return getDiagnosisPackageName(exportPath);
 }

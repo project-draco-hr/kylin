@@ -1,7 +1,6 @@
 {
-  String[] args={"-project","-all","-destDir",getDumpDir().getAbsolutePath()};
-  logger.info("DiagnosisInfoCLI args: " + Arrays.toString(args));
-  DiagnosisInfoCLI diagnosisInfoCli=new DiagnosisInfoCLI();
-  diagnosisInfoCli.execute(args);
-  return diagnosisInfoCli.getExportDest();
+  File exportPath=getDumpDir();
+  String[] args={project,exportPath.getAbsolutePath()};
+  runDiagnosisCLI(args);
+  return getDiagnosisPackageName(exportPath);
 }

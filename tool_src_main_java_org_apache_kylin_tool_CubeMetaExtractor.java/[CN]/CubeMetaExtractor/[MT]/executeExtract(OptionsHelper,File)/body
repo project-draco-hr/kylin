@@ -24,6 +24,10 @@
       for (      RealizationEntry realizationEntry : realizationEntries) {
         retrieveResourcePath(getRealization(realizationEntry));
       }
+      List<DataModelDesc> modelDescs=metadataManager.getModels(projectName);
+      for (      DataModelDesc modelDesc : modelDescs) {
+        addRequired(DataModelDesc.concatResourcePath(modelDesc.getName()));
+      }
       addOptional(badQueryHistoryManager.getBadQueriesForProject(projectName).getResourcePath());
     }
   }

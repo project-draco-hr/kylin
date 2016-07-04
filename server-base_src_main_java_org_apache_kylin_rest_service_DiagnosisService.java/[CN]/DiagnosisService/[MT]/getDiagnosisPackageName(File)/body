@@ -1,0 +1,12 @@
+{
+  for (  File subDir : destDir.listFiles()) {
+    if (subDir.isDirectory()) {
+      for (      File file : subDir.listFiles()) {
+        if (file.getName().endsWith(".zip")) {
+          return file.getAbsolutePath();
+        }
+      }
+    }
+  }
+  throw new RuntimeException("Diagnosis package not found in directory: " + destDir.getAbsolutePath());
+}

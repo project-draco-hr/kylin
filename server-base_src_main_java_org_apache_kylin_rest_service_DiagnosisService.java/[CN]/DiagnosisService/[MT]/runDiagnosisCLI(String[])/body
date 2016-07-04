@@ -1,0 +1,16 @@
+{
+  File cwd=new File("");
+  logger.info("Current path: " + cwd.getAbsolutePath());
+  logger.info("DiagnosisInfoCLI args: " + Arrays.toString(args));
+  File script=new File(KylinConfig.getKylinHome() + File.separator + "bin","diag.sh");
+  if (!script.exists()) {
+    throw new RuntimeException("diag.sh not found at " + script.getAbsolutePath());
+  }
+  String diagCmd=script.getAbsolutePath() + " " + StringUtils.join(args," ");
+  CliCommandExecutor executor=KylinConfig.getInstanceFromEnv().getCliCommandExecutor();
+  Pair<Integer,String> cmdOutput=executor.execute(diagCmd);
+  logger.info(cmdOutput.getValue());
+  if (cmdOutput.getKey() != 0) {
+    throw new RuntimeException("Failed to generate diagnosis package.");
+  }
+}
