@@ -1,0 +1,8 @@
+{
+  List<TypedValue> typeValues=getParameterValues();
+  List<Object> jdbcValues=new ArrayList<Object>(typeValues.size());
+  for (  TypedValue typeValue : typeValues) {
+    jdbcValues.add(typeValue.toJdbc(getCalendar()));
+  }
+  return jdbcValues;
+}
