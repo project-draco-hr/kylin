@@ -1,4 +1,4 @@
 {
   final MetaResultSet metaResultSet=MetaResultSet.create(sh.connectionId,sh.id,false,sh.signature,null);
-  return new ExecuteResult(ImmutableList.of(metaResultSet));
+  return new ExecuteResult(Collections.singletonList(metaResultSet));
 }
