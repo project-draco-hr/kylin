@@ -12,7 +12,7 @@
       }
 ;
       SSLContext sslContext=SSLContexts.custom().loadTrustMaterial(null,acceptingTrustStrategy).build();
-      httpClient=HttpClients.custom().setSSLHostnameVerifier(new DefaultHostnameVerifier()).setSSLContext(sslContext).build();
+      httpClient=HttpClients.custom().setSSLHostnameVerifier(new NoopHostnameVerifier()).setSSLContext(sslContext).build();
     }
  catch (    Exception e) {
       throw new RuntimeException("Initialize HTTPS client failed",e);
