@@ -5,9 +5,11 @@
   this.context=implementor.getContext();
   this.isTopJoin=!this.context.hasJoin;
   this.context.hasJoin=true;
+  int nJoinPossibility=0;
   implementor.visitChild(this.left,this);
   if (this.context != implementor.getContext() || ((OLAPRel)this.left).hasSubQuery()) {
     this.hasSubQuery=true;
+    nJoinPossibility--;
     if (this.context != implementor.getContext()) {
       implementor.freeContext();
     }
@@ -15,6 +17,7 @@
   implementor.visitChild(this.right,this);
   if (this.context != implementor.getContext() || ((OLAPRel)this.right).hasSubQuery()) {
     this.hasSubQuery=true;
+    nJoinPossibility++;
     if (this.context != implementor.getContext()) {
       implementor.freeContext();
     }
@@ -31,5 +34,14 @@
     String joinType=joinRelType == JoinRelType.INNER ? "INNER" : joinRelType == JoinRelType.LEFT ? "LEFT" : null;
     join.setType(joinType);
     this.context.joins.add(join);
+  }
+ else   if (0 != nJoinPossibility) {
+    Map<TblColRef,TblColRef> joinCol=new HashMap<TblColRef,TblColRef>();
+    translateJoinColumn((RexCall)this.getCondition(),joinCol);
+    for (    Map.Entry<TblColRef,TblColRef> columnPair : joinCol.entrySet()) {
+      TblColRef fromCol=(-1 == nJoinPossibility ? columnPair.getValue() : columnPair.getKey());
+      this.context.groupByColumns.add(fromCol);
+    }
+    joinCol.clear();
   }
 }
