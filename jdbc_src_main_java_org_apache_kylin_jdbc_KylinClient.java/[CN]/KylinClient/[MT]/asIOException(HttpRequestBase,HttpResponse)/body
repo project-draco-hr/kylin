@@ -1,0 +1,3 @@
+{
+  return new IOException(request.getMethod() + " failed, error code " + response.getStatusLine().getStatusCode()+ " and response: "+ EntityUtils.toString(response.getEntity()));
+}

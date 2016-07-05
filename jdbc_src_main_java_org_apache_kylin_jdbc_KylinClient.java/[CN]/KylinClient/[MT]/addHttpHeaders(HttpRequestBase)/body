@@ -1,8 +1,8 @@
 {
-  method.addRequestHeader("Accept","application/json, text/plain, */*");
-  method.addRequestHeader("Content-Type","application/json");
+  method.addHeader("Accept","application/json, text/plain, */*");
+  method.addHeader("Content-Type","application/json");
   String username=connProps.getProperty("user");
   String password=connProps.getProperty("password");
   String basicAuth=DatatypeConverter.printBase64Binary((username + ":" + password).getBytes());
-  method.addRequestHeader("Authorization","Basic " + basicAuth);
+  method.addHeader("Authorization","Basic " + basicAuth);
 }

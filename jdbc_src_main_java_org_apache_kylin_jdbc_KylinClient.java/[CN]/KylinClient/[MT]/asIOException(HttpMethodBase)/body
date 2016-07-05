@@ -1,3 +1,0 @@
-{
-  return new IOException(method + " failed, error code " + method.getStatusCode()+ " and response: "+ method.getResponseBodyAsString());
-}

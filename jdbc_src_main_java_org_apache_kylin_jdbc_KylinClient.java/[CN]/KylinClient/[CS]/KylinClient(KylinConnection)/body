@@ -1,9 +1,21 @@
 {
   this.conn=conn;
   this.connProps=conn.getConnectionProperties();
-  this.httpClient=new HttpClient();
+  this.httpClient=HttpClients.createDefault();
   this.jsonMapper=new ObjectMapper();
   if (isSSL()) {
-    Protocol.registerProtocol("https",new Protocol("https",(ProtocolSocketFactory)new DefaultSslProtocolSocketFactory(),443));
+    try {
+      TrustStrategy acceptingTrustStrategy=new TrustStrategy(){
+        public boolean isTrusted(        X509Certificate[] certificate,        String type){
+          return true;
+        }
+      }
+;
+      SSLContext sslContext=SSLContexts.custom().loadTrustMaterial(null,acceptingTrustStrategy).build();
+      httpClient=HttpClients.custom().setSSLHostnameVerifier(new DefaultHostnameVerifier()).setSSLContext(sslContext).build();
+    }
+ catch (    Exception e) {
+      throw new RuntimeException("Initialize HTTPS client failed",e);
+    }
   }
 }

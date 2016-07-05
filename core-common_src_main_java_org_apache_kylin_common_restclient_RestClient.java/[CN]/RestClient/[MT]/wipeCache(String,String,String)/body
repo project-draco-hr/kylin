@@ -1,12 +1,13 @@
 {
   String url=baseUrl + "/cache/" + type+ "/"+ name+ "/"+ action;
-  HttpMethod request=new PutMethod(url);
+  HttpPut request=new HttpPut(url);
   try {
-    int code=client.executeMethod(request);
-    String msg=Bytes.toString(request.getResponseBody());
-    if (code != 200)     throw new IOException("Invalid response " + code + " with cache wipe url "+ url+ "\n"+ msg);
+    CloseableHttpResponse response=client.execute(request);
+    String msg=EntityUtils.toString(response.getEntity());
+    if (response.getStatusLine().getStatusCode() != 200)     throw new IOException("Invalid response " + response.getStatusLine().getStatusCode() + " with cache wipe url "+ url+ "\n"+ msg);
+    response.close();
   }
- catch (  HttpException ex) {
+ catch (  Exception ex) {
     throw new IOException(ex);
   }
  finally {

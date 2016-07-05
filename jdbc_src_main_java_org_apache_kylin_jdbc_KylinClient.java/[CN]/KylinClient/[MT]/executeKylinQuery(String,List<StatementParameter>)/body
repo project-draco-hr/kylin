@@ -12,15 +12,17 @@
   }
   request.setSql(sql);
   request.setProject(project);
-  PostMethod post=new PostMethod(url);
+  HttpPost post=new HttpPost(url);
   addHttpHeaders(post);
   String postBody=jsonMapper.writeValueAsString(request);
   logger.debug("Post body:\n " + postBody);
-  StringRequestEntity requestEntity=new StringRequestEntity(postBody,"application/json","UTF-8");
-  post.setRequestEntity(requestEntity);
-  httpClient.executeMethod(post);
-  if (post.getStatusCode() != 200 && post.getStatusCode() != 201) {
-    throw asIOException(post);
+  StringEntity requestEntity=new StringEntity(postBody,ContentType.create("application/json","UTF-8"));
+  post.setEntity(requestEntity);
+  CloseableHttpResponse response=httpClient.execute(post);
+  if (response.getStatusLine().getStatusCode() != 200 && response.getStatusLine().getStatusCode() != 201) {
+    throw asIOException(post,response);
   }
-  return jsonMapper.readValue(post.getResponseBodyAsStream(),SQLResponseStub.class);
+  SQLResponseStub stub=jsonMapper.readValue(response.getEntity().getContent(),SQLResponseStub.class);
+  response.close();
+  return stub;
 }

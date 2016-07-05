@@ -1,10 +1,11 @@
 {
-  PostMethod post=new PostMethod(baseUrl() + "/kylin/api/user/authentication");
+  HttpPost post=new HttpPost(baseUrl() + "/kylin/api/user/authentication");
   addHttpHeaders(post);
-  StringRequestEntity requestEntity=new StringRequestEntity("{}","application/json","UTF-8");
-  post.setRequestEntity(requestEntity);
-  httpClient.executeMethod(post);
-  if (post.getStatusCode() != 200 && post.getStatusCode() != 201) {
-    throw asIOException(post);
+  StringEntity requestEntity=new StringEntity("{}",ContentType.create("application/json","UTF-8"));
+  post.setEntity(requestEntity);
+  CloseableHttpResponse response=httpClient.execute(post);
+  if (response.getStatusLine().getStatusCode() != 200 && response.getStatusLine().getStatusCode() != 201) {
+    throw asIOException(post,response);
   }
+  response.close();
 }
