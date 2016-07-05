@@ -5,11 +5,12 @@
   this.context=implementor.getContext();
   this.isTopJoin=!this.context.hasJoin;
   this.context.hasJoin=true;
-  int nJoinPossibility=0;
+  boolean leftHasSubquery=false;
+  boolean rightHasSubquery=false;
   implementor.visitChild(this.left,this);
   if (this.context != implementor.getContext() || ((OLAPRel)this.left).hasSubQuery()) {
     this.hasSubQuery=true;
-    nJoinPossibility--;
+    leftHasSubquery=true;
     if (this.context != implementor.getContext()) {
       implementor.freeContext();
     }
@@ -17,7 +18,7 @@
   implementor.visitChild(this.right,this);
   if (this.context != implementor.getContext() || ((OLAPRel)this.right).hasSubQuery()) {
     this.hasSubQuery=true;
-    nJoinPossibility++;
+    rightHasSubquery=true;
     if (this.context != implementor.getContext()) {
       implementor.freeContext();
     }
@@ -35,11 +36,11 @@
     join.setType(joinType);
     this.context.joins.add(join);
   }
- else   if (0 != nJoinPossibility) {
+ else   if (leftHasSubquery != rightHasSubquery) {
     Map<TblColRef,TblColRef> joinCol=new HashMap<TblColRef,TblColRef>();
     translateJoinColumn((RexCall)this.getCondition(),joinCol);
     for (    Map.Entry<TblColRef,TblColRef> columnPair : joinCol.entrySet()) {
-      TblColRef fromCol=(-1 == nJoinPossibility ? columnPair.getValue() : columnPair.getKey());
+      TblColRef fromCol=(rightHasSubquery ? columnPair.getKey() : columnPair.getValue());
       this.context.groupByColumns.add(fromCol);
     }
     joinCol.clear();
