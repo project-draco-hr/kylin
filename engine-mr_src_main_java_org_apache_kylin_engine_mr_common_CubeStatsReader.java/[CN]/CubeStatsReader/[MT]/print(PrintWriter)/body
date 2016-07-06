@@ -12,6 +12,7 @@
   out.println("Total estimated size(MB): " + SumHelper.sumDouble(cuboidSizes.values()));
   out.println("Sampling percentage:  " + samplingPercentage);
   out.println("Mapper overlap ratio: " + mapperOverlapRatioOfFirstBuild);
+  printKVInfo(out);
   printCuboidInfoTreeEntry(cuboidRows,cuboidSizes,out);
   out.println("----------------------------------------------------------------------------");
 }

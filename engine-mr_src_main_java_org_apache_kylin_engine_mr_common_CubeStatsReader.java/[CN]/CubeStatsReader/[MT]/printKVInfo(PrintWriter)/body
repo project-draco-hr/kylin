@@ -1,0 +1,7 @@
+{
+  Cuboid cuboid=Cuboid.getBaseCuboid(seg.getCubeDesc());
+  RowKeyEncoder encoder=new RowKeyEncoder(seg,cuboid);
+  for (  TblColRef col : cuboid.getColumns()) {
+    writer.println("Length of dimension " + col + " is "+ encoder.getColumnLength(col));
+  }
+}
