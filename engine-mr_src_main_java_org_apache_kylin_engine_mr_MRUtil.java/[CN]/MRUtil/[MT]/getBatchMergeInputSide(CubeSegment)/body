@@ -1,0 +1,3 @@
+{
+  return SourceFactory.createEngineAdapter(seg,IMRInput.class).getBatchMergeInputSide(seg);
+}
