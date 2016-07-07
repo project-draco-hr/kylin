@@ -1,8 +1,13 @@
 {
-  SnapshotTable r=snapshotCache.get(resourcePath);
-  if (r == null) {
-    r=load(resourcePath,true);
-    snapshotCache.put(resourcePath,r);
+  try {
+    SnapshotTable r=snapshotCache.get(resourcePath);
+    if (r == null) {
+      r=load(resourcePath,true);
+      snapshotCache.put(resourcePath,r);
+    }
+    return r;
   }
-  return r;
+ catch (  ExecutionException e) {
+    throw new RuntimeException(e.getCause());
+  }
 }

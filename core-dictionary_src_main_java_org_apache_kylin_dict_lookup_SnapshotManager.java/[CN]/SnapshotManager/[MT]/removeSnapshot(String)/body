@@ -1,5 +1,5 @@
 {
   ResourceStore store=MetadataManager.getInstance(this.config).getStore();
   store.deleteResource(resourcePath);
-  snapshotCache.remove(resourcePath);
+  snapshotCache.invalidate(resourcePath);
 }

@@ -1,4 +1,15 @@
 {
   this.config=config;
-  snapshotCache=new ConcurrentHashMap<String,SnapshotTable>();
+  this.snapshotCache=CacheBuilder.newBuilder().removalListener(new RemovalListener<String,SnapshotTable>(){
+    @Override public void onRemoval(    RemovalNotification<String,SnapshotTable> notification){
+      SnapshotManager.logger.info("Snapshot with resource path " + notification.getKey() + " is removed due to "+ notification.getCause());
+    }
+  }
+).maximumSize(config.getCachedSnapshotMaxEntrySize()).expireAfterWrite(1,TimeUnit.DAYS).build(new CacheLoader<String,SnapshotTable>(){
+    @Override public SnapshotTable load(    String key) throws Exception {
+      SnapshotTable snapshotTable=SnapshotManager.this.load(key,true);
+      return snapshotTable;
+    }
+  }
+);
 }
