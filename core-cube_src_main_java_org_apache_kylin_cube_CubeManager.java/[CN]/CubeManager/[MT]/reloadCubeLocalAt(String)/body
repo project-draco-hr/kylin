@@ -22,7 +22,7 @@
     return cubeInstance;
   }
  catch (  Exception e) {
-    logger.error("Error during load cube instance " + path,e);
+    logger.error("Error during load cube instance, skipping : " + path,e);
     return null;
   }
 }

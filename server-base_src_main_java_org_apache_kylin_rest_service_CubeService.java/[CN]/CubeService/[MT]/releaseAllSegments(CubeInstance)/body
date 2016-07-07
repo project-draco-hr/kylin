@@ -1,12 +1,6 @@
 {
-  final List<CubingJob> cubingJobs=listAllCubingJobs(cube.getName(),null);
-  for (  CubingJob cubingJob : cubingJobs) {
-    final ExecutableState status=cubingJob.getStatus();
-    if (status != ExecutableState.SUCCEED && status != ExecutableState.STOPPED && status != ExecutableState.DISCARDED) {
-      getExecutableManager().discardJob(cubingJob.getId());
-    }
-  }
+  releaseAllJobs(cube);
   CubeUpdate update=new CubeUpdate(cube);
   update.setToRemoveSegs(cube.getSegments().toArray(new CubeSegment[cube.getSegments().size()]));
-  return CubeManager.getInstance(getConfig()).updateCube(update);
+  CubeManager.getInstance(getConfig()).updateCube(update);
 }
