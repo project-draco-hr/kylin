@@ -1,3 +1,0 @@
-SliceBuilder sliceBuilder
-StreamingBatch batch
-HTableInterface htable

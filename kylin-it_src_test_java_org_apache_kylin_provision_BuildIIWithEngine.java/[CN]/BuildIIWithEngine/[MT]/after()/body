@@ -1,9 +1,0 @@
-{
-  for (  String iiInstance : TEST_II_INSTANCES) {
-    IIInstance ii=iiManager.getII(iiInstance);
-    if (ii.getStatus() != RealizationStatusEnum.READY) {
-      ii.setStatus(RealizationStatusEnum.READY);
-      iiManager.updateII(ii);
-    }
-  }
-}

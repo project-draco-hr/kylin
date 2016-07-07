@@ -1,3 +1,0 @@
-{
-  return new StreamingMessage(Lists.newArrayList(row),System.currentTimeMillis(),System.currentTimeMillis(),Collections.<String,Object>emptyMap());
-}
