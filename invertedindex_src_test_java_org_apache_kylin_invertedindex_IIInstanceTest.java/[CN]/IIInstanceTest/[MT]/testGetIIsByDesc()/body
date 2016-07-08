@@ -1,5 +1,0 @@
-{
-  IIManager mgr=IIManager.getInstance(getTestConfig());
-  List<IIInstance> iiInstances=mgr.getIIsByDesc("test_kylin_ii_left_join_desc");
-  Assert.assertTrue(iiInstances.size() > 0);
-}

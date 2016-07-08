@@ -1,8 +1,0 @@
-{
-  try {
-    reloadIILocalAt(IIInstance.concatResourcePath(iiName));
-  }
- catch (  IOException e) {
-    logger.error(e.getLocalizedMessage(),e);
-  }
-}

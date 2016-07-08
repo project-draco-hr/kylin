@@ -1,7 +1,0 @@
-{
-  if (statsBuilder_ == null) {
-    statsBuilder_=new com.google.protobuf.SingleFieldBuilder<org.apache.kylin.storage.hbase.ii.coprocessor.endpoint.generated.IIProtos.IIResponseInternal.Stats,org.apache.kylin.storage.hbase.ii.coprocessor.endpoint.generated.IIProtos.IIResponseInternal.Stats.Builder,org.apache.kylin.storage.hbase.ii.coprocessor.endpoint.generated.IIProtos.IIResponseInternal.StatsOrBuilder>(stats_,getParentForChildren(),isClean());
-    stats_=null;
-  }
-  return statsBuilder_;
-}

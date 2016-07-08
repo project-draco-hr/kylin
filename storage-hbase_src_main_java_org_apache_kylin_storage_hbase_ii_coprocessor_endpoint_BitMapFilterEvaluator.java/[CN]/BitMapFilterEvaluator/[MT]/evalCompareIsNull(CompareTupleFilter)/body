@@ -1,5 +1,0 @@
-{
-  ConciseSet bitMap=provider.getBitMap(filter.getColumn(),null,null);
-  if (bitMap == null)   return null;
-  return bitMap.clone();
-}

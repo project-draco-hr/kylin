@@ -1,3 +1,0 @@
-String localCoprocessorJar
-FileSystem fileSystem
-Set<String> oldJarPaths

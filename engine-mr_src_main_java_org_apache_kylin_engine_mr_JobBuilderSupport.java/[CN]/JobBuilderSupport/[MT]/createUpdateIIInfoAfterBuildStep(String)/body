@@ -1,7 +1,0 @@
-{
-  final UpdateIIInfoAfterBuildStep updateIIInfoStep=new UpdateIIInfoAfterBuildStep();
-  updateIIInfoStep.setName(ExecutableConstants.STEP_NAME_UPDATE_II_INFO);
-  updateIIInfoStep.setInvertedIndexName(seg.getRealization().getName());
-  updateIIInfoStep.setJobId(jobId);
-  return updateIIInfoStep;
-}

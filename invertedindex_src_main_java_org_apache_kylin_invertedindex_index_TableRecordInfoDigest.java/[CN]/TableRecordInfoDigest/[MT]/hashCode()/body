@@ -1,3 +1,0 @@
-{
-  return com.google.common.base.Objects.hashCode(nColumns,offsets,dictMaxIds,lengths,isMetric,metricDataTypes);
-}

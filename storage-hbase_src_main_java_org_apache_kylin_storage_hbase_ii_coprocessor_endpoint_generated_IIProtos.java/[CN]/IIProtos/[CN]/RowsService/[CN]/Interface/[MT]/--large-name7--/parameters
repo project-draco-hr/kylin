@@ -1,3 +1,0 @@
-com.google.protobuf.RpcController controller
-org.apache.kylin.storage.hbase.ii.coprocessor.endpoint.generated.IIProtos.IIRequest request
-com.google.protobuf.RpcCallback<org.apache.kylin.storage.hbase.ii.coprocessor.endpoint.generated.IIProtos.IIResponse> done

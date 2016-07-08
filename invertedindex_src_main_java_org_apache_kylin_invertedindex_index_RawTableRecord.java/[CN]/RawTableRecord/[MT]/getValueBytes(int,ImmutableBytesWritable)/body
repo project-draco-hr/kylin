@@ -1,3 +1,0 @@
-{
-  bytes.set(buf,offset(col),length(col));
-}

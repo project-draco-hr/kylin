@@ -1,3 +1,0 @@
-{
-  BytesUtil.writeLong(v == null ? 0 : v.get(),buf,offset,SIZE);
-}

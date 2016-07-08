@@ -1,8 +1,0 @@
-{
-  this.createTestMetadata();
-  this.ii=IIManager.getInstance(getTestConfig()).getII("test_kylin_ii_left_join");
-  this.seg=ii.getFirstSegment();
-  Configuration hconf=HBaseConnection.getCurrentHBaseConfiguration();
-  hconn=HConnectionManager.createConnection(hconf);
-  this.info=new TableRecordInfo(seg);
-}

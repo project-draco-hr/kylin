@@ -1,5 +1,0 @@
-{
-  current.clear();
-  if (value != null)   current.add(value.getBytes());
-  return current;
-}

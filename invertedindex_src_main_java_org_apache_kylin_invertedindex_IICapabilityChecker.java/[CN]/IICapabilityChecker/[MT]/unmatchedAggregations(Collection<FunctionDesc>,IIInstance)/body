@@ -1,5 +1,0 @@
-{
-  HashSet<FunctionDesc> result=Sets.newHashSet(aggregations);
-  result.removeAll(ii.getDescriptor().listAllFunctions());
-  return result;
-}

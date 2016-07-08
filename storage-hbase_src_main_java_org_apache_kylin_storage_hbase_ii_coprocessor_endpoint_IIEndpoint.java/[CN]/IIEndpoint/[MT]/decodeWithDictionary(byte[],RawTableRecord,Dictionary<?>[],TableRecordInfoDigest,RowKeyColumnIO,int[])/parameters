@@ -1,6 +1,0 @@
-byte[] recordBuffer
-RawTableRecord encodedRecord
-Dictionary<?>[] localDictionaries
-TableRecordInfoDigest digest
-RowKeyColumnIO rowKeyColumnIO
-int[] finalColumnLengths

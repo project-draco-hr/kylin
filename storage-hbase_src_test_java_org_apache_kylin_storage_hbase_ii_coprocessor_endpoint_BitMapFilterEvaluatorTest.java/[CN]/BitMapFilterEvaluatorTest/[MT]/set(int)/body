@@ -1,5 +1,0 @@
-{
-  ConciseSet set=new ConciseSet();
-  for (  int i : ints)   set.add(i);
-  return set;
-}

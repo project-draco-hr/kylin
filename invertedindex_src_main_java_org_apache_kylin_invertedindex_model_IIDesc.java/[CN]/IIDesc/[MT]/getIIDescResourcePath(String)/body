@@ -1,3 +1,0 @@
-{
-  return ResourceStore.II_DESC_RESOURCE_ROOT + "/" + descName+ MetadataConstants.FILE_SURFIX;
-}

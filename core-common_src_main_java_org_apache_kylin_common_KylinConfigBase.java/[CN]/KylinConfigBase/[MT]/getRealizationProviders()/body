@@ -1,3 +1,3 @@
 {
-  return getOptionalStringArray("kylin.realization.providers",new String[]{"org.apache.kylin.cube.CubeManager","org.apache.kylin.storage.hybrid.HybridManager","org.apache.kylin.invertedindex.IIManager"});
+  return getOptionalStringArray("kylin.realization.providers",new String[]{"org.apache.kylin.cube.CubeManager","org.apache.kylin.storage.hybrid.HybridManager"});
 }

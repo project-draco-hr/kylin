@@ -1,5 +1,0 @@
-{
-  if (value == null)   current.set(0L);
- else   current.set(getValueIgnoringDecimalPoint(value));
-  return current;
-}

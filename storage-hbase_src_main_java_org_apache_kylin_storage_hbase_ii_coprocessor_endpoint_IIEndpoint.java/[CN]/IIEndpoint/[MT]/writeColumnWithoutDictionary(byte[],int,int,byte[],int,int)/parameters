@@ -1,6 +1,0 @@
-byte[] src
-int srcOffset
-int srcLength
-byte[] dst
-int dstOffset
-int dstLength

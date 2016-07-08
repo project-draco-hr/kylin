@@ -1,15 +1,5 @@
 {
-  if (realization.getType() == RealizationType.INVERTED_INDEX) {
-    IStorageQuery ret;
-    try {
-      ret=(IStorageQuery)Class.forName(defaultIIStorageQuery).getConstructor(IIInstance.class).newInstance((IIInstance)realization);
-    }
- catch (    Exception e) {
-      throw new RuntimeException("Failed to initialize storage query for " + defaultIIStorageQuery,e);
-    }
-    return ret;
-  }
- else   if (realization.getType() == RealizationType.CUBE) {
+  if (realization.getType() == RealizationType.CUBE) {
     CubeInstance cubeInstance=(CubeInstance)realization;
     String cubeStorageQuery;
     if (cubeInstance.getStorageType() == IStorageAware.ID_HBASE) {

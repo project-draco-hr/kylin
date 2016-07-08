@@ -1,6 +1,0 @@
-{
-  ConciseSet s=new ConciseSet();
-  s.add(5);
-  s.complement();
-  System.out.println(s);
-}

@@ -1,3 +1,0 @@
-{
-  return getStatus() == RealizationStatusEnum.READY;
-}

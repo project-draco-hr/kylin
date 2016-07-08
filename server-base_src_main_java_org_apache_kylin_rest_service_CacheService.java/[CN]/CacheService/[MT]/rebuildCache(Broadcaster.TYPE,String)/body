@@ -18,27 +18,16 @@ break;
 case PROJECT:
 reloadProjectCache(cacheKey);
 break;
-case INVERTED_INDEX:
-getIIManager().reloadIILocal(cacheKey);
-getHybridManager().reloadHybridInstanceByChild(RealizationType.INVERTED_INDEX,cacheKey);
-getProjectManager().clearL2Cache();
-break;
-case INVERTED_INDEX_DESC:
-getIIDescManager().reloadIIDescLocal(cacheKey);
-break;
 case TABLE:
 getMetadataManager().reloadTableCache(cacheKey);
-IIDescManager.clearCache();
 CubeDescManager.clearCache();
 break;
 case EXTERNAL_FILTER:
 getMetadataManager().reloadExtFilter(cacheKey);
-IIDescManager.clearCache();
 CubeDescManager.clearCache();
 break;
 case DATA_MODEL:
 getMetadataManager().reloadDataModelDesc(cacheKey);
-IIDescManager.clearCache();
 CubeDescManager.clearCache();
 break;
 case ALL:
@@ -46,8 +35,6 @@ DictionaryManager.clearCache();
 MetadataManager.clearCache();
 CubeDescManager.clearCache();
 CubeManager.clearCache();
-IIDescManager.clearCache();
-IIManager.clearCache();
 HybridManager.clearCache();
 RealizationRegistry.clearCache();
 ProjectManager.clearCache();

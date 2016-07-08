@@ -1,3 +1,0 @@
-{
-  return getParam(JOB_ID);
-}

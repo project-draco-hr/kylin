@@ -1,8 +1,0 @@
-{
-  for (  TableRecord rec : records) {
-    byte[] x=rec.getBytes();
-    String y=BytesUtil.toReadableText(x);
-    System.out.println(y);
-    System.out.println();
-  }
-}

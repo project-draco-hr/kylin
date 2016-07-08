@@ -1,3 +1,0 @@
-{
-  return getParam(II_INSTANCE_NAME);
-}

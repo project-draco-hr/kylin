@@ -1,6 +1,0 @@
-{
-  if (!hasBlob()) {
-    return false;
-  }
-  return true;
-}

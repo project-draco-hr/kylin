@@ -1,8 +1,0 @@
-{
-  this.tableName="kylin_intermediate_ii_" + iiDesc.getName();
-  int columnIndex=0;
-  for (  TblColRef col : iiDesc.listAllColumns()) {
-    columnList.add(new IntermediateColumnDesc(String.valueOf(columnIndex),col));
-    columnIndex++;
-  }
-}

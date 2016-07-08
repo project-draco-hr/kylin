@@ -1,4 +1,0 @@
-{
-  this.info=another.info;
-  this.rawRecord=(RawTableRecord)another.rawRecord.clone();
-}

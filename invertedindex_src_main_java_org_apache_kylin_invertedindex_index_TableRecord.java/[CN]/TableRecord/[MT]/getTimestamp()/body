@@ -1,4 +1,0 @@
-{
-  String str=getValueString(info.getTimestampColumn());
-  return DateFormat.stringToMillis(str);
-}

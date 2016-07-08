@@ -1,3 +1,0 @@
-{
-  return initialJob(seg,"BUILD",submitter,config);
-}

@@ -1,7 +1,0 @@
-{
-  List<FunctionDesc> functions=new ArrayList<FunctionDesc>();
-  for (  MeasureDesc m : measureDescs) {
-    functions.add(m.getFunction());
-  }
-  return functions;
-}

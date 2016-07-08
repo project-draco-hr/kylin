@@ -1,4 +1,0 @@
-int nColumns
-boolean[] isMetric
-String[] dataTypes
-Dictionary<?>[] dictionaries

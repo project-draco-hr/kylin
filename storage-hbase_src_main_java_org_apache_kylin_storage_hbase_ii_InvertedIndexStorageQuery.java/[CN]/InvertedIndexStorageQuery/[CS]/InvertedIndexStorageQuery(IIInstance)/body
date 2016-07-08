@@ -1,4 +1,0 @@
-{
-  this.seg=ii.getFirstSegment();
-  this.uuid=ii.getUuid();
-}

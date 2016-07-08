@@ -1,4 +1,0 @@
-{
-  current.set(BytesUtil.readLong(buffer,SIZE));
-  return current;
-}

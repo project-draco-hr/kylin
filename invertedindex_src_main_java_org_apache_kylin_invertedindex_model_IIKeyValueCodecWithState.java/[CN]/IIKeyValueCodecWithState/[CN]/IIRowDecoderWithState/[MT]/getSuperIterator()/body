@@ -1,6 +1,0 @@
-{
-  if (superIterator == null) {
-    superIterator=super.iterator();
-  }
-  return superIterator;
-}

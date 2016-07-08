@@ -1,3 +1,0 @@
-{
-  return getIIInstance().getDescriptor();
-}

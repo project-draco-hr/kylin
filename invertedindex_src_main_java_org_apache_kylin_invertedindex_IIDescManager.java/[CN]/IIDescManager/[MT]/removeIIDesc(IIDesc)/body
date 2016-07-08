@@ -1,5 +1,0 @@
-{
-  String path=iiDesc.getResourcePath();
-  getStore().deleteResource(path);
-  iiDescMap.remove(iiDesc.getName());
-}

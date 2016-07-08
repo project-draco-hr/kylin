@@ -1,6 +1,0 @@
-{
-  File localJar=new File(localCoprocessorJar);
-  String baseName=localJar.getName();
-  if (baseName.endsWith(".jar"))   baseName=baseName.substring(0,baseName.length() - ".jar".length());
-  return baseName;
-}

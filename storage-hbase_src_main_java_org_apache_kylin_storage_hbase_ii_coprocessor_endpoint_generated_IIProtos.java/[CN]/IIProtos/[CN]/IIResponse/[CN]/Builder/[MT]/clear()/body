@@ -1,6 +1,0 @@
-{
-  super.clear();
-  blob_=com.google.protobuf.ByteString.EMPTY;
-  bitField0_=(bitField0_ & ~0x00000001);
-  return this;
-}

@@ -1,3 +1,0 @@
-{
-  return MetadataManager.getInstance(this.config).getTableDesc(tableName);
-}

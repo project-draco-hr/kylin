@@ -1,3 +1,0 @@
-{
-  this(digest.length(col),digest.getMaxID(col) + 1,cap);
-}

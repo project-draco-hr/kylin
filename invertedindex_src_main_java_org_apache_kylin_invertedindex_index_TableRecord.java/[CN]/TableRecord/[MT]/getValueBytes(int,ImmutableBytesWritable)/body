@@ -1,3 +1,0 @@
-{
-  rawRecord.getValueBytes(col,bytes);
-}

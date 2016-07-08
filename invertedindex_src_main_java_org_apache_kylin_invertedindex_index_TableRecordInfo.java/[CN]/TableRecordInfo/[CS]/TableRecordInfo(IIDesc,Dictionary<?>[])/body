@@ -1,5 +1,0 @@
-{
-  this.desc=desc;
-  this.dictionaries=dictionaries;
-  this.digest=createDigest(desc,dictionaries);
-}

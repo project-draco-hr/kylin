@@ -1,9 +1,0 @@
-{
-  List<Object> ret=Lists.newArrayList();
-  for (int i=0; i < measureSerializers.length; i++) {
-    measureSerializers[i].read(buffer);
-    Object valueString=measureSerializers[i].getValue();
-    ret.add(valueString);
-  }
-  return ret;
-}

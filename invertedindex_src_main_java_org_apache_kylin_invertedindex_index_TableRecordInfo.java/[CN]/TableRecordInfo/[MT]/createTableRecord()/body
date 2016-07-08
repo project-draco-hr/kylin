@@ -1,3 +1,0 @@
-{
-  return new TableRecord(digest.createTableRecordBytes(),this);
-}

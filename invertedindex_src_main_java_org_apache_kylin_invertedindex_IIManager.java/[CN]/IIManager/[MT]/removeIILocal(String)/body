@@ -1,4 +1,0 @@
-{
-  iiMap.removeLocal(name);
-  usedStorageLocation.removeAll(name.toUpperCase());
-}

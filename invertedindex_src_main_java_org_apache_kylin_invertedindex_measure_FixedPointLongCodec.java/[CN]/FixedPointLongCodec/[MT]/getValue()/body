@@ -1,4 +1,0 @@
-{
-  if (scale == 0)   return current.toString();
- else   return restoreDecimalPoint(current.get());
-}

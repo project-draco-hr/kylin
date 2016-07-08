@@ -1,4 +1,0 @@
-{
-  super(digest,iiRowIterator);
-  this.feedingIterator=new FIFOIterator<>(buffer);
-}

@@ -1,3 +1,0 @@
-{
-  return !((funcNames != null) && (funcNames.length != 0));
-}

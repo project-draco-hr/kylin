@@ -1,4 +1,0 @@
-{
-  int idx=type.getColIndexByTblColRef(col);
-  return (Dictionary<String>)this.colDictMap[idx];
-}

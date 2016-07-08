@@ -1,3 +1,0 @@
-RpcController controller
-IIProtos.IIRequest request
-RpcCallback<IIProtos.IIResponse> done

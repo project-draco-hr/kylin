@@ -1,3 +1,0 @@
-{
-  return RealizationType.INVERTED_INDEX;
-}

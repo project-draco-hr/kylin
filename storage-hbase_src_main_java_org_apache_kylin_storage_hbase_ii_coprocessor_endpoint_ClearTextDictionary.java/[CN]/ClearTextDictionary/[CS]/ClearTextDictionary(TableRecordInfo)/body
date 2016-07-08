@@ -1,7 +1,0 @@
-{
-  encMap=Maps.newHashMap();
-  TableRecordInfoDigest digest=tableRecordInfo.getDigest();
-  for (int i=0; i < tableRecordInfo.getColumns().size(); i++) {
-    encMap.put(tableRecordInfo.getColumns().get(i),new FixedLenDimEnc(digest.length(i)));
-  }
-}

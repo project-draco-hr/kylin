@@ -1,4 +1,0 @@
-{
-  rows_=java.util.Collections.emptyList();
-  stats_=org.apache.kylin.storage.hbase.ii.coprocessor.endpoint.generated.IIProtos.IIResponseInternal.Stats.getDefaultInstance();
-}

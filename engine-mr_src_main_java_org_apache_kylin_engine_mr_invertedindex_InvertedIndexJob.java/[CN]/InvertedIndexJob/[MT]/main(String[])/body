@@ -1,5 +1,0 @@
-{
-  InvertedIndexJob job=new InvertedIndexJob();
-  int exitCode=ToolRunner.run(job,args);
-  System.exit(exitCode);
-}

@@ -1,6 +1,0 @@
-{
-  jobFlow.addTask(createCreateIIHTableStep(seg));
-  final String iiPath=rootPath + "*";
-  jobFlow.addTask(createConvertIIToHfileStep(seg,iiPath,jobFlow.getId()));
-  jobFlow.addTask(createIIBulkLoadStep(seg,jobFlow.getId()));
-}

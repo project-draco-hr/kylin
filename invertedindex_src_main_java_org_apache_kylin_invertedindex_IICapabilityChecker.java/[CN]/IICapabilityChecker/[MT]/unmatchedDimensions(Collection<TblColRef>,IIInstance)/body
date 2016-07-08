@@ -1,5 +1,0 @@
-{
-  HashSet<TblColRef> result=Sets.newHashSet(dimensionColumns);
-  result.removeAll(ii.getDescriptor().listAllDimensions());
-  return result;
-}

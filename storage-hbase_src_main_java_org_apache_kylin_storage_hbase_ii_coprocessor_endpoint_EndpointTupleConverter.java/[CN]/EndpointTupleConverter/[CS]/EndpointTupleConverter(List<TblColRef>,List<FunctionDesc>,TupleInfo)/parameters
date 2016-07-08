@@ -1,3 +1,0 @@
-List<TblColRef> columns
-List<FunctionDesc> aggrMeasures
-TupleInfo returnTupleInfo

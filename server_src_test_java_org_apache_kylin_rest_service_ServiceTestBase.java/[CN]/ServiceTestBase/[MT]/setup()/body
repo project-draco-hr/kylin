@@ -3,8 +3,6 @@
   MetadataManager.clearCache();
   CubeDescManager.clearCache();
   CubeManager.clearCache();
-  IIDescManager.clearCache();
-  IIManager.clearCache();
   RealizationRegistry.clearCache();
   ProjectManager.clearCache();
   CacheService.removeAllOLAPDataSources();

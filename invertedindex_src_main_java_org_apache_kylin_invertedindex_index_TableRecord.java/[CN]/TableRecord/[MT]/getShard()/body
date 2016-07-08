@@ -1,4 +1,0 @@
-{
-  int timestampID=rawRecord.getValueID(info.getTimestampColumn());
-  return ShardingHash.getShard(timestampID,info.getDescriptor().getSharding());
-}

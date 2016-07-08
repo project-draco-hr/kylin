@@ -1,9 +1,0 @@
-{
-  if (BytesUtil.compareBytes(IIDesc.HBASE_QUALIFIER_BYTES,0,c.getQualifierArray(),c.getQualifierOffset(),IIDesc.HBASE_QUALIFIER_BYTES.length) == 0) {
-    this.getKey().set(c.getRowArray(),c.getRowOffset(),c.getRowLength());
-    this.getValue().set(c.getValueArray(),c.getValueOffset(),c.getValueLength());
-  }
- else   if (BytesUtil.compareBytes(IIDesc.HBASE_DICTIONARY_BYTES,0,c.getQualifierArray(),c.getQualifierOffset(),IIDesc.HBASE_DICTIONARY_BYTES.length) == 0) {
-    this.getDictionary().set(c.getValueArray(),c.getValueOffset(),c.getValueLength());
-  }
-}

@@ -1,4 +1,0 @@
-{
-  IOUtils.closeQuietly(table);
-  logger.info("Closed after " + rowsInAllMetric + " rows are fetched");
-}

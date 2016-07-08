@@ -5,12 +5,6 @@
       throw new InternalErrorException("Model referenced by cube,drop cubes under model and try again.");
     }
   }
-  List<IIDesc> iiDescs=getIIDescManager().listAllDesc();
-  for (  IIDesc iidesc : iiDescs) {
-    if (iidesc.getModelName().equals(desc.getName())) {
-      throw new InternalErrorException("Model referenced by IIDesc.");
-    }
-  }
   getMetadataManager().dropModel(desc);
   accessService.clean(desc,true);
 }

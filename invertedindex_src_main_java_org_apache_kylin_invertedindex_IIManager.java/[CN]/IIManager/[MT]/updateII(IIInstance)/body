@@ -1,6 +1,0 @@
-{
-  logger.info("Updating II instance : " + ii.getName());
-  getStore().putResource(ii.getResourcePath(),ii,II_SERIALIZER);
-  iiMap.put(ii.getName(),ii);
-  ProjectManager.getInstance(KylinConfig.getInstanceFromEnv()).clearL2Cache();
-}

@@ -1,4 +1,0 @@
-{
-  this.type=type;
-  this.scale=Math.max(0,type.getScale());
-}

@@ -1,7 +1,0 @@
-{
-  int sharding=info.getDescriptor().getSharding();
-  builders=new IncrementalSliceMaker[sharding];
-  for (short i=0; i < sharding; i++) {
-    builders[i]=new IncrementalSliceMaker(info,i);
-  }
-}

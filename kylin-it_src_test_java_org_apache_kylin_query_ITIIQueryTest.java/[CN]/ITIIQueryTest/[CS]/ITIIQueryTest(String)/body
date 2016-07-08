@@ -1,5 +1,0 @@
-{
-  ITKylinQueryTest.clean();
-  ITKylinQueryTest.joinType=joinType;
-  ITKylinQueryTest.setupAll();
-}

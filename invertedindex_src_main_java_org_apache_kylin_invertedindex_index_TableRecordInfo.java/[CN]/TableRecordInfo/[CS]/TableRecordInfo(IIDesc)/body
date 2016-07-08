@@ -1,3 +1,0 @@
-{
-  this(desc,new Dictionary<?>[desc.listAllColumns().size()]);
-}

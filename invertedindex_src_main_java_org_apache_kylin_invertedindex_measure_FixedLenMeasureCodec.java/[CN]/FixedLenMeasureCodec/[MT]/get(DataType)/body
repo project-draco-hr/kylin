@@ -1,8 +1,0 @@
-{
-  if (HLLCMeasureType.DATATYPE_HLLC.equals(type.getName())) {
-    return new FixedHLLCodec(type);
-  }
- else {
-    return new FixedPointLongCodec(type);
-  }
-}

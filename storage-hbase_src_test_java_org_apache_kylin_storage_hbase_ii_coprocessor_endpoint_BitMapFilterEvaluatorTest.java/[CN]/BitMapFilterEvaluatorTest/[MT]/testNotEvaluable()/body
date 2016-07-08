@@ -1,8 +1,0 @@
-{
-  CompareTupleFilter notEvaluable=compare(colB,FilterOperatorEnum.EQ,0);
-  assertEquals(null,eval.evaluate(notEvaluable));
-  LogicalTupleFilter or=logical(FilterOperatorEnum.OR,basicFilters.get(1),notEvaluable);
-  assertEquals(null,eval.evaluate(or));
-  LogicalTupleFilter and=logical(FilterOperatorEnum.AND,basicFilters.get(1),notEvaluable);
-  assertEquals(basicResults.get(1),eval.evaluate(and));
-}

@@ -1,3 +1,0 @@
-{
-  return (org.apache.kylin.storage.hbase.ii.coprocessor.endpoint.generated.IIProtos.IIResponse)channel.callBlockingMethod(getDescriptor().getMethods().get(0),controller,request,org.apache.kylin.storage.hbase.ii.coprocessor.endpoint.generated.IIProtos.IIResponse.getDefaultInstance());
-}

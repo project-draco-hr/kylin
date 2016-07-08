@@ -1,5 +1,0 @@
-{
-  checkUpdateMode();
-  System.arraycopy(valueBytes.get(),valueBytes.getOffset(),uncompressed,valueLen * size,valueLen);
-  size++;
-}

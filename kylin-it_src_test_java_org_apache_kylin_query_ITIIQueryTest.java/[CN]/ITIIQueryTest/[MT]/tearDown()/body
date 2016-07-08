@@ -1,4 +1,0 @@
-{
-  ITKylinQueryTest.tearDown();
-  Candidate.restorePriorities();
-}

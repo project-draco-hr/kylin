@@ -1,6 +1,0 @@
-{
-  this.family=family;
-  this.table=hconn.getTable(tableName);
-  this.scanner=table.getScanner(family);
-  this.iterator=scanner.iterator();
-}

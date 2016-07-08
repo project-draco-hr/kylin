@@ -1,7 +1,0 @@
-{
-  myShard_=0;
-  latestDataTime_=0L;
-  serviceStartTime_=0L;
-  serviceEndTime_=0L;
-  scannedSlices_=0;
-}

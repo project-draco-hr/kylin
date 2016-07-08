@@ -1,6 +1,0 @@
-{
-  if (!(kvs instanceof FIFOIterable)) {
-    throw new IllegalArgumentException("kvs must be a {@link org.apache.kylin.common.util.FIFOIterable } to avoid {@link java.util.ConcurrentModificationException}.");
-  }
-  return new IIRowDecoderWithState(digest,kvs.iterator());
-}

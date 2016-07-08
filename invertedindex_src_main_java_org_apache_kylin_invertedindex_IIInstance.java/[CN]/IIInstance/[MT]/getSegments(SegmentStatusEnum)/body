@@ -1,9 +1,0 @@
-{
-  List<IISegment> result=new ArrayList<IISegment>();
-  for (  IISegment segment : segments) {
-    if (segment.getStatus() == status) {
-      result.add(segment);
-    }
-  }
-  return result;
-}

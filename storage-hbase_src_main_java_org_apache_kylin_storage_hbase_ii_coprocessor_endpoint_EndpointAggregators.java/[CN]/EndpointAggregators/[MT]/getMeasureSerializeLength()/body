@@ -1,7 +1,0 @@
-{
-  int length=0;
-  for (int i=0; i < this.measureSerializers.length; ++i) {
-    length+=this.measureSerializers[i].getLength();
-  }
-  return length;
-}

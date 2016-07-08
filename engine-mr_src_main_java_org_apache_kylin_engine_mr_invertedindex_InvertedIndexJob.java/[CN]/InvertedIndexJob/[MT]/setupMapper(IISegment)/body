@@ -1,7 +1,0 @@
-{
-  IMRInput.IMRTableInputFormat flatTableInputFormat=MRUtil.getBatchCubingInputSide(segment).getFlatTableInputFormat();
-  flatTableInputFormat.configureJob(job);
-  job.setMapperClass(InvertedIndexMapper.class);
-  job.setMapOutputKeyClass(LongWritable.class);
-  job.setPartitionerClass(InvertedIndexPartitioner.class);
-}

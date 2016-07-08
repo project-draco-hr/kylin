@@ -1,9 +1,0 @@
-{
-  List<TableRecord> records=Lists.newArrayList();
-  for (  Slice slice : slices) {
-    for (    RawTableRecord rec : slice) {
-      records.add(new TableRecord((RawTableRecord)rec.clone(),info));
-    }
-  }
-  return records;
-}

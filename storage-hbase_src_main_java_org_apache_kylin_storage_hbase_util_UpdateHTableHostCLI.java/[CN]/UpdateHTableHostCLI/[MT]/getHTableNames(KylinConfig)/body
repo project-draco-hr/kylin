@@ -10,16 +10,5 @@
       }
     }
   }
-  for (  IIInstance ii : IIManager.getInstance(config).listAllIIs()) {
-    if (ii.getStatus() == RealizationStatusEnum.READY) {
-      for (      IISegment seg : ii.getSegments()) {
-        String tableName=seg.getStorageLocationIdentifier();
-        if (!StringUtils.isBlank(tableName)) {
-          result.add(tableName);
-          System.out.println("added new table: " + tableName);
-        }
-      }
-    }
-  }
   return result;
 }

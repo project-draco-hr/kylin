@@ -1,8 +1,0 @@
-{
-  rowsInAllMetric++;
-  if (!hasNext()) {
-    throw new IllegalStateException("No more ITuple in EndpointTupleIterator");
-  }
-  ITuple tuple=this.tupleIterator.next();
-  return tuple;
-}

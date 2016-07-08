@@ -1,3 +1,0 @@
-{
-  rawRecord.setBytes(bytes,offset,length);
-}

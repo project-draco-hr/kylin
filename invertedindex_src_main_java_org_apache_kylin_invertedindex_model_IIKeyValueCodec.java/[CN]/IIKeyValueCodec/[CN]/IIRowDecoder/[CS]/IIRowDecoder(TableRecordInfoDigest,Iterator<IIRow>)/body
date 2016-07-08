@@ -1,5 +1,0 @@
-{
-  this.incompleteDigest=digest;
-  this.iiRowIterator=iiRowIterator;
-  this.feedingIterator=this.iiRowIterator;
-}

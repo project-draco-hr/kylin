@@ -1,9 +1,0 @@
-{
-  byte[][] result=new byte[shard - 1][];
-  for (int i=1; i < shard; ++i) {
-    byte[] split=new byte[IIKeyValueCodec.SHARD_LEN];
-    BytesUtil.writeUnsigned(i,split,0,IIKeyValueCodec.SHARD_LEN);
-    result[i - 1]=split;
-  }
-  return result;
-}

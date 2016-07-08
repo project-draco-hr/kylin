@@ -1,6 +1,0 @@
-{
-  IIManager mgr=IIManager.getInstance(KylinConfig.getInstanceFromEnv());
-  IIInstance ii=mgr.getII(iiName);
-  if (ii == null)   throw new IllegalArgumentException("No Inverted Index found by name " + iiName);
-  return ii;
-}

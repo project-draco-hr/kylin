@@ -1,3 +1,0 @@
-{
-  return IStorageAware.ID_HBASE;
-}

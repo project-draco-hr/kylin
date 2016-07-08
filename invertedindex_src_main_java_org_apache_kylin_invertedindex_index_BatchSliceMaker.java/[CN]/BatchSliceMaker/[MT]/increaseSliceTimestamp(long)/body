@@ -1,8 +1,0 @@
-{
-  if (timestamp <= sliceTimestamp) {
-    return sliceTimestamp + 1;
-  }
- else {
-    return timestamp;
-  }
-}

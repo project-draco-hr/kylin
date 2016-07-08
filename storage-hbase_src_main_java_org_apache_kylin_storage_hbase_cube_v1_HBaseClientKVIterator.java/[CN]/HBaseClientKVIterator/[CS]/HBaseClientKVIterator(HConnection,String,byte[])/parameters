@@ -1,3 +1,0 @@
-HConnection hconn
-String tableName
-byte[] family

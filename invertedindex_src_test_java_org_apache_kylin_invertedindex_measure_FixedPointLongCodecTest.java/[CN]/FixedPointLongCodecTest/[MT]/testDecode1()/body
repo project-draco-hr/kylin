@@ -1,5 +1,0 @@
-{
-  FixedPointLongCodec codec=new FixedPointLongCodec(DataType.getType("decimal(18,5)"));
-  String x=codec.restoreDecimalPoint(1212345);
-  org.junit.Assert.assertEquals("12.12345",x);
-}

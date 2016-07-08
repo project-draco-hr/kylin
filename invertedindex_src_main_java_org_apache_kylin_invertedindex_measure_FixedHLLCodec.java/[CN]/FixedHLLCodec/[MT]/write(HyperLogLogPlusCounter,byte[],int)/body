@@ -1,3 +1,0 @@
-{
-  v.writeRegistersArray(ByteBuffer.wrap(buf,offset,buf.length - offset));
-}

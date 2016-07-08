@@ -1,3 +1,0 @@
-{
-  return (FixedLenMeasureCodec<LongMutable>)measureCodecs[col];
-}

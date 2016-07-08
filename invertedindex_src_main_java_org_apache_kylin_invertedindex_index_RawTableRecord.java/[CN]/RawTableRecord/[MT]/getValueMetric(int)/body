@@ -1,4 +1,0 @@
-{
-  digest.codec(col).read(buf,digest.offset(col));
-  return (String)digest.codec(col).getValue();
-}

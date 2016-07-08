@@ -1,8 +1,0 @@
-{
-  this.valueLen=valueLen;
-  this.nValues=nValues;
-  this.cap=cap;
-  this.size=0;
-  this.uncompressed=null;
-  this.compressed=null;
-}

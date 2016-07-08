@@ -1,7 +1,0 @@
-{
-  Writable writableRecord=(Writable)record;
-  String[] row=flatTableInputFormat.parseMapperInput(writableRecord);
-  String timestampString=row[info.getTimestampColumn()];
-  outputKey.set(DateFormat.stringToMillis(timestampString));
-  context.write(outputKey,writableRecord);
-}

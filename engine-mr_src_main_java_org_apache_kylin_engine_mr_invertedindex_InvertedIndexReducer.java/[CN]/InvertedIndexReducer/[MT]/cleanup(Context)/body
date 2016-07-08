@@ -1,6 +1,0 @@
-{
-  if (!messages.isEmpty()) {
-    buildAndOutput(new StreamingBatch(messages,Pair.newPair(System.currentTimeMillis(),System.currentTimeMillis())),context);
-    messages.clear();
-  }
-}

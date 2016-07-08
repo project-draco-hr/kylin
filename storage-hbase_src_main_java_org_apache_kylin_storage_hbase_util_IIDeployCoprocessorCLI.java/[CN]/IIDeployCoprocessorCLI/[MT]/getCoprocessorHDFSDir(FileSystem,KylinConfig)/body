@@ -1,6 +1,0 @@
-{
-  String hdfsWorkingDirectory=config.getHdfsWorkingDirectory();
-  Path coprocessorDir=new Path(hdfsWorkingDirectory,"coprocessor");
-  fileSystem.mkdirs(coprocessorDir);
-  return coprocessorDir;
-}

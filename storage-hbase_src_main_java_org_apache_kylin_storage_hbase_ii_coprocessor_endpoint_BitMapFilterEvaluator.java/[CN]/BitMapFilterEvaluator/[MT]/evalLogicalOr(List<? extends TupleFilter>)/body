@@ -1,9 +1,0 @@
-{
-  ConciseSet set=new ConciseSet();
-  for (  TupleFilter c : children) {
-    ConciseSet t=evaluate(c);
-    if (t == null)     return null;
-    set.addAll(t);
-  }
-  return set;
-}

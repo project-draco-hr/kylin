@@ -1,6 +1,0 @@
-{
-  logger.info("Initializing IIManager with config " + config);
-  this.config=config;
-  this.iiMap=new CaseInsensitiveStringCache<IIInstance>(config,Broadcaster.TYPE.INVERTED_INDEX);
-  loadAllIIInstance();
-}

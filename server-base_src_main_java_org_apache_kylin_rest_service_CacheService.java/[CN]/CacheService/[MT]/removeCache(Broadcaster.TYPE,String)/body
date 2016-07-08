@@ -11,12 +11,6 @@ break;
 case PROJECT:
 ProjectManager.clearCache();
 break;
-case INVERTED_INDEX:
-getIIManager().removeIILocal(cacheKey);
-break;
-case INVERTED_INDEX_DESC:
-getIIDescManager().removeIIDescLocal(cacheKey);
-break;
 case TABLE:
 throw new UnsupportedOperationException(log);
 case EXTERNAL_FILTER:
