@@ -1,12 +1,12 @@
 {
   super.bindCurrentConfiguration(context.getConfiguration());
   cubeName=context.getConfiguration().get(BatchConstants.CFG_CUBE_NAME).toUpperCase();
-  segmentName=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_NAME).toUpperCase();
+  segmentID=context.getConfiguration().get(BatchConstants.CFG_CUBE_SEGMENT_ID);
   config=AbstractHadoopJob.loadKylinPropsAndMetadata();
   cubeManager=CubeManager.getInstance(config);
   cube=cubeManager.getCube(cubeName);
   cubeDesc=cube.getDescriptor();
-  mergedCubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.NEW);
+  mergedCubeSegment=cube.getSegmentById(segmentID);
   newKeyBodyBuf=new byte[RowConstants.ROWKEY_BUFFER_SIZE];
   newKeyBuf=ByteArray.allocate(RowConstants.ROWKEY_BUFFER_SIZE);
   FileSplit fileSplit=(FileSplit)context.getInputSplit();

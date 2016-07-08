@@ -3,8 +3,15 @@
   if (cube.getDescriptor().getModel().getPartitionDesc().isPartitioned()) {
     if (startDate == 0 && startOffset == 0) {
       boolean isOffsetsOn=endOffset != 0;
-      if (isOffsetsOn)       startOffset=calculateStartDateForAppendSegment(cube);
- else       startDate=calculateStartDateForAppendSegment(cube);
+      if (isOffsetsOn) {
+        startOffset=calculateStartOffsetForAppendSegment(cube);
+        if (startOffset == Long.MAX_VALUE) {
+          throw new IllegalStateException("There is already one pending for building segment, please submit request later.");
+        }
+      }
+ else {
+        startDate=calculateStartDateForAppendSegment(cube);
+      }
     }
   }
  else {

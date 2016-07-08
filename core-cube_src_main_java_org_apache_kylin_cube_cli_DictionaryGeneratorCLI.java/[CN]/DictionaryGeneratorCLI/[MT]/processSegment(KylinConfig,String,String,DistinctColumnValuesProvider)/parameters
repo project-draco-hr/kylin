@@ -1,4 +1,4 @@
 KylinConfig config
 String cubeName
-String segmentName
+String segmentID
 DistinctColumnValuesProvider factTableValueProvider
