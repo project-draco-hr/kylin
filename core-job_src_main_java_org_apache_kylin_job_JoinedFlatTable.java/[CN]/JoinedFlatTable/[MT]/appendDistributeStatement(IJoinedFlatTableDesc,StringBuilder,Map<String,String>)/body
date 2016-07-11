@@ -6,9 +6,9 @@
   TblColRef distDcol=desc.getCubeDesc().getDistributedByColumn();
   if (distDcol != null) {
     String tblAlias=tableAliasMap.get(distDcol.getTable());
-    sql.append(" distribute by ").append(tblAlias).append(".").append(distDcol.getName());
+    sql.append(" DISTRIBUTE BY ").append(tblAlias).append(".").append(distDcol.getName());
   }
  else {
-    sql.append(" distribute by rand()");
+    sql.append(" DISTRIBUTE BY RAND()");
   }
 }
