@@ -9,5 +9,8 @@
  else {
     result.add(projectSeed);
   }
+  if (result.isEmpty()) {
+    throw new RuntimeException("No project to extract.");
+  }
   return result;
 }

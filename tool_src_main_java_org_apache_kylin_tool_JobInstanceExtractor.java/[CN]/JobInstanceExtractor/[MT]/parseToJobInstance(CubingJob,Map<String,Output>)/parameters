@@ -1,0 +1,2 @@
+CubingJob cubeJob
+Map<String,Output> outputs

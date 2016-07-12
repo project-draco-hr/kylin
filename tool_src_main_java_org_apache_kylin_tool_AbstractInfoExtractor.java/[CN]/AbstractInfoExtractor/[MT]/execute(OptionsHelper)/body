@@ -13,6 +13,7 @@
     exportDest=exportDest + packageName + "/";
   }
   exportDir=new File(exportDest);
+  FileUtils.forceMkdir(exportDir);
   if (!isSubmodule) {
     dumpBasicDiagInfo();
   }

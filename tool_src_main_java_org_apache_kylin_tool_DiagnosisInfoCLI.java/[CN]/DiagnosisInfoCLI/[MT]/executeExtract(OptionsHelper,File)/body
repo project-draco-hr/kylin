@@ -5,10 +5,15 @@
   boolean includeClient=optionsHelper.hasOption(OPTION_INCLUDE_CLIENT) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_CLIENT)) : true;
   boolean includeJob=optionsHelper.hasOption(OPTION_INCLUDE_JOB) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_JOB)) : true;
   String projectNames=StringUtils.join(getProjects(projectInput),",");
-  String[] cubeMetaArgs={"-destDir",new File(exportDir,"metadata").getAbsolutePath(),"-project",projectNames,"-compress","false","-includeJobs",Boolean.toString(includeJob),"-submodule","true"};
+  String[] cubeMetaArgs={"-destDir",new File(exportDir,"metadata").getAbsolutePath(),"-project",projectNames,"-compress","false","-includeJobs","false","-submodule","true"};
   CubeMetaExtractor cubeMetaExtractor=new CubeMetaExtractor();
   logger.info("CubeMetaExtractor args: " + Arrays.toString(cubeMetaArgs));
   cubeMetaExtractor.execute(cubeMetaArgs);
+  if (includeJob) {
+    String[] jobArgs={"-destDir",new File(exportDir,"jobs").getAbsolutePath(),"-compress","false","-submodule","true"};
+    JobInstanceExtractor jobInstanceExtractor=new JobInstanceExtractor();
+    jobInstanceExtractor.execute(jobArgs);
+  }
   if (includeHBase) {
     String[] hbaseArgs={"-destDir",new File(exportDir,"hbase").getAbsolutePath(),"-project",projectNames,"-compress","false","-submodule","true"};
     HBaseUsageExtractor hBaseUsageExtractor=new HBaseUsageExtractor();

@@ -1,0 +1,8 @@
+{
+  config=KylinConfig.getInstanceFromEnv();
+  executableManager=ExecutableManager.getInstance(config);
+  projectManager=ProjectManager.getInstance(config);
+  packageType="jobInstances";
+  options.addOption(OPTION_PROJECT);
+  options.addOption(OPTION_CUBE);
+}

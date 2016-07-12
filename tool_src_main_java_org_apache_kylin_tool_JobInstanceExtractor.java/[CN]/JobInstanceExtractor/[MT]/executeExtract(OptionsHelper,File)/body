@@ -1,0 +1,12 @@
+{
+  String cube=optionsHelper.hasOption(OPTION_CUBE) ? optionsHelper.getOptionValue(OPTION_CUBE) : null;
+  String project=optionsHelper.hasOption(OPTION_PROJECT) ? optionsHelper.getOptionValue(OPTION_PROJECT) : null;
+  long endTime=System.currentTimeMillis();
+  long startTime=endTime - 3 * 24 * 3600* 1000;
+  List<JobInstance> jobInstances=listJobInstances(cube,project,startTime,endTime);
+  logger.info("There are {} jobInstances to extract.",jobInstances.size());
+  ObjectMapper mapper=new ObjectMapper();
+  for (  JobInstance jobInstance : jobInstances) {
+    mapper.writeValue(new File(exportDir,jobInstance.getUuid() + ".json"),jobInstance);
+  }
+}

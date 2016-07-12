@@ -1,0 +1,17 @@
+{
+switch (state) {
+case READY:
+    return JobStatusEnum.PENDING;
+case RUNNING:
+  return JobStatusEnum.RUNNING;
+case ERROR:
+return JobStatusEnum.ERROR;
+case DISCARDED:
+return JobStatusEnum.DISCARDED;
+case SUCCEED:
+return JobStatusEnum.FINISHED;
+case STOPPED:
+default :
+throw new RuntimeException("invalid state:" + state);
+}
+}

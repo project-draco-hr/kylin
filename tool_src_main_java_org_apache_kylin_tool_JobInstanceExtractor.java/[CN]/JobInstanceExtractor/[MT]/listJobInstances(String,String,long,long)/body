@@ -1,0 +1,26 @@
+{
+  final List<JobInstance> result=Lists.newArrayList();
+  final List<AbstractExecutable> executables=executableManager.getAllExecutables(startTime,endTime);
+  final Map<String,Output> allOutputs=executableManager.getAllOutputs();
+  for (  AbstractExecutable executable : executables) {
+    if (executable instanceof CubingJob) {
+      String cubeName=CubingExecutableUtil.getCubeName(executable.getParams());
+      boolean shouldExtract=false;
+      if (cube == null || cube.equalsIgnoreCase(cubeName)) {
+        if (project == null) {
+          shouldExtract=true;
+        }
+ else {
+          ProjectInstance projectInstance=projectManager.getProject(project);
+          if (projectInstance != null && projectInstance.containsRealization(RealizationType.CUBE,cubeName)) {
+            shouldExtract=true;
+          }
+        }
+      }
+      if (shouldExtract) {
+        result.add(parseToJobInstance((CubingJob)executable,allOutputs));
+      }
+    }
+  }
+  return result;
+}
