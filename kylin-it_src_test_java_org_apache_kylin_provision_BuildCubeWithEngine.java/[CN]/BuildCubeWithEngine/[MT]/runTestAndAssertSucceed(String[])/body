@@ -16,7 +16,7 @@
     }
   }
  catch (  Exception ex) {
-    logger.error(ex);
+    logger.error("error",ex);
     throw ex;
   }
 }
