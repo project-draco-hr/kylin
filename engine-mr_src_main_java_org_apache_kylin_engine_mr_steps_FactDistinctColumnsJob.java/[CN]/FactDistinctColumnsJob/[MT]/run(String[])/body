@@ -36,6 +36,10 @@
       }
       throw new IllegalStateException();
     }
+ else {
+      logger.info("Found segment: " + segment);
+      System.out.println("Found segment " + segment);
+    }
     setupMapper(segment);
     setupReducer(output,"true".equalsIgnoreCase(statistics_enabled) ? columnsNeedDict.size() + 1 : columnsNeedDict.size());
     attachKylinPropsAndMetadata(cube,job.getConfiguration());
