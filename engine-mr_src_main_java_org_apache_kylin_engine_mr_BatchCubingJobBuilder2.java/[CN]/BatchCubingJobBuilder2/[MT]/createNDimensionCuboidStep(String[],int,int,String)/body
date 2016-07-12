@@ -11,6 +11,6 @@
   appendExecCmdParameters(cmd,BatchConstants.ARG_LEVEL,"" + (totalRowkeyColumnCount - dimNum));
   appendExecCmdParameters(cmd,BatchConstants.ARG_CUBING_JOB_ID,jobId);
   ndCuboidStep.setMapReduceParams(cmd.toString());
-  ndCuboidStep.setMapReduceJobClass(NDCuboidJob.class);
+  ndCuboidStep.setMapReduceJobClass(getNDCuboidJob());
   return ndCuboidStep;
 }

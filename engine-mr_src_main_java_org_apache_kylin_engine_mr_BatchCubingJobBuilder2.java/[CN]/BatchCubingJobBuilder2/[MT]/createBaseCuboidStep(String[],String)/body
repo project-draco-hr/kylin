@@ -11,7 +11,7 @@
   appendExecCmdParameters(cmd,BatchConstants.ARG_LEVEL,"0");
   appendExecCmdParameters(cmd,BatchConstants.ARG_CUBING_JOB_ID,jobId);
   baseCuboidStep.setMapReduceParams(cmd.toString());
-  baseCuboidStep.setMapReduceJobClass(BaseCuboidJob.class);
+  baseCuboidStep.setMapReduceJobClass(getBaseCuboidJob());
   baseCuboidStep.setCounterSaveAs(CubingJob.SOURCE_RECORD_COUNT + "," + CubingJob.SOURCE_SIZE_BYTES);
   return baseCuboidStep;
 }

@@ -9,7 +9,7 @@
   appendExecCmdParameters(cmd,BatchConstants.ARG_JOB_NAME,"Kylin_Cube_Builder_" + seg.getRealization().getName());
   appendExecCmdParameters(cmd,BatchConstants.ARG_CUBING_JOB_ID,jobId);
   cubeStep.setMapReduceParams(cmd.toString());
-  cubeStep.setMapReduceJobClass(InMemCuboidJob.class);
+  cubeStep.setMapReduceJobClass(getInMemCuboidJob());
   cubeStep.setCounterSaveAs(CubingJob.SOURCE_RECORD_COUNT + "," + CubingJob.SOURCE_SIZE_BYTES+ ","+ CubingJob.CUBE_SIZE_BYTES);
   return cubeStep;
 }
