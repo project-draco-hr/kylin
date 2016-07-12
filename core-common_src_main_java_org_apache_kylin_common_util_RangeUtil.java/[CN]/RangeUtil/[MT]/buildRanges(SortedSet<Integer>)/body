@@ -8,11 +8,11 @@
   for (int index=1; index < values.size(); index++) {
     temp=iter.next();
     if (temp - lastEnd != 1) {
-      ranges.add(Ranges.closed(lastBegin,lastEnd));
+      ranges.add(Range.closed(lastBegin,lastEnd));
       lastBegin=temp;
     }
     lastEnd=temp;
   }
-  ranges.add(Ranges.closed(lastBegin,lastEnd));
+  ranges.add(Range.closed(lastBegin,lastEnd));
   return ranges;
 }

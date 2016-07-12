@@ -1,7 +1,7 @@
 {
-  Range r1=Ranges.all();
-  Range r2=Ranges.all();
-  Range a=Ranges.closedOpen(2,5);
+  Range r1=Range.all();
+  Range r2=Range.all();
+  Range a=Range.closedOpen(2,5);
   Assert.assertTrue(RangeUtil.remove(r1,r2).equals(Lists.newArrayList()));
-  Assert.assertTrue(RangeUtil.remove(r1,a).equals(Lists.newArrayList(Ranges.lessThan(2),Ranges.atLeast(5))));
+  Assert.assertTrue(RangeUtil.remove(r1,a).equals(Lists.newArrayList(Range.lessThan(2),Range.atLeast(5))));
 }
