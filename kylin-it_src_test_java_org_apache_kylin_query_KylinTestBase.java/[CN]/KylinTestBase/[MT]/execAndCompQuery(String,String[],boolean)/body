@@ -1,5 +1,5 @@
 {
-  printInfo("---------- test folder: " + queryFolder);
+  printInfo("---------- test folder: " + new File(queryFolder).getAbsolutePath());
   Set<String> exclusiveSet=buildExclusiveSet(exclusiveQuerys);
   List<File> sqlFiles=getFilesFromFolder(new File(queryFolder),".sql");
   for (  File sqlFile : sqlFiles) {

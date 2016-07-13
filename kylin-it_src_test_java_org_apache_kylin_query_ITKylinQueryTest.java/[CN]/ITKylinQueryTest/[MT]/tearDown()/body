@@ -1,5 +1,5 @@
 {
   Candidate.restorePriorities();
-  printInfo("tearDown in KylinQueryTest");
+  printInfo("tearDown in ITKylinQueryTest");
   clean();
 }

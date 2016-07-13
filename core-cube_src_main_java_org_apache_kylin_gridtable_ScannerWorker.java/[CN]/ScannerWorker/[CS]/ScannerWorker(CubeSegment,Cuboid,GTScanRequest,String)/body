@@ -10,6 +10,6 @@
     internal=rpc.getGTScanner(scanRequest);
   }
  catch (  IOException|InstantiationException|InvocationTargetException|IllegalAccessException|ClassNotFoundException|NoSuchMethodException e) {
-    throw new RuntimeException("error",e);
+    throw new RuntimeException(e);
   }
 }

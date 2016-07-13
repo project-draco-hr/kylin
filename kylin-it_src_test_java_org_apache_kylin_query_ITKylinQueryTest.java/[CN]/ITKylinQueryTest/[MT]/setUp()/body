@@ -3,7 +3,7 @@
   priorities.put(RealizationType.HYBRID,0);
   priorities.put(RealizationType.CUBE,0);
   Candidate.setPriorities(priorities);
-  printInfo("setUp in KylinQueryTest");
+  printInfo("setUp in ITKylinQueryTest");
   joinType="left";
   setupAll();
 }

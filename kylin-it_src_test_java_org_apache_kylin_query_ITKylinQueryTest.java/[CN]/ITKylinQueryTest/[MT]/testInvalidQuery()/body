@@ -1,6 +1,6 @@
 {
   printInfo("-------------------- Test Invalid Query --------------------");
-  String queryFolder="src/test/resources/query/sql_invalid";
+  String queryFolder=getQueryFolderPrefix() + "src/test/resources/query/sql_invalid";
   List<File> sqlFiles=getFilesFromFolder(new File(queryFolder),".sql");
   for (  File sqlFile : sqlFiles) {
     String queryName=StringUtils.split(sqlFile.getName(),'.')[0];

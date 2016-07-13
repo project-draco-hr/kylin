@@ -1,5 +1,5 @@
 {
   if ("left".equalsIgnoreCase(joinType)) {
-    batchExecuteQuery("src/test/resources/query/sql_distinct");
+    batchExecuteQuery(getQueryFolderPrefix() + "src/test/resources/query/sql_distinct");
   }
 }

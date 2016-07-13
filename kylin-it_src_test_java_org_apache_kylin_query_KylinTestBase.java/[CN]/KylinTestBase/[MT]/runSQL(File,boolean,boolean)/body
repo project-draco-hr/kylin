@@ -1,7 +1,7 @@
 {
   if (debug) {
     System.setProperty("calcite.debug","true");
-    InputStream inputStream=new FileInputStream(ITDirHeader + "src/test/resources/logging.properties");
+    InputStream inputStream=new FileInputStream("src/test/resources/logging.properties");
     LogManager.getLogManager().readConfiguration(inputStream);
   }
   String queryName=StringUtils.split(sqlFile.getName(),'.')[0];
