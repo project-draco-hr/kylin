@@ -1,0 +1,13 @@
+{
+  String[] nodes=config.getRestServers();
+  for (  String node : nodes) {
+    RestClient restClient=new RestClient(node);
+    try {
+      logger.info("update meta cache for " + node);
+      restClient.wipeCache(Broadcaster.TYPE.ALL.getType(),Broadcaster.EVENT.UPDATE.getType(),"all");
+    }
+ catch (    IOException e) {
+      logger.error(e.getMessage());
+    }
+  }
+}

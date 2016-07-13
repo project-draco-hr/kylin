@@ -30,6 +30,7 @@
   if (realExecute.equalsIgnoreCase("true")) {
     doOpts();
     checkMigrationSuccess(dstConfig,cubeName,true);
+    updateMeta(dstConfig);
   }
  else {
     showOpts();
