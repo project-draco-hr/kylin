@@ -1,0 +1,4 @@
+{
+  super.onExecuteError(exception,executableContext);
+  notifyUserStatusChange(executableContext,ExecutableState.ERROR);
+}
