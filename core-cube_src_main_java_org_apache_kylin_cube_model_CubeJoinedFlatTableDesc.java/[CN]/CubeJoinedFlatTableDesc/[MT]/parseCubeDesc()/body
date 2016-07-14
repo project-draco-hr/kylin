@@ -66,4 +66,9 @@
     }
   }
   columnCount=columnIndex;
+  for (  DimensionDesc d : cubeDesc.getDimensions()) {
+    if (d.getJoin() != null) {
+      cubeJoins.add(d.getJoin());
+    }
+  }
 }

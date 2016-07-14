@@ -1,4 +1,5 @@
 {
+  List<JoinDesc> cubeJoins=intermediateTableDesc.getUsedJoinsSet();
   Set<String> dimTableCache=new HashSet<String>();
   DataModelDesc dataModelDesc=intermediateTableDesc.getDataModel();
   String factTableName=dataModelDesc.getFactTable();
@@ -6,6 +7,9 @@
   sql.append("FROM " + factTableName + " as "+ factTableAlias+ " \n");
   for (  LookupDesc lookupDesc : dataModelDesc.getLookups()) {
     JoinDesc join=lookupDesc.getJoin();
+    if (!cubeJoins.contains(join)) {
+      continue;
+    }
     if (join != null && join.getType().equals("") == false) {
       String joinType=join.getType().toUpperCase();
       String dimTableName=lookupDesc.getTable();
