@@ -1,4 +1,4 @@
 {
-  int exitCode=ToolRunner.run(new OrphanHBaseCleanJob(),args);
-  System.exit(exitCode);
+  OrphanHBaseCleanJob job=new OrphanHBaseCleanJob();
+  job.execute(args);
 }

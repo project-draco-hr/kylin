@@ -1,4 +1,4 @@
 {
-  int exitCode=ToolRunner.run(new CleanHtableCLI(),args);
-  System.exit(exitCode);
+  CleanHtableCLI cli=new CleanHtableCLI();
+  cli.execute(args);
 }

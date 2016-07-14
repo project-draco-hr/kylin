@@ -1,4 +1,4 @@
 {
-  int exitCode=ToolRunner.run(new HtableAlterMetadataCLI(),args);
-  System.exit(exitCode);
+  HtableAlterMetadataCLI cli=new HtableAlterMetadataCLI();
+  cli.execute(args);
 }

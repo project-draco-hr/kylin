@@ -1,0 +1,6 @@
+{
+  tableName=optionsHelper.getOptionValue(OPTION_HTABLE_NAME);
+  metadataKey=optionsHelper.getOptionValue(OPTION_METADATA_KEY);
+  metadataValue=optionsHelper.getOptionValue(OPTION_METADATA_VALUE);
+  alter();
+}

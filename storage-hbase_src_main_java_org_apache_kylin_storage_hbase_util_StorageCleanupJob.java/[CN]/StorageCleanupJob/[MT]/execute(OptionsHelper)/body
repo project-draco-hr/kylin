@@ -1,0 +1,9 @@
+{
+  logger.info("options: '" + optionsHelper.getOptionsAsString() + "'");
+  logger.info("delete option value: '" + optionsHelper.getOptionValue(OPTION_DELETE) + "'");
+  delete=Boolean.parseBoolean(optionsHelper.getOptionValue(OPTION_DELETE));
+  Configuration conf=HBaseConfiguration.create();
+  cleanUnusedIntermediateHiveTable(conf);
+  cleanUnusedHdfsFiles(conf);
+  cleanUnusedHBaseTables(conf);
+}

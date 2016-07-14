@@ -1,4 +1,4 @@
 {
-  int exitCode=ToolRunner.run(new StorageCleanupJob(),args);
-  System.exit(exitCode);
+  StorageCleanupJob cli=new StorageCleanupJob();
+  cli.execute(args);
 }

@@ -1,0 +1,12 @@
+{
+  logger.info("options: '" + optionsHelper.getOptionsAsString() + "'");
+  logger.info("delete option value: '" + optionsHelper.getOptionValue(OPTION_DELETE) + "'");
+  delete=Boolean.parseBoolean(optionsHelper.getOptionValue(OPTION_DELETE));
+  String[] metastoreWhitelist=optionsHelper.getOptionValue(OPTION_WHITELIST).split(",");
+  for (  String ms : metastoreWhitelist) {
+    logger.info("metadata store in white list: " + ms);
+    metastoreWhitelistSet.add(ms);
+  }
+  Configuration conf=HBaseConfiguration.create();
+  cleanUnusedHBaseTables(conf);
+}

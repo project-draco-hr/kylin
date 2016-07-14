@@ -1,0 +1,5 @@
+{
+  tag=optionsHelper.getOptionValue(OPTION_TAG);
+  delete=Boolean.parseBoolean(optionsHelper.getOptionValue(OPTION_DELETE));
+  cleanUp();
+}
