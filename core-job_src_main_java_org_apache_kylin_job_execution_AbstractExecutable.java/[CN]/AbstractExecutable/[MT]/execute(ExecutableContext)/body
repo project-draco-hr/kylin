@@ -2,28 +2,41 @@
   logger.info("Executing AbstractExecutable (" + this.getName() + ")");
   Preconditions.checkArgument(executableContext instanceof DefaultContext);
   ExecuteResult result=null;
-  onExecuteStart(executableContext);
-  Throwable exception;
-  do {
-    if (retry > 0) {
-      logger.info("Retry " + retry);
+  try {
+    onExecuteStart(executableContext);
+    Throwable exception;
+    do {
+      if (retry > 0) {
+        logger.info("Retry " + retry);
+      }
+      exception=null;
+      result=null;
+      try {
+        result=doWork(executableContext);
+      }
+ catch (      Throwable e) {
+        logger.error("error running Executable: " + this.toString());
+        exception=e;
+      }
+      retry++;
     }
-    exception=null;
-    result=null;
-    try {
-      result=doWork(executableContext);
-    }
- catch (    Throwable e) {
-      logger.error("error running Executable: " + this.toString());
-      exception=e;
-    }
-    retry++;
-  }
  while (((result != null && result.succeed() == false) || exception != null) && needRetry() == true);
-  if (exception != null) {
-    onExecuteError(exception,executableContext);
-    throw new ExecuteException(exception);
+    if (exception != null) {
+      onExecuteError(exception,executableContext);
+      throw new ExecuteException(exception);
+    }
+    onExecuteFinished(result,executableContext);
   }
-  onExecuteFinished(result,executableContext);
+ catch (  Exception e) {
+    if (isMetaDataPersistException(e)) {
+      handleMetaDataPersistException(e);
+    }
+    if (e instanceof ExecuteException) {
+      throw e;
+    }
+ else {
+      throw new ExecuteException(e);
+    }
+  }
   return result;
 }

@@ -1,0 +1,15 @@
+{
+  if (e instanceof PersistentException) {
+    return true;
+  }
+  Throwable t=e.getCause();
+  int depth=0;
+  while (t != null && depth < 5) {
+    depth++;
+    if (t instanceof PersistentException) {
+      return true;
+    }
+    t=t.getCause();
+  }
+  return false;
+}

@@ -6,7 +6,6 @@
       logger.warn("no need to send email, user list is empty");
       return;
     }
-    final Pair<String,String> email=formatNotifications(context,state);
     doSendMail(kylinConfig,users,email);
   }
  catch (  Exception e) {

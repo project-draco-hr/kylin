@@ -1,0 +1,11 @@
+{
+  List<String> users=Lists.newArrayList();
+  users.addAll(getNotifyList());
+  final String[] adminDls=kylinConfig.getAdminDls();
+  if (null != adminDls) {
+    for (    String adminDl : adminDls) {
+      users.add(adminDl);
+    }
+  }
+  return users;
+}

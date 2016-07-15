@@ -1,0 +1,11 @@
+{
+  if (email == null) {
+    logger.warn("no need to send email, content is null");
+    return;
+  }
+  logger.info("prepare to send email to:" + users);
+  logger.info("job name:" + getName());
+  logger.info("submitter:" + getSubmitter());
+  logger.info("notify list:" + users);
+  new MailService(kylinConfig).sendMail(users,email.getLeft(),email.getRight());
+}
