@@ -1,7 +1,7 @@
 {
   Configuration conf=new Configuration();
   AppendTrieDictionary newDict=new AppendTrieDictionary();
-  newDict.update(baseDir.replaceFirst(srcConfig.getHdfsWorkingDirectory(),dstConfig.getHdfsWorkingDirectory()),baseId,maxId,maxValueLength,nValues,bytesConverter,writeDictMap());
+  newDict.update(baseDir.replaceFirst(srcConfig.getHdfsWorkingDirectory(),dstConfig.getHdfsWorkingDirectory()),baseId,maxId,maxValueLength,nValues,bytesConverter,(CachedTreeMap)dictSliceMap);
   logger.info("Copy AppendDict from {} to {}",this.baseDir,newDict.baseDir);
   Path srcPath=new Path(this.baseDir);
   Path dstPath=new Path(newDict.baseDir);

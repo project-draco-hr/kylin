@@ -1,7 +1,0 @@
-String baseDir
-int baseId
-int maxId
-int maxValueLength
-int nValues
-BytesConverter bytesConverter
-byte[] dictMapBytes

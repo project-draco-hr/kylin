@@ -4,7 +4,14 @@
   this.valueClazz=valueClazz;
   this.fileList=new TreeSet<>();
   this.conf=new Configuration();
-  this.baseDir=baseDir;
+  if (baseDir.endsWith("/")) {
+    this.baseDir=baseDir.substring(0,baseDir.length() - 1);
+  }
+ else {
+    this.baseDir=baseDir;
+  }
+  this.tmpDir=this.baseDir + ".tmp";
+  this.fs=FileSystem.get(new Path(baseDir).toUri(),conf);
   this.persistent=persistent;
   this.immutable=immutable;
   CacheBuilder builder=CacheBuilder.newBuilder().removalListener(new RemovalListener<K,V>(){
@@ -15,15 +22,28 @@ case SIZE:
         writeValue(notification.getKey(),notification.getValue());
       break;
 case EXPLICIT:
-    break;
+    deleteValue(notification.getKey());
+  break;
 default :
-  throw new RuntimeException("unexpected evict reason " + notification.getCause());
+throw new RuntimeException("unexpected evict reason " + notification.getCause());
 }
 }
 }
-).maximumSize(maxCount);
+);
 if (this.immutable) {
 builder.softValues();
+}
+ else {
+builder.maximumSize(maxCount);
+if (fs.exists(new Path(tmpDir))) {
+fs.delete(new Path(tmpDir),true);
+}
+if (fs.exists(new Path(this.baseDir))) {
+FileUtil.copy(fs,new Path(this.baseDir),fs,new Path(tmpDir),false,true,conf);
+}
+ else {
+fs.mkdirs(new Path(this.baseDir));
+}
 }
 this.valueCache=builder.build(new CacheLoader<K,V>(){
 @Override public V load(K key) throws Exception {

@@ -1,5 +1,0 @@
-{
-  ByteArrayInputStream buf=new ByteArrayInputStream(dictMapBytes);
-  DataInputStream input=new DataInputStream(buf);
-  update(baseDir,baseId,maxId,maxValueLength,nValues,bytesConverter,input);
-}

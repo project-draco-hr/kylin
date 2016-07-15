@@ -1,0 +1,36 @@
+{
+  CachedTreeMap map=CachedTreeMap.CachedTreeMapBuilder.newBuilder().baseDir("file://" + baseDir).persistent(true).immutable(false).maxSize(2).keyClazz(Key.class).valueClazz(Value.class).build();
+  map.put(Key.of(1),Value.of("a"));
+  map.put(Key.of(2),Value.of("b"));
+  map.put(Key.of(3),Value.of("c"));
+  map.remove(Key.of(3));
+  map.put(Key.of(4),Value.of("d"));
+  DataOutputStream out=new DataOutputStream(new FileOutputStream(tmpDir + ".index"));
+  map.write(out);
+  out.flush();
+  out.close();
+  map.commit(false);
+  DataInputStream in=new DataInputStream(new FileInputStream(baseDir + ".index"));
+  CachedTreeMap map2=CachedTreeMap.CachedTreeMapBuilder.newBuilder().baseDir("file://" + baseDir).persistent(true).immutable(true).maxSize(2).keyClazz(Key.class).valueClazz(Value.class).build();
+  map2.readFields(in);
+  assertEquals(3,map2.size());
+  assertEquals("a",((Value)map2.get(Key.of(1))).valueStr);
+  map=CachedTreeMap.CachedTreeMapBuilder.newBuilder().baseDir("file://" + baseDir).persistent(true).immutable(false).maxSize(2).keyClazz(Key.class).valueClazz(Value.class).build();
+  VALUE_WRITE_ERROR_TOGGLE=true;
+  map.put(Key.of(1),Value.of("aa"));
+  map.put(Key.of(2),Value.of("bb"));
+  VALUE_WRITE_ERROR_TOGGLE=false;
+  map.put(Key.of(3),Value.of("cc"));
+  map.put(Key.of(4),Value.of("dd"));
+  out=new DataOutputStream(new FileOutputStream(tmpDir + ".index"));
+  map.write(out);
+  out.flush();
+  out.close();
+  in=new DataInputStream(new FileInputStream(baseDir + ".index"));
+  map2=CachedTreeMap.CachedTreeMapBuilder.newBuilder().baseDir("file://" + baseDir).persistent(true).immutable(true).maxSize(2).keyClazz(Key.class).valueClazz(Value.class).build();
+  map2.readFields(in);
+  assertEquals(3,map2.size());
+  assertEquals("a",((Value)map2.get(Key.of(1))).valueStr);
+  assertTrue(new File(tmpDir).exists());
+  assertFalse(new File(backupDir).exists());
+}

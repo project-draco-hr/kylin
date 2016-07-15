@@ -7,7 +7,6 @@
     for (    String file : fileList) {
       try {
         Path filePath=new Path(file);
-        FileSystem fs=FileSystem.get(filePath.toUri(),conf);
         fs.delete(filePath,true);
       }
  catch (      Throwable t) {

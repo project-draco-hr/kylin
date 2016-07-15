@@ -1,5 +1,2 @@
 {
-  super.remove(key);
-  valueCache.invalidate(key);
-  return null;
 }

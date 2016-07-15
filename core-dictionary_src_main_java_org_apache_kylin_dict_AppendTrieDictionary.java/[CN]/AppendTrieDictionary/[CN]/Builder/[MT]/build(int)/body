@@ -1,14 +1,8 @@
 {
-  ByteArrayOutputStream buf=new ByteArrayOutputStream();
-  DataOutputStream out=new DataOutputStream(buf);
-  ((Writable)dictSliceMap).write(out);
-  byte[] dictMapBytes=buf.toByteArray();
-  buf.close();
-  out.close();
   if (dict == null) {
     dict=new AppendTrieDictionary<T>();
   }
-  dict.update(baseDir,baseId,maxId,maxValueLength,nValues,bytesConverter,dictMapBytes);
-  dict.flushIndex();
+  dict.flushIndex((CachedTreeMap)mutableDictSliceMap);
+  dict.update(baseDir,baseId,maxId,maxValueLength,nValues,bytesConverter,(CachedTreeMap)mutableDictSliceMap);
   return dict;
 }

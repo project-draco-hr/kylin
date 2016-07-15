@@ -2,7 +2,7 @@
   long t0=System.currentTimeMillis();
   String fileName=generateFileName(key);
   Path filePath=new Path(fileName);
-  try (FSDataInputStream input=(FileSystem.get(filePath.toUri(),conf)).open(filePath,BUFFER_SIZE)){
+  try (FSDataInputStream input=fs.open(filePath,BUFFER_SIZE)){
     V value=valueClazz.newInstance();
     value.readFields(input);
     return value;

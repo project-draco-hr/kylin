@@ -1,4 +1,4 @@
 {
-  String file=baseDir + "/cached_" + key.toString();
+  String file=(immutable ? baseDir : tmpDir) + "/cached_" + key.toString();
   return file;
 }

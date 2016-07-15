@@ -17,6 +17,8 @@
         throw new IOException(e);
       }
     }
-    update(baseDir,baseId,maxId,maxValueLength,nValues,converter,input);
+    CachedTreeMap dictMap=CachedTreeMap.CachedTreeMapBuilder.newBuilder().baseDir(baseDir).persistent(true).immutable(true).keyClazz(DictSliceKey.class).valueClazz(DictSlice.class).build();
+    dictMap.readFields(input);
+    update(baseDir,baseId,maxId,maxValueLength,nValues,converter,dictMap);
   }
  }

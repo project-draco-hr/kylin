@@ -1,0 +1,30 @@
+{
+  CachedTreeMap map=CachedTreeMap.CachedTreeMapBuilder.newBuilder().baseDir("file://" + baseDir).persistent(true).immutable(false).maxSize(2).keyClazz(Key.class).valueClazz(Value.class).build();
+  map.put(Key.of(1),Value.of("a"));
+  map.put(Key.of(2),Value.of("b"));
+  map.put(Key.of(3),Value.of("c"));
+  map.put(Key.of(4),Value.of("d"));
+  map.put(Key.of(5),Value.of("e"));
+  File dir=new File(tmpDir);
+  assertEquals(3,dir.listFiles(new CachedFileFilter()).length);
+  DataOutputStream out=new DataOutputStream(new FileOutputStream(tmpDir + "/.index"));
+  map.write(out);
+  out.flush();
+  out.close();
+  map.commit(false);
+  dir=new File(baseDir);
+  assertEquals(5,dir.listFiles(new CachedFileFilter()).length);
+  DataInputStream in=new DataInputStream(new FileInputStream(baseDir + ".index"));
+  CachedTreeMap map2=CachedTreeMap.CachedTreeMapBuilder.newBuilder().baseDir("file://" + baseDir).persistent(true).immutable(true).maxSize(2).keyClazz(Key.class).valueClazz(Value.class).build();
+  map2.readFields(in);
+  assertEquals(5,map2.size());
+  assertEquals("b",((Value)map2.get(Key.of(2))).valueStr);
+  try {
+    map2.put(Key.of(6),Value.of("f"));
+    fail("Should be error when put value into immutable map");
+  }
+ catch (  AssertionError error) {
+  }
+  assertFalse(new File(tmpDir).exists());
+  assertFalse(new File(backupDir).exists());
+}

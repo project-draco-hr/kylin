@@ -1,0 +1,5 @@
+{
+  Key newKey=new Key();
+  newKey.keyInt=keyInt;
+  return newKey;
+}

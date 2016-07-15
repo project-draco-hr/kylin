@@ -1,0 +1,7 @@
+{
+  if (VALUE_WRITE_ERROR_TOGGLE) {
+    out.write(new byte[0]);
+    return;
+  }
+  out.writeUTF(valueStr);
+}

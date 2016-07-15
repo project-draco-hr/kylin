@@ -4,4 +4,4 @@ int maxId
 int maxValueLength
 int nValues
 BytesConverter bytesConverter
-DataInput input
+CachedTreeMap dictMap

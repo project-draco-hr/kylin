@@ -5,10 +5,10 @@
   long t0=System.currentTimeMillis();
   String fileName=generateFileName(key);
   Path filePath=new Path(fileName);
-  try (FSDataOutputStream out=(FileSystem.get(filePath.toUri(),conf)).create(filePath,true,BUFFER_SIZE,(short)2,BUFFER_SIZE * 8)){
+  try (FSDataOutputStream out=fs.create(filePath,true,BUFFER_SIZE,(short)5,BUFFER_SIZE * 8)){
     value.write(out);
     if (!persistent) {
-      FileSystem.get(filePath.toUri(),conf).deleteOnExit(filePath);
+      fs.deleteOnExit(filePath);
     }
   }
  catch (  Exception e) {
