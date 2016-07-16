@@ -1,0 +1,3 @@
+StatementHandle sh
+List<TypedValue> parameterValues
+int maxRowsInFirstFrame

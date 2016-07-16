@@ -7,9 +7,8 @@
       final RelTraitSet traitSet=rootRel.getTraitSet().replace(RelCollationTraitDef.INSTANCE,collations);
       rootRel=rootRel.copy(traitSet,rootRel.getInputs());
     }
-    boolean dumpPlan=SQL2REL_LOGGER.isLoggable(Level.FINE);
-    if (dumpPlan) {
-      SQL2REL_LOGGER.fine(RelOptUtil.dumpPlan("Plan after trimming unused fields",rootRel,false,SqlExplainLevel.EXPPLAN_ATTRIBUTES));
+    if (SQL2REL_LOGGER.isDebugEnabled()) {
+      SQL2REL_LOGGER.debug(RelOptUtil.dumpPlan("Plan after trimming unused fields",rootRel,false,SqlExplainLevel.EXPPLAN_ATTRIBUTES));
     }
   }
   return rootRel;
