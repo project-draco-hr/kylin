@@ -1,5 +1,5 @@
 {
-  CachedTreeMap map=CachedTreeMap.CachedTreeMapBuilder.newBuilder().baseDir("file://" + baseDir).persistent(true).immutable(false).maxSize(2).keyClazz(Key.class).valueClazz(Value.class).build();
+  CachedTreeMap map=CachedTreeMap.CachedTreeMapBuilder.newBuilder().baseDir(baseDir).persistent(true).immutable(false).maxSize(2).keyClazz(Key.class).valueClazz(Value.class).build();
   map.put(Key.of(1),Value.of("a"));
   map.put(Key.of(2),Value.of("b"));
   map.put(Key.of(3),Value.of("c"));
@@ -15,7 +15,7 @@
   dir=new File(baseDir);
   assertEquals(5,dir.listFiles(new CachedFileFilter()).length);
   DataInputStream in=new DataInputStream(new FileInputStream(baseDir + ".index"));
-  CachedTreeMap map2=CachedTreeMap.CachedTreeMapBuilder.newBuilder().baseDir("file://" + baseDir).persistent(true).immutable(true).maxSize(2).keyClazz(Key.class).valueClazz(Value.class).build();
+  CachedTreeMap map2=CachedTreeMap.CachedTreeMapBuilder.newBuilder().baseDir(baseDir).persistent(true).immutable(true).maxSize(2).keyClazz(Key.class).valueClazz(Value.class).build();
   map2.readFields(in);
   assertEquals(5,map2.size());
   assertEquals("b",((Value)map2.get(Key.of(2))).valueStr);

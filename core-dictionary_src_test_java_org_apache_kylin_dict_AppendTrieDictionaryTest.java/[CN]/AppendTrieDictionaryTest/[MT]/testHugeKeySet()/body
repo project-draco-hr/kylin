@@ -1,6 +1,6 @@
 {
   BytesConverter converter=new StringBytesConverter();
-  AppendTrieDictionary.Builder<String> b=AppendTrieDictionary.Builder.create("/tmp/kylin_append_dict");
+  AppendTrieDictionary.Builder<String> b=AppendTrieDictionary.Builder.create(BASE_DIR);
   AppendTrieDictionary<String> dict=null;
   InputStream is=new FileInputStream("src/test/resources/dict/huge_key");
   BufferedReader reader=new BufferedReader(new InputStreamReader(is,"UTF-8"));

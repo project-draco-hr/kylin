@@ -4,5 +4,5 @@
   KylinConfig config=KylinConfig.getInstanceFromEnv();
   config.setAppendDictEntrySize(50000);
   config.setAppendDictCacheSize(3);
-  config.setProperty("kylin.hdfs.working.dir","/tmp/kylin_append_dict");
+  config.setProperty("kylin.hdfs.working.dir",BASE_DIR);
 }

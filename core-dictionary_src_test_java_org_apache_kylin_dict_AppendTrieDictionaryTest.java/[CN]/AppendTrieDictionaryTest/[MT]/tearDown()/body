@@ -5,4 +5,11 @@
   }
  catch (  IOException e) {
   }
+  File tmpLocalDir=new File(BASE_DIR);
+  if (tmpLocalDir.exists()) {
+    for (    File f : tmpLocalDir.listFiles()) {
+      f.delete();
+    }
+    tmpLocalDir.delete();
+  }
 }

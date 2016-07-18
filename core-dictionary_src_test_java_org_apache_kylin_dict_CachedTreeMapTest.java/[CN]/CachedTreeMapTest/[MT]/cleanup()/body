@@ -1,0 +1,24 @@
+{
+  File dir=new File(baseDir);
+  if (dir.exists()) {
+    for (    File f : dir.listFiles()) {
+      f.delete();
+    }
+    dir.delete();
+  }
+  dir=new File(tmpDir);
+  if (dir.exists()) {
+    for (    File f : dir.listFiles()) {
+      f.delete();
+    }
+    dir.delete();
+  }
+  dir=new File(backupDir);
+  if (dir.exists()) {
+    for (    File f : dir.listFiles()) {
+      f.delete();
+    }
+    dir.delete();
+  }
+  VALUE_WRITE_ERROR_TOGGLE=false;
+}
