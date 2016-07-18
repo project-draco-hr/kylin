@@ -4,8 +4,9 @@
     @Override public void addStepPhase1_MergeDictionary(    DefaultChainedExecutable jobFlow){
       jobFlow.addTask(steps.createCreateHTableStepWithStats(jobFlow.getId()));
     }
-    @Override public void addStepPhase2_BuildCube(    DefaultChainedExecutable jobFlow,    String cuboidRootPath){
-      jobFlow.addTask(steps.createConvertCuboidToHfileStep(cuboidRootPath,jobFlow.getId()));
+    @Override public void addStepPhase2_BuildCube(    CubeSegment seg,    List<CubeSegment> mergingSegments,    DefaultChainedExecutable jobFlow){
+      jobFlow.addTask(steps.createMergeCuboidDataStep(seg,mergingSegments,jobFlow.getId(),MergeCuboidJob.class));
+      jobFlow.addTask(steps.createConvertCuboidToHfileStep(jobFlow.getId()));
       jobFlow.addTask(steps.createBulkLoadStep(jobFlow.getId()));
     }
     @Override public void addStepPhase3_Cleanup(    DefaultChainedExecutable jobFlow){

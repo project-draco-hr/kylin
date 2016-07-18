@@ -6,7 +6,7 @@
   FileStatus[] fStatus=fs.listStatus(new Path(KylinConfig.getInstanceFromEnv().getHdfsWorkingDirectory()));
   for (  FileStatus status : fStatus) {
     String path=status.getPath().getName();
-    if (path.startsWith(JobInstance.JOB_WORKING_DIR_PREFIX)) {
+    if (path.startsWith("kylin-")) {
       String kylinJobPath=engineConfig.getHdfsWorkingDirectory() + path;
       allHdfsPathsNeedToBeDeleted.add(kylinJobPath);
     }
@@ -15,7 +15,7 @@
   for (  String jobId : allJobs) {
     final ExecutableState state=executableManager.getOutput(jobId).getState();
     if (!state.isFinalState()) {
-      String path=JobInstance.getJobWorkingDir(jobId,engineConfig.getHdfsWorkingDirectory());
+      String path=JobBuilderSupport.getJobWorkingDir(engineConfig.getHdfsWorkingDirectory(),jobId);
       allHdfsPathsNeedToBeDeleted.remove(path);
       logger.info("Skip " + path + " from deletion list, as the path belongs to job "+ jobId+ " with status "+ state);
     }
@@ -24,7 +24,7 @@
     for (    CubeSegment seg : cube.getSegments()) {
       String jobUuid=seg.getLastBuildJobID();
       if (jobUuid != null && jobUuid.equals("") == false) {
-        String path=JobInstance.getJobWorkingDir(jobUuid,engineConfig.getHdfsWorkingDirectory());
+        String path=JobBuilderSupport.getJobWorkingDir(engineConfig.getHdfsWorkingDirectory(),jobUuid);
         allHdfsPathsNeedToBeDeleted.remove(path);
         logger.info("Skip " + path + " from deletion list, as the path belongs to segment "+ seg+ " of cube "+ cube.getName());
       }

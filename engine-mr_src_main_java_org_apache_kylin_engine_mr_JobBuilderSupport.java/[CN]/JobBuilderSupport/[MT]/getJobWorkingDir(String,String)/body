@@ -1,0 +1,6 @@
+{
+  if (!hdfsDir.endsWith("/")) {
+    hdfsDir=hdfsDir + "/";
+  }
+  return hdfsDir + "kylin-" + jobId;
+}

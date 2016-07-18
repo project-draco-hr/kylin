@@ -1,0 +1,4 @@
+CubeSegment seg
+List<CubeSegment> mergingSegments
+String jobID
+Class<? extends AbstractHadoopJob> clazz

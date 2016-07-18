@@ -10,7 +10,7 @@
   outputSide.addStepPhase2_BuildDictionary(result);
   addLayerCubingSteps(result,jobId,cuboidRootPath);
   result.addTask(createInMemCubingStep(jobId,cuboidRootPath));
-  outputSide.addStepPhase3_BuildCube(result,cuboidRootPath);
+  outputSide.addStepPhase3_BuildCube(result);
   result.addTask(createUpdateCubeInfoAfterBuildStep(jobId));
   inputSide.addStepPhase4_Cleanup(result);
   outputSide.addStepPhase4_Cleanup(result);
