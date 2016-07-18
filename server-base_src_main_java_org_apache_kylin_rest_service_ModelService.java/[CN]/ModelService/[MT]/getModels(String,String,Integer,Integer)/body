@@ -1,6 +1,5 @@
 {
-  List<DataModelDesc> modelDescs;
-  modelDescs=listAllModels(modelName,projectName);
+  List<DataModelDesc> modelDescs=listAllModels(modelName,projectName);
   if (limit == null || offset == null) {
     return modelDescs;
   }

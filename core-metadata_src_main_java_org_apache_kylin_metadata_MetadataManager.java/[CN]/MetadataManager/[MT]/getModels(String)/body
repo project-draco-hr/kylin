@@ -12,19 +12,5 @@
       }
     }
   }
-  RealizationRegistry registry=RealizationRegistry.getInstance(config);
-  for (  RealizationEntry realization : projectInstance.getRealizationEntries()) {
-    IRealization rel=registry.getRealization(realization.getType(),realization.getRealization());
-    if (rel != null) {
-      DataModelDesc modelDesc=rel.getDataModelDesc();
-      if (modelDesc != null && !ret.contains(modelDesc)) {
-        ProjectManager.getInstance(config).updateModelToProject(modelDesc.getName(),projectName);
-        ret.add(modelDesc);
-      }
-    }
- else {
-      logger.warn("Realization '" + realization + "' defined under project '"+ projectInstance+ "' is not found");
-    }
-  }
   return new ArrayList<>(ret);
 }
