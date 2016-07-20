@@ -1,0 +1,13 @@
+{
+  int nRetry=0;
+  int sleepTime=5000;
+  while (!hdfsFS.rename(new Path(srcPath),new Path(dstPath))) {
+    ++nRetry;
+    if (nRetry > 3) {
+      throw new InterruptedException("Cannot rename folder " + srcPath + " to folder "+ dstPath);
+    }
+ else {
+      Thread.sleep(sleepTime * nRetry * nRetry);
+    }
+  }
+}

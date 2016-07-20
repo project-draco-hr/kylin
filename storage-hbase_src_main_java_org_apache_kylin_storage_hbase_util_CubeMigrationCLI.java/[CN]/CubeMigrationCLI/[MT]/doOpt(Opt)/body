@@ -89,7 +89,7 @@ case RENAME_FOLDER_IN_HDFS:
 {
 String srcPath=(String)opt.params[0];
 String dstPath=(String)opt.params[1];
-hdfsFS.rename(new Path(srcPath),new Path(dstPath));
+renameHDFSPath(srcPath,dstPath);
 logger.info("HDFS Folder renamed from " + srcPath + " to "+ dstPath);
 break;
 }
