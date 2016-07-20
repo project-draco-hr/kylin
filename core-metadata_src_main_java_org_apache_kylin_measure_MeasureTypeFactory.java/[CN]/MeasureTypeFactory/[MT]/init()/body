@@ -8,13 +8,20 @@
   factoryInsts.add(new TopNMeasureType.Factory());
   factoryInsts.add(new RawMeasureType.Factory());
   factoryInsts.add(new ExtendedColumnMeasureType.Factory());
-  for (  String customFactory : KylinConfig.getInstanceFromEnv().getCubeCustomMeasureTypes().values()) {
-    try {
-      factoryInsts.add((MeasureTypeFactory<?>)Class.forName(customFactory).newInstance());
+  logger.info("Checking custom measure types from kylin config");
+  try {
+    for (    String customFactory : KylinConfig.getInstanceFromEnv().getCubeCustomMeasureTypes().values()) {
+      try {
+        logger.info("Checking custom measure types from kylin config: " + customFactory);
+        factoryInsts.add((MeasureTypeFactory<?>)Class.forName(customFactory).newInstance());
+      }
+ catch (      Exception e) {
+        throw new IllegalArgumentException("Unrecognized MeasureTypeFactory classname: " + customFactory,e);
+      }
     }
- catch (    Exception e) {
-      throw new IllegalArgumentException("Unrecognized MeasureTypeFactory classname: " + customFactory,e);
-    }
+  }
+ catch (  KylinConfigCannotInitException e) {
+    logger.warn("Will not add custome MeasureTypeFactory as KYLIN_CONF nor KYLIN_HOME is set");
   }
   for (  MeasureTypeFactory<?> factory : factoryInsts) {
     String funcName=factory.getAggrFunctionName();
@@ -22,6 +29,7 @@
     String dataTypeName=factory.getAggrDataTypeName();
     if (dataTypeName.equals(dataTypeName.toLowerCase()) == false)     throw new IllegalArgumentException("Aggregation data type name '" + dataTypeName + "' must be in lower case");
     Class<? extends DataTypeSerializer<?>> serializer=factory.getAggrDataTypeSerializer();
+    logger.info("registering " + dataTypeName);
     DataType.register(dataTypeName);
     DataTypeSerializer.register(dataTypeName,serializer);
     List<MeasureTypeFactory<?>> list=factories.get(funcName);

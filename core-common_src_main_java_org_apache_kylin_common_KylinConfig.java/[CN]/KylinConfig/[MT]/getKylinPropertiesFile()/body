@@ -6,7 +6,7 @@
   }
   logger.warn("KYLIN_CONF property was not set, will seek KYLIN_HOME env variable");
   String kylinHome=getKylinHome();
-  if (StringUtils.isEmpty(kylinHome))   throw new RuntimeException("Didn't find KYLIN_CONF or KYLIN_HOME, please set one of them");
+  if (StringUtils.isEmpty(kylinHome))   throw new KylinConfigCannotInitException("Didn't find KYLIN_CONF or KYLIN_HOME, please set one of them");
   String path=kylinHome + File.separator + "conf";
   return getKylinPropertiesFile(path);
 }
