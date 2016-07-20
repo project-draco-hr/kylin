@@ -1,3 +1,5 @@
 {
-  addInputDirs(StringSplitter.split(input,","),job);
+  int folderNum=addInputDirs(StringSplitter.split(input,","),job);
+  logger.info("Number of added folders:" + folderNum);
+  return folderNum;
 }
