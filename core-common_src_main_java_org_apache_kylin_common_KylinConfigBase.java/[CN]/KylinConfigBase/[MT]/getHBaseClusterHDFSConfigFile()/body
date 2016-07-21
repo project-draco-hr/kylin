@@ -1,0 +1,3 @@
+{
+  return getOptional("kylin.hbase.cluster.hdfs.config.file","");
+}

@@ -1,0 +1,24 @@
+{
+  String hdfsConfigFile=KylinConfig.getInstanceFromEnv().getHBaseClusterHDFSConfigFile();
+  if (hdfsConfigFile == null || hdfsConfigFile.isEmpty()) {
+    return;
+  }
+  Configuration hdfsConf=new Configuration(false);
+  hdfsConf.addResource(hdfsConfigFile);
+  Collection<String> nameServices=hdfsConf.getTrimmedStringCollection(DFSConfigKeys.DFS_NAMESERVICES);
+  Collection<String> mainNameServices=conf.getTrimmedStringCollection(DFSConfigKeys.DFS_NAMESERVICES);
+  for (  String serviceId : nameServices) {
+    mainNameServices.add(serviceId);
+    String serviceConfKey=DFSConfigKeys.DFS_HA_NAMENODES_KEY_PREFIX + "." + serviceId;
+    String proxyConfKey=DFSConfigKeys.DFS_CLIENT_FAILOVER_PROXY_PROVIDER_KEY_PREFIX + "." + serviceId;
+    conf.set(serviceConfKey,hdfsConf.get(serviceConfKey,""));
+    conf.set(proxyConfKey,hdfsConf.get(proxyConfKey,""));
+    Collection<String> nameNodes=hdfsConf.getTrimmedStringCollection(serviceConfKey);
+    for (    String nameNode : nameNodes) {
+      String rpcConfKey=DFSConfigKeys.DFS_NAMENODE_RPC_ADDRESS_KEY + "." + serviceId+ "."+ nameNode;
+      conf.set(rpcConfKey,hdfsConf.get(rpcConfKey,""));
+    }
+  }
+  conf.setStrings(DFSConfigKeys.DFS_NAMESERVICES,mainNameServices.toArray(new String[0]));
+  conf.setStrings(JOB_NAMENODES_TOKEN_RENEWAL_EXCLUDE,nameServices.toArray(new String[0]));
+}

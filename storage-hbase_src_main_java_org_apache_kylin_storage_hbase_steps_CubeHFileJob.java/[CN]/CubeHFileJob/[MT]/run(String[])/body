@@ -15,6 +15,7 @@
     CubeInstance cube=cubeMgr.getCube(cubeName);
     job=Job.getInstance(getConf(),getOptionValue(OPTION_JOB_NAME));
     setJobClasspath(job,cube.getConfig());
+    HBaseConnection.addHBaseClusterNNHAConfiguration(job.getConfiguration());
     addInputDirs(getOptionValue(OPTION_INPUT_PATH),job);
     FileOutputFormat.setOutputPath(job,output);
     job.setInputFormatClass(SequenceFileInputFormat.class);
