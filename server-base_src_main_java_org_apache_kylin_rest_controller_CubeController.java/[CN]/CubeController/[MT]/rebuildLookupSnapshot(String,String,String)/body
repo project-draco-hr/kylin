@@ -1,6 +1,8 @@
 {
   try {
-    return cubeService.rebuildLookupSnapshot(cubeName,segmentName,lookupTable);
+    final CubeManager cubeMgr=cubeService.getCubeManager();
+    final CubeInstance cube=cubeMgr.getCube(cubeName);
+    return cubeService.rebuildLookupSnapshot(cube,segmentName,lookupTable);
   }
  catch (  IOException e) {
     logger.error(e.getLocalizedMessage(),e);

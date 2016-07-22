@@ -1,0 +1,5 @@
+{
+  CubeSegment seg=cube.getSegment(segmentName,SegmentStatusEnum.READY);
+  getCubeManager().buildSnapshotTable(seg,lookupTable);
+  return cube;
+}

@@ -1,6 +1,10 @@
 {
+  CubeInstance cube=cubeService.getCubeManager().getCube(cubeName);
+  if (cube == null) {
+    throw new InternalErrorException("Cannot find cube " + cubeName);
+  }
   try {
-    return cubeService.updateCubeCost(cubeName,cost);
+    return cubeService.updateCubeCost(cube,cost);
   }
  catch (  Exception e) {
     String message="Failed to update cube cost: " + cubeName + " : "+ cost;

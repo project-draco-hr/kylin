@@ -1,8 +1,4 @@
 {
-  CubeInstance cube=getCubeManager().getCube(cubeName);
-  if (cube == null) {
-    throw new IOException("Cannot find cube " + cubeName);
-  }
   if (cube.getCost() == cost) {
     return cube;
   }
