@@ -9,5 +9,7 @@
     if (acceptPartialResult != null) {
       this.storageContext.setAcceptPartialResult(Boolean.parseBoolean(acceptPartialResult));
     }
+    String acceptUserInfo=parameters.get(PRM_USER_AUTHEN_INFO);
+    if (null != acceptUserInfo)     this.olapAuthen.parseUserInfo(acceptUserInfo);
   }
 }

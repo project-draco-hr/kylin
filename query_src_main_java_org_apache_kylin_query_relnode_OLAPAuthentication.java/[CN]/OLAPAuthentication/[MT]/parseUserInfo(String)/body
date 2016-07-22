@@ -1,0 +1,5 @@
+{
+  String[] info=userInfo.split(",");
+  if (info.length > 0)   this.username=info[0];
+  for (int i=1; i < info.length; i++)   this.roles.add(info[i]);
+}

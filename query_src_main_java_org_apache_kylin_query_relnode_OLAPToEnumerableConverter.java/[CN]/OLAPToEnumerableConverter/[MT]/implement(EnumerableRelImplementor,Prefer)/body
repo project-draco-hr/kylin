@@ -8,6 +8,12 @@
       }
       IRealization realization=QueryRouter.selectRealization(context);
       context.realization=realization;
+      String controllerCls=KylinConfig.getInstanceFromEnv().getQueryAccessController();
+      if (null != controllerCls && !controllerCls.isEmpty()) {
+        OLAPContext.IAccessController accessController=(OLAPContext.IAccessController)ClassUtil.newInstance(controllerCls);
+        TupleFilter tupleFilter=accessController.check(context.olapAuthen,context.allColumns,context.realization);
+        context.filter=and(context.filter,tupleFilter);
+      }
     }
   }
  catch (  NoRealizationFoundException e) {

@@ -1,0 +1,3 @@
+OLAPAuthentication olapAuthentication
+Collection<TblColRef> columns
+IRealization realization
