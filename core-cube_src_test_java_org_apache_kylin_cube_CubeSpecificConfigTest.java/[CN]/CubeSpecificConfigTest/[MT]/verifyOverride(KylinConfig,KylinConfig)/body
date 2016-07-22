@@ -1,4 +1,4 @@
 {
-  assertEquals("gzip",base.getHbaseDefaultCompressionCodec());
+  assertEquals("",base.getHbaseDefaultCompressionCodec());
   assertEquals("lz4",override.getHbaseDefaultCompressionCodec());
 }
