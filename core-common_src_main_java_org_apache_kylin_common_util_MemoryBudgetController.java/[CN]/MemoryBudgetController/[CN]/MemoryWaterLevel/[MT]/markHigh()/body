@@ -2,6 +2,6 @@
   int mb=MemoryBudgetController.getSystemAvailMB();
   if (mb < lowAvail) {
     lowAvail=mb;
-    logger.debug("Lower system avail " + lowAvail + " MB in markHigh()");
+    logger.warn("Lower system avail " + lowAvail + " MB in markHigh()");
   }
 }
