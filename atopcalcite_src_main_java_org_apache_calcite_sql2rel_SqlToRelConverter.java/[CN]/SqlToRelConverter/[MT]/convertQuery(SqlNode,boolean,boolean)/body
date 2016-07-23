@@ -2,6 +2,7 @@
   if (needsValidation) {
     query=validator.validate(query);
   }
+  RelMetadataQuery.THREAD_PROVIDERS.set(JaninoRelMetadataProvider.of(cluster.getMetadataProvider()));
   RelNode result=convertQueryRecursive(query,top,null).rel;
   if (top) {
     if (isStream(query)) {

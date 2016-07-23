@@ -6,17 +6,27 @@ case FILTER:
 case SELECT:
 return null;
 }
+final boolean prevInOver=inOver;
 if (call.getOperator().getKind() == SqlKind.OVER) {
+if (call.operand(0).getKind() == SqlKind.RANK) {
 return null;
 }
+inOver=true;
+}
 if (call.getOperator().isAggregator()) {
+if (inOver) {
+inOver=false;
+}
+ else {
 translateAgg(call,null,call);
 return null;
+}
 }
 for (SqlNode operand : call.getOperandList()) {
 if (operand != null) {
 operand.accept(this);
 }
 }
+inOver=prevInOver;
 return null;
 }

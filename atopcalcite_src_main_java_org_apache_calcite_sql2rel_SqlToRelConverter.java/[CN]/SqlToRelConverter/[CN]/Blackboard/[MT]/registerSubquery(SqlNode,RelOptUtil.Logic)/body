@@ -1,6 +1,6 @@
 {
   for (  SubQuery subQuery : subqueryList) {
-    if (node.equalsDeep(subQuery.node,false)) {
+    if (node.equalsDeep(subQuery.node,Litmus.IGNORE)) {
       return;
     }
   }

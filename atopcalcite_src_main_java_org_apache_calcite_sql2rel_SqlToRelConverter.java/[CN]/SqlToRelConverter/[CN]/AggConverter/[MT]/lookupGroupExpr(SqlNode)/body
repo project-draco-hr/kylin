@@ -1,7 +1,7 @@
 {
   for (int i=0; i < groupExprs.size(); i++) {
     SqlNode groupExpr=groupExprs.get(i);
-    if (expr.equalsDeep(groupExpr,false)) {
+    if (expr.equalsDeep(groupExpr,Litmus.IGNORE)) {
       return i;
     }
   }
