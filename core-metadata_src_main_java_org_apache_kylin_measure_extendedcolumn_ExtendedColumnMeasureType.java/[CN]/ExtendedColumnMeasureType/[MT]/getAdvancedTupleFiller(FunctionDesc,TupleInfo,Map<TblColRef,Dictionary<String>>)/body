@@ -7,6 +7,10 @@
   return new IAdvMeasureFiller(){
     private String value;
     @Override public void reload(    Object measureValue){
+      if (measureValue == null) {
+        value=null;
+        return;
+      }
       ByteArray byteArray=(ByteArray)measureValue;
       value=Bytes.toString(byteArray.array());
     }
