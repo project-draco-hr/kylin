@@ -6,6 +6,7 @@
   final boolean includeJob=optionsHelper.hasOption(OPTION_INCLUDE_JOB) ? Boolean.valueOf(optionsHelper.getOptionValue(OPTION_INCLUDE_JOB)) : true;
   final int threadsNum=optionsHelper.hasOption(OPTION_THREADS) ? Integer.valueOf(optionsHelper.getOptionValue(OPTION_THREADS)) : DEFAULT_PARALLEL_SIZE;
   final String projectNames=StringUtils.join(getProjects(projectInput),",");
+  final int period=optionsHelper.hasOption(OPTION_PERIOD) ? Integer.valueOf(optionsHelper.getOptionValue(OPTION_PERIOD)) : DEFAULT_PERIOD;
   logger.info("Start diagnosis info extraction in {} threads.",threadsNum);
   executorService=Executors.newFixedThreadPool(threadsNum);
   executorService.execute(new Runnable(){
@@ -20,7 +21,7 @@
   if (includeJob) {
     executorService.execute(new Runnable(){
       @Override public void run(){
-        String[] jobArgs={"-destDir",new File(exportDir,"jobs").getAbsolutePath(),"-compress","false","-submodule","true"};
+        String[] jobArgs={"-destDir",new File(exportDir,"jobs").getAbsolutePath(),"-period",Integer.toString(period),"-compress","false","-submodule","true"};
         JobInstanceExtractor jobInstanceExtractor=new JobInstanceExtractor();
         jobInstanceExtractor.execute(jobArgs);
       }
@@ -70,7 +71,7 @@
   }
   executorService.execute(new Runnable(){
     @Override public void run(){
-      String[] logsArgs={"-destDir",new File(exportDir,"logs").getAbsolutePath(),"-compress","false","-submodule","true"};
+      String[] logsArgs={"-destDir",new File(exportDir,"logs").getAbsolutePath(),"-logPeriod",Integer.toString(period),"-compress","false","-submodule","true"};
       KylinLogExtractor logExtractor=new KylinLogExtractor();
       logger.info("KylinLogExtractor args: " + Arrays.toString(logsArgs));
       logExtractor.execute(logsArgs);

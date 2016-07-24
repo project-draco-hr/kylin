@@ -5,4 +5,5 @@
   packageType="jobInstances";
   options.addOption(OPTION_PROJECT);
   options.addOption(OPTION_CUBE);
+  options.addOption(OPTION_PERIOD);
 }
