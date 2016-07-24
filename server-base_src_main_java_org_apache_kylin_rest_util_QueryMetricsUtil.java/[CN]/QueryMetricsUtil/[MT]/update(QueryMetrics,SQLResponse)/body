@@ -1,0 +1,14 @@
+{
+  try {
+    incrQueryCount(queryMetrics,sqlResponse);
+    incrCacheHitCount(queryMetrics,sqlResponse);
+    if (!sqlResponse.getIsException()) {
+      queryMetrics.addQueryLatency(sqlResponse.getDuration());
+      queryMetrics.addScanRowCount(sqlResponse.getTotalScanCount());
+      queryMetrics.addResultRowCount(sqlResponse.getResults().size());
+    }
+  }
+ catch (  Exception e) {
+    logger.error(e.getMessage());
+  }
+}

@@ -1,0 +1,12 @@
+{
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  int[] intervals=config.getQueryMetricsPercentilesIntervals();
+  if (metricsMap.containsKey(name)) {
+    return metricsMap.get(name);
+  }
+ else {
+    QueryMetrics queryMetrics=new QueryMetrics(intervals).registerWith(name);
+    metricsMap.put(name,queryMetrics);
+    return queryMetrics;
+  }
+}

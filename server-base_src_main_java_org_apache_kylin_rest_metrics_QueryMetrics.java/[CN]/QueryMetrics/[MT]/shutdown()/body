@@ -1,0 +1,3 @@
+{
+  DefaultMetricsSystem.shutdown();
+}

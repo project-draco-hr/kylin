@@ -1,0 +1,3 @@
+{
+  return DefaultMetricsSystem.instance().register(name,"Query",this);
+}

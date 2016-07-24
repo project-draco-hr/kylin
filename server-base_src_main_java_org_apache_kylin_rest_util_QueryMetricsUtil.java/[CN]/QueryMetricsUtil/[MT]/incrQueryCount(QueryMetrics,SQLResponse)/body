@@ -1,0 +1,9 @@
+{
+  if (!sqlResponse.isHitExceptionCache() && !sqlResponse.getIsException()) {
+    queryMetrics.incrQuerySuccessCount();
+  }
+ else {
+    queryMetrics.incrQueryFailCount();
+  }
+  queryMetrics.incrQueryCount();
+}

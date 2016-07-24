@@ -1,0 +1,6 @@
+{
+  queryLatency.add(latency);
+  for (  MutableQuantiles m : queryLatencyTimeMillisQuantiles) {
+    m.add(latency);
+  }
+}

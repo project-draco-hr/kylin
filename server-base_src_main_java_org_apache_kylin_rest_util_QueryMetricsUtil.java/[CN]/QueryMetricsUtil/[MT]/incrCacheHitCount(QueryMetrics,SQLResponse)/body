@@ -1,0 +1,5 @@
+{
+  if (sqlResponse.isStorageCacheUsed()) {
+    queryMetrics.addCacheHitCount(1);
+  }
+}

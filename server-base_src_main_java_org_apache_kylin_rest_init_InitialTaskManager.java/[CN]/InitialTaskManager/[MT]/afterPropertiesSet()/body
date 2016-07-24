@@ -1,4 +1,5 @@
 {
   logger.info("Kylin service is starting.....");
   runInitialTasks();
+  DefaultMetricsSystem.initialize("Kylin");
 }

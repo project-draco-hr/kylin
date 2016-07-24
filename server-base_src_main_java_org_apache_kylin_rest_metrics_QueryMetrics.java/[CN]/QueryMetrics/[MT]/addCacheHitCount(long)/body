@@ -1,0 +1,6 @@
+{
+  cacheHitCount.incr(count);
+  for (  MutableQuantiles m : cacheHitCountQuantiles) {
+    m.add(count);
+  }
+}

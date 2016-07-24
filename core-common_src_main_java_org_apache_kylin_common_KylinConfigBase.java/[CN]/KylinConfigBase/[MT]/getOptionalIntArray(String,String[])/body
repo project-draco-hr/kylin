@@ -1,0 +1,8 @@
+{
+  String[] strArray=getOptionalStringArray(prop,dft);
+  int[] intArray=new int[strArray.length];
+  for (int i=0; i < strArray.length; i++) {
+    intArray[i]=Integer.parseInt(strArray[i]);
+  }
+  return intArray;
+}

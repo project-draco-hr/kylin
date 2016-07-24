@@ -1,0 +1,4 @@
+{
+  String[] dft={"60","300","3600"};
+  return getOptionalIntArray("kylin.query.metrics.percentiles.intervals",dft);
+}

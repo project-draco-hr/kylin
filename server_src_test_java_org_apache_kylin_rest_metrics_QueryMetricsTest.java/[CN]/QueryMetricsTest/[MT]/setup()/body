@@ -1,0 +1,5 @@
+{
+  super.setup();
+  mBeanServer=ManagementFactory.getPlatformMBeanServer();
+  objectName=new ObjectName("Hadoop:service=Kylin,name=Server_Total");
+}

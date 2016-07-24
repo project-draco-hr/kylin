@@ -1,0 +1,8 @@
+{
+  String projectName=sqlRequest.getProject();
+  String cubeName=sqlResponse.getCube();
+  update(getQueryMetrics("Server_Total",metricsMap),sqlResponse);
+  update(getQueryMetrics(projectName,metricsMap),sqlResponse);
+  String cubeMetricName=projectName + ",sub=" + cubeName;
+  update(getQueryMetrics(cubeMetricName,metricsMap),sqlResponse);
+}

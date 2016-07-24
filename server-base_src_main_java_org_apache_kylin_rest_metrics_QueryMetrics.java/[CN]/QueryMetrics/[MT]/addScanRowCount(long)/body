@@ -1,0 +1,6 @@
+{
+  scanRowCount.add(count);
+  for (  MutableQuantiles m : scanRowCountQuantiles) {
+    m.add(count);
+  }
+}
