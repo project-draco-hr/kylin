@@ -1,11 +1,9 @@
 {
   if (totalShards > 0) {
-    logger.info("total shards for {} is {}",cuboidId,totalShards);
     return totalShards;
   }
  else {
     int ret=getCuboidShardNum(cuboidId);
-    logger.info("total shards for {} is {}",cuboidId,ret);
     return ret;
   }
 }
