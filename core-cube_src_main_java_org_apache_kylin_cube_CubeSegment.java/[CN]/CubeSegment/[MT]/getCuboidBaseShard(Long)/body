@@ -1,8 +1,15 @@
 {
-  Short ret=cuboidBaseShards.get(cuboidId);
-  if (ret == null) {
-    ret=ShardingHash.getShard(cuboidId,totalShards);
-    cuboidBaseShards.put(cuboidId,ret);
+  if (totalShards > 0) {
+    Short ret=cuboidBaseShards.get(cuboidId);
+    if (ret == null) {
+      ret=ShardingHash.getShard(cuboidId,totalShards);
+      cuboidBaseShards.put(cuboidId,ret);
+    }
+    logger.info("base for cuboid {} is {}",cuboidId,ret);
+    return ret;
   }
-  return ret;
+ else {
+    logger.info("base for cuboid {} is {}",cuboidId,0);
+    return 0;
+  }
 }

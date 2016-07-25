@@ -8,8 +8,7 @@
       }
     }
 ).iterator(),",");
-    logger.info("target cube name: {}, cube list: {}",cubeName,cubeList);
-    throw new IllegalStateException();
+    throw new IllegalStateException("target cube name: " + cubeName + " cube list: "+ cubeList);
   }
   final CubeSegment newSegment=cube.getSegmentById(segmentId);
   if (newSegment == null) {
@@ -19,8 +18,7 @@
       }
     }
 ).iterator(),",");
-    logger.info("target segment id: {}, segment list: {}",segmentId,segmentList);
-    throw new IllegalStateException();
+    throw new IllegalStateException("target segment id: " + segmentId + " segment list: "+ segmentList);
   }
   return newSegment;
 }

@@ -1,5 +1,5 @@
 {
-  CubeSegment newSegment=findSegment(context,CubingExecutableUtil.getCubeName(this.getParams()),CubingExecutableUtil.getSegmentId(this.getParams()));
+  CubeSegment newSegment=CubingExecutableUtil.findSegment(context,CubingExecutableUtil.getCubeName(this.getParams()),CubingExecutableUtil.getSegmentId(this.getParams()));
   KylinConfig kylinConf=newSegment.getConfig();
   ResourceStore rs=ResourceStore.getStore(kylinConf);
   try {
