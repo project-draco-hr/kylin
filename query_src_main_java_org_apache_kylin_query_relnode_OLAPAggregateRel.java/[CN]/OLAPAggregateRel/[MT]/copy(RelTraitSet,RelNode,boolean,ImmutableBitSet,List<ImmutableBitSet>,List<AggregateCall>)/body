@@ -1,6 +1,6 @@
 {
   try {
-    return new OLAPAggregateRel(getCluster(),traitSet,input,groupSet,aggCalls);
+    return new OLAPAggregateRel(getCluster(),traitSet,input,indicator,groupSet,groupSets,aggCalls);
   }
  catch (  InvalidRelException e) {
     throw new IllegalStateException("Can't create OLAPAggregateRel!",e);

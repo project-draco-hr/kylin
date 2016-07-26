@@ -1,0 +1,51 @@
+{
+  LogicalAggregate aggr=(LogicalAggregate)call.getRelList().get(0);
+  RelNode input=aggr.getInput();
+  RelBuilder relBuilder=call.builder();
+  RexBuilder rexBuilder=aggr.getCluster().getRexBuilder();
+  for (  ImmutableBitSet groupSet : aggr.getGroupSets()) {
+    relBuilder.push(aggr.copy(aggr.getTraitSet(),input,false,groupSet,asList(groupSet),aggr.getAggCallList()));
+    ImmutableList.Builder<RexNode> rexNodes=new ImmutableList.Builder<>();
+    int index=0;
+    Iterator<Integer> groupSetIter=aggr.getGroupSet().iterator();
+    Iterator<RelDataTypeField> typeIterator=aggr.getRowType().getFieldList().iterator();
+    Iterator<Integer> groupKeyIter=groupSet.iterator();
+    int groupKey=groupKeyIter.next();
+    while (groupSetIter.hasNext()) {
+      Integer aggrGroupKey=groupSetIter.next();
+      RelDataType type=typeIterator.next().getType();
+      if (groupKey == aggrGroupKey) {
+        rexNodes.add(rexBuilder.makeInputRef(type,index++));
+        groupKey=groupKeyIter.next();
+        continue;
+      }
+ else {
+        rexNodes.add(rexBuilder.makeNullLiteral(type.getSqlTypeName()));
+      }
+    }
+    if (aggr.indicator) {
+      groupSetIter=aggr.getGroupSet().iterator();
+      groupKeyIter=groupSet.iterator();
+      groupKey=groupKeyIter.next();
+      while (groupSetIter.hasNext()) {
+        Integer aggrGroupKey=groupSetIter.next();
+        RelDataType type=typeIterator.next().getType();
+        if (groupKey == aggrGroupKey) {
+          rexNodes.add(rexBuilder.makeLiteral(false,type,true));
+          groupKey=groupKeyIter.next();
+          continue;
+        }
+ else {
+          rexNodes.add(rexBuilder.makeLiteral(true,type,true));
+        }
+      }
+    }
+    while (typeIterator.hasNext()) {
+      RelDataType type=typeIterator.next().getType();
+      rexNodes.add(rexBuilder.makeInputRef(type,index++));
+    }
+    relBuilder.project(rexNodes.build());
+  }
+  RelNode unionAggr=relBuilder.union(true,aggr.getGroupSets().size()).build();
+  call.transformTo(unionAggr);
+}

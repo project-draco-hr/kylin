@@ -1,5 +1,0 @@
-{
-  ArrayList<ImmutableBitSet> l=new ArrayList<ImmutableBitSet>(1);
-  l.add(groupSet);
-  return l;
-}

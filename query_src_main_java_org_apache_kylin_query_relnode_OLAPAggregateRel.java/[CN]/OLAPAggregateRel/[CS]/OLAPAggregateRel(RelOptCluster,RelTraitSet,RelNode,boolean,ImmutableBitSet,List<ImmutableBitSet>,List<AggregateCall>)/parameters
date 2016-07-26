@@ -1,5 +1,7 @@
 RelOptCluster cluster
 RelTraitSet traits
 RelNode child
+boolean indicator
 ImmutableBitSet groupSet
+List<ImmutableBitSet> groupSets
 List<AggregateCall> aggCalls

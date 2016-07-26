@@ -1,0 +1,8 @@
+{
+  super(cluster,traitSet,inputs,all);
+  Preconditions.checkArgument(getConvention() == CONVENTION);
+  for (  RelNode child : inputs) {
+    Preconditions.checkArgument(getConvention() == child.getConvention());
+  }
+  this.localAll=all;
+}

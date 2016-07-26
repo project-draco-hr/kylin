@@ -1,0 +1,3 @@
+{
+  super(Union.class,Convention.NONE,OLAPRel.CONVENTION,"OLAPUnionRule");
+}

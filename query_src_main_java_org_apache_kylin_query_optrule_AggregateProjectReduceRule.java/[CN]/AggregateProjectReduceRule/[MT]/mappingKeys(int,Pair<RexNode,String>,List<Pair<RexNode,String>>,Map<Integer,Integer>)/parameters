@@ -1,0 +1,4 @@
+int key
+Pair<RexNode,String> project
+List<Pair<RexNode,String>> projects
+Map<Integer,Integer> mapping

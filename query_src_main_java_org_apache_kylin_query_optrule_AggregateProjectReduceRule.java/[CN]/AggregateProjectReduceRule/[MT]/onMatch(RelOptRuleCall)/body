@@ -1,0 +1,38 @@
+{
+  LogicalAggregate aggr=call.rel(0);
+  LogicalProject project=call.rel(1);
+  List<Pair<RexNode,String>> projects=project.getNamedProjects();
+  List<Pair<RexNode,String>> newProjects=new ArrayList<>();
+  Map<Integer,Integer> mapping=new HashMap<>();
+  for (  int key : aggr.getGroupSet()) {
+    mappingKeys(key,projects.get(key),newProjects,mapping);
+  }
+  final ImmutableBitSet newGroupSet=aggr.getGroupSet().permute(mapping);
+  final ImmutableList.Builder<AggregateCall> newAggrCalls=ImmutableList.builder();
+  for (  AggregateCall aggrCall : aggr.getAggCallList()) {
+    final ImmutableList.Builder<Integer> newArgs=ImmutableList.builder();
+    for (    int key : aggrCall.getArgList()) {
+      mappingKeys(key,projects.get(key),newProjects,mapping);
+      newArgs.add(mapping.get(key));
+    }
+    final int newFilterArg;
+    if (aggrCall.filterArg > 0) {
+      int key=aggrCall.filterArg;
+      mappingKeys(key,projects.get(key),newProjects,mapping);
+      newFilterArg=mapping.get(aggrCall.filterArg);
+    }
+ else {
+      newFilterArg=-1;
+    }
+    newAggrCalls.add(aggrCall.copy(newArgs.build(),newFilterArg));
+  }
+  if (newProjects.equals(project.getNamedProjects())) {
+    return;
+  }
+  RelBuilder relBuilder=call.builder();
+  relBuilder.push(project.getInput());
+  relBuilder.project(Pair.left(newProjects),Pair.right(newProjects));
+  relBuilder.aggregate(relBuilder.groupKey(newGroupSet,false,null),newAggrCalls.build());
+  RelNode rel=relBuilder.build();
+  call.transformTo(rel);
+}

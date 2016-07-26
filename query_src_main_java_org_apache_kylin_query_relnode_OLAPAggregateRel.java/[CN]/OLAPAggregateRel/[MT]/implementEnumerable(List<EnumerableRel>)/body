@@ -1,6 +1,6 @@
 {
   try {
-    return new EnumerableAggregate(getCluster(),getCluster().traitSetOf(EnumerableConvention.INSTANCE),sole(inputs),false,this.groupSet,this.groupSets,rewriteAggCalls);
+    return new EnumerableAggregate(getCluster(),getCluster().traitSetOf(EnumerableConvention.INSTANCE),sole(inputs),indicator,this.groupSet,this.groupSets,rewriteAggCalls);
   }
  catch (  InvalidRelException e) {
     throw new IllegalStateException("Can't create EnumerableAggregate!",e);

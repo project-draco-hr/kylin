@@ -1,0 +1,6 @@
+{
+  if (!projects.contains(project)) {
+    projects.add(project);
+  }
+  mapping.put(key,projects.indexOf(project));
+}

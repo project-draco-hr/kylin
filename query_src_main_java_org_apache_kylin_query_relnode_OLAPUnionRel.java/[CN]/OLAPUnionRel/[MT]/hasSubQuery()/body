@@ -1,0 +1,8 @@
+{
+  for (  RelNode child : getInputs()) {
+    if (((OLAPRel)child).hasSubQuery()) {
+      return true;
+    }
+  }
+  return false;
+}

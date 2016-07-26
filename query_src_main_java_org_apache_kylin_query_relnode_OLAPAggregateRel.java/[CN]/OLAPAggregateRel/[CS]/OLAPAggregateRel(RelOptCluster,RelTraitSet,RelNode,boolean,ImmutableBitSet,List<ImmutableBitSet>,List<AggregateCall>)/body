@@ -1,5 +1,5 @@
 {
-  super(cluster,traits,child,false,groupSet,asList(groupSet),aggCalls);
+  super(cluster,traits,child,indicator,groupSet,groupSets,aggCalls);
   Preconditions.checkArgument(getConvention() == OLAPRel.CONVENTION);
   this.afterAggregate=false;
   this.rewriteAggCalls=aggCalls;

@@ -7,6 +7,9 @@
   planner.addRule(OLAPJoinRule.INSTANCE);
   planner.addRule(OLAPLimitRule.INSTANCE);
   planner.addRule(OLAPSortRule.INSTANCE);
+  planner.addRule(OLAPUnionRule.INSTANCE);
+  planner.addRule(AggregateMultipleExpandRule.INSTANCE);
+  planner.addRule(AggregateProjectReduceRule.INSTANCE);
   planner.addRule(ReduceExpressionsRule.PROJECT_INSTANCE);
   planner.addRule(ReduceExpressionsRule.FILTER_INSTANCE);
   planner.addRule(ReduceExpressionsRule.CALC_INSTANCE);
@@ -21,6 +24,10 @@
   planner.removeRule(FilterProjectTransposeRule.INSTANCE);
   planner.removeRule(SortJoinTransposeRule.INSTANCE);
   planner.removeRule(JoinPushExpressionsRule.INSTANCE);
+  planner.removeRule(SortUnionTransposeRule.INSTANCE);
+  planner.removeRule(JoinUnionTransposeRule.LEFT_UNION);
+  planner.removeRule(JoinUnionTransposeRule.RIGHT_UNION);
+  planner.removeRule(AggregateUnionTransposeRule.INSTANCE);
   planner.removeRule(AggregateExpandDistinctAggregatesRule.INSTANCE);
   planner.removeRule(ExpandConversionRule.INSTANCE);
 }

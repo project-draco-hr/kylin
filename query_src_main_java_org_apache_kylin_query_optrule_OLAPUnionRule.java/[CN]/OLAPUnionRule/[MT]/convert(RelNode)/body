@@ -1,0 +1,6 @@
+{
+  final Union union=(Union)rel;
+  final RelTraitSet traitSet=union.getTraitSet().replace(OLAPRel.CONVENTION);
+  final List<RelNode> inputs=union.getInputs();
+  return new OLAPUnionRel(rel.getCluster(),traitSet,convertList(inputs,OLAPRel.CONVENTION),union.all);
+}

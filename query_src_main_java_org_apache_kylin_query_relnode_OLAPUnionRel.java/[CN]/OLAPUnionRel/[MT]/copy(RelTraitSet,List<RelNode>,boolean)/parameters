@@ -1,0 +1,3 @@
+RelTraitSet traitSet
+List<RelNode> inputs
+boolean all

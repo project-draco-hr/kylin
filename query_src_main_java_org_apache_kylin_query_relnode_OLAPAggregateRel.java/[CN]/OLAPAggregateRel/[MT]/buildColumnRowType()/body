@@ -4,6 +4,20 @@
   ColumnRowType inputColumnRowType=((OLAPRel)getInput()).getColumnRowType();
   List<TblColRef> columns=new ArrayList<TblColRef>(this.rowType.getFieldCount());
   columns.addAll(this.groups);
+  if (indicator) {
+    final Set<String> containedNames=Sets.newHashSet();
+    for (    TblColRef groupCol : groups) {
+      String base="i$" + groupCol.getName();
+      String name=base;
+      int i=0;
+      while (containedNames.contains(name)) {
+        name=base + "_" + i++;
+      }
+      containedNames.add(name);
+      TblColRef indicatorCol=TblColRef.newInnerColumn(name,TblColRef.InnerDataTypeEnum.LITERAL);
+      columns.add(indicatorCol);
+    }
+  }
   for (int i=0; i < this.aggregations.size(); i++) {
     FunctionDesc aggFunc=this.aggregations.get(i);
     TblColRef aggCol=null;

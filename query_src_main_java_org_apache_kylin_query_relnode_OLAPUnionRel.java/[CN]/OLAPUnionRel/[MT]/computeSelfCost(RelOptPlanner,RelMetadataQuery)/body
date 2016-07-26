@@ -1,0 +1,3 @@
+{
+  return super.computeSelfCost(planner,mq).multiplyBy(.05);
+}

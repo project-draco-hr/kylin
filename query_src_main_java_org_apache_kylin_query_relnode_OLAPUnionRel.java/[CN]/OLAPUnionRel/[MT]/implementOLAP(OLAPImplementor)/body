@@ -1,0 +1,7 @@
+{
+  for (  RelNode child : getInputs()) {
+    implementor.visitChild(child,this);
+  }
+  this.columnRowType=buildColumnRowType();
+  this.context=implementor.getContext();
+}

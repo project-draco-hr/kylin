@@ -1,3 +1,10 @@
 {
-  return super.computeSelfCost(planner,mq).multiplyBy(.05);
+  RelOptCost cost;
+  if (getGroupType() == Group.SIMPLE) {
+    cost=super.computeSelfCost(planner,mq).multiplyBy(.05);
+  }
+ else {
+    cost=super.computeSelfCost(planner,mq).multiplyBy(.05).plus(planner.getCost(getInput(),mq)).multiplyBy(groupSets.size() * 1.5);
+  }
+  return cost;
 }

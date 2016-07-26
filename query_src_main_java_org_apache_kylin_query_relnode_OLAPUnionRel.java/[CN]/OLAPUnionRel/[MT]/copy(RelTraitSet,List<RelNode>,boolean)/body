@@ -1,0 +1,3 @@
+{
+  return new OLAPUnionRel(getCluster(),traitSet,inputs,all);
+}
