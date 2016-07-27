@@ -1,6 +1,9 @@
 {
+  long count=0;
   for (  GTRecord r : inputScanner) {
+    count++;
     aggrCache.aggregate(r);
   }
+  logger.info("GTAggregateScanner input rows: " + count);
   return aggrCache.iterator();
 }

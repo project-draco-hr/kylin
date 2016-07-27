@@ -4,8 +4,8 @@
     @Override public GTInfo getInfo(){
       return scanner.getInfo();
     }
-    @Override public int getScannedRowCount(){
-      int sum=0;
+    @Override public long getScannedRowCount(){
+      long sum=0;
       sum+=scanner.getScannedRowCount();
       return sum;
     }

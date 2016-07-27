@@ -1,3 +1,4 @@
 {
+  logger.info("The conf for current mapper will be " + System.identityHashCode(conf));
   HadoopUtil.setCurrentConfiguration(conf);
 }

@@ -4,9 +4,9 @@
   bitField0_=(bitField0_ & ~0x00000001);
   serviceEndTime_=0L;
   bitField0_=(bitField0_ & ~0x00000002);
-  scannedRowCount_=0;
+  scannedRowCount_=0L;
   bitField0_=(bitField0_ & ~0x00000004);
-  aggregatedRowCount_=0;
+  aggregatedRowCount_=0L;
   bitField0_=(bitField0_ & ~0x00000008);
   systemCpuLoad_=0D;
   bitField0_=(bitField0_ & ~0x00000010);

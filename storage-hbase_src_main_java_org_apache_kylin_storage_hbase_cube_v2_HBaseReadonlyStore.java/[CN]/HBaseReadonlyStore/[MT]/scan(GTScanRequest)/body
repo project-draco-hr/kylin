@@ -40,7 +40,7 @@
     @Override public GTInfo getInfo(){
       return info;
     }
-    @Override public int getScannedRowCount(){
+    @Override public long getScannedRowCount(){
       return count;
     }
   }

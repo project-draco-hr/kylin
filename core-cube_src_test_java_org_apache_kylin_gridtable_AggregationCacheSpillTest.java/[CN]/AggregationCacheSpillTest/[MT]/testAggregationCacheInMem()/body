@@ -3,7 +3,7 @@
     @Override public GTInfo getInfo(){
       return INFO;
     }
-    @Override public int getScannedRowCount(){
+    @Override public long getScannedRowCount(){
       throw new UnsupportedOperationException();
     }
     @Override public void close() throws IOException {

@@ -1,8 +1,8 @@
 {
   serviceStartTime_=0L;
   serviceEndTime_=0L;
-  scannedRowCount_=0;
-  aggregatedRowCount_=0;
+  scannedRowCount_=0L;
+  aggregatedRowCount_=0L;
   systemCpuLoad_=0D;
   freePhysicalMemorySize_=0D;
   freeSwapSpaceSize_=0D;

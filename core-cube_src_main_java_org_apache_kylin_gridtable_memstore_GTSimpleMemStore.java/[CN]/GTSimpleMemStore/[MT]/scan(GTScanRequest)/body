@@ -1,10 +1,10 @@
 {
   return new IGTScanner(){
-    int count;
+    long count;
     @Override public GTInfo getInfo(){
       return info;
     }
-    @Override public int getScannedRowCount(){
+    @Override public long getScannedRowCount(){
       return count;
     }
     @Override public void close() throws IOException {

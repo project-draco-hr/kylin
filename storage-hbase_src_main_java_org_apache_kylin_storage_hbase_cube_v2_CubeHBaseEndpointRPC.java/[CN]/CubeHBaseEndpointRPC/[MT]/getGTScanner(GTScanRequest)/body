@@ -53,7 +53,7 @@
     logScan(rs,cubeSeg.getStorageLocationIdentifier());
   }
   logger.debug("Submitting rpc to {} shards starting from shard {}, scan range count {}",shardNum,cuboidBaseShard,rawScans.size());
-  final AtomicInteger totalScannedCount=new AtomicInteger(0);
+  final AtomicLong totalScannedCount=new AtomicLong(0);
   final ExpectedSizeIterator epResultItr=new ExpectedSizeIterator(shardNum);
   final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   final boolean compressionResult=kylinConfig.getCompressionResult();

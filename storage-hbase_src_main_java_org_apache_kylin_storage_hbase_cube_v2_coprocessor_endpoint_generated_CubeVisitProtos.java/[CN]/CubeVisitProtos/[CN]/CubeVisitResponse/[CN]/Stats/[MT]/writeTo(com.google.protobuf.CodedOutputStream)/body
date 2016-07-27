@@ -7,10 +7,10 @@
     output.writeInt64(2,serviceEndTime_);
   }
   if (((bitField0_ & 0x00000004) == 0x00000004)) {
-    output.writeInt32(3,scannedRowCount_);
+    output.writeInt64(3,scannedRowCount_);
   }
   if (((bitField0_ & 0x00000008) == 0x00000008)) {
-    output.writeInt32(4,aggregatedRowCount_);
+    output.writeInt64(4,aggregatedRowCount_);
   }
   if (((bitField0_ & 0x00000010) == 0x00000010)) {
     output.writeDouble(5,systemCpuLoad_);

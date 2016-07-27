@@ -43,7 +43,7 @@
     @Override public GTInfo getInfo(){
       return fullGTInfo;
     }
-    @Override public int getScannedRowCount(){
+    @Override public long getScannedRowCount(){
       return decorateScanner.getScannedRowCount();
     }
     @Override public void close() throws IOException {

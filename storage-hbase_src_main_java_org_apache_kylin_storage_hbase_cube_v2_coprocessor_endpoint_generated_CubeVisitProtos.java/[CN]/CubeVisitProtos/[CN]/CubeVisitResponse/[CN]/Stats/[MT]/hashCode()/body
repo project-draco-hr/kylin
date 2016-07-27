@@ -14,11 +14,11 @@
   }
   if (hasScannedRowCount()) {
     hash=(37 * hash) + SCANNEDROWCOUNT_FIELD_NUMBER;
-    hash=(53 * hash) + getScannedRowCount();
+    hash=(53 * hash) + hashLong(getScannedRowCount());
   }
   if (hasAggregatedRowCount()) {
     hash=(37 * hash) + AGGREGATEDROWCOUNT_FIELD_NUMBER;
-    hash=(53 * hash) + getAggregatedRowCount();
+    hash=(53 * hash) + hashLong(getAggregatedRowCount());
   }
   if (hasSystemCpuLoad()) {
     hash=(37 * hash) + SYSTEMCPULOAD_FIELD_NUMBER;

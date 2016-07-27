@@ -9,10 +9,10 @@
     size+=com.google.protobuf.CodedOutputStream.computeInt64Size(2,serviceEndTime_);
   }
   if (((bitField0_ & 0x00000004) == 0x00000004)) {
-    size+=com.google.protobuf.CodedOutputStream.computeInt32Size(3,scannedRowCount_);
+    size+=com.google.protobuf.CodedOutputStream.computeInt64Size(3,scannedRowCount_);
   }
   if (((bitField0_ & 0x00000008) == 0x00000008)) {
-    size+=com.google.protobuf.CodedOutputStream.computeInt32Size(4,aggregatedRowCount_);
+    size+=com.google.protobuf.CodedOutputStream.computeInt64Size(4,aggregatedRowCount_);
   }
   if (((bitField0_ & 0x00000010) == 0x00000010)) {
     size+=com.google.protobuf.CodedOutputStream.computeDoubleSize(5,systemCpuLoad_);

@@ -17,8 +17,9 @@
   Cuboid cuboid=Cuboid.identifyCuboid(cubeDesc,dimensionsD,metrics);
   context.setCuboid(cuboid);
   Set<TblColRef> singleValuesD=findSingleValueColumns(filter);
-  boolean isExactAggregation=isExactAggregation(cuboid,groups,otherDimsD,singleValuesD,derivedPostAggregation);
-  context.setExactAggregation(isExactAggregation);
+  boolean exactAggregation=isExactAggregation(cuboid,groups,otherDimsD,singleValuesD,derivedPostAggregation);
+  context.setExactAggregation(exactAggregation);
+  context.setNeedStorageAggregation(isNeedStorageAggregation(cuboid,groupsD,singleValuesD,exactAggregation));
   TupleFilter filterD=translateDerived(filter,groupsD);
   setThreshold(dimensionsD,metrics,context);
   setLimit(filter,context);

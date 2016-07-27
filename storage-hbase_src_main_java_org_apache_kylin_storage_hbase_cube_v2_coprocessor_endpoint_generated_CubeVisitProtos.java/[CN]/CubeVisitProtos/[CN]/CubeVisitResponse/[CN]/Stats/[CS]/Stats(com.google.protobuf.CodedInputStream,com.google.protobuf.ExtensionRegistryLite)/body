@@ -32,13 +32,13 @@ case 16:
 case 24:
 {
 bitField0_|=0x00000004;
-scannedRowCount_=input.readInt32();
+scannedRowCount_=input.readInt64();
 break;
 }
 case 32:
 {
 bitField0_|=0x00000008;
-aggregatedRowCount_=input.readInt32();
+aggregatedRowCount_=input.readInt64();
 break;
 }
 case 41:
