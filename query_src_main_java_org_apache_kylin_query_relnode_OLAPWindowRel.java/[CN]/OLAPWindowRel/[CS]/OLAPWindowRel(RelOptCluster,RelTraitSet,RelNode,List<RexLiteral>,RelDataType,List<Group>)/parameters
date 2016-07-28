@@ -1,0 +1,6 @@
+RelOptCluster cluster
+RelTraitSet traitSet
+RelNode input
+List<RexLiteral> constants
+RelDataType rowType
+List<Group> groups

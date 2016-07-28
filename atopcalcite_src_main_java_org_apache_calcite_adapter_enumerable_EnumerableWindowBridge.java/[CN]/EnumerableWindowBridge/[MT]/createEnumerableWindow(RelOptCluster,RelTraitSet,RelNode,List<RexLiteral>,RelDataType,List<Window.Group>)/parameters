@@ -1,0 +1,6 @@
+RelOptCluster cluster
+RelTraitSet traits
+RelNode child
+List<RexLiteral> constants
+RelDataType rowType
+List<Window.Group> groups

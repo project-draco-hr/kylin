@@ -1,0 +1,5 @@
+{
+  for (  RelNode child : getInputs()) {
+    implementor.visitChild(this,child);
+  }
+}

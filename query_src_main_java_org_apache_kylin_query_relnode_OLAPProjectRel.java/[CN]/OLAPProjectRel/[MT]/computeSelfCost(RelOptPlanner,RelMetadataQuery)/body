@@ -1,3 +1,4 @@
 {
-  return super.computeSelfCost(planner,mq).multiplyBy(.05).multiplyBy(getProjects().size());
+  boolean hasRexOver=RexOver.containsOver(getProjects(),null);
+  return super.computeSelfCost(planner,mq).multiplyBy(.05).multiplyBy(getProjects().size() * (hasRexOver ? 50 : 1));
 }

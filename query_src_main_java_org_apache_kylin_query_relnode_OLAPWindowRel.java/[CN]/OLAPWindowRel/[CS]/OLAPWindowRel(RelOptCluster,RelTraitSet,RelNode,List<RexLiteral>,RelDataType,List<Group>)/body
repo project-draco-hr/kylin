@@ -1,0 +1,5 @@
+{
+  super(cluster,traitSet,input,constants,rowType,groups);
+  Preconditions.checkArgument(getConvention() == CONVENTION);
+  Preconditions.checkArgument(getConvention() == input.getConvention());
+}

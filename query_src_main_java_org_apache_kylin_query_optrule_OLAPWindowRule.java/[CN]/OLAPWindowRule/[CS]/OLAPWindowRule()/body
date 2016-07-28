@@ -1,0 +1,3 @@
+{
+  super(Window.class,Convention.NONE,OLAPRel.CONVENTION,"OLAPWindowRule");
+}

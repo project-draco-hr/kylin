@@ -1,0 +1,13 @@
+{
+  OLAPRel olapChild=(OLAPRel)getInput(0);
+  ColumnRowType inputColumnRowType=olapChild.getColumnRowType();
+  List<TblColRef> columns=new ArrayList<>();
+  columns.addAll(inputColumnRowType.getAllColumns());
+  for (  Group group : groups) {
+    for (    AggregateCall aggrCall : group.getAggregateCalls(this)) {
+      TblColRef aggrCallCol=TblColRef.newInnerColumn(aggrCall.getName(),TblColRef.InnerDataTypeEnum.LITERAL);
+      columns.add(aggrCallCol);
+    }
+  }
+  return new ColumnRowType(columns);
+}

@@ -8,6 +8,7 @@
   planner.addRule(OLAPLimitRule.INSTANCE);
   planner.addRule(OLAPSortRule.INSTANCE);
   planner.addRule(OLAPUnionRule.INSTANCE);
+  planner.addRule(OLAPWindowRule.INSTANCE);
   planner.addRule(AggregateMultipleExpandRule.INSTANCE);
   planner.addRule(AggregateProjectReduceRule.INSTANCE);
   planner.addRule(ReduceExpressionsRule.PROJECT_INSTANCE);
