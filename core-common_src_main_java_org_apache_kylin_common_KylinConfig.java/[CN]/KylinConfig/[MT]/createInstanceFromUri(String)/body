@@ -24,7 +24,7 @@
       KylinConfig config=new KylinConfig();
       RestClient client=new RestClient(uri);
       String propertyText=client.getKylinProperties();
-      InputStream is=IOUtils.toInputStream(propertyText);
+      InputStream is=IOUtils.toInputStream(propertyText,Charset.defaultCharset());
       config.reloadKylinConfig(is);
       is.close();
       return config;

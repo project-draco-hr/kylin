@@ -35,9 +35,9 @@
     FileUtils.forceMkdir(hdfsDir);
     CliCommandExecutor cliCommandExecutor=kylinConfig.getCliCommandExecutor();
     String output=cliCommandExecutor.execute("hadoop fs -ls -R " + conf.get("hbase.rootdir") + "/data/default/KYLIN_*").getSecond();
-    FileUtils.writeStringToFile(new File(hdfsDir,"hdfs-files.list"),output);
+    FileUtils.writeStringToFile(new File(hdfsDir,"hdfs-files.list"),output,Charset.defaultCharset());
     output=cliCommandExecutor.execute("hadoop fs -ls -R " + conf.get("hbase.rootdir") + "/data/default/kylin_*").getSecond();
-    FileUtils.writeStringToFile(new File(hdfsDir,"hdfs-files.list"),output,true);
+    FileUtils.writeStringToFile(new File(hdfsDir,"hdfs-files.list"),output,Charset.defaultCharset(),true);
   }
  catch (  Exception e) {
     logger.warn("HBase hdfs status fetch failed: ",e);

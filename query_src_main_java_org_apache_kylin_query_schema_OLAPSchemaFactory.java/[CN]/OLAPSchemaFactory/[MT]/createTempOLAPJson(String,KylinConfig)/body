@@ -40,7 +40,7 @@
     out.write("}\n");
     out.close();
     tmp.deleteOnExit();
-    logger.info("Schema json:" + StringUtils.join(FileUtils.readLines(tmp),"\n"));
+    logger.info("Schema json:" + StringUtils.join(FileUtils.readLines(tmp,Charset.defaultCharset()),"\n"));
     return tmp;
   }
  catch (  IOException e) {

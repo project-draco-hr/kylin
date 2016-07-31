@@ -14,7 +14,7 @@ synchronized (hdfs_caches) {
           return;
         }
         InputStream inputStream=fileSystem.open(new Path(filterResourceIdentifier));
-        List<String> lines=IOUtils.readLines(inputStream);
+        List<String> lines=IOUtils.readLines(inputStream,Charset.defaultCharset());
         logger.info("Load HDFS finished after " + stopwatch.elapsedMillis() + " millis");
         for (        String line : lines) {
           if (StringUtils.isEmpty(line)) {

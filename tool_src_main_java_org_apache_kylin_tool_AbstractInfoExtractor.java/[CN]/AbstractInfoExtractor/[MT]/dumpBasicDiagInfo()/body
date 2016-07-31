@@ -10,10 +10,10 @@
     logger.warn("Failed to copy commit_SHA1 file.",e);
   }
   String output=KylinVersion.getKylinClientInformation() + "\n";
-  FileUtils.writeStringToFile(new File(exportDir,"kylin_env"),output);
+  FileUtils.writeStringToFile(new File(exportDir,"kylin_env"),output,Charset.defaultCharset());
   StringBuilder basicSb=new StringBuilder();
   basicSb.append("MetaStoreID: ").append(ToolUtil.getHBaseMetaStoreId()).append("\n");
   basicSb.append("PackageType: ").append(packageType.toUpperCase()).append("\n");
   basicSb.append("Host: ").append(ToolUtil.getHostName()).append("\n");
-  FileUtils.writeStringToFile(new File(exportDir,"info"),basicSb.toString());
+  FileUtils.writeStringToFile(new File(exportDir,"info"),basicSb.toString(),Charset.defaultCharset());
 }

@@ -5,7 +5,7 @@
     logger.debug("Creating a new data source, OLAP data source pointing to " + getConfig());
     File modelJson=OLAPSchemaFactory.createTempOLAPJson(project,getConfig());
     try {
-      String text=FileUtils.readFileToString(modelJson);
+      String text=FileUtils.readFileToString(modelJson,Charset.defaultCharset());
       logger.debug("The new temp olap json is :" + text);
     }
  catch (    IOException e) {

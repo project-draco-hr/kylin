@@ -61,7 +61,7 @@
         }
       }
       if (redirect == null) {
-        response=IOUtils.toString(httpResponse.getEntity().getContent());
+        response=IOUtils.toString(httpResponse.getEntity().getContent(),Charset.defaultCharset());
         logger.debug("Job " + mrJobId + " get status check result.\n");
       }
  else {

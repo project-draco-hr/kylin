@@ -3,6 +3,6 @@
   SSHClient ssh=new SSHClient(this.hostname,this.port,this.username,this.password);
   File tmpFile=File.createTempFile("test_scp","",new File("/tmp"));
   tmpFile.deleteOnExit();
-  FileUtils.write(tmpFile,"test_scp");
+  FileUtils.write(tmpFile,"test_scp",Charset.defaultCharset());
   ssh.scpFileToRemote(tmpFile.getAbsolutePath(),"/tmp");
 }

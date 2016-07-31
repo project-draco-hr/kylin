@@ -13,7 +13,7 @@
   Path path=new Path("/tmp/vip_customers.txt");
   fileSystem.delete(path,false);
   FSDataOutputStream outputStream=fileSystem.create(path);
-  org.apache.commons.io.IOUtils.write(StringUtils.join(vipSellers,"\n"),outputStream);
+  org.apache.commons.io.IOUtils.write(StringUtils.join(vipSellers,"\n"),outputStream,Charset.defaultCharset());
   outputStream.close();
   System.out.println("The filter is " + vipSellers);
 }

@@ -3,7 +3,7 @@
   FileSystem fs=FileSystem.get(rowCountFile.toUri(),HadoopUtil.getCurrentConfiguration());
   InputStream in=fs.open(rowCountFile);
   try {
-    String content=IOUtils.toString(in);
+    String content=IOUtils.toString(in,Charset.defaultCharset());
     return Long.valueOf(content.trim());
   }
   finally {

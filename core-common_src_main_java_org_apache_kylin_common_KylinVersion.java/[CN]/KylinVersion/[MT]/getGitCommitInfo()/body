@@ -4,7 +4,7 @@
     if (!commitFile.exists()) {
       commitFile=new File(KylinConfig.getKylinHome(),COMMIT_SHA1_v13);
     }
-    List<String> lines=FileUtils.readLines(commitFile);
+    List<String> lines=FileUtils.readLines(commitFile,Charset.defaultCharset());
     StringBuilder sb=new StringBuilder();
     for (    String line : lines) {
       if (!line.startsWith("#")) {
