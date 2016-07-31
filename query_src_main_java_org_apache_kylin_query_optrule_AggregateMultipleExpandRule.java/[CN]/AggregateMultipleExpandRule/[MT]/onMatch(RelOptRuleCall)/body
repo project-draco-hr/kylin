@@ -17,7 +17,6 @@
       if (groupKey == aggrGroupKey) {
         rexNodes.add(rexBuilder.makeInputRef(type,index++));
         groupKey=groupKeyIter.next();
-        continue;
       }
  else {
         rexNodes.add(rexBuilder.makeNullLiteral(type.getSqlTypeName()));
@@ -33,7 +32,6 @@
         if (groupKey == aggrGroupKey) {
           rexNodes.add(rexBuilder.makeLiteral(false,type,true));
           groupKey=groupKeyIter.next();
-          continue;
         }
  else {
           rexNodes.add(rexBuilder.makeLiteral(true,type,true));
