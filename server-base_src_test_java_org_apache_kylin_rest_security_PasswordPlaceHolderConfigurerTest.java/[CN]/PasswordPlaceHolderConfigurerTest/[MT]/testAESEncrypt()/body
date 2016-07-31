@@ -1,0 +1,5 @@
+{
+  String input="hello world";
+  String result=PasswordPlaceholderConfigurer.encrypt(input);
+  Assert.assertEquals("4stv/RRleOtvie/8SLHmXA==",result);
+}

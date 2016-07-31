@@ -11,8 +11,10 @@
     try {
       config=new KylinConfig();
       InputStream is=new FileInputStream(uri);
-      config.reloadKylinConfig(is);
-      is.close();
+      Properties prop=new Properties();
+      prop.load(is);
+      IOUtils.closeQuietly(is);
+      config.reloadKylinConfig(prop);
     }
  catch (    IOException e) {
       throw new RuntimeException(e);
@@ -25,8 +27,10 @@
       RestClient client=new RestClient(uri);
       String propertyText=client.getKylinProperties();
       InputStream is=IOUtils.toInputStream(propertyText,Charset.defaultCharset());
-      config.reloadKylinConfig(is);
-      is.close();
+      Properties prop=new Properties();
+      prop.load(is);
+      IOUtils.closeQuietly(is);
+      config.reloadKylinConfig(prop);
       return config;
     }
  catch (    IOException e) {

@@ -8,7 +8,10 @@
     this.serviceStartTime=System.currentTimeMillis();
     region=env.getRegion();
     region.startRegionOperation();
-    KylinConfig.setKylinConfigFromInputStream(IOUtils.toInputStream(request.getKylinProperties(),Charset.defaultCharset()));
+    String serverPropString=request.getKylinProperties();
+    Properties serverProp=new Properties();
+    serverProp.load(new StringReader(serverPropString));
+    KylinConfig.setKylinConfig(serverProp);
     KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
     debugGitTag=region.getTableDesc().getValue(IRealizationConstants.HTableGitTag);
     final GTScanRequest scanReq=GTScanRequest.serializer.deserialize(ByteBuffer.wrap(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getGtScanRequest())));

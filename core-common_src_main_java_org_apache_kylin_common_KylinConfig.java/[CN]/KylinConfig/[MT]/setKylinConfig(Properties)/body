@@ -2,7 +2,8 @@
 synchronized (KylinConfig.class) {
     if (ENV_INSTANCE == null) {
       try {
-        KylinConfig config=createKylinConfigFromInputStream(is);
+        KylinConfig config=new KylinConfig();
+        config.reloadKylinConfig(prop);
         logger.info("Resetting ENV_INSTANCE by a input stream: " + System.identityHashCode(config));
         ENV_INSTANCE=config;
       }

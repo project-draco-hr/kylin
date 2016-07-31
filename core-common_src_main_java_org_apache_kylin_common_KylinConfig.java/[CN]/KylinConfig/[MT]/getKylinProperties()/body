@@ -1,0 +1,41 @@
+{
+  File propFile=getKylinPropertiesFile();
+  if (propFile == null || !propFile.exists()) {
+    logger.error("fail to locate " + KYLIN_CONF_PROPERTIES_FILE);
+    throw new RuntimeException("fail to locate " + KYLIN_CONF_PROPERTIES_FILE);
+  }
+  Properties conf=new Properties();
+  try {
+    FileInputStream is=new FileInputStream(propFile);
+    conf.load(is);
+    IOUtils.closeQuietly(is);
+    File propOverrideFile=new File(propFile.getParentFile(),propFile.getName() + ".override");
+    if (propOverrideFile.exists()) {
+      FileInputStream ois=new FileInputStream(propOverrideFile);
+      Properties propOverride=new Properties();
+      propOverride.load(ois);
+      IOUtils.closeQuietly(ois);
+      conf.putAll(propOverride);
+    }
+    File securityPropFile=getKylinSecurityPropertiesFile();
+    if (securityPropFile.exists()) {
+      FileInputStream ois=new FileInputStream(securityPropFile);
+      Properties propSecurity=new Properties();
+      propSecurity.load(ois);
+      IOUtils.closeQuietly(ois);
+      conf.putAll(propSecurity);
+    }
+    File securityPropOverrideFile=new File(securityPropFile.getParentFile(),securityPropFile.getName() + ".override");
+    if (securityPropOverrideFile.exists()) {
+      FileInputStream ois=new FileInputStream(securityPropOverrideFile);
+      Properties propSecurityOverride=new Properties();
+      propSecurityOverride.load(ois);
+      IOUtils.closeQuietly(ois);
+      conf.putAll(propSecurityOverride);
+    }
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+  return conf;
+}

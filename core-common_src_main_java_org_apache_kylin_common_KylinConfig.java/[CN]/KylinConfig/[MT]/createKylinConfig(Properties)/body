@@ -1,0 +1,5 @@
+{
+  KylinConfig kylinConfig=new KylinConfig();
+  kylinConfig.reloadKylinConfig(prop);
+  return kylinConfig;
+}
