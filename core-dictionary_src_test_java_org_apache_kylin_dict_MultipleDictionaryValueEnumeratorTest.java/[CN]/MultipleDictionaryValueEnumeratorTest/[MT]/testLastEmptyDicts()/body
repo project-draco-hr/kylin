@@ -1,0 +1,9 @@
+{
+  List<DictionaryInfo> dictionaryInfoList=new ArrayList<>(3);
+  dictionaryInfoList.add(createDictInfo(new int[]{0,1,2}));
+  dictionaryInfoList.add(createDictInfo(new int[]{6,7,8}));
+  dictionaryInfoList.add(createDictInfo(new int[]{}));
+  Integer[] values=enumerateDictInfoList(dictionaryInfoList);
+  assertEquals(6,values.length);
+  assertArrayEquals(new Integer[]{0,1,2,6,7,8},values);
+}

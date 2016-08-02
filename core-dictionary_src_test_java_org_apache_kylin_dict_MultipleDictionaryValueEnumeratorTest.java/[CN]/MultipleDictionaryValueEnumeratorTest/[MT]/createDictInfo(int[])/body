@@ -1,0 +1,7 @@
+{
+  MockDictionary mockDict=new MockDictionary();
+  mockDict.values=values;
+  DictionaryInfo info=new DictionaryInfo();
+  info.setDictionaryObject(mockDict);
+  return info;
+}

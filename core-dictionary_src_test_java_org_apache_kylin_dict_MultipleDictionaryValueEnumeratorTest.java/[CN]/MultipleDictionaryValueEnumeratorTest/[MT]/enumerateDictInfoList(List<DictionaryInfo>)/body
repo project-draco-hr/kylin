@@ -1,0 +1,8 @@
+{
+  MultipleDictionaryValueEnumerator enumerator=new MultipleDictionaryValueEnumerator(dictionaryInfoList);
+  List<Integer> values=new ArrayList<>();
+  while (enumerator.moveNext()) {
+    values.add(Bytes.toInt(enumerator.current()));
+  }
+  return values.toArray(new Integer[0]);
+}

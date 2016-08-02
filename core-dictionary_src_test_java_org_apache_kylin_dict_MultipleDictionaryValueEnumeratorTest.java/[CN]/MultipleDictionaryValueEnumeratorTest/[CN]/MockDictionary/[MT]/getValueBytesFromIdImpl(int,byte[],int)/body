@@ -1,0 +1,4 @@
+{
+  System.arraycopy(Bytes.toBytes(values[id]),0,returnValue,offset,4);
+  return 4;
+}
