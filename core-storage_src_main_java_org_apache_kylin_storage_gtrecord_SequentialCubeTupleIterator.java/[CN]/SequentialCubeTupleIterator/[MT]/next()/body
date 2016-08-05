@@ -1,11 +1,5 @@
 {
-  if (next == null) {
-    hasNext();
-    if (next == null)     throw new NoSuchElementException();
-  }
   scanCount++;
   if (++scanCountDelta >= 1000)   flushScanCountDelta();
-  ITuple result=next;
-  next=null;
-  return result;
+  return tupleIterator.next();
 }

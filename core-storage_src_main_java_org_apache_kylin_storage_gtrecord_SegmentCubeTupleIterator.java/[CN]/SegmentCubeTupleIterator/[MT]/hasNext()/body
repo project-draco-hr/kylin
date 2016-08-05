@@ -1,0 +1,30 @@
+{
+  if (next != null)   return true;
+  if (advMeasureRowsRemaining > 0) {
+    for (    IAdvMeasureFiller filler : advMeasureFillers) {
+      filler.fillTuple(tuple,advMeasureRowIndex);
+    }
+    advMeasureRowIndex++;
+    advMeasureRowsRemaining--;
+    next=tuple;
+    return true;
+  }
+  if (!gtItr.hasNext()) {
+    return false;
+  }
+  GTRecord curRecord=gtItr.next();
+  Preconditions.checkNotNull(cubeTupleConverter);
+  advMeasureFillers=cubeTupleConverter.translateResult(curRecord,tuple);
+  if (advMeasureFillers == null) {
+    next=tuple;
+    return true;
+  }
+  advMeasureRowsRemaining=-1;
+  for (  IAdvMeasureFiller filler : advMeasureFillers) {
+    if (advMeasureRowsRemaining < 0)     advMeasureRowsRemaining=filler.getNumOfRows();
+    if (advMeasureRowsRemaining != filler.getNumOfRows())     throw new IllegalStateException();
+  }
+  if (advMeasureRowsRemaining < 0)   throw new IllegalStateException();
+  advMeasureRowIndex=0;
+  return hasNext();
+}

@@ -1,0 +1,11 @@
+{
+  return new Comparator<GTRecord>(){
+    @Override public int compare(    GTRecord o1,    GTRecord o2){
+      if (o1 == null || o2 == null) {
+        throw new IllegalStateException("Cannot handle null");
+      }
+      return o1.compareToOnPrimaryKey(o2);
+    }
+  }
+;
+}

@@ -1,0 +1,3 @@
+PriorityQueue<PeekingImpl<E>> heap
+int limit
+Comparator<E> comparator

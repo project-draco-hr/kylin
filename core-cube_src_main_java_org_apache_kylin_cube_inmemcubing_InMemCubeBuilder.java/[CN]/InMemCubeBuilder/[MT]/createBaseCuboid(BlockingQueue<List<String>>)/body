@@ -5,8 +5,8 @@
   GTBuilder baseBuilder=baseCuboid.rebuild();
   IGTScanner baseInput=new InputConverter(baseCuboid.getInfo(),input);
   Pair<ImmutableBitSet,ImmutableBitSet> dimensionMetricsBitSet=InMemCubeBuilderUtils.getDimensionAndMetricColumnBitSet(baseCuboidId,measureCount);
-  GTScanRequest req=new GTScanRequest(baseCuboid.getInfo(),null,null,dimensionMetricsBitSet.getFirst(),dimensionMetricsBitSet.getSecond(),metricsAggrFuncs,null);
-  GTAggregateScanner aggregationScanner=new GTAggregateScanner(baseInput,req);
+  GTScanRequest req=new GTScanRequestBuilder().setInfo(baseCuboid.getInfo()).setRanges(null).setDimensions(null).setAggrGroupBy(dimensionMetricsBitSet.getFirst()).setAggrMetrics(dimensionMetricsBitSet.getSecond()).setAggrMetricsFuncs(metricsAggrFuncs).setFilterPushDown(null).createGTScanRequest();
+  GTAggregateScanner aggregationScanner=new GTAggregateScanner(baseInput,req,Long.MAX_VALUE);
   aggregationScanner.trackMemoryLevel(baseCuboidMemTracker);
   int count=0;
   for (  GTRecord r : aggregationScanner) {

@@ -1,5 +1,5 @@
 {
-  String queryFileName=getQueryFolderPrefix() + "src/test/resources/query/sql_tableau/query20.sql";
+  String queryFileName=getQueryFolderPrefix() + "src/test/resources/query/temp/query01.sql";
   File sqlFile=new File(queryFileName);
   String sql=getTextFromFile(sqlFile);
   IDatabaseConnection kylinConn=new DatabaseConnection(cubeConnection);

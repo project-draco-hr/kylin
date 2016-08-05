@@ -65,7 +65,7 @@
   builder.setRowkeyPreambleSize(cubeSeg.getRowKeyPreambleSize());
   builder.setBehavior(toggle);
   builder.setStartTime(System.currentTimeMillis());
-  builder.setTimeout(epResultItr.getTimeout());
+  builder.setTimeout(epResultItr.getRpcTimeout());
   builder.setKylinProperties(kylinConfig.getConfigAsString());
   for (  final Pair<byte[],byte[]> epRange : getEPKeyRanges(cuboidBaseShard,shardNum,totalShards)) {
     executorService.submit(new Runnable(){
@@ -119,7 +119,7 @@
           return;
         }
         if (abnormalFinish[0]) {
-          Throwable ex=new RuntimeException(logHeader + "The coprocessor thread stopped itself due to scan timeout, failing current query...");
+          Throwable ex=new RuntimeException(logHeader + "The coprocessor thread stopped itself due to scan timeout or scan threshold(check region server log), failing current query...");
           logger.error(logHeader + "Error when visiting cubes by endpoint",ex);
           epResultItr.notifyCoprocException(ex);
           return;
@@ -128,5 +128,5 @@
     }
 );
   }
-  return new EndpointResultsAsGTScanner(fullGTInfo,epResultItr,scanRequest.getColumns(),totalScannedCount.get());
+  return new GTBlobScatter(fullGTInfo,epResultItr,scanRequest.getColumns(),totalScannedCount.get(),scanRequest.getStoragePushDownLimit());
 }

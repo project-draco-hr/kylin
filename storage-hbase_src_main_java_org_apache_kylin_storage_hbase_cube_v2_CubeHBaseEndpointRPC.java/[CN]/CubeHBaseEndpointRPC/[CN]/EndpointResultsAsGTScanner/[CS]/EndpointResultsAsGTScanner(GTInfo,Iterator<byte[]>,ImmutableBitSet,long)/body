@@ -1,6 +1,0 @@
-{
-  this.info=info;
-  this.blocks=blocks;
-  this.columns=columns;
-  this.totalScannedCount=totalScannedCount;
-}

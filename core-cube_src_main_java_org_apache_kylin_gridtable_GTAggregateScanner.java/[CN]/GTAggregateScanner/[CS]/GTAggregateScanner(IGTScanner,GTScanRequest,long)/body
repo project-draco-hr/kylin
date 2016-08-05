@@ -1,0 +1,15 @@
+{
+  if (!req.hasAggregation())   throw new IllegalStateException();
+  this.info=inputScanner.getInfo();
+  this.dimensions=req.getDimensions();
+  this.groupBy=req.getAggrGroupBy();
+  this.metrics=req.getAggrMetrics();
+  this.metricsAggrFuncs=req.getAggrMetricsFuncs();
+  this.inputScanner=inputScanner;
+  this.aggrCache=new AggregationCache();
+  this.spillThreshold=(long)(req.getAggCacheMemThreshold() * MemoryBudgetController.ONE_GB);
+  this.aggrMask=new boolean[metricsAggrFuncs.length];
+  this.storagePushDownLimit=req.getStoragePushDownLimit();
+  this.deadline=deadline;
+  Arrays.fill(aggrMask,true);
+}

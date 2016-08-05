@@ -1,5 +1,5 @@
 {
   if ("left".equalsIgnoreCase(joinType)) {
-    execAndCompQuery(getQueryFolderPrefix() + "src/test/resources/query/sql_distinct_precisely",null,true);
+    execAndCompQuery(getQueryFolderPrefix() + "src/test/resources/query/temp",null,true);
   }
 }

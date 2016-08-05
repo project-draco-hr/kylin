@@ -1,0 +1,16 @@
+{
+  this.expectedSize=expectedSize;
+  this.queue=new ArrayBlockingQueue<byte[]>(expectedSize);
+  Configuration hconf=HBaseConnection.getCurrentHBaseConfiguration();
+  this.rpcTimeout=hconf.getInt(HConstants.HBASE_RPC_TIMEOUT_KEY,HConstants.DEFAULT_HBASE_RPC_TIMEOUT);
+  this.timeout=this.rpcTimeout * hconf.getInt(HConstants.HBASE_CLIENT_RETRIES_NUMBER,HConstants.DEFAULT_HBASE_CLIENT_RETRIES_NUMBER);
+  CubeHBaseEndpointRPC.logger.info("rpc timeout is {} and after multiply retry times become {}",this.rpcTimeout,this.timeout);
+  this.timeout=Math.max(this.timeout,5 * 60000);
+  this.timeout*=KylinConfig.getInstanceFromEnv().getCubeVisitTimeoutTimes();
+  if (BackdoorToggles.getQueryTimeout() != -1) {
+    this.timeout=BackdoorToggles.getQueryTimeout();
+  }
+  this.timeout*=1.1;
+  CubeHBaseEndpointRPC.logger.info("Final Timeout for ExpectedSizeIterator is: " + this.timeout);
+  this.timeoutTS=System.currentTimeMillis() + this.timeout;
+}

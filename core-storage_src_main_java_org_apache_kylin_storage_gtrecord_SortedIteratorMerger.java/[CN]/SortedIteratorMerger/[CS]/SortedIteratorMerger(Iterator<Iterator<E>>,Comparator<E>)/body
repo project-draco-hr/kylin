@@ -1,0 +1,4 @@
+{
+  this.shardSubsets=shardSubsets;
+  this.comparator=comparator;
+}

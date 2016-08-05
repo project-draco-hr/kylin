@@ -1,0 +1,32 @@
+{
+  logger.trace("assertEquals(expectedTable, actualTable, failureHandler) - start");
+  logger.debug("assertEquals: expectedTable={}",expectedTable);
+  logger.debug("assertEquals: actualTable={}",actualTable);
+  logger.debug("assertEquals: failureHandler={}",failureHandler);
+  if (expectedTable == actualTable) {
+    logger.debug("The given tables reference the same object. Will return immediately. (Table={})",expectedTable);
+    return;
+  }
+  if (failureHandler == null) {
+    logger.debug("FailureHandler is null. Using default implementation");
+    failureHandler=getDefaultFailureHandler();
+  }
+  ITableMetaData expectedMetaData=expectedTable.getTableMetaData();
+  ITableMetaData actualMetaData=actualTable.getTableMetaData();
+  String expectedTableName=expectedMetaData.getTableName();
+  if (expectedTable.getRowCount() == 0 && actualTable.getRowCount() == 0) {
+    logger.debug("Tables are empty, hence equals.");
+    return;
+  }
+  Column[] expectedColumns=Columns.getSortedColumns(expectedMetaData);
+  Column[] actualColumns=Columns.getSortedColumns(actualMetaData);
+  Columns.ColumnDiff columnDiff=Columns.getColumnDiff(expectedMetaData,actualMetaData);
+  if (columnDiff.hasDifference()) {
+    String message=columnDiff.getMessage();
+    Error error=failureHandler.createFailure(message,Columns.getColumnNamesAsString(expectedColumns),Columns.getColumnNamesAsString(actualColumns));
+    logger.error(error.toString());
+    throw error;
+  }
+  ComparisonColumn[] comparisonCols=getComparisonColumns(expectedTableName,expectedColumns,actualColumns,failureHandler);
+  compareData(expectedTable,actualTable,comparisonCols,failureHandler);
+}

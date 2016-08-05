@@ -1,0 +1,29 @@
+{
+  for (int i=0; i < expectedTable.getRowCount(); i++) {
+    for (int j=0; j < comparisonCols.length; j++) {
+      ComparisonColumn compareColumn=comparisonCols[j];
+      String columnName=compareColumn.getColumnName();
+      DataType dataType=compareColumn.getDataType();
+      Object expectedValue=expectedTable.getValue(i,columnName);
+      Object actualValue=actualTable.getValue(index,columnName);
+      if (skipCompare(columnName,expectedValue,actualValue)) {
+        if (logger.isTraceEnabled()) {
+          logger.trace("ignoring comparison " + expectedValue + "="+ actualValue+ " on column "+ columnName);
+        }
+        continue;
+      }
+      if (dataType.compare(expectedValue,actualValue) != 0) {
+        break;
+      }
+ else {
+        if (j == comparisonCols.length - 1) {
+          return true;
+        }
+ else {
+          continue;
+        }
+      }
+    }
+  }
+  return false;
+}

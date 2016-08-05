@@ -1,0 +1,36 @@
+{
+  return new Comparator<ITuple>(){
+    @Override public int compare(    ITuple o1,    ITuple o2){
+      Preconditions.checkNotNull(o1);
+      Preconditions.checkNotNull(o2);
+      for (int i=0; i < dimensionIndexOnTuple.length; i++) {
+        int index=dimensionIndexOnTuple[i];
+        if (index == -1) {
+          continue;
+        }
+        Comparable a=(Comparable)o1.getAllValues()[index];
+        Comparable b=(Comparable)o2.getAllValues()[index];
+        if (a == null && b == null) {
+          continue;
+        }
+ else         if (a == null) {
+          return 1;
+        }
+ else         if (b == null) {
+          return -1;
+        }
+ else {
+          int temp=a.compareTo(b);
+          if (temp != 0) {
+            return temp;
+          }
+ else {
+            continue;
+          }
+        }
+      }
+      return 0;
+    }
+  }
+;
+}

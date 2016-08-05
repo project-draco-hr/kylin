@@ -1,0 +1,16 @@
+{
+  List<Integer> a=Lists.newArrayList(2);
+  List<Integer> b=Lists.newArrayList();
+  List<Integer> c=Lists.newArrayList(1,2,5);
+  List<Iterator<Integer>> input=Lists.newArrayList();
+  input.add(a.iterator());
+  input.add(b.iterator());
+  input.add(c.iterator());
+  SortedIteratorMerger<Integer> merger=new SortedIteratorMerger<Integer>(input.iterator(),getComp());
+  Iterator<Integer> iterator=merger.getIterator();
+  List<Integer> result=Lists.newArrayList();
+  while (iterator.hasNext()) {
+    result.add(iterator.next());
+  }
+  Assert.assertEquals(Lists.newArrayList(1,2,2,5),result);
+}

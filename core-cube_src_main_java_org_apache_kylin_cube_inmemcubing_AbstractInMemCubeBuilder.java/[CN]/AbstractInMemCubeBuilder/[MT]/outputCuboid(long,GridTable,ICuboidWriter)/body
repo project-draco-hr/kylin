@@ -1,6 +1,6 @@
 {
   long startTime=System.currentTimeMillis();
-  GTScanRequest req=new GTScanRequest(gridTable.getInfo(),null,null,null);
+  GTScanRequest req=new GTScanRequestBuilder().setInfo(gridTable.getInfo()).setRanges(null).setDimensions(null).setFilterPushDown(null).createGTScanRequest();
   IGTScanner scanner=gridTable.scan(req);
   for (  GTRecord record : scanner) {
     output.write(cuboidId,record);

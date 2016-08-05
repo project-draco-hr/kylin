@@ -1,0 +1,5 @@
+{
+  this.heap=heap;
+  this.limit=limit;
+  this.comparator=comparator;
+}

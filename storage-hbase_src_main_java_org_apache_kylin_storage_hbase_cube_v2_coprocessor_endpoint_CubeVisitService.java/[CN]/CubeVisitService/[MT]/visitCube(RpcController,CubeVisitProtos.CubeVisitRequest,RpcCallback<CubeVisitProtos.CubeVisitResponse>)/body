@@ -48,12 +48,11 @@
       appendProfileInfo(sb,"scanned " + counter);
     }
     if (behavior.ordinal() < CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM.ordinal()) {
-      scanReq.setAggrCacheGB(0);
+      scanReq.setAggCacheMemThreshold(0);
     }
     final MutableBoolean scanNormalComplete=new MutableBoolean(true);
-    final long startTime=this.serviceStartTime;
-    final long timeout=request.getTimeout();
-    final int rowLimit=scanReq.getRowLimit();
+    final long deadline=request.getTimeout() + this.serviceStartTime;
+    final long storagePushDownLimit=scanReq.getStoragePushDownLimit();
     final CellListIterator cellListIterator=new CellListIterator(){
       int counter=0;
       @Override public void close() throws IOException {
@@ -62,16 +61,11 @@
         }
       }
       @Override public boolean hasNext(){
-        if (rowLimit > 0 && rowLimit <= counter)         return false;
-        if (counter % 100000 == 1) {
-          if (System.currentTimeMillis() - startTime > timeout) {
-            scanNormalComplete.setValue(false);
-            logger.error("scanner aborted because timeout");
-            return false;
-          }
+        if (counter > scanReq.getStorageScanRowNumThreshold()) {
+          throw new GTScanExceedThresholdException("Exceed scan threshold at " + counter);
         }
         if (counter % 100000 == 1) {
-          logger.info("Scanned " + counter + " rows.");
+          logger.info("Scanned " + counter + " rows from HBase.");
         }
         counter++;
         return allCellLists.hasNext();
@@ -86,33 +80,44 @@
 ;
     IGTStore store=new HBaseReadonlyStore(cellListIterator,scanReq,hbaseRawScans.get(0).hbaseColumns,hbaseColumnsToGT,request.getRowkeyPreambleSize());
     IGTScanner rawScanner=store.scan(scanReq);
-    IGTScanner finalScanner=scanReq.decorateScanner(rawScanner,behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER.ordinal(),behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER_AGGR.ordinal());
+    IGTScanner finalScanner=scanReq.decorateScanner(rawScanner,behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER.ordinal(),behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER_AGGR.ordinal(),deadline);
     ByteBuffer buffer=ByteBuffer.allocate(BufferedMeasureEncoder.DEFAULT_BUFFER_SIZE);
     ByteArrayOutputStream outputStream=new ByteArrayOutputStream(BufferedMeasureEncoder.DEFAULT_BUFFER_SIZE);
     int finalRowCount=0;
-    for (    GTRecord oneRecord : finalScanner) {
-      if (!scanNormalComplete.booleanValue()) {
-        logger.error("aggregate iterator aborted because input iterator aborts");
-        break;
-      }
-      if (finalRowCount % 100000 == 1) {
-        if (System.currentTimeMillis() - startTime > timeout) {
-          logger.error("aggregate iterator aborted because timeout");
+    try {
+      for (      GTRecord oneRecord : finalScanner) {
+        if (finalRowCount > storagePushDownLimit) {
+          logger.info("The finalScanner aborted because storagePushDownLimit is satisfied");
           break;
         }
+        if (finalRowCount % 100000 == 1) {
+          if (System.currentTimeMillis() > deadline) {
+            throw new GTScanTimeoutException("finalScanner timeouts after scanned " + finalRowCount);
+          }
+        }
+        buffer.clear();
+        try {
+          oneRecord.exportColumns(scanReq.getColumns(),buffer);
+        }
+ catch (        BufferOverflowException boe) {
+          buffer=ByteBuffer.allocate(oneRecord.sizeOf(scanReq.getColumns()) * 2);
+          oneRecord.exportColumns(scanReq.getColumns(),buffer);
+        }
+        outputStream.write(buffer.array(),0,buffer.position());
+        finalRowCount++;
       }
-      buffer.clear();
-      try {
-        oneRecord.exportColumns(scanReq.getColumns(),buffer);
-      }
- catch (      BufferOverflowException boe) {
-        buffer=ByteBuffer.allocate(oneRecord.sizeOf(scanReq.getColumns()) * 2);
-        oneRecord.exportColumns(scanReq.getColumns(),buffer);
-      }
-      outputStream.write(buffer.array(),0,buffer.position());
-      finalRowCount++;
     }
-    finalScanner.close();
+ catch (    GTScanTimeoutException e) {
+      scanNormalComplete.setValue(false);
+      logger.info("The cube visit did not finish normally because scan timeout",e);
+    }
+catch (    GTScanExceedThresholdException e) {
+      scanNormalComplete.setValue(false);
+      logger.info("The cube visit did not finish normally because scan num exceeds threshold",e);
+    }
+ finally {
+      finalScanner.close();
+    }
     appendProfileInfo(sb,"agg done");
     byte[] compressedAllRows;
     if (scanNormalComplete.booleanValue()) {

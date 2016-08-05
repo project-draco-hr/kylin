@@ -1,0 +1,3 @@
+{
+  return new MergedIterator<E>(heap,comparator);
+}

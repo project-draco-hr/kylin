@@ -1,0 +1,9 @@
+{
+  PeekingImpl<E> poll=heap.poll();
+  E current=poll.next();
+  if (poll.hasNext()) {
+    Preconditions.checkState(comparator.compare(current,poll.peek()) < 0,"Not sorted! current: " + current + " Next: "+ poll.peek());
+    heap.offer(poll);
+  }
+  return current;
+}

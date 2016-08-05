@@ -1,0 +1,8 @@
+{
+  return new Comparator<CloneableInteger>(){
+    @Override public int compare(    CloneableInteger o1,    CloneableInteger o2){
+      return o1.value - o2.value;
+    }
+  }
+;
+}

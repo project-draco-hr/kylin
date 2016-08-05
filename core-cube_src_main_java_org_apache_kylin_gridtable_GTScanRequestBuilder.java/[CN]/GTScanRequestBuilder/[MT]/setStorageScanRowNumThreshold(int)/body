@@ -1,0 +1,4 @@
+{
+  this.storageScanRowNumThreshold=storageScanRowNumThreshold;
+  return this;
+}

@@ -1,0 +1,7 @@
+Cuboid cuboid
+Collection<TblColRef> groups
+Set<TblColRef> derivedPostAggregation
+Collection<TblColRef> groupsD
+TupleFilter filter
+Collection<FunctionDesc> functionDescs
+StorageContext context

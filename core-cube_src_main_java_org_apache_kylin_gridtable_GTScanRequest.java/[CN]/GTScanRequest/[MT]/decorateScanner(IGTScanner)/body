@@ -1,3 +1,3 @@
 {
-  return decorateScanner(scanner,true,true);
+  return decorateScanner(scanner,true,true,Long.MAX_VALUE);
 }

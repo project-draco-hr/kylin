@@ -19,10 +19,10 @@
   Set<TblColRef> singleValuesD=findSingleValueColumns(filter);
   boolean exactAggregation=isExactAggregation(cuboid,groups,otherDimsD,singleValuesD,derivedPostAggregation);
   context.setExactAggregation(exactAggregation);
-  context.setNeedStorageAggregation(isNeedStorageAggregation(cuboid,groupsD,singleValuesD,exactAggregation));
   TupleFilter filterD=translateDerived(filter,groupsD);
+  context.setNeedStorageAggregation(isNeedStorageAggregation(cuboid,groupsD,singleValuesD,exactAggregation));
+  enableStoragePushDownLimit(cuboid,groups,derivedPostAggregation,groupsD,filter,sqlDigest.aggregations,context);
   setThreshold(dimensionsD,metrics,context);
-  setLimit(filter,context);
   List<CubeSegmentScanner> scanners=Lists.newArrayList();
   for (  CubeSegment cubeSeg : cubeInstance.getSegments(SegmentStatusEnum.READY)) {
     CubeSegmentScanner scanner;

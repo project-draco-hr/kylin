@@ -1,0 +1,37 @@
+{
+  printInfo("---------- test folder: " + new File(queryFolder).getAbsolutePath());
+  int appendLimitQueries=0;
+  List<File> sqlFiles=getFilesFromFolder(new File(queryFolder),".sql");
+  for (  File sqlFile : sqlFiles) {
+    String queryName=StringUtils.split(sqlFile.getName(),'.')[0];
+    String sql=getTextFromFile(sqlFile);
+    String sqlWithLimit;
+    if (sql.toLowerCase().contains("limit ")) {
+      sqlWithLimit=sql;
+    }
+ else {
+      sqlWithLimit=sql + " limit 5";
+      appendLimitQueries++;
+    }
+    printInfo("Query Result from Kylin - " + queryName + "  ("+ queryFolder+ ")");
+    IDatabaseConnection kylinConn=new DatabaseConnection(cubeConnection);
+    ITable kylinTable=executeQuery(kylinConn,queryName,sqlWithLimit,false);
+    printInfo("Query Result from H2 - " + queryName);
+    H2Connection h2Conn=new H2Connection(h2Connection,null);
+    h2Conn.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY,new TestH2DataTypeFactory());
+    ITable h2Table=executeQuery(h2Conn,queryName,sql,false);
+    try {
+      HackedDbUnitAssert hackedDbUnitAssert=new HackedDbUnitAssert();
+      hackedDbUnitAssert.assertEquals(h2Table,kylinTable);
+    }
+ catch (    Throwable t) {
+      printInfo("execAndCompQuery failed on: " + sqlFile.getAbsolutePath());
+      throw t;
+    }
+    compQueryCount++;
+    if (kylinTable.getRowCount() == 0) {
+      zeroResultQueries.add(sql);
+    }
+  }
+  printInfo("Queries appended with limit: " + appendLimitQueries);
+}

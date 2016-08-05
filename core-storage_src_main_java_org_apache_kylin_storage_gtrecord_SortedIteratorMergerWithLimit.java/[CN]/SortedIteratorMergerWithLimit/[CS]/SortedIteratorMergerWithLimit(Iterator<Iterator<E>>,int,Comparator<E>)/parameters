@@ -1,0 +1,3 @@
+Iterator<Iterator<E>> shardSubsets
+int limit
+Comparator<E> comparator

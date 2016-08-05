@@ -1,0 +1,11 @@
+{
+  if (!nextFetched) {
+    throw new IllegalStateException("Should hasNext() before next()");
+  }
+  if (last != null) {
+    Preconditions.checkState(comparator.compare(last,fetched) <= 0,"Not sorted! last: " + last + " fetched: "+ fetched);
+  }
+  last=fetched;
+  nextFetched=false;
+  return fetched;
+}

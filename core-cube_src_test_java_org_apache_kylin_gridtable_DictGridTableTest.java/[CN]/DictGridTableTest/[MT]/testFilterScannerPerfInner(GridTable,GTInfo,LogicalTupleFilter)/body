@@ -1,6 +1,6 @@
 {
   long start=System.currentTimeMillis();
-  GTScanRequest req=new GTScanRequest(info,null,null,filter);
+  GTScanRequest req=new GTScanRequestBuilder().setInfo(info).setRanges(null).setDimensions(null).setFilterPushDown(filter).createGTScanRequest();
   IGTScanner scanner=table.scan(req);
   int i=0;
   for (  GTRecord r : scanner) {

@@ -1,0 +1,5 @@
+ITable expectedTable
+ITable actualTable
+ComparisonColumn[] comparisonCols
+FailureHandler failureHandler
+int index

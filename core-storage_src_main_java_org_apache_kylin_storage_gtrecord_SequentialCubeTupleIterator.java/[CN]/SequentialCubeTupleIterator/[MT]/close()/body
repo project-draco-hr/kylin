@@ -1,7 +1,6 @@
 {
   flushScanCountDelta();
-  if (curScanner != null)   close(curScanner);
-  while (scannerIterator.hasNext()) {
-    close(scannerIterator.next());
+  for (  SegmentCubeTupleIterator iterator : segmentCubeTupleIterators) {
+    iterator.close();
   }
 }

@@ -1,0 +1,4 @@
+{
+  this.aggCacheMemThreshold=aggCacheMemThreshold;
+  return this;
+}

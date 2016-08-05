@@ -1,0 +1,20 @@
+{
+  logger.debug("compareData(expectedTable={}, actualTable={}, " + "comparisonCols={}, failureHandler={}) - start",new Object[]{expectedTable,actualTable,comparisonCols,failureHandler});
+  if (expectedTable == null) {
+    throw new NullPointerException("The parameter 'expectedTable' must not be null");
+  }
+  if (actualTable == null) {
+    throw new NullPointerException("The parameter 'actualTable' must not be null");
+  }
+  if (comparisonCols == null) {
+    throw new NullPointerException("The parameter 'comparisonCols' must not be null");
+  }
+  if (failureHandler == null) {
+    throw new NullPointerException("The parameter 'failureHandler' must not be null");
+  }
+  for (int index=0; index < actualTable.getRowCount(); index++) {
+    if (!findRowInExpectedTable(expectedTable,actualTable,comparisonCols,failureHandler,index)) {
+      throw new IllegalStateException();
+    }
+  }
+}

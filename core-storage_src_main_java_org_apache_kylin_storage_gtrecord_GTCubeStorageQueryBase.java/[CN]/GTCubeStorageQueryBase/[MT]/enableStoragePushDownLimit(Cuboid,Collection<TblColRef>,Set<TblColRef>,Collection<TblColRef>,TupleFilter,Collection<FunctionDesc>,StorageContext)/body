@@ -1,0 +1,32 @@
+{
+  boolean possible=true;
+  boolean goodFilter=filter == null || (TupleFilter.isEvaluableRecursively(filter) && context.isCoprocessorEnabled());
+  if (!goodFilter) {
+    possible=false;
+    logger.info("Storage limit push down is impossible because the filter is unevaluatable");
+  }
+  boolean goodSort=!context.hasSort();
+  if (!goodSort) {
+    possible=false;
+    logger.info("Storage limit push down is impossible because the query has order by");
+  }
+  if (!groups.containsAll(derivedPostAggregation)) {
+    possible=false;
+    logger.info("Storage limit push down is impossible because derived column require post aggregation: " + derivedPostAggregation);
+  }
+  int size=groupsD.size();
+  if (!groupsD.containsAll(cuboid.getColumns().subList(0,size))) {
+    possible=false;
+    logger.info("Storage limit push down is impossible because groupD is not clustered at head, groupsD: " + groupsD + " with cuboid columns: "+ cuboid.getColumns());
+  }
+  for (  FunctionDesc functionDesc : functionDescs) {
+    if (functionDesc.isDimensionAsMetric()) {
+      possible=false;
+      logger.info("Storage limit push down is impossible because {} isDimensionAsMetric ",functionDesc);
+    }
+  }
+  if (possible) {
+    logger.info("Enable limit " + context.getLimit());
+    context.enableLimit();
+  }
+}

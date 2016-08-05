@@ -2,7 +2,19 @@
   long count=0;
   for (  GTRecord r : inputScanner) {
     count++;
-    aggrCache.aggregate(r);
+    if (getNumOfSpills() == 0) {
+      boolean ret=aggrCache.aggregate(r,storagePushDownLimit);
+      if (!ret) {
+        logger.info("abort reading inputScanner because storage push down limit is hit");
+        break;
+      }
+    }
+ else {
+      aggrCache.aggregate(r,Integer.MAX_VALUE);
+    }
+    if (count % 10000 == 1 && System.currentTimeMillis() > deadline) {
+      throw new GTScanTimeoutException("Timeout in GTAggregateScanner with scanned count " + count);
+    }
   }
   logger.info("GTAggregateScanner input rows: " + count);
   return aggrCache.iterator();

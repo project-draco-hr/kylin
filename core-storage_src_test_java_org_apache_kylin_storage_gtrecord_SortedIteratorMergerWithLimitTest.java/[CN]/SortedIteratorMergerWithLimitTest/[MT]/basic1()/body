@@ -1,0 +1,16 @@
+{
+  List<CloneableInteger> a=Lists.newArrayList(new CloneableInteger(1),new CloneableInteger(2),new CloneableInteger(3));
+  List<CloneableInteger> b=Lists.newArrayList(new CloneableInteger(1),new CloneableInteger(2),new CloneableInteger(3));
+  List<CloneableInteger> c=Lists.newArrayList(new CloneableInteger(1),new CloneableInteger(2),new CloneableInteger(5));
+  List<Iterator<CloneableInteger>> input=Lists.newArrayList();
+  input.add(a.iterator());
+  input.add(b.iterator());
+  input.add(c.iterator());
+  SortedIteratorMergerWithLimit<CloneableInteger> merger=new SortedIteratorMergerWithLimit<CloneableInteger>(input.iterator(),3,getComp());
+  Iterator<CloneableInteger> iterator=merger.getIterator();
+  List<CloneableInteger> result=Lists.newArrayList();
+  while (iterator.hasNext()) {
+    result.add(iterator.next());
+  }
+  Assert.assertEquals(Lists.newArrayList(new CloneableInteger(1),new CloneableInteger(1),new CloneableInteger(1),new CloneableInteger(2),new CloneableInteger(2),new CloneableInteger(2),new CloneableInteger(3),new CloneableInteger(3)),result);
+}

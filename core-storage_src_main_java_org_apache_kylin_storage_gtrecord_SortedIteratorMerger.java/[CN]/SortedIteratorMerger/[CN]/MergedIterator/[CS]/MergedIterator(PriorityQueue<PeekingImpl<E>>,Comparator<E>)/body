@@ -1,0 +1,4 @@
+{
+  this.heap=heap;
+  this.comparator=comparator;
+}

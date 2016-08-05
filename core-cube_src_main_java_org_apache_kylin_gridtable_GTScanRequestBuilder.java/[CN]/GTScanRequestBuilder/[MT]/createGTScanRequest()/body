@@ -1,0 +1,3 @@
+{
+  return new GTScanRequest(info,ranges,dimensions,aggrGroupBy,aggrMetrics,aggrMetricsFuncs,filterPushDown,allowStorageAggregation,aggCacheMemThreshold,storageScanRowNumThreshold,storagePushDownLimit);
+}

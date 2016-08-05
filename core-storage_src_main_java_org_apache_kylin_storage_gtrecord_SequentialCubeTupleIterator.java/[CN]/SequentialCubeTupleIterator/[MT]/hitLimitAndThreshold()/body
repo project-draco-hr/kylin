@@ -1,9 +1,0 @@
-{
-  if (context.isLimitEnabled() && scanCount >= context.getLimit() + context.getOffset()) {
-    return true;
-  }
-  if (scanCount >= context.getThreshold()) {
-    throw new ScanOutOfLimitException("Scan row count exceeded threshold: " + context.getThreshold() + ", please add filter condition to narrow down backend scan range, like where clause.");
-  }
-  return false;
-}

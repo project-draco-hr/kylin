@@ -1,0 +1,4 @@
+{
+  this.aggrMetricsFuncs=aggrMetricsFuncs;
+  return this;
+}

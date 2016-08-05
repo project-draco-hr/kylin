@@ -1,4 +1,0 @@
-GTInfo info
-Iterator<byte[]> blocks
-ImmutableBitSet columns
-long totalScannedCount

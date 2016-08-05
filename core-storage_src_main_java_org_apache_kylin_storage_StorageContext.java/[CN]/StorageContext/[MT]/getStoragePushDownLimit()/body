@@ -1,0 +1,3 @@
+{
+  return this.isLimitEnabled() ? this.getOffset() + this.getLimit() : Integer.MAX_VALUE;
+}

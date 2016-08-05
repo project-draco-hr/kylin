@@ -1,0 +1,3 @@
+{
+  return compareToInternal(o,info.primaryKey);
+}

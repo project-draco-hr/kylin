@@ -1,0 +1,11 @@
+{
+  this.scanner=scanner;
+  this.cuboid=cuboid;
+  this.selectedDimensions=selectedDimensions;
+  this.selectedMetrics=selectedMetrics;
+  this.tupleInfo=returnTupleInfo;
+  this.tuple=new Tuple(returnTupleInfo);
+  this.context=context;
+  this.gtItr=getGTItr(scanner);
+  this.cubeTupleConverter=new CubeTupleConverter(scanner.cubeSeg,cuboid,selectedDimensions,selectedMetrics,tupleInfo);
+}

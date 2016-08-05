@@ -1,0 +1,8 @@
+{
+  try {
+    scanner.close();
+  }
+ catch (  IOException e) {
+    logger.error("Exception when close CubeScanner",e);
+  }
+}

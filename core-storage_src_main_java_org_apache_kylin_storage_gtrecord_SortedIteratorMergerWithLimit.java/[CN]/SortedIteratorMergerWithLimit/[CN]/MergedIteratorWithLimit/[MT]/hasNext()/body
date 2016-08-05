@@ -1,0 +1,36 @@
+{
+  if (nextFetched) {
+    return true;
+  }
+  if (lastSource != null && lastSource.hasNext()) {
+    if (lastSource.hasNext()) {
+      heap.offer(lastSource);
+    }
+ else {
+      lastSource=null;
+    }
+  }
+  if (!heap.isEmpty()) {
+    PeekingImpl<E> first=heap.poll();
+    E current=first.next();
+    try {
+      current=(E)current.getClass().getMethod("clone").invoke(current);
+    }
+ catch (    IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
+      throw new RuntimeException(e);
+    }
+    lastSource=first;
+    Preconditions.checkState(current != null);
+    if (last == null || comparator.compare(current,last) != 0) {
+      if (++limitProgress > limit) {
+        return false;
+      }
+    }
+    nextFetched=true;
+    fetched=current;
+    return true;
+  }
+ else {
+    return false;
+  }
+}

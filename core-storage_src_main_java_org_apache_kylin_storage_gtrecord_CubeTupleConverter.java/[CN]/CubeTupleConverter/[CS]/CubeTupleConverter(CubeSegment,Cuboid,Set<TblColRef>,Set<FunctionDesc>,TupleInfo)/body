@@ -12,6 +12,16 @@
   measureTypes=new MeasureType[selectedDimensions.size() + selectedMetrics.size()];
   advMeasureFillers=Lists.newArrayListWithCapacity(1);
   advMeasureIndexInGTValues=Lists.newArrayListWithCapacity(1);
+  List<Integer> temp=Lists.newArrayList();
+  for (  TblColRef dim : cuboid.getColumns()) {
+    if (tupleInfo.hasColumn(dim)) {
+      temp.add(tupleInfo.getColumnIndex(dim));
+    }
+  }
+  dimensionIndexOnTuple=new int[temp.size()];
+  for (int i=0; i < temp.size(); i++) {
+    dimensionIndexOnTuple[i]=temp.get(i);
+  }
   int iii=0;
   for (  TblColRef dim : selectedDimensions) {
     int i=mapping.getIndexOf(dim);

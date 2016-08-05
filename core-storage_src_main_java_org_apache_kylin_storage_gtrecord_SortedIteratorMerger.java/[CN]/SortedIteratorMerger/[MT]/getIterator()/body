@@ -1,0 +1,16 @@
+{
+  final PriorityQueue<PeekingImpl<E>> heap=new PriorityQueue<PeekingImpl<E>>(11,new Comparator<PeekingImpl<E>>(){
+    @Override public int compare(    PeekingImpl<E> o1,    PeekingImpl<E> o2){
+      return comparator.compare(o1.peek(),o2.peek());
+    }
+  }
+);
+  while (shardSubsets.hasNext()) {
+    Iterator<E> iterator=shardSubsets.next();
+    PeekingImpl<E> peekingIterator=new PeekingImpl<>(iterator);
+    if (peekingIterator.hasNext()) {
+      heap.offer(peekingIterator);
+    }
+  }
+  return getIteratorInternal(heap);
+}

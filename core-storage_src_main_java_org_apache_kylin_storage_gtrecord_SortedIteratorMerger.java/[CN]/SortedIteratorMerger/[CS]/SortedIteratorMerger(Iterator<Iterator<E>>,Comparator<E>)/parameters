@@ -1,0 +1,2 @@
+Iterator<Iterator<E>> shardSubsets
+Comparator<E> comparator

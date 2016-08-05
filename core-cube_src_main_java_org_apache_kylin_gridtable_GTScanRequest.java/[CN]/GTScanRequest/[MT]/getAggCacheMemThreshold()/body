@@ -1,0 +1,4 @@
+{
+  if (aggCacheMemThreshold < 0)   return 0;
+ else   return aggCacheMemThreshold;
+}
