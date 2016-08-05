@@ -4,3 +4,4 @@ long startTime
 float runningSec
 String server
 String thread
+String user

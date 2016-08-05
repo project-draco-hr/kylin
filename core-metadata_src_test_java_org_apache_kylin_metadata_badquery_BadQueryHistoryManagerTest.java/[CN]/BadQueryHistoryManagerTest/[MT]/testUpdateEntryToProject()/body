@@ -1,13 +1,14 @@
 {
   KylinConfig kylinConfig=getTestConfig();
   BadQueryHistoryManager manager=BadQueryHistoryManager.getInstance(kylinConfig);
-  manager.addEntryToProject("sql",1459362239000L,"adj",100,"server","t-0","default");
-  BadQueryHistory history=manager.updateEntryToProject("sql",1459362239000L,"adj2",120,"server2","t-1","default");
+  manager.addEntryToProject("sql",1459362239000L,"adj",100,"server","t-0","user","default");
+  BadQueryHistory history=manager.updateEntryToProject("sql",1459362239000L,"adj2",120,"server2","t-1","user","default");
   NavigableSet<BadQueryEntry> entries=history.getEntries();
-  BadQueryEntry newEntry=entries.floor(new BadQueryEntry("sql","adj2",1459362239000L,120,"server2","t-1"));
+  BadQueryEntry newEntry=entries.floor(new BadQueryEntry("sql","adj2",1459362239000L,120,"server2","t-1","user"));
   System.out.println(newEntry);
   assertEquals("adj2",newEntry.getAdj());
   assertEquals("server2",newEntry.getServer());
   assertEquals("t-1",newEntry.getThread());
+  assertEquals("user",newEntry.getUser());
   assertEquals(120,(int)newEntry.getRunningSec());
 }

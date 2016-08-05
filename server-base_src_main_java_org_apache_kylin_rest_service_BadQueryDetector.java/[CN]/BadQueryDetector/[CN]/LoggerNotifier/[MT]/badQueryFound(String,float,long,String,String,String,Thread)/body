@@ -1,0 +1,3 @@
+{
+  logger.info("{} query has been running {} seconds (project:{}, thread: 0x{}, user:{}) -- {}",adj,runningSec,project,Long.toHexString(t.getId()),user,sql);
+}

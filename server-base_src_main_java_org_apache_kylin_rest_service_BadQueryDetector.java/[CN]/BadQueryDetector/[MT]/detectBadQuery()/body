@@ -5,7 +5,7 @@
   for (  Entry e : entries) {
     float runningSec=(float)(now - e.startTime) / 1000;
     if (runningSec >= alertRunningSec) {
-      notify("Slow",runningSec,e.startTime,e.sqlRequest.getProject(),e.sqlRequest.getSql(),e.thread);
+      notify("Slow",runningSec,e.startTime,e.sqlRequest.getProject(),e.sqlRequest.getSql(),e.user,e.thread);
       dumpStackTrace(e.thread);
     }
  else {

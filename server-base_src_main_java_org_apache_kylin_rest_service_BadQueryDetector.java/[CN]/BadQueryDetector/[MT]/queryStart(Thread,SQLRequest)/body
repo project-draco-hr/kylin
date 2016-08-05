@@ -1,3 +1,0 @@
-{
-  runningQueries.put(thread,new Entry(sqlRequest,thread));
-}

@@ -6,4 +6,5 @@
   this.runningSec=runningSec;
   this.server=server;
   this.thread=thread;
+  this.user=user;
 }
