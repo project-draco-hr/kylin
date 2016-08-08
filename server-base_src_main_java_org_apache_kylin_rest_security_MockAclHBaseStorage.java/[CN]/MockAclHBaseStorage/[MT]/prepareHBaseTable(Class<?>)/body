@@ -7,7 +7,7 @@
     return aclTableName;
   }
  else   if (clazz == UserService.class) {
-    mockedUserTable=new MockHTable(userTableName,USER_AUTHORITY_FAMILY);
+    mockedUserTable=new MockHTable(userTableName,USER_AUTHORITY_FAMILY,QueryService.USER_QUERY_FAMILY);
     return userTableName;
   }
  else {

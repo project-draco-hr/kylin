@@ -10,7 +10,7 @@
   }
  else   if (clazz == UserService.class) {
     userTableName=tableNameBase + USER_TABLE_NAME;
-    HBaseConnection.createHTableIfNeeded(hbaseUrl,userTableName,USER_AUTHORITY_FAMILY);
+    HBaseConnection.createHTableIfNeeded(hbaseUrl,userTableName,USER_AUTHORITY_FAMILY,QueryService.USER_QUERY_FAMILY);
     return userTableName;
   }
  else {
