@@ -4,7 +4,7 @@
     filePath=dgService.dumpJobDiagnosisInfo(jobId);
   }
  catch (  IOException e) {
-    throw new InternalErrorException(e + " Caused by: " + e.getMessage(),e);
+    throw new InternalErrorException("Failed to dump diagnosis info.",e);
   }
   setDownloadResponse(filePath,response);
 }
