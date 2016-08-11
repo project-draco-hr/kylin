@@ -6,7 +6,7 @@
     this.tableName="kylin_intermediate_" + cubeDesc.getName();
   }
  else {
-    this.tableName="kylin_intermediate_" + cubeDesc.getName() + "_"+ cubeSegment.getUuid();
+    this.tableName="kylin_intermediate_" + cubeDesc.getName() + "_"+ cubeSegment.getUuid().replaceAll("-","_");
   }
   int columnIndex=0;
   for (  TblColRef col : cubeDesc.listDimensionColumnsExcludingDerived(false)) {
