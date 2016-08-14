@@ -1,5 +1,0 @@
-{
-  this.createTestMetadata();
-  MetadataManager.clearCache();
-  cube=getTestKylinCubeWithSeller();
-}

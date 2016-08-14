@@ -1,0 +1,11 @@
+{
+  IStorageQuery query=new org.apache.kylin.storage.hbase.cube.v1.CubeStorageQuery(cube);
+  long baseCuboidId=cubeDesc.getRowkey().getFullMask();
+  Method method=query.getClass().getDeclaredMethod("identifyCuboid",Set.class,Collection.class);
+  method.setAccessible(true);
+  Object ret=method.invoke(query,Sets.newHashSet(),Lists.newArrayList());
+  assertTrue(ret instanceof Cuboid);
+  assertNotEquals(baseCuboidId,((Cuboid)ret).getId());
+  ret=method.invoke(query,dimensions,metrics);
+  assertEquals(baseCuboidId,((Cuboid)ret).getId());
+}

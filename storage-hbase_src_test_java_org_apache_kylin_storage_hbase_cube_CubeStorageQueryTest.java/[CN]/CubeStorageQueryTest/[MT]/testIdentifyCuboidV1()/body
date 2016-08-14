@@ -1,5 +1,0 @@
-{
-  CubeDesc cubeDesc=cube.getDescriptor();
-  IStorageQuery query=new org.apache.kylin.storage.hbase.cube.v1.CubeStorageQuery(cube);
-  validateIdentifyCuboidOnStorageQnery(cubeDesc,query);
-}

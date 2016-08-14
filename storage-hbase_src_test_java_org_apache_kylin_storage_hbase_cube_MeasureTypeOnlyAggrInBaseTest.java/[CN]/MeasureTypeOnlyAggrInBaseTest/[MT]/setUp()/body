@@ -1,0 +1,16 @@
+{
+  this.createTestMetadata();
+  MetadataManager.clearCache();
+  cube=getTestKylinCubeWithSeller();
+  cubeDesc=cube.getDescriptor();
+  dimensions=Sets.newHashSet();
+  metrics=Lists.newArrayList();
+  for (  MeasureDesc measureDesc : cubeDesc.getMeasures()) {
+    Collections.addAll(metrics,measureDesc.getFunction());
+  }
+  FunctionDesc mockUpFuncDesc=new FunctionDesc();
+  Field field=FunctionDesc.class.getDeclaredField("measureType");
+  field.setAccessible(true);
+  field.set(mockUpFuncDesc,new MockUpMeasureType());
+  metrics.add(mockUpFuncDesc);
+}
