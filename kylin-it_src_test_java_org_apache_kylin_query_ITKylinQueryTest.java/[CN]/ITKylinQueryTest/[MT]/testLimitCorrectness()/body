@@ -1,5 +1,3 @@
 {
-  if (HBaseStorage.overwriteStorageQuery == null) {
-    execLimitAndValidate(getQueryFolderPrefix() + "src/test/resources/query/sql");
-  }
+  execLimitAndValidate(getQueryFolderPrefix() + "src/test/resources/query/sql");
 }
