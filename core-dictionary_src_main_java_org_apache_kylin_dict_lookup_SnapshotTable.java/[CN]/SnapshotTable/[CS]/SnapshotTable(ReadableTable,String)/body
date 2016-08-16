@@ -1,4 +1,5 @@
 {
+  this.tableName=tableName;
   this.signature=table.getSignature();
   this.useDictionary=true;
 }

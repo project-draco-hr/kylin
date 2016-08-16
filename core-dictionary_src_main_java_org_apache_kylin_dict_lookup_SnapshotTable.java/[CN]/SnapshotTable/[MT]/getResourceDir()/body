@@ -1,3 +1,8 @@
 {
-  return ResourceStore.SNAPSHOT_RESOURCE_ROOT + "/" + new File(signature.getPath()).getName();
+  if (Strings.isNullOrEmpty(tableName)) {
+    return getOldResourceDir();
+  }
+ else {
+    return ResourceStore.SNAPSHOT_RESOURCE_ROOT + "/" + tableName;
+  }
 }

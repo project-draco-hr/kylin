@@ -1,5 +1,5 @@
 {
-  SnapshotTable snapshot=new SnapshotTable(table);
+  SnapshotTable snapshot=new SnapshotTable(table,tableDesc.getName());
   snapshot.setUuid(overwriteUUID);
   snapshot.takeSnapshot(table,tableDesc);
   SnapshotTable existing=getSnapshotTable(snapshot.getResourcePath());
