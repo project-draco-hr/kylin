@@ -4,9 +4,9 @@
   ITupleFilterTransformer translator=new BuildInFunctionTransformer(cubeSeg.getDimensionEncodingMap());
   filter=translator.transform(filter);
   String plannerName=KylinConfig.getInstanceFromEnv().getQueryStorageVisitPlanner();
-  GTScanRangePlanner scanRangePlanner;
+  CubeScanRangePlanner scanRangePlanner;
   try {
-    scanRangePlanner=(GTScanRangePlanner)Class.forName(plannerName).getConstructor(CubeSegment.class,Cuboid.class,TupleFilter.class,Set.class,Set.class,Collection.class).newInstance(cubeSeg,cuboid,filter,dimensions,groups,metrics);
+    scanRangePlanner=(CubeScanRangePlanner)Class.forName(plannerName).getConstructor(CubeSegment.class,Cuboid.class,TupleFilter.class,Set.class,Set.class,Collection.class).newInstance(cubeSeg,cuboid,filter,dimensions,groups,metrics);
   }
  catch (  Exception e) {
     throw new RuntimeException(e);

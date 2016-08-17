@@ -13,7 +13,7 @@
       }
     }
     int col=range.column.getColumnDesc().getZeroBasedIndex();
-    if (!gtInfo.primaryKey.get(col))     continue;
+    if (!gtInfo.getPrimaryKey().get(col))     continue;
     pkStart.set(col,range.begin);
     pkEnd.set(col,range.end);
     if (range.valueSet != null && !range.valueSet.isEmpty()) {

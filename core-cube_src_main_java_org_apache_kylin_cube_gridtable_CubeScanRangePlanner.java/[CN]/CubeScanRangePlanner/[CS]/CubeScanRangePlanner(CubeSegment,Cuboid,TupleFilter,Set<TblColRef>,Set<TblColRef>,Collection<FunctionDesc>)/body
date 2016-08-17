@@ -12,7 +12,7 @@
   TupleFilter.collectColumns(filter,this.filterDims);
   this.gtInfo=CubeGridTable.newGTInfo(cubeSegment,cuboid.getId());
   CuboidToGridTableMapping mapping=cuboid.getCuboidToGridTableMapping();
-  IGTComparator comp=gtInfo.codeSystem.getComparator();
+  IGTComparator comp=gtInfo.getCodeSystem().getComparator();
   this.rangeStartComparator=getRangeStartComparator(comp);
   this.rangeEndComparator=getRangeEndComparator(comp);
   this.rangeStartEndComparator=getRangeStartEndComparator(comp);

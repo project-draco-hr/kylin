@@ -2,7 +2,7 @@
   this.maxScanRanges=KylinConfig.getInstanceFromEnv().getQueryStorageVisitScanRangeMax();
   this.maxFuzzyKeys=KylinConfig.getInstanceFromEnv().getQueryScanFuzzyKeyMax();
   this.gtInfo=info;
-  IGTComparator comp=gtInfo.codeSystem.getComparator();
+  IGTComparator comp=gtInfo.getCodeSystem().getComparator();
   this.rangeStartComparator=getRangeStartComparator(comp);
   this.rangeEndComparator=getRangeEndComparator(comp);
   this.rangeStartEndComparator=getRangeStartEndComparator(comp);

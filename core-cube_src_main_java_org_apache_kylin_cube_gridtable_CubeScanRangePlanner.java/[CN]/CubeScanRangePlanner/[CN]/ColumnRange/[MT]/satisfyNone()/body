@@ -3,7 +3,7 @@
     return valueSet.isEmpty();
   }
  else   if (begin.array() != null && end.array() != null) {
-    return gtInfo.codeSystem.getComparator().compare(begin,end) > 0;
+    return gtInfo.getCodeSystem().getComparator().compare(begin,end) > 0;
   }
  else {
     return false;

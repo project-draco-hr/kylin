@@ -1,7 +1,7 @@
 {
 {
     LogicalTupleFilter filter=and(timeComp1,or(ageComp1,ageComp2));
-    GTScanRangePlanner planner=new GTScanRangePlanner(info,null,null,filter);
+    CubeScanRangePlanner planner=new CubeScanRangePlanner(info,null,null,filter);
     List<GTScanRange> r=planner.planScanRanges();
     assertEquals(1,r.size());
     assertEquals("[1421193600000, 10]-[null, 20]",r.get(0).toString());
@@ -9,25 +9,25 @@
   }
 {
     LogicalTupleFilter filter=and(timeComp1,timeComp2);
-    GTScanRangePlanner planner=new GTScanRangePlanner(info,null,null,filter);
+    CubeScanRangePlanner planner=new CubeScanRangePlanner(info,null,null,filter);
     List<GTScanRange> r=planner.planScanRanges();
     assertEquals(0,r.size());
   }
 {
     LogicalTupleFilter filter=or(timeComp1,ageComp4);
-    GTScanRangePlanner planner=new GTScanRangePlanner(info,null,null,filter);
+    CubeScanRangePlanner planner=new CubeScanRangePlanner(info,null,null,filter);
     List<GTScanRange> r=planner.planScanRanges();
     assertEquals("[[null, null]-[null, null]]",r.toString());
   }
 {
     LogicalTupleFilter filter=or(timeComp1,timeComp3);
-    GTScanRangePlanner planner=new GTScanRangePlanner(info,null,null,filter);
+    CubeScanRangePlanner planner=new CubeScanRangePlanner(info,null,null,filter);
     List<GTScanRange> r=planner.planScanRanges();
     assertEquals("[[null, null]-[null, null]]",r.toString());
   }
 {
     LogicalTupleFilter filter=or(and(timeComp4,ageComp1),and(timeComp4,ageComp2),and(timeComp4,ageComp3));
-    GTScanRangePlanner planner=new GTScanRangePlanner(info,null,null,filter);
+    CubeScanRangePlanner planner=new CubeScanRangePlanner(info,null,null,filter);
     List<GTScanRange> r=planner.planScanRanges();
     assertEquals(3,r.size());
     assertEquals("[1421280000000, 10]-[1421280000000, 10]",r.get(0).toString());

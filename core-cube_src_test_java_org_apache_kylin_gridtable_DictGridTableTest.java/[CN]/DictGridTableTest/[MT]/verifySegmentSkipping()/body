@@ -5,7 +5,7 @@
   assertEquals(segmentStart,segmentStartX);
 {
     LogicalTupleFilter filter=and(timeComp0,ageComp1);
-    GTScanRangePlanner planner=new GTScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
+    CubeScanRangePlanner planner=new CubeScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
     List<GTScanRange> r=planner.planScanRanges();
     assertEquals(1,r.size());
     assertEquals("[null, 10]-[1421193600000, 10]",r.get(0).toString());
@@ -14,25 +14,25 @@
   }
 {
     LogicalTupleFilter filter=and(timeComp2,ageComp1);
-    GTScanRangePlanner planner=new GTScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
+    CubeScanRangePlanner planner=new CubeScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
     List<GTScanRange> r=planner.planScanRanges();
     assertEquals(0,r.size());
   }
 {
     LogicalTupleFilter filter=and(timeComp4,ageComp1);
-    GTScanRangePlanner planner=new GTScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
+    CubeScanRangePlanner planner=new CubeScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
     List<GTScanRange> r=planner.planScanRanges();
     assertEquals(1,r.size());
   }
 {
     LogicalTupleFilter filter=and(timeComp5,ageComp1);
-    GTScanRangePlanner planner=new GTScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
+    CubeScanRangePlanner planner=new CubeScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
     List<GTScanRange> r=planner.planScanRanges();
     assertEquals(0,r.size());
   }
 {
     LogicalTupleFilter filter=or(and(timeComp2,ageComp1),and(timeComp1,ageComp1),and(timeComp6,ageComp1));
-    GTScanRangePlanner planner=new GTScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
+    CubeScanRangePlanner planner=new CubeScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
     List<GTScanRange> r=planner.planScanRanges();
     assertEquals(1,r.size());
     assertEquals("[1421193600000, 10]-[null, 10]",r.get(0).toString());
@@ -40,7 +40,7 @@
   }
 {
     LogicalTupleFilter filter=or(timeComp2,timeComp1,timeComp6);
-    GTScanRangePlanner planner=new GTScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
+    CubeScanRangePlanner planner=new CubeScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
     List<GTScanRange> r=planner.planScanRanges();
     assertEquals(1,r.size());
     assertEquals("[1421193600000, null]-[null, null]",r.get(0).toString());
@@ -48,20 +48,20 @@
   }
 {
     LogicalTupleFilter filter=and(ageComp1,ConstantTupleFilter.FALSE);
-    GTScanRangePlanner planner=new GTScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
+    CubeScanRangePlanner planner=new CubeScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
     List<GTScanRange> r=planner.planScanRanges();
     assertEquals(0,r.size());
   }
 {
     LogicalTupleFilter filter=or(ConstantTupleFilter.TRUE,ConstantTupleFilter.FALSE);
-    GTScanRangePlanner planner=new GTScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
+    CubeScanRangePlanner planner=new CubeScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
     List<GTScanRange> r=planner.planScanRanges();
     assertEquals(1,r.size());
     assertEquals("[null, null]-[null, null]",r.get(0).toString());
   }
 {
     LogicalTupleFilter filter=or(ageComp1,ConstantTupleFilter.TRUE);
-    GTScanRangePlanner planner=new GTScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
+    CubeScanRangePlanner planner=new CubeScanRangePlanner(info,Pair.newPair(segmentStart,segmentEnd),info.colRef(0),filter);
     List<GTScanRange> r=planner.planScanRanges();
     assertEquals(1,r.size());
     assertEquals("[null, null]-[null, null]",r.get(0).toString());
