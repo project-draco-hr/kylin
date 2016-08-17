@@ -2,7 +2,6 @@
   if (!INITIALIZED && !isConfigured()) {
     System.out.println("Initing the logger");
     InputStream is=Log4jConfigurer.class.getClassLoader().getResourceAsStream("kylin-log4j.properties");
-    PropertyConfigurator.configure(is);
     IOUtils.closeQuietly(is);
   }
   INITIALIZED=true;
