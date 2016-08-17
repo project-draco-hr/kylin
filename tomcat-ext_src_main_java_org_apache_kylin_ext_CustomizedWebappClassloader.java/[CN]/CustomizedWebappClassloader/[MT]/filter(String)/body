@@ -1,0 +1,11 @@
+{
+  if (name == null)   return false;
+  String packageName=null;
+  int pos=name.lastIndexOf('.');
+  if (pos != -1)   packageName=name.substring(0,pos);
+ else   return false;
+  for (int i=0; i < packageTriggers.length; i++) {
+    if (packageName.startsWith(packageTriggers[i]))     return true;
+  }
+  return false;
+}
