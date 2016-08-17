@@ -2,7 +2,8 @@
 synchronized (KylinConfig.class) {
     if (ENV_INSTANCE == null) {
       try {
-        KylinConfig config=loadKylinConfig();
+        KylinConfig config=new KylinConfig();
+        config.reloadKylinConfig(getKylinProperties());
         logger.info("Initialized a new KylinConfig from getInstanceFromEnv : " + System.identityHashCode(config));
         ENV_INSTANCE=config;
       }

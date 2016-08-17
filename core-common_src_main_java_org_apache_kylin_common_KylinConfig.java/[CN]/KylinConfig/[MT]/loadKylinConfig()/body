@@ -1,6 +1,0 @@
-{
-  Properties prop=getKylinProperties();
-  KylinConfig config=new KylinConfig();
-  config.reloadKylinConfig(prop);
-  return config;
-}

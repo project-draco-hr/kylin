@@ -1,0 +1,6 @@
+{
+  Properties prop=new Properties();
+  prop.load(is);
+  IOUtils.closeQuietly(is);
+  return prop;
+}
