@@ -1,5 +1,8 @@
 {
   List<MeasureDesc> measures=cube.getMeasures();
+  if (validateMeasureNamesDuplicated(measures,context)) {
+    return;
+  }
   List<FunctionDesc> countFuncs=new ArrayList<FunctionDesc>();
   Iterator<MeasureDesc> it=measures.iterator();
   while (it.hasNext()) {

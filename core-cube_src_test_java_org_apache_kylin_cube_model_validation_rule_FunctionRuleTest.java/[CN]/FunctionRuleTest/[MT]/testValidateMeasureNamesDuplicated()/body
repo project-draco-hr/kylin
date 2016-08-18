@@ -1,0 +1,13 @@
+{
+  FunctionRule rule=new FunctionRule();
+  File f=new File(LocalFileMetadataTestCase.LOCALMETA_TEST_DATA + "/cube_desc/ssb.json");
+  CubeDesc desc=JsonUtil.readValue(new FileInputStream(f),CubeDesc.class);
+  MeasureDesc measureDescDuplicated=desc.getMeasures().get(1);
+  desc.getMeasures().add(measureDescDuplicated);
+  desc.init(config,metadataManager.getAllTablesMap());
+  ValidateContext vContext=new ValidateContext();
+  rule.validate(desc,vContext);
+  vContext.print(System.out);
+  assertTrue(vContext.getResults().length >= 1);
+  assertEquals("There is duplicated measure's name: " + measureDescDuplicated.getName(),vContext.getResults()[0].getMessage());
+}

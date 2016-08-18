@@ -1,0 +1,13 @@
+{
+  Set<String> nameSet=new HashSet<>();
+  for (  MeasureDesc measure : measures) {
+    if (nameSet.contains(measure.getName())) {
+      context.addResult(ResultLevel.ERROR,"There is duplicated measure's name: " + measure.getName());
+      return true;
+    }
+ else {
+      nameSet.add(measure.getName());
+    }
+  }
+  return false;
+}
