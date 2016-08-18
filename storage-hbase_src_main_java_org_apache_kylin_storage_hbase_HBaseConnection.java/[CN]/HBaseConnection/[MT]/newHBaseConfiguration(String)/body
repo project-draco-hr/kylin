@@ -1,7 +1,7 @@
 {
+  if (!(StringUtils.isEmpty(url) || "hbase".equals(url)))   throw new IllegalArgumentException("to use hbase storage, pls set 'kylin.storage.url=hbase' in kylin.properties");
   Configuration conf=HBaseConfiguration.create(HadoopUtil.getCurrentConfiguration());
   addHBaseClusterNNHAConfiguration(conf);
-  if (!(StringUtils.isEmpty(url) || "hbase".equals(url)))   throw new IllegalArgumentException("to use hbase storage, pls set 'kylin.storage.url=hbase' in kylin.properties");
   String hbaseClusterFs=KylinConfig.getInstanceFromEnv().getHBaseClusterFs();
   if (StringUtils.isNotEmpty(hbaseClusterFs)) {
     conf.set(FileSystem.FS_DEFAULT_NAME_KEY,hbaseClusterFs);
