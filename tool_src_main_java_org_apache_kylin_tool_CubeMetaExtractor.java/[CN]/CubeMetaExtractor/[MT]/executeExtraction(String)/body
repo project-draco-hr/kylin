@@ -12,16 +12,16 @@
   try {
     KylinConfig srcConfig=KylinConfig.getInstanceFromEnv();
     KylinConfig dstConfig=KylinConfig.createInstanceFromUri(dest);
-    ResourceStoreUtil.copy(srcConfig,dstConfig,requiredResources);
+    ResourceTool.copy(srcConfig,dstConfig,Lists.newArrayList(requiredResources));
     try {
-      ResourceStoreUtil.copy(srcConfig,dstConfig,optionalResources);
+      ResourceTool.copy(srcConfig,dstConfig,Lists.newArrayList(optionalResources));
     }
  catch (    Exception e) {
       logger.warn("Exception when copying optional resource {}. May be caused by resource missing. Ignore it.");
     }
     ResourceStore dstStore=ResourceStore.getStore(dstConfig);
     for (    CubeInstance cube : cubesToTrimAndSave) {
-      CubeInstance trimmedCube=copyCubeInstance(cube);
+      CubeInstance trimmedCube=CubeInstance.getCopyOf(cube);
       trimmedCube.getSegments().clear();
       trimmedCube.setUuid(cube.getUuid());
       dstStore.putResource(trimmedCube.getResourcePath(),trimmedCube,CubeManager.CUBE_SERIALIZER);

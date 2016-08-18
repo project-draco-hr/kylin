@@ -1,7 +1,0 @@
-{
-  ResourceStore src=ResourceStore.getStore(srcConfig);
-  ResourceStore dst=ResourceStore.getStore(dstConfig);
-  for (  String path : paths) {
-    rCopy(src,dst,path);
-  }
-}

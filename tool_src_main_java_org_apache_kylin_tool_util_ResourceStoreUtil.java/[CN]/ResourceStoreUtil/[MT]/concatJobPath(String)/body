@@ -1,3 +1,0 @@
-{
-  return ResourceStore.EXECUTE_RESOURCE_ROOT + "/" + uuid;
-}
