@@ -1,5 +1,5 @@
 {
-  dataModelDesc.init(this.getAllTablesMap());
+  dataModelDesc.init(config,this.getAllTablesMap());
   String path=dataModelDesc.getResourcePath();
   getStore().putResource(path,dataModelDesc,MODELDESC_SERIALIZER);
   dataModelDescMap.put(dataModelDesc.getName(),dataModelDesc);

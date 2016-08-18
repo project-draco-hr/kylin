@@ -2,7 +2,7 @@
   ResourceStore store=getStore();
   try {
     DataModelDesc dataModelDesc=store.getResource(path,DataModelDesc.class,MODELDESC_SERIALIZER);
-    dataModelDesc.init(this.getAllTablesMap());
+    dataModelDesc.init(config,this.getAllTablesMap());
     dataModelDescMap.putLocal(dataModelDesc.getName(),dataModelDesc);
     return dataModelDesc;
   }
