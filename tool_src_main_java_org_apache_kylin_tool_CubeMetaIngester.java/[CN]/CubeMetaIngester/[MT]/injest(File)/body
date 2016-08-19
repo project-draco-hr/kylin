@@ -1,0 +1,16 @@
+{
+  KylinConfig srcConfig=KylinConfig.createInstanceFromUri(metaRoot.getAbsolutePath());
+  MetadataManager srcMetadataManager=MetadataManager.getInstance(srcConfig);
+  HybridManager srcHybridManager=HybridManager.getInstance(srcConfig);
+  CubeManager srcCubeManager=CubeManager.getInstance(srcConfig);
+  CubeDescManager srcCubeDescManager=CubeDescManager.getInstance(srcConfig);
+  checkAndMark(srcMetadataManager,srcHybridManager,srcCubeManager,srcCubeDescManager);
+  ResourceTool.copy(srcConfig,kylinConfig,Lists.newArrayList(requiredResources));
+  for (  TableDesc tableDesc : srcMetadataManager.listAllTables()) {
+    projectManager.addTableDescToProject(Lists.newArrayList(tableDesc.getIdentity()).toArray(new String[0]),targetProjectName);
+  }
+  for (  CubeInstance cube : srcCubeManager.listAllCubes()) {
+    projectManager.updateModelToProject(cube.getDataModelDesc().getName(),targetProjectName);
+    projectManager.moveRealizationToProject(RealizationType.CUBE,cube.getName(),targetProjectName,null);
+  }
+}

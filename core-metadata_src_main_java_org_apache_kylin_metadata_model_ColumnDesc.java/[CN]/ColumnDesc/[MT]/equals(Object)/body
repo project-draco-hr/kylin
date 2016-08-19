@@ -7,9 +7,9 @@
     if (other.name != null)     return false;
   }
  else   if (!name.equals(other.name))   return false;
-  if (table == null) {
-    if (other.table != null)     return false;
+  if (datatype == null) {
+    if (other.datatype != null)     return false;
   }
- else   if (!table.equals(other.table))   return false;
+ else   if (!datatype.equals(other.datatype))   return false;
   return true;
 }

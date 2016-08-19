@@ -1,0 +1,18 @@
+{
+  thrown.expect(RuntimeException.class);
+  thrown.expectCause(new BaseMatcher<Throwable>(){
+    @Override public boolean matches(    Object item){
+      if (item instanceof IllegalStateException) {
+        if (((IllegalStateException)item).getMessage().equals("Already exist a model called test_kylin_inner_join_model_desc")) {
+          return true;
+        }
+      }
+      return false;
+    }
+    @Override public void describeTo(    Description description){
+    }
+  }
+);
+  String srcPath=this.getClass().getResource("/cloned_cube_meta.zip").getPath();
+  CubeMetaIngester.main(new String[]{"-project","default","-srcPath",srcPath});
+}

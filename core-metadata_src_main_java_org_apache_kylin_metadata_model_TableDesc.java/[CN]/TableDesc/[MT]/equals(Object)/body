@@ -1,7 +1,9 @@
 {
-  if (this == obj)   return true;
-  if (!super.equals(obj))   return false;
-  if (getClass() != obj.getClass())   return false;
-  TableDesc other=(TableDesc)obj;
-  return getIdentity().equals(other.getIdentity());
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  TableDesc tableDesc=(TableDesc)o;
+  if (sourceType != tableDesc.sourceType)   return false;
+  if (name != null ? !name.equals(tableDesc.name) : tableDesc.name != null)   return false;
+  if (!Arrays.equals(columns,tableDesc.columns))   return false;
+  return getIdentity().equals(tableDesc.getIdentity());
 }

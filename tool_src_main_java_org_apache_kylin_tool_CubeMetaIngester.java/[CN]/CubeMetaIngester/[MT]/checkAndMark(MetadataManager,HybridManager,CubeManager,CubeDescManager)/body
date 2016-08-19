@@ -1,0 +1,45 @@
+{
+  if (srcHybridManager.listHybridInstances().size() > 0) {
+    throw new IllegalStateException("Does not support ingest hybrid yet");
+  }
+  ProjectInstance targetProject=projectManager.getProject(targetProjectName);
+  if (targetProject == null) {
+    throw new IllegalStateException("Target project does not exist in target metadata: " + targetProjectName);
+  }
+  for (  TableDesc tableDesc : srcMetadataManager.listAllTables()) {
+    TableDesc existing=metadataManager.getTableDesc(tableDesc.getIdentity());
+    if (existing != null && !existing.equals(tableDesc)) {
+      logger.info("Table {} already has a different version in target metadata store",tableDesc.getIdentity());
+      logger.info("Existing version: " + existing);
+      logger.info("New version: " + tableDesc);
+      if (!overwriteTables) {
+        throw new IllegalStateException("table already exists with a different version: " + tableDesc.getIdentity() + ". Consider adding -overwriteTables option to force overwriting (with caution)");
+      }
+ else {
+        logger.warn("Overwriting the old table desc: " + tableDesc.getIdentity());
+      }
+    }
+    requiredResources.add(TableDesc.concatResourcePath(tableDesc.getIdentity()));
+  }
+  for (  DataModelDesc dataModelDesc : srcMetadataManager.listDataModels()) {
+    DataModelDesc existing=metadataManager.getDataModelDesc(dataModelDesc.getName());
+    if (existing != null) {
+      throw new IllegalStateException("Already exist a model called " + dataModelDesc.getName());
+    }
+    requiredResources.add(DataModelDesc.concatResourcePath(dataModelDesc.getName()));
+  }
+  for (  CubeDesc cubeDesc : srcCubeDescManager.listAllDesc()) {
+    CubeDesc existing=cubeDescManager.getCubeDesc(cubeDesc.getName());
+    if (existing != null) {
+      throw new IllegalStateException("Already exist a cube desc called " + cubeDesc.getName());
+    }
+    requiredResources.add(CubeDesc.concatResourcePath(cubeDesc.getName()));
+  }
+  for (  CubeInstance cube : srcCubeManager.listAllCubes()) {
+    CubeInstance existing=cubeManager.getCube(cube.getName());
+    if (existing != null) {
+      throw new IllegalStateException("Already exist a cube desc called " + cube.getName());
+    }
+    requiredResources.add(CubeInstance.concatResourcePath(cube.getName()));
+  }
+}

@@ -1,0 +1,13 @@
+{
+  String srcPath=Thread.currentThread().getContextClassLoader().getResource("benchmark_meta.zip").getPath();
+  CubeMetaIngester.main(new String[]{"-project","default","-srcPath",srcPath,"-overwriteTables","true"});
+  ProjectInstance project=ProjectManager.getInstance(KylinConfig.getInstanceFromEnv()).getProject("default");
+  Assert.assertEquals(1,Collections.frequency(project.getTables(),"SSB.CUSTOMER"));
+  Assert.assertTrue(project.getModels().contains("benchmark_model"));
+  Assert.assertTrue(project.getRealizationEntries().contains(RealizationEntry.create(RealizationType.CUBE,"benchmark_cube")));
+  MetadataManager.clearCache();
+  CubeDescManager.clearCache();
+  CubeManager.clearCache();
+  CubeInstance instance=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).getCube("benchmark_cube");
+  Assert.assertTrue(instance != null);
+}

@@ -1,0 +1,4 @@
+MetadataManager srcMetadataManager
+HybridManager srcHybridManager
+CubeManager srcCubeManager
+CubeDescManager srcCubeDescManager

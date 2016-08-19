@@ -1,0 +1,6 @@
+{
+  thrown.expect(RuntimeException.class);
+  thrown.expectCause(CoreMatchers.<IllegalStateException>instanceOf(IllegalStateException.class));
+  String srcPath=this.getClass().getResource("/cloned_cube_meta.zip").getPath();
+  CubeMetaIngester.main(new String[]{"-project","Xdefault","-srcPath",srcPath});
+}

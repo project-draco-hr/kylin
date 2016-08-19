@@ -13,11 +13,13 @@
     KylinConfig srcConfig=KylinConfig.getInstanceFromEnv();
     KylinConfig dstConfig=KylinConfig.createInstanceFromUri(dest);
     ResourceTool.copy(srcConfig,dstConfig,Lists.newArrayList(requiredResources));
-    try {
-      ResourceTool.copy(srcConfig,dstConfig,Lists.newArrayList(optionalResources));
-    }
- catch (    Exception e) {
-      logger.warn("Exception when copying optional resource {}. May be caused by resource missing. Ignore it.");
+    for (    String r : optionalResources) {
+      try {
+        ResourceTool.copy(srcConfig,dstConfig,Lists.newArrayList(r));
+      }
+ catch (      Exception e) {
+        logger.warn("Exception when copying optional resource {}. May be caused by resource missing. skip it.",r);
+      }
     }
     ResourceStore dstStore=ResourceStore.getStore(dstConfig);
     for (    CubeInstance cube : cubesToTrimAndSave) {

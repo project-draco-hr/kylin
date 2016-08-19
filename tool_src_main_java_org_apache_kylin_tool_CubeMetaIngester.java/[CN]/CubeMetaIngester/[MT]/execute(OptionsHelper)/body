@@ -1,0 +1,29 @@
+{
+  kylinConfig=KylinConfig.getInstanceFromEnv();
+  metadataManager=MetadataManager.getInstance(kylinConfig);
+  projectManager=ProjectManager.getInstance(kylinConfig);
+  cubeManager=CubeManager.getInstance(kylinConfig);
+  cubeDescManager=CubeDescManager.getInstance(kylinConfig);
+  realizationRegistry=RealizationRegistry.getInstance(kylinConfig);
+  if (optionsHelper.hasOption(OPTION_OVERWRITE_TABLES)) {
+    overwriteTables=Boolean.valueOf(optionsHelper.getOptionValue(OPTION_OVERWRITE_TABLES));
+  }
+  targetProjectName=optionsHelper.getOptionValue(OPTION_PROJECT);
+  String srcPath=optionsHelper.getOptionValue(OPTION_SRC);
+  if (!srcPath.endsWith(".zip")) {
+    throw new IllegalArgumentException(OPTION_SRC.getArgName() + " has to be a zip file");
+  }
+  File zipFile=new File(srcPath);
+  if (zipFile.isDirectory() || !zipFile.exists()) {
+    throw new IllegalArgumentException(OPTION_SRC.getArgName() + " file does does exist");
+  }
+  File tempFolder=File.createTempFile("_unzip","folder");
+  tempFolder.deleteOnExit();
+  tempFolder.delete();
+  tempFolder.mkdir();
+  ZipFileUtils.decompressZipfileToDirectory(srcPath,tempFolder);
+  if (tempFolder.list().length != 1) {
+    throw new IllegalStateException(tempFolder.list().toString());
+  }
+  injest(tempFolder.listFiles()[0].getAbsoluteFile());
+}
