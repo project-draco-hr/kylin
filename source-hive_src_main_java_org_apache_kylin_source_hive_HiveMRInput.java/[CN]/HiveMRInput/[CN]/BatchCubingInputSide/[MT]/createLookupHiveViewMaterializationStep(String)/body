@@ -3,12 +3,9 @@
   step.setName(ExecutableConstants.STEP_NAME_MATERIALIZE_HIVE_VIEW_IN_LOOKUP);
   HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
   KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
-  CubeManager cubeMgr=CubeManager.getInstance(kylinConfig);
-  String cubeName=seg.getRealization().getName();
-  CubeDesc cubeDesc=cubeMgr.getCube(cubeName).getDescriptor();
   MetadataManager metadataManager=MetadataManager.getInstance(kylinConfig);
   final Set<TableDesc> lookupViewsTables=Sets.newHashSet();
-  for (  LookupDesc lookupDesc : cubeDesc.getModel().getLookups()) {
+  for (  LookupDesc lookupDesc : flatDesc.getDataModel().getLookups()) {
     TableDesc tableDesc=metadataManager.getTableDesc(lookupDesc.getTable());
     if (TableDesc.TABLE_TYPE_VIRTUAL_VIEW.equalsIgnoreCase(tableDesc.getTableType())) {
       lookupViewsTables.add(tableDesc);

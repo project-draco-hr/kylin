@@ -1,9 +1,9 @@
 {
-  final Map<String,String> tableAliasMap=buildTableAliasMap(intermediateTableDesc.getDataModel());
+  final Map<String,String> tableAliasMap=buildTableAliasMap(flatDesc.getDataModel());
   final StringBuilder sql=new StringBuilder();
-  final String factTbl=intermediateTableDesc.getDataModel().getFactTable();
+  final String factTbl=flatDesc.getDataModel().getFactTable();
   sql.append("dfs -mkdir -p " + outputDir + ";\n");
   sql.append("INSERT OVERWRITE DIRECTORY '" + outputDir + "' SELECT count(*) FROM "+ factTbl+ " "+ tableAliasMap.get(factTbl)+ "\n");
-  appendWhereStatement(intermediateTableDesc,sql,tableAliasMap);
+  appendWhereStatement(flatDesc,sql,tableAliasMap);
   return sql.toString();
 }

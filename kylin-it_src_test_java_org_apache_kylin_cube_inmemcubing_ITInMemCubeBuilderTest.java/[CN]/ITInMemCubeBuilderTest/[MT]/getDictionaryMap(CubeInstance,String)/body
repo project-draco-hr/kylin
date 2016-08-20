@@ -1,8 +1,8 @@
 {
   Map<TblColRef,Dictionary<String>> result=Maps.newHashMap();
   CubeDesc desc=cube.getDescriptor();
-  CubeJoinedFlatTableDesc flatTableDesc=new CubeJoinedFlatTableDesc(desc,null);
-  int nColumns=flatTableDesc.getColumnList().size();
+  CubeJoinedFlatTableDesc flatTableDesc=new CubeJoinedFlatTableDesc(desc);
+  int nColumns=flatTableDesc.getAllColumns().size();
   List<TblColRef> columns=Cuboid.getBaseCuboid(desc).getColumns();
   for (int c=0; c < columns.size(); c++) {
     TblColRef col=columns.get(c);

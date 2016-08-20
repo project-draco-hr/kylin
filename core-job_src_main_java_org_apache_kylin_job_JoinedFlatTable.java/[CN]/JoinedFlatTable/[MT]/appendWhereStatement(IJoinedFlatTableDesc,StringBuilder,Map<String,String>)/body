@@ -1,22 +1,16 @@
 {
-  if (!(intermediateTableDesc instanceof CubeJoinedFlatTableDesc)) {
-    return;
-  }
-  CubeJoinedFlatTableDesc desc=(CubeJoinedFlatTableDesc)intermediateTableDesc;
   boolean hasCondition=false;
   StringBuilder whereBuilder=new StringBuilder();
   whereBuilder.append("WHERE");
-  CubeDesc cubeDesc=desc.getCubeDesc();
-  DataModelDesc model=cubeDesc.getModel();
+  DataModelDesc model=flatDesc.getDataModel();
   if (model.getFilterCondition() != null && model.getFilterCondition().equals("") == false) {
     whereBuilder.append(" (").append(model.getFilterCondition()).append(") ");
     hasCondition=true;
   }
-  CubeSegment cubeSegment=desc.getCubeSegment();
-  if (null != cubeSegment) {
-    PartitionDesc partDesc=model.getPartitionDesc();
-    long dateStart=cubeSegment.getDateRangeStart();
-    long dateEnd=cubeSegment.getDateRangeEnd();
+  PartitionDesc partDesc=model.getPartitionDesc();
+  if (partDesc != null && partDesc.getPartitionDateColumn() != null) {
+    long dateStart=flatDesc.getSourceOffsetStart();
+    long dateEnd=flatDesc.getSourceOffsetEnd();
     if (!(dateStart == 0 && dateEnd == Long.MAX_VALUE)) {
       whereBuilder.append(hasCondition ? " AND (" : " (");
       whereBuilder.append(partDesc.getPartitionConditionBuilder().buildDateRangeCondition(partDesc,dateStart,dateEnd,tableAliasMap));

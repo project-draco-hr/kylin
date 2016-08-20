@@ -1,9 +1,5 @@
 {
-  if (!(intermediateTableDesc instanceof CubeJoinedFlatTableDesc)) {
-    return;
-  }
-  CubeJoinedFlatTableDesc desc=(CubeJoinedFlatTableDesc)intermediateTableDesc;
-  TblColRef distDcol=desc.getCubeDesc().getDistributedByColumn();
+  TblColRef distDcol=flatDesc.getDistributedBy();
   if (distDcol != null) {
     String tblAlias=tableAliasMap.get(distDcol.getTable());
     sql.append(" DISTRIBUTE BY ").append(tblAlias).append(".").append(distDcol.getName());

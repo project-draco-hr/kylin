@@ -1,0 +1,14 @@
+{
+  Set<String> usedTableIdentities=Sets.newHashSet();
+  for (  TblColRef col : flatDesc.getAllColumns()) {
+    usedTableIdentities.add(col.getTable());
+  }
+  List<JoinDesc> result=Lists.newArrayList();
+  for (  LookupDesc lookup : flatDesc.getDataModel().getLookups()) {
+    String table=lookup.getTableDesc().getIdentity();
+    if (usedTableIdentities.contains(table)) {
+      result.add(lookup.getJoin());
+    }
+  }
+  return result;
+}

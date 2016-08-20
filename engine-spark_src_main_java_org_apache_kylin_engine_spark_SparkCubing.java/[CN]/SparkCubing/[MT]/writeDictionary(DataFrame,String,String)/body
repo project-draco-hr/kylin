@@ -5,7 +5,7 @@
   final String[] columns=intermediateTable.columns();
   final CubeDesc cubeDesc=cubeInstance.getDescriptor();
   final HashMap<Integer,TblColRef> tblColRefMap=Maps.newHashMap();
-  final CubeJoinedFlatTableDesc flatTableDesc=new CubeJoinedFlatTableDesc(cubeDesc,null);
+  final CubeJoinedFlatTableDesc flatTableDesc=new CubeJoinedFlatTableDesc(cubeDesc);
   final List<TblColRef> baseCuboidColumn=Cuboid.findById(cubeDesc,Cuboid.getBaseCuboidId(cubeDesc)).getColumns();
   final long start=System.currentTimeMillis();
   final RowKeyDesc rowKey=cubeDesc.getRowkey();

@@ -1,8 +1,8 @@
 {
   final String cubeName=CubingExecutableUtil.getCubeName(jobFlow.getParams());
   final String rowCountOutputDir=JobBuilderSupport.getJobWorkingDir(conf,jobFlow.getId()) + "/row_count";
-  jobFlow.addTask(createCountHiveTableStep(conf,flatHiveTableDesc,jobFlow.getId(),rowCountOutputDir));
-  jobFlow.addTask(createFlatHiveTableStep(conf,flatHiveTableDesc,jobFlow.getId(),cubeName,rowCountOutputDir));
+  jobFlow.addTask(createCountHiveTableStep(conf,flatDesc,jobFlow.getId(),rowCountOutputDir));
+  jobFlow.addTask(createFlatHiveTableStep(conf,flatDesc,jobFlow.getId(),cubeName,rowCountOutputDir));
   AbstractExecutable task=createLookupHiveViewMaterializationStep(jobFlow.getId());
   if (task != null) {
     jobFlow.addTask(task);

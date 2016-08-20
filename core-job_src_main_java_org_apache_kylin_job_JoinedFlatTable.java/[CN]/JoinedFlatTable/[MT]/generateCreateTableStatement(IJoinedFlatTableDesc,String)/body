@@ -1,17 +1,17 @@
 {
   StringBuilder ddl=new StringBuilder();
-  ddl.append("CREATE EXTERNAL TABLE IF NOT EXISTS " + intermediateTableDesc.getTableName() + "\n");
+  ddl.append("CREATE EXTERNAL TABLE IF NOT EXISTS " + flatDesc.getTableName() + "\n");
   ddl.append("(" + "\n");
-  for (int i=0; i < intermediateTableDesc.getColumnList().size(); i++) {
-    IntermediateColumnDesc col=intermediateTableDesc.getColumnList().get(i);
+  for (int i=0; i < flatDesc.getAllColumns().size(); i++) {
+    TblColRef col=flatDesc.getAllColumns().get(i);
     if (i > 0) {
       ddl.append(",");
     }
-    ddl.append(colName(col.getCanonicalName()) + " " + getHiveDataType(col.getDataType())+ "\n");
+    ddl.append(colName(col.getCanonicalName()) + " " + getHiveDataType(col.getDatatype())+ "\n");
   }
   ddl.append(")" + "\n");
   ddl.append("ROW FORMAT DELIMITED FIELDS TERMINATED BY '\\177'" + "\n");
   ddl.append("STORED AS SEQUENCEFILE" + "\n");
-  ddl.append("LOCATION '" + getTableDir(intermediateTableDesc,storageDfsDir) + "';").append("\n");
+  ddl.append("LOCATION '" + getTableDir(flatDesc,storageDfsDir) + "';").append("\n");
   return ddl.toString();
 }

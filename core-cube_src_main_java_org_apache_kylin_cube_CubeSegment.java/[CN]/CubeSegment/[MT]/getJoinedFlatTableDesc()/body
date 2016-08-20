@@ -1,3 +1,3 @@
 {
-  return new CubeJoinedFlatTableDesc(this.getCubeDesc(),this);
+  return new CubeJoinedFlatTableDesc(this);
 }

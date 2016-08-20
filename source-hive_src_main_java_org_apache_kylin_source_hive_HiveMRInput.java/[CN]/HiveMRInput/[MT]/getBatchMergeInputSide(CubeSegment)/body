@@ -1,7 +1,0 @@
-{
-  return new IMRBatchMergeInputSide(){
-    @Override public void addStepPhase1_MergeDictionary(    DefaultChainedExecutable jobFlow){
-    }
-  }
-;
-}

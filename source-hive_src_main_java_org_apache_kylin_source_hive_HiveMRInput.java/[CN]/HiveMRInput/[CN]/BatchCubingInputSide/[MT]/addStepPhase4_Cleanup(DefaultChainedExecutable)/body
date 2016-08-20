@@ -2,7 +2,7 @@
   GarbageCollectionStep step=new GarbageCollectionStep();
   step.setName(ExecutableConstants.STEP_NAME_GARBAGE_COLLECTION);
   step.setIntermediateTableIdentity(getIntermediateTableIdentity());
-  step.setExternalDataPath(JoinedFlatTable.getTableDir(flatHiveTableDesc,JobBuilderSupport.getJobWorkingDir(conf,jobFlow.getId())));
+  step.setExternalDataPath(JoinedFlatTable.getTableDir(flatDesc,JobBuilderSupport.getJobWorkingDir(conf,jobFlow.getId())));
   step.setHiveViewIntermediateTableIdentities(hiveViewIntermediateTables);
   jobFlow.addTask(step);
 }

@@ -1,7 +1,7 @@
 {
-  List<JoinDesc> cubeJoins=intermediateTableDesc.getUsedJoinsSet();
+  List<JoinDesc> cubeJoins=getUsedJoinsSet(flatDesc);
   Set<String> dimTableCache=new HashSet<String>();
-  DataModelDesc dataModelDesc=intermediateTableDesc.getDataModel();
+  DataModelDesc dataModelDesc=flatDesc.getDataModel();
   String factTableName=dataModelDesc.getFactTable();
   String factTableAlias=tableAliasMap.get(factTableName);
   sql.append("FROM " + factTableName + " as "+ factTableAlias+ " \n");

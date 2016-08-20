@@ -1,5 +1,4 @@
 {
   super(mergeSegment,submitter);
   this.outputSide=MRUtil.getBatchMergeOutputSide2(seg);
-  this.inputSide=MRUtil.getBatchMergeInputSide(seg);
 }
