@@ -2,6 +2,5 @@
   this.cubeDesc=cubeDesc;
   this.cubeSegment=cubeSegment;
   this.columnIndexMap=Maps.newHashMap();
-  this.cubeJoins=new ArrayList<JoinDesc>(cubeDesc.getDimensions().size());
   parseCubeDesc();
 }
