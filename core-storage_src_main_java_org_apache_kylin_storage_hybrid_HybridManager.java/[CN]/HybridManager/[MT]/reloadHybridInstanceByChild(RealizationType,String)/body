@@ -1,8 +1,8 @@
 {
   for (  HybridInstance hybridInstance : hybridMap.values()) {
     boolean includes=false;
-    for (    IRealization realization : hybridInstance.getRealizations()) {
-      if (realization.getType() == type && realization.getName().equalsIgnoreCase(realizationName)) {
+    for (    RealizationEntry realizationEntry : hybridInstance.getRealizationEntries()) {
+      if (realizationEntry.getType() == type && realizationEntry.getRealization().equalsIgnoreCase(realizationName)) {
         includes=true;
         break;
       }
