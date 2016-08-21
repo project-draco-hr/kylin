@@ -40,7 +40,7 @@
       }
     }
     queryService.logQuery(sqlRequest,sqlResponse);
-    QueryMetricsUtil.updateMetrics(sqlRequest,sqlResponse,metricsMap);
+    QueryMetricsFacade.updateMetrics(sqlRequest,sqlResponse);
     if (sqlResponse.getIsException())     throw new InternalErrorException(sqlResponse.getExceptionMessage());
     return sqlResponse;
   }

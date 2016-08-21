@@ -1,0 +1,5 @@
+{
+  enabled=KylinConfig.getInstanceFromEnv().getQueryMetricsEnabled();
+  if (!enabled)   return;
+  DefaultMetricsSystem.initialize("Kylin");
+}

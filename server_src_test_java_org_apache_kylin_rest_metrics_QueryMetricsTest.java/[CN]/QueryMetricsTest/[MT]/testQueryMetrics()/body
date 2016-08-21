@@ -18,7 +18,7 @@
   results.add(list2);
   sqlResponse.setResults(results);
   sqlResponse.setStorageCacheUsed(true);
-  QueryMetricsUtil.updateMetrics(sqlRequest,sqlResponse,metricsMap);
+  QueryMetricsFacade.updateMetrics(sqlRequest,sqlResponse);
   Thread.sleep(2000);
   Assert.assertEquals(1L,mBeanServer.getAttribute(objectName,"QueryCount"));
   Assert.assertEquals(1L,mBeanServer.getAttribute(objectName,"QuerySuccessCount"));
@@ -40,7 +40,7 @@
   sqlResponse2.setDuration(10);
   sqlResponse2.setCube("test_cube");
   sqlResponse2.setIsException(true);
-  QueryMetricsUtil.updateMetrics(sqlRequest,sqlResponse2,metricsMap);
+  QueryMetricsFacade.updateMetrics(sqlRequest,sqlResponse2);
   Thread.sleep(2000);
   Assert.assertEquals(2L,mBeanServer.getAttribute(objectName,"QueryCount"));
   Assert.assertEquals(1L,mBeanServer.getAttribute(objectName,"QuerySuccessCount"));

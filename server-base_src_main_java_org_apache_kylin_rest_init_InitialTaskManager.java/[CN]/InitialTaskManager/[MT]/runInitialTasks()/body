@@ -1,4 +1,5 @@
 {
+  QueryMetricsFacade.init();
   KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   String initTasks=kylinConfig.getInitTasks();
   if (!StringUtils.isEmpty(initTasks)) {

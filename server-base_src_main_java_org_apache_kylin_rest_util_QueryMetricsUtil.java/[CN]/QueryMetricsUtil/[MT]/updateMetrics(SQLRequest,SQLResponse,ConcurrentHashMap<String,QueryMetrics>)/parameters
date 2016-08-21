@@ -1,3 +1,0 @@
-SQLRequest sqlRequest
-SQLResponse sqlResponse
-ConcurrentHashMap<String,QueryMetrics> metricsMap
