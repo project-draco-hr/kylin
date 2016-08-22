@@ -1,3 +1,13 @@
 {
-  return cubeService.getCubes(cubeName,projectName,modelName,limit,offset);
+  List<CubeInstance> cubes;
+  cubes=cubeService.listAllCubes(cubeName,projectName,modelName);
+  int climit=(null == limit) ? cubes.size() : limit;
+  int coffset=(null == offset) ? 0 : offset;
+  if (cubes.size() <= coffset) {
+    return Collections.emptyList();
+  }
+  if ((cubes.size() - coffset) < climit) {
+    return cubes.subList(coffset,cubes.size());
+  }
+  return cubes.subList(coffset,coffset + climit);
 }
