@@ -1,0 +1,3 @@
+CubeDesc cubeDesc
+IJoinedFlatTableDesc flatDescIn
+Iterable<List<String>> streams

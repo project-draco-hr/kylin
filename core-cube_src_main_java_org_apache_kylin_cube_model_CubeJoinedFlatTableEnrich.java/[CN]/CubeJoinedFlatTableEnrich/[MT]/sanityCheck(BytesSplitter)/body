@@ -1,0 +1,6 @@
+{
+  int columnCount=flatDesc.getAllColumns().size();
+  if (columnCount != bytesSplitter.getBufferSize()) {
+    throw new IllegalArgumentException("Expect " + columnCount + " columns, but see "+ bytesSplitter.getBufferSize()+ " -- "+ bytesSplitter);
+  }
+}

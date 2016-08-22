@@ -1,8 +1,9 @@
 {
   final CubeManager cubeManager=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
   final CubeInstance cubeInstance=cubeManager.reloadCubeLocal(cubeName);
+  final IJoinedFlatTableDesc flatDesc=EngineFactory.getJoinedFlatTableDesc(cubeInstance.getDescriptor());
   long start=System.currentTimeMillis();
-  final Map<Long,HyperLogLogPlusCounter> samplingResult=CubingUtils.sampling(cubeInstance.getDescriptor(),Lists.transform(streamingBatch.getMessages(),new Function<StreamingMessage,List<String>>(){
+  final Map<Long,HyperLogLogPlusCounter> samplingResult=CubingUtils.sampling(cubeInstance.getDescriptor(),flatDesc,Lists.transform(streamingBatch.getMessages(),new Function<StreamingMessage,List<String>>(){
     @Nullable @Override public List<String> apply(    @Nullable StreamingMessage input){
       return input.getData();
     }

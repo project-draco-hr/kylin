@@ -1,0 +1,3 @@
+CubeDesc cubeDesc
+IJoinedFlatTableDesc flatDesc
+Map<TblColRef,Dictionary<String>> dictionaryMap

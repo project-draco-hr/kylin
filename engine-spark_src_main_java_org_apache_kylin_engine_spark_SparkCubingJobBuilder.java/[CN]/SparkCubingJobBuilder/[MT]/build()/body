@@ -1,8 +1,8 @@
 {
-  final CubingJob result=CubingJob.createBuildJob((CubeSegment)seg,submitter,config);
+  final CubingJob result=CubingJob.createBuildJob(seg,submitter,config);
   final String jobId=result.getId();
   inputSide.addStepPhase1_CreateFlatTable(result);
-  final IJoinedFlatTableDesc joinedFlatTableDesc=seg.getJoinedFlatTableDesc();
+  final IJoinedFlatTableDesc joinedFlatTableDesc=EngineFactory.getJoinedFlatTableDesc(seg);
   final String tableName=joinedFlatTableDesc.getTableName();
   logger.info("intermediate table:" + tableName);
   final SparkExecutable sparkExecutable=new SparkExecutable();

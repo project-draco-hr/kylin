@@ -1,0 +1,28 @@
+{
+  long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
+  Cuboid baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
+  List<TblColRef> cuboidColumns=baseCuboid.getColumns();
+  int rowkeyColCount=cubeDesc.getRowkey().getRowKeyColumns().length;
+  rowKeyColumnIndexes=new int[rowkeyColCount];
+  for (int i=0; i < rowkeyColCount; i++) {
+    TblColRef col=cuboidColumns.get(i);
+    rowKeyColumnIndexes[i]=flatDesc.getColumnIndex(col);
+  }
+  List<MeasureDesc> measures=cubeDesc.getMeasures();
+  int measureSize=measures.size();
+  measureColumnIndexes=new int[measureSize][];
+  for (int i=0; i < measureSize; i++) {
+    FunctionDesc func=measures.get(i).getFunction();
+    List<TblColRef> colRefs=func.getParameter().getColRefs();
+    if (colRefs == null) {
+      measureColumnIndexes[i]=null;
+    }
+ else {
+      measureColumnIndexes[i]=new int[colRefs.size()];
+      for (int j=0; j < colRefs.size(); j++) {
+        TblColRef c=colRefs.get(j);
+        measureColumnIndexes[i][j]=flatDesc.getColumnIndex(c);
+      }
+    }
+  }
+}

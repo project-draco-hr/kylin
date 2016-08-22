@@ -2,8 +2,9 @@
   try {
     CubeManager cubeManager=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
     final CubeInstance cubeInstance=cubeManager.reloadCubeLocal(cubeName);
+    final IJoinedFlatTableDesc flatDesc=EngineFactory.getJoinedFlatTableDesc(cubeInstance.getDescriptor());
     LinkedBlockingQueue<List<String>> blockingQueue=new LinkedBlockingQueue<List<String>>();
-    InMemCubeBuilder inMemCubeBuilder=new InMemCubeBuilder(cubeInstance.getDescriptor(),dictionaryMap);
+    InMemCubeBuilder inMemCubeBuilder=new InMemCubeBuilder(cubeInstance.getDescriptor(),flatDesc,dictionaryMap);
     final Future<?> future=Executors.newCachedThreadPool().submit(inMemCubeBuilder.buildAsRunnable(blockingQueue,cuboidWriter));
     processedRowCount=streamingBatch.getMessages().size();
     for (    StreamingMessage streamingMessage : streamingBatch.getMessages()) {

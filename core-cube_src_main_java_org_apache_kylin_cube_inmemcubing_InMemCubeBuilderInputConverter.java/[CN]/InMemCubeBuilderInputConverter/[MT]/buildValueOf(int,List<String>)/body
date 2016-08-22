@@ -1,7 +1,7 @@
 {
   MeasureDesc measure=measureDescs[idxOfMeasure];
   FunctionDesc function=measure.getFunction();
-  int[] colIdxOnFlatTable=intermediateTableDesc.getMeasureColumnIndexes()[idxOfMeasure];
+  int[] colIdxOnFlatTable=flatDesc.getMeasureColumnIndexes()[idxOfMeasure];
   int paramCount=function.getParameterCount();
   String[] inputToMeasure=new String[paramCount];
   ParameterDesc param=function.getParameter();

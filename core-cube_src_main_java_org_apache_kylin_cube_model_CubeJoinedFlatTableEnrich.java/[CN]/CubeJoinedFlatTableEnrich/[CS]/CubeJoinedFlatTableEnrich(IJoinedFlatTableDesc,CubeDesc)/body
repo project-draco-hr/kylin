@@ -1,0 +1,6 @@
+{
+  if (cubeDesc.getModel() != flatDesc.getDataModel())   throw new IllegalArgumentException();
+  this.cubeDesc=cubeDesc;
+  this.flatDesc=flatDesc;
+  parseCubeDesc();
+}

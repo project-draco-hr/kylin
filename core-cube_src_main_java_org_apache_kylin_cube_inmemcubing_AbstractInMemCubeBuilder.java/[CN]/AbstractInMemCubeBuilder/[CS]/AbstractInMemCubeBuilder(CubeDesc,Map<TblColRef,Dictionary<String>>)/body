@@ -1,6 +1,0 @@
-{
-  if (cubeDesc == null)   throw new NullPointerException();
-  if (dictionaryMap == null)   throw new IllegalArgumentException("dictionary cannot be null");
-  this.cubeDesc=cubeDesc;
-  this.dictionaryMap=dictionaryMap;
-}

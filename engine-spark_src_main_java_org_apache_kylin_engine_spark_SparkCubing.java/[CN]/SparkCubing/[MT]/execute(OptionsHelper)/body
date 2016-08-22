@@ -41,7 +41,7 @@
     }
   }
 );
-  final Map<Long,HyperLogLogPlusCounter> samplingResult=sampling(rowJavaRDD,cubeName);
+  final Map<Long,HyperLogLogPlusCounter> samplingResult=sampling(rowJavaRDD,cubeName,segmentId);
   final byte[][] splitKeys=createHTable(cubeName,segmentId,samplingResult);
   final String hfile=build(rowJavaRDD,cubeName,segmentId,splitKeys);
   bulkLoadHFile(cubeName,segmentId,hfile);

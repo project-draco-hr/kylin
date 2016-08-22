@@ -1,5 +1,6 @@
 {
-  InMemCubeBuilder cubeBuilder=new InMemCubeBuilder(cube.getDescriptor(),dictionaryMap);
+  IJoinedFlatTableDesc flatDesc=EngineFactory.getJoinedFlatTableDesc(cube.getDescriptor());
+  InMemCubeBuilder cubeBuilder=new InMemCubeBuilder(cube.getDescriptor(),flatDesc,dictionaryMap);
   cubeBuilder.setConcurrentThreads(nThreads);
   ArrayBlockingQueue<List<String>> queue=new ArrayBlockingQueue<List<String>>(1000);
   ExecutorService executorService=Executors.newSingleThreadExecutor();

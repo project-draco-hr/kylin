@@ -2,7 +2,8 @@
   ArrayBlockingQueue<List<String>> queue=new ArrayBlockingQueue<List<String>>(1000);
   ExecutorService executorService=Executors.newSingleThreadExecutor();
   long randSeed=System.currentTimeMillis();
-  DoggedCubeBuilder doggedBuilder=new DoggedCubeBuilder(cube.getDescriptor(),dictionaryMap);
+  IJoinedFlatTableDesc flatDesc=EngineFactory.getJoinedFlatTableDesc(cube.getDescriptor());
+  DoggedCubeBuilder doggedBuilder=new DoggedCubeBuilder(cube.getDescriptor(),flatDesc,dictionaryMap);
   doggedBuilder.setConcurrentThreads(THREADS);
   doggedBuilder.setSplitRowThreshold(SPLIT_ROWS);
   FileRecordWriter doggedResult=new FileRecordWriter();
@@ -12,7 +13,7 @@
     future.get();
     doggedResult.close();
   }
-  InMemCubeBuilder inmemBuilder=new InMemCubeBuilder(cube.getDescriptor(),dictionaryMap);
+  InMemCubeBuilder inmemBuilder=new InMemCubeBuilder(cube.getDescriptor(),flatDesc,dictionaryMap);
   inmemBuilder.setConcurrentThreads(THREADS);
   FileRecordWriter inmemResult=new FileRecordWriter();
 {

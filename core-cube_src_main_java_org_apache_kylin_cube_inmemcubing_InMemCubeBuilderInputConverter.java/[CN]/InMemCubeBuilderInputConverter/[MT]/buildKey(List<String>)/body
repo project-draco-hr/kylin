@@ -1,8 +1,8 @@
 {
-  int keySize=intermediateTableDesc.getRowKeyColumnIndexes().length;
+  int keySize=flatDesc.getRowKeyColumnIndexes().length;
   Object[] key=new Object[keySize];
   for (int i=0; i < keySize; i++) {
-    key[i]=row.get(intermediateTableDesc.getRowKeyColumnIndexes()[i]);
+    key[i]=row.get(flatDesc.getRowKeyColumnIndexes()[i]);
     if (key[i] != null && isNull(Bytes.toBytes((String)key[i]))) {
       key[i]=null;
     }

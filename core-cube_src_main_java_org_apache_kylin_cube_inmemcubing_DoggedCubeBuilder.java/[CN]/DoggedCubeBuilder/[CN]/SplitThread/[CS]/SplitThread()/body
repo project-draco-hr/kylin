@@ -1,5 +1,5 @@
 {
-  this.builder=new InMemCubeBuilder(cubeDesc,dictionaryMap);
+  this.builder=new InMemCubeBuilder(cubeDesc,flatDesc,dictionaryMap);
   this.builder.setConcurrentThreads(taskThreadCount);
   this.builder.setReserveMemoryMB(reserveMemoryMB);
 }

@@ -3,9 +3,10 @@
   final CubeManager cubeManager=CubeManager.getInstance(kylinConfig);
   final CubeInstance cubeInstance=cubeManager.reloadCubeLocal(cubeName);
   final String[] columns=intermediateTable.columns();
+  final CubeSegment seg=cubeInstance.getSegmentById(segmentId);
   final CubeDesc cubeDesc=cubeInstance.getDescriptor();
   final HashMap<Integer,TblColRef> tblColRefMap=Maps.newHashMap();
-  final CubeJoinedFlatTableDesc flatTableDesc=new CubeJoinedFlatTableDesc(cubeDesc);
+  final CubeJoinedFlatTableEnrich flatDesc=new CubeJoinedFlatTableEnrich(EngineFactory.getJoinedFlatTableDesc(seg),cubeDesc);
   final List<TblColRef> baseCuboidColumn=Cuboid.findById(cubeDesc,Cuboid.getBaseCuboidId(cubeDesc)).getColumns();
   final long start=System.currentTimeMillis();
   final RowKeyDesc rowKey=cubeDesc.getRowkey();
@@ -14,7 +15,7 @@
     if (!rowKey.isUseDictionary(col)) {
       continue;
     }
-    final int rowKeyColumnIndex=flatTableDesc.getRowKeyColumnIndexes()[i];
+    final int rowKeyColumnIndex=flatDesc.getRowKeyColumnIndexes()[i];
     tblColRefMap.put(rowKeyColumnIndex,col);
   }
   Map<TblColRef,Dictionary<String>> dictionaryMap=Maps.newHashMap();
@@ -50,10 +51,10 @@
 )));
   }
   final long end=System.currentTimeMillis();
-  CubingUtils.writeDictionary(cubeInstance.getSegmentById(segmentId),dictionaryMap,start,end);
+  CubingUtils.writeDictionary(seg,dictionaryMap,start,end);
   try {
     CubeUpdate cubeBuilder=new CubeUpdate(cubeInstance);
-    cubeBuilder.setToUpdateSegs(cubeInstance.getSegmentById(segmentId));
+    cubeBuilder.setToUpdateSegs(seg);
     cubeManager.updateCube(cubeBuilder);
   }
  catch (  IOException e) {

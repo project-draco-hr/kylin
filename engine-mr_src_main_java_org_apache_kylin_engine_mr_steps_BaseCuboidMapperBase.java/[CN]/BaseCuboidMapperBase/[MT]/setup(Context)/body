@@ -13,7 +13,7 @@
   cubeSegment=cube.getSegmentById(segmentID);
   long baseCuboidId=Cuboid.getBaseCuboidId(cubeDesc);
   baseCuboid=Cuboid.findById(cubeDesc,baseCuboidId);
-  intermediateTableDesc=new CubeJoinedFlatTableDesc(cubeSegment);
+  intermediateTableDesc=new CubeJoinedFlatTableEnrich(EngineFactory.getJoinedFlatTableDesc(cubeSegment),cubeDesc);
   bytesSplitter=new BytesSplitter(200,16384);
   rowKeyEncoder=AbstractRowKeyEncoder.createInstance(cubeSegment,baseCuboid);
   measureCodec=new BufferedMeasureEncoder(cubeDesc.getMeasures());
