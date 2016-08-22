@@ -1,4 +1,6 @@
 {
+  System.setProperty("kylin.query.metrics.enabled","true");
+  QueryMetricsFacade.init();
   SQLRequest sqlRequest=new SQLRequest();
   sqlRequest.setSql("select * from TEST_KYLIN_FACT");
   sqlRequest.setProject("default");
@@ -45,4 +47,5 @@
   Assert.assertEquals(2L,mBeanServer.getAttribute(objectName,"QueryCount"));
   Assert.assertEquals(1L,mBeanServer.getAttribute(objectName,"QuerySuccessCount"));
   Assert.assertEquals(1L,mBeanServer.getAttribute(objectName,"QueryFailCount"));
+  System.clearProperty("kylin.query.metrics.enabled");
 }
