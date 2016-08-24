@@ -6,34 +6,24 @@
   HashMap<TblColRef,String> colToBuilderMap=new HashMap<>();
   HashMap<TblColRef,TblColRef> colToReuseColMap=new HashMap<>();
   for (  DictionaryDesc dictDesc : dictDescs) {
-    TblColRef dictCol=dictDesc.getResuseColumnRef();
-    if (dictCol == null) {
-      dictCol=dictDesc.getColumnRef();
-    }
+    TblColRef dictCol=dictDesc.getColumnRef();
     if (dictCol == null) {
       context.addResult(ResultLevel.ERROR,"Some column in dictionaries not found");
       return;
     }
-    String builder=dictDesc.getBuilderClass();
-    String oldBuilder=colToBuilderMap.put(dictCol,builder);
-    if (oldBuilder != null && !oldBuilder.equals(builder)) {
-      context.addResult(ResultLevel.ERROR,"Column " + dictCol + " has inconsistent builders "+ builder+ " and "+ oldBuilder);
-      return;
-    }
-    if (dictDesc.getResuseColumnRef() != null) {
-      TblColRef oldReuseCol=colToReuseColMap.put(dictDesc.getColumnRef(),dictDesc.getResuseColumnRef());
-      if (oldReuseCol != null && !dictDesc.getResuseColumnRef().equals(oldReuseCol)) {
-        context.addResult(ResultLevel.ERROR,"Column " + dictDesc.getColumnRef() + " reuse inconsistent column "+ dictDesc.getResuseColumnRef()+ " and "+ oldReuseCol);
+    TblColRef reuseCol=dictDesc.getResuseColumnRef();
+    if (reuseCol == null) {
+      String builder=dictDesc.getBuilderClass();
+      String oldBuilder=colToBuilderMap.put(dictCol,builder);
+      if (oldBuilder != null && !oldBuilder.equals(builder)) {
+        context.addResult(ResultLevel.ERROR,"Column " + dictCol + " has inconsistent builders "+ builder+ " and "+ oldBuilder);
         return;
       }
     }
-  }
-  RowKeyColDesc[] rowKeyColDescs=cubeDesc.getRowkey().getRowKeyColumns();
-  for (  RowKeyColDesc desc : rowKeyColDescs) {
-    if (desc.isUsingDictionary()) {
-      String builder=colToBuilderMap.get(desc.getColRef());
-      if (builder != null && builder.equals(GlobalDictionaryBuilder.class.getName())) {
-        context.addResult(ResultLevel.ERROR,"Column " + desc.getColRef() + " used as dimension and conflict with GlobalDictBuilder");
+ else {
+      TblColRef oldReuseCol=colToReuseColMap.put(dictCol,reuseCol);
+      if (oldReuseCol != null && !reuseCol.equals(oldReuseCol)) {
+        context.addResult(ResultLevel.ERROR,"Column " + dictCol + " reuse inconsistent column "+ reuseCol+ " and "+ oldReuseCol);
         return;
       }
     }
