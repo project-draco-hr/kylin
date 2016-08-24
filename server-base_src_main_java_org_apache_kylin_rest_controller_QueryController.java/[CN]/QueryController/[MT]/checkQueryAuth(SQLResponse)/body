@@ -1,6 +1,17 @@
 {
   if (!sqlResponse.getIsException() && KylinConfig.getInstanceFromEnv().isQuerySecureEnabled()) {
-    CubeInstance cubeInstance=this.queryService.getCubeManager().getCube(sqlResponse.getCube());
-    queryService.checkAuthorization(cubeInstance);
+    HybridInstance hybridInstance=this.queryService.getHybridManager().getHybridInstance(sqlResponse.getCube());
+    if (hybridInstance != null) {
+      if (checkHybridAuthorization(hybridInstance)) {
+        logger.info(hybridInstance.getName() + " ACL validation success.");
+      }
+ else {
+        throw new AccessDeniedException("Access is denied");
+      }
+    }
+ else {
+      CubeInstance cubeInstance=this.queryService.getCubeManager().getCube(sqlResponse.getCube());
+      queryService.checkAuthorization(cubeInstance);
+    }
   }
 }
