@@ -1,4 +1,7 @@
 {
+  if (realization == null) {
+    return;
+  }
   logger.info("Deal with realization {} of type {}",realization.getName(),realization.getType());
   if (realization instanceof CubeInstance) {
     CubeInstance cube=(CubeInstance)realization;
