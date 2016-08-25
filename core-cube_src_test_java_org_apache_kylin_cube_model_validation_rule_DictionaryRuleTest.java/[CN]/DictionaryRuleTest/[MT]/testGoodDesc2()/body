@@ -1,0 +1,3 @@
+{
+  testDictionaryDesc(null,DictionaryDesc.create("lstg_site_id",null,GlobalDictionaryBuilder.class.getName()));
+}

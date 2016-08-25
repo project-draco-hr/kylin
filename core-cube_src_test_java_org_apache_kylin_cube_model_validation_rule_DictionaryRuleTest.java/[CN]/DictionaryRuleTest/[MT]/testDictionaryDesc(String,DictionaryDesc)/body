@@ -9,6 +9,11 @@
   ValidateContext vContext=new ValidateContext();
   rule.validate(desc,vContext);
   vContext.print(System.out);
-  assertTrue(vContext.getResults().length >= 1);
-  assertEquals(expectMessage,vContext.getResults()[0].getMessage());
+  if (expectMessage == null) {
+    assertTrue(vContext.getResults().length == 0);
+  }
+ else {
+    assertTrue(vContext.getResults().length >= 1);
+    assertEquals(expectMessage,vContext.getResults()[0].getMessage());
+  }
 }
