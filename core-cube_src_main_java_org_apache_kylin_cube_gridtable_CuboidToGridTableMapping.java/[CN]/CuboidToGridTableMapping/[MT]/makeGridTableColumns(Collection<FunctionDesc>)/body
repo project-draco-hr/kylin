@@ -1,0 +1,9 @@
+{
+  BitSet result=new BitSet();
+  for (  FunctionDesc metric : metrics) {
+    int idx=this.getIndexOf(metric);
+    if (idx < 0)     throw new IllegalStateException(metric + " not found in " + this);
+    result.set(idx);
+  }
+  return new ImmutableBitSet(result);
+}

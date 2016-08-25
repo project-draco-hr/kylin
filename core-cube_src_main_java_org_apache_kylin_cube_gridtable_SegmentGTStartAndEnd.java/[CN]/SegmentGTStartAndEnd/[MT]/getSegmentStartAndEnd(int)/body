@@ -1,0 +1,17 @@
+{
+  ByteArray start;
+  if (segment.getDateRangeStart() != Long.MIN_VALUE) {
+    start=encodeTime(segment.getDateRangeStart(),index,1);
+  }
+ else {
+    start=new ByteArray();
+  }
+  ByteArray end;
+  if (segment.getDateRangeEnd() != Long.MAX_VALUE) {
+    end=encodeTime(segment.getDateRangeEnd(),index,-1);
+  }
+ else {
+    end=new ByteArray();
+  }
+  return Pair.newPair(start,end);
+}

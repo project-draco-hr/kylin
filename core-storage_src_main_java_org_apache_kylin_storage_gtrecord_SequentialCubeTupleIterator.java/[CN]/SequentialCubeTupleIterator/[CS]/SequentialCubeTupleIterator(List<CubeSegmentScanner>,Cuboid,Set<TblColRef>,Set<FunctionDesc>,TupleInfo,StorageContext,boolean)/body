@@ -1,0 +1,21 @@
+{
+  this.context=context;
+  this.scanners=scanners;
+  segmentCubeTupleIterators=Lists.newArrayList();
+  for (  CubeSegmentScanner scanner : scanners) {
+    segmentCubeTupleIterators.add(new SegmentCubeTupleIterator(scanner,cuboid,selectedDimensions,selectedMetrics,returnTupleInfo,context));
+  }
+  this.storagePushDownLimit=context.getStoragePushDownLimit();
+  if (!supportLimitPushDown || storagePushDownLimit > KylinConfig.getInstanceFromEnv().getStoragePushDownLimitMax()) {
+    tupleIterator=Iterators.concat(segmentCubeTupleIterators.iterator());
+  }
+ else {
+    Iterator<Iterator<ITuple>> transformed=Iterators.transform(segmentCubeTupleIterators.iterator(),new Function<SegmentCubeTupleIterator,Iterator<ITuple>>(){
+      @Nullable @Override public Iterator<ITuple> apply(      @Nullable SegmentCubeTupleIterator input){
+        return input;
+      }
+    }
+);
+    tupleIterator=new SortedIteratorMergerWithLimit<ITuple>(transformed,storagePushDownLimit,segmentCubeTupleIterators.get(0).getCubeTupleConverter().getTupleDimensionComparator()).getIterator();
+  }
+}

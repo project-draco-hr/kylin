@@ -1,0 +1,4 @@
+ISegment segment
+Cuboid cuboid
+GTScanRequest scanRequest
+String gtStorage

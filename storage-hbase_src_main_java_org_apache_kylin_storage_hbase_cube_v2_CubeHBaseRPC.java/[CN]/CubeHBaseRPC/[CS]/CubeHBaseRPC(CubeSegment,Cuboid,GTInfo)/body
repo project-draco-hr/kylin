@@ -1,7 +1,0 @@
-{
-  this.cubeSeg=cubeSeg;
-  this.cuboid=cuboid;
-  this.fullGTInfo=fullGTInfo;
-  this.fuzzyKeyEncoder=new FuzzyKeyEncoder(cubeSeg,cuboid);
-  this.fuzzyMaskEncoder=new FuzzyMaskEncoder(cubeSeg,cuboid);
-}

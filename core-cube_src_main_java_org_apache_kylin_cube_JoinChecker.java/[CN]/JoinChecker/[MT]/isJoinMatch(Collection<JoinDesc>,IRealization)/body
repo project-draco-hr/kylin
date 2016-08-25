@@ -1,0 +1,23 @@
+{
+  List<JoinDesc> realizationsJoins=Lists.newArrayList();
+  for (  LookupDesc lookupDesc : realization.getDataModelDesc().getLookups()) {
+    realizationsJoins.add(lookupDesc.getJoin());
+  }
+  for (  JoinDesc j : joins) {
+    String pTable=j.getPrimaryKeyColumns()[0].getTable();
+    String factTable=realization.getFactTable();
+    if (factTable.equals(pTable)) {
+      j.swapPKFK();
+    }
+    String fTable=j.getForeignKeyColumns()[0].getTable();
+    if (!factTable.equals(fTable)) {
+      logger.info("Fact Table" + factTable + " not matched in join: "+ j+ " on cube "+ realization.getName());
+      return false;
+    }
+    if (!realizationsJoins.contains(j)) {
+      logger.info("Query joins don't macth on cube " + realization.getName());
+      return false;
+    }
+  }
+  return true;
+}

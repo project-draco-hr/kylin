@@ -9,5 +9,4 @@
   this.aggregations=aggregateFunnc;
   this.sortMeasures=sortMeasures;
   this.sortOrders=sortOrders;
-  this.isRawQuery=this.groupbyColumns.isEmpty() && this.metricColumns.isEmpty();
 }

@@ -1,0 +1,8 @@
+{
+  Preconditions.checkArgument(segment instanceof CubeSegment,"segment must be CubeSegment");
+  this.cubeSeg=(CubeSegment)segment;
+  this.cuboid=cuboid;
+  this.fullGTInfo=fullGTInfo;
+  this.fuzzyKeyEncoder=new FuzzyKeyEncoder(cubeSeg,cuboid);
+  this.fuzzyMaskEncoder=new FuzzyMaskEncoder(cubeSeg,cuboid);
+}

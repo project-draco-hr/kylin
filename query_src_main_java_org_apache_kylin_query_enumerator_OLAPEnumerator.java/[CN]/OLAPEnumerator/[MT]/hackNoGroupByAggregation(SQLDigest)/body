@@ -1,5 +1,10 @@
 {
-  if (!sqlDigest.groupbyColumns.isEmpty() || !sqlDigest.metricColumns.isEmpty())   return;
+  if (!(olapContext.realization instanceof CubeInstance)) {
+    return;
+  }
+  if (!sqlDigest.isRawQuery()) {
+    return;
+  }
   logger.info("No group by and aggregation found in this query, will hack some result for better look of output...");
   IRealization cube=olapContext.realization;
   boolean isSelectAll=sqlDigest.allColumns.isEmpty() || sqlDigest.allColumns.equals(sqlDigest.filterColumns);

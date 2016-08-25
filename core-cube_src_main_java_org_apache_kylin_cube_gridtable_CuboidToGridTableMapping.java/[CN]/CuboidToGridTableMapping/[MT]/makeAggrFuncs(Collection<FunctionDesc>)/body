@@ -1,0 +1,17 @@
+{
+  List<FunctionDesc> metricList=Lists.newArrayList(metrics);
+  Collections.sort(metricList,new Comparator<FunctionDesc>(){
+    @Override public int compare(    FunctionDesc o1,    FunctionDesc o2){
+      int a=CuboidToGridTableMapping.this.getIndexOf(o1);
+      int b=CuboidToGridTableMapping.this.getIndexOf(o2);
+      return a - b;
+    }
+  }
+);
+  String[] result=new String[metricList.size()];
+  int i=0;
+  for (  FunctionDesc metric : metricList) {
+    result[i++]=metric.getExpression();
+  }
+  return result;
+}

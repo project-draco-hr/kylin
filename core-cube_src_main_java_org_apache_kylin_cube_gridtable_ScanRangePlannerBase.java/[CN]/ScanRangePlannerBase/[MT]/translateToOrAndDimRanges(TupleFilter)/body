@@ -1,0 +1,15 @@
+{
+  List<Collection<ColumnRange>> result=Lists.newArrayList();
+  if (flatFilter == null) {
+    result.add(Collections.<ColumnRange>emptyList());
+    return result;
+  }
+  for (  TupleFilter andFilter : flatFilter.getChildren()) {
+    if (andFilter.getOperator() != TupleFilter.FilterOperatorEnum.AND)     throw new IllegalStateException("Filter should be AND instead of " + andFilter);
+    Collection<ColumnRange> andRanges=translateToAndDimRanges(andFilter.getChildren());
+    if (andRanges != null) {
+      result.add(andRanges);
+    }
+  }
+  return preEvaluateConstantConditions(result);
+}

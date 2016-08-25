@@ -1,7 +1,7 @@
 {
   CapabilityResult result=new CapabilityResult();
   result.capable=false;
-  boolean isJoinMatch=isJoinMatch(digest.joinDescs,cube);
+  boolean isJoinMatch=JoinChecker.isJoinMatch(digest.joinDescs,cube);
   if (!isJoinMatch) {
     logger.info("Exclude cube " + cube.getName() + " because unmatched joins");
     return result;
@@ -25,6 +25,14 @@
   if (cube.getStorageType() == IStorageAware.ID_HBASE && MassInTupleFilter.containsMassInTupleFilter(digest.filter)) {
     logger.info("Exclude cube " + cube.getName() + " because only v2 storage + v2 query engine supports massin");
     return result;
+  }
+  if (digest.isRawQuery() && cube.getFactTable().equals(digest.factTable)) {
+    result.influences.add(new CapabilityInfluence(){
+      @Override public double suggestCostMultiplier(){
+        return 100;
+      }
+    }
+);
   }
   result.capable=true;
   return result;

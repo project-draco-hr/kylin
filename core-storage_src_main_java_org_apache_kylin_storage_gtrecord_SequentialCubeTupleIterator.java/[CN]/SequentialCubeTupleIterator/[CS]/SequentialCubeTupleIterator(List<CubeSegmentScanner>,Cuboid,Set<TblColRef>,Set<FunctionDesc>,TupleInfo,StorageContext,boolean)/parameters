@@ -1,0 +1,7 @@
+List<CubeSegmentScanner> scanners
+Cuboid cuboid
+Set<TblColRef> selectedDimensions
+Set<FunctionDesc> selectedMetrics
+TupleInfo returnTupleInfo
+StorageContext context
+boolean supportLimitPushDown

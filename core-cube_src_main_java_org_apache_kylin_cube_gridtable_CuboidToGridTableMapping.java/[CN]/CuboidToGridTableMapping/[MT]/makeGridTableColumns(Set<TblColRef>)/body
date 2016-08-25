@@ -1,0 +1,8 @@
+{
+  BitSet result=new BitSet();
+  for (  TblColRef dim : dimensions) {
+    int idx=this.getIndexOf(dim);
+    if (idx >= 0)     result.set(idx);
+  }
+  return new ImmutableBitSet(result);
+}

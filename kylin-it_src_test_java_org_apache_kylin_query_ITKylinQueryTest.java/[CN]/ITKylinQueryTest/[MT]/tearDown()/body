@@ -1,5 +1,5 @@
 {
-  Candidate.restorePriorities();
   printInfo("tearDown in ITKylinQueryTest");
+  Candidate.restorePriorities();
   clean();
 }

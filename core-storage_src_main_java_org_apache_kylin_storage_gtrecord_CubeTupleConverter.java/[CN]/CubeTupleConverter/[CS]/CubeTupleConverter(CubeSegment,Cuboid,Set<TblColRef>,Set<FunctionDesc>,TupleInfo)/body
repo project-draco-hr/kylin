@@ -22,34 +22,34 @@
   for (int i=0; i < temp.size(); i++) {
     dimensionIndexOnTuple[i]=temp.get(i);
   }
-  int iii=0;
+  int i=0;
   for (  TblColRef dim : selectedDimensions) {
-    int i=mapping.getIndexOf(dim);
-    gtColIdx[iii]=i;
-    tupleIdx[iii]=tupleInfo.hasColumn(dim) ? tupleInfo.getColumnIndex(dim) : -1;
-    iii++;
+    int dimIndex=mapping.getIndexOf(dim);
+    gtColIdx[i]=dimIndex;
+    tupleIdx[i]=tupleInfo.hasColumn(dim) ? tupleInfo.getColumnIndex(dim) : -1;
+    i++;
   }
   for (  FunctionDesc metric : selectedMetrics) {
-    int i=mapping.getIndexOf(metric);
-    gtColIdx[iii]=i;
+    int metricIndex=mapping.getIndexOf(metric);
+    gtColIdx[i]=metricIndex;
     if (metric.needRewrite()) {
       String rewriteFieldName=metric.getRewriteFieldName();
-      tupleIdx[iii]=tupleInfo.hasField(rewriteFieldName) ? tupleInfo.getFieldIndex(rewriteFieldName) : -1;
+      tupleIdx[i]=tupleInfo.hasField(rewriteFieldName) ? tupleInfo.getFieldIndex(rewriteFieldName) : -1;
     }
  else {
       TblColRef col=metric.getParameter().getColRefs().get(0);
-      tupleIdx[iii]=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
+      tupleIdx[i]=tupleInfo.hasColumn(col) ? tupleInfo.getColumnIndex(col) : -1;
     }
     MeasureType<?> measureType=metric.getMeasureType();
     if (measureType.needAdvancedTupleFilling()) {
       Map<TblColRef,Dictionary<String>> dictionaryMap=buildDictionaryMap(measureType.getColumnsNeedDictionary(metric));
       advMeasureFillers.add(measureType.getAdvancedTupleFiller(metric,returnTupleInfo,dictionaryMap));
-      advMeasureIndexInGTValues.add(iii);
+      advMeasureIndexInGTValues.add(i);
     }
  else {
-      measureTypes[iii]=measureType;
+      measureTypes[i]=measureType;
     }
-    iii++;
+    i++;
   }
   Map<Array<TblColRef>,List<DeriveInfo>> hostToDerivedInfo=cuboid.getCubeDesc().getHostToDerivedInfo(cuboidDims,null);
   for (  Entry<Array<TblColRef>,List<DeriveInfo>> entry : hostToDerivedInfo.entrySet()) {

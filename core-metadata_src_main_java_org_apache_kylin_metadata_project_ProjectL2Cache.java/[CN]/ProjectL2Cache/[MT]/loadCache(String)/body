@@ -31,6 +31,10 @@
  else {
       logger.warn("Realization '" + entry + "' defined under project '"+ project+ "' is not found");
     }
+    IRealization parasite=registry.getRealization(RealizationType.INVERTED_INDEX,entry.getRealization());
+    if (parasite != null) {
+      projectCache.realizations.add(parasite);
+    }
   }
   for (  IRealization realization : projectCache.realizations) {
     if (sanityCheck(projectCache,realization)) {

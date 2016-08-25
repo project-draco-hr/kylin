@@ -1,9 +1,0 @@
-{
-  super(cubeSeg,cuboid,fullGTInfo);
-  MassInTupleFilter.VALUE_PROVIDER_FACTORY=new MassInValueProviderFactoryImpl(new MassInValueProviderFactoryImpl.DimEncAware(){
-    @Override public DimensionEncoding getDimEnc(    TblColRef col){
-      return fullGTInfo.getCodeSystem().getDimEnc(col.getColumnDesc().getZeroBasedIndex());
-    }
-  }
-);
-}

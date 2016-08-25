@@ -3,9 +3,9 @@
   this.maxFuzzyKeys=KylinConfig.getInstanceFromEnv().getQueryScanFuzzyKeyMax();
   this.gtInfo=info;
   IGTComparator comp=gtInfo.getCodeSystem().getComparator();
-  this.rangeStartComparator=getRangeStartComparator(comp);
-  this.rangeEndComparator=getRangeEndComparator(comp);
-  this.rangeStartEndComparator=getRangeStartEndComparator(comp);
+  this.rangeStartComparator=RecordComparators.getRangeStartComparator(comp);
+  this.rangeEndComparator=RecordComparators.getRangeEndComparator(comp);
+  this.rangeStartEndComparator=RecordComparators.getRangeStartEndComparator(comp);
   this.gtFilter=gtFilter;
   this.gtStartAndEnd=gtStartAndEnd;
   this.gtPartitionCol=gtPartitionCol;

@@ -1,0 +1,11 @@
+{
+  if (filter == null)   return null;
+  TupleFilter flatFilter=filter.flatFilter();
+  if (flatFilter.getOperator() == TupleFilter.FilterOperatorEnum.AND) {
+    LogicalTupleFilter f=new LogicalTupleFilter(TupleFilter.FilterOperatorEnum.OR);
+    f.addChild(flatFilter);
+    flatFilter=f;
+  }
+  if (flatFilter.getOperator() != TupleFilter.FilterOperatorEnum.OR)   throw new IllegalStateException();
+  return flatFilter;
+}

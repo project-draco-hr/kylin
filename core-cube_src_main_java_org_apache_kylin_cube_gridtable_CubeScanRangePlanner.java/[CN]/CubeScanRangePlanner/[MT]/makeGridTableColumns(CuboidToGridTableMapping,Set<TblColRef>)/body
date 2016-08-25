@@ -1,8 +1,0 @@
-{
-  BitSet result=new BitSet();
-  for (  TblColRef dim : dimensions) {
-    int idx=mapping.getIndexOf(dim);
-    if (idx >= 0)     result.set(idx);
-  }
-  return new ImmutableBitSet(result);
-}

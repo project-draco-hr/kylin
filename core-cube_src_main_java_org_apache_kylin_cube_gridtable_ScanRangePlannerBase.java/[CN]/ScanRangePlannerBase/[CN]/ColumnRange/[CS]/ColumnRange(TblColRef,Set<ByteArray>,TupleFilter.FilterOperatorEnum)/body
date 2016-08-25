@@ -1,0 +1,28 @@
+{
+  this.column=column;
+  if (op == TupleFilter.FilterOperatorEnum.EQ || op == TupleFilter.FilterOperatorEnum.IN || op == TupleFilter.FilterOperatorEnum.LTE || op == TupleFilter.FilterOperatorEnum.GTE) {
+    isBoundryInclusive=true;
+  }
+switch (op) {
+case EQ:
+case IN:
+    valueSet=new HashSet<ByteArray>(values);
+  refreshBeginEndFromEquals();
+break;
+case LT:
+case LTE:
+end=rangeEndComparator.comparator.max(values);
+break;
+case GT:
+case GTE:
+begin=rangeStartComparator.comparator.min(values);
+break;
+case NEQ:
+case NOTIN:
+case ISNULL:
+case ISNOTNULL:
+break;
+default :
+throw new UnsupportedOperationException(op.name());
+}
+}
