@@ -1,0 +1,9 @@
+{
+  HybridInstance hybridInstance=getHybridManager().getHybridInstance(cubeName);
+  if (hybridInstance != null) {
+    checkHybridAuthorization(hybridInstance);
+    return;
+  }
+  CubeInstance cubeInstance=getCubeManager().getCube(cubeName);
+  checkCubeAuthorization(cubeInstance);
+}

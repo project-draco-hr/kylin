@@ -1,0 +1,14 @@
+{
+  List<RealizationEntry> realizationEntries=hybridInstance.getRealizationEntries();
+  for (  RealizationEntry realizationEntry : realizationEntries) {
+    String reName=realizationEntry.getRealization();
+    if (RealizationType.CUBE == realizationEntry.getType()) {
+      CubeInstance cubeInstance=getCubeManager().getCube(reName);
+      checkCubeAuthorization(cubeInstance);
+    }
+ else     if (RealizationType.HYBRID == realizationEntry.getType()) {
+      HybridInstance innerHybridInstance=getHybridManager().getHybridInstance(reName);
+      checkHybridAuthorization(innerHybridInstance);
+    }
+  }
+}
