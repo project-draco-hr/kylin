@@ -1,4 +1,5 @@
 {
+  RawQueryLastHacker.hackNoAggregations(sqlDigest,cubeDesc);
   notifyBeforeStorageQuery(sqlDigest);
   Collection<TblColRef> groups=sqlDigest.groupbyColumns;
   TupleFilter filter=sqlDigest.filter;

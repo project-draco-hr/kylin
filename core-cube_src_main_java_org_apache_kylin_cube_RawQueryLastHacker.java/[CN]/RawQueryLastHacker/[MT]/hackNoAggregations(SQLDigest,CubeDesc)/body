@@ -1,20 +1,16 @@
 {
-  if (!(olapContext.realization instanceof CubeInstance)) {
-    return;
-  }
-  if (!sqlDigest.isRawQuery()) {
+  if (!sqlDigest.isRawQuery) {
     return;
   }
   logger.info("No group by and aggregation found in this query, will hack some result for better look of output...");
-  IRealization cube=olapContext.realization;
   boolean isSelectAll=sqlDigest.allColumns.isEmpty() || sqlDigest.allColumns.equals(sqlDigest.filterColumns);
-  for (  TblColRef col : cube.getAllColumns()) {
-    if (col.getTable().equals(sqlDigest.factTable) && (cube.getAllDimensions().contains(col) || isSelectAll)) {
+  for (  TblColRef col : cubeDesc.listAllColumns()) {
+    if (col.getTable().equals(sqlDigest.factTable) && (cubeDesc.listDimensionColumnsIncludingDerived().contains(col) || isSelectAll)) {
       sqlDigest.allColumns.add(col);
     }
   }
   for (  TblColRef col : sqlDigest.allColumns) {
-    if (cube.getAllDimensions().contains(col)) {
+    if (cubeDesc.listDimensionColumnsIncludingDerived().contains(col)) {
       sqlDigest.groupbyColumns.add(col);
     }
  else {
@@ -25,7 +21,7 @@
       sumFunc.setExpression("SUM");
       sumFunc.setParameter(colParameter);
       boolean measureHasSum=false;
-      for (      MeasureDesc colMeasureDesc : cube.getMeasures()) {
+      for (      MeasureDesc colMeasureDesc : cubeDesc.getMeasures()) {
         if (colMeasureDesc.getFunction().equals(sumFunc)) {
           measureHasSum=true;
           break;

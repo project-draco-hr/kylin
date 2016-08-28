@@ -1,4 +1,0 @@
-{
-  sqlDigest.groupbyColumns.addAll(measureDesc.getFunction().getParameter().getColRefs());
-  sqlDigest.aggregations.remove(measureDesc.getFunction());
-}

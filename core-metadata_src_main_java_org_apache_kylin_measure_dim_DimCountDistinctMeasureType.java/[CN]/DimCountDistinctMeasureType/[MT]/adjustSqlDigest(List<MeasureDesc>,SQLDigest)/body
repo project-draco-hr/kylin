@@ -1,0 +1,6 @@
+{
+  for (  MeasureDesc measureDesc : measureDescs) {
+    sqlDigest.groupbyColumns.addAll(measureDesc.getFunction().getParameter().getColRefs());
+    sqlDigest.aggregations.remove(measureDesc.getFunction());
+  }
+}

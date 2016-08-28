@@ -4,7 +4,6 @@
   bindVariable(olapContext.filter);
   olapContext.resetSQLDigest();
   SQLDigest sqlDigest=olapContext.getSQLDigest();
-  hackNoGroupByAggregation(sqlDigest);
   IStorageQuery storageEngine=StorageFactory.createQuery(olapContext.realization);
   ITupleIterator iterator=storageEngine.search(olapContext.storageContext,sqlDigest,olapContext.returnTupleInfo);
   if (logger.isDebugEnabled()) {
