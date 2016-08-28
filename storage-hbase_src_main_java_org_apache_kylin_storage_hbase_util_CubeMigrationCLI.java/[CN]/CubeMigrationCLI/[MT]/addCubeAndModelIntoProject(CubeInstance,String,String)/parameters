@@ -1,2 +1,3 @@
+CubeInstance srcCube
 String cubeName
 String projectName

@@ -95,11 +95,14 @@ break;
 }
 case ADD_INTO_PROJECT:
 {
-String cubeName=(String)opt.params[0];
-String projectName=(String)opt.params[1];
+CubeInstance srcCube=(CubeInstance)opt.params[0];
+String cubeName=(String)opt.params[1];
+String projectName=(String)opt.params[2];
+String modelName=srcCube.getDescriptor().getModelName();
 String projectResPath=ProjectInstance.concatResourcePath(projectName);
 Serializer<ProjectInstance> projectSerializer=new JsonSerializer<ProjectInstance>(ProjectInstance.class);
 ProjectInstance project=dstStore.getResource(projectResPath,ProjectInstance.class,projectSerializer);
+project.addModel(modelName);
 project.removeRealization(RealizationType.CUBE,cubeName);
 project.addRealizationEntry(RealizationType.CUBE,cubeName);
 dstStore.putResource(projectResPath,project,projectSerializer);
