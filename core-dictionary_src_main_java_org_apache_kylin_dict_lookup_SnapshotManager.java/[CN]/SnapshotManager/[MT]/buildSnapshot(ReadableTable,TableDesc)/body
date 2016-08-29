@@ -1,5 +1,5 @@
 {
-  SnapshotTable snapshot=new SnapshotTable(table,tableDesc.getName());
+  SnapshotTable snapshot=new SnapshotTable(table,tableDesc.getIdentity());
   snapshot.updateRandomUuid();
   String dup=checkDupByInfo(snapshot);
   if (dup != null) {
