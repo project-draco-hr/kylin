@@ -1,6 +1,7 @@
 {
   KylinConfig config=KylinConfig.getInstanceFromEnv();
   LinkedList<String> columnValues=new LinkedList<String>();
+  long currentRowTime=-1;
   for (  ColumnDesc cDesc : MetadataManager.getInstance(config).getTableDesc(factTableName).getColumns()) {
     String colName=cDesc.getName();
     if (factTableCol2LookupCol.containsKey(colName)) {
@@ -13,6 +14,17 @@
  else {
       columnValues.add(createDefaultsCell(cDesc.getTypeName()));
       defaultColumns.add(colName);
+    }
+    if (cDesc.getRef().equals(this.cube.getDescriptor().getModel().getPartitionDesc().getPartitionDateColumnRef())) {
+      currentRowTime=format.parse(columnValues.get(columnValues.size() - 1)).getTime();
+    }
+  }
+  for (  Integer index : differentiateColumns) {
+    if (currentRowTime >= differentiateBoundary) {
+      columnValues.set(index,columnValues.get(index) + "_B");
+    }
+ else {
+      columnValues.set(index,columnValues.get(index) + "_A");
     }
   }
   return columnValues;

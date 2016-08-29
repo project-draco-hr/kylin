@@ -1,5 +1,22 @@
 {
   loadConfig();
+  int index=0;
+  for (  ColumnDesc cDesc : MetadataManager.getInstance(KylinConfig.getInstanceFromEnv()).getTableDesc(factTableName).getColumns()) {
+    ColumnConfig cConfig=genConf.getColumnConfigByName(cDesc.getName());
+    if (cConfig != null && cConfig.isDifferentiateByDateBoundary()) {
+      if (!cDesc.getType().isStringFamily()) {
+        throw new IllegalStateException("differentiateByDateBoundary only applies to text types, actual:" + cDesc.getType());
+      }
+      if (genConf.getDifferentiateBoundary() == null) {
+        throw new IllegalStateException("differentiateBoundary not provided");
+      }
+      if (differentiateBoundary == -1) {
+        differentiateBoundary=format.parse(genConf.getDifferentiateBoundary()).getTime();
+      }
+      differentiateColumns.add(index);
+    }
+    index++;
+  }
   TreeSet<String> factTableColumns=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
   for (  DimensionDesc dim : desc.getDimensions()) {
     for (    TblColRef col : dim.getColumnRefs()) {

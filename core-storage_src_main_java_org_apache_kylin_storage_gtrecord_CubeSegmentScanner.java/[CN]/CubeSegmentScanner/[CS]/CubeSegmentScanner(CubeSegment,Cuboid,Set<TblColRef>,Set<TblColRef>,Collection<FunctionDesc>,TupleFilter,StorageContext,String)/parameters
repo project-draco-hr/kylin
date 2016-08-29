@@ -3,6 +3,6 @@ Cuboid cuboid
 Set<TblColRef> dimensions
 Set<TblColRef> groups
 Collection<FunctionDesc> metrics
-TupleFilter filter
+TupleFilter originalfilter
 StorageContext context
 String gtStorage
