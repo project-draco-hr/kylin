@@ -1,0 +1,6 @@
+{
+  if (columnContainerFilter == null)   return null;
+  if (columnContainerFilter instanceof ColumnTupleFilter)   return ((ColumnTupleFilter)columnContainerFilter).getColumn();
+ else   if (columnContainerFilter instanceof BuiltInFunctionTupleFilter)   return ((BuiltInFunctionTupleFilter)columnContainerFilter).getColumn();
+  throw new UnsupportedOperationException("Wrong type TupleFilter in FunctionTupleFilter.");
+}

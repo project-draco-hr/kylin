@@ -1,6 +1,0 @@
-{
-  if (BuiltInMethod.MAP.containsKey(name)) {
-    this.method=BuiltInMethod.MAP.get(name).method;
-    isValid=true;
-  }
-}

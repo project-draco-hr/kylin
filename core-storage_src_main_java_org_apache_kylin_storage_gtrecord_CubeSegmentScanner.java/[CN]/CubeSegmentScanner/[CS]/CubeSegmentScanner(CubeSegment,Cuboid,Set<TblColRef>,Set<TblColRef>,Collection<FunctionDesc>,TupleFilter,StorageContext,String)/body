@@ -3,7 +3,7 @@
   this.cubeSeg=cubeSeg;
   byte[] serialize=TupleFilterSerializer.serialize(originalfilter,StringCodeSystem.INSTANCE);
   TupleFilter filter=TupleFilterSerializer.deserialize(serialize,StringCodeSystem.INSTANCE);
-  ITupleFilterTransformer translator=new BuildInFunctionTransformer(cubeSeg.getDimensionEncodingMap());
+  ITupleFilterTransformer translator=new BuiltInFunctionTransformer(cubeSeg.getDimensionEncodingMap());
   filter=translator.transform(filter);
   String plannerName=KylinConfig.getInstanceFromEnv().getQueryStorageVisitPlanner();
   CubeScanRangePlanner scanRangePlanner;

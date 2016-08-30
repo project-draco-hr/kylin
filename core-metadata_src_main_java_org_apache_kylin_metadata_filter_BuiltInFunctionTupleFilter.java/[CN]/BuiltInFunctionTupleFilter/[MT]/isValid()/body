@@ -1,0 +1,3 @@
+{
+  return isValidFunc && method != null && methodParams.size() == children.size();
+}

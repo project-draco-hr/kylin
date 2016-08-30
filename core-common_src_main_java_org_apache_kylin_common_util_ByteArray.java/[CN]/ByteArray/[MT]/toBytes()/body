@@ -1,0 +1,3 @@
+{
+  return Bytes.copy(this.array(),this.offset(),this.length());
+}

@@ -1,0 +1,28 @@
+{
+  TupleFilter translated=null;
+  if (tupleFilter instanceof CompareTupleFilter) {
+    translated=translateCompareTupleFilter((CompareTupleFilter)tupleFilter);
+    if (translated != null) {
+      logger.info("Translated {" + tupleFilter + "} to IN clause: {"+ translated+ "}");
+    }
+  }
+ else   if (tupleFilter instanceof BuiltInFunctionTupleFilter) {
+    translated=translateFunctionTupleFilter((BuiltInFunctionTupleFilter)tupleFilter);
+    if (translated != null) {
+      logger.info("Translated {" + tupleFilter + "} to IN clause: {"+ translated+ "}");
+    }
+  }
+ else   if (tupleFilter instanceof LogicalTupleFilter) {
+    @SuppressWarnings("unchecked") ListIterator<TupleFilter> childIterator=(ListIterator<TupleFilter>)tupleFilter.getChildren().listIterator();
+    while (childIterator.hasNext()) {
+      TupleFilter transformed=transform(childIterator.next());
+      if (transformed != null) {
+        childIterator.set(transformed);
+      }
+ else {
+        throw new IllegalStateException("Should not be null");
+      }
+    }
+  }
+  return translated == null ? tupleFilter : translated;
+}

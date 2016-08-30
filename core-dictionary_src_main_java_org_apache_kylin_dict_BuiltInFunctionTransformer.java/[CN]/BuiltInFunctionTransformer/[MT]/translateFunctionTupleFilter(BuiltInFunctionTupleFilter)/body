@@ -1,0 +1,21 @@
+{
+  if (!builtInFunctionTupleFilter.isValid())   return null;
+  TblColRef columnRef=builtInFunctionTupleFilter.getColumn();
+  Dictionary<?> dict=dimEncMap.getDictionary(columnRef);
+  if (dict == null)   return null;
+  CompareTupleFilter translated=new CompareTupleFilter(FilterOperatorEnum.IN);
+  translated.addChild(new ColumnTupleFilter(columnRef));
+  try {
+    for (int i=dict.getMinId(); i <= dict.getMaxId(); i++) {
+      Object dictVal=dict.getValueFromId(i);
+      if ((Boolean)builtInFunctionTupleFilter.invokeFunction(dictVal)) {
+        translated.addChild(new ConstantTupleFilter(dictVal));
+      }
+    }
+  }
+ catch (  Exception e) {
+    logger.debug(e.getMessage());
+    return null;
+  }
+  return translated;
+}
