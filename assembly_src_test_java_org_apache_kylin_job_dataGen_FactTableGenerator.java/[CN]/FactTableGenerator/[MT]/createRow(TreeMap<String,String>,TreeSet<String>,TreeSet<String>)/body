@@ -20,11 +20,13 @@
     }
   }
   for (  Integer index : differentiateColumns) {
-    if (currentRowTime >= differentiateBoundary) {
-      columnValues.set(index,columnValues.get(index) + "_B");
-    }
+    if (r.nextBoolean()) {
+      if (currentRowTime >= differentiateBoundary) {
+        columnValues.set(index,columnValues.get(index) + "_B");
+      }
  else {
-      columnValues.set(index,columnValues.get(index) + "_A");
+        columnValues.set(index,columnValues.get(index) + "_A");
+      }
     }
   }
   return columnValues;

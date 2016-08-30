@@ -1,3 +1,4 @@
 String joinType
 String coprocessorToggle
 String queryEngine
+boolean excludeViewCubes

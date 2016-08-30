@@ -1,5 +1,5 @@
 {
-  printInfo("Into combination join type: " + joinType + ", coprocessor toggle: "+ coprocessorToggle+ ", query engine: "+ queryEngine);
+  printInfo("Into combination join type: " + joinType + ", coprocessor toggle: "+ coprocessorToggle+ ", query engine: "+ queryEngine+ ", excludeViewCubes: "+ excludeViewCubes);
   ITKylinQueryTest.clean();
   ITKylinQueryTest.joinType=joinType;
   ITKylinQueryTest.setupAll();
@@ -10,6 +10,11 @@
     ObserverEnabler.forceCoprocessorOff();
   }
  else   if (coprocessorToggle.equals("unset")) {
+  }
+  RemoveBlackoutRealizationsRule.blackouts.clear();
+  if (excludeViewCubes) {
+    RemoveBlackoutRealizationsRule.blackouts.add("CUBE[name=test_kylin_cube_with_view_left_join_empty]");
+    RemoveBlackoutRealizationsRule.blackouts.add("CUBE[name=test_kylin_cube_with_view_inner_join_empty]");
   }
   if ("v1".equalsIgnoreCase(queryEngine))   HBaseStorage.overwriteStorageQuery=HBaseStorage.v1CubeStorageQuery;
  else   HBaseStorage.overwriteStorageQuery=null;

@@ -1,0 +1,3 @@
+{
+  execAndCompQuery(getQueryFolderPrefix() + "src/test/resources/query/sql_like",null,true);
+}

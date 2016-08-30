@@ -4,6 +4,8 @@
   priorities.put(RealizationType.HYBRID,0);
   priorities.put(RealizationType.CUBE,0);
   Candidate.setPriorities(priorities);
-  joinType="left";
+  joinType="inner";
   setupAll();
+  RemoveBlackoutRealizationsRule.blackouts.add("CUBE[name=test_kylin_cube_with_view_left_join_empty]");
+  RemoveBlackoutRealizationsRule.blackouts.add("CUBE[name=test_kylin_cube_with_view_inner_join_empty]");
 }
