@@ -1,0 +1,6 @@
+{
+  TopicPartition topicPartition=new TopicPartition(topic,partitionId);
+  consumer.assign(Arrays.asList(topicPartition));
+  consumer.seekToEnd(Arrays.asList(topicPartition));
+  return consumer.position(topicPartition);
+}

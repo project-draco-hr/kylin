@@ -1,0 +1,38 @@
+{
+  if (key == null) {
+    key=new LongWritable();
+  }
+  if (value == null) {
+    value=new BytesWritable();
+  }
+  if (messages == null) {
+    log.info("{} fetching offset {} ",topic + ":" + split.getBrokers()+ ":"+ partition,watermark);
+    TopicPartition topicPartition=new TopicPartition(topic,partition);
+    consumer.seek(topicPartition,watermark);
+    messages=consumer.poll(timeOut);
+    iterator=messages.iterator();
+    if (!iterator.hasNext()) {
+      log.info("No more messages, stop");
+      throw new IOException(String.format("Unexpected ending of stream, expected ending offset %d, but end at %d",latestOffset,watermark));
+    }
+  }
+  if (iterator.hasNext()) {
+    ConsumerRecord<String,String> message=iterator.next();
+    if (message.offset() >= latestOffset) {
+      log.info("Reach the end offset, stop reading.");
+      return false;
+    }
+    key.set(message.offset());
+    byte[] valuebytes=Bytes.toBytes(message.value());
+    value.set(valuebytes,0,valuebytes.length);
+    watermark=message.offset() + 1;
+    numProcessedMessages++;
+    if (!iterator.hasNext()) {
+      messages=null;
+      iterator=null;
+    }
+    return true;
+  }
+  log.error("Unexpected iterator end.");
+  throw new IOException(String.format("Unexpected ending of stream, expected ending offset %d, but end at %d",latestOffset,watermark));
+}

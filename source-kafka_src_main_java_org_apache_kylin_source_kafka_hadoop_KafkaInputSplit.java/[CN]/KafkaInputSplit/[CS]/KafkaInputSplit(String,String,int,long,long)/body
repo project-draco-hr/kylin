@@ -1,0 +1,7 @@
+{
+  this.brokers=brokers;
+  this.topic=topic;
+  this.partition=partition;
+  this.offsetStart=offsetStart;
+  this.offsetEnd=offsetEnd;
+}

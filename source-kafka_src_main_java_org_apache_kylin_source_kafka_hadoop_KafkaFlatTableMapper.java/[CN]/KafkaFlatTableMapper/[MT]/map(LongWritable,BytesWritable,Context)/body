@@ -1,0 +1,10 @@
+{
+  try {
+    outKey.set(Bytes.toBytes(key.get()));
+    outValue.set(value.getBytes(),0,value.getLength());
+    context.write(outKey,outValue);
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+}

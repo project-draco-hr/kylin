@@ -1,0 +1,14 @@
+{
+  String brokers=null;
+  for (  KafkaClusterConfig clusterConfig : kafkaConfig.getKafkaClusterConfigs()) {
+    for (    BrokerConfig brokerConfig : clusterConfig.getBrokerConfigs()) {
+      if (brokers == null) {
+        brokers=brokerConfig.getHost() + ":" + brokerConfig.getPort();
+      }
+ else {
+        brokers=brokers + "," + brokerConfig.getHost()+ ":"+ brokerConfig.getPort();
+      }
+    }
+  }
+  return brokers;
+}

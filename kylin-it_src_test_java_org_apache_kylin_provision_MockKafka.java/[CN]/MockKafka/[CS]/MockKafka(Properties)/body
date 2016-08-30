@@ -1,0 +1,4 @@
+{
+  KafkaConfig kafkaConfig=new KafkaConfig(properties);
+  kafkaServer=new KafkaServerStartable(kafkaConfig);
+}

@@ -1,0 +1,4 @@
+{
+  this.cubeSegment=(CubeSegment)flatDesc.getSegment();
+  return new BatchCubingInputSide(cubeSegment);
+}

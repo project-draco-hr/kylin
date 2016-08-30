@@ -1,0 +1,4 @@
+CubeSegment cubeSegment
+List<TblColRef> columns
+KafkaConfig kafkaConfig
+JobEngineConfig conf

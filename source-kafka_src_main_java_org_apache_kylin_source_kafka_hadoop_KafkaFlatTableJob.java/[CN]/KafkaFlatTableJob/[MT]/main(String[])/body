@@ -1,0 +1,5 @@
+{
+  KafkaFlatTableJob job=new KafkaFlatTableJob();
+  int exitCode=ToolRunner.run(job,args);
+  System.exit(exitCode);
+}

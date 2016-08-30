@@ -1,0 +1,6 @@
+{
+  KafkaConfigManager kafkaConfigManager=KafkaConfigManager.getInstance(KylinConfig.getInstanceFromEnv());
+  KafkaConfig kafkaConfig=kafkaConfigManager.getKafkaConfig(seg.getRealization().getFactTable());
+  List<TblColRef> columns=new CubeJoinedFlatTableDesc(seg).getAllColumns();
+  return new KafkaTableInputFormat(seg,columns,kafkaConfig,conf);
+}

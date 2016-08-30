@@ -1,0 +1,4 @@
+{
+  kafkaServer.shutdown();
+  System.out.println("embedded kafka down");
+}

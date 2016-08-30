@@ -1,0 +1,8 @@
+{
+  final SeekOffsetStep result=new SeekOffsetStep();
+  result.setName("Seek and update offset step");
+  CubingExecutableUtil.setCubeName(seg.getRealization().getName(),result.getParams());
+  CubingExecutableUtil.setSegmentId(seg.getUuid(),result.getParams());
+  CubingExecutableUtil.setCubingJobId(jobId,result.getParams());
+  return result;
+}

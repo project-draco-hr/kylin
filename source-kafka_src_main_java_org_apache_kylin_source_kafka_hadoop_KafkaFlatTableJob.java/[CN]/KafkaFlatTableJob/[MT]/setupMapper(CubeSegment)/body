@@ -1,0 +1,18 @@
+{
+  Map<Integer,Long> offsetStart=KafkaOffsetMapping.parseOffsetStart(cubeSeg);
+  Map<Integer,Long> offsetEnd=KafkaOffsetMapping.parseOffsetEnd(cubeSeg);
+  Integer minPartition=Collections.min(offsetStart.keySet());
+  Integer maxPartition=Collections.max(offsetStart.keySet());
+  job.getConfiguration().set(CONFIG_KAFKA_PARITION_MIN,minPartition.toString());
+  job.getConfiguration().set(CONFIG_KAFKA_PARITION_MAX,maxPartition.toString());
+  for (  Integer partition : offsetStart.keySet()) {
+    job.getConfiguration().set(CONFIG_KAFKA_PARITION_START + partition,offsetStart.get(partition).toString());
+    job.getConfiguration().set(CONFIG_KAFKA_PARITION_END + partition,offsetEnd.get(partition).toString());
+  }
+  job.setMapperClass(KafkaFlatTableMapper.class);
+  job.setInputFormatClass(KafkaInputFormat.class);
+  job.setOutputKeyClass(Text.class);
+  job.setOutputValueClass(Text.class);
+  job.setOutputFormatClass(SequenceFileOutputFormat.class);
+  job.setNumReduceTasks(0);
+}

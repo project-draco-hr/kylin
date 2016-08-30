@@ -1,0 +1,14 @@
+{
+  if (streamingParser == null) {
+    try {
+      streamingParser=StreamingParser.getStreamingParser(kafkaConfig.getParserName(),kafkaConfig.getParserProperties(),columns);
+    }
+ catch (    ReflectiveOperationException e) {
+      throw new IllegalArgumentException();
+    }
+  }
+  Text text=(Text)mapperInput;
+  ByteBuffer buffer=ByteBuffer.wrap(text.getBytes(),0,text.getLength()).slice();
+  StreamingMessage streamingMessage=streamingParser.parse(buffer);
+  return streamingMessage.getData().toArray(new String[streamingMessage.getData().size()]);
+}

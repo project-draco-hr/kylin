@@ -1,0 +1,5 @@
+{
+  this(createProperties(zkServerConnection,logDir,port,brokerId));
+  this.zkConnection=zkServerConnection;
+  System.out.println(String.format("Kafka %s:%s dir:%s",kafkaServer.serverConfig().brokerId(),kafkaServer.serverConfig().port(),kafkaServer.serverConfig().logDirs()));
+}

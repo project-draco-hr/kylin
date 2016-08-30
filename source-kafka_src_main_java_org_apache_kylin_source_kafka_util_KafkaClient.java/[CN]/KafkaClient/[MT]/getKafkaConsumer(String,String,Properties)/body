@@ -1,0 +1,5 @@
+{
+  Properties props=constructDefaultKafkaConsumerProperties(brokers,consumerGroup,properties);
+  KafkaConsumer<String,String> consumer=new KafkaConsumer<>(props);
+  return consumer;
+}

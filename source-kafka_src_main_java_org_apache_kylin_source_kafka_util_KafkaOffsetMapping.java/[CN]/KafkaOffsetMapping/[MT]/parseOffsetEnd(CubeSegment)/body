@@ -1,0 +1,3 @@
+{
+  return parseOffset(segment,OFFSET_END);
+}

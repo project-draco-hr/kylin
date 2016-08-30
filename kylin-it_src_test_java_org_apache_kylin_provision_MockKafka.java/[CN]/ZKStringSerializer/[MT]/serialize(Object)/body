@@ -1,0 +1,10 @@
+{
+  byte[] bytes=null;
+  try {
+    bytes=data.toString().getBytes("UTF-8");
+  }
+ catch (  UnsupportedEncodingException e) {
+    throw new ZkMarshallingError(e);
+  }
+  return bytes;
+}

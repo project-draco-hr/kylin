@@ -1,7 +1,7 @@
 {
   return Lists.transform(brokerConfigs,new Function<BrokerConfig,Broker>(){
     @Nullable @Override public Broker apply(    BrokerConfig input){
-      return new Broker(input.getId(),input.getHost(),input.getPort());
+      return new Broker(input.getId(),input.getHost(),input.getPort(),SecurityProtocol.PLAINTEXT);
     }
   }
 );

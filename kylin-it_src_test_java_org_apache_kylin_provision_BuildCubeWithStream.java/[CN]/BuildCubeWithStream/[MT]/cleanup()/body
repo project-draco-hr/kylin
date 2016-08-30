@@ -1,4 +1,0 @@
-{
-  cleanupOldStorage();
-  HBaseMetadataTestCase.staticCleanupTestMetadata();
-}

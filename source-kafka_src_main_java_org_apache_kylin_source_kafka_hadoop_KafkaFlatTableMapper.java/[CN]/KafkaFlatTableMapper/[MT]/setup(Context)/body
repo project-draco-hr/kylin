@@ -1,0 +1,4 @@
+{
+  Configuration conf=context.getConfiguration();
+  bindCurrentConfiguration(conf);
+}

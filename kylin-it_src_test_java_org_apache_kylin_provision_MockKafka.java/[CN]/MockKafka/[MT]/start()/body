@@ -1,0 +1,4 @@
+{
+  kafkaServer.startup();
+  System.out.println("embedded kafka is up");
+}

@@ -4,7 +4,8 @@
     return consumerCache.get(key);
   }
  else {
-    consumerCache.putIfAbsent(key,new SimpleConsumer(broker.host(),broker.port(),timeout,bufferSize,clientId));
+    BrokerEndPoint brokerEndPoint=broker.getBrokerEndPoint(SecurityProtocol.PLAINTEXT);
+    consumerCache.putIfAbsent(key,new SimpleConsumer(brokerEndPoint.host(),brokerEndPoint.port(),timeout,bufferSize,clientId));
     return consumerCache.get(key);
   }
 }

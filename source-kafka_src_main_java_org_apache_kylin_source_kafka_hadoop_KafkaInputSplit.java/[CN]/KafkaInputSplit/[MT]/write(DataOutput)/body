@@ -1,0 +1,7 @@
+{
+  Text.writeString(out,brokers);
+  Text.writeString(out,topic);
+  out.writeInt(partition);
+  out.writeLong(offsetStart);
+  out.writeLong(offsetEnd);
+}
