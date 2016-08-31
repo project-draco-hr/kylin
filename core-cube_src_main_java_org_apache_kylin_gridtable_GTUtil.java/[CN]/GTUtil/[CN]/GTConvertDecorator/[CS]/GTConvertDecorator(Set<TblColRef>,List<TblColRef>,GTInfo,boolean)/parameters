@@ -1,0 +1,4 @@
+Set<TblColRef> unevaluatableColumnCollector
+List<TblColRef> colMapping
+GTInfo info
+boolean encodeConstants

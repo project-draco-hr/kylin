@@ -1,0 +1,10 @@
+{
+  try {
+    buf.clear();
+    info.codeSystem.encodeColumnValue(col,value,roundingFlag,buf);
+    return ByteArray.copyOf(buf.array(),0,buf.position());
+  }
+ catch (  IllegalArgumentException ex) {
+    return null;
+  }
+}

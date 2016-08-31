@@ -1,0 +1,28 @@
+{
+  if (filter == null)   return null;
+  if (filter.getOperator() == TupleFilter.FilterOperatorEnum.NOT && !TupleFilter.isEvaluableRecursively(filter)) {
+    TupleFilter.collectColumns(filter,unevaluatableColumnCollector);
+    return ConstantTupleFilter.TRUE;
+  }
+  if (!filter.isEvaluable()) {
+    TupleFilter.collectColumns(filter,unevaluatableColumnCollector);
+    return ConstantTupleFilter.TRUE;
+  }
+  if (colMapping != null && filter instanceof ColumnTupleFilter) {
+    ColumnTupleFilter colFilter=(ColumnTupleFilter)filter;
+    int gtColIdx=colMapping.indexOf(colFilter.getColumn());
+    return new ColumnTupleFilter(info.colRef(gtColIdx));
+  }
+  if (encodeConstants && filter instanceof CompareTupleFilter) {
+    return encodeConstants((CompareTupleFilter)filter);
+  }
+  if (encodeConstants && filter instanceof BuiltInFunctionTupleFilter) {
+    if (!((BuiltInFunctionTupleFilter)filter).hasNested()) {
+      return encodeConstants((BuiltInFunctionTupleFilter)filter);
+    }
+ else {
+      throw new IllegalStateException("Nested BuiltInFunctionTupleFilter is not supported to be pushed down");
+    }
+  }
+  return filter;
+}

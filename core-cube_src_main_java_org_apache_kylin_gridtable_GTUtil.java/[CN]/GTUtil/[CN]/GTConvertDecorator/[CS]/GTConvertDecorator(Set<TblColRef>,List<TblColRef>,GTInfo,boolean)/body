@@ -1,0 +1,7 @@
+{
+  this.unevaluatableColumnCollector=unevaluatableColumnCollector;
+  this.colMapping=colMapping;
+  this.info=info;
+  this.encodeConstants=encodeConstants;
+  buf=ByteBuffer.allocate(info.getMaxColumnLength());
+}
