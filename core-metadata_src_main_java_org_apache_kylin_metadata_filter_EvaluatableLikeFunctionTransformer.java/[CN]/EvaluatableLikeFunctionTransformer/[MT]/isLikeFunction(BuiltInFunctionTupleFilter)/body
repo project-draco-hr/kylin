@@ -1,0 +1,3 @@
+{
+  return "like".equalsIgnoreCase(builtInFunctionTupleFilter.getName());
+}

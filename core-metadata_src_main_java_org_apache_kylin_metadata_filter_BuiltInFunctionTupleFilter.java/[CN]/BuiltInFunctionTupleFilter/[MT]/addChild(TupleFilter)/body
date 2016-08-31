@@ -5,6 +5,7 @@
     methodParams.add(null);
   }
  else   if (child instanceof ConstantTupleFilter) {
+    this.constantTupleFilter=(ConstantTupleFilter)child;
     Serializable constVal=(Serializable)child.getValues().iterator().next();
     try {
       Class<?> clazz=Primitives.wrap(method.getParameterTypes()[methodParams.size()]);

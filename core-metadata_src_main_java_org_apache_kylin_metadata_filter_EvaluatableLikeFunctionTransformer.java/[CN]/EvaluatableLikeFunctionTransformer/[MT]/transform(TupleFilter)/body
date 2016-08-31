@@ -1,0 +1,39 @@
+{
+  TupleFilter translated=null;
+  if (tupleFilter instanceof CompareTupleFilter) {
+    CompareTupleFilter compTupleFilter=(CompareTupleFilter)tupleFilter;
+    if (compTupleFilter.getFunction() != null && (compTupleFilter.getFunction() instanceof BuiltInFunctionTupleFilter)) {
+      throw new IllegalArgumentException("BuiltInFunctionTupleFilter not supported :" + ((BuiltInFunctionTupleFilter)compTupleFilter.getFunction()).getName());
+    }
+  }
+ else   if (tupleFilter instanceof BuiltInFunctionTupleFilter) {
+    BuiltInFunctionTupleFilter builtInFunctionTupleFilter=(BuiltInFunctionTupleFilter)tupleFilter;
+    if (isLikeFunction(builtInFunctionTupleFilter)) {
+      for (      TupleFilter child : builtInFunctionTupleFilter.getChildren()) {
+        if (!(child instanceof ColumnTupleFilter) && !(child instanceof ConstantTupleFilter)) {
+          throw new IllegalArgumentException("Only simple like clause is supported");
+        }
+      }
+      translated=new EvaluatableLikeFunction(builtInFunctionTupleFilter.getName());
+      for (      TupleFilter child : builtInFunctionTupleFilter.getChildren()) {
+        translated.addChild(child);
+      }
+    }
+ else {
+      throw new IllegalArgumentException("BuiltInFunctionTupleFilter not supported: " + builtInFunctionTupleFilter.getName());
+    }
+  }
+ else   if (tupleFilter instanceof LogicalTupleFilter) {
+    @SuppressWarnings("unchecked") ListIterator<TupleFilter> childIterator=(ListIterator<TupleFilter>)tupleFilter.getChildren().listIterator();
+    while (childIterator.hasNext()) {
+      TupleFilter transformed=transform(childIterator.next());
+      if (transformed != null) {
+        childIterator.set(transformed);
+      }
+ else {
+        throw new IllegalStateException("Should not be null");
+      }
+    }
+  }
+  return translated == null ? tupleFilter : translated;
+}

@@ -8,5 +8,6 @@
   if (needSort) {
     queryTable=new SortedTable(queryTable,columnNames);
   }
+  if (PRINT_RESULT)   printResult(queryTable);
   return queryTable;
 }

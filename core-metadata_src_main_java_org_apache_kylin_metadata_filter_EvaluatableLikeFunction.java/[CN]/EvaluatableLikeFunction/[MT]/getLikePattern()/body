@@ -1,0 +1,6 @@
+{
+  ByteArray byteArray=(ByteArray)methodParams.get(1);
+  StringSerializer s=new StringSerializer(DataType.getType("string"));
+  String pattern=s.deserialize(ByteBuffer.wrap(byteArray.array(),byteArray.offset(),byteArray.length()));
+  return pattern;
+}

@@ -1,0 +1,21 @@
+{
+  Object tupleValue=null;
+  for (  TupleFilter filter : this.children) {
+    if (!isConstant(filter)) {
+      filter.evaluate(tuple,cs);
+      tupleValue=filter.getValues().iterator().next();
+    }
+  }
+  if (cs.isNull(tupleValue)) {
+    return false;
+  }
+  ByteArray valueByteArray=(ByteArray)tupleValue;
+  StringSerializer serializer=new StringSerializer(DataType.getType("string"));
+  String value=serializer.deserialize(ByteBuffer.wrap(valueByteArray.array(),valueByteArray.offset(),valueByteArray.length()));
+  try {
+    return (Boolean)invokeFunction(value);
+  }
+ catch (  InvocationTargetException|IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+}
