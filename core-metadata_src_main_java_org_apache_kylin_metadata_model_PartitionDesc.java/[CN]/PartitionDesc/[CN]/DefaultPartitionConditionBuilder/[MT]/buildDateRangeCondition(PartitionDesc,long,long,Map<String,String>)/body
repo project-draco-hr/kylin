@@ -2,7 +2,10 @@
   StringBuilder builder=new StringBuilder();
   String partitionDateColumnName=partDesc.getPartitionDateColumn();
   String partitionTimeColumnName=partDesc.getPartitionTimeColumn();
-  if (partitionDateColumnName != null && partitionTimeColumnName == null) {
+  if (partDesc.partitionColumnIsTimeMillis()) {
+    buildSingleColumnRangeCondition(builder,partitionDateColumnName,startInclusive,endExclusive,tableAlias);
+  }
+ else   if (partitionDateColumnName != null && partitionTimeColumnName == null) {
     buildSingleColumnRangeCondition(builder,partitionDateColumnName,startInclusive,endExclusive,partDesc.getPartitionDateFormat(),tableAlias);
   }
  else   if (partitionDateColumnName == null && partitionTimeColumnName != null) {

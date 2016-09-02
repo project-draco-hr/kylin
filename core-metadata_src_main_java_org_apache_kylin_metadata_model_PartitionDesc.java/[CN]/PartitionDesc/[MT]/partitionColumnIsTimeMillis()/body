@@ -1,0 +1,4 @@
+{
+  DataType type=partitionDateColumnRef.getType();
+  return type.isBigInt();
+}
