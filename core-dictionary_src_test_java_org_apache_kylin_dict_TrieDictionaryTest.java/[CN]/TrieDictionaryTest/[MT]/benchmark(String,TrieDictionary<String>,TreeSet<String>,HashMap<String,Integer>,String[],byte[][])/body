@@ -1,6 +1,6 @@
 {
   int n=set.size();
-  int times=10 * 1000 * 1000 / n;
+  int times=Math.max(10 * 1000 * 1000 / n,1);
   int keep=0;
   byte[] valueBytes=new byte[dict.getSizeOfValue()];
   long start;

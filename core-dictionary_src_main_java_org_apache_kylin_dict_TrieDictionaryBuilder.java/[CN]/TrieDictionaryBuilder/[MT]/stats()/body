@@ -32,11 +32,11 @@
   s.obpn_sizeValue=1;
   s.obpn_sizeNoValuesBeneath=BytesUtil.sizeForValue(s.nValues);
   s.obpn_sizeChildCount=1;
-  s.obpn_sizeChildOffset=4;
+  s.obpn_sizeChildOffset=5;
   s.obpn_nNodes=s.nValueBytesCompressed;
-  s.obpn_footprint=s.obpn_nNodes * (s.obpn_sizeValue + s.obpn_sizeNoValuesBeneath + s.obpn_sizeChildCount+ s.obpn_sizeChildOffset);
+  s.obpn_footprint=s.obpn_nNodes * (long)(s.obpn_sizeValue + s.obpn_sizeNoValuesBeneath + s.obpn_sizeChildCount+ s.obpn_sizeChildOffset);
   while (true) {
-    int t=s.obpn_nNodes * (s.obpn_sizeValue + s.obpn_sizeNoValuesBeneath + s.obpn_sizeChildCount+ s.obpn_sizeChildOffset - 1);
+    long t=s.obpn_nNodes * (long)(s.obpn_sizeValue + s.obpn_sizeNoValuesBeneath + s.obpn_sizeChildCount+ s.obpn_sizeChildOffset - 1);
     if (BytesUtil.sizeForValue(t * 2) <= s.obpn_sizeChildOffset - 1) {
       s.obpn_sizeChildOffset--;
       s.obpn_footprint=t;
@@ -46,10 +46,10 @@
   s.mbpn_sizeValueTotal=s.nValueBytesCompressed;
   s.mbpn_sizeNoValueBytes=1;
   s.mbpn_sizeNoValueBeneath=BytesUtil.sizeForValue(s.nValues);
-  s.mbpn_sizeChildOffset=4;
-  s.mbpn_footprint=s.mbpn_sizeValueTotal + s.mbpn_nNodes * (s.mbpn_sizeNoValueBytes + s.mbpn_sizeNoValueBeneath + s.mbpn_sizeChildOffset);
+  s.mbpn_sizeChildOffset=5;
+  s.mbpn_footprint=s.mbpn_sizeValueTotal + s.mbpn_nNodes * (long)(s.mbpn_sizeNoValueBytes + s.mbpn_sizeNoValueBeneath + s.mbpn_sizeChildOffset);
   while (true) {
-    int t=s.mbpn_sizeValueTotal + s.mbpn_nNodes * (s.mbpn_sizeNoValueBytes + s.mbpn_sizeNoValueBeneath + s.mbpn_sizeChildOffset - 1);
+    long t=s.mbpn_sizeValueTotal + s.mbpn_nNodes * (long)(s.mbpn_sizeNoValueBytes + s.mbpn_sizeNoValueBeneath + s.mbpn_sizeChildOffset - 1);
     if (BytesUtil.sizeForValue(t * 4) <= s.mbpn_sizeChildOffset - 1) {
       s.mbpn_sizeChildOffset--;
       s.mbpn_footprint=t;

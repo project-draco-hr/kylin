@@ -1,5 +1,4 @@
 {
-  InputStream is=new FileInputStream("src/test/resources/dict/dw_category_grouping_names.dat");
-  ArrayList<String> str=loadStrings(is);
-  benchmarkStringDictionary(str);
+  int count=(int)(Integer.MAX_VALUE * 0.8 / 64);
+  benchmarkStringDictionary(new RandomStrings(count));
 }

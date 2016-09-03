@@ -1,0 +1,30 @@
+{
+  return new Iterator<String>(){
+    Random rand=new Random(1000);
+    int i=0;
+    @Override public boolean hasNext(){
+      return i < size;
+    }
+    @Override public String next(){
+      if (hasNext() == false)       throw new NoSuchElementException();
+      i++;
+      if (i % 1000000 == 0)       System.out.println(i);
+      return nextString();
+    }
+    private String nextString(){
+      StringBuffer buf=new StringBuffer();
+      for (int i=0; i < 64; i++) {
+        int v=rand.nextInt(16);
+        char c;
+        if (v >= 0 && v <= 9)         c=(char)('0' + v);
+ else         c=(char)('a' + v - 10);
+        buf.append(c);
+      }
+      return buf.toString();
+    }
+    @Override public void remove(){
+      throw new UnsupportedOperationException();
+    }
+  }
+;
+}

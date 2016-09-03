@@ -8,7 +8,7 @@
     idToValueBytesCache[seq]=visitor.makeValueBytes(buf,tail);
     seq++;
   }
-  int c=headSize + (BytesUtil.readUnsigned(trieBytes,n,sizeChildOffset) & childOffsetMask);
+  int c=getChildOffset(n);
   if (c == headSize)   return;
   while (true) {
     enableIdToValueBytesCache_recursion(c,seq,buf,tail,visitor);

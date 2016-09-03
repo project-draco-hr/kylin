@@ -10,7 +10,7 @@
       seq--;
       if (seq < 0)       return o - offset;
     }
-    int c=headSize + (BytesUtil.readUnsigned(trieBytes,n,sizeChildOffset) & childOffsetMask);
+    int c=getChildOffset(n);
     if (c == headSize)     return -1;
     int nValuesBeneath;
     while (true) {

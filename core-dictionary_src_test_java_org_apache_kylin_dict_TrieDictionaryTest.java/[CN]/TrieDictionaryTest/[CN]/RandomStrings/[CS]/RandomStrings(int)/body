@@ -1,0 +1,4 @@
+{
+  this.size=size;
+  System.out.println("size = " + size);
+}

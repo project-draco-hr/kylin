@@ -1,8 +1,8 @@
 {
   this.trieBytes=trieBytes;
-  if (BytesUtil.compareBytes(HEAD_MAGIC,0,trieBytes,0,HEAD_MAGIC.length) != 0)   throw new IllegalArgumentException("Wrong file type (magic does not match)");
+  if (BytesUtil.compareBytes(MAGIC,0,trieBytes,0,MAGIC.length) != 0)   throw new IllegalArgumentException("Wrong file type (magic does not match)");
   try {
-    DataInputStream headIn=new DataInputStream(new ByteArrayInputStream(trieBytes,HEAD_SIZE_I,trieBytes.length - HEAD_SIZE_I));
+    DataInputStream headIn=new DataInputStream(new ByteArrayInputStream(trieBytes,MAGIC_SIZE_I,trieBytes.length - MAGIC_SIZE_I));
     this.headSize=headIn.readShort();
     this.bodyLen=headIn.readInt();
     this.sizeChildOffset=headIn.read();
@@ -13,7 +13,7 @@
     if (converterName.isEmpty() == false)     this.bytesConvert=ClassUtil.forName(converterName,BytesConverter.class).newInstance();
     this.nValues=BytesUtil.readUnsigned(trieBytes,headSize + sizeChildOffset,sizeNoValuesBeneath);
     this.sizeOfId=BytesUtil.sizeForValue(baseId + nValues + 1);
-    this.childOffsetMask=~((BIT_IS_LAST_CHILD | BIT_IS_END_OF_VALUE) << ((sizeChildOffset - 1) * 8));
+    this.childOffsetMask=~((long)(BIT_IS_LAST_CHILD | BIT_IS_END_OF_VALUE) << ((sizeChildOffset - 1) * 8));
     this.firstByteOffset=sizeChildOffset + sizeNoValuesBeneath + 1;
   }
  catch (  Exception e) {

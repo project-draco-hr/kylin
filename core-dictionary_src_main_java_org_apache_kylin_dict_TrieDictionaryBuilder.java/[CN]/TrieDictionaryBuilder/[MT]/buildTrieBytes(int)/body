@@ -3,13 +3,14 @@
   Stats stats=stats();
   int sizeNoValuesBeneath=stats.mbpn_sizeNoValueBeneath;
   int sizeChildOffset=stats.mbpn_sizeChildOffset;
+  if (stats.mbpn_footprint > _2GB)   throw new RuntimeException("Too big dictionary, dictionary cannot be bigger than 2GB");
   byte[] head;
   try {
     ByteArrayOutputStream byteBuf=new ByteArrayOutputStream();
     DataOutputStream headOut=new DataOutputStream(byteBuf);
-    headOut.write(TrieDictionary.HEAD_MAGIC);
+    headOut.write(TrieDictionary.MAGIC);
     headOut.writeShort(0);
-    headOut.writeInt(stats.mbpn_footprint);
+    headOut.writeInt((int)stats.mbpn_footprint);
     headOut.write(sizeChildOffset);
     headOut.write(sizeNoValuesBeneath);
     headOut.writeShort(baseId);
@@ -17,12 +18,12 @@
     headOut.writeUTF(bytesConverter == null ? "" : bytesConverter.getClass().getName());
     headOut.close();
     head=byteBuf.toByteArray();
-    BytesUtil.writeUnsigned(head.length,head,TrieDictionary.HEAD_SIZE_I,2);
+    BytesUtil.writeUnsigned(head.length,head,TrieDictionary.MAGIC_SIZE_I,2);
   }
  catch (  IOException e) {
     throw new RuntimeException(e);
   }
-  byte[] trieBytes=new byte[stats.mbpn_footprint + head.length];
+  byte[] trieBytes=new byte[(int)stats.mbpn_footprint + head.length];
   System.arraycopy(head,0,trieBytes,0,head.length);
   LinkedList<Node> open=new LinkedList<Node>();
   IdentityHashMap<Node,Integer> offsetMap=new IdentityHashMap<Node,Integer>();

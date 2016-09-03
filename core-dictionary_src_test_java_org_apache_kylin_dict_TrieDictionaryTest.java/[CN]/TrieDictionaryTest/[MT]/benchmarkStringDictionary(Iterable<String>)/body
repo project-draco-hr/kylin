@@ -16,6 +16,7 @@
     strArray[id]=value;
     array[id]=value.getBytes("UTF-8");
   }
+  System.out.println("Benchmark awaitig...");
   benchmark("Warm up",dict,set,map,strArray,array);
   benchmark("Benchmark",dict,set,map,strArray,array);
 }

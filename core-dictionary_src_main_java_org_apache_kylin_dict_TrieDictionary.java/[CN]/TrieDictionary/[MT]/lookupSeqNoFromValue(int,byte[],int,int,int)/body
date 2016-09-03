@@ -18,7 +18,7 @@
       return p == end && isEndOfValue ? seq : roundSeqNo(roundingFlag,seq - 1,-1,seq);
     }
     if (isEndOfValue)     seq++;
-    int c=headSize + (BytesUtil.readUnsigned(trieBytes,n,sizeChildOffset) & childOffsetMask);
+    int c=getChildOffset(n);
     if (c == headSize)     return roundSeqNo(roundingFlag,seq - 1,-1,seq);
     byte inpByte=inp[o];
     int comp;

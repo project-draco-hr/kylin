@@ -1,5 +1,6 @@
 {
   int o=offset;
+  if (o > _2GB)   throw new IllegalStateException();
   if (isLastChild)   trieBytes[o]|=TrieDictionary.BIT_IS_LAST_CHILD;
   if (n.isEndOfValue)   trieBytes[o]|=TrieDictionary.BIT_IS_END_OF_VALUE;
   o+=sizeChildOffset;

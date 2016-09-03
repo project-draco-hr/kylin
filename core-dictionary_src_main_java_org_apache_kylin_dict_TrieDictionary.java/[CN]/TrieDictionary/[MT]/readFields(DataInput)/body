@@ -1,8 +1,8 @@
 {
-  byte[] headPartial=new byte[HEAD_MAGIC.length + Short.SIZE + Integer.SIZE];
+  byte[] headPartial=new byte[MAGIC.length + Short.SIZE + Integer.SIZE];
   in.readFully(headPartial);
-  if (BytesUtil.compareBytes(HEAD_MAGIC,0,headPartial,0,HEAD_MAGIC.length) != 0)   throw new IllegalArgumentException("Wrong file type (magic does not match)");
-  DataInputStream headIn=new DataInputStream(new ByteArrayInputStream(headPartial,HEAD_SIZE_I,headPartial.length - HEAD_SIZE_I));
+  if (BytesUtil.compareBytes(MAGIC,0,headPartial,0,MAGIC.length) != 0)   throw new IllegalArgumentException("Wrong file type (magic does not match)");
+  DataInputStream headIn=new DataInputStream(new ByteArrayInputStream(headPartial,MAGIC_SIZE_I,headPartial.length - MAGIC_SIZE_I));
   int headSize=headIn.readShort();
   int bodyLen=headIn.readInt();
   headIn.close();
