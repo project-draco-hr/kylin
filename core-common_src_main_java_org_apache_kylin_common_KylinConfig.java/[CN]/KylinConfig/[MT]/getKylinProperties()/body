@@ -17,21 +17,21 @@
       IOUtils.closeQuietly(ois);
       conf.putAll(propOverride);
     }
-    File securityPropFile=getKylinSecurityPropertiesFile();
-    if (securityPropFile.exists()) {
-      FileInputStream ois=new FileInputStream(securityPropFile);
-      Properties propSecurity=new Properties();
-      propSecurity.load(ois);
+    File accountPropFile=getKylinAccountPropertiesFile();
+    if (accountPropFile.exists()) {
+      FileInputStream ois=new FileInputStream(accountPropFile);
+      Properties propAccount=new Properties();
+      propAccount.load(ois);
       IOUtils.closeQuietly(ois);
-      conf.putAll(propSecurity);
+      conf.putAll(propAccount);
     }
-    File securityPropOverrideFile=new File(securityPropFile.getParentFile(),securityPropFile.getName() + ".override");
-    if (securityPropOverrideFile.exists()) {
-      FileInputStream ois=new FileInputStream(securityPropOverrideFile);
-      Properties propSecurityOverride=new Properties();
-      propSecurityOverride.load(ois);
+    File accountPropOverrideFile=new File(accountPropFile.getParentFile(),accountPropFile.getName() + ".override");
+    if (accountPropOverrideFile.exists()) {
+      FileInputStream ois=new FileInputStream(accountPropOverrideFile);
+      Properties propAccountOverride=new Properties();
+      propAccountOverride.load(ois);
       IOUtils.closeQuietly(ois);
-      conf.putAll(propSecurityOverride);
+      conf.putAll(propAccountOverride);
     }
   }
  catch (  IOException e) {

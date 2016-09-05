@@ -1,2 +1,11 @@
 {
+  Resource[] resources=new Resource[1];
+  Properties prop=KylinConfig.getKylinProperties();
+  StringWriter writer=new StringWriter();
+  prop.list(new PrintWriter(writer));
+  String propString=writer.getBuffer().toString();
+  IOUtils.closeQuietly(writer);
+  InputStream is=IOUtils.toInputStream(propString,Charset.defaultCharset());
+  resources[0]=new InputStreamResource(is);
+  this.setLocations(resources);
 }
