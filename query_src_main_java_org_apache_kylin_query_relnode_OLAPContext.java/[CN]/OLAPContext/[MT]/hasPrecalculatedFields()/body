@@ -1,0 +1,3 @@
+{
+  return realization instanceof CubeInstance || realization instanceof HybridInstance;
+}

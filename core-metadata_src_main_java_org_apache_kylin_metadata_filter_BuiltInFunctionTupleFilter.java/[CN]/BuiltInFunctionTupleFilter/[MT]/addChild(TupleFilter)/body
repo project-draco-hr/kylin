@@ -8,6 +8,7 @@
     this.constantTupleFilter=(ConstantTupleFilter)child;
     Serializable constVal=(Serializable)child.getValues().iterator().next();
     try {
+      constantPosition=methodParams.size();
       Class<?> clazz=Primitives.wrap(method.getParameterTypes()[methodParams.size()]);
       if (!Primitives.isWrapperType(clazz))       methodParams.add(constVal);
  else       methodParams.add((Serializable)clazz.cast(clazz.getDeclaredMethod("valueOf",String.class).invoke(null,constVal)));

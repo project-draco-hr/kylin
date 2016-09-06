@@ -42,6 +42,7 @@
     for (    Map.Entry<TblColRef,TblColRef> columnPair : joinCol.entrySet()) {
       TblColRef fromCol=(rightHasSubquery ? columnPair.getKey() : columnPair.getValue());
       this.context.groupByColumns.add(fromCol);
+      this.context.allColumns.add(fromCol);
     }
     joinCol.clear();
   }

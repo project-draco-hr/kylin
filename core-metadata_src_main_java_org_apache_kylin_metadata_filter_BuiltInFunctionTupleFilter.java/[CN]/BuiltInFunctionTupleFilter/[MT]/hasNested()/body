@@ -1,3 +1,0 @@
-{
-  return (columnContainerFilter != null && columnContainerFilter instanceof BuiltInFunctionTupleFilter);
-}

@@ -1,0 +1,5 @@
+{
+  super(name,FilterOperatorEnum.EVAL_FUNC);
+  values=Lists.newArrayListWithCapacity(1);
+  values.add(null);
+}

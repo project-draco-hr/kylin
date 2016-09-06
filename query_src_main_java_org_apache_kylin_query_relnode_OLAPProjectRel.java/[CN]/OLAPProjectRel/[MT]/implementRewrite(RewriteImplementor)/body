@@ -1,7 +1,7 @@
 {
   implementor.visitChild(this,getInput());
   this.rewriting=true;
-  if (!RewriteImplementor.needRewrite(this.context) || (this.hasJoin && !this.afterJoin) || this.afterAggregate) {
+  if (!RewriteImplementor.needRewrite(this.context) || (this.hasJoin && !this.afterJoin) || this.afterAggregate|| !(this.context.hasPrecalculatedFields())) {
     this.columnRowType=this.buildColumnRowType();
     return;
   }

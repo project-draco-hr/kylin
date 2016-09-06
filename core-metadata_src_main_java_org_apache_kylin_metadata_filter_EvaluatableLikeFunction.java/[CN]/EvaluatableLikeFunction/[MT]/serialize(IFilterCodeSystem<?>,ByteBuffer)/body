@@ -1,9 +1,0 @@
-{
-  if (!isValid()) {
-    throw new IllegalStateException("must be valid");
-  }
-  if (methodParams.size() != 2 || methodParams.get(0) != null || methodParams.get(1) == null) {
-    throw new IllegalArgumentException("bad methodParams: " + methodParams);
-  }
-  BytesUtil.writeUTFString(name,buffer);
-}

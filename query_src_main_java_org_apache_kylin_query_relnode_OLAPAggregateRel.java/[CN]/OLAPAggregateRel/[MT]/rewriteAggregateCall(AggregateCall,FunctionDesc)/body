@@ -1,4 +1,8 @@
 {
+  if (!this.context.hasPrecalculatedFields() && func.needRewriteField()) {
+    logger.info(func + "skip rewriteAggregateCall because no pre-aggregated field available");
+    return aggCall;
+  }
   List<Integer> newArgList=Lists.newArrayList(aggCall.getArgList());
   if (func.needRewriteField()) {
     RelDataTypeField field=getInput().getRowType().getField(func.getRewriteFieldName(),true,false);

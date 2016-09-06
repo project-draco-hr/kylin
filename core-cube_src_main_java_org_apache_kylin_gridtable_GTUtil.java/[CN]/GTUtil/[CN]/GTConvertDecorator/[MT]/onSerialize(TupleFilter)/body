@@ -16,13 +16,5 @@
   if (encodeConstants && filter instanceof CompareTupleFilter) {
     return encodeConstants((CompareTupleFilter)filter);
   }
-  if (encodeConstants && filter instanceof BuiltInFunctionTupleFilter) {
-    if (!((BuiltInFunctionTupleFilter)filter).hasNested()) {
-      return encodeConstants((BuiltInFunctionTupleFilter)filter);
-    }
- else {
-      throw new IllegalStateException("Nested BuiltInFunctionTupleFilter is not supported to be pushed down");
-    }
-  }
   return filter;
 }

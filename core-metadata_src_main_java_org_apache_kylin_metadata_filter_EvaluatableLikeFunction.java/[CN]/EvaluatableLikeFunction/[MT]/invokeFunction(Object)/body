@@ -1,6 +1,0 @@
-{
-  if (!patternExtracted) {
-    this.getLikePattern();
-  }
-  return super.invokeFunction(input);
-}
