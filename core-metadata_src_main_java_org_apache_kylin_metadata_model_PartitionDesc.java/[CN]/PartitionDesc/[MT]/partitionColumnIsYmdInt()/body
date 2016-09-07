@@ -1,0 +1,5 @@
+{
+  if (partitionDateColumnRef == null)   return false;
+  DataType type=partitionDateColumnRef.getType();
+  return type.isInt();
+}
