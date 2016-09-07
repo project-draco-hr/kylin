@@ -1,4 +1,5 @@
 {
+  this.jobLock=jobLock;
   String serverMode=jobEngineConfig.getConfig().getServerMode();
   if (!("job".equals(serverMode.toLowerCase()) || "all".equals(serverMode.toLowerCase()))) {
     logger.info("server mode: " + serverMode + ", no need to run job scheduler");

@@ -1,4 +1,6 @@
 {
+  logger.info("Shutingdown Job Engine ....");
+  jobLock.unlock();
   fetcherPool.shutdown();
   jobPool.shutdown();
 }
