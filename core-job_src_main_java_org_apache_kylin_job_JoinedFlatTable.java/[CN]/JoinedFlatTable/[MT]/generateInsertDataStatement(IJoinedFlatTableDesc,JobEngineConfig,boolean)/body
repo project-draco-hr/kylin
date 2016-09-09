@@ -1,0 +1,6 @@
+{
+  StringBuilder sql=new StringBuilder();
+  sql.append(generateHiveSetStatements(engineConfig));
+  sql.append("INSERT OVERWRITE TABLE " + intermediateTableDesc.getTableName() + " "+ generateSelectDataStatement(intermediateTableDesc,redistribute)+ ";").append("\n");
+  return sql.toString();
+}

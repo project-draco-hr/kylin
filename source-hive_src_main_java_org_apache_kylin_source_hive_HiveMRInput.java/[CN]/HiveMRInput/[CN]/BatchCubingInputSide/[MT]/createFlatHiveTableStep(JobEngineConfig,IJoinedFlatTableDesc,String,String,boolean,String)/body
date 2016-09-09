@@ -1,0 +1,16 @@
+{
+  StringBuilder hiveInitBuf=new StringBuilder();
+  hiveInitBuf.append(JoinedFlatTable.generateHiveSetStatements(conf));
+  final String useDatabaseHql="USE " + conf.getConfig().getHiveDatabaseForIntermediateTable() + ";\n";
+  final String dropTableHql=JoinedFlatTable.generateDropTableStatement(flatTableDesc);
+  final String createTableHql=JoinedFlatTable.generateCreateTableStatement(flatTableDesc,JobBuilderSupport.getJobWorkingDir(conf,jobId));
+  String insertDataHqls=JoinedFlatTable.generateInsertDataStatement(flatTableDesc,conf,redistribute);
+  CreateFlatHiveTableStep step=new CreateFlatHiveTableStep();
+  step.setUseRedistribute(redistribute);
+  step.setInitStatement(hiveInitBuf.toString());
+  step.setRowCountOutputDir(rowCountOutputDir);
+  step.setCreateTableStatement(useDatabaseHql + dropTableHql + createTableHql+ insertDataHqls);
+  CubingExecutableUtil.setCubeName(cubeName,step.getParams());
+  step.setName(ExecutableConstants.STEP_NAME_CREATE_FLAT_HIVE_TABLE);
+  return step;
+}

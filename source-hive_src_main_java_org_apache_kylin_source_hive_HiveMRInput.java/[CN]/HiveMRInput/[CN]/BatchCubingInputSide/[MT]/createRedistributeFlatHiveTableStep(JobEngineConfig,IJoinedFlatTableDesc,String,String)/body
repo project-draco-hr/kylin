@@ -1,0 +1,14 @@
+{
+  StringBuilder hiveInitBuf=new StringBuilder();
+  hiveInitBuf.append("USE ").append(conf.getConfig().getHiveDatabaseForIntermediateTable()).append(";\n");
+  hiveInitBuf.append(JoinedFlatTable.generateHiveSetStatements(conf));
+  String rowCountOutputDir=JobBuilderSupport.getJobWorkingDir(conf,jobId) + "/row_count";
+  RedistributeFlatHiveTableStep step=new RedistributeFlatHiveTableStep();
+  step.setInitStatement(hiveInitBuf.toString());
+  step.setSelectRowCountStatement(JoinedFlatTable.generateSelectRowCountStatement(flatTableDesc,rowCountOutputDir));
+  step.setRowCountOutputDir(rowCountOutputDir);
+  step.setRedistributeDataStatement(JoinedFlatTable.generateRedistributeFlatTableStatement(flatTableDesc));
+  CubingExecutableUtil.setCubeName(cubeName,step.getParams());
+  step.setName(ExecutableConstants.STEP_NAME_REDISTRIBUTE_FLAT_HIVE_TABLE);
+  return step;
+}

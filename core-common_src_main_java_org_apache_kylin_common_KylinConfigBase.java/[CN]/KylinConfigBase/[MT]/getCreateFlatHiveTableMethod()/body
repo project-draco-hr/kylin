@@ -1,0 +1,3 @@
+{
+  return getOptional("kylin.hive.create.flat.table.method","1");
+}

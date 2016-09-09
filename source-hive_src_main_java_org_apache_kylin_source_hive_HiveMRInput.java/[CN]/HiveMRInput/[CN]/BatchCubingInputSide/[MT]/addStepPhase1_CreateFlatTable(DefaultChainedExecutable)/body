@@ -1,8 +1,19 @@
 {
   final String cubeName=CubingExecutableUtil.getCubeName(jobFlow.getParams());
-  final String rowCountOutputDir=JobBuilderSupport.getJobWorkingDir(conf,jobFlow.getId()) + "/row_count";
-  jobFlow.addTask(createCountHiveTableStep(conf,flatDesc,jobFlow.getId(),rowCountOutputDir));
-  jobFlow.addTask(createFlatHiveTableStep(conf,flatDesc,jobFlow.getId(),cubeName,rowCountOutputDir));
+  final KylinConfig kylinConfig=CubeManager.getInstance(conf.getConfig()).getCube(cubeName).getConfig();
+  String createFlatTableMethod=kylinConfig.getCreateFlatHiveTableMethod();
+  if ("1".equals(createFlatTableMethod)) {
+    jobFlow.addTask(createFlatHiveTableStep(conf,flatDesc,jobFlow.getId(),cubeName,false,""));
+    jobFlow.addTask(createRedistributeFlatHiveTableStep(conf,flatDesc,jobFlow.getId(),cubeName));
+  }
+ else   if ("2".equals(createFlatTableMethod)) {
+    final String rowCountOutputDir=JobBuilderSupport.getJobWorkingDir(conf,jobFlow.getId()) + "/row_count";
+    jobFlow.addTask(createCountHiveTableStep(conf,flatDesc,jobFlow.getId(),rowCountOutputDir));
+    jobFlow.addTask(createFlatHiveTableStep(conf,flatDesc,jobFlow.getId(),cubeName,true,rowCountOutputDir));
+  }
+ else {
+    throw new IllegalArgumentException("Unknown value for kylin.hive.create.flat.table.method: " + createFlatTableMethod);
+  }
   AbstractExecutable task=createLookupHiveViewMaterializationStep(jobFlow.getId());
   if (task != null) {
     jobFlow.addTask(task);

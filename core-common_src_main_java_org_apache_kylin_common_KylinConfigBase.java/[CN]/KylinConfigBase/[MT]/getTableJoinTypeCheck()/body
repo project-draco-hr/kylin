@@ -1,3 +1,0 @@
-{
-  return Boolean.valueOf(this.getOptional("kylin.table.join.strong.check","true"));
-}

@@ -1,3 +1,0 @@
-IJoinedFlatTableDesc flatDesc
-StringBuilder sql
-Map<String,String> tableAliasMap

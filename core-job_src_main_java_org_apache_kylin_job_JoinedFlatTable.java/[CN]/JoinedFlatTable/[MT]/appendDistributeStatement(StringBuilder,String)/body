@@ -1,0 +1,8 @@
+{
+  if (redistributeCol != null) {
+    sql.append(" DISTRIBUTE BY ").append(redistributeCol).append(";\n");
+  }
+ else {
+    sql.append(" DISTRIBUTE BY RAND()").append(";\n");
+  }
+}

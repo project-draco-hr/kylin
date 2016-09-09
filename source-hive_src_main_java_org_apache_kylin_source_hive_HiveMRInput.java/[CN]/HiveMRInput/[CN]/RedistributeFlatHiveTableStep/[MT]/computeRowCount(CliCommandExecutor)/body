@@ -1,0 +1,13 @@
+{
+  final HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
+  hiveCmdBuilder.addStatement(getInitStatement());
+  hiveCmdBuilder.addStatement("set hive.exec.compress.output=false;\n");
+  hiveCmdBuilder.addStatement(getSelectRowCountStatement());
+  final String cmd=hiveCmdBuilder.build();
+  stepLogger.log("Compute row count of flat hive table, cmd: ");
+  stepLogger.log(cmd);
+  Pair<Integer,String> response=cmdExecutor.execute(cmd,stepLogger);
+  if (response.getFirst() != 0) {
+    throw new RuntimeException("Failed to compute row count of flat hive table");
+  }
+}

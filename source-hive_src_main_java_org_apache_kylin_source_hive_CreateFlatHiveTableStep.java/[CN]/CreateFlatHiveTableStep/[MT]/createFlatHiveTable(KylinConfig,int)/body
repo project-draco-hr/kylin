@@ -1,8 +1,11 @@
 {
   final HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
   hiveCmdBuilder.addStatement(getInitStatement());
-  hiveCmdBuilder.addStatement("set mapreduce.job.reduces=" + numReducers + ";\n");
-  hiveCmdBuilder.addStatement("set hive.merge.mapredfiles=false;\n");
+  boolean useRedistribute=getUseRedistribute();
+  if (useRedistribute == true) {
+    hiveCmdBuilder.addStatement("set mapreduce.job.reduces=" + numReducers + ";\n");
+    hiveCmdBuilder.addStatement("set hive.merge.mapredfiles=false;\n");
+  }
   hiveCmdBuilder.addStatement(getCreateTableStatement());
   final String cmd=hiveCmdBuilder.toString();
   stepLogger.log("Create and distribute table, cmd: ");

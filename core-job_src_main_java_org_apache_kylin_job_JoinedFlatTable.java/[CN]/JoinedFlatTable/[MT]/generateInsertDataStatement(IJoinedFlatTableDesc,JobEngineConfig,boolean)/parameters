@@ -1,0 +1,3 @@
+IJoinedFlatTableDesc intermediateTableDesc
+JobEngineConfig engineConfig
+boolean redistribute

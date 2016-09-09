@@ -1,0 +1,6 @@
+JobEngineConfig conf
+IJoinedFlatTableDesc flatTableDesc
+String jobId
+String cubeName
+boolean redistribute
+String rowCountOutputDir

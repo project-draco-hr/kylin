@@ -1,0 +1,11 @@
+{
+  FileSystem fs=FileSystem.get(file.toUri(),HadoopUtil.getCurrentConfiguration());
+  InputStream in=fs.open(file);
+  try {
+    String content=IOUtils.toString(in);
+    return Long.valueOf(content.trim());
+  }
+  finally {
+    IOUtils.closeQuietly(in);
+  }
+}

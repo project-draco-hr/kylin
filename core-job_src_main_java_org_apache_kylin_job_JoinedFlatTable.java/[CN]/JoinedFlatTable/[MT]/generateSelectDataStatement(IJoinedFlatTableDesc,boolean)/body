@@ -1,0 +1,26 @@
+{
+  StringBuilder sql=new StringBuilder();
+  sql.append("SELECT" + "\n");
+  String tableAlias;
+  Map<String,String> tableAliasMap=buildTableAliasMap(flatDesc.getDataModel());
+  for (int i=0; i < flatDesc.getAllColumns().size(); i++) {
+    TblColRef col=flatDesc.getAllColumns().get(i);
+    if (i > 0) {
+      sql.append(",");
+    }
+    tableAlias=tableAliasMap.get(col.getTable());
+    sql.append(tableAlias + "." + col.getName()+ "\n");
+  }
+  appendJoinStatement(flatDesc,sql,tableAliasMap);
+  appendWhereStatement(flatDesc,sql,tableAliasMap);
+  if (redistribute == true) {
+    String redistributeCol=null;
+    TblColRef distDcol=flatDesc.getDistributedBy();
+    if (distDcol != null) {
+      String tblAlias=tableAliasMap.get(distDcol.getTable());
+      redistributeCol=tblAlias + "." + distDcol.getName();
+    }
+    appendDistributeStatement(sql,redistributeCol);
+  }
+  return sql.toString();
+}

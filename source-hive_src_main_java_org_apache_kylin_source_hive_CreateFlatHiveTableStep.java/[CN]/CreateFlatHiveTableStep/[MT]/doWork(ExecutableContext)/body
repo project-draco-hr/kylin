@@ -1,12 +1,16 @@
 {
   KylinConfig config=getCubeSpecificConfig();
   try {
-    long rowCount=readRowCountFromFile();
-    if (!config.isEmptySegmentAllowed() && rowCount == 0) {
-      stepLogger.log("Detect upstream hive table is empty, " + "fail the job because \"kylin.job.allow.empty.segment\" = \"false\"");
-      return new ExecuteResult(ExecuteResult.State.ERROR,stepLogger.getBufferedLog());
+    boolean useRedistribute=getUseRedistribute();
+    int numReducers=0;
+    if (useRedistribute == true) {
+      long rowCount=readRowCountFromFile();
+      if (!config.isEmptySegmentAllowed() && rowCount == 0) {
+        stepLogger.log("Detect upstream hive table is empty, " + "fail the job because \"kylin.job.allow.empty.segment\" = \"false\"");
+        return new ExecuteResult(ExecuteResult.State.ERROR,stepLogger.getBufferedLog());
+      }
+      numReducers=determineNumReducer(config,rowCount);
     }
-    int numReducers=determineNumReducer(config,rowCount);
     createFlatHiveTable(config,numReducers);
     return new ExecuteResult(ExecuteResult.State.SUCCEED,stepLogger.getBufferedLog());
   }

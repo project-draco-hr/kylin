@@ -1,0 +1,12 @@
+{
+  final String tableName=intermediateTableDesc.getTableName();
+  StringBuilder sql=new StringBuilder();
+  sql.append("INSERT OVERWRITE TABLE " + tableName + " SELECT * FROM "+ tableName);
+  String redistributeCol=null;
+  TblColRef distDcol=intermediateTableDesc.getDistributedBy();
+  if (distDcol != null) {
+    redistributeCol=colName(distDcol.getCanonicalName());
+  }
+  appendDistributeStatement(sql,redistributeCol);
+  return sql.toString();
+}
