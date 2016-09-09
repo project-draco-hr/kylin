@@ -7,7 +7,7 @@
   expectedResult.add("\\x02\\x02\\x00\\x00");
   expectedResult.add("\\x01\\x01\\x00\\x00");
   MockupRegionScanner innerScanner=new MockupRegionScanner(cellsInput);
-  RegionScanner aggrScanner=new AggregationScanner(rowType,filter,projector,aggregators,innerScanner,CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM);
+  RegionScanner aggrScanner=new AggregationScanner(rowType,filter,projector,aggregators,innerScanner,StorageSideBehavior.SCAN_FILTER_AGGR_CHECKMEM);
   ArrayList<Cell> result=Lists.newArrayList();
   boolean hasMore=true;
   while (hasMore) {

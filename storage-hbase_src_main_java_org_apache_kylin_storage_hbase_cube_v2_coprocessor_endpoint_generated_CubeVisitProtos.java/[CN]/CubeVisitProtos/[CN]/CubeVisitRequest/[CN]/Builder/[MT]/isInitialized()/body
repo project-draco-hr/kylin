@@ -1,7 +1,4 @@
 {
-  if (!hasBehavior()) {
-    return false;
-  }
   if (!hasGtScanRequest()) {
     return false;
   }
@@ -9,12 +6,6 @@
     return false;
   }
   if (!hasRowkeyPreambleSize()) {
-    return false;
-  }
-  if (!hasStartTime()) {
-    return false;
-  }
-  if (!hasTimeout()) {
     return false;
   }
   if (!hasKylinProperties()) {

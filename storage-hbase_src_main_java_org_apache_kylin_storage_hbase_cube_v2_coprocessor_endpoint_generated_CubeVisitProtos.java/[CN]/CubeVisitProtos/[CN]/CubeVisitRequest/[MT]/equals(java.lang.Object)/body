@@ -7,10 +7,6 @@
   }
   org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest other=(org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest)obj;
   boolean result=true;
-  result=result && (hasBehavior() == other.hasBehavior());
-  if (hasBehavior()) {
-    result=result && getBehavior().equals(other.getBehavior());
-  }
   result=result && (hasGtScanRequest() == other.hasGtScanRequest());
   if (hasGtScanRequest()) {
     result=result && getGtScanRequest().equals(other.getGtScanRequest());
@@ -24,14 +20,6 @@
     result=result && (getRowkeyPreambleSize() == other.getRowkeyPreambleSize());
   }
   result=result && getHbaseColumnsToGTList().equals(other.getHbaseColumnsToGTList());
-  result=result && (hasStartTime() == other.hasStartTime());
-  if (hasStartTime()) {
-    result=result && (getStartTime() == other.getStartTime());
-  }
-  result=result && (hasTimeout() == other.hasTimeout());
-  if (hasTimeout()) {
-    result=result && (getTimeout() == other.getTimeout());
-  }
   result=result && (hasKylinProperties() == other.hasKylinProperties());
   if (hasKylinProperties()) {
     result=result && getKylinProperties().equals(other.getKylinProperties());

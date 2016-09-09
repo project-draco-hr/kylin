@@ -8,5 +8,10 @@
   if (aggrMetricsFuncs == null) {
     aggrMetricsFuncs=new String[0];
   }
-  return new GTScanRequest(info,ranges,dimensions,aggrGroupBy,aggrMetrics,aggrMetricsFuncs,filterPushDown,allowStorageAggregation,aggCacheMemThreshold,storageScanRowNumThreshold,storagePushDownLimit);
+  if (storageBehavior == null) {
+    storageBehavior=BackdoorToggles.getCoprocessorBehavior() == null ? StorageSideBehavior.SCAN_FILTER_AGGR_CHECKMEM.toString() : BackdoorToggles.getCoprocessorBehavior();
+  }
+  this.startTime=startTime == -1 ? System.currentTimeMillis() : startTime;
+  this.timeout=timeout == -1 ? 300000 : timeout;
+  return new GTScanRequest(info,ranges,dimensions,aggrGroupBy,aggrMetrics,aggrMetricsFuncs,filterPushDown,allowStorageAggregation,aggCacheMemThreshold,storageScanRowNumThreshold,storagePushDownLimit,storageBehavior,startTime,timeout);
 }

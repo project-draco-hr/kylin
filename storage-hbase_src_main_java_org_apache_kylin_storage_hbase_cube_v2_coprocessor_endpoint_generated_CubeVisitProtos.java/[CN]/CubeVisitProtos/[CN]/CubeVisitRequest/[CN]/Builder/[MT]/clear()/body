@@ -1,25 +1,19 @@
 {
   super.clear();
-  behavior_="";
-  bitField0_=(bitField0_ & ~0x00000001);
   gtScanRequest_=com.google.protobuf.ByteString.EMPTY;
-  bitField0_=(bitField0_ & ~0x00000002);
+  bitField0_=(bitField0_ & ~0x00000001);
   hbaseRawScan_=com.google.protobuf.ByteString.EMPTY;
-  bitField0_=(bitField0_ & ~0x00000004);
+  bitField0_=(bitField0_ & ~0x00000002);
   rowkeyPreambleSize_=0;
-  bitField0_=(bitField0_ & ~0x00000008);
+  bitField0_=(bitField0_ & ~0x00000004);
   if (hbaseColumnsToGTBuilder_ == null) {
     hbaseColumnsToGT_=java.util.Collections.emptyList();
-    bitField0_=(bitField0_ & ~0x00000010);
+    bitField0_=(bitField0_ & ~0x00000008);
   }
  else {
     hbaseColumnsToGTBuilder_.clear();
   }
-  startTime_=0L;
-  bitField0_=(bitField0_ & ~0x00000020);
-  timeout_=0L;
-  bitField0_=(bitField0_ & ~0x00000040);
   kylinProperties_="";
-  bitField0_=(bitField0_ & ~0x00000080);
+  bitField0_=(bitField0_ & ~0x00000010);
   return this;
 }

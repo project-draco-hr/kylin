@@ -1,10 +1,5 @@
 {
   if (other == org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.getDefaultInstance())   return this;
-  if (other.hasBehavior()) {
-    bitField0_|=0x00000001;
-    behavior_=other.behavior_;
-    onChanged();
-  }
   if (other.hasGtScanRequest()) {
     setGtScanRequest(other.getGtScanRequest());
   }
@@ -18,7 +13,7 @@
     if (!other.hbaseColumnsToGT_.isEmpty()) {
       if (hbaseColumnsToGT_.isEmpty()) {
         hbaseColumnsToGT_=other.hbaseColumnsToGT_;
-        bitField0_=(bitField0_ & ~0x00000010);
+        bitField0_=(bitField0_ & ~0x00000008);
       }
  else {
         ensureHbaseColumnsToGTIsMutable();
@@ -33,7 +28,7 @@
         hbaseColumnsToGTBuilder_.dispose();
         hbaseColumnsToGTBuilder_=null;
         hbaseColumnsToGT_=other.hbaseColumnsToGT_;
-        bitField0_=(bitField0_ & ~0x00000010);
+        bitField0_=(bitField0_ & ~0x00000008);
         hbaseColumnsToGTBuilder_=com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ? getHbaseColumnsToGTFieldBuilder() : null;
       }
  else {
@@ -41,14 +36,8 @@
       }
     }
   }
-  if (other.hasStartTime()) {
-    setStartTime(other.getStartTime());
-  }
-  if (other.hasTimeout()) {
-    setTimeout(other.getTimeout());
-  }
   if (other.hasKylinProperties()) {
-    bitField0_|=0x00000080;
+    bitField0_|=0x00000010;
     kylinProperties_=other.kylinProperties_;
     onChanged();
   }

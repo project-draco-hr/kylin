@@ -1,0 +1,22 @@
+{
+  this.info=info;
+  if (ranges == null) {
+    this.ranges=Lists.newArrayList(new GTScanRange(new GTRecord(info),new GTRecord(info)));
+  }
+ else {
+    this.ranges=ranges;
+  }
+  this.columns=dimensions;
+  this.filterPushDown=filterPushDown;
+  this.aggrGroupBy=aggrGroupBy;
+  this.aggrMetrics=aggrMetrics;
+  this.aggrMetricsFuncs=aggrMetricsFuncs;
+  this.storageBehavior=storageBehavior;
+  this.startTime=startTime;
+  this.timeout=timeout;
+  this.allowStorageAggregation=allowStorageAggregation;
+  this.aggCacheMemThreshold=aggCacheMemThreshold;
+  this.storageScanRowNumThreshold=storageScanRowNumThreshold;
+  this.storagePushDownLimit=storagePushDownLimit;
+  validate(info);
+}

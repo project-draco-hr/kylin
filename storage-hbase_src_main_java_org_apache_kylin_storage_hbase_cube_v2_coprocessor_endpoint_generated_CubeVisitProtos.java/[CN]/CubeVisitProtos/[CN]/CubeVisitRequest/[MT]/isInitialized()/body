@@ -1,10 +1,6 @@
 {
   byte isInitialized=memoizedIsInitialized;
   if (isInitialized != -1)   return isInitialized == 1;
-  if (!hasBehavior()) {
-    memoizedIsInitialized=0;
-    return false;
-  }
   if (!hasGtScanRequest()) {
     memoizedIsInitialized=0;
     return false;
@@ -14,14 +10,6 @@
     return false;
   }
   if (!hasRowkeyPreambleSize()) {
-    memoizedIsInitialized=0;
-    return false;
-  }
-  if (!hasStartTime()) {
-    memoizedIsInitialized=0;
-    return false;
-  }
-  if (!hasTimeout()) {
     memoizedIsInitialized=0;
     return false;
   }

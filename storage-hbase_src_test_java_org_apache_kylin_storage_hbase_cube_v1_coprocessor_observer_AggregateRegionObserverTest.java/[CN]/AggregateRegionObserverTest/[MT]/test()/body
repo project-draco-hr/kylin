@@ -9,7 +9,7 @@
   expectedResult.add("\\x01\\x01\\x00\\x00, f:q1, [22.0, 3]");
   expectedResult.add("\\x01\\x01\\x00\\x00, f:q2, [44.0]");
   MockupRegionScanner innerScanner=new MockupRegionScanner(cellsInput);
-  RegionScanner aggrScanner=new AggregationScanner(rowType,filter,projector,aggregators,innerScanner,CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM);
+  RegionScanner aggrScanner=new AggregationScanner(rowType,filter,projector,aggregators,innerScanner,StorageSideBehavior.SCAN_FILTER_AGGR_CHECKMEM);
   ArrayList<Cell> result=Lists.newArrayList();
   boolean hasMore=true;
   while (hasMore) {

@@ -11,27 +11,27 @@
     if (stats != null)     stats.countInputRow(results);
     Cell cell=results.get(0);
     tuple.setUnderlying(cell.getRowArray(),cell.getRowOffset(),cell.getRowLength());
-    if (behavior == CoprocessorBehavior.SCAN) {
+    if (behavior == StorageSideBehavior.SCAN) {
       int endIndex=cell.getRowOffset() + cell.getRowLength();
       for (int i=cell.getRowOffset(); i < endIndex; ++i) {
         meaninglessByte+=cell.getRowArray()[i];
       }
     }
  else {
-      if (behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER.ordinal()) {
+      if (behavior.ordinal() >= StorageSideBehavior.SCAN_FILTER.ordinal()) {
         if (filter != null && filter.evaluate(tuple) == false)         continue;
-        if (behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER_AGGR.ordinal()) {
+        if (behavior.ordinal() >= StorageSideBehavior.SCAN_FILTER_AGGR.ordinal()) {
           AggrKey aggKey=projector.getAggrKey(results);
           MeasureAggregator[] bufs=aggCache.getBuffer(aggKey);
           aggregators.aggregate(bufs,results);
-          if (behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM.ordinal()) {
+          if (behavior.ordinal() >= StorageSideBehavior.SCAN_FILTER_AGGR_CHECKMEM.ordinal()) {
             aggCache.checkMemoryUsage();
           }
         }
       }
     }
   }
-  if (behavior == CoprocessorBehavior.SCAN) {
+  if (behavior == StorageSideBehavior.SCAN) {
     System.out.println("meaningless byte is now " + meaninglessByte);
   }
   return aggCache;

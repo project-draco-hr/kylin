@@ -1,0 +1,18 @@
+{
+  ByteString scanRequestByteString;
+  int scanRequestBufferSize=BytesSerializer.SERIALIZE_BUFFER_SIZE;
+  while (true) {
+    try {
+      ByteBuffer buffer=ByteBuffer.allocate(scanRequestBufferSize);
+      GTScanRequest.serializer.serialize(scanRequest,buffer);
+      buffer.flip();
+      scanRequestByteString=HBaseZeroCopyByteString.wrap(buffer.array(),buffer.position(),buffer.limit());
+      break;
+    }
+ catch (    BufferOverflowException boe) {
+      logger.info("Buffer size {} cannot hold the scan request, resizing to 4 times",scanRequestBufferSize);
+      scanRequestBufferSize*=4;
+    }
+  }
+  return scanRequestByteString;
+}

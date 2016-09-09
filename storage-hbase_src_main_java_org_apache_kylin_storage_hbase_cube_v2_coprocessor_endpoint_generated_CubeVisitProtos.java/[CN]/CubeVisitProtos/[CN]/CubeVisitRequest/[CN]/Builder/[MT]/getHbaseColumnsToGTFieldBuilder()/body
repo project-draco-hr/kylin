@@ -1,6 +1,6 @@
 {
   if (hbaseColumnsToGTBuilder_ == null) {
-    hbaseColumnsToGTBuilder_=new com.google.protobuf.RepeatedFieldBuilder<org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.IntList,org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.IntList.Builder,org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.IntListOrBuilder>(hbaseColumnsToGT_,((bitField0_ & 0x00000010) == 0x00000010),getParentForChildren(),isClean());
+    hbaseColumnsToGTBuilder_=new com.google.protobuf.RepeatedFieldBuilder<org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.IntList,org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.IntList.Builder,org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.IntListOrBuilder>(hbaseColumnsToGT_,((bitField0_ & 0x00000008) == 0x00000008),getParentForChildren(),isClean());
     hbaseColumnsToGT_=null;
   }
   return hbaseColumnsToGTBuilder_;

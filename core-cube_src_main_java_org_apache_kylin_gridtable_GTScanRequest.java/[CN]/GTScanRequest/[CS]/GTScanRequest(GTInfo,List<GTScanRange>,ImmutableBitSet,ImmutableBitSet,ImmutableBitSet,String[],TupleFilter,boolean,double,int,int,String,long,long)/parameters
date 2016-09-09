@@ -1,0 +1,14 @@
+GTInfo info
+List<GTScanRange> ranges
+ImmutableBitSet dimensions
+ImmutableBitSet aggrGroupBy
+ImmutableBitSet aggrMetrics
+String[] aggrMetricsFuncs
+TupleFilter filterPushDown
+boolean allowStorageAggregation
+double aggCacheMemThreshold
+int storageScanRowNumThreshold
+int storagePushDownLimit
+String storageBehavior
+long startTime
+long timeout

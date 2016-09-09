@@ -1,10 +1,7 @@
 {
-  behavior_="";
   gtScanRequest_=com.google.protobuf.ByteString.EMPTY;
   hbaseRawScan_=com.google.protobuf.ByteString.EMPTY;
   rowkeyPreambleSize_=0;
   hbaseColumnsToGT_=java.util.Collections.emptyList();
-  startTime_=0L;
-  timeout_=0L;
   kylinProperties_="";
 }

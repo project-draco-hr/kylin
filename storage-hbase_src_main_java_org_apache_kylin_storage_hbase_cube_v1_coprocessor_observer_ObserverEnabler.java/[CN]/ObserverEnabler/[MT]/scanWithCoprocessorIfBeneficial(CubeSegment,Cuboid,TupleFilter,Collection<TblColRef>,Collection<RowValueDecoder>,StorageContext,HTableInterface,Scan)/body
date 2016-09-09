@@ -9,13 +9,13 @@
   boolean localCoprocessor=KylinConfig.getInstanceFromEnv().getQueryRunLocalCoprocessor() || BackdoorToggles.getRunLocalCoprocessor();
   if (localCoprocessor) {
     RegionScanner innerScanner=new RegionScannerAdapter(table.getScanner(scan));
-    AggregationScanner aggrScanner=new AggregationScanner(type,filter,projector,aggrs,innerScanner,CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM);
+    AggregationScanner aggrScanner=new AggregationScanner(type,filter,projector,aggrs,innerScanner,StorageSideBehavior.SCAN_FILTER_AGGR_CHECKMEM);
     return new ResultScannerAdapter(aggrScanner);
   }
  else {
     String toggle=BackdoorToggles.getCoprocessorBehavior();
     if (toggle == null) {
-      toggle=CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM.toString();
+      toggle=StorageSideBehavior.SCAN_FILTER_AGGR_CHECKMEM.toString();
     }
  else {
       logger.info("The execution of this query will use " + toggle + " as observer's behavior");

@@ -1,0 +1,21 @@
+{
+  ByteString rawScanByteString;
+  int rawScanBufferSize=BytesSerializer.SERIALIZE_BUFFER_SIZE;
+  while (true) {
+    try {
+      ByteBuffer rawScanBuffer=ByteBuffer.allocate(rawScanBufferSize);
+      BytesUtil.writeVInt(rawScans.size(),rawScanBuffer);
+      for (      RawScan rs : rawScans) {
+        RawScan.serializer.serialize(rs,rawScanBuffer);
+      }
+      rawScanBuffer.flip();
+      rawScanByteString=HBaseZeroCopyByteString.wrap(rawScanBuffer.array(),rawScanBuffer.position(),rawScanBuffer.limit());
+      break;
+    }
+ catch (    BufferOverflowException boe) {
+      logger.info("Buffer size {} cannot hold the raw scans, resizing to 4 times",rawScanBufferSize);
+      rawScanBufferSize*=4;
+    }
+  }
+  return rawScanByteString;
+}

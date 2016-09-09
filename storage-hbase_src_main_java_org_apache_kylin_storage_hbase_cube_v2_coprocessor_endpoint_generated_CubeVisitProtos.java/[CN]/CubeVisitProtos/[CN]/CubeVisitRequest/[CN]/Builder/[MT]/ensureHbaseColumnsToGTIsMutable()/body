@@ -1,6 +1,6 @@
 {
-  if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+  if (!((bitField0_ & 0x00000008) == 0x00000008)) {
     hbaseColumnsToGT_=new java.util.ArrayList<org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.IntList>(hbaseColumnsToGT_);
-    bitField0_|=0x00000010;
+    bitField0_|=0x00000008;
   }
 }

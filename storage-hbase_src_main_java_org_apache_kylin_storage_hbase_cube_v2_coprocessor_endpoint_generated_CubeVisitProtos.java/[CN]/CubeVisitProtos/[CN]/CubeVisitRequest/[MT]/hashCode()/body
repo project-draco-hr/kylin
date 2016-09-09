@@ -4,10 +4,6 @@
   }
   int hash=41;
   hash=(19 * hash) + getDescriptorForType().hashCode();
-  if (hasBehavior()) {
-    hash=(37 * hash) + BEHAVIOR_FIELD_NUMBER;
-    hash=(53 * hash) + getBehavior().hashCode();
-  }
   if (hasGtScanRequest()) {
     hash=(37 * hash) + GTSCANREQUEST_FIELD_NUMBER;
     hash=(53 * hash) + getGtScanRequest().hashCode();
@@ -23,14 +19,6 @@
   if (getHbaseColumnsToGTCount() > 0) {
     hash=(37 * hash) + HBASECOLUMNSTOGT_FIELD_NUMBER;
     hash=(53 * hash) + getHbaseColumnsToGTList().hashCode();
-  }
-  if (hasStartTime()) {
-    hash=(37 * hash) + STARTTIME_FIELD_NUMBER;
-    hash=(53 * hash) + hashLong(getStartTime());
-  }
-  if (hasTimeout()) {
-    hash=(37 * hash) + TIMEOUT_FIELD_NUMBER;
-    hash=(53 * hash) + hashLong(getTimeout());
   }
   if (hasKylinProperties()) {
     hash=(37 * hash) + KYLINPROPERTIES_FIELD_NUMBER;

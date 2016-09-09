@@ -19,9 +19,9 @@
     for (    IntList intList : request.getHbaseColumnsToGTList()) {
       hbaseColumnsToGT.add(intList.getIntsList());
     }
-    CoprocessorBehavior behavior=CoprocessorBehavior.valueOf(request.getBehavior());
+    StorageSideBehavior behavior=StorageSideBehavior.valueOf(scanReq.getStorageBehavior());
     final List<RawScan> hbaseRawScans=deserializeRawScans(ByteBuffer.wrap(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getHbaseRawScan())));
-    appendProfileInfo(sb,"start latency: " + (this.serviceStartTime - request.getStartTime()));
+    appendProfileInfo(sb,"start latency: " + (this.serviceStartTime - scanReq.getStartTime()));
     MassInTupleFilter.VALUE_PROVIDER_FACTORY=new MassInValueProviderFactoryImpl(new MassInValueProviderFactoryImpl.DimEncAware(){
       @Override public DimensionEncoding getDimEnc(      TblColRef col){
         return scanReq.getInfo().getCodeSystem().getDimEnc(col.getColumnDesc().getZeroBasedIndex());
@@ -40,7 +40,7 @@
       cellListsForeachRawScan.add(cellListIterator);
     }
     final Iterator<List<Cell>> allCellLists=Iterators.concat(cellListsForeachRawScan.iterator());
-    if (behavior.ordinal() < CoprocessorBehavior.SCAN.ordinal()) {
+    if (behavior.ordinal() < StorageSideBehavior.SCAN.ordinal()) {
       List<Cell> temp=Lists.newArrayList();
       int counter=0;
       for (      RegionScanner innerScanner : regionScanners) {
@@ -50,11 +50,11 @@
       }
       appendProfileInfo(sb,"scanned " + counter);
     }
-    if (behavior.ordinal() < CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM.ordinal()) {
+    if (behavior.ordinal() < StorageSideBehavior.SCAN_FILTER_AGGR_CHECKMEM.ordinal()) {
       scanReq.disableAggCacheMemCheck();
     }
     final MutableBoolean scanNormalComplete=new MutableBoolean(true);
-    final long deadline=request.getTimeout() + this.serviceStartTime;
+    final long deadline=scanReq.getTimeout() + this.serviceStartTime;
     final long storagePushDownLimit=scanReq.getStoragePushDownLimit();
     final CellListIterator cellListIterator=new CellListIterator(){
       int counter=0;
@@ -81,9 +81,9 @@
       }
     }
 ;
-    IGTStore store=new HBaseReadonlyStore(cellListIterator,scanReq,hbaseRawScans.get(0).hbaseColumns,hbaseColumnsToGT,request.getRowkeyPreambleSize(),CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM_WITHDELAY.toString().equals(request.getBehavior()));
+    IGTStore store=new HBaseReadonlyStore(cellListIterator,scanReq,hbaseRawScans.get(0).hbaseColumns,hbaseColumnsToGT,request.getRowkeyPreambleSize(),StorageSideBehavior.SCAN_FILTER_AGGR_CHECKMEM_WITHDELAY.toString().equals(scanReq.getStorageBehavior()));
     IGTScanner rawScanner=store.scan(scanReq);
-    IGTScanner finalScanner=scanReq.decorateScanner(rawScanner,behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER.ordinal(),behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER_AGGR.ordinal(),deadline);
+    IGTScanner finalScanner=scanReq.decorateScanner(rawScanner,behavior.ordinal() >= StorageSideBehavior.SCAN_FILTER.ordinal(),behavior.ordinal() >= StorageSideBehavior.SCAN_FILTER_AGGR.ordinal(),deadline);
     ByteBuffer buffer=ByteBuffer.allocate(BufferedMeasureEncoder.DEFAULT_BUFFER_SIZE);
     ByteArrayOutputStream outputStream=new ByteArrayOutputStream(BufferedMeasureEncoder.DEFAULT_BUFFER_SIZE);
     int finalRowCount=0;

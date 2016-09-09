@@ -20,51 +20,33 @@ default :
 case 10:
 {
     bitField0_|=0x00000001;
-    behavior_=input.readBytes();
+    gtScanRequest_=input.readBytes();
     break;
   }
 case 18:
 {
   bitField0_|=0x00000002;
-  gtScanRequest_=input.readBytes();
+  hbaseRawScan_=input.readBytes();
   break;
 }
-case 26:
+case 24:
 {
 bitField0_|=0x00000004;
-hbaseRawScan_=input.readBytes();
-break;
-}
-case 32:
-{
-bitField0_|=0x00000008;
 rowkeyPreambleSize_=input.readInt32();
 break;
 }
-case 42:
+case 34:
 {
-if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
 hbaseColumnsToGT_=new java.util.ArrayList<org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.IntList>();
-mutable_bitField0_|=0x00000010;
+mutable_bitField0_|=0x00000008;
 }
 hbaseColumnsToGT_.add(input.readMessage(org.apache.kylin.storage.hbase.cube.v2.coprocessor.endpoint.generated.CubeVisitProtos.CubeVisitRequest.IntList.PARSER,extensionRegistry));
 break;
 }
-case 48:
+case 42:
 {
-bitField0_|=0x00000010;
-startTime_=input.readInt64();
-break;
-}
-case 56:
-{
-bitField0_|=0x00000020;
-timeout_=input.readInt64();
-break;
-}
-case 66:
-{
-bitField0_|=0x00000040;
+bitField0_|=0x00000008;
 kylinProperties_=input.readBytes();
 break;
 }
@@ -78,7 +60,7 @@ catch (java.io.IOException e) {
 throw new com.google.protobuf.InvalidProtocolBufferException(e.getMessage()).setUnfinishedMessage(this);
 }
  finally {
-if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
 hbaseColumnsToGT_=java.util.Collections.unmodifiableList(hbaseColumnsToGT_);
 }
 this.unknownFields=unknownFields.build();

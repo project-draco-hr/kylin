@@ -11,22 +11,22 @@
   ObserverAggregators aggregators=ObserverAggregators.deserialize(aggregatorBytes);
   byte[] filterBytes=scan.getAttribute(FILTER);
   CoprocessorFilter filter=CoprocessorFilter.deserialize(filterBytes);
-  CoprocessorBehavior coprocessorBehavior=CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM;
+  StorageSideBehavior storageSideBehavior=StorageSideBehavior.SCAN_FILTER_AGGR_CHECKMEM;
   try {
     byte[] behavior=scan.getAttribute(BEHAVIOR);
     if (behavior != null && behavior.length != 0) {
-      coprocessorBehavior=CoprocessorBehavior.valueOf(new String(behavior));
+      storageSideBehavior=StorageSideBehavior.valueOf(new String(behavior));
     }
   }
  catch (  Exception e) {
     LOG.error("failed to parse behavior,using default behavior SCAN_FILTER_AGGR_CHECKMEM",e);
-    coprocessorBehavior=CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM;
+    storageSideBehavior=StorageSideBehavior.SCAN_FILTER_AGGR_CHECKMEM;
   }
   HRegion region=ctxt.getEnvironment().getRegion();
   region.startRegionOperation();
   try {
 synchronized (innerScanner) {
-      return new AggregationScanner(type,filter,projector,aggregators,innerScanner,coprocessorBehavior);
+      return new AggregationScanner(type,filter,projector,aggregators,innerScanner,storageSideBehavior);
     }
   }
   finally {
