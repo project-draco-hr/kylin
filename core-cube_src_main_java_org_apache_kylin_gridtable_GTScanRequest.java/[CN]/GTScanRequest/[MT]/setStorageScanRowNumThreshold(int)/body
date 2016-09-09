@@ -1,4 +1,0 @@
-{
-  logger.info("storageScanRowNumThreshold is set to " + storageScanRowNumThreshold);
-  this.storageScanRowNumThreshold=storageScanRowNumThreshold;
-}

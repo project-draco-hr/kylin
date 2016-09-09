@@ -8,6 +8,14 @@
       return new Iterator<GTRecord>(){
         GTRecord oneRecord=new GTRecord(info);
         @Override public boolean hasNext(){
+          if (withDelay) {
+            try {
+              Thread.sleep(10);
+            }
+ catch (            InterruptedException e) {
+              e.printStackTrace();
+            }
+          }
           return cellListIterator.hasNext();
         }
         @Override public GTRecord next(){

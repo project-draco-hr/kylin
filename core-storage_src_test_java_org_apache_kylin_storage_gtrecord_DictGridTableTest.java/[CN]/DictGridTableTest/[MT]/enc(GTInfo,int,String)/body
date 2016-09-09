@@ -1,0 +1,5 @@
+{
+  ByteBuffer buf=ByteBuffer.allocate(info.getMaxColumnLength());
+  info.getCodeSystem().encodeColumnValue(col,value,buf);
+  return ByteArray.copyOf(buf.array(),buf.arrayOffset(),buf.position());
+}

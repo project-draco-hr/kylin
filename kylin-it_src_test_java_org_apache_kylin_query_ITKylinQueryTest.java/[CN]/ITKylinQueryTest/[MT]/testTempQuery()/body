@@ -1,3 +1,5 @@
 {
+  PRINT_RESULT=true;
   execAndCompQuery(getQueryFolderPrefix() + "src/test/resources/query/temp",null,true);
+  PRINT_RESULT=false;
 }

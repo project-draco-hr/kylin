@@ -51,7 +51,7 @@
       appendProfileInfo(sb,"scanned " + counter);
     }
     if (behavior.ordinal() < CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM.ordinal()) {
-      scanReq.setAggCacheMemThreshold(0);
+      scanReq.disableAggCacheMemCheck();
     }
     final MutableBoolean scanNormalComplete=new MutableBoolean(true);
     final long deadline=request.getTimeout() + this.serviceStartTime;
@@ -67,7 +67,7 @@
         if (counter > scanReq.getStorageScanRowNumThreshold()) {
           throw new GTScanExceedThresholdException("Exceed scan threshold at " + counter);
         }
-        if (counter % 100000 == 1) {
+        if (counter % (10 * GTScanRequest.terminateCheckInterval) == 1) {
           logger.info("Scanned " + counter + " rows from HBase.");
         }
         counter++;
@@ -81,7 +81,7 @@
       }
     }
 ;
-    IGTStore store=new HBaseReadonlyStore(cellListIterator,scanReq,hbaseRawScans.get(0).hbaseColumns,hbaseColumnsToGT,request.getRowkeyPreambleSize());
+    IGTStore store=new HBaseReadonlyStore(cellListIterator,scanReq,hbaseRawScans.get(0).hbaseColumns,hbaseColumnsToGT,request.getRowkeyPreambleSize(),CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM_WITHDELAY.toString().equals(request.getBehavior()));
     IGTScanner rawScanner=store.scan(scanReq);
     IGTScanner finalScanner=scanReq.decorateScanner(rawScanner,behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER.ordinal(),behavior.ordinal() >= CoprocessorBehavior.SCAN_FILTER_AGGR.ordinal(),deadline);
     ByteBuffer buffer=ByteBuffer.allocate(BufferedMeasureEncoder.DEFAULT_BUFFER_SIZE);
@@ -89,13 +89,9 @@
     int finalRowCount=0;
     try {
       for (      GTRecord oneRecord : finalScanner) {
-        if (finalRowCount > storagePushDownLimit) {
-          logger.info("The finalScanner aborted because storagePushDownLimit is satisfied");
-          break;
-        }
-        if (finalRowCount % 100000 == 1) {
+        if (finalRowCount % GTScanRequest.terminateCheckInterval == 1) {
           if (System.currentTimeMillis() > deadline) {
-            throw new GTScanTimeoutException("finalScanner timeouts after scanned " + finalRowCount);
+            throw new GTScanTimeoutException("finalScanner timeouts after contributed " + finalRowCount);
           }
         }
         buffer.clear();
@@ -108,6 +104,10 @@
         }
         outputStream.write(buffer.array(),0,buffer.position());
         finalRowCount++;
+        if (!scanReq.isDoingStorageAggregation() && finalRowCount >= storagePushDownLimit) {
+          logger.info("The finalScanner aborted because storagePushDownLimit is satisfied");
+          break;
+        }
       }
     }
  catch (    GTScanTimeoutException e) {

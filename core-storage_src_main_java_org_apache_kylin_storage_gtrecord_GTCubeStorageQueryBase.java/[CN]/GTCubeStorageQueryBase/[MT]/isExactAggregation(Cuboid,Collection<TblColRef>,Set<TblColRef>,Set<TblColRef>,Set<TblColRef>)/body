@@ -21,7 +21,7 @@
     }
   }
   if (exact) {
-    logger.info("exactAggregation is true");
+    logger.info("exactAggregation is true, cuboid id is " + cuboid.getId());
   }
   return exact;
 }

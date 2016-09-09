@@ -1,7 +1,9 @@
 {
   long count=0;
   for (  GTRecord r : inputScanner) {
-    count++;
+    if (count % GTScanRequest.terminateCheckInterval == 1 && System.currentTimeMillis() > deadline) {
+      throw new GTScanTimeoutException("Timeout in GTAggregateScanner with scanned count " + count);
+    }
     if (getNumOfSpills() == 0) {
       boolean ret=aggrCache.aggregate(r,storagePushDownLimit);
       if (!ret) {
@@ -12,9 +14,7 @@
  else {
       aggrCache.aggregate(r,Integer.MAX_VALUE);
     }
-    if (count % 10000 == 1 && System.currentTimeMillis() > deadline) {
-      throw new GTScanTimeoutException("Timeout in GTAggregateScanner with scanned count " + count);
-    }
+    count++;
   }
   logger.info("GTAggregateScanner input rows: " + count);
   return aggrCache.iterator();

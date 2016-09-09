@@ -9,10 +9,11 @@
       ret=queue.poll(5000,TimeUnit.MILLISECONDS);
     }
     if (coprocException != null) {
-      throw new RuntimeException("Error in coprocessor",coprocException);
+      if (coprocException instanceof GTScanSelfTerminatedException)       throw (GTScanSelfTerminatedException)coprocException;
+ else       throw new RuntimeException("Error in coprocessor",coprocException);
     }
  else     if (ret == null) {
-      throw new RuntimeException("Timeout visiting cube!");
+      throw new RuntimeException("Timeout visiting cube! Check why coprocessor exception is not sent back? In coprocessor Self-termination is checked every " + GTScanRequest.terminateCheckInterval + " scanned rows, the configured timeout("+ timeout+ ") cannot support this many scans?");
     }
  else {
       return ret;

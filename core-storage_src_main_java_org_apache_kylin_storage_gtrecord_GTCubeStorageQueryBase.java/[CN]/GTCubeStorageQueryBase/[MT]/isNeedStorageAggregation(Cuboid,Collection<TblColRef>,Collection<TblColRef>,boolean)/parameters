@@ -1,4 +1,0 @@
-Cuboid cuboid
-Collection<TblColRef> groupD
-Collection<TblColRef> singleValueD
-boolean isExactAggregation

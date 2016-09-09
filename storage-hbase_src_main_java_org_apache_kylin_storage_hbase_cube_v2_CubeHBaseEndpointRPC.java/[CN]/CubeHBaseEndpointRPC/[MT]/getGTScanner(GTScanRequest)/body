@@ -1,6 +1,6 @@
 {
   final String toggle=BackdoorToggles.getCoprocessorBehavior() == null ? CoprocessorBehavior.SCAN_FILTER_AGGR_CHECKMEM.toString() : BackdoorToggles.getCoprocessorBehavior();
-  logger.debug("New scanner for current segment {} will use {} as endpoint's behavior",cubeSeg,toggle);
+  logger.info("New scanner for current segment {} will use {} as endpoint's behavior",cubeSeg,toggle);
   Pair<Short,Short> shardNumAndBaseShard=getShardNumAndBaseShard();
   short shardNum=shardNumAndBaseShard.getFirst();
   short cuboidBaseShard=shardNumAndBaseShard.getSecond();
@@ -32,7 +32,7 @@
       rawScanBufferSize*=4;
     }
   }
-  scanRequest.setGTScanRanges(Lists.<GTScanRange>newArrayList());
+  scanRequest.clearScanRanges();
   int scanRequestBufferSize=BytesSerializer.SERIALIZE_BUFFER_SIZE;
   while (true) {
     try {
@@ -119,7 +119,7 @@
           return;
         }
         if (abnormalFinish[0]) {
-          Throwable ex=new RuntimeException(logHeader + "The coprocessor thread stopped itself due to scan timeout or scan threshold(check region server log), failing current query...");
+          Throwable ex=new GTScanSelfTerminatedException(logHeader + "The coprocessor thread stopped itself due to scan timeout or scan threshold(check region server log), failing current query...");
           logger.error(logHeader + "Error when visiting cubes by endpoint",ex);
           epResultItr.notifyCoprocException(ex);
           return;

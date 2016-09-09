@@ -1,3 +1,0 @@
-{
-  return this.getOptional("kylin.query.storage.visit.planner","org.apache.kylin.cube.gridtable.CubeScanRangePlanner");
-}

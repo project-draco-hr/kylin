@@ -1,16 +1,17 @@
 {
   this.expectedSize=expectedSize;
   this.queue=new ArrayBlockingQueue<byte[]>(expectedSize);
+  StringBuilder sb=new StringBuilder();
   Configuration hconf=HBaseConnection.getCurrentHBaseConfiguration();
   this.rpcTimeout=hconf.getInt(HConstants.HBASE_RPC_TIMEOUT_KEY,HConstants.DEFAULT_HBASE_RPC_TIMEOUT);
   this.timeout=this.rpcTimeout * hconf.getInt(HConstants.HBASE_CLIENT_RETRIES_NUMBER,HConstants.DEFAULT_HBASE_CLIENT_RETRIES_NUMBER);
-  logger.info("rpc timeout is {} and after multiply retry times become {}",this.rpcTimeout,this.timeout);
-  this.timeout=Math.max(this.timeout,5 * 60000);
+  sb.append("rpc timeout is " + this.rpcTimeout + " and after multiply retry times becomes "+ this.timeout);
   this.timeout*=KylinConfig.getInstanceFromEnv().getCubeVisitTimeoutTimes();
+  sb.append(" after multiply kylin.query.cube.visit.timeout.times becomes " + this.timeout);
+  logger.info(sb.toString());
   if (BackdoorToggles.getQueryTimeout() != -1) {
     this.timeout=BackdoorToggles.getQueryTimeout();
+    logger.info("rpc timeout is overwritten to " + this.timeout);
   }
-  this.timeout*=1.1;
-  logger.info("Final Timeout for ExpectedSizeIterator is: " + this.timeout);
-  this.timeoutTS=System.currentTimeMillis() + this.timeout;
+  this.timeoutTS=System.currentTimeMillis() + 2 * this.timeout;
 }

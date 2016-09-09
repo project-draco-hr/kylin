@@ -18,6 +18,7 @@
     }
  else     if (this.hasAggregation()) {
       logger.info("pre aggregating results before returning");
+      this.doingStorageAggregation=true;
       result=new GTAggregateScanner(result,this,deadline);
     }
  else {

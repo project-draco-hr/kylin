@@ -1,4 +1,0 @@
-{
-  logger.info("Set isNeedStorageAggregation to " + !isExactAggregation);
-  return !isExactAggregation;
-}
