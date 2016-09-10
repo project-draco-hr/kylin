@@ -1,4 +1,7 @@
 {
+  if (HBaseStorage.overwriteStorageQuery != null) {
+    return;
+  }
   thrown.expect(SQLException.class);
   thrown.expectCause(new BaseMatcher<Throwable>(){
     @Override public boolean matches(    Object item){
