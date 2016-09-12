@@ -37,7 +37,10 @@
     if (builderClass == null)     dictionary=DictionaryGenerator.buildDictionary(DataType.getType(dictInfo.getDataType()),columnValueEnumerator);
  else     dictionary=DictionaryGenerator.buildDictionary((IDictionaryBuilder)ClassUtil.newInstance(builderClass),dictInfo,columnValueEnumerator);
   }
-  finally {
+ catch (  Exception ex) {
+    throw new RuntimeException("Failed to create dictionary on " + col,ex);
+  }
+ finally {
     if (columnValueEnumerator != null)     columnValueEnumerator.close();
   }
   return trySaveNewDict(dictionary,dictInfo);
