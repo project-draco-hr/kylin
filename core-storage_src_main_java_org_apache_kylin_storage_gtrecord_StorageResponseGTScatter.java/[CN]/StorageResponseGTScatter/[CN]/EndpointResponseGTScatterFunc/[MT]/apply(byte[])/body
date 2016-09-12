@@ -2,17 +2,10 @@
   return new Iterator<GTRecord>(){
     private ByteBuffer inputBuffer=null;
     private GTRecord firstRecord=null;
-    private GTRecord secondRecord=null;
-    private GTRecord thirdRecord=null;
-    private GTRecord fourthRecord=null;
-    private int counter=0;
     @Override public boolean hasNext(){
       if (inputBuffer == null) {
         inputBuffer=ByteBuffer.wrap(input);
         firstRecord=new GTRecord(info);
-        secondRecord=new GTRecord(info);
-        thirdRecord=new GTRecord(info);
-        fourthRecord=new GTRecord(info);
       }
       return inputBuffer.position() < inputBuffer.limit();
     }

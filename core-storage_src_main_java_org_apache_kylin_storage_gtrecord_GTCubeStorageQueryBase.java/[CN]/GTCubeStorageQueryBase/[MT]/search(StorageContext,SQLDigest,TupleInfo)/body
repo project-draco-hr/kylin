@@ -23,6 +23,7 @@
   TupleFilter filterD=translateDerived(filter,groupsD);
   context.setNeedStorageAggregation(isNeedStorageAggregation(cuboid,groupsD,singleValuesD));
   enableStorageLimitIfPossible(cuboid,groups,derivedPostAggregation,groupsD,filter,sqlDigest.aggregations,context);
+  context.setFinalPushDownLimit(cubeInstance);
   setThresholdIfNecessary(dimensionsD,metrics,context);
   List<CubeSegmentScanner> scanners=Lists.newArrayList();
   for (  CubeSegment cubeSeg : cubeInstance.getSegments(SegmentStatusEnum.READY)) {
@@ -40,5 +41,5 @@
     scanners.add(scanner);
   }
   if (scanners.isEmpty())   return ITupleIterator.EMPTY_TUPLE_ITERATOR;
-  return new SequentialCubeTupleIterator(scanners,cuboid,dimensionsD,metrics,returnTupleInfo,context,cubeDesc.supportsLimitPushDown());
+  return new SequentialCubeTupleIterator(scanners,cuboid,dimensionsD,metrics,returnTupleInfo,context);
 }

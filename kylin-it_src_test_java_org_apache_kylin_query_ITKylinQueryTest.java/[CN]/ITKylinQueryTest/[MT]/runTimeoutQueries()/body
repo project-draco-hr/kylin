@@ -1,0 +1,15 @@
+{
+  List<File> sqlFiles=getFilesFromFolder(new File(getQueryFolderPrefix() + "src/test/resources/query/sql_timeout"),".sql");
+  for (  File sqlFile : sqlFiles) {
+    try {
+      runSQL(sqlFile,false,false);
+    }
+ catch (    SQLException e) {
+      System.out.println(e.getMessage());
+      if (findRoot(e) instanceof GTScanSelfTerminatedException) {
+        continue;
+      }
+    }
+    throw new RuntimeException("Expecting GTScanTimeoutException");
+  }
+}

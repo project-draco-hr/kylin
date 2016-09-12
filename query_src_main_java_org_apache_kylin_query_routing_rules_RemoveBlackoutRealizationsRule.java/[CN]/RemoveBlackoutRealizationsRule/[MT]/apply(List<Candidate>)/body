@@ -1,8 +1,13 @@
 {
   for (Iterator<Candidate> iterator=candidates.iterator(); iterator.hasNext(); ) {
     Candidate candidate=iterator.next();
-    if (blackouts.contains(candidate.getRealization().getCanonicalName())) {
+    if (blackList.contains(candidate.getRealization().getCanonicalName())) {
       iterator.remove();
+      continue;
+    }
+    if (!whiteList.isEmpty() && !whiteList.contains(candidate.getRealization().getCanonicalName())) {
+      iterator.remove();
+      continue;
     }
   }
 }

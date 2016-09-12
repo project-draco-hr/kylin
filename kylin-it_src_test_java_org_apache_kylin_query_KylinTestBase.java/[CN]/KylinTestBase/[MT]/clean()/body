@@ -3,5 +3,5 @@
   if (h2Connection != null)   closeConnection(h2Connection);
   ObserverEnabler.forceCoprocessorUnset();
   HBaseMetadataTestCase.staticCleanupTestMetadata();
-  RemoveBlackoutRealizationsRule.blackouts.clear();
+  RemoveBlackoutRealizationsRule.blackList.clear();
 }

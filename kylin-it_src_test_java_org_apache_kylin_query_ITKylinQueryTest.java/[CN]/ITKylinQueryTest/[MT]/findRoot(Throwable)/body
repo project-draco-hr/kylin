@@ -1,0 +1,11 @@
+{
+  while (true) {
+    if (throwable.getCause() != null) {
+      throwable=throwable.getCause();
+    }
+ else {
+      break;
+    }
+  }
+  return throwable;
+}

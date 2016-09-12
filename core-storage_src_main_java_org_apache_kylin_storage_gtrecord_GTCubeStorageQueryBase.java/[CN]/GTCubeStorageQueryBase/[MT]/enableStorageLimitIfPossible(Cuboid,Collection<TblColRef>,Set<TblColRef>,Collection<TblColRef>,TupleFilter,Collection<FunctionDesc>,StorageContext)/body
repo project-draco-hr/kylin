@@ -1,6 +1,6 @@
 {
   boolean possible=true;
-  boolean goodFilter=filter == null || (TupleFilter.isEvaluableRecursively(filter) && context.isCoprocessorEnabled());
+  boolean goodFilter=filter == null || TupleFilter.isEvaluableRecursively(filter);
   if (!goodFilter) {
     possible=false;
     logger.info("Storage limit push down is impossible because the filter is unevaluatable");

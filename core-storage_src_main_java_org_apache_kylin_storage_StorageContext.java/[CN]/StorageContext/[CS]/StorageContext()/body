@@ -9,4 +9,5 @@
   this.enableCoprocessor=false;
   this.acceptPartialResult=false;
   this.partialResultReturned=false;
+  this.finalPushDownLimit=Integer.MAX_VALUE;
 }

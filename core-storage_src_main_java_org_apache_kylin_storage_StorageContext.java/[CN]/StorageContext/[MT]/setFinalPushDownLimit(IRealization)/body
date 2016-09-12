@@ -1,0 +1,16 @@
+{
+  int tempPushDownLimit=this.getStoragePushDownLimit();
+  if (tempPushDownLimit == Integer.MAX_VALUE) {
+    return;
+  }
+  int pushDownLimitMax=KylinConfig.getInstanceFromEnv().getStoragePushDownLimitMax();
+  if (!realization.supportsLimitPushDown()) {
+    logger.info("Not enabling limit push down because cube storage type not supported");
+  }
+ else   if (tempPushDownLimit > pushDownLimitMax) {
+    logger.info("Not enabling limit push down because the limit(including offset) {} is larger than kylin.query.pushdown.limit.max {}",tempPushDownLimit,pushDownLimitMax);
+  }
+ else {
+    this.finalPushDownLimit=tempPushDownLimit;
+  }
+}

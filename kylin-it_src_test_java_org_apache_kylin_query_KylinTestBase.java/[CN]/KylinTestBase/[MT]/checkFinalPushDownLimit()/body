@@ -1,0 +1,4 @@
+{
+  OLAPContext context=getFirstOLAPContext();
+  return (context.storageContext.getFinalPushDownLimit() != Integer.MAX_VALUE);
+}

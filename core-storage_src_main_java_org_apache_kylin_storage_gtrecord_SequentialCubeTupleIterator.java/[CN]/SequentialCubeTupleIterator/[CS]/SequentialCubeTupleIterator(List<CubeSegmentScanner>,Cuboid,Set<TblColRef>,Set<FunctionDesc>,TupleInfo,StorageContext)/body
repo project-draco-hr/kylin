@@ -5,8 +5,8 @@
   for (  CubeSegmentScanner scanner : scanners) {
     segmentCubeTupleIterators.add(new SegmentCubeTupleIterator(scanner,cuboid,selectedDimensions,selectedMetrics,returnTupleInfo,context));
   }
-  this.storagePushDownLimit=context.getStoragePushDownLimit();
-  if (!supportLimitPushDown || storagePushDownLimit > KylinConfig.getInstanceFromEnv().getStoragePushDownLimitMax()) {
+  this.storagePushDownLimit=context.getFinalPushDownLimit();
+  if (storagePushDownLimit == Integer.MAX_VALUE) {
     tupleIterator=Iterators.concat(segmentCubeTupleIterators.iterator());
   }
  else {

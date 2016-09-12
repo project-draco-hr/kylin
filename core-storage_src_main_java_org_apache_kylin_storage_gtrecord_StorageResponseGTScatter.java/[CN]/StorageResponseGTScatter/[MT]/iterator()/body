@@ -1,6 +1,6 @@
 {
-  Iterator<Iterator<GTRecord>> shardSubsets=Iterators.transform(blocks,new GTBlobScatterFunc());
-  if (storagePushDownLimit <= KylinConfig.getInstanceFromEnv().getStoragePushDownLimitMax()) {
+  Iterator<Iterator<GTRecord>> shardSubsets=Iterators.transform(blocks,new EndpointResponseGTScatterFunc());
+  if (storagePushDownLimit != Integer.MAX_VALUE) {
     return new SortedIteratorMergerWithLimit<GTRecord>(shardSubsets,storagePushDownLimit,GTRecord.getPrimaryKeyComparator()).getIterator();
   }
  else {

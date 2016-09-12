@@ -95,5 +95,5 @@
     }
 );
   }
-  return new GTBlobScatter(fullGTInfo,epResultItr,scanRequest.getColumns(),totalScannedCount.get(),scanRequest.getStoragePushDownLimit());
+  return new StorageResponseGTScatter(fullGTInfo,epResultItr,scanRequest.getColumns(),totalScannedCount.get(),scanRequest.getStoragePushDownLimit());
 }
