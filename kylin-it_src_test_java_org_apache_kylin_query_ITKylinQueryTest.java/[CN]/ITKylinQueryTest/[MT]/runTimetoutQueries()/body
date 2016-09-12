@@ -1,0 +1,17 @@
+{
+  try {
+    Map<String,String> toggles=Maps.newHashMap();
+    toggles.put(BackdoorToggles.DEBUG_TOGGLE_COPROCESSOR_BEHAVIOR,StorageSideBehavior.SCAN_FILTER_AGGR_CHECKMEM_WITHDELAY.toString());
+    BackdoorToggles.setToggles(toggles);
+    KylinConfig.getInstanceFromEnv().setProperty("kylin.query.cube.visit.timeout.times","0.03");
+    RemoveBlackoutRealizationsRule.blackouts.add("CUBE[name=test_kylin_cube_without_slr_left_join_empty]");
+    RemoveBlackoutRealizationsRule.blackouts.add("CUBE[name=test_kylin_cube_without_slr_inner_join_empty]");
+    execAndCompQuery(getQueryFolderPrefix() + "src/test/resources/query/sql_timeout",null,true);
+  }
+  finally {
+    RemoveBlackoutRealizationsRule.blackouts.remove("CUBE[name=test_kylin_cube_without_slr_left_join_empty]");
+    RemoveBlackoutRealizationsRule.blackouts.remove("CUBE[name=test_kylin_cube_without_slr_inner_join_empty]");
+    KylinConfig.getInstanceFromEnv().setProperty("kylin.query.cube.visit.timeout.times","1");
+    BackdoorToggles.cleanToggles();
+  }
+}

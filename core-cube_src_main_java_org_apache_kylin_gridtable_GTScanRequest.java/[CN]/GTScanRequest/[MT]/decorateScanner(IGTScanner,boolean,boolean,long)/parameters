@@ -1,4 +1,4 @@
 IGTScanner scanner
-boolean doFilter
-boolean doAggr
+boolean filterToggledOn
+boolean aggrToggledOn
 long deadline

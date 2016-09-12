@@ -18,9 +18,9 @@
       }
     }
  else {
-      if (behavior.ordinal() >= StorageSideBehavior.SCAN_FILTER.ordinal()) {
+      if (behavior.filterToggledOn()) {
         if (filter != null && filter.evaluate(tuple) == false)         continue;
-        if (behavior.ordinal() >= StorageSideBehavior.SCAN_FILTER_AGGR.ordinal()) {
+        if (behavior.aggrToggledOn()) {
           AggrKey aggKey=projector.getAggrKey(results);
           MeasureAggregator[] bufs=aggCache.getBuffer(aggKey);
           aggregators.aggregate(bufs,results);

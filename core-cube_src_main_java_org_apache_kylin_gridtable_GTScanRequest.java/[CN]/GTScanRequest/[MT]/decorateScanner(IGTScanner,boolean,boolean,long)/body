@@ -1,6 +1,6 @@
 {
   IGTScanner result=scanner;
-  if (!doFilter) {
+  if (!filterToggledOn) {
     int scanned=lookAndForget(result);
     return new EmptyGTScanner(scanned);
   }
@@ -8,7 +8,7 @@
     if (this.hasFilterPushDown()) {
       result=new GTFilterScanner(result,this);
     }
-    if (!doAggr) {
+    if (!aggrToggledOn) {
       long scanned=result.getScannedRowCount();
       lookAndForget(result);
       return new EmptyGTScanner(scanned);
