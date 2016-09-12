@@ -3,7 +3,10 @@
   String project=cubeRequest.getProject();
   CubeInstance cube=cubeService.getCubeManager().getCube(cubeName);
   if (cube == null) {
-    throw new InternalErrorException("Cannot find cube " + cubeName);
+    throw new BadRequestException("Cannot find cube " + cubeName);
+  }
+  if (cube.getStatus() == RealizationStatusEnum.DESCBROKEN) {
+    throw new BadRequestException("Broken cube can't be cloned");
   }
   CubeDesc cubeDesc=cube.getDescriptor();
   CubeDesc newCubeDesc=CubeDesc.getCopyOf(cubeDesc);

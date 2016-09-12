@@ -1,0 +1,10 @@
+{
+  List<FieldSchema> fields=Lists.newArrayList();
+  fields.addAll(hiveClient.getHiveTableFields(dbName,tblName));
+  Table table=hiveClient.getHiveTable(dbName,tblName);
+  List<FieldSchema> partitionFields=table.getPartitionKeys();
+  if (partitionFields != null) {
+    fields.addAll(partitionFields);
+  }
+  return fields;
+}

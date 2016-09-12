@@ -4,14 +4,14 @@
   try {
     cubeDesc.init(config,getMetadataManager().getAllTablesMap());
   }
- catch (  IllegalStateException e) {
-    cubeDesc.addError(e.getMessage(),true);
+ catch (  Exception e) {
+    cubeDesc.addError(e.getMessage());
   }
   if (!cubeDesc.getError().isEmpty()) {
     return cubeDesc;
   }
   CubeMetadataValidator validator=new CubeMetadataValidator();
-  ValidateContext context=validator.validate(cubeDesc,true);
+  ValidateContext context=validator.validate(cubeDesc);
   if (!context.ifPass()) {
     return cubeDesc;
   }

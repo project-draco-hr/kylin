@@ -1,0 +1,2 @@
+TableDesc table
+List<FieldSchema> fields

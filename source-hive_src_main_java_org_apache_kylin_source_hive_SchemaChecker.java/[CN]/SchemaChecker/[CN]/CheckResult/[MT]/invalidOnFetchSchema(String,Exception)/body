@@ -1,0 +1,3 @@
+{
+  return new CheckResult(false,format("Failed to fetch metadata of '%s': %s",tableName,e.getMessage()));
+}

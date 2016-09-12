@@ -1,3 +1,10 @@
 {
-  return validate(cube,false);
+  ValidateContext context=new ValidateContext();
+  for (  IValidatorRule<CubeDesc> rule : rules) {
+    rule.validate(cube,context);
+  }
+  for (  ValidateContext.Result result : context.getResults()) {
+    cube.addError(result.getLevel() + " : " + result.getMessage());
+  }
+  return context;
 }

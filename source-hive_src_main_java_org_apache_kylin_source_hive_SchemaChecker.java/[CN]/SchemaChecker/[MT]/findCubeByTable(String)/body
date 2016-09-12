@@ -1,0 +1,18 @@
+{
+  Iterable<CubeInstance> relatedCubes=Iterables.filter(cubeManager.listAllCubes(),new Predicate<CubeInstance>(){
+    @Override public boolean apply(    @Nullable CubeInstance cube){
+      if (cube == null || cube.allowBrokenDescriptor()) {
+        return false;
+      }
+      CubeDesc desc=cube.getDescriptor();
+      Set<String> usedTables=Sets.newHashSet();
+      usedTables.add(desc.getFactTableDesc().getIdentity());
+      for (      TableDesc lookup : desc.getLookupTableDescs()) {
+        usedTables.add(lookup.getIdentity());
+      }
+      return usedTables.contains(fullTableName);
+    }
+  }
+);
+  return ImmutableList.copyOf(relatedCubes);
+}

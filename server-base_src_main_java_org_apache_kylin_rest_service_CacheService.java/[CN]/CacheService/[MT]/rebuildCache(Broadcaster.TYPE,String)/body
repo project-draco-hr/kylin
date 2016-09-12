@@ -21,6 +21,7 @@ break;
 case TABLE:
 getMetadataManager().reloadTableCache(cacheKey);
 CubeDescManager.clearCache();
+clearRealizationCache();
 break;
 case EXTERNAL_FILTER:
 getMetadataManager().reloadExtFilter(cacheKey);
@@ -34,9 +35,7 @@ case ALL:
 DictionaryManager.clearCache();
 MetadataManager.clearCache();
 CubeDescManager.clearCache();
-CubeManager.clearCache();
-HybridManager.clearCache();
-RealizationRegistry.clearCache();
+clearRealizationCache();
 Cuboid.clearCache();
 ProjectManager.clearCache();
 KafkaConfigManager.clearCache();

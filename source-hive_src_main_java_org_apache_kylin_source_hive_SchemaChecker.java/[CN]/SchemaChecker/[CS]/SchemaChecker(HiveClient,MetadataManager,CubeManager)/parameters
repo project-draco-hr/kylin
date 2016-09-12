@@ -1,0 +1,3 @@
+HiveClient hiveClient
+MetadataManager metadataManager
+CubeManager cubeManager

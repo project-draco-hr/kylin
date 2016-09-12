@@ -4,15 +4,8 @@
   cubeDescMap.clear();
   List<String> paths=store.collectResourceRecursively(ResourceStore.CUBE_DESC_RESOURCE_ROOT,MetadataConstants.FILE_SURFIX);
   for (  String path : paths) {
-    CubeDesc desc;
-    try {
-      desc=loadCubeDesc(path);
-    }
- catch (    Exception e) {
-      logger.error("Error loading cube desc " + path,e);
-      continue;
-    }
-    if (path.equals(desc.getResourcePath()) == false) {
+    CubeDesc desc=loadCubeDesc(path,true);
+    if (!path.equals(desc.getResourcePath())) {
       logger.error("Skip suspicious desc at " + path + ", "+ desc+ " should be at "+ desc.getResourcePath());
       continue;
     }
@@ -22,5 +15,5 @@
     }
     cubeDescMap.putLocal(desc.getName(),desc);
   }
-  logger.debug("Loaded " + cubeDescMap.size() + " Cube(s)");
+  logger.info("Loaded " + cubeDescMap.size() + " Cube(s)");
 }

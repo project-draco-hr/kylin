@@ -9,23 +9,19 @@
   try {
     desc.init(config,getMetadataManager().getAllTablesMap());
   }
- catch (  IllegalStateException e) {
-    desc.addError(e.getMessage(),true);
-    return desc;
-  }
-catch (  IllegalArgumentException e) {
-    desc.addError(e.getMessage(),true);
+ catch (  Exception e) {
+    desc.addError(e.getMessage());
     return desc;
   }
   CubeMetadataValidator validator=new CubeMetadataValidator();
-  ValidateContext context=validator.validate(desc,true);
+  ValidateContext context=validator.validate(desc);
   if (!context.ifPass()) {
     return desc;
   }
   desc.setSignature(desc.calculateSignature());
   String path=desc.getResourcePath();
   getStore().putResource(path,desc,CUBE_DESC_SERIALIZER);
-  CubeDesc ndesc=loadCubeDesc(path);
+  CubeDesc ndesc=loadCubeDesc(path,false);
   cubeDescMap.put(ndesc.getName(),desc);
   return ndesc;
 }

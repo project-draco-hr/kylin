@@ -1,0 +1,16 @@
+{
+  if (!column.getName().equalsIgnoreCase(field.getName())) {
+    return false;
+  }
+  String typeStr=field.getType();
+  if ("float".equalsIgnoreCase(typeStr)) {
+    typeStr="double";
+  }
+  DataType fieldType=DataType.getType(typeStr);
+  if (column.getType().isIntegerFamily()) {
+    return fieldType.isIntegerFamily();
+  }
+ else {
+    return column.getTypeName().equals(fieldType.getName());
+  }
+}

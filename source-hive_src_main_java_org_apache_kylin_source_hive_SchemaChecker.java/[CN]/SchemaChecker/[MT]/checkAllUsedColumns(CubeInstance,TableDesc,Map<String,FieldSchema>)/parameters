@@ -1,0 +1,3 @@
+CubeInstance cube
+TableDesc table
+Map<String,FieldSchema> fieldsMap

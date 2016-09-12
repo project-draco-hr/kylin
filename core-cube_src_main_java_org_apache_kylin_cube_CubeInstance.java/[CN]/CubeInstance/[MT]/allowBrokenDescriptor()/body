@@ -1,0 +1,3 @@
+{
+  return (getStatus() == RealizationStatusEnum.DISABLED || getStatus() == RealizationStatusEnum.DESCBROKEN) && segments.isEmpty();
+}

@@ -1,7 +1,0 @@
-{
-  ValidateContext.Result[] results=context.getResults();
-  for (int i=0; i < results.length; i++) {
-    ValidateContext.Result result=results[i];
-    cubeDesc.addError(result.getLevel() + " : " + result.getMessage(),true);
-  }
-}

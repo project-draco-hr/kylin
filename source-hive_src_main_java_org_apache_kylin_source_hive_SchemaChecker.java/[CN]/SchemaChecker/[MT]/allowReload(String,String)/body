@@ -1,0 +1,39 @@
+{
+  final String fullTableName=(dbName + "." + tblName).toUpperCase();
+  TableDesc existing=metadataManager.getTableDesc(fullTableName);
+  if (existing == null) {
+    return CheckResult.validOnFirstLoad(fullTableName);
+  }
+  List<FieldSchema> currentFields;
+  Map<String,FieldSchema> currentFieldsMap=Maps.newHashMap();
+  try {
+    currentFields=fetchSchema(dbName,tblName);
+  }
+ catch (  Exception e) {
+    return CheckResult.invalidOnFetchSchema(fullTableName,e);
+  }
+  for (  FieldSchema field : currentFields) {
+    currentFieldsMap.put(field.getName().toUpperCase(),field);
+  }
+  List<String> issues=Lists.newArrayList();
+  for (  CubeInstance cube : findCubeByTable(fullTableName)) {
+    TableDesc factTable=cube.getFactTableDesc();
+    List<TableDesc> lookupTables=cube.getDescriptor().getLookupTableDescs();
+    String modelName=cube.getDataModelDesc().getName();
+    if (factTable.getIdentity().equals(fullTableName)) {
+      List<String> violateColumns=checkAllUsedColumns(cube,factTable,currentFieldsMap);
+      if (!violateColumns.isEmpty()) {
+        issues.add(format("Column %s used in cube[%s] and model[%s], but changed in hive",violateColumns,cube.getName(),modelName));
+      }
+    }
+    for (    TableDesc lookupTable : lookupTables) {
+      if (lookupTable.getIdentity().equals(fullTableName) && !checkAllColumns(lookupTable,currentFields)) {
+        issues.add(format("Table '%s' is used as Lookup Table in cube[%s] and model[%s], but changed in hive",lookupTable.getIdentity(),cube.getName(),modelName));
+      }
+    }
+  }
+  if (issues.isEmpty()) {
+    return CheckResult.validOnCompatibleSchema(fullTableName);
+  }
+  return CheckResult.invalidOnIncompatibleSchema(fullTableName,issues);
+}

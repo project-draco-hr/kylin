@@ -1,7 +1,12 @@
 {
-  String path=CubeDesc.concatResourcePath(name);
-  CubeDesc ndesc=loadCubeDesc(path);
+  CubeDesc ndesc=loadCubeDesc(CubeDesc.concatResourcePath(name),false);
   cubeDescMap.putLocal(ndesc.getName(),ndesc);
   Cuboid.reloadCache(name);
+  CubeManager cubeManager=CubeManager.getInstance(config);
+  for (  CubeInstance cube : cubeManager.getCubesByDesc(name)) {
+    if (cube.getStatus() == RealizationStatusEnum.DESCBROKEN) {
+      cubeManager.reloadCubeLocal(cube.getName());
+    }
+  }
   return ndesc;
 }

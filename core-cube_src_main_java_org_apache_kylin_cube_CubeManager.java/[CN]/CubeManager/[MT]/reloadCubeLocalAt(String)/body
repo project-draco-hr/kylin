@@ -1,25 +1,28 @@
 {
   ResourceStore store=getStore();
-  CubeInstance cubeInstance;
+  CubeInstance cube;
   try {
-    cubeInstance=store.getResource(path,CubeInstance.class,CUBE_SERIALIZER);
-    CubeDesc cubeDesc=CubeDescManager.getInstance(config).getCubeDesc(cubeInstance.getDescName());
-    if (cubeDesc == null)     throw new IllegalStateException("CubeInstance desc not found '" + cubeInstance.getDescName() + "', at "+ path);
-    cubeInstance.setConfig((KylinConfigExt)cubeDesc.getConfig());
-    if (StringUtils.isBlank(cubeInstance.getName()))     throw new IllegalStateException("CubeInstance name must not be blank, at " + path);
-    if (cubeInstance.getDescriptor() == null)     throw new IllegalStateException("CubeInstance desc not found '" + cubeInstance.getDescName() + "', at "+ path);
-    final String cubeName=cubeInstance.getName();
-    cubeMap.putLocal(cubeName,cubeInstance);
-    for (    CubeSegment segment : cubeInstance.getSegments()) {
+    cube=store.getResource(path,CubeInstance.class,CUBE_SERIALIZER);
+    checkNotNull(cube,"cube (at %s) not found",path);
+    String cubeName=cube.getName();
+    checkState(StringUtils.isNotBlank(cubeName),"cube (at %s) name must not be blank",path);
+    CubeDesc cubeDesc=CubeDescManager.getInstance(config).getCubeDesc(cube.getDescName());
+    checkNotNull(cubeDesc,"cube descriptor '%s' (for cube '%s') not found",cube.getDescName(),cubeName);
+    if (!cubeDesc.getError().isEmpty()) {
+      cube.setStatus(RealizationStatusEnum.DESCBROKEN);
+      logger.warn("cube descriptor {} (for cube '{}') is broken",cubeDesc.getResourcePath(),cubeName);
+    }
+ else     if (cube.getStatus() == RealizationStatusEnum.DESCBROKEN) {
+      cube.setStatus(RealizationStatusEnum.DISABLED);
+      logger.info("cube {} changed from DESCBROKEN to DISABLED",cubeName);
+    }
+    cube.setConfig((KylinConfigExt)cubeDesc.getConfig());
+    cubeMap.putLocal(cubeName,cube);
+    for (    CubeSegment segment : cube.getSegments()) {
       usedStorageLocation.put(cubeName.toUpperCase(),segment.getStorageLocationIdentifier());
     }
-    logger.debug("Reloaded new cube: " + cubeName + " with reference being"+ cubeInstance+ " having "+ cubeInstance.getSegments().size()+ " segments:"+ StringUtils.join(Collections2.transform(cubeInstance.getSegments(),new Function<CubeSegment,String>(){
-      @Nullable @Override public String apply(      CubeSegment input){
-        return input.getStorageLocationIdentifier();
-      }
-    }
-),","));
-    return cubeInstance;
+    logger.info("Reloaded cube {} being {} having {} segments",cubeName,cube,cube.getSegments().size());
+    return cube;
   }
  catch (  Exception e) {
     logger.error("Error during load cube instance, skipping : " + path,e);

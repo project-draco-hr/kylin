@@ -1,0 +1,12 @@
+{
+  if (table.getColumnCount() != fields.size()) {
+    return false;
+  }
+  ColumnDesc[] columns=table.getColumns();
+  for (int i=0; i < columns.length; i++) {
+    if (!isColumnCompatible(columns[i],fields.get(i))) {
+      return false;
+    }
+  }
+  return true;
+}

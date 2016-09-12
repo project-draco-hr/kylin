@@ -1,0 +1,5 @@
+{
+  this.hiveClient=checkNotNull(hiveClient,"hiveClient is null");
+  this.metadataManager=checkNotNull(metadataManager,"metadataManager is null");
+  this.cubeManager=checkNotNull(cubeManager,"cubeManager is null");
+}

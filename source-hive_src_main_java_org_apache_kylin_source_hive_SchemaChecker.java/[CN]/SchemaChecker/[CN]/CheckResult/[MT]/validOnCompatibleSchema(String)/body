@@ -1,0 +1,3 @@
+{
+  return new CheckResult(true,format("Table '%s' is compatible with all existing cubes",tableName));
+}

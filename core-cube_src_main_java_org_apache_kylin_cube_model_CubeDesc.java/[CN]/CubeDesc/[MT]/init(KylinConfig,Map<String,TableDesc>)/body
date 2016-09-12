@@ -1,14 +1,11 @@
 {
   this.errors.clear();
   this.config=KylinConfigExt.createInstance(config,overrideKylinProps);
-  if (this.modelName == null || this.modelName.length() == 0) {
-    this.addError("The cubeDesc '" + this.getName() + "' doesn't have data model specified.");
-  }
+  checkArgument(StringUtils.isNotBlank(name),"CubeDesc name is blank");
+  checkArgument(StringUtils.isNotBlank(modelName),"CubeDesc(%s) has blank modelName",name);
+  this.model=MetadataManager.getInstance(config).getDataModelDesc(modelName);
+  checkNotNull(this.model,"DateModelDesc(%s) not found",modelName);
   validate();
-  this.model=MetadataManager.getInstance(config).getDataModelDesc(this.modelName);
-  if (this.model == null) {
-    this.addError("No data model found with name '" + modelName + "'.");
-  }
   for (  DimensionDesc dim : dimensions) {
     dim.init(this,tables);
   }
@@ -23,8 +20,6 @@
   }
   initMeasureReferenceToColumnFamily();
   List<TblColRef> dimCols=listDimensionColumnsExcludingDerived(true);
-  if (rowkey.getRowKeyColumns().length != dimCols.size()) {
-    addError("RowKey columns count (" + rowkey.getRowKeyColumns().length + ") does not match dimension columns count ("+ dimCols.size()+ "). ");
-  }
+  checkState(rowkey.getRowKeyColumns().length == dimCols.size(),"RowKey columns count (%d) doesn't match dimensions columns count (%d)",rowkey.getRowKeyColumns().length,dimCols.size());
   initDictionaryDesc();
 }

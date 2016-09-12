@@ -1,0 +1,14 @@
+{
+  ResourceStore store=getStore();
+  CubeDesc ndesc=store.getResource(path,CubeDesc.class,CUBE_DESC_SERIALIZER);
+  try {
+    ndesc.init(config,getMetadataManager().getAllTablesMap());
+  }
+ catch (  Exception e) {
+    ndesc.addError(e.getMessage());
+  }
+  if (!allowBroken && !ndesc.getError().isEmpty()) {
+    throw new IllegalStateException("Cube desc at " + path + " has issues: "+ ndesc.getError());
+  }
+  return ndesc;
+}
