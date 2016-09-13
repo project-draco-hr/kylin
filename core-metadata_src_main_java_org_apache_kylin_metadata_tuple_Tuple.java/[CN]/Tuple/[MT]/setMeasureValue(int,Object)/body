@@ -7,6 +7,12 @@
  else   if ("integer".equals(dataType) && fieldValue instanceof Number) {
     fieldValue=((Number)fieldValue).intValue();
   }
+ else   if ("smallint".equals(dataType) && fieldValue instanceof Number) {
+    fieldValue=((Number)fieldValue).shortValue();
+  }
+ else   if ("tinyint".equals(dataType)) {
+    fieldValue=((Number)fieldValue).byteValue();
+  }
  else   if ("float".equals(dataType) && fieldValue instanceof BigDecimal) {
     fieldValue=((BigDecimal)fieldValue).floatValue();
   }

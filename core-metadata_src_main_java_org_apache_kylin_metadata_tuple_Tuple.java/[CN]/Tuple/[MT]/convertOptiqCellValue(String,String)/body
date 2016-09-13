@@ -10,13 +10,13 @@
  else   if ("tinyint".equals(dataTypeName)) {
     return Byte.valueOf(strValue);
   }
- else   if ("short".equals(dataTypeName) || "smallint".equals(dataTypeName)) {
+ else   if ("smallint".equals(dataTypeName)) {
     return Short.valueOf(strValue);
   }
  else   if ("integer".equals(dataTypeName)) {
     return Integer.valueOf(strValue);
   }
- else   if ("long".equals(dataTypeName) || "bigint".equals(dataTypeName)) {
+ else   if ("bigint".equals(dataTypeName)) {
     return Long.valueOf(strValue);
   }
  else   if ("double".equals(dataTypeName)) {
