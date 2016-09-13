@@ -1,9 +1,14 @@
 {
   CubeDesc cubeDesc=cube.getDescriptor();
+  List<String> influencingMeasures=Lists.newArrayList();
   for (  MeasureDesc measure : cubeDesc.getMeasures()) {
     MeasureType<?> measureType=measure.getFunction().getMeasureType();
     if (measureType instanceof BasicMeasureType)     continue;
     CapabilityInfluence inf=measureType.influenceCapabilityCheck(unmatchedDimensions,unmatchedAggregations,digest,measure);
-    if (inf != null)     result.influences.add(inf);
+    if (inf != null) {
+      result.influences.add(inf);
+      influencingMeasures.add(measure.getName() + "@" + measureType.getClass());
+    }
   }
+  if (influencingMeasures.size() != 0)   logger.info("Cube {} CapabilityInfluences: {}",cube.getCanonicalName(),StringUtils.join(influencingMeasures,","));
 }
