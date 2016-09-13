@@ -1,0 +1,12 @@
+{
+  DefaultChainedExecutable job=new DefaultChainedExecutable();
+  BaseTestExecutable task1=new SucceedTestExecutable();
+  BaseTestExecutable task2=new DiscardedTestExecutable();
+  job.addTask(task1);
+  job.addTask(task2);
+  jobService.addJob(job);
+  waitForJobFinish(job.getId());
+  Assert.assertEquals(ExecutableState.DISCARDED,jobService.getOutput(job.getId()).getState());
+  Assert.assertEquals(ExecutableState.SUCCEED,jobService.getOutput(task1.getId()).getState());
+  Assert.assertEquals(ExecutableState.DISCARDED,jobService.getOutput(task2.getId()).getState());
+}
