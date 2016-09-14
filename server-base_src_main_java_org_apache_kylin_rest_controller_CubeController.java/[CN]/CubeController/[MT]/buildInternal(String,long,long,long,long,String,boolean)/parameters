@@ -4,5 +4,4 @@ long endTime
 long startOffset
 long endOffset
 String buildType
-boolean strictCheck
 boolean force

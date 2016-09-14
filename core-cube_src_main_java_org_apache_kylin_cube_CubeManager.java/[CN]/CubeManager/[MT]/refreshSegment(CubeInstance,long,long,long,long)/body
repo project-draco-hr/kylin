@@ -1,3 +1,10 @@
 {
-  return refreshSegment(cube,startDate,endDate,startOffset,endOffset,true);
+  checkBuildingSegment(cube);
+  CubeSegment newSegment=newSegment(cube,startDate,endDate,startOffset,endOffset);
+  Pair<Boolean,Boolean> pair=CubeValidator.fitInSegments(cube.getSegments(),newSegment);
+  if (pair.getFirst() == false || pair.getSecond() == false)   throw new IllegalArgumentException("The new refreshing segment " + newSegment + " does not match any existing segment in cube "+ cube);
+  CubeUpdate cubeBuilder=new CubeUpdate(cube);
+  cubeBuilder.setToAddSegs(newSegment);
+  updateCube(cubeBuilder);
+  return newSegment;
 }

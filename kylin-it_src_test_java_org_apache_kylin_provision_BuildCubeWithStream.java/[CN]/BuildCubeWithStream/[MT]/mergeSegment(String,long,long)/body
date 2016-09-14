@@ -3,5 +3,5 @@
   DefaultChainedExecutable job=EngineFactory.createBatchMergeJob(segment,"TEST");
   jobService.addJob(job);
   waitForJob(job.getId());
-  return job.getId();
+  return job.getStatus();
 }

@@ -1,0 +1,57 @@
+{
+  clearSegment(cubeName);
+  SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd");
+  f.setTimeZone(TimeZone.getTimeZone("GMT"));
+  final long date1=0;
+  final long date2=f.parse("2013-01-01").getTime();
+  new Thread(new Runnable(){
+    @Override public void run(){
+      Random rand=new Random();
+      while (generateData == true) {
+        try {
+          generateStreamData(date1,date2,rand.nextInt(100));
+          sleep(rand.nextInt(rand.nextInt(100 * 1000)));
+        }
+ catch (        IOException e) {
+          e.printStackTrace();
+        }
+catch (        InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+).start();
+  ExecutorService executorService=Executors.newFixedThreadPool(4);
+  List<FutureTask<ExecutableState>> futures=Lists.newArrayList();
+  for (int i=0; i < 5; i++) {
+    FutureTask futureTask=new FutureTask(new Callable<ExecutableState>(){
+      @Override public ExecutableState call(){
+        ExecutableState result=null;
+        try {
+          result=buildSegment(cubeName,0,Long.MAX_VALUE);
+        }
+ catch (        Exception e) {
+          e.printStackTrace();
+        }
+        return result;
+      }
+    }
+);
+    executorService.submit(futureTask);
+    futures.add(futureTask);
+    Thread.sleep(2 * 60 * 1000);
+  }
+  generateData=false;
+  executorService.shutdown();
+  int succeedBuild=0;
+  for (int i=0; i < futures.size(); i++) {
+    ExecutableState result=futures.get(i).get(20,TimeUnit.MINUTES);
+    logger.info("Checking building task " + i + " whose state is "+ result);
+    Assert.assertTrue(result == null || result == ExecutableState.SUCCEED || result == ExecutableState.DISCARDED);
+    if (result == ExecutableState.SUCCEED)     succeedBuild++;
+  }
+  logger.info(succeedBuild + " build jobs have been successfully completed.");
+  List<CubeSegment> segments=cubeManager.getCube(cubeName).getSegments(SegmentStatusEnum.READY);
+  Assert.assertTrue(segments.size() == succeedBuild);
+}

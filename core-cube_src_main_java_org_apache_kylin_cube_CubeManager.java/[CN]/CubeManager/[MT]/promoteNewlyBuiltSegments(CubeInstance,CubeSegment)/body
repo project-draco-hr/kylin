@@ -7,7 +7,9 @@
     seg.setStatus(SegmentStatusEnum.READY);
   }
   for (  CubeSegment seg : tobe) {
-    if (isReady(seg) == false)     throw new IllegalStateException("For cube " + cube + ", segment "+ seg+ " should be READY but is not");
+    if (isReady(seg) == false) {
+      logger.warn("For cube " + cube + ", segment "+ seg+ " isn't READY yet.");
+    }
   }
   List<CubeSegment> toRemoveSegs=Lists.newArrayList();
   for (  CubeSegment segment : cube.getSegments()) {
