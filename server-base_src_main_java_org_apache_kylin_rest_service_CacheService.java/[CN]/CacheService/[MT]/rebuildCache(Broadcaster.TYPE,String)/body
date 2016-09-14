@@ -37,6 +37,7 @@ CubeDescManager.clearCache();
 CubeManager.clearCache();
 HybridManager.clearCache();
 RealizationRegistry.clearCache();
+Cuboid.clearCache();
 ProjectManager.clearCache();
 KafkaConfigManager.clearCache();
 StreamingManager.clearCache();
