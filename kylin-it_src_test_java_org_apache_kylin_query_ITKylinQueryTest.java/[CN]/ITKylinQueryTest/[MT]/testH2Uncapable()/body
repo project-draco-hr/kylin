@@ -1,0 +1,3 @@
+{
+  batchExecuteQuery(getQueryFolderPrefix() + "src/test/resources/query/sql_h2_uncapable");
+}

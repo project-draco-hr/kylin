@@ -54,7 +54,8 @@ case OTHER_FUNCTION:
 filter=Functions.getFunctionTupleFilter(op.getName());
 break;
 default :
-throw new UnsupportedOperationException(op.getName());
+filter=new UnsupportedTupleFilter(FilterOperatorEnum.UNSUPPORTED);
+break;
 }
 for (RexNode operand : call.operands) {
 TupleFilter childFilter=operand.accept(this);

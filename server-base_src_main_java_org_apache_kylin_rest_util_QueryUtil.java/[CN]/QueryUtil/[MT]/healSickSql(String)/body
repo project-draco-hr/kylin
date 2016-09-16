@@ -14,5 +14,20 @@
     if (!m.find())     break;
     sql=sql.substring(0,m.start()) + " COUNT(1) " + sql.substring(m.end());
   }
+  while (true) {
+    m=PTN_INTERVAL.matcher(sql);
+    if (!m.find())     break;
+    int value=(int)Math.floor(Double.valueOf(m.group(2)));
+    sql=sql.substring(0,m.start(1)) + "'" + value+ "'"+ sql.substring(m.end(3));
+  }
+  StringBuilder sb=new StringBuilder();
+  while (true) {
+    m=PTN_CONCAT.matcher(sql);
+    if (!m.find())     break;
+    sb.append(sql.substring(0,m.start()) + "{fn " + m.group(0)+ " }");
+    sql=sql.substring(m.end());
+  }
+  String temp=sb.toString() + sql;
+  sql="".equals(temp) ? sql : temp;
   return sql;
 }

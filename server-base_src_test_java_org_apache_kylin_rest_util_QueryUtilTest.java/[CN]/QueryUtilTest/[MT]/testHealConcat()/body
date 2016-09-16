@@ -1,0 +1,8 @@
+{
+{
+    SQLRequest sqlRequest=new SQLRequest();
+    sqlRequest.setSql("select concat(\"TEST_KYLIN_FACT\".\"LSTG_FORMAT_NAME\",\"TEST_KYLIN_FACT\".\"LSTG_FORMAT_NAME\") concat(\"TEST_KYLIN_FACT\".\"LSTG_FORMAT_NAME\",\"TEST_KYLIN_FACT\".\"LSTG_FORMAT_NAME\") ()");
+    String s=QueryUtil.massageSql(sqlRequest);
+    Assert.assertEquals("select {fn concat(\"TEST_KYLIN_FACT\".\"LSTG_FORMAT_NAME\",\"TEST_KYLIN_FACT\".\"LSTG_FORMAT_NAME\") } {fn concat(\"TEST_KYLIN_FACT\".\"LSTG_FORMAT_NAME\",\"TEST_KYLIN_FACT\".\"LSTG_FORMAT_NAME\") } ()",s);
+  }
+}

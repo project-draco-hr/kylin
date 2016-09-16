@@ -1,0 +1,14 @@
+{
+{
+    SQLRequest sqlRequest=new SQLRequest();
+    sqlRequest.setSql("select ( date '2001-09-28' + interval floor(1.2) day) from test_kylin_fact");
+    String s=QueryUtil.massageSql(sqlRequest);
+    Assert.assertEquals("select ( date '2001-09-28' + interval '1' day) from test_kylin_fact",s);
+  }
+{
+    SQLRequest sqlRequest=new SQLRequest();
+    sqlRequest.setSql("select ( date '2001-09-28' + interval floor(2) month) from test_kylin_fact group by ( date '2001-09-28' + interval floor(2) month)");
+    String s=QueryUtil.massageSql(sqlRequest);
+    Assert.assertEquals("select ( date '2001-09-28' + interval '2' month) from test_kylin_fact group by ( date '2001-09-28' + interval '2' month)",s);
+  }
+}
