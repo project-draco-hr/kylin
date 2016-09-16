@@ -1,3 +1,4 @@
 {
   kafkaServer.stop();
+  DefaultScheduler.destroyInstance();
 }
