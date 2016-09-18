@@ -1,0 +1,4 @@
+{
+  this.fixedLen=len;
+  this.bytelen=(fixedLen + 1) / 2;
+}

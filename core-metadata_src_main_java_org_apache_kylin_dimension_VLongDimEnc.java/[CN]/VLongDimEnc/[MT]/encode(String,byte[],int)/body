@@ -1,0 +1,13 @@
+{
+  if (valueStr == null) {
+    Arrays.fill(output,outputOffset,outputOffset + byteLen,NULL);
+    return;
+  }
+  long integer=Long.parseLong(valueStr);
+  if (integer > CAP[fixedLen]) {
+    if (avoidVerbose++ % 10000 == 0) {
+      logger.warn("Expect at most " + fixedLen + " bytes, but got "+ valueStr+ ", will truncate, hit times:"+ avoidVerbose);
+    }
+  }
+  BytesUtil.writeLong(integer,output,outputOffset,fixedLen);
+}

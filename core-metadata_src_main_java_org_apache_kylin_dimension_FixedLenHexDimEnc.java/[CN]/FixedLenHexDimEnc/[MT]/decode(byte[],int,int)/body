@@ -1,0 +1,7 @@
+{
+  if (isNull(bytes,offset,len)) {
+    return null;
+  }
+  while (len > 0 && bytes[offset + len - 1] == ROWKEY_PLACE_HOLDER_BYTE)   len--;
+  return Bytes.toString(bytes,offset,len);
+}

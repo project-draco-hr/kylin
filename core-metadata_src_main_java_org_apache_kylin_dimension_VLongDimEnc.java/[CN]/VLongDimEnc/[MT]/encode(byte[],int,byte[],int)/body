@@ -1,0 +1,7 @@
+{
+  if (value == null) {
+    Arrays.fill(output,outputOffset,outputOffset + byteLen,NULL);
+    return;
+  }
+  encode(Bytes.toString(value,0,valueLen),output,outputOffset);
+}

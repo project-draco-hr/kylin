@@ -1,0 +1,6 @@
+{
+  byte[] buf=currentBuf();
+  String valueStr=value == null ? null : value.toString();
+  encode(valueStr,buf,0);
+  out.put(buf);
+}
