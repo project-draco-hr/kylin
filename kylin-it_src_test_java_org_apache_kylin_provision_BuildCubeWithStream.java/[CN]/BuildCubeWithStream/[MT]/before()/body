@@ -1,4 +1,5 @@
 {
+  DeployUtil.overrideJobJarLocations();
   final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   jobService=ExecutableManager.getInstance(kylinConfig);
   scheduler=DefaultScheduler.createInstance();
