@@ -1,6 +1,0 @@
-{
-  if (numberOfRecords <= 0)   return;
-  Kafka10DataLoader dataLoader=new Kafka10DataLoader(kafkaConfig);
-  DeployUtil.prepareTestDataForStreamingCube(startTime,endTime,numberOfRecords,cubeName,dataLoader);
-  logger.info("Test data inserted into Kafka");
-}
