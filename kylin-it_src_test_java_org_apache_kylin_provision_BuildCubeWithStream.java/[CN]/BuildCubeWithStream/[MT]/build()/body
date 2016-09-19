@@ -12,11 +12,4 @@
   generateStreamData(date2,date3,numberOfRecrods2);
   buildSegment(cubeName,0,Long.MAX_VALUE);
   mergeSegment(cubeName,0,15000);
-  List<CubeSegment> segments=cubeManager.getCube(cubeName).getSegments();
-  Assert.assertTrue(segments.size() == 1);
-  CubeSegment toRefreshSeg=segments.get(0);
-  HashMap<String,String> partitionOffsetMap=toRefreshSeg.getAdditionalInfo();
-  refreshSegment(cubeName,toRefreshSeg.getSourceOffsetStart(),toRefreshSeg.getSourceOffsetEnd(),partitionOffsetMap);
-  segments=cubeManager.getCube(cubeName).getSegments();
-  Assert.assertTrue(segments.size() == 1);
 }
