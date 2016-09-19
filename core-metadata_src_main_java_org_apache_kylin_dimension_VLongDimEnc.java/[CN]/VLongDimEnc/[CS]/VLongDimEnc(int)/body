@@ -1,5 +1,0 @@
-{
-  if (len <= 0 || len >= CAP.length)   throw new IllegalArgumentException();
-  this.fixedLen=len;
-  this.byteLen=(fixedLen + 1) / 2 + 1;
-}

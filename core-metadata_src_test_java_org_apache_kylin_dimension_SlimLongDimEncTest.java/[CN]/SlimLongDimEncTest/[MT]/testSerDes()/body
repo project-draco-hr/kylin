@@ -1,0 +1,24 @@
+{
+  SlimLongDimEnc enc=new SlimLongDimEnc(2);
+  testSerDes(enc,0);
+  testSerDes(enc,100);
+  testSerDes(enc,10000);
+  testSerDes(enc,32767);
+  testSerDes(enc,-100);
+  testSerDes(enc,-10000);
+  testSerDes(enc,-32767);
+  try {
+    testSerDes(enc,32768);
+    Assert.fail();
+  }
+ catch (  Throwable e) {
+    Assert.assertEquals("expected:<32768> but was:<null>",e.getMessage());
+  }
+  try {
+    testSerDes(enc,-32768);
+    Assert.fail();
+  }
+ catch (  Throwable e) {
+    Assert.assertEquals("expected:<-32768> but was:<null>",e.getMessage());
+  }
+}

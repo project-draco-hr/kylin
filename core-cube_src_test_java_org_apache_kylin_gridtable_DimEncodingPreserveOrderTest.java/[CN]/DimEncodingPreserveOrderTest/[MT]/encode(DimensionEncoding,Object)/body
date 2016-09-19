@@ -1,0 +1,14 @@
+{
+  if (value != null) {
+    byte[] buf=new byte[enc.getLengthOfEncoding()];
+    String valueStr="" + value;
+    byte[] bytes=Bytes.toBytes(valueStr);
+    enc.encode(bytes,bytes.length,buf,0);
+    return new ByteArray(buf);
+  }
+ else {
+    byte[] buf=new byte[enc.getLengthOfEncoding()];
+    enc.encode(null,0,buf,0);
+    return new ByteArray(buf);
+  }
+}

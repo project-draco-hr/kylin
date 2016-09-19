@@ -1,0 +1,18 @@
+{
+  if (valueStr == null) {
+    Arrays.fill(output,outputOffset,outputOffset + fixedLen,NULL);
+    return;
+  }
+  long integer=Long.parseLong(valueStr);
+  if (integer > CAP[fixedLen] || integer < TAIL[fixedLen]) {
+    if (avoidVerbose++ % 10000 == 0) {
+      logger.warn("Expect at most " + fixedLen + " bytes, but got "+ valueStr+ ", will truncate, hit times:"+ avoidVerbose);
+    }
+  }
+  if (integer == TAIL[fixedLen]) {
+    if (avoidVerbose2++ % 10000 == 0) {
+      logger.warn("Value " + valueStr + " does not fit into "+ fixedLen+ " bytes ");
+    }
+  }
+  BytesUtil.writeLong(integer + CAP[fixedLen],output,outputOffset,fixedLen);
+}

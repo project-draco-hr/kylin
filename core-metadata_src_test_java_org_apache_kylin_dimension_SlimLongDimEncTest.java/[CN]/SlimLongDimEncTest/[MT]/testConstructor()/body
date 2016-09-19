@@ -1,0 +1,15 @@
+{
+  try {
+    new SlimLongDimEnc(0);
+    Assert.fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    new SlimLongDimEnc(9);
+    Assert.fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  new SlimLongDimEnc(8);
+}

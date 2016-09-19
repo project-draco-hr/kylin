@@ -1,0 +1,24 @@
+{
+  OneMoreByteVLongDimEnc enc=new OneMoreByteVLongDimEnc(2);
+  testEncodeDecode(enc,0);
+  testEncodeDecode(enc,100);
+  testEncodeDecode(enc,10000);
+  testEncodeDecode(enc,32767);
+  testEncodeDecode(enc,-100);
+  testEncodeDecode(enc,-10000);
+  testEncodeDecode(enc,-32768);
+  try {
+    testEncodeDecode(enc,32768);
+    Assert.fail();
+  }
+ catch (  Throwable e) {
+    Assert.assertEquals("expected:<[]32768> but was:<[-]32768>",e.getMessage());
+  }
+  try {
+    testEncodeDecode(enc,-32769);
+    Assert.fail();
+  }
+ catch (  Throwable e) {
+    Assert.assertEquals("expected:<[-32769]> but was:<[32767]>",e.getMessage());
+  }
+}

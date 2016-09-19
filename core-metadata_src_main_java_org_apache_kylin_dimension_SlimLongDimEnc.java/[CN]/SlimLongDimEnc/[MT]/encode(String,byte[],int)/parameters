@@ -1,0 +1,3 @@
+String valueStr
+byte[] output
+int outputOffset

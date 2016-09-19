@@ -1,0 +1,15 @@
+{
+  try {
+    new OneMoreByteVLongDimEnc(0);
+    Assert.fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    new OneMoreByteVLongDimEnc(9);
+    Assert.fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  new OneMoreByteVLongDimEnc(8);
+}

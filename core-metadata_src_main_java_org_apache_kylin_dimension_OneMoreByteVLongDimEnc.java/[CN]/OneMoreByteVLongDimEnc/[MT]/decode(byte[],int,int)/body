@@ -1,0 +1,7 @@
+{
+  if (isNull(bytes,offset,len)) {
+    return null;
+  }
+  long integer=BytesUtil.readSignedLong(bytes,offset + 1,len - 1);
+  return String.valueOf(integer);
+}

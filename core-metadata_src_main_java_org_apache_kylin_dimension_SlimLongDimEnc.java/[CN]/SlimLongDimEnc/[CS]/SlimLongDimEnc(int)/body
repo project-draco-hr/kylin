@@ -1,0 +1,4 @@
+{
+  if (len <= 0 || len >= CAP.length)   throw new IllegalArgumentException();
+  this.fixedLen=len;
+}

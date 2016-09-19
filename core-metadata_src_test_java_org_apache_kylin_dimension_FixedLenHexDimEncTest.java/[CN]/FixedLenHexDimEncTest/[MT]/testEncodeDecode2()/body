@@ -1,0 +1,27 @@
+{
+  FixedLenHexDimEnc enc=new FixedLenHexDimEnc(5);
+  testEncodeDecode(enc,"AF121");
+  testEncodeDecode(enc,"00000");
+  testEncodeDecode(enc,"FFFFF");
+  try {
+    testEncodeDecode(enc,"FFF");
+    Assert.fail();
+  }
+ catch (  Throwable e) {
+    Assert.assertEquals("expected:<FFF[]> but was:<FFF[00]>",e.getMessage());
+  }
+  try {
+    testEncodeDecode(enc,"FFFFF0");
+    Assert.fail();
+  }
+ catch (  Throwable e) {
+    Assert.assertEquals("expected:<FFFFF[0]> but was:<FFFFF[]>",e.getMessage());
+  }
+  try {
+    testEncodeDecode(enc,"FFFF10");
+    Assert.fail();
+  }
+ catch (  Throwable e) {
+    Assert.assertEquals("expected:<FFFF1[0]> but was:<FFFF1[]>",e.getMessage());
+  }
+}

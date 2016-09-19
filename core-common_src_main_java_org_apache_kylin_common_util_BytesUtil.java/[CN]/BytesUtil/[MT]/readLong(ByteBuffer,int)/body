@@ -1,8 +1,0 @@
-{
-  long integer=0;
-  for (int i=0; i < size; i++) {
-    integer<<=8;
-    integer|=(long)buffer.get() & 0xFF;
-  }
-  return integer;
-}

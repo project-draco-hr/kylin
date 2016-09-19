@@ -1,7 +1,16 @@
 {
+  Preconditions.checkArgument(len == bytelen,"len " + len + " not equals "+ bytelen);
   if (isNull(bytes,offset,len)) {
     return null;
   }
-  while (len > 0 && bytes[offset + len - 1] == ROWKEY_PLACE_HOLDER_BYTE)   len--;
-  return Bytes.toString(bytes,offset,len);
+  byte[] ret=new byte[hexLength];
+  for (int i=0; i < ret.length; i+=2) {
+    byte temp=bytes[i / 2];
+    ret[i]=revdict[(temp & 0xF0) >>> 4];
+    int j=i + 1;
+    if (j < hexLength) {
+      ret[j]=revdict[temp & 0x0F];
+    }
+  }
+  return Bytes.toString(ret,0,ret.length);
 }

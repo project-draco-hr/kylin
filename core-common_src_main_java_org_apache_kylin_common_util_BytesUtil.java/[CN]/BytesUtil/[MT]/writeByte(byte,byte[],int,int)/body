@@ -1,0 +1,6 @@
+{
+  for (int i=offset + size - 1; i >= offset; i--) {
+    bytes[i]=num;
+    num>>>=8;
+  }
+}

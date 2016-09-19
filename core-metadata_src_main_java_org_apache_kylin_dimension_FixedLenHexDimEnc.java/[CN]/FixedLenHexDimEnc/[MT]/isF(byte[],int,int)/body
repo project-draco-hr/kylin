@@ -1,0 +1,8 @@
+{
+  for (int i=offset; i < length + offset; ++i) {
+    if (value[i] != 'F') {
+      return false;
+    }
+  }
+  return true;
+}

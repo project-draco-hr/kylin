@@ -2,5 +2,5 @@
   if (this == o)   return true;
   if (o == null || getClass() != o.getClass())   return false;
   FixedLenHexDimEnc that=(FixedLenHexDimEnc)o;
-  return fixedLen == that.fixedLen;
+  return hexLength == that.hexLength;
 }

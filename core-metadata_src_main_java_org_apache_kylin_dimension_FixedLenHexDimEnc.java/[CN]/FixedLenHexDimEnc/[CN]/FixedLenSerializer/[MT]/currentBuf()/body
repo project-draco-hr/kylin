@@ -1,7 +1,7 @@
 {
   byte[] buf=current.get();
   if (buf == null) {
-    buf=new byte[fixedLen];
+    buf=new byte[bytelen];
     current.set(buf);
   }
   return buf;

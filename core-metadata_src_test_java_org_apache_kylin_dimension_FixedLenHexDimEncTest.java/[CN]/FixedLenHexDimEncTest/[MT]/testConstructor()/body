@@ -1,0 +1,9 @@
+{
+  try {
+    new FixedLenHexDimEnc(0);
+    Assert.fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  new FixedLenHexDimEnc(8);
+}

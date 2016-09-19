@@ -1,7 +1,0 @@
-{
-  if (isNull(bytes,offset,len)) {
-    return null;
-  }
-  long integer=BytesUtil.readLong(bytes,offset,len);
-  return String.valueOf(integer);
-}

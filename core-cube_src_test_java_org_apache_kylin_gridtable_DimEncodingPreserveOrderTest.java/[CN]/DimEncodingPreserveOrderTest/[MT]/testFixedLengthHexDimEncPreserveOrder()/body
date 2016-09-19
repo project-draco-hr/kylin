@@ -1,0 +1,9 @@
+{
+  FixedLenHexDimEnc enc=new FixedLenHexDimEnc(4);
+  List<ByteArray> encodedValues=Lists.newArrayList();
+  encodedValues.add(encode(enc,"0000"));
+  encodedValues.add(encode(enc,"0001"));
+  encodedValues.add(encode(enc,"FFF0"));
+  encodedValues.add(encode(enc,null));
+  assertTrue(Ordering.from(new DefaultGTComparator()).isOrdered(encodedValues));
+}

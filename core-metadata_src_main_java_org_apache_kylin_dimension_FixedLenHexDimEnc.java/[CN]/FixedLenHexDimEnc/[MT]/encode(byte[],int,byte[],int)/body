@@ -1,16 +1,30 @@
 {
   if (value == null) {
-    Arrays.fill(output,outputOffset,outputOffset + fixedLen,NULL);
+    Arrays.fill(output,outputOffset,outputOffset + bytelen,NULL);
     return;
   }
-  if (valueLen > fixedLen) {
+  int endOffset=outputOffset + bytelen;
+  if (valueLen > hexLength) {
     if (avoidVerbose++ % 10000 == 0) {
-      logger.warn("Expect at most " + fixedLen + " bytes, but got "+ valueLen+ ", will truncate, value string: "+ Bytes.toString(value,0,valueLen)+ " times:"+ avoidVerbose);
+      logger.warn("Expect at most " + hexLength + " bytes, but got "+ valueLen+ ", will truncate, value string: "+ Bytes.toString(value,0,valueLen)+ " times:"+ avoidVerbose);
     }
   }
-  int n=Math.min(valueLen,fixedLen);
-  System.arraycopy(value,0,output,outputOffset,n);
-  if (n < fixedLen) {
-    Arrays.fill(output,outputOffset + n,outputOffset + fixedLen,ROWKEY_PLACE_HOLDER_BYTE);
+  if (valueLen >= hexLength && isF(value,0,hexLength)) {
+    if (avoidVerbose2++ % 10000 == 0) {
+      logger.warn("All 'F' value: " + Bytes.toString(value,0,valueLen) + "will become null after encode/decode. times:"+ avoidVerbose);
+    }
   }
+  int n=Math.min(valueLen,hexLength);
+  for (int i=0; i < n; i+=2) {
+    byte temp=0;
+    byte iCode=dict[value[i]];
+    temp|=(iCode << 4);
+    int j=i + 1;
+    if (j < n) {
+      byte jCode=dict[value[j]];
+      temp|=jCode;
+    }
+    output[outputOffset++]=temp;
+  }
+  Arrays.fill(output,outputOffset,endOffset,ROWKEY_PLACE_HOLDER_BYTE);
 }

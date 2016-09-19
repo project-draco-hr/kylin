@@ -1,0 +1,13 @@
+{
+  SlimLongDimEnc enc=new SlimLongDimEnc(2);
+  List<ByteArray> encodedValues=Lists.newArrayList();
+  encodedValues.add(encode(enc,-32767L));
+  encodedValues.add(encode(enc,-10000L));
+  encodedValues.add(encode(enc,-100L));
+  encodedValues.add(encode(enc,0L));
+  encodedValues.add(encode(enc,100L));
+  encodedValues.add(encode(enc,10000L));
+  encodedValues.add(encode(enc,32767L));
+  encodedValues.add(encode(enc,null));
+  assertTrue(Ordering.from(new DefaultGTComparator()).isOrdered(encodedValues));
+}

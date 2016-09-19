@@ -1,0 +1,8 @@
+{
+  DataTypeSerializer<Object> ser=enc.asDataTypeSerializer();
+  byte[] buf=new byte[enc.getLengthOfEncoding()];
+  String valueStr=value;
+  ser.serialize(valueStr,ByteBuffer.wrap(buf));
+  String decode=(String)ser.deserialize(ByteBuffer.wrap(buf));
+  Assert.assertEquals(valueStr,decode);
+}
