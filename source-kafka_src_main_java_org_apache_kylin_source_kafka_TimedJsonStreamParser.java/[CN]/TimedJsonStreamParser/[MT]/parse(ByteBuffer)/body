@@ -19,6 +19,7 @@
         result.add(x);
       }
     }
+    logger.info("Streaming Message: " + result.toString());
     return new StreamingMessage(result,0,t,Collections.<String,Object>emptyMap());
   }
  catch (  IOException e) {
