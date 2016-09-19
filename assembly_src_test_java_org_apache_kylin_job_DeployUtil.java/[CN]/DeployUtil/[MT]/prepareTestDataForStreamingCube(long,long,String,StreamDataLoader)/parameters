@@ -1,0 +1,4 @@
+long startTime
+long endTime
+String cubeName
+StreamDataLoader streamDataLoader

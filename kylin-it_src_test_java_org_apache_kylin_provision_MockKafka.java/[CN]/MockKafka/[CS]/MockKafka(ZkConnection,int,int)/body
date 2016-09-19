@@ -1,4 +1,0 @@
-{
-  this(zkServerConnection,System.getProperty("java.io.tmpdir") + "/" + UUID.randomUUID().toString(),String.valueOf(port),String.valueOf(brokerId));
-  start();
-}

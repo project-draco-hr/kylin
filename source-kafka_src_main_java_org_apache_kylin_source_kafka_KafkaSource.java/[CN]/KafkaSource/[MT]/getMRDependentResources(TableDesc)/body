@@ -1,6 +1,0 @@
-{
-  List<String> dependentResources=Lists.newArrayList();
-  dependentResources.add(KafkaConfig.concatResourcePath(table.getIdentity()));
-  dependentResources.add(StreamingConfig.concatResourcePath(table.getIdentity()));
-  return dependentResources;
-}

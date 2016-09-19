@@ -1,3 +1,0 @@
-ZkConnection zkServerConnection
-int port
-int brokerId

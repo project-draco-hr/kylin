@@ -1,7 +1,0 @@
-{
-  ZkClient zkClient=new ZkClient(zkConnection);
-  ZkUtils zkUtils=new ZkUtils(zkClient,zkConnection,false);
-  zkClient.setZkSerializer(new ZKStringSerializer());
-  AdminUtils.createTopic(zkUtils,topic,partition,replication,new Properties(),null);
-  zkClient.close();
-}

@@ -4,14 +4,8 @@
     if (partitionMetadata.errorCode() != 0) {
       logger.warn("PartitionMetadata errorCode: " + partitionMetadata.errorCode());
     }
-    replicaBrokers=Lists.transform(partitionMetadata.replicas(),new Function<BrokerEndPoint,Broker>(){
-      @Nullable @Override public Broker apply(      @Nullable BrokerEndPoint brokerEndPoint){
-        return new Broker(brokerEndPoint,SecurityProtocol.PLAINTEXT);
-      }
-    }
-);
-    BrokerEndPoint leaderEndpoint=partitionMetadata.leader();
-    return new Broker(leaderEndpoint,SecurityProtocol.PLAINTEXT);
+    replicaBrokers=partitionMetadata.replicas();
+    return partitionMetadata.leader();
   }
  else {
     return null;

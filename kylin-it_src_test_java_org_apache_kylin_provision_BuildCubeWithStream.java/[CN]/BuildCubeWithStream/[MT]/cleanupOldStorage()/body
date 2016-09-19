@@ -1,4 +1,6 @@
 {
   String[] args={"--delete","true"};
+  StorageCleanupJob cli=new StorageCleanupJob();
+  cli.execute(args);
   return 0;
 }

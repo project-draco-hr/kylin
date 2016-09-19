@@ -1,4 +1,0 @@
-{
-  this(zkServerConnection,System.getProperty("java.io.tmpdir") + "/" + UUID.randomUUID().toString(),"9092","1");
-  start();
-}

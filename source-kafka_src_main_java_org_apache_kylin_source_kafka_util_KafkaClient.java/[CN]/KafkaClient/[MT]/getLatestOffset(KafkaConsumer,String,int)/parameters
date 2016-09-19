@@ -1,3 +1,0 @@
-KafkaConsumer consumer
-String topic
-int partitionId

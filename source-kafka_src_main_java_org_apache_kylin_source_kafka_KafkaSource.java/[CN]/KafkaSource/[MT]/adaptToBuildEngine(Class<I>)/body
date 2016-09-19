@@ -1,8 +1,0 @@
-{
-  if (engineInterface == IMRInput.class) {
-    return (I)new KafkaMRInput();
-  }
- else {
-    throw new RuntimeException("Cannot adapt to " + engineInterface);
-  }
-}

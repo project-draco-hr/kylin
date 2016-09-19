@@ -1,8 +1,0 @@
-{
-  final MergeOffsetStep result=new MergeOffsetStep();
-  result.setName("Merge offset step");
-  CubingExecutableUtil.setCubeName(cubeSegment.getRealization().getName(),result.getParams());
-  CubingExecutableUtil.setSegmentId(cubeSegment.getUuid(),result.getParams());
-  CubingExecutableUtil.setCubingJobId(jobFlow.getId(),result.getParams());
-  jobFlow.addTask(result);
-}

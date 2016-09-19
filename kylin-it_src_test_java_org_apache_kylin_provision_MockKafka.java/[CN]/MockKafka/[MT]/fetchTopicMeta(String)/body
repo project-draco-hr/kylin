@@ -1,8 +1,0 @@
-{
-  ZkClient zkClient=new ZkClient(zkConnection);
-  ZkUtils zkUtils=new ZkUtils(zkClient,zkConnection,false);
-  zkClient.setZkSerializer(new ZKStringSerializer());
-  MetadataResponse.TopicMetadata topicMetadata=AdminUtils.fetchTopicMetadataFromZk(topic,zkUtils);
-  zkClient.close();
-  return topicMetadata;
-}

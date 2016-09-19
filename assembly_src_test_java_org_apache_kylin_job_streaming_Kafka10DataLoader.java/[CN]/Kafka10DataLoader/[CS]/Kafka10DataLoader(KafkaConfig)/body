@@ -1,4 +1,0 @@
-{
-  super(kafkaConfig);
-  this.kafkaClusterConfigs=kafkaConfig.getKafkaClusterConfigs();
-}

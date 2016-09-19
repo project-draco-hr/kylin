@@ -1,4 +1,0 @@
-{
-  jobFlow.addTask(createUpdateSegmentOffsetStep(jobFlow.getId()));
-  jobFlow.addTask(createSaveKafkaDataStep(jobFlow.getId()));
-}

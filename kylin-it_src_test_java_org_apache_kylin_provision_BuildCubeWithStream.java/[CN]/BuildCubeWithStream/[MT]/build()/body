@@ -1,15 +1,7 @@
 {
-  clearSegment(cubeName);
-  SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd");
-  f.setTimeZone(TimeZone.getTimeZone("GMT"));
-  long date1=0;
-  long date2=f.parse("2013-01-01").getTime();
-  int numberOfRecrods1=10000;
-  generateStreamData(date1,date2,numberOfRecrods1);
-  buildSegment(cubeName,0,Long.MAX_VALUE);
-  long date3=f.parse("2013-04-01").getTime();
-  int numberOfRecrods2=5000;
-  generateStreamData(date2,date3,numberOfRecrods2);
-  buildSegment(cubeName,0,Long.MAX_VALUE);
-  mergeSegment(cubeName,0,15000);
+  logger.info("start time:" + startTime + " end time:"+ endTime+ " batch interval:"+ batchInterval+ " batch count:"+ ((endTime - startTime) / batchInterval));
+  for (long start=startTime; start < endTime; start+=batchInterval) {
+    logger.info(String.format("build batch:{%d, %d}",start,start + batchInterval));
+    new OneOffStreamingBuilder(RealizationType.CUBE,cubeName,start,start + batchInterval).build().run();
+  }
 }

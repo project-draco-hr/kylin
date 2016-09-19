@@ -1,5 +1,0 @@
-{
-  Properties props=constructDefaultKafkaProducerProperties(brokers,properties);
-  KafkaProducer<String,String> producer=new KafkaProducer<String,String>(props);
-  return producer;
-}

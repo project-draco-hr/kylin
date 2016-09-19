@@ -1,3 +1,0 @@
-{
-  this.createTopic(topic,1,1);
-}

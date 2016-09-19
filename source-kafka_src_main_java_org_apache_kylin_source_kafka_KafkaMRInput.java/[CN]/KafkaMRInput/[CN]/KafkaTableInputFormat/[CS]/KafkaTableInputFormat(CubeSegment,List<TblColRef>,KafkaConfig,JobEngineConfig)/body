@@ -1,6 +1,0 @@
-{
-  this.cubeSegment=cubeSegment;
-  this.columns=columns;
-  this.kafkaConfig=kafkaConfig;
-  this.conf=conf;
-}

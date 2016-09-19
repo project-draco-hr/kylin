@@ -1,4 +1,0 @@
-{
-  this.conf=new JobEngineConfig(KylinConfig.getInstanceFromEnv());
-  this.seg=seg;
-}
