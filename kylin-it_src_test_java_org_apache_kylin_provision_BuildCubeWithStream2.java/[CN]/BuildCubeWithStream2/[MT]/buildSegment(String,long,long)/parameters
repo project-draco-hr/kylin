@@ -1,0 +1,3 @@
+String cubeName
+long startOffset
+long endOffset
