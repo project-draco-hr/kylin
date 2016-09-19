@@ -4,7 +4,6 @@
     BuildCubeWithEngine buildCubeWithEngine=new BuildCubeWithEngine();
     buildCubeWithEngine.before();
     buildCubeWithEngine.build();
-    buildCubeWithEngine.after();
     logger.info("Build is done");
     afterClass();
     logger.info("Going to exit");
