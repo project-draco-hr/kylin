@@ -6,7 +6,6 @@
   options.addOption(OPTION_TOPIC);
   options.addOption(OPTION_BROKER);
   options.addOption(OPTION_DELAY);
-  options.addOption(OPTION_INTERVAL);
   optionsHelper.parseOptions(options,args);
   logger.info("options: '" + optionsHelper.getOptionsAsString() + "'");
   topic=optionsHelper.getOptionValue(OPTION_TOPIC);
@@ -14,12 +13,7 @@
   long delay=0;
   String delayString=optionsHelper.getOptionValue(OPTION_DELAY);
   if (delayString != null) {
-    delay=Long.parseLong(delayString);
-  }
-  long interval=1000;
-  String intervalString=optionsHelper.getOptionValue(OPTION_INTERVAL);
-  if (intervalString != null) {
-    interval=Long.parseLong(intervalString);
+    delay=Long.parseLong(optionsHelper.getOptionValue(OPTION_DELAY));
   }
   List<String> countries=new ArrayList();
   countries.add("AUSTRALIA");
@@ -42,15 +36,11 @@
   devices.add("Andriod");
   devices.add("Other");
   Properties props=new Properties();
-  props.put("bootstrap.servers",broker);
-  props.put("acks","all");
-  props.put("retries",0);
-  props.put("batch.size",16384);
-  props.put("linger.ms",1);
-  props.put("buffer.memory",33554432);
-  props.put("key.serializer","org.apache.kafka.common.serialization.StringSerializer");
-  props.put("value.serializer","org.apache.kafka.common.serialization.StringSerializer");
-  Producer<String,String> producer=new KafkaProducer<>(props);
+  props.put("metadata.broker.list",broker);
+  props.put("serializer.class","kafka.serializer.StringEncoder");
+  props.put("request.required.acks","1");
+  ProducerConfig config=new ProducerConfig(props);
+  Producer<String,String> producer=new Producer<String,String>(config);
   boolean alive=true;
   Random rnd=new Random();
   Map<String,Object> record=new HashMap();
@@ -62,10 +52,10 @@
     record.put("qty",rnd.nextInt(10));
     record.put("currency","USD");
     record.put("amount",rnd.nextDouble() * 100);
-    ProducerRecord<String,String> data=new ProducerRecord<String,String>(topic,System.currentTimeMillis() + "",mapper.writeValueAsString(record));
+    KeyedMessage<String,String> data=new KeyedMessage<String,String>(topic,System.currentTimeMillis() + "",mapper.writeValueAsString(record));
     System.out.println("Sending 1 message");
     producer.send(data);
-    Thread.sleep(interval);
+    Thread.sleep(2000);
   }
   producer.close();
 }
