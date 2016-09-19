@@ -1,7 +1,7 @@
 {
-  CubeSegment segment=cubeManager.appendSegment(cubeManager.getCube(cubeName),0,0,startOffset,endOffset);
+  CubeSegment segment=cubeManager.appendSegment(cubeManager.getCube(cubeName),0,0,startOffset,endOffset,false);
   DefaultChainedExecutable job=EngineFactory.createBatchCubingJob(segment,"TEST");
   jobService.addJob(job);
   waitForJob(job.getId());
-  return job.getStatus();
+  return job.getId();
 }

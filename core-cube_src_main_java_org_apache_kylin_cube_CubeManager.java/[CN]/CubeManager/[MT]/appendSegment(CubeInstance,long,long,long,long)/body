@@ -1,29 +1,3 @@
 {
-  checkBuildingSegment(cube);
-  if (cube.getDescriptor().getModel().getPartitionDesc().isPartitioned()) {
-    if (startDate == 0 && startOffset == 0) {
-      boolean isOffsetsOn=endOffset != 0;
-      if (isOffsetsOn) {
-        startOffset=calculateStartOffsetForAppendSegment(cube);
-        if (startOffset == Long.MAX_VALUE) {
-          throw new IllegalStateException("There is already one pending for building segment, please submit request later.");
-        }
-      }
- else {
-        startDate=calculateStartDateForAppendSegment(cube);
-      }
-    }
-  }
- else {
-    startDate=0;
-    endDate=Long.MAX_VALUE;
-    startOffset=0;
-    endOffset=0;
-  }
-  CubeSegment newSegment=newSegment(cube,startDate,endDate,startOffset,endOffset);
-  validateNewSegments(cube,newSegment);
-  CubeUpdate cubeBuilder=new CubeUpdate(cube);
-  cubeBuilder.setToAddSegs(newSegment);
-  updateCube(cubeBuilder);
-  return newSegment;
+  return appendSegment(cube,startDate,endDate,startOffset,endOffset,true);
 }

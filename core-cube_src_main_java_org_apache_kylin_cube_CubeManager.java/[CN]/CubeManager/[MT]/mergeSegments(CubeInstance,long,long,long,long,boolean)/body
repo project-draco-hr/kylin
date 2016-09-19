@@ -1,7 +1,7 @@
 {
   if (cube.getSegments().isEmpty())   throw new IllegalArgumentException("Cube " + cube + " has no segments");
   if (startDate >= endDate && startOffset >= endOffset)   throw new IllegalArgumentException("Invalid merge range");
-  checkBuildingSegment(cube);
+  checkNoBuildingSegment(cube);
   checkCubeIsPartitioned(cube);
   boolean isOffsetsOn=cube.getSegments().get(0).isSourceOffsetsOn();
   if (isOffsetsOn) {

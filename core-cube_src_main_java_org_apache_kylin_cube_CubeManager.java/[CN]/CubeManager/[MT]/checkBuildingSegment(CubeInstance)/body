@@ -1,6 +1,0 @@
-{
-  int maxBuldingSeg=cube.getConfig().getMaxBuildingSegments();
-  if (cube.getBuildingSegments().size() >= maxBuldingSeg) {
-    throw new IllegalStateException("There is already " + cube.getBuildingSegments().size() + " building segment; ");
-  }
-}

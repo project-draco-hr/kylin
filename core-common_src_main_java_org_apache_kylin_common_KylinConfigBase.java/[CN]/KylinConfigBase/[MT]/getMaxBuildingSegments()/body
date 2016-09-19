@@ -1,3 +1,0 @@
-{
-  return Integer.parseInt(getOptional("kylin.cube.building.segment.max","1"));
-}
