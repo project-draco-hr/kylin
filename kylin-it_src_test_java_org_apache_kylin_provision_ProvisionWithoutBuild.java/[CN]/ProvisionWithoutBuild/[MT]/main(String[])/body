@@ -1,0 +1,5 @@
+{
+  beforeClass();
+  DeployUtil.deployMetadata();
+  DeployUtil.prepareTestDataForNormalCubes("test_kylin_cube_with_slr_empty");
+}
