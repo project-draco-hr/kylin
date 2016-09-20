@@ -7,11 +7,5 @@
       factDictCols.add(col);
     }
   }
-  if (cubeDesc.getModel().getPartitionDesc() != null) {
-    TblColRef partitionCol=cubeDesc.getModel().getPartitionDesc().getPartitionDateColumnRef();
-    if (factDictCols.contains(partitionCol) == false) {
-      factDictCols.add(partitionCol);
-    }
-  }
   return factDictCols;
 }
