@@ -1,3 +1,0 @@
-{
-  return new SlimLongDimEnc(Integer.parseInt(args[0]));
-}

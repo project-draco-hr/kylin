@@ -2,6 +2,11 @@
   if (isNull(bytes,offset,len)) {
     return null;
   }
-  long integer=BytesUtil.readLong(bytes,offset,len);
+  long integer=BytesUtil.readLong(bytes,offset,len) - CAP[fixedLen];
+  integer=integer & MASK[fixedLen];
+  boolean positive=(integer & ((0x80) << ((fixedLen - 1) << 3))) == 0;
+  if (!positive) {
+    integer|=(~MASK[fixedLen]);
+  }
   return String.valueOf(integer);
 }

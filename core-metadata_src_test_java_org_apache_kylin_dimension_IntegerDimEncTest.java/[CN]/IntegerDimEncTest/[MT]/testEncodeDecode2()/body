@@ -1,0 +1,17 @@
+{
+  IntegerDimEnc enc=new IntegerDimEnc(8);
+  testEncodeDecode(enc,0);
+  testEncodeDecode(enc,100);
+  testEncodeDecode(enc,10000);
+  testEncodeDecode(enc,Long.MAX_VALUE);
+  testEncodeDecode(enc,-100);
+  testEncodeDecode(enc,-10000);
+  testEncodeDecode(enc,-Long.MAX_VALUE);
+  try {
+    testEncodeDecode(enc,Long.MIN_VALUE);
+    Assert.fail();
+  }
+ catch (  Throwable e) {
+    Assert.assertEquals("expected:<-9223372036854775808> but was:<null>",e.getMessage());
+  }
+}

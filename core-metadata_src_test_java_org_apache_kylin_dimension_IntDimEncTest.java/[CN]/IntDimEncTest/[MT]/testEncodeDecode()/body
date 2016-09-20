@@ -1,0 +1,21 @@
+{
+  IntDimEnc enc=new IntDimEnc(2);
+  testEncodeDecode(enc,0);
+  testEncodeDecode(enc,100);
+  testEncodeDecode(enc,10000);
+  testEncodeDecode(enc,65534);
+  try {
+    testEncodeDecode(enc,65535);
+    Assert.fail();
+  }
+ catch (  Throwable e) {
+    Assert.assertEquals("expected:<65535> but was:<null>",e.getMessage());
+  }
+  try {
+    testEncodeDecode(enc,65536);
+    Assert.fail();
+  }
+ catch (  Throwable e) {
+    Assert.assertEquals("expected:<[65536]> but was:<[0]>",e.getMessage());
+  }
+}

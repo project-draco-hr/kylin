@@ -3,19 +3,22 @@
   testEncodeDecode(enc,0);
   testEncodeDecode(enc,100);
   testEncodeDecode(enc,10000);
-  testEncodeDecode(enc,65534);
+  testEncodeDecode(enc,32767);
+  testEncodeDecode(enc,-100);
+  testEncodeDecode(enc,-10000);
+  testEncodeDecode(enc,-32767);
   try {
-    testEncodeDecode(enc,65535);
+    testEncodeDecode(enc,32768);
     Assert.fail();
   }
  catch (  Throwable e) {
-    Assert.assertEquals("expected:<65535> but was:<null>",e.getMessage());
+    Assert.assertEquals("expected:<32768> but was:<null>",e.getMessage());
   }
   try {
-    testEncodeDecode(enc,65536);
+    testEncodeDecode(enc,-32768);
     Assert.fail();
   }
  catch (  Throwable e) {
-    Assert.assertEquals("expected:<[65536]> but was:<[0]>",e.getMessage());
+    Assert.assertEquals("expected:<-32768> but was:<null>",e.getMessage());
   }
 }

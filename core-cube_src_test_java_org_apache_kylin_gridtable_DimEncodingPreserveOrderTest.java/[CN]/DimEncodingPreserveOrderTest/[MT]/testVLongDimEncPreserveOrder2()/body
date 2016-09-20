@@ -1,5 +1,5 @@
 {
-  SlimLongDimEnc enc=new SlimLongDimEnc(8);
+  IntegerDimEnc enc=new IntegerDimEnc(8);
   List<ByteArray> encodedValues=Lists.newArrayList();
   encodedValues.add(encode(enc,-Long.MAX_VALUE));
   encodedValues.add(encode(enc,-10000L));

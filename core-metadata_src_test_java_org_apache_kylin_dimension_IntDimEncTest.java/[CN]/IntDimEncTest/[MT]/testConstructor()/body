@@ -1,0 +1,15 @@
+{
+  try {
+    new IntDimEnc(0);
+    Assert.fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    new IntDimEnc(9);
+    Assert.fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  new IntDimEnc(8);
+}
