@@ -4,7 +4,7 @@
     buildRewriteFieldsAndMetricsColumns();
   }
   implementor.visitChild(this,getInput());
-  if (!this.afterAggregate && RewriteImplementor.needRewrite(this.context)) {
+  if (!this.afterAggregate) {
     this.rewriteAggCalls=new ArrayList<AggregateCall>(aggCalls.size());
     for (int i=0; i < this.aggCalls.size(); i++) {
       AggregateCall aggCall=this.aggCalls.get(i);

@@ -1,5 +1,5 @@
 {
-  if (!this.context.hasPrecalculatedFields() && func.needRewriteField()) {
+  if (noPrecaculatedFieldsAvailable() && func.needRewriteField()) {
     logger.info(func + "skip rewriteAggregateCall because no pre-aggregated field available");
     return aggCall;
   }
