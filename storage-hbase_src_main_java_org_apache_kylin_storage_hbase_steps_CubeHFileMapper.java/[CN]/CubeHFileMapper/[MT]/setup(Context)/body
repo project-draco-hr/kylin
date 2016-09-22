@@ -4,7 +4,7 @@
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
   CubeManager cubeMgr=CubeManager.getInstance(config);
   cubeDesc=cubeMgr.getCube(cubeName).getDescriptor();
-  inputCodec=new MeasureDecoder(cubeDesc.getMeasures());
+  inputCodec=new MeasureCodec(cubeDesc.getMeasures());
   inputMeasures=new Object[cubeDesc.getMeasures().size()];
   keyValueCreators=Lists.newArrayList();
   for (  HBaseColumnFamilyDesc cfDesc : cubeDesc.getHbaseMapping().getColumnFamily()) {

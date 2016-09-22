@@ -4,7 +4,7 @@
   timestamp=0;
   refIndex=colDesc.getMeasureIndex();
   refMeasures=colDesc.getMeasures();
-  codec=new BufferedMeasureEncoder(refMeasures);
+  codec=new BufferedMeasureCodec(refMeasures);
   colValues=new Object[refMeasures.length];
   isFullCopy=true;
   List<MeasureDesc> measures=cubeDesc.getMeasures();

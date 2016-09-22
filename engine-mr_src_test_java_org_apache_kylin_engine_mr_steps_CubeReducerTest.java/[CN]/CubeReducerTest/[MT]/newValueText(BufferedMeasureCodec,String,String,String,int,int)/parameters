@@ -1,4 +1,4 @@
-BufferedMeasureEncoder codec
+BufferedMeasureCodec codec
 String sum
 String min
 String max

@@ -1,6 +1,6 @@
 {
   MeasureDesc descs[]=new MeasureDesc[]{measure("double"),measure("long"),measure("decimal"),measure("HLLC16"),measure("bitmap")};
-  BufferedMeasureEncoder codec=new BufferedMeasureEncoder(descs);
+  BufferedMeasureCodec codec=new BufferedMeasureCodec(descs);
   DoubleMutable d=new DoubleMutable(1.0);
   LongMutable l=new LongMutable(2);
   BigDecimal b=new BigDecimal("333.1234");

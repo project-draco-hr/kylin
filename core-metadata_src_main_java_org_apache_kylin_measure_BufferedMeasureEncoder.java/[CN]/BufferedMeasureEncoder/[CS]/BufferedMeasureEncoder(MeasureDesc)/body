@@ -1,4 +1,0 @@
-{
-  this.codec=new MeasureDecoder(measureDescs);
-  this.measureSizes=new int[codec.nMeasures];
-}

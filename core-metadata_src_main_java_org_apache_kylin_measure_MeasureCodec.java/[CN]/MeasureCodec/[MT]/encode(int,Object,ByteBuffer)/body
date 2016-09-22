@@ -1,0 +1,3 @@
+{
+  serializers[idx].serialize(o,buf);
+}

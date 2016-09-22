@@ -5,7 +5,7 @@
   KylinConfig config=AbstractHadoopJob.loadKylinPropsAndMetadata();
   cubeDesc=CubeManager.getInstance(config).getCube(cubeName).getDescriptor();
   measuresDescs=cubeDesc.getMeasures();
-  codec=new BufferedMeasureEncoder(measuresDescs);
+  codec=new BufferedMeasureCodec(measuresDescs);
   aggs=new MeasureAggregators(measuresDescs);
   input=new Object[measuresDescs.size()];
   result=new Object[measuresDescs.size()];

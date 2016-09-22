@@ -1,7 +1,7 @@
 {
   CubeDesc cubeDesc=CubeManager.getInstance(getTestConfig()).getCube("test_kylin_cube_with_slr_ready").getDescriptor();
   HBaseColumnDesc hbaseCol=cubeDesc.getHbaseMapping().getColumnFamily()[0].getColumns()[0];
-  BufferedMeasureEncoder codec=new BufferedMeasureEncoder(hbaseCol.getMeasures());
+  BufferedMeasureCodec codec=new BufferedMeasureCodec(hbaseCol.getMeasures());
   BigDecimal sum=new BigDecimal("11111111111111111111333.1234567");
   BigDecimal min=new BigDecimal("333.1111111");
   BigDecimal max=new BigDecimal("333.1999999");

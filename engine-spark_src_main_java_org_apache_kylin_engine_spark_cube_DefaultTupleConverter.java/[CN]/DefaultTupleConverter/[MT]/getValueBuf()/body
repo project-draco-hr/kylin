@@ -1,6 +1,6 @@
 {
   if (valueBuf.get() == null) {
-    valueBuf.set(ByteBuffer.allocate(BufferedMeasureEncoder.DEFAULT_BUFFER_SIZE));
+    valueBuf.set(ByteBuffer.allocate(BufferedMeasureCodec.DEFAULT_BUFFER_SIZE));
   }
   return valueBuf.get();
 }

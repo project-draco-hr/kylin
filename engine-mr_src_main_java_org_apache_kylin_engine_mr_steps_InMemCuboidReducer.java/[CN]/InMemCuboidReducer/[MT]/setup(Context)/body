@@ -5,7 +5,7 @@
   CubeInstance cube=CubeManager.getInstance(config).getCube(cubeName);
   CubeDesc cubeDesc=cube.getDescriptor();
   List<MeasureDesc> measuresDescs=cubeDesc.getMeasures();
-  codec=new BufferedMeasureEncoder(measuresDescs);
+  codec=new BufferedMeasureCodec(measuresDescs);
   aggs=new MeasureAggregators(measuresDescs);
   input=new Object[measuresDescs.size()];
   result=new Object[measuresDescs.size()];

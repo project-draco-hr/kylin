@@ -1,0 +1,4 @@
+{
+  this.codec=new MeasureCodec(measureDescs);
+  this.measureSizes=new int[codec.getMeasuresCount()];
+}

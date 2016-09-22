@@ -8,7 +8,7 @@
   field.setAccessible(true);
   MeasureType origMeasureType=functionDesc.getMeasureType();
   field.set(functionDesc,new MockUpMeasureType(origMeasureType));
-  BufferedMeasureEncoder codec=new BufferedMeasureEncoder(cubeDesc.getMeasures());
+  BufferedMeasureCodec codec=new BufferedMeasureCodec(cubeDesc.getMeasures());
   Text key1=new Text("72010ustech");
   List<Text> values1=new ArrayList<Text>();
   values1.add(newValueText(codec,"15.09","15.09","15.09",1,100));

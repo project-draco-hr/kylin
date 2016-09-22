@@ -14,7 +14,7 @@
   rowKeySplitter=new RowKeySplitter(sourceCubeSegment,65,255);
   rowKeyEncoderProvider=new RowKeyEncoderProvider(mergedCubeSegment);
   measureDescs=cubeDesc.getMeasures();
-  codec=new BufferedMeasureEncoder(measureDescs);
+  codec=new BufferedMeasureCodec(measureDescs);
   measureObjs=new Object[measureDescs.size()];
   outputValue=new Text();
   dictMeasures=Lists.newArrayList();

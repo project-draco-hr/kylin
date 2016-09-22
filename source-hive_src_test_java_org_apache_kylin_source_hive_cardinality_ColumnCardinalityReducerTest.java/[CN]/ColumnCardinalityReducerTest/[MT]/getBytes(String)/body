@@ -7,7 +7,7 @@
     i++;
     hllc.add(Bytes.toBytes(temp));
   }
-  ByteBuffer buf=ByteBuffer.allocate(BufferedMeasureEncoder.DEFAULT_BUFFER_SIZE);
+  ByteBuffer buf=ByteBuffer.allocate(BufferedMeasureCodec.DEFAULT_BUFFER_SIZE);
   buf.clear();
   hllc.writeRegisters(buf);
   buf.flip();

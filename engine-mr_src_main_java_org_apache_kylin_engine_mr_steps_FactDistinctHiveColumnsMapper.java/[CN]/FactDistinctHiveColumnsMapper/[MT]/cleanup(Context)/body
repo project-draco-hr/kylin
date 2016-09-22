@@ -1,6 +1,6 @@
 {
   if (collectStatistics) {
-    ByteBuffer hllBuf=ByteBuffer.allocate(BufferedMeasureEncoder.DEFAULT_BUFFER_SIZE);
+    ByteBuffer hllBuf=ByteBuffer.allocate(BufferedMeasureCodec.DEFAULT_BUFFER_SIZE);
     HyperLogLogPlusCounter hll;
     for (int i=0; i < cuboidIds.length; i++) {
       hll=allCuboidsHLL[i];

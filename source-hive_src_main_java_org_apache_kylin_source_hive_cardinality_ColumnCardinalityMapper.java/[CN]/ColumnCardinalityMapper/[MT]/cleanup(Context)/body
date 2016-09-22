@@ -1,6 +1,6 @@
 {
   Iterator<Integer> it=hllcMap.keySet().iterator();
-  ByteBuffer buf=ByteBuffer.allocate(BufferedMeasureEncoder.DEFAULT_BUFFER_SIZE);
+  ByteBuffer buf=ByteBuffer.allocate(BufferedMeasureCodec.DEFAULT_BUFFER_SIZE);
   while (it.hasNext()) {
     int key=it.next();
     HyperLogLogPlusCounter hllc=hllcMap.get(key);

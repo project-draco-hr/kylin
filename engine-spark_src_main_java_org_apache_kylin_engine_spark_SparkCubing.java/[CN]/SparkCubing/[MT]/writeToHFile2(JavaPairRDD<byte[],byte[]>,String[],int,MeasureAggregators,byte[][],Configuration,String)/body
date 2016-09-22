@@ -16,7 +16,7 @@
 ,UnsignedBytes.lexicographicalComparator()).mapPartitions(new FlatMapFunction<Iterator<Tuple2<byte[],byte[]>>,Tuple2<byte[],byte[]>>(){
     @Override public Iterable<Tuple2<byte[],byte[]>> call(    final Iterator<Tuple2<byte[],byte[]>> tuple2Iterator) throws Exception {
       return new Iterable<Tuple2<byte[],byte[]>>(){
-        final BufferedMeasureEncoder codec=new BufferedMeasureEncoder(dataTypes);
+        final BufferedMeasureCodec codec=new BufferedMeasureCodec(dataTypes);
         final Object[] input=new Object[measureSize];
         final Object[] result=new Object[measureSize];
         @Override public Iterator<Tuple2<byte[],byte[]>> iterator(){

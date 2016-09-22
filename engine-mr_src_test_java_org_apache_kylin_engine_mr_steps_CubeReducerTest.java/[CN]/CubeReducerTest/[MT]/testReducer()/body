@@ -1,7 +1,7 @@
 {
   reduceDriver.getConfiguration().set(BatchConstants.CFG_CUBE_NAME,"test_kylin_cube_with_slr_ready");
   CubeDesc cubeDesc=CubeManager.getInstance(getTestConfig()).getCube("test_kylin_cube_with_slr_ready").getDescriptor();
-  BufferedMeasureEncoder codec=new BufferedMeasureEncoder(cubeDesc.getMeasures());
+  BufferedMeasureCodec codec=new BufferedMeasureCodec(cubeDesc.getMeasures());
   Text key1=new Text("72010ustech");
   List<Text> values1=new ArrayList<Text>();
   values1.add(newValueText(codec,"15.09","15.09","15.09",1,100));
