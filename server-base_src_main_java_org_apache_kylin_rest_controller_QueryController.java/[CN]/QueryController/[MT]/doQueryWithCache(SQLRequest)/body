@@ -32,6 +32,7 @@
       checkQueryAuth(sqlResponse);
     }
  catch (    Throwable e) {
+      logger.error("Exception when execute sql",e);
       String errMsg=QueryUtil.makeErrorMsgUserFriendly(e);
       sqlResponse=new SQLResponse(null,null,0,true,errMsg);
       if (e instanceof ScanOutOfLimitException) {
