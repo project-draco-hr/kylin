@@ -1,0 +1,7 @@
+{
+  for (  IRealization real : ProjectManager.getInstance(config).listAllRealizations(project)) {
+    if (real instanceof CubeInstance) {
+      reloadCubeLocal(real.getName());
+    }
+  }
+}

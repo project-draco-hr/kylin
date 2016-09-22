@@ -1,10 +1,10 @@
 {
   if (cacheManager != null) {
-    logger.info("cleaning cache for " + storageUUID + " (currently remove all entries)");
+    logger.info("cleaning cache for project" + project + " (currently remove all entries)");
     cacheManager.getCache(QueryController.SUCCESS_QUERY_CACHE).removeAll();
     cacheManager.getCache(QueryController.EXCEPTION_QUERY_CACHE).removeAll();
   }
  else {
-    logger.warn("skip cleaning cache for " + storageUUID);
+    logger.warn("skip cleaning cache for project " + project);
   }
 }

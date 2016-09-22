@@ -1,0 +1,4 @@
+{
+  if (event == Event.DROP)   removeStreamingLocal(cacheKey);
+ else   reloadStreamingConfigLocal(cacheKey);
+}

@@ -1,7 +1,8 @@
 {
   logger.info("Initializing ProjectManager with metadata url " + config);
   this.config=config;
-  this.projectMap=new CaseInsensitiveStringCache<ProjectInstance>(config,Broadcaster.TYPE.PROJECT);
+  this.projectMap=new CaseInsensitiveStringCache<ProjectInstance>(config,"project");
   this.l2Cache=new ProjectL2Cache(this);
   reloadAllProjects();
+  Broadcaster.getInstance(config).registerListener(new ProjectSyncListener(),"project");
 }

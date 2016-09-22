@@ -1,0 +1,6 @@
+{
+  super();
+  this.entity=entity;
+  this.event=event;
+  this.cacheKey=cacheKey;
+}

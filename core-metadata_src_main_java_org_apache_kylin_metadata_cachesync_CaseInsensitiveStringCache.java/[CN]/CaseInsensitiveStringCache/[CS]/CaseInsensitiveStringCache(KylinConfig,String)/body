@@ -1,0 +1,3 @@
+{
+  super(config,syncEntity,new ConcurrentSkipListMap<String,V>(String.CASE_INSENSITIVE_ORDER));
+}

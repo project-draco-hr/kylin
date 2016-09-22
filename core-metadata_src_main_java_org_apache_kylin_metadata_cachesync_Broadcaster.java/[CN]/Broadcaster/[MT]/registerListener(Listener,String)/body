@@ -1,0 +1,12 @@
+{
+  List<Listener> all=listenerMap.get(SYNC_ALL);
+  if (all != null && all.contains(listener)) {
+    return;
+  }
+  for (  String entity : entities) {
+    if (!StringUtils.isBlank(entity))     addListener(entity,listener);
+  }
+  addListener(SYNC_ALL,listener);
+  addListener(SYNC_PRJ_SCHEMA,listener);
+  addListener(SYNC_PRJ_DATA,listener);
+}

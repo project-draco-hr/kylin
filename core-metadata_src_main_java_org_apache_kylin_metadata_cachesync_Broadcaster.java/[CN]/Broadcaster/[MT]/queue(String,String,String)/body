@@ -1,0 +1,11 @@
+{
+  if (broadcastEvents == null)   return;
+  try {
+    counter.incrementAndGet();
+    broadcastEvents.putFirst(new BroadcastEvent(entity,event,key));
+  }
+ catch (  Exception e) {
+    counter.decrementAndGet();
+    logger.error("error putting BroadcastEvent",e);
+  }
+}

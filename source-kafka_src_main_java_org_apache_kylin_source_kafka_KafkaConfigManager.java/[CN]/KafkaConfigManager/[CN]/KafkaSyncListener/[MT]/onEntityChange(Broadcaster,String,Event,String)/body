@@ -1,0 +1,4 @@
+{
+  if (event == Event.DROP)   removeKafkaConfigLocal(cacheKey);
+ else   reloadKafkaConfigLocal(cacheKey);
+}

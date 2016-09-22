@@ -1,0 +1,7 @@
+{
+  if (event == Event.DROP)   srcTableExdMap.removeLocal(cacheKey);
+ else   reloadSourceTableExt(cacheKey);
+  for (  ProjectInstance prj : ProjectManager.getInstance(config).findProjectsByTable(cacheKey)) {
+    broadcaster.notifyProjectSchemaUpdate(prj.getName());
+  }
+}

@@ -1,0 +1,4 @@
+{
+  projectMap.remove(norm(proj));
+  clearL2Cache();
+}

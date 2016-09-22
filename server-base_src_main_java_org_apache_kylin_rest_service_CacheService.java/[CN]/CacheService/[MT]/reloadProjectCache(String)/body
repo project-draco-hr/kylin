@@ -1,9 +1,0 @@
-{
-  try {
-    getProjectManager().reloadProjectLocal(projectName);
-  }
- catch (  IOException ex) {
-    logger.warn("Failed to reset project cache",ex);
-  }
-  removeOLAPDataSource(projectName);
-}

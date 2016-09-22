@@ -7,6 +7,6 @@
         break;
       }
     }
-    if (includes == true)     loadHybridInstance(HybridInstance.concatResourcePath(hybridInstance.getName()));
+    if (includes == true)     reloadHybridInstance(hybridInstance.getName());
   }
 }

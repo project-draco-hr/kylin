@@ -1,0 +1,7 @@
+{
+  boolean exists=innerCache.containsKey(key);
+  innerCache.remove(key);
+  if (exists) {
+    getBroadcaster().queue(syncEntity,Broadcaster.Event.DROP.getType(),key.toString());
+  }
+}

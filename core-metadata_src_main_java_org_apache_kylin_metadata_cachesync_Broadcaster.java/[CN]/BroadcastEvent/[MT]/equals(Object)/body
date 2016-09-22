@@ -1,0 +1,22 @@
+{
+  if (obj == null) {
+    return false;
+  }
+  if (this == obj) {
+    return true;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  BroadcastEvent other=(BroadcastEvent)obj;
+  if (!StringUtils.equals(event,other.event)) {
+    return false;
+  }
+  if (!StringUtils.equals(cacheKey,other.cacheKey)) {
+    return false;
+  }
+  if (!StringUtils.equals(entity,other.entity)) {
+    return false;
+  }
+  return true;
+}

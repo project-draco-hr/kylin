@@ -1,9 +1,0 @@
-{
-  CubeInstance cube=getCubeManager().reloadCubeLocal(cubeName);
-  getHybridManager().reloadHybridInstanceByChild(RealizationType.CUBE,cubeName);
-  reloadProjectCache(getProjectManager().findProjects(RealizationType.CUBE,cubeName));
-  if (cube != null) {
-    cleanDataCache(cube.getUuid());
-  }
-  cubeService.updateOnNewSegmentReady(cubeName);
-}

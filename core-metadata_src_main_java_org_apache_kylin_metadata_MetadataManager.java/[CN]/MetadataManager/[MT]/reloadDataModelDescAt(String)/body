@@ -6,7 +6,7 @@
     dataModelDescMap.putLocal(dataModelDesc.getName(),dataModelDesc);
     return dataModelDesc;
   }
- catch (  IOException e) {
-    throw new IllegalStateException("Error to load" + path,e);
+ catch (  Exception e) {
+    throw new IllegalStateException("Error to load " + path,e);
   }
 }

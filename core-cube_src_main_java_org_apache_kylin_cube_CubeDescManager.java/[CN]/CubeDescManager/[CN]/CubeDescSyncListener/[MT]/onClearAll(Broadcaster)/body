@@ -1,0 +1,4 @@
+{
+  clearCache();
+  Cuboid.clearCache();
+}

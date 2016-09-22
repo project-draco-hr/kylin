@@ -1,0 +1,10 @@
+{
+  boolean exists=innerCache.containsKey(key);
+  innerCache.put(key,value);
+  if (!exists) {
+    getBroadcaster().queue(syncEntity,Broadcaster.Event.CREATE.getType(),key.toString());
+  }
+ else {
+    getBroadcaster().queue(syncEntity,Broadcaster.Event.UPDATE.getType(),key.toString());
+  }
+}

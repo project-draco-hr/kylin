@@ -1,0 +1,10 @@
+{
+  String cubeDescName=cacheKey;
+  CubeDesc cubeDesc=getCubeDesc(cubeDescName);
+  String modelName=cubeDesc == null ? null : cubeDesc.getModel().getName();
+  if (event == Event.DROP)   removeLocalCubeDesc(cubeDescName);
+ else   reloadCubeDescLocal(cubeDescName);
+  for (  ProjectInstance prj : ProjectManager.getInstance(config).findProjectsByModel(modelName)) {
+    broadcaster.notifyProjectSchemaUpdate(prj.getName());
+  }
+}

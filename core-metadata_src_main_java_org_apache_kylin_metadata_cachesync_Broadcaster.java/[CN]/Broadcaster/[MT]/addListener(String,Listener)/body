@@ -1,0 +1,8 @@
+{
+  List<Listener> list=listenerMap.get(entity);
+  if (list == null) {
+    list=new ArrayList<>();
+  }
+  list.add(listener);
+  listenerMap.put(entity,list);
+}

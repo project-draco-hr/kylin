@@ -1,0 +1,5 @@
+{
+  for (  String model : ProjectManager.getInstance(config).getProject(project).getModels()) {
+    reloadDataModelDesc(model);
+  }
+}

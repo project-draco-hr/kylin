@@ -1,5 +1,6 @@
 {
   this.config=config;
-  this.streamingMap=new CaseInsensitiveStringCache<StreamingConfig>(config,Broadcaster.TYPE.STREAMING);
+  this.streamingMap=new CaseInsensitiveStringCache<StreamingConfig>(config,"streaming");
   reloadAllStreaming();
+  Broadcaster.getInstance(config).registerListener(new StreamingSyncListener(),"streaming");
 }

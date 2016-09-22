@@ -1,0 +1,3 @@
+KylinConfig config
+String syncEntity
+ConcurrentMap<K,V> innerCache

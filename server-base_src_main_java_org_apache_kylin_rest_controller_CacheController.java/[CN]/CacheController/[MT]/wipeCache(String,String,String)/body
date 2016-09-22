@@ -1,16 +1,3 @@
 {
-  Broadcaster.TYPE wipeType=Broadcaster.TYPE.getType(type);
-  EVENT wipeEvent=Broadcaster.EVENT.getEvent(event);
-  logger.info("wipe cache type: " + wipeType + " event:"+ wipeEvent+ " name:"+ name);
-switch (wipeEvent) {
-case CREATE:
-case UPDATE:
-    cacheService.rebuildCache(wipeType,name);
-  break;
-case DROP:
-cacheService.removeCache(wipeType,name);
-break;
-default :
-throw new RuntimeException("invalid type:" + wipeEvent);
-}
+  cacheService.notifyMetadataChange(entity,Broadcaster.Event.getEvent(event),cacheKey);
 }

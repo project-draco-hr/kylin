@@ -1,9 +1,5 @@
 {
   this.createTestMetadata();
-  MetadataManager.clearCache();
-  CubeDescManager.clearCache();
-  CubeManager.clearCache();
-  RealizationRegistry.clearCache();
-  ProjectManager.clearCache();
-  CacheService.removeAllOLAPDataSources();
+  KylinConfig config=KylinConfig.getInstanceFromEnv();
+  Broadcaster.getInstance(config).notifyClearAll();
 }

@@ -1,0 +1,3 @@
+{
+  return Objects.toStringHelper(this).add("type",entity).add("name",cacheKey).add("action",event).toString();
+}

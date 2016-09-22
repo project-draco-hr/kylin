@@ -1,5 +1,6 @@
 {
   this.config=config;
-  this.kafkaMap=new CaseInsensitiveStringCache<KafkaConfig>(config,Broadcaster.TYPE.KAFKA);
+  this.kafkaMap=new CaseInsensitiveStringCache<KafkaConfig>(config,"kafka");
   reloadAllKafkaConfig();
+  Broadcaster.getInstance(config).registerListener(new KafkaSyncListener(),"kafka");
 }

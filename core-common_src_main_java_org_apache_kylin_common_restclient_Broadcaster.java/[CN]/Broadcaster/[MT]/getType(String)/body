@@ -1,8 +1,0 @@
-{
-  for (  TYPE one : values()) {
-    if (one.getType().equalsIgnoreCase(type)) {
-      return one;
-    }
-  }
-  return null;
-}

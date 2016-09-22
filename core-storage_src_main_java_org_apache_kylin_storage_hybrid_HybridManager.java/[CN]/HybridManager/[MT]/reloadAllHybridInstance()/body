@@ -1,0 +1,9 @@
+{
+  ResourceStore store=getStore();
+  List<String> paths=store.collectResourceRecursively(ResourceStore.HYBRID_RESOURCE_ROOT,".json");
+  logger.debug("Loading Hybrid from folder " + store.getReadableResourcePath(ResourceStore.HYBRID_RESOURCE_ROOT));
+  for (  String path : paths) {
+    reloadHybridInstanceAt(path);
+  }
+  logger.debug("Loaded " + paths.size() + " Hybrid(s)");
+}

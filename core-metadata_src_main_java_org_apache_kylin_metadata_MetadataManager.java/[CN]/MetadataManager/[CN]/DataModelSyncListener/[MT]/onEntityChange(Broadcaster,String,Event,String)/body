@@ -1,0 +1,7 @@
+{
+  if (event == Event.DROP)   dataModelDescMap.removeLocal(cacheKey);
+ else   reloadDataModelDesc(cacheKey);
+  for (  ProjectInstance prj : ProjectManager.getInstance(config).findProjectsByModel(cacheKey)) {
+    broadcaster.notifyProjectSchemaUpdate(prj.getName());
+  }
+}

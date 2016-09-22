@@ -1,6 +1,7 @@
 {
   logger.info("Initializing CubeManager with config " + config);
   this.config=config;
-  this.cubeMap=new CaseInsensitiveStringCache<CubeInstance>(config,Broadcaster.TYPE.CUBE);
+  this.cubeMap=new CaseInsensitiveStringCache<CubeInstance>(config,"cube");
   loadAllCubeInstance();
+  Broadcaster.getInstance(config).registerListener(new CubeSyncListener(),"cube");
 }

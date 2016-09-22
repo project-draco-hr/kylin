@@ -1,5 +1,0 @@
-{
-  CubeManager.clearCache();
-  HybridManager.clearCache();
-  RealizationRegistry.clearCache();
-}

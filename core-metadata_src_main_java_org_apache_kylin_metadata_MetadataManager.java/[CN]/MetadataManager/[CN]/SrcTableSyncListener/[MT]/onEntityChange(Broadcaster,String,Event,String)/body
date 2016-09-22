@@ -1,0 +1,7 @@
+{
+  if (event == Event.DROP)   srcTableMap.removeLocal(cacheKey);
+ else   reloadSourceTable(cacheKey);
+  for (  ProjectInstance prj : ProjectManager.getInstance(config).findProjectsByTable(cacheKey)) {
+    broadcaster.notifyProjectSchemaUpdate(prj.getName());
+  }
+}

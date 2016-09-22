@@ -1,0 +1,8 @@
+{
+  String cubeName=cacheKey;
+  if (event == Event.DROP)   removeCubeLocal(cubeName);
+ else   reloadCubeLocal(cubeName);
+  for (  ProjectInstance prj : ProjectManager.getInstance(config).findProjects(RealizationType.CUBE,cubeName)) {
+    broadcaster.notifyProjectDataUpdate(prj.getName());
+  }
+}

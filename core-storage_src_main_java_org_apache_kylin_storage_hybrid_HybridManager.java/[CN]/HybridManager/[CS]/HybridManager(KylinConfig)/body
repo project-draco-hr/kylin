@@ -1,6 +1,7 @@
 {
   logger.info("Initializing HybridManager with config " + config);
   this.config=config;
-  this.hybridMap=new CaseInsensitiveStringCache<HybridInstance>(config,Broadcaster.TYPE.HYBRID);
-  loadAllHybridInstance();
+  this.hybridMap=new CaseInsensitiveStringCache<HybridInstance>(config,"hybrid");
+  reloadAllHybridInstance();
+  Broadcaster.getInstance(config).registerListener(new HybridSyncListener(),"hybrid");
 }

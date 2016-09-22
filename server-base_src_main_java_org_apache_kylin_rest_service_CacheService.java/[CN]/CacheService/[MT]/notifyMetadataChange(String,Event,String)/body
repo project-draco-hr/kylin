@@ -1,0 +1,5 @@
+{
+  Broadcaster broadcaster=Broadcaster.getInstance(getConfig());
+  broadcaster.registerListener(cacheSyncListener,"cube");
+  broadcaster.notifyListener(entity,event,cacheKey);
+}

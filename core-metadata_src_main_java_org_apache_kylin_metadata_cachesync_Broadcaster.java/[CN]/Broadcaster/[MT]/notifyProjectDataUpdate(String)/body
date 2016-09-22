@@ -1,0 +1,3 @@
+{
+  notifyListener(SYNC_PRJ_DATA,Event.UPDATE,project);
+}

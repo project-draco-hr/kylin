@@ -1,5 +1,5 @@
 {
-  String url=baseUrl + "/cache/" + type+ "/"+ name+ "/"+ action;
+  String url=baseUrl + "/cache/" + entity+ "/"+ cacheKey+ "/"+ event;
   HttpPut request=new HttpPut(url);
   try {
     CloseableHttpResponse response=client.execute(request);

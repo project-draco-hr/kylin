@@ -1,5 +1,5 @@
 {
-  for (  ProjectInstance projectInstance : findProjects(modelName)) {
+  for (  ProjectInstance projectInstance : findProjectsByModel(modelName)) {
     projectInstance.removeModel(modelName);
     updateProject(projectInstance);
   }
