@@ -1,7 +1,9 @@
 {
   logger.info("options: '" + optionsHelper.getOptionsAsString() + "'");
   logger.info("delete option value: '" + optionsHelper.getOptionValue(OPTION_DELETE) + "'");
+  logger.info("force option value: '" + optionsHelper.getOptionValue(OPTION_FORCE) + "'");
   delete=Boolean.parseBoolean(optionsHelper.getOptionValue(OPTION_DELETE));
+  force=Boolean.parseBoolean(optionsHelper.getOptionValue(OPTION_FORCE));
   Configuration conf=HBaseConfiguration.create();
   cleanUnusedIntermediateHiveTable(conf);
   cleanUnusedHdfsFiles(conf);

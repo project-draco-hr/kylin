@@ -1,0 +1,9 @@
+{
+  for (  String jobId : workingJobList) {
+    AbstractExecutable abstractExecutable=executableManager.getJob(jobId);
+    String segmentId=abstractExecutable.getParam("segmentId");
+    if (null == segmentId)     continue;
+    return segUuid.equals(segmentId);
+  }
+  return false;
+}
