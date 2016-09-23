@@ -7,9 +7,10 @@
   System.setProperty("java.security.krb5.conf",krb5ConfigPath);
   System.setProperty("sun.security.krb5.debug","true");
   System.setProperty("javax.security.auth.useSubjectCredsOnly","false");
-  Lookup<AuthSchemeProvider> authSchemeRegistry=RegistryBuilder.<AuthSchemeProvider>create().register(AuthSchemes.SPNEGO,new SPNegoSchemeFactory(skipPortAtKerberosDatabaseLookup)).build();
-  CloseableHttpClient client=HttpClients.custom().setDefaultAuthSchemeRegistry(authSchemeRegistry).build();
-  HttpClientContext context=HttpClientContext.create();
+  DefaultHttpClient client=new DefaultHttpClient();
+  AuthSchemeRegistry authSchemeRegistry=new AuthSchemeRegistry();
+  authSchemeRegistry.register(AuthPolicy.SPNEGO,new SPNegoSchemeFactory(skipPortAtKerberosDatabaseLookup));
+  client.setAuthSchemes(authSchemeRegistry);
   BasicCredentialsProvider credentialsProvider=new BasicCredentialsProvider();
   Credentials useJaasCreds=new Credentials(){
     public String getPassword(){
@@ -21,7 +22,7 @@
   }
 ;
   credentialsProvider.setCredentials(new AuthScope(null,-1,null),useJaasCreds);
-  context.setCredentialsProvider(credentialsProvider);
+  client.setCredentialsProvider(credentialsProvider);
   String response=null;
   while (response == null) {
     if (url.startsWith("https://")) {
@@ -34,7 +35,7 @@
     HttpGet httpget=new HttpGet(url);
     httpget.addHeader("accept","application/json");
     try {
-      CloseableHttpResponse httpResponse=client.execute(httpget,context);
+      HttpResponse httpResponse=client.execute(httpget);
       String redirect=null;
       org.apache.http.Header h=httpResponse.getFirstHeader("Location");
       if (h != null) {

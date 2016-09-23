@@ -2,10 +2,9 @@
   String url=baseUrl + "/cache/" + entity+ "/"+ cacheKey+ "/"+ event;
   HttpPut request=new HttpPut(url);
   try {
-    CloseableHttpResponse response=client.execute(request);
+    HttpResponse response=client.execute(request);
     String msg=EntityUtils.toString(response.getEntity());
     if (response.getStatusLine().getStatusCode() != 200)     throw new IOException("Invalid response " + response.getStatusLine().getStatusCode() + " with cache wipe url "+ url+ "\n"+ msg);
-    response.close();
   }
  catch (  Exception ex) {
     throw new IOException(ex);

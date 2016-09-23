@@ -3,9 +3,13 @@
   addHttpHeaders(post);
   StringEntity requestEntity=new StringEntity("{}",ContentType.create("application/json","UTF-8"));
   post.setEntity(requestEntity);
-  CloseableHttpResponse response=httpClient.execute(post);
-  if (response.getStatusLine().getStatusCode() != 200 && response.getStatusLine().getStatusCode() != 201) {
-    throw asIOException(post,response);
+  try {
+    HttpResponse response=httpClient.execute(post);
+    if (response.getStatusLine().getStatusCode() != 200 && response.getStatusLine().getStatusCode() != 201) {
+      throw asIOException(post,response);
+    }
   }
-  response.close();
+  finally {
+    post.releaseConnection();
+  }
 }

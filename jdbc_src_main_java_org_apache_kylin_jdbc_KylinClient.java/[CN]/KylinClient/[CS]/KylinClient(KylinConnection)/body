@@ -1,18 +1,17 @@
 {
   this.conn=conn;
   this.connProps=conn.getConnectionProperties();
-  this.httpClient=HttpClients.createDefault();
+  this.httpClient=new DefaultHttpClient();
   this.jsonMapper=new ObjectMapper();
   if (isSSL()) {
     try {
-      TrustStrategy acceptingTrustStrategy=new TrustStrategy(){
-        public boolean isTrusted(        X509Certificate[] certificate,        String type){
+      SSLSocketFactory sslsf=new SSLSocketFactory(new TrustStrategy(){
+        public boolean isTrusted(        final X509Certificate[] chain,        String authType) throws CertificateException {
           return true;
         }
       }
-;
-      SSLContext sslContext=SSLContexts.custom().loadTrustMaterial(null,acceptingTrustStrategy).build();
-      httpClient=HttpClients.custom().setSSLHostnameVerifier(new NoopHostnameVerifier()).setSSLContext(sslContext).build();
+);
+      httpClient.getConnectionManager().getSchemeRegistry().register(new Scheme("https",443,sslsf));
     }
  catch (    Exception e) {
       throw new RuntimeException("Initialize HTTPS client failed",e);

@@ -4,11 +4,11 @@
   this.userName=userName;
   this.password=password;
   this.baseUrl="http://" + host + ":"+ port+ "/kylin/api";
-  client=HttpClients.createDefault();
+  client=new DefaultHttpClient();
   if (userName != null && password != null) {
     CredentialsProvider provider=new BasicCredentialsProvider();
     UsernamePasswordCredentials credentials=new UsernamePasswordCredentials(userName,password);
     provider.setCredentials(AuthScope.ANY,credentials);
-    client=HttpClients.custom().setDefaultCredentialsProvider(provider).build();
+    client.setCredentialsProvider(provider);
   }
 }
