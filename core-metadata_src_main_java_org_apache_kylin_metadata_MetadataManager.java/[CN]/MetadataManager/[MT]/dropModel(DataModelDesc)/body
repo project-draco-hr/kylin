@@ -1,7 +1,7 @@
 {
   logger.info("Dropping model '" + desc.getName() + "'");
   ResourceStore store=getStore();
-  if (desc != null)   store.deleteResource(desc.getResourcePath());
+  store.deleteResource(desc.getResourcePath());
   ProjectManager.getInstance(config).removeModelFromProjects(desc.getName());
   this.afterModelDropped(desc);
   return desc;
