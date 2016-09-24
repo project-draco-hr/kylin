@@ -10,6 +10,9 @@
  catch (  IOException e) {
     throw new IllegalStateException(e);
   }
+ finally {
+    IOUtils.closeQuietly(input);
+  }
   len=in.position() - mark;
   in.position(mark);
   return len;
