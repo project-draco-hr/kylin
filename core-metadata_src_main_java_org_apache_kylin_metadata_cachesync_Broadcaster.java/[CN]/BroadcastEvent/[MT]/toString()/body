@@ -1,3 +1,3 @@
 {
-  return Objects.toStringHelper(this).add("type",entity).add("name",cacheKey).add("action",event).toString();
+  return Objects.toStringHelper(this).add("entity",entity).add("event",event).add("cacheKey",cacheKey).toString();
 }

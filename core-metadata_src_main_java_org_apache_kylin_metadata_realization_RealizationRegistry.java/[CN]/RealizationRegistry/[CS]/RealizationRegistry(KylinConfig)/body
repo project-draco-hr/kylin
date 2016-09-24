@@ -2,4 +2,10 @@
   logger.info("Initializing RealizationRegistry with metadata url " + config);
   this.config=config;
   init();
+  Broadcaster.getInstance(config).registerListener(new Broadcaster.Listener(){
+    @Override public void onClearAll(    Broadcaster broadcaster) throws IOException {
+      clearCache();
+    }
+  }
+,"");
 }

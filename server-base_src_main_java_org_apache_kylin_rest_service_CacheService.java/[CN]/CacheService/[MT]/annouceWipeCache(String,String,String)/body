@@ -1,0 +1,4 @@
+{
+  Broadcaster broadcaster=Broadcaster.getInstance(getConfig());
+  broadcaster.queue(entity,event,cacheKey);
+}

@@ -1,5 +1,4 @@
 {
-  logger.debug("Get Kylin Runtime environment");
   PropertiesConfiguration tempConfig=new PropertiesConfiguration();
   try {
     String content="";

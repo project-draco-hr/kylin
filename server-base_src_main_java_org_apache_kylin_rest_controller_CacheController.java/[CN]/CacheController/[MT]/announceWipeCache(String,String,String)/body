@@ -1,0 +1,3 @@
+{
+  cacheService.annouceWipeCache(entity,event,cacheKey);
+}

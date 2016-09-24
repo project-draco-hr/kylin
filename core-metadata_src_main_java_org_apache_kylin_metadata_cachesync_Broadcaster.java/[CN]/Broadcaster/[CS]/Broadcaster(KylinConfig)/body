@@ -17,7 +17,7 @@
       while (true) {
         try {
           final BroadcastEvent broadcastEvent=broadcastEvents.takeFirst();
-          logger.info("Announcing new broadcast event:" + broadcastEvent);
+          logger.info("Announcing new broadcast event: " + broadcastEvent);
           for (          final RestClient restClient : restClients) {
             wipingCachePool.execute(new Runnable(){
               @Override public void run(){
