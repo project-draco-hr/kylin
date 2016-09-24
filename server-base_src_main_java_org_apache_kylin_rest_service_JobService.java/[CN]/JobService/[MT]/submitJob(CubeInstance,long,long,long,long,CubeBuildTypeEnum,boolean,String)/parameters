@@ -3,4 +3,6 @@ long startDate
 long endDate
 long startOffset
 long endOffset
-boolean strictChecking
+CubeBuildTypeEnum buildType
+boolean force
+String submitter

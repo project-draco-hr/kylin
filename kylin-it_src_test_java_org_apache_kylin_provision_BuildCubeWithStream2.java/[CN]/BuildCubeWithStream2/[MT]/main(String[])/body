@@ -1,0 +1,17 @@
+{
+  try {
+    beforeClass();
+    BuildCubeWithStream2 buildCubeWithStream=new BuildCubeWithStream2();
+    buildCubeWithStream.before();
+    buildCubeWithStream.build();
+    logger.info("Build is done");
+    buildCubeWithStream.after();
+    afterClass();
+    logger.info("Going to exit");
+    System.exit(0);
+  }
+ catch (  Exception e) {
+    logger.error("error",e);
+    System.exit(1);
+  }
+}

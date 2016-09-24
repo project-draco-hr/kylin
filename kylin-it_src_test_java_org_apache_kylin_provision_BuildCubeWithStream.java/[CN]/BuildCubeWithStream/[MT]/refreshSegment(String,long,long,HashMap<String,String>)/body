@@ -1,5 +1,5 @@
 {
-  CubeSegment segment=cubeManager.refreshSegment(cubeManager.getCube(cubeName),0,0,startOffset,endOffset,false);
+  CubeSegment segment=cubeManager.refreshSegment(cubeManager.getCube(cubeName),0,0,startOffset,endOffset);
   segment.setAdditionalInfo(partitionOffsetMap);
   CubeInstance cubeInstance=cubeManager.getCube(cubeName);
   CubeUpdate cubeBuilder=new CubeUpdate(cubeInstance);

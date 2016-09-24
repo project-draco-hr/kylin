@@ -6,7 +6,7 @@
   checkNoRunningJob(cube);
   DefaultChainedExecutable job;
   if (buildType == CubeBuildTypeEnum.BUILD) {
-    CubeSegment newSeg=getCubeManager().appendSegment(cube,startDate,endDate,startOffset,endOffset,strictCheck);
+    CubeSegment newSeg=getCubeManager().appendSegment(cube,startDate,endDate,startOffset,endOffset);
     job=EngineFactory.createBatchCubingJob(newSeg,submitter);
   }
  else   if (buildType == CubeBuildTypeEnum.MERGE) {
