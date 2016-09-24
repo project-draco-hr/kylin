@@ -4,7 +4,7 @@
   int period=optionsHelper.hasOption(OPTION_PERIOD) ? Integer.valueOf(optionsHelper.getOptionValue(OPTION_PERIOD)) : DEFAULT_PERIOD;
   long endTime=System.currentTimeMillis();
   long startTime=endTime - period * 24 * 3600* 1000;
-  List<JobInstance> jobInstances=listJobInstances(cube,project,startTime,endTime);
+  List<JobInstance> jobInstances=listJobInstances(project,cube,startTime,endTime);
   logger.info("There are {} jobInstances to extract.",jobInstances.size());
   ObjectMapper mapper=new ObjectMapper();
   for (  JobInstance jobInstance : jobInstances) {
