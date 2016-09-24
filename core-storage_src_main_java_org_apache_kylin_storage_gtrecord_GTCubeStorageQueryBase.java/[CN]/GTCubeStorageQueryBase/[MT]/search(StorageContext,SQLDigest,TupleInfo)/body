@@ -16,6 +16,7 @@
   dimensionsD.addAll(groupsD);
   dimensionsD.addAll(otherDimsD);
   Cuboid cuboid=Cuboid.identifyCuboid(cubeDesc,dimensionsD,metrics);
+  logger.info("Cuboid identified: cube={}, cuboidId={}",cubeInstance.getName(),cuboid.getId());
   context.setCuboid(cuboid);
   Set<TblColRef> singleValuesD=findSingleValueColumns(filter);
   boolean exactAggregation=isExactAggregation(cuboid,groups,otherDimsD,singleValuesD,derivedPostAggregation);
