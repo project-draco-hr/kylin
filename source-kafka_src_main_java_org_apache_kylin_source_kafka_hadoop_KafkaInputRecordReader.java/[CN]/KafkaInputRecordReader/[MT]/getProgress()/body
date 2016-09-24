@@ -1,0 +1,6 @@
+{
+  if (watermark >= latestOffset || earliestOffset == latestOffset) {
+    return 1.0f;
+  }
+  return Math.min(1.0f,(watermark - earliestOffset) / (float)(latestOffset - earliestOffset));
+}

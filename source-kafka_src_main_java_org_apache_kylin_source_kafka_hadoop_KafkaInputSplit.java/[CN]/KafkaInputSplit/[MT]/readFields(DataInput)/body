@@ -1,0 +1,7 @@
+{
+  brokers=Text.readString(in);
+  topic=Text.readString(in);
+  partition=in.readInt();
+  offsetStart=in.readLong();
+  offsetEnd=in.readLong();
+}

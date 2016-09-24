@@ -1,0 +1,2 @@
+CubeSegment segment
+Map<Integer,Long> offsetStart

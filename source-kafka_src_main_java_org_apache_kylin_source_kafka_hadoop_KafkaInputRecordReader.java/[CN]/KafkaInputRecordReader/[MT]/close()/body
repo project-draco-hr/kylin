@@ -1,0 +1,4 @@
+{
+  log.info("{} num. processed messages {} ",topic + ":" + split.getBrokers()+ ":"+ partition,numProcessedMessages);
+  consumer.close();
+}

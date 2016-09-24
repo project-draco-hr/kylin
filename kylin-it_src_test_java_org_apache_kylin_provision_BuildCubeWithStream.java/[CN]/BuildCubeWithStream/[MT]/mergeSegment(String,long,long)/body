@@ -1,0 +1,7 @@
+{
+  CubeSegment segment=cubeManager.mergeSegments(cubeManager.getCube(cubeName),0,0,startOffset,endOffset,true);
+  DefaultChainedExecutable job=EngineFactory.createBatchMergeJob(segment,"TEST");
+  jobService.addJob(job);
+  waitForJob(job.getId());
+  return job.getId();
+}

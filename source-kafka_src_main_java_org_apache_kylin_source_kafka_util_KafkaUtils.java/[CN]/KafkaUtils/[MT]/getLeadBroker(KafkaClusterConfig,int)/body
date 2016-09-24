@@ -4,7 +4,7 @@
     if (partitionMetadata.errorCode() != 0) {
       logger.warn("PartitionMetadata errorCode: " + partitionMetadata.errorCode());
     }
-    return partitionMetadata.leader();
+    return new Broker(partitionMetadata.leader(),SecurityProtocol.PLAINTEXT);
   }
  else {
     return null;

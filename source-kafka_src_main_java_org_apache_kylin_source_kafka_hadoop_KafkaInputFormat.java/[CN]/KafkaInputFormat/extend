@@ -1,0 +1,1 @@
+InputFormat<LongWritable,BytesWritable>

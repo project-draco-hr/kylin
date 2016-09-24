@@ -1,0 +1,11 @@
+{
+  final Map<Integer,Long> offsetStartMap=Maps.newHashMap();
+  for (  String key : segment.getAdditionalInfo().keySet()) {
+    if (key.startsWith(propertyPrefix)) {
+      Integer partition=Integer.valueOf(key.substring(propertyPrefix.length()));
+      Long offset=Long.valueOf(segment.getAdditionalInfo().get(key));
+      offsetStartMap.put(partition,offset);
+    }
+  }
+  return offsetStartMap;
+}

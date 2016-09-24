@@ -1,0 +1,4 @@
+ZkConnection zkServerConnection
+String logDir
+String port
+String brokerId

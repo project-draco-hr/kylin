@@ -1,0 +1,8 @@
+{
+  long sourceOffsetStart=0;
+  for (  Integer partition : offsetStart.keySet()) {
+    segment.getAdditionalInfo().put(OFFSET_START + partition,String.valueOf(offsetStart.get(partition)));
+    sourceOffsetStart+=offsetStart.get(partition);
+  }
+  segment.setSourceOffsetStart(sourceOffsetStart);
+}

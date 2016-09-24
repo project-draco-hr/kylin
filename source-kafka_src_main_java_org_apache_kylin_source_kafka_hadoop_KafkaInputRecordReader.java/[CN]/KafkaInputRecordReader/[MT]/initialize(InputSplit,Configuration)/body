@@ -1,0 +1,21 @@
+{
+  this.conf=conf;
+  this.split=(KafkaInputSplit)split;
+  brokers=this.split.getBrokers();
+  topic=this.split.getTopic();
+  partition=this.split.getPartition();
+  watermark=this.split.getOffsetStart();
+  if (conf.get(KafkaFlatTableJob.CONFIG_KAFKA_TIMEOUT) != null) {
+    timeOut=Long.parseLong(conf.get(KafkaFlatTableJob.CONFIG_KAFKA_TIMEOUT));
+  }
+  if (conf.get(KafkaFlatTableJob.CONFIG_KAFKA_BUFFER_SIZE) != null) {
+    bufferSize=Long.parseLong(conf.get(KafkaFlatTableJob.CONFIG_KAFKA_BUFFER_SIZE));
+  }
+  String consumerGroup=conf.get(KafkaFlatTableJob.CONFIG_KAFKA_CONSUMER_GROUP);
+  consumer=org.apache.kylin.source.kafka.util.KafkaClient.getKafkaConsumer(brokers,consumerGroup,null);
+  earliestOffset=this.split.getOffsetStart();
+  latestOffset=this.split.getOffsetEnd();
+  TopicPartition topicPartition=new TopicPartition(topic,partition);
+  consumer.assign(Arrays.asList(topicPartition));
+  log.info("Split {} Topic: {} Broker: {} Partition: {} Start: {} End: {}",new Object[]{this.split,topic,this.split.getBrokers(),partition,earliestOffset,latestOffset});
+}

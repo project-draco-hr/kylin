@@ -1,11 +1,23 @@
 {
   deployEnv();
-  kylinConfig=KylinConfig.getInstanceFromEnv();
+  final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  jobService=ExecutableManager.getInstance(kylinConfig);
+  scheduler=DefaultScheduler.createInstance();
+  scheduler.init(new JobEngineConfig(kylinConfig),new ZookeeperJobLock());
+  if (!scheduler.hasStarted()) {
+    throw new RuntimeException("scheduler has not been started");
+  }
+  cubeManager=CubeManager.getInstance(kylinConfig);
   final CubeInstance cubeInstance=CubeManager.getInstance(kylinConfig).getCube(cubeName);
   final String factTable=cubeInstance.getFactTable();
-  final StreamingConfig config=StreamingManager.getInstance(kylinConfig).getStreamingConfig(factTable);
-  KafkaConfig streamingConfig=KafkaConfigManager.getInstance(kylinConfig).getKafkaConfig(config.getName());
-  streamingConfig.setTopic(UUID.randomUUID().toString());
-  KafkaConfigManager.getInstance(kylinConfig).saveKafkaConfig(streamingConfig);
-  DeployUtil.prepareTestDataForStreamingCube(startTime,endTime,cubeName,new KafkaDataLoader(streamingConfig));
+  final StreamingManager streamingManager=StreamingManager.getInstance(kylinConfig);
+  final StreamingConfig streamingConfig=streamingManager.getStreamingConfig(factTable);
+  kafkaConfig=KafkaConfigManager.getInstance(kylinConfig).getKafkaConfig(streamingConfig.getName());
+  String topicName=UUID.randomUUID().toString();
+  String localIp=NetworkUtils.getLocalIp();
+  BrokerConfig brokerConfig=kafkaConfig.getKafkaClusterConfigs().get(0).getBrokerConfigs().get(0);
+  brokerConfig.setHost(localIp);
+  kafkaConfig.setTopic(topicName);
+  KafkaConfigManager.getInstance(kylinConfig).saveKafkaConfig(kafkaConfig);
+  startEmbeddedKafka(topicName,brokerConfig);
 }
