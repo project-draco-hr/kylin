@@ -4,5 +4,6 @@ long endDate
 long startOffset
 long endOffset
 CubeBuildTypeEnum buildType
+boolean strictCheck
 boolean force
 String submitter
