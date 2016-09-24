@@ -1,0 +1,6 @@
+CubeInstance cube
+long startDate
+long endDate
+long startOffset
+long endOffset
+boolean strictChecking
