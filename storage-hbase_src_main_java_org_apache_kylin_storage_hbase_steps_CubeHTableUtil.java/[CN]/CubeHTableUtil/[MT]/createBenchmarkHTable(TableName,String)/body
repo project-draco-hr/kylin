@@ -18,6 +18,6 @@
     logger.info("create hbase table " + tableName + " done.");
   }
   finally {
-    admin.close();
+    IOUtils.closeQuietly(admin);
   }
 }

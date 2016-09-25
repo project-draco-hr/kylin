@@ -26,12 +26,7 @@
       }
     }
   finally {
-      if (admin != null)       try {
-        admin.close();
-      }
- catch (      IOException e) {
-        logger.error(e.getLocalizedMessage());
-      }
+      IOUtils.closeQuietly(admin);
     }
   }
 }

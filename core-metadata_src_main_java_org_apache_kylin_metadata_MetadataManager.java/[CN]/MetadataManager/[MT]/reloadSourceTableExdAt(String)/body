@@ -11,7 +11,7 @@
     attrs.putAll(JsonUtil.readValue(is,HashMap.class));
   }
   finally {
-    if (is != null)     is.close();
+    IOUtils.closeQuietly(is);
   }
   String file=path;
   if (file.indexOf("/") > -1) {

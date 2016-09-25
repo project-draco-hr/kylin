@@ -18,7 +18,7 @@
     logger.info("HTable '" + tableName + "' created");
   }
   finally {
-    conn.close();
-    hadmin.close();
+    IOUtils.closeQuietly(conn);
+    IOUtils.closeQuietly(hadmin);
   }
 }

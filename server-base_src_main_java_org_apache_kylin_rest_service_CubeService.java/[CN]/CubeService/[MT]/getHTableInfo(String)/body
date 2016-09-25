@@ -20,9 +20,7 @@
     hr.setRegionCount(regionCount);
   }
   finally {
-    if (null != table) {
-      table.close();
-    }
+    IOUtils.closeQuietly(table);
   }
   htableInfoCache.put(tableName,hr);
   return hr;

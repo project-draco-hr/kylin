@@ -13,23 +13,7 @@
     throw new IllegalStateException(url + " can't execute query " + sql,e);
   }
  finally {
-    if (stmt != null) {
-      try {
-        stmt.close();
-      }
- catch (      SQLException ex) {
-        ex.printStackTrace();
-      }
-    }
-    stmt=null;
-    if (conn != null) {
-      try {
-        conn.close();
-      }
- catch (      SQLException ex) {
-        ex.printStackTrace();
-      }
-      conn=null;
-    }
+    DBUtils.closeQuietly(stmt);
+    DBUtils.closeQuietly(conn);
   }
 }

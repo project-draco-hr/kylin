@@ -1,21 +1,6 @@
 {
   OLAPContext.clearParameter();
-  if (resultSet != null)   try {
-    resultSet.close();
-  }
- catch (  SQLException e) {
-    logger.error("failed to close",e);
-  }
-  if (stat != null)   try {
-    stat.close();
-  }
- catch (  SQLException e) {
-    logger.error("failed to close",e);
-  }
-  if (conn != null)   try {
-    conn.close();
-  }
- catch (  SQLException e) {
-    logger.error("failed to close",e);
-  }
+  DBUtils.closeQuietly(resultSet);
+  DBUtils.closeQuietly(stat);
+  DBUtils.closeQuietly(conn);
 }

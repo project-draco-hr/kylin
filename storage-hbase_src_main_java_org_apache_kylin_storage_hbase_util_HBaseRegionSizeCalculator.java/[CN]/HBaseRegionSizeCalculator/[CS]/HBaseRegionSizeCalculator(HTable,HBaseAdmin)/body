@@ -26,6 +26,6 @@
     }
   }
   finally {
-    hBaseAdmin.close();
+    IOUtils.closeQuietly(hBaseAdmin);
   }
 }
