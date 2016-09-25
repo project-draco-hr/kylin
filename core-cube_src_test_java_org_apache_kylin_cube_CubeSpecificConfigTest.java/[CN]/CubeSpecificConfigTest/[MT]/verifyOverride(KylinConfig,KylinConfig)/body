@@ -1,4 +1,4 @@
 {
-  assertEquals("none",base.getHbaseDefaultCompressionCodec());
+  assertEquals("snappy",base.getHbaseDefaultCompressionCodec());
   assertEquals("lz4",override.getHbaseDefaultCompressionCodec());
 }
