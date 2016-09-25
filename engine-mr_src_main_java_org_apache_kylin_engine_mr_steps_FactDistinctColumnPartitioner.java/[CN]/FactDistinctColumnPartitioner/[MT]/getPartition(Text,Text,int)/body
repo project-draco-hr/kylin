@@ -2,6 +2,9 @@
   if (key.getBytes()[0] == FactDistinctHiveColumnsMapper.MARK_FOR_HLL) {
     return numReduceTasks - 1;
   }
+ else   if (key.getBytes()[0] == FactDistinctHiveColumnsMapper.MARK_FOR_PARTITION_COL) {
+    return numReduceTasks - 2;
+  }
  else {
     int colIndex=BytesUtil.readUnsigned(key.getBytes(),0,1);
     return colIndex;

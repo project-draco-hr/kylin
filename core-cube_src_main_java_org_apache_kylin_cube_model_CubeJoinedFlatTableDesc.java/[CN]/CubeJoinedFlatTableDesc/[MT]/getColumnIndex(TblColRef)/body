@@ -1,5 +1,5 @@
 {
   Integer index=columnIndexMap.get(colRef);
-  if (index == null)   throw new IllegalArgumentException("Column " + colRef.toString() + " wasn't found on flat table.");
+  if (index == null)   return -1;
   return index.intValue();
 }

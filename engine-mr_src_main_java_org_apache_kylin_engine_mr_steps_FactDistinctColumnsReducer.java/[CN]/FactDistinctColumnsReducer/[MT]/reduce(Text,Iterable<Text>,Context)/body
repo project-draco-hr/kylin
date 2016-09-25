@@ -1,13 +1,5 @@
 {
-  if (isStatistics == false) {
-    colValues.add(new ByteArray(Bytes.copy(key.getBytes(),1,key.getLength() - 1)));
-    if (colValues.size() == 1000000) {
-      logger.info("spill values to disk...");
-      outputDistinctValues(col,colValues,context);
-      colValues.clear();
-    }
-  }
- else {
+  if (isStatistics == true) {
     long cuboidId=Bytes.toLong(key.getBytes(),1,Bytes.SIZEOF_LONG);
     for (    Text value : values) {
       HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(cubeConfig.getCubeStatsHLLPrecision());
@@ -23,6 +15,23 @@
  else {
         cuboidHLLMap.put(cuboidId,hll);
       }
+    }
+  }
+ else   if (isPartitionCol == true) {
+    ByteArray value=new ByteArray(Bytes.copy(key.getBytes(),1,key.getLength() - 1));
+    if (colValues.size() > 1) {
+      colValues.set(1,value);
+    }
+ else {
+      colValues.add(value);
+    }
+  }
+ else {
+    colValues.add(new ByteArray(Bytes.copy(key.getBytes(),1,key.getLength() - 1)));
+    if (colValues.size() == 1000000) {
+      logger.info("spill values to disk...");
+      outputDistinctValues(col,colValues,context);
+      colValues.clear();
     }
   }
 }

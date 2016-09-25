@@ -1,21 +1,34 @@
 {
   String[] row=flatTableInputFormat.parseMapperInput(record);
+  keyBuffer.clear();
   try {
     for (int i=0; i < factDictCols.size(); i++) {
       String fieldValue=row[dictionaryColumnIndex[i]];
       if (fieldValue == null)       continue;
-      keyBuffer.clear();
+      int offset=keyBuffer.position();
       keyBuffer.put(Bytes.toBytes(i)[3]);
       keyBuffer.put(Bytes.toBytes(fieldValue));
-      outputKey.set(keyBuffer.array(),0,keyBuffer.position());
+      outputKey.set(keyBuffer.array(),offset,keyBuffer.position() - offset);
       context.write(outputKey,EMPTY_TEXT);
     }
   }
  catch (  Exception ex) {
     handleErrorRecord(row,ex);
   }
-  if (collectStatistics && rowCount < samplingPercentage) {
-    putRowKeyToHLL(row);
+  if (collectStatistics) {
+    if (rowCount < samplingPercentage) {
+      putRowKeyToHLL(row);
+    }
+    if (needFetchPartitionCol == true) {
+      String fieldValue=row[partitionColumnIndex];
+      if (fieldValue != null) {
+        int offset=keyBuffer.position();
+        keyBuffer.put(MARK_FOR_PARTITION_COL);
+        keyBuffer.put(Bytes.toBytes(fieldValue));
+        outputKey.set(keyBuffer.array(),offset,keyBuffer.position() - offset);
+        context.write(outputKey,EMPTY_TEXT);
+      }
+    }
   }
   if (rowCount++ == 100)   rowCount=0;
 }

@@ -17,9 +17,16 @@
     cuboidHLLMap=Maps.newHashMap();
     samplingPercentage=Integer.parseInt(context.getConfiguration().get(BatchConstants.CFG_STATISTICS_SAMPLING_PERCENT));
   }
+ else   if (collectStatistics && (taskId == numberOfTasks - 2)) {
+    isStatistics=false;
+    isPartitionCol=true;
+    col=cubeDesc.getModel().getPartitionDesc().getPartitionDateColumnRef();
+    colValues=Lists.newLinkedList();
+  }
  else {
     isStatistics=false;
+    isPartitionCol=false;
     col=columnList.get(taskId);
-    colValues=Lists.newArrayList();
+    colValues=Lists.newLinkedList();
   }
 }

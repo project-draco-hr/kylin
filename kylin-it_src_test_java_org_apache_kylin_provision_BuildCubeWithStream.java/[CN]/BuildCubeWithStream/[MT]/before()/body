@@ -1,5 +1,13 @@
 {
   deployEnv();
+  String fastModeStr=System.getProperty("fastBuildMode");
+  if (fastModeStr != null && fastModeStr.equalsIgnoreCase("true")) {
+    fastBuildMode=true;
+    logger.info("Will use fast build mode");
+  }
+ else {
+    logger.info("Will not use fast build mode");
+  }
   final KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   jobService=ExecutableManager.getInstance(kylinConfig);
   scheduler=DefaultScheduler.createInstance();

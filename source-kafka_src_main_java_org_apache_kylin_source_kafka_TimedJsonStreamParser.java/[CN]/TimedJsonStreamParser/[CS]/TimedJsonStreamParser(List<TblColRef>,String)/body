@@ -7,21 +7,18 @@
         String[] parts=prop.split("=");
         if (parts.length == 2) {
 switch (parts[0]) {
-case "formatTs":
-            this.formatTs=Boolean.valueOf(parts[1]);
-          break;
 case "tsColName":
-        this.tsColName=parts[1];
-      break;
+            this.tsColName=parts[1];
+          break;
 default :
-    break;
-}
-}
+        break;
+    }
+  }
 }
  catch (Exception e) {
-logger.error("Failed to parse property " + prop);
+  logger.error("Failed to parse property " + prop);
 }
 }
 }
-logger.info("TimedJsonStreamParser with formatTs {} tsColName {}",formatTs,tsColName);
+logger.info("TimedJsonStreamParser with tsColName {}",tsColName);
 }

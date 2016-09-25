@@ -1,6 +1,6 @@
 {
   if (isStatistics == false) {
-    if (!outputTouched || colValues.size() > 0) {
+    if (colValues.size() > 0) {
       outputDistinctValues(col,colValues,context);
       colValues.clear();
     }

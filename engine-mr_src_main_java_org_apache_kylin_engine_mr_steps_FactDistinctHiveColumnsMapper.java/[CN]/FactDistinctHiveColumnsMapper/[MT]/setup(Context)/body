@@ -20,5 +20,20 @@
     for (int i=0; i < nRowKey; i++) {
       row_hashcodes[i]=new ByteArray();
     }
+    TblColRef partitionColRef=cubeDesc.getModel().getPartitionDesc().getPartitionDateColumnRef();
+    if (partitionColRef != null) {
+      partitionColumnIndex=intermediateTableDesc.getColumnIndex(partitionColRef);
+    }
+    if (partitionColumnIndex < 0) {
+      needFetchPartitionCol=false;
+    }
+ else {
+      for (      int x : dictionaryColumnIndex) {
+        if (x == partitionColumnIndex) {
+          needFetchPartitionCol=false;
+          break;
+        }
+      }
+    }
   }
 }

@@ -20,6 +20,5 @@
   }
   finally {
     IOUtils.closeQuietly(out);
-    outputTouched=true;
   }
 }
