@@ -1,15 +1,16 @@
 {
-  List<Listener> list=listenerMap.get(entity);
-  if (list == null)   return;
-  logger.debug("Broadcasting metadata change: entity=" + entity + ", event="+ event+ ", cacheKey="+ cacheKey+ ", listeners="+ list);
-  list=Lists.newArrayList(list);
+synchronized (CACHE) {
+    List<Listener> list=listenerMap.get(entity);
+    if (list == null)     return;
+    logger.debug("Broadcasting metadata change: entity=" + entity + ", event="+ event+ ", cacheKey="+ cacheKey+ ", listeners="+ list);
+    list=Lists.newArrayList(list);
 switch (entity) {
 case SYNC_ALL:
-    for (    Listener l : list) {
-      l.onClearAll(this);
-    }
-  clearCache();
-break;
+      for (      Listener l : list) {
+        l.onClearAll(this);
+      }
+    clearCache();
+  break;
 case SYNC_PRJ_SCHEMA:
 ProjectManager.getInstance(config).clearL2Cache();
 for (Listener l : list) {
@@ -29,4 +30,5 @@ l.onEntityChange(this,entity,event,cacheKey);
 break;
 }
 logger.debug("Done broadcasting metadata change: entity=" + entity + ", event="+ event+ ", cacheKey="+ cacheKey);
+}
 }

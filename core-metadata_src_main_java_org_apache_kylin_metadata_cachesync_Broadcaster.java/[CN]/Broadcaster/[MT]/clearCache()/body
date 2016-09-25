@@ -1,3 +1,5 @@
 {
-  CACHE.clear();
+synchronized (CACHE) {
+    CACHE.clear();
+  }
 }

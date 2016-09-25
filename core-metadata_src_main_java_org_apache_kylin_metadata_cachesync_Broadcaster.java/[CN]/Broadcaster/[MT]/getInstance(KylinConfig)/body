@@ -1,10 +1,6 @@
 {
-  Broadcaster r=CACHE.get(config);
-  if (r != null) {
-    return r;
-  }
-synchronized (Broadcaster.class) {
-    r=CACHE.get(config);
+synchronized (CACHE) {
+    Broadcaster r=CACHE.get(config);
     if (r != null) {
       return r;
     }
