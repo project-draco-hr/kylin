@@ -3,6 +3,21 @@
   CubeSegment newSegment=newSegment(cube,startDate,endDate,startOffset,endOffset);
   Pair<Boolean,Boolean> pair=CubeValidator.fitInSegments(cube.getSegments(),newSegment);
   if (pair.getFirst() == false || pair.getSecond() == false)   throw new IllegalArgumentException("The new refreshing segment " + newSegment + " does not match any existing segment in cube "+ cube);
+  if (startOffset > 0 || endOffset > 0) {
+    CubeSegment toRefreshSeg=null;
+    for (    CubeSegment cubeSegment : cube.getSegments()) {
+      if (cubeSegment.getSourceOffsetStart() == startOffset && cubeSegment.getSourceOffsetEnd() == endOffset) {
+        toRefreshSeg=cubeSegment;
+        break;
+      }
+    }
+    if (toRefreshSeg == null) {
+      throw new IllegalArgumentException("For streaming cube, only one segment can be refreshed at one time");
+    }
+    Map<String,String> partitionInfo=Maps.newHashMap();
+    partitionInfo.putAll(toRefreshSeg.getAdditionalInfo());
+    newSegment.setAdditionalInfo(partitionInfo);
+  }
   CubeUpdate cubeBuilder=new CubeUpdate(cube);
   cubeBuilder.setToAddSegs(newSegment);
   updateCube(cubeBuilder);

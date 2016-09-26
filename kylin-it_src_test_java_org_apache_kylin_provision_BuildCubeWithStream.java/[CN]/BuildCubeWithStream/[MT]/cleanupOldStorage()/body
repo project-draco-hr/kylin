@@ -1,4 +1,0 @@
-{
-  String[] args={"--delete","true"};
-  return 0;
-}

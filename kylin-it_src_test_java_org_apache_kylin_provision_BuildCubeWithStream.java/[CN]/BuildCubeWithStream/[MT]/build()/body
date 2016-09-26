@@ -1,28 +1,72 @@
 {
   clearSegment(cubeName);
-  SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd");
-  f.setTimeZone(TimeZone.getTimeZone("GMT"));
-  long date1=0;
-  long date2=f.parse("2013-01-01").getTime();
-  int numberOfRecrods1=10000;
-  generateStreamData(date1,date2,numberOfRecrods1);
-  ExecutableState result=buildSegment(cubeName,0,Long.MAX_VALUE);
-  Assert.assertTrue(result == ExecutableState.SUCCEED);
+  new Thread(new Runnable(){
+    @Override public void run(){
+      SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd");
+      f.setTimeZone(TimeZone.getTimeZone("GMT"));
+      long dateStart=0;
+      try {
+        dateStart=f.parse("2012-01-01").getTime();
+      }
+ catch (      ParseException e) {
+      }
+      Random rand=new Random();
+      while (generateData == true) {
+        long dateEnd=dateStart + 7 * 24 * 3600000;
+        try {
+          generateStreamData(dateStart,dateEnd,rand.nextInt(100));
+          dateStart=dateEnd;
+          sleep(rand.nextInt(rand.nextInt(100 * 1000)));
+        }
+ catch (        Exception e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+).start();
+  ExecutorService executorService=Executors.newCachedThreadPool();
+  List<FutureTask<ExecutableState>> futures=Lists.newArrayList();
+  for (int i=0; i < 5; i++) {
+    Thread.sleep(2 * 60 * 1000);
+    FutureTask futureTask=new FutureTask(new Callable<ExecutableState>(){
+      @Override public ExecutableState call(){
+        ExecutableState result=null;
+        try {
+          result=buildSegment(cubeName,0,Long.MAX_VALUE);
+        }
+ catch (        Exception e) {
+          e.printStackTrace();
+        }
+        return result;
+      }
+    }
+);
+    executorService.submit(futureTask);
+    futures.add(futureTask);
+  }
+  generateData=false;
+  executorService.shutdown();
+  int succeedBuild=0;
+  for (int i=0; i < futures.size(); i++) {
+    ExecutableState result=futures.get(i).get(20,TimeUnit.MINUTES);
+    logger.info("Checking building task " + i + " whose state is "+ result);
+    Assert.assertTrue(result == null || result == ExecutableState.SUCCEED || result == ExecutableState.DISCARDED);
+    if (result == ExecutableState.SUCCEED)     succeedBuild++;
+  }
+  logger.info(succeedBuild + " build jobs have been successfully completed.");
+  List<CubeSegment> segments=cubeManager.getCube(cubeName).getSegments(SegmentStatusEnum.READY);
+  Assert.assertTrue(segments.size() == succeedBuild);
   if (fastBuildMode == false) {
-    long date3=f.parse("2013-04-01").getTime();
-    int numberOfRecords2=5000;
-    generateStreamData(date2,date3,numberOfRecords2);
-    result=buildSegment(cubeName,0,Long.MAX_VALUE);
-    Assert.assertTrue(result == ExecutableState.SUCCEED);
-    result=buildSegment(cubeName,0,Long.MAX_VALUE);
+    ExecutableState result=buildSegment(cubeName,0,Long.MAX_VALUE);
     Assert.assertTrue(result == ExecutableState.DISCARDED);
-    result=mergeSegment(cubeName,0,15000);
+    long endOffset=segments.get(segments.size() - 1).getSourceOffsetEnd();
+    result=mergeSegment(cubeName,0,endOffset);
     Assert.assertTrue(result == ExecutableState.SUCCEED);
-    List<CubeSegment> segments=cubeManager.getCube(cubeName).getSegments();
+    segments=cubeManager.getCube(cubeName).getSegments();
     Assert.assertTrue(segments.size() == 1);
     CubeSegment toRefreshSeg=segments.get(0);
-    HashMap<String,String> partitionOffsetMap=toRefreshSeg.getAdditionalInfo();
-    refreshSegment(cubeName,toRefreshSeg.getSourceOffsetStart(),toRefreshSeg.getSourceOffsetEnd(),partitionOffsetMap);
+    refreshSegment(cubeName,toRefreshSeg.getSourceOffsetStart(),toRefreshSeg.getSourceOffsetEnd());
     segments=cubeManager.getCube(cubeName).getSegments();
     Assert.assertTrue(segments.size() == 1);
   }
