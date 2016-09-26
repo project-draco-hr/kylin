@@ -1,4 +1,0 @@
-{
-  KylinConfig config=KylinConfig.getInstanceFromEnv();
-  assertEquals("override.mail.com",config.getMailHost());
-}

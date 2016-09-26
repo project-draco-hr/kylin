@@ -1,4 +1,0 @@
-{
-  KylinConfig config=KylinConfig.getInstanceFromEnv();
-  assertEquals("need_reset",config.getMailPassword());
-}

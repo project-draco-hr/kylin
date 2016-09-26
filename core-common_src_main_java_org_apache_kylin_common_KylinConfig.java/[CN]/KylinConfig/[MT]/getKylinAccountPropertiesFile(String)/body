@@ -1,6 +1,0 @@
-{
-  if (path == null) {
-    return null;
-  }
-  return new File(path,KYLIN_ACCOUNT_CONF_PROPERTIES_FILE);
-}
