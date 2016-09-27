@@ -1,0 +1,15 @@
+{
+  long t;
+  if (StringUtils.isEmpty(time)) {
+    t=0;
+  }
+ else {
+    try {
+      t=Long.valueOf(time);
+    }
+ catch (    NumberFormatException e) {
+      throw new IllegalArgumentException(e);
+    }
+  }
+  return t;
+}

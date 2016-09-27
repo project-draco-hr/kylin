@@ -1,0 +1,6 @@
+{
+  FastDateFormat formatter=org.apache.kylin.common.util.DateFormat.getDateFormat("MMM dd, yyyy hh:mm:ss aa");
+  System.out.println(formatter.format(new Date()));
+  String timeStr="Jul 20, 2016 9:59:17 AM";
+  System.out.println(formatter.parse(timeStr).getTime());
+}
