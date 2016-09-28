@@ -5,7 +5,8 @@
     String project=sqlRequest.getProject();
     logger.info("Using project: " + project);
     logger.info("The original query:  " + sql);
-    String serverMode=KylinConfig.getInstanceFromEnv().getServerMode();
+    KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+    String serverMode=kylinConfig.getServerMode();
     if (!(Constant.SERVER_MODE_QUERY.equals(serverMode.toLowerCase()) || Constant.SERVER_MODE_ALL.equals(serverMode.toLowerCase()))) {
       throw new InternalErrorException("Query is not allowed in " + serverMode + " mode.");
     }
@@ -14,15 +15,19 @@
       throw new InternalErrorException("Not Supported SQL.");
     }
     long startTime=System.currentTimeMillis();
-    SQLResponse sqlResponse=searchQueryInCache(sqlRequest);
+    SQLResponse sqlResponse=null;
+    boolean queryCacheEnabled=kylinConfig.isQueryCacheEnabled() && !BackdoorToggles.getDisableCache();
+    if (queryCacheEnabled) {
+      sqlResponse=searchQueryInCache(sqlRequest);
+    }
     try {
       if (null == sqlResponse) {
         sqlResponse=queryService.query(sqlRequest);
-        long durationThreshold=KylinConfig.getInstanceFromEnv().getQueryDurationCacheThreshold();
-        long scancountThreshold=KylinConfig.getInstanceFromEnv().getQueryScanCountCacheThreshold();
+        long durationThreshold=kylinConfig.getQueryDurationCacheThreshold();
+        long scancountThreshold=kylinConfig.getQueryScanCountCacheThreshold();
         sqlResponse.setDuration(System.currentTimeMillis() - startTime);
         logger.info("Stats of SQL response: isException: {}, duration: {}, total scan count {}",String.valueOf(sqlResponse.getIsException()),String.valueOf(sqlResponse.getDuration()),String.valueOf(sqlResponse.getTotalScanCount()));
-        if (!sqlResponse.getIsException() && (sqlResponse.getDuration() > durationThreshold || sqlResponse.getTotalScanCount() > scancountThreshold)) {
+        if (queryCacheEnabled && !sqlResponse.getIsException() && (sqlResponse.getDuration() > durationThreshold || sqlResponse.getTotalScanCount() > scancountThreshold)) {
           cacheManager.getCache(SUCCESS_QUERY_CACHE).put(new Element(sqlRequest,sqlResponse));
         }
       }
@@ -35,7 +40,7 @@
       logger.error("Exception when execute sql",e);
       String errMsg=QueryUtil.makeErrorMsgUserFriendly(e);
       sqlResponse=new SQLResponse(null,null,0,true,errMsg);
-      if (e instanceof ScanOutOfLimitException) {
+      if (queryCacheEnabled && e instanceof ScanOutOfLimitException) {
         Cache exceptionCache=cacheManager.getCache(EXCEPTION_QUERY_CACHE);
         exceptionCache.put(new Element(sqlRequest,sqlResponse));
       }

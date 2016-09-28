@@ -2,19 +2,17 @@
   SQLResponse response=null;
   Cache exceptionCache=cacheManager.getCache(EXCEPTION_QUERY_CACHE);
   Cache successCache=cacheManager.getCache(SUCCESS_QUERY_CACHE);
-  if (KylinConfig.getInstanceFromEnv().isQueryCacheEnabled() && !BackdoorToggles.getDisableCache()) {
-    if (exceptionCache.get(sqlRequest) != null) {
-      logger.info("The sqlResponse is found in EXCEPTION_QUERY_CACHE");
-      Element element=exceptionCache.get(sqlRequest);
-      response=(SQLResponse)element.getObjectValue();
-      response.setHitExceptionCache(true);
-    }
- else     if (successCache.get(sqlRequest) != null) {
-      logger.info("The sqlResponse is found in SUCCESS_QUERY_CACHE");
-      Element element=successCache.get(sqlRequest);
-      response=(SQLResponse)element.getObjectValue();
-      response.setStorageCacheUsed(true);
-    }
+  if (exceptionCache.get(sqlRequest) != null) {
+    logger.info("The sqlResponse is found in EXCEPTION_QUERY_CACHE");
+    Element element=exceptionCache.get(sqlRequest);
+    response=(SQLResponse)element.getObjectValue();
+    response.setHitExceptionCache(true);
+  }
+ else   if (successCache.get(sqlRequest) != null) {
+    logger.info("The sqlResponse is found in SUCCESS_QUERY_CACHE");
+    Element element=successCache.get(sqlRequest);
+    response=(SQLResponse)element.getObjectValue();
+    response.setStorageCacheUsed(true);
   }
   return response;
 }
