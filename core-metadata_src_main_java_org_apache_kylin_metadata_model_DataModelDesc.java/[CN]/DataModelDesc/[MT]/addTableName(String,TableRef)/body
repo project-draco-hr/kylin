@@ -1,0 +1,8 @@
+{
+  if (tableNameMap.containsKey(name)) {
+    tableNameMap.put(name,null);
+  }
+ else {
+    tableNameMap.put(name,ref);
+  }
+}

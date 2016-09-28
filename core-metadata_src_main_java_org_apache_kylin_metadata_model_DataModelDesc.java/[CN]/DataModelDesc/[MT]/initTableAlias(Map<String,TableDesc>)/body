@@ -1,0 +1,18 @@
+{
+  factTable=factTable.toUpperCase();
+  if (tables.containsKey(factTable) == false)   throw new IllegalStateException("Fact table does not exist:" + factTable);
+  factTableRef=new TableRef(this,"FACT",tables.get(factTable));
+  addAlias(factTableRef);
+  for (  LookupDesc lookup : lookups) {
+    lookup.setTable(lookup.getTable().toUpperCase());
+    if (tables.containsKey(lookup.getTable()) == false)     throw new IllegalStateException("Lookup table does not exist:" + lookup.getTable());
+    TableDesc tableDesc=tables.get(lookup.getTable());
+    String alias=lookup.getAlias();
+    if (alias == null)     alias=tableDesc.getName();
+    TableRef ref=new TableRef(this,alias,tableDesc);
+    lookup.setTableRef(ref);
+    lookupTableRefs.add(ref);
+    addAlias(ref);
+  }
+  tableNameMap.putAll(aliasMap);
+}

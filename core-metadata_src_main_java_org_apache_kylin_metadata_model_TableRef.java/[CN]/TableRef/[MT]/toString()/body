@@ -1,0 +1,4 @@
+{
+  if (alias.equals(table.getName()))   return "TableRef[" + table.getName() + "]";
+ else   return "TableRef[" + alias + ":"+ table.getName()+ "]";
+}

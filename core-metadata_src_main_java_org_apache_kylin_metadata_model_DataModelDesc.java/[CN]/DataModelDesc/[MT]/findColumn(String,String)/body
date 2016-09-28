@@ -1,0 +1,6 @@
+{
+  TableRef tableRef=findTable(table);
+  TblColRef result=tableRef.getColumn(column);
+  if (result == null)   throw new IllegalArgumentException("Column not found by " + table + "."+ column);
+  return result;
+}

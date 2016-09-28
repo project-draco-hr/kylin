@@ -1,3 +1,7 @@
 {
-  return lookupTableDescs;
+  List<TableDesc> result=Lists.newArrayList();
+  for (  TableRef table : getLookupTableRefs()) {
+    result.add(table.getTableDesc());
+  }
+  return result;
 }

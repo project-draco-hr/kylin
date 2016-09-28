@@ -1,10 +1,6 @@
 {
   this.config=config;
-  this.factTable=this.factTable.toUpperCase();
-  this.factTableDesc=tables.get(this.factTable.toUpperCase());
-  if (factTableDesc == null) {
-    throw new IllegalStateException("Fact table does not exist:" + this.factTable);
-  }
+  initTableAlias(tables);
   initJoinColumns(tables);
   ModelDimensionDesc.capicalizeStrings(dimensions);
   initPartitionDesc(tables);

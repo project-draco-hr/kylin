@@ -1,0 +1,8 @@
+{
+  String alias=ref.getAlias();
+  if (aliasMap.containsKey(alias))   throw new IllegalStateException("Alias '" + alias + "' ref to multiple tables: "+ ref.getTableIdentity()+ ", "+ aliasMap.get(alias).getTableIdentity());
+  aliasMap.put(alias,ref);
+  TableDesc table=ref.getTableDesc();
+  addTableName(table.getName(),ref);
+  addTableName(table.getIdentity(),ref);
+}

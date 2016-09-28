@@ -1,0 +1,12 @@
+{
+  DataModelDesc model=getInstance(getTestConfig()).getDataModelDesc("test_kylin_snowflake_model_desc");
+  Assert.assertTrue(model.getDimensions().size() > 0);
+  try {
+    model.findTable("TEST_KYLIN_COUNTRY");
+    Assert.fail();
+  }
+ catch (  IllegalArgumentException ex) {
+  }
+  Assert.assertNotNull(model.findColumn("BUYER_COUNTRY"));
+  Assert.assertNotNull(model.findColumn("SELLER_COUNTRY"));
+}

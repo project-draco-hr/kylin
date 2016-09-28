@@ -1,0 +1,7 @@
+{
+  int result=0;
+  result=31 * result + model.getName().hashCode();
+  result=31 * result + alias.hashCode();
+  result=31 * result + table.getIdentity().hashCode();
+  return result;
+}

@@ -1,0 +1,9 @@
+{
+  this.model=model;
+  this.alias=alias;
+  this.table=table;
+  this.columns=Maps.newLinkedHashMap();
+  for (  ColumnDesc col : table.getColumns()) {
+    columns.put(col.getName(),new TblColRef(this,col));
+  }
+}

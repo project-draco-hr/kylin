@@ -1,7 +1,7 @@
 {
-  if (factTableDesc.getName().equalsIgnoreCase(table) || factTableDesc.getIdentity().equalsIgnoreCase(table))   return factTableDesc;
-  for (  TableDesc desc : lookupTableDescs) {
-    if (desc.getName().equalsIgnoreCase(table) || desc.getIdentity().equalsIgnoreCase(table))     return desc;
+  TableRef result=tableNameMap.get(table);
+  if (result == null) {
+    throw new IllegalArgumentException("Table not found by " + table);
   }
-  throw new IllegalArgumentException("Table not found by " + table);
+  return result;
 }
