@@ -1,9 +1,0 @@
-{
-  int est=estimateObjectSize(new CreateAnObject(){
-    @Override public Object create(){
-      return new MeasureAggregator[7];
-    }
-  }
-);
-  System.out.println("MeasureAggregator[7]: " + est);
-}

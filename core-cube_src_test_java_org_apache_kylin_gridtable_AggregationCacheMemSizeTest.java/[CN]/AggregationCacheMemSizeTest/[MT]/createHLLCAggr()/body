@@ -1,0 +1,5 @@
+{
+  HLLCAggregator hllcAggregator=new HLLCAggregator(14);
+  hllcAggregator.aggregate(new HyperLogLogPlusCounter(14));
+  return hllcAggregator;
+}

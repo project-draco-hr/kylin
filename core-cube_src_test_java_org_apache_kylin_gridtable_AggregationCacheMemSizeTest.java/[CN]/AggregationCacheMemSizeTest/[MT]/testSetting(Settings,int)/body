@@ -1,0 +1,34 @@
+{
+  SortedMap<byte[],Object> map=new TreeMap<>(new Comparator<byte[]>(){
+    @Override public int compare(    byte[] o1,    byte[] o2){
+      return Bytes.compareTo(o1,o2);
+    }
+  }
+);
+  final int reportInterval=inputCount / 10;
+  final Stopwatch stopwatch=new Stopwatch();
+  long estimateMillis=0;
+  long actualMillis=0;
+  System.out.println("Settings: " + settings);
+  System.out.printf("%15s %15s %15s %15s %15s\n","Size","Estimate(bytes)","Actual(bytes)","Estimate(ms)","Actual(ms)");
+  for (int i=0; i < inputCount; i++) {
+    byte[] key=new byte[10];
+    random.nextBytes(key);
+    MeasureAggregator[] values=createAggrs(settings);
+    map.put(key,values);
+    if ((i + 1) % reportInterval == 0) {
+      stopwatch.start();
+      long estimateBytes=GTAggregateScanner.estimateSizeOfAggrCache(key,values,map.size());
+      estimateMillis+=stopwatch.elapsedMillis();
+      stopwatch.reset();
+      stopwatch.start();
+      long actualBytes=meter.measureDeep(map);
+      actualMillis+=stopwatch.elapsedMillis();
+      stopwatch.reset();
+      System.out.printf("%,15d %,15d %,15d %,15d %,15d\n",map.size(),estimateBytes,actualBytes,estimateMillis,actualMillis);
+    }
+  }
+  System.out.println("---------------------------------------\n");
+  map=null;
+  System.gc();
+}

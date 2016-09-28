@@ -1,0 +1,24 @@
+{
+  LongMutable longVal=new LongMutable(1000);
+  LongMinAggregator longMin=new LongMinAggregator();
+  LongMaxAggregator longMax=new LongMaxAggregator();
+  LongSumAggregator longSum=new LongSumAggregator();
+  longMin.aggregate(longVal);
+  longMax.aggregate(longVal);
+  longSum.aggregate(longVal);
+  DoubleMutable doubleVal=new DoubleMutable(1.0);
+  DoubleMinAggregator doubleMin=new DoubleMinAggregator();
+  DoubleMaxAggregator doubleMax=new DoubleMaxAggregator();
+  DoubleSumAggregator doubleSum=new DoubleSumAggregator();
+  doubleMin.aggregate(doubleVal);
+  doubleMax.aggregate(doubleVal);
+  doubleSum.aggregate(doubleVal);
+  BigDecimalMinAggregator decimalMin=new BigDecimalMinAggregator();
+  BigDecimalMaxAggregator decimalMax=new BigDecimalMaxAggregator();
+  BigDecimalSumAggregator decimalSum=new BigDecimalSumAggregator();
+  BigDecimal decimal=new BigDecimal("12345678901234567890.123456789");
+  decimalMin.aggregate(decimal);
+  decimalMax.aggregate(decimal);
+  decimalSum.aggregate(decimal);
+  return Lists.newArrayList(longMin,longMax,longSum,doubleMin,doubleMax,doubleSum,decimalMin,decimalMax,decimalSum);
+}

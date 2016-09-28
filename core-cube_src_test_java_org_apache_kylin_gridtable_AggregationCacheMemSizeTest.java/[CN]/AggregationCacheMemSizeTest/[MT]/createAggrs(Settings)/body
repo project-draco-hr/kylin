@@ -1,0 +1,18 @@
+{
+  List<MeasureAggregator<?>> aggregators=new ArrayList<>();
+  aggregators.addAll(Arrays.asList(createNoMemHungryAggrs()));
+switch (settings) {
+case WITHOUT_MEM_HUNGRY:
+    break;
+case WITH_HLLC:
+  aggregators.add(createHLLCAggr());
+break;
+case WITH_LOW_CARD_BITMAP:
+aggregators.add(createBitmapAggr(true));
+break;
+case WITH_HIGH_CARD_BITMAP:
+aggregators.add(createBitmapAggr(false));
+break;
+}
+return aggregators.toArray(new MeasureAggregator[aggregators.size()]);
+}

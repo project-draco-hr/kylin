@@ -1,0 +1,7 @@
+{
+  if (!clazz.isAnonymousClass()) {
+    return clazz.getSimpleName();
+  }
+  String[] parts=clazz.getName().split("\\.");
+  return parts[parts.length - 1];
+}

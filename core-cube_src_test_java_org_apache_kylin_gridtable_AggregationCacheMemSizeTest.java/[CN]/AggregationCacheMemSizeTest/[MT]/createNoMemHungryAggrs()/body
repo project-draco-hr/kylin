@@ -1,0 +1,9 @@
+{
+  LongSumAggregator longSum=new LongSumAggregator();
+  longSum.aggregate(new LongMutable(10));
+  DoubleSumAggregator doubleSum=new DoubleSumAggregator();
+  doubleSum.aggregate(new DoubleMutable(10));
+  BigDecimalSumAggregator decimalSum=new BigDecimalSumAggregator();
+  decimalSum.aggregate(new BigDecimal("12345678901234567890.123456789"));
+  return new MeasureAggregator[]{longSum,doubleSum,decimalSum};
+}

@@ -1,0 +1,8 @@
+{
+  int scale=Integer.parseInt(System.getProperty("scale","1"));
+  scale=Math.max(1,Math.min(10,scale));
+  testSetting(Settings.WITHOUT_MEM_HUNGRY,scale * 100000);
+  testSetting(Settings.WITH_HLLC,scale * 5000);
+  testSetting(Settings.WITH_LOW_CARD_BITMAP,scale * 10000);
+  testSetting(Settings.WITH_HIGH_CARD_BITMAP,scale * 1000);
+}

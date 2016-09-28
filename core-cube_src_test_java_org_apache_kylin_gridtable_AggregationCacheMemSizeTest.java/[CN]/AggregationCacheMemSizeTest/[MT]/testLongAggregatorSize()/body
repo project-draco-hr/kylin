@@ -1,9 +1,0 @@
-{
-  int est=estimateObjectSize(new CreateAnObject(){
-    @Override public Object create(){
-      return newLongAggr();
-    }
-  }
-);
-  System.out.println("Long: " + est);
-}

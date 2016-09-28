@@ -1,0 +1,11 @@
+{
+  BitmapAggregator[] bitmapAggrs=new BitmapAggregator[bitmaps.length];
+  for (int i=0; i < bitmapAggrs.length; i++) {
+    bitmapAggrs[i]=new BitmapAggregator();
+    bitmapAggrs[i].aggregate(bitmaps[i]);
+  }
+  System.out.printf("%-15s %-10s %-10s\n","cardinality","estimate","actual");
+  for (  BitmapAggregator aggr : bitmapAggrs) {
+    System.out.printf("%-15d %-10d %-10d\n",aggr.getState().getCount(),aggr.getMemBytesEstimate(),meter.measureDeep(aggr));
+  }
+}

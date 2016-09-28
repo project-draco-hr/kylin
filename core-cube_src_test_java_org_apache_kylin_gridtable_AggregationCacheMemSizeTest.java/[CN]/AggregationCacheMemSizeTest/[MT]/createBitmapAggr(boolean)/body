@@ -1,0 +1,7 @@
+{
+  BitmapCounter counter=new BitmapCounter();
+  counter.merge(lowCardinality ? bitmaps[0] : bitmaps[3]);
+  BitmapAggregator result=new BitmapAggregator();
+  result.aggregate(counter);
+  return result;
+}

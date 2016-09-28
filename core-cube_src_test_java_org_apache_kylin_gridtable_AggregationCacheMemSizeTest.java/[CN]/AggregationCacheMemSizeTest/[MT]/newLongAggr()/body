@@ -1,5 +1,0 @@
-{
-  LongSumAggregator aggr=new LongSumAggregator();
-  aggr.aggregate(new LongMutable(10));
-  return aggr;
-}

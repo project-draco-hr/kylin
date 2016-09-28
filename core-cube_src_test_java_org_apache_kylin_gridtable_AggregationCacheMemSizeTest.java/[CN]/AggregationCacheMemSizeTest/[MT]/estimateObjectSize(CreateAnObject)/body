@@ -1,9 +1,0 @@
-{
-  Object[] hold=new Object[NUM_OF_OBJS];
-  long bytesBefore=memLeft();
-  for (int i=0; i < hold.length; i++) {
-    hold[i]=factory.create();
-  }
-  long bytesAfter=memLeft();
-  return (int)((bytesBefore - bytesAfter) / hold.length);
-}

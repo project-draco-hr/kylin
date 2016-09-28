@@ -1,9 +1,0 @@
-{
-  int est=estimateObjectSize(new CreateAnObject(){
-    @Override public Object create(){
-      return newDoubleAggr();
-    }
-  }
-);
-  System.out.println("Double: " + est);
-}
