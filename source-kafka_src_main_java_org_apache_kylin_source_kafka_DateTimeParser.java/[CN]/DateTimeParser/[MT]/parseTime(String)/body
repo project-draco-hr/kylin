@@ -2,7 +2,7 @@
   try {
     return formatter.parse(timeStr).getTime();
   }
- catch (  ParseException e) {
-    throw new IllegalArgumentException("Invalid value : pattern: '" + tsPattern + "', value: '"+ timeStr+ "'",e);
+ catch (  Throwable e) {
+    throw new IllegalArgumentException("Invalid value: pattern: '" + tsPattern + "', value: '"+ timeStr+ "'",e);
   }
 }

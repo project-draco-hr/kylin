@@ -70,4 +70,5 @@
     segments=cubeManager.getCube(cubeName).getSegments();
     Assert.assertTrue(segments.size() == 1);
   }
+  logger.info("Build is done");
 }

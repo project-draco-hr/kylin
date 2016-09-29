@@ -1,0 +1,4 @@
+{
+  if (value == null)   return StringUtils.EMPTY;
+  return String.valueOf(value);
+}

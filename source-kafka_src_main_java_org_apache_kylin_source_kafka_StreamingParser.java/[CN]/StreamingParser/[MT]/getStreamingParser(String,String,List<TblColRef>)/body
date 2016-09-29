@@ -1,8 +1,10 @@
 {
   if (!StringUtils.isEmpty(parserName)) {
+    logger.info("Construct StreamingParse {} with properties {}",parserName,parserProperties);
     Class clazz=Class.forName(parserName);
-    Constructor constructor=clazz.getConstructor(List.class,String.class);
-    return (StreamingParser)constructor.newInstance(columns,parserProperties);
+    Map<String,String> properties=parseProperties(parserProperties);
+    Constructor constructor=clazz.getConstructor(List.class,Map.class);
+    return (StreamingParser)constructor.newInstance(columns,properties);
   }
  else {
     throw new IllegalStateException("invalid StreamingConfig, parserName " + parserName + ", parserProperties "+ parserProperties+ ".");

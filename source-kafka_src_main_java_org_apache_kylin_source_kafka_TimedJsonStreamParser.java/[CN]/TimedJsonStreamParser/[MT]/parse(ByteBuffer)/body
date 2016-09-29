@@ -3,14 +3,13 @@
     Map<String,Object> message=mapper.readValue(new ByteBufferBackedInputStream(buffer),mapType);
     Map<String,Object> root=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     root.putAll(message);
-    String tsStr=String.valueOf(root.get(tsColName));
+    String tsStr=objToString(root.get(tsColName));
     long t=streamTimeParser.parseTime(tsStr);
     ArrayList<String> result=Lists.newArrayList();
     for (    TblColRef column : allColumns) {
       String columnName=column.getName().toLowerCase();
       if (populateDerivedTimeColumns(columnName,result,t) == false) {
-        String x=String.valueOf(root.get(columnName));
-        result.add(x);
+        result.add(getValueByKey(columnName,root));
       }
     }
     return new StreamingMessage(result,0,t,Collections.<String,Object>emptyMap());

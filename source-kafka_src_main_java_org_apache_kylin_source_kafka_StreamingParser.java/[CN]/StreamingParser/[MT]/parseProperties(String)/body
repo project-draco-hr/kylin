@@ -1,0 +1,16 @@
+{
+  Map<String,String> result=Maps.newHashMap(defaultProperties);
+  if (!StringUtils.isEmpty(propertiesStr)) {
+    String[] properties=propertiesStr.split(";");
+    for (    String prop : properties) {
+      String[] parts=prop.split("=");
+      if (parts.length == 2) {
+        result.put(parts[0],parts[1]);
+      }
+ else {
+        logger.warn("Ignored invalid property expression '" + prop + "'");
+      }
+    }
+  }
+  return result;
+}

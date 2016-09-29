@@ -1,0 +1,26 @@
+{
+  this.allColumns=allColumns;
+  if (properties == null) {
+    properties=StreamingParser.defaultProperties;
+  }
+  tsColName=properties.get(PROPERTY_TS_COLUMN_NAME);
+  tsParser=properties.get(PROPERTY_TS_PARSER);
+  separator=properties.get(EMBEDDED_PROPERTY_SEPARATOR);
+  if (!StringUtils.isEmpty(tsParser)) {
+    try {
+      Class clazz=Class.forName(tsParser);
+      Constructor constructor=clazz.getConstructor(Map.class);
+      streamTimeParser=(AbstractTimeParser)constructor.newInstance(properties);
+    }
+ catch (    Exception e) {
+      throw new IllegalStateException("Invalid StreamingConfig, tsParser " + tsParser + ", parserProperties "+ properties+ ".",e);
+    }
+  }
+ else {
+    throw new IllegalStateException("Invalid StreamingConfig, tsParser " + tsParser + ", parserProperties "+ properties+ ".");
+  }
+  mapper=new ObjectMapper();
+  mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+  mapper.disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE);
+  mapper.enable(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY);
+}

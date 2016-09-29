@@ -1,0 +1,2 @@
+List<TblColRef> allColumns
+Map<String,String> properties

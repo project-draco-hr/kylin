@@ -1,0 +1,10 @@
+{
+  super(properties);
+  tsPattern=properties.get(StreamingParser.PROPERTY_TS_PATTERN);
+  try {
+    formatter=org.apache.kylin.common.util.DateFormat.getDateFormat(tsPattern);
+  }
+ catch (  Throwable e) {
+    throw new IllegalStateException("Invalid tsPattern: '" + tsPattern + "'.");
+  }
+}
