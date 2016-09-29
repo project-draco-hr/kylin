@@ -1,22 +1,16 @@
 {
-  List<CubeSegment> tobe=calculateToBeSegments(cube);
-  for (  CubeSegment seg : newSegments) {
-    if (tobe.contains(seg) == false)     throw new IllegalStateException("For cube " + cube + ", segment "+ seg+ " is expected but not in the tobe "+ tobe);
-    if (StringUtils.isBlank(seg.getStorageLocationIdentifier()))     throw new IllegalStateException("For cube " + cube + ", segment "+ seg+ " missing StorageLocationIdentifier");
-    if (StringUtils.isBlank(seg.getLastBuildJobID()))     throw new IllegalStateException("For cube " + cube + ", segment "+ seg+ " missing LastBuildJobID");
-    seg.setStatus(SegmentStatusEnum.READY);
-  }
-  for (  CubeSegment seg : tobe) {
-    if (isReady(seg) == false) {
-      logger.warn("For cube " + cube + ", segment "+ seg+ " isn't READY yet.");
-    }
-  }
+  if (StringUtils.isBlank(newSegment.getStorageLocationIdentifier()))   throw new IllegalStateException("For cube " + cube + ", segment "+ newSegment+ " missing StorageLocationIdentifier");
+  if (StringUtils.isBlank(newSegment.getLastBuildJobID()))   throw new IllegalStateException("For cube " + cube + ", segment "+ newSegment+ " missing LastBuildJobID");
+  if (isReady(newSegment) == true)   throw new IllegalStateException("For cube " + cube + ", segment "+ newSegment+ " state should be NEW but is READY");
+  List<CubeSegment> tobe=calculateToBeSegments(cube,newSegment);
+  if (tobe.contains(newSegment) == false)   throw new IllegalStateException("For cube " + cube + ", segment "+ newSegment+ " is expected but not in the tobe "+ tobe);
+  newSegment.setStatus(SegmentStatusEnum.READY);
   List<CubeSegment> toRemoveSegs=Lists.newArrayList();
   for (  CubeSegment segment : cube.getSegments()) {
     if (!tobe.contains(segment))     toRemoveSegs.add(segment);
   }
-  logger.info("Promoting cube " + cube + ", new segments "+ Arrays.toString(newSegments)+ ", to remove segments "+ toRemoveSegs);
+  logger.info("Promoting cube " + cube + ", new segment "+ newSegment+ ", to remove segments "+ toRemoveSegs);
   CubeUpdate cubeBuilder=new CubeUpdate(cube);
-  cubeBuilder.setToRemoveSegs(toRemoveSegs.toArray(new CubeSegment[toRemoveSegs.size()])).setToUpdateSegs(newSegments).setStatus(RealizationStatusEnum.READY);
+  cubeBuilder.setToRemoveSegs(toRemoveSegs.toArray(new CubeSegment[toRemoveSegs.size()])).setToUpdateSegs(newSegment).setStatus(RealizationStatusEnum.READY);
   updateCube(cubeBuilder);
 }

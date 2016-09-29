@@ -1,0 +1,3 @@
+{
+  setProperty("kylin.cube.building.segment.max",String.valueOf(maxBuildingSegments));
+}

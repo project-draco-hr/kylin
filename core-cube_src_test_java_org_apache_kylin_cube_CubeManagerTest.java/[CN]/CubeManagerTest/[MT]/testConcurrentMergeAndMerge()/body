@@ -1,0 +1,32 @@
+{
+  CubeManager mgr=CubeManager.getInstance(getTestConfig());
+  getTestConfig().setMaxBuildingSegments(10);
+  CubeInstance cube=mgr.getCube("test_kylin_cube_with_slr_empty");
+  assertEquals(0,cube.getSegments().size());
+  CubeSegment seg1=mgr.appendSegment(cube,0,0,0,1000);
+  seg1.setStatus(SegmentStatusEnum.READY);
+  CubeSegment seg2=mgr.appendSegment(cube,0,0,1000,2000);
+  seg2.setStatus(SegmentStatusEnum.READY);
+  CubeSegment seg3=mgr.appendSegment(cube,0,0,2000,3000);
+  seg3.setStatus(SegmentStatusEnum.READY);
+  CubeSegment seg4=mgr.appendSegment(cube,0,0,3000,4000);
+  seg4.setStatus(SegmentStatusEnum.READY);
+  CubeSegment merge1=mgr.mergeSegments(cube,0,0,0,2000,true);
+  merge1.setStatus(SegmentStatusEnum.NEW);
+  merge1.setLastBuildJobID("test");
+  merge1.setStorageLocationIdentifier("test");
+  CubeSegment merge2=mgr.mergeSegments(cube,0,0,2000,4000,true);
+  merge2.setStatus(SegmentStatusEnum.NEW);
+  merge2.setLastBuildJobID("test");
+  merge2.setStorageLocationIdentifier("test");
+  CubeUpdate cubeBuilder=new CubeUpdate(cube);
+  mgr.updateCube(cubeBuilder);
+  mgr.promoteNewlyBuiltSegments(cube,merge1);
+  assertTrue(cube.getSegments().size() == 4);
+  assertTrue(cube.getSegmentById(seg1.getUuid()) == null);
+  assertTrue(cube.getSegmentById(seg2.getUuid()) == null);
+  assertTrue(cube.getSegmentById(merge1.getUuid()) != null && cube.getSegmentById(merge1.getUuid()).getStatus() == SegmentStatusEnum.READY);
+  assertTrue(cube.getSegmentById(seg3.getUuid()) != null && cube.getSegmentById(seg3.getUuid()).getStatus() == SegmentStatusEnum.READY);
+  assertTrue(cube.getSegmentById(seg4.getUuid()) != null && cube.getSegmentById(seg4.getUuid()).getStatus() == SegmentStatusEnum.READY);
+  assertTrue(cube.getSegmentById(merge2.getUuid()) != null && cube.getSegmentById(merge2.getUuid()).getStatus() == SegmentStatusEnum.NEW);
+}

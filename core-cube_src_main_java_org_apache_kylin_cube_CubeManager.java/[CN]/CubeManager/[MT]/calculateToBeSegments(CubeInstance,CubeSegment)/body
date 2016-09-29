@@ -1,6 +1,8 @@
 {
   List<CubeSegment> tobe=Lists.newArrayList(cube.getSegments());
-  if (newSegments != null)   tobe.addAll(Arrays.asList(newSegments));
+  if (newSegments != null && !tobe.contains(newSegments)) {
+    tobe.add(newSegments);
+  }
   if (tobe.size() == 0)   return tobe;
   Collections.sort(tobe);
   CubeSegment firstSeg=tobe.get(0);
@@ -25,21 +27,33 @@
  else {
           tobe.remove(j);
         }
-      }
- else       if (isNew(is)) {
-        tobe.remove(j);
+        continue;
       }
  else {
-        tobe.remove(i);
+        if (isNew(is) && is.equals(newSegments)) {
+          tobe.remove(j);
+          continue;
+        }
+ else         if (js.equals(newSegments)) {
+          tobe.remove(i);
+          continue;
+        }
       }
-      continue;
     }
     if (is.getSourceOffsetEnd() <= js.getSourceOffsetStart()) {
       i++;
       j++;
       continue;
     }
-    tobe.remove(j);
+    if (is.equals(newSegments)) {
+      tobe.remove(j);
+      continue;
+    }
+ else {
+      i++;
+      j++;
+      continue;
+    }
   }
   return tobe;
 }
