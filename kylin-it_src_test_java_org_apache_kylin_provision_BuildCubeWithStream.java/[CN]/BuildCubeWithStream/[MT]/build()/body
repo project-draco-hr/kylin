@@ -28,7 +28,7 @@
   ExecutorService executorService=Executors.newCachedThreadPool();
   List<FutureTask<ExecutableState>> futures=Lists.newArrayList();
   for (int i=0; i < 5; i++) {
-    Thread.sleep(2 * 60 * 1000);
+    Thread.sleep(5 * 60 * 1000);
     FutureTask futureTask=new FutureTask(new Callable<ExecutableState>(){
       @Override public ExecutableState call(){
         ExecutableState result=null;
