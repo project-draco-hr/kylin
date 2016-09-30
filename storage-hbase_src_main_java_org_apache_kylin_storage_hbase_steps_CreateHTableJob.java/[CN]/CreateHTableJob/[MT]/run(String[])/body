@@ -15,22 +15,14 @@
   segmentID=getOptionValue(OPTION_SEGMENT_ID);
   CubeSegment cubeSegment=cube.getSegmentById(segmentID);
   Configuration conf=HBaseConnection.getCurrentHBaseConfiguration();
-  try {
-    byte[][] splitKeys;
-    if (statsEnabled) {
-      final Map<Long,Double> cuboidSizeMap=new CubeStatsReader(cubeSegment,kylinConfig).getCuboidSizeMap();
-      splitKeys=getRegionSplitsFromCuboidStatistics(cuboidSizeMap,kylinConfig,cubeSegment,partitionFilePath.getParent());
-    }
+  byte[][] splitKeys;
+  if (statsEnabled) {
+    final Map<Long,Double> cuboidSizeMap=new CubeStatsReader(cubeSegment,kylinConfig).getCuboidSizeMap();
+    splitKeys=getRegionSplitsFromCuboidStatistics(cuboidSizeMap,kylinConfig,cubeSegment,partitionFilePath.getParent());
+  }
  else {
-      splitKeys=getRegionSplits(conf,partitionFilePath);
-    }
-    CubeHTableUtil.createHTable(cubeSegment,splitKeys);
-    return 0;
+    splitKeys=getRegionSplits(conf,partitionFilePath);
   }
- catch (  Exception e) {
-    printUsage(options);
-    e.printStackTrace(System.err);
-    logger.error(e.getLocalizedMessage(),e);
-    return 2;
-  }
+  CubeHTableUtil.createHTable(cubeSegment,splitKeys);
+  return 0;
 }

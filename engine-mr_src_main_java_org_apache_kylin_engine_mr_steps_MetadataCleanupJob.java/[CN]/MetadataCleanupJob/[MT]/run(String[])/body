@@ -1,18 +1,12 @@
 {
   Options options=new Options();
   logger.info("jobs args: " + Arrays.toString(args));
-  try {
-    options.addOption(OPTION_DELETE);
-    parseOptions(options,args);
-    logger.info("options: '" + getOptionsAsString() + "'");
-    logger.info("delete option value: '" + getOptionValue(OPTION_DELETE) + "'");
-    delete=Boolean.parseBoolean(getOptionValue(OPTION_DELETE));
-    config=KylinConfig.getInstanceFromEnv();
-    cleanup();
-    return 0;
-  }
- catch (  Exception e) {
-    printUsage(options);
-    throw e;
-  }
+  options.addOption(OPTION_DELETE);
+  parseOptions(options,args);
+  logger.info("options: '" + getOptionsAsString() + "'");
+  logger.info("delete option value: '" + getOptionValue(OPTION_DELETE) + "'");
+  delete=Boolean.parseBoolean(getOptionValue(OPTION_DELETE));
+  config=KylinConfig.getInstanceFromEnv();
+  cleanup();
+  return 0;
 }
