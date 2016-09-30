@@ -1,10 +1,8 @@
 {
   if (hadoopConfig.get() == null) {
     Configuration conf=healSickConfig(new Configuration());
-    logger.info("The conf for current mapper will be " + System.identityHashCode(conf));
     return conf;
   }
   Configuration conf=hadoopConfig.get();
-  logger.info("The conf for current mapper will be " + System.identityHashCode(conf));
   return conf;
 }
