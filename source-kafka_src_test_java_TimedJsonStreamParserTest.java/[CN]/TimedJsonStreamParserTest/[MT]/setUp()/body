@@ -1,0 +1,4 @@
+{
+  staticCreateTestMetadata();
+  mapper=new ObjectMapper();
+}

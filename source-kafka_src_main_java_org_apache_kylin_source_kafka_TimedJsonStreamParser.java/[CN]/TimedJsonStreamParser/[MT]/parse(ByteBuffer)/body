@@ -7,7 +7,8 @@
     long t=streamTimeParser.parseTime(tsStr);
     ArrayList<String> result=Lists.newArrayList();
     for (    TblColRef column : allColumns) {
-      String columnName=column.getName().toLowerCase();
+      String columnName=column.getName();
+      columnName=columnName.toLowerCase();
       if (populateDerivedTimeColumns(columnName,result,t) == false) {
         result.add(getValueByKey(columnName,root));
       }

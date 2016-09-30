@@ -1,0 +1,9 @@
+{
+  TableDesc t=mockupTableDesc("table_a");
+  List<TblColRef> list=new ArrayList<>();
+  for (int i=0; i < userNeedColNames.length; i++) {
+    ColumnDesc c=mockupColumnDesc(t,i,userNeedColNames[i],"string");
+    list.add(c.getRef());
+  }
+  return list;
+}

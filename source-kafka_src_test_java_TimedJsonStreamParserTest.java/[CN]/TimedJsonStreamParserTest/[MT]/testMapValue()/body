@@ -1,0 +1,10 @@
+{
+  userNeedColNames=new String[]{"user"};
+  List<TblColRef> allCol=mockupTblColRefList();
+  TimedJsonStreamParser parser=new TimedJsonStreamParser(allCol,null);
+  Object msg=mapper.readValue(new File(jsonFilePath),mapType);
+  ByteBuffer buffer=getJsonByteBuffer(msg);
+  StreamingMessage sMsg=parser.parse(buffer);
+  List<String> result=sMsg.getData();
+  System.out.println("result:" + result);
+}

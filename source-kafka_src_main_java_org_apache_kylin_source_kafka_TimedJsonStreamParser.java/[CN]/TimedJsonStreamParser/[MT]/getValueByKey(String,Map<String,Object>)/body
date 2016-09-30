@@ -4,11 +4,12 @@
   }
   if (key.contains(separator)) {
     String[] names=key.toLowerCase().split(separator);
-    Map<String,Object> tempMap=null;
+    Map<String,Object> tempMap=root;
     for (int i=0; i < names.length - 1; i++) {
       Object o=root.get(names[i]);
       if (o instanceof Map) {
-        tempMap=(Map<String,Object>)o;
+        tempMap=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        tempMap.putAll((Map<String,Object>)o);
       }
  else {
         throw new IOException("Property '" + names[i] + "' is not embedded format");

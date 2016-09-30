@@ -1,0 +1,6 @@
+{
+  byte[] bytes=mapper.writeValueAsBytes(obj);
+  ByteBuffer buff=ByteBuffer.wrap(bytes);
+  buff.position(0);
+  return buff;
+}

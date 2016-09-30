@@ -1,4 +1,5 @@
 {
   if (value == null)   return StringUtils.EMPTY;
+  if (value.getClass().isArray())   return String.valueOf(Arrays.asList((Object[])value));
   return String.valueOf(value);
 }
