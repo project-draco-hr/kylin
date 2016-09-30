@@ -22,9 +22,23 @@
       }
     }
   }
+  MetadataManager metadataManager=MetadataManager.getInstance(olapSchema.getConfig());
+  for (  IRealization realization : mgr.listAllRealizations(olapSchema.getProjectName())) {
+    if (realization.getType() == RealizationType.INVERTED_INDEX && sourceTable.getIdentity().equalsIgnoreCase(realization.getFactTable())) {
+      DataModelDesc dataModelDesc=realization.getDataModelDesc();
+      for (      String metricColumn : dataModelDesc.getMetrics()) {
+        ColumnDesc columnDesc=metadataManager.getColumnDesc(dataModelDesc.getFactTable() + "." + metricColumn);
+        if (columnDesc.getType().isIntegerFamily() && !columnDesc.getType().isBigInt())         updateColumns.add(columnDesc);
+      }
+    }
+  }
   for (  ColumnDesc upgrade : updateColumns) {
     int index=tableColumns.indexOf(upgrade);
-    tableColumns.get(index).setDatatype("bigint");
+    if (index < 0) {
+      throw new IllegalStateException("Metric column " + upgrade + " is not found in the the project's columns");
+    }
+    tableColumns.get(index).setUpgradedType("bigint");
+    logger.info("To avoid overflow, upgraded {}'s type from {} to {}",tableColumns.get(index),tableColumns.get(index).getType(),tableColumns.get(index).getUpgradedType());
   }
   return Lists.newArrayList(Iterables.concat(tableColumns,metricColumns));
 }

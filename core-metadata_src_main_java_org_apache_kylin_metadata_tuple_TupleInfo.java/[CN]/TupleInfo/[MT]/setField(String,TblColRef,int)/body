@@ -5,6 +5,6 @@
  else   fields.add(index,fieldName);
   if (columns.size() > index)   columns.set(index,col);
  else   columns.add(index,col);
-  if (dataTypeNames.size() > index)   dataTypeNames.set(index,col.getType().getName());
- else   dataTypeNames.add(index,col.getType().getName());
+  if (dataTypeNames.size() > index)   dataTypeNames.set(index,col.getColumnDesc().getUpgradedType().getName());
+ else   dataTypeNames.add(index,col.getColumnDesc().getUpgradedType().getName());
 }

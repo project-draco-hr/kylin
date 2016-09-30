@@ -1,7 +1,0 @@
-{
-  if (!isLikeFunction()) {
-    return null;
-  }
-  initConstants();
-  return (String)methodParams.get(1);
-}

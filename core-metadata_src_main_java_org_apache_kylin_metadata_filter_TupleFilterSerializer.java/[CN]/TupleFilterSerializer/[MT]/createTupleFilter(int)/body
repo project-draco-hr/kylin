@@ -42,14 +42,23 @@ break;
 case UNSUPPORTED:
 filter=new UnsupportedTupleFilter(op);
 break;
-case EVAL_FUNC:
-filter=new EvaluatableFunctionTupleFilter(null);
-break;
 case MASSIN:
 filter=new MassInTupleFilter();
 break;
 default :
+{
+if (extendedTupleFilters.containsKey(op)) {
+try {
+filter=(TupleFilter)extendedTupleFilters.get(op).getConstructor().newInstance();
+}
+ catch (InstantiationException|IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
+throw new RuntimeException(e);
+}
+}
+ else {
 throw new IllegalStateException("Error FilterOperatorEnum: " + op.getValue());
+}
+}
 }
 return filter;
 }

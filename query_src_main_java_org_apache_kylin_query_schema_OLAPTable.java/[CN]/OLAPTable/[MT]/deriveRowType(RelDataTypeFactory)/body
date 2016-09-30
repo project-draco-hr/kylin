@@ -1,7 +1,7 @@
 {
   RelDataTypeFactory.FieldInfoBuilder fieldInfo=typeFactory.builder();
   for (  ColumnDesc column : exposedColumns) {
-    RelDataType sqlType=createSqlType(typeFactory,column.getType(),column.isNullable());
+    RelDataType sqlType=createSqlType(typeFactory,column.getUpgradedType(),column.isNullable());
     sqlType=SqlTypeUtil.addCharsetAndCollation(sqlType,typeFactory);
     fieldInfo.add(column.getName(),sqlType);
   }

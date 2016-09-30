@@ -1,4 +1,0 @@
-{
-  this.name=BytesUtil.readUTFString(buffer);
-  this.initMethod();
-}

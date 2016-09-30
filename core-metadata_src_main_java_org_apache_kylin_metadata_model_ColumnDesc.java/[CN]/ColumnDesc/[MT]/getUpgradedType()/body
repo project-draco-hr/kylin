@@ -1,0 +1,8 @@
+{
+  if (this.upgradedType == null) {
+    return this.type;
+  }
+ else {
+    return this.upgradedType;
+  }
+}

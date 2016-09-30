@@ -1,3 +1,0 @@
-{
-  return (filter instanceof ConstantTupleFilter) || (filter instanceof DynamicTupleFilter);
-}

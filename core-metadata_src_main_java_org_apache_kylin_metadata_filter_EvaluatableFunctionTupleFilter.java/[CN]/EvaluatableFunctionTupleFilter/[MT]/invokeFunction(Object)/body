@@ -1,4 +1,0 @@
-{
-  if (isLikeFunction())   initConstants();
-  return super.invokeFunction(input);
-}

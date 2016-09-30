@@ -1,6 +1,0 @@
-{
-  if (!isValid()) {
-    throw new IllegalStateException("must be valid");
-  }
-  BytesUtil.writeUTFString(name,buffer);
-}
