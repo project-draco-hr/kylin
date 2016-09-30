@@ -1,20 +1,13 @@
 {
   CubeManager cubeMgr=CubeManager.getInstance(KylinConfig.getInstanceFromEnv());
-  long TIME_THREADSHOLD=KylinConfig.getInstanceFromEnv().getStorageCleanupTimeThreshold();
   HBaseAdmin hbaseAdmin=new HBaseAdmin(conf);
   String tableNamePrefix=IRealizationConstants.SharedHbaseStorageLocationPrefix;
   HTableDescriptor[] tableDescriptors=hbaseAdmin.listTables(tableNamePrefix + ".*");
   List<String> allTablesNeedToBeDropped=new ArrayList<String>();
   for (  HTableDescriptor desc : tableDescriptors) {
     String host=desc.getValue(IRealizationConstants.HTableTag);
-    String creationTime=desc.getValue(IRealizationConstants.HTableCreationTime);
     if (KylinConfig.getInstanceFromEnv().getMetadataUrlPrefix().equalsIgnoreCase(host)) {
-      if (StringUtils.isEmpty(creationTime) || (System.currentTimeMillis() - Long.valueOf(creationTime) > TIME_THREADSHOLD)) {
-        allTablesNeedToBeDropped.add(desc.getTableName().getNameAsString());
-      }
- else {
-        logger.info("Exclude table " + desc.getTableName().getNameAsString() + " from drop list, as it is newly created");
-      }
+      allTablesNeedToBeDropped.add(desc.getTableName().getNameAsString());
     }
   }
   for (  CubeInstance cube : cubeMgr.listAllCubes()) {
@@ -32,10 +25,10 @@
       FutureTask futureTask=new FutureTask(new DeleteHTableRunnable(hbaseAdmin,htableName));
       executorService.execute(futureTask);
       try {
-        futureTask.get(TIME_THRESHOLD_DELETE_HTABLE,TimeUnit.MINUTES);
+        futureTask.get(deleteTimeout,TimeUnit.MINUTES);
       }
  catch (      TimeoutException e) {
-        logger.warn("It fails to delete htable " + htableName + ", for it cost more than "+ TIME_THRESHOLD_DELETE_HTABLE+ " minutes!");
+        logger.warn("It fails to delete htable " + htableName + ", for it cost more than "+ deleteTimeout+ " minutes!");
         futureTask.cancel(true);
       }
 catch (      Exception e) {

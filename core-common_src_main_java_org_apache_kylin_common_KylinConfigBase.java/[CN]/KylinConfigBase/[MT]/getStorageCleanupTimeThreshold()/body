@@ -1,3 +1,0 @@
-{
-  return Long.valueOf(this.getOptional("kylin.storage.cleanup.time.threshold","172800000"));
-}
