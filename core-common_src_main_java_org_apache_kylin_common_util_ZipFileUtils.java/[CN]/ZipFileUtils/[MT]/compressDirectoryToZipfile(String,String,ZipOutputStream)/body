@@ -8,8 +8,12 @@
       entry.setTime(sourceFile.lastModified());
       out.putNextEntry(entry);
       FileInputStream in=new FileInputStream(sourceDir + sourceFile.getName());
-      IOUtils.copy(in,out);
-      IOUtils.closeQuietly(in);
+      try {
+        IOUtils.copy(in,out);
+      }
+  finally {
+        IOUtils.closeQuietly(in);
+      }
     }
   }
 }

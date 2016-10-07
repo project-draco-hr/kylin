@@ -2,7 +2,12 @@
   if (!validateZipFilename(zipFilename)) {
     throw new RuntimeException("Zipfile must end with .zip");
   }
-  ZipOutputStream zipFile=new ZipOutputStream(new FileOutputStream(zipFilename));
-  compressDirectoryToZipfile(normDir(new File(sourceDir).getParent()),normDir(sourceDir),zipFile);
-  IOUtils.closeQuietly(zipFile);
+  ZipOutputStream zipFile=null;
+  try {
+    zipFile=new ZipOutputStream(new FileOutputStream(zipFilename));
+    compressDirectoryToZipfile(normDir(new File(sourceDir).getParent()),normDir(sourceDir),zipFile);
+  }
+  finally {
+    IOUtils.closeQuietly(zipFile);
+  }
 }
