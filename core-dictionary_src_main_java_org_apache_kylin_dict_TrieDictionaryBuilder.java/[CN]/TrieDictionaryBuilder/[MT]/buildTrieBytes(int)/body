@@ -3,6 +3,7 @@
   Stats stats=stats();
   int sizeNoValuesBeneath=stats.mbpn_sizeNoValueBeneath;
   int sizeChildOffset=stats.mbpn_sizeChildOffset;
+  if (stats.mbpn_footprint <= 0)   throw new IllegalStateException("Too big dictionary, dictionary cannot be bigger than 2GB");
   if (stats.mbpn_footprint > _2GB)   throw new RuntimeException("Too big dictionary, dictionary cannot be bigger than 2GB");
   byte[] head;
   try {
