@@ -1,7 +1,7 @@
 {
   boolean hasSingle=false;
   for (  Set<String> dims : dimsList) {
-    if (dims.size() < 2)     hasSingle=true;
+    if (dims.size() == 1)     hasSingle=true;
   }
   return hasSingle;
 }

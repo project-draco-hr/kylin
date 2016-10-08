@@ -11,18 +11,27 @@
   Collection<TblColRef> unmatchedDimensions=unmatchedDimensions(dimensionColumns,cube);
   Collection<FunctionDesc> unmatchedAggregations=unmatchedAggregations(aggrFunctions,cube);
   tryCustomMeasureTypes(unmatchedDimensions,unmatchedAggregations,digest,cube,result);
-  if (!unmatchedAggregations.isEmpty()) {
-    if (cube.getDescriptor().getFactTable().equals(digest.factTable)) {
+  if (cube.getDescriptor().getFactTable().equals(digest.factTable)) {
+    if (!unmatchedAggregations.isEmpty()) {
       tryDimensionAsMeasures(unmatchedAggregations,digest,cube,result,cube.getDescriptor().listDimensionColumnsIncludingDerived());
     }
+  }
  else {
-      if (cube.getSegments().get(0).getSnapshots().containsKey(digest.factTable)) {
-        Set<TblColRef> dimCols=Sets.newHashSet(cube.getDataModelDesc().findFirstTable(digest.factTable).getColumns());
+    if (cube.getSegments().get(0).getSnapshots().containsKey(digest.factTable)) {
+      TableDesc tableDesc=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv()).getTableDesc(digest.factTable);
+      Set<TblColRef> dimCols=Sets.newHashSet();
+      for (      ColumnDesc columnDesc : tableDesc.getColumns()) {
+        dimCols.add(columnDesc.getRef());
+      }
+      if (!unmatchedAggregations.isEmpty()) {
         tryDimensionAsMeasures(unmatchedAggregations,digest,cube,result,dimCols);
       }
- else {
-        logger.info("Skip tryDimensionAsMeasures because current cube {} does not touch lookup table {} at all",cube.getName(),digest.factTable);
+      if (!unmatchedDimensions.isEmpty()) {
+        unmatchedDimensions.removeAll(dimCols);
       }
+    }
+ else {
+      logger.info("cube {} does not touch lookup table {} at all",cube.getName(),digest.factTable);
     }
   }
   if (!unmatchedDimensions.isEmpty()) {
