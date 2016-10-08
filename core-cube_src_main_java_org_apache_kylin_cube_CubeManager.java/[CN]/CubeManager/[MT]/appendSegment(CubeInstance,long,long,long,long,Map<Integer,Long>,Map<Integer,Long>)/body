@@ -1,0 +1,44 @@
+{
+  checkBuildingSegment(cube);
+  if (sourcePartitionOffsetStart == null) {
+    sourcePartitionOffsetStart=Maps.newHashMap();
+  }
+  if (sourcePartitionOffsetEnd == null) {
+    sourcePartitionOffsetEnd=Maps.newHashMap();
+  }
+  boolean isOffsetsOn=endOffset != 0;
+  if (isOffsetsOn == true) {
+    checkSourceOffsets(startOffset,endOffset,sourcePartitionOffsetStart,sourcePartitionOffsetEnd);
+  }
+  if (cube.getDescriptor().getModel().getPartitionDesc().isPartitioned()) {
+    if (startDate == 0 && startOffset == 0) {
+      final CubeSegment last=getLatestSegment(cube);
+      if (last != null) {
+        if (isOffsetsOn) {
+          if (last.getSourceOffsetEnd() == Long.MAX_VALUE) {
+            throw new IllegalStateException("There is already one pending for building segment, please submit request later.");
+          }
+          startOffset=last.getSourceOffsetEnd();
+          sourcePartitionOffsetStart=last.getSourcePartitionOffsetEnd();
+        }
+ else {
+          startDate=last.getDateRangeEnd();
+        }
+      }
+    }
+  }
+ else {
+    startDate=0;
+    endDate=Long.MAX_VALUE;
+    startOffset=0;
+    endOffset=0;
+  }
+  CubeSegment newSegment=newSegment(cube,startDate,endDate,startOffset,endOffset);
+  newSegment.setSourcePartitionOffsetStart(sourcePartitionOffsetStart);
+  newSegment.setSourcePartitionOffsetEnd(sourcePartitionOffsetEnd);
+  validateNewSegments(cube,newSegment);
+  CubeUpdate cubeBuilder=new CubeUpdate(cube);
+  cubeBuilder.setToAddSegs(newSegment);
+  updateCube(cubeBuilder);
+  return newSegment;
+}

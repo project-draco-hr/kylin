@@ -1,0 +1,4 @@
+long startOffset
+long endOffset
+Map<Integer,Long> sourcePartitionOffsetStart
+Map<Integer,Long> sourcePartitionOffsetEnd

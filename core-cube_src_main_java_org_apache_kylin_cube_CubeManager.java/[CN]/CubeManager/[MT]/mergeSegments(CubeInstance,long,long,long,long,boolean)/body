@@ -32,6 +32,8 @@
     newSegment.setDateRangeEnd(maxDateRangeEnd(mergingSegments));
     newSegment.setSourceOffsetStart(first.getSourceOffsetStart());
     newSegment.setSourceOffsetEnd(last.getSourceOffsetEnd());
+    newSegment.setSourcePartitionOffsetStart(first.getSourcePartitionOffsetStart());
+    newSegment.setSourcePartitionOffsetEnd(last.getSourcePartitionOffsetEnd());
   }
  else {
     newSegment.setDateRangeStart(first.getSourceOffsetStart());

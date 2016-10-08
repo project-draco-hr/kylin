@@ -14,9 +14,8 @@
     if (toRefreshSeg == null) {
       throw new IllegalArgumentException("For streaming cube, only one segment can be refreshed at one time");
     }
-    Map<String,String> partitionInfo=Maps.newHashMap();
-    partitionInfo.putAll(toRefreshSeg.getAdditionalInfo());
-    newSegment.setAdditionalInfo(partitionInfo);
+    newSegment.setSourcePartitionOffsetStart(toRefreshSeg.getSourcePartitionOffsetStart());
+    newSegment.setSourcePartitionOffsetEnd(toRefreshSeg.getSourcePartitionOffsetEnd());
   }
   CubeUpdate cubeBuilder=new CubeUpdate(cube);
   cubeBuilder.setToAddSegs(newSegment);

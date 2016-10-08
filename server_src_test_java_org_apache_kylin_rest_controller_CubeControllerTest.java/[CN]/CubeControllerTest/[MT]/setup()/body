@@ -3,7 +3,6 @@
   cubeController=new CubeController();
   cubeController.setCubeService(cubeService);
   cubeController.setJobService(jobService);
-  cubeController.setStreamingService(streamingService);
   cubeDescController=new CubeDescController();
   cubeDescController.setCubeService(cubeService);
 }

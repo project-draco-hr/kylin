@@ -1,7 +1,0 @@
-String cubeName
-long startTime
-long endTime
-long startOffset
-long endOffset
-String buildType
-boolean force

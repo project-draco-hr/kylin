@@ -1,0 +1,42 @@
+{
+  List<JobInstance> jobs=Lists.newArrayList();
+  List<CubeSegment> holes=cubeService.getCubeManager().calculateHoles(cubeName);
+  if (holes.size() == 0) {
+    logger.info("No hole detected for cube '" + cubeName + "'");
+    return jobs;
+  }
+  boolean isOffsetOn=holes.get(0).isSourceOffsetsOn();
+  for (  CubeSegment hole : holes) {
+    if (isOffsetOn == true) {
+      JobBuildRequest2 request=new JobBuildRequest2();
+      request.setBuildType(CubeBuildTypeEnum.BUILD.toString());
+      request.setSourceOffsetStart(hole.getSourceOffsetStart());
+      request.setSourcePartitionOffsetStart(hole.getSourcePartitionOffsetStart());
+      request.setSourceOffsetEnd(hole.getSourceOffsetEnd());
+      request.setSourcePartitionOffsetEnd(hole.getSourcePartitionOffsetEnd());
+      try {
+        JobInstance job=build(cubeName,request);
+        jobs.add(job);
+      }
+ catch (      Exception e) {
+        logger.info("Error to submit job for hole '" + hole.toString() + "', skip it now.",e);
+        continue;
+      }
+    }
+ else {
+      JobBuildRequest request=new JobBuildRequest();
+      request.setBuildType(CubeBuildTypeEnum.BUILD.toString());
+      request.setStartTime(hole.getDateRangeStart());
+      request.setEndTime(hole.getDateRangeEnd());
+      try {
+        JobInstance job=build(cubeName,request);
+        jobs.add(job);
+      }
+ catch (      Exception e) {
+        logger.info("Error to submit job for hole '" + hole.toString() + "', skip it now.",e);
+        continue;
+      }
+    }
+  }
+  return jobs;
+}

@@ -1,6 +1,6 @@
 {
-  Map<Integer,Long> offsetStart=KafkaOffsetMapping.parseOffsetStart(cubeSeg);
-  Map<Integer,Long> offsetEnd=KafkaOffsetMapping.parseOffsetEnd(cubeSeg);
+  Map<Integer,Long> offsetStart=cubeSeg.getSourcePartitionOffsetStart();
+  Map<Integer,Long> offsetEnd=cubeSeg.getSourcePartitionOffsetEnd();
   Integer minPartition=Collections.min(offsetStart.keySet());
   Integer maxPartition=Collections.max(offsetStart.keySet());
   job.getConfiguration().set(CONFIG_KAFKA_PARITION_MIN,minPartition.toString());

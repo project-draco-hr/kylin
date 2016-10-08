@@ -1,0 +1,3 @@
+{
+  return appendSegment(cube,startDate,endDate,0,0,null,null);
+}

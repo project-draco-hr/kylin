@@ -1,0 +1,9 @@
+String cubeName
+long startTime
+long endTime
+long startOffset
+long endOffset
+Map<Integer,Long> sourcePartitionOffsetStart
+Map<Integer,Long> sourcePartitionOffsetEnd
+String buildType
+boolean force

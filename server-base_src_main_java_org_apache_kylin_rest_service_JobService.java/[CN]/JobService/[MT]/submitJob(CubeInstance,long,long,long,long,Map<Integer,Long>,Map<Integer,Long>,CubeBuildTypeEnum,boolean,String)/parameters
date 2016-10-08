@@ -1,0 +1,10 @@
+CubeInstance cube
+long startDate
+long endDate
+long startOffset
+long endOffset
+Map<Integer,Long> sourcePartitionOffsetStart
+Map<Integer,Long> sourcePartitionOffsetEnd
+CubeBuildTypeEnum buildType
+boolean force
+String submitter

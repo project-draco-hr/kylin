@@ -2,8 +2,8 @@
   final CubeManager cubeManager=CubeManager.getInstance(context.getConfig());
   final CubeInstance cube=cubeManager.getCube(CubingExecutableUtil.getCubeName(this.getParams()));
   final CubeSegment segment=cube.getSegmentById(CubingExecutableUtil.getSegmentId(this.getParams()));
-  Map<Integer,Long> startOffsets=KafkaOffsetMapping.parseOffsetStart(segment);
-  Map<Integer,Long> endOffsets=KafkaOffsetMapping.parseOffsetEnd(segment);
+  Map<Integer,Long> startOffsets=segment.getSourcePartitionOffsetStart();
+  Map<Integer,Long> endOffsets=segment.getSourcePartitionOffsetEnd();
   if (startOffsets.size() > 0 && endOffsets.size() > 0 && startOffsets.size() == endOffsets.size()) {
     return new ExecuteResult(ExecuteResult.State.SUCCEED,"skipped, as the offset is provided.");
   }
@@ -14,7 +14,7 @@
     final List<PartitionInfo> partitionInfos=consumer.partitionsFor(topic);
     if (startOffsets.isEmpty()) {
       for (      CubeSegment seg : cube.getSegments()) {
-        Map<Integer,Long> segEndOffset=KafkaOffsetMapping.parseOffsetEnd(seg);
+        Map<Integer,Long> segEndOffset=seg.getSourcePartitionOffsetEnd();
         for (        PartitionInfo partition : partitionInfos) {
           int partitionId=partition.partition();
           if (segEndOffset.containsKey(partitionId)) {
@@ -46,8 +46,10 @@
     totalEndOffset+=v;
   }
   if (totalEndOffset > totalStartOffset) {
-    KafkaOffsetMapping.saveOffsetStart(segment,startOffsets);
-    KafkaOffsetMapping.saveOffsetEnd(segment,endOffsets);
+    segment.setSourceOffsetStart(totalStartOffset);
+    segment.setSourceOffsetEnd(totalEndOffset);
+    segment.setSourcePartitionOffsetStart(startOffsets);
+    segment.setSourcePartitionOffsetEnd(endOffsets);
     segment.setName(CubeSegment.makeSegmentName(0,0,totalStartOffset,totalEndOffset));
     CubeUpdate cubeBuilder=new CubeUpdate(cube);
     cubeBuilder.setToUpdateSegs(segment);

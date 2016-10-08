@@ -1,0 +1,11 @@
+{
+  try {
+    String submitter=SecurityContextHolder.getContext().getAuthentication().getName();
+    CubeInstance cube=jobService.getCubeManager().getCube(cubeName);
+    return jobService.submitJob(cube,startTime,endTime,startOffset,endOffset,sourcePartitionOffsetStart,sourcePartitionOffsetEnd,CubeBuildTypeEnum.valueOf(buildType),force,submitter);
+  }
+ catch (  Exception e) {
+    logger.error(e.getLocalizedMessage(),e);
+    throw new InternalErrorException(e.getLocalizedMessage());
+  }
+}

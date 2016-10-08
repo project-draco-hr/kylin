@@ -1,0 +1,35 @@
+{
+  List<CubeSegment> holes=Lists.newArrayList();
+  final CubeInstance cube=getCube(cubeName);
+  Preconditions.checkNotNull(cube);
+  final List<CubeSegment> segments=cube.getSegments();
+  logger.info("totally " + segments.size() + " cubeSegments");
+  if (segments.size() == 0) {
+    return holes;
+  }
+  Collections.sort(segments);
+  boolean isOffsetOn=segments.get(0).isSourceOffsetsOn();
+  for (int i=0; i < segments.size() - 1; ++i) {
+    CubeSegment first=segments.get(i);
+    CubeSegment second=segments.get(i + 1);
+    if (first.getSourceOffsetEnd() == second.getSourceOffsetStart()) {
+      continue;
+    }
+ else     if (first.getSourceOffsetEnd() < second.getSourceOffsetStart()) {
+      CubeSegment hole=new CubeSegment();
+      if (isOffsetOn == true) {
+        hole.setSourceOffsetStart(first.getSourceOffsetEnd());
+        hole.setSourcePartitionOffsetStart(first.getSourcePartitionOffsetEnd());
+        hole.setSourceOffsetEnd(second.getSourceOffsetStart());
+        hole.setSourcePartitionOffsetEnd(second.getSourcePartitionOffsetStart());
+      }
+ else {
+        hole.setDateRangeStart(first.getDateRangeEnd());
+        hole.setDateRangeEnd(second.getDateRangeStart());
+      }
+      hole.setName(CubeSegment.makeSegmentName(hole.getDateRangeStart(),hole.getDateRangeEnd(),hole.getSourceOffsetStart(),hole.getSourceOffsetEnd()));
+      holes.add(hole);
+    }
+  }
+  return holes;
+}
