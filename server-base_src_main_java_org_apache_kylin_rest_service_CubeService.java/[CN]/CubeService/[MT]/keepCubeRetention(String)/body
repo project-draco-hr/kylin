@@ -11,7 +11,11 @@ synchronized (CubeService.class) {
     long tail=readySegs.get(readySegs.size() - 1).getDateRangeEnd();
     long head=tail - desc.getRetentionRange();
     for (    CubeSegment seg : readySegs) {
-      if (seg.getDateRangeEnd() <= head)       toRemoveSegs.add(seg);
+      if (seg.getDateRangeEnd() > 0) {
+        if (seg.getDateRangeEnd() <= head) {
+          toRemoveSegs.add(seg);
+        }
+      }
     }
     if (toRemoveSegs.size() > 0) {
       CubeUpdate cubeBuilder=new CubeUpdate(cube);
