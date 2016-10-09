@@ -1,9 +1,0 @@
-{
-  for (int i=0; i < bucketsBoundary.length; ++i) {
-    if (second < bucketsBoundary[i]) {
-      counters[i].incrementAndGet();
-      return;
-    }
-  }
-  counters[bucketsBoundary.length].incrementAndGet();
-}

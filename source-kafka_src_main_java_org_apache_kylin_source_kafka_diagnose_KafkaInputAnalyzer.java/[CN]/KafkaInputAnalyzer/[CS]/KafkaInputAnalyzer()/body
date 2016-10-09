@@ -1,6 +1,0 @@
-{
-  options=new Options();
-  options.addOption(OPTION_STREAMING);
-  options.addOption(OPTION_TASK);
-  options.addOption(OPTION_TSCOLNAME);
-}

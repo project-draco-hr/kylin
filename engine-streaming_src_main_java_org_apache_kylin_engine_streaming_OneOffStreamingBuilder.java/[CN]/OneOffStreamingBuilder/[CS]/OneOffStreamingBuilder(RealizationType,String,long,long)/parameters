@@ -1,4 +1,0 @@
-RealizationType realizationType
-String realizationName
-long startTime
-long endTime

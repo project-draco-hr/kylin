@@ -1,4 +1,0 @@
-{
-  final Runnable runnable=new OneOffStreamingBuilder(RealizationType.CUBE,cubeName,start,end).build();
-  runnable.run();
-}

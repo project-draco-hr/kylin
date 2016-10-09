@@ -1,3 +1,0 @@
-{
-  return (IStreamingInput)ClassUtil.newInstance("org.apache.kylin.source.kafka.KafkaStreamingInput");
-}

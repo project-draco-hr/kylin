@@ -1,4 +1,0 @@
-KafkaClusterConfig kafkaClusterConfig
-int partitionId
-long offset
-StreamingParser streamingParser

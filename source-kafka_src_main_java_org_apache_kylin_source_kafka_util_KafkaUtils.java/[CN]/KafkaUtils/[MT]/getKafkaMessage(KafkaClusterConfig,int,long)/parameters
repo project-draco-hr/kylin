@@ -1,3 +1,0 @@
-KafkaClusterConfig kafkaClusterConfig
-int partitionId
-long offset

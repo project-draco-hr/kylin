@@ -1,4 +1,0 @@
-Broker broker
-int timeout
-int bufferSize
-String clientId

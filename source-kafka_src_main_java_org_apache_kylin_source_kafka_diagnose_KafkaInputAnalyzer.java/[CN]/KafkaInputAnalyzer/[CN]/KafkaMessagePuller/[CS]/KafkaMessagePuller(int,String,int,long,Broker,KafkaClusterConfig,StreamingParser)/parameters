@@ -1,7 +1,0 @@
-int clusterID
-String topic
-int partitionId
-long startOffset
-Broker leadBroker
-KafkaClusterConfig kafkaClusterConfig
-StreamingParser streamingParser

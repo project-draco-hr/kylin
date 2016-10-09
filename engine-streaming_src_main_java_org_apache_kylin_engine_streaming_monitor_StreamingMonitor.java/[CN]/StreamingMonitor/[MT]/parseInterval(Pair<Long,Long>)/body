@@ -1,3 +1,0 @@
-{
-  return String.format("{%d(%s), %d(%s)}",interval.getFirst(),new Date(interval.getFirst()).toString(),interval.getSecond(),new Date(interval.getSecond()).toString());
-}

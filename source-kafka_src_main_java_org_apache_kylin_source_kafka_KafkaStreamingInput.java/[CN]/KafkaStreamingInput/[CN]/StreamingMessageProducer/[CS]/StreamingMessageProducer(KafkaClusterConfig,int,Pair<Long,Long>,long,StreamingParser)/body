@@ -1,8 +1,0 @@
-{
-  this.kafkaClusterConfig=kafkaClusterConfig;
-  this.partitionId=partitionId;
-  this.streamingParser=streamingParser;
-  this.margin=margin;
-  this.timeRange=timeRange;
-  this.replicaBrokers=kafkaClusterConfig.getBrokers();
-}

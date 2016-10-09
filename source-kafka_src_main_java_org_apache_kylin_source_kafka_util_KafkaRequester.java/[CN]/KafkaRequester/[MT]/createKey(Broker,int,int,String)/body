@@ -1,3 +1,0 @@
-{
-  return broker.getBrokerEndPoint(SecurityProtocol.PLAINTEXT).connectionString() + "_" + timeout+ "_"+ bufferSize+ "_"+ clientId;
-}

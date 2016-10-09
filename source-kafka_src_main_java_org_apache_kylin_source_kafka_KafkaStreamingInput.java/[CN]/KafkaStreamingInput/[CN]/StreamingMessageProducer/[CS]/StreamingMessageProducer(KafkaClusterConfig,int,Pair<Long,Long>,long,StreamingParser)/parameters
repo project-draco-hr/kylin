@@ -1,5 +1,0 @@
-KafkaClusterConfig kafkaClusterConfig
-int partitionId
-Pair<Long,Long> timeRange
-long margin
-StreamingParser streamingParser

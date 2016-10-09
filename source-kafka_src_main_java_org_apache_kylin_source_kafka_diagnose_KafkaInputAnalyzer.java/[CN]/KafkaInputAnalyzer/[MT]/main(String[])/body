@@ -1,4 +1,0 @@
-{
-  KafkaInputAnalyzer analyzer=new KafkaInputAnalyzer();
-  analyzer.execute(args);
-}

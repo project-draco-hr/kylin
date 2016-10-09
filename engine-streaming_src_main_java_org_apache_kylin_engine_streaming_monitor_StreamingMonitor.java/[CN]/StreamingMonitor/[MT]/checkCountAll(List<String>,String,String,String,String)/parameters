@@ -1,5 +1,0 @@
-List<String> receivers
-String host
-String authorization
-String projectName
-String tableName
