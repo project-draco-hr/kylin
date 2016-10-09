@@ -9,6 +9,6 @@
     output.flush();
   }
  catch (  IOException e) {
-    throw new InternalErrorException("Failed to dump diagnosis info.",e);
+    throw new InternalErrorException("Failed to create download for diagnosis. " + e.getMessage(),e);
   }
 }

@@ -4,7 +4,7 @@
     filePath=dgService.dumpProjectDiagnosisInfo(project);
   }
  catch (  IOException e) {
-    throw new InternalErrorException("Failed to dump diagnosis info.",e);
+    throw new InternalErrorException("Failed to dump project diagnosis info. " + e.getMessage(),e);
   }
   setDownloadResponse(filePath,response);
 }
