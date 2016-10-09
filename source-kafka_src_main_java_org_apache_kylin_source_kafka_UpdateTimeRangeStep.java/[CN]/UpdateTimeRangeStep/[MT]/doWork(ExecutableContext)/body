@@ -6,7 +6,12 @@
   final String outputPath=this.getParams().get(BatchConstants.CFG_OUTPUT_PATH);
   final Path outputFile=new Path(outputPath,partitionCol.getName());
   String minValue=null, maxValue=null, currentValue=null;
-  try (FileSystem fs=HadoopUtil.getFileSystem(outputPath);FSDataInputStream inputStream=fs.open(outputFile);BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream))){
+  FSDataInputStream inputStream=null;
+  BufferedReader bufferedReader=null;
+  try {
+    FileSystem fs=HadoopUtil.getFileSystem(outputPath);
+    inputStream=fs.open(outputFile);
+    bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
     minValue=currentValue=bufferedReader.readLine();
     while (currentValue != null) {
       maxValue=currentValue;
@@ -16,6 +21,10 @@
  catch (  IOException e) {
     logger.error("fail to read file " + outputFile,e);
     return new ExecuteResult(ExecuteResult.State.ERROR,e.getLocalizedMessage());
+  }
+ finally {
+    IOUtils.closeQuietly(bufferedReader);
+    IOUtils.closeQuietly(inputStream);
   }
   final DataType partitionColType=partitionCol.getType();
   FastDateFormat dateFormat;
