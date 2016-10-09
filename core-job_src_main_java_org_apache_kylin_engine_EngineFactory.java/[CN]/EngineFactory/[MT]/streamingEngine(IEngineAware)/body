@@ -1,3 +1,0 @@
-{
-  return streamingEngines.get(aware.getEngineType());
-}
