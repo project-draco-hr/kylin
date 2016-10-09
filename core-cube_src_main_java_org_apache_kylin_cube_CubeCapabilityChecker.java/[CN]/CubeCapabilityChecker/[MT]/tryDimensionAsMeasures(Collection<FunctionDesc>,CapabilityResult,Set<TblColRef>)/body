@@ -1,13 +1,7 @@
 {
-  CubeDesc cubeDesc=cube.getDescriptor();
-  Collection<FunctionDesc> cubeFuncs=cubeDesc.listAllFunctions();
   Iterator<FunctionDesc> it=unmatchedAggregations.iterator();
   while (it.hasNext()) {
     FunctionDesc functionDesc=it.next();
-    if (cubeFuncs.contains(functionDesc)) {
-      it.remove();
-      continue;
-    }
     if (functionDesc.isCount()) {
       it.remove();
       continue;

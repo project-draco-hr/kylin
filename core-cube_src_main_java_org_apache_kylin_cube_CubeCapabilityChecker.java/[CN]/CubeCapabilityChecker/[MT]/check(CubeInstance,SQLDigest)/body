@@ -13,7 +13,7 @@
   tryCustomMeasureTypes(unmatchedDimensions,unmatchedAggregations,digest,cube,result);
   if (cube.getDescriptor().getFactTable().equals(digest.factTable)) {
     if (!unmatchedAggregations.isEmpty()) {
-      tryDimensionAsMeasures(unmatchedAggregations,digest,cube,result,cube.getDescriptor().listDimensionColumnsIncludingDerived());
+      tryDimensionAsMeasures(unmatchedAggregations,result,cube.getDescriptor().listDimensionColumnsIncludingDerived());
     }
   }
  else {
@@ -24,8 +24,15 @@
         dimCols.add(columnDesc.getRef());
       }
       if (!unmatchedAggregations.isEmpty()) {
-        tryDimensionAsMeasures(unmatchedAggregations,digest,cube,result,dimCols);
+        Iterator<FunctionDesc> itr=unmatchedAggregations.iterator();
+        while (itr.hasNext()) {
+          FunctionDesc functionDesc=itr.next();
+          if (dimCols.containsAll(functionDesc.getParameter().getColRefs())) {
+            itr.remove();
+          }
+        }
       }
+      tryDimensionAsMeasures(Lists.newArrayList(aggrFunctions),result,dimCols);
       if (!unmatchedDimensions.isEmpty()) {
         unmatchedDimensions.removeAll(dimCols);
       }

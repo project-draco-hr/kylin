@@ -1,5 +1,3 @@
 Collection<FunctionDesc> unmatchedAggregations
-SQLDigest digest
-CubeInstance cube
 CapabilityResult result
 Set<TblColRef> dimCols

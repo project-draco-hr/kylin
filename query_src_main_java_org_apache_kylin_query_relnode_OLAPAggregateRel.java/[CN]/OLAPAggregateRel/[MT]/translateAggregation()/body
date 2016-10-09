@@ -1,11 +1,15 @@
 {
-  List<MeasureDesc> measures=this.context.realization.getMeasures();
-  List<FunctionDesc> newAggrs=Lists.newArrayList();
-  for (  FunctionDesc aggFunc : this.aggregations) {
-    newAggrs.add(findInMeasures(aggFunc,measures));
+  if (!noPrecaculatedFieldsAvailable()) {
+    List<MeasureDesc> measures=this.context.realization.getMeasures();
+    List<FunctionDesc> newAggrs=Lists.newArrayList();
+    for (    FunctionDesc aggFunc : this.aggregations) {
+      newAggrs.add(findInMeasures(aggFunc,measures));
+    }
+    this.aggregations.clear();
+    this.aggregations.addAll(newAggrs);
+    this.context.aggregations.clear();
+    this.context.aggregations.addAll(newAggrs);
   }
-  this.aggregations.clear();
-  this.aggregations.addAll(newAggrs);
-  this.context.aggregations.clear();
-  this.context.aggregations.addAll(newAggrs);
+ else {
+  }
 }
