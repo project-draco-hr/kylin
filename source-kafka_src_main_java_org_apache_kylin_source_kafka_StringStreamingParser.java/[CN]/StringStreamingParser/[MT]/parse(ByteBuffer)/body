@@ -1,5 +1,0 @@
-{
-  byte[] bytes=new byte[message.limit()];
-  message.get(bytes);
-  return new StreamingMessage(Lists.newArrayList(new String(bytes).split(",")),0,0,Collections.<String,Object>emptyMap());
-}

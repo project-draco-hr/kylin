@@ -1,4 +1,0 @@
-{
-  this.name=name;
-  this.partitionIds=Collections.unmodifiableList(partitionIds);
-}
