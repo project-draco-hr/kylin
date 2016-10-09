@@ -12,7 +12,11 @@
       if (null != controllerCls && !controllerCls.isEmpty()) {
         OLAPContext.IAccessController accessController=(OLAPContext.IAccessController)ClassUtil.newInstance(controllerCls);
         TupleFilter tupleFilter=accessController.check(context.olapAuthen,context.allColumns,context.realization);
-        context.filter=and(context.filter,tupleFilter);
+        if (null != tupleFilter) {
+          context.filterColumns.addAll(collectColumns(tupleFilter));
+          context.allColumns.addAll(collectColumns(tupleFilter));
+          context.filter=and(context.filter,tupleFilter);
+        }
       }
     }
   }
