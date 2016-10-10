@@ -1,0 +1,10 @@
+{
+  if (isNull(bytes,offset,len)) {
+    return null;
+  }
+  int x=(int)BytesUtil.readLong(bytes,offset,len);
+  if (x >= ALLOWED_VALUES.length) {
+    throw new IllegalStateException();
+  }
+  return ALLOWED_VALUES[x];
+}

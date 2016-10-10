@@ -1,0 +1,11 @@
+{
+  if (valueStr == null) {
+    Arrays.fill(output,outputOffset,outputOffset + fixedLen,NULL);
+    return;
+  }
+  Integer encodeValue=map.get(valueStr);
+  if (encodeValue == null) {
+    throw new IllegalArgumentException("Value '" + valueStr + "' is not a recognized boolean value.");
+  }
+  BytesUtil.writeLong(encodeValue,output,outputOffset,fixedLen);
+}

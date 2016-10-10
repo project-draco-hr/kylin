@@ -1,0 +1,5 @@
+{
+  byte[] buf=currentBuf();
+  in.get(buf);
+  return decode(buf,0,buf.length);
+}

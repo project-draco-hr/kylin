@@ -1,0 +1,13 @@
+{
+  BooleanDimEnc enc=new BooleanDimEnc();
+  for (  String x : BooleanDimEnc.ALLOWED_VALUES) {
+    testEncodeDecode(enc,x);
+  }
+  try {
+    testEncodeDecode(enc,"FAlse");
+    Assert.fail();
+  }
+ catch (  Throwable e) {
+    Assert.assertEquals("Value 'FAlse' is not a recognized boolean value.",e.getMessage());
+  }
+}

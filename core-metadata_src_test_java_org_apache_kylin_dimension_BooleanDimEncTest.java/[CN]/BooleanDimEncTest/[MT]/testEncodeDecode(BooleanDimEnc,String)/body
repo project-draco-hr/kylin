@@ -1,0 +1,7 @@
+{
+  byte[] buf=new byte[enc.getLengthOfEncoding()];
+  byte[] bytes=Bytes.toBytes(valueStr);
+  enc.encode(bytes,bytes.length,buf,0);
+  String decode=enc.decode(buf,0,buf.length);
+  Assert.assertEquals(valueStr,decode);
+}
