@@ -1,6 +1,7 @@
 {
   CubeInstance cube=cubeService.getCubeManager().getCube(cubeName);
-  IJoinedFlatTableDesc flatTableDesc=EngineFactory.getJoinedFlatTableDesc(cube.getDescriptor());
+  CubeSegment cubeSegment=cube.getSegment(segmentName,SegmentStatusEnum.READY);
+  IJoinedFlatTableDesc flatTableDesc=EngineFactory.getJoinedFlatTableDesc(cubeSegment);
   String sql=JoinedFlatTable.generateSelectDataStatement(flatTableDesc,false);
   GeneralResponse repsonse=new GeneralResponse();
   repsonse.setProperty("sql",sql);
