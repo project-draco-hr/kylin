@@ -70,14 +70,10 @@
   }
   String mrLibDir=kylinConf.getKylinJobMRLibDir();
   if (!StringUtils.isBlank(mrLibDir)) {
-    File dirFileMRLIB=new File(mrLibDir);
-    if (dirFileMRLIB.exists()) {
-      if (kylinDependency.length() > 0)       kylinDependency.append(",");
-      kylinDependency.append(mrLibDir);
+    if (kylinDependency.length() > 0) {
+      kylinDependency.append(",");
     }
- else {
-      logger.info("The directory '" + mrLibDir + "' for 'kylin.job.mr.lib.dir' does not exist!!!");
-    }
+    kylinDependency.append(mrLibDir);
   }
   setJobTmpJarsAndFiles(job,kylinDependency.toString());
   overrideJobConfig(job.getConfiguration(),kylinConf.getMRConfigOverride());

@@ -4,17 +4,23 @@
   try {
     Configuration jobConf=job.getConfiguration();
     FileSystem fs=FileSystem.getLocal(jobConf);
+    FileSystem hdfs=FileSystem.get(jobConf);
     StringBuilder jarList=new StringBuilder();
     StringBuilder fileList=new StringBuilder();
     for (    String fileName : fNameList) {
       Path p=new Path(fileName);
-      if (fs.getFileStatus(p).isDirectory()) {
-        appendTmpDir(job,fileName);
+      FileSystem current=(fileName.startsWith(HdfsConstants.HDFS_URI_SCHEME) ? hdfs : fs);
+      if (!current.exists(p)) {
+        logger.warn("The directory '" + fileName + "for kylin dependency does not exist!!!");
+        continue;
+      }
+      if (current.getFileStatus(p).isDirectory()) {
+        appendTmpDir(job,current,fileName);
         continue;
       }
       StringBuilder list=(p.getName().endsWith(".jar")) ? jarList : fileList;
       if (list.length() > 0)       list.append(",");
-      list.append(fs.getFileStatus(p).getPath().toString());
+      list.append(current.getFileStatus(p).getPath());
     }
     appendTmpFiles(fileList.toString(),jobConf);
     appendTmpJars(jarList.toString(),jobConf);
