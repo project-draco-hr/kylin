@@ -14,10 +14,11 @@
   }
   List<RawScan> rawScans=preparedHBaseScans(scanRequest.getGTScanRanges(),selectedColBlocks);
   rawScanByteString=serializeRawScans(rawScans);
+  int coprocessorTimeout=getCoprocessorTimeoutMillis();
+  scanRequest.setTimeout(coprocessorTimeout);
   scanRequest.clearScanRanges();
-  final ExpectedSizeIterator epResultItr=new ExpectedSizeIterator(shardNum);
-  scanRequest.setTimeout(epResultItr.getRpcTimeout());
   scanRequestByteString=serializeGTScanReq(scanRequest);
+  final ExpectedSizeIterator epResultItr=new ExpectedSizeIterator(shardNum,coprocessorTimeout);
   logger.info("Serialized scanRequestBytes {} bytes, rawScanBytesString {} bytes",scanRequestByteString.size(),rawScanByteString.size());
   logger.info("The scan {} for segment {} is as below with {} separate raw scans, shard part of start/end key is set to 0",Integer.toHexString(System.identityHashCode(scanRequest)),cubeSeg,rawScans.size());
   for (  RawScan rs : rawScans) {

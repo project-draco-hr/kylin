@@ -5,19 +5,16 @@
   try {
     current++;
     byte[] ret=null;
-    while (ret == null && coprocException == null && timeoutTS > System.currentTimeMillis()) {
-      ret=queue.poll(10000,TimeUnit.MILLISECONDS);
+    while (ret == null && coprocException == null && deadline > System.currentTimeMillis()) {
+      ret=queue.poll(1000,TimeUnit.MILLISECONDS);
     }
     if (coprocException != null) {
-      if (coprocException instanceof GTScanSelfTerminatedException)       throw (GTScanSelfTerminatedException)coprocException;
- else       throw new RuntimeException("Error in coprocessor",coprocException);
+      throw Throwables.propagate(coprocException);
     }
- else     if (ret == null) {
-      throw new RuntimeException("Timeout visiting cube! Check why coprocessor exception is not sent back? In coprocessor Self-termination is checked every " + GTScanRequest.terminateCheckInterval + " scanned rows, the configured timeout("+ timeout+ ") cannot support this many scans?");
+    if (ret == null) {
+      throw new RuntimeException("Timeout visiting cube! Check why coprocessor exception is not sent back? In coprocessor Self-termination is checked every " + GTScanRequest.terminateCheckInterval + " scanned rows, the configured timeout("+ coprocessorTimeout+ ") cannot support this many scans?");
     }
- else {
-      return ret;
-    }
+    return ret;
   }
  catch (  InterruptedException e) {
     throw new RuntimeException("Error when waiting queue",e);

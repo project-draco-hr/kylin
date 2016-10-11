@@ -1,3 +1,0 @@
-{
-  return Float.parseFloat(getOptional("kylin.query.cube.visit.timeout.times","1"));
-}

@@ -1,0 +1,6 @@
+{
+  this.expectedSize=expectedSize;
+  this.queue=new ArrayBlockingQueue<byte[]>(expectedSize);
+  this.coprocessorTimeout=coprocessorTimeout;
+  this.deadline=System.currentTimeMillis() + coprocessorTimeout * 10;
+}

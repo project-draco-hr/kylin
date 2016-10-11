@@ -1,0 +1,3 @@
+{
+  return Integer.parseInt(this.getOptional("kylin.query.coprocessor.timeout.seconds","0"));
+}

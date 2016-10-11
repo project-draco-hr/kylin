@@ -1,0 +1,15 @@
+{
+  int configTimeout=cubeSeg.getConfig().getQueryCoprocessorTimeoutSeconds() * 1000;
+  if (configTimeout == 0) {
+    configTimeout=Integer.MAX_VALUE;
+  }
+  Configuration hconf=HBaseConnection.getCurrentHBaseConfiguration();
+  int rpcTimeout=hconf.getInt(HConstants.HBASE_RPC_TIMEOUT_KEY,HConstants.DEFAULT_HBASE_RPC_TIMEOUT);
+  int upper=(int)(rpcTimeout * 0.9);
+  int timeout=Math.min(upper,configTimeout);
+  if (BackdoorToggles.getQueryTimeout() != -1) {
+    timeout=Math.min(upper,BackdoorToggles.getQueryTimeout());
+  }
+  logger.debug("{} = {} ms, use {} ms as timeout for coprocessor",HConstants.HBASE_RPC_TIMEOUT_KEY,rpcTimeout,timeout);
+  return timeout;
+}
