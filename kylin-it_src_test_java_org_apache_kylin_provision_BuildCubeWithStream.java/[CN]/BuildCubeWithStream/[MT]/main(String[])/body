@@ -14,9 +14,4 @@
     logger.error("error",e);
     System.exit(1);
   }
- finally {
-    if (buildCubeWithStream != null) {
-      buildCubeWithStream.after();
-    }
-  }
 }
