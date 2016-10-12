@@ -1,0 +1,12 @@
+{
+  try {
+    resetCoprocessor(tableName,hbaseAdmin,hdfsCoprocessorJar);
+    processedTables.add(tableName);
+  }
+ catch (  Exception ex) {
+    logger.error("Error processing " + tableName,ex);
+  }
+ finally {
+    countDownLatch.countDown();
+  }
+}

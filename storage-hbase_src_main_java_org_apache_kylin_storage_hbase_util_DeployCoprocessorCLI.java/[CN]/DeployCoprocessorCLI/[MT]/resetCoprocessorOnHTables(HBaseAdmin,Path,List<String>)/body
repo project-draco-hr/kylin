@@ -1,13 +1,14 @@
 {
-  List<String> processed=new ArrayList<String>();
-  for (  String tableName : tableNames) {
-    try {
-      resetCoprocessor(tableName,hbaseAdmin,hdfsCoprocessorJar);
-      processed.add(tableName);
-    }
- catch (    IOException ex) {
-      logger.error("Error processing " + tableName,ex);
-    }
+  ExecutorService coprocessorPool=Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
+  CountDownLatch countDownLatch=new CountDownLatch(tableNames.size());
+  for (  final String tableName : tableNames) {
+    coprocessorPool.execute(new ResetCoprocessorWorker(countDownLatch,hbaseAdmin,hdfsCoprocessorJar,tableName));
   }
-  return processed;
+  try {
+    countDownLatch.await();
+  }
+ catch (  InterruptedException e) {
+    logger.error("reset coprocessor failed: ",e);
+  }
+  coprocessorPool.shutdown();
 }

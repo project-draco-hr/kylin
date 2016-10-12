@@ -1,0 +1,4 @@
+CountDownLatch countDownLatch
+HBaseAdmin hbaseAdmin
+Path hdfsCoprocessorJar
+String tableName
