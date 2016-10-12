@@ -5,4 +5,12 @@
     Set<TblColRef> columns=inputColumnRowType.getSourceColumnsByIndex(i);
     this.groups.addAll(columns);
   }
+  for (  AggregateCall aggCall : this.rewriteAggCalls) {
+    String aggregateName=aggCall.getAggregation().getName();
+    if (aggregateName.equalsIgnoreCase(BitmapMeasureType.FUNC_INTERSECT_COUNT_DISTINCT)) {
+      int index=aggCall.getArgList().get(1);
+      TblColRef column=inputColumnRowType.getColumnByIndex(index);
+      groups.add(column);
+    }
+  }
 }

@@ -1,0 +1,6 @@
+{
+  if (callName != null && callName.equalsIgnoreCase(FUNC_INTERSECT_COUNT_DISTINCT)) {
+    return BitmapIntersectDistinctCountAggFunc.class;
+  }
+  return BitmapDistinctCountAggFunc.class;
+}

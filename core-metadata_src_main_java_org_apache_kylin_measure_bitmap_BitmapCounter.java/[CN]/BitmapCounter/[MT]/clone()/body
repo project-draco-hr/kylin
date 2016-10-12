@@ -1,0 +1,5 @@
+{
+  BitmapCounter newCounter=new BitmapCounter();
+  newCounter.bitmap=bitmap.clone();
+  return newCounter;
+}

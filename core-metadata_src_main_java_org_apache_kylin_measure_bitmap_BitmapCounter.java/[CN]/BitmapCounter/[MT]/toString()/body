@@ -1,0 +1,22 @@
+{
+  long count=getCount();
+  if (count <= 10) {
+    return "(" + count + ")"+ bitmap.toString();
+  }
+ else {
+    StringBuilder sb=new StringBuilder();
+    sb.append("(").append(count).append("){");
+    int values=0;
+    for (    Integer v : bitmap) {
+      if (values++ < 10) {
+        sb.append(v).append(",");
+      }
+ else {
+        sb.append("...");
+        break;
+      }
+    }
+    sb.append("}");
+    return sb.toString();
+  }
+}

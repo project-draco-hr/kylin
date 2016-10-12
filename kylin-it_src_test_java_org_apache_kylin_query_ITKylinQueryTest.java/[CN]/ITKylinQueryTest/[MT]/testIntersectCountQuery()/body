@@ -1,0 +1,3 @@
+{
+  this.batchExecuteQuery(getQueryFolderPrefix() + "src/test/resources/query/sql_intersect_count");
+}

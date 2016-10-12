@@ -1,0 +1,11 @@
+{
+  if (this.keyList == null) {
+    this.keyList=keyList;
+  }
+  BitmapCounter counter=map.get(key);
+  if (counter == null) {
+    counter=new BitmapCounter();
+    map.put(key,counter);
+  }
+  counter.merge((BitmapCounter)value);
+}

@@ -13,14 +13,15 @@
       newArgList.set(0,field.getIndex());
     }
   }
+  String callName=aggCall.getAggregation().getName();
   RelDataType fieldType=aggCall.getType();
   SqlAggFunction newAgg=aggCall.getAggregation();
   if (func.isCount()) {
     newAgg=SqlStdOperatorTable.SUM0;
   }
  else   if (func.getMeasureType().getRewriteCalciteAggrFunctionClass() != null) {
-    newAgg=createCustomAggFunction(func.getExpression(),fieldType,func.getMeasureType().getRewriteCalciteAggrFunctionClass());
+    newAgg=createCustomAggFunction(callName,fieldType,func.getMeasureType().getRewriteCalciteAggrFunctionClass(callName));
   }
-  AggregateCall newAggCall=new AggregateCall(newAgg,false,newArgList,fieldType,newAgg.getName());
+  AggregateCall newAggCall=new AggregateCall(newAgg,false,newArgList,fieldType,callName);
   return newAggCall;
 }

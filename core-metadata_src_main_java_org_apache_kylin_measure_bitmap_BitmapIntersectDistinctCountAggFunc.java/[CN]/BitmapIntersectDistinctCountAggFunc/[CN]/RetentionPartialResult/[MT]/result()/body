@@ -1,0 +1,19 @@
+{
+  if (keyList == null || keyList.isEmpty()) {
+    return 0;
+  }
+  BitmapCounter counter=null;
+  for (  Object key : keyList) {
+    BitmapCounter c=map.get(key);
+    if (c == null) {
+      return 0;
+    }
+ else {
+      if (counter == null) {
+        counter=c.clone();
+      }
+      counter.intersect(c);
+    }
+  }
+  return counter.getCount();
+}
