@@ -1,5 +1,5 @@
 {
-  if (table.getColumnCount() != fields.size()) {
+  if (table.getColumnCount() > fields.size()) {
     return false;
   }
   ColumnDesc[] columns=table.getColumns();

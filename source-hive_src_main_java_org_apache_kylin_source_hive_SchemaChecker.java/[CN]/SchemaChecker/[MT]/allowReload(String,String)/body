@@ -21,13 +21,13 @@
     List<TableDesc> lookupTables=cube.getDescriptor().getLookupTableDescs();
     String modelName=cube.getDataModelDesc().getName();
     if (factTable.getIdentity().equals(fullTableName)) {
-      List<String> violateColumns=checkAllUsedColumns(cube,factTable,currentFieldsMap);
+      List<String> violateColumns=checkAllColumnsInCube(cube,factTable,currentFieldsMap);
       if (!violateColumns.isEmpty()) {
         issues.add(format("Column %s used in cube[%s] and model[%s], but changed in hive",violateColumns,cube.getName(),modelName));
       }
     }
     for (    TableDesc lookupTable : lookupTables) {
-      if (lookupTable.getIdentity().equals(fullTableName) && !checkAllColumns(lookupTable,currentFields)) {
+      if (lookupTable.getIdentity().equals(fullTableName) && !checkAllColumnsInTableDesc(lookupTable,currentFields)) {
         issues.add(format("Table '%s' is used as Lookup Table in cube[%s] and model[%s], but changed in hive",lookupTable.getIdentity(),cube.getName(),modelName));
       }
     }

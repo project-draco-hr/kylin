@@ -1,4 +1,0 @@
-{
-  reloadSourceTableExt(tableIdentity);
-  reloadSourceTable(tableIdentity);
-}
