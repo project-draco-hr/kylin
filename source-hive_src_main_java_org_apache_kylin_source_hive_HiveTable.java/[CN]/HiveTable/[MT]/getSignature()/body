@@ -4,7 +4,7 @@
     Pair<Long,Long> sizeAndLastModified=DFSFileTable.getSizeAndLastModified(path);
     long size=sizeAndLastModified.getFirst();
     long lastModified=sizeAndLastModified.getSecond();
-    if (getHiveClient().isNativeTable(database,hiveTable) == false) {
+    if (this.hiveTableMeta.isNative == false) {
       lastModified=System.currentTimeMillis();
     }
     return new TableSignature(path,size,lastModified);

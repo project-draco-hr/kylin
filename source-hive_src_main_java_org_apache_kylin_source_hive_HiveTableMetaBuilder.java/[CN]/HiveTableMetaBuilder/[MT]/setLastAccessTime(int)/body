@@ -1,0 +1,4 @@
+{
+  this.lastAccessTime=lastAccessTime;
+  return this;
+}

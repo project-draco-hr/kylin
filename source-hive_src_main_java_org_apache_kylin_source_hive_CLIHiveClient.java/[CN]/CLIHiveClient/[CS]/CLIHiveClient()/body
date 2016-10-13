@@ -1,0 +1,3 @@
+{
+  hiveConf=new HiveConf(CLIHiveClient.class);
+}

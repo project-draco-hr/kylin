@@ -1,0 +1,16 @@
+{
+  if (this.stmt != null) {
+    try {
+      this.stmt.close();
+    }
+ catch (    SQLException e) {
+    }
+  }
+  if (this.cnct != null) {
+    try {
+      this.cnct.close();
+    }
+ catch (    SQLException e) {
+    }
+  }
+}

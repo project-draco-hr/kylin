@@ -1,0 +1,5 @@
+{
+  options.addOption(OptionBuilder.hasArg().withArgName("url").create('u'));
+  options.addOption(OptionBuilder.hasArg().withArgName("username").create('n'));
+  options.addOption(OptionBuilder.hasArg().withArgName("password").create('p'));
+}

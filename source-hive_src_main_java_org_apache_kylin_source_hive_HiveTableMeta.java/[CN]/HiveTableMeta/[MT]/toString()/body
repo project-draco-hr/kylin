@@ -1,0 +1,3 @@
+{
+  return "HiveTableMeta{" + "tableName='" + tableName + '\''+ ", sdLocation='"+ sdLocation+ '\''+ ", sdInputFormat='"+ sdInputFormat+ '\''+ ", sdOutputFormat='"+ sdOutputFormat+ '\''+ ", owner='"+ owner+ '\''+ ", tableType='"+ tableType+ '\''+ ", lastAccessTime="+ lastAccessTime+ ", fileSize="+ fileSize+ ", fileNum="+ fileNum+ ", isNative="+ isNative+ ", allColumns="+ allColumns+ ", partitionColumns="+ partitionColumns+ '}';
+}

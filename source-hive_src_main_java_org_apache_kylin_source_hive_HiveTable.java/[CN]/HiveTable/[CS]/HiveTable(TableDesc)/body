@@ -1,4 +1,10 @@
 {
   this.database=tableDesc.getDatabase();
   this.hiveTable=tableDesc.getName();
+  try {
+    this.hiveTableMeta=getHiveClient().getHiveTableMeta(database,hiveTable);
+  }
+ catch (  Exception e) {
+    throw new RuntimeException("cannot get HiveTableMeta",e);
+  }
 }

@@ -1,0 +1,11 @@
+{
+  if ("cli".equals(KylinConfig.getInstanceFromEnv().getHiveClientMode())) {
+    return new CLIHiveClient();
+  }
+ else   if ("beeline".equals(KylinConfig.getInstanceFromEnv().getHiveClientMode())) {
+    return new BeelineHiveClient(KylinConfig.getInstanceFromEnv().getHiveBeelineParams());
+  }
+ else {
+    throw new RuntimeException("cannot recognize hive client mode");
+  }
+}

@@ -1,0 +1,4 @@
+{
+  this.allColumns=allColumns;
+  return this;
+}

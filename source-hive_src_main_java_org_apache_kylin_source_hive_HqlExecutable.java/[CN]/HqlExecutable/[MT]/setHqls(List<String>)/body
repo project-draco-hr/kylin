@@ -1,3 +1,0 @@
-{
-  setParam(HQL,StringUtils.join(hqls,";"));
-}

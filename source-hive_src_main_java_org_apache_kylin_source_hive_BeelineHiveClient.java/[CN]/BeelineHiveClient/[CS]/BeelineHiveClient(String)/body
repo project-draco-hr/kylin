@@ -1,0 +1,19 @@
+{
+  if (StringUtils.isEmpty(beelineParams)) {
+    throw new IllegalArgumentException("BeelineParames cannot be empty");
+  }
+  String[] splits=StringUtils.split(beelineParams);
+  String url=null, username=null, password=null;
+  for (int i=0; i < splits.length; i++) {
+    if ("-u".equals(splits[i])) {
+      url=stripQuotes(splits[i + 1]);
+    }
+    if ("-n".equals(splits[i])) {
+      username=stripQuotes(splits[i + 1]);
+    }
+    if ("-p".equals(splits[i])) {
+      password=stripQuotes(splits[i + 1]);
+    }
+  }
+  this.init(url,username,password);
+}

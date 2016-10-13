@@ -1,0 +1,4 @@
+{
+  this.fileNum=fileNum;
+  return this;
+}

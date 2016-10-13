@@ -1,5 +1,5 @@
 {
-  HiveClient hiveClient=new HiveClient();
+  IHiveClient hiveClient=HiveClientFactory.getHiveClient();
   List<String> results=null;
   try {
     results=hiveClient.getHiveTableNames(database);

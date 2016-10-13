@@ -1,0 +1,4 @@
+{
+  this.sdInputFormat=sdInputFormat;
+  return this;
+}

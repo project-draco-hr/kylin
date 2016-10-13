@@ -1,0 +1,11 @@
+{
+  try {
+    Class.forName("org.apache.hive.jdbc.HiveDriver");
+    cnct=DriverManager.getConnection(url,username,password);
+    stmt=cnct.createStatement();
+    metaData=cnct.getMetaData();
+  }
+ catch (  SQLException|ClassNotFoundException e) {
+    throw new RuntimeException(e);
+  }
+}

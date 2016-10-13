@@ -1,18 +1,17 @@
 {
-  SetMultimap<String,String> db2tables=LinkedHashMultimap.create();
-  for (  String fullTableName : hiveTables) {
-    String[] parts=HadoopUtil.parseHiveTableName(fullTableName);
-    db2tables.put(parts[0],parts[1]);
-  }
-  HiveClient hiveClient=new HiveClient();
-  SchemaChecker checker=new SchemaChecker(hiveClient,MetadataManager.getInstance(config),CubeManager.getInstance(config));
-  for (  Map.Entry<String,String> entry : db2tables.entries()) {
-    SchemaChecker.CheckResult result=checker.allowReload(entry.getKey(),entry.getValue());
-    result.raiseExceptionWhenInvalid();
+  Map<String,Set<String>> db2tables=Maps.newHashMap();
+  for (  String table : hiveTables) {
+    String[] parts=HadoopUtil.parseHiveTableName(table);
+    Set<String> set=db2tables.get(parts[0]);
+    if (set == null) {
+      set=Sets.newHashSet();
+      db2tables.put(parts[0],set);
+    }
+    set.add(parts[1]);
   }
   Set<String> loadedTables=Sets.newHashSet();
   for (  String database : db2tables.keySet()) {
-    List<String> loaded=extractHiveTables(database,db2tables.get(database),hiveClient);
+    List<String> loaded=extractHiveTables(database,db2tables.get(database),config);
     loadedTables.addAll(loaded);
   }
   return loadedTables;

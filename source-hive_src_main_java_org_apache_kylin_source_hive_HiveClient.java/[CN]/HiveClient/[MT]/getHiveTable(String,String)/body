@@ -1,3 +1,0 @@
-{
-  return getMetaStoreClient().getTable(database,tableName);
-}

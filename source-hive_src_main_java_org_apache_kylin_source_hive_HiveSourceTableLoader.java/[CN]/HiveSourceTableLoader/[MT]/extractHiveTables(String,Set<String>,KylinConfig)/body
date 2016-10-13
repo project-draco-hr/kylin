@@ -1,0 +1,64 @@
+{
+  List<String> loadedTables=Lists.newArrayList();
+  MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
+  for (  String tableName : tables) {
+    IHiveClient hiveClient=HiveClientFactory.getHiveClient();
+    HiveTableMeta hiveTableMeta;
+    try {
+      hiveTableMeta=hiveClient.getHiveTableMeta(database,tableName);
+    }
+ catch (    Exception e) {
+      throw new RuntimeException("cannot get HiveTableMeta",e);
+    }
+    TableDesc tableDesc=metaMgr.getTableDesc(database + "." + tableName);
+    if (tableDesc == null) {
+      tableDesc=new TableDesc();
+      tableDesc.setDatabase(database.toUpperCase());
+      tableDesc.setName(tableName.toUpperCase());
+      tableDesc.setUuid(UUID.randomUUID().toString());
+      tableDesc.setLastModified(0);
+    }
+    if (hiveTableMeta.tableType != null) {
+      tableDesc.setTableType(hiveTableMeta.tableType);
+    }
+    int columnNumber=hiveTableMeta.allColumns.size();
+    List<ColumnDesc> columns=new ArrayList<ColumnDesc>(columnNumber);
+    for (int i=0; i < columnNumber; i++) {
+      HiveTableMeta.HiveTableColumnMeta field=hiveTableMeta.allColumns.get(i);
+      ColumnDesc cdesc=new ColumnDesc();
+      cdesc.setName(field.name.toUpperCase());
+      if ("float".equalsIgnoreCase(field.dataType)) {
+        cdesc.setDatatype("double");
+      }
+ else {
+        cdesc.setDatatype(field.dataType);
+      }
+      cdesc.setId(String.valueOf(i + 1));
+      columns.add(cdesc);
+    }
+    tableDesc.setColumns(columns.toArray(new ColumnDesc[columnNumber]));
+    StringBuffer partitionColumnString=new StringBuffer();
+    for (int i=0, n=hiveTableMeta.partitionColumns.size(); i < n; i++) {
+      if (i > 0)       partitionColumnString.append(", ");
+      partitionColumnString.append(hiveTableMeta.partitionColumns.get(i).name.toUpperCase());
+    }
+    Map<String,String> map=metaMgr.getTableDescExd(tableDesc.getIdentity());
+    if (map == null) {
+      map=Maps.newHashMap();
+    }
+    map.put(MetadataConstants.TABLE_EXD_TABLENAME,hiveTableMeta.tableName);
+    map.put(MetadataConstants.TABLE_EXD_LOCATION,hiveTableMeta.sdLocation);
+    map.put(MetadataConstants.TABLE_EXD_IF,hiveTableMeta.sdInputFormat);
+    map.put(MetadataConstants.TABLE_EXD_OF,hiveTableMeta.sdOutputFormat);
+    map.put(MetadataConstants.TABLE_EXD_OWNER,hiveTableMeta.owner);
+    map.put(MetadataConstants.TABLE_EXD_LAT,String.valueOf(hiveTableMeta.lastAccessTime));
+    map.put(MetadataConstants.TABLE_EXD_PC,partitionColumnString.toString());
+    map.put(MetadataConstants.TABLE_EXD_TFS,String.valueOf(hiveTableMeta.fileSize));
+    map.put(MetadataConstants.TABLE_EXD_TNF,String.valueOf(hiveTableMeta.fileNum));
+    map.put(MetadataConstants.TABLE_EXD_PARTITIONED,Boolean.valueOf(hiveTableMeta.partitionColumns.size() > 0).toString());
+    metaMgr.saveSourceTable(tableDesc);
+    metaMgr.saveTableExd(tableDesc.getIdentity(),map);
+    loadedTables.add(tableDesc.getIdentity());
+  }
+  return loadedTables;
+}

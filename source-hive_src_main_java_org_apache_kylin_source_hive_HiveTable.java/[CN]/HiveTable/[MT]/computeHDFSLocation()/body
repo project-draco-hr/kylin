@@ -4,5 +4,5 @@
     logger.debug("Override hive table location " + hiveTable + " -- "+ override);
     return override;
   }
-  return getHiveClient().getHiveTableLocation(database,hiveTable);
+  return this.hiveTableMeta.sdLocation;
 }

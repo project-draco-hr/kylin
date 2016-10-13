@@ -1,7 +1,0 @@
-{
-  if (configMap != null && configMap.size() > 0) {
-    for (    Entry<String,String> e : configMap.entrySet()) {
-      hiveConf.set(e.getKey(),e.getValue());
-    }
-  }
-}

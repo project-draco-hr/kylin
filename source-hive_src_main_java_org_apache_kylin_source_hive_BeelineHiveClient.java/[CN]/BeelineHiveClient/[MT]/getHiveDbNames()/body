@@ -1,0 +1,8 @@
+{
+  List<String> ret=Lists.newArrayList();
+  ResultSet schemas=metaData.getSchemas();
+  while (schemas.next()) {
+    ret.add(String.valueOf(schemas.getObject(1)));
+  }
+  return ret;
+}

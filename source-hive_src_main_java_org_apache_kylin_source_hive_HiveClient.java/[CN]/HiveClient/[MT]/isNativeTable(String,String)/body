@@ -1,3 +1,0 @@
-{
-  return !MetaStoreUtils.isNonNativeTable(getMetaStoreClient().getTable(database,tableName));
-}

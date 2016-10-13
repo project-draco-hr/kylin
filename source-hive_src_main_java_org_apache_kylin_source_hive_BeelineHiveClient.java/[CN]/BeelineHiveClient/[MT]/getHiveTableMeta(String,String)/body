@@ -1,0 +1,14 @@
+{
+  ResultSet columns=metaData.getColumns(null,database,tableName,null);
+  HiveTableMetaBuilder builder=new HiveTableMetaBuilder();
+  builder.setTableName(tableName);
+  List<HiveTableMeta.HiveTableColumnMeta> allColumns=Lists.newArrayList();
+  while (columns.next()) {
+    allColumns.add(new HiveTableMeta.HiveTableColumnMeta(columns.getString(4),columns.getString(6)));
+  }
+  builder.setAllColumns(allColumns);
+  stmt.execute("use " + database);
+  ResultSet resultSet=stmt.executeQuery("describe formatted " + tableName);
+  extractHiveTableMeta(resultSet,builder);
+  return builder.createHiveTableMeta();
+}

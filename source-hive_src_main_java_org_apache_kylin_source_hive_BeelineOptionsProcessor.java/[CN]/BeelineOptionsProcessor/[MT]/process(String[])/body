@@ -1,0 +1,8 @@
+{
+  try {
+    return new GnuParser().parse(options,argv);
+  }
+ catch (  ParseException e) {
+    throw new RuntimeException(e);
+  }
+}

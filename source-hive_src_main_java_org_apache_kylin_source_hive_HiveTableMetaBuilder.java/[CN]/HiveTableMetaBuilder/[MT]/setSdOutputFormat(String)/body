@@ -1,0 +1,4 @@
+{
+  this.sdOutputFormat=sdOutputFormat;
+  return this;
+}

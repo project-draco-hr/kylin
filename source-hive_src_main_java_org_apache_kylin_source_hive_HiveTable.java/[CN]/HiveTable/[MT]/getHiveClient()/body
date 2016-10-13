@@ -1,6 +1,6 @@
 {
   if (hiveClient == null) {
-    hiveClient=new HiveClient();
+    hiveClient=HiveClientFactory.getHiveClient();
   }
   return hiveClient;
 }

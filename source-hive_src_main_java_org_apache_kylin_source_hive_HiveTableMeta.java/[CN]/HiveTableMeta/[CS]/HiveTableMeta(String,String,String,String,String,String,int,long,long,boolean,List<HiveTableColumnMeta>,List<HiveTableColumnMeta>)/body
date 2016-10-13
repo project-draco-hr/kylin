@@ -1,0 +1,14 @@
+{
+  this.tableName=tableName;
+  this.sdLocation=sdLocation;
+  this.sdInputFormat=sdInputFormat;
+  this.sdOutputFormat=sdOutputFormat;
+  this.owner=owner;
+  this.tableType=tableType;
+  this.lastAccessTime=lastAccessTime;
+  this.fileSize=fileSize;
+  this.fileNum=fileNum;
+  this.isNative=isNative;
+  this.allColumns=allColumns;
+  this.partitionColumns=partitionColumns;
+}

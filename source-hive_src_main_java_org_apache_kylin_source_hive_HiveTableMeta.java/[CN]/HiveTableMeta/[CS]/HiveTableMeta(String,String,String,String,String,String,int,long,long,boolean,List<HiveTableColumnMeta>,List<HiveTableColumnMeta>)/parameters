@@ -1,0 +1,12 @@
+String tableName
+String sdLocation
+String sdInputFormat
+String sdOutputFormat
+String owner
+String tableType
+int lastAccessTime
+long fileSize
+long fileNum
+boolean isNative
+List<HiveTableColumnMeta> allColumns
+List<HiveTableColumnMeta> partitionColumns

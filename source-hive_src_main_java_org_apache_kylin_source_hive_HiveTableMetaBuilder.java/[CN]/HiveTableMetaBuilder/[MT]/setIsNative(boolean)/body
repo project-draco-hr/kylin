@@ -1,0 +1,4 @@
+{
+  this.isNative=isNative;
+  return this;
+}

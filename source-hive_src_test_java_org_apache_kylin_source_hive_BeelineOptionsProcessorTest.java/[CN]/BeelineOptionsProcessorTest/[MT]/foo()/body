@@ -1,0 +1,8 @@
+{
+  String param="-n root --hiveconf hive.security.authorization.sqlstd.confwhitelist.append='mapreduce.job.*|dfs.*' -u 'jdbc:hive2://localhost:10000'";
+  BeelineOptionsProcessor processor=new BeelineOptionsProcessor();
+  CommandLine commandLine=processor.process(StringUtils.split(param));
+  String n=commandLine.getOptionValue('n');
+  String u=commandLine.getOptionValue('u');
+  String p=commandLine.getOptionValue('p');
+}

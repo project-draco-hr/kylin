@@ -1,4 +1,0 @@
-{
-  Table t=getHiveTable(database,tableName);
-  return t.getSd().getLocation();
-}

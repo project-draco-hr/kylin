@@ -1,0 +1,4 @@
+{
+  this.fileSize=fileSize;
+  return this;
+}
