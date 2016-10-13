@@ -1,5 +1,5 @@
 {
-  if (cube.getStatus() == RealizationStatusEnum.DESCBROKEN) {
+  if (cube.getStatus() == RealizationStatusEnum.BROKEN) {
     throw new BadRequestException("Broken cube " + cube.getName() + " can't be built");
   }
   checkCubeDescSignature(cube);

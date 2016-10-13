@@ -4,7 +4,7 @@
   Cuboid.reloadCache(name);
   CubeManager cubeManager=CubeManager.getInstance(config);
   for (  CubeInstance cube : cubeManager.getCubesByDesc(name)) {
-    if (cube.getStatus() == RealizationStatusEnum.DESCBROKEN) {
+    if (cube.getStatus() == RealizationStatusEnum.BROKEN) {
       cubeManager.reloadCubeLocal(cube.getName());
     }
   }
