@@ -38,7 +38,16 @@
         continue;
       }
     }
-    scanner=new CubeSegmentScanner(cubeSeg,cuboid,dimensionsD,groupsD,metrics,filterD,context,getGTStorage());
+    try {
+      scanner=new CubeSegmentScanner(cubeSeg,cuboid,dimensionsD,groupsD,metrics,filterD,context,getGTStorage());
+    }
+ catch (    IllegalArgumentException ex) {
+      if (cubeSeg.getInputRecords() == 0) {
+        logger.warn("cube segment {} input record is 0, skip it still",cubeSeg);
+        continue;
+      }
+      throw ex;
+    }
     scanners.add(scanner);
   }
   if (scanners.isEmpty())   return ITupleIterator.EMPTY_TUPLE_ITERATOR;

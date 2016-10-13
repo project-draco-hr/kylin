@@ -9,7 +9,10 @@
   try {
     scanRangePlanner=new CubeScanRangePlanner(cubeSeg,cuboid,filter,dimensions,groups,metrics,context);
   }
- catch (  Exception e) {
+ catch (  RuntimeException e) {
+    throw e;
+  }
+catch (  Exception e) {
     throw new RuntimeException(e);
   }
   scanRequest=scanRangePlanner.planScanRequest();
