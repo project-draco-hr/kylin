@@ -1,6 +1,10 @@
 {
   final ShellExecutable step=new ShellExecutable();
   final HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
+  final KylinConfig kylinConfig=((CubeSegment)flatTableDesc.getSegment()).getConfig();
+  if (kylinConfig.getMRConfigOverride().get(MR_OVERRIDE_JOB_QUEUENAME) != null) {
+    hiveCmdBuilder.addStatement("SET mapreduce.job.queuename =" + kylinConfig.getMRConfigOverride().get(MR_OVERRIDE_JOB_QUEUENAME) + ";\n");
+  }
   hiveCmdBuilder.addStatement(JoinedFlatTable.generateHiveSetStatements(conf));
   hiveCmdBuilder.addStatement("set hive.exec.compress.output=false;\n");
   hiveCmdBuilder.addStatement(JoinedFlatTable.generateCountDataStatement(flatTableDesc,rowCountOutputDir));

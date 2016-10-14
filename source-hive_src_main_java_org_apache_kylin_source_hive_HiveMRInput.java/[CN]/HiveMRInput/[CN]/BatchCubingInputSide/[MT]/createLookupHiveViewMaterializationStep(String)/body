@@ -2,7 +2,7 @@
   ShellExecutable step=new ShellExecutable();
   step.setName(ExecutableConstants.STEP_NAME_MATERIALIZE_HIVE_VIEW_IN_LOOKUP);
   HiveCmdBuilder hiveCmdBuilder=new HiveCmdBuilder();
-  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  KylinConfig kylinConfig=((CubeSegment)flatDesc.getSegment()).getConfig();
   MetadataManager metadataManager=MetadataManager.getInstance(kylinConfig);
   final Set<TableDesc> lookupViewsTables=Sets.newHashSet();
   for (  LookupDesc lookupDesc : flatDesc.getDataModel().getLookups()) {
@@ -13,6 +13,9 @@
   }
   if (lookupViewsTables.size() == 0) {
     return null;
+  }
+  if (kylinConfig.getMRConfigOverride().get(MR_OVERRIDE_JOB_QUEUENAME) != null) {
+    hiveCmdBuilder.addStatement("SET mapreduce.job.queuename =" + kylinConfig.getMRConfigOverride().get(MR_OVERRIDE_JOB_QUEUENAME) + ";\n");
   }
   final String useDatabaseHql="USE " + conf.getConfig().getHiveDatabaseForIntermediateTable() + ";";
   hiveCmdBuilder.addStatement(useDatabaseHql);
