@@ -1,3 +1,5 @@
 {
-  this.batchExecuteQuery(getQueryFolderPrefix() + "src/test/resources/query/sql_intersect_count");
+  if ("left".equalsIgnoreCase(joinType)) {
+    this.batchExecuteQuery(getQueryFolderPrefix() + "src/test/resources/query/sql_intersect_count");
+  }
 }
