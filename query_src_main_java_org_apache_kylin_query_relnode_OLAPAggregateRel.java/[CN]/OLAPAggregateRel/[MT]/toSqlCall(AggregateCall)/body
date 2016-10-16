@@ -1,0 +1,10 @@
+{
+  ColumnRowType inputColumnRowType=((OLAPRel)getInput()).getColumnRowType();
+  String function=getSqlFuncName(aggCall);
+  List<Object> args=Lists.newArrayList();
+  for (  Integer index : aggCall.getArgList()) {
+    TblColRef col=inputColumnRowType.getColumnByIndexNullable(index);
+    args.add(col);
+  }
+  return new SQLCall(function,args);
+}

@@ -1,3 +1,0 @@
-{
-  context.groupByColumns.addAll(this.groups);
-}

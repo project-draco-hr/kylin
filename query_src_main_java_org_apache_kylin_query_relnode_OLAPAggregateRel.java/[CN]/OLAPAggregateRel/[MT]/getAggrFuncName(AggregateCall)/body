@@ -1,0 +1,8 @@
+{
+  String sqlName=getSqlFuncName(aggCall);
+  String funcName=AGGR_FUNC_MAP.get(sqlName);
+  if (funcName == null) {
+    throw new IllegalStateException("Don't suppoprt aggregation " + sqlName);
+  }
+  return funcName;
+}

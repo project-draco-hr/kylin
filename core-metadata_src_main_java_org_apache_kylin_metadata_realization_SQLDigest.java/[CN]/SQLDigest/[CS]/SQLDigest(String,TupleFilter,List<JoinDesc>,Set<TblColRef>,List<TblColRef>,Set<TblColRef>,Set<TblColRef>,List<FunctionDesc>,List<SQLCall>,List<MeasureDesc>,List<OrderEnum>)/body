@@ -1,0 +1,14 @@
+{
+  this.factTable=factTable;
+  this.filter=filter;
+  this.joinDescs=joinDescs;
+  this.allColumns=allColumns;
+  this.groupbyColumns=groupbyColumns;
+  this.filterColumns=filterColumns;
+  this.metricColumns=metricColumns;
+  this.aggregations=aggregations;
+  this.aggrSqlCalls=aggrSqlCalls;
+  this.sortMeasures=sortMeasures;
+  this.sortOrders=sortOrders;
+  this.isRawQuery=isRawQuery();
+}

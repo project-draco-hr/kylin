@@ -1,0 +1,4 @@
+{
+  if (index < 0 || index >= columns.size())   return null;
+ else   return columns.get(index);
+}

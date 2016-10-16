@@ -4,7 +4,7 @@
   this.columnRowType=buildColumnRowType();
   this.afterAggregate=this.context.afterAggregate;
   if (!this.afterAggregate) {
-    translateGroupBy();
+    this.context.groupByColumns.addAll(this.groups);
     this.context.aggregations.addAll(this.aggregations);
     this.context.afterAggregate=true;
   }

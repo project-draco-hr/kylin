@@ -1,4 +1,4 @@
 {
-  if (sqlDigest == null)   sqlDigest=new SQLDigest(firstTableScan.getTableName(),filter,joins,allColumns,groupByColumns,filterColumns,metricsColumns,aggregations,sortMeasures,sortOrders);
+  if (sqlDigest == null)   sqlDigest=new SQLDigest(firstTableScan.getTableName(),filter,joins,allColumns,groupByColumns,filterColumns,metricsColumns,aggregations,aggrSqlCalls,sortMeasures,sortOrders);
   return sqlDigest;
 }

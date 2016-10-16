@@ -1,0 +1,11 @@
+String factTable
+TupleFilter filter
+List<JoinDesc> joinDescs
+Set<TblColRef> allColumns
+List<TblColRef> groupbyColumns
+Set<TblColRef> filterColumns
+Set<TblColRef> metricColumns
+List<FunctionDesc> aggregations
+List<SQLCall> aggrSqlCalls
+List<MeasureDesc> sortMeasures
+List<OrderEnum> sortOrders

@@ -1,0 +1,8 @@
+{
+  for (  SQLCall call : sqlDigest.aggrSqlCalls) {
+    if (FUNC_INTERSECT_COUNT_DISTINCT.equals(call.function)) {
+      TblColRef col=(TblColRef)call.args.get(1);
+      if (!sqlDigest.groupbyColumns.contains(col))       sqlDigest.groupbyColumns.add(col);
+    }
+  }
+}

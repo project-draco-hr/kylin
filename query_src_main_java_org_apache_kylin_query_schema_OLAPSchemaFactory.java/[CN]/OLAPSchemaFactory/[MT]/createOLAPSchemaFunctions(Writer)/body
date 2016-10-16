@@ -1,7 +1,11 @@
 {
-  out.write("            \"functions\": [\n");
-  Map<String,String> udfs=KylinConfig.getInstanceFromEnv().getUDFs();
+  Map<String,String> udfs=Maps.newHashMap();
+  udfs.putAll(KylinConfig.getInstanceFromEnv().getUDFs());
+  for (  Entry<String,Class<?>> entry : MeasureTypeFactory.getUDAFs().entrySet()) {
+    udfs.put(entry.getKey(),entry.getValue().getName());
+  }
   int index=0;
+  out.write("            \"functions\": [\n");
   for (  Map.Entry<String,String> udf : udfs.entrySet()) {
     String udfName=udf.getKey().trim().toUpperCase();
     String udfClassName=udf.getValue().trim();

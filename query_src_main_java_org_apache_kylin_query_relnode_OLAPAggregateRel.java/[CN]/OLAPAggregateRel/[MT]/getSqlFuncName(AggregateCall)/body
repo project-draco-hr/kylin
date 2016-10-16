@@ -1,0 +1,7 @@
+{
+  String sqlName=aggCall.getAggregation().getName();
+  if (aggCall.isDistinct()) {
+    sqlName=sqlName + "_DISTINCT";
+  }
+  return sqlName;
+}

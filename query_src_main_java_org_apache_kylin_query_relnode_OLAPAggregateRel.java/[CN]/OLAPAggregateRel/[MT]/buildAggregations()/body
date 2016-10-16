@@ -14,7 +14,7 @@
       }
     }
     FunctionDesc aggFunc=new FunctionDesc();
-    String funcName=getFuncName(aggCall);
+    String funcName=getAggrFuncName(aggCall);
     aggFunc.setExpression(funcName);
     aggFunc.setParameter(parameter);
     this.aggregations.add(aggFunc);
