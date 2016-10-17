@@ -14,9 +14,7 @@
   if (lookupViewsTables.size() == 0) {
     return null;
   }
-  if (kylinConfig.getMRConfigOverride().get(MR_OVERRIDE_JOB_QUEUENAME) != null) {
-    hiveCmdBuilder.addStatement("SET mapreduce.job.queuename =" + kylinConfig.getMRConfigOverride().get(MR_OVERRIDE_JOB_QUEUENAME) + ";\n");
-  }
+  appendHiveOverrideProperties2(kylinConfig,hiveCmdBuilder);
   final String useDatabaseHql="USE " + conf.getConfig().getHiveDatabaseForIntermediateTable() + ";";
   hiveCmdBuilder.addStatement(useDatabaseHql);
   hiveCmdBuilder.addStatement(JoinedFlatTable.generateHiveSetStatements(conf));

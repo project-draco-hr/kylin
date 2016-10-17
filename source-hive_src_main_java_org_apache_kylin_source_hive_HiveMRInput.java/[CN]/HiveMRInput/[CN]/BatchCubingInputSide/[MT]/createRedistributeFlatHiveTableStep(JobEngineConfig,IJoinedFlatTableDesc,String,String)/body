@@ -3,9 +3,7 @@
   hiveInitBuf.append("USE ").append(conf.getConfig().getHiveDatabaseForIntermediateTable()).append(";\n");
   hiveInitBuf.append(JoinedFlatTable.generateHiveSetStatements(conf));
   final KylinConfig kylinConfig=((CubeSegment)flatTableDesc.getSegment()).getConfig();
-  if (kylinConfig.getMRConfigOverride().get(MR_OVERRIDE_JOB_QUEUENAME) != null) {
-    hiveInitBuf.append("SET mapreduce.job.queuename=").append(kylinConfig.getMRConfigOverride().get(MR_OVERRIDE_JOB_QUEUENAME)).append(";\n");
-  }
+  appendHiveOverrideProperties(kylinConfig,hiveInitBuf);
   String rowCountOutputDir=JobBuilderSupport.getJobWorkingDir(conf,jobId) + "/row_count";
   RedistributeFlatHiveTableStep step=new RedistributeFlatHiveTableStep();
   step.setInitStatement(hiveInitBuf.toString());

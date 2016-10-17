@@ -1,0 +1,8 @@
+{
+  final Map<String,String> hiveConfOverride=kylinConfig.getHiveConfigOverride();
+  if (hiveConfOverride.isEmpty() == false) {
+    for (    String key : hiveConfOverride.keySet()) {
+      hiveCmdBuilder.addStatement("SET " + key + "="+ hiveConfOverride.get(key)+ ";\n");
+    }
+  }
+}

@@ -2,9 +2,7 @@
   StringBuilder hiveInitBuf=new StringBuilder();
   hiveInitBuf.append(JoinedFlatTable.generateHiveSetStatements(conf));
   final KylinConfig kylinConfig=((CubeSegment)flatTableDesc.getSegment()).getConfig();
-  if (kylinConfig.getMRConfigOverride().get(MR_OVERRIDE_JOB_QUEUENAME) != null) {
-    hiveInitBuf.append("SET mapreduce.job.queuename =").append(kylinConfig.getMRConfigOverride().get(MR_OVERRIDE_JOB_QUEUENAME)).append(";\n");
-  }
+  appendHiveOverrideProperties(kylinConfig,hiveInitBuf);
   final String useDatabaseHql="USE " + conf.getConfig().getHiveDatabaseForIntermediateTable() + ";\n";
   final String dropTableHql=JoinedFlatTable.generateDropTableStatement(flatTableDesc);
   final String createTableHql=JoinedFlatTable.generateCreateTableStatement(flatTableDesc,JobBuilderSupport.getJobWorkingDir(conf,jobId));
