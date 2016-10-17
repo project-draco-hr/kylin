@@ -22,5 +22,6 @@
   newCubeDesc.setOverrideKylinProps(cubeDesc.getOverrideKylinProps());
   newCubeDesc.setConfig((KylinConfigExt)cubeDesc.getConfig());
   newCubeDesc.updateRandomUuid();
+  newCubeDesc.setPartitionOffsetStart(cubeDesc.getPartitionOffsetStart());
   return newCubeDesc;
 }
