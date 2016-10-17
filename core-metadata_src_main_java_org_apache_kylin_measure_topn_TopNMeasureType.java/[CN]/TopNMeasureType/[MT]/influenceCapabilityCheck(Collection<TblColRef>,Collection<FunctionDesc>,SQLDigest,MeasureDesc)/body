@@ -1,21 +1,32 @@
 {
-  if (digest.aggregations.size() != 1)   return null;
-  FunctionDesc onlyFunction=digest.aggregations.iterator().next();
-  if (isTopNCompatibleSum(topN.getFunction(),onlyFunction) == false)   return null;
   List<TblColRef> literalCol=getTopNLiteralColumn(topN.getFunction());
-  if (unmatchedDimensions.containsAll(literalCol) == false)   return null;
-  if (digest.groupbyColumns.containsAll(literalCol) == false)   return null;
   for (  TblColRef colRef : literalCol) {
     if (digest.filterColumns.contains(colRef) == true) {
       return null;
     }
   }
-  unmatchedDimensions.removeAll(literalCol);
-  unmatchedAggregations.remove(onlyFunction);
-  return new CapabilityInfluence(){
-    @Override public double suggestCostMultiplier(){
-      return 0.3;
+  if (unmatchedDimensions.containsAll(literalCol) == false)   return null;
+  if (digest.groupbyColumns.containsAll(literalCol) == false)   return null;
+  if (digest.aggregations.size() == 1) {
+    FunctionDesc onlyFunction=digest.aggregations.iterator().next();
+    if (isTopNCompatibleSum(topN.getFunction(),onlyFunction) == false)     return null;
+    unmatchedDimensions.removeAll(literalCol);
+    unmatchedAggregations.remove(onlyFunction);
+    return new CapabilityInfluence(){
+      @Override public double suggestCostMultiplier(){
+        return 0.3;
+      }
     }
-  }
 ;
+  }
+  if (digest.aggregations.size() == 0) {
+    unmatchedDimensions.removeAll(literalCol);
+    return new CapabilityInfluence(){
+      @Override public double suggestCostMultiplier(){
+        return 2.0;
+      }
+    }
+;
+  }
+  return null;
 }
