@@ -22,7 +22,7 @@
     }
     try {
       if (null == sqlResponse) {
-        sqlResponse=queryService.query(sqlRequest);
+        sqlResponse=query(sqlRequest);
         long durationThreshold=kylinConfig.getQueryDurationCacheThreshold();
         long scancountThreshold=kylinConfig.getQueryScanCountCacheThreshold();
         sqlResponse.setDuration(System.currentTimeMillis() - startTime);
@@ -45,7 +45,7 @@
         exceptionCache.put(new Element(sqlRequest,sqlResponse));
       }
     }
-    queryService.logQuery(sqlRequest,sqlResponse);
+    logQuery(sqlRequest,sqlResponse);
     QueryMetricsFacade.updateMetrics(sqlRequest,sqlResponse);
     if (sqlResponse.getIsException())     throw new InternalErrorException(sqlResponse.getExceptionMessage());
     return sqlResponse;

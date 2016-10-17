@@ -1,5 +1,5 @@
 {
   if (!sqlResponse.getIsException() && KylinConfig.getInstanceFromEnv().isQuerySecureEnabled()) {
-    queryService.checkAuthorization(sqlResponse.getCube());
+    checkAuthorization(sqlResponse.getCube());
   }
 }
