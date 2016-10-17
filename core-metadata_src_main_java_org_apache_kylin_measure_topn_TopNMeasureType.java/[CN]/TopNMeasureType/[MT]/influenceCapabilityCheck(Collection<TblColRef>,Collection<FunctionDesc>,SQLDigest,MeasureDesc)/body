@@ -5,6 +5,11 @@
   List<TblColRef> literalCol=getTopNLiteralColumn(topN.getFunction());
   if (unmatchedDimensions.containsAll(literalCol) == false)   return null;
   if (digest.groupbyColumns.containsAll(literalCol) == false)   return null;
+  for (  TblColRef colRef : literalCol) {
+    if (digest.filterColumns.contains(colRef) == true) {
+      return null;
+    }
+  }
   unmatchedDimensions.removeAll(literalCol);
   unmatchedAggregations.remove(onlyFunction);
   return new CapabilityInfluence(){
