@@ -1,0 +1,9 @@
+{
+  List<String> models=new ArrayList<>();
+  for (  DataModelDesc modelDesc : getModels(projectName)) {
+    if (modelDesc.getAllTables().contains(tableName.toUpperCase())) {
+      models.add(modelDesc.getName());
+    }
+  }
+  return models;
+}

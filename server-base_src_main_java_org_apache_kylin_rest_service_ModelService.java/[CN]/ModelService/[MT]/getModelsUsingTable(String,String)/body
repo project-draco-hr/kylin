@@ -1,0 +1,5 @@
+{
+  String[] dbTableName=HadoopUtil.parseHiveTableName(tableName);
+  tableName=dbTableName[0] + "." + dbTableName[1];
+  return getMetadataManager().getModelsUsingTable(tableName,projectName);
+}
