@@ -22,12 +22,6 @@
     StorageSideBehavior behavior=StorageSideBehavior.valueOf(scanReq.getStorageBehavior());
     final List<RawScan> hbaseRawScans=deserializeRawScans(ByteBuffer.wrap(HBaseZeroCopyByteString.zeroCopyGetBytes(request.getHbaseRawScan())));
     appendProfileInfo(sb,"start latency: " + (this.serviceStartTime - scanReq.getStartTime()));
-    MassInTupleFilter.VALUE_PROVIDER_FACTORY=new MassInValueProviderFactoryImpl(new MassInValueProviderFactoryImpl.DimEncAware(){
-      @Override public DimensionEncoding getDimEnc(      TblColRef col){
-        return scanReq.getInfo().getCodeSystem().getDimEnc(col.getColumnDesc().getZeroBasedIndex());
-      }
-    }
-);
     final List<InnerScannerAsIterator> cellListsForeachRawScan=Lists.newArrayList();
     for (    RawScan hbaseRawScan : hbaseRawScans) {
       if (request.getRowkeyPreambleSize() - RowConstants.ROWKEY_CUBOIDID_LEN > 0) {

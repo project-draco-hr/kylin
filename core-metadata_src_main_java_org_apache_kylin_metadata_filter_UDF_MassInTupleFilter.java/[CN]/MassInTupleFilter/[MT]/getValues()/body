@@ -1,3 +1,6 @@
 {
-  return null;
+  if (valueProvider == null) {
+    valueProvider=VALUE_PROVIDER_FACTORY.getProvider(filterTableType,filterTableResourceIdentifier,column);
+  }
+  return valueProvider.getMassInValues();
 }
