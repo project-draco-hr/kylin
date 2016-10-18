@@ -1,8 +1,3 @@
 {
   this.sourcePartitionOffsetStart=sourcePartitionOffsetStart;
-  long total=0;
-  for (  Long x : sourcePartitionOffsetStart.values()) {
-    total+=x;
-  }
-  this.sourceOffsetStart=total;
 }
