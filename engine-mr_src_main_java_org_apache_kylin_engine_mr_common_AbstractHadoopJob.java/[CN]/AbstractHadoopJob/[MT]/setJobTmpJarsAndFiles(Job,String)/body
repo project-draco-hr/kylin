@@ -3,24 +3,34 @@
   String[] fNameList=kylinDependency.split(",");
   try {
     Configuration jobConf=job.getConfiguration();
-    FileSystem fs=FileSystem.getLocal(jobConf);
+    FileSystem localfs=FileSystem.getLocal(jobConf);
     FileSystem hdfs=FileSystem.get(jobConf);
     StringBuilder jarList=new StringBuilder();
     StringBuilder fileList=new StringBuilder();
     for (    String fileName : fNameList) {
       Path p=new Path(fileName);
-      FileSystem current=(fileName.startsWith(HdfsConstants.HDFS_URI_SCHEME) ? hdfs : fs);
-      if (!current.exists(p)) {
-        logger.warn("The directory '" + fileName + "for kylin dependency does not exist!!!");
+      if (p.isAbsolute() == false) {
+        logger.warn("The directory of kylin dependency '" + fileName + "' is not absolute, skip");
         continue;
       }
-      if (current.getFileStatus(p).isDirectory()) {
-        appendTmpDir(job,current,fileName);
+      FileSystem fs;
+      if (hdfs.exists(p)) {
+        fs=hdfs;
+      }
+ else       if (localfs.exists(p)) {
+        fs=localfs;
+      }
+ else {
+        logger.warn("The directory of kylin dependency '" + fileName + "' does not exist, skip");
+        continue;
+      }
+      if (fs.getFileStatus(p).isDirectory()) {
+        appendTmpDir(job,fs,p);
         continue;
       }
       StringBuilder list=(p.getName().endsWith(".jar")) ? jarList : fileList;
       if (list.length() > 0)       list.append(",");
-      list.append(current.getFileStatus(p).getPath());
+      list.append(fs.getFileStatus(p).getPath());
     }
     appendTmpFiles(fileList.toString(),jobConf);
     appendTmpJars(jarList.toString(),jobConf);

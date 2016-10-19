@@ -1,14 +1,13 @@
 {
-  if (StringUtils.isBlank(tmpDir))   return;
   try {
     Configuration jobConf=job.getConfiguration();
-    FileStatus[] fList=fs.listStatus(new Path(tmpDir));
+    FileStatus[] fList=fs.listStatus(tmpDir);
     StringBuilder jarList=new StringBuilder();
     StringBuilder fileList=new StringBuilder();
     for (    FileStatus file : fList) {
       Path p=file.getPath();
       if (fs.getFileStatus(p).isDirectory()) {
-        appendTmpDir(job,fs,p.toString());
+        appendTmpDir(job,fs,p);
         continue;
       }
       StringBuilder list=(p.getName().endsWith(".jar")) ? jarList : fileList;
