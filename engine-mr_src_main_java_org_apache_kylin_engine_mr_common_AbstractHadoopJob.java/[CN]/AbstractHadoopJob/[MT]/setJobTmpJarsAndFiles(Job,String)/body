@@ -25,7 +25,7 @@
         continue;
       }
       if (fs.getFileStatus(p).isDirectory()) {
-        appendTmpDir(job,fs,p);
+        appendTmpDir(job,fs,p,jarList,fileList);
         continue;
       }
       StringBuilder list=(p.getName().endsWith(".jar")) ? jarList : fileList;

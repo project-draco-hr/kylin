@@ -1,21 +1,16 @@
 {
   try {
-    Configuration jobConf=job.getConfiguration();
     FileStatus[] fList=fs.listStatus(tmpDir);
-    StringBuilder jarList=new StringBuilder();
-    StringBuilder fileList=new StringBuilder();
     for (    FileStatus file : fList) {
       Path p=file.getPath();
       if (fs.getFileStatus(p).isDirectory()) {
-        appendTmpDir(job,fs,p);
+        appendTmpDir(job,fs,p,jarList,fileList);
         continue;
       }
       StringBuilder list=(p.getName().endsWith(".jar")) ? jarList : fileList;
       if (list.length() > 0)       list.append(",");
       list.append(fs.getFileStatus(p).getPath().toString());
     }
-    appendTmpFiles(fileList.toString(),jobConf);
-    appendTmpJars(jarList.toString(),jobConf);
   }
  catch (  IOException e) {
     throw new RuntimeException(e);
