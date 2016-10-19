@@ -2,7 +2,7 @@
   if (args == null || args.length <= 1) {
     printUsageAndExit();
   }
-  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  kylinConfig=KylinConfig.getInstanceFromEnv();
   Configuration hconf=HBaseConnection.getCurrentHBaseConfiguration();
   FileSystem fileSystem=FileSystem.get(hconf);
   HBaseAdmin hbaseAdmin=new HBaseAdmin(hconf);

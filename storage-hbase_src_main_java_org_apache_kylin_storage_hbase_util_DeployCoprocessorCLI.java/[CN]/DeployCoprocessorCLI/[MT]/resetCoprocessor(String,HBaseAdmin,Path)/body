@@ -1,8 +1,13 @@
 {
+  HTableDescriptor desc=hbaseAdmin.getTableDescriptor(TableName.valueOf(tableName));
+  String host=desc.getValue(IRealizationConstants.HTableTag);
+  if (!host.equalsIgnoreCase(kylinConfig.getMetadataUrlPrefix())) {
+    logger.warn("This server doesn't own this table: " + tableName);
+    return false;
+  }
+  logger.info("reset coprocessor on " + tableName);
   logger.info("Disable " + tableName);
   hbaseAdmin.disableTable(tableName);
-  logger.info("Unset coprocessor on " + tableName);
-  HTableDescriptor desc=hbaseAdmin.getTableDescriptor(TableName.valueOf(tableName));
   while (desc.hasCoprocessor(CubeObserverClass)) {
     desc.removeCoprocessor(CubeObserverClass);
   }
@@ -26,4 +31,5 @@
   hbaseAdmin.modifyTable(tableName,desc);
   logger.info("Enable " + tableName);
   hbaseAdmin.enableTable(tableName);
+  return true;
 }
