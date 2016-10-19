@@ -1,0 +1,8 @@
+{
+  QueryIdGenerator generator=new QueryIdGenerator();
+  Set<String> idSet=new HashSet<>();
+  for (int i=0; i < 1000; i++) {
+    idSet.add(generator.nextId("test"));
+  }
+  Assert.assertEquals(1000,idSet.size());
+}

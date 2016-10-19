@@ -24,6 +24,10 @@
   if (hasKylinProperties()) {
     result=result && getKylinProperties().equals(other.getKylinProperties());
   }
+  result=result && (hasQueryId() == other.hasQueryId());
+  if (hasQueryId()) {
+    result=result && getQueryId().equals(other.getQueryId());
+  }
   result=result && getUnknownFields().equals(other.getUnknownFields());
   return result;
 }

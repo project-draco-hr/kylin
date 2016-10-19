@@ -1,0 +1,3 @@
+{
+  return getString(KEY_QUERY_ID);
+}

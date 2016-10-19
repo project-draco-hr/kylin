@@ -24,6 +24,7 @@
   StringBuilder stringBuilder=new StringBuilder();
   stringBuilder.append(newLine);
   stringBuilder.append("==========================[QUERY]===============================").append(newLine);
+  stringBuilder.append("Query Id: ").append(BackdoorToggles.getQueryId()).append(newLine);
   stringBuilder.append("SQL: ").append(request.getSql()).append(newLine);
   stringBuilder.append("User: ").append(user).append(newLine);
   stringBuilder.append("Success: ").append((null == response.getExceptionMessage())).append(newLine);

@@ -4,4 +4,5 @@
   rowkeyPreambleSize_=0;
   hbaseColumnsToGT_=java.util.Collections.emptyList();
   kylinProperties_="";
+  queryId_="";
 }

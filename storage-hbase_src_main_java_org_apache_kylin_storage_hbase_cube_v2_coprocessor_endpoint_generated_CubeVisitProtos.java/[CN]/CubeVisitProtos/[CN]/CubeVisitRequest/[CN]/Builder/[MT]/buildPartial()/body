@@ -28,6 +28,10 @@
     to_bitField0_|=0x00000008;
   }
   result.kylinProperties_=kylinProperties_;
+  if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+    to_bitField0_|=0x00000010;
+  }
+  result.queryId_=queryId_;
   result.bitField0_=to_bitField0_;
   onBuilt();
   return result;

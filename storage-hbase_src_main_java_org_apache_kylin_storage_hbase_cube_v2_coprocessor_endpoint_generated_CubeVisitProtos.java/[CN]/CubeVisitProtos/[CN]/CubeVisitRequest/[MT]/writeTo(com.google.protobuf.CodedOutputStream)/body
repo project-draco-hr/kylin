@@ -15,5 +15,8 @@
   if (((bitField0_ & 0x00000008) == 0x00000008)) {
     output.writeBytes(5,getKylinPropertiesBytes());
   }
+  if (((bitField0_ & 0x00000010) == 0x00000010)) {
+    output.writeBytes(6,getQueryIdBytes());
+  }
   getUnknownFields().writeTo(output);
 }

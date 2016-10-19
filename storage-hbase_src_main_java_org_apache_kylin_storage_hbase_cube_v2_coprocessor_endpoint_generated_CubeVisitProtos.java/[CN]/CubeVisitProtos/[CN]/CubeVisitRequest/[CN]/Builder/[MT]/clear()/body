@@ -15,5 +15,7 @@
   }
   kylinProperties_="";
   bitField0_=(bitField0_ & ~0x00000010);
+  queryId_="";
+  bitField0_=(bitField0_ & ~0x00000020);
   return this;
 }

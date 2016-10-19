@@ -24,6 +24,10 @@
     hash=(37 * hash) + KYLINPROPERTIES_FIELD_NUMBER;
     hash=(53 * hash) + getKylinProperties().hashCode();
   }
+  if (hasQueryId()) {
+    hash=(37 * hash) + QUERYID_FIELD_NUMBER;
+    hash=(53 * hash) + getQueryId().hashCode();
+  }
   hash=(29 * hash) + getUnknownFields().hashCode();
   memoizedHashCode=hash;
   return hash;

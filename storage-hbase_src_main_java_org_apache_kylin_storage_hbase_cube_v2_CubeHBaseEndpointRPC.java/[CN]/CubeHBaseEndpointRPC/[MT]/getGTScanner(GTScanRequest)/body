@@ -34,10 +34,14 @@
   }
   builder.setRowkeyPreambleSize(cubeSeg.getRowKeyPreambleSize());
   builder.setKylinProperties(kylinConfig.getConfigAsString());
+  final String queryId=BackdoorToggles.getQueryId();
+  if (queryId != null) {
+    builder.setQueryId(queryId);
+  }
   for (  final Pair<byte[],byte[]> epRange : getEPKeyRanges(cuboidBaseShard,shardNum,totalShards)) {
     executorService.submit(new Runnable(){
       @Override public void run(){
-        final String logHeader="<sub-thread for GTScanRequest " + Integer.toHexString(System.identityHashCode(scanRequest)) + "> ";
+        final String logHeader=String.format("<sub-thread for Query %s GTScanRequest %s>",queryId,Integer.toHexString(System.identityHashCode(scanRequest)));
         final boolean[] abnormalFinish=new boolean[1];
         try {
           HTableInterface table=conn.getTable(cubeSeg.getStorageLocationIdentifier(),HBaseConnection.getCoprocessorPool());

@@ -41,6 +41,11 @@
     kylinProperties_=other.kylinProperties_;
     onChanged();
   }
+  if (other.hasQueryId()) {
+    bitField0_|=0x00000020;
+    queryId_=other.queryId_;
+    onChanged();
+  }
   this.mergeUnknownFields(other.getUnknownFields());
   return this;
 }

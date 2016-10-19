@@ -50,6 +50,12 @@ bitField0_|=0x00000008;
 kylinProperties_=input.readBytes();
 break;
 }
+case 50:
+{
+bitField0_|=0x00000010;
+queryId_=input.readBytes();
+break;
+}
 }
 }
 }

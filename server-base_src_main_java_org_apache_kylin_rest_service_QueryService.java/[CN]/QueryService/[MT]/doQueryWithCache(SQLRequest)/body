@@ -1,15 +1,21 @@
 {
-  try {
-    BackdoorToggles.setToggles(sqlRequest.getBackdoorToggles());
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
+  String serverMode=kylinConfig.getServerMode();
+  if (!(Constant.SERVER_MODE_QUERY.equals(serverMode.toLowerCase()) || Constant.SERVER_MODE_ALL.equals(serverMode.toLowerCase()))) {
+    throw new InternalErrorException("Query is not allowed in " + serverMode + " mode.");
+  }
+  final String queryId=queryIdGenerator.nextId(sqlRequest.getProject());
+  Map<String,String> toggles=new HashMap<>();
+  toggles.put(BackdoorToggles.KEY_QUERY_ID,queryId);
+  if (sqlRequest.getBackdoorToggles() != null) {
+    toggles.putAll(sqlRequest.getBackdoorToggles());
+  }
+  BackdoorToggles.setToggles(toggles);
+  try (SetThreadName ignored=new SetThreadName("Query-%s",queryId)){
     String sql=sqlRequest.getSql();
     String project=sqlRequest.getProject();
     logger.info("Using project: " + project);
     logger.info("The original query:  " + sql);
-    KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
-    String serverMode=kylinConfig.getServerMode();
-    if (!(Constant.SERVER_MODE_QUERY.equals(serverMode.toLowerCase()) || Constant.SERVER_MODE_ALL.equals(serverMode.toLowerCase()))) {
-      throw new InternalErrorException("Query is not allowed in " + serverMode + " mode.");
-    }
     if (!sql.toLowerCase().contains("select")) {
       logger.debug("Directly return exception as not supported");
       throw new InternalErrorException("Not Supported SQL.");
