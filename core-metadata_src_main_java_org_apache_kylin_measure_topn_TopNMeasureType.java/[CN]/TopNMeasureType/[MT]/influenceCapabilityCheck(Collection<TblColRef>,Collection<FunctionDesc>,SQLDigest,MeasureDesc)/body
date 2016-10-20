@@ -5,7 +5,6 @@
       return null;
     }
   }
-  if (unmatchedDimensions.containsAll(literalCol) == false)   return null;
   if (digest.groupbyColumns.containsAll(literalCol) == false)   return null;
   if (digest.aggregations.size() == 1) {
     FunctionDesc onlyFunction=digest.aggregations.iterator().next();
