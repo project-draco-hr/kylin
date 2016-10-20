@@ -31,6 +31,6 @@
       this.offer(item,counter + m1);
     }
   }
-  this.consolidate();
+  this.sortAndRetain();
   return this;
 }

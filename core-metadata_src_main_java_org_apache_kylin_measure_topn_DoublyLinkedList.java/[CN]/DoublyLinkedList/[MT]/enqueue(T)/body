@@ -1,4 +1,0 @@
-{
-  ListNode2<T> node=new ListNode2<T>(value);
-  return enqueue(node);
-}

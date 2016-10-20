@@ -1,5 +1,0 @@
-{
-  Collections.sort(counterList,this.descending ? DESC_Comparator : ASC_Comparator);
-  retain(capacity);
-  ordered=true;
-}

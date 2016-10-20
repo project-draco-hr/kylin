@@ -1,6 +1,6 @@
 {
   if (ordered == false) {
-    consolidate();
+    sortAndRetain();
   }
   List<Counter<T>> topK=new ArrayList<>(k);
   Iterator<Counter<T>> iterator=counterList.iterator();

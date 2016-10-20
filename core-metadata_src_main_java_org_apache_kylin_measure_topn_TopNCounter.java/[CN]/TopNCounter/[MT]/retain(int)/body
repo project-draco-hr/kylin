@@ -1,2 +1,10 @@
 {
+  this.capacity=newCapacity;
+  if (this.size() > newCapacity) {
+    Counter<T> toRemoved;
+    for (int i=0, n=this.size() - newCapacity; i < n; i++) {
+      toRemoved=counterList.pollLast();
+      this.counterMap.remove(toRemoved.item);
+    }
+  }
 }

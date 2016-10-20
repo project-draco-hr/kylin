@@ -1,5 +1,0 @@
-{
-  ListNode2<T> newNode=new ListNode2<T>(value);
-  addAfter(node,newNode);
-  return newNode;
-}
