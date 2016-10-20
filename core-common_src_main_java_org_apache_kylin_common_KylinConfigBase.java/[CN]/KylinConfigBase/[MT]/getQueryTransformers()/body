@@ -1,0 +1,3 @@
+{
+  return getOptionalStringArray("kylin.query.transformers",new String[0]);
+}

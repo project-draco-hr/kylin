@@ -1,0 +1,8 @@
+{
+{
+    SQLRequest sqlRequest=new SQLRequest();
+    sqlRequest.setSql("select * from DEFAULT.TEST_KYLIN_FACT");
+    String s=QueryUtil.massageSql(sqlRequest);
+    Assert.assertEquals("select * from \"DEFAULT\".TEST_KYLIN_FACT",s);
+  }
+}

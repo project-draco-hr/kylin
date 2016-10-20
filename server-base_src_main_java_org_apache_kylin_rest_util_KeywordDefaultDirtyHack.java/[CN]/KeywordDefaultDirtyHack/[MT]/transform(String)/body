@@ -1,0 +1,5 @@
+{
+  sql=sql.replace("DEFAULT.","\"DEFAULT\".");
+  sql=sql.replace("default.","\"default\".");
+  return sql;
+}

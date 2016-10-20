@@ -1,0 +1,15 @@
+{
+  List<IQueryTransformer> transformers=Lists.newArrayList();
+  transformers.add(new DefaultQueryTransformer());
+  String[] classes=KylinConfig.getInstanceFromEnv().getQueryTransformers();
+  for (  String clz : classes) {
+    try {
+      IQueryTransformer t=(IQueryTransformer)ClassUtil.newInstance(clz);
+      transformers.add(t);
+    }
+ catch (    Exception e) {
+      logger.error("Failed to init query transformer",e);
+    }
+  }
+  queryTransformers=transformers;
+}

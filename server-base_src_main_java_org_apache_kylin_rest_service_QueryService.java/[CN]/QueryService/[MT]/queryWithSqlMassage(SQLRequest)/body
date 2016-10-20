@@ -5,7 +5,7 @@
     userInfo+=",";
     userInfo+=grantedAuthority.getAuthority();
   }
-  SQLResponse fakeResponse=QueryUtil.tableauIntercept(sqlRequest.getSql());
+  SQLResponse fakeResponse=TableauInterceptor.tableauIntercept(sqlRequest.getSql());
   if (null != fakeResponse) {
     logger.debug("Return fake response, is exception? " + fakeResponse.getIsException());
     return fakeResponse;
