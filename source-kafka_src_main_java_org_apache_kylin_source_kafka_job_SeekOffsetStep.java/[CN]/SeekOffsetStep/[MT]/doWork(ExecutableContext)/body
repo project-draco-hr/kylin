@@ -27,13 +27,13 @@
           }
         }
       }
-      if (partitionInfos.size() > startOffsets.size()) {
-        for (int x=startOffsets.size(); x < partitionInfos.size(); x++) {
-          long earliest=KafkaClient.getEarliestOffset(consumer,topic,partitionInfos.get(x).partition());
-          startOffsets.put(partitionInfos.get(x).partition(),earliest);
-        }
-      }
       logger.info("Get start offset for segment " + segment.getName() + ": "+ startOffsets.toString());
+    }
+    if (partitionInfos.size() > startOffsets.size()) {
+      for (int x=startOffsets.size(); x < partitionInfos.size(); x++) {
+        long earliest=KafkaClient.getEarliestOffset(consumer,topic,partitionInfos.get(x).partition());
+        startOffsets.put(partitionInfos.get(x).partition(),earliest);
+      }
     }
     if (endOffsets.isEmpty()) {
       for (      PartitionInfo partitionInfo : partitionInfos) {

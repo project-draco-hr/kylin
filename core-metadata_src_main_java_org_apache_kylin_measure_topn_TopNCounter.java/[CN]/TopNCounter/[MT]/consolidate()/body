@@ -1,10 +1,5 @@
 {
   Collections.sort(counterList,this.descending ? DESC_Comparator : ASC_Comparator);
-  if (this.size() > this.capacity) {
-    for (int x=this.size() - 1; x >= capacity; x--) {
-      Counter<T> removed=counterList.remove(x);
-      this.counterMap.remove(removed.item);
-    }
-  }
+  retain(capacity);
   ordered=true;
 }
