@@ -7,5 +7,5 @@ Set<TblColRef> filterColumns
 Set<TblColRef> metricColumns
 List<FunctionDesc> aggregations
 List<SQLCall> aggrSqlCalls
-List<MeasureDesc> sortMeasures
+List<TblColRef> sortColumns
 List<OrderEnum> sortOrders

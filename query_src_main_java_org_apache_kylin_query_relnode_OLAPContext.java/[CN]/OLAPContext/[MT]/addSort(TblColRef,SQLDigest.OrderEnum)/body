@@ -1,0 +1,6 @@
+{
+  if (col != null) {
+    sortColumns.add(col);
+    sortOrders.add(order);
+  }
+}
