@@ -4,7 +4,7 @@
     List<TblColRef> hosts=getExtendedColumnHosts(extendColumnFunc);
     TblColRef extended=getExtendedColumn(extendColumnFunc);
     if (!sqlDigest.groupbyColumns.contains(extended)) {
-      return;
+      continue;
     }
     sqlDigest.aggregations.add(extendColumnFunc);
     sqlDigest.groupbyColumns.remove(extended);
