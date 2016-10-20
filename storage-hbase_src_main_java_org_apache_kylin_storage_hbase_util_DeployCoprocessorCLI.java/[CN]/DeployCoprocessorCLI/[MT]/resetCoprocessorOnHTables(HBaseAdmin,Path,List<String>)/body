@@ -1,8 +1,9 @@
 {
+  List<String> processedTables=Collections.synchronizedList(new ArrayList<String>());
   ExecutorService coprocessorPool=Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
   CountDownLatch countDownLatch=new CountDownLatch(tableNames.size());
   for (  final String tableName : tableNames) {
-    coprocessorPool.execute(new ResetCoprocessorWorker(countDownLatch,hbaseAdmin,hdfsCoprocessorJar,tableName));
+    coprocessorPool.execute(new ResetCoprocessorWorker(countDownLatch,hbaseAdmin,hdfsCoprocessorJar,tableName,processedTables));
   }
   try {
     countDownLatch.await();
@@ -11,4 +12,5 @@
     logger.error("reset coprocessor failed: ",e);
   }
   coprocessorPool.shutdown();
+  return processedTables;
 }

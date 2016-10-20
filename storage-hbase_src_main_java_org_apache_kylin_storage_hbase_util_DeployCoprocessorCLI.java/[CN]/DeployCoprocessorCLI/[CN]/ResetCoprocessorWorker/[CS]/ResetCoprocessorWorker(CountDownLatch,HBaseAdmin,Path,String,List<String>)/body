@@ -3,4 +3,5 @@
   this.hbaseAdmin=hbaseAdmin;
   this.hdfsCoprocessorJar=hdfsCoprocessorJar;
   this.tableName=tableName;
+  this.processedTables=processedTables;
 }

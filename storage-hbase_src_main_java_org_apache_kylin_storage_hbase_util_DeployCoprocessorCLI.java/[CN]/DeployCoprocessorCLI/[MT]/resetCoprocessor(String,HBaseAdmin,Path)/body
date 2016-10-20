@@ -1,4 +1,5 @@
 {
+  KylinConfig kylinConfig=KylinConfig.getInstanceFromEnv();
   HTableDescriptor desc=hbaseAdmin.getTableDescriptor(TableName.valueOf(tableName));
   String host=desc.getValue(IRealizationConstants.HTableTag);
   if (!host.equalsIgnoreCase(kylinConfig.getMetadataUrlPrefix())) {
