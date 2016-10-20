@@ -3,7 +3,6 @@
     throw new BadRequestException("Broken cube " + cube.getName() + " can't be built");
   }
   checkCubeDescSignature(cube);
-  checkNoRunningJob(cube);
   DefaultChainedExecutable job;
   if (buildType == CubeBuildTypeEnum.BUILD) {
     CubeSegment newSeg=getCubeManager().appendSegment(cube,startDate,endDate,startOffset,endOffset,sourcePartitionOffsetStart,sourcePartitionOffsetEnd);
