@@ -1,3 +1,12 @@
 {
-  return offerReturnAll(item,incrementCount).getFirst();
+  Counter<T> counterNode=counterMap.get(item);
+  if (counterNode == null) {
+    counterNode=new Counter<T>(item,incrementCount);
+    counterMap.put(item,counterNode);
+    counterList.add(counterNode);
+  }
+ else {
+    counterNode.setCount(counterNode.getCount() + incrementCount);
+  }
+  ordered=false;
 }

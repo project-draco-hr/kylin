@@ -1,5 +1,0 @@
-{
-  Counter<T> counter=currentBNode.getValue();
-  currentBNode=currentBNode.getNext();
-  return counter;
-}

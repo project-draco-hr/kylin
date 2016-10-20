@@ -1,6 +1,5 @@
 {
-  Counter<T> c=new Counter<T>(item);
-  c.count=count;
-  ListNode2<Counter<T>> node=counterList.add(c);
-  counterMap.put(c.item,node);
+  Counter<T> c=new Counter<T>(item,count);
+  counterList.addFirst(c);
+  counterMap.put(c.item,c);
 }

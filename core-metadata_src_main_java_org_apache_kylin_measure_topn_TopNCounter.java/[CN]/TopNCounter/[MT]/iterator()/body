@@ -1,3 +1,8 @@
 {
-  return new TopNCounterIterator();
+  if (this.descending == true) {
+    return this.counterList.descendingIterator();
+  }
+ else {
+    throw new IllegalStateException();
+  }
 }

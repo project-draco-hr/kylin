@@ -1,7 +1,11 @@
 {
-  List<Counter<T>> topK=new ArrayList<Counter<T>>(k);
-  for (ListNode2<Counter<T>> bNode=counterList.head(); bNode != null; bNode=bNode.getPrev()) {
-    Counter<T> b=bNode.getValue();
+  if (ordered == false) {
+    consolidate();
+  }
+  List<Counter<T>> topK=new ArrayList<>(k);
+  Iterator<Counter<T>> iterator=counterList.iterator();
+  while (iterator.hasNext()) {
+    Counter<T> b=iterator.next();
     if (topK.size() == k) {
       return topK;
     }

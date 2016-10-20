@@ -1,16 +1,16 @@
 {
   double m1=0.0, m2=0.0;
   if (this.size() >= this.capacity) {
-    m1=this.counterList.tail().getValue().count;
+    m1=this.counterList.getLast().count;
   }
   if (another.size() >= another.capacity) {
-    m2=another.counterList.tail().getValue().count;
+    m2=another.counterList.getLast().count;
   }
   Set<T> duplicateItems=Sets.newHashSet();
   List<T> notDuplicateItems=Lists.newArrayList();
-  for (  Map.Entry<T,ListNode2<Counter<T>>> entry : this.counterMap.entrySet()) {
+  for (  Map.Entry<T,Counter<T>> entry : this.counterMap.entrySet()) {
     T item=entry.getKey();
-    ListNode2<Counter<T>> existing=another.counterMap.get(item);
+    Counter<T> existing=another.counterMap.get(item);
     if (existing != null) {
       duplicateItems.add(item);
     }
@@ -19,17 +19,18 @@
     }
   }
   for (  T item : duplicateItems) {
-    this.offer(item,another.counterMap.get(item).getValue().count);
+    this.offer(item,another.counterMap.get(item).count);
   }
   for (  T item : notDuplicateItems) {
     this.offer(item,m2);
   }
-  for (  Map.Entry<T,ListNode2<Counter<T>>> entry : another.counterMap.entrySet()) {
+  for (  Map.Entry<T,Counter<T>> entry : another.counterMap.entrySet()) {
     T item=entry.getKey();
     if (duplicateItems.contains(item) == false) {
-      double counter=entry.getValue().getValue().count;
+      double counter=entry.getValue().count;
       this.offer(item,counter + m1);
     }
   }
+  this.consolidate();
   return this;
 }

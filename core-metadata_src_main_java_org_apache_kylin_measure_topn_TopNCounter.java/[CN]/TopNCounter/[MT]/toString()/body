@@ -1,8 +1,9 @@
 {
   StringBuilder sb=new StringBuilder();
   sb.append('[');
-  for (ListNode2<Counter<T>> bNode=counterList.head(); bNode != null; bNode=bNode.getPrev()) {
-    Counter<T> b=bNode.getValue();
+  Iterator<Counter<T>> iterator=counterList.iterator();
+  while (iterator.hasNext()) {
+    Counter<T> b=iterator.next();
     sb.append(b.item);
     sb.append(':');
     sb.append(b.count);

@@ -1,5 +1,5 @@
 {
   this.capacity=capacity;
-  counterMap=new HashMap<T,ListNode2<Counter<T>>>();
-  counterList=new DoublyLinkedList<Counter<T>>();
+  counterMap=Maps.newHashMap();
+  counterList=Lists.newLinkedList();
 }
