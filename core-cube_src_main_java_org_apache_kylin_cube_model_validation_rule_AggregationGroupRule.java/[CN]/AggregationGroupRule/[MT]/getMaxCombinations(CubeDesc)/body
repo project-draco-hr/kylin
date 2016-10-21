@@ -1,0 +1,3 @@
+{
+  return cubeDesc.getConfig().getCubeAggrGroupMaxCombination();
+}

@@ -1,5 +1,4 @@
 {
-  int maxSize=getMaxAgrGroupSize();
   int index=0;
   for (  AggregationGroup agg : cube.getAggregationGroups()) {
     if (agg.getIncludes() == null) {
@@ -10,6 +9,7 @@
       context.addResult(ResultLevel.ERROR,"Aggregation group " + index + " select rule field not set");
       continue;
     }
+    int combination=1;
     Set<String> includeDims=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
     if (agg.getIncludes() != null) {
       for (      String include : agg.getIncludes()) {
@@ -28,6 +28,7 @@
         for (        String s : ss) {
           hierarchyDims.add(s);
         }
+        combination=combination * (ss.length + 1);
       }
     }
     Set<String> jointDims=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
@@ -36,6 +37,7 @@
         for (        String s : ss) {
           jointDims.add(s);
         }
+        combination=combination * 2;
       }
     }
     if (!includeDims.containsAll(mandatoryDims) || !includeDims.containsAll(hierarchyDims) || !includeDims.containsAll(jointDims)) {
@@ -47,14 +49,7 @@
     normalDims.removeAll(mandatoryDims);
     normalDims.removeAll(hierarchyDims);
     normalDims.removeAll(jointDims);
-    int normalDimSize=normalDims.size();
-    int hierarchySize=count(agg.getSelectRule().hierarchy_dims);
-    int jointSize=count(agg.getSelectRule().joint_dims);
-    int mandatorySize=mandatoryDims.size() > 0 ? 1 : 0;
-    if (mandatorySize + normalDimSize + hierarchySize+ jointSize > maxSize) {
-      context.addResult(ResultLevel.ERROR,"Aggregation group " + index + " has too many dimensions");
-      continue;
-    }
+    combination=combination * (1 << normalDims.size());
     if (CollectionUtils.containsAny(mandatoryDims,hierarchyDims)) {
       context.addResult(ResultLevel.ERROR,"Aggregation group " + index + " mandatory dims overlap with hierarchy dims");
       continue;
@@ -98,6 +93,11 @@
         context.addResult(ResultLevel.ERROR,"Aggregation group " + index + " a dim exist in more than one joint");
         continue;
       }
+    }
+    if (combination > getMaxCombinations(cube)) {
+      String msg="Aggregation group " + index + " has too many combinations, use 'mandatory'/'hierarchy'/'joint' to optimize; or update 'kylin.cube.aggrgroup.max.combination' to a bigger value.";
+      context.addResult(ResultLevel.ERROR,msg);
+      continue;
     }
     index++;
   }

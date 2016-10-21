@@ -1,6 +1,6 @@
 {
   AggregationGroupRule rule=new AggregationGroupRule(){
-    @Override protected int getMaxAgrGroupSize(){
+    @Override protected int getMaxCombinations(    CubeDesc cubeDesc){
       return 2;
     }
   }
@@ -12,6 +12,6 @@
     rule.validate(desc,vContext);
     vContext.print(System.out);
     assertTrue(vContext.getResults().length > 0);
-    assertEquals("Aggregation group 0 has too many dimensions",(vContext.getResults()[0].getMessage()));
+    assertEquals("Aggregation group 0 has too many combinations, use 'mandatory'/'hierarchy'/'joint' to optimize; or update 'kylin.cube.aggrgroup.max.combination' to a bigger value.",(vContext.getResults()[0].getMessage()));
   }
 }

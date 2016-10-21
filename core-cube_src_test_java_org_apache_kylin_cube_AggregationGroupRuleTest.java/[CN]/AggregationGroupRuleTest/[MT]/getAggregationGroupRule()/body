@@ -1,7 +1,7 @@
 {
   AggregationGroupRule rule=new AggregationGroupRule(){
-    @Override protected int getMaxAgrGroupSize(){
-      return 20;
+    @Override protected int getMaxCombinations(    CubeDesc cubeDesc){
+      return 4096;
     }
   }
 ;

@@ -1,3 +1,0 @@
-{
-  return KylinConfig.getInstanceFromEnv().getCubeAggrGroupMaxSize();
-}
