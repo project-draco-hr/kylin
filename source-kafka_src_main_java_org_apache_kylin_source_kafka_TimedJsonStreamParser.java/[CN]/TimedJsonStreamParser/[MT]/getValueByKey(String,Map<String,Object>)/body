@@ -1,14 +1,19 @@
 {
-  if (root.containsKey(key)) {
-    return objToString(root.get(key));
+  if (rootMap.containsKey(key)) {
+    return objToString(rootMap.get(key));
   }
-  if (key.contains(separator)) {
-    String[] names=key.toLowerCase().split(separator);
-    Map<String,Object> tempMap=root;
+  String[] names=nameMap.get(key);
+  if (names == null && key.contains(separator)) {
+    names=key.toLowerCase().split(separator);
+    nameMap.put(key,names);
+  }
+  if (names != null && names.length > 0) {
+    tempMap.clear();
+    tempMap.putAll(rootMap);
     for (int i=0; i < names.length - 1; i++) {
-      Object o=root.get(names[i]);
+      Object o=tempMap.get(names[i]);
       if (o instanceof Map) {
-        tempMap=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        tempMap.clear();
         tempMap.putAll((Map<String,Object>)o);
       }
  else {

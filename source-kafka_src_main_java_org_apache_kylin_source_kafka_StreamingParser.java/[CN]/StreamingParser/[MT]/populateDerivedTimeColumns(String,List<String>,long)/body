@@ -1,33 +1,40 @@
 {
-  if (derivedTimeColumns.contains(columnName) == false)   return false;
+  Integer derivedTimeColumn=derivedTimeColumns.get(columnName);
+  if (derivedTimeColumn == null) {
+    return false;
+  }
   long normalized=0;
-  if (columnName.equals("minute_start")) {
+switch (derivedTimeColumn) {
+case 1:
     normalized=TimeUtil.getMinuteStart(t);
-    result.add(DateFormat.formatToTimeWithoutMilliStr(normalized));
-  }
- else   if (columnName.equals("hour_start")) {
-    normalized=TimeUtil.getHourStart(t);
-    result.add(DateFormat.formatToTimeWithoutMilliStr(normalized));
-  }
- else   if (columnName.equals("day_start")) {
-    normalized=TimeUtil.getDayStart(t);
-    result.add(DateFormat.formatToDateStr(normalized));
-  }
- else   if (columnName.equals("week_start")) {
-    normalized=TimeUtil.getWeekStart(t);
-    result.add(DateFormat.formatToDateStr(normalized));
-  }
- else   if (columnName.equals("month_start")) {
-    normalized=TimeUtil.getMonthStart(t);
-    result.add(DateFormat.formatToDateStr(normalized));
-  }
- else   if (columnName.equals("quarter_start")) {
-    normalized=TimeUtil.getQuarterStart(t);
-    result.add(DateFormat.formatToDateStr(normalized));
-  }
- else   if (columnName.equals("year_start")) {
-    normalized=TimeUtil.getYearStart(t);
-    result.add(DateFormat.formatToDateStr(normalized));
-  }
-  return true;
+  result.add(DateFormat.formatToTimeWithoutMilliStr(normalized));
+break;
+case 2:
+normalized=TimeUtil.getHourStart(t);
+result.add(DateFormat.formatToTimeWithoutMilliStr(normalized));
+break;
+case 3:
+normalized=TimeUtil.getDayStart(t);
+result.add(DateFormat.formatToDateStr(normalized));
+break;
+case 4:
+normalized=TimeUtil.getWeekStart(t);
+result.add(DateFormat.formatToDateStr(normalized));
+break;
+case 5:
+normalized=TimeUtil.getMonthStart(t);
+result.add(DateFormat.formatToDateStr(normalized));
+break;
+case 6:
+normalized=TimeUtil.getQuarterStart(t);
+result.add(DateFormat.formatToDateStr(normalized));
+break;
+case 7:
+normalized=TimeUtil.getYearStart(t);
+result.add(DateFormat.formatToDateStr(normalized));
+break;
+default :
+throw new IllegalStateException();
+}
+return true;
 }
