@@ -21,6 +21,12 @@
     hr.setTableName(tableName);
     hr.setDateRangeStart(segment.getDateRangeStart());
     hr.setDateRangeEnd(segment.getDateRangeEnd());
+    hr.setSegmentName(segment.getName());
+    hr.setSourceCount(segment.getInputRecords());
+    if (segment.isSourceOffsetsOn()) {
+      hr.setSourceOffsetStart(segment.getSourceOffsetStart());
+      hr.setSourceOffsetEnd(segment.getSourceOffsetEnd());
+    }
     hbase.add(hr);
   }
   return hbase;
