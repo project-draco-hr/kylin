@@ -1,21 +1,20 @@
 {
-  KylinConfig config=KylinConfig.getInstanceFromEnv();
   LinkedList<String> columnValues=new LinkedList<String>();
   long currentRowTime=-1;
-  for (  ColumnDesc cDesc : MetadataManager.getInstance(config).getTableDesc(factTableName).getColumns()) {
-    String colName=cDesc.getName();
+  for (  TblColRef col : cube.getDataModelDesc().getFactTableRef().getColumns()) {
+    String colName=col.getName();
     if (factTableCol2LookupCol.containsKey(colName)) {
       ArrayList<String> candidates=this.feasibleValues.get(factTableCol2LookupCol.get(colName));
       columnValues.add(candidates.get(r.nextInt(candidates.size())));
     }
  else     if (usedCols.contains(colName)) {
-      columnValues.add(createCell(cDesc));
+      columnValues.add(createCell(col.getColumnDesc()));
     }
  else {
-      columnValues.add(createDefaultsCell(cDesc.getTypeName()));
+      columnValues.add(createDefaultsCell(col.getColumnDesc().getTypeName()));
       defaultColumns.add(colName);
     }
-    if (cDesc.getRef().equals(this.cube.getDescriptor().getModel().getPartitionDesc().getPartitionDateColumnRef())) {
+    if (col.equals(cube.getDataModelDesc().getPartitionDesc().getPartitionDateColumnRef())) {
       currentRowTime=format.parse(columnValues.get(columnValues.size() - 1)).getTime();
     }
   }

@@ -1,5 +1,0 @@
-{
-  TableDesc mockup=new TableDesc();
-  mockup.setName(tableName);
-  return mockup;
-}

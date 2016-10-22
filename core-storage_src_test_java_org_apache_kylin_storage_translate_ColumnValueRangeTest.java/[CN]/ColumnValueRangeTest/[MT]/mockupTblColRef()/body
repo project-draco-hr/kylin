@@ -1,5 +1,4 @@
 {
-  TableDesc t=mockupTableDesc("table_a");
-  ColumnDesc c=mockupColumnDesc(t,1,"col_1","string");
-  return c.getRef();
+  TableDesc t=TableDesc.mockup("table_a");
+  return TblColRef.mockup(t,1,"col_1","string");
 }

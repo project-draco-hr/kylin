@@ -1,10 +1,22 @@
 {
-  String table=columnRef.getTable();
-  BytesUtil.writeUTFString(table,buffer);
-  String columnId=columnRef.getColumnDesc().getId();
-  BytesUtil.writeUTFString(columnId,buffer);
-  String columnName=columnRef.getName();
-  BytesUtil.writeUTFString(columnName,buffer);
-  String dataType=columnRef.getDatatype();
-  BytesUtil.writeUTFString(dataType,buffer);
+  TableRef tableRef=columnRef.getTableRef();
+  if (tableRef == null) {
+    String table=columnRef.getTable();
+    BytesUtil.writeUTFString(table,buffer);
+    String columnId=columnRef.getColumnDesc().getId();
+    BytesUtil.writeUTFString(columnId,buffer);
+    String columnName=columnRef.getName();
+    BytesUtil.writeUTFString(columnName,buffer);
+    String dataType=columnRef.getDatatype();
+    BytesUtil.writeUTFString(dataType,buffer);
+  }
+ else {
+    BytesUtil.writeUTFString(_QUALIFIED_,buffer);
+    String model=tableRef.getModel().getName();
+    BytesUtil.writeUTFString(model,buffer);
+    String alias=tableRef.getAlias();
+    BytesUtil.writeUTFString(alias,buffer);
+    String col=columnRef.getName();
+    BytesUtil.writeUTFString(col,buffer);
+  }
 }

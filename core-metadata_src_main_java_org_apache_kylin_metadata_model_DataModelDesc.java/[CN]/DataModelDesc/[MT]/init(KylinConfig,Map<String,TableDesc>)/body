@@ -4,7 +4,7 @@
   aliasMap.clear();
   tableNameMap.clear();
   initTableAlias(tables);
-  initJoinColumns(tables);
+  initJoinColumns();
   ModelDimensionDesc.capicalizeStrings(dimensions);
-  initPartitionDesc(tables);
+  initPartitionDesc();
 }

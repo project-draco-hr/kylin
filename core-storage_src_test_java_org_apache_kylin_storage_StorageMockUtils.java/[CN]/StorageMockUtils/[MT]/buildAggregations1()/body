@@ -1,7 +1,7 @@
 {
   List<FunctionDesc> functions=new ArrayList<FunctionDesc>();
   TableDesc t1=TableDesc.mockup("DEFAULT.TEST_KYLIN_FACT");
-  TblColRef priceCol=ColumnDesc.mockup(t1,7,"PRICE","decimal(19,4)").getRef();
+  TblColRef priceCol=TblColRef.mockup(t1,7,"PRICE","decimal(19,4)");
   FunctionDesc f1=new FunctionDesc();
   f1.setExpression("SUM");
   ParameterDesc p1=new ParameterDesc();

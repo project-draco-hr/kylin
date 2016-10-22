@@ -1,13 +1,10 @@
 {
   CubeInstance cubeInstance=CubeManager.getInstance(KylinConfig.getInstanceFromEnv()).getCube(cubeName);
   List<String> data=StreamingTableDataGenerator.generate(numberOfRecords,startTime,endTime,cubeInstance.getFactTable());
-  TableDesc tableDesc=cubeInstance.getFactTableDesc();
   streamDataLoader.loadIntoKafka(data);
   logger.info("Write {} messages into {}",data.size(),streamDataLoader.toString());
-  List<TblColRef> tableColumns=Lists.newArrayList();
-  for (  ColumnDesc columnDesc : tableDesc.getColumns()) {
-    tableColumns.add(columnDesc.getRef());
-  }
+  TableRef factTable=cubeInstance.getDataModelDesc().getFactTableRef();
+  List<TblColRef> tableColumns=Lists.newArrayList(factTable.getColumns());
   TimedJsonStreamParser timedJsonStreamParser=new TimedJsonStreamParser(tableColumns,null);
   StringBuilder sb=new StringBuilder();
   for (  String json : data) {

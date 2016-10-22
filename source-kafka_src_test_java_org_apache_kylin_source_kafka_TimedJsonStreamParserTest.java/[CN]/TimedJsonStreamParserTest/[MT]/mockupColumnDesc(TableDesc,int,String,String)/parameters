@@ -1,4 +1,0 @@
-TableDesc table
-int oneBasedColumnIndex
-String name
-String datatype

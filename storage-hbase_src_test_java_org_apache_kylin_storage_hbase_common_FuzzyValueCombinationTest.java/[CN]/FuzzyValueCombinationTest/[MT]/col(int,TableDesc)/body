@@ -1,4 +1,3 @@
 {
-  ColumnDesc col=ColumnDesc.mockup(t,i,"Col" + i,"string");
-  return col.getRef();
+  return TblColRef.mockup(t,i,"Col" + i,"string");
 }

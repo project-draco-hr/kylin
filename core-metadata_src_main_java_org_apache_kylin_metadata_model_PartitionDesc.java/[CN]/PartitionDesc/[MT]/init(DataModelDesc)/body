@@ -1,0 +1,6 @@
+{
+  if (StringUtils.isEmpty(partitionDateColumn))   return;
+  partitionDateColumn=partitionDateColumn.toUpperCase();
+  partitionDateColumnRef=model.findColumn(partitionDateColumn);
+  partitionConditionBuilder=(IPartitionConditionBuilder)ClassUtil.newInstance(partitionConditionBuilderClz);
+}

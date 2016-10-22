@@ -1,3 +1,0 @@
-{
-  if (this.partitionDesc != null)   this.partitionDesc.init(tables);
-}

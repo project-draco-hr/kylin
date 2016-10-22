@@ -1,7 +1,5 @@
 {
-  TableRef table=dim.getTableRef();
-  TblColRef col=table.getColumn(colName);
-  checkArgument(col != null,"No column '%s' found in table %s",colName,table);
+  TblColRef col=model.findColumn(dim.getTable(),colName);
   JoinDesc join=dim.getJoin();
   if (join != null) {
     int idx=ArrayUtils.indexOf(join.getPrimaryKeyColumns(),col);

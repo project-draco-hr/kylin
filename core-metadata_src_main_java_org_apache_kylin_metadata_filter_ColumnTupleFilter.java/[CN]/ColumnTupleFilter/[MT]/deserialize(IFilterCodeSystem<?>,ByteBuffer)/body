@@ -1,14 +1,24 @@
 {
-  TableDesc table=null;
-  ColumnDesc column=new ColumnDesc();
   String tableName=BytesUtil.readUTFString(buffer);
-  if (tableName != null) {
-    table=new TableDesc();
-    table.setName(tableName);
+  if (_QUALIFIED_.equals(tableName)) {
+    String model=BytesUtil.readUTFString(buffer);
+    String alias=BytesUtil.readUTFString(buffer);
+    String col=BytesUtil.readUTFString(buffer);
+    KylinConfig config=KylinConfig.getInstanceFromEnv();
+    DataModelDesc modelDesc=MetadataManager.getInstance(config).getDataModelDesc(model);
+    this.columnRef=modelDesc.findColumn(alias,col);
   }
-  column.setId(BytesUtil.readUTFString(buffer));
-  column.setName(BytesUtil.readUTFString(buffer));
-  column.setDatatype(BytesUtil.readUTFString(buffer));
-  column.init(table);
-  this.columnRef=column.getRef();
+ else {
+    TableDesc tableDesc=null;
+    if (tableName != null) {
+      tableDesc=new TableDesc();
+      tableDesc.setName(tableName);
+    }
+    ColumnDesc column=new ColumnDesc();
+    column.setId(BytesUtil.readUTFString(buffer));
+    column.setName(BytesUtil.readUTFString(buffer));
+    column.setDatatype(BytesUtil.readUTFString(buffer));
+    column.init(tableDesc);
+    this.columnRef=column.getRef();
+  }
 }

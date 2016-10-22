@@ -1,11 +1,7 @@
 {
   KafkaConfigManager kafkaConfigManager=KafkaConfigManager.getInstance(KylinConfig.getInstanceFromEnv());
   KafkaConfig kafkaConfig=kafkaConfigManager.getKafkaConfig(table.getIdentity());
-  List<TblColRef> columns=Lists.transform(Arrays.asList(table.getColumns()),new Function<ColumnDesc,TblColRef>(){
-    @Nullable @Override public TblColRef apply(    ColumnDesc input){
-      return input.getRef();
-    }
-  }
-);
+  TableRef tableRef=cubeSegment.getCubeInstance().getDataModelDesc().findTable(table.getIdentity());
+  List<TblColRef> columns=Lists.newArrayList(tableRef.getColumns());
   return new KafkaTableInputFormat(cubeSegment,columns,kafkaConfig,null);
 }

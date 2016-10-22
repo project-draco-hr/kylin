@@ -5,5 +5,5 @@
   desc.setName(name);
   desc.setDatatype(datatype);
   desc.init(table);
-  return desc;
+  return new TblColRef(desc);
 }
