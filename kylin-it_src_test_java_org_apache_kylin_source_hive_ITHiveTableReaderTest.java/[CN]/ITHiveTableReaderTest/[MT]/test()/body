@@ -3,7 +3,7 @@
   int rowNumber=0;
   while (reader.next()) {
     String[] row=reader.getRow();
-    Assert.assertEquals(9,row.length);
+    Assert.assertEquals(11,row.length);
     rowNumber++;
   }
   reader.close();

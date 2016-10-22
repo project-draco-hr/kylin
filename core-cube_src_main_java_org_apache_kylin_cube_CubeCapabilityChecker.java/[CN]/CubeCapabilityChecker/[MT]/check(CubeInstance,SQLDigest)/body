@@ -17,7 +17,7 @@
     }
  else {
       if (cube.getSegments().get(0).getSnapshots().containsKey(digest.factTable)) {
-        Set<TblColRef> dimCols=Sets.newHashSet(cube.getDataModelDesc().getFactTableRef().getColumns());
+        Set<TblColRef> dimCols=Sets.newHashSet(cube.getDataModelDesc().findFirstTable(digest.factTable).getColumns());
         tryDimensionAsMeasures(unmatchedAggregations,digest,cube,result,dimCols);
       }
  else {
