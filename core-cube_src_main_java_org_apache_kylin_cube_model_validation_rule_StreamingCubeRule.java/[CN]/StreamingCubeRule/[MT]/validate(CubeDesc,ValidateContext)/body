@@ -1,0 +1,27 @@
+{
+  if (cube.getFactTableDesc().getSourceType() != ISourceAware.ID_STREAMING) {
+    return;
+  }
+  if (cube.getLookupTableDescs() != null && cube.getLookupTableDescs().size() > 0) {
+    context.addResult(ResultLevel.ERROR,"Streaming Cube doesn't support star-schema so far; only one fact table is allowed.");
+    return;
+  }
+  if (cube.getModel().getPartitionDesc() == null || cube.getModel().getPartitionDesc().getPartitionDateColumn() == null) {
+    context.addResult(ResultLevel.ERROR,"Must define a partition column.");
+    return;
+  }
+  final TblColRef partitionCol=cube.getModel().getPartitionDesc().getPartitionDateColumnRef();
+  boolean found=false;
+  for (  DimensionDesc dimensionDesc : cube.getDimensions()) {
+    for (    TblColRef dimCol : dimensionDesc.getColumnRefs()) {
+      if (dimCol.equals(partitionCol)) {
+        found=true;
+        break;
+      }
+    }
+  }
+  if (found == false) {
+    context.addResult(ResultLevel.ERROR,"Partition column '" + partitionCol + "' isn't in dimension list.");
+    return;
+  }
+}

@@ -3,4 +3,10 @@
   this.columns=columns;
   this.kafkaConfig=kafkaConfig;
   this.conf=conf;
+  try {
+    streamingParser=StreamingParser.getStreamingParser(kafkaConfig.getParserName(),kafkaConfig.getParserProperties(),columns);
+  }
+ catch (  ReflectiveOperationException e) {
+    throw new IllegalArgumentException(e);
+  }
 }

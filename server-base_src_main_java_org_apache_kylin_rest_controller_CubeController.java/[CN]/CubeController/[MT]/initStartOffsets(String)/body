@@ -1,12 +1,8 @@
 {
+  checkCubeName(cubeName);
   CubeInstance cubeInstance=cubeService.getCubeManager().getCube(cubeName);
-  String msg="";
-  if (cubeInstance == null) {
-    msg="Cube '" + cubeName + "' not found.";
-    throw new IllegalArgumentException(msg);
-  }
   if (cubeInstance.getSourceType() != ISourceAware.ID_STREAMING) {
-    msg="Cube '" + cubeName + "' is not a Streaming Cube.";
+    String msg="Cube '" + cubeName + "' is not a Streaming Cube.";
     throw new IllegalArgumentException(msg);
   }
   final GeneralResponse response=new GeneralResponse();

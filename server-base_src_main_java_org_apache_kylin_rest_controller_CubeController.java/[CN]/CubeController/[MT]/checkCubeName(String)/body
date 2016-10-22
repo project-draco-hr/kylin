@@ -1,0 +1,8 @@
+{
+  CubeInstance cubeInstance=cubeService.getCubeManager().getCube(cubeName);
+  String msg="";
+  if (cubeInstance == null) {
+    msg="Cube '" + cubeName + "' not found.";
+    throw new IllegalArgumentException(msg);
+  }
+}

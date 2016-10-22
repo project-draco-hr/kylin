@@ -1,3 +1,4 @@
 {
+  checkCubeName(cubeName);
   return cubeService.getCubeManager().calculateHoles(cubeName);
 }

@@ -1,4 +1,5 @@
 {
+  checkCubeName(cubeName);
   List<JobInstance> jobs=Lists.newArrayList();
   List<CubeSegment> holes=cubeService.getCubeManager().calculateHoles(cubeName);
   if (holes.size() == 0) {
