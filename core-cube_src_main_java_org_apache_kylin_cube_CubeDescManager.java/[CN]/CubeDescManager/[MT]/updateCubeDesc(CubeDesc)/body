@@ -7,9 +7,10 @@
     throw new IllegalArgumentException("CubeDesc '" + name + "' does not exist.");
   }
   try {
-    desc.init(config,getMetadataManager().getAllTablesMap());
+    desc.init(config);
   }
  catch (  Exception e) {
+    logger.warn("Broken cube desc " + desc,e);
     desc.addError(e.getMessage());
     return desc;
   }

@@ -1,0 +1,23 @@
+{
+  if (name != null)   name=name.toUpperCase();
+  if (table != null)   table=table.toUpperCase();
+  DataModelDesc model=cubeDesc.getModel();
+  tableRef=model.findTable(this.getTable());
+  if (tableRef == null)   throw new IllegalStateException("Can't find table " + table + " for dimension "+ name);
+  join=null;
+  for (  LookupDesc lookup : model.getLookups()) {
+    if (lookup.getTableRef().equals(this.tableRef)) {
+      join=lookup.getJoin();
+      break;
+    }
+  }
+  if (derived != null && derived.length == 0) {
+    derived=null;
+  }
+  if (derived != null) {
+    StringUtil.toUpperCaseArray(derived,derived);
+  }
+  if (derived != null && join == null) {
+    throw new IllegalStateException("Derived can only be defined on lookup table, cube " + cubeDesc + ", "+ this);
+  }
+}

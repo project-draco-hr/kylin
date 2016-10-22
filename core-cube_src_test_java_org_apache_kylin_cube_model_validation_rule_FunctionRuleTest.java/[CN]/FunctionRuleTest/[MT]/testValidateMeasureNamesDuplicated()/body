@@ -4,7 +4,7 @@
   CubeDesc desc=JsonUtil.readValue(new FileInputStream(f),CubeDesc.class);
   MeasureDesc measureDescDuplicated=desc.getMeasures().get(1);
   desc.getMeasures().add(measureDescDuplicated);
-  desc.init(config,metadataManager.getAllTablesMap());
+  desc.init(config);
   ValidateContext vContext=new ValidateContext();
   rule.validate(desc,vContext);
   vContext.print(System.out);

@@ -1,4 +1,4 @@
 {
   CubeDesc cubeDesc=CubeDescManager.getInstance(getTestConfig()).getCubeDesc("test_kylin_cube_with_slr_desc");
-  cubeDesc.init(getTestConfig(),MetadataManager.getInstance(getTestConfig()).getAllTablesMap());
+  cubeDesc.init(getTestConfig());
 }

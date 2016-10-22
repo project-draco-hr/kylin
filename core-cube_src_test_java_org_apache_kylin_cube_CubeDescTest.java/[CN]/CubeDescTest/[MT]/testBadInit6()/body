@@ -1,5 +1,5 @@
 {
   CubeDesc cubeDesc=CubeDescManager.getInstance(getTestConfig()).getCubeDesc("test_kylin_cube_with_slr_desc");
   cubeDesc.getAggregationGroups().get(0).getSelectRule().mandatory_dims=new String[]{"seller_id","lstg_format_name"};
-  cubeDesc.init(getTestConfig(),MetadataManager.getInstance(getTestConfig()).getAllTablesMap());
+  cubeDesc.init(getTestConfig());
 }

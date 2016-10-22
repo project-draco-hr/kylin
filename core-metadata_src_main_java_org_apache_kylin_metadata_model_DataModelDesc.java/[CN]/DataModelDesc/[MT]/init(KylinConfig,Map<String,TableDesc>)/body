@@ -1,5 +1,8 @@
 {
   this.config=config;
+  lookupTableRefs.clear();
+  aliasMap.clear();
+  tableNameMap.clear();
   initTableAlias(tables);
   initJoinColumns(tables);
   ModelDimensionDesc.capicalizeStrings(dimensions);

@@ -3,5 +3,5 @@
   thrown.expectMessage("Aggregation group 0 a dim exist in more than one hierarchy");
   CubeDesc cubeDesc=CubeDescManager.getInstance(getTestConfig()).getCubeDesc("test_kylin_cube_with_slr_desc");
   cubeDesc.getAggregationGroups().get(0).getSelectRule().hierarchy_dims=new String[][]{new String[]{"META_CATEG_NAME","CATEG_LVL2_NAME","CATEG_LVL3_NAME"},new String[]{"META_CATEG_NAME","CATEG_LVL2_NAME"}};
-  cubeDesc.init(getTestConfig(),MetadataManager.getInstance(getTestConfig()).getAllTablesMap());
+  cubeDesc.init(getTestConfig());
 }

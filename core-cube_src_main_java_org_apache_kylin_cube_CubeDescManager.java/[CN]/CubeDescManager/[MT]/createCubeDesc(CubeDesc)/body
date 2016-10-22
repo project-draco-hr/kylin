@@ -2,9 +2,10 @@
   if (cubeDesc.getUuid() == null || cubeDesc.getName() == null)   throw new IllegalArgumentException();
   if (cubeDescMap.containsKey(cubeDesc.getName()))   throw new IllegalArgumentException("CubeDesc '" + cubeDesc.getName() + "' already exists");
   try {
-    cubeDesc.init(config,getMetadataManager().getAllTablesMap());
+    cubeDesc.init(config);
   }
  catch (  Exception e) {
+    logger.warn("Broken cube desc " + cubeDesc,e);
     cubeDesc.addError(e.getMessage());
   }
   if (!cubeDesc.getError().isEmpty()) {

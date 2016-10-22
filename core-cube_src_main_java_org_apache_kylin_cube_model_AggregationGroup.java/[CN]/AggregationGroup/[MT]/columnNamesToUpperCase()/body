@@ -1,0 +1,14 @@
+{
+  StringUtil.toUpperCaseArray(includes,includes);
+  StringUtil.toUpperCaseArray(selectRule.mandatory_dims,selectRule.mandatory_dims);
+  if (selectRule.hierarchy_dims != null) {
+    for (    String[] cols : selectRule.hierarchy_dims) {
+      StringUtil.toUpperCaseArray(cols,cols);
+    }
+  }
+  if (selectRule.joint_dims != null) {
+    for (    String[] cols : selectRule.joint_dims) {
+      StringUtil.toUpperCaseArray(cols,cols);
+    }
+  }
+}

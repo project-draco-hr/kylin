@@ -1,0 +1,11 @@
+{
+  Preconditions.checkState(this.includes != null);
+  Preconditions.checkState(this.includes.length != 0);
+  partialCubeFullMask=0L;
+  for (  String dim : this.includes) {
+    TblColRef hColumn=cubeDesc.getModel().findColumn(dim);
+    Integer index=rowKeyDesc.getColumnBitIndex(hColumn);
+    long bit=1L << index;
+    partialCubeFullMask|=bit;
+  }
+}

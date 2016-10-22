@@ -2,15 +2,13 @@
   if (measures == null || measures.isEmpty()) {
     return;
   }
-  TableDesc factTable=getFactTableDesc();
-  List<TableDesc> lookupTables=getLookupTableDescs();
   for (  MeasureDesc m : measures) {
     m.setName(m.getName().toUpperCase());
     if (m.getDependentMeasureRef() != null) {
       m.setDependentMeasureRef(m.getDependentMeasureRef().toUpperCase());
     }
     FunctionDesc func=m.getFunction();
-    func.init(factTable,lookupTables);
+    func.init(model);
     allColumns.addAll(func.getParameter().getColRefs());
     if (ExtendedColumnMeasureType.FUNC_RAW.equalsIgnoreCase(m.getFunction().getExpression())) {
       FunctionDesc functionDesc=m.getFunction();

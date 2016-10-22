@@ -5,7 +5,7 @@
   for (  DictionaryDesc dictDesc : descs) {
     desc.getDictionaries().add(dictDesc);
   }
-  desc.init(config,metadataManager.getAllTablesMap());
+  desc.init(config);
   ValidateContext vContext=new ValidateContext();
   rule.validate(desc,vContext);
   vContext.print(System.out);

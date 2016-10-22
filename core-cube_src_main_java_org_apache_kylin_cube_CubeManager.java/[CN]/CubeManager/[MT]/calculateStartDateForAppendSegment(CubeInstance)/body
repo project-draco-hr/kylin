@@ -1,9 +1,0 @@
-{
-  List<CubeSegment> existing=cube.getSegments();
-  if (existing.isEmpty()) {
-    return cube.getDescriptor().getPartitionDateStart();
-  }
- else {
-    return existing.get(existing.size() - 1).getDateRangeEnd();
-  }
-}

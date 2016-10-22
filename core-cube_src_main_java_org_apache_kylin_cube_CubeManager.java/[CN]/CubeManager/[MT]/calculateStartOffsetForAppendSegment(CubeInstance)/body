@@ -1,9 +1,0 @@
-{
-  List<CubeSegment> existing=cube.getSegments();
-  if (existing.isEmpty()) {
-    return 0;
-  }
- else {
-    return existing.get(existing.size() - 1).getSourceOffsetEnd();
-  }
-}

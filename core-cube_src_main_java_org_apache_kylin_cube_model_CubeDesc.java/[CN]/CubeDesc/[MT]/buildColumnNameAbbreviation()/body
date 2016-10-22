@@ -1,7 +1,0 @@
-{
-  Map<String,TblColRef> r=new CaseInsensitiveStringMap<TblColRef>();
-  for (  TblColRef col : listDimensionColumnsExcludingDerived(true)) {
-    r.put(col.getName(),col);
-  }
-  return r;
-}

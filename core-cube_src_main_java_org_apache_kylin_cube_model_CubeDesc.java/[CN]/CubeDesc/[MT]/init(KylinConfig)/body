@@ -1,0 +1,25 @@
+{
+  this.errors.clear();
+  this.config=KylinConfigExt.createInstance(config,overrideKylinProps);
+  checkArgument(StringUtils.isNotBlank(name),"CubeDesc name is blank");
+  checkArgument(StringUtils.isNotBlank(modelName),"CubeDesc(%s) has blank modelName",name);
+  this.model=MetadataManager.getInstance(config).getDataModelDesc(modelName);
+  checkNotNull(this.model,"DateModelDesc(%s) not found",modelName);
+  for (  DimensionDesc dim : dimensions) {
+    dim.init(this);
+  }
+  initDimensionColumns();
+  initMeasureColumns();
+  rowkey.init(this);
+  validateAggregationGroups();
+  for (  AggregationGroup agg : this.aggregationGroups) {
+    agg.init(this,rowkey);
+  }
+  if (hbaseMapping != null) {
+    hbaseMapping.init(this);
+  }
+  initMeasureReferenceToColumnFamily();
+  List<TblColRef> dimCols=listDimensionColumnsExcludingDerived(true);
+  checkState(rowkey.getRowKeyColumns().length == dimCols.size(),"RowKey columns count (%d) doesn't match dimensions columns count (%d)",rowkey.getRowKeyColumns().length,dimCols.size());
+  initDictionaryDesc();
+}

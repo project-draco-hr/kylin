@@ -2,15 +2,15 @@
   for (  DimensionDesc dim : dimensions) {
     JoinDesc join=dim.getJoin();
     ArrayList<TblColRef> dimCols=Lists.newArrayList();
-    String colStrs=dim.getColumn();
-    if ((colStrs == null && dim.isDerived()) || ("{FK}".equalsIgnoreCase(colStrs))) {
+    String colStr=dim.getColumn();
+    if ((colStr == null && dim.isDerived()) || ("{FK}".equalsIgnoreCase(colStr))) {
       for (      TblColRef col : join.getForeignKeyColumns()) {
         dimCols.add(initDimensionColRef(col));
       }
     }
  else {
-      if (StringUtils.isEmpty(colStrs))       throw new IllegalStateException("Dimension column must not be blank " + dim);
-      dimCols.add(initDimensionColRef(dim,colStrs));
+      checkState(!StringUtils.isEmpty(colStr),"Dimension column must not be blank: %s",dim);
+      dimCols.add(initDimensionColRef(dim,colStr));
     }
     TblColRef[] dimColArray=dimCols.toArray(new TblColRef[dimCols.size()]);
     dim.setColumnRefs(dimColArray);

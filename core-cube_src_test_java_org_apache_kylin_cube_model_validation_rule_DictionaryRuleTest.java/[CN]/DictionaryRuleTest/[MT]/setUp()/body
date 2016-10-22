@@ -1,5 +1,4 @@
 {
   this.createTestMetadata();
   config=KylinConfig.getInstanceFromEnv();
-  metadataManager=MetadataManager.getInstance(config);
 }

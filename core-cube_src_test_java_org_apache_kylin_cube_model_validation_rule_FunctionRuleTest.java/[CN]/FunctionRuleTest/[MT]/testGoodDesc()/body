@@ -2,7 +2,7 @@
   FunctionRule rule=new FunctionRule();
   File f=new File(LocalFileMetadataTestCase.LOCALMETA_TEST_DATA + "/cube_desc/ssb.json");
   CubeDesc desc=JsonUtil.readValue(new FileInputStream(f),CubeDesc.class);
-  desc.init(config,metadataManager.getAllTablesMap());
+  desc.init(config);
   ValidateContext vContext=new ValidateContext();
   rule.validate(desc,vContext);
   vContext.print(System.out);

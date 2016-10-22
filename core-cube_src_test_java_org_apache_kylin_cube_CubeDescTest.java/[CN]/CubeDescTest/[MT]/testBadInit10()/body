@@ -3,5 +3,5 @@
   thrown.expectMessage("Aggregation group 0 a dim exist in more than one joint");
   CubeDesc cubeDesc=CubeDescManager.getInstance(getTestConfig()).getCubeDesc("test_kylin_cube_with_slr_desc");
   cubeDesc.getAggregationGroups().get(0).getSelectRule().joint_dims=new String[][]{new String[]{"lstg_format_name","lstg_site_id","slr_segment_cd"},new String[]{"lstg_format_name","lstg_site_id","leaf_categ_id"}};
-  cubeDesc.init(getTestConfig(),MetadataManager.getInstance(getTestConfig()).getAllTablesMap());
+  cubeDesc.init(getTestConfig());
 }

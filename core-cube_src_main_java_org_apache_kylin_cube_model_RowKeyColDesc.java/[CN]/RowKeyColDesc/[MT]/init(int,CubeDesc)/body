@@ -1,0 +1,22 @@
+{
+  column=column.toUpperCase();
+  bitIndex=index;
+  colRef=cubeDesc.getModel().findColumn(column);
+  Preconditions.checkArgument(colRef != null,"Cannot find rowkey column %s in cube %s",column,cubeDesc);
+  Preconditions.checkState(StringUtils.isNotEmpty(this.encoding));
+  Object[] encodingConf=DimensionEncoding.parseEncodingConf(this.encoding);
+  encodingName=(String)encodingConf[0];
+  encodingArgs=(String[])encodingConf[1];
+  if (!DimensionEncodingFactory.isVaildEncoding(this.encodingName))   throw new IllegalArgumentException("Not supported row key col encoding: '" + this.encoding + "'");
+  DataType type=colRef.getType();
+  if (DictionaryDimEnc.ENCODING_NAME.equals(encodingName)) {
+    if (type.isDate()) {
+      encoding=encodingName=DateDimEnc.ENCODING_NAME;
+    }
+    if (type.isTimeFamily()) {
+      encoding=encodingName=TimeDimEnc.ENCODING_NAME;
+    }
+  }
+  if (DateDimEnc.ENCODING_NAME.equals(encodingName) && type.isDate() == false)   throw new IllegalArgumentException(colRef + " type is " + type+ " and cannot apply date encoding");
+  if (TimeDimEnc.ENCODING_NAME.equals(encodingName) && type.isTimeFamily() == false)   throw new IllegalArgumentException(colRef + " type is " + type+ " and cannot apply time encoding");
+}

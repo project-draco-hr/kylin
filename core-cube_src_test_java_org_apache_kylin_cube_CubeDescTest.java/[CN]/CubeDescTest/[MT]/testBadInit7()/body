@@ -3,5 +3,5 @@
   thrown.expectMessage("Aggregation group 0 require at least 2 dims in a joint");
   CubeDesc cubeDesc=CubeDescManager.getInstance(getTestConfig()).getCubeDesc("test_kylin_cube_with_slr_desc");
   cubeDesc.getAggregationGroups().get(0).getSelectRule().joint_dims=new String[][]{new String[]{"lstg_format_name"}};
-  cubeDesc.init(getTestConfig(),MetadataManager.getInstance(getTestConfig()).getAllTablesMap());
+  cubeDesc.init(getTestConfig());
 }
