@@ -1,8 +1,5 @@
 {
   Map<String,RelDataType> rewriteFields=this.context.rewriteFields;
-  if (implementor.getParentContext() != null) {
-    rewriteFields=implementor.getParentContext().rewriteFields;
-  }
   for (  Map.Entry<String,RelDataType> rewriteField : rewriteFields.entrySet()) {
     String fieldName=rewriteField.getKey();
     RelDataTypeField field=rowType.getField(fieldName,true,false);

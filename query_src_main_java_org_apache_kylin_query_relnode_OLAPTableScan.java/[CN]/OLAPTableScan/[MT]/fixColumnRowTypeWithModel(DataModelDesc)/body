@@ -1,0 +1,6 @@
+{
+  TableRef tableRef=model.findFirstTable(olapTable.getTableName());
+  for (  TblColRef col : columnRowType.getAllColumns()) {
+    TblColRef.fixUnknownModel(model,tableRef.getAlias(),col);
+  }
+}

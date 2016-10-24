@@ -1,4 +1,5 @@
 {
+  implementor.fixSharedOlapTableScan(this);
   implementor.visitChild(getInput(),this);
   this.context=implementor.getContext();
   this.columnRowType=buildColumnRowType();

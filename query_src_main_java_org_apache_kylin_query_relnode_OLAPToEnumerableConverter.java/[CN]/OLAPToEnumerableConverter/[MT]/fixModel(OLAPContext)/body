@@ -1,0 +1,6 @@
+{
+  DataModelDesc model=context.realization.getDataModelDesc();
+  for (  OLAPTableScan tableScan : context.allTableScans) {
+    tableScan.fixColumnRowTypeWithModel(model);
+  }
+}

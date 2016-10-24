@@ -1,0 +1,6 @@
+{
+  checkArgument(col.table.getModel() == UNKNOWN_MODEL || col.table.getModel() == model);
+  TableRef tableRef=model.findTable(alias);
+  checkArgument(tableRef.getTableDesc() == col.column.getTable());
+  col.table=tableRef;
+}

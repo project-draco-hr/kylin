@@ -1,4 +1,5 @@
 {
+  checkArgument(table.getTableDesc() == column.getTable());
   this.table=table;
   this.column=column;
 }

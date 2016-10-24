@@ -1,4 +1,5 @@
 {
+  implementor.fixSharedOlapTableScan(this);
   for (  RelNode child : getInputs()) {
     implementor.visitChild(child,this);
   }

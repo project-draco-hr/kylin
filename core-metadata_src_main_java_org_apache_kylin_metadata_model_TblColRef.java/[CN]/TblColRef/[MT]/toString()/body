@@ -1,3 +1,9 @@
 {
-  return (column.getTable() == null ? null : column.getTable().getIdentity()) + "." + column.getName();
+  String alias=table == null ? "UNKNOWN-MODEL" : table.getAlias();
+  if (alias.equals(column.getTable().getName())) {
+    return column.getTable().getIdentity() + "." + column.getName();
+  }
+ else {
+    return alias + ":" + column.getTable().getIdentity()+ "."+ column.getName();
+  }
 }

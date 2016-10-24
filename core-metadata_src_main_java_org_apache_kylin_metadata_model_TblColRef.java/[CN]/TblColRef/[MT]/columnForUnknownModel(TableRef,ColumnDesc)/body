@@ -1,0 +1,4 @@
+{
+  checkArgument(table.getModel() == UNKNOWN_MODEL);
+  return new TblColRef(table,colDesc);
+}

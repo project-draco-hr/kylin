@@ -1,0 +1,4 @@
+{
+  TableRef tableRef=columnRowType.getColumnByIndex(0).getTableRef();
+  return tableRef.makeFakeColumn(name);
+}

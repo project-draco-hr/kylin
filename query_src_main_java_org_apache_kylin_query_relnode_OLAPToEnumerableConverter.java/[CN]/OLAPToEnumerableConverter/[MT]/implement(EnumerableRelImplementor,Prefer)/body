@@ -8,16 +8,8 @@
       }
       IRealization realization=QueryRouter.selectRealization(context);
       context.realization=realization;
-      String controllerCls=KylinConfig.getInstanceFromEnv().getQueryAccessController();
-      if (null != controllerCls && !controllerCls.isEmpty()) {
-        OLAPContext.IAccessController accessController=(OLAPContext.IAccessController)ClassUtil.newInstance(controllerCls);
-        TupleFilter tupleFilter=accessController.check(context.olapAuthen,context.allColumns,context.realization);
-        if (null != tupleFilter) {
-          context.filterColumns.addAll(collectColumns(tupleFilter));
-          context.allColumns.addAll(collectColumns(tupleFilter));
-          context.filter=and(context.filter,tupleFilter);
-        }
-      }
+      fixModel(context);
+      doAccessControl(context);
     }
   }
  catch (  NoRealizationFoundException e) {

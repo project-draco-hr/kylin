@@ -1,9 +1,11 @@
 {
+  Preconditions.checkState(columnRowType == null,"OLAPTableScan MUST NOT be shared by more than one prent");
   if (implementor.getContext() == null || !(implementor.getParentNode() instanceof OLAPJoinRel)) {
     implementor.allocateContext();
   }
   columnRowType=buildColumnRowType();
   context=implementor.getContext();
+  context.allTableScans.add(this);
   if (context.olapSchema == null) {
     OLAPSchema schema=olapTable.getSchema();
     context.olapSchema=schema;

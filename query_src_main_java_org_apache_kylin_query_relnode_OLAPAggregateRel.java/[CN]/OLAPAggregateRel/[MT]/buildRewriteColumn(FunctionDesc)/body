@@ -1,11 +1,8 @@
 {
   TblColRef colRef;
   if (aggFunc.needRewriteField()) {
-    ColumnDesc column=new ColumnDesc();
-    column.setName(aggFunc.getRewriteFieldName());
-    TableDesc table=this.context.firstTableScan.getOlapTable().getSourceTable();
-    column.setTable(table);
-    colRef=column.getRef();
+    String colName=aggFunc.getRewriteFieldName();
+    colRef=this.context.firstTableScan.makeRewriteColumn(colName);
   }
  else {
     throw new IllegalStateException("buildRewriteColumn on a aggrFunc that does not need rewrite " + aggFunc);

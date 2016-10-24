@@ -1,7 +1,9 @@
 {
+  String tmpAlias=Integer.toHexString(System.identityHashCode(this));
+  TableRef tableRef=TblColRef.tableForUnknownModel(tmpAlias,olapTable.getSourceTable());
   List<TblColRef> columns=new ArrayList<TblColRef>();
   for (  ColumnDesc sourceColumn : olapTable.getExposedColumns()) {
-    TblColRef colRef=sourceColumn.getRef();
+    TblColRef colRef=TblColRef.columnForUnknownModel(tableRef,sourceColumn);
     columns.add(colRef);
   }
   return new ColumnRowType(columns);

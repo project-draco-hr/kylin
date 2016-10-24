@@ -7,6 +7,7 @@
   this.context.hasJoin=true;
   boolean leftHasSubquery=false;
   boolean rightHasSubquery=false;
+  implementor.fixSharedOlapTableScan(this);
   implementor.visitChild(this.left,this);
   if (this.context != implementor.getContext() || ((OLAPRel)this.left).hasSubQuery()) {
     this.hasSubQuery=true;

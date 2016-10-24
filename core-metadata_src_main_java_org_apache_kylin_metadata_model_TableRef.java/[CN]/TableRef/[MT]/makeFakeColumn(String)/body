@@ -1,0 +1,6 @@
+{
+  ColumnDesc colDesc=new ColumnDesc();
+  colDesc.setName(name);
+  colDesc.setTable(table);
+  return new TblColRef(this,colDesc);
+}
