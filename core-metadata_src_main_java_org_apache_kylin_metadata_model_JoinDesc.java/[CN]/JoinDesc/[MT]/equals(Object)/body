@@ -3,8 +3,8 @@
   if (obj == null)   return false;
   if (getClass() != obj.getClass())   return false;
   JoinDesc other=(JoinDesc)obj;
-  if (!this.columnsEqualIgnoringOrder(foreignKeyColumns,other.foreignKeyColumns))   return false;
-  if (!this.columnsEqualIgnoringOrder(primaryKeyColumns,other.primaryKeyColumns))   return false;
+  if (!this.colRefsEqualIgnoringOrder(foreignKeyColumns,other.foreignKeyColumns))   return false;
+  if (!this.colRefsEqualIgnoringOrder(primaryKeyColumns,other.primaryKeyColumns))   return false;
   if (!this.type.equalsIgnoreCase(other.getType()))   return false;
   return true;
 }

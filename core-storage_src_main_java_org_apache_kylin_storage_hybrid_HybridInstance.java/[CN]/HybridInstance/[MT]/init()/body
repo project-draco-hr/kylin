@@ -31,7 +31,7 @@ synchronized (this) {
       if (dateRangeStart == Long.MAX_VALUE || realization.getDateRangeEnd() > dateRangeEnd)       dateRangeEnd=realization.getDateRangeEnd();
     }
     allDimensions=Lists.newArrayList(dimensions);
-    allColumns=Lists.newArrayList(columns);
+    allColumns=columns;
     allMeasures=Lists.newArrayList(measures);
     Collections.sort(realizationList,new Comparator<IRealization>(){
       @Override public int compare(      IRealization o1,      IRealization o2){

@@ -1,0 +1,5 @@
+{
+  int comp=this.priority - o.priority;
+  if (comp != 0)   return comp;
+ else   return this.cost - o.cost;
+}

@@ -1,0 +1,3 @@
+String origAlias
+String targetAlias
+Map<String,String> result

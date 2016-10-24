@@ -33,5 +33,8 @@
         logger.warn("PK " + lookup.getTable() + "."+ pkCols[i].getName()+ "."+ pkCols[i].getDatatype()+ " are not consistent with FK "+ this.getFactTable()+ "."+ fkCols[i].getName()+ "."+ fkCols[i].getDatatype());
       }
     }
+    List<JoinDesc> list=joinsMap.get(factTableRef.getTableIdentity());
+    if (list == null)     joinsMap.put(factTableRef.getTableIdentity(),list=Lists.newArrayListWithCapacity(4));
+    list.add(join);
   }
 }

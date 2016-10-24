@@ -1,0 +1,7 @@
+{
+  String newAlias=aliasMap.get(this.alias);
+  for (  TblColRef col : columnRowType.getAllColumns()) {
+    TblColRef.fixUnknownModel(model,newAlias,col);
+  }
+  this.alias=newAlias;
+}

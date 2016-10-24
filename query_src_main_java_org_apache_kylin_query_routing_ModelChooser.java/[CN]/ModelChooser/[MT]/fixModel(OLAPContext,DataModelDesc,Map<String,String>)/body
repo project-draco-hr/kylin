@@ -1,0 +1,5 @@
+{
+  for (  OLAPTableScan tableScan : context.allTableScans) {
+    tableScan.fixColumnRowTypeWithModel(model,aliasMap);
+  }
+}

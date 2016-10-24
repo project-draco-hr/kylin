@@ -1,0 +1,5 @@
+{
+  if (blackList.contains(real.getCanonicalName()))   return false;
+  if (!whiteList.isEmpty() && !whiteList.contains(real.getCanonicalName()))   return false;
+  return true;
+}

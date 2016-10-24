@@ -6,9 +6,9 @@
       if (context.firstTableScan == null) {
         continue;
       }
-      IRealization realization=QueryRouter.selectRealization(context);
+      Set<IRealization> candidates=ModelChooser.selectModel(context);
+      IRealization realization=QueryRouter.selectRealization(context,candidates);
       context.realization=realization;
-      fixModel(context);
       doAccessControl(context);
     }
   }

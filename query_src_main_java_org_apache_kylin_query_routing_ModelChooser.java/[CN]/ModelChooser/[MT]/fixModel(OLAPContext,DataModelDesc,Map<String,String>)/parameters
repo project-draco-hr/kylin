@@ -1,0 +1,3 @@
+OLAPContext context
+DataModelDesc model
+Map<String,String> aliasMap

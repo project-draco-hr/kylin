@@ -1,0 +1,3 @@
+DataModelDesc model
+OLAPTableScan firstTable
+List<JoinDesc> joins

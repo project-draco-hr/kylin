@@ -1,0 +1,6 @@
+{
+  if (!this.type.equalsIgnoreCase(other.getType()))   return false;
+  if (!this.columnsEqualIgnoringOrder(foreignKeyColumns,other.foreignKeyColumns))   return false;
+  if (!this.columnsEqualIgnoringOrder(primaryKeyColumns,other.primaryKeyColumns))   return false;
+  return true;
+}

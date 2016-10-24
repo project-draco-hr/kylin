@@ -1,0 +1,4 @@
+{
+  if (a.length != b.length)   return false;
+  return Arrays.asList(a).containsAll(Arrays.asList(b));
+}

@@ -1,0 +1,4 @@
+{
+  String existingTarget=result.put(origAlias,targetAlias);
+  Preconditions.checkState(existingTarget == null || existingTarget.equals(targetAlias));
+}

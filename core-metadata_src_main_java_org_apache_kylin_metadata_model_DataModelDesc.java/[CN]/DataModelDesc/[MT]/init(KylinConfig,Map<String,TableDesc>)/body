@@ -3,6 +3,7 @@
   lookupTableRefs.clear();
   aliasMap.clear();
   tableNameMap.clear();
+  joinsMap.clear();
   initTableAlias(tables);
   initJoinColumns();
   ModelDimensionDesc.capicalizeStrings(dimensions);

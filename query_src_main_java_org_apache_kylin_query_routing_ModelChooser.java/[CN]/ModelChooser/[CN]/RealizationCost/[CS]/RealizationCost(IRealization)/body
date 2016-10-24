@@ -1,0 +1,8 @@
+{
+  this.priority=Candidate.PRIORITIES.get(real.getType());
+  int c=real.getAllDimensions().size() * CubeInstance.COST_WEIGHT_DIMENSION + real.getMeasures().size() * CubeInstance.COST_WEIGHT_MEASURE;
+  for (  LookupDesc lookup : real.getDataModelDesc().getLookups()) {
+    if (lookup.getJoin().isInnerJoin())     c+=CubeInstance.COST_WEIGHT_INNER_JOIN;
+  }
+  this.cost=c;
+}
