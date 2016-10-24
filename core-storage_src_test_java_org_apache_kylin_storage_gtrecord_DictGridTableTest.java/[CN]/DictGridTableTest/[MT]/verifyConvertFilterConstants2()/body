@@ -10,5 +10,5 @@
   colMapping.add(extColA);
   colMapping.add(extColB);
   TupleFilter newFilter=GTUtil.convertFilterColumnsAndConstants(filter,info,colMapping,null);
-  assertEquals("AND [NULL.GT_MOCKUP_TABLE.0 GT [\\x00\\x00\\x01J\\xE5\\xBD\\x5C\\x00], NULL.GT_MOCKUP_TABLE.1 LT [\\x00]]",newFilter.toString());
+  assertEquals("AND [UNKNOWN_MODEL:NULL.GT_MOCKUP_TABLE.0 GT [\\x00\\x00\\x01J\\xE5\\xBD\\x5C\\x00], UNKNOWN_MODEL:NULL.GT_MOCKUP_TABLE.1 LT [\\x00]]",newFilter.toString());
 }
