@@ -5,18 +5,11 @@
   String topic, broker;
   options.addOption(OPTION_TOPIC);
   options.addOption(OPTION_BROKER);
-  options.addOption(OPTION_DELAY);
-  options.addOption(OPTION_INTERVAL);
   optionsHelper.parseOptions(options,args);
   logger.info("options: '" + optionsHelper.getOptionsAsString() + "'");
   topic=optionsHelper.getOptionValue(OPTION_TOPIC);
   broker=optionsHelper.getOptionValue(OPTION_BROKER);
-  long delay=0;
-  String delayString=optionsHelper.getOptionValue(OPTION_DELAY);
-  if (delayString != null) {
-    delay=Long.parseLong(delayString);
-  }
-  long interval=1000;
+  long interval=10;
   String intervalString=optionsHelper.getOptionValue(OPTION_INTERVAL);
   if (intervalString != null) {
     interval=Long.parseLong(intervalString);
@@ -41,6 +34,9 @@
   devices.add("Windows");
   devices.add("Andriod");
   devices.add("Other");
+  List<String> genders=new ArrayList();
+  genders.add("Male");
+  genders.add("Female");
   Properties props=new Properties();
   props.put("bootstrap.servers",broker);
   props.put("acks","all");
@@ -55,15 +51,20 @@
   Random rnd=new Random();
   Map<String,Object> record=new HashMap();
   while (alive == true) {
-    record.put("order_time",(new Date().getTime() - delay));
+    record.put("order_time",(new Date().getTime()));
     record.put("country",countries.get(rnd.nextInt(countries.size())));
     record.put("category",category.get(rnd.nextInt(category.size())));
     record.put("device",devices.get(rnd.nextInt(devices.size())));
     record.put("qty",rnd.nextInt(10));
     record.put("currency","USD");
     record.put("amount",rnd.nextDouble() * 100);
-    ProducerRecord<String,String> data=new ProducerRecord<String,String>(topic,System.currentTimeMillis() + "",mapper.writeValueAsString(record));
-    System.out.println("Sending 1 message");
+    Map<String,Object> user=new HashMap();
+    user.put("id",UUID.randomUUID().toString());
+    user.put("gender",genders.get(rnd.nextInt(2)));
+    user.put("age",rnd.nextInt(20) + 10);
+    record.put("user",user);
+    ProducerRecord<String,String> data=new ProducerRecord<>(topic,System.currentTimeMillis() + "",mapper.writeValueAsString(record));
+    System.out.println("Sending 1 message: " + record.toString());
     producer.send(data);
     Thread.sleep(interval);
   }
