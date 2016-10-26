@@ -2,7 +2,6 @@
   List<String> loadedTables=Lists.newArrayList();
   MetadataManager metaMgr=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv());
   for (  String tableName : tables) {
-    IHiveClient hiveClient=HiveClientFactory.getHiveClient();
     HiveTableMeta hiveTableMeta;
     try {
       hiveTableMeta=hiveClient.getHiveTableMeta(database,tableName);

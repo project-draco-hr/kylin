@@ -1,8 +1,8 @@
 {
-  if (!column.getName().equalsIgnoreCase(field.getName())) {
+  if (!column.getName().equalsIgnoreCase(field.name)) {
     return false;
   }
-  String typeStr=field.getType();
+  String typeStr=field.dataType;
   if ("float".equalsIgnoreCase(typeStr)) {
     typeStr="double";
   }

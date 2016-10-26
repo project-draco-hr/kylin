@@ -15,7 +15,7 @@
   }
   String tableFileDir=temp.getParent();
   temp.delete();
-  HiveClient hiveClient=new HiveClient();
+  IHiveClient hiveClient=HiveClientFactory.getHiveClient();
   hiveClient.executeHQL("CREATE DATABASE IF NOT EXISTS EDW");
   hiveClient.executeHQL(generateCreateTableHql(metaMgr.getTableDesc(TABLE_CAL_DT.toUpperCase())));
   hiveClient.executeHQL(generateCreateTableHql(metaMgr.getTableDesc(TABLE_CATEGORY_GROUPINGS.toUpperCase())));

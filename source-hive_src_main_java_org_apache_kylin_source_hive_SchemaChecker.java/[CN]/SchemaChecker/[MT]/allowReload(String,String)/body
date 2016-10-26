@@ -4,16 +4,16 @@
   if (existing == null) {
     return CheckResult.validOnFirstLoad(fullTableName);
   }
-  List<FieldSchema> currentFields;
-  Map<String,FieldSchema> currentFieldsMap=Maps.newHashMap();
+  List<HiveTableMeta.HiveTableColumnMeta> currentFields;
+  Map<String,HiveTableMeta.HiveTableColumnMeta> currentFieldsMap=Maps.newHashMap();
   try {
     currentFields=fetchSchema(dbName,tblName);
   }
  catch (  Exception e) {
     return CheckResult.invalidOnFetchSchema(fullTableName,e);
   }
-  for (  FieldSchema field : currentFields) {
-    currentFieldsMap.put(field.getName().toUpperCase(),field);
+  for (  HiveTableMeta.HiveTableColumnMeta field : currentFields) {
+    currentFieldsMap.put(field.name.toUpperCase(),field);
   }
   List<String> issues=Lists.newArrayList();
   for (  CubeInstance cube : findCubeByTable(fullTableName)) {
