@@ -1,3 +1,3 @@
 {
-  return "HiveTableColumnMeta{" + "name='" + name + '\''+ ", dataType='"+ dataType+ '\''+ '}';
+  return "HiveTableColumnMeta{" + "name='" + name + '\''+ ", dataType='"+ dataType+ '\''+ ", comment='"+ comment+ '\''+ '}';
 }

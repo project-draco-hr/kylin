@@ -10,7 +10,7 @@
         if ("".equals(resultSet.getString(1).trim())) {
           break;
         }
-        partitionColumns.add(new HiveTableMeta.HiveTableColumnMeta(resultSet.getString(1).trim(),resultSet.getString(2).trim()));
+        partitionColumns.add(new HiveTableMeta.HiveTableColumnMeta(resultSet.getString(1).trim(),resultSet.getString(2).trim(),resultSet.getString(3).trim()));
       }
       builder.setPartitionColumns(partitionColumns);
     }

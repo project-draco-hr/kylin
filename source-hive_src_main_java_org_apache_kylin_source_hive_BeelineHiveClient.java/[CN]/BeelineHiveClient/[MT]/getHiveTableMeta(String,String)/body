@@ -4,7 +4,7 @@
   builder.setTableName(tableName);
   List<HiveTableMeta.HiveTableColumnMeta> allColumns=Lists.newArrayList();
   while (columns.next()) {
-    allColumns.add(new HiveTableMeta.HiveTableColumnMeta(columns.getString(4),columns.getString(6)));
+    allColumns.add(new HiveTableMeta.HiveTableColumnMeta(columns.getString(4),columns.getString(6),columns.getString(12)));
   }
   builder.setAllColumns(allColumns);
   stmt.execute("use " + database);
