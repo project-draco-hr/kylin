@@ -1,0 +1,8 @@
+{
+  StringBuilder buf=new StringBuilder();
+  for (  OLAPContext ctx : contexts) {
+    buf.append(", ").append(ctx.firstTableScan);
+    for (    JoinDesc join : ctx.joins)     buf.append(", ").append(join);
+  }
+  return buf.toString();
+}

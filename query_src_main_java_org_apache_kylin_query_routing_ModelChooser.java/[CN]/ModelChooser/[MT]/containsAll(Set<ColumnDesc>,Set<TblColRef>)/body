@@ -1,0 +1,6 @@
+{
+  for (  TblColRef col : allColumns) {
+    if (allColumnDescs.contains(col.getColumnDesc()) == false)     return false;
+  }
+  return true;
+}

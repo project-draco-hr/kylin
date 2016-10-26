@@ -1,13 +1,14 @@
 {
-  KylinConfig kylinConfig=context.olapSchema.getConfig();
-  String projectName=context.olapSchema.getProjectName();
-  String factTableName=context.firstTableScan.getOlapTable().getTableName();
+  OLAPContext first=contexts.get(0);
+  KylinConfig kylinConfig=first.olapSchema.getConfig();
+  String projectName=first.olapSchema.getProjectName();
+  String factTableName=first.firstTableScan.getOlapTable().getTableName();
   Set<IRealization> realizations=ProjectManager.getInstance(kylinConfig).getRealizationsByTable(projectName,factTableName);
   final Map<DataModelDesc,Set<IRealization>> models=Maps.newHashMap();
   final Map<DataModelDesc,RealizationCost> costs=Maps.newHashMap();
   for (  IRealization real : realizations) {
     if (real.isReady() == false)     continue;
-    if (real.getAllColumns().containsAll(context.allColumns) == false)     continue;
+    if (containsAll(real.getAllColumnDescs(),first.allColumns) == false)     continue;
     if (RemoveBlackoutRealizationsRule.accept(real) == false)     continue;
     RealizationCost cost=new RealizationCost(real);
     DataModelDesc m=real.getDataModelDesc();

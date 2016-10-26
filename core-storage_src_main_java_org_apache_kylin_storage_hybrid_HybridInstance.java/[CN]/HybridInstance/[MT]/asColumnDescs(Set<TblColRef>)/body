@@ -1,0 +1,7 @@
+{
+  LinkedHashSet<ColumnDesc> result=new LinkedHashSet<>();
+  for (  TblColRef col : columns) {
+    result.add(col.getColumnDesc());
+  }
+  return result;
+}

@@ -5,5 +5,6 @@
   TblColRef other=(TblColRef)obj;
   if (!StringUtils.equals(column.getTable().getIdentity(),other.column.getTable().getIdentity()))   return false;
   if (!StringUtils.equals(column.getName(),other.column.getName()))   return false;
+  if ((table == null ? other.table == null : table.equals(other.table)) == false)   return false;
   return true;
 }

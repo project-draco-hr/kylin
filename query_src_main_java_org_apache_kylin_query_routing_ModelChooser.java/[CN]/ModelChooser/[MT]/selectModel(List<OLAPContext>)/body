@@ -1,0 +1,11 @@
+{
+  Map<DataModelDesc,Set<IRealization>> modelMap=makeOrderedModelMap(contexts);
+  for (  DataModelDesc model : modelMap.keySet()) {
+    Map<String,String> aliasMap=matches(model,contexts);
+    if (aliasMap != null) {
+      for (      OLAPContext ctx : contexts)       fixModel(ctx,model,aliasMap);
+      return modelMap.get(model);
+    }
+  }
+  throw new NoRealizationFoundException("No model found for" + toErrorMsg(contexts));
+}

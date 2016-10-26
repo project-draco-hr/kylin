@@ -1,25 +1,15 @@
 {
   OLAPRel.OLAPImplementor olapImplementor=new OLAPRel.OLAPImplementor();
   olapImplementor.visitChild(getInput(),this);
-  try {
-    for (    OLAPContext context : OLAPContext.getThreadLocalContexts()) {
-      if (context.firstTableScan == null) {
-        continue;
-      }
-      Set<IRealization> candidates=ModelChooser.selectModel(context);
-      IRealization realization=QueryRouter.selectRealization(context,candidates);
-      context.realization=realization;
-      doAccessControl(context);
+  List<OLAPContext> contexts=listContextsHavingScan();
+  Set<IRealization> candidates=ModelChooser.selectModel(contexts);
+  for (  OLAPContext context : OLAPContext.getThreadLocalContexts()) {
+    if (context.firstTableScan == null) {
+      continue;
     }
-  }
- catch (  NoRealizationFoundException e) {
-    OLAPContext ctx0=(OLAPContext)OLAPContext.getThreadLocalContexts().toArray()[0];
-    if (ctx0 != null && ctx0.olapSchema.hasStarSchemaUrl()) {
-      return buildHiveResult(enumImplementor,pref,ctx0);
-    }
- else {
-      throw e;
-    }
+    IRealization realization=QueryRouter.selectRealization(context,candidates);
+    context.realization=realization;
+    doAccessControl(context);
   }
   OLAPRel.RewriteImplementor rewriteImplementor=new OLAPRel.RewriteImplementor();
   rewriteImplementor.visitChild(this,getInput());

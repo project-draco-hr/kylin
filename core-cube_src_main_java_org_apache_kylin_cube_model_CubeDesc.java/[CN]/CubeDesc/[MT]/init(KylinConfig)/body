@@ -22,4 +22,7 @@
   List<TblColRef> dimCols=listDimensionColumnsExcludingDerived(true);
   checkState(rowkey.getRowKeyColumns().length == dimCols.size(),"RowKey columns count (%d) doesn't match dimensions columns count (%d)",rowkey.getRowKeyColumns().length,dimCols.size());
   initDictionaryDesc();
+  for (  TblColRef col : allColumns) {
+    allColumnDescs.add(col.getColumnDesc());
+  }
 }

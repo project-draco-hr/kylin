@@ -1,0 +1,9 @@
+{
+  int size=OLAPContext.getThreadLocalContexts().size();
+  List<OLAPContext> result=Lists.newArrayListWithCapacity(size);
+  for (int i=0; i < size; i++) {
+    OLAPContext ctx=OLAPContext.getThreadLocalContextById(i);
+    if (ctx.firstTableScan != null)     result.add(ctx);
+  }
+  return result;
+}

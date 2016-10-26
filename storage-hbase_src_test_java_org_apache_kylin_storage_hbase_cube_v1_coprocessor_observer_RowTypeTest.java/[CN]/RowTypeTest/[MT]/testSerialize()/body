@@ -6,6 +6,8 @@
   CoprocessorRowType rowType=CoprocessorRowType.fromCuboid(cube.getLatestReadySegment(),cuboid);
   byte[] bytes=CoprocessorRowType.serialize(rowType);
   CoprocessorRowType copy=CoprocessorRowType.deserialize(bytes);
-  assertTrue(Arrays.equals(rowType.columns,copy.columns));
   assertTrue(Arrays.equals(rowType.columnSizes,copy.columnSizes));
+  for (int i=0; i < rowType.columns.length; i++) {
+    assertEquals(rowType.columns[i].getColumnDesc(),copy.columns[i].getColumnDesc());
+  }
 }

@@ -32,6 +32,7 @@ synchronized (this) {
     }
     allDimensions=Lists.newArrayList(dimensions);
     allColumns=columns;
+    allColumnDescs=asColumnDescs(allColumns);
     allMeasures=Lists.newArrayList(measures);
     Collections.sort(realizationList,new Comparator<IRealization>(){
       @Override public int compare(      IRealization o1,      IRealization o2){

@@ -1,0 +1,29 @@
+{
+  Map<String,String> result=Maps.newHashMap();
+  Map<String,List<JoinDesc>> modelJoinsMap=model.getJoinsMap();
+  for (  OLAPContext ctx : contexts) {
+    for (    JoinDesc queryJoin : ctx.joins) {
+      String fkTable=queryJoin.getForeignKeyColumns()[0].getTable();
+      List<JoinDesc> modelJoins=modelJoinsMap.get(fkTable);
+      if (modelJoins == null)       return null;
+      JoinDesc matchJoin=null;
+      for (      JoinDesc modelJoin : modelJoins) {
+        if (modelJoin.matches(queryJoin)) {
+          matchJoin=modelJoin;
+          break;
+        }
+      }
+      if (matchJoin == null)       return null;
+      matchesAdd(queryJoin.getForeignKeyColumns()[0].getTableAlias(),matchJoin.getForeignKeyColumns()[0].getTableAlias(),result);
+      matchesAdd(queryJoin.getPrimaryKeyColumns()[0].getTableAlias(),matchJoin.getPrimaryKeyColumns()[0].getTableAlias(),result);
+    }
+    OLAPTableScan firstTable=ctx.firstTableScan;
+    String firstTableAlias=firstTable.getAlias();
+    if (result.containsKey(firstTableAlias) == false) {
+      TableRef tableRef=model.findFirstTable(firstTable.getOlapTable().getTableName());
+      if (tableRef == null)       return null;
+      matchesAdd(firstTableAlias,tableRef.getAlias(),result);
+    }
+  }
+  return result;
+}
