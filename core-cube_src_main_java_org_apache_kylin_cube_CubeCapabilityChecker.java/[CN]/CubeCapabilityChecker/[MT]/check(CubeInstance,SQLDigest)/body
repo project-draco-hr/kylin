@@ -18,11 +18,7 @@
   }
  else {
     if (cube.getSegments().get(0).getSnapshots().containsKey(digest.factTable)) {
-      TableDesc tableDesc=MetadataManager.getInstance(KylinConfig.getInstanceFromEnv()).getTableDesc(digest.factTable);
-      Set<TblColRef> dimCols=Sets.newHashSet();
-      for (      ColumnDesc columnDesc : tableDesc.getColumns()) {
-        dimCols.add(columnDesc.getRef());
-      }
+      Set<TblColRef> dimCols=Sets.newHashSet(cube.getDataModelDesc().findFirstTable(digest.factTable).getColumns());
       if (!unmatchedAggregations.isEmpty()) {
         Iterator<FunctionDesc> itr=unmatchedAggregations.iterator();
         while (itr.hasNext()) {
