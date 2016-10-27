@@ -4,14 +4,14 @@
   if (!(Constant.SERVER_MODE_QUERY.equals(serverMode.toLowerCase()) || Constant.SERVER_MODE_ALL.equals(serverMode.toLowerCase()))) {
     throw new InternalErrorException("Query is not allowed in " + serverMode + " mode.");
   }
-  final String queryId=queryIdGenerator.nextId(sqlRequest.getProject());
+  final String queryId=UUID.randomUUID().toString();
   Map<String,String> toggles=new HashMap<>();
   toggles.put(BackdoorToggles.KEY_QUERY_ID,queryId);
   if (sqlRequest.getBackdoorToggles() != null) {
     toggles.putAll(sqlRequest.getBackdoorToggles());
   }
   BackdoorToggles.setToggles(toggles);
-  try (SetThreadName ignored=new SetThreadName("Query-%s",queryId)){
+  try (SetThreadName ignored=new SetThreadName("Query %s",queryId)){
     String sql=sqlRequest.getSql();
     String project=sqlRequest.getProject();
     logger.info("Using project: " + project);

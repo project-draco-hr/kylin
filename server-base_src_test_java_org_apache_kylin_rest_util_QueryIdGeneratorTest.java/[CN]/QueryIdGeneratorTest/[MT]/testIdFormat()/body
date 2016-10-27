@@ -1,7 +1,0 @@
-{
-  QueryIdGenerator generator=new QueryIdGenerator();
-  for (int i=0; i < 100; i++) {
-    String queryId=generator.nextId("project");
-    Assert.assertTrue(queryId.contains("project"));
-  }
-}

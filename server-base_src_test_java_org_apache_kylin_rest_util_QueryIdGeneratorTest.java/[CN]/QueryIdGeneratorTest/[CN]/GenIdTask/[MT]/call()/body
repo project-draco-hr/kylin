@@ -1,7 +1,0 @@
-{
-  long start=System.currentTimeMillis();
-  for (int i=0; i < N; i++) {
-    generator.nextId("test");
-  }
-  return System.currentTimeMillis() - start;
-}

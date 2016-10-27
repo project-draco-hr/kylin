@@ -1,7 +1,0 @@
-{
-  char[] postfix=new char[6];
-  for (int i=0; i < postfix.length; i++) {
-    postfix[i]=base26[ThreadLocalRandom.current().nextInt(base26.length)];
-  }
-  return new String(postfix);
-}
