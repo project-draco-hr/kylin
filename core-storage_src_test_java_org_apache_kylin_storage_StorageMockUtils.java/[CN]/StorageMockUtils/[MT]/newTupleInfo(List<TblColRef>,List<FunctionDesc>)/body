@@ -4,9 +4,10 @@
   for (  TblColRef col : groups) {
     info.setField(col.getName(),col,idx++);
   }
-  TableDesc sourceTable=groups.get(0).getColumnDesc().getTable();
+  TableRef sourceTable=groups.get(0).getTableRef();
   for (  FunctionDesc func : aggregations) {
-    TblColRef col=func.newFakeRewriteColumn(sourceTable).getRef();
+    ColumnDesc colDesc=func.newFakeRewriteColumn(sourceTable.getTableDesc());
+    TblColRef col=sourceTable.makeFakeColumn(colDesc);
     info.setField(col.getName(),col,idx++);
   }
   return info;

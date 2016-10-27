@@ -7,4 +7,5 @@
   String url=KylinConfig.getInstanceFromEnv().getStorageUrl();
   context=new StorageContext();
   context.setConnUrl(url);
+  mockup=new StorageMockUtils(cube.getDataModelDesc());
 }

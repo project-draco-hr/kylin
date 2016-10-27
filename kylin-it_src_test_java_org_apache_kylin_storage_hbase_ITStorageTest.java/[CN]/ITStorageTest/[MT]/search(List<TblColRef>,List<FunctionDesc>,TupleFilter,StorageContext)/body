@@ -3,17 +3,14 @@
   ITupleIterator iterator=null;
   try {
     SQLDigest sqlDigest=new SQLDigest("default.test_kylin_fact",filter,null,Collections.<TblColRef>emptySet(),groups,Collections.<TblColRef>emptySet(),Collections.<TblColRef>emptySet(),aggregations,Collections.<SQLCall>emptyList(),new ArrayList<TblColRef>(),new ArrayList<SQLDigest.OrderEnum>());
-    iterator=storageEngine.search(context,sqlDigest,StorageMockUtils.newTupleInfo(groups,aggregations));
+    iterator=storageEngine.search(context,sqlDigest,mockup.newTupleInfo(groups,aggregations));
     while (iterator.hasNext()) {
       ITuple tuple=iterator.next();
       System.out.println("Tuple = " + tuple);
       count++;
     }
   }
- catch (  Exception e) {
-    e.printStackTrace();
-  }
- finally {
+  finally {
     if (iterator != null)     iterator.close();
   }
   return count;

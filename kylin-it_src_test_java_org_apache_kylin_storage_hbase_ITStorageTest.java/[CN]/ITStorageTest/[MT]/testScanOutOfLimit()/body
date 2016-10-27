@@ -1,6 +1,6 @@
 {
   context.setThreshold(1);
-  List<TblColRef> groups=StorageMockUtils.buildGroups();
-  List<FunctionDesc> aggregations=StorageMockUtils.buildAggregations();
+  List<TblColRef> groups=mockup.buildGroups();
+  List<FunctionDesc> aggregations=mockup.buildAggregations();
   search(groups,aggregations,null,context);
 }

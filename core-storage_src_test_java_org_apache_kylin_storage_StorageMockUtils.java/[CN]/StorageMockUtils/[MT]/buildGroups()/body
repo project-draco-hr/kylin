@@ -1,10 +1,8 @@
 {
   List<TblColRef> groups=new ArrayList<TblColRef>();
-  TableDesc t1=TableDesc.mockup("DEFAULT.TEST_KYLIN_FACT");
-  TblColRef c1=TblColRef.mockup(t1,2,"CAL_DT","date");
+  TblColRef c1=model.findColumn("DEFAULT.TEST_KYLIN_FACT.CAL_DT");
   groups.add(c1);
-  TableDesc t2=TableDesc.mockup("DEFAULT.TEST_CATEGORY_GROUPINGS");
-  TblColRef c2=TblColRef.mockup(t2,14,"META_CATEG_NAME","string");
+  TblColRef c2=model.findColumn("DEFAULT.TEST_CATEGORY_GROUPINGS.META_CATEG_NAME");
   groups.add(c2);
   return groups;
 }
