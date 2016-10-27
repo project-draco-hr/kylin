@@ -13,7 +13,6 @@
     return false;
   }
   GTRecord curRecord=gtItr.next();
-  Preconditions.checkNotNull(cubeTupleConverter);
   advMeasureFillers=cubeTupleConverter.translateResult(curRecord,tuple);
   if (advMeasureFillers == null) {
     next=tuple;

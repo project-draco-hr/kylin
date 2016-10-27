@@ -1,4 +1,5 @@
 {
-  current=tuple.getAllValues();
+  Object[] values=tuple.getAllValues();
+  current=Arrays.copyOf(values,values.length);
   return current;
 }
