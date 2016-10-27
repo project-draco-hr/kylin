@@ -1,6 +1,6 @@
 {
   if (strValue == null)   return null;
-  if ((strValue.equals("") || strValue.equals("\\N")) && !dataTypeName.equals("string"))   return null;
+  if ((strValue.equals("") || strValue.equals("\\N")) && !dataTypeName.equals("string") && !dataTypeName.startsWith("varchar"))   return null;
   if ("date".equals(dataTypeName)) {
     return Integer.valueOf(dateToEpicDays(strValue));
   }
