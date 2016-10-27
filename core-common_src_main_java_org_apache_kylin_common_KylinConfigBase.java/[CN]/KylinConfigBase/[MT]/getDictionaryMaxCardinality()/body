@@ -1,3 +1,0 @@
-{
-  return Integer.parseInt(getOptional("kylin.dictionary.max.cardinality","30000000"));
-}

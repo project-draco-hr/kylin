@@ -14,8 +14,5 @@
   logger.debug("Dictionary cardinality: " + dict.getSize());
   logger.debug("Dictionary builder class: " + builder.getClass().getName());
   logger.debug("Dictionary class: " + dict.getClass().getName());
-  if (dict instanceof TrieDictionary && dict.getSize() > DICT_MAX_CARDINALITY) {
-    throw new IllegalArgumentException("Too high cardinality is not suitable for dictionary -- cardinality: " + dict.getSize());
-  }
   return dict;
 }
