@@ -1,17 +1,17 @@
 {
   ExecutorService executorService=Executors.newFixedThreadPool(testCase.length);
   final CountDownLatch countDownLatch=new CountDownLatch(testCase.length);
-  List<Future<List<String>>> tasks=Lists.newArrayListWithExpectedSize(testCase.length);
+  List<Future<Boolean>> tasks=Lists.newArrayListWithExpectedSize(testCase.length);
   for (int i=0; i < testCase.length; i++) {
     tasks.add(executorService.submit(new TestCallable(testCase[i],countDownLatch)));
   }
   countDownLatch.await();
   try {
     for (int i=0; i < tasks.size(); ++i) {
-      Future<List<String>> task=tasks.get(i);
-      final List<String> jobIds=task.get();
-      for (      String jobId : jobIds) {
-        assertJobSucceed(jobId);
+      Future<Boolean> task=tasks.get(i);
+      final Boolean result=task.get();
+      if (result == false) {
+        throw new RuntimeException("The test '" + testCase[i] + "' is failed.");
       }
     }
   }

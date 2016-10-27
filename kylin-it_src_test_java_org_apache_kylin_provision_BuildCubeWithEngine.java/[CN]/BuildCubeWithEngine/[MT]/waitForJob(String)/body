@@ -2,7 +2,7 @@
   while (true) {
     AbstractExecutable job=jobService.getJob(jobId);
     if (job.getStatus() == ExecutableState.SUCCEED || job.getStatus() == ExecutableState.ERROR) {
-      break;
+      return job.getStatus();
     }
  else {
       try {

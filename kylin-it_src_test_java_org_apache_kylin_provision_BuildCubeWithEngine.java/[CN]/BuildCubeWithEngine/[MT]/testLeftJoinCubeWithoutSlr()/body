@@ -9,13 +9,16 @@
   long date3=f.parse("2022-01-01").getTime();
   long date4=f.parse("2023-01-01").getTime();
   if (fastBuildMode) {
-    result.add(buildSegment(cubeName,date1,date4));
+    return buildSegment(cubeName,date1,date4);
   }
  else {
-    result.add(buildSegment(cubeName,date1,date2));
-    result.add(buildSegment(cubeName,date2,date3));
-    result.add(buildSegment(cubeName,date3,date4));
-    result.add(mergeSegment(cubeName,date1,date3));
+    if (buildSegment(cubeName,date1,date2) == true) {
+      if (buildSegment(cubeName,date2,date3) == true) {
+        if (buildSegment(cubeName,date3,date4) == true) {
+          return mergeSegment(cubeName,date1,date3);
+        }
+      }
+    }
   }
-  return result;
+  return false;
 }

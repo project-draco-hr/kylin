@@ -2,7 +2,7 @@
   try {
     final Method method=BuildCubeWithEngine.class.getDeclaredMethod(methodName);
     method.setAccessible(true);
-    return (List<String>)method.invoke(BuildCubeWithEngine.this);
+    return (Boolean)method.invoke(BuildCubeWithEngine.this);
   }
  catch (  Exception e) {
     logger.error(e.getMessage());

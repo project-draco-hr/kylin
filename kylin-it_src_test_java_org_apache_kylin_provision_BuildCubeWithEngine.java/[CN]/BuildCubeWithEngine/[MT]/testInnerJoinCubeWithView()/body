@@ -6,6 +6,5 @@
   clearSegment(cubeName);
   long date1=cubeManager.getCube(cubeName).getDescriptor().getPartitionDateStart();
   long date4=f.parse("2023-01-01").getTime();
-  result.add(buildSegment(cubeName,date1,date4));
-  return result;
+  return buildSegment(cubeName,date1,date4);
 }
