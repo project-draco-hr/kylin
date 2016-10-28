@@ -11,7 +11,8 @@
       grandTotal+=hll.getCountEstimate();
     }
     double mapperOverlapRatio=grandTotal == 0 ? 0 : (double)totalRowsBeforeMerge / grandTotal;
+    int mapperNumber=baseCuboidRowCountInMappers.size();
     writeMapperAndCuboidStatistics(context);
-    CuboidStatsUtil.writeCuboidStatistics(context.getConfiguration(),new Path(statisticsOutput),cuboidHLLMap,samplingPercentage,mapperOverlapRatio);
+    CubeStatsWriter.writeCuboidStatistics(context.getConfiguration(),new Path(statisticsOutput),cuboidHLLMap,samplingPercentage,mapperNumber,mapperOverlapRatio);
   }
 }

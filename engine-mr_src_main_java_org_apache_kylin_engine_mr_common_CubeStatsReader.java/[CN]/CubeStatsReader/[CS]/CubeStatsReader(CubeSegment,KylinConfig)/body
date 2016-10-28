@@ -9,6 +9,7 @@
     Option seqInput=SequenceFile.Reader.file(path);
     reader=new SequenceFile.Reader(hadoopConf,seqInput);
     int percentage=100;
+    int mapperNumber=0;
     double mapperOverlapRatio=0;
     Map<Long,HyperLogLogPlusCounter> counterMap=Maps.newHashMap();
     LongWritable key=(LongWritable)ReflectionUtils.newInstance(reader.getKeyClass(),hadoopConf);
@@ -20,7 +21,10 @@
  else       if (key.get() == -1) {
         mapperOverlapRatio=Bytes.toDouble(value.getBytes());
       }
- else {
+ else       if (key.get() == -2) {
+        mapperNumber=Bytes.toInt(value.getBytes());
+      }
+ else       if (key.get() > 0) {
         HyperLogLogPlusCounter hll=new HyperLogLogPlusCounter(kylinConfig.getCubeStatsHLLPrecision());
         ByteArray byteArray=new ByteArray(value.getBytes());
         hll.readRegisters(byteArray.asBuffer());
@@ -29,6 +33,7 @@
     }
     this.seg=cubeSegment;
     this.samplingPercentage=percentage;
+    this.mapperNumberOfFirstBuild=mapperNumber;
     this.mapperOverlapRatioOfFirstBuild=mapperOverlapRatio;
     this.cuboidRowEstimatesHLL=counterMap;
   }

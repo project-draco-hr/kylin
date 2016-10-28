@@ -1,0 +1,3 @@
+{
+  return Integer.parseInt(getOptional("kylin.cube.algorithm.auto.mapper.limit","500"));
+}

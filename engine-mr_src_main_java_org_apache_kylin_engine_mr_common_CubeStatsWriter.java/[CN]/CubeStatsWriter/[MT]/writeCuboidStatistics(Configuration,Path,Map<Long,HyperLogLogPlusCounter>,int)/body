@@ -1,0 +1,3 @@
+{
+  writeCuboidStatistics(conf,outputPath,cuboidHLLMap,samplingPercentage,0,0);
+}

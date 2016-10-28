@@ -2,4 +2,5 @@ Configuration conf
 Path outputPath
 Map<Long,HyperLogLogPlusCounter> cuboidHLLMap
 int samplingPercentage
+int mapperNumber
 double mapperOverlapRatio

@@ -6,6 +6,6 @@
   }
   System.out.println(outputPath);
   Map<Long,HyperLogLogPlusCounter> cuboidHLLMap=Maps.newHashMap();
-  CuboidStatsUtil.writeCuboidStatistics(conf,outputPath,cuboidHLLMap,100);
+  CubeStatsWriter.writeCuboidStatistics(conf,outputPath,cuboidHLLMap,100);
   FileSystem.getLocal(conf).delete(outputPath,true);
 }

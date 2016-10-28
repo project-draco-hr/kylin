@@ -7,6 +7,7 @@
   SequenceFile.Writer writer=SequenceFile.createWriter(conf,SequenceFile.Writer.file(seqFilePath),SequenceFile.Writer.keyClass(LongWritable.class),SequenceFile.Writer.valueClass(BytesWritable.class));
   try {
     writer.append(new LongWritable(-1),new BytesWritable(Bytes.toBytes(mapperOverlapRatio)));
+    writer.append(new LongWritable(-2),new BytesWritable(Bytes.toBytes(mapperNumber)));
     writer.append(new LongWritable(0L),new BytesWritable(Bytes.toBytes(samplingPercentage)));
     for (    long i : allCuboids) {
       valueBuf.clear();
