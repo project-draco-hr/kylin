@@ -1,13 +1,9 @@
 {
-  if (totalShards > 0) {
-    Short ret=cuboidBaseShards.get(cuboidId);
-    if (ret == null) {
-      ret=ShardingHash.getShard(cuboidId,totalShards);
-      cuboidBaseShards.put(cuboidId,ret);
-    }
-    return ret;
+  if (totalShards == 0)   return 0;
+  Short ret=cuboidBaseShards.get(cuboidId);
+  if (ret == null) {
+    ret=ShardingHash.getShard(cuboidId,totalShards);
+    cuboidBaseShards.put(cuboidId,ret);
   }
- else {
-    return 0;
-  }
+  return ret;
 }
