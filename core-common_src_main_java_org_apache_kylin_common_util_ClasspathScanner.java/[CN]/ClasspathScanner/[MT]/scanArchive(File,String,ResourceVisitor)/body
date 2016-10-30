@@ -1,0 +1,26 @@
+{
+  ZipFile zip=null;
+  try {
+    zip=new ZipFile(archive,ZipFile.OPEN_READ);
+    Enumeration enu=zip.entries();
+    while (enu.hasMoreElements()) {
+      ZipEntry entry=(ZipEntry)enu.nextElement();
+      if (entry.getName().endsWith(suffix)) {
+        visitor.accept(zip,entry);
+      }
+    }
+  }
+ catch (  ZipException e) {
+  }
+catch (  IOException e) {
+  }
+ finally {
+    if (zip != null) {
+      try {
+        zip.close();
+      }
+ catch (      IOException e) {
+      }
+    }
+  }
+}

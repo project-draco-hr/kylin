@@ -1,0 +1,14 @@
+{
+  ClasspathScanner scanner=new ClasspathScanner();
+  final ArrayList result=new ArrayList();
+  scanner.scan(suffix,new ResourceVisitor(){
+    public void accept(    File dir,    String relativeFileName){
+      result.add(relativeFileName.replace('\\','/'));
+    }
+    public void accept(    ZipFile archive,    ZipEntry zipEntry){
+      result.add(zipEntry.getName().replace('\\','/'));
+    }
+  }
+);
+  return (String[])result.toArray(new String[result.size()]);
+}

@@ -1,0 +1,12 @@
+{
+  for (int i=0; i < rootResources.length; i++) {
+    if (rootResources[i].exists()) {
+      if (rootResources[i].isDirectory()) {
+        scanDirectory(rootResources[i],suffix,visitor);
+      }
+ else       if (rootResources[i].getName().contains(".zip") || rootResources[i].getName().contains(".jar")) {
+        scanArchive(rootResources[i],suffix,visitor);
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  if (includes != null && includes.length != 0) {
+    boolean included=false;
+    for (int i=0; !included && i < includes.length; i++) {
+      if (match(includes[i],path) || match(includes[i] + "/*",path))       included=true;
+    }
+    if (!included)     return false;
+  }
+  if (excludes != null && excludes.length != 0) {
+    for (int i=0; i < excludes.length; i++) {
+      if (match(excludes[i],path))       return false;
+    }
+  }
+  return true;
+}

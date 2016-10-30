@@ -1,0 +1,21 @@
+{
+  int i=0, j=0, ii=0, jj=0, plen=pattern.length(), slen=str.length();
+  int wordStart, wordEnd, lastPossible;
+  while (i < plen) {
+    wordStart=i;
+    while (wordStart < plen && pattern.charAt(wordStart) == '*')     wordStart++;
+    if (wordStart == plen)     return true;
+    wordEnd=wordStart + 1;
+    while (wordEnd < plen && pattern.charAt(wordEnd) != '*')     wordEnd++;
+    lastPossible=slen - (wordEnd - wordStart) + 1;
+    for (; j < lastPossible; j++) {
+      for (ii=wordStart, jj=j; ii < wordEnd; ii++, jj++)       if (pattern.charAt(ii) != '?' && pattern.charAt(ii) != str.charAt(jj))       break;
+      if (ii == wordEnd)       break;
+      if (wordStart == i)       return false;
+    }
+    if (!(j < lastPossible))     return false;
+    i=ii;
+    j=jj;
+  }
+  return j == slen;
+}

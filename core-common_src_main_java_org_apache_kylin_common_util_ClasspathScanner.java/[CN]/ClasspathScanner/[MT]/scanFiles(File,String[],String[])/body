@@ -1,0 +1,30 @@
+{
+  if (includes != null) {
+    for (int i=0; i < includes.length; i++)     includes[i]=StringUtil.trimSuffix(includes[i],"/");
+  }
+  if (excludes != null) {
+    for (int i=0; i < excludes.length; i++)     excludes[i]=StringUtil.trimSuffix(excludes[i],"/");
+  }
+  ArrayList result=new ArrayList();
+  ArrayList queue=new ArrayList();
+  queue.add("");
+  String dirPath, path;
+  File dirFile, f;
+  File[] files;
+  while (!queue.isEmpty()) {
+    dirPath=(String)queue.remove(queue.size() - 1);
+    dirFile=dirPath.length() == 0 ? dir : new File(dir,dirPath);
+    files=dirFile.listFiles();
+    for (int i=0; files != null && i < files.length; i++) {
+      f=files[i];
+      path=dirPath + (dirPath.length() == 0 ? "" : "/") + f.getName();
+      if (f.isDirectory()) {
+        if (scanFiles_isIncluded(path,null,excludes))         queue.add(path);
+      }
+ else       if (f.isFile()) {
+        if (scanFiles_isIncluded(path,includes,excludes))         result.add(path);
+      }
+    }
+  }
+  return (String[])result.toArray(new String[result.size()]);
+}

@@ -1,0 +1,19 @@
+{
+  List<ClassLoader> loaders=new ArrayList<>();
+  while (loader != null) {
+    loaders.add(loader);
+    if (!recursive)     break;
+    loader=loader.getParent();
+  }
+  List<File> roots=new ArrayList();
+  for (int i=loaders.size() - 1; i >= 0; i--) {
+    ClassLoader l=loaders.get(i);
+    if (l instanceof URLClassLoader) {
+      for (      URL url : ((URLClassLoader)l).getURLs()) {
+        File f=new File(url.getFile().replace("%20"," "));
+        roots.add(f);
+      }
+    }
+  }
+  return (File[])roots.toArray(new File[roots.size()]);
+}

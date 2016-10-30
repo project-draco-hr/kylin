@@ -1,0 +1,8 @@
+{
+  String[] files=scanFiles(dir,new String[]{"*" + suffix});
+  for (int i=0; i < files.length; i++) {
+    if (files[i].endsWith(suffix)) {
+      visitor.accept(dir,files[i]);
+    }
+  }
+}

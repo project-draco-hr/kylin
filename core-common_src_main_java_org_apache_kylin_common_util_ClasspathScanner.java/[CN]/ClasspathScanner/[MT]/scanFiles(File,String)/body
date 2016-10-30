@@ -1,0 +1,3 @@
+{
+  return scanFiles(dir,includes,null);
+}
