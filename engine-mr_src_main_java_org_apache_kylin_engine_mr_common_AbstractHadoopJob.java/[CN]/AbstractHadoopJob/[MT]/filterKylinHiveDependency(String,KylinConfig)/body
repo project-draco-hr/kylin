@@ -1,7 +1,7 @@
 {
   if (StringUtils.isBlank(kylinHiveDependency))   return "";
   StringBuilder jarList=new StringBuilder();
-  Pattern hivePattern=Pattern.compile(KYLIN_HIVE_DEPENDENCY_JARS);
+  Pattern hivePattern=Pattern.compile(config.getHiveDependencyFilterList());
   Matcher matcher=hivePattern.matcher(kylinHiveDependency);
   while (matcher.find()) {
     if (jarList.length() > 0)     jarList.append(",");
