@@ -1,9 +1,3 @@
 {
-  List<TblColRef> groups=buildGroups();
-  TupleFilter filter=buildINCompareFilter(groups.get(0));
-  long start=System.currentTimeMillis();
-  byte[] bytes=TupleFilterSerializer.serialize(filter,CS);
-  System.out.println("Size of serialized filter " + bytes.length + ", serialize time: "+ (System.currentTimeMillis() - start));
-  TupleFilter newFilter=TupleFilterSerializer.deserialize(bytes,CS);
-  compareFilter(filter,newFilter);
+  assertFilterSerDe(buildINCompareFilter(buildGroups().get(0)));
 }

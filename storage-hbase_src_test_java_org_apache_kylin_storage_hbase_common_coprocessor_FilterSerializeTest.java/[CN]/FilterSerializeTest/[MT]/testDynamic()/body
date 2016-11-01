@@ -1,9 +1,8 @@
 {
-  final CompareTupleFilter compareDynamicFilter=buildCompareDynamicFilter(buildGroups());
-  byte[] bytes=TupleFilterSerializer.serialize(compareDynamicFilter,CS);
-  TupleFilter newFilter=TupleFilterSerializer.deserialize(bytes,CS);
-  bytes=TupleFilterSerializer.serialize(newFilter,CS);
-  TupleFilter newFilter2=TupleFilterSerializer.deserialize(bytes,CS);
-  compareFilter(compareDynamicFilter,newFilter);
-  compareFilter(compareDynamicFilter,newFilter2);
+  assertFilterSerDe(buildCompareDynamicFilter(buildGroups(),FilterOperatorEnum.EQ));
+  assertFilterSerDe(buildCompareDynamicFilter(buildGroups(),FilterOperatorEnum.NEQ));
+  assertFilterSerDe(buildCompareDynamicFilter(buildGroups(),FilterOperatorEnum.GT));
+  assertFilterSerDe(buildCompareDynamicFilter(buildGroups(),FilterOperatorEnum.LT));
+  assertFilterSerDe(buildCompareDynamicFilter(buildGroups(),FilterOperatorEnum.GTE));
+  assertFilterSerDe(buildCompareDynamicFilter(buildGroups(),FilterOperatorEnum.LTE));
 }
